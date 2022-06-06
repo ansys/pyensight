@@ -52,7 +52,7 @@ from ansys.ensight import core
 # this is a fixture that simplifies reuse of common components
 @pytest.fixture
 def my_complex():
-    return library.Complex(1, -2)
+    return core.Complex(1, -2)
 
 
 @pytest.fixture
