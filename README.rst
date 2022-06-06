@@ -32,7 +32,7 @@ Alternatively, clone and install in development mode with:
 
 .. code::
 
-   git clone https://github.com/pyansys/
+   git clone https://github.com/pyansys/pyensight
    cd <PyAnsys-Library>
    pip install poetry
    poetry install
@@ -54,7 +54,7 @@ It's best to provide a sample code or even a figure demonstrating the usage of y
 
 .. code:: python
 
-   >>> from ansys.<product/service> import <library>
+   >>> from ansys.ensight import core
    >>> my_object.<library>()
    >>> my_object.foo()
    'bar'

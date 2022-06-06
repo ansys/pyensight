@@ -6,13 +6,13 @@ For example, if you want to avoid this behavior:
 
 .. code::
 
-   >>> from ansys.pyensight.core.module import add
+   >>> from ansys.ensight.core.module import add
 
 Then add the import within this module to enable:
 
 .. code::
 
-   >>> from ansys.pyensight import core
+   >>> from ansys.ensight import core
    >>> core.add(1, 2)
 
 .. note::
@@ -28,5 +28,5 @@ except ModuleNotFoundError:
 
 __version__ = importlib_metadata.version(__name__.replace(".", "-"))  # type: ignore
 
-from ansys.pyensight.core.module import add
-from ansys.pyensight.core.other_module import Complex
+from ansys.ensight.core.module import add
+from ansys.ensight.core.other_module import Complex
