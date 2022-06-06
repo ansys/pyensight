@@ -5,8 +5,8 @@ can span multiple lines and include examples.
 
 Examples
 --------
->>> from ansys.product import library
->>> library.add(1, 2)
+>>> from ansys.ensight import core
+>>> core.add(1, 2)
 3
 
 """
@@ -40,7 +40,7 @@ def add(arg1, arg2):
 
     Examples
     --------
-    >>> from ansys.product.library import add
+    >>> from ansys.ensight.core import add
     >>> add(1, 2)
     3
 

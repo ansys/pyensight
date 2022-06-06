@@ -15,7 +15,18 @@ Then add the import within this module to enable:
    >>> from ansys.ensight import core
    >>> core.add(1, 2)
 
+.. note::
+   The version is obtained from the installation metadata. During development,
+   it will only update after re-executing `poetry install`.
+
 """
+
+#try:
+#    import importlib.metadata as importlib_metadata
+#except ModuleNotFoundError:
+#    import importlib_metadata
+
+#__version__ = importlib_metadata.version(__name__.replace(".", "-"))
 
 # major, minor, patch
 version_info = 0, 1, "dev0"
