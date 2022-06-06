@@ -21,13 +21,4 @@ repos:
 #   hooks:
 #   - id: pydocstyle
 #     additional_dependencies: [toml]
-- repo: local
-  hooks:
-  - id: mypy
-    name: mypy
-    entry: mypy
-    language: python
-    types: [python]
-    require_serial: true
-    exclude: "^(doc/)|(tests/)|(dist/)"
-    args: []
+
