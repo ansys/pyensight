@@ -21,12 +21,11 @@ Then add the import within this module to enable:
 
 """
 
-try:
-    import importlib.metadata as importlib_metadata
-except ModuleNotFoundError:
-    import importlib_metadata  # type: ignore
+# major, minor, patch
+version_info = 0, 1, "dev0"
 
-__version__ = importlib_metadata.version(__name__.replace(".", "-"))  # type: ignore
+# Nice string for the version
+__version__ = ".".join(map(str, version_info))
 
 from ansys.ensight.core.module import add
 from ansys.ensight.core.other_module import Complex
