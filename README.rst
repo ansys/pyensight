@@ -1,28 +1,15 @@
-PyAnsys Library Template (deprecated)
+PyEnsight
 #####################################
-
-Deprecation Warning
-===================
-
-This repository has been deprecated in favor of `ansys-templates`_. The
-new template takes advantage of a dynamic install, allows you to select the
-build system and is deeply tested.
-
-.. _ansys-templates: https://github.com/pyansys/ansys-templates
-
 
 About
 -----
 
-This repository is a template repository where you can `Create a
-repository from a template`_ and create a new PyAnsys project that
-follows the guidelines specified in the `PyAnsys Developer's Guide`_.
-
-The following sections should be filled and documented for your project.
-
-.. _Create a repository from a template: https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template
-.. _PyAnsys Developer's Guide: https://github.com/pyansys/about
-
+This repository contains the pythonic API to EnSight, the Ansys Post
+Processor. This API allows the user to start an EnSight session, or
+connect to an existing one. Send your simulation data to the session,
+and drive the post processing in a pythonic fashion. The user can then
+choose to visualize the processed data, extract it, or get a widget to
+embed in an external application.
 
 Project Overview
 ----------------

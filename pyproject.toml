@@ -6,9 +6,9 @@ build-backend = "poetry.core.masonry.api"
 name = "ansys-product-library"
 version = "0.1.0"
 
-description = "Template PyAnsys library"
+description = "pyensight library"
 readme = "README.rst"
-homepage = "https://github.com/pyansys/template/"
+homepage = "https://github.com/pyansys/pyensight"
 
 authors = ["Ansys, Inc."] # this is required
 maintainers = ["PyAnsys developers <pyansys.support@ansys.com>"] # You can change the name. The email group works.
