@@ -43,3 +43,5 @@ test-output.xml
 .\#*
 /.ipynb_checkpoints
 
+# PyCharm
+.idea/
