@@ -46,8 +46,8 @@ With coverage.
 
 
 """
-import pytest
 import ansys.pyensight as pyensight
+import pytest
 
 # this is a fixture that simplifies reuse of common components
 @pytest.fixture
