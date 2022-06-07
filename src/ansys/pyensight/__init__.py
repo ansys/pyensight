@@ -22,5 +22,5 @@ version_info = 0, 1, "dev0"
 # Nice string for the version
 __version__ = ".".join(map(str, version_info))
 
-from ansys.pyensight.module import add
-from ansys.pyensight.other_module import Complex
+from ansys.pyensight.launcher import Launcher
+from ansys.pyensight.session import Session

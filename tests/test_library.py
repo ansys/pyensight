@@ -49,24 +49,13 @@ With coverage.
 import ansys.pyensight as pyensight
 import pytest
 
-# this is a fixture that simplifies reuse of common components
-@pytest.fixture
-def my_complex():
-    return pyensight.Complex(1, -2)
+
+def test_launcher():
+    a = pyensight.Launcher()
+    a.launch_session()
+    assert a.close()
 
 
-@pytest.fixture
-def py_complex():
-    return 1 - 2j
-
-
-@pytest.mark.parametrize("a", range(1, 3))
-@pytest.mark.parametrize("b", range(1, 4))
-def test_add(a, b):
-    a = 1
-    b = 3
-    assert pyensight.add(a, b) == a + b
-
-
-def test_complex_abs(my_complex, py_complex):
-    assert my_complex.abs == abs(py_complex)
+def test_session():
+    session = pyensight.Session()
+    assert session.dummy_method()
