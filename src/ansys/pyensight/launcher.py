@@ -10,7 +10,6 @@ Examples
 >>> session = Launcher.launch_session()
 
 """
-from ansys.pyensight import Session
 
 
 class Launcher:
@@ -39,11 +38,6 @@ class Launcher:
         param2 : str
             The second parameter.
 
-        Returns
-        -------
-        bool
-            True if successful, False otherwise.
-
         Notes
         -----
         Do not include the `self` parameter in the ``Parameters`` section.
@@ -56,7 +50,7 @@ class Launcher:
 
         """
         self.session = None
-        return self
+        return None
 
     def launch_session(self, ansys_installation=r"C:\Program Files\ANSYS Inc\v222"):
         """Initialize a Launcher object
@@ -74,6 +68,7 @@ class Launcher:
 
         """
         if self.session is None:
+            from ansys.pyensight import Session
             self.session = Session()
         return self.session
 

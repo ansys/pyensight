@@ -52,7 +52,7 @@ class Session:
         >>> session = Launcher.launch_session()
 
         """
-        return self
+        return None
 
     def dummy_method(self):
         """Useless dummy method for now

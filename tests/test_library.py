@@ -47,7 +47,6 @@ With coverage.
 
 """
 import ansys.pyensight as pyensight
-import pytest
 
 
 def test_launcher():
