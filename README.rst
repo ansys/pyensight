@@ -33,18 +33,18 @@ Include installation directions.  Note that this README will be
 included in your PyPI package, so be sure to include ``pip``
 directions along with developer installation directions.  For example.
 
-Install <PyAnsys Library> with:
+Install ansys-pyensight with:
 
 .. code::
 
-   pip install ansys-<product/service>-<library>
+   pip install ansys-pyensight
 
 Alternatively, clone and install in development mode with:
 
 .. code::
 
    git clone https://github.com/pyansys/pyensight
-   cd <PyAnsys-Library>
+   cd src
    pip install poetry
    poetry install
 
@@ -67,7 +67,7 @@ The simplest PyEnSight session may be started like this:
 
    >>> from ansys.pyensight import Launcher
    >>> session = Launcher.local_session()
-   >>> session.show(render="envnc")
+   >>> session.show(render='envnc')
 
 
 Testing
