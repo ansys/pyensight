@@ -6,14 +6,14 @@ For example, if you want to avoid this behavior:
 
 .. code::
 
-   >>> from ansys.ensight.core.module import add
+   >>> from ansys.pyensight.module import add
 
 Then add the import within this module to enable:
 
 .. code::
 
-   >>> from ansys.ensight import core
-   >>> core.add(1, 2)
+   >>> import ansys.pyensight as pyensight
+   >>> pyensight.add(1, 2)
 
 """
 
@@ -22,5 +22,5 @@ version_info = 0, 1, "dev0"
 # Nice string for the version
 __version__ = ".".join(map(str, version_info))
 
-from ansys.ensight.core.module import add
-from ansys.ensight.core.other_module import Complex
+from ansys.pyensight.launcher import Launcher
+from ansys.pyensight.session import Session
