@@ -11,6 +11,7 @@ ansys.pyensight.Session
 
 """
 
+
 class Session:
     """Class to access EnSight session
 
