@@ -10,6 +10,6 @@ automatically generate class and method documentation.
 .. autosummary::
    :toctree: _autosummary/
 
-   ansys.ensight.core.Complex
+   ansys.pyensight.Complex
 
 Note how each method or attribute has its own page.
