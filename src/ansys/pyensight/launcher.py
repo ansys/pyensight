@@ -69,6 +69,7 @@ class Launcher:
         """
         if self.session is None:
             from ansys.pyensight import Session
+
             self.session = Session()
         return self.session
 
