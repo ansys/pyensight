@@ -43,7 +43,7 @@ pytest = {version="^7.0", optional=true}
 pytest-cov = {version="^3.0", optional=true}
 
 [tool.poetry.extras]
-docs = ["Sphinx", "numpydoc", "pyansys_sphinx_theme", "sphinx-copybutton"]
+docs = ["Sphinx", "numpydoc", "pyansys_sphinx_theme", "sphinx-copybutton", "sphinx_autodoc_typehints"]
 pre-commit = ["pre-commit", "mypy"]
 test = ["pytest", "pytest-cov"]
 

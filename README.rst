@@ -14,11 +14,11 @@ PyEnSight
 
 Overview
 --------
-This repository contains the pythonic API to EnSight_, the Ansys Post
+This repository contains the pythonic API to EnSight_, the Ansys simulation Post
 Processor. This API allows the user to:
 
 * Start an EnSight session, or connect to an existing one.
-* Read simulation data into the session.
+* Read simulation data (from any of the supported solver output formats) into the session.
 * Generate complex post-processing results in a pythonic fashion.
 
 The user can then choose to visualize the processed data, extract it, or
@@ -54,9 +54,21 @@ This creates a new virtual environment, which can be activated with
 
    poetry shell
 
-Documentation
--------------
-Include a link to the full sphinx documentation.  For example `PyAnsys <https://docs.pyansys.com/>`_
+
+Dependencies
+------------
+You will need a locally installed and licenced copy of Ansys to run EnSight, with the
+first supported version being Ansys 2022 R2.
+
+
+Documentation and Issues
+------------------------
+Please see the latest release `documentation <https://pyensightdocs.pyansys.com>`_
+page for more details.
+
+Please feel free to post issues and other questions at `PyEnSight Issues
+<https://github.com/pyansys/pyensight/issues>`_.  This is the best place
+to post questions and code.
 
 
 Usage
@@ -68,11 +80,6 @@ The simplest PyEnSight session may be started like this:
    >>> from ansys.pyensight import Launcher
    >>> session = Launcher.local_session()
    >>> session.show(render='envnc')
-
-
-Testing
--------
-You can feel free to include this at the README level or in CONTRIBUTING.md
 
 
 License
