@@ -10,7 +10,7 @@ PyEnSight
 
 .. _EnSight: https://www.ansys.com/products/fluids/ansys-ensight
 
-.. |title| image:: https://github.com/pyansys/pyensight/blob/main/media/pyensight_title.png?raw=true
+.. |title| image:: https://s3.amazonaws.com/www3.ensight.com/build/media/pyensight_title.png
 
 Overview
 --------

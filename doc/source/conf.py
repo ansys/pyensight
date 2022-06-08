@@ -5,7 +5,7 @@ from ansys.pyensight import __version__
 from pyansys_sphinx_theme import pyansys_logo_black
 
 # Project information
-project = "ansys-product-library"
+project = "ansys-pyensight"
 copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "Ansys Inc."
 release = version = __version__
@@ -16,17 +16,22 @@ html_theme = "pyansys_sphinx_theme"
 
 # specify the location of your github repo
 html_theme_options = {
-    "github_url": "https://github.com/pyansys/pyansys-sphinx-theme",
+    "github_url": "https://github.com/pyansys/pyensight",
     "show_prev_next": False,
 }
 
 # Sphinx extensions
 extensions = [
+    "numpydoc",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
-    "numpydoc",
+    "sphinx.ext.coverage",
+    "sphinx.ext.doctest",
+    "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
+    "sphinx_autodoc_typehints",
     "sphinx_copybutton",
+    "sphinxemoji.sphinxemoji",
 ]
 
 # Intersphinx mapping
