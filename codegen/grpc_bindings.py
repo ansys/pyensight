@@ -50,7 +50,8 @@ def generate_bindings():
     try:
         import grpc_tools  # noqa: F401, E501 # pylint: disable=unused-import, import-outside-toplevel
     except ImportError:
-        raise ImportError("Missing ``grpcio-tools`` package. Install with `pip install grpcio-tools`")
+        raise ImportError("Missing ``grpcio-tools`` package. "
+                          "Install with `pip install grpcio-tools`")
 
     # Build the Python gRPC bindings
     os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "cpp"

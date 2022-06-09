@@ -52,13 +52,15 @@ class Launcher:
         """Compute the Ansys distribution directory to use
 
         Args:
-            ansys_installation (:obj:`str`, optional): None will default to the pre-built, default base directory.
+            ansys_installation (:obj:`str`, optional): None will default to
+                the pre-built, default base directory.
 
         Returns:
             The validated installation directory
 
         Raises:
-            RuntimeError: if the installation directory does not point to a valid EnSight installation
+            RuntimeError: if the installation directory does not point to a
+                valid EnSight installation
         """
         version = pyensight.__ansys_version__
         install_dir = f"/ansys_inc/v{version}"
