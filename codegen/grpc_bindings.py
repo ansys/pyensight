@@ -5,12 +5,11 @@ Usage
 
 `python grpc_bindings.py`
 """
-
-import requests
 import glob
-import os
 import os.path
 import sys
+
+import requests
 
 
 def generate_bindings():
@@ -24,7 +23,8 @@ def generate_bindings():
 
     # Get the default Ansys version number
     sys.path.append("../src")
-    from ansys import pyensight   # pylint: disable=import-outside-toplevel
+    from ansys import pyensight  # pylint: disable=import-outside-toplevel
+
     version = pyensight.__ansys_version__
 
     # cleanup old files
@@ -50,15 +50,16 @@ def generate_bindings():
     try:
         import grpc_tools  # noqa: F401, E501 # pylint: disable=unused-import, import-outside-toplevel
     except ImportError:
-        raise ImportError("Missing ``grpcio-tools`` package. "
-                          "Install with `pip install grpcio-tools`")
+        raise ImportError(
+            "Missing ``grpcio-tools`` package. " "Install with `pip install grpcio-tools`"
+        )
 
     # Build the Python gRPC bindings
     os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "cpp"
     cmd = f'"{sys.executable}" -m grpc_tools.protoc -I. '
-    cmd += f'--python_out={target_dir} '
-    cmd += f'--grpc_python_out={target_dir} '
-    cmd += ' '.join(proto_files)
+    cmd += f"--python_out={target_dir} "
+    cmd += f"--grpc_python_out={target_dir} "
+    cmd += " ".join(proto_files)
     if os.system(cmd):
         raise RuntimeError(f"Failed to run:\n\n{cmd}")
 

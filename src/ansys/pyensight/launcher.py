@@ -10,9 +10,10 @@ Examples
 >>> session = Launcher.launch_session()
 
 """
+import os.path
 import platform
 from typing import Optional
-import os.path
+
 from ansys import pyensight
 
 
