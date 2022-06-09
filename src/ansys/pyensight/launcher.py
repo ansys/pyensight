@@ -86,6 +86,7 @@ class Launcher:
             pyensight Session object
 
         """
+
         if self.session is None:
             self.session = pyensight.Session()
 
