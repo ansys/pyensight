@@ -50,7 +50,6 @@ class Launcher:
 
         """
         self.session = None
-        self.ansysInstallation = None
         return None
 
     def launch_session(self, ansys_installation=r"C:\Program Files\ANSYS Inc\v222"):
@@ -68,8 +67,6 @@ class Launcher:
             pyensight Session object
 
         """
-
-        self.ansysInstallation = ansys_installation
 
         if self.session is None:
             from ansys.pyensight import Session
