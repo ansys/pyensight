@@ -87,24 +87,11 @@ jobs:
         run: |
           poetry run make -C doc html SPHINXOPTS="-W"
 
-      - name: Build PDF Documentation
-        run: |
-          sudo apt update
-          sudo apt-get install -y texlive-latex-extra latexmk
-          poetry run make -C doc latexpdf
-
       - name: Upload HTML Documentation
         uses: actions/upload-artifact@v2
         with:
           name: Documentation-html
           path: doc/build/html
-          retention-days: 7
-
-      - name: Upload PDF Documentation
-        uses: actions/upload-artifact@v2
-        with:
-          name: Documentation-pdf
-          path: doc/build/latex/*.pdf
           retention-days: 7
 
   Release:
