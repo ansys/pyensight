@@ -65,7 +65,7 @@ class Launcher:
         version = pyensight.__ansys_version__
         install_dir = f"/ansys_inc/v{version}"
         if platform.system().startswith("Wind"):
-            install_dir = fr"C:\Program Files\ANSYS Inc\v{version}"
+            install_dir = rf"C:\Program Files\ANSYS Inc\v{version}"
         if ansys_installation:
             install_dir = ansys_installation
         launch_file = os.path.join(install_dir, "CEI", "bin", "ensight")
