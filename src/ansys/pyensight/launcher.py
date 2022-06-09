@@ -10,6 +10,10 @@ Examples
 >>> session = Launcher.launch_session()
 
 """
+import platform
+from typing import Optional
+import os.path
+from ansys import pyensight
 
 
 class Launcher:
@@ -22,21 +26,12 @@ class Launcher:
     --------
 
     >>> from ansys.pyensight import Launcher
-    >>> session = Launcher.launch_session(ansys_installation = '/opt/ansys_inc/v222')
+    >>> session = Launcher.launch_session(ansys_installation='/ansys_inc/v222')
 
     """
 
     def __init__(self):
         """Initialize a Launcher object
-
-        Parameters
-        ----------
-        session : pyensight.Session
-            If connected, an EnSight session. None otherwise
-        param1 : str
-            The first parameter.
-        param2 : str
-            The second parameter.
 
         Notes
         -----
@@ -52,33 +47,55 @@ class Launcher:
         self.session = None
         return None
 
-    def launch_session(self, ansys_installation=r"C:\Program Files\ANSYS Inc\v222"):
+    @staticmethod
+    def get_install_directory(ansys_installation: Optional[str]) -> str:
+        """Compute the Ansys distribution directory to use
+
+        Args:
+            ansys_installation (:obj:`str`, optional): None will default to the pre-built, default base directory.
+
+        Returns:
+            The validated installation directory
+
+        Raises:
+            RuntimeError: if the installation directory does not point to a valid EnSight installation
+        """
+        version = pyensight.__ansys_version__
+        install_dir = f"/ansys_inc/v{version}"
+        if platform.system().startswith("Wind"):
+            install_dir = fr"C:\Program Files\ANSYS Inc\v{version}"
+        if ansys_installation:
+            install_dir = ansys_installation
+        launch_file = os.path.join(install_dir, "CEI", "bin", "ensight")
+        if not os.path.exists(launch_file):
+            raise RuntimeError(f"Unable to detect an EnSight installation in: {install_dir}")
+        return install_dir
+
+    def launch_session(self, ansys_installation: Optional[str] = None) -> "pyensight.Session":
         """Initialize a Launcher object
 
-        Parameters
-        ----------
-        ansys_installation: str
-            Location of the ANSYS installation, including the version directory
-            Default:  C:\\Program Files\\ANSYS Inc\\v222
+        Args:
+            ansys_installation (:obj:`str`, optional):
+                Location of the ANSYS installation, including the version directory
+                Default:  "C:\\Program Files\\ANSYS Inc\\v222"
 
-        Returns
-        -------
-        pyensight.Session
+        Returns:
             pyensight Session object
 
         """
         if self.session is None:
-            from ansys.pyensight import Session
+            self.session = pyensight.Session()
 
-            self.session = Session()
+        # get the user selected installation directory
+        ansys_installation = self.get_install_directory(ansys_installation)
+
         return self.session
 
-    def close(self):
+    def close(self) -> bool:
         """Close the EnSight session that is connected to this Launcher instance
 
-        Returns
-        -------
-        bool
-            True is successful, False otherwise
+        Returns:
+            True if successful, False otherwise
+
         """
         return True

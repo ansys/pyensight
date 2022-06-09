@@ -23,7 +23,7 @@ class Session:
     --------
 
     >>> from ansys.pyensight import Launcher
-    >>> session = Launcher.launch_session(ansys_installation = '/opt/ansys_inc/v222')
+    >>> session = Launcher.launch_session(ansys_installation='/opt/ansys_inc/v222')
 
     """
 
