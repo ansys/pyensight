@@ -1,24 +1,30 @@
 PyEnSight
 =========
-|pyansys| |MIT|
+|pyansys| |python| |MIT| |black|
 
-.. |pyansys| image:: https://img.shields.io/badge/Py-Ansys-ffc107.png?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAABDklEQVQ4jWNgoDfg5mD8vE7q/3bpVyskbW0sMRUwofHD7Dh5OBkZGBgW7/3W2tZpa2tLQEOyOzeEsfumlK2tbVpaGj4N6jIs1lpsDAwMJ278sveMY2BgCA0NFRISwqkhyQ1q/Nyd3zg4OBgYGNjZ2ePi4rB5loGBhZnhxTLJ/9ulv26Q4uVk1NXV/f///////69du4Zdg78lx//t0v+3S88rFISInD59GqIH2esIJ8G9O2/XVwhjzpw5EAam1xkkBJn/bJX+v1365hxxuCAfH9+3b9/+////48cPuNehNsS7cDEzMTAwMMzb+Q2u4dOnT2vWrMHu9ZtzxP9vl/69RVpCkBlZ3N7enoDXBwEAAA+YYitOilMVAAAAAElFTkSuQmCC
+.. |pyansys| image:: https://img.shields.io/badge/Py-Ansys-ffc107.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAABDklEQVQ4jWNgoDfg5mD8vE7q/3bpVyskbW0sMRUwofHD7Dh5OBkZGBgW7/3W2tZpa2tLQEOyOzeEsfumlK2tbVpaGj4N6jIs1lpsDAwMJ278sveMY2BgCA0NFRISwqkhyQ1q/Nyd3zg4OBgYGNjZ2ePi4rB5loGBhZnhxTLJ/9ulv26Q4uVk1NXV/f///////69du4Zdg78lx//t0v+3S88rFISInD59GqIH2esIJ8G9O2/XVwhjzpw5EAam1xkkBJn/bJX+v1365hxxuCAfH9+3b9/+////48cPuNehNsS7cDEzMTAwMMzb+Q2u4dOnT2vWrMHu9ZtzxP9vl/69RVpCkBlZ3N7enoDXBwEAAA+YYitOilMVAAAAAElFTkSuQmCC
    :target: https://docs.pyansys.com/
 
-.. |MIT| image:: https://img.shields.io/badge/License-MIT-yellow.png
+.. |python| image:: https://img.shields.io/badge/Python-%3E%3D3.7-blue.svg
+   :target: https://nexusdemo.ensight.com/docs/python/html/Python.html
+
+.. |MIT| image:: https://img.shields.io/badge/License-MIT-yellow.svg
    :target: https://opensource.org/licenses/MIT
+
+.. |black| image:: https://img.shields.io/badge/code_style-black-000000.svg
+   :target: https://github.com/psf/black
+
+.. |title| image:: https://s3.amazonaws.com/www3.ensight.com/build/media/pyensight_title.png
 
 .. _EnSight: https://www.ansys.com/products/fluids/ansys-ensight
 
-.. |title| image:: https://github.com/pyansys/pyensight/blob/main/media/pyensight_title.png?raw=true
-
 Overview
 --------
-This repository contains the pythonic API to EnSight_, the Ansys Post
+This repository contains the pythonic API to EnSight_, the Ansys simulation Post
 Processor. This API allows the user to:
 
 * Start an EnSight session, or connect to an existing one.
-* Read simulation data into the session.
+* Read simulation data (from any of the supported solver output formats) into the session.
 * Generate complex post-processing results in a pythonic fashion.
 
 The user can then choose to visualize the processed data, extract it, or
@@ -54,9 +60,21 @@ This creates a new virtual environment, which can be activated with
 
    poetry shell
 
-Documentation
--------------
-Include a link to the full sphinx documentation.  For example `PyAnsys <https://docs.pyansys.com/>`_
+
+Dependencies
+------------
+You will need a locally installed and licenced copy of Ansys to run EnSight, with the
+first supported version being Ansys 2022 R2.
+
+
+Documentation and Issues
+------------------------
+Please see the latest release `documentation <https://pyensightdocs.pyansys.com>`_
+page for more details.
+
+Please feel free to post issues and other questions at `PyEnSight Issues
+<https://github.com/pyansys/pyensight/issues>`_.  This is the best place
+to post questions and code.
 
 
 Usage
@@ -68,11 +86,6 @@ The simplest PyEnSight session may be started like this:
    >>> from ansys.pyensight import Launcher
    >>> session = Launcher.local_session()
    >>> session.show(render='envnc')
-
-
-Testing
--------
-You can feel free to include this at the README level or in CONTRIBUTING.md
 
 
 License
