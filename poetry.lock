@@ -654,7 +654,7 @@ docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
 testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.0.1)", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy"]
 
 [extras]
-docs = ["Sphinx", "numpydoc", "pyansys_sphinx_theme", "sphinx-copybutton", "sphinx_autodoc_typehints"]
+docs = ["Sphinx", "numpydoc", "pyansys_sphinx_theme", "sphinx-copybutton"]
 pre-commit = ["pre-commit", "mypy"]
 test = ["pytest", "pytest-cov"]
 
