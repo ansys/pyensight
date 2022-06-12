@@ -51,9 +51,8 @@ import ansys.pyensight as pyensight
 
 def test_launcher():
     a = pyensight.Launcher()
-    assert a.close()
 
 
 def test_session():
     session = pyensight.Session()
-    assert session.dummy_method()
+    assert session.close()
