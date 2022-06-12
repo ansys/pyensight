@@ -15,7 +15,8 @@ import platform
 import socket
 import subprocess
 import uuid
-from typing import Optional, List
+from typing import List
+from typing import Optional
 
 from ansys import pyensight
 
@@ -153,12 +154,12 @@ class Launcher:
         ports = list()
 
         # pick a starting port number
-        start = (os.getpid() % 64000)
+        start = os.getpid() % 64000
         # We will scan for 65530 ports unless end is specified
         port_mod = 65530
         end = start + port_mod - 1
         # walk the "virtual" port range
-        for base_port in range(start, end+1):
+        for base_port in range(start, end + 1):
             # Map to physical port range
             # There have been some issues with 65534+ so we stop at 65530
             port = base_port % port_mod
@@ -173,7 +174,7 @@ class Launcher:
                 continue
             # is anyone listening?
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            result = sock.connect_ex(('127.0.0.1', port))
+            result = sock.connect_ex(("127.0.0.1", port))
             if result != 0:
                 ports.append(port)
             else:

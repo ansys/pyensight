@@ -1,14 +1,7 @@
 """ensight_grpc module
 
 This package defines the EnSightGRPC class which provides a simpler
-interface to the EnSight gRPC interface, including events steams.
-
-Examples
---------
->>> from ansys.pyensight.launcher import Launcher
->>> session = Launcher.launch_session()
->>> type(session)
-ansys.pyensight.Session'
+interface to the EnSight gRPC interface, including event streams.
 
 """
 import threading
