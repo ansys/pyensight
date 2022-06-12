@@ -12,12 +12,11 @@ import sys
 import requests
 
 
-def generate_bindings():
+def generate_bindings() -> None:
     """Build the EnSight gRPC interface
 
     Pull the .proto file(s) from the archive and run the grpc tools on it.
     """
-
     root = os.path.dirname(__file__)
     os.chdir(root)
 
@@ -64,7 +63,7 @@ def generate_bindings():
         raise RuntimeError(f"Failed to run:\n\n{cmd}")
 
 
-def generate():
+def generate() -> None:
     generate_bindings()
 
 
