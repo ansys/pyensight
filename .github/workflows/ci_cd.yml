@@ -24,12 +24,11 @@ jobs:
 
       - name: Install pre-commit requirements
         run: |
-          pip install poetry
-          poetry install -E pre-commit
+          pip install -r requirements/pre-commit.txt
 
       - name: Run pre-commit
         run: |
-          poetry run pre-commit run --all-files || ( git status --short ; git diff ; exit 1 )
+          pre-commit run --all-files || ( git status --short ; git diff ; exit 1 )
 
   main:
     name: Build and Testing
@@ -80,12 +79,11 @@ jobs:
 
       - name: Install library, with docs extra
         run: |
-          pip install poetry
-          poetry install -E docs
+          pip install -r requirements/docs.txt
 
       - name: Build HTML
         run: |
-          poetry run make -C doc html SPHINXOPTS="-W"
+          make -C doc html SPHINXOPTS="-W"
 
       - name: Upload HTML Documentation
         uses: actions/upload-artifact@v2

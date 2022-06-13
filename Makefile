@@ -15,3 +15,8 @@ codespell:
 flake8:
 	@echo "Running flake8"
 	@flake8 .
+
+install:
+	@pip install -r requirements/build.txt
+	@python -m build --wheel
+	@pip install dist/*.whl
