@@ -23,8 +23,7 @@ jobs:
           python-version: 3.8
 
       - name: Install pre-commit requirements
-        run: |
-          pip install -r requirements/pre-commit.txt
+        run: pip install -r requirements/pre-commit.txt
 
       - name: Run pre-commit
         run: |
@@ -51,8 +50,11 @@ jobs:
           pip install twine
           twine check dist/*
 
-      - name: Install library, with test extra
-        run: pip install $(echo dist/*)[test]
+      - name: Install library
+        run: pip install -e .
+
+      - name: Install pre-commit requirements
+        run: pip install -r requirements/test.txt
 
       - name: Unit testing
         run: |
@@ -78,8 +80,7 @@ jobs:
           python-version: 3.8
 
       - name: Install library, with docs extra
-        run: |
-          pip install -r requirements/docs.txt
+        run: pip install -r requirements/docs.txt
 
       - name: Build HTML
         run: |
