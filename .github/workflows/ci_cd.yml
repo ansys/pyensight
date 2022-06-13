@@ -53,7 +53,7 @@ jobs:
       - name: Install library
         run: pip install -e .
 
-      - name: Install pre-commit requirements
+      - name: Install test requirements
         run: pip install -r requirements/test.txt
 
       - name: Unit testing
