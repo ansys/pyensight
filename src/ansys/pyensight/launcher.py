@@ -4,16 +4,19 @@ The Launcher module allows pyensight to control the enshell launcher
 capabilities to launch EnSight in multiple configurations, and to
 connect to an existing EnSight session
 
-Examples
---------
->>> from ansys.pyensight import Launcher
->>> session = Launcher.launch_local_session()
+Examples:
+
+>>> from ansys.pyensight import LocalLauncher
+>>> session = LocalLauncher().start()
 
 """
+import abc
+import glob
 import os.path
 import platform
 import socket
 import subprocess
+import tempfile
 import uuid
 from typing import List
 from typing import Optional
@@ -22,21 +25,223 @@ from ansys import pyensight
 
 
 class Launcher:
-    """Class to access EnSight Launcher
+    """EnSight Launcher base class
 
-    The Launcher instance allows the user to launch an EnSight session
-    or to connect to an existing one
-
-    Examples
-    --------
-
-    >>> from ansys.pyensight import Launcher
-    >>> session = Launcher.launch_local_session(ansys_installation='/ansys_inc/v222')
+    A Launcher instance is used to start/end an EnSight session.  Specific subclasses
+    handle different types of launching semantics.
 
     """
 
     def __init__(self) -> None:
         self._sessions = []
+
+    def close(self, session: "pyensight.Session") -> None:
+        """Shutdown the launched EnSight session
+
+        Close all the associated sessions and then stop the launched EnSight instance.
+
+        Raises:
+            RuntimeError if the session was not launched by this launcher.
+        """
+        if session not in self._sessions:
+            raise RuntimeError("Session not associated with this Launcher")
+        self._sessions.remove(session)
+        if self._sessions:
+            return
+        # if the session list is empty, stop the launcher
+        self.stop()
+
+    @abc.abstractmethod
+    def start(self) -> "pyensight.session":
+        """Base method for starting the actual session"""
+        return
+
+    @abc.abstractmethod
+    def stop(self) -> None:
+        """Base method for stopping a session initiated by start()
+
+        Notes:
+            The session object is responsible for making the EnSight 'Exit' and websocketserver
+            calls.  This method can be used to clean up any additional resources being used
+            by the launching method.
+        """
+        return
+
+    @staticmethod
+    def _find_unused_ports(count: int, avoid: Optional[List[int]] = None) -> Optional[List[int]]:
+        """Find "count" unused ports on the host system
+
+        A port is considered unused if it does not respond to a "connect" attempt.  Walk
+        the ports from 'start' to 'end' looking for unused ports and avoiding any ports
+        in the 'avoid' list.  Stop once the desired number of ports have been
+        found.  If an insufficient number of ports were found, return None.
+
+        Args:
+            count: number of unused ports to find
+            avoid: an optional list of ports not to check
+
+        Returns:
+            The detected ports or None on failure
+        """
+        if avoid is None:
+            avoid = []
+        ports = list()
+
+        # pick a starting port number
+        start = os.getpid() % 64000
+        # We will scan for 65530 ports unless end is specified
+        port_mod = 65530
+        end = start + port_mod - 1
+        # walk the "virtual" port range
+        for base_port in range(start, end + 1):
+            # Map to physical port range
+            # There have been some issues with 65534+ so we stop at 65530
+            port = base_port % port_mod
+            # port 0 is special
+            if port == 0:
+                continue
+            # avoid admin ports
+            if port < 1024:
+                continue
+            # are we supposed to skip this one?
+            if port in avoid:
+                continue
+            # is anyone listening?
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            result = sock.connect_ex(("127.0.0.1", port))
+            if result != 0:
+                ports.append(port)
+            else:
+                sock.close()
+            if len(ports) >= count:
+                return ports
+        # in case we failed...
+        if len(ports) < count:
+            return None
+        return ports
+
+
+class LocalLauncher(Launcher):
+    """Create a Session instance by launching a local copy of EnSight
+
+    Launch a copy of EnSight locally that supports the gRPC interface.  Create and
+    bind a Session instance to the created gRPC session.  Return that session.
+
+    Args:
+        ansys_installation: Location of the ANSYS installation, including the version
+            directory Default:  None (causes common locations to be scanned)
+
+    Examples:
+
+    >>> from ansys.pyensight import LocalLauncher
+    >>> session = LocalLauncher(ansys_installation='/ansys_inc/v222').start()
+
+    """
+
+    def __init__(self, ansys_installation: Optional[str] = None) -> None:
+        super().__init__()
+
+        # get the user selected installation directory
+        self._install_path: str = self.get_cei_install_directory(ansys_installation)
+        # EnSight session secret key
+        self._secret_key: str = str(uuid.uuid1())
+        # temporary directory
+        self._session_directory: tempfile.TemporaryDirectory = tempfile.TemporaryDirectory()
+
+    def start(self) -> "pyensight.Session":
+        """Start an EnSight session using the local ensight install
+        Launch a copy of EnSight locally that supports the gRPC interface.  Create and
+        bind a Session instance to the created gRPC session.  Return that session.
+
+        Returns:
+            pyensight Session object instance
+
+        Raises:
+            RuntimeError: if the necessary number of ports could not be allocated.
+        """
+        # gRPC port, VNC port, websocketserver ws, websocketserver html
+        ports = Launcher._find_unused_ports(4)
+        if ports is None:
+            raise RuntimeError("Unable to allocate local ports for EnSight session")
+        is_windows = platform.system() == "Windows"
+        tmp_dir = self._session_directory.name
+
+        # Launch EnSight
+        # create the environmental variables
+        local_env = os.environ.copy()
+        local_env["ENSIGHT_SECURITY_TOKEN"] = self._secret_key
+        local_env["WEBSOCKETSERVER_SECURITY_TOKEN"] = self._secret_key
+        local_env["ENSIGHT_SESSION_TEMPDIR"] = tmp_dir
+
+        # build the EnSight command
+        exe = os.path.join(self._install_path, "bin", "ensight")
+        cmd = [exe, "-batch", "-grpc_server", str(ports[0])]
+        vnc_url = f"vnc://%%3Frfb_port={ports[1]}%%26use_auth=0"
+        cmd.extend(["-vnc", vnc_url])
+        if is_windows:
+            cmd[0] += ".bat"
+            cmd.append("-minimize_console")
+            _ = subprocess.Popen(cmd, creationflags=8, close_fds=True, env=local_env).pid
+        else:
+            _ = subprocess.Popen(cmd, close_fds=True, env=local_env).pid
+
+        # Launch websocketserver
+        # find websocketserver script
+        found_scripts = glob.glob(
+            os.path.join(self._install_path, "nexus*", "nexus_launcher", "websocketserver.py")
+        )
+        if not found_scripts:
+            raise RuntimeError("Unable to find websocketserver script")
+        websocket_script = found_scripts[0]
+
+        # build the commandline
+        cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
+        if is_windows:
+            cmd[0] += ".bat"
+        cmd.extend(["--http_directory", tmp_dir])
+        # http port
+        cmd.extend(["--http_port", str(ports[2])])
+        # vnc port
+        cmd.extend(["--client_port", str(ports[1])])
+        # websocket port
+        cmd.append(str(ports[3]))
+        if is_windows:
+            startupinfo = subprocess.STARTUPINFO()
+            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+            _ = subprocess.Popen(
+                cmd,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                cwd=tmp_dir,
+                env=local_env,
+                startupinfo=startupinfo,
+            ).pid
+        else:
+            _ = subprocess.Popen(
+                cmd,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                cwd=tmp_dir,
+                close_fds=True,
+                env=local_env,
+            ).pid
+
+        # build the session instance
+        session = pyensight.Session(
+            host="127.0.0.1",
+            grpc_port=ports[0],
+            html_port=ports[2],
+            ws_port=ports[3],
+            install_path=self._install_path,
+            secret_key=self._secret_key,
+        )
+        session.launcher = self
+        self._sessions.append(session)
+        return session
+
+    def stop(self) -> None:
+        """Release any additional resources allocated during launching"""
+        self._session_directory.cleanup()
 
     @staticmethod
     def get_cei_install_directory(ansys_installation: Optional[str]) -> str:
@@ -78,110 +283,3 @@ class Launcher:
                 return install_dir
 
         raise RuntimeError(f"Unable to detect an EnSight installation in: {dirs_to_check}")
-
-    @staticmethod
-    def launch_local_session(ansys_installation: Optional[str] = None) -> "pyensight.Session":
-        """Create a Session instance by launching a local copy of EnSight
-
-        Launch a copy of EnSight locally that supports the gRPC interface.  Create and
-        bind a Session instance to the created gRPC session.  Return that session.
-
-        Args:
-            ansys_installation: Location of the ANSYS installation, including the version
-                directory Default:  None (causes common locations to be scanned)
-
-        Returns:
-            pyensight Session object instance
-
-        Raises:
-            RuntimeError: if the necessary number of ports could not be allocated.
-        """
-        # get the user selected installation directory
-        install_path = Launcher.get_cei_install_directory(ansys_installation)
-
-        # gRPC port, VNC port, websocketserver ws, websocketserver html
-        ports = Launcher._find_unused_ports(4)
-        if ports is None:
-            raise RuntimeError("Unable to allocate local ports for EnSight session")
-        secret_key = str(uuid.uuid1())
-
-        # Launch EnSight
-        local_env = os.environ.copy()
-        local_env["ENSIGHT_SECURITY_TOKEN"] = secret_key
-        exe = os.path.join("bin", "ensight")
-        cmd = [exe, "-batch", "-grpc_server", str(ports[0])]
-        vnc_url = f"vnc://%%3Frfb_port={ports[1]}%%26use_auth=0"
-        cmd.extend(["-vnc", vnc_url])
-        if platform.system() == "Windows":
-            cmd[0] += ".bat"
-            cmd.append("-minimize_console")
-            pid = subprocess.Popen(cmd, creationflags=8, close_fds=True, env=local_env).pid
-        else:
-            pid = subprocess.Popen(exe, close_fds=True, env=local_env).pid
-
-        # Launch websocketserver
-
-        # build the session instance
-        session = pyensight.Session(
-            host="127.0.0.1",
-            grpc_port=ports[0],
-            html_port=ports[2],
-            ws_port=ports[3],
-            install_path=install_path,
-            secret_key=secret_key,
-        )
-        session.shutdown = True
-        return session
-
-    @staticmethod
-    def _find_unused_ports(count: int, avoid: Optional[List[int]] = None) -> Optional[List[int]]:
-        """Find "count" unused ports on the host system
-
-        A port is considered unused if it does not respond to a "connect" attempt.  Walk
-        the ports from 'start' to 'end' looking for unused ports and avoiding any ports
-        in the 'avoid' list.  Stop once the desired number of ports have been
-        found.  If an insufficient number of ports were found, return None.
-
-        Args:
-            count: number of unused ports to find
-            avoid: an optional list of ports not to check
-
-        Returns:
-            the detected ports or None on failure
-        """
-        if avoid is None:
-            avoid = []
-        ports = list()
-
-        # pick a starting port number
-        start = os.getpid() % 64000
-        # We will scan for 65530 ports unless end is specified
-        port_mod = 65530
-        end = start + port_mod - 1
-        # walk the "virtual" port range
-        for base_port in range(start, end + 1):
-            # Map to physical port range
-            # There have been some issues with 65534+ so we stop at 65530
-            port = base_port % port_mod
-            # port 0 is special
-            if port == 0:
-                continue
-            # avoid admin ports
-            if port < 1024:
-                continue
-            # are we supposed to skip this one?
-            if port in avoid:
-                continue
-            # is anyone listening?
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            result = sock.connect_ex(("127.0.0.1", port))
-            if result != 0:
-                ports.append(port)
-            else:
-                sock.close()
-            if len(ports) >= count:
-                return ports
-        # in case we failed...
-        if len(ports) < count:
-            return None
-        return ports

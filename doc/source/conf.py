@@ -1,8 +1,13 @@
 """Sphinx documentation configuration file."""
+import os
+import sys
 from datetime import datetime
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src"))
 
 from ansys.pyensight import __version__
 from pyansys_sphinx_theme import pyansys_logo_black
+
 
 # Project information
 project = "ansys-pyensight"

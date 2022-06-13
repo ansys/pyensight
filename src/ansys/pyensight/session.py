@@ -2,14 +2,15 @@
 
 The Session module allows pyensight to control the EnSight session
 
-Examples
---------
->>> from ansys.pyensight import Launcher
->>> session = Launcher.launch_session()
+Examples:
+
+>>> from ansys.pyensight import LocalLauncher
+>>> session = LocalLauncher().start()
 >>> type(session)
 ansys.pyensight.Session
 
 """
+from typing import Any
 from typing import Literal
 from typing import Optional
 
@@ -44,8 +45,8 @@ class Session:
         >>> from ansys.pyensight import Session
         >>> session = Session(host="127.0.0.1", grpc_port=12345, http_port=8000, ws_port=8100)
 
-        >>> from ansys.pyensight import Launcher
-        >>> session = Launcher.launch_local_session(ansys_installation='/opt/ansys_inc/v222')
+        >>> from ansys.pyensight import LocalLauncher
+        >>> session = LocalLauncher(ansys_installation='/opt/ansys_inc/v222').start()
 
     """
 
@@ -61,24 +62,30 @@ class Session:
 
         self._hostname = host
         self._install_path = install_path
-        self._kill_on_close = False
+        self._launcher = None
         self._html_port = html_port
         self._ws_port = ws_port
         self._secret_key = secret_key
         self._grpc_port = grpc_port
 
+        # Connect to the EnSight instance
+        from ansys.pyensight import ensight_grpc  # pylint: disable=import-outside-toplevel
+
+        self._grpc = ensight_grpc.EnSightGRPC(
+            host=self._hostname, port=self._grpc_port, secret_key=self._secret_key
+        )
+        self._grpc.connect()
+
     @property
-    def shutdown(self) -> bool:
+    def launcher(self) -> "pyensight.Launcher":
         """
-        If closing this Session, should the EnSight instance be shutdown.
-
-        Set to True if closing this session should stop the EnSight instance.
+        If a launcher was used to instantiate this session, a reference to the launcher instance.
         """
-        return self._kill_on_close
+        return self._launcher
 
-    @shutdown.setter
-    def shutdown(self, value: bool):
-        self._kill_on_close = value
+    @launcher.setter
+    def launcher(self, value: "pyensight.Launcher"):
+        self._launcher = value
 
     def show(self, what: Literal["image", "webgl", "remote"] = "image") -> Optional[str]:
         """
@@ -89,7 +96,7 @@ class Session:
         Args:
             what: The type of scene display to generate
 
-        Return:
+        Returns:
             HTML source code for the renderable.
 
         Raises:
@@ -101,13 +108,46 @@ class Session:
 
         return ""
 
-    def close(self) -> bool:
-        """Close the EnSight instance that is connected to this Session
+    def cmd(self, value: str) -> Any:
+        """Run a command in EnSight and return the results
+
+        Args:
+            value: string of the command to run
 
         Returns:
-            True if successful, False otherwise
-        """
-        if self._kill_on_close:
-            pass
+            result of the string being executed as Python inside EnSight
 
-        return True
+        Examples:
+
+            >>> print(session.cmd("10+4"))
+            14
+
+        """
+        return self._grpc.command(value)
+
+    def geometry(self, what: Literal["glb"] = "glb") -> bytes:
+        """Return the current EnSight scene as a geometry file
+
+        Args:
+            what: the file format to return (as a bytes object)
+
+        Returns:
+            the generated geometry file as a bytes object
+
+        Examples:
+
+            >>> data = session.geometry()
+            >>> with open("file.glb", "wb") as fp:
+            ...     fp.write(data)
+
+        """
+        return self._grpc.geometry()
+
+    def close(self) -> None:
+        """Close this session
+
+        If this is the last session associated with a launcher, the launcher stop() method
+        will be called.
+        """
+        if self._launcher:
+            self._launcher.close(self)

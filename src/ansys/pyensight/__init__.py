@@ -26,5 +26,6 @@ __version__ = ".".join(map(str, version_info))
 __ansys_version__ = "222"
 
 
+from ansys.pyensight.launcher import LocalLauncher
 from ansys.pyensight.launcher import Launcher
 from ansys.pyensight.session import Session
