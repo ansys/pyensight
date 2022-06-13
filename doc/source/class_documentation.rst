@@ -11,6 +11,7 @@ automatically generate class and method documentation.
    :toctree: _autosummary/
 
    ansys.pyensight.Launcher
+   ansys.pyensight.LocalLauncher
    ansys.pyensight.Session
 
 Note how each method or attribute has its own page.
