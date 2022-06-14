@@ -14,8 +14,6 @@ from typing import Any
 from typing import Literal
 from typing import Optional
 
-import requests
-
 
 class Session:
     """Class to access an EnSight instance
@@ -36,11 +34,8 @@ class Session:
         grpc_port: Port number of the EnSight gRPC service
         html_port: Port number of the websocketserver HTTP server
         ws_port: Port number of the websocketserver WS server
-        install_path: Pathname to the 'CEI" directory from which EnSight was launched
+        install_path: Pathname to the 'CEI' directory from which EnSight was launched
         secret_key: Shared session secret used to validate gRPC communication
-
-    Returns:
-        None
 
     Examples:
 
@@ -77,6 +72,41 @@ class Session:
             host=self._hostname, port=self._grpc_port, secret_key=self._secret_key
         )
         self._grpc.connect()
+
+    @property
+    def grpc(self) -> "ensight_grpc.EnSightGRPC":
+        """
+        The gRPC wrapper instance used by this session to access EnSight
+        """
+        return self._grpc
+
+    @property
+    def secret_key(self) -> str:
+        """
+        The secret key used for communication validation in the gRPC instance
+        """
+        return self._secret_key
+
+    @property
+    def html_port(self) -> int:
+        """
+        The port supporting HTML interaction with EnSight
+        """
+        return self._html_port
+
+    @property
+    def ws_port(self) -> int:
+        """
+        The port supporting WS interaction with EnSight
+        """
+        return self._ws_port
+
+    @property
+    def hostname(self) -> str:
+        """
+        The hostname of the system hosting the EnSight instance
+        """
+        return self._hostname
 
     @property
     def launcher(self) -> "pyensight.Launcher":
@@ -165,28 +195,14 @@ class Session:
         """
         return self._grpc.render(width=width, height=height, aa=aa)
 
-    def close(self, shutdown: bool = True) -> None:
+    def close(self) -> None:
         """Close this session
 
-        Termination the current session and its gRPC connection.
-
-        Args:
-            shutdown: if True, terminate the EnSight session as well.
+        Terminate the current session and its gRPC connection.
         """
-        if not shutdown:
-            # lightweight shutdown, just close the gRPC connection
-            self._grpc.shutdown(stop_ensight=False)
-            if self._launcher:
-                self._launcher.close(self)
-        else:
-            # shutdown the gRPC connection and EnSight
-            self._grpc.shutdown(stop_ensight=True)
-            # stop the websocketserver process
-            url = f"http://{self._hostname}:{self._html_port}/v1/stop"
-            if self._secret_key:
-                url += f"?security_token={self._secret_key}"
-            _ = requests.get(url)
-        # Tell the launcher that we are no longer talking to the session
         if self._launcher:
             self._launcher.close(self)
-            self._launcher = None
+        else:
+            # lightweight shutdown, just close the gRPC connection
+            self._grpc.shutdown(stop_ensight=False)
+        self._launcher = None
