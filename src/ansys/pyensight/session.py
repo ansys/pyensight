@@ -214,7 +214,7 @@ class Session:
     ) -> None:
         """Load a dataset into the EnSight instance
 
-        Given the name of a file, load tha data from that file into EnSight.  The new data will
+        Given the name of a file, load the data from that file into EnSight.  The new data will
         replace any currently loaded data in the session.
 
         Args:
