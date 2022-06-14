@@ -4,10 +4,8 @@ The local launcher module provides pyensight with the ability to launch an
 EnSight session using a local Ansys installation.
 
 Examples:
-
->>> from ansys.pyensight import LocalLauncher
->>> session = LocalLauncher().start()
-
+    >>> from ansys.pyensight import LocalLauncher
+    >>> session = LocalLauncher().start()
 """
 import atexit
 import glob
@@ -29,14 +27,13 @@ class LocalLauncher(pyensight.Launcher):
     bind a Session instance to the created gRPC session.  Return that session.
 
     Args:
-        ansys_installation: Location of the ANSYS installation, including the version
-            directory Default:  None (causes common locations to be scanned)
+        ansys_installation:
+            Location of the ANSYS installation, including the version
+            directory Default: None (causes common locations to be scanned)
 
     Examples:
-
-    >>> from ansys.pyensight import LocalLauncher
-    >>> session = LocalLauncher(ansys_installation='/ansys_inc/v222').start()
-
+        >>> from ansys.pyensight import LocalLauncher
+        >>> session = LocalLauncher(ansys_installation='/ansys_inc/v222').start()
     """
 
     def __init__(self, ansys_installation: Optional[str] = None) -> None:
@@ -58,7 +55,8 @@ class LocalLauncher(pyensight.Launcher):
             pyensight Session object instance
 
         Raises:
-            RuntimeError: if the necessary number of ports could not be allocated.
+            RuntimeError:
+                if the necessary number of ports could not be allocated.
         """
         # gRPC port, VNC port, websocketserver ws, websocketserver html
         ports = self._find_unused_ports(4)
@@ -157,14 +155,16 @@ class LocalLauncher(pyensight.Launcher):
         be checked first.
 
         Args:
-            ansys_installation: This is the pathname of the Ansys distribution to use.
+            ansys_installation:
+                This is the pathname of the Ansys distribution to use.
                 None will result in common locations to be scanned for a viable distribution.
 
         Returns:
             The validated installation directory (contains bin/ensight)
 
         Raises:
-            RuntimeError: if the installation directory does not point to a
+            RuntimeError:
+                if the installation directory does not point to a
                 valid EnSight installation
         """
         dirs_to_check = []
