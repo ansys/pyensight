@@ -30,6 +30,7 @@ def generate_bindings() -> None:
     for filename in glob.glob("*.proto"):
         os.unlink(filename)
     target_dir = "../src/ansys/api/ensight/v0"
+    os.makedirs(target_dir, exist_ok=True)
     for filename in glob.glob(target_dir + "/ensight_pb2*.py"):
         os.unlink(filename)
 
