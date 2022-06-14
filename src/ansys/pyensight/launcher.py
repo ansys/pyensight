@@ -4,10 +4,8 @@ The Launcher module provides a base class responsible for managing an EnSight
 instance.  Subclasses of the class implement specific launching paradighms.
 
 Examples:
-
 >>> from ansys.pyensight import LocalLauncher
 >>> session = LocalLauncher().start()
-
 """
 import abc
 import os.path
@@ -24,7 +22,6 @@ class Launcher:
 
     A Launcher instance is used to start/end an EnSight session.  Specific subclasses
     handle different types of launching semantics.
-
     """
 
     def __init__(self) -> None:
@@ -36,7 +33,8 @@ class Launcher:
         Close all the associated sessions and then stop the launched EnSight instance.
 
         Raises:
-            RuntimeError if the session was not launched by this launcher.
+            RuntimeError:
+                if the session was not launched by this launcher.
         """
         if session not in self._sessions:
             raise RuntimeError("Session not associated with this Launcher")
@@ -84,8 +82,10 @@ class Launcher:
         found.  If an insufficient number of ports were found, return None.
 
         Args:
-            count: number of unused ports to find
-            avoid: an optional list of ports not to check
+            count:
+                Number of unused ports to find
+            avoid:
+                An optional list of ports not to check
 
         Returns:
             The detected ports or None on failure

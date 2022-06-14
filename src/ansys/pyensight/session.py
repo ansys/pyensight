@@ -3,12 +3,10 @@
 The Session module allows pyensight to control the EnSight session
 
 Examples:
-
->>> from ansys.pyensight import LocalLauncher
->>> session = LocalLauncher().start()
->>> type(session)
-ansys.pyensight.Session
-
+    >>> from ansys.pyensight import LocalLauncher
+    >>> session = LocalLauncher().start()
+    >>> type(session)
+    ansys.pyensight.Session
 """
 from typing import Any
 from typing import Literal
@@ -30,21 +28,25 @@ class Session:
     as well.
 
     Args:
-        host: Name of the host on which the EnSight gRPC service is running
-        grpc_port: Port number of the EnSight gRPC service
-        html_port: Port number of the websocketserver HTTP server
-        ws_port: Port number of the websocketserver WS server
-        install_path: Pathname to the 'CEI' directory from which EnSight was launched
-        secret_key: Shared session secret used to validate gRPC communication
+        host:
+            Name of the host on which the EnSight gRPC service is running
+        grpc_port:
+            Port number of the EnSight gRPC service
+        html_port:
+            Port number of the websocketserver HTTP server
+        ws_port:
+            Port number of the websocketserver WS server
+        install_path:
+            Pathname to the 'CEI' directory from which EnSight was launched
+        secret_key:
+            Shared session secret used to validate gRPC communication
 
     Examples:
-
         >>> from ansys.pyensight import Session
         >>> session = Session(host="127.0.0.1", grpc_port=12345, http_port=8000, ws_port=8100)
 
         >>> from ansys.pyensight import LocalLauncher
         >>> session = LocalLauncher(ansys_installation='/opt/ansys_inc/v222').start()
-
     """
 
     def __init__(
@@ -126,14 +128,15 @@ class Session:
         for viewing is returned.
 
         Args:
-            what: The type of scene display to generate
+            what:
+                The type of scene display to generate
 
         Returns:
             HTML source code for the renderable.
 
         Raises:
-            RuntimeError if it is not possible to generate the content
-
+            RuntimeError:
+                if it is not possible to generate the content
         """
         if self._html_port is None:
             raise RuntimeError("No websocketserver has been associated with this Session")
@@ -144,16 +147,15 @@ class Session:
         """Run a command in EnSight and return the results
 
         Args:
-            value: string of the command to run
+            value:
+                String of the command to run
 
         Returns:
             result of the string being executed as Python inside EnSight
 
         Examples:
-
             >>> print(session.cmd("10+4"))
             14
-
         """
         return self._grpc.command(value)
 
@@ -167,11 +169,9 @@ class Session:
             the generated geometry file as a bytes object
 
         Examples:
-
             >>> data = session.geometry()
             >>> with open("file.glb", "wb") as fp:
             ...     fp.write(data)
-
         """
         return self._grpc.geometry()
 
@@ -187,11 +187,9 @@ class Session:
             a bytes object that is a PNG image stream
 
         Examples:
-
             >>> data = session.render(1920, 1080, aa=4)
             >>> with open("file.png", "wb") as fp:
             ...     fp.write(data)
-
         """
         return self._grpc.render(width=width, height=height, aa=aa)
 
@@ -206,3 +204,65 @@ class Session:
             # lightweight shutdown, just close the gRPC connection
             self._grpc.shutdown(stop_ensight=False)
         self._launcher = None
+
+    def load_data(
+        self,
+        data_file: str,
+        result_file: str = None,
+        file_format: str = None,
+        reader_options: Optional[dict] = None,
+    ) -> None:
+        """Load a dataset into the EnSight instance
+
+        Given the name of a file, load the data from that file into EnSight.  The new data will
+        replace any currently loaded data in the session.
+
+        Args:
+            data_file:
+                Filename to load
+            result_file:
+                For dual-file datasets, the second data file
+            file_format:
+                The name of the EnSight reader to be used to read.  If None, ask
+                EnSight to select a reader.
+            reader_options:
+                Dictionary of reader specific option/value pairs which can be used
+                to customize the reader behavior.
+
+        Raises:
+            RuntimeError:
+                if EnSight cannot guess the file format or an error occurs while the
+                data is being read.
+
+        Examples:
+            >>> from ansys.pyensight import LocalLauncher
+            >>> session = LocalLauncher().start()
+            >>> session.load_data(r'D:\data\CFX\example_data.res')
+        """
+        if file_format is None:
+            try:
+                cmd = "ensight.objs.core.CURRENTCASE[0]"
+                cmd += f'.queryfileformat(r"""{data_file}""")["reader"]'
+                file_format = self.cmd(cmd)
+            except RuntimeError:
+                raise RuntimeError(f"Unable to determine file format for {data_file}")
+        cmds = [
+            "ensight.part.select_default()",
+            "ensight.part.modify_begin()",
+            'ensight.part.elt_representation("3D_feature_2D_full")',
+            "ensight.part.modify_end()",
+            'ensight.data.binary_files_are("native")',
+            f'ensight.data.format("{file_format}")',
+        ]
+        if reader_options:
+            for key, value in reader_options:
+                option = f"""ensight.data.reader_option("'{key}' '{value}'")"""
+                cmds.append(option)
+        if result_file:
+            cmds.append(f'ensight.data.result(r"""{result_file}""")')
+        cmds.append("ensight.data.shift_time(1.000000, 0.000000, 0.000000)")
+        cmds.append('ensight.solution_time.monitor_for_new_steps("off")')
+        cmds.append(f'ensight.data.replace(r"""{data_file}""")')
+        for cmd in cmds:
+            if self.cmd(cmd) != 0:
+                raise RuntimeError("Unable to load the dataset.")
