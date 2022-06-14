@@ -11,9 +11,11 @@ Examples:
 
 """
 import abc
+import atexit
 import glob
 import os.path
 import platform
+import shutil
 import socket
 import subprocess
 import tempfile
@@ -146,7 +148,7 @@ class LocalLauncher(Launcher):
         # EnSight session secret key
         self._secret_key: str = str(uuid.uuid1())
         # temporary directory
-        self._session_directory: tempfile.TemporaryDirectory = tempfile.TemporaryDirectory()
+        self._session_directory: str = tempfile.mkdtemp(prefix="pyensight_")
 
     def start(self) -> "pyensight.Session":
         """Start an EnSight session using the local ensight install
@@ -164,14 +166,13 @@ class LocalLauncher(Launcher):
         if ports is None:
             raise RuntimeError("Unable to allocate local ports for EnSight session")
         is_windows = platform.system() == "Windows"
-        tmp_dir = self._session_directory.name
 
         # Launch EnSight
         # create the environmental variables
         local_env = os.environ.copy()
         local_env["ENSIGHT_SECURITY_TOKEN"] = self._secret_key
         local_env["WEBSOCKETSERVER_SECURITY_TOKEN"] = self._secret_key
-        local_env["ENSIGHT_SESSION_TEMPDIR"] = tmp_dir
+        local_env["ENSIGHT_SESSION_TEMPDIR"] = self._session_directory
 
         # build the EnSight command
         exe = os.path.join(self._install_path, "bin", "ensight")
@@ -181,9 +182,13 @@ class LocalLauncher(Launcher):
         if is_windows:
             cmd[0] += ".bat"
             cmd.append("-minimize_console")
-            _ = subprocess.Popen(cmd, creationflags=8, close_fds=True, env=local_env).pid
+            _ = subprocess.Popen(
+                cmd, creationflags=8, close_fds=True, cwd=self._session_directory, env=local_env
+            ).pid
         else:
-            _ = subprocess.Popen(cmd, close_fds=True, env=local_env).pid
+            _ = subprocess.Popen(
+                cmd, close_fds=True, cwd=self._session_directory, env=local_env
+            ).pid
 
         # Launch websocketserver
         # find websocketserver script
@@ -198,7 +203,7 @@ class LocalLauncher(Launcher):
         cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
         if is_windows:
             cmd[0] += ".bat"
-        cmd.extend(["--http_directory", tmp_dir])
+        cmd.extend(["--http_directory", self._session_directory])
         # http port
         cmd.extend(["--http_port", str(ports[2])])
         # vnc port
@@ -212,7 +217,7 @@ class LocalLauncher(Launcher):
                 cmd,
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
-                cwd=tmp_dir,
+                cwd=self._session_directory,
                 env=local_env,
                 startupinfo=startupinfo,
             ).pid
@@ -221,7 +226,7 @@ class LocalLauncher(Launcher):
                 cmd,
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
-                cwd=tmp_dir,
+                cwd=self._session_directory,
                 close_fds=True,
                 env=local_env,
             ).pid
@@ -241,7 +246,7 @@ class LocalLauncher(Launcher):
 
     def stop(self) -> None:
         """Release any additional resources allocated during launching"""
-        self._session_directory.cleanup()
+        atexit.register(shutil.rmtree, self._session_directory)
 
     @staticmethod
     def get_cei_install_directory(ansys_installation: Optional[str]) -> str:
