@@ -62,6 +62,17 @@ def generate_bindings() -> None:
     if os.system(cmd):
         raise RuntimeError(f"Failed to run:\n\n{cmd}")
 
+    # The protoc command generates *grpc.py files with lines like:
+    # import ensight_pb2 as ensight__pb2.  This is a problem as the
+    # apis are located in the ansys.api.ensight.v0 namespace.  We
+    # will rewrite the file(s) to correct this.
+    for grpc_filename in glob.glob(target_dir + "/*_grpc.py"):
+        with open(grpc_filename, "rb") as fp:
+            data = fp.read()
+        data = data.replace(b"import ensight_pb2", b"import ansys.api.ensight.v0.ensight_pb2")
+        with open(grpc_filename, "wb") as fp:
+            fp.write(data)
+
 
 def generate() -> None:
     generate_bindings()

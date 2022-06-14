@@ -14,6 +14,8 @@ from typing import Any
 from typing import Literal
 from typing import Optional
 
+import requests
+
 
 class Session:
     """Class to access an EnSight instance
@@ -143,11 +145,48 @@ class Session:
         """
         return self._grpc.geometry()
 
-    def close(self) -> None:
+    def render(self, width: int, height: int, aa: int = 1) -> bytes:
+        """Render the current EnSight scene and return a PNG image
+
+        Args:
+            width: width of the rendered image in pixels
+            height: height of the rendered image in pixels
+            aa: number of antialiasing passes to use
+
+        Returns:
+            a bytes object that is a PNG image stream
+
+        Examples:
+
+            >>> data = session.render(1920, 1080, aa=4)
+            >>> with open("file.png", "wb") as fp:
+            ...     fp.write(data)
+
+        """
+        return self._grpc.render(width=width, height=height, aa=aa)
+
+    def close(self, shutdown: bool = True) -> None:
         """Close this session
 
-        If this is the last session associated with a launcher, the launcher stop() method
-        will be called.
+        Termination the current session and its gRPC connection.
+
+        Args:
+            shutdown: if True, terminate the EnSight session as well.
         """
+        if not shutdown:
+            # lightweight shutdown, just close the gRPC connection
+            self._grpc.shutdown(stop_ensight=False)
+            if self._launcher:
+                self._launcher.close(self)
+        else:
+            # shutdown the gRPC connection and EnSight
+            self._grpc.shutdown(stop_ensight=True)
+            # stop the websocketserver process
+            url = f"http://{self._hostname}:{self._html_port}/v1/stop"
+            if self._secret_key:
+                url += f"?security_token={self._secret_key}"
+            _ = requests.get(url)
+        # Tell the launcher that we are no longer talking to the session
         if self._launcher:
             self._launcher.close(self)
+            self._launcher = None
