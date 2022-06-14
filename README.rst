@@ -77,9 +77,11 @@ The simplest PyEnSight session may be started like this:
 
 .. code:: python
 
-   >>> from ansys.pyensight import Launcher
-   >>> session = Launcher.local_session()
-   >>> session.show(render='envnc')
+   >>> from ansys.pyensight import LocalLauncher
+   >>> session = LocalLauncher().start()
+   >>> data = session.render(1920, 1080, aa=4)
+   >>> with open("image.png", "wb") as f:
+   ...    f.write(data)
 
 
 License

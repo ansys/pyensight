@@ -3,7 +3,7 @@ import os
 
 from setuptools import setup
 
-REQUIREMENTS = ["grpcio"]
+REQUIREMENTS = ["grpcio", "requests"]
 
 curr_dir = os.path.abspath(os.path.dirname(__file__))
 

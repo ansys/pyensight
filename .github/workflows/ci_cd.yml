@@ -40,9 +40,13 @@ jobs:
         with:
           python-version: 3.8
 
+      - name: Build gRPC bindings from proto files
+        run: |
+          pip install -r requirements/build.txt
+          python codegen/generate.py
+
       - name: Create wheel
         run: |
-          pip install build
           python -m build --wheel
 
       - name: Validate wheel

@@ -1,1 +1,2 @@
-grpcio>=1.9.1
+grpcio>=1.46.3
+requests>=2.20.1
