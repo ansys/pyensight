@@ -51,15 +51,9 @@ Alternatively, clone and install in development mode with:
 
    git clone https://github.com/pyansys/pyensight
    cd src
-   pip install poetry
-   poetry install
+   pip install -r requirements/dev.txt
 
-This creates a new virtual environment, which can be activated with
-
-.. code::
-
-   poetry shell
-
+This creates a new virtual environment.
 
 Dependencies
 ------------

@@ -16,15 +16,12 @@ Then add the import within this module to enable:
    >>> pyensight.add(1, 2)
 
 """
+from ._version import VERSION
 
-version_info = 0, 1, "dev0"
-
-# Nice string for the version
-__version__ = ".".join(map(str, version_info))
+__version__ = VERSION
 
 # Default Ansys version number
 __ansys_version__ = "222"
-
 
 from ansys.pyensight.launcher import LocalLauncher
 from ansys.pyensight.launcher import Launcher
