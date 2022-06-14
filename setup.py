@@ -1,6 +1,5 @@
 """The setup script."""
 import os
-from io import open
 
 from setuptools import setup
 
@@ -10,14 +9,12 @@ curr_dir = os.path.abspath(os.path.dirname(__file__))
 
 
 def get_file_text(file_name):
-    with open(os.path.join(curr_dir, file_name), 'r', encoding='utf-8') as in_file:
+    with open(os.path.join(curr_dir, file_name), "r", encoding="utf-8") as in_file:
         return in_file.read()
 
 
 version = {}
-_version_file = os.path.join(
-    curr_dir, "src", "ansys", "pyensight", "_version.py"
-)
+_version_file = os.path.join(curr_dir, "src", "ansys", "pyensight", "_version.py")
 with open(_version_file) as fp:
     exec(fp.read(), version)
 
@@ -25,8 +22,8 @@ setup(
     name="ansys-ensight",
     version=version["VERSION"],
     description="Python interface to ANSYS-EnSight",
-    long_description=get_file_text('README.rst') + '\n\n' + get_file_text('CHANGELOG.rst'),
-    long_description_content_type='text/x-rst',
+    long_description=get_file_text("README.rst") + "\n\n" + get_file_text("CHANGELOG.rst"),
+    long_description_content_type="text/x-rst",
     author="ANSYS, Inc.",
     author_email="pyansys.support@ansys.com",
     maintainer="PyAnsys developers",
@@ -38,9 +35,9 @@ setup(
     zip_safe=False,
     classifiers=[
         "Development Status :: 4 - Beta",
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
-        'Operating System :: OS Independent',
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
@@ -55,7 +52,7 @@ setup(
         "Source Code": "https://github.com/pyansys/pyensight",
     },
     python_requires=">=3.7",
-    keywords='py ensight pyensight pyansys ansys',
-    test_suite='tests',
+    keywords="py ensight pyensight pyansys ansys",
+    test_suite="tests",
     install_requires=REQUIREMENTS,
 )

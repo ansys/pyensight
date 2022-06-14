@@ -16,7 +16,6 @@ Then add the import within this module to enable:
    >>> pyensight.add(1, 2)
 
 """
-
 from ._version import VERSION
 
 __version__ = VERSION
