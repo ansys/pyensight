@@ -14,8 +14,8 @@ import platform
 import shutil
 import subprocess
 import tempfile
-import uuid
 from typing import Optional
+import uuid
 
 from ansys import pyensight
 
