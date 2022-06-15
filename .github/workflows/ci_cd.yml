@@ -89,13 +89,25 @@ jobs:
       - name: Build HTML
         run: |
           make -C doc html SPHINXOPTS="-W"
+          touch doc/build/html/.nojekyll
 
       - name: Upload HTML Documentation
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v2
         with:
           name: Documentation-html
           path: doc/build/html
           retention-days: 7
+
+      - name: Deploy
+        if: github.ref == 'refs/heads/main'
+        uses: JamesIves/github-pages-deploy-action@4.2.0
+        with:
+          repository-name: pyansys/pyensight-dev-docs
+          token: ${{ secrets.PAT_DOCS_DEPLOY }}
+          branch: gh-pages
+          folder: doc/build/html
+          clean: true
 
   Release:
     if: contains(github.ref, 'refs/tags')
