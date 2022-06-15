@@ -119,9 +119,7 @@ class Session:
     def launcher(self, value: "pyensight.Launcher"):
         self._launcher = value
 
-    def show(
-        self, what: Literal["image", "webgl", "remote"] = "image"
-    ) -> Optional[str]:
+    def show(self, what: Literal["image", "webgl", "remote"] = "image") -> Optional[str]:
         """
         Cause the current EnSight scene to be captured or otherwise made available for
         display in a web browser.  The appropriate visuals are generated and the HTML
@@ -139,9 +137,7 @@ class Session:
                 if it is not possible to generate the content
         """
         if self._html_port is None:
-            raise RuntimeError(
-                "No websocketserver has been associated with this Session"
-            )
+            raise RuntimeError("No websocketserver has been associated with this Session")
 
         return ""
 
