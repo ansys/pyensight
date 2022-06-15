@@ -22,7 +22,9 @@ setup(
     name="ansys-ensight",
     version=version["VERSION"],
     description="Python interface to ANSYS-EnSight",
-    long_description=get_file_text("README.rst") + "\n\n" + get_file_text("CHANGELOG.rst"),
+    long_description=get_file_text("README.rst")
+    + "\n\n"
+    + get_file_text("CHANGELOG.rst"),
     long_description_content_type="text/x-rst",
     author="ANSYS, Inc.",
     author_email="pyansys.support@ansys.com",

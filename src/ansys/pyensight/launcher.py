@@ -73,7 +73,9 @@ class Launcher:
         return
 
     @staticmethod
-    def _find_unused_ports(count: int, avoid: Optional[List[int]] = None) -> Optional[List[int]]:
+    def _find_unused_ports(
+        count: int, avoid: Optional[List[int]] = None
+    ) -> Optional[List[int]]:
         """Find "count" unused ports on the host system
 
         A port is considered unused if it does not respond to a "connect" attempt.  Walk

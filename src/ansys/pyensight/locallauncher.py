@@ -80,7 +80,11 @@ class LocalLauncher(pyensight.Launcher):
             cmd[0] += ".bat"
             cmd.append("-minimize_console")
             _ = subprocess.Popen(
-                cmd, creationflags=8, close_fds=True, cwd=self._session_directory, env=local_env
+                cmd,
+                creationflags=8,
+                close_fds=True,
+                cwd=self._session_directory,
+                env=local_env,
             ).pid
         else:
             _ = subprocess.Popen(
@@ -90,7 +94,9 @@ class LocalLauncher(pyensight.Launcher):
         # Launch websocketserver
         # find websocketserver script
         found_scripts = glob.glob(
-            os.path.join(self._install_path, "nexus*", "nexus_launcher", "websocketserver.py")
+            os.path.join(
+                self._install_path, "nexus*", "nexus_launcher", "websocketserver.py"
+            )
         )
         if not found_scripts:
             raise RuntimeError("Unable to find websocketserver script")
@@ -175,7 +181,9 @@ class LocalLauncher(pyensight.Launcher):
                 dirs_to_check.append(os.environ["PYENSIGHT_ANSYS_INSTALLATION"])
             version = pyensight.__ansys_version__
             if f"AWP_ROOT{version}" in os.environ:
-                dirs_to_check.append(os.path.join(os.environ[f"AWP_ROOT{version}"], "CEI"))
+                dirs_to_check.append(
+                    os.path.join(os.environ[f"AWP_ROOT{version}"], "CEI")
+                )
             install_dir = f"/ansys_inc/v{version}/CEI"
             if platform.system().startswith("Wind"):
                 install_dir = rf"C:\Program Files\ANSYS Inc\v{version}\CEI"
@@ -186,4 +194,6 @@ class LocalLauncher(pyensight.Launcher):
             if os.path.exists(launch_file):
                 return install_dir
 
-        raise RuntimeError(f"Unable to detect an EnSight installation in: {dirs_to_check}")
+        raise RuntimeError(
+            f"Unable to detect an EnSight installation in: {dirs_to_check}"
+        )

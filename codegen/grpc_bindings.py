@@ -35,7 +35,9 @@ def generate_bindings() -> None:
         os.unlink(filename)
 
     # get the URI
-    proto_uris = [f"https://s3.amazonaws.com/www3.ensight.com/build/v{version}/ensight.proto"]
+    proto_uris = [
+        f"https://s3.amazonaws.com/www3.ensight.com/build/v{version}/ensight.proto"
+    ]
     proto_files = []
     for uri in proto_uris:
         result = requests.get(uri)
@@ -51,7 +53,8 @@ def generate_bindings() -> None:
         import grpc_tools  # noqa: F401, E501 # pylint: disable=unused-import, import-outside-toplevel
     except ImportError:
         raise ImportError(
-            "Missing ``grpcio-tools`` package. " "Install with `pip install grpcio-tools`"
+            "Missing ``grpcio-tools`` package. "
+            "Install with `pip install grpcio-tools`"
         )
 
     # Build the Python gRPC bindings
@@ -70,7 +73,9 @@ def generate_bindings() -> None:
     for grpc_filename in glob.glob(target_dir + "/*_grpc.py"):
         with open(grpc_filename, "rb") as fp:
             data = fp.read()
-        data = data.replace(b"import ensight_pb2", b"import ansys.api.ensight.v0.ensight_pb2")
+        data = data.replace(
+            b"import ensight_pb2", b"import ansys.api.ensight.v0.ensight_pb2"
+        )
         with open(grpc_filename, "wb") as fp:
             fp.write(data)
 

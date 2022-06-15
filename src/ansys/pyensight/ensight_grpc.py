@@ -29,7 +29,9 @@ class EnSightGRPC(object):
 
     """
 
-    def __init__(self, host: str = "127.0.0.1", port: int = 12345, secret_key: str = ""):
+    def __init__(
+        self, host: str = "127.0.0.1", port: int = 12345, secret_key: str = ""
+    ):
         self._host = host
         self._port = port
         self._channel = None
@@ -80,7 +82,9 @@ class EnSightGRPC(object):
         if self.is_connected():
             # if requested, send 'Exit'
             if stop_ensight:
-                _ = self._stub.Exit(ensight_pb2.ExitRequest(), metadata=self._metadata())
+                _ = self._stub.Exit(
+                    ensight_pb2.ExitRequest(), metadata=self._metadata()
+                )
             # clean up control objects
             self._stub = None
             self._dsg_stub = None
@@ -197,14 +201,18 @@ class EnSightGRPC(object):
         self.connect()
         try:
             response = self._stub.GetGeometry(
-                ensight_pb2.GeometryRequest(type=ensight_pb2.GeometryRequest.GEOMETRY_GLB),
+                ensight_pb2.GeometryRequest(
+                    type=ensight_pb2.GeometryRequest.GEOMETRY_GLB
+                ),
                 metadata=self._metadata(),
             )
         except Exception:
             raise IOError("gRPC connection dropped")
         return response.value
 
-    def command(self, command_string: str, do_eval: bool = True, json: bool = False) -> Any:
+    def command(
+        self, command_string: str, do_eval: bool = True, json: bool = False
+    ) -> Any:
         """Send a Python command string to be executed in EnSight
 
         The string will be run or evaluated in the EnSight Python interpreter via the
@@ -274,7 +282,8 @@ class EnSightGRPC(object):
             return
         self.connect()
         self._event_stream = self._stub.GetEventStream(
-            ensight_pb2.EventStreamRequest(prefix=self.prefix()), metadata=self._metadata()
+            ensight_pb2.EventStreamRequest(prefix=self.prefix()),
+            metadata=self._metadata(),
         )
         self._event_thread = threading.Thread(target=self._poll_events)
         self._event_thread.daemon = True
