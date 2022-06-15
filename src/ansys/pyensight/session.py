@@ -8,7 +8,7 @@ Examples:
     >>> type(session)
     ansys.pyensight.Session
 """
-from typing import Any, Literal, Optional
+from typing import Any, Optional
 
 
 class Session:
@@ -119,7 +119,7 @@ class Session:
     def launcher(self, value: "pyensight.Launcher"):
         self._launcher = value
 
-    def show(self, what: Literal["image", "webgl", "remote"] = "image") -> Optional[str]:
+    def show(self, what: str = "image") -> Optional[str]:
         """
         Cause the current EnSight scene to be captured or otherwise made available for
         display in a web browser.  The appropriate visuals are generated and the HTML
@@ -157,7 +157,7 @@ class Session:
         """
         return self._grpc.command(value)
 
-    def geometry(self, what: Literal["glb"] = "glb") -> bytes:
+    def geometry(self, what: str = "glb") -> bytes:
         """Return the current EnSight scene as a geometry file
 
         Args:
