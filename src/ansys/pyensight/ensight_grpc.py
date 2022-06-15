@@ -5,14 +5,12 @@ interface to the EnSight gRPC interface, including event streams.
 
 """
 import threading
+from typing import Any, List, Optional
 import uuid
-from typing import Any
-from typing import List
-from typing import Optional
 
 import grpc
-from ansys.api.ensight.v0 import ensight_pb2
-from ansys.api.ensight.v0 import ensight_pb2_grpc
+
+from ansys.api.ensight.v0 import ensight_pb2, ensight_pb2_grpc
 
 
 class EnSightGRPC(object):

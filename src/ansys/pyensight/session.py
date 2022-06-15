@@ -8,9 +8,7 @@ Examples:
     >>> type(session)
     ansys.pyensight.Session
 """
-from typing import Any
-from typing import Literal
-from typing import Optional
+from typing import Any, Literal, Optional
 
 
 class Session:

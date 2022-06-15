@@ -3,11 +3,19 @@ repos:
   rev: 22.3.0
   hooks:
   - id: black
-- repo: https://github.com/asottile/reorder_python_imports
-  rev: v2.7.1
+- repo: https://github.com/pycqa/isort
+  rev: 5.10.1
   hooks:
-  - id: reorder-python-imports
-    args: ["--py37-plus"]
+  - id: isort
+    args: [
+      --skip-glob, venv/*,
+      --force-sort-within-sections,
+      --line-length, "100",
+      --section-default, THIRDPARTY,
+      --filter-files,
+      --project, ansys,
+      ansys, codegen, doc, tests
+    ]
 - repo: https://gitlab.com/PyCQA/flake8
   rev: 3.9.2
   hooks:

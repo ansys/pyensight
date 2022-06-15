@@ -10,10 +10,10 @@ Examples:
 import abc
 import os.path
 import socket
-from typing import List
-from typing import Optional
+from typing import List, Optional
 
 import requests
+
 from ansys import pyensight
 
 

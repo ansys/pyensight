@@ -1,4 +1,4 @@
-from ._version import VERSION, DEFAULT_ANSYS_VERSION
+from ._version import DEFAULT_ANSYS_VERSION, VERSION
 
 __version__ = VERSION
 
