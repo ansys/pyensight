@@ -78,18 +78,15 @@ class LocalLauncher(pyensight.Launcher):
         cmd.extend(["-vnc", vnc_url])
         if is_windows:
             cmd[0] += ".bat"
-            cmd.append("-minimize_console")
-            _ = subprocess.Popen(
-                cmd,
-                creationflags=8,
-                close_fds=True,
-                cwd=self._session_directory,
-                env=local_env,
-            ).pid
-        else:
-            _ = subprocess.Popen(
-                cmd, close_fds=True, cwd=self._session_directory, env=local_env
-            ).pid
+        # cmd.append("-minimize_console")
+        _ = subprocess.Popen(
+            cmd,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            close_fds=True,
+            cwd=self._session_directory,
+            env=local_env,
+        ).pid
 
         # Launch websocketserver
         # find websocketserver script
