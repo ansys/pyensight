@@ -133,5 +133,7 @@ class Renderable:
         Returns:
             A URL to a webpage containing the vnc renderer
         """
-        url = f"http://{self._session.hostname}:{self._session.html_port}/ansys/nexus/novnc/vnc_envision.html?autoconnect=true&host={self._session.hostname}&port={self._session.ws_port}"
+        url = f"http://{self._session.hostname}:{self._session.html_port}"
+        url += "/ansys/nexus/novnc/vnc_envision.html"
+        url += f"?autoconnect=true&host={self._session.hostname}&port={self._session.ws_port}"
         return url
