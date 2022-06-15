@@ -174,6 +174,7 @@ class LocalLauncher(pyensight.Launcher):
         dirs_to_check = []
         if ansys_installation:
             dirs_to_check.append(os.path.join(ansys_installation, "CEI"))
+            dirs_to_check.append(ansys_installation)
         else:
             if "PYENSIGHT_ANSYS_INSTALLATION" in os.environ:
                 dirs_to_check.append(os.environ["PYENSIGHT_ANSYS_INSTALLATION"])
