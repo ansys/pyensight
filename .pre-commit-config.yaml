@@ -15,6 +15,7 @@ repos:
         args: [
             --profile, black,
             --skip-glob, venv/*,
+            --extend-skip-glob, src/ansys/api,
             --force-sort-within-sections,
             --line-length, "100",
             --section-default, THIRDPARTY,

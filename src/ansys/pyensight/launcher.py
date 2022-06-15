@@ -26,6 +26,14 @@ class Launcher:
 
     def __init__(self) -> None:
         self._sessions = []
+        self._session_directory: str = "."
+
+    @property
+    def session_directory(self):
+        """The root directory for HTML files
+        This directory contents can be accessed as http://hostname:port/...
+        """
+        return self._session_directory
 
     def close(self, session: "pyensight.Session") -> None:
         """Shutdown the launched EnSight session

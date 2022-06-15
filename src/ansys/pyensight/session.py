@@ -10,6 +10,8 @@ Examples:
 """
 from typing import Any, Optional
 
+from ansys.pyensight.renderable import Renderable
+
 
 class Session:
     """Class to access an EnSight instance
@@ -64,6 +66,12 @@ class Session:
         self._ws_port = ws_port
         self._secret_key = secret_key
         self._grpc_port = grpc_port
+        # are we in a jupyter notebook?
+        try:
+            _ = get_ipython()
+            self._jupyter_notebook = True
+        except NameError:
+            self._jupyter_notebook = False
 
         # Connect to the EnSight instance
         from ansys.pyensight import ensight_grpc  # pylint: disable=import-outside-toplevel
@@ -72,6 +80,18 @@ class Session:
             host=self._hostname, port=self._grpc_port, secret_key=self._secret_key
         )
         self._grpc.connect()
+
+    @property
+    def jupyter_notebook(self) -> bool:
+        """
+        True if the session is running in a jupyter notebook and should use
+        display features of that interface
+        """
+        return self._jupyter_notebook
+
+    @jupyter_notebook.setter
+    def jupyter_notebook(self, value: bool):
+        self._jupyter_notebook = value
 
     @property
     def grpc(self) -> "ensight_grpc.EnSightGRPC":
@@ -119,15 +139,28 @@ class Session:
     def launcher(self, value: "pyensight.Launcher"):
         self._launcher = value
 
-    def show(self, what: str = "image") -> Optional[str]:
+    def show(
+        self, what: str = "image", width: Optional[int] = None, height: Optional[int] = None
+    ) -> Optional[str]:
         """
         Cause the current EnSight scene to be captured or otherwise made available for
         display in a web browser.  The appropriate visuals are generated and the HTML
         for viewing is returned.
 
+        Legal values for the 'what' argument include:
+
+        * 'image' is a simple rendered png image
+        * 'webgl' is an interactive webgl-based browser viewer
+        * 'remote' is a remote rendering based interactive EnSight viewer
+
         Args:
             what:
-                The type of scene display to generate
+                The type of scene display to generate.  Three values are supported: 'image',
+                'webgl', 'remote'.
+            width:
+                The width of the rendered entity
+            height:
+                The height of the rendered entity
 
         Returns:
             HTML source code for the renderable.
@@ -138,8 +171,28 @@ class Session:
         """
         if self._html_port is None:
             raise RuntimeError("No websocketserver has been associated with this Session")
+        url = None
+        render = Renderable(self)
+        if what == "image":
+            url = render.image(width, height, aa=4)
+        elif what == "webgl":
+            url = render.webgl()
+        elif what == "remote":
+            url = render.vnc()
 
-        return ""
+        if url is None:
+            raise RuntimeError("Unable to generate requested visualization")
+
+        if not self.jupyter_notebook:
+            return url
+
+        if width is None:
+            width = 800
+        if height is None:
+            height = 600
+        from IPython.display import IFrame, display
+
+        return display(IFrame(src=url, width=width, height=height))
 
     def cmd(self, value: str) -> Any:
         """Run a command in EnSight and return the results

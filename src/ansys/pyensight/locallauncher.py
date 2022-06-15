@@ -43,8 +43,8 @@ class LocalLauncher(pyensight.Launcher):
         self._install_path: str = self.get_cei_install_directory(ansys_installation)
         # EnSight session secret key
         self._secret_key: str = str(uuid.uuid1())
-        # temporary directory
-        self._session_directory: str = tempfile.mkdtemp(prefix="pyensight_")
+        # temporary directory served by websocketserver
+        self._session_directory = tempfile.mkdtemp(prefix="pyensight_")
 
     def start(self) -> "pyensight.Session":
         """Start an EnSight session using the local ensight install
