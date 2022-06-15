@@ -1,27 +1,9 @@
-"""This init file allows python to treat directories containing it as modules.
-
-Import any methods you want exposed at your library level here.
-
-For example, if you want to avoid this behavior:
-
-.. code::
-
-   >>> from ansys.pyensight.module import add
-
-Then add the import within this module to enable:
-
-.. code::
-
-   >>> import ansys.pyensight as pyensight
-   >>> pyensight.add(1, 2)
-
-"""
-from ._version import VERSION
+from ._version import VERSION, DEFAULT_ANSYS_VERSION
 
 __version__ = VERSION
 
 # Default Ansys version number
-__ansys_version__ = "222"
+__ansys_version__ = DEFAULT_ANSYS_VERSION
 
 from ansys.pyensight.launcher import Launcher
 from ansys.pyensight.locallauncher import LocalLauncher
