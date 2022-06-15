@@ -92,7 +92,7 @@ jobs:
           touch doc/build/html/.nojekyll
 
       - name: Upload HTML Documentation
-        if: github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
         uses: actions/upload-artifact@v2
         with:
           name: Documentation-html
@@ -100,7 +100,7 @@ jobs:
           retention-days: 7
 
       - name: Deploy
-        if: github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
         uses: JamesIves/github-pages-deploy-action@4.2.0
         with:
           repository-name: pyansys/pyensight-dev-docs
