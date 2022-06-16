@@ -75,8 +75,9 @@ To install pyensight:
 
 Development
 -----------
+First, make sure you have a virtual environment with all dependencies as described under `Installation`.
 
-``pre-commit`` is a multi-language package manager for pre-commit hooks.
+`pre-commit <https://pre-commit.com/>`_ is a multi-language package manager for pre-commit hooks.
 
 To install pre-commit into your git hooks, run:
 
