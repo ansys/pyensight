@@ -11,6 +11,10 @@ PyEnSight
 .. |MIT| image:: https://img.shields.io/badge/License-MIT-yellow.svg
    :target: https://opensource.org/licenses/MIT
 
+.. image:: https://github.com/pyansys/pyensight/actions/workflows/ci_cd.yml/badge.svg?branch=main
+    :alt: Build status
+    :target: https://github.com/pyansys/pyensight/actions?query=branch%3Amain
+
 .. |black| image:: https://img.shields.io/badge/code_style-black-000000.svg
    :target: https://github.com/psf/black
 
