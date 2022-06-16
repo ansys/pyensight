@@ -3,7 +3,10 @@ import os
 
 from setuptools import find_namespace_packages, setup
 
-REQUIREMENTS = ["grpcio", "requests"]
+REQUIREMENTS = [
+    "grpcio>=1.23.0",
+    "requests>=2.20.1"
+]
 
 curr_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -26,14 +29,14 @@ for package in find_namespace_packages(where="src", include="ansys*"):
 setup(
     name="ansys-ensight",
     version=version["VERSION"],
-    description="Python interface to ANSYS-EnSight",
+    description="Python interface to Ansys EnSight",
     long_description=get_file_text("README.rst") + "\n\n" + get_file_text("CHANGELOG.rst"),
     long_description_content_type="text/x-rst",
     author="ANSYS, Inc.",
     author_email="pyansys.support@ansys.com",
     maintainer="PyAnsys developers",
     maintainer_email="pyansys.maintainers@ansys.com",
-    license="MIT license",
+    license="MIT",
     packages=packages,
     package_dir={"": "src"},
     include_package_data=True,
@@ -51,7 +54,7 @@ setup(
     ],
     url="https://github.com/pyansys/pyensight",
     project_urls={
-        "Documentation": "https://docs.pyansys.com/",
+        "Documentation": "https://furry-waffle-422870de.pages.github.io/",
         "Changelog": "https://github.com/pyansys/pyensight/blob/main/CHANGELOG.rst",
         "Bug Tracker": "https://github.com/pyansys/pyensight/issues",
         "Source Code": "https://github.com/pyansys/pyensight",
