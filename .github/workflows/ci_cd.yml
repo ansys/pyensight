@@ -46,6 +46,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Create wheel
+        run: make build
+
       - name: Install pyensight
         run: make install
 
@@ -72,7 +75,7 @@ jobs:
       - name: Validate wheel
         run: twine check dist/*
 
-      - name: Install library
+      - name: Install pyensight
         run: make install
 
       - name: Install test requirements
