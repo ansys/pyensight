@@ -53,29 +53,61 @@ Alternatively, clone and install in development mode with:
 .. code::
 
    git clone https://github.com/pyansys/pyensight
-   cd src
+   cd pyensight
    pip install virtualenv
-   virtualenv venv
-   source venv/bin/activate # (just venv/bin/activate for Windows)
-   pip install -r requirements/dev.txt
+   virtualenv venv  # create virtual environment
+   source venv/bin/activate  # (.\venv\Scripts\activate for Windows shell)
+   pip install -r requirements/dev.txt  # install dependencies
 
-This creates a new virtual environment.
+To install pyensight:
 
-Dependencies
-------------
-You will need a locally installed and licenced copy of Ansys to run EnSight, with the
-first supported version being Ansys 2022 R2.
+.. code::
+
+   make clean  # clean
+   make build   # build
+   make install  # install
+   make smoketest  # test import
 
 
-Documentation and Issues
-------------------------
-Please see the latest release `documentation <https://pyensightdocs.pyansys.com>`_
-page for more details.
+Development
+-----------
 
-Please feel free to post issues and other questions at `PyEnSight Issues
-<https://github.com/pyansys/pyensight/issues>`_.  This is the best place
-to post questions and code.
+``pre-commit`` is a multi-language package manager for pre-commit hooks.
 
+To install pre-commit into your git hooks, run:
+
+.. code::
+
+   pre-commit install
+
+pre-commit will now run on every commit. Every time you clone a project using pre-commit, this should always be the first thing you do.
+
+If you want to manually run all pre-commit hooks on a repository, run:
+
+.. code::
+
+   pre-commit run --all-files
+
+This will run a bunch of formatters on your source files.
+
+To run individual hooks, use:
+
+.. code::
+
+   pre-commit run <hook_id>
+
+``<hook_id>`` can be obtained from ``.pre-commit-config.yaml``.
+The first time pre-commit runs on a file, it will automatically download, install, and run the hook.
+
+
+To simulate GitHub Actions on your local desktop (recommended), install `act <https://github.com/nektos/act#readme>`_.
+To run a job, for example - ``docs`` from ``ci_cd.yml``, use:
+
+.. code::
+
+   act -j docs
+
+Deploy and upload steps are always ignored. If not, add ``if: ${{ !env.ACT }}`` to the workflow step before running.
 
 Usage
 -----
@@ -88,6 +120,22 @@ The simplest PyEnSight session may be started like this:
    >>> data = session.render(1920, 1080, aa=4)
    >>> with open("image.png", "wb") as f:
    ...    f.write(data)
+
+
+Dependencies
+------------
+You will need a locally installed and licensed copy of Ansys to run EnSight, with the
+first supported version being Ansys 2022 R2.
+
+
+Documentation and Issues
+------------------------
+Please see the latest release `documentation <https://pyensightdocs.pyansys.com>`_
+page for more details.
+
+Please feel free to post issues and other questions at `PyEnSight Issues
+<https://github.com/pyansys/pyensight/issues>`_.  This is the best place
+to post questions and code.
 
 
 License
