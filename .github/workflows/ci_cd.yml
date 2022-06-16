@@ -46,6 +46,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Install build requirements
+        run: pip install -r requirements/build.txt
+
       - name: Create wheel
         run: make build
 
