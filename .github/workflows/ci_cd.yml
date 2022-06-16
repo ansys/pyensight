@@ -12,7 +12,7 @@ on:
 
 jobs:
   style:
-    name: Pre-commit Check
+    name: Style check
     runs-on: ubuntu-latest
 
     steps:
@@ -29,8 +29,31 @@ jobs:
         run: |
           pre-commit run --all-files || ( git status --short ; git diff ; exit 1 )
 
+
+  test-import:
+    name: Smoke test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ windows-latest, ubuntu-latest ]
+        python-version: [ '3.7', '3.8', '3.9', '3.10' ]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install pyensight
+        run: make install
+
+      - name: Test import
+        run: make smoketest
+
   main:
-    name: Build and Testing
+    name: Build & test
     runs-on: ubuntu-latest
 
     steps:
@@ -40,22 +63,17 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Build gRPC bindings from proto files
-        run: |
-          pip install -r requirements/build.txt
-          python codegen/generate.py
+      - name: Install build requirements
+        run: pip install -r requirements/build.txt
 
       - name: Create wheel
-        run: |
-          python -m build --wheel
+        run: make build
 
       - name: Validate wheel
-        run: |
-          pip install twine
-          twine check dist/*
+        run: twine check dist/*
 
       - name: Install library
-        run: pip install -e .
+        run: make install
 
       - name: Install test requirements
         run: pip install -r requirements/test.txt
@@ -66,6 +84,7 @@ jobs:
           pytest -vx
 
       - name: Upload wheel
+        if: ${{ !env.ACT }}
         uses: actions/upload-artifact@v2
         with:
           name: ansys-product-library-wheel
@@ -73,7 +92,7 @@ jobs:
           retention-days: 7
 
   docs:
-    name: Build Documentation
+    name: Build docs
     runs-on: ubuntu-latest
 
     steps:
@@ -83,7 +102,7 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Install library, with docs extra
+      - name: Install doc requirements
         run: pip install -r requirements/docs.txt
 
       - name: Build HTML
@@ -92,7 +111,7 @@ jobs:
           touch doc/build/html/.nojekyll
 
       - name: Upload HTML Documentation
-        if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
+        if: ${{ !env.ACT }} && github.event_name == 'push' && contains(github.ref, 'refs/tags')
         uses: actions/upload-artifact@v2
         with:
           name: Documentation-html
@@ -109,9 +128,10 @@ jobs:
           folder: doc/build/html
           clean: true
 
-  Release:
+  release:
+    name: Release
     if: contains(github.ref, 'refs/tags')
-    needs: [main, style, docs]
+    needs: [ main, style, docs ]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
@@ -147,6 +167,7 @@ jobs:
 
       # note how we use the PyPI tokens
       - name: Upload to Azure PyPi (disabled)
+        if: ${{ !env.ACT }}
         run: |
           pip install twine
           # twine upload --skip-existing ./**/*.whl
