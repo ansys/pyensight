@@ -54,6 +54,9 @@ Alternatively, clone and install in development mode with:
 
    git clone https://github.com/pyansys/pyensight
    cd src
+   pip install virtualenv
+   virtualenv venv
+   source venv/bin/activate # (just venv/bin/activate for Windows)
    pip install -r requirements/dev.txt
 
 This creates a new virtual environment.
