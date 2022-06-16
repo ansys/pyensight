@@ -17,6 +17,7 @@
 .fuse_hidden*
 *~
 *swp
+.DS_Store
 
 # emacs
 flycheck*
@@ -48,4 +49,4 @@ test-output.xml
 
 # PyCharm
 .idea/
-.DS_Store
+venv/

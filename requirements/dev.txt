@@ -6,4 +6,3 @@ ipdb>=0.9.4
 -r docs.txt
 -r test.txt
 -r build.txt
--r pre-commit.txt
