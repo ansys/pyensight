@@ -48,3 +48,4 @@ test-output.xml
 
 # PyCharm
 .idea/
+.DS_Store
