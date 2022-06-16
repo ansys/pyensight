@@ -9,14 +9,27 @@ all: doctest flake8
 doctest: codespell
 
 codespell:
-	@echo "Running codespell"
-	@codespell $(CODESPELL_DIRS) -S $(CODESPELL_SKIP) # -I $(CODESPELL_IGNORE)
+	echo "Running codespell"
+	codespell $(CODESPELL_DIRS) -S $(CODESPELL_SKIP) # -I $(CODESPELL_IGNORE)
 
 flake8:
-	@echo "Running flake8"
-	@flake8 .
+	echo "Running flake8"
+	flake8 .
+
+build:
+	rm -rf dist
+	python codegen/generate.py
+	python -m build --wheel
+	rm -rf build
 
 install:
-	@pip install -r requirements/build.txt
-	@python -m build --wheel
-	@pip install dist/*.whl
+	pip uninstall ansys-ensight -y
+	pip install dist/*.whl
+
+smoketest:
+	python -c "from ansys.pyensight import LocalLauncher"
+
+clean:
+	rm -rf dist build
+	rm -rf src/ansys/api
+	rm -rf src/*.egg-info
