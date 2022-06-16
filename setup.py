@@ -1,7 +1,7 @@
 """The setup script."""
 import os
 
-from setuptools import setup
+from setuptools import setup, find_namespace_packages
 
 REQUIREMENTS = ["grpcio", "requests"]
 
@@ -18,6 +18,11 @@ _version_file = os.path.join(curr_dir, "src", "ansys", "pyensight", "_version.py
 with open(_version_file) as fp:
     exec(fp.read(), version)
 
+packages = []
+for package in find_namespace_packages(where="src", include="ansys*"):
+    if package.startswith("ansys.pyensight"):
+        packages.append(package)
+
 setup(
     name="ansys-ensight",
     version=version["VERSION"],
@@ -29,7 +34,7 @@ setup(
     maintainer="PyAnsys developers",
     maintainer_email="pyansys.maintainers@ansys.com",
     license="MIT license",
-    packages=["ansys"],
+    packages=packages,
     package_dir={"": "src"},
     include_package_data=True,
     zip_safe=False,
