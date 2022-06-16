@@ -1,7 +1,7 @@
 """The setup script."""
 import os
 
-from setuptools import setup, find_namespace_packages
+from setuptools import find_namespace_packages, setup
 
 REQUIREMENTS = ["grpcio", "requests"]
 
@@ -20,7 +20,7 @@ with open(_version_file) as fp:
 
 packages = []
 for package in find_namespace_packages(where="src", include="ansys*"):
-    if package.startswith("ansys.pyensight"):
+    if package.startswith("ansys.pyensight") or package.startswith("ansys.api"):
         packages.append(package)
 
 setup(

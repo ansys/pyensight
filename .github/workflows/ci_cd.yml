@@ -29,7 +29,6 @@ jobs:
         run: |
           pre-commit run --all-files || ( git status --short ; git diff ; exit 1 )
 
-
   test-import:
     name: Smoke test
     runs-on: ${{ matrix.os }}
@@ -57,7 +56,6 @@ jobs:
 
       - name: Test import
         run: make smoketest
-
   main:
     name: Build & test
     runs-on: ubuntu-latest
@@ -96,7 +94,6 @@ jobs:
           name: ansys-product-library-wheel
           path: dist/
           retention-days: 7
-
   docs:
     name: Build docs
     runs-on: ubuntu-latest
@@ -133,7 +130,6 @@ jobs:
           branch: gh-pages
           folder: doc/build/html
           clean: true
-
   release:
     name: Release
     if: contains(github.ref, 'refs/tags')
