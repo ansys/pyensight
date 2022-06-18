@@ -113,7 +113,7 @@ To run a job, for example - ``docs`` from ``ci_cd.yml``, use:
 
    act -j docs
 
-Deploy and upload steps are always ignored. If not, add ``if: ${{ !env.ACT }}`` to the workflow step before running.
+Deploy and upload steps `must always` be ignored. If not, please add ``if: ${{ !env.ACT }}`` to the workflow step (and commit if required) before running.
 
 Usage
 -----
