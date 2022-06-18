@@ -9,6 +9,7 @@ Examples:
     ansys.pyensight.Session
 """
 from typing import Any, Optional
+import webbrowser
 
 from ansys.pyensight.renderable import Renderable
 
@@ -139,6 +140,12 @@ class Session:
     def launcher(self, value: "pyensight.Launcher"):
         self._launcher = value
 
+    @staticmethod
+    def help():
+        """Open the help pages for the pyansys project"""
+        url = "https://furry-waffle-422870de.pages.github.io/"
+        webbrowser.open(url)
+
     def show(
         self, what: str = "image", width: Optional[int] = None, height: Optional[int] = None
     ) -> Optional[str]:
@@ -163,7 +170,7 @@ class Session:
                 The height of the rendered entity
 
         Returns:
-            HTML source code for the renderable.
+            URL for the renderable.
 
         Raises:
             RuntimeError:
@@ -171,6 +178,7 @@ class Session:
         """
         if self._html_port is None:
             raise RuntimeError("No websocketserver has been associated with this Session")
+
         url = None
         render = Renderable(self)
         if what == "image":
@@ -183,16 +191,16 @@ class Session:
         if url is None:
             raise RuntimeError("Unable to generate requested visualization")
 
-        if not self.jupyter_notebook:
-            return url
+        if self.jupyter_notebook:
+            if width is None:
+                width = 800
+            if height is None:
+                height = 600
+            from IPython.display import IFrame, display
 
-        if width is None:
-            width = 800
-        if height is None:
-            height = 600
-        from IPython.display import IFrame, display
+            display(IFrame(src=url, width=width, height=height))
 
-        return display(IFrame(src=url, width=width, height=height))
+        return url
 
     def cmd(self, value: str) -> Any:
         """Run a command in EnSight and return the results

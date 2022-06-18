@@ -22,14 +22,14 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Install pre-commit requirements
-        run: pip install -r requirements/pre-commit.txt
+      - name: Install pre-commit
+        run: pip install pre-commit
 
       - name: Run pre-commit
         run: |
           pre-commit run --all-files || ( git status --short ; git diff ; exit 1 )
 
-  test-import:
+  smoketest:
     name: Smoke test
     runs-on: ${{ matrix.os }}
     strategy:
@@ -122,7 +122,7 @@ jobs:
           retention-days: 7
 
       - name: Deploy
-        if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
+        if: ${{ !env.ACT }} && github.event_name == 'push' && contains(github.ref, 'refs/tags')
         uses: JamesIves/github-pages-deploy-action@4.2.0
         with:
           repository-name: pyansys/pyensight-dev-docs
@@ -161,6 +161,7 @@ jobs:
         run: ls -R
 
       - name: Deploy
+        if: ${{ !env.ACT }}
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
           BRANCH: gh-pages
