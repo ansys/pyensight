@@ -27,7 +27,7 @@ jobs:
 
       - name: Run pre-commit
         run: |
-          pre-commit run --verbose --all-files || ( git status --short ; git diff ; exit 1 )
+          pre-commit run --hook-stage manual --all-files --verbose || ( git status --short ; git diff ; exit 1 )
 
   smoketest:
     name: Smoke test

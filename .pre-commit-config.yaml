@@ -3,10 +3,15 @@ repos:
     rev: v4.3.0
     hooks:
       - id: check-yaml
+        stages: [commit]
       - id: check-added-large-files
+        stages: [commit]
       - id: check-case-conflict
+        stages: [commit]
       - id: debug-statements
+        stages: [commit]
       - id: no-commit-to-branch
+        stages: [commit]
         args: [
             --branch, main,
             --pattern, release/.*
@@ -15,6 +20,7 @@ repos:
     rev: 22.3.0
     hooks:
       - id: black
+        stages: [manual]
         args: [
             --line-length, "100",
             --target-version, "py37",
@@ -24,6 +30,7 @@ repos:
     rev: 5.10.1
     hooks:
       - id: isort
+        stages: [manual]
         args: [
             --profile, black,
             --skip-glob, venv/*,
@@ -39,10 +46,12 @@ repos:
     rev: 3.9.2
     hooks:
       - id: flake8
+        stages: [manual]
   - repo: https://github.com/codespell-project/codespell
     rev: v2.1.0
     hooks:
       - id: codespell
+        stages: [manual]
 # - repo: https://github.com/pycqa/pydocstyle
 #   rev: 6.1.1
 #   hooks:
