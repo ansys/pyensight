@@ -7,7 +7,6 @@ Examples:
 >>> from ansys.pyensight import LocalLauncher
 >>> session = LocalLauncher().start()
 """
-import abc
 import os.path
 import socket
 from typing import List, Optional
@@ -35,6 +34,10 @@ class Launcher:
         """
         return self._session_directory
 
+    @session_directory.setter
+    def session_directory(self, value: str):
+        self._session_directory = value
+
     def close(self, session: "pyensight.Session") -> None:
         """Shutdown the launched EnSight session
 
@@ -53,7 +56,7 @@ class Launcher:
             return
 
         # if the session list is empty, stop the EnSight instance (via session grpc interface)
-        session.grpc.shutdown(stop_ensight=True)
+        session.grpc.shutdown(stop_ensight=True, force=True)
 
         # stop the websocketserver instance
         url = f"http://{session.hostname}:{session.html_port}/v1/stop"
@@ -64,12 +67,17 @@ class Launcher:
         # Stop the launcher instance
         self.stop()
 
-    @abc.abstractmethod
     def start(self) -> "pyensight.Session":
-        """Base method for starting the actual session"""
-        return pyensight.Session()
+        """Base method for starting the actual session
 
-    @abc.abstractmethod
+        The base launcher class is used internally and does not support
+        this method.  Subclasses do support this method
+
+        Raises:
+            RuntimeError
+        """
+        raise RuntimeError("Unsupported method for this configuration")
+
     def stop(self) -> None:
         """Base method for stopping a session initiated by start()
 

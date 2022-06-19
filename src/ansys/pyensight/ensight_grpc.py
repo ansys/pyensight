@@ -23,10 +23,12 @@ class EnSightGRPC(object):
     gRPC server on port 12345 on the loopback host.
 
     Args:
-        host: Hostname where there EnSight gRPC server is running.
-        port: Port to make the gRPC connection to
-        secret_key: Connection secret key
-
+        host:
+            Hostname where there EnSight gRPC server is running.
+        port:
+            Port to make the gRPC connection to
+        secret_key:
+            Connection secret key
     """
 
     def __init__(self, host: str = "127.0.0.1", port: int = 12345, secret_key: str = ""):
@@ -67,20 +69,31 @@ class EnSightGRPC(object):
     def security_token(self, name: str) -> None:
         self._security_token = name
 
-    def shutdown(self, stop_ensight: bool = False) -> None:
+    def shutdown(self, stop_ensight: bool = False, force: bool = False) -> None:
         """Close down the gRPC connection
 
         Disconnect all connections to the gRPC server.  If stop_ensight is True, send the
         'Exit' command to the EnSight gRPC server.
 
         Args:
-            stop_ensight: if True, send an 'Exit' command to the gRPC server.
-
+            stop_ensight:
+                if True, send an 'Exit' command to the gRPC server.
+            force:
+                if stop_ensight and force are true, stop EnSight aggressively
         """
         if self.is_connected():
             # if requested, send 'Exit'
             if stop_ensight:
-                _ = self._stub.Exit(ensight_pb2.ExitRequest(), metadata=self._metadata())
+                # the gRPC ExitRequest is exactly that, a request in some
+                # cases the operation needs to be forced
+                if force:
+                    try:
+                        self.command("ensight.exit(0)", do_eval=False)
+                    except IOError:
+                        # we expect this as the exit can result in the gRPC call failing
+                        pass
+                else:
+                    _ = self._stub.Exit(ensight_pb2.ExitRequest(), metadata=self._metadata())
             # clean up control objects
             self._stub = None
             self._dsg_stub = None
@@ -103,7 +116,8 @@ class EnSightGRPC(object):
         returns, but is_connected() will return False.
 
         Args:
-            timeout: how long to wait for the connection to timeout
+            timeout:
+                how long to wait for the connection to timeout
         """
         if self.is_connected():
             return
@@ -147,12 +161,17 @@ class EnSightGRPC(object):
         passes.  The return value can be a byte array (width*height*3) bytes or a PNG image.
 
         Args:
-            width: the width of the image to render
-            height: the height of the image to render
-            aa: the number of antialiasing passes to use in generating the image
-            png: if true, the return value is a PNG image bytestream.  Otherwise, it is a simple
+            width:
+                width of the image to render
+            height:
+                height of the image to render
+            aa:
+                number of antialiasing passes to use in generating the image
+            png:
+                if True, the return value is a PNG image bytestream.  Otherwise, it is a simple
                 bytes object with width*height*3 values.
-            highlighting: if True, selection highlighting will be included in the image.
+            highlighting:
+                if True, selection highlighting will be included in the image.
 
         Returns:
             bytes object representation of the rendered image
@@ -214,9 +233,12 @@ class EnSightGRPC(object):
         value will be a JSON representation of the report execution result.
 
         Args:
-            command_string: The string to execute
-            do_eval: If True, a return value will be computed and returned
-            json: If True and do_eval is True, the return value will be a JSON representation of
+            command_string:
+                The string to execute
+            do_eval:
+                If True, a return value will be computed and returned
+            json:
+                If True and do_eval is True, the return value will be a JSON representation of
                 the evaluated value.
 
         Returns:

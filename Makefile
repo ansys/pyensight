@@ -15,6 +15,9 @@ flake8:
 	echo "Running flake8"
 	flake8 .
 
+generate:
+	python codegen/generate.py
+
 build:
 	python codegen/generate.py
 	python -m build --wheel
@@ -31,3 +34,6 @@ clean:
 	rm -rf dist build
 	rm -rf src/ansys/api
 	rm -rf src/*.egg-info
+	rm -f codegen/ensight.proto
+	rm -f codegen/ensight_api.xml
+	rm -rf src/ansys/pyensight/ensight_api.py

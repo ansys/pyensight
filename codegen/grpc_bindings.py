@@ -7,6 +7,7 @@ Usage
 """
 import glob
 import os.path
+import shutil
 import sys
 
 import requests
@@ -45,6 +46,7 @@ def generate_bindings() -> None:
         with open(proto_name, "w", encoding="utf8") as fp:
             fp.write(result.text)
         proto_files.append(proto_name)
+        shutil.copy(proto_name, target_dir)
 
     # verify proto tools are installed
     try:

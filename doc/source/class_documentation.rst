@@ -4,8 +4,8 @@ Generate APIs Documentation
 
 Autosummary Directive
 ~~~~~~~~~~~~~~~~~~~~~
-We use a custom class template (included in ``_template`` to
-automatically generate class and method documentation.
+We use a custom    ansys.pyensight.ensight_api.template (included in ``_template`` to
+automatically generate    ansys.pyensight.ensight_api.and method documentation.
 
 .. autosummary::
    :toctree: _autosummary/
@@ -13,5 +13,92 @@ automatically generate class and method documentation.
    ansys.pyensight.Launcher
    ansys.pyensight.LocalLauncher
    ansys.pyensight.Session
+   ansys.pyensight.ensight_api
+   ansys.pyensight.ensight_api.anim
+   ansys.pyensight.ensight_api.anim_flipbook
+   ansys.pyensight.ensight_api.anim_keyframe
+   ansys.pyensight.ensight_api.anim_quick
+   ansys.pyensight.ensight_api.anim_recorders
+   ansys.pyensight.ensight_api.anim_screens
+   ansys.pyensight.ensight_api.anim_traces
+   ansys.pyensight.ensight_api.annot_backgr
+   ansys.pyensight.ensight_api.annot_entlbl
+   ansys.pyensight.ensight_api.annotation
+   ansys.pyensight.ensight_api.arrow
+   ansys.pyensight.ensight_api.auxgeom
+   ansys.pyensight.ensight_api.boundarylayer
+   ansys.pyensight.ensight_api.case
+   ansys.pyensight.ensight_api.clip
+   ansys.pyensight.ensight_api.collab
+   ansys.pyensight.ensight_api.command
+   ansys.pyensight.ensight_api.connect
+   ansys.pyensight.ensight_api.context_restore
+   ansys.pyensight.ensight_api.contour
+   ansys.pyensight.ensight_api.curve
+   ansys.pyensight.ensight_api.data
+   ansys.pyensight.ensight_api.data_partbuild
+   ansys.pyensight.ensight_api.define
+   ansys.pyensight.ensight_api.devsrf
+   ansys.pyensight.ensight_api.dial
+   ansys.pyensight.ensight_api.dpart
+   ansys.pyensight.ensight_api.elevsurf
+   ansys.pyensight.ensight_api.ensight
+   ansys.pyensight.ensight_api.enums
+   ansys.pyensight.ensight_api.extrude
+   ansys.pyensight.ensight_api.file
+   ansys.pyensight.ensight_api.filterpart
+   ansys.pyensight.ensight_api.format
+   ansys.pyensight.ensight_api.frame
+   ansys.pyensight.ensight_api.function
+   ansys.pyensight.ensight_api.gauge
+   ansys.pyensight.ensight_api.help
+   ansys.pyensight.ensight_api.isos
+   ansys.pyensight.ensight_api.legend
+   ansys.pyensight.ensight_api.lightsource
+   ansys.pyensight.ensight_api.line
+   ansys.pyensight.ensight_api.logo
+   ansys.pyensight.ensight_api.material
+   ansys.pyensight.ensight_api.message_window
+   ansys.pyensight.ensight_api.model
+   ansys.pyensight.ensight_api.nplot
+   ansys.pyensight.ensight_api.nvc
+   ansys.pyensight.ensight_api.objs
+   ansys.pyensight.ensight_api.part
+   ansys.pyensight.ensight_api.plot
+   ansys.pyensight.ensight_api.pointpart
+   ansys.pyensight.ensight_api.prefs
+   ansys.pyensight.ensight_api.profile
+   ansys.pyensight.ensight_api.ptrace
+   ansys.pyensight.ensight_api.ptrace_emitr
+   ansys.pyensight.ensight_api.query_ent_var
+   ansys.pyensight.ensight_api.query_interact
+   ansys.pyensight.ensight_api.savegeom
+   ansys.pyensight.ensight_api.scene
+   ansys.pyensight.ensight_api.sepattach
+   ansys.pyensight.ensight_api.set_tdata
+   ansys.pyensight.ensight_api.set_visenv
+   ansys.pyensight.ensight_api.shape
+   ansys.pyensight.ensight_api.shell
+   ansys.pyensight.ensight_api.shock
+   ansys.pyensight.ensight_api.show_info
+   ansys.pyensight.ensight_api.solution_time
+   ansys.pyensight.ensight_api.species
+   ansys.pyensight.ensight_api.subset
+   ansys.pyensight.ensight_api.tensor
+   ansys.pyensight.ensight_api.text
+   ansys.pyensight.ensight_api.texture
+   ansys.pyensight.ensight_api.tools
+   ansys.pyensight.ensight_api.user
+   ansys.pyensight.ensight_api.varextcfd
+   ansys.pyensight.ensight_api.variables
+   ansys.pyensight.ensight_api.vctarrow
+   ansys.pyensight.ensight_api.view
+   ansys.pyensight.ensight_api.view_transf
+   ansys.pyensight.ensight_api.viewport
+   ansys.pyensight.ensight_api.viewport_axis
+   ansys.pyensight.ensight_api.viewport_bounds
+   ansys.pyensight.ensight_api.views
+   ansys.pyensight.ensight_api.vof
+   ansys.pyensight.ensight_api.vortexcore
 
 Note how each method or attribute has its own page.

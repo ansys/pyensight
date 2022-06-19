@@ -11,6 +11,7 @@ Examples:
 from typing import Any, Optional
 import webbrowser
 
+from ansys import pyensight
 from ansys.pyensight.renderable import Renderable
 
 
@@ -58,8 +59,8 @@ class Session:
         grpc_port: int = 12345,
         html_port: Optional[int] = None,
         ws_port: Optional[int] = None,
+        session_directory: Optional[str] = None,
     ) -> None:
-
         self._hostname = host
         self._install_path = install_path
         self._launcher = None
@@ -67,6 +68,12 @@ class Session:
         self._ws_port = ws_port
         self._secret_key = secret_key
         self._grpc_port = grpc_port
+        # if the caller passed a session directory we will assume they are
+        # creating effectively a proxy Session and create a lacu
+        if session_directory is not None:
+            self._launcher = pyensight.Launcher()
+            self._launcher.session_directory = session_directory
+
         # are we in a jupyter notebook?
         try:
             _ = get_ipython()
@@ -75,12 +82,20 @@ class Session:
             self._jupyter_notebook = False
 
         # Connect to the EnSight instance
+        from ansys.pyensight import ensight_api  # pylint: disable=import-outside-toplevel
         from ansys.pyensight import ensight_grpc  # pylint: disable=import-outside-toplevel
 
+        self._ensight = ensight_api.ensight(self)
         self._grpc = ensight_grpc.EnSightGRPC(
             host=self._hostname, port=self._grpc_port, secret_key=self._secret_key
         )
         self._grpc.connect()
+
+    def __repr__(self):
+        s = f"Session(host='{self.hostname}', secret_key='{self.secret_key}', "
+        s += f"html_port={self.html_port}, grpc_port={self._grpc_port},"
+        s += f"ws_port={self.ws_port}, session_directory=r'{self.launcher.session_directory}')"
+        return s
 
     @property
     def jupyter_notebook(self) -> bool:
@@ -93,6 +108,13 @@ class Session:
     @jupyter_notebook.setter
     def jupyter_notebook(self, value: bool):
         self._jupyter_notebook = value
+
+    @property
+    def ensight(self) -> "ensight_api.ensight":
+        """
+        Core EnSight API wrapper
+        """
+        return self._ensight
 
     @property
     def grpc(self) -> "ensight_grpc.EnSightGRPC":
@@ -202,13 +224,14 @@ class Session:
 
         return url
 
-    def cmd(self, value: str) -> Any:
+    def cmd(self, value: str, do_eval: bool = True) -> Any:
         """Run a command in EnSight and return the results
 
         Args:
             value:
                 String of the command to run
-
+            do_eval:
+                If True, a return value will be computed and returned
         Returns:
             result of the string being executed as Python inside EnSight
 
@@ -216,7 +239,7 @@ class Session:
             >>> print(session.cmd("10+4"))
             14
         """
-        return self._grpc.command(value)
+        return self._grpc.command(value, do_eval=do_eval)
 
     def geometry(self, what: str = "glb") -> bytes:
         """Return the current EnSight scene as a geometry file

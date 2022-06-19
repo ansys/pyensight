@@ -7,13 +7,13 @@ Examples:
     >>> from ansys.pyensight import LocalLauncher
     >>> session = LocalLauncher().start()
 """
-import atexit
 import glob
 import os.path
 import platform
 import shutil
 import subprocess
 import tempfile
+import time
 from typing import Optional
 import uuid
 
@@ -45,6 +45,9 @@ class LocalLauncher(pyensight.Launcher):
         self._secret_key: str = str(uuid.uuid1())
         # temporary directory served by websocketserver
         self._session_directory = tempfile.mkdtemp(prefix="pyensight_")
+        # launched process ids
+        self._ensight_pid = None
+        self._websocketserver_pid = None
 
     def start(self) -> "pyensight.Session":
         """Start an EnSight session using the local ensight install
@@ -79,7 +82,7 @@ class LocalLauncher(pyensight.Launcher):
         if is_windows:
             cmd[0] += ".bat"
         # cmd.append("-minimize_console")
-        _ = subprocess.Popen(
+        self._ensight_pid = subprocess.Popen(
             cmd,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
@@ -111,7 +114,7 @@ class LocalLauncher(pyensight.Launcher):
         if is_windows:
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-            _ = subprocess.Popen(
+            self._websocketserver_pid = subprocess.Popen(
                 cmd,
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
@@ -120,7 +123,7 @@ class LocalLauncher(pyensight.Launcher):
                 startupinfo=startupinfo,
             ).pid
         else:
-            _ = subprocess.Popen(
+            self._websocketserver_pid = subprocess.Popen(
                 cmd,
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
@@ -144,7 +147,17 @@ class LocalLauncher(pyensight.Launcher):
 
     def stop(self) -> None:
         """Release any additional resources allocated during launching"""
-        atexit.register(shutil.rmtree, self._session_directory)
+        maximum_wait_secs = 120.0
+        start_time = time.time()
+        while (time.time() - start_time) < maximum_wait_secs:
+            try:
+                shutil.rmtree(self.session_directory)
+                return
+            except PermissionError:
+                pass
+            except Exception:
+                raise
+        raise RuntimeError(f"Unable to remove {self.session_directory} in {maximum_wait_secs}s")
 
     @staticmethod
     def get_cei_install_directory(ansys_installation: Optional[str]) -> str:
