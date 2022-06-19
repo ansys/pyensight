@@ -91,7 +91,7 @@ jobs:
         if: ${{ !env.ACT }}
         uses: actions/upload-artifact@v2
         with:
-          name: ansys-product-library-wheel
+          name: ansys-pyensight-wheel
           path: dist/
           retention-days: 7
   docs:
