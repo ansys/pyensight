@@ -90,8 +90,6 @@ class Session:
             host=self._hostname, port=self._grpc_port, secret_key=self._secret_key
         )
         self._grpc.connect()
-        # what application are we talking to?
-        self._application = self.cmd("ensight.version('product').lower()")
 
     def __repr__(self):
         s = f"Session(host='{self.hostname}', secret_key='{self.secret_key}', "
@@ -323,7 +321,9 @@ class Session:
             >>> session = LocalLauncher().start()
             >>> session.load_data(r'D:\data\CFX\example_data.res')
         """
-        if self._application == "envision":
+        # what application are we talking to?
+        target = self.cmd("ensight.version('product').lower()")
+        if target == "envision":
             cmd = f'ensight.data.replace(r"""{data_file}""")'
             if self.cmd(cmd) != 0:
                 raise RuntimeError("Unable to load the dataset.")
