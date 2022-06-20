@@ -30,17 +30,24 @@ class LocalLauncher(pyensight.Launcher):
         ansys_installation:
             Location of the ANSYS installation, including the version
             directory Default: None (causes common locations to be scanned)
+        application:
+            The application to be launched. By default, "ensight", but
+            "envision" is also available.
 
     Examples:
         >>> from ansys.pyensight import LocalLauncher
         >>> session = LocalLauncher(ansys_installation='/ansys_inc/v222').start()
     """
 
-    def __init__(self, ansys_installation: Optional[str] = None) -> None:
+    def __init__(
+        self, ansys_installation: Optional[str] = None, application: str = "ensight"
+    ) -> None:
         super().__init__()
 
         # get the user selected installation directory
         self._install_path: str = self.get_cei_install_directory(ansys_installation)
+        # Will this be ensight or envision
+        self._application = application
         # EnSight session secret key
         self._secret_key: str = str(uuid.uuid1())
         # temporary directory served by websocketserver
@@ -48,6 +55,13 @@ class LocalLauncher(pyensight.Launcher):
         # launched process ids
         self._ensight_pid = None
         self._websocketserver_pid = None
+
+    @property
+    def application(self):
+        """Type of application to launch
+        The application can be "ensight" or "envision"
+        """
+        return self._application
 
     def start(self) -> "pyensight.Session":
         """Start an EnSight session using the local ensight install
@@ -75,7 +89,7 @@ class LocalLauncher(pyensight.Launcher):
         local_env["ENSIGHT_SESSION_TEMPDIR"] = self._session_directory
 
         # build the EnSight command
-        exe = os.path.join(self._install_path, "bin", "ensight")
+        exe = os.path.join(self._install_path, "bin", self._application)
         cmd = [exe, "-batch", "-grpc_server", str(ports[0])]
         vnc_url = f"vnc://%%3Frfb_port={ports[1]}%%26use_auth=0"
         cmd.extend(["-vnc", vnc_url])
