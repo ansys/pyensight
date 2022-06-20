@@ -321,6 +321,14 @@ class Session:
             >>> session = LocalLauncher().start()
             >>> session.load_data(r'D:\data\CFX\example_data.res')
         """
+        # what application are we talking to?
+        target = self.cmd("ensight.version('product').lower()")
+        if target == "envision":
+            cmd = f'ensight.data.replace(r"""{data_file}""")'
+            if self.cmd(cmd) != 0:
+                raise RuntimeError("Unable to load the dataset.")
+            return
+
         if file_format is None:
             try:
                 cmd = "ensight.objs.core.CURRENTCASE[0]"
