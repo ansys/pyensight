@@ -35,8 +35,11 @@ dist/
 _autosummary
 
 # build interrmediate products
-codegen/*.proto
+codegen/ensight.proto
+codegen/ensight_api.xml
 src/ansys/api/ensight/v*/ensight_pb2*.py
+src/ansys/api/ensight/v*/ensight.proto
+src/ansys/pyensight/ensight_api.py
 
 # Testing
 .coverage
