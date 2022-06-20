@@ -20,7 +20,7 @@ repos:
     rev: 22.3.0
     hooks:
       - id: black
-        stages: [manual]
+        stages: [commit]
         args: [
             --line-length, "100",
             --target-version, "py37",
@@ -31,7 +31,7 @@ repos:
     rev: 5.10.1
     hooks:
       - id: isort
-        stages: [manual]
+        stages: [commit]
         args: [
             --profile, black,
             --skip-glob, venv/*,
@@ -48,12 +48,12 @@ repos:
     rev: 3.9.2
     hooks:
       - id: flake8
-        stages: [manual]
+        stages: [commit]
   - repo: https://github.com/codespell-project/codespell
     rev: v2.1.0
     hooks:
       - id: codespell
-        stages: [manual]
+        stages: [commit]
 # - repo: https://github.com/pycqa/pydocstyle
 #   rev: 6.1.1
 #   hooks:
