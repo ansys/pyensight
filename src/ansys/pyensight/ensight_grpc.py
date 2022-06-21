@@ -5,7 +5,7 @@ interface to the EnSight gRPC interface, including event streams.
 
 """
 import threading
-from typing import Any, List, Optional
+from typing import Any, Callable, List, Optional
 import uuid
 
 import grpc
@@ -43,6 +43,8 @@ class EnSightGRPC(object):
         self._event_stream = None
         self._event_thread = None
         self._events = list()
+        # Callback for events (self._events not used)
+        self._event_callback = None
         self._prefix = None
 
     @property
@@ -284,16 +286,18 @@ class EnSightGRPC(object):
             self._prefix = "grpc://" + str(uuid.uuid1()) + "/"
         return self._prefix
 
-    def event_stream_enable(self) -> None:
+    def event_stream_enable(self, callback: Callable = None) -> None:
         """Enable a simple gRPC-based event stream from EnSight
 
         This method makes a EnSightService::GetEventStream() gRPC call into EnSight, returning
         an ensightservice::EventReply stream.  The method creates a thread to hold this
         stream open and read new events from it.  The thread adds the event strings to
-        a list of events stored on this instance.  These can be retrieved using get_event().
+        a list of events stored on this instance.  If callback is not None, the object
+        will be called with the event string, otherwise they can be retrieved using get_event().
         """
         if self._event_stream is not None:
             return
+        self._event_callback = callback
         self.connect()
         self._event_stream = self._stub.GetEventStream(
             ensight_pb2.EventStreamRequest(prefix=self.prefix()),
@@ -329,13 +333,16 @@ class EnSightGRPC(object):
         except IndexError:
             return None
 
-    def _put_event(self, evt: str) -> None:
+    def _put_event(self, evt: "ensight_pb2.EventReply") -> None:
         """Add an event record to the event queue on this instance
 
         This method is used by threads to make the events they receive available to
         calling applications via get_event().
         """
-        self._events.append(evt)
+        if self._event_callback:
+            self._event_callback(evt.tag)
+            return
+        self._events.append(evt.tag)
 
     def _poll_events(self) -> None:
         """Internal method to handle event streams
