@@ -376,9 +376,10 @@ class Session:
                 The name of the target object or the name of a class as a string to
                 match all objects of that class.
             tag:
-                The unique name for the callback.  A tag can end with macros of
+                The unique name for the callback. A tag can end with macros of
                 the form {{attrname}} to return the value of an attribute of the
-                target object.
+                target object.  The macros should take the form of URI queries to
+                simplify parsing.
             attr_list:
                 The list of attributes of "target" that will result in the callback
                 being called if it changes.
@@ -398,12 +399,24 @@ class Session:
             >>> s.add_callback("ensight.objs.core", "partlist", ["PARTS"], cb)
             >>> s.load_data(r"D:\ANSYSDev\data\CFX\HeatingCoil_001.res")
             Event: grpc://f6f74dae-f0ed-11ec-aa58-381428170733/partlist?enum=PARTS&uid=221
+
+            >>> from urllib.parse import urlparse, parse_qsl
+            >>> def vp_callback(uri):
+            ...     p = urlparse(uri)
+            ...     q = parse_qsl(p.query)
+            ...     print("Viewport:", q)
+            ...
+            >>> tag = "vport?w={{WIDTH}}&h={{HEIGHT}}&x={{ORIGINX}}&y={{ORIGINY}}"
+            >>> session.add_callback("'ENS_VPORT'", tag, [session.ensight.objs.enums.ORIGINX,
+            ...         session.ensight.objs.enums.ORIGINY, session.ensight.objs.enums.WIDTH,
+            ...         session.ensight.objs.enums.HEIGHT], vp_callback)
+            ...
         """
         if not self._grpc.is_connected():
             raise RuntimeError("No gRPC connection established.")
-        # shorten the tag to the first macro start as the macro will be replaced
+        # shorten the tag up to the query block.  Macros only legal in the query block
         try:
-            idx = tag.index("{{")
+            idx = tag.index("?")
             short_tag = tag[:idx]
         except ValueError:
             short_tag = tag
@@ -437,8 +450,8 @@ class Session:
             RuntimeError:
                 If an invalid tag is supplied
         """
-        if tag in self._callbacks:
-            raise RuntimeError(f"A callback for tag '{tag}' already exists")
+        if tag not in self._callbacks:
+            raise RuntimeError(f"A callback for tag '{tag}' does not exist")
         callback_id = self._callbacks[tag][0]
         del self._callbacks[tag]
         cmd = f"ensight.objs.removecallback({callback_id})"
@@ -453,9 +466,18 @@ class Session:
                 The URL callback from the gRPC event stream.  The URL has the
                 form:  grpc://{sessionguid}/{tag}?enum={attribute}&uid={objectid}
         """
+        # EnSight will always tack on '?enum='.  If our tag uses ?macro={{attr}},
+        # you will get too many '?' in the URL, making it difficult to parse.
+        # So, we look for "?..." and a following "?enum=".  If we see this, convert
+        # "?enum=" into "&enum=".
+        idx_question = cmd.find("?")
+        idx_enum = cmd.find("?enum=")
+        if idx_question < idx_enum:
+            cmd = cmd.replace("?enum=", "&enum=")
         parse = urlparse(cmd)
         tag = parse.path[1:]
         for key, value in self._callbacks.items():
+            # remember "key" is a shortened version of tag
             if tag.startswith(key):
                 value[1](cmd)
                 return
