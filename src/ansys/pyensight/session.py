@@ -8,7 +8,8 @@ Examples:
     >>> type(session)
     ansys.pyensight.Session
 """
-from typing import Any, Optional
+from typing import Any, Callable, Optional
+from urllib.parse import urlparse
 import webbrowser
 
 from ansys import pyensight
@@ -68,6 +69,7 @@ class Session:
         self._ws_port = ws_port
         self._secret_key = secret_key
         self._grpc_port = grpc_port
+        self._callbacks = dict()
         # if the caller passed a session directory we will assume they are
         # creating effectively a proxy Session and create a lacu
         if session_directory is not None:
@@ -356,3 +358,105 @@ class Session:
         for cmd in cmds:
             if self.cmd(cmd) != 0:
                 raise RuntimeError("Unable to load the dataset.")
+
+    def add_callback(
+        self, target: str, tag: str, attr_list: list, method: Callable, compress: bool = True
+    ) -> None:
+        """Register a callback with an event tuple
+
+        For a given target object (e.g. "ensight.objs.core") and a list
+        of attributes (e.g. ["PARTS", "VARIABLES"]) set up a callback
+        (method) to be called with a URL encoded with the supplied (tag)
+        whenever one of the listed attributes change.  The callback is
+        in a URL of the form: grpc://{sessionguid}/{tag}?enum={attribute}&uid={objectid}
+        Only one callback with the noted tag can be used in the session.
+
+        Args:
+            target:
+                The name of the target object or the name of a class as a string to
+                match all objects of that class.
+            tag:
+                The unique name for the callback.  A tag can end with macros of
+                the form {{attrname}} to return the value of an attribute of the
+                target object.
+            attr_list:
+                The list of attributes of "target" that will result in the callback
+                being called if it changes.
+            method:
+                A callable that is called with the returned URL.
+            compress:
+                By default, if as a result of an action, a repeated event is
+                generated, only the last event will be called back.  If compress
+                is False, every event will result in a callback.
+
+        Examples:
+            >>> from ansys.pyensight import LocalLauncher
+            >>> s = LocalLauncher().start()
+            >>> def cb(v: str):
+            ...  print("Event:", v)
+            ...
+            >>> s.add_callback("ensight.objs.core", "partlist", ["PARTS"], cb)
+            >>> s.load_data(r"D:\ANSYSDev\data\CFX\HeatingCoil_001.res")
+            Event: grpc://f6f74dae-f0ed-11ec-aa58-381428170733/partlist?enum=PARTS&uid=221
+        """
+        if not self._grpc.is_connected():
+            raise RuntimeError("No gRPC connection established.")
+        # shorten the tag to the first macro start as the macro will be replaced
+        try:
+            idx = tag.index("{{")
+            short_tag = tag[:idx]
+        except ValueError:
+            short_tag = tag
+        if short_tag in self._callbacks:
+            raise RuntimeError(f"A callback for tag '{short_tag}' already exists")
+        # Build the addcallback string against the full tag
+        flags = ""
+        if compress:
+            flags = ",flags=ensight.objs.EVENTMAP_FLAG_COMP_GLOBAL"
+        cmd = f"ensight.objs.addcallback({target},None,"
+        cmd += f"'{self._grpc.prefix()}{tag}',attrs={repr(attr_list)}{flags})"
+        callback_id = self._grpc.command(cmd)
+        # if this is the first callback, start the event stream
+        if len(self._callbacks) == 0:
+            self._grpc.event_stream_enable(callback=self._event_callback)
+        # record the callback id along with the callback
+        # if the callback URL starts with the short_tag, we make the callback
+        self._callbacks[short_tag] = (callback_id, method)
+
+    def remove_callback(self, tag: str) -> None:
+        """Remove a callback started with add_callback
+
+        Given a tag used to register a previous callback (add_callback), remove
+        that callback from the EnSight callback system.
+
+        Args:
+            tag:
+                The callback string tag
+
+        Raises:
+            RuntimeError:
+                If an invalid tag is supplied
+        """
+        if tag in self._callbacks:
+            raise RuntimeError(f"A callback for tag '{tag}' already exists")
+        callback_id = self._callbacks[tag][0]
+        del self._callbacks[tag]
+        cmd = f"ensight.objs.removecallback({callback_id})"
+        self._grpc.command(cmd, do_eval=False)
+
+    def _event_callback(self, cmd: str) -> None:
+        """Pass the URL back to the registered callback
+        Match the cmd URL with the registered callback and make the callback.
+
+        Args:
+            cmd:
+                The URL callback from the gRPC event stream.  The URL has the
+                form:  grpc://{sessionguid}/{tag}?enum={attribute}&uid={objectid}
+        """
+        parse = urlparse(cmd)
+        tag = parse.path[1:]
+        for key, value in self._callbacks.items():
+            if tag.startswith(key):
+                value[1](cmd)
+                return
+        print(f"Unhandled event: {cmd}")
