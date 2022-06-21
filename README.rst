@@ -92,7 +92,7 @@ If you want to manually run all pre-commit hooks on a repository, run:
 
 .. code::
 
-   pre-commit run --all-files
+   pre-commit run --hook-stage manual --all-files
 
 This will run a bunch of formatters on your source files.
 
