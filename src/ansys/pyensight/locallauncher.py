@@ -49,12 +49,14 @@ class LocalLauncher(pyensight.Launcher):
         # Will this be ensight or envision
         self._application = application
         # EnSight session secret key
-        self._secret_key: str = str(uuid.uuid1())
+        self._secret_key: str = ""
         # temporary directory served by websocketserver
-        self._session_directory = tempfile.mkdtemp(prefix="pyensight_")
+        self._session_directory = None
         # launched process ids
         self._ensight_pid = None
         self._websocketserver_pid = None
+        # and ports
+        self._ports = None
 
     @property
     def application(self):
@@ -75,83 +77,88 @@ class LocalLauncher(pyensight.Launcher):
             RuntimeError:
                 if the necessary number of ports could not be allocated.
         """
-        # gRPC port, VNC port, websocketserver ws, websocketserver html
-        ports = self._find_unused_ports(4)
-        if ports is None:
-            raise RuntimeError("Unable to allocate local ports for EnSight session")
-        is_windows = platform.system() == "Windows"
+        if self._ports is None:
+            # session directory and UUID
+            self._secret_key = str(uuid.uuid1())
+            self.session_directory = tempfile.mkdtemp(prefix="pyensight_")
 
-        # Launch EnSight
-        # create the environmental variables
-        local_env = os.environ.copy()
-        local_env["ENSIGHT_SECURITY_TOKEN"] = self._secret_key
-        local_env["WEBSOCKETSERVER_SECURITY_TOKEN"] = self._secret_key
-        local_env["ENSIGHT_SESSION_TEMPDIR"] = self._session_directory
+            # gRPC port, VNC port, websocketserver ws, websocketserver html
+            self._ports = self._find_unused_ports(4)
+            if self._ports is None:
+                raise RuntimeError("Unable to allocate local ports for EnSight session")
+            is_windows = platform.system() == "Windows"
 
-        # build the EnSight command
-        exe = os.path.join(self._install_path, "bin", self._application)
-        cmd = [exe, "-batch", "-grpc_server", str(ports[0])]
-        vnc_url = f"vnc://%%3Frfb_port={ports[1]}%%26use_auth=0"
-        cmd.extend(["-vnc", vnc_url])
-        if is_windows:
-            cmd[0] += ".bat"
-        # cmd.append("-minimize_console")
-        self._ensight_pid = subprocess.Popen(
-            cmd,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            close_fds=True,
-            cwd=self._session_directory,
-            env=local_env,
-        ).pid
+            # Launch EnSight
+            # create the environmental variables
+            local_env = os.environ.copy()
+            local_env["ENSIGHT_SECURITY_TOKEN"] = self._secret_key
+            local_env["WEBSOCKETSERVER_SECURITY_TOKEN"] = self._secret_key
+            local_env["ENSIGHT_SESSION_TEMPDIR"] = self.session_directory
 
-        # Launch websocketserver
-        # find websocketserver script
-        found_scripts = glob.glob(
-            os.path.join(self._install_path, "nexus*", "nexus_launcher", "websocketserver.py")
-        )
-        if not found_scripts:
-            raise RuntimeError("Unable to find websocketserver script")
-        websocket_script = found_scripts[0]
-
-        # build the commandline
-        cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
-        if is_windows:
-            cmd[0] += ".bat"
-        cmd.extend(["--http_directory", self._session_directory])
-        # http port
-        cmd.extend(["--http_port", str(ports[2])])
-        # vnc port
-        cmd.extend(["--client_port", str(ports[1])])
-        # websocket port
-        cmd.append(str(ports[3]))
-        if is_windows:
-            startupinfo = subprocess.STARTUPINFO()
-            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-            self._websocketserver_pid = subprocess.Popen(
+            # build the EnSight command
+            exe = os.path.join(self._install_path, "bin", self.application)
+            cmd = [exe, "-batch", "-grpc_server", str(self._ports[0])]
+            vnc_url = f"vnc://%%3Frfb_port={self._ports[1]}%%26use_auth=0"
+            cmd.extend(["-vnc", vnc_url])
+            if is_windows:
+                cmd[0] += ".bat"
+            # cmd.append("-minimize_console")
+            self._ensight_pid = subprocess.Popen(
                 cmd,
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
-                cwd=self._session_directory,
-                env=local_env,
-                startupinfo=startupinfo,
-            ).pid
-        else:
-            self._websocketserver_pid = subprocess.Popen(
-                cmd,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-                cwd=self._session_directory,
                 close_fds=True,
+                cwd=self._session_directory,
                 env=local_env,
             ).pid
+
+            # Launch websocketserver
+            # find websocketserver script
+            found_scripts = glob.glob(
+                os.path.join(self._install_path, "nexus*", "nexus_launcher", "websocketserver.py")
+            )
+            if not found_scripts:
+                raise RuntimeError("Unable to find websocketserver script")
+            websocket_script = found_scripts[0]
+
+            # build the commandline
+            cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
+            if is_windows:
+                cmd[0] += ".bat"
+            cmd.extend(["--http_directory", self.session_directory])
+            # http port
+            cmd.extend(["--http_port", str(self._ports[2])])
+            # vnc port
+            cmd.extend(["--client_port", str(self._ports[1])])
+            # websocket port
+            cmd.append(str(self._ports[3]))
+            if is_windows:
+                startupinfo = subprocess.STARTUPINFO()
+                startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+                self._websocketserver_pid = subprocess.Popen(
+                    cmd,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    cwd=self.session_directory,
+                    env=local_env,
+                    startupinfo=startupinfo,
+                ).pid
+            else:
+                self._websocketserver_pid = subprocess.Popen(
+                    cmd,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    cwd=self.session_directory,
+                    close_fds=True,
+                    env=local_env,
+                ).pid
 
         # build the session instance
         session = pyensight.Session(
             host="127.0.0.1",
-            grpc_port=ports[0],
-            html_port=ports[2],
-            ws_port=ports[3],
+            grpc_port=self._ports[0],
+            html_port=self._ports[2],
+            ws_port=self._ports[3],
             install_path=self._install_path,
             secret_key=self._secret_key,
         )
@@ -166,6 +173,7 @@ class LocalLauncher(pyensight.Launcher):
         while (time.time() - start_time) < maximum_wait_secs:
             try:
                 shutil.rmtree(self.session_directory)
+                self._ports = None
                 return
             except PermissionError:
                 pass
