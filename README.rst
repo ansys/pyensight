@@ -54,7 +54,11 @@ Install ansys-pyensight with:
 
    pip install ansys-pyensight
 
-Alternatively, clone and install in development mode with:
+
+Development
+-----------
+
+To clone and install in development mode:
 
 .. code::
 
@@ -74,10 +78,6 @@ To install pyensight:
    make install  # install
    make smoketest  # test import
 
-
-Development
------------
-
 ``pre-commit`` is a multi-language package manager for pre-commit hooks.
 
 To install pre-commit into your git hooks, run:
@@ -92,7 +92,7 @@ If you want to manually run all pre-commit hooks on a repository, run:
 
 .. code::
 
-   pre-commit run --all-files
+   pre-commit run --hook-stage manual --all-files
 
 This will run a bunch of formatters on your source files.
 
@@ -114,6 +114,7 @@ To run a job, for example - ``docs`` from ``ci_cd.yml``, use:
    act -j docs
 
 Deploy and upload steps `must always` be ignored. If not, please add ``if: ${{ !env.ACT }}`` to the workflow step (and commit if required) before running.
+
 
 Usage
 -----
