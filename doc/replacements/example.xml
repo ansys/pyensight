@@ -1,0 +1,41 @@
+<docstrings>
+<override namespace="ensight.version">
+<description>
+EnSight version information
+
+Return EnSight version information.
+
+Args:
+    args:
+        The specific value to is selected by this argument. 
+
+        * 'ip' - system ip address
+        * 'version-full' - EnSight version display string, for example: '2022 R1'
+        * 'numeric' - EnSight version broken down as a list of integers and a single string in the form: [year, release, patch, beta]. For example: [2022, 1, 0, 'Beta']
+        * 'year' - Year portion of the 'numeric' list (e.g. 2022)
+        * 'rel' - Release portion of the 'numeric' list (e.g. 1)
+        * 'patch' - Patch number portion of the 'numeric' list (e.g. 0)
+        * 'beta' - Beta string from the 'numeric' list output (e.g. 'Beta')
+        * 'suffix' - Suffix number used internally for naming files/directories/etc (e.g. 221)
+        * 'customer' - Customer name from the licensing system (both flex and SLiM)
+        * 'company' - Company name from the licensing system
+        * 'product' - The current name of the EnSight product: 'EnSight', 'EnVision', etc
+        * 'mode' - License type: "batch", "HPC", "Standard", etc
+        * 'license' - Same as 'mode'
+        * 'flavor' - Same as 'mode'
+        * 'arch' - System architecture: 'linux_2.6_64', 'win64', etc
+        * 'CEI_HOME' - Base installation directory
+        * 'home' - Same as 'CEI_HOME'
+        * 'lmtype' - License manage name: "ANSYS", "SLiM" or "FSI"
+        * 'haveServer' - Boolean that will be True if a server or an SOS is connected
+        * 'haveSOS' - Boolean that will be True if an SOS is connected
+        * 'slimversion' - Version string for the SLiM license manager (e.g. '8.44') or None if not using SLiM
+        * 'keypath' - Pathname of the SLiM key from the SLiM license manager or None if not using SLiM
+        * 'username' - User name the license is checked out to
+        * 'hostname' - Host name of the system EnSight is running on
+
+Returns:
+    The queried value
+</description>
+</override>
+</docstrings>
