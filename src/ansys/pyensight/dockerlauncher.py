@@ -11,16 +11,12 @@ Examples:
     >>> launcher.stop()
 """
 import atexit
-import glob
+import docker
 import os.path
-import platform
-import shutil
-import subprocess
-import tempfile
+import re
 from typing import Optional
 import uuid
 
-import docker
 
 from ansys import pyensight
 
@@ -64,8 +60,26 @@ class DockerLauncher(pyensight.Launcher):
             
         # EnSight session secret key
         self._secret_key: str = str(uuid.uuid1())
+
         # temporary directory
+        # it's in the ephemeral container, so just use "ensight's"
+        # home directory within the container
         self._session_directory: str = "/home/ensight"
+
+        # the Ansys / EnSight version we found in the container
+        # to be reassigned later
+        self._ansys_version = None
+
+
+    def ansys_version(self) -> str:
+        """Returns the Ansys version as a 3 digit number string as found in the Docker container.
+
+        Returns:
+            Ansys 3-digit version as a string, or None if not found or not start()'ed
+
+        """
+        return self._ansys_version
+
 
     def pull(self) -> None:
         """Pulls the Docker image.
@@ -93,43 +107,46 @@ class DockerLauncher(pyensight.Launcher):
 
         Raises:
             RuntimeError:
-                if the necessary number of ports could not be allocated.
+                variety of error conditions.
         """
         # gRPC port, VNC port, websocketserver ws, websocketserver html
         ports = self._find_unused_ports(4)
         if ports is None:
             raise RuntimeError("Unable to allocate local ports for EnSight session")
-        #is_windows = platform.system() == "Windows"
 
         # Launch the EnSight Docker container locally as a detached container
         # initially not running any apps so we can launch the three needed
         # apps
 
-        # create the environmental variables
+        # Create the environmental variables
         local_env = os.environ.copy()
         local_env["ENSIGHT_SECURITY_TOKEN"] = self._secret_key
         local_env["WEBSOCKETSERVER_SECURITY_TOKEN"] = self._secret_key
         #local_env["ENSIGHT_SESSION_TEMPDIR"] = self._session_directory
 
-        # environment to pass into the container
+        # Environment to pass into the container
         container_env = {"ENSIGHT_SECURITY_TOKEN":self._secret_key,
             "WEBSOCKETSERVER_SECURITY_TOKEN":self._secret_key,
             "ENSIGHT_SESSION_TEMPDIR":self._session_directory,
             "ANSYSLMD_LICENSE_FILE":os.environ["ANSYSLMD_LICENSE_FILE"]}
 
-        # ports to map between the host and the container
+        # Ports to map between the host and the container
         ports_to_map = { \
             str(ports[0])+'/tcp':str(ports[0]),
             str(ports[2])+'/tcp':str(ports[2]),
             str(ports[3])+'/tcp':str(ports[3]) \
             }
 
-        # the data directory to map into the container
+        # The data directory to map into the container
         data_volume = {self._data_directory:{'bind':'/data', 'mode':'rw'}}
 
         # Start the container in detached mode and override
         # the default entrypoint so we can run multiple commands
         # within the container.
+        #
+        # we run "/bin/bash" as container user "ensight" in lieu of
+        # the default entrypoint command "ensight" which is in the 
+        # container's path for user "ensight".
 
         # FIXME_MFK: probably need a unique name for our container
         # in case the user launches multiple sessions
@@ -138,9 +155,40 @@ class DockerLauncher(pyensight.Launcher):
             environment=container_env, ports=ports_to_map, 
             name="ensight", tty=True, detach=True)
 
-        # build up the command to run ensight and send it to the container
-        # as a detached command
 
+        # Build up the command to run ensight and send it to the container
+        # as a detached command.
+        #
+        # Since we desire shell wildcard expansion, a modified PATH for user
+        # "ensight", etc., we need to run as the primary command a shell (bash)
+        # along with the argument "--login" so that ~ensight/.bashrc is sourced.
+        # Unfortunately, we then need to use "-c" to mark the end of bash
+        # arguments and the start of the command bash should run -- what we really
+        # want to run.  This must be a string and not a list of stuff.  That means
+        # we have to handle quoting.  Ugh.  Ultimately, it would be better to run
+        # enshell instead of bash and then we can connect to it and do whatever we
+        # want.
+
+        # Get the path to /ansys_inc/vNNN/CEI/bin/ensight so we compute
+        # CEI Home for our use here.  And, from this, get the Ansys version
+        # number.
+
+        cmd = ["bash", "--login", "-c", "ls /ansys_inc/v*/CEI/bin/ensight"]
+        ret = self._container.exec_run(cmd, user="ensight")
+        if ret[0] != 0:
+            self.stop()
+            raise RuntimeError(f"Can't find /ansys_inc/vNNN/CEI/bin/ensight in the Docker container.")
+        self._cei_home = ret[1].decode("utf-8").strip()
+        m = re.search("/v(\d\d\d)/", self._cei_home)
+        if not m:
+            self.stop()
+            #raise RuntimeError(f"Can't find version from {} in the Docker container.",self._cei_home)
+            raise RuntimeError(f"Can't find version from cei_home in the Docker container.")
+        self._ansys_version = m.group(1)
+        print("CEI_HOME=",self._cei_home)
+        print("Ansys Version=",self._ansys_version)
+
+        # Run EnSight
         cmd = ["bash", "--login", "-c"]
         cmd2 = "ensight -batch -v 3"
 
@@ -152,27 +200,14 @@ class DockerLauncher(pyensight.Launcher):
         cmd.extend([cmd2])
 
         print("Run: ", str(cmd))
-
         self._container.exec_run(cmd, user="ensight", detach=True)
 
-        """
-        # Launch websocketserver
-        # find websocketserver script
-        found_scripts = glob.glob(
-            os.path.join(self._install_path, "nexus*", "nexus_launcher", "websocketserver.py")
-        )
-        if not found_scripts:
-            raise RuntimeError("Unable to find websocketserver script")
-        websocket_script = found_scripts[0]
-
-        # build the commandline
-        cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
-        """
-
+        # Run websocketserver
         cmd = ["bash", "--login", "-c"]
         #cmd2 = "cpython /home/ensight/websocketserver.py"
-        cmd2 = "cpython /ansys_inc/v231/CEI/nexus231/nexus_launcher/websocketserver.py"
+        cmd2 = "cpython /ansys_inc/v"+self._ansys_version+"/CEI/nexus"+self._ansys_version+"/nexus_launcher/websocketserver.py"
 
+        #cmd2 += " --verbose 1 --log /home/ensight/wss.log"
         cmd2 += " --http_directory " + self._session_directory
         # http port
         cmd2 += " --http_port " + str(ports[2])
@@ -184,7 +219,6 @@ class DockerLauncher(pyensight.Launcher):
         cmd.extend([cmd2])
 
         print("Run: ", str(cmd))
-
         self._container.exec_run(cmd, user="ensight", detach=True)
 
         # build the session instance
@@ -205,5 +239,6 @@ class DockerLauncher(pyensight.Launcher):
         #atexit.register(shutil.rmtree, self._session_directory)
         self._container.stop()
         self._container.remove()
+        self._container = None
 
 

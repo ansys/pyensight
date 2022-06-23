@@ -40,7 +40,8 @@ class Renderable:
             file via REST calls to websocketserver
         """
         url = f"{self._session.secret_key}_{self._filename_index}{suffix}"
-        filename = os.path.join(self._session.launcher.session_directory, url)
+        #filename = os.path.join(self._session.launcher.session_directory, url)
+        filename = self._session.launcher.session_directory+"/"+url
         self._filename_index += 1
         url = f"http://{self._session.hostname}:{self._session.html_port}/{url}"
         return filename, url
@@ -70,6 +71,8 @@ class Renderable:
         """
         # save "html" into a file on the remote server with filename .html
         remote_html_filename = filename.replace(suffix, ".html")
+        print("remote_html_filename=",remote_html_filename)
+
         cmd = f'open(r"""{remote_html_filename}""", "w").write("""{html}""")'
         self._session.grpc.command(cmd, do_eval=False)
         return url.replace(suffix, ".html")
