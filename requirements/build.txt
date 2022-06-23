@@ -1,4 +1,5 @@
 build>=0.8.0
+docker>=5.0.0
 grpcio_tools>=1.46.3
 requests>=2.20.1
 twine>=4.0.1
