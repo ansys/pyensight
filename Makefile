@@ -28,7 +28,7 @@ install:
 	pip install dist/*.whl
 
 smoketest:
-	python -c "from ansys.pyensight import LocalLauncher"
+	python -c "from ansys.pyensight import LocalLauncher, DockerLauncher"
 
 clean:
 	rm -rf dist build

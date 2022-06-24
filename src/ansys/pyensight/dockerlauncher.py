@@ -10,15 +10,16 @@ Examples:
     >>> session = launcher.start()
     >>> launcher.stop()
 """
-import atexit
-import docker
+# import atexit
 import os.path
 import re
 from typing import Optional
 import uuid
 
+import docker
 
 from ansys import pyensight
+
 
 class DockerLauncher(pyensight.Launcher):
     """Create a Session instance by launching a local Docker copy of EnSight
@@ -39,8 +40,12 @@ class DockerLauncher(pyensight.Launcher):
         >>> launcher.stop()
     """
 
-    def __init__(self, data_directory: str, docker_image_name: Optional[str] = None,
-        use_dev: Optional[bool] = False) -> None:
+    def __init__(
+        self,
+        data_directory: str,
+        docker_image_name: Optional[str] = None,
+        use_dev: Optional[bool] = False,
+    ) -> None:
         super().__init__()
 
         self._data_directory = data_directory
@@ -57,7 +62,7 @@ class DockerLauncher(pyensight.Launcher):
             self._docker_client: docker.client.DockerClient = docker.from_env()
         except Exception:
             raise RuntimeError(f"Can't initialize Docker")
-            
+
         # EnSight session secret key
         self._secret_key: str = str(uuid.uuid1())
 
@@ -70,7 +75,6 @@ class DockerLauncher(pyensight.Launcher):
         # to be reassigned later
         self._ansys_version = None
 
-
     def ansys_version(self) -> str:
         """Returns the Ansys version as a 3 digit number string as found in the Docker container.
 
@@ -79,7 +83,6 @@ class DockerLauncher(pyensight.Launcher):
 
         """
         return self._ansys_version
-
 
     def pull(self) -> None:
         """Pulls the Docker image.
@@ -95,7 +98,6 @@ class DockerLauncher(pyensight.Launcher):
             self._docker_client.images.pull(self._image_name)
         except Exception:
             raise RuntimeError(f"Can't pull Docker image: {self._image_name}")
-
 
     def start(self) -> "pyensight.Session":
         """Start an EnSight session using the local Docker ensight image
@@ -122,39 +124,46 @@ class DockerLauncher(pyensight.Launcher):
         local_env = os.environ.copy()
         local_env["ENSIGHT_SECURITY_TOKEN"] = self._secret_key
         local_env["WEBSOCKETSERVER_SECURITY_TOKEN"] = self._secret_key
-        #local_env["ENSIGHT_SESSION_TEMPDIR"] = self._session_directory
+        # local_env["ENSIGHT_SESSION_TEMPDIR"] = self._session_directory
 
         # Environment to pass into the container
-        container_env = {"ENSIGHT_SECURITY_TOKEN":self._secret_key,
-            "WEBSOCKETSERVER_SECURITY_TOKEN":self._secret_key,
-            "ENSIGHT_SESSION_TEMPDIR":self._session_directory,
-            "ANSYSLMD_LICENSE_FILE":os.environ["ANSYSLMD_LICENSE_FILE"]}
+        container_env = {
+            "ENSIGHT_SECURITY_TOKEN": self._secret_key,
+            "WEBSOCKETSERVER_SECURITY_TOKEN": self._secret_key,
+            "ENSIGHT_SESSION_TEMPDIR": self._session_directory,
+            "ANSYSLMD_LICENSE_FILE": os.environ["ANSYSLMD_LICENSE_FILE"],
+        }
 
         # Ports to map between the host and the container
-        ports_to_map = { \
-            str(ports[0])+'/tcp':str(ports[0]),
-            str(ports[2])+'/tcp':str(ports[2]),
-            str(ports[3])+'/tcp':str(ports[3]) \
-            }
+        ports_to_map = {
+            str(ports[0]) + "/tcp": str(ports[0]),
+            str(ports[2]) + "/tcp": str(ports[2]),
+            str(ports[3]) + "/tcp": str(ports[3]),
+        }
 
         # The data directory to map into the container
-        data_volume = {self._data_directory:{'bind':'/data', 'mode':'rw'}}
+        data_volume = {self._data_directory: {"bind": "/data", "mode": "rw"}}
 
         # Start the container in detached mode and override
         # the default entrypoint so we can run multiple commands
         # within the container.
         #
         # we run "/bin/bash" as container user "ensight" in lieu of
-        # the default entrypoint command "ensight" which is in the 
+        # the default entrypoint command "ensight" which is in the
         # container's path for user "ensight".
 
         # FIXME_MFK: probably need a unique name for our container
         # in case the user launches multiple sessions
-        self._container = self._docker_client.containers.run(self._image_name,
-            entrypoint="/bin/bash", volumes=data_volume,
-            environment=container_env, ports=ports_to_map, 
-            name="ensight", tty=True, detach=True)
-
+        self._container = self._docker_client.containers.run(
+            self._image_name,
+            entrypoint="/bin/bash",
+            volumes=data_volume,
+            environment=container_env,
+            ports=ports_to_map,
+            name="ensight",
+            tty=True,
+            detach=True,
+        )
 
         # Build up the command to run ensight and send it to the container
         # as a detached command.
@@ -177,22 +186,25 @@ class DockerLauncher(pyensight.Launcher):
         ret = self._container.exec_run(cmd, user="ensight")
         if ret[0] != 0:
             self.stop()
-            raise RuntimeError(f"Can't find /ansys_inc/vNNN/CEI/bin/ensight in the Docker container.")
+            raise RuntimeError(
+                f"Can't find /ansys_inc/vNNN/CEI/bin/ensight in the Docker container."
+            )
         self._cei_home = ret[1].decode("utf-8").strip()
         m = re.search("/v(\d\d\d)/", self._cei_home)
         if not m:
             self.stop()
-            #raise RuntimeError(f"Can't find version from {} in the Docker container.",self._cei_home)
+            # raise RuntimeError(f"Can't find version from {} in the Docker container.",
+            #   self._cei_home)
             raise RuntimeError(f"Can't find version from cei_home in the Docker container.")
         self._ansys_version = m.group(1)
-        print("CEI_HOME=",self._cei_home)
-        print("Ansys Version=",self._ansys_version)
+        print("CEI_HOME=", self._cei_home)
+        print("Ansys Version=", self._ansys_version)
 
         # Run EnSight
         cmd = ["bash", "--login", "-c"]
         cmd2 = "ensight -batch -v 3"
 
-        cmd2 += " -grpc_server " + str(ports[0]) 
+        cmd2 += " -grpc_server " + str(ports[0])
 
         vnc_url = f"vnc://%%3Frfb_port={ports[1]}%%26use_auth=0"
         cmd2 += " -vnc " + vnc_url
@@ -204,10 +216,16 @@ class DockerLauncher(pyensight.Launcher):
 
         # Run websocketserver
         cmd = ["bash", "--login", "-c"]
-        #cmd2 = "cpython /home/ensight/websocketserver.py"
-        cmd2 = "cpython /ansys_inc/v"+self._ansys_version+"/CEI/nexus"+self._ansys_version+"/nexus_launcher/websocketserver.py"
+        # cmd2 = "cpython /home/ensight/websocketserver.py"
+        cmd2 = (
+            "cpython /ansys_inc/v"
+            + self._ansys_version
+            + "/CEI/nexus"
+            + self._ansys_version
+            + "/nexus_launcher/websocketserver.py"
+        )
 
-        #cmd2 += " --verbose 1 --log /home/ensight/wss.log"
+        # cmd2 += " --verbose 1 --log /home/ensight/wss.log"
         cmd2 += " --http_directory " + self._session_directory
         # http port
         cmd2 += " --http_port " + str(ports[2])
@@ -236,9 +254,7 @@ class DockerLauncher(pyensight.Launcher):
 
     def stop(self) -> None:
         """Release any additional resources allocated during launching"""
-        #atexit.register(shutil.rmtree, self._session_directory)
+        # atexit.register(shutil.rmtree, self._session_directory)
         self._container.stop()
         self._container.remove()
         self._container = None
-
-
