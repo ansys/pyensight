@@ -727,13 +727,8 @@ Args:
         &#x27;desc&#x27; A quoted string with optional asterisk(s) used to match partnames
 
 Examples:
-<<<<<<< HEAD
     | # Read all parts with an &#x27;e&#x27; in their name
     | # as well as parts starting with &#x27;f&#x27;
-=======
-    | # Read all parts with an ��e�� in their name
-    | # as well as parts starting with ��f��
->>>>>>> main
     | # 
     | ensight.data_partbuild.select_byexpr_begin(&quot;*e*&quot;,&quot;f*&quot;)
 
@@ -756,13 +751,8 @@ Args:
         &#x27;desc&#x27; A quoted string with optional asterisk(s) used to match partnames
 
 Examples:
-<<<<<<< HEAD
     | # Read all parts with an &#x27;e&#x27; in their name
     | # as well as parts starting with &#x27;f&#x27;
-=======
-    | # Read all parts with an ��e�� in their name
-    | # as well as parts starting with ��f��
->>>>>>> main
     | # 
     | ensight.data_partbuild.select_byexpr_begin(&quot;*e*&quot;,&quot;f*&quot;)
 

@@ -993,11 +993,7 @@ Returns:
 <description>
 Option to save a single image or multiple images for a flat-wall detached display.
 
-<<<<<<< HEAD
 | When saving a flat-wall detached display, the user can choose to write one large image for the wall or one image per pipe from the dconfig file.  This option is only valid when the image size is detached_display.
-=======
-| When saving a flat-wall detached display, the user can choose to write one large image for the wall or one image per ��pipe�� from the dconfig file.  This option is only valid when the image size is detached_display.
->>>>>>> main
 
 Args:
     p0:

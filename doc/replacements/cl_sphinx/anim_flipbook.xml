@@ -956,11 +956,7 @@ Returns:
 <description>
 When recording an animation flipbook with a detached display this option will save a file for each display if on.  If off will save a single file.
 
-<<<<<<< HEAD
 | When saving a flat-wall detached display, the user can choose to write one large image for the wall or one image per pipe from the dconfig file.  Only used if the anim_flipbook: save_win_type is set to &quot;detached_display&quot;.
-=======
-| When saving a flat-wall detached display, the user can choose to write one large image for the wall or one image per ��pipe�� from the dconfig file.  Only used if the anim_flipbook: save_win_type is set to &quot;detached_display&quot;.
->>>>>>> main
 
 Args:
     p0:
