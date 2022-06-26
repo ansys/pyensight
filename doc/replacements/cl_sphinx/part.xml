@@ -1,0 +1,2243 @@
+<docstrings>
+<override namespace="ensight.part.active">
+<description>
+Activates or deactivates the currently selected part(s).
+
+| When a part is deactivated, the data for that part will not be updated from the server on any future timestep changes, until the part is activated again
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.active(&quot;OFF&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.allow_default_editing">
+<description>
+Allow or disallow editing of part defaults.
+
+| This is a command for preferences and is written out in the ensight_allparts_prefs.def file.
+| If the user edits a part attribute when no parts are selected the default is normally edited.  With this toggle OFF the user will no be able to edit part defaults.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.allow_default_editing(&quot;OFF&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.blank_elts">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.bounding_rep">
+<description>
+Specifies the type of fast-display representation used to for the currently selected part(s).
+
+| For reduced, uses factor as set by part: reduce_polygons_factor &lt;factor&gt;.
+
+Args:
+    p0:
+        &#x27;type&#x27;
+
+        * Can have any of the following values:
+        * OFF
+        * box
+        * points
+        * sparse_model
+        * reduced
+        * invisible
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.bounding_rep(&quot;sparse_model&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.clearall_blanked_elts">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.clear_blanked_elts">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.clip">
+<description>
+Turns auxiliary clipping on or off for the currently selected part(s).
+
+| The global toggle for auxilliary clipping must be on - See view: clipping
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.view.clipping(&quot;ON&quot;)
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.clip(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.colorby_palette">
+<description>
+Colors the currently selected part(s) based on the value of the specified variable at each node or element (depending on whether data is node or element based) 
+
+Args:
+    p0:
+        &#x27;varname&#x27; the name of an existing variable (or the word &quot;none&quot;) 
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_palette(&quot;pressure&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.colorby_rgb">
+<description>
+Colors the currently selected part(s) using the specified rgb value.
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue color components (must be between 0.0 and 1.0)
+    p1:
+        &#x27;grn_val&#x27; red, green, blue color components (must be between 0.0 and 1.0)
+    p2:
+        &#x27;blu_val&#x27; red, green, blue color components (must be between 0.0 and 1.0)
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_rgb(1.0,0.4,0.0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.colorby_selected_var">
+<description>
+Colors a part by the palette tied to the variable selected in the main variable list.
+
+| Used with the HUM to tie parts selected to variables selected.
+
+Examples:
+    | ensight.variables.get_mainvarlist_select()
+    | ensight.part.get_mainpartlist_select()
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_selected_var()
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.copy">
+<description>
+Creates a copy of the currently selected part(s).
+
+| The Copy operation creates a dependent copy of the original part.
+| The copy is created on the client and its existence is not known to the EnSight Server process. A copy shares geometric data and variable data with the original part.
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.copy()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.create_assign_viewport">
+<description>
+Creates a new viewport and assigns the currently selected part(s) to it.
+
+Examples:
+    | ensight.part.select_begin(3,5)
+    | ensight.part.create_assign_viewport()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.create_assign_viewports">
+<description>
+Creates a new viewport for each of the currently selected part(s) and assigns one part to each viewport.
+
+Examples:
+    | ensight.part.select_begin(3,5)
+    | ensight.part.create_assign_viewports()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.delete">
+<description>
+Deletes the currently selected part(s).
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.delete()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.description">
+<description>
+Specifies a description string for the currently selected part.  This string will appear in lists that include the part.
+
+Args:
+    p0:
+        &#x27;desc&#x27; name that will show up in the user interface; can be up to 50 characters in length
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.description(&quot;compressor inlet&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.displace_factor">
+<description>
+Specifies the displacement factor to be applied to the source variable to calculate displacement for the currently selected part(s).
+
+| The displacement factor can be changed before or after the part: displace_by command is issued.  
+
+Args:
+    p0:
+        &#x27;disp_factor&#x27; the scaling factor that will be applied to the displacement values.
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.displace_factor(0.9)
+    | ensight.part.displace_by(&quot;pressure&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.displace_by">
+<description>
+Specifies the variable to be used to displace the nodes and elements of the currently selected part(s).
+
+| The displacement factor can be changed before or after the part: displace_by command is issued.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of an activated variable
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.displace_factor(0.9)
+    | ensight.part.displace_by(&quot;pressure&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.elt_blanking">
+<description>
+Specifies whether element blanking is allowed for the part.
+
+Args:
+    p0:
+        &#x27; toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.elt_blanking(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.elt_failure_logicalop">
+<description>
+Specifies the logical operation to use for element failure.
+
+Args:
+    p0:
+        &#x27; operation&#x27;
+
+        * and
+        * or
+        * none
+
+Examples:
+    | ensight.part.modify_begin()
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
+    | ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
+    | ensight.part.elt_failure_op1(&quot;&lt;&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
+    | ensight.part.elt_failure_op2(&quot;&gt;&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
+    | ensight.part.elt_failure_op1value(2.00000e-01)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
+    | ensight.part.elt_failure_op2value(5.00000e-01)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
+    | ensight.part.elt_failure_logicalop(&quot;or&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.elt_failure_op1">
+<description>
+Specifies the relational operation to use for element failure.
+
+Args:
+    p0:
+        &#x27; operation&#x27;
+
+        * &gt;
+        * &lt;
+        * =
+        * !=
+        * Not used
+
+Examples:
+    | ensight.part.modify_begin()
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
+    | ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
+    | ensight.part.elt_failure_op1(&quot;&lt;&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
+    | ensight.part.elt_failure_op2(&quot;&gt;&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
+    | ensight.part.elt_failure_op1value(2.00000e-01)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
+    | ensight.part.elt_failure_op2value(5.00000e-01)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
+    | ensight.part.elt_failure_logicalop(&quot;or&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.elt_failure_op2">
+<description>
+Specifies the relational operation to use for element failure.
+
+Args:
+    p0:
+        &#x27; operation&#x27;
+
+        * &gt;
+        * &lt;
+        * =
+        * !=
+        * Not used
+
+Examples:
+    | ensight.part.modify_begin()
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
+    | ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
+    | ensight.part.elt_failure_op1(&quot;&lt;&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
+    | ensight.part.elt_failure_op2(&quot;&gt;&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
+    | ensight.part.elt_failure_op1value(2.00000e-01)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
+    | ensight.part.elt_failure_op2value(5.00000e-01)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
+    | ensight.part.elt_failure_logicalop(&quot;or&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.elt_failure_op1value">
+<description>
+Specifies the values for the operations for element failure.
+
+Args:
+    p0:
+        &#x27; value&#x27; the values 
+
+Examples:
+    | ensight.part.modify_begin()
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
+    | ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
+    | ensight.part.elt_failure_op1(&quot;&lt;&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
+    | ensight.part.elt_failure_op2(&quot;&gt;&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
+    | ensight.part.elt_failure_op1value(2.00000e-01)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
+    | ensight.part.elt_failure_op2value(5.00000e-01)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
+    | ensight.part.elt_failure_logicalop(&quot;or&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.elt_failure_op2value">
+<description>
+Specifies the values for the operations for element failure.
+
+Args:
+    p0:
+        &#x27; value&#x27; the values 
+
+Examples:
+    | ensight.part.modify_begin()
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
+    | ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
+    | ensight.part.elt_failure_op1(&quot;&lt;&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
+    | ensight.part.elt_failure_op2(&quot;&gt;&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
+    | ensight.part.elt_failure_op1value(2.00000e-01)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
+    | ensight.part.elt_failure_op2value(5.00000e-01)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
+    | ensight.part.elt_failure_logicalop(&quot;or&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.elt_failure_variable">
+<description>
+Specifies the variable to use for element failure.
+
+| Must be a per-element variable.
+
+Args:
+    p0:
+        &#x27; var_name&#x27; the name of the variable to use for element failure
+
+Examples:
+    | ensight.part.modify_begin()
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
+    | ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
+    | ensight.part.elt_failure_op1(&quot;&lt;&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
+    | ensight.part.elt_failure_op2(&quot;&gt;&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
+    | ensight.part.elt_failure_op1value(2.00000e-01)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
+    | ensight.part.elt_failure_op2value(5.00000e-01)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
+    | ensight.part.elt_failure_logicalop(&quot;or&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.elt_feature_angle">
+<description>
+Specifies the angle to be used in feature angle element representation for the currently selected part(s).
+
+Args:
+    p0:
+        &#x27; angle&#x27; angle between adjacent polygons, above which the edge will be drawn, below which the edge will not be drawn. the range is 0.0 to 180.0 degrees
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.elt_representation(&quot;feature_angle&quot;)
+    | ensight.part.elt_feature_angle(20.0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.elt_rep_pointsnormals">
+<description>
+Allow option to load the given element representation as points + normals.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.modify_begin()
+    | ensight.part.elt_rep_pointsnormals(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.elt_representation">
+<description>
+Specifies the type of element representation used for the currently selected part(s).
+
+Args:
+    p0:
+        &#x27;type&#x27;
+
+        * can have any of the following values:
+        * 3D_border_2D_full
+        * border
+        * feature angle
+        * full
+        * not_loaded
+        * bounding_box
+        * 3D_feature_2D_full
+        * 3D_notloaded_2D_full
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.elt_representation(&quot;full&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.elt_shrink_factor">
+<description>
+Specifies a scaling factor (fraction) by which to shrink every element toward its centroid.
+
+Args:
+    p0:
+        &#x27;scale_factor&#x27; shrinkage factor which must be within the range of 0.0 to 1.0. The default is 0.0 for no shrinkage.  If set to 1.0, elements will completely disappear.
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.elt_shrink_factor(0.5)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.entity_label_elt">
+<description>
+Turns element labeling on or off for the currently selected part(s).
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.entity_label_elt(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.entity_label_node">
+<description>
+Turns node labeling on or off for the currently selected part(s).
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.entity_label_node(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.extract">
+<description>
+Creates an extract of the currently selected part(s).
+
+| Extracts a new part from the selected part(s)  using the part representation in effect at the time (full, border, or feature). If more than one part is selected, then they are joined into a single part which is assigned to Frame 0.
+| The part: extract command creates a new part using the geometry of the current representation (what you see is what you get). Extracted parts which are in Full Representation are actual copies of the original, but extracted parts which are in Border Representation are only the shell or boundary of the original.
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.extract()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.fill_pattern">
+<description>
+Specifies a fill pattern of variable transparency to be used on the surfaces of the currently selected part(s).
+
+| This command provides a means of simulating surface transparency which requires less computation than true transparency.  Part opaqueness (controlled by the part: opaqueness command) must be 1.0 in order for part: fill_pattern to take effect.
+
+Args:
+    p0:
+        &#x27;pattern_num&#x27; must be within the range of  0 to 3.  transparency value of 0 specifies an opaque surface, while a value of 3 specifies a sparse (transparent) fill pattern
+
+Examples:
+    | ensight.view.hidden_surface(&quot;ON&quot;)
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.hidden_surface(&quot;ON&quot;)
+    | ensight.part.fill_pattern(2)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.get_mainpartlist_select">
+<description>
+Causes the parts highlighted in the main part list to become the currently selected parts.
+
+Examples:
+    | ensight.part.get_mainpartlist_select()
+    | ensight.part.modify_begin()
+    | ensight.part.mirror_original(&quot;OFF&quot;)
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.group">
+<description>
+Groups the currently selected parts into a group with the specified name.
+
+Args:
+    p0:
+        &#x27;groupname&#x27; name of the group
+
+Examples:
+    | ensight.part.select_begin(3,5)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.group).
+    | ensight.part.group(&quot;yinyang&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.hidden_line">
+<description>
+Causes lines which are behind any portion of the currently selected part(s) to not be drawn.
+
+| The part: hidden_line command also causes the visible drawing lines to be rendered on shaded surfaces of the currently selected part(s).  View: hidden_line ON must be issued in order for  part: hidden_line ON to take effect.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.view.hidden_line(&quot;ON&quot;)
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.hidden_line(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.hidden_surface">
+<description>
+Causes the currently selected part(s) to be drawn with shaded surfaces.
+
+| View: hidden_surface ON must be issued in order for part: hidden_surface ON to take effect. 
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.view.hidden_surface(&quot;ON&quot;)
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.hidden_surface(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.light_diff">
+<description>
+Specifies the lighting diffusion value used in shading the surfaces of the currently selected part(s).
+
+Args:
+    p0:
+        &#x27;diffuse&#x27; diffuse light value, must be within the range of 0.0 to 1.0
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | # WARNING: following line includes OBSOLETE call (ensight.part.light_diff).
+    | ensight.part.light_diff(0.9)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.light_h_int">
+<description>
+Specifies the highlight intensity value used in shading the surfaces of the currently selected part(s).
+
+Args:
+    p0:
+        &#x27;intensity&#x27; highlight intensity, must be within the range of 0.0 to 1.0
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | # WARNING: following line includes OBSOLETE call (ensight.part.light_h_int).
+    | ensight.part.light_h_int(0.5)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.light_shin">
+<description>
+Specifies the &quot;shinyness&quot; value used in shading the surfaces of the currently selected part(s).
+
+| Highlight intensity (part: light_h_int) must be non-zero for shinyness to have any effect.
+
+Args:
+    p0:
+        &#x27;shiny&#x27; &quot;shinyness&quot; value, must be within the range of 1.0 to 100.0 . Lower values specify less shine
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | # WARNING: following line includes OBSOLETE call (ensight.part.light_h_int).
+    | ensight.part.light_h_int(0.9)
+    | # WARNING: following line includes OBSOLETE call (ensight.part.light_shin).
+    | ensight.part.light_shin(50.0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.line_style">
+<description>
+Specifies the line style used to draw the currently selected part(s).
+
+Args:
+    p0:
+        &#x27;style&#x27;
+
+        * can have any of the following values:
+        * solid
+        * dotted
+        * dot_dash
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.line_style(&quot;dotted&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.line_width">
+<description>
+Specifies the line width in pixels used to draw the currently selected part(s).
+
+Args:
+    p0:
+        &#x27;width&#x27; pixel width of line; must be within the range of  1 to 4.
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.line_width(2)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.merge">
+<description>
+Merges the currently selected parts into a single part.
+
+Examples:
+    | ensight.part.select_begin(3,5)
+    | ensight.part.merge()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.mirror_original">
+<description>
+Turns visibility of the non-mirrored currently selected parts on or off.
+
+| This command is normally used to remove the original image of parts which have been mirrored in one or more dimensions 
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | # WARNING: following line includes OBSOLETE call (ensight.part.mirror_z).
+    | ensight.part.mirror_z(&quot;ON&quot;)
+    | ensight.part.mirror_original(&quot;OFF&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.modify_begin">
+<description>
+These commands are used to demarcate part attribute changing commands.  The attributes within them will be changed when the modify_end is reached.
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.visibility_node(&quot;ON&quot;)
+    | ensight.part.node_type(&quot;sphere&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.modify_end">
+<description>
+These commands are used to demarcate part attribute changing commands.  The attributes within them will be changed when the modify_end is reached.
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.visibility_node(&quot;ON&quot;)
+    | ensight.part.node_type(&quot;sphere&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.node_detail">
+<description>
+Sets the detail level for drawing spherical nodes in the currently selected part(s).
+
+| Higher values of level result in more polygons being used to draw the spheres. 
+
+Args:
+    p0:
+        &#x27;level&#x27; detail level for the spheres used to represent the nodes; must be within the range of  2 to 10.
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.node_type(&quot;sphere&quot;)
+    | ensight.part.node_detail(5)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.node_scale">
+<description>
+Sets the scale factor used to determine node size for the currently selected part(s).
+
+Args:
+    p0:
+        &#x27;scale&#x27; scaling factor to be applied to the node cross or sphere representation; can be any valid floating point value
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.node_scale(1.5)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.node_size_by">
+<description>
+Selects the source for calculating node size in the currently selected part(s).
+
+Args:
+    p0:
+        &#x27;source_type&#x27;
+
+        * Can have any of the following values:
+        * constant
+        * scalar
+        * vector_mag
+        * vector_xcomp
+        * vector_ycomp
+        * vector_zcomp
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.node_type(&quot;sphere&quot;)
+    | ensight.part.node_size_by(&quot;vector_mag&quot;)
+    | ensight.part.node_variable(&quot;velocity&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.node_type">
+<description>
+Selects the node representation mode for the currently selected part(s).
+
+Args:
+    p0:
+        &#x27;type&#x27;
+
+        * dot
+        * cross
+        * sphere
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.node_type(&quot;sphere&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.node_variable">
+<description>
+Specifies the variable to be used in calculating the size of spherical nodes in the currently  selected part(s).
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; the name of an activated variable
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.node_type(&quot;sphere&quot;)
+    | ensight.part.node_size_by(&quot;vector_mag&quot;)
+    | ensight.part.node_variable(&quot;velocity&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.opaqueness">
+<description>
+Specifies the opaqueness of the currently selected part(s).
+
+| A value of 1.0 is fully opaque.
+
+Args:
+    p0:
+        &#x27;value&#x27; opaqueness; must be within the range of 0.0 to 1.0
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | # WARNING: following line includes OBSOLETE call (ensight.part.opaqueness).
+    | ensight.part.opaqueness(0.4)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.reduce_polygons">
+<description>
+Reduce the number of polygons for display.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.reduce_polygons_factor(1)
+    | ensight.part.reduce_polygons(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.reduce_polygons_factor">
+<description>
+Set the polygon reduction factor.
+
+| Used only if reduce_polygons is ON
+| If no polygons were removed during the process the original geometry will be shown.
+
+Args:
+    p0:
+        &#x27;factor&#x27; 0 (less) to 10 (more) controlling the number of polygons
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.reduce_polygons_factor(1)
+    | ensight.part.reduce_polygons(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.ref_frame">
+<description>
+Assigns the currently selected part(s) to the specified reference frame.
+
+Args:
+    p0:
+        &#x27;frame#&#x27; an existing reference frame number
+
+Examples:
+    | ensight.part.select_begin(1,2,5)
+    | ensight.part.modify_begin()
+    | ensight.part.ref_frame(2)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.restore_selected">
+<description>
+Restores the selected parts from a previous seleciton using the store_selected command.  Note that this does NOT cause the parts to be selected as the target for future part: commands.
+
+| To make the highlighted parts the currently selected parts, use part: get_mainpartlist_select or part: select_all.
+
+Examples:
+    | ensight.part.store_selected()
+    | #
+    | # EnSight commands here...
+    | #
+    | ensight.part.restore_selected()
+    | ensight.part.get_mainpartlist_select()
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.select_all">
+<description>
+Selects all parts as the target for future part: commands.
+
+Examples:
+    | ensight.part.select_all()
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.select_all_case">
+<description>
+Selects all parts in the current case as the target for future part: commands.
+
+Examples:
+    | ensight.part.select_all_case()
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.select_all_default">
+<description>
+Causes any following part editing commands to affect the default settings for all parts of any type.
+
+| All part: commands following part: select_all_default will affect default settings until a new part is selected using part: select_begin/end. 
+
+Examples:
+    | ensight.part.select_all_default()
+    | ensight.part.modify_begin()
+    | ensight.part.mirror_original(&quot;OFF&quot;)
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.select_begin">
+<description>
+Selects one or more parts as the target for future part: commands 
+
+Args:
+    p0:
+        &#x27;pnN&#x27; part number(s).  Up to a maximum of  10 per line, but can use as many lines as needed.
+
+Examples:
+    | ensight.part.select_begin(1,2)
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.select_end">
+<description>
+Selects one or more parts as the target for future part: commands 
+
+Args:
+    p0:
+        &#x27;pnN&#x27; part number(s).  Up to a maximum of  10 per line, but can use as many lines as needed.
+
+Examples:
+    | ensight.part.select_begin(1,2)
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.select_byexpr_begin">
+<description>
+Selects parts using an expression.
+
+| Is used in command files only, i.e., EnSight does not generate these commands
+
+Args:
+    p0:
+        &#x27;exprN&#x27; part expression (partial name with asterisk(s))
+
+Examples:
+    | ensight.part.select_byexpr_begin(&quot;flui*&quot;,&quot;soli*&quot;)
+    | ensight.part.modify_begin()
+    | ensight.part.reduce_polygons_factor(1)
+    | ensight.part.reduce_polygons(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.select_byexpr_end">
+<description>
+Selects parts using an expression.
+
+| Is used in command files only, i.e., EnSight does not generate these commands
+
+Args:
+    p0:
+        &#x27;exprN&#x27; part expression (partial name with asterisk(s))
+
+Examples:
+    | ensight.part.select_byexpr_begin(&quot;flui*&quot;,&quot;soli*&quot;)
+    | ensight.part.modify_begin()
+    | ensight.part.reduce_polygons_factor(1)
+    | ensight.part.reduce_polygons(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.select_byname_begin">
+<description>
+Selects parts by name.
+
+Args:
+    p0:
+        &#x27;nameN&#x27; part name (as opposed to number)
+
+Examples:
+    | ensight.part.select_byname_begin(&quot;impeller&quot;,&quot;main chamber&quot;,&quot;exhaust port&quot;)
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.select_byname_end">
+<description>
+Selects parts by name.
+
+Args:
+    p0:
+        &#x27;nameN&#x27; part name (as opposed to number)
+
+Examples:
+    | ensight.part.select_byname_begin(&quot;impeller&quot;,&quot;main chamber&quot;,&quot;exhaust port&quot;)
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.select_default">
+<description>
+Causes any following part editing commands to affect the default settings for all parts belonging to the part type of the next edit command.
+
+| All part editing commands following part: select_default will affect default settings until a new part is selected using part: select_begin/select_end.
+
+Examples:
+    | ensight.part.select_default()
+    | ensight.part.modify_begin()
+    | ensight.part.mirror_original(&quot;OFF&quot;)
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.select_lastcreatedpart">
+<description>
+Selects all of the parts created in the last part-creating operation.
+
+Examples:
+    | ensight.part.select_lastcreatedpart()
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.select_lastonecreated">
+<description>
+Selects the last single part from the last part-creating operation.
+
+Examples:
+    | ensight.part.select_lastonecreated()
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.select_mainpartlist_all">
+<description>
+Causes all parts in the main part list to be highlighted.  Note that this does NOT cause the parts to be selected as the target for future part: commands.
+
+| To make the highlighted parts the currently selected parts, use part: get_mainpartlist_select or part: select_all.
+
+Examples:
+    | ensight.part.select_mainpartlist_all()
+    | ensight.part.get_mainpartlist_select()
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.select_showing">
+<description>
+Causes all parts showing parts to be highlighted.  Note that this does NOT cause the parts to be selected as the target for future part: commands.
+
+| To make the highlighted parts the currently selected parts, use part: get_mainpartlist_select or part: select_all.
+
+Examples:
+    | ensight.part.select_showing()
+    | ensight.part.get_mainpartlist_select()
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.select_visible">
+<description>
+Causes all parts visible parts to be highlighted.  Note that this does NOT cause the parts to be selected as the target for future part: commands.
+
+| To make the highlighted parts the currently selected parts, use part: get_mainpartlist_select or part: select_all.
+
+Examples:
+    | ensight.part.select_visible()
+    | ensight.part.get_mainpartlist_select()
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.select_invisible">
+<description>
+Causes all parts invisible parts to be highlighted.  Note that this does NOT cause the parts to be selected as the target for future part: commands.
+
+| To make the highlighted parts the currently selected parts, use part: get_mainpartlist_select or part: select_all.
+
+Examples:
+    | ensight.part.select_invisible()
+    | ensight.part.get_mainpartlist_select()
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.shading">
+<description>
+Specifies the type of surface shading used on the currently selected part(s).
+
+Args:
+    p0:
+        &#x27;type&#x27;
+
+        * Can have any of the following values:
+        * flat
+        * gouraud
+        * smooth
+
+Examples:
+    | ensight.view.hidden_surface(&quot;ON&quot;)
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.hidden_surface(&quot;ON&quot;)
+    | ensight.part.shading(&quot;gouraud&quot;)
+    | ensight.part.modify_end()
+
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.store_selected">
+<description>
+Stores the selected parts to be used later using the restore_selected command.  Note that this does NOT cause the parts to be selected as the target for future part: commands.
+
+| To make the highlighted parts the currently selected parts, use part: get_mainpartlist_select or part: select_all.
+
+Examples:
+    | ensight.part.store_selected()
+    | #
+    | # EnSight commands here...
+    | #
+    | ensight.part.restore_selected()
+    | ensight.part.get_mainpartlist_select()
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_rgb(1,0,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.show_selection_inmainlist">
+<description>
+Updates the Part List GUI menu to reflect the currently selected part(s).
+
+Examples:
+    | ensight.view.hidden_surface(&quot;ON&quot;)
+    | ensight.part.select_begin(1)
+    | ensight.part.show_selection_inmainlist()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.symmetry_angle">
+<description>
+Specifies the rotational symmetry angle.
+
+| Used only when part: symmetry_type is set to rotational.
+
+Args:
+    p0:
+        &#x27;angle&#x27; The angle (in degrees) for the rotation
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | #
+    | # turn on rotational symmetry about the x axis
+    | # use 4 instances rotated 90 degrees
+    | #
+    | ensight.part.symmetry_type(&quot;rotational&quot;)
+    | ensight.part.symmetry_axis(&quot;x&quot;)
+    | ensight.part.symmetry_rinstances(4)
+    | ensight.part.symmetry_angle(90.)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.symmetry_axis">
+<description>
+Specifies the rotational symmetry axis.
+
+| Used only when part: symmetry_type is set to rotational.
+| The axis is in reference to the part��s coordinate frame.
+
+Args:
+    p0:
+        &#x27;axis&#x27;
+
+        * x
+        * y
+        * z
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | #
+    | # turn on rotational symmetry about the x axis
+    | # use 4 instances rotated 90 degrees
+    | #
+    | ensight.part.symmetry_type(&quot;rotational&quot;)
+    | ensight.part.symmetry_axis(&quot;x&quot;)
+    | ensight.part.symmetry_rinstances(4)
+    | ensight.part.symmetry_angle(90.)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.symmetry_mirror_x">
+<description>
+Set the flag for visual symmetry mirror images of currently selected parts in the x / y / z / xy / yz / xz / xyz directions.
+
+| The part is reflected about the frame that it is assigned to (part: ref_frame)
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.symmetry_mirror_x(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_y(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.symmetry_mirror_y">
+<description>
+Set the flag for visual symmetry mirror images of currently selected parts in the x / y / z / xy / yz / xz / xyz directions.
+
+| The part is reflected about the frame that it is assigned to (part: ref_frame)
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.symmetry_mirror_x(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_y(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.symmetry_mirror_z">
+<description>
+Set the flag for visual symmetry mirror images of currently selected parts in the x / y / z / xy / yz / xz / xyz directions.
+
+| The part is reflected about the frame that it is assigned to (part: ref_frame)
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.symmetry_mirror_x(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_y(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.symmetry_mirror_xy">
+<description>
+Set the flag for visual symmetry mirror images of currently selected parts in the x / y / z / xy / yz / xz / xyz directions.
+
+| The part is reflected about the frame that it is assigned to (part: ref_frame)
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.symmetry_mirror_x(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_y(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.symmetry_mirror_yz">
+<description>
+Set the flag for visual symmetry mirror images of currently selected parts in the x / y / z / xy / yz / xz / xyz directions.
+
+| The part is reflected about the frame that it is assigned to (part: ref_frame)
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.symmetry_mirror_x(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_y(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.symmetry_mirror_xz">
+<description>
+Set the flag for visual symmetry mirror images of currently selected parts in the x / y / z / xy / yz / xz / xyz directions.
+
+| The part is reflected about the frame that it is assigned to (part: ref_frame)
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.symmetry_mirror_x(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_y(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.symmetry_mirror_xyz">
+<description>
+Set the flag for visual symmetry mirror images of currently selected parts in the x / y / z / xy / yz / xz / xyz directions.
+
+| The part is reflected about the frame that it is assigned to (part: ref_frame)
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.symmetry_mirror_x(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_y(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
+    | ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.symmetry_rinstances">
+<description>
+Specifies the rotational instances.
+
+| Used only when part: symmetry_type is set to rotational.
+
+Args:
+    p0:
+        &#x27;num&#x27; The number of rotational instances
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | #
+    | # turn on rotational symmetry about the x axis
+    | # use 4 instances rotated 90 degrees
+    | #
+    | ensight.part.symmetry_type(&quot;rotational&quot;)
+    | ensight.part.symmetry_axis(&quot;x&quot;)
+    | ensight.part.symmetry_rinstances(4)
+    | ensight.part.symmetry_angle(90.)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.symmetry_type">
+<description>
+Turn on symmetry display.
+
+Args:
+    p0:
+        &#x27;sym_type&#x27;
+
+        * mirror
+        * rotational
+        * none
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | #
+    | # turn on rotational symmetry about the x axis
+    | # use 4 instances rotated 90 degrees
+    | #
+    | ensight.part.symmetry_type(&quot;rotational&quot;)
+    | ensight.part.symmetry_axis(&quot;x&quot;)
+    | ensight.part.symmetry_rinstances(4)
+    | ensight.part.symmetry_angle(90.)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.texture_coord_type">
+<description>
+Sets the texture mapping to use a projection or to use two variables describing the s and t vector values.
+
+Args:
+    p0:
+        &#x27;type&#x27;
+
+        * projection
+        * variable
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.texture_coord_type(&quot;projection&quot;)
+    | ensight.part.texture_origin(-1,.2,1)
+    | ensight.part.texture_svector(2,0,0)
+    | ensight.part.texture_tvector(0,2,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.texture_interpolation">
+<description>
+Sets the texture interpolation mode to use the nearest texture pixel or interpolate.
+
+Args:
+    p0:
+        &#x27;mode&#x27;
+
+        * nearest
+        * linear
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.texture_object(1)
+    | ensight.part.texture_repeat_mode(&quot;clamp&quot;)
+    | ensight.part.texture_interpolation(&quot;linear&quot;)
+    | ensight.part.texture_mode(&quot;decal&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.texture_mode">
+<description>
+Set the texture mode to be used for the part coloring.
+
+Args:
+    p0:
+        &#x27;mode&#x27;
+
+        * replace
+        * decal
+        * modulate
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.texture_object(1)
+    | ensight.part.texture_repeat_mode(&quot;clamp&quot;)
+    | ensight.part.texture_mode(&quot;decal&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.texture_object">
+<description>
+Color the selected part by a texture.
+
+Args:
+    p0:
+        &#x27;num&#x27; the texture object to color by
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.texture_object(1)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.texture_origin">
+<description>
+Sets the texture orgin offset in model space.  This describes the &quot;lower left&quot; corner of the texture in world coordinates.  This is an offset amount if the Projection offset is relative to a node ID.  If not, it is an offset from the world coordinate orgin, i.e., it becomes an absolute origin.
+
+| Only used if texture_coord_type is set to projection
+
+Args:
+    p0:
+        &#x27;x_orig&#x27; the x coordinate for the texture origin
+    p1:
+        &#x27;y_orig&#x27; the y coordinate for the texture origin
+    p2:
+        &#x27;z_orig&#x27; the z coordinate for the texture origin
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.texture_origin(-1,.2,1)
+    | ensight.part.texture_svector(2,0,0)
+    | ensight.part.texture_tvector(0,2,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.texture_origin_nodeid">
+<description>
+Sets the texture origin offset relative to this node id.
+
+| The texture origin becomes the x/y/z coordinate of this node offset (if any) by the texture_origin command
+| Only used if the texture_coord_type is set to projection
+
+Args:
+    p0:
+        &#x27;node_id&#x27; The node id that will be used as the orgin offset
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.texture_coord_type(&quot;projection&quot;)
+    | #
+    | # offset the texture by one unit in the x direction from nodeid 3443
+    | #
+    | ensight.part.texture_origin_use(&quot;offset_by_nodeid&quot;)
+    | ensight.part.texture_origin_nodeid(3443)
+    | ensight.part.texture_origin(1,0,0)
+    | ensight.part.texture_svector(2,0,0)
+    | ensight.part.texture_tvector(0,2,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.texture_origin_use">
+<description>
+Sets how the texture origin and orientation will be defined.
+
+| Only used if the texture_coord_type is set to projection.
+
+Args:
+    p0:
+        &#x27;projection&#x27;
+
+        * absolute
+        * offset_by_nodeid
+        * offsetvectors_by_nodeid
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.texture_coord_type(&quot;projection&quot;)
+    | #
+    | # offset the texture by one unit in the x direction from nodeid 3443
+    | #
+    | ensight.part.texture_origin_use(&quot;offset_by_nodeid&quot;)
+    | ensight.part.texture_origin_nodeid(3443)
+    | ensight.part.texture_origin(1,0,0)
+    | ensight.part.texture_svector(2,0,0)
+    | ensight.part.texture_tvector(0,2,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.texture_repeat_mode">
+<description>
+Indicates that a texture repeats outside of the defined target area or uses the border color.
+
+Args:
+    p0:
+        &#x27;mode&#x27;
+
+        * repeat
+        * clamp
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.texture_object(1)
+    | ensight.part.texture_repeat_mode(&quot;clamp&quot;)
+    | ensight.part.texture_mode(&quot;decal&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.texture_sorigin_nodeid">
+<description>
+Sets the s and t vector orientation according to the node ids described
+
+| Only used if the texture_coord_type is set to projection and the texture_origin_use is set to offsetvectors_by_nodeid
+
+Args:
+    p0:
+        &#x27;node_id&#x27; The node id to use to describe the s/t texture direction.
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.texture_coord_type(&quot;projection&quot;)
+    | ensight.part.texture_origin_use(&quot;offsetvectors_by_nodeid&quot;)
+    | ensight.part.texture_origin_nodeid(3443)
+    | ensight.part.texture_sorigin_nodeid(4944)
+    | ensight.part.texture_torigin_nodeid(5998)
+    | ensight.part.texture_origin(1,0,0)
+    | ensight.part.texture_svector(2,0,0)
+    | ensight.part.texture_tvector(0,2,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.texture_torigin_nodeid">
+<description>
+Sets the s and t vector orientation according to the node ids described
+
+| Only used if the texture_coord_type is set to projection and the texture_origin_use is set to offsetvectors_by_nodeid
+
+Args:
+    p0:
+        &#x27;node_id&#x27; The node id to use to describe the s/t texture direction.
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.texture_coord_type(&quot;projection&quot;)
+    | ensight.part.texture_origin_use(&quot;offsetvectors_by_nodeid&quot;)
+    | ensight.part.texture_origin_nodeid(3443)
+    | ensight.part.texture_sorigin_nodeid(4944)
+    | ensight.part.texture_torigin_nodeid(5998)
+    | ensight.part.texture_origin(1,0,0)
+    | ensight.part.texture_svector(2,0,0)
+    | ensight.part.texture_tvector(0,2,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.texture_svariable">
+<description>
+For texture_coord_type set to variable these describe the variables to use for the s/t texture color
+
+| A name of &quot;none&quot; is acceptable - this indicates that a constant s/t coordinate of 0.5 will be used
+
+Args:
+    p0:
+        &#x27;name&#x27; s/t variable name
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.texture_coord_type(&quot;variables&quot;)
+    | ensight.part.texture_svariable(&quot;norm_temperature&quot;)
+    | ensight.part.texture_tvariable(&quot;none&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.texture_tvariable">
+<description>
+For texture_coord_type set to variable these describe the variables to use for the s/t texture color
+
+| A name of &quot;none&quot; is acceptable - this indicates that a constant s/t coordinate of 0.5 will be used
+
+Args:
+    p0:
+        &#x27;name&#x27; s/t variable name
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.texture_coord_type(&quot;variables&quot;)
+    | ensight.part.texture_svariable(&quot;norm_temperature&quot;)
+    | ensight.part.texture_tvariable(&quot;none&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.texture_svector">
+<description>
+Sets the texture s-vector orientation and size.  The s-vector maps to the horizontal direction of the texture.
+
+| Only used if texture_coord_type is set to projection
+
+Args:
+    p0:
+        &#x27;x&#x27; s vector x value in world coordinates
+    p1:
+        &#x27;y&#x27; s vector y value in world coordinates
+    p2:
+        &#x27;z&#x27; s vector z value in world coordinates
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.texture_origin(-1,.2,1)
+    | ensight.part.texture_svector(2,0,0)
+    | ensight.part.texture_tvector(0,2,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.texture_tvector">
+<description>
+Sets the texture t-vector orientation and size.  The t-vector maps to the vertical direction of the texture.
+
+| Only used if texture_coord_type is set to projection
+
+Args:
+    p0:
+        &#x27;x&#x27; t vector x value in world coordinates
+    p1:
+        &#x27;y&#x27; t vector y value in world coordinates
+    p2:
+        &#x27;z&#x27; t vector z value in world coordinates
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.texture_origin(-1,.2,1)
+    | ensight.part.texture_svector(2,0,0)
+    | ensight.part.texture_tvector(0,2,0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.ungroup">
+<description>
+Ungroups the currently selected (grouped) parts.
+
+Examples:
+    | ensight.part.select_begin(3,5)
+    | ensight.part.ungroup()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.updtparts">
+<description>
+Updates the parent part for the currently selected part(s)
+
+Args:
+    p0:
+        &#x27;parent&#x27; part number of the new parent(s)
+
+Examples:
+    | ensight.part.select_begin(3,5)
+    | ensight.part.updtparts(2)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.viewport_vis">
+<description>
+Controls visibility of the currently selected part(s) in the specified viewport(s).
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+    p1:
+        &#x27;vportN&#x27;
+
+        * viewport numbers in which to modify part visibility
+
+Examples:
+    | ensight.part.select_begin(1,2,5)
+    | ensight.part.modify_begin()
+    | ensight.part.viewport_vis(&quot;OFF&quot;,1,3)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.visibility_elt">
+<description>
+Turns element visibility on or off for the currently selected part(s).
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.visibility_elt(&quot;OFF&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.visibility_line">
+<description>
+Turns line visibility on or off for the currently selected part(s).
+
+| &quot;Line&quot; refers to the 1D bar elements.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.visibility_line(&quot;OFF&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.visibility_node">
+<description>
+Turns node visibility on or off for the currently selected part(s).
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.select_begin(1)
+    | ensight.part.modify_begin()
+    | ensight.part.visibility_node(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.part.visible">
+<description>
+Controls the visibility of  the currently selected part(s).
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.part.select_begin(1,2,5)
+    | ensight.part.modify_begin()
+    | ensight.part.visible(&quot;OFF&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

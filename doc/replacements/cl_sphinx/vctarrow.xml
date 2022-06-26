@@ -1,0 +1,475 @@
+<docstrings>
+<override namespace="ensight.vctarrow.arrow_location">
+<description>
+Control the location of the arrows
+
+| Discrete particles can only use the &#x27;node&#x27; vector location. 
+| For linear elements &#x27;node&#x27; and &#x27;vertices&#x27; give the same result. 
+
+Args:
+    p0:
+        &#x27;location&#x27;
+
+        * vertices
+        * node
+        * element_center
+
+Examples:
+    | # WARNING: following line includes OBSOLETE call (ensight.variables.select_varname_begin).
+    | ensight.variables.select_varname_begin(&quot;Area &quot;,&quot;Area2 &quot;,&quot;variables: select_varname_end &quot;,&quot;# &quot;,&quot;# Saving the areas to a file &quot;,&quot;# &quot;,&quot;variables: save_constants /usr/tmp/my_constants&quot;,&quot;part: select_begin &quot;,&quot;2 &quot;)
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.arrow_location(&quot;element_center&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.arrow_type">
+<description>
+Change the visual representation of the arrow shafts
+
+Args:
+    p0:
+        &#x27;type&#x27;
+
+        * rectilinear
+        * rect_fixed
+        * curved
+
+Examples:
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.arrow_type(&quot;curved&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.begin">
+<description>
+Delimit the modifications for vector arrow attributes
+
+| These commands are used to set the attributes for a vector arrow part creation. 
+
+Examples:
+    | ensight.vctarrow.begin()
+    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
+    | ensight.vctarrow.end()
+    | ensight.vctarrow.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.end">
+<description>
+Delimit the modifications for vector arrow attributes
+
+| These commands are used to set the attributes for a vector arrow part creation. 
+
+Examples:
+    | ensight.vctarrow.begin()
+    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
+    | ensight.vctarrow.end()
+    | ensight.vctarrow.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.component">
+<description>
+Specify a scaling factor for each component of the vector variable,  to be used in calculating both the magnitude and direction of the vector  arrow.
+
+| Specify 1 to use the full value of a component. Specify 0 to ignore the corresponding vector components (and thus confine all vector arrows to planes  perpendicular to that axis). 
+| Values may be negative to reverse the direction of the component.  
+
+Args:
+    p0:
+        &#x27;x_scale&#x27; scaling for the x-component 
+    p1:
+        &#x27;y_scale&#x27; scaling for the y-component 
+    p2:
+        &#x27;z_scale&#x27; scaling for the z-component 
+
+Examples:
+    | ensight.vctarrow.begin()
+    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
+    | ensight.vctarrow.end()
+    | ensight.vctarrow.create()
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.component(2.0000e+00,1.0000e+00,1.0000e+00)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.create">
+<description>
+Create a new vector arrow part using the currently defined attributes and selected parent parts.
+
+| The vector variable must be set via the vctarrow: variable command before the part can be created. 
+
+Examples:
+    | ensight.variables.activate(&quot;VITESSE&quot;)
+    | ensight.part.select_all()
+    | ensight.vctarrow.begin()
+    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
+    | ensight.vctarrow.end()
+    | ensight.vctarrow.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.density">
+<description>
+Control the fraction of the parent&#x27;s nodes which will display a vector.
+
+| A value of 0.0 results in no arrows, while a value of 1.0 results in an arrow at every node. Between these two values the arrows are randomly distributed at the specified density. 
+
+Args:
+    p0:
+        &#x27;value&#x27; density value between 0 and 1
+
+Examples:
+    | ensight.vctarrow.begin()
+    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
+    | ensight.vctarrow.end()
+    | ensight.vctarrow.create()
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.density(5.0000e-01)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.display_offset">
+<description>
+Specify a visual offset for the vectors from the surface.
+
+| A positive offset moves the vector away from the surface in the direction of the normal. 
+
+Args:
+    p0:
+        &#x27;offset&#x27; offset in world coordinates
+
+Examples:
+    | ensight.vctarrow.begin()
+    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
+    | ensight.vctarrow.end()
+    | ensight.vctarrow.create()
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.display_offset(1.0000e-01)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.projection">
+<description>
+Apply a projection to the vectors prior to display
+
+| Vector components are scaled prior to computing the projections.  
+
+Args:
+    p0:
+        &#x27;proj&#x27;
+
+        * all
+        * normal
+        * tangential
+        * component
+
+Examples:
+    | ensight.variables.activate(&quot;velocity&quot;)
+    | ensight.vctarrow.begin()
+    | ensight.vctarrow.variable(&quot;velocity&quot;)
+    | ensight.vctarrow.end()
+    | ensight.vctarrow.create()
+    | ensight.part.select_begin(4)
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.projection(&quot;component&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.scale_factor">
+<description>
+Control the length of the vector arrows
+
+| If the arrow type is &quot;Rectilinear&quot; this parameter is a scaling multiple to change the magnitude of the vectors. If the type is &quot;Rect_fixed&quot; the parameter specifies the absolute magnitude for each vector. If the type is &quot;Curved&quot; this parameter controls the integration time for the streamlines which make up the curved part of the arrow. 
+
+Args:
+    p0:
+        &#x27;scale/time&#x27; scale factor or time
+
+Examples:
+    | ensight.vctarrow.begin()
+    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
+    | ensight.vctarrow.end()
+    | ensight.vctarrow.create()
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.scale_factor(7.0000e-01)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.select_default">
+<description>
+Sets the target to the default settings for subsequent attribute modifications.
+
+Examples:
+    | ensight.vctarrow.select_default()
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.threshold_low">
+<description>
+Set the low or high threshold value
+
+| Used with vctarrow: thresholds
+
+Args:
+    p0:
+        &#x27;low&#x27; low filter threshold
+    p1:
+        &#x27;high&#x27; high filter threshold
+
+Examples:
+    | ensight.vctarrow.begin()
+    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
+    | ensight.vctarrow.end()
+    | ensight.vctarrow.create()
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.thresholds(&quot;band&quot;)
+    | ensight.part.modify_end()
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.threshold_low(5.0000e-1)
+    | ensight.part.modify_end()
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.threshold_high(7.5000e-1)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.threshold_high">
+<description>
+Set the low or high threshold value
+
+| Used with vctarrow: thresholds
+
+Args:
+    p0:
+        &#x27;low&#x27; low filter threshold
+    p1:
+        &#x27;high&#x27; high filter threshold
+
+Examples:
+    | ensight.vctarrow.begin()
+    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
+    | ensight.vctarrow.end()
+    | ensight.vctarrow.create()
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.thresholds(&quot;band&quot;)
+    | ensight.part.modify_end()
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.threshold_low(5.0000e-1)
+    | ensight.part.modify_end()
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.threshold_high(7.5000e-1)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.thresholds">
+<description>
+Apply a threshold filter to the selection of vectors for display.
+
+| Threshold filtering occurs after density filtering. When using both forms of filtering in combination the actual vector density may not be exactly as specified. 
+
+Args:
+    p0:
+        &#x27;type&#x27;
+
+        * none
+        * low
+        * band
+        * high
+        * low_high
+
+Examples:
+    | ensight.vctarrow.begin()
+    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
+    | ensight.vctarrow.end()
+    | ensight.vctarrow.create()
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.thresholds(&quot;band&quot;)
+    | ensight.part.modify_end()
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.threshold_low(5.0000e-1)
+    | ensight.part.modify_end()
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.threshold_high(7.5000e-1)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.tip_rgb">
+<description>
+Change the color of the arrow tips
+
+| The color of the tip is only used when the tip shape is &#x27;tipped&#x27; 
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue components of the color tip (range 0.0 to 1.0)
+    p1:
+        &#x27;grn_val&#x27; red, green, blue components of the color tip (range 0.0 to 1.0)
+    p2:
+        &#x27;blu_val&#x27; red, green, blue components of the color tip (range 0.0 to 1.0)
+
+Examples:
+    | ensight.vctarrow.begin()
+    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
+    | ensight.vctarrow.end()
+    | ensight.vctarrow.create()
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.tip_shape(&quot;tipped&quot;)
+    | ensight.part.modify_end()
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.tip_rgb(0.0000e00,1.0000e00,0.0000e00)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.tip_shape">
+<description>
+Change the visual representation of the arrow tips
+
+Args:
+    p0:
+        &#x27;type&#x27;
+
+        * none
+        * cone
+        * normal
+        * triangles
+        * tipped
+
+Examples:
+    | ensight.vctarrow.begin()
+    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
+    | ensight.vctarrow.end()
+    | ensight.vctarrow.create()
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.tip_shape(&quot;cone&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.tip_size_fixed">
+<description>
+This command has not yet been documented
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.tip_size_proportional">
+<description>
+This command has not yet been documented
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.tip_size_rep">
+<description>
+Set the method for determining tip size
+
+| This parameter is only used for &#x27;triangle&#x27; or &#x27;normal&#x27; arrow tips. 
+
+Args:
+    p0:
+        &#x27;rep&#x27;
+
+        * fixed
+        * proportional
+
+Examples:
+    | ensight.vctarrow.begin()
+    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
+    | ensight.vctarrow.end()
+    | ensight.vctarrow.create()
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.tip_shape(&quot;triangle&quot;)
+    | ensight.part.modify_end()
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.tip_size_rep(&quot;fixed&quot;)
+    | ensight.part.modify_end()
+    | ensight.part.modify_begin()
+    | ensight.vctarrow.tip_size(2.0000e-1)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.vctarrow.variable">
+<description>
+Specify the vector variable to be used for vector arrow creation.
+
+| The variable must be activated before it can be used in a vector arrow plot. 
+
+Args:
+    p0:
+        &#x27;var_name&#x27; name of an active vector variable
+
+Examples:
+    | ensight.variables.activate(&quot;VITESSE&quot;)
+    | ensight.part.select_all()
+    | ensight.vctarrow.begin()
+    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
+    | ensight.vctarrow.end()
+    | ensight.vctarrow.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

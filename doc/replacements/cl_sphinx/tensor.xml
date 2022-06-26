@@ -1,0 +1,987 @@
+<docstrings>
+<override namespace="ensight.tensor.begin">
+<description>
+Delimit the modifications for tensor parts.
+
+| These commands are used to set the attributes for tensor glyph part creation.
+
+Args:
+    p0:
+        &#x27;tensor_command&#x27; any of the tensor attribute commands
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.end">
+<description>
+Delimit the modifications for tensor parts.
+
+| These commands are used to set the attributes for tensor glyph part creation.
+
+Args:
+    p0:
+        &#x27;tensor_command&#x27; any of the tensor attribute commands
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.color_by">
+<description>
+Sets the method by which a tensor glyph part is colored.
+
+Args:
+    p0:
+        &#x27;method&#x27;
+
+        * part
+        * direction
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+    | #
+    | # Now selecting the tensor glyph part
+    | #
+    | ensight.part.select_begin(5)
+    | #
+    | # And changing to color by part instead of direction
+    | #
+    | ensight.part.modify_begin()
+    | ensight.tensor.color_by(&quot;part&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.compression_line_width">
+<description>
+Sets the line width (in pixels) that will be used for the compression portion of a tensor glyph if the &quot;tensor: line_width_by&quot; command method is set to &quot;direction&quot;.
+
+| If the &quot;tensor: line_width_by&quot; command method is set to &quot;part&quot;, the tensor glyph part is line width is set in the same manner as any other part.
+
+Args:
+    p0:
+        &#x27;width&#x27; width in pixels for the compression portion of a tensor glyph (range is 1 to 4)
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # (included is the one to make compression
+    | #  lines 2 pixels wide)
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.compression_rgb">
+<description>
+Sets the color that will be used for the compression portion of a tensor glyph if the &quot;tensor: color_by&quot; command method is set to &quot;direction&quot;.
+
+| If the &quot;tensor: color_by&quot; command method is set to &quot;part&quot;, the tensor glyph part is colored like any other part.
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue color components for the compression line (0.0 to 1.0)
+    p1:
+        &#x27;grn_val&#x27; red, green, blue color components for the compression line (0.0 to 1.0)
+    p2:
+        &#x27;blu_val&#x27; red, green, blue color components for the compression line (0.0 to 1.0)
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # (included is the one to make compression
+    | #  lines a particular color)
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.create">
+<description>
+Causes a tensor glyph part to be created according to previously set attributes or defaults.
+
+| The selection of parent part(s) is required.
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.display_compression">
+<description>
+Specifies whether the compression portion of a tensor glyph will be displayed or not.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # (One of which is to have the compression displayed)
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+    | #
+    | # Selecting the newly created tensor glyph part
+    | #
+    | ensight.part.select_begin(5)
+    | #
+    | # And turning compression portion off - to
+    | # show how it can be done
+    | #
+    | ensight.part.modify_begin()
+    | ensight.tensor.display_compression(&quot;OFF&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.display_major">
+<description>
+Specifies whether the major, middle, or minor eigenvectors of a tensor glyph will be displayed. 
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # (Note that all eigenvectors are set to be displayed)
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+    | #
+    | # Selecting the newly created tensor glyph part
+    | #
+    | ensight.part.select_begin(5)
+    | #
+    | # And turning off the middle eigenvector
+    | #
+    | ensight.part.modify_begin()
+    | ensight.tensor.display_middle(&quot;OFF&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.display_middle">
+<description>
+Specifies whether the major, middle, or minor eigenvectors of a tensor glyph will be displayed. 
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # (Note that all eigenvectors are set to be displayed)
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+    | #
+    | # Selecting the newly created tensor glyph part
+    | #
+    | ensight.part.select_begin(5)
+    | #
+    | # And turning off the middle eigenvector
+    | #
+    | ensight.part.modify_begin()
+    | ensight.tensor.display_middle(&quot;OFF&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.display_minor">
+<description>
+Specifies whether the major, middle, or minor eigenvectors of a tensor glyph will be displayed. 
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # (Note that all eigenvectors are set to be displayed)
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+    | #
+    | # Selecting the newly created tensor glyph part
+    | #
+    | ensight.part.select_begin(5)
+    | #
+    | # And turning off the middle eigenvector
+    | #
+    | ensight.part.modify_begin()
+    | ensight.tensor.display_middle(&quot;OFF&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.display_tension">
+<description>
+Specifies whether the tension portion of a tensor glyph will be displayed.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # (One of which is to have the tension displayed)
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+    | #
+    | # Selecting the newly created tensor glyph part
+    | #
+    | ensight.part.select_begin(5)
+    | #
+    | # And turning tension portion off - to
+    | # show how it can be done
+    | #
+    | ensight.part.modify_begin()
+    | ensight.tensor.display_tension(&quot;OFF&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.line_width_by">
+<description>
+Sets the method by which a tensor glyph part&#x27;s line width is controlled.
+
+Args:
+    p0:
+        &#x27;method&#x27;
+
+        * part
+        * direction
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # (Note line width set by direction)
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+    | #
+    | # Now selecting the tensor glyph part
+    | #
+    | ensight.part.select_begin(5)
+    | #
+    | # And changing to line width to be by part instead of direction
+    | #
+    | ensight.part.modify_begin()
+    | ensight.tensor.line_width_by(&quot;part&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.scale_factor">
+<description>
+Sets the scale factor to be applied to the tensor glyph.
+
+| The factor is applied to major, middle, and minor eigenvectors.
+
+Args:
+    p0:
+        &#x27;value&#x27; the scale factor that to apply to the tensor glyph
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # (One of which is the scale factor)
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.scale_factor(1.6700e+00)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+    | #
+    | # Now selecting the tensor glyph part
+    | #
+    | ensight.part.select_begin(5)
+    | #
+    | # And changing the scale factor back to 1
+    | #
+    | ensight.part.modify_begin()
+    | ensight.tensor.scale_factor(1.0000e+00)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.select_default">
+<description>
+Sets default as the current tensor glyph selection, so subsequent attribute modifications will affect the default.
+
+| When certain attributes will be common to future tensor glyph parts, it is useful to set these once as the default.
+
+Examples:
+    | #
+    | # Setting to default
+    | #
+    | ensight.tensor.select_default()
+    | #
+    | # Setting a few things as defaults
+    | #
+    | ensight.part.modify_begin()
+    | ensight.tensor.scale_factor(1.5000e+00)
+    | ensight.tensor.display_middle(&quot;OFF&quot;)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,0.0000e+00)
+    | ensight.tensor.tension_rgb(0.0000e+00,0.0000e+00,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;part&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.tension_line_width">
+<description>
+Sets the line width (in pixels) that will be used for the tension portion of a tensor glyph if the &quot;tensor: line_width_by&quot; command method is set to &quot;direction&quot;.
+
+| If the &quot;tensor: line_width_by&quot; command method is set to &quot;part&quot;, the tensor glyph part is line width is set in the same manner as any other part.
+
+Args:
+    p0:
+        &#x27;width&#x27; width in pixels for the tension portion of a tensor glyph (range is 1 to 4)
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # (included is the one to make tension
+    | #  lines 4 pixels wide)
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.tension_rgb">
+<description>
+Sets the color that will be used for the tension portion of a tensor glyph if the &quot;tensor: color_by&quot; command method is set to &quot;direction&quot;.
+
+| If the &quot;tensor: color_by&quot; command method is set to &quot;part&quot;, the tensor glyph part is colored like any other part.
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue color components for the tension line (0.0 to 1.0)
+    p1:
+        &#x27;grn_val&#x27; red, green, blue color components for the tension line (0.0 to 1.0)
+    p2:
+        &#x27;blu_val&#x27; red, green, blue color components for the tension line (0.0 to 1.0)
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # (included is the one to make tension
+    | #  lines a particular color)
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.tip_shape">
+<description>
+Sets the shape of the tips on the tensor glyphs
+
+| The direction of the arrowheads will be towards each for compression and away from each other for tension.
+
+Args:
+    p0:
+        &#x27;shape&#x27;
+
+        * none
+        * normal
+        * triangle
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # (included is the one to make triangle arrowhead tips)
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.tip_size">
+<description>
+Sets the size of the tips on the tensor glyphs
+
+Args:
+    p0:
+        &#x27;size&#x27; a relative size factor for tensor glyph tips
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # (included is the one to set tip size)
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.tensor.variable">
+<description>
+Specifies the name of the tensor variable that the tensor glyphs will represent.
+
+Args:
+    p0:
+        &#x27;name&#x27; name of the tensor variable
+
+Examples:
+    | #
+    | # Activating a tensor variable
+    | #
+    | ensight.variables.activate(&quot;uniaxial_tensor&quot;)
+    | #
+    | # Selecting all parts as parents
+    | #
+    | ensight.part.select_all()
+    | #
+    | # Grouping a bunch of tensor attribute commands
+    | # (included the one that specifies the name)
+    | # 
+    | ensight.tensor.begin()
+    | ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
+    | ensight.tensor.display_compression(&quot;ON&quot;)
+    | ensight.tensor.display_tension(&quot;ON&quot;)
+    | ensight.tensor.display_major(&quot;ON&quot;)
+    | ensight.tensor.display_minor(&quot;ON&quot;)
+    | ensight.tensor.display_middle(&quot;ON&quot;)
+    | ensight.tensor.tip_shape(&quot;triangle&quot;)
+    | ensight.tensor.tip_size(1.0000e-01)
+    | ensight.tensor.color_by(&quot;direction&quot;)
+    | ensight.tensor.compression_rgb(1.0000e+00,0.0000e+00,4.0000e-01)
+    | ensight.tensor.tension_rgb(0.0000e+00,8.0000e-01,1.0000e+00)
+    | ensight.tensor.line_width_by(&quot;direction&quot;)
+    | ensight.tensor.compression_line_width(2)
+    | ensight.tensor.tension_line_width(4)
+    | ensight.tensor.end()
+    | #
+    | # Creating the tensor glyph part
+    | #
+    | ensight.tensor.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

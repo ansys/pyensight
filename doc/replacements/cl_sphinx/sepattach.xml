@@ -1,0 +1,327 @@
+<docstrings>
+<override namespace="ensight.sepattach.begin">
+<description>
+Delimit the modifications for separation or attachment line attributes.
+
+| These commands are used to set the attributes for a separation or attachment line part creation.
+
+Examples:
+    | #
+    | # Specify the 2D parent part(s) from which
+    | # to create the separation and attachment lines
+    | #
+    | ensight.part.select_begin(2,3)
+    | #
+    | # Compute the separation and attachment lines parts
+    | #
+    | ensight.sepattach.begin()
+    | ensight.sepattach.end()
+    | ensight.sepattach.create()
+    | #
+    | # Now select the newly created separation and 
+    | # attachment line parts for subsequent operations
+    | #
+    | ensight.part.select_begin(6,7)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.sepattach.end">
+<description>
+Delimit the modifications for separation or attachment line attributes.
+
+| These commands are used to set the attributes for a separation or attachment line part creation.
+
+Examples:
+    | #
+    | # Specify the 2D parent part(s) from which
+    | # to create the separation and attachment lines
+    | #
+    | ensight.part.select_begin(2,3)
+    | #
+    | # Compute the separation and attachment lines parts
+    | #
+    | ensight.sepattach.begin()
+    | ensight.sepattach.end()
+    | ensight.sepattach.create()
+    | #
+    | # Now select the newly created separation and 
+    | # attachment line parts for subsequent operations
+    | #
+    | ensight.part.select_begin(6,7)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.sepattach.create">
+<description>
+Create separation and attachment line parts using the currently selected 2D parts and defined attributes.
+
+| This feature is different from other features in that it creates two parts, i.e. a separation line part, and an attachment line part.  In addition, both of these parts are modified with any command change applied to either one or both of these parts.
+
+Examples:
+    | #
+    | # Specify the 2D parent part(s) from which
+    | # to create the separation and attachment lines
+    | #
+    | ensight.part.select_begin(2,3)
+    | #
+    | # Compute the separation and attachment lines parts
+    | #
+    | ensight.sepattach.begin()
+    | ensight.sepattach.end()
+    | ensight.sepattach.create()
+    | #
+    | # Now select the newly created separation and 
+    | # attachment line parts for subsequent operations
+    | #
+    | ensight.part.select_begin(6,7)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.sepattach.density">
+<description>
+Specify the density variable to use in creating/updating the default separation and attachment line part attributes and/or the selected separation and attachment line part(s).
+
+| This variable is assigned automatically if the variable name description &lt;Density&gt; exists. Since the computation of separation and attachment lines depend on velocity, either the velocity variable must be defined or both the density and momentum variables must be defined to obtain the velocity variable.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of the density variable (the default &lt;none&gt; means to use nothing)
+
+Examples:
+    | ensight.variables.activate(&quot;Density&quot;)
+    | ensight.sepattach.select_default()
+    | ensight.part.modify_begin()
+    | ensight.sepattach.density(&quot;Density&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.sepattach.display_offset">
+<description>
+Specify the offset from the 2D parent part(s) surface from which to display (or lift) the separation and attachment line parts.
+
+| This offset measures in model coordinate units, in the normal direction from the 2D parent part(s) surface(s); and thus, may need to be specified as either a + or - number.
+
+Args:
+    p0:
+        &#x27;offset_value&#x27; numerical offset value from the 2D surface, (default = 0.)
+
+Examples:
+    | ensight.part.modify_begin()
+    | ensight.sepattach.display_offset(-1.0000e-03)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.sepattach.method">
+<description>
+Specify the method, or algorithm, in which to compute the separation and attachment line parts, from either 2D parent part(s) or in recomputing existing 1D separation and attachment line parts.
+
+| Currently only one algorithm offered.
+
+Args:
+    p0:
+        &#x27;option&#x27;
+
+        * phase_plane
+
+Examples:
+    | ensight.part.select_begin(6,7)
+    | ensight.part.modify_begin()
+    | ensight.sepattach.method(&quot;phase_plane&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.sepattach.momentum">
+<description>
+Specify the momentum variable to use in creating/updating the default separation and attachment line part attributes and/or the selected separation and attachment line part(s).
+
+| This variable is assigned automatically if the variable name description &lt;Momentum&gt; exists. Since the computation of separation and attachment lines depend on velocity, either the velocity variable must be defined or both the density and momentum variables must be defined to obtain the velocity variable.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of the momentum variable (the default &lt;none&gt; means to use nothing)
+
+Examples:
+    | ensight.variables.activate(&quot;Momentum&quot;)
+    | ensight.sepattach.select_default()
+    | ensight.part.modify_begin()
+    | ensight.sepattach.momentum(&quot;Momentum&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.sepattach.ratio_of_spec_heat">
+<description>
+Specify the ratio of specific heat constant value or variable name to use in creating/updating the default separation and attachment line attributes and/or selected separation and attachment part(s).
+
+| The &lt;name or value&gt; can be multiple types depending on variable definition.
+
+Args:
+    p0:
+        &#x27;name&#x27; scalar field variable name for the ratio of specific heats
+    p1:
+        &#x27;value&#x27; constant value (default = 1.4) for the ratio of specific heats
+
+Examples:
+    | ensight.sepattach.select_default()
+    | ensight.part.modify_begin()
+    | ensight.sepattach.ratio_of_spec_heat(1.4)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.sepattach.select_default">
+<description>
+Specify that the default attributes of the separation and attachment line parts are to be set for all subsequent separation and attachment line creates and updates.
+
+Examples:
+    | ensight.sepattach.select_default()
+    | ensight.part.modify_begin()
+    | ensight.sepattach.momentum(&quot;none&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.sepattach.threshold">
+<description>
+Specify the threshold variable description by which to filter the segments of the selected separation and attachment line parts.
+
+| The default threshold variable for vortex cores is &quot;fx_sep_att_strengh&quot;.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of the scalar variable by which to filter the vortex core segments
+
+Examples:
+    | ensight.part.select_begin(5)
+    | ensight.part.modify_begin()
+    | ensight.sepattach.threshold(&quot;Density&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.sepattach.threshold_filter">
+<description>
+Specify how to filter out segments of the specified separation and attachment line part, according to the specified threshold variable and value.
+
+Args:
+    p0:
+        &#x27;option&#x27;
+
+        * &lt;=
+        * &gt;=
+
+Examples:
+    | ensight.part.select_begin(5)
+    | ensight.part.modify_begin()
+    | ensight.sepattach.threshold_filter(&quot;&gt;=&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.sepattach.threshold_max">
+<description>
+Specify the maximum/minimum threshold limit under which to filter the threshold value of the selected separation and attachment line part(s).
+
+| This max must be greater than the min value, and be a valid threshold variable value.  
+
+Args:
+    p0:
+        &#x27;threshold_value&#x27; maximum/minimum threshold variable range limit below which to threshold the separation and attachment lines parts
+
+Examples:
+    | ensight.part.select_begin(5)
+    | ensight.part.modify_begin()
+    | ensight.sepattach.threshold_max(1.0000e+01)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.sepattach.threshold_min">
+<description>
+Specify the maximum/minimum threshold limit under which to filter the threshold value of the selected separation and attachment line part(s).
+
+| This max must be greater than the min value, and be a valid threshold variable value.  
+
+Args:
+    p0:
+        &#x27;threshold_value&#x27; maximum/minimum threshold variable range limit below which to threshold the separation and attachment lines parts
+
+Examples:
+    | ensight.part.select_begin(5)
+    | ensight.part.modify_begin()
+    | ensight.sepattach.threshold_max(1.0000e+01)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.sepattach.threshold_value">
+<description>
+Specify the threshold value by which to filter the segments from the selected separation and attachment line part(s).
+
+| This value is automatically set to the minimum separation and attachment line strength variable value of the separation and attachment line parts.
+
+Args:
+    p0:
+        &#x27;threshold_value&#x27; variable value by which to apply the threshold filter to the vortex core segments
+
+Examples:
+    | ensight.part.select_begin(5)
+    | ensight.part.modify_begin()
+    | ensight.sepattach.threshold_value(5.0000e-01)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.sepattach.velocity">
+<description>
+Specify the velocity variable to use in creating/updating the default separation and attachment line part attributes and/or the selected separation and attachment line part(s).
+
+| This variable is assigned automatically if the variable name description &lt;Velocity&gt; exists.  Since the computation of separation and attachment lines depend on velocity, either the velocity variable must be defined or both the density and momentum variables must be defined to obtain the velocity variable.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of the velocity variable (the default &lt;none&gt; means to use nothing)
+
+Examples:
+    | ensight.variables.activate(&quot;Velocity&quot;)
+    | ensight.sepattach.select_default()
+    | ensight.part.modify_begin()
+    | ensight.sepattach.velocity(&quot;Velocity&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

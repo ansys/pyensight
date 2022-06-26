@@ -1,0 +1,417 @@
+<docstrings>
+<override namespace="ensight.curve.assign">
+<description>
+Assign a selected curve to the selected plot.
+
+| String description not needed if assigning a new curve to an existing plot.
+
+Args:
+    p0:
+        &#x27;option&#x27;
+
+        * rescale
+        * no_rescale
+    p1:
+        &#x27;description&#x27; description of the plotter
+
+Examples:
+    | ensight.curve.select_begin(0)
+    | ensight.curve.assign(&quot;rescale&quot;,&quot;Velocity&quot;,&quot;vs.&quot;,&quot;Distance&quot;,&quot;for&quot;,&quot;part&quot;,2)
+    | ensight.plot.select_begin(0)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.delete">
+<description>
+Delete the selected curve(s).
+
+Examples:
+    | ensight.curve.select_begin(0)
+    | ensight.curve.delete()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.desc">
+<description>
+Specify curve description.
+
+Args:
+    p0:
+        &#x27;description&#x27; description of the selected curve
+
+Examples:
+    | ensight.curve.select_begin(0)
+    | ensight.curve.desc(&quot;Velocity vs. Distance for part 2&quot;)
+
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.line_style">
+<description>
+Specifies the line style to use for the selected curves.
+
+| Only works when line_type is connect_dots.
+
+Args:
+    p0:
+        &#x27;option&#x27;
+
+        * solid
+        * dotted
+        * dash
+
+Examples:
+    | ensight.curve.select_begin(1)
+    | ensight.curve.line_type(&quot;connect_dots&quot;)
+    | ensight.curve.line_style(&quot;dotted&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.line_type">
+<description>
+Specifies the line type to use for the selected curves.
+
+Args:
+    p0:
+        &#x27;option&#x27;
+
+        * none
+        * connect_dots
+        * smooth
+
+Examples:
+    | ensight.curve.select_begin(1)
+    | ensight.curve.line_type(&quot;none&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.line_width">
+<description>
+Specify the (pixel) line width of the selected curve(s).
+
+Args:
+    p0:
+        &#x27;width&#x27; pixel line width of 1, 2 (default), 3, or 4.
+
+Examples:
+    | ensight.curve.select_begin(1)
+    | ensight.curve.line_width(3)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.load">
+<description>
+Load the specified (saved) curve file.
+
+| See the curve file formats under &quot;curve: save&quot;. 
+
+Args:
+    p0:
+        &#x27;filename&#x27; file (path and) name of the saved curve file
+
+Examples:
+    | ensight.curve.select_begin(2)
+    | ensight.curve.load(&quot;Curve0&quot;)
+
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.marker">
+<description>
+Specify the type of marker in which to represent the points of the selected curve(s).
+
+Args:
+    p0:
+        &#x27;option&#x27;
+
+        * none
+        * dot
+        * circle
+        * triangle
+        * square
+
+Examples:
+    | ensight.curve.select_begin(0,1)
+    | ensight.curve.marker(&quot;circle&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.marker_scale">
+<description>
+Specify the size of the marker type which represents the points of the selected curve(s).
+
+Args:
+    p0:
+        &#x27;size&#x27; size of the curve point markers (default = 1.)
+
+Examples:
+    | ensight.curve.select_begin(0,1)
+    | ensight.curve.marker_scale(2.0000e+00)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.normalize_x">
+<description>
+Specify whether to normalize the abscissa range of the selected curve(s) to the interval I[0.,1.].
+
+| This means to divide all abscissa coordinates of the curve by the maximum abscissa coordinate value.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.curve.select_begin(0,1)
+    | ensight.curve.normalize_x(&quot;ON&quot;)
+    | ensight.curve.normalize_y(&quot;OFF&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.normalize_y">
+<description>
+Specify whether to normalize the abscissa range of the selected curve(s) to the interval I[0.,1.].
+
+| This means to divide all abscissa coordinates of the curve by the maximum abscissa coordinate value.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.curve.select_begin(0,1)
+    | ensight.curve.normalize_x(&quot;ON&quot;)
+    | ensight.curve.normalize_y(&quot;OFF&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.offset">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.rgb">
+<description>
+Specify the color of the selected curve(s) via red, green, and blue component values.
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue component of color (0 to 1.)
+    p1:
+        &#x27;grn_val&#x27; red, green, blue component of color (0 to 1.)
+    p2:
+        &#x27;blu_val&#x27; red, green, blue component of color (0 to 1.)
+
+Examples:
+    | #
+    | # Set the curve color to cyan
+    | #
+    | ensight.curve.select_begin(1)
+    | ensight.curve.rgb(0.0000e+00,1.0000e+00,1.0000e+00)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.save">
+<description>
+Specify how to save the selected curve(s) data to a file.
+
+| formatted - curve data saved in the following format:
+| velocity vs. Distance for line tool
+|   Distance       Value           X             Y             Z
+|  0.00000e+00   5.56944e-01  -1.84272e+00   5.00623e-01   1.02349e+00
+|  1.16535e+00   5.06148e-01  -6.77367e-01   5.00623e-01   1.02349e+00
+|  2.33070e+00   4.33805e-02   4.87984e-01   5.00623e-01   1.02349e+00
+|  3.49605e+00   3.41879e-01   1.65334e+00   5.00623e-01   1.02349e+00
+|  4.66140e+00   5.29504e-01   2.81869e+00   5.00623e-01   1.02349e+00
+| Minimum value overall
+| At Point =  4.87984e-01  5.00623e-01  1.02349e+00, 
+| Dist. =  2.33070e+00, Value = 4.33805e-02
+| Maximum value overall
+| At Point = -1.84272e+00  5.00623e-01  1.02349e+00, 
+| Dist. =  0.00000e+00, Value = 5.56944e-01
+| xy_data   - curve data saved in the following (x,y) format for importing into a spreadsheets:
+| velocity vs. Distance for line tool
+| Distance
+| velocity
+| 1
+| 5
+| 0 0.556944
+| 1.16535 0.506148
+| 2.3307 0.0433805
+| 3.49605 0.341879
+| 4.6614 0.529504
+
+Args:
+    p0:
+        &#x27;type&#x27;
+
+        * formatted
+        * xy_data
+    p1:
+        &#x27;filename&#x27; name of the file in which to save the curve points
+
+Examples:
+    | ensight.curve.select_begin(0)
+    | ensight.curve.save(&quot;xy_data&quot;,&quot;Curve0&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.scale">
+<description>
+Scales the x and y query by the values given.
+
+| Only scales the curve visually, does not modify the query information.
+
+Args:
+    p0:
+        &#x27;x_scale&#x27; query x scale factor
+    p1:
+        &#x27;y_scale&#x27; query y scale factor
+
+Examples:
+    | ensight.curve.select_begin(1)
+    | ensight.curve.scale(60.0,1.)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.select_all">
+<description>
+Select all curves for subsequent operations.
+
+Examples:
+    | ensight.curve.select_all()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.select_begin">
+<description>
+Curve(s) selection construct for subsequent curve operation.
+
+| Parameters
+| none
+| Curve ids to be selected must be specified betweeen curve: select_begin and curve: select_end.
+
+Examples:
+    | ensight.curve.select_begin(0)
+    | ensight.curve.assign(&quot;rescale&quot;,&quot;Velocity&quot;,&quot;vs.&quot;,&quot;Distance&quot;,&quot;for&quot;,&quot;part&quot;,2)
+    | ensight.plot.select_begin(0)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.select_end">
+<description>
+Curve(s) selection construct for subsequent curve operation.
+
+| Parameters
+| none
+| Curve ids to be selected must be specified betweeen curve: select_begin and curve: select_end.
+
+Examples:
+    | ensight.curve.select_begin(0)
+    | ensight.curve.assign(&quot;rescale&quot;,&quot;Velocity&quot;,&quot;vs.&quot;,&quot;Distance&quot;,&quot;for&quot;,&quot;part&quot;,2)
+    | ensight.plot.select_begin(0)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.select_default">
+<description>
+Specify the default curve to be selected - or unselect all curves.
+
+| This is used to set the default (unselected) curve attributes.
+
+Examples:
+    | ensight.curve.select_default()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.select_lastcreated">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.smooth_subpoints">
+<description>
+Specify the number of smooth subpoints to use between curve points of the selected curve.
+
+| The curve line type must be smooth.
+
+Args:
+    p0:
+        &#x27;num&#x27; number of subpoints in which to display the smoothed line type between curve points (default is 3)
+
+Examples:
+    | ensight.curve.select_begin(1)
+    | ensight.curve.line_type(&quot;smooth&quot;)
+    | ensight.curve.smooth_subpoints(4.0000e+00)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.curve.visible">
+<description>
+Toggle the selected curve(s) visibility.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.curve.select_begin(1)
+    | ensight.curve.visible(&quot;OFF&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

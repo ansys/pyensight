@@ -1,0 +1,184 @@
+<docstrings>
+<override namespace="ensight.connect.backend">
+<description>
+Indicates that the following &#x27;connect:&#x27; commands will apply to new server connections.
+
+| To change the default server connection settings, use the &#x27;connect: default&#x27; command.
+
+Examples:
+    | # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
+    | ensight.connect.backend()
+    | ensight.connect.machine(&quot;localhost&quot;)
+    | ensight.connect.executable(&quot;.server&quot;)
+    | ensight.connect.directory(&quot;&quot;)
+    | ensight.connect.type(&quot;auto&quot;)
+    | ensight.connect.connect()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.connect.connect">
+<description>
+Cause the client to wait for a connection to the EnSight server.
+
+| The client will try to start the server if an auto connection is specified.
+| The client will wait and listen for a connection from the  server.  By default it will listen on TCP port 1106.  This port number can be modified with the &#x27;-ports #&#x27; argument to the client and server.
+
+Examples:
+    | # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
+    | ensight.connect.backend()
+    | ensight.connect.machine(&quot;localhost&quot;)
+    | ensight.connect.executable(&quot;.server&quot;)
+    | ensight.connect.directory(&quot;&quot;)
+    | ensight.connect.type(&quot;auto&quot;)
+    | ensight.connect.connect()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.connect.default">
+<description>
+Indicates that the following &#x27;connect:&#x27; commands will change the EnSight defaults for future sessions.
+
+| To temporarily change server connection settings, use the &#x27;connect: backend&#x27; command.
+
+Examples:
+    | ensight.connect.default()
+    | ensight.connect.machine(&quot;localhost&quot;)
+    | ensight.connect.executable(&quot;.server&quot;)
+    | ensight.connect.directory(&quot;/tmp&quot;)
+    | ensight.connect.type(&quot;auto&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.connect.directory">
+<description>
+Specifies the directory shown in the Data Reader dialog.
+
+Args:
+    p0:
+        &#x27;pathname&#x27; name of the directory
+
+Examples:
+    | # Show the /tmp director on &#x27;slim&#x27; in the Data Reader dialog
+    | # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
+    | ensight.connect.backend()
+    | ensight.connect.machine(&quot;slim&quot;)
+    | ensight.connect.executable(&quot;.server&quot;)
+    | ensight.connect.directory(&quot;/tmp&quot;)
+    | ensight.connect.type(&quot;auto&quot;)
+    | ensight.connect.connect()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.connect.executable">
+<description>
+Specifies the file name of the EnSight server for automatic connections initiated by the client.
+
+| The filename can be a complete pathname to the server otherwise the server executable must be found in your default path on the  host running the server.
+
+Args:
+    p0:
+        &#x27;filename&#x27; name of the server
+
+Examples:
+    | # use server found in /usr/local/bin/
+    | # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
+    | ensight.connect.backend()
+    | ensight.connect.machine(&quot;slim&quot;)
+    | ensight.connect.executable(&quot;/usr/local/bin/.server&quot;)
+    | ensight.connect.directory(&quot;/tmp&quot;)
+    | ensight.connect.type(&quot;auto&quot;)
+    | ensight.connect.connect()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.connect.login_id">
+<description>
+Specifies a different user name to use on the computer where the server will run.
+
+| For auto connections the client will try to start the server on a remote computer using the &#x27;rsh&#x27; command.  If a user name is specified, it will be used as part of the rsh command. In lieu of the rsh command, a different command can be used as specified by the &#x27;-rsh command&#x27; argument to the client.
+
+Args:
+    p0:
+        &#x27;username&#x27; login name
+
+Examples:
+    | # log in to host slim as user &#x27;joe&#x27;
+    | # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
+    | ensight.connect.backend()
+    | ensight.connect.machine(&quot;slim&quot;)
+    | ensight.connect.login_id(&quot;joe&quot;)
+    | ensight.connect.executable(&quot;.server&quot;)
+    | ensight.connect.directory(&quot;&quot;)
+    | ensight.connect.type(&quot;auto&quot;)
+    | ensight.connect.connect()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.connect.machine">
+<description>
+Specifies the hostname where EnSight server should be run for automatic connections initiated by the client.
+
+| The name specified must be an Internet accessible hostname or IP address.  You must be able to rlogin (or ssh) into this machine.
+
+Args:
+    p0:
+        &#x27;hostname&#x27; name of the computer where the server should run
+
+Examples:
+    | # use an auto connection to host &#x27;slim&#x27;
+    | # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
+    | ensight.connect.backend()
+    | ensight.connect.machine(&quot;slim&quot;)
+    | ensight.connect.executable(&quot;.server&quot;)
+    | ensight.connect.directory(&quot;/tmp&quot;)
+    | ensight.connect.type(&quot;auto&quot;)
+    | ensight.connect.connect()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.connect.type">
+<description>
+Specifies whether the EnSight server should be started by the client or by the user.
+
+Args:
+    p0:
+        &#x27;method&#x27;
+
+        * auto
+        * manual
+
+Examples:
+    | # use a manual connection
+    | # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
+    | ensight.connect.backend()
+    | ensight.connect.type(&quot;manual&quot;)
+    | ensight.connect.connect()
+
+    | # use an auto connection
+    | # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
+    | ensight.connect.backend()
+    | ensight.connect.machine(&quot;slim&quot;)
+    | ensight.connect.executable(&quot;.server&quot;)
+    | ensight.connect.directory(&quot;/tmp&quot;)
+    | ensight.connect.type(&quot;auto&quot;)
+    | ensight.connect.connect()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

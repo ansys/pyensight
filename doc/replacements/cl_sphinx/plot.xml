@@ -1,0 +1,1416 @@
+<docstrings>
+<override namespace="ensight.plot.animate_curves">
+<description>
+Turns animation of curves with time on or off  for the currently selected plot(s). For use with transient flipbook or keyframe animations.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON  (default)
+        * OFF
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.animate_curves(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_linewidth">
+<description>
+Sets the axis line width of the currently selected plot(s).
+
+Args:
+    p0:
+        &#x27;width&#x27; specifies the width in pixels and can be any value from  1 to 4
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_linewidth(2)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_rgb">
+<description>
+Specifies the RGB color value of the axis for the currently selected plot(s).
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p1:
+        &#x27;grn_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p2:
+        &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | #
+    | # Set the plot axis to blue
+    | #
+    | ensight.plot.axis_rgb(0,0,1)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_swap_minmax">
+<description>
+Swaps the axis min and max values for the specified axis of the currently selected plot.
+
+| By default the values increase along the axis.
+
+Args:
+    p0:
+        &#x27;axis&#x27;
+
+        * must be either x or y
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_swap_minmax(&quot;x&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_autoscale">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_autoscale">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_gridtype">
+<description>
+Specifies the type of grid that will be drawn for the x/y axis of the currently selected plot.
+
+|  The default grid type is tick.
+
+Args:
+    p0:
+        &#x27;grid_type&#x27;
+
+        * Can be any of the following values:
+        * none
+        * grid
+        * tick
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_gridtype(&quot;tick&quot;)
+    | ensight.plot.axis_y_gridtype(&quot;grid&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_gridtype">
+<description>
+Specifies the type of grid that will be drawn for the x/y axis of the currently selected plot.
+
+|  The default grid type is tick.
+
+Args:
+    p0:
+        &#x27;grid_type&#x27;
+
+        * Can be any of the following values:
+        * none
+        * grid
+        * tick
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_gridtype(&quot;tick&quot;)
+    | ensight.plot.axis_y_gridtype(&quot;grid&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_labelformat">
+<description>
+Sets the format to be used for x/y axis value labels in the currently selected plot.
+
+Args:
+    p0:
+        &#x27;format&#x27; may be any valid C language print format string
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_labelformat(&quot;%.2e&quot;)
+    | ensight.plot.axis_y_labelformat(&quot;%.3e&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_labelformat">
+<description>
+Sets the format to be used for x/y axis value labels in the currently selected plot.
+
+Args:
+    p0:
+        &#x27;format&#x27; may be any valid C language print format string
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_labelformat(&quot;%.2e&quot;)
+    | ensight.plot.axis_y_labelformat(&quot;%.3e&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_labelrgb">
+<description>
+Specifies the RGB color value of the x/y axis label for the currently selected plot(s).
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue color components, must be between 0.0 and 1.0.
+    p1:
+        &#x27;grn_val&#x27; red, green, blue color components, must be between 0.0 and 1.0.
+    p2:
+        &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0.
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_labelrgb(0,0,1)
+    | ensight.plot.axis_y_labelrgb(1,0,0)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_labelrgb">
+<description>
+Specifies the RGB color value of the x/y axis label for the currently selected plot(s).
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue color components, must be between 0.0 and 1.0.
+    p1:
+        &#x27;grn_val&#x27; red, green, blue color components, must be between 0.0 and 1.0.
+    p2:
+        &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0.
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_labelrgb(0,0,1)
+    | ensight.plot.axis_y_labelrgb(1,0,0)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_labelsize">
+<description>
+Sets the size of the x/y axis label text in the currently selected plot.
+
+Args:
+    p0:
+        &#x27;size&#x27; label text size; can be any value from 1 to 100.0, with a value of one specifying the smallest text and 100 the largest.
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_labelsize(10)
+    | ensight.plot.axis_y_labelsize(10)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_labelsize">
+<description>
+Sets the size of the x/y axis label text in the currently selected plot.
+
+Args:
+    p0:
+        &#x27;size&#x27; label text size; can be any value from 1 to 100.0, with a value of one specifying the smallest text and 100 the largest.
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_labelsize(10)
+    | ensight.plot.axis_y_labelsize(10)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_labeltype">
+<description>
+Specifies how the x/y axis is labeled in the currently selected  plot.
+
+|  The default value for x/y axis label type is all.
+
+Args:
+    p0:
+        &#x27;label_type&#x27;
+
+        * Can be any of the following values:
+        * none
+        * all
+        * beg_end
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_labeltype(&quot;none&quot;)
+    | ensight.plot.axis_y_labeltype(&quot;beg_end&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_labeltype">
+<description>
+Specifies how the x/y axis is labeled in the currently selected  plot.
+
+|  The default value for x/y axis label type is all.
+
+Args:
+    p0:
+        &#x27;label_type&#x27;
+
+        * Can be any of the following values:
+        * none
+        * all
+        * beg_end
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_labeltype(&quot;none&quot;)
+    | ensight.plot.axis_y_labeltype(&quot;beg_end&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_max">
+<description>
+Sets the maximum value for the x/y axis labels in the currently selected plot.
+
+Args:
+    p0:
+        &#x27;max&#x27; max label number on the axis; can be any valid floating-point value
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_max(9.5)
+    | ensight.plot.axis_y_max(5.3)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_max">
+<description>
+Sets the maximum value for the x/y axis labels in the currently selected plot.
+
+Args:
+    p0:
+        &#x27;max&#x27; max label number on the axis; can be any valid floating-point value
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_max(9.5)
+    | ensight.plot.axis_y_max(5.3)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_min">
+<description>
+Sets the minimum value for the x/y axis labels in the currently selected plot.
+
+Args:
+    p0:
+        &#x27;min&#x27; min label number on the axis; can be any valid floating-point value
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_min(1.5)
+    | ensight.plot.axis_y_min(1.5)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_min">
+<description>
+Sets the minimum value for the x/y axis labels in the currently selected plot.
+
+Args:
+    p0:
+        &#x27;min&#x27; min label number on the axis; can be any valid floating-point value
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_min(1.5)
+    | ensight.plot.axis_y_min(1.5)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_numgrid">
+<description>
+Sets the number of grid lines to be used along the x/y axis of the currently selected plot(s).
+
+Args:
+    p0:
+        &#x27;num&#x27; number of grid lines along the axis; can be any whole number
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_numgrid(10)
+    | ensight.plot.axis_y_numgrid(6)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_numgrid">
+<description>
+Sets the number of grid lines to be used along the x/y axis of the currently selected plot(s).
+
+Args:
+    p0:
+        &#x27;num&#x27; number of grid lines along the axis; can be any whole number
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_numgrid(10)
+    | ensight.plot.axis_y_numgrid(6)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_numsubgrid">
+<description>
+Sets the number of subgrid lines to be used along the x/y axis of the currently selected plot(s).
+
+| While the argument to this command is a floating-point value, the actual number of grid lines drawn will be truncated to an integer.
+
+Args:
+    p0:
+        &#x27;num&#x27; number of subgrid lines (or ticks) to be used between grid lines along an axis; can be any whole number
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_numsubgrid(2)
+    | ensight.plot.axis_y_numsubgrid(1)
+
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_numsubgrid">
+<description>
+Sets the number of subgrid lines to be used along the x/y axis of the currently selected plot(s).
+
+| While the argument to this command is a floating-point value, the actual number of grid lines drawn will be truncated to an integer.
+
+Args:
+    p0:
+        &#x27;num&#x27; number of subgrid lines (or ticks) to be used between grid lines along an axis; can be any whole number
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_numsubgrid(2)
+    | ensight.plot.axis_y_numsubgrid(1)
+
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_origin">
+<description>
+Sets the value of the x/y axis origin for the currently selected plot(s).
+
+| The default x/y axis origin is 0.
+
+Args:
+    p0:
+        &#x27;origin&#x27; x or y location of origin within the plotter; range is the normalized values 0.0 to 1.0
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_origin(0.25)
+    | ensight.plot.axis_y_origin(0.18)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_origin">
+<description>
+Sets the value of the x/y axis origin for the currently selected plot(s).
+
+| The default x/y axis origin is 0.
+
+Args:
+    p0:
+        &#x27;origin&#x27; x or y location of origin within the plotter; range is the normalized values 0.0 to 1.0
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_origin(0.25)
+    | ensight.plot.axis_y_origin(0.18)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_scale">
+<description>
+  Selects the type of scale used for the x/y axis of the currently selected plot(s).
+
+|  The default scale is linear. 
+
+Args:
+    p0:
+        &#x27;scale_type&#x27;
+
+        * one of the following:
+        * linear
+        * logarithmic
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_scale(&quot;logarithmic&quot;)
+    | ensight.plot.axis_y_scale(&quot;linear&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_scale">
+<description>
+  Selects the type of scale used for the x/y axis of the currently selected plot(s).
+
+|  The default scale is linear. 
+
+Args:
+    p0:
+        &#x27;scale_type&#x27;
+
+        * one of the following:
+        * linear
+        * logarithmic
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_scale(&quot;logarithmic&quot;)
+    | ensight.plot.axis_y_scale(&quot;linear&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_sgridtype">
+<description>
+  Specifies the type of subgrid that will be drawn for the x/y axis of the currently selected  plot.
+
+|  The default subgrid type is none.
+
+Args:
+    p0:
+        &#x27;grid_type&#x27;
+
+        * Can be any of the following values:
+        * none
+        * grid
+        * tick
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_sgridtype(&quot;tick&quot;)
+    | ensight.plot.axis_y_sgridtype(&quot;grid&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_sgridtype">
+<description>
+  Specifies the type of subgrid that will be drawn for the x/y axis of the currently selected  plot.
+
+|  The default subgrid type is none.
+
+Args:
+    p0:
+        &#x27;grid_type&#x27;
+
+        * Can be any of the following values:
+        * none
+        * grid
+        * tick
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_sgridtype(&quot;tick&quot;)
+    | ensight.plot.axis_y_sgridtype(&quot;grid&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_size">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_size">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_title">
+<description>
+Sets the title string for the x/y axis of the currently selected plot.
+
+Args:
+    p0:
+        &#x27;title&#x27; x/y axis title
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_title(&quot;Time in Seconds&quot;)
+    | ensight.plot.axis_y_title(&quot;Pressure&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_title">
+<description>
+Sets the title string for the x/y axis of the currently selected plot.
+
+Args:
+    p0:
+        &#x27;title&#x27; x/y axis title
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_title(&quot;Time in Seconds&quot;)
+    | ensight.plot.axis_y_title(&quot;Pressure&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_titlergb">
+<description>
+Specifies the RGB color value of the x/y axis title for the currently selected plot(s).
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p1:
+        &#x27;grn_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p2:
+        &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_titlergb(0,0,1)
+    | ensight.plot.axis_y_titlergb(0,1,0)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_titlergb">
+<description>
+Specifies the RGB color value of the x/y axis title for the currently selected plot(s).
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p1:
+        &#x27;grn_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p2:
+        &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_titlergb(0,0,1)
+    | ensight.plot.axis_y_titlergb(0,1,0)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_titlesize">
+<description>
+Sets the size of the x/y axis title in the currently selected plot.
+
+Args:
+    p0:
+        &#x27;size&#x27; axis title text size; can be any value from 1 to 100.0, with a value of one specifying the smallest text and 100 the largest.
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_titlesize(10)
+    | ensight.plot.axis_y_titlesize(12)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_titlesize">
+<description>
+Sets the size of the x/y axis title in the currently selected plot.
+
+Args:
+    p0:
+        &#x27;size&#x27; axis title text size; can be any value from 1 to 100.0, with a value of one specifying the smallest text and 100 the largest.
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_titlesize(10)
+    | ensight.plot.axis_y_titlesize(12)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_x_visible">
+<description>
+  Controls the visibility of the x/y axis of the currently selected plot(s).
+
+|  Plot axes are visible by default.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_visible(&quot;OFF&quot;)
+    | ensight.plot.axis_y_visible(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.axis_y_visible">
+<description>
+  Controls the visibility of the x/y axis of the currently selected plot(s).
+
+|  Plot axes are visible by default.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.axis_x_visible(&quot;OFF&quot;)
+    | ensight.plot.axis_y_visible(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.background_rgb">
+<description>
+Specifies the background RGB color value for the currently selected plot(s).
+
+| Used only if plot: background_type is set to solid.
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p1:
+        &#x27;grn_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p2:
+        &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.background_rgb(0,0,1)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.background_type">
+<description>
+Specifies the background type of the currently selected plot.
+
+| The default for plot background type is none.
+
+Args:
+    p0:
+        &#x27;type&#x27;
+
+        * Can be any of the following values:
+        * none
+        * solid
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.background_type(&quot;solid&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.border_rgb">
+<description>
+Specifies the border RGB color value for the currently selected plot(s).
+
+| Used only if plot: border_visible is set to ON.
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p1:
+        &#x27;grn_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p2:
+        &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.border_rgb(0,0,1)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.border_visible">
+<description>
+Controls the visibility of the border of the currently selected plot(s).
+
+| Plot borders are visible by default.
+| The border will be drawn according to plot: border_rgb
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.border_visible(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.delete_plot">
+<description>
+Deletes the currently selected plot(s).
+
+Examples:
+    | ensight.plot.select_begin(1,2,3)
+    | ensight.plot.delete_plot()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.detached_background_rgb">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.detached_window">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.grid_linetype">
+<description>
+Specifies the type of grid lines that will be drawn for the currently selected  plot.
+
+| The grid line_type is solid by default.
+
+Args:
+    p0:
+        &#x27;line_type&#x27;
+
+        * Can be any of the following values:
+        * solid
+        * dotted
+        * dash
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.grid_linetype(&quot;solid&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.grid_linewidth">
+<description>
+Sets the grid line width of the currently selected plot(s).
+
+Args:
+    p0:
+        &#x27;width&#x27; specifies the line width in pixels of the grid lines, and can be any value from 1 to 4
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.grid_linewidth(2)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.grid_rgb">
+<description>
+Specifies the RGB color value of the grid for the currently selected plot(s).
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p1:
+        &#x27;grn_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p2:
+        &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.grid_rgb(0,0,1)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.height">
+<description>
+Sets the height of the currently selected plot.
+
+| Plots are drawn in reference to the graphics window.  A value of 1.0 is the height of the window.
+
+Args:
+    p0:
+        &#x27;height&#x27; height of plot viewport in normalized coordinates, namely any value between 0 and 1.0, with a value of one corresponding to the height of the graphics window
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.width(0.5)
+    | ensight.plot.height(0.4)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.legend_color_by">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.legend_minmax_origin_x">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.legend_minmax_origin_y">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.legend_minmax_textsize">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.legend_minmax_visible">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.legend_origin_x">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.legend_origin_y">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.legend_rgb">
+<description>
+Specifies the RGB color value of the legend for the currently selected plot(s).
+
+| Used only if plot: legend_visible is ON.
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p1:
+        &#x27;grn_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p2:
+        &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.legend_rgb(0,0,1)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.legend_textsize">
+<description>
+Sets the size of legend text in the currently selected plot.
+
+Args:
+    p0:
+        &#x27;size&#x27; size of legend text; any value from 1 to 100.0, with a value of one specifying the smallest text and 100 the largest
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.legend_textsize(10)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.legend_visible">
+<description>
+Controls the visibility of the legend for the currently selected plot(s).
+
+|  Plot legends are visible by default. 
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.legend_visible(&quot;OFF&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.new_plot_ifnotexist">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.origin_x">
+<description>
+Specifies the x/y coordinate of the origin of the selected plot in the graphics window.
+
+| The origin of the plot will be positioned at  this point (x,y) in the graphics window 
+
+Args:
+    p0:
+        &#x27;coord&#x27; normalized coordinate of lower left corner of the plot viewport. A value of 0.0 indicates the left/botton side of the window, while a value of 1.0 indicates the right/top side.
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.origin_x(0.5)
+    | ensight.plot.origin_y(0.5)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.origin_y">
+<description>
+Specifies the x/y coordinate of the origin of the selected plot in the graphics window.
+
+| The origin of the plot will be positioned at  this point (x,y) in the graphics window 
+
+Args:
+    p0:
+        &#x27;coord&#x27; normalized coordinate of lower left corner of the plot viewport. A value of 0.0 indicates the left/botton side of the window, while a value of 1.0 indicates the right/top side.
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.origin_x(0.5)
+    | ensight.plot.origin_y(0.5)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.plot_title">
+<description>
+Sets the title string for the currently selected plot.
+
+Args:
+    p0:
+        &#x27;title&#x27; plot title
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.plot_title(&quot;My Plot Title&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.select_all">
+<description>
+Selects all of the plots in the graphics window as the target for future plot: commands.
+
+Examples:
+    | ensight.plot.select_all()
+    | ensight.plot.delete_plot()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.select_begin">
+<description>
+Selects one or more plots in the graphics window as the  target for future plot: commands 
+
+Args:
+    p0:
+        &#x27;indexN&#x27; plot number (zero based). Up to 10 numbers per line are allowed, but as many lines as needed can be used
+
+Examples:
+    | ensight.plot.select_begin(1,2)
+    | ensight.plot.delete_plot()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.select_end">
+<description>
+Selects one or more plots in the graphics window as the  target for future plot: commands 
+
+Args:
+    p0:
+        &#x27;indexN&#x27; plot number (zero based). Up to 10 numbers per line are allowed, but as many lines as needed can be used
+
+Examples:
+    | ensight.plot.select_begin(1,2)
+    | ensight.plot.delete_plot()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.">
+<description>
+ Causes any following plot: commands to affect the default settings, rather than a particular plot.
+
+| All plot: commands following plot: select_default will affect default settings until a new plot is selected using plot: select_begin/select_end.
+
+Examples:
+    | ensight.plot.select_default()
+    | ensight.plot.visible(&quot;OFF&quot;)
+    | ensight.plot.select_begin(1)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.subgrid_linetype">
+<description>
+Specifies the type of subgrid lines that will be drawn for the currently selected  plot.
+
+| The subgrid line_type is solid by default
+
+Args:
+    p0:
+        &#x27;line_type&#x27;
+
+        * Can be any of the following values:
+        * solid
+        * dotted
+        * dash
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.subgrid_linetype(&quot;solid&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.subgrid_linewidth">
+<description>
+Sets the subgrid line width of the currently selected plot(s).
+
+Args:
+    p0:
+        &#x27;width&#x27; the line width in pixels for subgrid lines (or tics); can be any value from 1 to 4
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.subgrid_linewidth(2)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.time_marker">
+<description>
+Controls the visibility of the time marker in the selected plot(s). For use with transient flipbook or keyframe animations.
+
+| The time marker is visible by default. 
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.animate_curves(&quot;ON&quot;)
+    | ensight.plot.time_marker(&quot;ON&quot;)
+    | ensight.plot.time_marker_rgb(1.0,1.0,0.0)
+    | ensight.plot.time_marker_style(&quot;dotted&quot;)
+    | ensight.plot.time_marker_width(2)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.time_marker_rgb">
+<description>
+Controls the color of the time marker in the selected plot(s). For use with transient flipbook or keyframe animations.
+
+| The time marker is white by default. 
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue contributions of the color (0.0 to 1.0)
+    p1:
+        &#x27;grn_val&#x27; red, green, blue contributions of the color (0.0 to 1.0)
+    p2:
+        &#x27;blu_val&#x27; red, green, blue contributions of the color (0.0 to 1.0)
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.animate_curves(&quot;ON&quot;)
+    | ensight.plot.time_marker(&quot;ON&quot;)
+    | ensight.plot.time_marker_rgb(1.0,1.0,0.0)
+    | ensight.plot.time_marker_style(&quot;dotted&quot;)
+    | ensight.plot.time_marker_width(2)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.time_marker_style">
+<description>
+Controls the line style of the time marker in the selected plot(s). For use with transient flipbook or keyframe animations.
+
+| The time marker is solid by default. 
+
+Args:
+    p0:
+        &#x27;style&#x27;
+
+        * solid
+        * dotted
+        * dash
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.animate_curves(&quot;ON&quot;)
+    | ensight.plot.time_marker(&quot;ON&quot;)
+    | ensight.plot.time_marker_rgb(1.0,1.0,0.0)
+    | ensight.plot.time_marker_style(&quot;dotted&quot;)
+    | ensight.plot.time_marker_width(2)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.time_marker_value">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.time_marker_width">
+<description>
+Controls the width of the time marker in the selected plot(s). For use with transient flipbook or keyframe animations.
+
+| The time marker is 2 pixels wide by default. 
+
+Args:
+    p0:
+        &#x27;width&#x27; number of pixels in width of the marker line
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.animate_curves(&quot;ON&quot;)
+    | ensight.plot.time_marker(&quot;ON&quot;)
+    | ensight.plot.time_marker_rgb(1.0,1.0,0.0)
+    | ensight.plot.time_marker_style(&quot;dotted&quot;)
+    | ensight.plot.time_marker_width(2)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.subgrid_rgb">
+<description>
+Specifies the RGB color value of the subgrid for the currently selected plot(s).
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p1:
+        &#x27;grn_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p2:
+        &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.subgrid_rgb(0,0,1)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.title_rgb">
+<description>
+Specifies the RGB color value of the title for the currently selected plot(s).
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p1:
+        &#x27;grn_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+    p2:
+        &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.title_rgb(0,0,1)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.title_textsize">
+<description>
+Sets the size of title text in the currently selected plot. 
+
+Args:
+    p0:
+        &#x27;size&#x27; size of title text; any value from 1 to 100.0, with a value of one specifying the smallest text and 100 the largest 
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.title_textsize(10)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.visible">
+<description>
+Controls the visibility of the selected plot(s) in the graphics window.
+
+| Plots are visible by default. 
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.visible(&quot;OFF&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.plot.width">
+<description>
+Sets the width of the currently selected plot. 
+
+Args:
+    p0:
+        &#x27;width&#x27; width of plot viewport in normalized coordinates, namely any value between 0 and 1.0, with a value of 1.0 corresponding to the width of the graphics window
+
+Examples:
+    | ensight.plot.select_begin(1)
+    | ensight.plot.width(0.5)
+    | ensight.plot.height(0.4)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

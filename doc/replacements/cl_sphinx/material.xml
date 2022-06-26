@@ -1,0 +1,252 @@
+<docstrings>
+<override namespace="ensight.material.begin">
+<description>
+Delimit the modifications for material part attributes.
+
+Examples:
+    | #
+    | # Select the parent part
+    | #
+    | ensight.part.select_begin(1)
+    | #
+    | ensight.material.begin()
+    | #
+    | # create a domain type material part
+    | #
+    | ensight.material.type(&quot;domain&quot;)
+    | ensight.material.subdivide(&quot;2&quot;)
+    | #
+    | # use the two materials shown
+    | #
+    | ensight.material.select_byname_begin(&quot;matl_02&quot;,&quot;matl_03&quot;)
+    | ensight.material.end()
+    | ensight.material.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.material.end">
+<description>
+Delimit the modifications for material part attributes.
+
+Examples:
+    | #
+    | # Select the parent part
+    | #
+    | ensight.part.select_begin(1)
+    | #
+    | ensight.material.begin()
+    | #
+    | # create a domain type material part
+    | #
+    | ensight.material.type(&quot;domain&quot;)
+    | ensight.material.subdivide(&quot;2&quot;)
+    | #
+    | # use the two materials shown
+    | #
+    | ensight.material.select_byname_begin(&quot;matl_02&quot;,&quot;matl_03&quot;)
+    | ensight.material.end()
+    | ensight.material.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.material.create">
+<description>
+Create a material part with the currently defined attributes using the currently selected parts as parent parts.
+
+Examples:
+    | #
+    | # Select the parent part
+    | #
+    | ensight.part.select_begin(1)
+    | #
+    | ensight.material.begin()
+    | #
+    | # create a domain type material part
+    | #
+    | ensight.material.type(&quot;domain&quot;)
+    | ensight.material.subdivide(&quot;2&quot;)
+    | #
+    | # use the two materials shown
+    | #
+    | ensight.material.select_byname_begin(&quot;matl_02&quot;,&quot;matl_03&quot;)
+    | ensight.material.end()
+    | ensight.material.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.material.method">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.material.normal">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.material.select_byname_begin">
+<description>
+Delimit material name selection.
+
+Examples:
+    | #
+    | # Select the parent part
+    | #
+    | ensight.part.select_begin(1)
+    | #
+    | ensight.material.begin()
+    | #
+    | # create a domain type material part using materials matl_02 and matl_03
+    | #
+    | ensight.material.type(&quot;domain&quot;)
+    | ensight.material.subdivide(&quot;2&quot;)
+    | #
+    | # use the two materials shown
+    | #
+    | ensight.material.select_byname_begin(&quot;matl_02&quot;,&quot;matl_03&quot;)
+    | ensight.material.end()
+    | ensight.material.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.material.select_byname_end">
+<description>
+Delimit material name selection.
+
+Examples:
+    | #
+    | # Select the parent part
+    | #
+    | ensight.part.select_begin(1)
+    | #
+    | ensight.material.begin()
+    | #
+    | # create a domain type material part using materials matl_02 and matl_03
+    | #
+    | ensight.material.type(&quot;domain&quot;)
+    | ensight.material.subdivide(&quot;2&quot;)
+    | #
+    | # use the two materials shown
+    | #
+    | ensight.material.select_byname_begin(&quot;matl_02&quot;,&quot;matl_03&quot;)
+    | ensight.material.end()
+    | ensight.material.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.material.select_bynamesort_begin">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.material.select_bynamesort_end">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.material.select_default">
+<description>
+Sets the target to the default settings for subsequent attribute modifications.
+
+Examples:
+    | ensight.material.select_default()
+    | ensight.part.modify_begin()
+    | ensight.material.type(&quot;domain&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.material.subdivide">
+<description>
+Set the accuracy of the resulting material part - higher values result in higher fidelity.
+
+Args:
+    p0:
+        &#x27;level&#x27;
+
+        * 1
+        * 2
+        * 3
+
+Examples:
+    | #
+    | # Select the parent part
+    | #
+    | ensight.part.select_begin(1)
+    | #
+    | ensight.material.begin()
+    | #
+    | # create a domain type material part
+    | #
+    | ensight.material.type(&quot;domain&quot;)
+    | ensight.material.subdivide(&quot;2&quot;)
+    | #
+    | # use the two materials shown
+    | #
+    | ensight.material.select_byname_begin(&quot;matl_02&quot;,&quot;matl_03&quot;)
+    | ensight.material.end()
+    | ensight.material.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.material.type">
+<description>
+Set the resulting material part to be a domain or interface through/between the material selected.
+
+Args:
+    p0:
+        &#x27;type&#x27;
+
+        * domain
+        * interface
+
+Examples:
+    | #
+    | # Select the parent part
+    | #
+    | ensight.part.select_begin(1)
+    | #
+    | ensight.material.begin()
+    | #
+    | # create a domain type material part
+    | #
+    | ensight.material.type(&quot;domain&quot;)
+    | ensight.material.subdivide(&quot;2&quot;)
+    | #
+    | # use the two materials shown
+    | #
+    | ensight.material.select_byname_begin(&quot;matl_02&quot;,&quot;matl_03&quot;)
+    | ensight.material.end()
+    | ensight.material.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

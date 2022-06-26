@@ -1,0 +1,274 @@
+<docstrings>
+<override namespace="ensight.dial.background">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.background_rgb">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.big_hand_range">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.big_hand_rgb">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.border">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.delete">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.deselect_all">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.little_hand">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.little_hand_range">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.little_hand_rgb">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.location_x">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.location_y">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.minimum">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.modify_begin">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.modify_end">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.new_dial">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.new_or_mod_dial">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.radius">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.select_all">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.select_all_invisible">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.select_all_visible">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.select_begin">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.select_default">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.select_end">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.show_as">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.tick_marks">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.value">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.value_decimal_places">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.value_format">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.value_location">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.value_rgb">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.value_size">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.variable">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.dial.visible">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

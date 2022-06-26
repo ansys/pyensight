@@ -1,0 +1,2251 @@
+<docstrings>
+<override namespace="ensight.view_transf.action">
+<description>
+Sets the transformation method for interaction in the user interface.
+
+| This is not a necessary command.  It is used to change the user interface to reflect the transformation currently attached to the mouse button tied to the transformation action (by default the left mouse button).
+
+Args:
+    p0:
+        &#x27;method&#x27;
+
+        * rotate
+        * translate
+        * scale
+        * zoom
+        * band_zoom
+        * select_tool_pos
+
+Examples:
+    | ensight.view_transf.action(&quot;translate&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.axis">
+<description>
+Sets the axis to use for rotate, translate, and scale transformations.
+
+| Used in the transformation dialog to control the axis about which transformational values are applied.
+| The axis is either the global system or, if in Frame mode, the selected frame��s axis system.
+
+Args:
+    p0:
+        &#x27;which&#x27;
+
+        * x
+        * y
+        * z
+        * all
+
+Examples:
+    | # 
+    | # Set the axis to x 
+    | # and rotate about the x axis 15 degrees 
+    | # 
+    | ensight.view_transf.axis(&quot;x&quot;)
+    | ensight.view_transf.rotate(15.000000,0.000000,0.000000)
+    | # 
+    | # Set the axis to be y 
+    | # and translate one unit in the -negative y direction 
+    | # 
+    | ensight.view_transf.axis(&quot;y&quot;)
+    | ensight.view_transf.translate(0.0000e+00,-1.0000e+00,0.0000e+00)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.band_zoom_expand_from">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.box_axis">
+<description>
+Specify the direction vectors for a box tool. 
+
+| The direction vectors are in reference to the selected coordinate frame.
+
+Args:
+    p0:
+        &#x27;axis&#x27;
+
+        * x
+        * y
+        * z
+    p1:
+        &#x27;x_comp&#x27; The x component of the direction vector
+    p2:
+        &#x27;y_comp&#x27; The y component of the direction vector
+    p3:
+        &#x27;z_comp&#x27; The z component of the direction vector
+
+Examples:
+    | ensight.tools.box(&quot;ON&quot;)
+    | ensight.view_transf.function(&quot;box&quot;)
+    | ensight.view_transf.box_length(3.000000e+00,4.000000e+00,5.000000e+00)
+    | ensight.view_transf.box_origin(0.000000e+00,1.000000e+00,0.000000e+00)
+    | ensight.view_transf.box_axis(&quot;x&quot;,1.000000e+00,0.000000e+00,0.000000e+00)
+    | ensight.view_transf.box_axis(&quot;y&quot;,0.000000e+00,1.000000e+00,0.000000e+00)
+    | ensight.view_transf.box_axis(&quot;z&quot;,0.000000e+00,0.000000e+00,1.000000e+00)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.box_length">
+<description>
+Specify the size of the box tool in the x, y, and z directions.
+
+| The lengths are in relation to the box axis directions.
+
+Args:
+    p0:
+        &#x27;x_len&#x27; The length of box tool in the x, y, z direction
+    p1:
+        &#x27;y_len&#x27; The length of box tool in the x, y, z direction
+    p2:
+        &#x27;z_len&#x27; The length of box tool in the x, y, z direction
+
+Examples:
+    | ensight.tools.box(&quot;ON&quot;)
+    | ensight.view_transf.function(&quot;box&quot;)
+    | ensight.view_transf.box_length(3.000000e+00,4.000000e+00,5.000000e+00)
+    | ensight.view_transf.box_origin(0.000000e+00,1.000000e+00,0.000000e+00)
+    | ensight.view_transf.box_axis(&quot;x&quot;,1.000000e+00,0.000000e+00,0.000000e+00)
+    | ensight.view_transf.box_axis(&quot;y&quot;,0.000000e+00,1.000000e+00,0.000000e+00)
+    | ensight.view_transf.box_axis(&quot;z&quot;,0.000000e+00,0.000000e+00,1.000000e+00)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.box_origin">
+<description>
+Specify the origin of the box tool in reference to the selected coordinate frame.
+
+Args:
+    p0:
+        &#x27;x_ori&#x27; The x, y, z origin of the box tool
+    p1:
+        &#x27;y_ori&#x27; The x, y, z origin of the box tool
+    p2:
+        &#x27;z_ori&#x27; The x, y, z origin of the box tool
+
+Examples:
+    | ensight.tools.box(&quot;ON&quot;)
+    | ensight.view_transf.function(&quot;box&quot;)
+    | ensight.view_transf.box_length(3.000000e+00,4.000000e+00,5.000000e+00)
+    | ensight.view_transf.box_origin(0.000000e+00,1.000000e+00,0.000000e+00)
+    | ensight.view_transf.box_axis(&quot;x&quot;,1.000000e+00,0.000000e+00,0.000000e+00)
+    | ensight.view_transf.box_axis(&quot;y&quot;,0.000000e+00,1.000000e+00,0.000000e+00)
+    | ensight.view_transf.box_axis(&quot;z&quot;,0.000000e+00,0.000000e+00,1.000000e+00)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.camera_desc">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.camera_direction_xyz">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.camera_focus">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.camera_focus_forwardxyz">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.camera_focus_partnode">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.camera_lens">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.camera_origin">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.camera_origin_offset">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.camera_origin_partnode">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.camera_origin_spline">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.camera_origin_splinevalue">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.camera_origin_xyz">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.camera_size">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.camera_up_xyz">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.camera_view_angle">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.camera_visible">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.cameraselect_byname_begin">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.cameraselect_byname_end">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.center_of_transform">
+<description>
+Set the point in space that will be the origin for transformations. 
+
+| Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used.
+| Cannot be set during keyframe animation.
+
+Args:
+    p0:
+        &#x27;x_coord&#x27; model x coordinate of the desired transformation origin
+    p1:
+        &#x27;y_coord&#x27; model y coordinate of the desired transformation origin
+    p2:
+        &#x27;z_coord&#x27; model z coordinate of the desired transformation origin
+
+Examples:
+    | # 
+    | # Selecting two viewports 
+    | # 
+    | ensight.viewport.select_begin(2,3)
+    | # 
+    | # Setting the center of transformations to be 
+    | # at (.5 .6 1) for each of these viewports 
+    | # 
+    | ensight.view_transf.center_of_transform(5.0000e-01,6.0000e-01,1.0000e+00)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.cone_angle">
+<description>
+Set the angle for the cone tool.
+
+| Use with view_transf: cone_axis and view_transf: cone_origin to specify the cone tool location and orientation
+
+Args:
+    p0:
+        &#x27;angle&#x27; the cone angle (in degrees)
+
+Examples:
+    | # 
+    | # Turns the display of the quadric cone on 
+    | # (only one quadric tool at a time can be on) 
+    | # 
+    | ensight.tools.quadric(&quot;cone&quot;)
+    | # 
+    | # Sets the angle and other attributes of the cone tool 
+    | # 
+    | ensight.view_transf.cone_angle(25.000000)
+    | ensight.view_transf.cone_axis(1.000000,0.100000,0.000000)
+    | ensight.view_transf.cone_origin(-0.750000,0.700000,1.000000)
+    | # 
+    | # Turns off the display of the quadric tool 
+    | # 
+    | ensight.tools.quadric(&quot;none&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.cone_axis">
+<description>
+Sets the axis for the cone tool.
+
+| Use with view_transf: cone_angle and view_transf: cone_origin to specify the cone tool location and orientation.
+| The components are in reference to the selected frame.
+
+Args:
+    p0:
+        &#x27;x_comp&#x27; x, y, z directional components for the cone tool axis
+    p1:
+        &#x27;y_comp&#x27; x, y, z directional components for the cone tool axis
+    p2:
+        &#x27;z_comp&#x27; x, y, z directional components for the cone tool axis
+
+Examples:
+    | # 
+    | # Turns display of the quadric cone on 
+    | # (only one quadric tool at a time can be on) 
+    | # 
+    | ensight.tools.quadric(&quot;cone&quot;)
+    | # 
+    | # Sets the axis and other attributes of the cone tool 
+    | # 
+    | ensight.view_transf.cone_angle(25.000000)
+    | ensight.view_transf.cone_axis(1.000000,0.100000,0.000000)
+    | ensight.view_transf.cone_origin(-0.750000,0.700000,1.000000)
+    | # 
+    | # Turns off the display of the quadric tool 
+    | # 
+    | ensight.tools.quadric(&quot;none&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.cone_origin">
+<description>
+Sets the origin point for the tip of the cone tool.
+
+| Use with view_transf: cone_angle and view_transf: cone_axis to specify the cone tool location and orientation
+| The components are in reference to the selected frame.
+
+Args:
+    p0:
+        &#x27;x_coord&#x27; x, y, z coordinates of the cone tool origin
+    p1:
+        &#x27;y_coord&#x27; x, y, z coordinates of the cone tool origin
+    p2:
+        &#x27;z_coord&#x27; x, y, z coordinates of the cone tool origin
+
+Examples:
+    | # 
+    | # Turns display of the quadric cone on 
+    | # (only one quadric tool at a time can be on) 
+    | # 
+    | ensight.tools.quadric(&quot;cone&quot;)
+    | # 
+    | # Sets the origin and other attributes of the cone tool 
+    | # 
+    | ensight.view_transf.cone_angle(25.000000)
+    | ensight.view_transf.cone_axis(1.000000,0.100000,0.000000)
+    | ensight.view_transf.cone_origin(-0.750000,0.700000,1.000000)
+    | # 
+    | # Turns off the display of the quadric tool 
+    | # 
+    | ensight.tools.quadric(&quot;none&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.cursor">
+<description>
+Sets the location of the cursor tool.
+
+| The components are in reference to the selected frame.
+
+Args:
+    p0:
+        &#x27;x_coord &#x27; x, y, z coordinates of the cursor
+    p1:
+        &#x27;y_coord &#x27; x, y, z coordinates of the cursor
+    p2:
+        &#x27;z_coord &#x27; x, y, z coordinates of the cursor
+
+Examples:
+    | # 
+    | # Sets the cursor to the point (.79563 1 .8554) 
+    | # 
+    | ensight.view_transf.cursor(0.795630,1.000000,0.855400)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.cursor_by_partijk">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.cursor_by_parnameijk">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.cylinder_axis">
+<description>
+Sets the axis for the cylinder tool.
+
+| Use with view_transf: cylinder_origin and view_transf: cylinder_radius to fully define the cylinder tool
+| The components are in reference to the selected frame.
+
+Args:
+    p0:
+        &#x27;x_comp&#x27; x, y, z directional components for the cylinder tool axis
+    p1:
+        &#x27;y_comp&#x27; x, y, z directional components for the cylinder tool axis
+    p2:
+        &#x27;z_comp&#x27; x, y, z directional components for the cylinder tool axis
+
+Examples:
+    | # 
+    | # Turns display of the quadric cylinder on 
+    | # (only one quadric tool at a time can be on) 
+    | # 
+    | ensight.tools.quadric(&quot;cylinder&quot;)
+    | # 
+    | # Sets the axis and other attributes of the cylinder tool 
+    | # 
+    | ensight.view_transf.cylinder_axis(1.000000,0.100000,0.000000)
+    | ensight.view_transf.cylinder_origin(-0.750000,0.700000,1.000000)
+    | ensight.view_transf.cylinder_radius(1.500000)
+    | # 
+    | # Turns off the display of the quadric tool 
+    | # 
+    | ensight.tools.quadric(&quot;none&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.cylinder_origin">
+<description>
+Sets the origin point for one end of the cylinder tool.
+
+| Use with view_transf: cylinder_axis and view_transf: cylinder_radius to fully define the cylinder tool.
+| The components are in reference to the selected frame.
+
+Args:
+    p0:
+        &#x27;x_coord&#x27; x, y, z coordinates of the cylinder tool origin 
+    p1:
+        &#x27;y_coord&#x27; x, y, z coordinates of the cylinder tool origin 
+    p2:
+        &#x27;z_coord&#x27; x, y, z coordinates of the cylinder tool origin 
+
+Examples:
+    | # 
+    | # Turns display of the quadric cylinder on 
+    | # (only one quadric tool at a time can be on) 
+    | # 
+    | ensight.tools.quadric(&quot;cylinder&quot;)
+    | # 
+    | # Sets the origin and other attributes of the cylinder tool 
+    | # 
+    | ensight.view_transf.cylinder_axis(1.000000,0.100000,0.000000)
+    | ensight.view_transf.cylinder_origin(-0.750000,0.700000,1.000000)
+    | ensight.view_transf.cylinder_radius(1.500000)
+    | # 
+    | # Turns off the display of the quadric tool 
+    | # 
+    | ensight.tools.quadric(&quot;none&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.cylinder_radius">
+<description>
+Set the radius value for the cylinder tool.
+
+| Use with view_transf: cylinder_origin and view_transf: cylinder_axis to fully define the cylinder tool.
+
+Args:
+    p0:
+        &#x27;rad&#x27; cylinder radius value (in model coordinates)
+
+Examples:
+    | # 
+    | # Turns the display of the quadric cylinder on 
+    | # (only one quadric tool at a time can be on) 
+    | # 
+    | ensight.tools.quadric(&quot;cylinder&quot;)
+    | # 
+    | # Sets the radius and other attributes of the cylinder tool 
+    | # 
+    | ensight.view_transf.cylinder_axis(1.000000,0.100000,0.000000)
+    | ensight.view_transf.cylinder_origin(-0.750000,0.700000,1.000000)
+    | ensight.view_transf.cylinder_radius(1.500000)
+    | # 
+    | # Turns off the display of the quadric tool 
+    | # 
+    | ensight.tools.quadric(&quot;none&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.dialog_visible">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.distance">
+<description>
+Sets the distance from the look_from to the look_at point.
+
+| Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used. 
+| This command causes the look_from point to move along the line between the look_from and the look_at point to the desired distance. The look_at point does not move.
+
+Args:
+    p0:
+        &#x27;dist&#x27; distance between the look_from and the look_at point (in model system)
+
+Examples:
+    | # 
+    | # Selecting two viewports 
+    | # 
+    | ensight.viewport.select_begin(1,3)
+    | # 
+    | # Setting the look_at and look_from points 
+    | # for each of these viewports 
+    | # 
+    | ensight.view_transf.look_at(1.0000e+00,5.0000e-01,1.0000e+00)
+    | ensight.view_transf.look_from(5.0000e-01,5.0000e-01,2.0000e+01)
+    | # 
+    | # Changing the distance between the look_at and the look_from 
+    | # points. The look_at point will not change, but the 
+    | # look_from point will be moved appropriately 
+    | # 
+    | ensight.view_transf.distance(2.5000e+01)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.fit">
+<description>
+Appropriate scaling and translations are done so that the visible parts fit in the selected viewport.
+
+Args:
+    p0:
+        &#x27;viewport&#x27; viewport number in which the model will be fit.  (0, 1, ...)
+
+Examples:
+    | #
+    | # too fit the model in viewport 0
+    | #
+    | ensight.view_transf.fit(0)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.function">
+<description>
+Sets the transformation mode.
+
+Args:
+    p0:
+        &#x27;mode&#x27;
+
+        * box
+        * cone
+        * cursor
+        * cylinder
+        * frame
+        * global
+        * line
+        * local
+        * plane
+        * revolution
+        * select_tool
+        * sphere
+        * spline
+        * camera
+
+Examples:
+    | # 
+    | # Sets the function to cursor mode 
+    | # and translates the cursor 
+    | # 
+    | ensight.view_transf.function(&quot;cursor&quot;)
+    | ensight.view_transf.translate(0.295634,-0.014792,-0.144601)
+    | # 
+    | # Return to global transformation mode 
+    | # 
+    | ensight.view_transf.function(&quot;global&quot;)
+    | # 
+    | # Does some global transformations 
+    | # 
+    | ensight.view_transf.zoom(1.431051)
+    | ensight.view_transf.rotate(-1.071430,21.547768,0.000000)
+    | ensight.view_transf.translate(0.620558,0.000000,0.000000)
+    | # 
+    | # Sets Frame transform mode (local) 
+    | # 
+    | ensight.view_transf.function(&quot;local&quot;)
+    | # 
+    | # Selects the viewport and frame to use 
+    | # 
+    | ensight.viewport.select_begin(3)
+    | ensight.frame.select_begin(1)
+    | # 
+    | # And translate the parts attached to frame 1 
+    | # 
+    | ensight.view_transf.translate(0.0000E+00,-4.0000e+00,0.0000e+00)
+    | # 
+    | # Return to global transformation mode 
+    | # 
+    | ensight.view_transf.function(&quot;global&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.initialize_viewports">
+<description>
+Resets transformations, look_at viewing parameters, and z clipping to the original values applied when model was first displayed.
+
+| Since transformations can be different per viewport, this can be applied to each viewport. Thus, a viewport selection is needed if more than one viewport is being used.
+
+Examples:
+    | # 
+    | # Selecting two viewports 
+    | # 
+    | ensight.viewport.select_begin(1,3)
+    | # 
+    | # Reinitializing these 2 viewports 
+    | # 
+    | ensight.view_transf.initialize_viewports()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.limit">
+<description>
+Sets value represented by the extreme ends of the transformation slider in the transformation dialog.
+
+| This is a control for the user interface. Moving the slider all the way to the right will apply this value once positively. Moving it all the way to the left will apply this value once negatively. The slider is self centering, so one can continue to apply these amounts to the selected transformations. 
+| Associated with this is the Increment, which is the value that is applied (positively or negatively) by clicking the stepper button once.
+
+Args:
+    p0:
+        &#x27;value&#x27; the value to set as the limit for a complete movement of the cursor in the positive or negative directions
+
+Examples:
+    | ensight.view_transf.limit(5.000000)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.line">
+<description>
+Sets the location of the line tool by setting two endpoints.
+
+| Coordinates are in reference to the selected coordinate frame.
+
+Args:
+    p0:
+        &#x27;end_pt&#x27;
+
+        * 1 - for the first end of the line
+        * 2 - for the second end of the line
+    p1:
+        &#x27;x_coord&#x27; the x coordinate of the end point
+    p2:
+        &#x27;y_coord&#x27; the y coordinate of the end point
+    p3:
+        &#x27;z_coord&#x27; the z coordinate of the end point
+
+Examples:
+    | # 
+    | # Set the line tool endpoints 
+    | # 
+    | ensight.view_transf.line(1,-0.723300,0.700000,1.000000)
+    | ensight.view_transf.line(2,1.723300,0.500000,1.000000)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.line_by_nodeids">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.line_length">
+<description>
+Changes the line tool length.
+
+| When this is applied, the location of endpoint 1 will not change, but endpoint 2 will be moved along the line through endpoint 1 and endpoint 2, until the points are separated by the length desired.
+
+Args:
+    p0:
+        &#x27;length&#x27; desired length of the line tool
+
+Examples:
+    | # 
+    | # Set the line tool endpoints 
+    | # 
+    | ensight.view_transf.line(1,-0.723300,0.700000,1.000000)
+    | ensight.view_transf.line(2,1.723300,0.500000,1.000000)
+    | # 
+    | # Now make the tool 10 units long 
+    | # (endpoint 2 will be moved) 
+    | # 
+    | ensight.view_transf.line_length(10.000000)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.look_at">
+<description>
+Sets the look_at point for the selected viewport(s).
+
+| Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used.
+| Coordinates are in reference to the model coordinate system.
+
+Args:
+    p0:
+        &#x27;x_coord&#x27; model x, y, z coordinates of the look_at point
+    p1:
+        &#x27;y_coord&#x27; model x, y, z coordinates of the look_at point
+    p2:
+        &#x27;z_coord&#x27; model x, y, z coordinates of the look_at point
+
+Examples:
+    | # 
+    | # Selecting two viewports 
+    | # 
+    | ensight.viewport.select_begin(1,3)
+    | # 
+    | # Setting the look_at and look_from points 
+    | # for each of these viewports 
+    | # 
+    | ensight.view_transf.look_at(1.0000e+00,5.0000e-01,1.0000e+00)
+    | ensight.view_transf.look_from(5.0000e-01,5.0000e-01,2.0000e+01)
+    | # 
+    | # Changing the distance between the look_at and the look_from 
+    | # points. The look_at point will not change, but the 
+    | # look_from point will be moved appropriately 
+    | # 
+    | ensight.view_transf.distance(2.5000e+01)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.look_from">
+<description>
+Sets the look_from point for the selected viewport(s).
+
+| Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used.
+| Coordinates are in reference to the model coordinate system.
+
+Args:
+    p0:
+        &#x27;x_coord&#x27; model x, y, z coordinates of the look_from point
+    p1:
+        &#x27;y_coord&#x27; model x, y, z coordinates of the look_from point
+    p2:
+        &#x27;z_coord&#x27; model x, y, z coordinates of the look_from point
+
+Examples:
+    | # 
+    | # Selecting two viewports 
+    | # 
+    | ensight.viewport.select_begin(1,3)
+    | # 
+    | # Setting the look_at and look_from points 
+    | # for each of these viewports 
+    | # 
+    | ensight.view_transf.look_at(1.0000e+00,5.0000e-01,1.0000e+00)
+    | ensight.view_transf.look_from(5.0000e-01,5.0000e-01,2.0000e+01)
+    | # 
+    | # Changing the distance between the look_at and the look_from 
+    | # points. The look_at point will not change, but the 
+    | # look_from point will be moved appropriately 
+    | # 
+    | ensight.view_transf.distance(2.5000e+01)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.mode">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.plane">
+<description>
+Sets the location of the plane tool by setting three corner points.
+
+| These points are best thought of as 1 being the lower left corner, 2 being the lower right corner, and 3 being the upper right corner.
+| Coordinates are in reference to the selected coordinate frame.
+
+Args:
+    p0:
+        &#x27;corner_pt&#x27;
+
+        * 1 - for the first corner of the plane tool
+        * 2 - for the second corner of the plane tool 
+        * 3 - for the third corner of the plane tool
+    p1:
+        &#x27;x_coord &#x27;
+
+        * x coordinate of the corner point
+    p2:
+        &#x27;y_coord &#x27;
+
+        * y coordinate of the corner point
+    p3:
+        &#x27;z_coord &#x27;
+
+        * z coordinate of the corner point
+
+Examples:
+    | # 
+    | # Set the plane tool corner points 
+    | # 
+    | ensight.view_transf.plane(1,-0.750000,-0.750000,0.900000)
+    | ensight.view_transf.plane(2,1.750000,-0.750000,1.100000)
+    | ensight.view_transf.plane(3,1.750000,2.000000,1.000000)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.plane_by_nodeids">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.plane_equation">
+<description>
+Sets the location of the plane tool by specifying the coefficients of the plane equation (Ax + By + Cz = D).
+
+| Coefficients are in reference to the selected coordinate frame.
+
+Args:
+    p0:
+        &#x27;A&#x27; the x coefficient
+    p1:
+        &#x27;B&#x27; the y coefficient
+    p2:
+        &#x27;C&#x27; the z coefficient
+    p3:
+        &#x27;D&#x27; the constant term
+
+Examples:
+    | # 
+    | # Set the plane tool by the plane equation 
+    | # 
+    | ensight.view_transf.plane_equation(-1.000000,0.500000,12.499997,11.659089)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.plane_normal">
+<description>
+Specify the plane tool orientation.
+
+| The normal is in reference to the selected coordinate frame.
+
+Args:
+    p0:
+        &#x27;x_dir&#x27; x, y, z component of the plane tool normal
+    p1:
+        &#x27;y_dir&#x27; x, y, z component of the plane tool normal
+    p2:
+        &#x27;z_dir&#x27; x, y, z component of the plane tool normal
+
+Examples:
+    | ensight.tools.plane(&quot;ON&quot;)
+    | ensight.view_transf.function(&quot;plane&quot;)
+    | #
+    | # define the plane to be located at 0,1,0 with the z-axis (plane normal)
+    | # pointing in the x direction.  The plane is 3 units in X and 4 units in Y
+    | # (x and y according to the plane definition)
+    | #
+    | ensight.view_transf.plane_origin(0.000000e+00,1.000000e+00,0.000000e+00)
+    | ensight.view_transf.plane_normal(1.000000e+00,0.000000e+00,0.000000e+00)
+    | ensight.view_transf.plane_size(3.000000e+00,4.000000e+00)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.plane_origin">
+<description>
+Specify the plane tool origin.
+
+| The origin is in reference to the selected coordinate frame.
+
+Args:
+    p0:
+        &#x27;x_ori&#x27; The x, y, z origin of the plane tool
+    p1:
+        &#x27;y_ori&#x27; The x, y, z origin of the plane tool
+    p2:
+        &#x27;z_ori&#x27; The x, y, z origin of the plane tool
+
+Examples:
+    | ensight.tools.plane(&quot;ON&quot;)
+    | ensight.view_transf.function(&quot;plane&quot;)
+    | #
+    | # define the plane to be located at 0,1,0 with the z-axis (plane normal)
+    | # pointing in the x direction.  The plane is 3 units in X and 4 units in Y
+    | # (x and y according to the plane definition)
+    | #
+    | ensight.view_transf.plane_origin(0.000000e+00,1.000000e+00,0.000000e+00)
+    | ensight.view_transf.plane_normal(1.000000e+00,0.000000e+00,0.000000e+00)
+    | ensight.view_transf.plane_size(3.000000e+00,4.000000e+00)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.plane_size">
+<description>
+Specify the plane tool size.
+
+| X and Y directions are according to the plane tool definition.
+
+Args:
+    p0:
+        &#x27;x_size&#x27; Size of the plane tool in the x, y direction
+    p1:
+        &#x27;y_size&#x27; Size of the plane tool in the x, y direction
+
+Examples:
+    | ensight.tools.plane(&quot;ON&quot;)
+    | ensight.view_transf.function(&quot;plane&quot;)
+    | #
+    | # define the plane to be located at 0,1,0 with the z-axis (plane normal)
+    | # pointing in the x direction.  The plane is 3 units in X and 4 units in Y
+    | # (x and y according to the plane definition)
+    | #
+    | ensight.view_transf.plane_origin(0.000000e+00,1.000000e+00,0.000000e+00)
+    | ensight.view_transf.plane_normal(1.000000e+00,0.000000e+00,0.000000e+00)
+    | ensight.view_transf.plane_size(3.000000e+00,4.000000e+00)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.redo">
+<description>
+Redo the undo.
+
+Examples:
+    | ensight.view_transf.function(&quot;global&quot;)
+    | ensight.view_transf.rotate(2.510301e+01,7.117291e+01,0.000000e+00)
+    | ensight.view_transf.undo()
+    | ensight.view_transf.redo()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.reset_by_action">
+<description>
+Initializes the current action transformation, thus removing the effect of that transformation.
+
+| Since transformations can be different per viewport, this command can be used for each viewport, thus a viewport selection is needed if more than one viewport is being used.
+
+Examples:
+    | # 
+    | # Set the action to rotate 
+    | # and the axis to be x 
+    | # 
+    | ensight.view_transf.action(&quot;rotate&quot;)
+    | ensight.view_transf.axis(&quot;x&quot;)
+    | # 
+    | # Select the viewport(s) desired 
+    | # 
+    | ensight.viewport.select_begin(0,2)
+    | # 
+    | # perform a couple of rotates 
+    | # 
+    | ensight.view_transf.rotate(0.500000,0.000000,0.00000)
+    | ensight.view_transf.rotate(-30.00000,0.000000,0.00000)
+    | # 
+    | # Now remove both rotates using this command 
+    | # because the action is rotate. 
+    | # 
+    | ensight.view_transf.reset_by_action()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.reset_rot_trn_scl">
+<description>
+Removes the rotation, translation, and scale transformations in the selected viewports.
+
+| Since transformations can be different per viewport, this command can be used for each viewport, thus a viewport selection is needed if more than one viewport is being used.
+| In Frame mode initializes the selected frames.
+
+Examples:
+    | # 
+    | # Select the viewport(s) desired 
+    | # 
+    | ensight.viewport.select_begin(0,2)
+    | # 
+    | # perform some rotations, translations and/or scales 
+    | # 
+    | ensight.view_transf.rotate(15.535719,-27.859741,0.000000)
+    | ensight.view_transf.translate(0.620558,0.000000,0.000000)
+    | ensight.view_transf.scale(1.2000e+00,1.2000e+00,1.2000e+00)
+    | # 
+    | # Now remove these transformations using this command 
+    | # 
+    | ensight.view_transf.reset_rot_trn_scl()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.reset_tool_constrain">
+<description>
+Sets scope for the resetting of tool locations. The reset can cause the tool to be placed at its initial default location or at the center of the parts in the current viewport. 
+
+| The state set here applies to all future tool resets.
+
+Args:
+    p0:
+        &#x27;option&#x27;
+
+        * by_global 
+        * by_viewport 
+
+Examples:
+    | # 
+    | # Set the tool reset state to be &quot;by viewport&quot; 
+    | # 
+    | ensight.view_transf.reset_tool_constrain(&quot;by_viewport&quot;)
+    | # 
+    | # Select the viewport(s) desired 
+    | # 
+    | ensight.viewport.select_begin(0)
+    | # 
+    | # Reset the plane tool to the center of parts 
+    | # parts in viewport 0 
+    | # 
+    | ensight.view_transf.function(&quot;plane&quot;)
+    | ensight.view_transf.reset_rot_trn_scl()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.restore_view">
+<description>
+Restores a previously saved view state file.
+
+| Since transformations are viewport independent, you need to select the desired viewport before restoring a view state (if you are using multiple viewports).
+
+Args:
+    p0:
+        &#x27;filename&#x27; name of the file containing the saved view
+
+Examples:
+    | # 
+    | # Select the viewport(s) desired 
+    | # 
+    | ensight.viewport.select_begin(0)
+    | # 
+    | # Save the current view state into the file 
+    | # /usr/tmp/view1 
+    | # 
+    | ensight.view_transf.save_view(&quot;/usr/tmp/view1&quot;)
+    | # 
+    | # You could now do other transformations etc... 
+    | # 
+    | # And then when you want to restore to the view state 
+    | # we saved, do the following 
+    | # 
+    | ensight.view_transf.restore_view(&quot;/usr/tmp/view1&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.revolution_#_of_points">
+<description>
+Defines the number of points on the revolution tool.
+
+Args:
+    p0:
+        &#x27;number_of&#x27; number of points defined for the revolution tool
+
+Examples:
+    | # 
+    | # Turns display of the quadric surface of revolution on 
+    | # (only one quadric tool at a time can be on) 
+    | # 
+    | ensight.tools.quadric(&quot;revolution&quot;)
+    | # 
+    | # Sets the axis and other attributes of the revolution tool 
+    | # 
+    | ensight.view_transf.revolution_origin(0.500000,0.700000,1.000000)
+    | ensight.view_transf.revolution_axis(0.995040,0.099504,0.000000)
+    | ensight.view_transf.revolution_number_of_points(7)
+    | ensight.view_transf.revolution_point(1,-1.250000,0.500000)
+    | ensight.view_transf.revolution_point(2,-0.625000,0.500000)
+    | ensight.view_transf.revolution_point(3,0.000000,1.000000)
+    | ensight.view_transf.revolution_point(4,0.301802,0.720000)
+    | ensight.view_transf.revolution_point(5,0.319820,0.710000)
+    | ensight.view_transf.revolution_point(6,0.625000,0.500000)
+    | ensight.view_transf.revolution_point(7,1.250000,0.500000)
+    | # 
+    | # Turns off the display of the revolution tool 
+    | # 
+    | ensight.tools.quadric(&quot;none&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.revolution_axis">
+<description>
+Sets the axis for the revolution tool.
+
+| Coordinates are in reference to the selected coordinate frame.
+
+Args:
+    p0:
+        &#x27;x_comp&#x27; x, y, z directional components of the revolution tool axis
+    p1:
+        &#x27;y_comp&#x27; x, y, z directional components of the revolution tool axis
+    p2:
+        &#x27;z_comp&#x27; x, y, z directional components of the revolution tool axis
+
+Examples:
+    | # 
+    | # Turns display of the quadric surface of revolution on 
+    | # (only one quadric tool at a time can be on) 
+    | # 
+    | ensight.tools.quadric(&quot;revolution&quot;)
+    | # 
+    | # Sets the axis and other attributes of the revolution tool 
+    | # 
+    | ensight.view_transf.revolution_origin(0.500000,0.700000,1.000000)
+    | ensight.view_transf.revolution_axis(0.995040,0.099504,0.000000)
+    | ensight.view_transf.revolution_number_of_points(7)
+    | ensight.view_transf.revolution_point(1,-1.250000,0.500000)
+    | ensight.view_transf.revolution_point(2,-0.625000,0.500000)
+    | ensight.view_transf.revolution_point(3,0.000000,1.000000)
+    | ensight.view_transf.revolution_point(4,0.301802,0.720000)
+    | ensight.view_transf.revolution_point(5,0.319820,0.710000)
+    | ensight.view_transf.revolution_point(6,0.625000,0.500000)
+    | ensight.view_transf.revolution_point(7,1.250000,0.500000)
+    | # 
+    | # Turns off the display of the revolution tool 
+    | # 
+    | ensight.tools.quadric(&quot;none&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.revolution_origin">
+<description>
+Sets the origin point for the first end of the revolution tool.
+
+| Coordinates are in reference to the selected coordinate frame.
+
+Args:
+    p0:
+        &#x27;x_coord&#x27; x, y, z coordinates of 1st end of the revolution tool
+    p1:
+        &#x27;y_coord&#x27; x, y, z coordinates of 1st end of the revolution tool
+    p2:
+        &#x27;z_coord&#x27; x, y, z coordinates of 1st end of the revolution tool
+
+Examples:
+    | # 
+    | # Turns display of the quadric surface of revolution on 
+    | # (only one quadric tool at a time can be on) 
+    | # 
+    | ensight.tools.quadric(&quot;revolution&quot;)
+    | # 
+    | # Sets the axis and other attributes of the revolution tool 
+    | # 
+    | ensight.view_transf.revolution_origin(0.500000,0.700000,1.000000)
+    | ensight.view_transf.revolution_axis(0.995040,0.099504,0.000000)
+    | ensight.view_transf.revolution_number_of_points(7)
+    | ensight.view_transf.revolution_point(1,-1.250000,0.500000)
+    | ensight.view_transf.revolution_point(2,-0.625000,0.500000)
+    | ensight.view_transf.revolution_point(3,0.000000,1.000000)
+    | ensight.view_transf.revolution_point(4,0.301802,0.720000)
+    | ensight.view_transf.revolution_point(5,0.319820,0.710000)
+    | ensight.view_transf.revolution_point(6,0.625000,0.500000)
+    | ensight.view_transf.revolution_point(7,1.250000,0.500000)
+    | # 
+    | # Turns off the display of the revolution tool 
+    | # 
+    | ensight.tools.quadric(&quot;none&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.revolution_point">
+<description>
+Defines the location of the given point in relation to the revolution axis.
+
+Args:
+    p0:
+        &#x27;pt_number&#x27; revolution tool point number for which the coordinates are being given
+    p1:
+        &#x27;x_coord&#x27; x coordinate of the point on the revolution tool. Namely, the distance parallel to the revolution axis from the origin of the tool
+    p2:
+        &#x27;y_coord&#x27; y coordinate of the point on the revolution tool. Namely, the distance perpendicular to the revolution axis from the origin of the tool
+
+Examples:
+    | # 
+    | # Turns display of the quadric surface of revolution on 
+    | # (only one quadric tool at a time can be on) 
+    | # 
+    | ensight.tools.quadric(&quot;revolution&quot;)
+    | # 
+    | # Sets the axis and other attributes of the revolution tool 
+    | # 
+    | ensight.view_transf.revolution_origin(0.500000,0.700000,1.000000)
+    | ensight.view_transf.revolution_axis(0.995040,0.099504,0.000000)
+    | ensight.view_transf.revolution_number_of_points(7)
+    | ensight.view_transf.revolution_point(1,-1.250000,0.500000)
+    | ensight.view_transf.revolution_point(2,-0.625000,0.500000)
+    | ensight.view_transf.revolution_point(3,0.000000,1.000000)
+    | ensight.view_transf.revolution_point(4,0.301802,0.720000)
+    | ensight.view_transf.revolution_point(5,0.319820,0.710000)
+    | ensight.view_transf.revolution_point(6,0.625000,0.500000)
+    | ensight.view_transf.revolution_point(7,1.250000,0.500000)
+    | # 
+    | # Turns off the display of the revolution tool 
+    | # 
+    | ensight.tools.quadric(&quot;none&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.rotate">
+<description>
+Specifies a rotation (in degrees about each of the axes). Used for global, frame, and tool transformations.
+
+| Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used.
+
+Args:
+    p0:
+        &#x27;x_ang&#x27; number of degrees to rotate about the x,y,z axes. (sign is according to the right-hand rule)
+    p1:
+        &#x27;y_ang&#x27; number of degrees to rotate about the x,y,z axes. (sign is according to the right-hand rule)
+    p2:
+        &#x27;z_ang&#x27; number of degrees to rotate about the x,y,z axes. (sign is according to the right-hand rule)
+
+Examples:
+    | # 
+    | # Selecting viewport(s) 
+    | # 
+    | ensight.viewport.select_begin(2)
+    | # 
+    | # Set the axis to x 
+    | # and rotate about the x axis 15 degrees 
+    | # 
+    | ensight.view_transf.axis(&quot;x&quot;)
+    | ensight.view_transf.rotate(15.000000,0.000000,0.000000)
+    | # 
+    | # Set the axis to be y 
+    | # and translate one unit in the -negative y direction 
+    | # 
+    | ensight.view_transf.axis(&quot;y&quot;)
+    | ensight.view_transf.translate(0.0000e+00,-1.0000e+00,0.0000e+00)
+    | # 
+    | # Now showing it with a plane tool rotation 
+    | # 
+    | ensight.tools.plane(&quot;ON&quot;)
+    | ensight.view_transf.function(&quot;plane&quot;)
+    | ensight.view_transf.rotate(0.000000,-39.575481,0.000000)
+    | ensight.view_transf.function(&quot;global&quot;)
+    | # 
+    | # And now with a local transformation 
+    | # 
+    | ensight.part.select_default()
+    | ensight.frame.create()
+    | ensight.frame.select_begin(1)
+    | ensight.part.select_begin(1)
+    | ensight.frame.assign(1)
+    | ensight.view_transf.function(&quot;local&quot;)
+    | ensight.view_transf.axis(&quot;y&quot;)
+    | ensight.view_transf.rotate(0.000000,27.000000,0.000000)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.save_view">
+<description>
+Save the current view state into a file.
+
+Args:
+    p0:
+        &#x27;filename&#x27; the name (including the path) of the file in which to save the view state
+
+Examples:
+    | # 
+    | # Select the viewport(s) desired 
+    | # 
+    | ensight.viewport.select_begin(0)
+    | # 
+    | # Save the current view state into the file 
+    | # /usr/tmp/view1 
+    | # 
+    | ensight.view_transf.save_view(&quot;/usr/tmp/view1&quot;)
+    | # 
+    | # You could now do other transformations etc... 
+    | # 
+    | # And then when you want to restore to the view state 
+    | # we saved, do the following 
+    | # 
+    | ensight.view_transf.restore_view(&quot;/usr/tmp/view1&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.scale">
+<description>
+Defines a scaling in each of the axis directions. Used for global, frame, and tool transformation.
+
+| Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used.
+
+Args:
+    p0:
+        &#x27;x_scale&#x27; scale factor to apply to x, y, z coordinates
+    p1:
+        &#x27;y_scale&#x27; scale factor to apply to x, y, z coordinates
+    p2:
+        &#x27;z_scale&#x27; scale factor to apply to x, y, z coordinates
+
+Examples:
+    | # 
+    | # Selecting viewport(s) 
+    | # 
+    | ensight.viewport.select_begin(2)
+    | # 
+    | # Applying a global scaling 
+    | # (evenly in all directions) 
+    | # 
+    | ensight.view_transf.scale(1.2000e+00,1.2000e+00,1.2000e+00)
+    | # 
+    | # Now with a local transformation 
+    | # (Scaling only in the z direction) 
+    | # 
+    | ensight.frame.select_begin(1)
+    | ensight.view_transf.function(&quot;local&quot;)
+    | ensight.view_transf.scale(0.0000e+00,0.0000e+00,5.0000e+00)
+
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.select_tool">
+<description>
+Sets the location of the selection tool by setting normalized screen min and max values.
+
+| The screen is considered normalized as 0 to 1 in both x and y directions, with the origin in the bottom left.
+
+Args:
+    p0:
+        &#x27;xmin&#x27;
+
+        * minimum x screen coordinate  (0 to 1)
+    p1:
+        &#x27;xmax&#x27;
+
+        * maximum x screen coordinate  (0 to 1)
+    p2:
+        &#x27;ymin&#x27;
+
+        * minimum y screen coordinate  (0 to 1)
+    p3:
+        &#x27;ymax&#x27;
+
+        * maximum y screen coordinate  (0 to 1)
+
+Examples:
+    | # 
+    | # Set select tool location
+    | # 
+    | ensight.tools.select_tool(&quot;ON&quot;)
+    | ensight.view_transf.select_tool(0.25,0.25,0.75,0.75)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.sphere_axis">
+<description>
+Sets the axis components for the sphere tool.
+
+| Coordinates are in reference to the selected coordinate frame.
+
+Args:
+    p0:
+        &#x27;x_comp&#x27; x, y, z components of the sphere tool axis
+    p1:
+        &#x27;y_comp&#x27; x, y, z components of the sphere tool axis
+    p2:
+        &#x27;z_comp&#x27; x, y, z components of the sphere tool axis
+
+Examples:
+    | # 
+    | # Turns display of the quadric sphere tool on 
+    | # (only one quadric tool at a time can be on) 
+    | # 
+    | ensight.tools.quadric(&quot;sphere&quot;)
+    | # 
+    | # Sets the axis and other attributes of the sphere tool 
+    | # 
+    | ensight.view_transf.sphere_radius(1.500000)
+    | ensight.view_transf.sphere_axis(1.000000,0.100000,0.000000)
+    | ensight.view_transf.sphere_origin(0.500000,0.700000,1.000000)
+    | # 
+    | # Turns off the display of the sphere tool 
+    | # 
+    | ensight.tools.quadric(&quot;none&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.sphere_origin">
+<description>
+Sets the origin point for the first end of the sphere tool.
+
+| Coordinates are in reference to the selected coordinate frame.
+
+Args:
+    p0:
+        &#x27;x_coord&#x27; x, y, z coordinates of 1st end of the sphere tool
+    p1:
+        &#x27;y_coord&#x27; x, y, z coordinates of 1st end of the sphere tool
+    p2:
+        &#x27;z_coord&#x27; x, y, z coordinates of 1st end of the sphere tool
+
+Examples:
+    | # 
+    | # Turns display of the quadric sphere tool on 
+    | # (only one quadric tool at a time can be on) 
+    | # 
+    | ensight.tools.quadric(&quot;sphere&quot;)
+    | # 
+    | # Sets the origin and other attributes of the sphere tool 
+    | # 
+    | ensight.view_transf.sphere_radius(1.500000)
+    | ensight.view_transf.sphere_axis(1.000000,0.100000,0.000000)
+    | ensight.view_transf.sphere_origin(0.500000,0.700000,1.000000)
+    | # 
+    | # Turns off the display of the sphere tool 
+    | # 
+    | ensight.tools.quadric(&quot;none&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.sphere_radius">
+<description>
+Defines the radius of the sphere tool.
+
+Args:
+    p0:
+        &#x27;value&#x27; radius of the sphere tool
+
+Examples:
+    | # 
+    | # Turns display of the quadric sphere tool on 
+    | # (only one quadric tool at a time can be on) 
+    | # 
+    | ensight.tools.quadric(&quot;sphere&quot;)
+    | # 
+    | # Sets the axis and other attributes of the sphere tool 
+    | # 
+    | ensight.view_transf.sphere_radius(1.500000)
+    | ensight.view_transf.sphere_axis(1.000000,0.100000,0.000000)
+    | ensight.view_transf.sphere_origin(0.500000,0.700000,1.000000)
+    | # 
+    | # Turns off the display of the sphere tool 
+    | # 
+    | ensight.tools.quadric(&quot;none&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spin">
+<description>
+Applies a global rotation multiple times.
+
+| Interactively, the model will continue to spin until the user stops it. Once stopped, the command language contains the number of times the rotation was applied.
+
+Args:
+    p0:
+        &#x27;num&#x27; number of times that the rotation is to be applied
+    p1:
+        &#x27;x_ang&#x27; number of degrees to rotate about the x, y, z axes. (sign is according to the right-hand rule)
+    p2:
+        &#x27;y_ang&#x27; number of degrees to rotate about the x, y, z axes. (sign is according to the right-hand rule)
+    p3:
+        &#x27;z_ang&#x27; number of degrees to rotate about the x, y, z axes. (sign is according to the right-hand rule)
+
+Examples:
+    | # 
+    | # Selecting viewport(s) 
+    | # 
+    | ensight.viewport.select_begin(2)
+    | # 
+    | # Spin only works with global rotations 
+    | # 
+    | ensight.view_transf.function(&quot;global&quot;)
+    | # 
+    | # Apply the rotation specified 
+    | # (In this case, 105 times)
+    | # 
+    | ensight.view_transf.spin(105,0.602679,-10.175333,0.000000)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_color">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_copy">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_delete">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_description">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_id">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_invert">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_load_fromfile">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_load_frompart">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_new">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_offset">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_point_size">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_point_visibility">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_save">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_select">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_select_begin">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_select_end">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_visibility">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.spline_width">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.splinepoint_copy">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.splinepoint_create">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.splinepoint_delete">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.splinepoint_edit">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.splinepoint_offset">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.splinepoint_paste">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.splinepoint_select_all">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.splinepoint_select_begin">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.splinepoint_select_end">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.translate">
+<description>
+Specifies a translation in each of the coordinate directions. Used for global, frame, and tool transformations.
+
+| Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used.
+
+Args:
+    p0:
+        &#x27;x_dist&#x27; distance to translate in the x, y, z directions
+    p1:
+        &#x27;y_dist&#x27; distance to translate in the x, y, z directions
+    p2:
+        &#x27;z_dist&#x27; distance to translate in the x, y, z directions
+
+Examples:
+    | # 
+    | # Sets the function to cursor mode 
+    | # and translates the cursor 
+    | # 
+    | ensight.view_transf.function(&quot;cursor&quot;)
+    | ensight.view_transf.translate(0.295634,-0.014792,-0.144601)
+    | # 
+    | # Return to global transformation mode 
+    | # 
+    | ensight.view_transf.function(&quot;global&quot;)
+    | # 
+    | # Does some global transformations 
+    | # (one of which is a translate) 
+    | # 
+    | ensight.view_transf.zoom(1.431051)
+    | ensight.view_transf.rotate(-1.071430,21.547768,0.000000)
+    | ensight.view_transf.translate(0.620558,0.000000,0.000000)
+    | # 
+    | # Sets Frame transform mode (local) 
+    | # 
+    | ensight.view_transf.function(&quot;local&quot;)
+    | # 
+    | # Selects the viewport and frame to use 
+    | # 
+    | ensight.viewport.select_begin(3)
+    | ensight.frame.select_begin(1)
+    | # 
+    | # And translate the parts attached to frame 1 
+    | # 
+    | ensight.view_transf.translate(0.0000E+00,-4.0000e+00,0.0000e+00)
+    | # 
+    | # Return to global transformation mode 
+    | # 
+    | ensight.view_transf.function(&quot;global&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.undo">
+<description>
+Undo the last transformation or tool definition.
+
+Examples:
+    | ensight.view_transf.function(&quot;global&quot;)
+    | ensight.view_transf.rotate(2.510301e+01,7.117291e+01,0.000000e+00)
+    | ensight.view_transf.undo()
+    | ensight.view_transf.redo()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.view_recall">
+<description>
+View the model from a standard (or customized) view position.
+
+| The F5, F6, F7 views have standard right, top, and front views for a default. These can be altered by the user using the &quot;view_transf: view_store&quot; command. Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used.
+
+Args:
+    p0:
+        &#x27;option&#x27;
+
+        * F5
+        * F6
+        * F7
+        * F8
+        * +X
+        * +Y
+        * +Z
+        * -X
+        * -Y
+        * -Z
+
+Examples:
+    | # 
+    | # Select viewport for which you wish 
+    | # to modify the view 
+    | # 
+    | ensight.viewport.select_begin(1)
+    | ensight.view_transf.view_recall(&quot;F5&quot;)
+    | # 
+    | # Selecting a different viewport 
+    | # to show another example 
+    | # 
+    | ensight.viewport.select_begin(2)
+    | ensight.view_transf.view_recall(&quot;+Y&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.view_store">
+<description>
+Stores a current View state as a state attached to one of the four customizable function keys.
+
+| The F5, F6, F7 views have standard right, top, and front views for a default. These can be altered by the user using this command. The views stored here can be recalled using the &quot;view_transf: view_recall&quot; command. 
+| Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used.
+
+Args:
+    p0:
+        &#x27;option&#x27;
+
+        * F5
+        * F6
+        * F7
+        * F8
+
+Examples:
+    | # 
+    | # Select viewport that contains the 
+    | # view that you wish to store. 
+    | # 
+    | ensight.viewport.select_begin(1)
+    | # 
+    | # Store it into the desired F key 
+    | # 
+    | ensight.view_transf.view_store(&quot;F5&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.viewport_camera">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.viewport_link">
+<description>
+Link the interactive global transformations of multiple viewports. This causes any transformations applied to one of the viewports to be applied to all the other linked viewports as well.
+
+| Only interactive transforms are linked.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | # 
+    | # Selecting three viewports, and linking them 
+    | # 
+    | ensight.viewport.select_begin(0,1,2)
+    | ensight.view_transf.viewport_link(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.viewport_state_copy">
+<description>
+Save the transformation state of the currently selected viewport (for the purpose of applying it to a different viewport with the &quot;view_transf: viewport_state_paste&quot; command.
+
+Examples:
+    | # 
+    | # Select viewport for which you wish 
+    | # to save the transformation state 
+    | # 
+    | ensight.viewport.select_begin(1)
+    | ensight.view_transf.viewport_state_copy()
+    | # 
+    | # Select the viewport you wish to 
+    | # apply this state to 
+    | # 
+    | ensight.viewport.select_begin(2)
+    | ensight.view_transf.viewport_state_paste()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.viewport_state_paste">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.vr_scale">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.vr_worldcenter">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.vr_worlddiagonal">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.zclip_back">
+<description>
+Sets the position of the back/front z-clip plane
+
+| This value is used only when &quot;view_transf: zclip_float&quot; is OFF.  Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used.
+
+Args:
+    p0:
+        &#x27;z_loc&#x27; z coordinate of the back/front z-clipping plane
+
+Examples:
+    | # 
+    | # Select viewport 
+    | # 
+    | ensight.viewport.select_begin(1)
+    | # 
+    | # Set z-clip float OFF and set the location 
+    | # the front and back clipping planes 
+    | # 
+    | ensight.view_transf.zclip_float(&quot;OFF&quot;)
+    | ensight.view_transf.zclip_front(7.2296e+00)
+    | ensight.view_transf.zclip_back(3.5459e+01)
+
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.zclip_front">
+<description>
+Sets the position of the back/front z-clip plane
+
+| This value is used only when &quot;view_transf: zclip_float&quot; is OFF.  Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used.
+
+Args:
+    p0:
+        &#x27;z_loc&#x27; z coordinate of the back/front z-clipping plane
+
+Examples:
+    | # 
+    | # Select viewport 
+    | # 
+    | ensight.viewport.select_begin(1)
+    | # 
+    | # Set z-clip float OFF and set the location 
+    | # the front and back clipping planes 
+    | # 
+    | ensight.view_transf.zclip_float(&quot;OFF&quot;)
+    | ensight.view_transf.zclip_front(7.2296e+00)
+    | ensight.view_transf.zclip_back(3.5459e+01)
+
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.zclip_float">
+<description>
+Sets the z-clipping state. The front and back z-clipping planes can &quot;float&quot; so that they are always outside the model - causing no z-clipping to occur, or they can be set once initially and are then subject to manual modification. 
+
+| Since the z-buffer uses the resolution between the front and back clipping planes, it is desirable to have these planes &quot;near&quot; the model. However, unless you specifically want to perform z-clipping, these by default &quot;float&quot; as needed to avoid any z-clipping. If you want z-clipping control, you can turn this &quot;floating&quot; behavior off and set the front and back plane locations yourself.  During the float mode, near clipping will occur if it must be at the specified minimum z-clip location. A minimum is needed to avoid z reflection.Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | # 
+    | # Select viewport 
+    | # 
+    | ensight.viewport.select_begin(1)
+    | # 
+    | # Set z-clip float OFF and set the location 
+    | # of the front and back clipping planes 
+    | # 
+    | ensight.view_transf.zclip_float(&quot;OFF&quot;)
+    | ensight.view_transf.zclip_front(7.2296e+00)
+    | ensight.view_transf.zclip_back(3.5459e+01)
+    | # 
+    | # To have them float instead 
+    | # 
+    | ensight.view_transf.zclip_float(&quot;ON&quot;)
+    | ensight.view_transf.zclip_min(4.00000e-04)
+
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.zclip_min">
+<description>
+Sets the minimum to which the front z-clipping plane is allowed to &quot;float&quot;.
+
+| Since the z-buffer uses the resolution between the front and back clipping planes, it is desirable to have these planes &quot;near&quot; the model. However, unless you specifically want to perform z-clipping, these by default &quot;float&quot; as needed to avoid any z-clipping. If you want z-clipping control, you can turn this &quot;floating&quot; behavior off and set the front and back plane locations yourself.  During the float mode, near clipping will occur if it must be at the specified minimum z-clip location. A minimum is needed to avoid z reflection. Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used.
+
+Args:
+    p0:
+        &#x27;z_min&#x27; minimum allowable z location for the front z-clipping plane
+
+Examples:
+    | # 
+    | # Select viewport 
+    | # 
+    | ensight.viewport.select_begin(1)
+    | # 
+    | # Set z-clip float OFF and set the location 
+    | # of the front and back clipping planes 
+    | # 
+    | ensight.view_transf.zclip_float(&quot;OFF&quot;)
+    | ensight.view_transf.zclip_front(7.2296e+00)
+    | ensight.view_transf.zclip_back(3.5459e+01)
+    | # 
+    | # To have them float instead 
+    | # (note the minimum being set) 
+    | # 
+    | ensight.view_transf.zclip_float(&quot;ON&quot;)
+    | ensight.view_transf.zclip_min(4.00000e-04)
+
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.zoom">
+<description>
+Move the viewer closer or farther away.
+
+| Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used.
+
+Args:
+    p0:
+        &#x27;factor&#x27; amount of zoom scaling
+
+Examples:
+    | # 
+    | # Selecting viewport(s) 
+    | # 
+    | ensight.viewport.select_begin(2)
+    | # 
+    | # Applying a zoom factor 
+    | # 
+    | ensight.view_transf.zoom(1.431051)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.zoom_style">
+<description>
+Select the zoom user interaction style.
+
+Args:
+    p0:
+        &#x27;style&#x27;
+
+        * automatic_slide
+        * manual_drag
+
+Examples:
+    | ensight.view_transf.zoom_style(&quot;automatic_slide&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.view_transf.zoom_to_selectregion">
+<description>
+Perform the zoom according to the current location of the selection tool.
+
+Examples:
+    | ensight.tools.select_tool(&quot;ON&quot;)
+    | ensight.view_transf.function(&quot;global&quot;)
+    | ensight.view_transf.select_tool(.25,.25,.75,.75)
+    | ensight.view_transf.zoom_to_selectregion()
+    | ensight.view_transf.undo()
+    | ensight.view_transf.redo()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>
