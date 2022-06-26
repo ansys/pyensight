@@ -58,21 +58,6 @@ Returns:
 Elevated surfaces are always created with a scalar.  If creation variable is a vector this command specifies how the scalar will be created.
 
 | If all the scale factors are set to 0.0, the magnitude of the vector will be used (this is the default).
-|  Example Usage:
-| #
-| # Select existing elevated surface part
-| #
-| part: select_begin
-|  3
-| part: select_end
-| part: modify_begin
-| elevsurf: variable N_velocity
-| #
-| # Use x-component of the vector
-| #
-| elevsurf: component 1.0000e+00 0.0000e+00 0.0000e+00
-| elevsurf: scale_factor 9.9660e-01
-| part: modify_end
 
 Args:
     p0:
@@ -81,6 +66,20 @@ Args:
         &#x27;y_scal&#x27; scale factor to apply to the x, y, z components of the vector
     p2:
         &#x27;z_scal&#x27; scale factor to apply to the x, y, z components of the vector
+
+Examples:
+    | #
+    | # Select existing elevated surface part
+    | #
+    | ensight.part.select_begin(3)
+    | ensight.part.modify_begin()
+    | ensight.elevsurf.variable(&quot;N_velocity&quot;)
+    | #
+    | # Use x-component of the vector
+    | #
+    | ensight.elevsurf.component(1.0000e+00,0.0000e+00,0.0000e+00)
+    | ensight.elevsurf.scale_factor(9.9660e-01)
+    | ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
