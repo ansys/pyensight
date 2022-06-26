@@ -99,7 +99,7 @@ Returns:
 <description>
 Turns auxiliary clipping on or off for the currently selected part(s).
 
-| The global toggle for auxilliary clipping must be on - See view: clipping
+| The global toggle for auxiliary clipping must be on - See view: clipping
 
 Args:
     p0:
@@ -1843,7 +1843,7 @@ Returns:
 </override>
 <override namespace="ensight.part.texture_origin">
 <description>
-Sets the texture orgin offset in model space.  This describes the &quot;lower left&quot; corner of the texture in world coordinates.  This is an offset amount if the Projection offset is relative to a node ID.  If not, it is an offset from the world coordinate orgin, i.e., it becomes an absolute origin.
+Sets the texture origin offset in model space.  This describes the &quot;lower left&quot; corner of the texture in world coordinates.  This is an offset amount if the Projection offset is relative to a node ID.  If not, it is an offset from the world coordinate origin, i.e., it becomes an absolute origin.
 
 | Only used if texture_coord_type is set to projection
 
@@ -1876,7 +1876,7 @@ Sets the texture origin offset relative to this node id.
 
 Args:
     p0:
-        &#x27;node_id&#x27; The node id that will be used as the orgin offset
+        &#x27;node_id&#x27; The node id that will be used as the origin offset
 
 Examples:
     | ensight.part.select_begin(1)

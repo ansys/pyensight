@@ -1068,7 +1068,7 @@ Specifies the x/y coordinate of the origin of the selected plot in the graphics 
 
 Args:
     p0:
-        &#x27;coord&#x27; normalized coordinate of lower left corner of the plot viewport. A value of 0.0 indicates the left/botton side of the window, while a value of 1.0 indicates the right/top side.
+        &#x27;coord&#x27; normalized coordinate of lower left corner of the plot viewport. A value of 0.0 indicates the left/bottom side of the window, while a value of 1.0 indicates the right/top side.
 
 Examples:
     | ensight.plot.select_begin(1)
@@ -1087,7 +1087,7 @@ Specifies the x/y coordinate of the origin of the selected plot in the graphics 
 
 Args:
     p0:
-        &#x27;coord&#x27; normalized coordinate of lower left corner of the plot viewport. A value of 0.0 indicates the left/botton side of the window, while a value of 1.0 indicates the right/top side.
+        &#x27;coord&#x27; normalized coordinate of lower left corner of the plot viewport. A value of 0.0 indicates the left/bottom side of the window, while a value of 1.0 indicates the right/top side.
 
 Examples:
     | ensight.plot.select_begin(1)

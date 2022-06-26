@@ -49,7 +49,7 @@ Specify the name for the boundary file.  Boundary files provide a way to externa
 
 | The filename is concatenated with the path defined via the &quot;data: path&quot; command.
 | Since the boundary file depends on the structured block/zone definitions in the geometry file, the use of a boundary file requires the specification of a geometry file with structured data as well. For EnSight case format, the boundary file is contained within the casefile and this command is not needed.  It must be used for other structured data formats - such as PLOT3D.
-| When specified, unstructured parts can be created according to the boundary file defintions in the unstructured portion of the Data Part Loader dialog.
+| When specified, unstructured parts can be created according to the boundary file definitions in the unstructured portion of the Data Part Loader dialog.
 
 Args:
     p0:

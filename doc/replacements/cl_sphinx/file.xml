@@ -722,7 +722,7 @@ Returns:
 <description>
 Create a multi-tile image suitable for display via EnVideo to a multi-tile (i.e., powerwall) display device.
 
-| The total resolution is controlled via the image_window_xy command.  The resolution for each of the tiles is x/y resolution devided by the x_tiles/y_tiles parameter.  
+| The total resolution is controlled via the image_window_xy command.  The resolution for each of the tiles is x/y resolution divided by the x_tiles/y_tiles parameter.
 
 Args:
     p0:

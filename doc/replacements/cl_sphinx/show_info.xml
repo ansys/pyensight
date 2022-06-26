@@ -3,7 +3,7 @@
 <description>
 Show corresponding part and values of all active variables at the specified x, y, z model location.
 
-| Used in conjuction with the following commands. 
+| Used in conjunction with the following commands.
 | view_transf: function cursor 
 | view_transf: action translate 
 | view_transf: cursor

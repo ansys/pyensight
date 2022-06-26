@@ -96,7 +96,7 @@ Returns:
 <description>
 Specify the export data file format for the selected part(s) and active variable(s).
 
-| The option is the format of an included internal format usch as case or vrml, or a user-defined format that can be site specfic.
+| The option is the format of an included internal format usch as case or vrml, or a user-defined format that can be site specific.
 
 Args:
     p0:

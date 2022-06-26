@@ -1243,7 +1243,7 @@ Examples:
     | ensight.part.select_begin(2)
     | #
     | # Toggle on massed-particle drag force term
-    | # Specifiy default drag coefficient function table
+    | # Specify default drag coefficient function table
     | #
     | ensight.part.modify_begin()
     | ensight.ptrace.massed_drag(&quot;ON&quot;)
@@ -1294,7 +1294,7 @@ Examples:
     | ensight.part.select_begin(2)
     | #
     | # Toggle on massed-particle drag force term
-    | # Specifiy default drag coefficient function table
+    | # Specify default drag coefficient function table
     | #
     | ensight.part.modify_begin()
     | ensight.ptrace.massed_drag(&quot;ON&quot;)
@@ -1307,7 +1307,7 @@ Examples:
     | ensight.ptrace.massed_particles(&quot;ON&quot;)
     | ensight.part.modify_end()
     | #
-    | # Change the drag coefficient funtion to use the power formulation
+    | # Change the drag coefficient function to use the power formulation
     | #
     | ensight.part.modify_begin()
     | ensight.ptrace.massed_drag_coefficient(&quot;DragCoefPower&quot;)
@@ -1344,7 +1344,7 @@ Examples:
     | ensight.ptrace.create_pt()
     | ensight.part.select_begin(2)
     | #
-    | # Specifiy density scalar field variable name of the fluid.
+    | # Specify density scalar field variable name of the fluid.
     | #
     | ensight.part.modify_begin()
     | ensight.ptrace.massed_fluid_density(&quot;density&quot;)
@@ -1387,7 +1387,7 @@ Examples:
     | ensight.ptrace.create_pt()
     | ensight.part.select_begin(2)
     | #
-    | # Specifiy dynamic viscosity scalar field variable name of the fluid.
+    | # Specify dynamic viscosity scalar field variable name of the fluid.
     | #
     | ensight.part.modify_begin()
     | ensight.ptrace.massed_fluid_viscosity(&quot;dynamic_viscosity&quot;)
@@ -1430,7 +1430,7 @@ Examples:
     | ensight.part.select_begin(2)
     | #
     | # Toggle on massed-particle gravity force term
-    | # Specifiy gravity vector
+    | # Specify gravity vector
     | #
     | ensight.part.modify_begin()
     | ensight.ptrace.massed_gravity(&quot;ON&quot;)
@@ -1475,7 +1475,7 @@ Examples:
     | ensight.part.select_begin(2)
     | #
     | # Toggle on massed-particle gravity force term
-    | # Specifiy the gravity vector 
+    | # Specify the gravity vector
     | #
     | ensight.part.modify_begin()
     | ensight.ptrace.massed_gravity(&quot;ON&quot;)
@@ -1640,7 +1640,7 @@ Examples:
     | ensight.ptrace.create_pt()
     | ensight.part.select_begin(2)
     | #
-    | # Specifiy density of all the massed particles
+    | # Specify density of all the massed particles
     | #
     | ensight.part.modify_begin()
     | ensight.ptrace.massed_particle_density(1.0000e+03)
@@ -1679,7 +1679,7 @@ Examples:
     | ensight.ptrace.create_pt()
     | ensight.part.select_begin(2)
     | #
-    | # Specifiy diameter of the massed particle
+    | # Specify diameter of the massed particle
     | #
     | ensight.part.modify_begin()
     | ensight.ptrace.massed_particle_diameter(1.0000e-03)
@@ -1722,7 +1722,7 @@ Examples:
     | ensight.part.select_begin(2)
     | #
     | # Toggle on massed-particle pressure force term
-    | # Specifiy pressure gradient variable
+    | # Specify pressure gradient variable
     | #
     | ensight.part.modify_begin()
     | ensight.ptrace.massed_pressure(&quot;ON&quot;)
@@ -1759,7 +1759,7 @@ Examples:
     | ensight.part.select_begin(2)
     | #
     | # Toggle on massed-particle pressure force term
-    | # Specifiy pressure gradient variable
+    | # Specify pressure gradient variable
     | #
     | ensight.part.modify_begin()
     | ensight.ptrace.massed_pressure(&quot;ON&quot;)
@@ -1811,7 +1811,7 @@ Returns:
 <description>
 If using massed particle restitution this sets a termination criteria.  Only if the rebound velocity as a fraction of the initial impact velocity if greater than this value will the particle continue to be tracked.
 
-| There are other terminating particle trace criteria such as the time limit controlled by &quot;ptrace: total_time&quot; and the fraction of intial impact velocity controlled by &quot;ptrace: mass_rebound_fraction&quot;
+| There are other terminating particle trace criteria such as the time limit controlled by &quot;ptrace: total_time&quot; and the fraction of initial impact velocity controlled by &quot;ptrace: mass_rebound_fraction&quot;
 
 Args:
     p0:
@@ -1831,7 +1831,7 @@ Returns:
 <description>
 If using massed particle restitution this sets a termination criteria.  Only num_hits number of rebounds will be allowed at which time the particle trace will be terminated
 
-| There are other terminating particle trace criteria such as the time limit controlled by &quot;ptrace: total_time&quot; and the fraction of intial impact velocity controlled by &quot;ptrace: mass_rebound_fraction&quot;
+| There are other terminating particle trace criteria such as the time limit controlled by &quot;ptrace: total_time&quot; and the fraction of initial impact velocity controlled by &quot;ptrace: mass_rebound_fraction&quot;
 
 Args:
     p0:
@@ -2767,7 +2767,7 @@ Returns:
 Specify the x,y,z coordinates of the cursor location to be queried.
 
 | This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.
-| Used in conjuction with the &quot;query_ent_var: type time&quot; and the &quot;query_ent_var: constrain cursor&quot; commands.
+| Used in conjunction with the &quot;query_ent_var: type time&quot; and the &quot;query_ent_var: constrain cursor&quot; commands.
 
 Args:
     p0:

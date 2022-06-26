@@ -586,7 +586,7 @@ Returns:
 </override>
 <override namespace="ensight.viewport.track">
 <description>
-Specify the location of the position to track (if any tracking is to be used).  Tracking causes the viewer (camera) to stay tuned on the postion chosen as the model moves.
+Specify the location of the position to track (if any tracking is to be used).  Tracking causes the viewer (camera) to stay tuned on the position chosen as the model moves.
 
 | None
 
@@ -619,7 +619,7 @@ Returns:
 </override>
 <override namespace="ensight.viewport.tracking_node_id">
 <description>
-Specify the node id to track.  Tracking causes the viewer (camera) to stay tuned on the postion chosen as the model moves.
+Specify the node id to track.  Tracking causes the viewer (camera) to stay tuned on the position chosen as the model moves.
 
 | One should also specify the part that contains this node id, because node ids are only unique within parts in EnSight.
 
@@ -642,7 +642,7 @@ Returns:
 </override>
 <override namespace="ensight.viewport.tracking_partbyname">
 <description>
-Specify the part name to use for the other location options for tracking.  Tracking causes the viewer (camera) to stay tuned on the postion chosen as the model moves.
+Specify the part name to use for the other location options for tracking.  Tracking causes the viewer (camera) to stay tuned on the position chosen as the model moves.
 
 | One must specify the part that will be used for the part centroid, min/max, or node number tracking option chosen in viewport: track &lt;location&gt; command
 
@@ -665,7 +665,7 @@ Returns:
 </override>
 <override namespace="ensight.viewport.tracking_part_id">
 <description>
-Specify the part id to use for the other location options for tracking.  Tracking causes the viewer (camera) to stay tuned on the postion chosen as the model moves.
+Specify the part id to use for the other location options for tracking.  Tracking causes the viewer (camera) to stay tuned on the position chosen as the model moves.
 
 | One must specify the part that will be used for the part centroid, min/max, or node number tracking option chosen in viewport: track &lt;location&gt; command
 
@@ -691,7 +691,7 @@ Returns:
 Set the dimension of the viewport.
 
 | Dimension 2D is handy for displaying 2D clips and/or developed surfaces.
-| A 2D viewport can only be transfomed in 2D.
+| A 2D viewport can only be transformed in 2D.
 
 Args:
     p0:

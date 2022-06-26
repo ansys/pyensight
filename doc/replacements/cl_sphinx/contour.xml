@@ -466,7 +466,7 @@ Examples:
     | ensight.contour.range(0.,4.5)
     | ensight.contour.levels(8)
     | # 
-    | # turn off the visiblity of the main contours and turn
+    | # turn off the visibility of the main contours and turn
     | # subcontours on - make 2 subcontours between each of the 8 levels.
     | #
     | ensight.contour.levels_visible(&quot;OFF&quot;)
@@ -507,7 +507,7 @@ Examples:
     | ensight.contour.range(0.,4.5)
     | ensight.contour.levels(8)
     | # 
-    | # turn off the visiblity of the main contours and turn
+    | # turn off the visibility of the main contours and turn
     | # subcontours on
     | #
     | ensight.contour.levels_visible(&quot;OFF&quot;)

@@ -60,7 +60,7 @@ Elevated surfaces are always created with a scalar.  If creation variable is a v
 | If all the scale factors are set to 0.0, the magnitude of the vector will be used (this is the default).
 |  Example Usage:
 | #
-| # Select existing elevated surfce part
+| # Select existing elevated surface part
 | #
 | part: select_begin
 |  3

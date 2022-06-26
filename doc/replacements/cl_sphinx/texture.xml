@@ -40,7 +40,7 @@ Returns:
 </override>
 <override namespace="ensight.texture.border_transparency">
 <description>
-Sets the trasparency value that will be used outside of the texture space when the texure is clamped
+Sets the transparency value that will be used outside of the texture space when the texure is clamped
 
 Args:
     p0:
@@ -95,7 +95,7 @@ Returns:
 </override>
 <override namespace="ensight.texture.display_type">
 <description>
-Set the texture to accept color, color+alpha, or just alph from the loaded image. 
+Set the texture to accept color, color+alpha, or just alpha from the loaded image.
 
 Args:
     p0:

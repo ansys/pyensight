@@ -1,7 +1,7 @@
 <docstrings>
 <override namespace="ensight.anim_screens.save_multiple_images">
 <description>
-Option to save a single image or multiple images fro a flat-wall detached display.
+Option to save a single image or multiple images from a flat-wall detached display.
 
 | When saving a flat-wall detached display, the user can choose to write one large image for the wall or one image per ��pipe�� from the dconfig file. This option is only valid when the animation size is detached_display.
 |  Example Usage:

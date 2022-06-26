@@ -327,7 +327,7 @@ Curve(s) selection construct for subsequent curve operation.
 
 | Parameters
 | none
-| Curve ids to be selected must be specified betweeen curve: select_begin and curve: select_end.
+| Curve ids to be selected must be specified between curve: select_begin and curve: select_end.
 
 Examples:
     | ensight.curve.select_begin(0)
@@ -344,7 +344,7 @@ Curve(s) selection construct for subsequent curve operation.
 
 | Parameters
 | none
-| Curve ids to be selected must be specified betweeen curve: select_begin and curve: select_end.
+| Curve ids to be selected must be specified between curve: select_begin and curve: select_end.
 
 Examples:
     | ensight.curve.select_begin(0)

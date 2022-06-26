@@ -72,7 +72,7 @@ Returns:
 <description>
 Create a profile part with the currently defined attributes using the currently selected parts as parents. 
 
-| The profile part is created using the currenlty selected parts as parents.  The profile part is creates using  the currently set profile attributes.
+| The profile part is created using the currently selected parts as parents.  The profile part is creates using  the currently set profile attributes.
 
 Examples:
     | #

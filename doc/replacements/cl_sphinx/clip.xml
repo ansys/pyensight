@@ -1181,7 +1181,7 @@ Set the I, J, or K range through which an IJK clip part will be modified when in
 
 Args:
     p0:
-        &#x27;beg_ijk&#x27; begining I, J, or K plane of range.
+        &#x27;beg_ijk&#x27; beginning I, J, or K plane of range.
     p1:
         &#x27;end_ijk&#x27; ending I, J, or K plane of range.
 
