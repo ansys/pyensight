@@ -11,8 +11,8 @@ on:
       - main
 
 jobs:
-  style:
-    name: Style check
+  linter:
+    name: Linter
     runs-on: ubuntu-latest
 
     steps:
@@ -25,9 +25,9 @@ jobs:
       - name: Install pre-commit
         run: pip install pre-commit
 
-      - name: Run pre-commit
+      - name: Run all pre-commit checks
         run: |
-          pre-commit run --hook-stage manual --all-files --verbose || ( git status --short ; git diff ; exit 1 )
+          pre-commit run --all-files --verbose || ( git status --short ; git diff ; exit 1 )
 
   smoketest:
     name: Smoke test
