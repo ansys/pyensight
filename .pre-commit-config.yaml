@@ -10,6 +10,7 @@ repos:
     rev: 22.3.0
     hooks:
       - id: black
+        require_serial: true
         args: [ # black ignores files in .gitignore by default
             --line-length, "100",
             --target-version, "py37",
