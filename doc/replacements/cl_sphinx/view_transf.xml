@@ -28,7 +28,11 @@ Returns:
 Sets the axis to use for rotate, translate, and scale transformations.
 
 | Used in the transformation dialog to control the axis about which transformational values are applied.
+<<<<<<< HEAD
 | The axis is either the global system or, if in Frame mode, the selected frame&#x27;s axis system.
+=======
+| The axis is either the global system or, if in Frame mode, the selected frame��s axis system.
+>>>>>>> main
 
 Args:
     p0:
