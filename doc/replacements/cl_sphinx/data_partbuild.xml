@@ -1,0 +1,810 @@
+<docstrings>
+<override namespace="ensight.data_partbuild.begin">
+<description>
+Delineates commands issued while using the Data Part Builder dialogs.
+
+| These commands exist for memory management reasons. While doing part building it is often necessary to have information in memory that will only be used during the part building process. Thus, the begin indicates the need for this memory, and the end indicates that such memory could be freed for other purposes.  All data formats that use the Data Part Builder method use this command (n3s, estet, mpgs4, plot3d, userd, ensight formats, etc).
+
+Args:
+    p0:
+        &#x27;commands&#x27; valid command language for part building (can be one or many)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.end">
+<description>
+Delineates commands issued while using the Data Part Builder dialogs.
+
+| These commands exist for memory management reasons. While doing part building it is often necessary to have information in memory that will only be used during the part building process. Thus, the begin indicates the need for this memory, and the end indicates that such memory could be freed for other purposes.  All data formats that use the Data Part Builder method use this command (n3s, estet, mpgs4, plot3d, userd, ensight formats, etc).
+
+Args:
+    p0:
+        &#x27;commands&#x27; valid command language for part building (can be one or many)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.create">
+<description>
+Causes the part to be built according to previously defined attributes or defaults.
+
+| All data formats that use the Data Part Builder method use this command (n3s, estet, mpgs4, plot3d, userd, ensight formats, etc).
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.create_iblank">
+<description>
+Causes unstructured part(s) to be built from structured part(s) according to iblanking values available.
+
+| All data formats that have structured iblanking use this command (estet, plot3d, EnSight6, EnSight Gold, some userd formats, etc). It is required that a structured part be selected as parent before this command.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.data_type">
+<description>
+For those formats that contain both structured and unstructured data (EnSight6, EnSight Gold, and some user defined formats), this command indicates which type to create.
+
+Args:
+    p0:
+        &#x27;type&#x27;
+
+        * unstructured
+        * structured
+
+Examples:
+    | ensight.data_partbuild.begin()
+    | # 
+    | # Doing an unstructured ensight part 
+    | # 
+    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+    | # 
+    | # Selecting the first part in the 
+    | # unstructured part building list 
+    | # 
+    | ensight.data_partbuild.select_begin(1)
+    | # 
+    | # Naming it &quot;my_unstructured_part&quot; 
+    | # and creating it 
+    | # 
+    | ensight.data_partbuild.description(&quot;my_unstructured_part&quot;)
+    | ensight.data_partbuild.create()
+    | # 
+    | # Now doing a structured ensight part 
+    | # 
+    | ensight.data_partbuild.data_type(&quot;structured&quot;)
+    | # 
+    | # Selecting the first part in the 
+    | # structured part building list 
+    | # (Note this is not the same part as the 
+    | # unstructured one selected above) 
+    | # 
+    | ensight.data_partbuild.select_begin(1)
+    | # 
+    | # Setting ijk ranges, step_by, delta values, etc. 
+    | # and creating it. 
+    | # 
+    | ensight.data_partbuild.domain(&quot;all&quot;)
+    | ensight.data_partbuild.noderange_i(1,3)
+    | ensight.data_partbuild.noderange_j(1,3)
+    | ensight.data_partbuild.noderange_k(1,3)
+    | ensight.data_partbuild.nodestep(1,1,1)
+    | ensight.data_partbuild.nodedelta(0,0,0)
+    | ensight.data_partbuild.description(&quot;my_structured_part&quot;)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.description">
+<description>
+Specifies the textual description for a part.
+
+Args:
+    p0:
+        &#x27;desc&#x27; description for the part (it is what is displayed in the user interface)
+
+Examples:
+    | ensight.data_partbuild.begin()
+    | # 
+    | # Doing an unstructured ensight part 
+    | # 
+    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+    | # 
+    | # Selecting the first part in the 
+    | # unstructured part building list 
+    | # 
+    | ensight.data_partbuild.select_begin(1)
+    | # 
+    | # Naming it &quot;my_unstructured_part&quot; 
+    | # and creating it 
+    | # 
+    | ensight.data_partbuild.description(&quot;my_unstructured_part&quot;)
+    | ensight.data_partbuild.create()
+    | # 
+    | # Now doing a structured ensight part 
+    | # 
+    | ensight.data_partbuild.data_type(&quot;structured&quot;)
+    | # 
+    | # Selecting the first part in the 
+    | # structured part building list 
+    | # (Note this is not the same part as the 
+    | # unstructured one selected above) 
+    | # 
+    | ensight.data_partbuild.select_begin(1)
+    | # 
+    | # Setting ijk ranges, step_by, delta values, etc. 
+    | # and creating it. 
+    | # 
+    | ensight.data_partbuild.domain(&quot;all&quot;)
+    | ensight.data_partbuild.noderange_i(1,3)
+    | ensight.data_partbuild.noderange_j(1,3)
+    | ensight.data_partbuild.noderange_k(1,3)
+    | ensight.data_partbuild.nodestep(1,1,1)
+    | ensight.data_partbuild.nodedelta(0,0,0)
+    | ensight.data_partbuild.description(&quot;my_structured_part&quot;)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.domain">
+<description>
+Specify the iblanking domain to use for EnSight6, EnSight Gold and User-defined models that have structured iblanked data.
+
+Args:
+    p0:
+        &#x27;option&#x27;
+
+        * inside
+        * outside
+        * all
+
+Examples:
+    | ensight.data_partbuild.begin()
+    | # 
+    | # Now doing a structured ensight part 
+    | # 
+    | ensight.data_partbuild.data_type(&quot;structured&quot;)
+    | # 
+    | # Selecting the first part in the 
+    | # structured part building list 
+    | # 
+    | ensight.data_partbuild.select_begin(1)
+    | # 
+    | # Setting ijk ranges, step_by, delta values, etc. 
+    | # and creating it. Note the domain used. 
+    | # 
+    | ensight.data_partbuild.domain(&quot;inside&quot;)
+    | ensight.data_partbuild.noderange_i(1,3)
+    | ensight.data_partbuild.noderange_j(1,3)
+    | ensight.data_partbuild.noderange_k(1,3)
+    | ensight.data_partbuild.nodestep(1,1,1)
+    | ensight.data_partbuild.nodedelta(0,0,0)
+    | ensight.data_partbuild.description(&quot;my_inside_part&quot;)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.estet_domain">
+<description>
+Specify the iblanking domain to use for estet models.
+
+Args:
+    p0:
+        &#x27;option&#x27;
+
+        * inside
+        * outside
+        * all
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.estetbuildvector">
+<description>
+Combines estet vector components (given as scalars) into a vector variable. 
+
+| Requires the use of &quot;data_partbuild: estetvectordesc&quot; and &quot;data_partbuild: estetvector_x_*&quot; commands before being issued.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.estetdelta">
+<description>
+Specify ijk delta value to use when creating more than one ijk surface from the same ijk block. Only one of the deltas may be non-zero.
+
+Args:
+    p0:
+        &#x27;i_del&#x27; I direction delta value
+    p1:
+        &#x27;j_del&#x27; J direction delta value
+    p2:
+        &#x27;k_del&#x27; K direction delta value
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.estetnoderange_i">
+<description>
+Specify i, j, or k range values to use when creating a part.
+
+Args:
+    p0:
+        &#x27;beg  &#x27; I, J, or K range beginning node plane
+    p1:
+        &#x27;end  &#x27; I, J, or K range ending node plane
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.estetnoderange_j">
+<description>
+Specify i, j, or k range values to use when creating a part.
+
+Args:
+    p0:
+        &#x27;beg  &#x27; I, J, or K range beginning node plane
+    p1:
+        &#x27;end  &#x27; I, J, or K range ending node plane
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.estetnoderange_k">
+<description>
+Specify i, j, or k range values to use when creating a part.
+
+Args:
+    p0:
+        &#x27;beg  &#x27; I, J, or K range beginning node plane
+    p1:
+        &#x27;end  &#x27; I, J, or K range ending node plane
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.estetstep">
+<description>
+Specify i, j, k step-by values to use in creating an estet part. Values greater than 1 will cause original cells to be combined appropriately into larger elements - producing a coarser grid. 
+
+| This is used when a coarser approximation of the original data is desired. Typically this reduction in the apparent resolution of the model is desired in order to be able to reasonably display very large models.
+
+Args:
+    p0:
+        &#x27;i_step&#x27; step-by value for the I direction
+    p1:
+        &#x27;j_step&#x27; step-by value for the J direction
+    p2:
+        &#x27;k_step&#x27; step-by value for the K direction
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.estetvector_x">
+<description>
+Specifies the name of the estet scalar variable to use for the vector variable component when build vector variables.
+
+Args:
+    p0:
+        &#x27;scalar_name&#x27;  name of the estet variable that represents a vector component
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.estetvector_y">
+<description>
+Specifies the name of the estet scalar variable to use for the vector variable component when build vector variables.
+
+Args:
+    p0:
+        &#x27;scalar_name&#x27;  name of the estet variable that represents a vector component
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.estetvector_z">
+<description>
+Specifies the name of the estet scalar variable to use for the vector variable component when build vector variables.
+
+Args:
+    p0:
+        &#x27;scalar_name&#x27;  name of the estet variable that represents a vector component
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.estetvectordesc">
+<description>
+Specifies the name for the vector variable will be created with a &quot;data_partbuild: estetbuildvector&quot; command.
+
+Args:
+    p0:
+        &#x27;desc&#x27; desired name for the vector variable
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.group">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.iblank_type">
+<description>
+Selects the iblanking type to use when creating unstructured parts from the iblanking of structured parts. 
+
+| All data formats that have structured iblanking use this command (estet, plot3d, EnSight6, EnSight Gold, some userd formats, etc). This process requires that a structured part be selected as parent.
+
+Args:
+    p0:
+        &#x27;desc&#x27; description for the iblanking type that is provided to the part building process. (varies for each data format)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.mpgsload">
+<description>
+Specifies the option to use when reading an mpgs data file.  All parts will be read.  This option controls which parts will be loaded to the client..
+
+Args:
+    p0:
+        &#x27;option&#x27;
+
+        * all_parts
+        * part1_only
+        * all_but_part1
+        * no_parts
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.n3sboundary">
+<description>
+Specifies the &quot;boundary condition&quot; process when creating an n3s part.
+
+| Needs the &quot;data_partbuild: n3scondition&quot; and &quot;data_partbuild: n3scode&quot; commands as well.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.n3scolor_number">
+<description>
+Specifies the &quot;color number&quot; process when creating an N3S part.
+
+Args:
+    p0:
+        &#x27;num&#x27; node color number to use when creating an N3S part
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.n3scondition">
+<description>
+Specifies the boundary condition to use in the &quot;boundary condition&quot; process when creating an N3S part.
+
+Args:
+    p0:
+        &#x27;desc&#x27; N3S boundary condition. (available conditions can vary per model)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.nodedelta">
+<description>
+Specify ijk delta value to use when creating more than one ijk surface from the same ijk block. Only one of the deltas may be non-zero.
+
+| This command is used for EnSight6, EnSight Gold, and User-Defined data formats.
+
+Args:
+    p0:
+        &#x27;i_del&#x27; I, J, K direction delta values
+    p1:
+        &#x27;j_del&#x27; I, J, K direction delta values
+    p2:
+        &#x27;k_del&#x27; I, J, K direction delta values
+
+Examples:
+    | ensight.data_partbuild.begin()
+    | # 
+    | # Now doing a structured ensight part 
+    | # 
+    | ensight.data_partbuild.data_type(&quot;structured&quot;)
+    | # 
+    | # Selecting the first part in the 
+    | # structured part building list 
+    | # 
+    | ensight.data_partbuild.select_begin(1)
+    | # 
+    | # Setting ijk ranges, step_by, delta values, etc. 
+    | # and creating it. Note the nodedelta and noderange 
+    | # combination used 
+    | # 
+    | ensight.data_partbuild.domain(&quot;inside&quot;)
+    | ensight.data_partbuild.noderange_i(1,30)
+    | ensight.data_partbuild.noderange_j(1,1)
+    | ensight.data_partbuild.noderange_k(1,30)
+    | ensight.data_partbuild.nodestep(1,1,1)
+    | ensight.data_partbuild.nodedelta(0,3,0)
+    | ensight.data_partbuild.description(&quot;multi_jslice_part&quot;)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.noderange_i">
+<description>
+Specify i, j, or k range values to use when creating a part.
+
+| This command is used for EnSight6, EnSight Gold, and User-Defined data formats.
+
+Args:
+    p0:
+        &#x27;beg&#x27; I, J, or K range beginning node plane
+    p1:
+        &#x27;end&#x27; I, J, or K range ending node plane
+
+Examples:
+    | ensight.data_partbuild.begin()
+    | # 
+    | # Now doing a structured ensight part 
+    | # 
+    | ensight.data_partbuild.data_type(&quot;structured&quot;)
+    | # 
+    | # Selecting the first part in the 
+    | # structured part building list 
+    | # 
+    | ensight.data_partbuild.select_begin(1)
+    | # 
+    | # Setting ijk ranges, step_by, delta values, etc. 
+    | # and creating it. Note the nodedelta and noderange 
+    | # combination used 
+    | # 
+    | ensight.data_partbuild.domain(&quot;inside&quot;)
+    | ensight.data_partbuild.noderange_i(1,30)
+    | ensight.data_partbuild.noderange_j(1,1)
+    | ensight.data_partbuild.noderange_k(1,30)
+    | ensight.data_partbuild.nodestep(1,1,1)
+    | ensight.data_partbuild.nodedelta(0,3,0)
+    | ensight.data_partbuild.description(&quot;multi_jslice_part&quot;)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.noderange_j">
+<description>
+Specify i, j, or k range values to use when creating a part.
+
+| This command is used for EnSight6, EnSight Gold, and User-Defined data formats.
+
+Args:
+    p0:
+        &#x27;beg&#x27; I, J, or K range beginning node plane
+    p1:
+        &#x27;end&#x27; I, J, or K range ending node plane
+
+Examples:
+    | ensight.data_partbuild.begin()
+    | # 
+    | # Now doing a structured ensight part 
+    | # 
+    | ensight.data_partbuild.data_type(&quot;structured&quot;)
+    | # 
+    | # Selecting the first part in the 
+    | # structured part building list 
+    | # 
+    | ensight.data_partbuild.select_begin(1)
+    | # 
+    | # Setting ijk ranges, step_by, delta values, etc. 
+    | # and creating it. Note the nodedelta and noderange 
+    | # combination used 
+    | # 
+    | ensight.data_partbuild.domain(&quot;inside&quot;)
+    | ensight.data_partbuild.noderange_i(1,30)
+    | ensight.data_partbuild.noderange_j(1,1)
+    | ensight.data_partbuild.noderange_k(1,30)
+    | ensight.data_partbuild.nodestep(1,1,1)
+    | ensight.data_partbuild.nodedelta(0,3,0)
+    | ensight.data_partbuild.description(&quot;multi_jslice_part&quot;)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.noderange_k">
+<description>
+Specify i, j, or k range values to use when creating a part.
+
+| This command is used for EnSight6, EnSight Gold, and User-Defined data formats.
+
+Args:
+    p0:
+        &#x27;beg&#x27; I, J, or K range beginning node plane
+    p1:
+        &#x27;end&#x27; I, J, or K range ending node plane
+
+Examples:
+    | ensight.data_partbuild.begin()
+    | # 
+    | # Now doing a structured ensight part 
+    | # 
+    | ensight.data_partbuild.data_type(&quot;structured&quot;)
+    | # 
+    | # Selecting the first part in the 
+    | # structured part building list 
+    | # 
+    | ensight.data_partbuild.select_begin(1)
+    | # 
+    | # Setting ijk ranges, step_by, delta values, etc. 
+    | # and creating it. Note the nodedelta and noderange 
+    | # combination used 
+    | # 
+    | ensight.data_partbuild.domain(&quot;inside&quot;)
+    | ensight.data_partbuild.noderange_i(1,30)
+    | ensight.data_partbuild.noderange_j(1,1)
+    | ensight.data_partbuild.noderange_k(1,30)
+    | ensight.data_partbuild.nodestep(1,1,1)
+    | ensight.data_partbuild.nodedelta(0,3,0)
+    | ensight.data_partbuild.description(&quot;multi_jslice_part&quot;)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.nodestep">
+<description>
+Specify i, j, k step-by values to use in creating a structured part. Values greater than 1 will cause original cells to be combined appropriately into larger elements - producing a coarser grid. 
+
+| This command is used for EnSight6, EnSight Gold, and User-Defined data formats. This is used when a coarser approximation of the original data is desired. Typically this reduction in the apparent resolution of the model is desired in order to be able to reasonably display very large models.
+
+Args:
+    p0:
+        &#x27;i_step&#x27; step-by value for the I, J, K directions
+    p1:
+        &#x27;j_step&#x27; step-by value for the I, J, K directions
+    p2:
+        &#x27;k_step&#x27; step-by value for the I, J, K directions
+
+Examples:
+    | # 
+    | # This example causes the i and j directions to have cells 
+    | # that are made up of 4 original cells each. However, in 
+    | # the k direction, the original thickness is retained. 
+    | # 
+    | ensight.data_partbuild.begin()
+    | ensight.data_partbuild.domain(&quot;all&quot;)
+    | ensight.data_partbuild.description(&quot;coarse_in_ij_part&quot;)
+    | ensight.data_partbuild.noderange_i(1,39)
+    | ensight.data_partbuild.noderange_j(1,15)
+    | ensight.data_partbuild.noderange_k(1,28)
+    | ensight.data_partbuild.nodestep(2,2,1)
+    | ensight.data_partbuild.nodedelta(0,0,0)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.select_begin">
+<description>
+Specify parts, from the part build lists, to use in the part build process.
+
+| These commands are used by all iblanked structured formats when doing create_iblank process. They are also used by EnSight6, EnSight Gold, and User-Defined formats when selecting parent parts.
+
+Args:
+    p0:
+        &#x27;partN&#x27; number of the part in the list of available parts in the model data file(s)
+
+Examples:
+    | ensight.data_partbuild.begin()
+    | # 
+    | # Doing a structured ensight part 
+    | # 
+    | ensight.data_partbuild.data_type(&quot;structured&quot;)
+    | # 
+    | # Selecting the first part in the 
+    | # structured part building list 
+    | # 
+    | ensight.data_partbuild.select_begin(1)
+    | # 
+    | # Setting ijk ranges, step_by, delta values, etc. 
+    | # and creating it. 
+    | # 
+    | ensight.data_partbuild.domain(&quot;inside&quot;)
+    | ensight.data_partbuild.noderange_i(1,3)
+    | ensight.data_partbuild.noderange_j(1,3)
+    | ensight.data_partbuild.noderange_k(1,3)
+    | ensight.data_partbuild.nodestep(1,1,1)
+    | ensight.data_partbuild.nodedelta(0,0,0)
+    | ensight.data_partbuild.description(&quot;my_inside_part&quot;)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.select_end">
+<description>
+Specify parts, from the part build lists, to use in the part build process.
+
+| These commands are used by all iblanked structured formats when doing create_iblank process. They are also used by EnSight6, EnSight Gold, and User-Defined formats when selecting parent parts.
+
+Args:
+    p0:
+        &#x27;partN&#x27; number of the part in the list of available parts in the model data file(s)
+
+Examples:
+    | ensight.data_partbuild.begin()
+    | # 
+    | # Doing a structured ensight part 
+    | # 
+    | ensight.data_partbuild.data_type(&quot;structured&quot;)
+    | # 
+    | # Selecting the first part in the 
+    | # structured part building list 
+    | # 
+    | ensight.data_partbuild.select_begin(1)
+    | # 
+    | # Setting ijk ranges, step_by, delta values, etc. 
+    | # and creating it. 
+    | # 
+    | ensight.data_partbuild.domain(&quot;inside&quot;)
+    | ensight.data_partbuild.noderange_i(1,3)
+    | ensight.data_partbuild.noderange_j(1,3)
+    | ensight.data_partbuild.noderange_k(1,3)
+    | ensight.data_partbuild.nodestep(1,1,1)
+    | ensight.data_partbuild.nodedelta(0,0,0)
+    | ensight.data_partbuild.description(&quot;my_inside_part&quot;)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.select_all">
+<description>
+Select all parts, from the part build lists, to use in the part build process.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.select_byexpr_begin">
+<description>
+Specify parts using an exprepresson, from the part build lists .
+
+| This command is never written out automatically to a command file.  This command can only be added to a command file manually by editing it.
+| The string must be enclosed by quotes.
+| There can be more than one per line separated by spaces.
+| The total line limit is based on normal maximum command size.
+
+Args:
+    p0:
+        &#x27;desc&#x27; A quoted string with optional asterisk(s) used to match partnames
+
+Examples:
+    | # Read all parts with an ��e�� in their name
+    | # as well as parts starting with ��f��
+    | # 
+    | ensight.data_partbuild.select_byexpr_begin(&quot;*e*&quot;,&quot;f*&quot;)
+
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.select_byexpr_end">
+<description>
+Specify parts using an exprepresson, from the part build lists .
+
+| This command is never written out automatically to a command file.  This command can only be added to a command file manually by editing it.
+| The string must be enclosed by quotes.
+| There can be more than one per line separated by spaces.
+| The total line limit is based on normal maximum command size.
+
+Args:
+    p0:
+        &#x27;desc&#x27; A quoted string with optional asterisk(s) used to match partnames
+
+Examples:
+    | # Read all parts with an ��e�� in their name
+    | # as well as parts starting with ��f��
+    | # 
+    | ensight.data_partbuild.select_byexpr_begin(&quot;*e*&quot;,&quot;f*&quot;)
+
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.select_byname_begin">
+<description>
+Specify parts using an exprepresson, from the part build lists .
+
+| This command is never written out automatically to a command file.  This command can only be added to a command file manually by editing it.
+| The string must be enclosed by quotes.
+| There can be more than one per line separated by spaces.
+| The total line limit is based on normal maximum command size.
+
+Args:
+    p0:
+        &#x27;desc&#x27; A quoted string used to exactly match partnames
+
+Examples:
+    | # Read two parts exactly matching names below
+    | # 
+    | ensight.data_partbuild.select_byname_begin(&quot;left square&quot;,&quot;right square&quot;)
+
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data_partbuild.select_byname_end">
+<description>
+Specify parts using an exprepresson, from the part build lists .
+
+| This command is never written out automatically to a command file.  This command can only be added to a command file manually by editing it.
+| The string must be enclosed by quotes.
+| There can be more than one per line separated by spaces.
+| The total line limit is based on normal maximum command size.
+
+Args:
+    p0:
+        &#x27;desc&#x27; A quoted string used to exactly match partnames
+
+Examples:
+    | # Read two parts exactly matching names below
+    | # 
+    | ensight.data_partbuild.select_byname_begin(&quot;left square&quot;,&quot;right square&quot;)
+
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

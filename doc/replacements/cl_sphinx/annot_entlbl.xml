@@ -1,0 +1,170 @@
+<docstrings>
+<override namespace="ensight.annot_entlbl.element_rgb">
+<description>
+Sets the color of element id labels.
+
+| This is a normal rgb color triple.  The effect of this command is global - namely, all element labels are affected.
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue component of the color (0.0 to 1.0)
+    p1:
+        &#x27;grn_val&#x27; red, green, blue component of the color (0.0 to 1.0)
+    p2:
+        &#x27;blu_val&#x27; red, green, blue component of the color (0.0 to 1.0)
+
+Examples:
+    | ensight.annot_entlbl.element_rgb(1.000000,0.400000,0.800000)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.annot_entlbl.element_threshold_high">
+<description>
+Sets the high/low threshold value for element label filtering.
+
+| The threshold high/low value is used according to the filter method set in the annot_entlbl: element_thresholds associated command.
+
+Args:
+    p0:
+        &#x27;element_id&#x27; high/low threshold element id
+
+Examples:
+    | ensight.annot_entlbl.element_thresholds(&quot;band&quot;)
+    | ensight.annot_entlbl.element_threshold_low(30)
+    | ensight.annot_entlbl.element_threshold_high(1200)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.annot_entlbl.element_threshold_low">
+<description>
+Sets the high/low threshold value for element label filtering.
+
+| The threshold high/low value is used according to the filter method set in the annot_entlbl: element_thresholds associated command.
+
+Args:
+    p0:
+        &#x27;element_id&#x27; high/low threshold element id
+
+Examples:
+    | ensight.annot_entlbl.element_thresholds(&quot;band&quot;)
+    | ensight.annot_entlbl.element_threshold_low(30)
+    | ensight.annot_entlbl.element_threshold_high(1200)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.annot_entlbl.element_thresholds">
+<description>
+Sets method to use for filtering element labels.
+
+| This command sets the method.  The threshold low and high values are set in associated commands
+
+Args:
+    p0:
+        &#x27;filter_setting&#x27;
+
+        * low
+        * high
+        * band
+        * low_high
+        * none
+
+Examples:
+    | ensight.annot_entlbl.element_thresholds(&quot;band&quot;)
+    | ensight.annot_entlbl.element_threshold_low(30)
+    | ensight.annot_entlbl.element_threshold_high(1200)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.annot_entlbl.node_rgb">
+<description>
+Sets the color of node id labels.
+
+| This is a normal rgb color triple.  The effect of this command is global - namely, all node labels are affected.
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue components of the color (0.0 to 1.0)
+    p1:
+        &#x27;grn_val&#x27; red, green, blue components of the color (0.0 to 1.0)
+    p2:
+        &#x27;blu_val&#x27; red, green, blue components of the color (0.0 to 1.0)
+
+Examples:
+    | ensight.annot_entlbl.node_rgb(0.000000,1.000000,0.800000)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.annot_entlbl.node_threshold_high">
+<description>
+Sets the high/low threshold value for node label filtering.
+
+| The threshold high/low value is used according to the filter method set in the annot_entlbl: node_thresholds associated command.
+
+Args:
+    p0:
+        &#x27;node_id&#x27; high/low threshold node id
+
+Examples:
+    | ensight.annot_entlbl.node_thresholds(&quot;low_high&quot;)
+    | ensight.annot_entlbl.node_threshold_low(2)
+    | ensight.annot_entlbl.node_threshold_high(20)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.annot_entlbl.node_threshold_low">
+<description>
+Sets the high/low threshold value for node label filtering.
+
+| The threshold high/low value is used according to the filter method set in the annot_entlbl: node_thresholds associated command.
+
+Args:
+    p0:
+        &#x27;node_id&#x27; high/low threshold node id
+
+Examples:
+    | ensight.annot_entlbl.node_thresholds(&quot;low_high&quot;)
+    | ensight.annot_entlbl.node_threshold_low(2)
+    | ensight.annot_entlbl.node_threshold_high(20)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.annot_entlbl.node_thresholds">
+<description>
+Sets method to use for filtering node labels.
+
+| This command sets the method.  The threshold low and high values are set in associated commands
+
+Args:
+    p0:
+        &#x27;filter_setting&#x27;
+
+        * low
+        * high
+        * band
+        * low_high
+        * none
+
+Examples:
+    | ensight.annot_entlbl.node_thresholds(&quot;low_high&quot;)
+    | ensight.annot_entlbl.node_threshold_low(2)
+    | ensight.annot_entlbl.node_threshold_high(20)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

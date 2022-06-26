@@ -1,0 +1,536 @@
+<docstrings>
+<override namespace="ensight.shock.begin">
+<description>
+Delimit the modifications for shock part attributes.
+
+| These commands are used to set the attributtes for a shock part creation.
+
+Args:
+    p0:
+        &#x27;shock_command&#x27; &quot;shock: variable&quot; commands
+
+Examples:
+    | #
+    | # Specify the 3D parent part(s) 
+    | # from which to create the shock part
+    | #
+    | ensight.part.select_begin(1)
+    | #
+    | # Compute the shock part by the Surface method
+    | #
+    | ensight.shock.begin()
+    | ensight.shock.variable(&quot;Pressure&quot;)
+    | ensight.shock.end()
+    | ensight.shock.create()
+    | #
+    | # Now select the newly created shock part 
+    | # for subsequent operations
+    | #
+    | ensight.part.select_begin(5)
+
+    | #
+    | # Specify the 3D parent part(s) 
+    | # from which to create the shock part
+    | #
+    | ensight.part.select_begin(1)
+    | #
+    | # Compute the shock part by the Region method
+    | #
+    | ensight.shock.begin()
+    | ensight.shock.variable(&quot;none&quot;)
+    | ensight.shock.end()
+    | ensight.shock.create()
+    | #
+    | # Now select the newly created shock part 
+    | # for subsequent operations
+    | #
+    | ensight.part.select_begin(5)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.end">
+<description>
+Delimit the modifications for shock part attributes.
+
+| These commands are used to set the attributtes for a shock part creation.
+
+Args:
+    p0:
+        &#x27;shock_command&#x27; &quot;shock: variable&quot; commands
+
+Examples:
+    | #
+    | # Specify the 3D parent part(s) 
+    | # from which to create the shock part
+    | #
+    | ensight.part.select_begin(1)
+    | #
+    | # Compute the shock part by the Surface method
+    | #
+    | ensight.shock.begin()
+    | ensight.shock.variable(&quot;Pressure&quot;)
+    | ensight.shock.end()
+    | ensight.shock.create()
+    | #
+    | # Now select the newly created shock part 
+    | # for subsequent operations
+    | #
+    | ensight.part.select_begin(5)
+
+    | #
+    | # Specify the 3D parent part(s) 
+    | # from which to create the shock part
+    | #
+    | ensight.part.select_begin(1)
+    | #
+    | # Compute the shock part by the Region method
+    | #
+    | ensight.shock.begin()
+    | ensight.shock.variable(&quot;none&quot;)
+    | ensight.shock.end()
+    | ensight.shock.create()
+    | #
+    | # Now select the newly created shock part 
+    | # for subsequent operations
+    | #
+    | ensight.part.select_begin(5)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.create">
+<description>
+Create a shock part with the currently defined attributes using the currently selected 3D part(s).
+
+Examples:
+    | #
+    | # Specify the 3D parent part(s)
+    | # from which to create the shock part
+    | #
+    | ensight.part.select_begin(1)
+    | #
+    | # Compute the shock part by the Surface method
+    | #
+    | ensight.shock.begin()
+    | ensight.shock.variable(&quot;Pressure&quot;)
+    | ensight.shock.end()
+    | ensight.shock.create()
+    | #
+    | # Now select the newly created shock part 
+    | # for subsequent operations
+    | #
+    | ensight.part.select_begin(5)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.density">
+<description>
+Specify the density variable to use in creating/updating a shock part or the default attributes.
+
+| This variable is assigned automatically if the variable name &lt;Density&gt; exists. 
+| Since the computation of separation and attachment lines depend on density, either the density variable must be defined or both the pressure and temperature variables must be defined to obtain the density variable.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of the density variable (the default name &lt;none&gt; means to use nothing)
+
+Examples:
+    | ensight.variables.activate(&quot;Density&quot;)
+    | ensight.shock.select_default()
+    | ensight.part.modify_begin()
+    | ensight.shock.density(&quot;Density&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.enthalpy">
+<description>
+Specify the enthalpy variable to use in creating/updating a shock part or the default attributes.
+
+| This variable is not needed unless you are computing the shock via the Region method and transient (moving) shocks are specified via the &quot;test: toggle_moving_shock&quot; command.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of the enthalpy variable (the default name &lt;none&gt; means to use nothing).
+
+Examples:
+    | ensight.variables.activate(&quot;Enthalpy&quot;)
+    | ensight.shock.select_default()
+    | ensight.part.modify_begin()
+    | ensight.shock.density(&quot;Enthalpy&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.gas_constant">
+<description>
+Specify the gas constant as a constant value or a variable name to use in creating/updating a shock part or the default attributes.
+
+Args:
+    p0:
+        &#x27;name&#x27; scalar field variable name for the gas constant
+    p1:
+        &#x27;value&#x27; a constant value (default =1.) for the gas constant
+
+Examples:
+    | ensight.shock.select_default()
+    | ensight.part.modify_begin()
+    | ensight.shock.gas_constant(1.)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.mach">
+<description>
+Specify the mach variable to use in creating/updating a shock part or the default attributes.
+
+| Although the specification of this variable is optional, if it exists, its specification will save the creation of a temporary variable.  If this variable is not specified or does not exist, it will be created on-the-fly temporarily as needed from dependent density, energy or pressure, velocity or momentum, and ratio of specific heats variables and values.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of the mach variable (the default name &lt;none&gt; means to use nothing)
+
+Examples:
+    | ensight.variables.activate(&quot;Mach&quot;)
+    | ensight.vortexcore.select_default()
+    | ensight.part.modify_begin()
+    | ensight.vortexcore.density(&quot;Mach&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.method">
+<description>
+Specify the algorithm to use for the computation of  the shock part.
+
+| The Surface method requires the specification of a shock threshold variable.  The Region method does not require the specification of a shock threshold variable.
+
+Args:
+    p0:
+        &#x27;algorithm&#x27;
+
+        * region
+        * surface
+
+Examples:
+    | ensight.part.select_begin(8)
+    | ensight.part.modify_begin()
+    | ensight.shock.method(&quot;region&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.momentum">
+<description>
+Specify the momentum variable to use in creating/updating a shock part or the default attributes.
+
+| This variable is assigned automatically if the variable name &quot;momentum&quot; exists. 
+| Since the computation of shock depends on velocity, either the velocity variable must be defined or both the density and momentum variables must be defined to obtain the velocity variable.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of the momentum variable (the default name &lt;none&gt; means to use nothing
+
+Examples:
+    | ensight.variables.activate(&quot;momentum&quot;)
+    | ensight.shock.select_default()
+    | ensight.part.modify_begin()
+    | ensight.shock.momentum(&quot;momentum&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.pressure">
+<description>
+Specify the pressure variable to use in creating/updating a shock part or the default attributes.
+
+| This variable is used throughout the shock calculation. Although the specification of this variable is optional, if it exists, its specification will save the creation of a temporary variable.  If this variable is not specified or does not exist, it will be created on-the-fly temporarily as needed from dependent density, energy, velocity or momentum, and ratio of specific heats variables and values.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of the pressure variable (the default name &lt;none&gt; means to use nothing
+
+Examples:
+    | ensight.variables.activate(&quot;Pressure&quot;)
+    | ensight.shock.select_default()
+    | ensight.part.modify_begin()
+    | ensight.shock.pressure(&quot;Pressure&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.ratio_of_spec_heat">
+<description>
+Specify the ratio of specific heat constant value or variable name to use in creating/updating a shock part or the default attributes.
+
+Args:
+    p0:
+        &#x27;name&#x27; scalar field variable name for the ratio of specific heats
+    p1:
+        &#x27;value&#x27; a constant value (default = 1.4) for the ratio of specific heats
+
+Examples:
+    | ensight.shock.select_default()
+    | ensight.part.modify_begin()
+    | ensight.shock.ratio_of_spec_heat(1.4)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.select_default">
+<description>
+Specify that the default attributes of the shock part are to be set for all subsequent shock attribute  updates.
+
+Examples:
+    | ensight.vortexcore.select_default()
+    | ensight.part.modify_begin()
+    | ensight.shock.momentum(&quot;none&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.temperature">
+<description>
+Specify the temperature variable to use in creating/updating a shock part or the default attributes.
+
+| Although the specification of this variable is optional, if it exists, its specification will save the creation of a temporary variable.  
+| This variable is required for the creation of Density if Density does not exist.  If Density exists, no need to create this variable, unless you would like to use this as the shock creation variable for the Surface method.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of the temperature variable (the default name &lt;none&gt; means to use nothing
+
+Examples:
+    | ensight.variables.activate(&quot;Temperature&quot;)
+    | ensight.shock.select_default()
+    | ensight.part.modify_begin()
+    | ensight.shock.momentum(&quot;Temperature&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.threshold">
+<description>
+Specify the threshold variable description by which to filter the segments of the selected shock part.
+
+| The default threshold for the Region shock part is &quot;SHK_Threshold&quot;. The default threshold for the Region shock part is &quot;SHK_xxx&quot;, where xxx is the name of the variable used as the shock creation variable.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of the scalar variable by which to filter the vortex core segments
+
+Examples:
+    | ensight.part.select_begin(8)
+    | ensight.part.modify_begin()
+    | ensight.shock.threshold(&quot;Density&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.threshold_filter">
+<description>
+Specify how to filter out segments of the specified shock part, according to the specified threshold variable and value.
+
+Args:
+    p0:
+        &#x27;option&#x27;
+
+        * &lt;=
+        * &gt;=
+
+Examples:
+    | ensight.part.select_begin(8)
+    | ensight.part.modify_begin()
+    | ensight.shock.threshold_filter(&quot;&gt;=&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.threshold_max">
+<description>
+Specify the maximum/minimum threshold limit under which to filter the threshold value of the selected shock part(s).
+
+| Max must be greater than the min value, and be a valid threshold variable value. 
+
+Args:
+    p0:
+        &#x27;threshold_value&#x27; maximum/minimum threshold variable range limit below/above which to threshold the shock part
+
+Examples:
+    | ensight.part.select_begin(8)
+    | ensight.part.modify_begin()
+    | ensight.shock.threshold_min(0.1)
+    | ensight.shock.threshold_max(10.0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.threshold_min">
+<description>
+Specify the maximum/minimum threshold limit under which to filter the threshold value of the selected shock part(s).
+
+| Max must be greater than the min value, and be a valid threshold variable value. 
+
+Args:
+    p0:
+        &#x27;threshold_value&#x27; maximum/minimum threshold variable range limit below/above which to threshold the shock part
+
+Examples:
+    | ensight.part.select_begin(8)
+    | ensight.part.modify_begin()
+    | ensight.shock.threshold_min(0.1)
+    | ensight.shock.threshold_max(10.0)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.threshold_value">
+<description>
+Specify the threshold value by which to filter the elements from the selected shock part(s).
+
+| This value is automatically set to a value that should approximate the valid region in which the shock part should exist.  Although for some models, further refinement and adjustment of the threshold min/max values is required. 
+| This value must lie within the threshold variable interval [threshold_min, threshold_max].
+
+Args:
+    p0:
+        &#x27;threshold_value&#x27; variable value by which to apply the threshold filter to the shock elements
+
+Examples:
+    | ensight.part.select_begin(8)
+    | ensight.part.modify_begin()
+    | ensight.shock.threshold_value(5.0000e-01)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.total_energy">
+<description>
+Specify the total energy variable to use in creating/updating a shock part or the default attributes.
+
+| Although the specification of this variable is optional, if it exists, its specification will save the creation of a temporary variable.  
+| This variable is required for the creation of Pressure if Pressure does not exist.  If Pressure exists, no need to create this variable, unless you would like to use this as the shock creation variable for the Surface method.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of the total energy variable (the default &lt;none&gt; means to use nothing)
+
+Examples:
+    | ensight.variables.activate(&quot;TotalEnergy&quot;)
+    | ensight.vortexcore.select_default()
+    | ensight.part.modify_begin()
+    | ensight.shock.velocity(&quot;TotalEnergy&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.variable">
+<description>
+Specify the variable (i.e Density, Energy, Pressure, or Temperature) in which to create the Surface method shock part(s).
+
+| For the Surface method, this variable is either Density, Energy, Pressure, or Temperature; and this variable must have previously been defined via its respective shock: density, energy, pressure, or temperature definition. 
+| For the Region method, this variable is always pressure, and thus the specification is not needed; thus, &lt;none&gt; is used as the shock variable.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of the variable in which to use as the creation variable or the variable in which to apply the gradient calculations for the shock function
+
+Examples:
+    | #
+    | # Specify the 3D parent part(s) 
+    | # from which to create the shock part
+    | #
+    | ensight.part.select_begin(1)
+    | #
+    | # Compute the shock part by the Surface method
+    | #
+    | ensight.shock.begin()
+    | ensight.shock.variable(&quot;Pressure&quot;)
+    | ensight.shock.end()
+    | ensight.shock.create()
+    | #
+    | # Now select the newly created shock part 
+    | # for subsequent operations
+    | #
+    | ensight.part.select_begin(5)
+
+    | #
+    | # Specify the 3D parent part(s) 
+    | # from which to create the shock part
+    | #
+    | ensight.part.select_begin(1)
+    | #
+    | # Compute the shock part by the Region method
+    | #
+    | ensight.shock.begin()
+    | ensight.shock.variable(&quot;none&quot;)
+    | ensight.shock.end()
+    | ensight.shock.create()
+    | #
+    | # Now select the newly created shock part 
+    | # for subsequent operations
+    | #
+    | ensight.part.select_begin(5)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.shock.velocity">
+<description>
+Specify the velocity variable to use in creating/updating a shock part or the default attributes.
+
+| Since the computation of shock depends on velocity, either  the velocity variable must be defined or both the density and  momentum variables must be defined to obtain the velocity variable.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of the velocity variable (the default &lt;none&gt; means to use nothing)
+
+Examples:
+    | ensight.variables.activate(&quot;Velocity&quot;)
+    | ensight.shock.select_default()
+    | ensight.part.modify_begin()
+    | ensight.shock.velocity(&quot;Velocity&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

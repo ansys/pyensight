@@ -1,0 +1,662 @@
+<docstrings>
+<override namespace="ensight.prefs.abort_server_operations">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.abort_server_time">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.auto_legend_display">
+<description>
+Will cause the legend to automatically appear when you color a part by a variable.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.prefs.auto_legend_replace(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.auto_legend_replace">
+<description>
+Preference that will cause legends to be automatically replaced when the current legend is no longer in use (i.e. no parts are colored by the variable) and a  new variable is in use.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.prefs.auto_legend_replace(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.auto_load_parts">
+<description>
+Allows you to have EnSight automatically load parts when the data file is read.
+
+Args:
+    p0:
+        &#x27;method&#x27;
+
+        * Must be one of:
+        * all
+        * none
+
+Examples:
+    | ensight.prefs.starting_time_step(&quot;last&quot;)
+    | ensight.prefs.auto_load_parts(&quot;all&quot;)
+    | ensight.data.binary_files_are(&quot;big_endian&quot;)
+    | ensight.data.format(&quot;case&quot;)
+    | ensight.data.path(&quot;/usr/tmp&quot;)
+    | ensight.data.geometry(&quot;car_crash.case&quot;)
+    | ensight.data.read()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.cull_lines">
+<description>
+Will only draw shared lines between polygons once.  May help performance.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.prefs.cull_lines(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.default_data_directory">
+<description>
+Preference to set the default directory where the user&#x27;s data resides.
+
+Args:
+    p0:
+        &#x27;directory_name&#x27; name of the default directory
+
+Examples:
+    | ensight.prefs.default_data_directory(&quot;/usr/local/bin/ensight92/data/ami&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.default_palette">
+<description>
+Preference to override the default EnSight color palette with a user predefined palette.
+
+| When EnSight starts, it looks for user defined function color palettes located under                 $CEI_HOME/ensight92/site_preferences/palettes and in the ./palettes directory found in the user&#x27;s home directory. These files must be named palette_name.cpal, where the palette_name will be the name of the color palette  in the Simple Interface area of the function dialog.
+
+Args:
+    p0:
+        &#x27;predefined_palette_name&#x27; palette name
+
+Examples:
+    | ensight.prefs.default_palette(&quot;FASTDefaultPalette&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.fastdisplay_point_res">
+<description>
+Allows specification of fraction of nodes to display in fast display-point representation. The default is 1 (indicating all nodes), 2 (would be every other node), 3 (every third node), etc.
+
+| May help performance. 
+
+Args:
+    p0:
+        &#x27;value&#x27; &gt;= 1
+
+Examples:
+    | ensight.view.fast_display(&quot;ON&quot;)
+    | ensight.prefs.static_fast_display(&quot;ON&quot;)
+    | ensight.prefs.fastdisplay_point_res(2)
+    | ensight.part.select_begin(1,3,4)
+    | ensight.part.modify_begin()
+    | ensight.part.bounding_rep(&quot;points&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.fastdisplay_sparse_res">
+<description>
+Allows specification of the percentage of the model geometry that will be displayed. The default is 50. The range is 1-100 where 1 would be sparse and 100 would be full.
+
+| Will help performance but will degrade quality in the graphics window while interactively transforming the model.
+
+Args:
+    p0:
+        &#x27;value&#x27; (1-100)
+
+Examples:
+    | ensight.view.fast_display(&quot;ON&quot;)
+    | ensight.prefs.static_fast_display(&quot;ON&quot;)
+    | ensight.prefs.fastdisplay_sparse_res(75)
+    | ensight.part.select_begin(1,3,4)
+    | ensight.part.modify_begin()
+    | ensight.part.bounding_rep(&quot;sparse_model&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.frame_mode_allowed">
+<description>
+Will display Frame as one of the modes along the left side of the EnSight main interface.
+
+| As EnSight reads in model Parts, they are all initially assigned to the same Frame of reference: Frame 0. Frame 0 corresponds to the model coordinate system (defined when the model was created). Using the Frame mode, you can create additional frames, reassign parts to different frames, and specify various attributes of the frames.  By default frame mode is not available because frame mode is an advanced feature not normally used by first time users.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.prefs.frame_mode_allowed(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.function_editor_type">
+<description>
+Preference to set the default type of interface used for editing in the variable function editor.
+
+Args:
+    p0:
+        &#x27;interface_type&#x27;
+
+        * must be one of:
+        * simple
+        * advanced
+
+Examples:
+    | # WARNING: following line includes OBSOLETE call (ensight.prefs.function_editor_type).
+    | ensight.prefs.function_editor_type(&quot;simple&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.highlight_textfields">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.icon_help_labels">
+<description>
+Will cause a help label to appear below the mode icons along the left side of the main EnSight interface.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.prefs.icon_help_labels(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.large_parts_list">
+<description>
+Will cause a separate, larger parts list dialog (which can be expanded) to be used in place of the normal parts list.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.prefs.large_parts_list(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.legend_colorby">
+<description>
+Specifies whether color palettes will be RGB or textures.
+
+Args:
+    p0:
+        &#x27;option&#x27;
+
+        * RGB
+        * textures
+
+Examples:
+    | # WARNING: following line includes OBSOLETE call (ensight.prefs.legend_colorby).
+    | ensight.prefs.legend_colorby(&quot;textures&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.macro_panel">
+<description>
+Toggles on/off the user defined macro panel. This is normally used with VR devices and user defined input. The macro panel will be displayed in the main graphics window.
+
+| Users define the macro panel layout and actions in the ~/./macros/hum.define file.  An example hum.define file is located at $CEI_HOME/ensight92/src/udi/HUM/hum.define on your client system.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.prefs.macro_panel(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.minimize_redraw">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.new_data_notification">
+<description>
+Tells client how to handle dynamic data updates.
+
+| Used in conjunction with the dynamic data interface
+
+Args:
+    p0:
+        &#x27;type&#x27;
+
+        * auto_update
+        * ignore
+        * prompt
+
+Examples:
+    | ensight.prefs.new_data_notification(&quot;auto_update&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.number_of_peels">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.number_of_server_cpus">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.part_panel">
+<description>
+Toggles on/off the part panel which allows users to select parts to operate on.  Normally used with VR devices and user defined input when the main part list is not visible (ie. Full screen graphics window).  The part panel will be displayed in the main graphics window.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.prefs.part_panel(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.partlist_details">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.partlist_displayattr">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.partlist_displaycase">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.partlist_displaytree">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.partlist_sort">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.plane_tool_type">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.resetlegend_ontimechange">
+<description>
+Toggles on/off the preference of having the legend ranges update when time is changed or not.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.prefs.resetlegend_ontimechange(&quot;OFF&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.starting_time_step">
+<description>
+Preference to set the default starting time step for transient data.  When the data is read the first or the last step will be loaded as specified.
+
+Args:
+    p0:
+        &#x27;value&#x27;
+
+        * must be one of:
+        * first
+        * last
+
+Examples:
+    | ensight.prefs.starting_time_step(&quot;last&quot;)
+    | ensight.data.binary_files_are(&quot;big_endian&quot;)
+    | ensight.data.format(&quot;case&quot;)
+    | ensight.data.path(&quot;/usr/tmp&quot;)
+    | ensight.data.geometry(&quot;car_crash.case&quot;)
+    | ensight.data.read()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.static_fast_display">
+<description>
+Will cause the fast display representation to always be displayed when the fast display toggle is on.  If static_fast_display is off (the default), fast display will only be active during a transformation.
+
+| This is a performance enhancing attribute.  This attribute can be used to work with very large models.  Large models can be too slow in full element representation to manipulate (ie. transforming, positioning tools, etc.)
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.view.fast_display(&quot;ON&quot;)
+    | ensight.prefs.static_fast_display(&quot;ON&quot;)
+    | ensight.part.select_begin(1,3,4)
+    | ensight.part.modify_begin()
+    | ensight.part.bounding_rep(&quot;points&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.tool_tips">
+<description>
+Will cause pop-up help information to appear when the mouse is placed over certain icons while running EnSight.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.prefs.tool_tips(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.transparency_sort">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.use_continuous_perelem">
+<description>
+If on, display element variables as per node for the purpose of creating contour (filled or line) images.
+
+| When on, the per element variable is averaged to the nodes using node count weighted algorithm.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | #
+    | # set the preference to show the per element colored as a per node variable
+    | ensight.prefs.use_continuous_perelem(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.user_defined_input">
+<description>
+Toggles on/off the User Defined Input Device that is linked via a runtime library.  This is normally used with VR devices.
+
+| Steps outlining the implementation of this library and input device are found in the file: $CEI_HOME/ensight92/src/input/README.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.prefs.user_defined_input(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.user_input_postranssens">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.user_input_rotatesens">
+<description>
+Specifies a scalar value that adjusts the sensitivity of rotates when using a User Defined Input Device (i.e. values &lt; 1 are slower, and values &gt; 1 are faster).
+
+| Steps outlining the implementation of the library for input devices are found in the file: $CEI_HOME/ensight92/src/input/README.
+
+Args:
+    p0:
+        &#x27;value&#x27; must be &gt; 0.0
+
+Examples:
+    | ensight.prefs.user_defined_input(&quot;ON&quot;)
+    | ensight.prefs.user_input_rotateusing(&quot;Position&quot;)
+    | ensight.prefs.user_input_rotatesens(0.5)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.user_input_rotateusing">
+<description>
+Allows selection of the type of rotation mode used for rotate transformations for the User Defined Input Device.
+
+| Steps outlining the implementation of the library for input devices are found in the file: $CEI_HOME/ensight92/src/input/README.
+
+Args:
+    p0:
+        &#x27;rotate_mode&#x27;
+
+        * must be one of:
+        * mixed_mode 
+        * direct_mode
+
+Examples:
+    | ensight.prefs.user_defined_input(&quot;ON&quot;)
+    | ensight.prefs.user_input_rotateusing(&quot;direct_mode&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.user_input_valtranssens">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.user_input_zoomsens">
+<description>
+Specifies a value that adjusts the sensitivity of the zoom operation for the User Defined Input Device.
+
+| Steps outlining the implementation of the library for input devices are found in the file: $CEI_HOME/ensight92/src/input/README.
+
+Args:
+    p0:
+        &#x27;value&#x27; must be &gt; 0.0  (&lt; 1 slower, &gt; 1 faster)
+
+Examples:
+    | ensight.prefs.user_defined_input(&quot;ON&quot;)
+    | ensight.prefs.user_input_zoomusing(&quot;position&quot;)
+    | ensight.prefs.user_input_zoomsens(1.5)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.user_input_zoomusing">
+<description>
+Allows selection of the mode used for zoom transformations for the User Defined Input Device.
+
+| Steps outlining the implementation of the library for input devices are found in the file: $CEI_HOME/ensight92/src/input/README.
+
+Args:
+    p0:
+        &#x27;mode&#x27;
+
+        * must be one of:
+        * valuator
+        * position
+
+Examples:
+    | ensight.prefs.user_defined_input(&quot;ON&quot;)
+    | ensight.prefs.user_input_zoomusing(&quot;position&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.prefs.view_mode_allowed">
+<description>
+Will display View as one of the modes along the left side of the EnSight main interface.
+
+| View Mode is used to adjust the appearance of Parts in the Graphics Window (Perspective, Static Color, etc.), the visibility and appearance of Labels, to adjust Auxiliary Clipping status, and to toggle visibility of the Global Axis triad. By default, this mode is not available because the attributes are available under the View menu of the main interface.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.prefs.view_mode_allowed(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

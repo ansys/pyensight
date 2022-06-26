@@ -1,0 +1,247 @@
+<docstrings>
+<override namespace="ensight.variables.activate">
+<description>
+Activates a variable.
+
+| A variable must be activated before it can be used for any purpose.
+
+Args:
+    p0:
+        &#x27;name&#x27; name of the variable to activate
+
+Examples:
+    | #
+    | # Activate a variable and use it
+    | # to color a part
+    | #
+    | ensight.variables.activate(&quot;temperature&quot;)
+    | ensight.part.select_begin(1)
+    | ensight.part.colorby_palette(&quot;temperature&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.variables.activate_all">
+<description>
+Activates all variables.
+
+Examples:
+    | # 
+    | # Activating all variables 
+    | # 
+    | ensight.variables.activate_all()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.variables.deactivate">
+<description>
+Deactivates a variable.
+
+| A deactivated variable is not available for use, but can be activated again if needed.
+| If a computed variable is deactivated it is deleted and must be re-specified if needed at a later time.
+
+Args:
+    p0:
+        &#x27;name&#x27; name of the variable to deactivate
+
+Examples:
+    | ensight.variables.deactivate(&quot;temperature&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.variables.evaluate">
+<description>
+Creates a computed variable.
+
+| The expression must conform to one of the many supplied general functions or  proper math or calculator operations within EnSight. It is subject to all the  limitations of such, so please familiarize yourself with these.
+
+Args:
+    p0:
+        &#x27;expression&#x27; expression needed to create a computed variable
+
+Examples:
+    | ensight.part.select_all()
+    | ensight.variables.activate_all()
+    | ensight.variables.evaluate(&quot;Area = Area(plist)&quot;)
+    | ensight.variables.evaluate(&quot;Grad = Grad(plist,temperature)&quot;)
+    | ensight.variables.evaluate(&quot;CmplxTransResp = CmplxTransResp(plist,c_scalar,90.0)&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.variables.get_mainvarlist_select">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.variables.load_constants">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.variables.modify_parameter">
+<description>
+Modifies a parameter of a general function computed variable.
+
+| Currently only used for modifying the phase angle of a complex transient response variable.
+
+Args:
+    p0:
+        &#x27;varname&#x27; computed variable&#x27;s name
+    p1:
+        &#x27;num&#x27; parameter number for the computed variable
+    p2:
+        &#x27;string or value&#x27; proper modified string, or number for the parameter specified
+
+Examples:
+    | ensight.variables.activate_all()
+    | ensight.part.select_all()
+    | ensight.variables.evaluate(&quot;CmplxTransResp = CmplxTransResp(plist,c_scalar,90.0)&quot;)
+    | ensight.function.palette(&quot;CmplxTransResp&quot;)
+    | ensight.variables.modify_parameter(&quot;CmplxTransResp param 3=1.1700e+02&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.variables.notify_before_activate">
+<description>
+A preference that can be set concerning notification when a variable will activated. Since EnSight by default activates variables automatically if needed, this command can cause a confirmation to be requested before a variable is activated. 
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.variables.notify_before_activate(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.variables.save_all_constants">
+<description>
+Saves all active constant variable values to a file.
+
+Args:
+    p0:
+        &#x27;filename&#x27; name of the file in which to save the constants
+
+Examples:
+    | # 
+    | # Activating all variables 
+    | # 
+    | ensight.variables.activate_all()
+    | # 
+    | # Computing area of one part 
+    | # 
+    | ensight.part.select_begin(1)
+    | ensight.variables.evaluate(&quot;Area = Area(plist)&quot;)
+    | # 
+    | # Computing area of another part 
+    | # 
+    | ensight.part.select_begin(2)
+    | ensight.variables.evaluate(&quot;Area2 = Area(plist)&quot;)
+    | ensight.variables.save_all_constants(&quot;/usr/tmp/all_constants&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.variables.save_constants">
+<description>
+Saves selected constant variable values to a file.
+
+Args:
+    p0:
+        &#x27;filename&#x27; name of the file in which to save the constants
+
+Examples:
+    | # 
+    | # Activating all variables 
+    | # 
+    | ensight.variables.activate_all()
+    | # 
+    | # Computing area of one part 
+    | # 
+    | ensight.part.select_begin(1)
+    | ensight.variables.evaluate(&quot;Area = Area(plist)&quot;)
+    | # 
+    | # Computing area of another part 
+    | # 
+    | ensight.part.select_begin(2)
+    | ensight.variables.evaluate(&quot;Area2 = Area(plist)&quot;)
+    | # 
+    | # Selecting the computed area constant to write them out 
+    | # 
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.variables.select_byname_begin">
+<description>
+Selects variables for future use.
+
+Args:
+    p0:
+        &#x27;varname&#x27; valid name of a variable
+
+Examples:
+    | # WARNING: following line includes OBSOLETE call (ensight.variables.select_varname_begin).
+    | ensight.variables.select_varname_begin(&quot;Area &quot;,&quot;Area2 &quot;,&quot;variables: select_varname_end &quot;,&quot;# &quot;,&quot;# Saving the areas to a file &quot;,&quot;# &quot;,&quot;variables: save_constants /usr/tmp/my_constants&quot;,&quot;# &quot;,&quot;# Activating all variables &quot;,&quot;# &quot;,&quot;variables: activate_all &quot;,&quot;# &quot;,&quot;# Computing area of one part &quot;,&quot;# &quot;,&quot;part: select_begin &quot;,&quot;1 &quot;)
+    | ensight.variables.evaluate(&quot;Area = Area(plist)&quot;)
+    | # 
+    | # Computing area of another part 
+    | # 
+    | ensight.part.select_begin(2)
+    | ensight.variables.evaluate(&quot;Area2 = Area(plist)&quot;)
+    | # 
+    | # Selecting the computed area constant to write them out 
+    | # 
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.variables.select_byname_end">
+<description>
+Selects variables for future use.
+
+Args:
+    p0:
+        &#x27;varname&#x27; valid name of a variable
+
+Examples:
+    | # WARNING: following line includes OBSOLETE call (ensight.variables.select_varname_begin).
+    | ensight.variables.select_varname_begin(&quot;Area &quot;,&quot;Area2 &quot;,&quot;variables: select_varname_end &quot;,&quot;# &quot;,&quot;# Saving the areas to a file &quot;,&quot;# &quot;,&quot;variables: save_constants /usr/tmp/my_constants&quot;,&quot;# &quot;,&quot;# Activating all variables &quot;,&quot;# &quot;,&quot;variables: activate_all &quot;,&quot;# &quot;,&quot;# Computing area of one part &quot;,&quot;# &quot;,&quot;part: select_begin &quot;,&quot;1 &quot;)
+    | ensight.variables.evaluate(&quot;Area = Area(plist)&quot;)
+    | # 
+    | # Computing area of another part 
+    | # 
+    | ensight.part.select_begin(2)
+    | ensight.variables.evaluate(&quot;Area2 = Area(plist)&quot;)
+    | # 
+    | # Selecting the computed area constant to write them out 
+    | # 
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

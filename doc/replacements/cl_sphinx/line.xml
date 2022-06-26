@@ -1,0 +1,302 @@
+<docstrings>
+<override namespace="ensight.line.arrowhead">
+<description>
+Controls the display of arrowheads on the currently selected  line in the graphics window.
+
+Args:
+    p0:
+        &#x27;head_type&#x27;
+
+        * can be any of the following values:
+        * none
+        * on_first_end
+        * on_second_end
+        * on_both_ends
+
+Examples:
+    | ensight.line.select_begin(1)
+    | ensight.line.arrowhead(&quot;on_first_end&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.">
+<description>
+Deletes the currently selected line in the graphics window.
+
+Examples:
+    | ensight.line.select_begin(1,2,3)
+    | ensight.line.delete()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.line.deselect_all">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.line.location_x">
+<description>
+Specifies the x/y coordinate of an endpoint for the selected line in the graphics window.
+
+Args:
+    p0:
+        &#x27;index&#x27; Must be either 1 or 2, depending on which endpoint is being specified.
+    p1:
+        &#x27;coord&#x27; Specifies the x/y coordinate. A value of 0.0 indicates the left/bottom side of the window, while a value of 1.0 indicates the right/top side.
+
+Examples:
+    | ensight.line.select_begin(1)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_x).
+    | ensight.line.location_x(1,0.5)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_y).
+    | ensight.line.location_y(1,0.6)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_x).
+    | ensight.line.location_x(2,0.1)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_y).
+    | ensight.line.location_y(2,0.3)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.line.location_y">
+<description>
+Specifies the x/y coordinate of an endpoint for the selected line in the graphics window.
+
+Args:
+    p0:
+        &#x27;index&#x27; Must be either 1 or 2, depending on which endpoint is being specified.
+    p1:
+        &#x27;coord&#x27; Specifies the x/y coordinate. A value of 0.0 indicates the left/bottom side of the window, while a value of 1.0 indicates the right/top side.
+
+Examples:
+    | ensight.line.select_begin(1)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_x).
+    | ensight.line.location_x(1,0.5)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_y).
+    | ensight.line.location_y(1,0.6)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_x).
+    | ensight.line.location_x(2,0.1)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_y).
+    | ensight.line.location_y(2,0.3)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.line.modify_begin">
+<description>
+These optional commands can be used to demarcate a series of line: commands which apply to the same line or lines so that they can be executed at one time for better performance.
+
+Examples:
+    | ensight.line.select_begin(1)
+    | ensight.line.modify_begin()
+    | ensight.line.rgb(1,0,0)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_x).
+    | ensight.line.location_x(1,100)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_y).
+    | ensight.line.location_y(1,20)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_x).
+    | ensight.line.location_x(2,10)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_y).
+    | ensight.line.location_y(2,10)
+    | ensight.line.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.line.modify_end">
+<description>
+These optional commands can be used to demarcate a series of line: commands which apply to the same line or lines so that they can be executed at one time for better performance.
+
+Examples:
+    | ensight.line.select_begin(1)
+    | ensight.line.modify_begin()
+    | ensight.line.rgb(1,0,0)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_x).
+    | ensight.line.location_x(1,100)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_y).
+    | ensight.line.location_y(1,20)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_x).
+    | ensight.line.location_x(2,10)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_y).
+    | ensight.line.location_y(2,10)
+    | ensight.line.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.line.new_line">
+<description>
+Creates a new line in the graphics window.
+
+Examples:
+    | ensight.line.new_line()
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_x).
+    | ensight.line.location_x(1,0.5)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_y).
+    | ensight.line.location_y(1,0.6)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_x).
+    | ensight.line.location_x(2,0.6)
+    | # WARNING: following line includes OBSOLETE call (ensight.line.location_y).
+    | ensight.line.location_y(2,0.5)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.line.new_or_mod_line">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.line.rgb">
+<description>
+Specifies the RGB color value of the selected line(s) .
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue color components.  Must be between 0.0 and 1.0
+    p1:
+        &#x27;grn_val&#x27; red, green, blue color components.  Must be between 0.0 and 1.0
+    p2:
+        &#x27;blu_val&#x27; red, green, blue color components.  Must be between 0.0 and 1.0
+
+Examples:
+    | ensight.line.select_begin(1)
+    | ensight.line.rgb(1,0,0)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.line.select_all">
+<description>
+Selects all of the annotation lines as the target for future line: commands.
+
+Examples:
+    | ensight.line.select_all()
+    | ensight.line.delete()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.line.select_all_invisible">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.line.select_all_visible">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.line.select_begin">
+<description>
+Selects one or more lines in the graphics window as the  target for future line: commands.
+
+| Using these commands is equivalent to selecting lines by clicking on them in the graphics window with the CTRL key held down.
+
+Args:
+    p0:
+        &#x27;indexN&#x27; up to a maximum of  10 values per line
+
+Examples:
+    | ensight.line.select_begin(1,2)
+    | ensight.line.rgb(1,0,0)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.line.select_end">
+<description>
+Selects one or more lines in the graphics window as the  target for future line: commands.
+
+| Using these commands is equivalent to selecting lines by clicking on them in the graphics window with the CTRL key held down.
+
+Args:
+    p0:
+        &#x27;indexN&#x27; up to a maximum of  10 values per line
+
+Examples:
+    | ensight.line.select_begin(1,2)
+    | ensight.line.rgb(1,0,0)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.line.select_default">
+<description>
+Causes any following line: commands to affect the default settings, rather than a particular line.
+
+| All line: commands following line: select_default will affect default settings until a new line is selected using line: select_begin/select_end.
+
+Examples:
+    | ensight.line.select_default()
+    | ensight.line.visible(&quot;OFF&quot;)
+    | ensight.line.rgb(1,0,0)
+    | ensight.line.select_begin(1)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.line.visible">
+<description>
+Controls the visibility of the selected lines in the graphics window.
+
+| Lines are visible by default.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON 
+        * OFF 
+
+Examples:
+    | ensight.line.select_begin(1)
+    | ensight.line.visible(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.line.width">
+<description>
+Sets the width of the currently selected line.
+
+Args:
+    p0:
+        &#x27;width&#x27; width (in pixels) can be any value from 1 to 4
+
+Examples:
+    | ensight.line.select_begin(1)
+    | ensight.line.width(2)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

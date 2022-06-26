@@ -35,7 +35,7 @@ class XMLOverrides:
         if directory_list is None:
             return
         for directory in directory_list:
-            files = glob.glob(os.path.join(directory, "*.xml"), recursive=True)
+            files = glob.glob(os.path.join(directory, "**/*.xml"), recursive=True)
             for filename in files:
                 with open(filename, "r") as f:
                     data = f.read()
