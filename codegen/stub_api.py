@@ -158,6 +158,11 @@ class ProcessAPI:
 
         Map a method tag to a 'def' member function
         """
+        # if the method is an "end" method, suppress it as the Python
+        # bindings only use the "begin" methods
+        if node.get("tbl", "") == "0e":
+            return ""
+        # regular processing
         s = "\n"
         s += f"{indent}def {node.get('name')}(self"
         ret = ""

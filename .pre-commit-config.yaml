@@ -10,8 +10,6 @@ repos:
     rev: 22.3.0
     hooks:
       - id: black
-        types: [ python ]
-        require_serial: true
         args: [ # black ignores files in .gitignore by default
             --line-length, "100",
             --target-version, "py37",
@@ -21,8 +19,6 @@ repos:
     rev: 5.10.1
     hooks:
       - id: isort
-        require_serial: true
-        types_or: [ cython, pyi, python ]
         args: [
             --profile, black,
             --skip-gitignore,
@@ -37,10 +33,13 @@ repos:
     rev: 3.9.2
     hooks:
       - id: flake8
-        require_serial: true
-        types: [ python ]
   - repo: https://github.com/codespell-project/codespell
     rev: v2.1.0
     hooks:
       - id: codespell
-        require_serial: true
+# - repo: https://github.com/pycqa/pydocstyle
+#   rev: 6.1.1
+#   hooks:
+#   - id: pydocstyle
+#     additional_dependencies: [toml]
+
