@@ -178,7 +178,7 @@ class ProcessAPI:
         if ret:
             s += f") -> {ret}:\n"
         else:
-            s += f"):\n"
+            s += "):\n"
         indent += "    "
         desc = node.get("description", "")
         desc = self._replace(node.get("ns"), default=desc, indent=indent)
