@@ -44,4 +44,10 @@ repos:
     hooks:
       - id: codespell
         require_serial: true
-
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.4
+    hooks:
+      - id: bandit
+        require_serial: true
+        entry: bandit -lll -n 3 -r -x "venv/*,src/ansys/api/*,src/ansys/pyensight/ensight_api.py,setup.py,tests/*,codegen/*"
+        types: [ python ]
