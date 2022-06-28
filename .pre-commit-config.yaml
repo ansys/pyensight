@@ -42,6 +42,11 @@ repos:
     hooks:
       - id: bandit
         require_serial: true
-        entry: bandit -lll -n 3 -r -x "venv/*,src/ansys/api/*,src/ansys/pyensight/ensight_api.py,setup.py,tests/*,codegen/*"
         types: [ python ]
+        args: [
+                -lll,
+                -n, "3",
+                -r,
+                -x, "venv/*,src/ansys/api/*,src/ansys/pyensight/ensight_api.py,setup.py,tests/*,codegen/*"
+        ]
 
