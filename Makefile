@@ -36,4 +36,4 @@ clean:
 	rm -rf src/*.egg-info
 	rm -f codegen/ensight.proto
 	rm -f codegen/ensight_api.xml
-	rm -rf src/ansys/pyensight/ensight_api.py
+	rm -f src/ansys/pyensight/ensight_api.py
