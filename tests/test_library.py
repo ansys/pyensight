@@ -50,8 +50,8 @@ import ansys.pyensight as pyensight
 
 
 def test_launcher():
-    a = pyensight.Launcher()
+    pyensight.Launcher()
 
 
 def test_session():
-    a = pyensight.Session()
+    pyensight.Session()
