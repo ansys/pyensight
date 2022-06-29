@@ -61,7 +61,7 @@ class DockerLauncher(pyensight.Launcher):
         try:
             self._docker_client: docker.client.DockerClient = docker.from_env()
         except Exception:
-            raise RuntimeError(f"Can't initialize Docker")
+            raise RuntimeError("Can't initialize Docker")
 
         # EnSight session secret key
         self._secret_key: str = str(uuid.uuid1())
@@ -187,7 +187,7 @@ class DockerLauncher(pyensight.Launcher):
         if ret[0] != 0:
             self.stop()
             raise RuntimeError(
-                f"Can't find /ansys_inc/vNNN/CEI/bin/ensight in the Docker container."
+                "Can't find /ansys_inc/vNNN/CEI/bin/ensight in the Docker container."
             )
         self._cei_home = ret[1].decode("utf-8").strip()
         m = re.search("/v(\d\d\d)/", self._cei_home)
@@ -195,7 +195,7 @@ class DockerLauncher(pyensight.Launcher):
             self.stop()
             # raise RuntimeError(f"Can't find version from {} in the Docker container.",
             #   self._cei_home)
-            raise RuntimeError(f"Can't find version from cei_home in the Docker container.")
+            raise RuntimeError("Can't find version from cei_home in the Docker container.")
         self._ansys_version = m.group(1)
         print("CEI_HOME=", self._cei_home)
         print("Ansys Version=", self._ansys_version)
