@@ -135,8 +135,8 @@ The simplest PyEnSight session may be started like this:
 
 Dependencies
 ------------
-You will need a locally installed and licensed copy of Ansys to run EnSight, with the
-first supported version being Ansys 2022 R2.
+You will need a locally installed and licensed copy of Ansys to run EnSight.  The
+first supported version being part of the Ansys 2022 R2.
 
 
 Documentation and Issues
