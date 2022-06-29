@@ -59,7 +59,8 @@ jobs:
 
       - name: Test import
         run: make smoketest
-  main:
+
+  build_and_test:
     name: Build & test
     runs-on: ubuntu-latest
 
@@ -68,7 +69,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: '3.7'
 
       - name: Install build requirements
         run: pip install -r requirements/build.txt
@@ -97,6 +98,7 @@ jobs:
           name: ansys-pyensight-wheel
           path: dist/
           retention-days: 7
+
   docs:
     name: Build docs
     runs-on: ubuntu-latest
@@ -108,7 +110,7 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Install generate requirements
+      - name: Install build requirements
         run: pip install -r requirements/build.txt
 
       - name: Install doc requirements
@@ -139,10 +141,11 @@ jobs:
           branch: gh-pages
           folder: doc/build/html
           clean: true
+
   release:
     name: Release
     if: contains(github.ref, 'refs/tags')
-    needs: [ main, linter, docs ]
+    needs: [ build_and_test, linter, docs ]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
@@ -194,3 +197,19 @@ jobs:
             ./**/*.whl
             ./**/*.zip
             ./**/*.pdf
+
+  build-failure:
+    name: Teams notify on failure
+    if: failure() && (github.event_name == 'pull_request' || github.ref == 'refs/heads/main' || github.ref_type == 'tag')
+    needs: [ linter, smoketest, build_and_test ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Microsoft Teams Notification
+        uses: jdcargile/ms-teams-notification@v1.3
+        with:
+          github-token: ${{ github.token }} # this will use the runner's token.
+          ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
+          notification-summary: GitHub CI failure - ${{ github.event.pull_request.title }}
+          notification-color: dc3545
+          timezone: America/New-York
