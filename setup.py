@@ -3,7 +3,10 @@ import os
 
 from setuptools import find_namespace_packages, setup
 
-REQUIREMENTS = ["docker==5.0.3", "grpcio>=1.23.0", "requests>=2.20.1"]
+REQUIREMENTS = [
+    "docker @ git+https://git@github.com/mfkrogh/docker-py@master#egg=docker", 
+    "grpcio>=1.23.0", 
+    "requests>=2.20.1"]
 
 curr_dir = os.path.abspath(os.path.dirname(__file__))
 
