@@ -1,0 +1,186 @@
+<docstrings>
+<override namespace="ensight.texture.autoscale">
+<description>
+Sets the state of temporal autoscaling for the currently selected texture. If enabled, the time limits for the texture will always be the minimum and maximum solution times currently loaded into EnSight. 
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.texture.select(1)
+    | ensight.texture.autoscale(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.texture.border_rgb">
+<description>
+Selects a texture slot for editing. 
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue components of the color (range 0.0 to 1.0)
+    p1:
+        &#x27;grn_val&#x27; red, green, blue components of the color (range 0.0 to 1.0)
+    p2:
+        &#x27;blu_val&#x27; red, green, blue components of the color (range 0.0 to 1.0)
+
+Examples:
+    | ensight.texture.select(1)
+    | ensight.texture.border_rgb(1,.5,0.)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.texture.border_transparency">
+<description>
+Sets the transparency value that will be used outside of the texture space when the texure is clamped
+
+Args:
+    p0:
+        &#x27;alpha&#x27; A 0 to 1 transparency value.  0 is fully transparent while 1 is fully opaque
+
+Examples:
+    | ensight.texture.select(1)
+    | ensight.texture.border_rgb(1,.5,0.)
+    | ensight.texture.border_transparency(0.)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.texture.clear">
+<description>
+Remove the texture from the texture slot. 
+
+Examples:
+    | ensight.texture.select(0)
+    | ensight.texture.clear()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.texture.compress">
+<description>
+Sets the internal compression scheme EnSight uses in memory for the currently selected texture. Scenario files will contain textures stored with the selected form of compression. 
+
+Args:
+    p0:
+        &#x27;RAW&#x27;
+
+        * compression scheme to use.
+    p1:
+        &#x27;RLE&#x27;
+
+        * compression scheme to use.
+    p2:
+        &#x27;GZIP&#x27;
+
+        * compression scheme to use.
+
+Examples:
+    | ensight.texture.select(1)
+    | ensight.texture.compress(&quot;RLE&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.texture.display_type">
+<description>
+Set the texture to accept color, color+alpha, or just alpha from the loaded image.
+
+Args:
+    p0:
+        &#x27;type&#x27;
+
+        * rgba
+        * rgb
+        * a
+
+Examples:
+    | ensight.texture.select(0)
+    | ensight.texture.display_type(&quot;rgb&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.texture.frame_limits">
+<description>
+Sets the starting and ending frame numbers for the currently selected texture. These values along with the current EnSight solution time and texture time limits, select which animation frame to display for an animated texture. 
+
+Args:
+    p0:
+        &#x27;start_frame&#x27; start and end frames for the texture
+    p1:
+        &#x27;end_frame&#x27; start and end frames for the texture
+
+Examples:
+    | ensight.texture.select(0)
+    | ensight.texture.frame_limits(0,24)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.texture.read">
+<description>
+Load a texture. 
+
+| Textures must have a resolution of powers of 2.   Any image resolution outside of the acceptable resolution will be truncated.
+
+Args:
+    p0:
+        &#x27;filename&#x27; the image filename to be used as the texture
+
+Examples:
+    | ensight.texture.select(0)
+    | ensight.texture.read(&quot;/tmp/grass.jpg&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.texture.select">
+<description>
+Selects a texture slot for editing. 
+
+Args:
+    p0:
+        &#x27;num&#x27; the texture slot for editing (0 to 7 inclusive)
+
+Examples:
+    | ensight.texture.select(0)
+    | ensight.texture.read(&quot;/tmp/grass.jpg&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.texture.time_limits">
+<description>
+Sets the starting and ending solution time for the currently selected texture. These values along with the current EnSight solution time and texture frame limits, select which animation frame to display for an animated texture. Note: if autoscaling is enabled, these values are ignored
+
+Args:
+    p0:
+        &#x27;start_time&#x27; start and end times for the texture
+    p1:
+        &#x27;end_time&#x27; start and end times for the texture
+
+Examples:
+    | ensight.texture.select(0)
+    | ensight.texture.time_limits(0.0,5.163)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

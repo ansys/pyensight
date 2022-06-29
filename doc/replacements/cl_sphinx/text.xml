@@ -1,0 +1,351 @@
+<docstrings>
+<override namespace="ensight.text.change_text">
+<description>
+Replaces the currently selected annotation text. 
+
+Args:
+    p0:
+        &#x27;revised_text&#x27; desired revised text
+
+Examples:
+    | ensight.text.select_begin(1)
+    | ensight.text.change_text(&quot;this is the revised text!&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.delete">
+<description>
+Deletes the currently selected text in the graphics window. 
+
+Examples:
+    | ensight.text.select_begin(1,2,3)
+    | ensight.text.delete()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.deselect_all">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.justification">
+<description>
+Specifies the placement of the selected text in the graphics window, in relation to the point specified in the text: location_x and location_y commands.
+
+| The default value for justification is left.
+| Also denotes the point about which the text rotates.
+
+Args:
+    p0:
+        &#x27;justification_type&#x27;
+
+        * Must have one of the following values:
+        * left
+        * center
+        * right
+
+Examples:
+    | ensight.text.select_begin(1)
+    | ensight.text.location_x(0.5)
+    | ensight.text.location_y(0.6)
+    | ensight.text.justification(&quot;left&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.location_x">
+<description>
+Specifies the x/y coordinate of the selected text in the currently selected viewport.
+
+| The text position can also be in reference to a specific viewport.
+| See &quot;text: relative_viewport&quot; command.
+
+Args:
+    p0:
+        &#x27;coord&#x27; A value of 0.0 indicates the left/bottom side of the window, while a value of 1.0 indicates the right/top side.
+
+Examples:
+    | ensight.text.select_begin(1)
+    | ensight.text.relative_viewport(2)
+    | ensight.text.location_x(0.5)
+    | ensight.text.location_y(0.5)
+    | ensight.text.justification(&quot;center&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.location_y">
+<description>
+Specifies the x/y coordinate of the selected text in the currently selected viewport.
+
+| The text position can also be in reference to a specific viewport.
+| See &quot;text: relative_viewport&quot; command.
+
+Args:
+    p0:
+        &#x27;coord&#x27; A value of 0.0 indicates the left/bottom side of the window, while a value of 1.0 indicates the right/top side.
+
+Examples:
+    | ensight.text.select_begin(1)
+    | ensight.text.relative_viewport(2)
+    | ensight.text.location_x(0.5)
+    | ensight.text.location_y(0.5)
+    | ensight.text.justification(&quot;center&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.modify_begin">
+<description>
+Delimit the modifications for text attributes.
+
+| These optional commands can be used to execute a number of attribute changes at one time for better performance.
+
+Examples:
+    | ensight.text.select_begin(1)
+    | ensight.text.modify_begin()
+    | ensight.text.rgb(1,0,0)
+    | ensight.text.location_x(100)
+    | ensight.text.location_y(20)
+    | ensight.text.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.modify_end">
+<description>
+Delimit the modifications for text attributes.
+
+| These optional commands can be used to execute a number of attribute changes at one time for better performance.
+
+Examples:
+    | ensight.text.select_begin(1)
+    | ensight.text.modify_begin()
+    | ensight.text.rgb(1,0,0)
+    | ensight.text.location_x(100)
+    | ensight.text.location_y(20)
+    | ensight.text.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.new_or_mod_text">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.new_text">
+<description>
+Creates new text in the graphics window. 
+
+Args:
+    p0:
+        &#x27;text&#x27; desired text
+
+Examples:
+    | ensight.text.new_text(&quot;This is the new text!&quot;)
+    | ensight.text.location_x(0.5)
+    | ensight.text.location_y(0.6)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.relative_to">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.relative_viewport">
+<description>
+Specifies the viewport to which location of the selected text will be relative, when specified by the text: location_x and location_y commands.
+
+| A value of zero indicates the graphics window.
+
+Args:
+    p0:
+        &#x27;viewport&#x27; specifies the viewport
+
+Examples:
+    | ensight.text.select_begin(1)
+    | ensight.text.relative_viewport(0)
+    | ensight.text.location_x(0.5)
+    | ensight.text.location_y(0.6)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.rgb">
+<description>
+Specifies the RGB color value of the selected text in the graphics window.
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue color components, ( 0.0 to 1.0).
+    p1:
+        &#x27;grn_val&#x27; red, green, blue color components, ( 0.0 to 1.0).
+    p2:
+        &#x27;blu_val&#x27; red, green, blue color components, ( 0.0 to 1.0).
+
+Examples:
+    | ensight.text.select_begin(1)
+    | ensight.text.rgb(1.0,0,0)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.rotational_angle">
+<description>
+Specifies the angle of rotation of the selected text in the graphics window.
+
+| A value of 0 for rotation corresponds to the normal, upright orientation of text, with clockwise rotation at higher values.
+| The text rotates about the justification point.
+
+Args:
+    p0:
+        &#x27;angle&#x27; must be within the range of 0.0 to 360.0
+
+Examples:
+    | ensight.text.select_begin(1)
+    | ensight.text.rotational_angle(45.0)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.">
+<description>
+  Selects all of the defined text annotations as the target for future text commands.
+
+Examples:
+    | ensight.text.select_all()
+    | ensight.text.delete()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.select_all_invisible">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.select_all_visible">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.select_begin">
+<description>
+Selects one or more text strings in the graphics window as the target for future text: commands 
+
+Args:
+    p0:
+        &#x27;indexN&#x27; The text annotation ID
+
+Examples:
+    | ensight.text.select_begin(1,2)
+    | ensight.text.rgb(1,0,0)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.select_end">
+<description>
+Selects one or more text strings in the graphics window as the target for future text: commands 
+
+Args:
+    p0:
+        &#x27;indexN&#x27; The text annotation ID
+
+Examples:
+    | ensight.text.select_begin(1,2)
+    | ensight.text.rgb(1,0,0)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.select_default">
+<description>
+Causes any following text commands to affect the default settings, rather than a particular text object.
+
+| All text commands following text: select_default will affect default settings until a new text object is selected using text: select_begin/select_end. 
+
+Examples:
+    | ensight.text.select_default()
+    | ensight.text.visible(&quot;OFF&quot;)
+    | ensight.text.rgb(1,0,0)
+    | ensight.text.select_begin(1)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.size">
+<description>
+Specifies the size of the selected text in the graphics window.
+
+| Text size is specified in arbitrary units, with 0 being the smallest possible text and 100 the largest.
+| The text scales with the size of the graphics window.     
+
+Args:
+    p0:
+        &#x27;size&#x27; must be within the range of 0 to 100
+
+Examples:
+    | ensight.text.select_begin(1)
+    | ensight.text.size(25)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.text.visible">
+<description>
+Controls the visibility of the selected text in the graphics window. 
+
+| Text is visible by default. 
+
+Args:
+    p0:
+        &#x27;toggle&#x27; ON
+    p1:
+        &#x27;toggle&#x27; OFF
+
+Examples:
+    | ensight.text.select_begin(1)
+    | ensight.text.visible(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

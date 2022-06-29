@@ -1,0 +1,127 @@
+<docstrings>
+<override namespace="ensight.command.delay">
+<description>
+Causes a delay between each command while playing commands from a command file.
+
+| This command is useful for slowing down the playback speed of command files. It is typically used when playing command files for demos.
+
+Args:
+    p0:
+        &#x27;value&#x27; time in seconds
+
+Examples:
+    | ensight.command.delay_refresh(&quot;OFF&quot;)
+    | ensight.command.delay(2)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.command.delay_refresh">
+<description>
+Causes a delay between each command while playing commands from a command file.
+
+| If delay refresh is on, the graphics are not redrawn after each command. 
+| Playback of command files can be sped up toggling on delay_refresh at the beginning of the command file and then off towards the end (i.e. just before recording of an animation).
+| It is advantageous to use this technique for batch animations.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | #
+    | # Save time by not drawing the image after each command 
+    | #
+    | ensight.command.delay_refresh(&quot;ON&quot;)
+    | # 
+    | # Other commands to set up the animation 
+    | # 
+    | # restore graphics updates 
+    | #
+    | ensight.command.delay_refresh(&quot;OFF&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.command.embed_cmd">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.command.macro_path">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.command.part_selection_by">
+<description>
+Determines if command language will record part selections by name or by number as it appears in the part list.
+
+| This setting is typically controlled in the Preference dialog.  Creating command files that reference names instead of numbers may be more portable if the names used in the data files are relatively generic.
+
+Args:
+    p0:
+        &#x27;method&#x27;
+
+        * number
+        * name
+
+Examples:
+    | #
+    | # Turn visibility of part
+    | # number 2 off
+    | #
+    | ensight.command.part_selection_by(&quot;number&quot;)
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.part.visible(&quot;OFF&quot;)
+    | ensight.part.modify_end()
+    | ensight.command.part_selection_by(&quot;name&quot;)
+    | #
+    | # Turn visibility of part named &quot;external flow field&quot;
+    | # off
+    | #
+    | # WARNING: following line includes OBSOLETE call (ensight.part.select_partname_begin).
+    | ensight.part.select_partname_begin(&quot;external flow field&quot;)
+    | ensight.part.modify_begin()
+    | ensight.part.visible(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.command.print">
+<description>
+Prints a string, or prints out all the command language variables that are defined.  The output goes to stderr which should show up in the window that executed the EnSight client.
+
+| This command can be useful in debugging command language looping, etc.
+
+Args:
+    p0:
+        &#x27;string&#x27; text string to print out
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.command.reload_macros">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

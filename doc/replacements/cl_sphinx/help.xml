@@ -1,0 +1,18 @@
+<docstrings>
+<override namespace="ensight.help.document">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.help.show_pdf_file">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

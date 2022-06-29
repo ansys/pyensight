@@ -1,0 +1,587 @@
+<docstrings>
+<override namespace="ensight.contour.begin">
+<description>
+Delimit the modifications for contour attributes.
+
+Examples:
+    | ensight.part.select_begin(2)
+    | ensight.contour.begin()
+    | ensight.contour.variable(&quot;temperature&quot;)
+    | ensight.contour.end()
+    | ensight.contour.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.end">
+<description>
+Delimit the modifications for contour attributes.
+
+Examples:
+    | ensight.part.select_begin(2)
+    | ensight.contour.begin()
+    | ensight.contour.variable(&quot;temperature&quot;)
+    | ensight.contour.end()
+    | ensight.contour.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.component">
+<description>
+If contouring by a vector specifies component or magnitude.
+
+| If not specified &quot;magnitude&quot; is used. 
+
+Args:
+    p0:
+        &#x27;vector_component&#x27;
+
+        * One of the following:
+        * x
+        * y
+        * z
+        * magnitude
+
+Examples:
+    | #
+    | # Create contours of the x-component
+    | # of velocity on part 2
+    | #
+    | ensight.part.select_begin(2)
+    | ensight.contour.begin()
+    | ensight.contour.variable(&quot;velocity&quot;)
+    | ensight.contour.component(&quot;x&quot;)
+    | ensight.contour.end()
+    | ensight.contour.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.create">
+<description>
+Create a contour part with the currently defined attributes using the currently selected parts as parent parts.
+
+| The contour part is created using the currently selected parts as the parent part.
+| The contour part is created using the currently set contour attributes.
+
+Examples:
+    | ensight.part.select_begin(2)
+    | ensight.contour.begin()
+    | ensight.contour.variable(&quot;temperature&quot;)
+    | ensight.contour.end()
+    | ensight.contour.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.display_offset">
+<description>
+Translate the contour geometry in the surface normal direction by &lt;offset&gt; units.
+
+| Useful option when displaying contour parts on top of shaded objects in order to lift the contour line objects closer to the user to properly view them.
+| Works only if the surface normals are consistent.
+| Positive values are offsets in the surface normal direction while negative values are offsets in the opposite direction.
+
+Args:
+    p0:
+        &#x27;offset&#x27; number of units in world coordinates to translate the contour information
+
+Examples:
+    | #
+    | # Create a contour part of velocity magnitude
+    | # displaying it offset from the surface by .01 in the
+    | # negative surface normal direction
+    | #
+    | ensight.part.select_begin(2)
+    | ensight.contour.begin()
+    | ensight.contour.variable(&quot;velocity&quot;)
+    | ensight.contour.display_offset(-.01)
+    | ensight.contour.end()
+    | ensight.contour.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.distribution">
+<description>
+Specifies the minimum and maximum contour levels when contours are not tied to the variable��s palette.
+
+| Only used when &quot;contour: sync_to_palette OFF&quot;
+
+Args:
+    p0:
+        &#x27;distribution&#x27;
+
+        * linear
+        * logarithmic
+        * quadratic
+
+Examples:
+    | #
+    | # Create contours on part 2
+    | #
+    | ensight.part.select_begin(2)
+    | ensight.contour.begin()
+    | ensight.contour.variable(&quot;temperature&quot;)
+    | ensight.contour.sync_to_palette(&quot;OFF&quot;)
+    | #
+    | # create 8 contours from 0 to 4.5 using a quadratic distribution
+    | #
+    | ensight.contour.distribution(&quot;quadratic&quot;)
+    | ensight.contour.range(0.,4.5)
+    | ensight.contour.levels(8)
+    | # 
+    | # turn on labels spaced every 2 units
+    | # using a floating point representation with 2 decimal places
+    | #
+    | ensight.contour.label_visible(&quot;ON&quot;)
+    | ensight.contour.label_spacing(2.0)
+    | ensight.contour.label_format(&quot;floating_point&quot;)
+    | ensight.contour.label_decimal_places(2)
+    | ensight.contour.end()
+    | ensight.contour.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.label_decimal_places">
+<description>
+Specify the number of decimal places to use for contour labels.
+
+| Used only if labels are visible
+
+Args:
+    p0:
+        &#x27;num&#x27; The number of decimal places
+
+Examples:
+    | #
+    | # Create contours on part 2
+    | #
+    | ensight.part.select_begin(2)
+    | ensight.contour.begin()
+    | ensight.contour.variable(&quot;temperature&quot;)
+    | ensight.contour.sync_to_palette(&quot;OFF&quot;)
+    | #
+    | # create 8 contours from 0 to 4.5 using a quadratic distribution
+    | #
+    | ensight.contour.distribution(&quot;quadratic&quot;)
+    | ensight.contour.range(0.,4.5)
+    | ensight.contour.levels(8)
+    | # 
+    | # turn on labels spaced every 2 units
+    | # using a floating point representation with 2 decimal places
+    | #
+    | ensight.contour.levels_visible(&quot;ON&quot;)
+    | ensight.contour.label_visible(&quot;ON&quot;)
+    | ensight.contour.label_spacing(2.0)
+    | ensight.contour.label_format(&quot;floating_point&quot;)
+    | ensight.contour.label_decimal_places(2)
+    | ensight.contour.end()
+    | ensight.contour.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.label_format">
+<description>
+Specify the format for contour labels.
+
+Args:
+    p0:
+        &#x27;format&#x27;
+
+        * floating_point
+        * exponential
+
+Examples:
+    | #
+    | # Create contours on part 2
+    | #
+    | ensight.part.select_begin(2)
+    | ensight.contour.begin()
+    | ensight.contour.variable(&quot;temperature&quot;)
+    | ensight.contour.sync_to_palette(&quot;OFF&quot;)
+    | #
+    | # create 8 contours from 0 to 4.5 using a quadratic distribution
+    | #
+    | ensight.contour.distribution(&quot;quadratic&quot;)
+    | ensight.contour.range(0.,4.5)
+    | ensight.contour.levels(8)
+    | # 
+    | # turn on labels spaced every 2 units
+    | # using a floating point representation with 2 decimal places
+    | #
+    | ensight.contour.levels_visible(&quot;ON&quot;)
+    | ensight.contour.label_visible(&quot;ON&quot;)
+    | ensight.contour.label_spacing(2.0)
+    | ensight.contour.label_format(&quot;floating_point&quot;)
+    | ensight.contour.label_decimal_places(2)
+    | ensight.contour.end()
+    | ensight.contour.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.label_rgb">
+<description>
+Set the color for contour labels.
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue components of color (0 to 1.)
+    p1:
+        &#x27;grn_val&#x27; red, green, blue components of color (0 to 1.)
+    p2:
+        &#x27;blu_val&#x27; red, green, blue components of color (0 to 1.)
+
+Examples:
+    | #
+    | # Modify an existing contour part to
+    | # have red labels
+    | #
+    | ensight.part.select_begin(3)
+    | ensight.part.modify_begin()
+    | ensight.contour.label_visible(&quot;ON&quot;)
+    | ensight.contour.label_rgb(1.,0.,0.)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.label_spacing">
+<description>
+Control the spacing of contour labels
+
+| The labels will be spaced approximately the value specified.
+
+Args:
+    p0:
+        &#x27;distance&#x27; distance between labels
+
+Examples:
+    | #
+    | # Modify an existing contour part to have
+    | # labels .5 units apart
+    | #
+    | ensight.part.select_begin(3)
+    | ensight.part.modify_begin()
+    | ensight.contour.label_visible(&quot;ON&quot;)
+    | ensight.contour.label_spacing(.5)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.label_visible">
+<description>
+Turn labels on or off for contour parts.
+
+| The contour labels are shown as integer values indicating the contour level which corresponds to the color palette level.
+| Level 1 is the lowest level for the color palette.
+| Subcontours are not labeled.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | #
+    | # Modify an existing contour part to show labels
+    | #
+    | ensight.part.select_begin(3)
+    | ensight.part.modify_begin()
+    | ensight.contour.label_visible(&quot;ON&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.levels">
+<description>
+Specifies how many contour levels are created between the min and max values.
+
+| Only used when &quot;contour: sync_to_palette OFF&quot;
+
+Args:
+    p0:
+        &#x27;num_levels&#x27; The number of contour levels to create
+
+Examples:
+    | #
+    | # Create contours on part 2
+    | #
+    | ensight.part.select_begin(2)
+    | ensight.contour.begin()
+    | ensight.contour.variable(&quot;temperature&quot;)
+    | ensight.contour.sync_to_palette(&quot;OFF&quot;)
+    | #
+    | # create 8 contours from 0 to 4.5 using a quadratic distribution
+    | #
+    | ensight.contour.distribution(&quot;quadratic&quot;)
+    | ensight.contour.range(0.,4.5)
+    | ensight.contour.levels(8)
+    | # 
+    | # turn on labels spaced every 2 units
+    | # using a floating point representation with 2 decimal places
+    | #
+    | ensight.contour.label_visible(&quot;ON&quot;)
+    | ensight.contour.label_spacing(2.0)
+    | ensight.contour.label_format(&quot;floating_point&quot;)
+    | ensight.contour.label_decimal_places(2)
+    | ensight.contour.end()
+    | ensight.contour.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.levels_visible">
+<description>
+Specifies the visibility of the contour levels created between the min and max values.
+
+| Only used when &quot;contour: sync_to_palette OFF&quot;
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | #
+    | # Create contours on part 2
+    | #
+    | ensight.part.select_begin(2)
+    | ensight.contour.begin()
+    | ensight.contour.variable(&quot;temperature&quot;)
+    | ensight.contour.sync_to_palette(&quot;OFF&quot;)
+    | #
+    | # create 8 contours from 0 to 4.5 using a quadratic distribution
+    | #
+    | ensight.contour.distribution(&quot;quadratic&quot;)
+    | ensight.contour.range(0.,4.5)
+    | ensight.contour.levels(8)
+    | # 
+    | # turn on labels spaced every 2 units
+    | # using a floating point representation with 2 decimal places
+    | #
+    | ensight.contour.levels_visible(&quot;ON&quot;)
+    | ensight.contour.label_visible(&quot;ON&quot;)
+    | ensight.contour.label_spacing(2.0)
+    | ensight.contour.label_format(&quot;floating_point&quot;)
+    | ensight.contour.label_decimal_places(2)
+    | ensight.contour.end()
+    | ensight.contour.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.range">
+<description>
+Specifies the minimum and maximum contour levels when contours are not tied to the variable��s palette.
+
+| Only used when &quot;contour: sync_to_palette OFF&quot;
+
+Args:
+    p0:
+        &#x27;min&#x27; The minimum contour value
+    p1:
+        &#x27;max&#x27; The maximum contour value
+
+Examples:
+    | #
+    | # Create contours on part 2
+    | #
+    | ensight.part.select_begin(2)
+    | ensight.contour.begin()
+    | ensight.contour.variable(&quot;temperature&quot;)
+    | ensight.contour.sync_to_palette(&quot;OFF&quot;)
+    | #
+    | # create 8 contours from 0 to 4.5 using a quadratic distribution
+    | #
+    | ensight.contour.distribution(&quot;quadratic&quot;)
+    | ensight.contour.range(0.,4.5)
+    | ensight.contour.levels(8)
+    | # 
+    | # turn on labels spaced every 2 units
+    | # using a floating point representation with 2 decimal places
+    | #
+    | ensight.contour.label_visible(&quot;ON&quot;)
+    | ensight.contour.label_spacing(2.0)
+    | ensight.contour.label_format(&quot;floating_point&quot;)
+    | ensight.contour.label_decimal_places(2)
+    | ensight.contour.end()
+    | ensight.contour.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.select_default">
+<description>
+Sets the target to the default settings for subsequent attribute modifications.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.sublevels">
+<description>
+Add a specified number of contours distributed between the main contour levels.
+
+Args:
+    p0:
+        &#x27;num&#x27; Number of contours to create between the main contour levels.
+
+Examples:
+    | #
+    | # Create contours on part 2
+    | #
+    | ensight.part.select_begin(2)
+    | ensight.contour.begin()
+    | ensight.contour.variable(&quot;temperature&quot;)
+    | ensight.contour.sync_to_palette(&quot;OFF&quot;)
+    | #
+    | # create 8 contours from 0 to 4.5 using a quadratic distribution
+    | #
+    | ensight.contour.distribution(&quot;quadratic&quot;)
+    | ensight.contour.range(0.,4.5)
+    | ensight.contour.levels(8)
+    | # 
+    | # turn off the visibility of the main contours and turn
+    | # subcontours on - make 2 subcontours between each of the 8 levels.
+    | #
+    | ensight.contour.levels_visible(&quot;OFF&quot;)
+    | ensight.contour.sublevels_visible(&quot;ON&quot;)
+    | ensight.contour.sublevels(2)
+    | ensight.contour.end()
+    | ensight.contour.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.sublevels_visible">
+<description>
+Specifies the visibility of the contour sub-levels created between the min and max values.
+
+| Only used when &quot;contour: sync_to_palette OFF&quot;
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | #
+    | # Create contours on part 2
+    | #
+    | ensight.part.select_begin(2)
+    | ensight.contour.begin()
+    | ensight.contour.variable(&quot;temperature&quot;)
+    | ensight.contour.sync_to_palette(&quot;OFF&quot;)
+    | #
+    | # create 8 contours from 0 to 4.5 using a quadratic distribution
+    | #
+    | ensight.contour.distribution(&quot;quadratic&quot;)
+    | ensight.contour.range(0.,4.5)
+    | ensight.contour.levels(8)
+    | # 
+    | # turn off the visibility of the main contours and turn
+    | # subcontours on
+    | #
+    | ensight.contour.levels_visible(&quot;OFF&quot;)
+    | ensight.contour.sublevels_visible(&quot;ON&quot;)
+    | ensight.contour.sublevels(2)
+    | ensight.contour.end()
+    | ensight.contour.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.sync_to_palette">
+<description>
+Specifies contour part creation to be tied to the variable palette or by user input.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | #
+    | # Create contours on part 2
+    | #
+    | ensight.part.select_begin(2)
+    | ensight.contour.begin()
+    | ensight.contour.variable(&quot;temperature&quot;)
+    | ensight.contour.sync_to_palette(&quot;OFF&quot;)
+    | #
+    | # create 8 contours from 0 to 4.5 using a quadratic distribution
+    | #
+    | ensight.contour.distribution(&quot;quadratic&quot;)
+    | ensight.contour.range(0.,4.5)
+    | ensight.contour.levels(8)
+    | # 
+    | # turn on labels spaced every 2 units
+    | # using a floating point representation with 2 decimal places
+    | #
+    | ensight.contour.label_visible(&quot;ON&quot;)
+    | ensight.contour.label_spacing(2.0)
+    | ensight.contour.label_format(&quot;floating_point&quot;)
+    | ensight.contour.label_decimal_places(2)
+    | ensight.contour.end()
+    | ensight.contour.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.contour.variable">
+<description>
+Use this variable for creating a contour part.
+
+| The variable must be active before the contour part can be created. 
+
+Args:
+    p0:
+        &#x27;var_name&#x27; create contours from this variable
+
+Examples:
+    | #
+    | # Create contours of velocity magnitude of part 2
+    | #
+    | ensight.part.select_begin(2)
+    | ensight.contour.begin()
+    | ensight.contour.variable(&quot;velocity&quot;)
+    | ensight.contour.end()
+    | ensight.contour.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

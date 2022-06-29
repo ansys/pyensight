@@ -1,0 +1,451 @@
+<docstrings>
+<override namespace="ensight.varextcfd.density">
+<description>
+Set the density basis variable.
+
+| For extended CFD variables to be computed, the basis variables must be identified and the basis constants defined.
+
+Args:
+    p0:
+        &#x27;var&#x27; name of the density variable
+
+Examples:
+    | #
+    | # Activating all variables in this case
+    | #
+    | ensight.variables.activate_all()
+    | #
+    | # Making extended variables available
+    | #
+    | ensight.varextcfd.show_extended(&quot;ON&quot;)
+    | #
+    | # Setting the basis variables and constants
+    | #
+    | ensight.varextcfd.modify_begin()
+    | ensight.varextcfd.density(&quot;Density&quot;)
+    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
+    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
+    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+    | ensight.varextcfd.freestream_mach(1.0000e+00)
+    | ensight.varextcfd.gas_constant(1.0000e+00)
+    | ensight.varextcfd.freestream_density(1.0000e+00)
+    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+    | ensight.varextcfd.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.varextcfd.freestream_density">
+<description>
+Set the freestream density constant.
+
+| For extended CFD variables to be computed, the basis variables must be identified and the basis constants defined.
+
+Args:
+    p0:
+        &#x27;dens&#x27; desired value of the freestream density constant
+
+Examples:
+    | #
+    | # Activating all variables in this case
+    | #
+    | ensight.variables.activate_all()
+    | #
+    | # Making extended variables available
+    | #
+    | ensight.varextcfd.show_extended(&quot;ON&quot;)
+    | #
+    | # Setting the basis variables and constants
+    | #
+    | ensight.varextcfd.modify_begin()
+    | ensight.varextcfd.density(&quot;Density&quot;)
+    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
+    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
+    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+    | ensight.varextcfd.freestream_mach(1.0000e+00)
+    | ensight.varextcfd.gas_constant(1.0000e+00)
+    | ensight.varextcfd.freestream_density(1.0000e+00)
+    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+    | ensight.varextcfd.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.varextcfd.freestream_mach">
+<description>
+Set the freestream mach number constant.
+
+| For extended CFD variables to be computed, the basis variables must be identified and the basis constants defined.
+
+Args:
+    p0:
+        &#x27;num&#x27; desired value of the freestream mach number constant
+
+Examples:
+    | #
+    | # Activating all variables in this case
+    | #
+    | ensight.variables.activate_all()
+    | #
+    | # Making extended variables available
+    | #
+    | ensight.varextcfd.show_extended(&quot;ON&quot;)
+    | #
+    | # Setting the basis variables and constants
+    | #
+    | ensight.varextcfd.modify_begin()
+    | ensight.varextcfd.density(&quot;Density&quot;)
+    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
+    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
+    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+    | ensight.varextcfd.freestream_mach(1.0000e+00)
+    | ensight.varextcfd.gas_constant(1.0000e+00)
+    | ensight.varextcfd.freestream_density(1.0000e+00)
+    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+    | ensight.varextcfd.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.varextcfd.freestream_speed_sound">
+<description>
+Set the freestream speed of sound constant.
+
+| For extended CFD variables to be computed, the basis variables must be identified and the basis constants defined.
+
+Args:
+    p0:
+        &#x27;num&#x27; desired value of the freestream speed of sound constant
+
+Examples:
+    | #
+    | # Activating all variables in this case
+    | #
+    | ensight.variables.activate_all()
+    | #
+    | # Making extended variables available
+    | #
+    | ensight.varextcfd.show_extended(&quot;ON&quot;)
+    | #
+    | # Setting the basis variables and constants
+    | #
+    | ensight.varextcfd.modify_begin()
+    | ensight.varextcfd.density(&quot;Density&quot;)
+    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
+    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
+    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+    | ensight.varextcfd.freestream_mach(1.0000e+00)
+    | ensight.varextcfd.gas_constant(1.0000e+00)
+    | ensight.varextcfd.freestream_density(1.0000e+00)
+    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+    | ensight.varextcfd.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.varextcfd.gas_constant">
+<description>
+Set the gas constant.
+
+| For extended CFD variables to be computed, the basis variables must be identified and the basis constants defined.
+
+Args:
+    p0:
+        &#x27;num&#x27; desired value of the gas constant
+
+Examples:
+    | #
+    | # Activating all variables in this case
+    | #
+    | ensight.variables.activate_all()
+    | #
+    | # Making extended variables available
+    | #
+    | ensight.varextcfd.show_extended(&quot;ON&quot;)
+    | #
+    | # Setting the basis variables and constants
+    | #
+    | ensight.varextcfd.modify_begin()
+    | ensight.varextcfd.density(&quot;Density&quot;)
+    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
+    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
+    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+    | ensight.varextcfd.freestream_mach(1.0000e+00)
+    | ensight.varextcfd.gas_constant(1.0000e+00)
+    | ensight.varextcfd.freestream_density(1.0000e+00)
+    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+    | ensight.varextcfd.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.varextcfd.modify_begin">
+<description>
+Delimit the modifications to the extended CFD attributes.
+
+| For extended CFD variables to be computed, the basis variables must be identified and the basis constants defined.
+| These are optional commands which increase performance since all changes are made at one time.
+
+Args:
+    p0:
+        &#x27;varextcfd_command&#x27; any of the varextcfd commands
+
+Examples:
+    | #
+    | # Activating all variables in this case
+    | #
+    | ensight.variables.activate_all()
+    | #
+    | # Making extended variables available
+    | #
+    | ensight.varextcfd.show_extended(&quot;ON&quot;)
+    | #
+    | # Setting the basis variables and constants
+    | #
+    | ensight.varextcfd.modify_begin()
+    | ensight.varextcfd.density(&quot;Density&quot;)
+    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
+    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
+    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+    | ensight.varextcfd.freestream_mach(1.0000e+00)
+    | ensight.varextcfd.gas_constant(1.0000e+00)
+    | ensight.varextcfd.freestream_density(1.0000e+00)
+    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+    | ensight.varextcfd.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.varextcfd.modify_end">
+<description>
+Delimit the modifications to the extended CFD attributes.
+
+| For extended CFD variables to be computed, the basis variables must be identified and the basis constants defined.
+| These are optional commands which increase performance since all changes are made at one time.
+
+Args:
+    p0:
+        &#x27;varextcfd_command&#x27; any of the varextcfd commands
+
+Examples:
+    | #
+    | # Activating all variables in this case
+    | #
+    | ensight.variables.activate_all()
+    | #
+    | # Making extended variables available
+    | #
+    | ensight.varextcfd.show_extended(&quot;ON&quot;)
+    | #
+    | # Setting the basis variables and constants
+    | #
+    | ensight.varextcfd.modify_begin()
+    | ensight.varextcfd.density(&quot;Density&quot;)
+    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
+    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
+    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+    | ensight.varextcfd.freestream_mach(1.0000e+00)
+    | ensight.varextcfd.gas_constant(1.0000e+00)
+    | ensight.varextcfd.freestream_density(1.0000e+00)
+    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+    | ensight.varextcfd.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.varextcfd.momentum">
+<description>
+Set the momentum basis variable.
+
+| For extended CFD variables to be computed, the basis variables must be identified and the basis constants defined. You must define either momentum or velocity for a basis, but not both.
+
+Args:
+    p0:
+        &#x27;var&#x27; name of the momentum variable
+
+Examples:
+    | #
+    | # Activating all variables in this case
+    | #
+    | ensight.variables.activate_all()
+    | #
+    | # Making extended variables available
+    | #
+    | ensight.varextcfd.show_extended(&quot;ON&quot;)
+    | #
+    | # Setting the basis variables and constants
+    | #
+    | ensight.varextcfd.modify_begin()
+    | ensight.varextcfd.density(&quot;Density&quot;)
+    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
+    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
+    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+    | ensight.varextcfd.freestream_mach(1.0000e+00)
+    | ensight.varextcfd.gas_constant(1.0000e+00)
+    | ensight.varextcfd.freestream_density(1.0000e+00)
+    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+    | ensight.varextcfd.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.varextcfd.ratio_of_specific_heat">
+<description>
+Set the ratio of specific heat basis variable, or constant.
+
+| For extended CFD variables to be computed, the basis variables must be identified and the basis constants defined.
+
+Args:
+    p0:
+        &#x27;var or num&#x27; name of the ratio of specific heat variable, or the value to use as a constant
+
+Examples:
+    | #
+    | # Activating all variables in this case
+    | #
+    | ensight.variables.activate_all()
+    | #
+    | # Making extended variables available
+    | #
+    | ensight.varextcfd.show_extended(&quot;ON&quot;)
+    | #
+    | # Setting the basis variables and constants
+    | #
+    | ensight.varextcfd.modify_begin()
+    | ensight.varextcfd.density(&quot;Density&quot;)
+    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
+    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
+    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+    | ensight.varextcfd.freestream_mach(1.0000e+00)
+    | ensight.varextcfd.gas_constant(1.0000e+00)
+    | ensight.varextcfd.freestream_density(1.0000e+00)
+    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+    | ensight.varextcfd.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.varextcfd.show_extended">
+<description>
+Make extended CFD variables available or not.
+
+| For extended CFD variables to be computed, the basis variables must be identified and the basis constants defined.  Once the basis variables and constants are defined, and this command makes them available - the variables can be computed when activated or used.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | #
+    | # Activating all variables in this case
+    | #
+    | ensight.variables.activate_all()
+    | #
+    | # Making extended variables available
+    | #
+    | ensight.varextcfd.show_extended(&quot;ON&quot;)
+    | #
+    | # Setting the basis variables and constants
+    | #
+    | ensight.varextcfd.modify_begin()
+    | ensight.varextcfd.density(&quot;Density&quot;)
+    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
+    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
+    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+    | ensight.varextcfd.freestream_mach(1.0000e+00)
+    | ensight.varextcfd.gas_constant(1.0000e+00)
+    | ensight.varextcfd.freestream_density(1.0000e+00)
+    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+    | ensight.varextcfd.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.varextcfd.total_energy">
+<description>
+Set the total_energy basis variable.
+
+| For extended CFD variables to be computed, the basis variables must be identified and the basis constants defined.
+
+Args:
+    p0:
+        &#x27;var&#x27; name of the total_energy variable
+
+Examples:
+    | #
+    | # Activating all variables in this case
+    | #
+    | ensight.variables.activate_all()
+    | #
+    | # Making extended variables available
+    | #
+    | ensight.varextcfd.show_extended(&quot;ON&quot;)
+    | #
+    | # Setting the basis variables and constants
+    | #
+    | ensight.varextcfd.modify_begin()
+    | ensight.varextcfd.density(&quot;Density&quot;)
+    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
+    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
+    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+    | ensight.varextcfd.freestream_mach(1.0000e+00)
+    | ensight.varextcfd.gas_constant(1.0000e+00)
+    | ensight.varextcfd.freestream_density(1.0000e+00)
+    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+    | ensight.varextcfd.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.varextcfd.velocity">
+<description>
+Set the velocity basis variable.
+
+| For extended CFD variables to be computed, the basis variables must be identified and the basis constants defined.  You must define either momentum or velocity for a basis, but not both.
+
+Args:
+    p0:
+        &#x27;var&#x27; name of the velocity variable
+
+Examples:
+    | #
+    | # Activating all variables in this case
+    | #
+    | ensight.variables.activate_all()
+    | #
+    | # Making extended variables available
+    | #
+    | ensight.varextcfd.show_extended(&quot;ON&quot;)
+    | #
+    | # Setting the basis variables and constants
+    | #
+    | ensight.varextcfd.modify_begin()
+    | ensight.varextcfd.density(&quot;Density&quot;)
+    | ensight.varextcfd.velocity(&quot;Velocity&quot;)
+    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
+    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+    | ensight.varextcfd.freestream_mach(1.0000e+00)
+    | ensight.varextcfd.gas_constant(1.0000e+00)
+    | ensight.varextcfd.freestream_density(1.0000e+00)
+    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+    | ensight.varextcfd.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

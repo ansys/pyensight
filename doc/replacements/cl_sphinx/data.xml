@@ -1,0 +1,684 @@
+<docstrings>
+<override namespace="ensight.data.add">
+<description>
+Adds a new case and reads the given filename via the extension-to-reader mapping file (ensight_reader_extension.map).
+
+Args:
+    p0:
+        &#x27;filename&#x27; file name of the first file as mapped in the extension-to-reader mapping file.
+
+Examples:
+    | ensight.data.add(&quot;/home/users/joe/project1/crash.geo&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.binary_files_are">
+<description>
+Sets the byte (endian) order for binary geometry, result, and measured data files.
+
+| EnSight assumes that the geometry, result, and measured data files are of the same byte order.
+| Must be specified before a &quot;data: read&quot; command.
+
+Args:
+    p0:
+        &#x27;endian_order&#x27;
+
+        * The endian order for the binary files and must be one of:
+        * little_endian
+        * big_endian
+        * native
+
+Examples:
+    | ensight.sendmesgoptions(version=&quot;8.20&quot;)
+    | ensight.data.binary_files_are(&quot;big_endian&quot;)
+    | ensight.data.format(&quot;ensight&quot;)
+    | ensight.data.path(&quot;/usr/tmp&quot;)
+    | ensight.data.geometry(&quot;ski_c.geo&quot;)
+    | ensight.data.result(&quot;ski_c.res&quot;)
+    | ensight.data.read()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.boundary">
+<description>
+Specify the name for the boundary file.  Boundary files provide a way to externally specify the ijk extents of bounding surfaces, etc. for structured data.  The resultant is an unstructured part.
+
+| The filename is concatenated with the path defined via the &quot;data: path&quot; command.
+| Since the boundary file depends on the structured block/zone definitions in the geometry file, the use of a boundary file requires the specification of a geometry file with structured data as well. For EnSight case format, the boundary file is contained within the casefile and this command is not needed.  It must be used for other structured data formats - such as PLOT3D.
+| When specified, unstructured parts can be created according to the boundary file definitions in the unstructured portion of the Data Part Loader dialog.
+
+Args:
+    p0:
+        &#x27;filename&#x27; boundary file name
+
+Examples:
+    | ensight.data.binary_files_are(&quot;big_endian&quot;)
+    | ensight.data.format(&quot;plot3d&quot;)
+    | ensight.data.plot3diblank(&quot;OFF&quot;)
+    | ensight.data.plot3dmulti_zone(&quot;ON&quot;)
+    | ensight.data.plot3dread_as(&quot;ascii&quot;)
+    | ensight.data.plot3ddimension(&quot;3d&quot;)
+    | ensight.data.path(&quot;/usr/tmp&quot;)
+    | ensight.data.geometry(&quot;single.grid&quot;)
+    | ensight.data.boundary(&quot;single.bnd&quot;)
+    | ensight.data.result(&quot;single.q&quot;)
+    | ensight.data.read()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.format">
+<description>
+Set the format type for the geometry and result files.  (Note that for Server of Servers, the format of this line changes slightly. The term casesos is added before the format_type.)
+
+Args:
+    p0:
+        &#x27;format_type&#x27;
+
+        * The format type which must be one of the following (or the name of a user defined reader): 
+        * ensight
+        * plot3d
+        * fidap
+        * n3s
+        * estet
+        * mpgs4
+        * movie
+        * fluent
+        * ansys
+        * abaqus
+        * case
+        * fast-unstructured
+        * overflow
+        * casesos
+
+Examples:
+    | #
+    | # Read a datafile in case format and load a part from it.
+    | #
+    | ensight.data.binary_files_are(&quot;big_endian&quot;)
+    | ensight.data.format(&quot;case&quot;)
+    | ensight.data.path(&quot;/usr/tmp&quot;)
+    | ensight.data.geometry(&quot;cube.case&quot;)
+    | ensight.data.read()
+    | ensight.data_partbuild.begin()
+    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+    | ensight.data_partbuild.select_begin(1)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.format">
+<description>
+Set the format type for the geometry and result files.  (Note that for Server of Servers, the format of this line changes slightly. The term casesos is added before the format_type.)
+
+Args:
+    p0:
+        &#x27;format_type&#x27;
+
+        * The format type which must be one of the following (or the name of a user defined reader): 
+        * ensight
+        * plot3d
+        * fidap
+        * n3s
+        * estet
+        * mpgs4
+        * movie
+        * fluent
+        * ansys
+        * abaqus
+        * case
+        * fast-unstructured
+        * overflow
+        * casesos
+
+Examples:
+    | #
+    | # Read a datafile in case format and load a part from it.
+    | #
+    | ensight.data.binary_files_are(&quot;big_endian&quot;)
+    | ensight.data.format(&quot;case&quot;)
+    | ensight.data.path(&quot;/usr/tmp&quot;)
+    | ensight.data.geometry(&quot;cube.case&quot;)
+    | ensight.data.read()
+    | ensight.data_partbuild.begin()
+    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+    | ensight.data_partbuild.select_begin(1)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.geometry">
+<description>
+Set the name for the file containing geometric information.
+
+| The filename is concatenated with the path defined via the &quot;data: path&quot; command.
+| The meaning of &quot;geometry&quot; is different depending on the data format.  For example, if the format is CASE, the &quot;geometry&quot; file is the case file, while if the format is ANSYS, the file refers to the ANSYS result file.
+
+Args:
+    p0:
+        &#x27;filename&#x27; geometry file name
+
+Examples:
+    | ensight.data.binary_files_are(&quot;big_endian&quot;)
+    | ensight.data.format(&quot;case&quot;)
+    | ensight.data.geometry(&quot;cube.case&quot;)
+    | ensight.data.read()
+    | ensight.data_partbuild.begin()
+    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+    | ensight.data_partbuild.select_begin(1)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.measured">
+<description>
+Specify the name for the measured particle file.
+
+| The filename is concatenated with the path defined via the &quot;data: path&quot; command.
+| It is not possible to read a measured file without also specifying a geometry file, or having specified a geometry file previously. 
+| When specified, the part containing the measured particle data will be generated upon a &quot;data: read&quot; command, i.e., this part type will not be shown in the various part loaders.
+
+Args:
+    p0:
+        &#x27;filename&#x27; measured file name
+
+Examples:
+    | # Read a geometry file and a measured particle file and create a part.
+    | ensight.data.format(&quot;ensight&quot;)
+    | ensight.data.path(&quot;/usr/tmp&quot;)
+    | ensight.data.geometry(&quot;cube.geom&quot;)
+    | ensight.data.measured(&quot;cube.mres&quot;)
+    | ensight.data.start_time(1)
+    | ensight.data.read()
+    | ensight.data_partbuild.begin()
+    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+    | ensight.data_partbuild.select_begin(1)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.new_static_done">
+<description>
+Informs the client that the static data files have been modified.
+
+Args:
+    p0:
+        &#x27;num&#x27;
+
+        * 0
+        * 1
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.new_static_ready">
+<description>
+Informs the client that the static data files are about to be modified.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.new_time">
+<description>
+Informs client that a new transient time step is available
+
+| Each time the command is called, it��s value must be increasing.
+
+Args:
+    p0:
+        &#x27;time&#x27; simulation time
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.new_transient_time">
+<description>
+Informs client of last transient time step available
+
+| Each time the command is called, it��s value must be increasing.
+
+Args:
+    p0:
+        &#x27;time&#x27; simulation time
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.path">
+<description>
+Specify the directory under which the data files are located.
+
+| The path can be fully or partially qualified.  All (geometry, result, and measured) file names are post concatenated with the path given to arrive at the full file name.
+
+Args:
+    p0:
+        &#x27;data_path&#x27; path to the data files
+
+Examples:
+    | # Read a data file located in /usr/tmp and load a part from it.
+    | ensight.data.binary_files_are(&quot;big_endian&quot;)
+    | ensight.data.format(&quot;case&quot;)
+    | ensight.data.path(&quot;/usr/tmp&quot;)
+    | ensight.data.geometry(&quot;cube.case&quot;)
+    | ensight.data.read()
+    | ensight.data_partbuild.begin()
+    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+    | ensight.data_partbuild.select_begin(1)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.plot3ddimension">
+<description>
+When the format is plot3d, specifies the dimensionality of the data.
+
+| EnSight attempts to determine the dimensionality of plot3d data, if this command is not given. 
+| It must be specified before a &quot;data: read&quot; command is given.
+
+Args:
+    p0:
+        &#x27;dimension&#x27;
+
+        * The dimensionality of the data and must be one of:
+        * 1d
+        * 2d
+        * 3d
+
+Examples:
+    | #
+    | # Read a 3D plot3d file and extract a part.
+    | #
+    | ensight.data.format(&quot;plot3d&quot;)
+    | ensight.data.plot3diblank(&quot;OFF&quot;)
+    | ensight.data.plot3dmulti_zone(&quot;OFF&quot;)
+    | ensight.data.plot3dread_as(&quot;c_binary&quot;)
+    | ensight.data.plot3ddimension(&quot;3d&quot;)
+    | ensight.data.path(&quot;/usr/tmp&quot;)
+    | ensight.data.geometry(&quot;shuttle.xyz&quot;)
+    | ensight.data.result(&quot;shuttle.q&quot;)
+    | ensight.data.read()
+    | ensight.data_partbuild.begin()
+    | ensight.data_partbuild.data_type(&quot;structured&quot;)
+    | ensight.data_partbuild.select_begin(1)
+    | ensight.data_partbuild.domain(&quot;all&quot;)
+    | ensight.data_partbuild.noderange_i(1,52)
+    | ensight.data_partbuild.noderange_j(1,63)
+    | ensight.data_partbuild.noderange_k(1,1)
+    | ensight.data_partbuild.nodestep(1,1,1)
+    | ensight.data_partbuild.nodedelta(0,0,0)
+    | ensight.data_partbuild.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.plot3diblank">
+<description>
+When the format is plot3d, specifies the iblanking value for the geometry file.
+
+| Must be specified before a &quot;data: read&quot; command is given.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | #
+    | # Read a plot3d file with no iblanking and extract a part.
+    | #
+    | ensight.data.format(&quot;plot3d&quot;)
+    | ensight.data.plot3diblank(&quot;OFF&quot;)
+    | ensight.data.plot3dmulti_zone(&quot;OFF&quot;)
+    | ensight.data.plot3dread_as(&quot;c_binary&quot;)
+    | ensight.data.plot3ddimension(&quot;3d&quot;)
+    | ensight.data.path(&quot;/usr/tmp&quot;)
+    | ensight.data.geometry(&quot;shuttle.xyz&quot;)
+    | ensight.data.result(&quot;shuttle.q&quot;)
+    | ensight.data.read()
+    | ensight.data_partbuild.begin()
+    | ensight.data_partbuild.data_type(&quot;structured&quot;)
+    | ensight.data_partbuild.select_begin(1)
+    | ensight.data_partbuild.domain(&quot;all&quot;)
+    | ensight.data_partbuild.noderange_i(1,52)
+    | ensight.data_partbuild.noderange_j(1,63)
+    | ensight.data_partbuild.noderange_k(1,1)
+    | ensight.data_partbuild.nodestep(1,1,1)
+    | ensight.data_partbuild.nodedelta(0,0,0)
+    | ensight.data_partbuild.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.plot3dmulti_zone">
+<description>
+When the format is plot3d, specifies that the file is single or multi zone.
+
+| EnSight will attempt to determine if the file is single or multi-zone if this command is not specified. 
+| Must be specified before a &quot;data: read&quot; command is given.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON 
+        * OFF
+
+Examples:
+    | #
+    | # Read a single zone plot3d file and extract a part.
+    | #
+    | ensight.data.format(&quot;plot3d&quot;)
+    | ensight.data.plot3diblank(&quot;OFF&quot;)
+    | ensight.data.plot3dmulti_zone(&quot;OFF&quot;)
+    | ensight.data.plot3dread_as(&quot;c_binary&quot;)
+    | ensight.data.plot3ddimension(&quot;3d&quot;)
+    | ensight.data.path(&quot;/usr/tmp&quot;)
+    | ensight.data.geometry(&quot;shuttle.xyz&quot;)
+    | ensight.data.result(&quot;shuttle.q&quot;)
+    | ensight.data.read()
+    | ensight.data_partbuild.begin()
+    | ensight.data_partbuild.data_type(&quot;structured&quot;)
+    | ensight.data_partbuild.select_begin(1)
+    | ensight.data_partbuild.domain(&quot;all&quot;)
+    | ensight.data_partbuild.noderange_i(1,52)
+    | ensight.data_partbuild.noderange_j(1,63)
+    | ensight.data_partbuild.noderange_k(1,1)
+    | ensight.data_partbuild.nodestep(1,1,1)
+    | ensight.data_partbuild.nodedelta(0,0,0)
+    | ensight.data_partbuild.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.plot3dread_as">
+<description>
+When the format is plot3d, specifies how the file is formatted.
+
+| If the user does not specify, EnSight will attempt to determine the binary nature of the data files. 
+| It must be specified before a &quot;data: read&quot; command is given. 
+| All files (geometry, result, and measured) must be of the same binary nature.
+
+Args:
+    p0:
+        &#x27;binary_flag&#x27;
+
+        * The format flag which must be on of:
+        * ascii
+        * c_binary
+        * fortran_binary
+
+Examples:
+    | #
+    | # Read a c binary plot3d file and extract a part.
+    | #
+    | ensight.data.format(&quot;plot3d&quot;)
+    | ensight.data.plot3diblank(&quot;OFF&quot;)
+    | ensight.data.plot3dmulti_zone(&quot;OFF&quot;)
+    | ensight.data.plot3dread_as(&quot;c_binary&quot;)
+    | ensight.data.plot3ddimension(&quot;3d&quot;)
+    | ensight.data.path(&quot;/usr/tmp&quot;)
+    | ensight.data.geometry(&quot;shuttle.xyz&quot;)
+    | ensight.data.result(&quot;shuttle.q&quot;)
+    | ensight.data.read()
+    | ensight.data_partbuild.begin()
+    | ensight.data_partbuild.data_type(&quot;structured&quot;)
+    | ensight.data_partbuild.select_begin(1)
+    | ensight.data_partbuild.domain(&quot;all&quot;)
+    | ensight.data_partbuild.noderange_i(1,52)
+    | ensight.data_partbuild.noderange_j(1,63)
+    | ensight.data_partbuild.noderange_k(1,1)
+    | ensight.data_partbuild.nodestep(1,1,1)
+    | ensight.data_partbuild.nodedelta(0,0,0)
+    | ensight.data_partbuild.create()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.read">
+<description>
+Read the geometry, result, and/or measured data files.
+
+| The geometry and/or result and/or measured data file names must be set before making this call.
+
+Examples:
+    | #
+    | # Read a geometry and associated result file and create a part.
+    | #
+    | ensight.data.format(&quot;ensight&quot;)
+    | ensight.data.path(&quot;/usr/tmp&quot;)
+    | ensight.data.geometry(&quot;cube.geom&quot;)
+    | ensight.data.result(&quot;cube.res&quot;)
+    | ensight.data.read()
+    | ensight.data_partbuild.begin()
+    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+    | ensight.data_partbuild.select_begin(1)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.read_all">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.reader_option">
+<description>
+Set user defined reader (UDR) optional flag.  The availability of the options depends on the user defined reader.
+
+| Available only for user defined readers, and then only for those readers that define one or more options.
+
+Args:
+    p0:
+        &#x27;option&#x27; Name of the option and any data that describes the option state
+
+Examples:
+    | ensight.data.format(&quot;LS-DYNA3D_2.04&quot;)
+    | ensight.data.reader_option(&quot;&#x27;Enable Failed Elems&#x27; ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.replace">
+<description>
+Replaces the current case and reads the given filename via the extension-to-reader mapping file (ensight_reader_extension.map).
+
+Args:
+    p0:
+        &#x27;filename&#x27; file name of the first file as mapped in the extension-to-reader mapping file.
+
+Examples:
+    | ensight.data.replace(&quot;/home/users/joe/project2/frame.case&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.resource">
+<description>
+Sets the resource file name that will be passed to the EnSigtht SOS for reading and processing.
+
+Args:
+    p0:
+        &#x27;pathname&#x27; resource file name.
+
+Examples:
+    | ensight.data.binary_files_are(&quot;big_endian&quot;)
+    | ensight.data.format(&quot;case&quot;)
+    | ensight.data.shift_time(1.000000,0.000000,0.000000)
+    | ensight.data.resource(&quot;/usr/tmp/localhost.res&quot;)
+    | ensight.data.sos_pass_wildcards(&quot;YES&quot;)
+    | ensight.data.sos_auto_distrib(&quot;dont&quot;)
+    | ensight.data.replace(&quot;/usr/local/CEI/ensight92/data/ami/ami.case&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.result">
+<description>
+Set the name for the file containing result information.
+
+| The usage of a result file depends on the data format.  For some formats the result file is not necessary, while for others the result file either directly contains result information or may be another file containing information pointing to the various files that may exist.
+| The filename is concatenated with the path defined via the &quot;data: path&quot; command. 
+| It is not possible to read a result file without also specifying a geometry file, or having specified a geometry file previously.
+
+Args:
+    p0:
+        &#x27;filename&#x27; result file name
+
+Examples:
+    | #
+    | # Read a geometry and result file,
+    | # create a part,
+    | # rotate the scene,
+    | # and color the part by a variable
+    | #
+    | ensight.data.format(&quot;ensight&quot;)
+    | ensight.data.path(&quot;/usr/tmp&quot;)
+    | ensight.data.geometry(&quot;cube.geom&quot;)
+    | ensight.data.result(&quot;cube.res&quot;)
+    | ensight.data.read()
+    | ensight.data_partbuild.begin()
+    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+    | ensight.data_partbuild.select_begin(1)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+    | ensight.view_transf.rotate(-91.339279,2.611849,0.000000)
+    | ensight.view_transf.rotate(18.749998,42.660221,0.000000)
+    | ensight.variables.activate(&quot;temperature&quot;)
+    | ensight.part.select_all()
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_palette(&quot;temperature&quot;)
+    | ensight.part.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.shift_time">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.sos_auto_distrib">
+<description>
+When using EnSight SOS data can be automatically decomposed by either the EnSight server or by User Defined Readers which implement this capability (e.g. Silo, ExodusII, CTH).  This command indicates which component will be responsible for decomposition.
+
+Args:
+    p0:
+        &#x27;value&#x27;
+
+        * dont
+        * server
+        * reader
+
+Examples:
+    | ensight.data.binary_files_are(&quot;big_endian&quot;)
+    | ensight.data.format(&quot;case&quot;)
+    | ensight.data.shift_time(1.000000,0.000000,0.000000)
+    | ensight.data.resource(&quot;/usr/tmp/localhost.res&quot;)
+    | ensight.data.sos_pass_wildcards(&quot;NO&quot;)
+    | ensight.data.sos_auto_distrib(&quot;server&quot;)
+    | ensight.data.replace(&quot;/usr/tmp/decomposed_data.*.case&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.sos_pass_wildcards">
+<description>
+Depending upon which data format is selected for use with SOS and with EnSight resources, a file name may contain wild card symbols (&#x27;*&#x27;).  If so, the SOS can enumerate all files that match the wild carding and pass one file per EnSight server; alternatively, it can pass the wild carded name on to each server where it (typically the User Defined Reader) expands wild carded name (such as with the CTH UDR).
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * YES - pass the wild card symbol (&#x27;*&#x27;) to the server for evaluation.
+        * NO - don&#x27;t pass the wild card symbol to the server; SOS will evaluate it.
+
+Examples:
+    | ensight.data.binary_files_are(&quot;big_endian&quot;)
+    | ensight.data.format(&quot;case&quot;)
+    | ensight.data.shift_time(1.000000,0.000000,0.000000)
+    | ensight.data.resource(&quot;/usr/tmp/localhost.res&quot;)
+    | ensight.data.sos_pass_wildcards(&quot;NO&quot;)
+    | ensight.data.sos_auto_distrib(&quot;server&quot;)
+    | ensight.data.replace(&quot;/usr/tmp/decomposed_data.*.case #&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.data.start_time">
+<description>
+When reading transient data load the timestep indicated as the initial time step.
+
+| It is not possible to specify a fractional timestep.
+| The value specified is a step number, not a time value.
+
+Args:
+    p0:
+        &#x27;step_number&#x27; timestep to use for the initial data load. Values range from 1 (the first timestep) to N where N is the total number of timesteps supplied.
+
+Examples:
+    | #
+    | # Read a geometry file and a measured particle file
+    | # at the first timestep, then create a part.
+    | #
+    | ensight.data.format(&quot;ensight&quot;)
+    | ensight.data.path(&quot;/usr/tmp&quot;)
+    | ensight.data.geometry(&quot;cube.geom&quot;)
+    | ensight.data.measured(&quot;cube.mres&quot;)
+    | ensight.data.start_time(1)
+    | ensight.data.read()
+    | ensight.data_partbuild.begin()
+    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+    | ensight.data_partbuild.select_begin(1)
+    | ensight.data_partbuild.create()
+    | ensight.data_partbuild.end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

@@ -1,0 +1,1360 @@
+<docstrings>
+<override namespace="ensight.anim_flipbook.begin_simtime">
+<description>
+Specify a beginning simulation time value to start the flipbook animation.
+
+| Not applicable if dataset is not transient.
+| Used only if  &quot;anim_flipbook: specify_time_as simulation&quot; has been specified.
+
+Args:
+    p0:
+        &#x27;time_value&#x27; beginning simulation time value (which must correspond to the same simulation time at a time step)
+
+Examples:
+    | #
+    | # Specify a transient_data flipbook 
+    | #
+    | ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
+    | #
+    | # Set begin/end solution timestep values
+    | #
+    | ensight.solution_time.show_as(&quot;time&quot;)
+    | #
+    | # Set begin/end flipbook time info
+    | #
+    | ensight.anim_flipbook.step_simtime(1.0000e+00)
+    | ensight.anim_flipbook.specify_time_as(&quot;simulation&quot;)
+    | ensight.anim_flipbook.begin_simtime(3.4900e+02)
+    | ensight.anim_flipbook.end_simtime(3.6900e+02)
+    | #
+    | # Load flipbook
+    | #
+    | ensight.anim_flipbook.load()
+    | #
+    | # Run loaded flipbook
+    | #
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.begin_time_step">
+<description>
+Specify a beginning time step value to start the flipbook animation.
+
+| Not applicable if dataset is not transient.
+| Used only if &quot;anim_flipbook: specify_time_as step&quot; has been specified.
+
+Args:
+    p0:
+        &#x27;step_value&#x27; beginning time step value in the range of 0 to n - 1, where
+
+Examples:
+    | #
+    | # Specify a transient_data flipbook 
+    | #
+    | ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
+    | #
+    | # Set begin/end solution timestep values
+    | #
+    | ensight.solution_time.begin_step(30)
+    | ensight.solution_time.end_step(50)
+    | ensight.solution_time.show_as(&quot;step&quot;)
+    | #
+    | # Set begin/end flipbook time info
+    | #
+    | # Note: both step and simtime commands are reset
+    | #       because solution time commands were set above
+    | #
+    | ensight.anim_flipbook.specify_time_as(&quot;step&quot;)
+    | ensight.anim_flipbook.step_by(1.0000e+00)
+    | ensight.anim_flipbook.begin_time_step(30)
+    | ensight.anim_flipbook.end_time_step(50)
+    | #
+    | # Load flipbook
+    | #
+    | ensight.anim_flipbook.load()
+    | #
+    | # Run loaded flipbook
+    | #
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.cycle">
+<description>
+Specify the automatic playback sequence of the flipbook.
+
+| Not applicable if flipbook has not been loaded.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.anim_flipbook.cycle(&quot;ON&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.delete_all_pages">
+<description>
+Specify to delete the currently loaded flipbook.
+
+| Not applicable if flipbook has not been loaded.
+
+Examples:
+    | ensight.anim_flipbook.delete_all_pages()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.display_speed">
+<description>
+Specifies the playback-speed factor, or the display speed at which the flipbook animates.
+
+| Not applicable if flipbook has not been loaded.
+
+Args:
+    p0:
+        &#x27;speed_value&#x27; set the display speed value in the range [0.,1.] where 1. is the fastest speed (of your hardware) and 0. is stopped (a still page)
+
+Examples:
+    | #
+    | # Halve the display speed
+    | #
+    | ensight.anim_flipbook.display_speed(0.500000)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.dynamic_line">
+<description>
+Specify dynamic flipbook animation of the selected 1d-clip line part. 
+
+| Only used for flipbook animations of interactive clip line parts.
+| Must be bracketed by &quot;anim_flipbook: interactive_part start&quot; and &quot;anim_flipbook: interactive_part end&quot;.
+
+Args:
+    p0:
+        &#x27;part&#x27; a valid GUI part number, for a line clip
+    p1:
+        &#x27;end&#x27; 1 - beginning line position
+    p2:
+        &#x27;end&#x27; 2 - ending line position
+    p3:
+        &#x27;X0&#x27; X coordinate of first end point of specified line position
+    p4:
+        &#x27;YO&#x27; Y coordinate of first end point of specified line position
+    p5:
+        &#x27;ZO&#x27; Z coordinate of first end point of specified line position
+    p6:
+        &#x27;Xn&#x27; Y coordinate of second end point of specified line position
+    p7:
+        &#x27;Yn&#x27; X coordinate of second end point of specified line position
+    p8:
+        &#x27;Zn&#x27; Z coordinate of second end point of specified line position
+
+Examples:
+    | #
+    | # Create the line clip part from the parent field
+    | #
+    | ensight.part.select_all()
+    | ensight.clip.begin()
+    | ensight.clip.domain(&quot;intersect&quot;)
+    | ensight.clip.tool(&quot;line&quot;)
+    | ensight.clip.line(1,5.8348e-01,1.3165e+00,1.2670e+00)
+    | ensight.clip.line(2,3.0835e+00,1.3165e+00,1.2670e+00)
+    | ensight.clip.end()
+    | ensight.clip.create()
+    | ensight.part.select_begin(2)
+    | #
+    | # Load and animate the clip-line part 
+    | # between the 1st and 2nd dynamic_line positions.
+    | #
+    | ensight.anim_flipbook.interactive_part(&quot;start&quot;)
+    | ensight.tools.line(&quot;ON&quot;)
+    | ensight.part.select_begin(2)
+    | ensight.view_transf.function(&quot;line&quot;)
+    | ensight.view_transf.translate(1.33481,0.816460,0.266963)
+    | ensight.view_transf.function(&quot;global&quot;)
+    | ensight.anim_flipbook.dynamic_line(2,1,-0.750000,0.500000,1.000000,0.583581,1.316460,1.266963)
+    | ensight.anim_flipbook.dynamic_line(2,2,1.750000,0.500000,1.000000,3.083481,1.316460,1.266963)
+    | ensight.anim_flipbook.interactive_part(&quot;stop&quot;)
+    | ensight.anim_flipbook.number_to_create(10)
+    | ensight.anim_flipbook.load()
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+    | ensight.tools.line(&quot;OFF&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.dynamic_plane">
+<description>
+Specify dynamic flipbook animation of the selected 2d-clip plane part. 
+
+| Used for flipbook animations of interactive isosurface, ijk-clip, and xyz-clip parts. Only applicable between commands: 
+| 	      anim_flipbook: interactive_part start
+|       anim_flipbook: interactive_part stop
+
+Args:
+    p0:
+        &#x27;part&#x27; GUI part number of the 2D-clip plane part to be animated
+    p1:
+        &#x27;cid&#x27; corner id (1, 2, 3, or 4) of the plane tool
+    p2:
+        &#x27;XO&#x27; initial x coordinate of the specified corner of the plane
+    p3:
+        &#x27;YO&#x27; initial y coordinate of the specified corner of the plane
+    p4:
+        &#x27;ZO&#x27; initial z coordinate of the specified corner of the plane
+    p5:
+        &#x27;Xn&#x27; final x coordinate of the specified corner of the plane
+    p6:
+        &#x27;Yn&#x27; final y coordinate of the specified corner of the plane
+    p7:
+        &#x27;Zn&#x27; final z coordinate of the specified corner of the plane
+
+Examples:
+    | #
+    | # From the flow field part (number 1),
+    | # create the 2D-clip plane part (number 2)
+    | # and color it by temperature.
+    | #
+    | ensight.part.select_begin(1)
+    | ensight.clip.begin()
+    | ensight.clip.domain(&quot;intersect&quot;)
+    | ensight.clip.tool(&quot;plane&quot;)
+    | ensight.clip.plane(1,-7.5000e-01,-7.5000e-01,1.0000e+00)
+    | ensight.clip.plane(2,1.7500e+00,-7.5000e-01,1.0000e+00)
+    | ensight.clip.plane(3,1.7500e+00,1.7500e+00,1.0000e+00)
+    | ensight.clip.end()
+    | ensight.clip.create()
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_palette(&quot;temperature&quot;)
+    | ensight.part.modify_end()
+    | #
+    | # Specify interactive flipbook animation
+    | # of the 2D-clip part.
+    | #
+    | ensight.anim_flipbook.interactive_part(&quot;start&quot;)
+    | ensight.tools.plane(&quot;line&quot;)
+    | ensight.view_transf.function(&quot;plane&quot;)
+    | ensight.view_transf.action(&quot;translate&quot;)
+    | ensight.view_transf.translate(0.0000e+00,0.0000e+00,1.0000e+00)
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.clip.plane(1,-7.5000e-01,-7.5000e-01,2.0000e+00)
+    | ensight.clip.plane(2,1.7500e+00,-7.5000e-01,2.0000e+00)
+    | ensight.clip.plane(3,1.7500e+00,1.7500e+00,2.0000e+00)
+    | ensight.part.modify_end()
+    | ensight.tools.plane(&quot;line&quot;)
+    | ensight.tools.plane(&quot;line&quot;)
+    | ensight.view_transf.function(&quot;global&quot;)
+    | ensight.view_transf.function(&quot;global&quot;)
+    | #
+    | # Track the dynamic position of the four corners 
+    | # of the clip plane tool.
+    | #
+    | ensight.anim_flipbook.dynamic_plane(2,1,-0.750000,-0.750000,1.000000,-0.750000,-0.750000,2.000000)
+    | ensight.anim_flipbook.dynamic_plane(2,2,1.750000,-0.750000,1.000000,1.750000,-0.750000,2.000000)
+    | ensight.anim_flipbook.dynamic_plane(2,3,1.750000,1.750000,1.000000,1.750000,1.750000,2.000000)
+    | ensight.anim_flipbook.dynamic_plane(2,4,-0.750000,1.750000,1.000000,-0.750000,1.750000,2.000000)
+    | ensight.anim_flipbook.move_dynamic_plane(2,5,0.000000,0.000000,1.000000)
+    | ensight.anim_flipbook.interactive_part(&quot;stop&quot;)
+    | #
+    | ensight.anim_flipbook.number_to_create(10)
+    | ensight.anim_flipbook.load()
+    | ensight.tools.plane(&quot;OFF&quot;)
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+    | ensight.anim_flipbook.run_type(&quot;off&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.dynamic_value">
+<description>
+Specify dynamic flipbook animation of the selected isosurface, xyz-clip, or ijk-clip part, within the appropriate specified dynamic ranges.
+
+| Used for flipbook animations of interactive isosurface, ijk-clip, and xyz-clip parts. Only applicable between commands: 
+| 	      anim_flipbook: interactive_part start
+|       anim_flipbook: interactive_part stop
+
+Args:
+    p0:
+        &#x27;part&#x27; GUI part number of the part to be animated
+    p1:
+        &#x27;start_value&#x27; the starting dynamic value of the animation
+    p2:
+        &#x27;end_value&#x27; final dynamic value of the animation,  i.e. the ending isosurface value; x, y, or z clip value; or  i, j, or k value of the respective isosurface, xyz clip, or ijk clip part
+
+Examples:
+    | #
+    | # (Note: A clip part has already been generated via the
+    | #        XYZ clip part feature and colored by a variable.)
+    | #
+    | # Update the 2D clip part clip at 
+    | #
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.clip.mesh_plane(&quot;X&quot;)
+    | ensight.clip.tool(&quot;xyz&quot;)
+    | ensight.clip.value(1.000000)
+    | ensight.part.modify_end()
+    | #
+    | # Specify type of flipbook
+    | #
+    | ensight.anim_flipbook.load_type(&quot;create_data&quot;)
+    | #
+    | # Setup interactive flipbooking of the clip part number 2
+    | # from values 1. to 3.
+    | #
+    | ensight.anim_flipbook.interactive_part(&quot;start&quot;)
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.clip.value(3.000000)
+    | ensight.part.modify_end()
+    | ensight.anim_flipbook.dynamic_value(2,1.000000,3.000000)
+    | ensight.anim_flipbook.interactive_part(&quot;stop&quot;)
+    | #
+    | # Load 10 flipbook pages
+    | #
+    | ensight.anim_flipbook.number_to_create(10)
+    | ensight.anim_flipbook.load()
+    | #
+    | # Run loaded flipbook pages
+    | #
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.end_simtime">
+<description>
+Specify an ending simulation time value to start the flipbook animation.
+
+| Not applicable if dataset is not transient. An ending simulation time must correspond to the simulation time of a time step. 
+| Used only if &quot;anim_flipbook: specify_time_as step&quot; has been specified.
+
+Args:
+    p0:
+        &#x27;time_value&#x27; ending simulation time value (which must correspond to the  simulation time at a time step)
+
+Examples:
+    | #
+    | # Specify a transient_data flipbook 
+    | #
+    | ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
+    | #
+    | # Set begin/end solution timestep values
+    | #
+    | ensight.solution_time.begin_step(30)
+    | ensight.solution_time.end_step(50)
+    | ensight.solution_time.show_as(&quot;time&quot;)
+    | #
+    | # Set begin/end flipbook time info
+    | #
+    | ensight.anim_flipbook.step_simtime(1.0000e+00)
+    | ensight.anim_flipbook.specify_time_as(&quot;simulation&quot;)
+    | ensight.anim_flipbook.begin_simtime(3.4900e+02)
+    | ensight.anim_flipbook.end_simtime(3.6900e+02)
+    | #
+    | # Load flipbook
+    | #
+    | ensight.anim_flipbook.load()
+    | #
+    | # Run loaded flipbook
+    | #
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.end_time_step">
+<description>
+Specify an ending time step value to start the flipbook animation.
+
+| Not applicable if dataset is not transient. 
+| Used only if &quot;anim_flipbook: specify_time_as step&quot; has been specified.
+
+Args:
+    p0:
+        &#x27;step_value&#x27; ending time step value in the range of 0 to n - 1, where
+
+Examples:
+    | #
+    | # Specify a transient_data flipbook 
+    | #
+    | ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
+    | #
+    | # Set begin/end solution timestep values
+    | #
+    | ensight.solution_time.begin_step(30)
+    | ensight.solution_time.end_step(50)
+    | ensight.solution_time.show_as(&quot;step&quot;)
+    | #
+    | # Set begin/end flipbook time info
+    | #
+    | # Note: both step and simtime commands are reset
+    | #       because solution time commands were set above
+    | #
+    | ensight.anim_flipbook.step_by(1.0000e+00)
+    | ensight.anim_flipbook.specify_time_as(&quot;step&quot;)
+    | ensight.anim_flipbook.begin_time_step(30)
+    | ensight.anim_flipbook.end_time_step(50)
+    | #
+    | # Load flipbook
+    | #
+    | ensight.anim_flipbook.load()
+    | #
+    | # Run loaded flipbook
+    | #
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.interactive_part">
+<description>
+Specify the start and stop of the recording of interactive movement of any specified isosurface or clip parts during a flipbook load. 
+
+| Currently this operation only works for interactive manipulation of isosurface and 2D clip parts.  Used in conjunction with the following commands:
+|     part: select_begin
+|     part: select_end
+|     part: modify_begin
+|     part: modify_end
+|     anim_flipbook: dynamic_value
+|     anim_flipbook: dynamic_line
+|     anim_flipbook: dynamic_plane
+|     anim_flipbook: dynamic_plane
+|     anim_flipbook: move_dynamic_plane 
+
+Args:
+    p0:
+        &#x27;option&#x27; start
+    p1:
+        &#x27;option&#x27; stop
+
+Examples:
+    | #
+    | # (Note: A clip part has already been generated via the
+    | #        XYZ clip part feature and colored by a variable.)
+    | #
+    | # Update the 2D clip part clip at 
+    | #
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.clip.mesh_plane(&quot;X&quot;)
+    | ensight.clip.tool(&quot;xyz&quot;)
+    | ensight.clip.value(1.000000)
+    | ensight.part.modify_end()
+    | #
+    | # Specify type of flipbook
+    | #
+    | ensight.anim_flipbook.load_type(&quot;create_data&quot;)
+    | #
+    | # Setup interactive flipbooking of the clip part
+    | #
+    | ensight.anim_flipbook.interactive_part(&quot;start&quot;)
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.clip.value(3.000000)
+    | ensight.part.modify_end()
+    | ensight.anim_flipbook.dynamic_value(2,1.000000,3.000000)
+    | ensight.anim_flipbook.interactive_part(&quot;stop&quot;)
+    | #
+    | # Load 10 flipbook pages
+    | #
+    | ensight.anim_flipbook.number_to_create(10)
+    | ensight.anim_flipbook.load()
+    | #
+    | # Run loaded flipbook pages
+    | #
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.load">
+<description>
+Specify the loading of the flipbook pages, according to the selected part(s) and specified flipbook options.
+
+Examples:
+    | #
+    | # Note: transient dataset w/83 time steps...
+    | #
+    | # Specify a transient_data flipbook 
+    | #
+    | ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
+    | #
+    | # Specify page increment
+    | #
+    | ensight.anim_flipbook.step_by(1.0000e+01)
+    | #
+    | # Set begin/end flipbook time info
+    | #
+    | ensight.anim_flipbook.begin_time_step(0)
+    | ensight.anim_flipbook.end_time_step(83)
+    | ensight.anim_flipbook.specify_time_as(&quot;step&quot;)
+    | #
+    | # Load flipbook pages {0,10,20,30,40,50,60,70,80}
+    | #
+    | ensight.anim_flipbook.load()
+    | #
+    | # Run loaded flipbook
+    | #
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.load_as">
+<description>
+Specify whether to load the flipbook as graphic objects or images.
+
+| Since graphic_images record the image on the screen, make sure there is no overlaying dialog or image overlapping the main graphics window.
+
+Args:
+    p0:
+        &#x27;option&#x27; graphic_objects
+    p1:
+        &#x27;option&#x27; graphic_images
+
+Examples:
+    | ensight.anim_flipbook.load_as(&quot;graphic_images&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.load_type">
+<description>
+Specifies the type of flipbook animation to load.
+
+Args:
+    p0:
+        &#x27;option&#x27; transient_data
+    p1:
+        &#x27;option&#x27; mode_shapes
+    p2:
+        &#x27;option&#x27; create_data
+    p3:
+        &#x27;option&#x27; linear_load 
+
+Examples:
+    | #
+    | # Example of &lt;transient_data&gt;
+    | #
+    | # Note: transient dataset w/83 time steps...
+    | #
+    | # Specify a transient_data flipbook 
+    | #
+    | ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
+    | #
+    | # Specify page increment
+    | #
+    | ensight.anim_flipbook.step_by(1.0000e+01)
+    | #
+    | # Set begin/end flipbook time info
+    | #
+    | ensight.anim_flipbook.begin_time_step(0)
+    | ensight.anim_flipbook.end_time_step(83)
+    | ensight.anim_flipbook.specify_time_as(&quot;step&quot;)
+    | #
+    | # Load flipbook pages {0,10,20,30,40,50,60,70,80}
+    | #
+    | ensight.anim_flipbook.load()
+    | #
+    | # Run loaded flipbook
+    | #
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+
+    | #
+    | # Example of &lt;create_data&gt;
+    | #
+    | # (Note: A clip part has already been generated via the
+    | #        XYZ clip part feature and colored by a variable.)
+    | #
+    | # Update the 2D clip part clip at 
+    | #
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.clip.mesh_plane(&quot;X&quot;)
+    | ensight.clip.tool(&quot;xyz&quot;)
+    | ensight.clip.value(1.000000)
+    | ensight.part.modify_end()
+    | #
+    | # Specify type of flipbook
+    | #
+    | ensight.anim_flipbook.load_type(&quot;create_data&quot;)
+    | #
+    | # Setup interactive flipbooking of the clip part
+    | #
+    | ensight.anim_flipbook.interactive_part(&quot;start&quot;)
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.clip.value(3.000000)
+    | ensight.part.modify_end()
+    | ensight.anim_flipbook.dynamic_value(2,1.000000,3.000000)
+    | ensight.anim_flipbook.interactive_part(&quot;stop&quot;)
+    | #
+    | # Load 10 flipbook pages
+    | #
+    | ensight.anim_flipbook.number_to_create(10)
+    | ensight.anim_flipbook.load()
+    | #
+    | # Run loaded flipbook pages
+    | #
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+
+    | #
+    | # Example of &lt;mode_shapes&gt;
+    | #
+    | # Note:  Prior to animating modes shapes ... activate and 
+    | #        displace displacement vector variable on selected parts.
+    | # 
+    | ensight.variables.activate(&quot;3D_Displacement&quot;)
+    | ensight.part.select_all()
+    | ensight.part.modify_begin()
+    | ensight.part.displace_by(&quot;3D_Displacement&quot;)
+    | ensight.part.modify_end()
+    | #
+    | #
+    | #
+    | ensight.anim_flipbook.load_type(&quot;mode_shapes&quot;)
+    | ensight.anim_flipbook.number_to_create(10)
+    | ensight.anim_flipbook.load()
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+
+    | #
+    | # Followed by example of &lt;linear_load&gt;
+    | #
+    | # Delete current flipbook
+    | #
+    | ensight.anim_flipbook.delete_all_pages()
+    | #
+    | # Load and run 10 linear_load flipbook pages
+    | #
+    | ensight.anim_flipbook.load_type(&quot;linear_load&quot;)
+    | ensight.anim_flipbook.number_to_create(10)
+    | ensight.anim_flipbook.load()
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.move_dynamic_plane">
+<description>
+Specify the vector in which the 2d-clip plane part is to be transformed.
+
+| Only currently applicable for &quot;anim_flipbook: dynamic_plane&quot; commands, i.e. for flipbook animations of interactive clip parts via the plane tool.
+
+Args:
+    p0:
+        &#x27;part&#x27; GUI part number of the part to be animated
+    p1:
+        &#x27;transform&#x27; 1 - rotation transformation
+    p2:
+        &#x27;dx&#x27; x-component of the direction vector for the transformation to follow
+    p3:
+        &#x27;dy&#x27; y-component of the direction vector for the transformation to follow
+    p4:
+        &#x27;dz&#x27; z-component of the direction vector for the transformation to follow
+
+Examples:
+    | #
+    | # From the flow field part (number 1),
+    | # create the 2D-clip plane part (number 2)
+    | # and color it by temperature.
+    | #
+    | ensight.part.select_begin(1)
+    | ensight.clip.begin()
+    | ensight.clip.domain(&quot;intersect&quot;)
+    | ensight.clip.tool(&quot;plane&quot;)
+    | ensight.clip.plane(1,-7.5000e-01,-7.5000e-01,1.0000e+00)
+    | ensight.clip.plane(2,1.7500e+00,-7.5000e-01,1.0000e+00)
+    | ensight.clip.plane(3,1.7500e+00,1.7500e+00,1.0000e+00)
+    | ensight.clip.end()
+    | ensight.clip.create()
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.part.colorby_palette(&quot;temperature&quot;)
+    | ensight.part.modify_end()
+    | #
+    | # Specify interactive flipbook animation
+    | # of the 2D-clip part.
+    | #
+    | ensight.anim_flipbook.interactive_part(&quot;start&quot;)
+    | ensight.tools.plane(&quot;line&quot;)
+    | ensight.view_transf.function(&quot;plane&quot;)
+    | ensight.view_transf.action(&quot;translate&quot;)
+    | ensight.view_transf.translate(0.0000e+00,0.0000e+00,1.0000e+00)
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.clip.plane(1,-7.5000e-01,-7.5000e-01,2.0000e+00)
+    | ensight.clip.plane(2,1.7500e+00,-7.5000e-01,2.0000e+00)
+    | ensight.clip.plane(3,1.7500e+00,1.7500e+00,2.0000e+00)
+    | ensight.part.modify_end()
+    | ensight.tools.plane(&quot;line&quot;)
+    | ensight.tools.plane(&quot;line&quot;)
+    | ensight.view_transf.function(&quot;global&quot;)
+    | ensight.view_transf.function(&quot;global&quot;)
+    | #
+    | # Track the dynamic position of the four corners 
+    | # of the clip plane tool.
+    | #
+    | ensight.anim_flipbook.dynamic_plane(2,1,-0.750000,-0.750000,1.000000,-0.750000,-0.750000,2.000000)
+    | ensight.anim_flipbook.dynamic_plane(2,2,1.750000,-0.750000,1.000000,1.750000,-0.750000,2.000000)
+    | ensight.anim_flipbook.dynamic_plane(2,3,1.750000,1.750000,1.000000,1.750000,1.750000,2.000000)
+    | ensight.anim_flipbook.dynamic_plane(2,4,-0.750000,1.750000,1.000000,-0.750000,1.750000,2.000000)
+    | #
+    | # Indicate the 2d-clip plane&#x27;s translation
+    | #
+    | ensight.anim_flipbook.move_dynamic_plane(2,5,0.000000,0.000000,1.000000)
+    | ensight.anim_flipbook.interactive_part(&quot;stop&quot;)
+    | #
+    | ensight.anim_flipbook.number_to_create(10)
+    | ensight.anim_flipbook.load()
+    | ensight.tools.plane(&quot;OFF&quot;)
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+    | ensight.anim_flipbook.run_type(&quot;off&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.number_to_create">
+<description>
+Specify the number of pages to create in the flipbook animation.
+
+Args:
+    p0:
+        &#x27;number&#x27; (positive) number of pages to create
+
+Examples:
+    | #
+    | # (Note: A clip part has already been generated via the
+    | #        XYZ clip part feature and colored by a variable.)
+    | #
+    | # Update the 2D clip part clip at 
+    | #
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.clip.mesh_plane(&quot;X&quot;)
+    | ensight.clip.tool(&quot;xyz&quot;)
+    | ensight.clip.value(1.000000)
+    | ensight.part.modify_end()
+    | #
+    | # Specify type of flipbook
+    | #
+    | ensight.anim_flipbook.load_type(&quot;create_data&quot;)
+    | #
+    | # Setup interactive flipbooking of the clip part
+    | #
+    | ensight.anim_flipbook.interactive_part(&quot;start&quot;)
+    | ensight.part.select_begin(2)
+    | ensight.part.modify_begin()
+    | ensight.clip.value(3.000000)
+    | ensight.part.modify_end()
+    | ensight.anim_flipbook.dynamic_value(2,1.000000,3.000000)
+    | ensight.anim_flipbook.interactive_part(&quot;stop&quot;)
+    | #
+    | # Load 10 flipbook pages
+    | #
+    | ensight.anim_flipbook.number_to_create(10)
+    | ensight.anim_flipbook.load()
+    | #
+    | # Run loaded flipbook pages
+    | #
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.page">
+<description>
+Specify which page of the flipbook animation to display.
+
+| Only applicable with run_type set to step.
+
+Args:
+    p0:
+        &#x27;page_value&#x27; page value of the flipbook animation to display, value must must be given in the appropriate corresponding increment
+
+Examples:
+    | ensight.anim_flipbook.run_type(&quot;step&quot;)
+    | ensight.anim_flipbook.page(1.000000)
+    | ensight.anim_flipbook.page(2.000000)
+    | ensight.anim_flipbook.page(3.000000)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.play_backward">
+<description>
+Specify that the flipbook is to be played backward/forward.
+
+Examples:
+    | #
+    | # Note: transient dataset w/83 time steps...
+    | #
+    | # Specify a transient_data flipbook 
+    | #
+    | ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
+    | #
+    | # Specify page increment
+    | #
+    | ensight.anim_flipbook.step_by(1.0000e+01)
+    | #
+    | # Set begin/end flipbook time info
+    | #
+    | ensight.anim_flipbook.begin_time_step(0)
+    | ensight.anim_flipbook.end_time_step(83)
+    | ensight.anim_flipbook.specify_time_as(&quot;step&quot;)
+    | #
+    | # Load flipbook pages {0,10,20,30,40,50,60,70,80}
+    | #
+    | ensight.anim_flipbook.load()
+    | #
+    | # Run loaded flipbook
+    | #
+    | ensight.anim_flipbook.play_backward()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.play_forward">
+<description>
+Specify that the flipbook is to be played backward/forward.
+
+Examples:
+    | #
+    | # Note: transient dataset w/83 time steps...
+    | #
+    | # Specify a transient_data flipbook 
+    | #
+    | ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
+    | #
+    | # Specify page increment
+    | #
+    | ensight.anim_flipbook.step_by(1.0000e+01)
+    | #
+    | # Set begin/end flipbook time info
+    | #
+    | ensight.anim_flipbook.begin_time_step(0)
+    | ensight.anim_flipbook.end_time_step(83)
+    | ensight.anim_flipbook.specify_time_as(&quot;step&quot;)
+    | #
+    | # Load flipbook pages {0,10,20,30,40,50,60,70,80}
+    | #
+    | ensight.anim_flipbook.load()
+    | #
+    | # Run loaded flipbook
+    | #
+    | ensight.anim_flipbook.play_backward()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.regen_all_pages">
+<description>
+Toggle indicating whether to regenerate existing flipbook pages when loading a flipbook.
+
+| No need to regenerate all pages if extending the number of time steps or filling-in skipped time steps.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.anim_flipbook.regen_all_pages(&quot;OFF&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.run_type">
+<description>
+Specify how to play the flipbook animation.
+
+Args:
+    p0:
+        &#x27;option&#x27; auto
+    p1:
+        &#x27;option&#x27; step
+    p2:
+        &#x27;option&#x27; off
+
+Examples:
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+
+    | ensight.anim_flipbook.run_type(&quot;step&quot;)
+    | ensight.anim_flipbook.page(1.000000)
+    | ensight.anim_flipbook.page(2.000000)
+    | ensight.anim_flipbook.page(3.000000)
+
+    | ensight.anim_flipbook.run_type(&quot;off&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.save_images">
+<description>
+Specify the file name prefix into which each flipbook animation page (or each image) will be recorded.
+
+| Each page image will be saved into a file of the form &quot;fileprefix_ipage.ext&quot; where &quot;filename_prefix&quot; is the path and name of the file, &quot;ipage&quot; is the corresponding page number, and &quot;ext&quot; is the appropriate image format extension name.
+
+Args:
+    p0:
+        &#x27;filename_prefix&#x27; file name prefix of the recorded media
+
+Examples:
+    | #
+    | # Set the recording image format to sgi RGB
+    | #
+    | ensight.file.image_format(&quot;sgi_rgb&quot;)
+    | #
+    | # Record each page of the flipbook of main graphics window size
+    | # into a file named &quot;demo_ipage.rgb&quot; where &quot;ipage&quot; is the page 
+    | # number of the animation.
+    | #
+    | ensight.anim_flipbook.save_win_type(&quot;normal&quot;)
+    | ensight.anim_flipbook.save_images(&quot;demo&quot;)
+
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.save_multiple_images">
+<description>
+When recording an animation flipbook with a detached display this option will save a file for each display if on.  If off will save a single file.
+
+| When saving a flat-wall detached display, the user can choose to write one large image for the wall or one image per pipe from the dconfig file.  Only used if the anim_flipbook: save_win_type is set to &quot;detached_display&quot;.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | #
+    | # Set the recording image format to be envideo
+    | #
+    | ensight.file.image_format(&quot;envideo&quot;)
+    | #
+    | # Record flipbook images from the detached display
+    | #
+    | ensight.anim_flipbook.save_win_type(&quot;detached_display&quot;)
+    | ensight.anim_flipbook.save_multiple_images(&quot;ON&quot;)
+    | ensight.anim_flipbook.save_images(&quot;/tmp/test_movie&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.save_win_size">
+<description>
+Specify the x and y window dimensions of the flipbook animation images.
+
+| Only applicable with command option  &quot;anim_flipbook: save_win_type user_defined&quot;.
+
+Args:
+    p0:
+        &#x27;x_size&#x27; x window size, or width of the window, in screen coordinates
+    p1:
+        &#x27;y_size&#x27; y window size, or height of the window, in screen coordinates
+
+Examples:
+    | #
+    | # Set the recording image format to sgi RGB
+    | #
+    | ensight.file.image_format(&quot;sgi_rgb&quot;)
+    | #
+    | # Record each page of the flipbook of main graphics window size
+    | # into a file named &quot;demo_ipage.rgb&quot; where &quot;ipage&quot; is the page 
+    | # number of the animation.
+    | #
+    | ensight.anim_flipbook.save_win_type(&quot;user_defined&quot;)
+    | ensight.anim_flipbook.save_win_size(320,240)
+    | ensight.anim_flipbook.save_images(&quot;demo&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.save_win_type">
+<description>
+Specify the size of the window/image into which to play/record the flipbook animation.
+
+Args:
+    p0:
+        &#x27;type&#x27;
+
+        * normal
+        * full
+        * detached display
+        * user_defined
+        * NTSC
+        * PAL
+        * HD720p
+        * HD1080p
+        * DVDNTSC
+        * DVDPAL
+
+Examples:
+    | #
+    | # Set the recording image format to sgi RGB
+    | #
+    | ensight.file.image_format(&quot;sgi_rgb&quot;)
+    | #
+    | # Record each page of the flipbook of main graphics window size
+    | # into a file named &quot;demo_ipage.rgb&quot; where &quot;ipage&quot; is the page 
+    | # number of the animation.
+    | #
+    | ensight.anim_flipbook.save_win_type(&quot;user_defined&quot;)
+    | ensight.anim_flipbook.save_win_size(320,240)
+    | ensight.anim_flipbook.save_images(&quot;demo&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.select_all_timesteps">
+<description>
+When loading a flipbook load all timesteps that exist.
+
+| This command is useful in batch scripts since you do not need to know how many timesteps exist.  The command is not generated by interactive use of EnSight.
+
+Examples:
+    | ensight.anim_flipbook.select_all_timesteps()
+    | ensight.anim_flipbook.load()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.show_from_page">
+<description>
+Specify the starting page from which to run the flipbook animation.
+
+| This page value must not be greater than the &quot;anim_flipbook: show_to_page&quot; value.
+
+Args:
+    p0:
+        &#x27;page_value&#x27; a page value which lies within the range of loaded pages
+
+Examples:
+    | #
+    | # Preliminary flipbook animation of 21 time steps
+    | #
+    | ensight.anim_flipbook.begin_time_step(30)
+    | ensight.anim_flipbook.end_time_step(50)
+    | ensight.anim_flipbook.specify_time_as(&quot;step&quot;)
+    | ensight.anim_flipbook.load()
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+    | #
+    | # Reduce flipbook animation to 16 time steps
+    | #
+    | ensight.anim_flipbook.show_from_page(35)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.show_to_page">
+<description>
+Specify the ending page to which to run the flipbook animation.
+
+| This page value must not be less than the &quot;anim_flipbook: show_from_page&quot; value.
+
+Args:
+    p0:
+        &#x27;page_value&#x27; A page value which lies within the range of loaded pages
+
+Examples:
+    | #
+    | # Preliminary flipbook animation of 21 time steps
+    | #
+    | ensight.anim_flipbook.begin_time_step(30)
+    | ensight.anim_flipbook.end_time_step(50)
+    | ensight.anim_flipbook.specify_time_as(&quot;step&quot;)
+    | ensight.anim_flipbook.load()
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+    | #
+    | # Reduce flipbook animation to 11 time steps
+    | #
+    | ensight.anim_flipbook.show_from_page(35)
+    | ensight.anim_flipbook.show_to_page(45)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.specify_time_as">
+<description>
+Specify the paging units for the flipbook animation.
+
+| Not applicable if not transient data.
+| The default is &quot;step&quot;
+
+Args:
+    p0:
+        &#x27;option&#x27; simulation
+    p1:
+        &#x27;option&#x27; step
+
+Examples:
+    | #
+    | # Change time sequence from time step to simulation time
+    | #
+    | ensight.solution_time.show_as(&quot;time&quot;)
+    | #
+    | # Set begin/end flipbook time info
+    | #
+    | ensight.anim_flipbook.specify_time_as(&quot;simulation&quot;)
+    | ensight.anim_flipbook.begin_simtime(3.5400e+02)
+    | ensight.anim_flipbook.end_simtime(3.6900e+02)
+    | ensight.anim_flipbook.load()
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.step_backward">
+<description>
+Step back/forward one frame of a flipbook.
+
+| This command is not generated by the EnSight GUI, but is intended for use with batch or context operations where the time of the first step could vary from model to model.
+
+Examples:
+    | #
+    | # Note: transient dataset w/83 time steps...
+    | #
+    | # Specify a transient_data flipbook 
+    | #
+    | ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
+    | #
+    | # Specify page increment
+    | #
+    | ensight.anim_flipbook.step_by(1.0000e+01)
+    | #
+    | # Set begin/end flipbook time info
+    | #
+    | ensight.anim_flipbook.begin_time_step(0)
+    | ensight.anim_flipbook.end_time_step(83)
+    | ensight.anim_flipbook.specify_time_as(&quot;step&quot;)
+    | #
+    | # Load flipbook pages {0,10,20,30,40,50,60,70,80}
+    | #
+    | ensight.anim_flipbook.load()
+    | #
+    | # Run loaded flipbook
+    | #
+    | ensight.anim_flipbook.play_backward()
+    | ensight.anim_flipbook.stop()
+    | ensight.anim_flipbook.step_backward()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.step_forward">
+<description>
+Step back/forward one frame of a flipbook.
+
+| This command is not generated by the EnSight GUI, but is intended for use with batch or context operations where the time of the first step could vary from model to model.
+
+Examples:
+    | #
+    | # Note: transient dataset w/83 time steps...
+    | #
+    | # Specify a transient_data flipbook 
+    | #
+    | ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
+    | #
+    | # Specify page increment
+    | #
+    | ensight.anim_flipbook.step_by(1.0000e+01)
+    | #
+    | # Set begin/end flipbook time info
+    | #
+    | ensight.anim_flipbook.begin_time_step(0)
+    | ensight.anim_flipbook.end_time_step(83)
+    | ensight.anim_flipbook.specify_time_as(&quot;step&quot;)
+    | #
+    | # Load flipbook pages {0,10,20,30,40,50,60,70,80}
+    | #
+    | ensight.anim_flipbook.load()
+    | #
+    | # Run loaded flipbook
+    | #
+    | ensight.anim_flipbook.play_backward()
+    | ensight.anim_flipbook.stop()
+    | ensight.anim_flipbook.step_backward()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.step_by">
+<description>
+Specify the time step increment by which to run the transient_data flipbook animation.
+
+| Not applicable if not transient data. Only pages contained in the valid time-step range will be generated. 
+
+Args:
+    p0:
+        &#x27;step_increment&#x27; increment value in time-step units that preferably lies within the range set by the
+
+Examples:
+    | #
+    | # Note: transient dataset w/83 time steps...
+    | #
+    | # Specify a transient_data flipbook 
+    | #
+    | ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
+    | #
+    | # Specify page increment
+    | #
+    | ensight.anim_flipbook.step_by(1.0000e+01)
+    | #
+    | # Set begin/end flipbook time info
+    | #
+    | ensight.anim_flipbook.begin_time_step(0)
+    | ensight.anim_flipbook.end_time_step(83)
+    | ensight.anim_flipbook.specify_time_as(&quot;step&quot;)
+    | #
+    | # Load and run flipbook pages {0,10,20,30,40,50,60,70,80}
+    | #
+    | ensight.anim_flipbook.load()
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.step_simtime">
+<description>
+Specify the simulation-time increment by which to run the transient_data flipbook animation.
+
+| Not applicable if not transient data. Only pages contained in the valid simulation-time range will be generated. 
+
+Args:
+    p0:
+        &#x27;time_value&#x27; increment value in simulation-time units that preferably lies within the range set by the
+
+Examples:
+    | #
+    | # Specify time and flipbook sequencing as simulation time
+    | #
+    | ensight.solution_time.show_as(&quot;time&quot;)
+    | ensight.anim_flipbook.specify_time_as(&quot;simulation&quot;)
+    | #
+    | # Specify time increment
+    | #
+    | ensight.anim_flipbook.step_simtime(2.0000e+00)
+    | #
+    | # Load and run transient data flipbook
+    | #
+    | ensight.anim_flipbook.begin_simtime(3.5400e+02)
+    | ensight.anim_flipbook.end_simtime(3.6400e+02)
+    | #
+    | # Load and run flipbook pages with t=354.0,356.0,358.0,360.0,362.0,364.0
+    | #
+    | ensight.anim_flipbook.load()
+    | ensight.anim_flipbook.run_type(&quot;auto&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.stop">
+<description>
+Stop playing a flipbook.
+
+Examples:
+    | #
+    | # Note: transient dataset w/83 time steps...
+    | #
+    | # Specify a transient_data flipbook 
+    | #
+    | ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
+    | #
+    | # Specify page increment
+    | #
+    | ensight.anim_flipbook.step_by(1.0000e+01)
+    | #
+    | # Set begin/end flipbook time info
+    | #
+    | ensight.anim_flipbook.begin_time_step(0)
+    | ensight.anim_flipbook.end_time_step(83)
+    | ensight.anim_flipbook.specify_time_as(&quot;step&quot;)
+    | #
+    | # Load flipbook pages {0,10,20,30,40,50,60,70,80}
+    | #
+    | ensight.anim_flipbook.load()
+    | #
+    | # Run loaded flipbook
+    | #
+    | ensight.anim_flipbook.play_backward()
+    | ensight.anim_flipbook.stop()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_flipbook.time">
+<description>
+Specify which page of the flipbook animation to display.
+
+| Only applicable with run_type is set to step.
+
+Args:
+    p0:
+        &#x27;time_value&#x27; simulation-time value that corresponds to a loaded page
+
+Examples:
+    | #
+    | # Manually display 3 pages of the animated flipbook sequences
+    | # that correspond to the simulation time values of 1.1, 2.1, and 3.1.
+    | #
+    | ensight.anim_flipbook.run_type(&quot;step&quot;)
+    | ensight.anim_flipbook.time(1.100000)
+    | ensight.anim_flipbook.time(1.200000)
+    | ensight.anim_flipbook.time(1.300000)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

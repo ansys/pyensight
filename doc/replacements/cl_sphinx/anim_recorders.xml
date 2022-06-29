@@ -1,0 +1,81 @@
+<docstrings>
+<override namespace="ensight.anim_recorders.file_prefix">
+<description>
+Specifies the external file name to use for keyframe animation recording.
+
+| The filename can also include an optional directory path. The name is a prefix.  A suffix will automatically be added that is based on the animation file format (e.g. &#x27;.evo&#x27; for EnVideo files)
+| If a single image format is specified (i.e. PostScript), then a four digit sequence number will be added between the prefix and suffix.
+
+Args:
+    p0:
+        &#x27;filename&#x27; animation file name prefix
+
+Examples:
+    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+    | ensight.anim_keyframe.create_keyframe()
+    | ensight.view_transf.rotate(0.0,90.0,0.0)
+    | ensight.anim_keyframe.create_keyframe()
+    | ensight.file.image_format(&quot;envideo&quot;)
+    | # record envideo file to /tmp/my_animation.evo
+    | ensight.anim_recorders.file_prefix(&quot;/tmp/my_animation&quot;)
+    | ensight.anim_recorders.record(&quot;ON&quot;)
+    | ensight.anim_keyframe.run()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_recorders.record">
+<description>
+Records the keyframe animation to an external file(s).
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+    | ensight.anim_keyframe.create_keyframe()
+    | ensight.view_transf.rotate(0.0,90.0,0.0)
+    | ensight.anim_keyframe.create_keyframe()
+    | ensight.file.image_format(&quot;envideo&quot;)
+    | ensight.anim_recorders.file_prefix(&quot;./my_animation&quot;)
+    | ensight.anim_recorders.record(&quot;ON&quot;)
+    | ensight.anim_keyframe.run()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.anim_recorders.render_offscreen">
+<description>
+Specifies using hardware assisted offscreen rendering for keyframe animation on platforms that support it.
+
+| This depends on an OpenGL feature called pbuffers.  It is currently supported on SGI platforms.  However, due to bugs in SGI&#x27;s implementation, it can be problematic.  You may need to try different video formats (i.e., use ircombine) to get pbuffer rendering to work correctly.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+    | ensight.anim_keyframe.create_keyframe()
+    | ensight.view_transf.rotate(0.0,90.0,0.0)
+    | ensight.anim_keyframe.create_keyframe()
+    | ensight.file.image_format(&quot;envideo&quot;)
+    | ensight.anim_recorders.file_prefix(&quot;./my_animation&quot;)
+    | ensight.anim_recorders.record(&quot;ON&quot;)
+    | ensight.anim_recorders.render_offscreen(&quot;ON&quot;)
+    | ensight.anim_keyframe.run()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

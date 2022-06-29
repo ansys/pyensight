@@ -1,0 +1,226 @@
+<docstrings>
+<override namespace="ensight.boundarylayer.create_update">
+<description>
+Specify to create or update the boundary-layer variables on the selected 2D part(s).
+
+Examples:
+    | ensight.part.select_begin(2)
+    | ensight.boundarylayer.create_update()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.boundarylayer.density">
+<description>
+Specify the density variable to use in creating/updating the boundary-layer variables.
+
+| This variable gets assigned automatically if the variable name &quot;Density&quot; exists.  Since the computation of separation and attachment lines depend on velocity, either the velocity variable must be defined or both the density and momentum variables must be defined to obtain the velocity variable.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of the density variable (the default name &quot;none&quot; means to use nothing)
+
+Examples:
+    | ensight.boundarylayer.modify_begin()
+    | ensight.boundarylayer.density(&quot;Density&quot;)
+    | ensight.boundarylayer.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.boundarylayer.determine_velocity_by">
+<description>
+Specify how to assign the velocity just outside the boundary layer in calculating the boundary-layer variables.
+
+Args:
+    p0:
+        &#x27;option&#x27;
+
+        * convergence_criteria 
+        * distance_from_surface
+        * velocity_magnitude
+
+Examples:
+    | ensight.boundarylayer.determine_velocity_by(&quot;distance_from_surface&quot;)
+    | ensight.boundarylayer.normal_distance(1.0000e-03)
+    | ensight.part.select_begin(2)
+    | ensight.boundarylayer.create_update()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.boundarylayer.dynamic_viscosity">
+<description>
+Specify the dynamic viscosity constant value or variable name to use in creating/updating the boundary-layer variables.
+
+| The &lt;value&gt; can be multiple types depending on variable definition. This variable is required to compute the fluid shear stress of the fluid for the skin-friction coefficient variable.
+
+Args:
+    p0:
+        &#x27;value&#x27; the scalar field variable name for the dynamic viscosity
+    p1:
+        &#x27;value&#x27; a constant value (default = 1.8300e-05) for the dynamic viscosity
+
+Examples:
+    | ensight.boundarylayer.modify_begin()
+    | ensight.boundarylayer.dynamic_viscosity(1.8300e-05)
+    | ensight.boundarylayer.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.boundarylayer.freestream_density">
+<description>
+Specify the freestream density constant value to use in creating/updating the boundary-layer variables.
+
+| This variable is required to compute the skin-friction coefficient variable.
+
+Args:
+    p0:
+        &#x27;density_value&#x27; constant value (default = 1.) for the freestream density
+
+Examples:
+    | ensight.boundarylayer.modify_begin()
+    | ensight.boundarylayer.freestream_density(9.0000e-01)
+    | ensight.boundarylayer.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.boundarylayer.freestream_velocity">
+<description>
+Specify the freestream velocity constant value to use in creating/updating the boundary-layer variables.
+
+| This variable is required to compute the skin-friction coefficient variable.
+
+Args:
+    p0:
+        &#x27;velocity_value&#x27; a constant value (default = 1.) for the freestream velocity
+
+Examples:
+    | ensight.boundarylayer.modify_begin()
+    | ensight.boundarylayer.freestream_velocity(8.8500e-01)
+    | ensight.boundarylayer.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.boundarylayer.modify_begin">
+<description>
+Specify the execute construct within which to define a dependent variable used in computing the boundary-layer variables.
+
+Args:
+    p0:
+        &#x27;command&#x27; boundary layer variable command to define or update
+
+Examples:
+    | ensight.boundarylayer.modify_begin()
+    | ensight.boundarylayer.freestream_velocity(8.8500e-01)
+    | ensight.boundarylayer.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.boundarylayer.modify_end">
+<description>
+Specify the execute construct within which to define a dependent variable used in computing the boundary-layer variables.
+
+Args:
+    p0:
+        &#x27;command&#x27; boundary layer variable command to define or update
+
+Examples:
+    | ensight.boundarylayer.modify_begin()
+    | ensight.boundarylayer.freestream_velocity(8.8500e-01)
+    | ensight.boundarylayer.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.boundarylayer.momentum">
+<description>
+Specify the momentum variable to use in creating/updating the boundary-layer variables.
+
+| This variable gets assigned automatically if the variable name &lt;momentum&gt; exists. Since the computation of boundary-layer variables depend on velocity, either the velocity variable must be defined or both the density and momentum variables must be defined to obtain the velocity variable.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of the momentum variable (the default name &lt;none&gt; means to use nothing)
+
+Examples:
+    | ensight.boundarylayer.modify_begin()
+    | ensight.boundarylayer.momentum(&quot;none&quot;)
+    | ensight.boundarylayer.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.boundarylayer.normal_distance">
+<description>
+Specify the distance normal from the surface in which to determine the velocity just outside the boundary layer in order to compute the boundary-layer variables at each node on the surface.
+
+| Only used for the boundarylayer: determine_velocity_by distance_from_surface option.
+
+Args:
+    p0:
+        &#x27;distance_value&#x27; distance from the surface at which to compute the velocity just outside the boundary layer
+
+Examples:
+    | ensight.boundarylayer.determine_velocity_by(&quot;distance_from_surface&quot;)
+    | ensight.boundarylayer.normal_distance(1.0000e+00)
+    | ensight.part.select_begin(2)
+    | ensight.boundarylayer.create_update()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.boundarylayer.velocity">
+<description>
+Specify the velocity variable to use in creating/updating the boundary-layer variables.
+
+| This variable gets assigned automatically if the variable name &lt;Velocity&gt; exists. Since the computation of boundary-layer variables depend on velocity, either the velocity variable must be defined or both the density and momentum variables must be defined to obtain the velocity variable.
+
+Args:
+    p0:
+        &#x27;variable_name&#x27; name of the velocity variable (the default name &lt;none&gt; means to use nothing)
+
+Examples:
+    | ensight.boundarylayer.modify_begin()
+    | ensight.boundarylayer.velocity(&quot;Velocity&quot;)
+    | ensight.boundarylayer.modify_end()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.boundarylayer.velocity_magnitude">
+<description>
+Specify the velocity magnitude normal at which to determine the velocity just outside the boundary layer in order to compute the boundary-layer variables at each node on the surface.
+
+| Only used for the boundarylayer: determine_velocity_by distance_from_surface option.
+
+Args:
+    p0:
+        &#x27;velocity_value&#x27; velocity magnitude at which to assign the velocity just outside the boundary layer
+
+Examples:
+    | ensight.boundarylayer.determine_velocity_by(&quot;velocity_magnitude&quot;)
+    | ensight.boundarylayer.velocity_magnitude(1.0000e+00)
+    | ensight.part.select_begin(2)
+    | ensight.boundarylayer.create_update()
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>

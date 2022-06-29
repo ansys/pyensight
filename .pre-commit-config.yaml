@@ -3,57 +3,50 @@ repos:
     rev: v4.3.0
     hooks:
       - id: check-yaml
-        stages: [commit]
       - id: check-added-large-files
-        stages: [commit]
       - id: check-case-conflict
-        stages: [commit]
       - id: debug-statements
-        stages: [commit]
-      - id: no-commit-to-branch
-        stages: [commit]
-        args: [
-          --branch, main,
-          --pattern, release/.*
-        ]
   - repo: https://github.com/psf/black
     rev: 22.3.0
     hooks:
       - id: black
-        stages: [manual]
         args: [ # black ignores files in .gitignore by default
-          --line-length, "100",
-          --target-version, "py37",
-          src/ansys, codegen, doc, tests
+            --line-length, "100",
+            --target-version, "py37",
+            src/ansys, codegen, doc, tests
         ]
   - repo: https://github.com/pycqa/isort
     rev: 5.10.1
     hooks:
       - id: isort
-        stages: [manual]
         args: [
-          --profile, black,
-          --skip-gitignore,
-          --force-sort-within-sections,
-          --line-length, "100",
-          --section-default, THIRDPARTY,
-          --filter-files,
-          --project, ansys,
-          ansys, codegen, doc, tests
+            --profile, black,
+            --skip-gitignore,
+            --force-sort-within-sections,
+            --line-length, "100",
+            --section-default, THIRDPARTY,
+            --filter-files,
+            --project, ansys,
+            ansys, codegen, doc, tests
         ]
   - repo: https://gitlab.com/PyCQA/flake8
     rev: 3.9.2
     hooks:
       - id: flake8
-        stages: [manual]
   - repo: https://github.com/codespell-project/codespell
     rev: v2.1.0
     hooks:
       - id: codespell
-        stages: [manual]
-# - repo: https://github.com/pycqa/pydocstyle
-#   rev: 6.1.1
-#   hooks:
-#   - id: pydocstyle
-#     additional_dependencies: [toml]
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.4
+    hooks:
+      - id: bandit
+        require_serial: true
+        types: [ python ]
+        args: [
+            -lll,
+            -n, "3",
+            -r,
+            -x, "venv/*,src/ansys/api/*,src/ansys/pyensight/ensight_api.py,setup.py,tests/*,codegen/*"
+        ]
 

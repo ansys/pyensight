@@ -1,0 +1,425 @@
+<docstrings>
+<override namespace="ensight.query_interact.#_displayed">
+<description>
+Specifies how many query markers and report lines will be displayed.
+
+| This defines a stack size.  Once full,  the oldest query is popped off the stack.
+
+Args:
+    p0:
+        &#x27;num&#x27; number of queries
+
+Examples:
+    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+    | ensight.query_interact.query(&quot;xyz&quot;)
+    | ensight.query_interact.number_displayed(3)
+    | ensight.query_interact.create(12.0,15.1,10.3)
+    | ensight.query_interact.create(11.0,15.0,10.1)
+    | ensight.query_interact.create(10.0,15.0,10.3)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.query_interact.create">
+<description>
+Creates a query using the current settings.
+
+| The parameters vary based on the type of query being used.  (See query_interact: query)
+| Query is performed at location specified or at closest node if query_interact: search closest_node is specified.
+
+Args:
+    p0:
+        &#x27;&#x27; 
+    p1:
+        &#x27;screen_x&#x27; xy normalized screen coordinates (0.0 to 1.0)
+    p2:
+        &#x27;screen_y&#x27; xy normalized screen coordinates (0.0 to 1.0)
+    p3:
+        &#x27;screen_y&#x27; xy normalized screen coordinates (0.0 to 1.0)
+    p4:
+        &#x27;screen_y&#x27; xy normalized screen coordinates (0.0 to 1.0)
+    p5:
+        &#x27;x_coord&#x27; xyz model coordinates
+    p6:
+        &#x27;y_coord&#x27; xyz model coordinates
+    p7:
+        &#x27;z_coord&#x27; xyz model coordinates
+    p8:
+        &#x27;z_coord&#x27; xyz model coordinates
+    p9:
+        &#x27;z_coord&#x27; xyz model coordinates
+    p10:
+        &#x27;node_id&#x27; node id for query
+    p11:
+        &#x27;node_id&#x27; node id for query
+    p12:
+        &#x27;node_id&#x27; node id for query
+    p13:
+        &#x27;i_coord&#x27; ijk coordinates for query
+    p14:
+        &#x27;j_coord&#x27; ijk coordinates for query
+    p15:
+        &#x27;k_coord&#x27; ijk coordinates for query
+    p16:
+        &#x27;k_coord&#x27; ijk coordinates for query
+    p17:
+        &#x27;k_coord&#x27; ijk coordinates for query
+    p18:
+        &#x27;element_id&#x27; element id for query
+    p19:
+        &#x27;element_id&#x27; element id for query
+    p20:
+        &#x27;element_id&#x27; element id for query
+    p21:
+        &#x27;x_coord&#x27; xyz model coordinates
+    p22:
+        &#x27;y_coord&#x27; xyz model coordinates
+    p23:
+        &#x27;z_coord&#x27; xyz model coordinates
+
+Examples:
+    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+    | ensight.query_interact.query(&quot;xyz&quot;)
+    | ensight.query_interact.create(12.0,15.1,10.3)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.query_interact.display_expansion_factor">
+<description>
+This command has not yet been documented. 
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.query_interact.display_id">
+<description>
+Causes the node located for the query to be reported. 
+
+| This command is used with query_interact: search closest_node to get reporting of the actual node that was used for the query.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+    | ensight.query_interact.query(&quot;cursor&quot;)
+    | ensight.query_interact.search(&quot;closest_node&quot;)
+    | ensight.query_interact.display_id(&quot;ON&quot;)
+    | ensight.query_interact.create(12.0,15.1,10.3)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.query_interact.label_always_on_top">
+<description>
+Causes the label written beside the query marker in the graphics window to be rendered on top of any surface that would normally hide or obscure it.
+
+| This attribute is ON by default. 
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON 
+        * OFF
+
+Examples:
+    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+    | ensight.query_interact.query(&quot;cursor&quot;)
+    | ensight.query_interact.label_always_on_top(&quot;ON&quot;)
+    | ensight.query_interact.create(12.0,15.1,10.3)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.query_interact.label_rgb">
+<description>
+Specifies the RGB color value of the label written next to the query marker in the graphics window.    
+
+Args:
+    p0:
+        &#x27;red_val&#x27; red, green, blue contributions of the color within range of  0.0 to 1.0
+    p1:
+        &#x27;grn_val&#x27; red, green, blue contributions of the color within range of  0.0 to 1.0
+    p2:
+        &#x27;blu_val&#x27; red, green, blue contributions of the color within range of  0.0 to 1.0
+
+Examples:
+    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+    | ensight.query_interact.query(&quot;cursor&quot;)
+    | ensight.query_interact.label_rgb(0,1,1)
+    | ensight.query_interact.create(12.0,15.1,10.3)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.query_interact.label_visible">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.query_interact.marker_rgb">
+<description>
+This command has not yet been documented.
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.query_interact.marker_size_normalized">
+<description>
+Specify the size of a query marker.
+
+| The default marker scale value is 1.0.
+| A size of 1.0 indicates to use the computed size
+| Values &gt;1 scale the computed size larger while values &lt;1 (but &gt;0) shrink the marker.
+
+Args:
+    p0:
+        &#x27;scale&#x27; size of marker
+
+Examples:
+    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+    | # WARNING: following line includes OBSOLETE call (ensight.query_interact.variable).
+    | ensight.query_interact.variable(&quot;pressure&quot;)
+    | ensight.query_interact.query(&quot;cursor&quot;)
+    | ensight.query_interact.label_visible(&quot;OFF&quot;)
+    | ensight.query_interact.marker_size_normalized(0.5)
+    | ensight.query_interact.create(12.0,15.1,10.3)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.query_interact.marker_visible">
+<description>
+Sets the visibility of the query marker in the graphics window.
+
+| Marker visibility is ON by default.
+
+Args:
+    p0:
+        &#x27;toggle&#x27;
+
+        * ON
+        * OFF
+
+Examples:
+    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+    | ensight.query_interact.query(&quot;cursor&quot;)
+    | ensight.query_interact.label_visible(&quot;OFF&quot;)
+    | ensight.query_interact.marker_visible(&quot;OFF&quot;)
+    | ensight.query_interact.create(12.0,15.1,10.3)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.query_interact.query">
+<description>
+Sets the type of query to be performed.
+
+| The exact location of the query, as specified above, may be modified by the query_interact: search command; i.e. if an exact set of coordinates or a cursor position is specified, the actual query may be done at the closest node to this point if query_interact: search closest_node has been specified. 
+
+Args:
+    p0:
+        &#x27;query_type&#x27;
+
+        * may be any of the following values:
+        * surface
+        * cursor
+        * node
+        * ijk
+        * element
+        * xyz
+        * none
+        * min
+        * max
+
+Examples:
+    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+    | ensight.query_interact.query(&quot;cursor&quot;)
+    | ensight.query_interact.search(&quot;closest_node&quot;)
+    | ensight.query_interact.create(12.0,15.1,10.3)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.query_interact.request_method">
+<description>
+Sets the request method for surface pick or cursor-based queries to be on a request or continuous basis.
+
+| In continuous mode, the query will be updated continuously while the mouse or cursor is being moved.
+
+Args:
+    p0:
+        &#x27;method&#x27;
+
+        * may be any of the following values: 
+        * continuous
+        * pick
+
+Examples:
+    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+    | ensight.query_interact.query(&quot;cursor&quot;)
+    | ensight.query_interact.request_method(&quot;pick&quot;)
+    | ensight.query_interact.create(12.0,15.1,10.3)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.query_interact.save">
+<description>
+Specifies the filename into which the Interactive Probe Query Results Table will be saved.
+
+Args:
+    p0:
+        &#x27;filename&#x27; filename to receive the results table information
+
+Examples:
+    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+    | ensight.query_interact.query(&quot;xyz&quot;)
+    | ensight.query_interact.number_displayed(3)
+    | ensight.query_interact.create(12.0,15.1,10.3)
+    | ensight.query_interact.create(11.0,15.0,10.1)
+    | ensight.query_interact.create(10.0,15.0,10.3)
+    | ensight.query_interact.save(&quot;/home/users/me/probe.txt&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.query_interact.search">
+<description>
+Sets the search mode for surface pick or cursor queries.
+
+Args:
+    p0:
+        &#x27;search_mode&#x27;
+
+        * may be any of the following values:
+        * exact
+        * closest_node
+
+Examples:
+    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+    | ensight.query_interact.query(&quot;cursor&quot;)
+    | ensight.query_interact.search(&quot;closest_node&quot;)
+    | ensight.query_interact.create(12.0,15.1,10.3)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.query_interact.select_default">
+<description>
+Causes any following query_interact: commands to affect the default query settings.    
+
+| All query_interact: commands following query_interact: select_default will affect default settings until a new variable is selected to query using
+| query_interact: select_varname_begin.
+
+Examples:
+    | ensight.query_interact.select_default()
+    | ensight.query_interact.marker_visible(&quot;OFF&quot;)
+    | ensight.query_interact.marker_rgb(1,0,0)
+    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.query_interact.select_varname_begin">
+<description>
+Specifies the variables to be queried.
+
+Args:
+    p0:
+        &#x27;varnameN&#x27; names of variables to be queried
+
+Examples:
+    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+    | ensight.sendmesg(r&quot;variable: activate temperature&quot;)
+    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;,&quot;temperature &quot;)
+    | ensight.query_interact.query(&quot;cursor&quot;)
+    | ensight.query_interact.create(12.0,15.1,10.3)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+<override namespace="ensight.query_interact.">
+<description>
+Specifies the variables to be queried.
+
+Args:
+    p0:
+        &#x27;varnameN&#x27; names of variables to be queried
+
+Examples:
+    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+    | ensight.sendmesg(r&quot;variable: activate temperature&quot;)
+    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;,&quot;temperature &quot;)
+    | ensight.query_interact.query(&quot;cursor&quot;)
+    | ensight.query_interact.create(12.0,15.1,10.3)
+
+Returns:
+    zero on success, non-zero on error
+</description>
+</override>
+</docstrings>
