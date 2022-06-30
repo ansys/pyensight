@@ -93,11 +93,12 @@ jobs:
 
       - name: Upload wheel
         if: ${{ !env.ACT }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ansys-pyensight-wheel
           path: dist/
           retention-days: 7
+          if-no-files-found: error
 
   docs:
     name: Build docs
@@ -113,11 +114,11 @@ jobs:
       - name: Install build requirements
         run: pip install -r requirements/build.txt
 
-      - name: Install doc requirements
-        run: pip install -r requirements/docs.txt
-
       - name: Generate EnSight bindings
         run: make generate
+
+      - name: Install doc requirements
+        run: pip install -r requirements/docs.txt
 
       - name: Build HTML
         run: |
@@ -145,7 +146,7 @@ jobs:
   release:
     name: Release
     if: contains(github.ref, 'refs/tags')
-    needs: [ build_and_test, linter, docs ]
+    needs: [ linter, smoketest, build_and_test, docs ]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
@@ -157,7 +158,7 @@ jobs:
 
       - uses: actions/download-artifact@v2
         with:
-          name: ansys-product-library-wheel
+          name: ansys-pyensight-wheel
 
       - uses: actions/download-artifact@v2
         with:
