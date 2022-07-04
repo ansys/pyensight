@@ -1,0 +1,53 @@
+name: Nightly Build
+
+on:
+  schedule:  # UTC at 0400
+    - cron:  '0 4 * * *'
+  workflow_dispatch:
+
+jobs:
+  nightly:
+    name: Nightly build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+
+      - uses: actions/checkout@v3
+        with:
+          ref: 'refs/heads/main'
+
+      - name: Install build requirements
+        run: pip install -r requirements/build.txt
+
+      - name: Create wheel
+        run: make build
+
+      - name: Validate wheel
+        run: twine check dist/*
+
+      - name: Upload to Azure PyPi
+        if: ${{ !env.ACT }}
+        run: twine upload --verbose dist/*
+        env:
+          TWINE_USERNAME: PAT
+          TWINE_PASSWORD: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
+          TWINE_REPOSITORY_URL: ${{ secrets.PRIVATE_PYPI_URL }}
+
+  build-failure:
+    name: Teams notify on failure
+    if: failure()
+    needs: [ nightly ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Microsoft Teams Notification
+        uses: jdcargile/ms-teams-notification@v1.3
+        with:
+          github-token: ${{ github.token }}
+          ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
+          notification-summary: Nightly build failure
+          notification-color: dc3545
+          timezone: America/New_York
