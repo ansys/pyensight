@@ -5,4 +5,10 @@ count = True
 max-complexity = 10
 max-line-length = 100
 statistics = True
-ignore = E203,E501,RST201,RST203,RST301,W503,F821,W605,C901
+ignore =
+  E203, # Whitespace before ':'.
+  E501, # Line too long (82 > 79 characters).
+  W503, # Line break occurred before a binary operator.
+  W605, # Invalid escape sequence
+  F821, # undefined name name
+  C901  # Function is too complex

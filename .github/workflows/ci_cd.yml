@@ -2,6 +2,7 @@ name: GitHub CI
 
 # run only on main branch.  This avoids duplicated actions on PRs
 on:
+  workflow_dispatch:
   pull_request:
   push:
     tags:
@@ -37,7 +38,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ windows-latest, ubuntu-latest ]
+        os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: [ '3.7', '3.8', '3.9', '3.10' ]
 
     steps:
@@ -93,11 +94,12 @@ jobs:
 
       - name: Upload wheel
         if: ${{ !env.ACT }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ansys-pyensight-wheel
           path: dist/
           retention-days: 7
+          if-no-files-found: error
 
   docs:
     name: Build docs
@@ -113,11 +115,11 @@ jobs:
       - name: Install build requirements
         run: pip install -r requirements/build.txt
 
-      - name: Install doc requirements
-        run: pip install -r requirements/docs.txt
-
       - name: Generate EnSight bindings
         run: make generate
+
+      - name: Install doc requirements
+        run: pip install -r requirements/docs.txt
 
       - name: Build HTML
         run: |
@@ -145,7 +147,7 @@ jobs:
   release:
     name: Release
     if: contains(github.ref, 'refs/tags')
-    needs: [ build_and_test, linter, docs ]
+    needs: [ linter, smoketest, build_and_test, docs ]
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
@@ -157,7 +159,7 @@ jobs:
 
       - uses: actions/download-artifact@v2
         with:
-          name: ansys-product-library-wheel
+          name: ansys-pyensight-wheel
 
       - uses: actions/download-artifact@v2
         with:
@@ -212,4 +214,4 @@ jobs:
           ms-teams-webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
           notification-summary: GitHub CI failure - ${{ github.event.pull_request.title }}
           notification-color: dc3545
-          timezone: America/New-York
+          timezone: America/New_York
