@@ -1,7 +1,6 @@
 bump2version>=1.0.1
 ipdb>=0.9.4
 
--r prod.txt
 -r lint.txt
 -r docs.txt
 -r test.txt
