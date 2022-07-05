@@ -27,6 +27,10 @@ install:
 	pip uninstall ansys-ensight -y
 	pip install dist/*.whl
 
+install-dev:
+	pip uninstall ansys-ensight -y
+	pip install -e .
+
 smoketest:
 	python -c "from ansys.pyensight import LocalLauncher, DockerLauncher"
 

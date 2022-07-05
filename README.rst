@@ -5,7 +5,7 @@ PyEnSight
 .. |pyansys| image:: https://img.shields.io/badge/Py-Ansys-ffc107.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAABDklEQVQ4jWNgoDfg5mD8vE7q/3bpVyskbW0sMRUwofHD7Dh5OBkZGBgW7/3W2tZpa2tLQEOyOzeEsfumlK2tbVpaGj4N6jIs1lpsDAwMJ278sveMY2BgCA0NFRISwqkhyQ1q/Nyd3zg4OBgYGNjZ2ePi4rB5loGBhZnhxTLJ/9ulv26Q4uVk1NXV/f///////69du4Zdg78lx//t0v+3S88rFISInD59GqIH2esIJ8G9O2/XVwhjzpw5EAam1xkkBJn/bJX+v1365hxxuCAfH9+3b9/+////48cPuNehNsS7cDEzMTAwMMzb+Q2u4dOnT2vWrMHu9ZtzxP9vl/69RVpCkBlZ3N7enoDXBwEAAA+YYitOilMVAAAAAElFTkSuQmCC
    :target: https://docs.pyansys.com/
 
-.. |python| image:: https://img.shields.io/badge/Python-%3E%3D3.7-blue.svg
+.. |python| image:: https://img.shields.io/badge/python-3.7%20%7C%203.8%20%7C%203.9-informational
    :target: https://nexusdemo.ensight.com/docs/python/html/Python.html
 
 .. |MIT| image:: https://img.shields.io/badge/License-MIT-yellow.svg
@@ -72,17 +72,26 @@ To clone and install in development mode:
    virtualenv venv  # create virtual environment
    source venv/bin/activate  # (.\venv\Scripts\activate for Windows shell)
    pip install -r requirements/dev.txt  # install dependencies
+   make install-dev  # install pyensight in editable mode
 
-To install pyensight:
+Now you can start developing pyensight.
+
+To build and install pyensight:
 
 .. code::
 
    make clean  # clean
    make build   # build
-   make install  # install
+   # this will replace the editable install done previously. If you don't want to replace,
+   # switch your virtual environments to test the new install separately.
+   make install
    make smoketest  # test import
 
+
+Pre-commit setup:
+
 ``pre-commit`` is a multi-language package manager for pre-commit hooks.
+
 
 To install pre-commit into your git hooks, run:
 
@@ -110,6 +119,8 @@ To run individual hooks, use:
 The first time pre-commit runs on a file, it will automatically download, install, and run the hook.
 
 
+Local GitHub actions:
+
 To simulate GitHub Actions on your local desktop (recommended), install `act <https://github.com/nektos/act#readme>`_.
 To run a job, for example - ``docs`` from ``ci_cd.yml``, use:
 
@@ -117,7 +128,7 @@ To run a job, for example - ``docs`` from ``ci_cd.yml``, use:
 
    act -j docs
 
-Deploy and upload steps `must always` be ignored. If not, please add ``if: ${{ !env.ACT }}`` to the workflow step (and commit if required) before running.
+Deploy and upload steps **must always** be ignored. If not, please add ``if: ${{ !env.ACT }}`` to the workflow step (and commit if required) before running.
 
 
 Usage
