@@ -4,7 +4,7 @@ import os
 from setuptools import find_namespace_packages, setup
 
 REQUIREMENTS = [
-    "docker @ git+https://git@github.com/mfkrogh/docker-py@master#egg=docker",
+    "docker>=5.0.3",
     "grpcio_tools>=1.23.0",
     "grpcio>=1.23.0",
     "requests>=2.20.1",
