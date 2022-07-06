@@ -1,8 +1,8 @@
 name: Nightly Build
 
 on:
-  schedule:  # UTC at 0400
-    - cron:  '0 4 * * *'
+  schedule:  # UTC at 0300 - 11pm EDT
+    - cron:  '0 3 * * *'
   workflow_dispatch:
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
         run: pip install -r requirements/build.txt
 
       - name: Create wheel
-        run: make build
+        run: make build-nightly
 
       - name: Validate wheel
         run: twine check dist/*
