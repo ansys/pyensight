@@ -17,10 +17,11 @@ def get_file_text(file_name):
         return in_file.read()
 
 
-version = {}
+_version = {}
 _version_file = os.path.join(curr_dir, "src", "ansys", "pyensight", "_version.py")
 with open(_version_file) as fp:
-    exec(fp.read(), version)
+    exec(fp.read(), _version)
+version = _version["VERSION"]
 
 packages = []
 for package in find_namespace_packages(where="src", include="ansys*"):
@@ -29,7 +30,7 @@ for package in find_namespace_packages(where="src", include="ansys*"):
 
 setup(
     name="ansys-ensight",
-    version=version["VERSION"],
+    version=version,
     description="Python interface to Ansys EnSight",
     long_description=get_file_text("README.rst") + "\n\n" + get_file_text("CHANGELOG.rst"),
     long_description_content_type="text/x-rst",

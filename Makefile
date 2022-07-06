@@ -3,7 +3,7 @@
 CODESPELL_DIRS ?= ./pyensight
 CODESPELL_SKIP ?= "*.pyc,*.xml,*.txt,*.gif,*.png,*.jpg,*.js,*.html,*.doctree,*.ttf,*.woff,*.woff2,*.eot,*.mp4,*.inv,*.pickle,*.ipynb,flycheck*,./.git/*,./.hypothesis/*,*.yml,./docs/build/*,./docs/images/*,./dist/*,*~,.hypothesis*,./docs/source/examples/*,*cover,*.dat,*.mac,\#*,PKG-INFO,*.mypy_cache/*,*.xml,*.aedt,*.svg"
 CODESPELL_IGNORE ?= "ignore_words.txt"
-
+DATE = $(shell date +'%Y%m%d')
 
 doctest: codespell
 
@@ -22,6 +22,11 @@ build:
 	python codegen/generate.py
 	python -m build --wheel
 	rm -rf build
+
+tag-nightly:
+	sed -i 's/version=version/version=version+"$(DATE)"/g' setup.py
+
+build-nightly: tag-nightly build
 
 install:
 	pip uninstall ansys-ensight -y
