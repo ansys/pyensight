@@ -11,4 +11,5 @@ ignore =
   W503, # Line break occurred before a binary operator.
   W605, # Invalid escape sequence
   F821, # undefined name name
-  C901  # Function is too complex
+  C901,  # Function is too complex
+  B904   # https://docs.python.org/3/tutorial/errors.html#exception-chaining for details

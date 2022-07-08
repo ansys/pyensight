@@ -62,7 +62,7 @@ setup(
         "Source Code": "https://github.com/pyansys/pyensight",
     },
     python_requires=">=3.7, <3.10",
-    keywords="py ensight pyensight pyansys ansys",
+    keywords="ensight pyensight pyansys ansys",
     test_suite="tests",
     install_requires=REQUIREMENTS,
 )
