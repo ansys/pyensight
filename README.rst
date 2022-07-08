@@ -144,6 +144,23 @@ The simplest PyEnSight session may be started like this:
    ...    f.write(data)
 
 
+Optionally, PyEnSight can work with an EnSight Docker container like this:
+
+.. code:: python
+
+   >>> from ansys.pyensight import DockerLauncher
+   >>> launcher = DockerLauncher(data_directory="d:\\data", use_dev=True)
+   >>> launcher.pull()
+   >>> session = launcher.start()
+   >>> data = session.render(1920, 1080, aa=4)
+   >>> with open("image.png", "wb") as f:
+   ...    f.write(data)
+
+The data_directory specifies the host directory to map into the container at the mount point /data within
+the container. This provides a method for EnSight running in the container to access the host's file system
+to read or write data.  use_dev=True specifies that the latest development version of EnSight should be used.
+
+
 Dependencies
 ------------
 You will need a locally installed and licensed copy of Ansys to run EnSight, with the
