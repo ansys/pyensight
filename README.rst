@@ -156,9 +156,10 @@ Optionally, PyEnSight can work with an EnSight Docker container like this:
    >>> with open("image.png", "wb") as f:
    ...    f.write(data)
 
-The data_directory specifies the host directory to map into the container at the mount point /data within
+The ``data_directory`` specifies the host directory to map into the container at the mount point /data within
 the container. This provides a method for EnSight running in the container to access the host's file system
-to read or write data.  use_dev=True specifies that the latest development version of EnSight should be used.
+to read or write data.  The optional argument ``use_dev=True`` specifies that the latest development version
+of EnSight should be used.
 
 
 Dependencies
