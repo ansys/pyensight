@@ -99,6 +99,9 @@ class Session:
         s += f"ws_port={self.ws_port}, session_directory=r'{self.launcher.session_directory}')"
         return s
 
+    def __del__(self):
+        self.close()
+
     @property
     def jupyter_notebook(self) -> bool:
         """
