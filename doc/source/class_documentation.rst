@@ -1,5 +1,5 @@
 ***************************
-Generate APIs Documentation
+PyEnSight API Documentation
 ***************************
 
 Autosummary Directive
