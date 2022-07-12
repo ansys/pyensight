@@ -30,14 +30,68 @@ def wheel():
     subprocess.run(cmd)
 
 
+def black():
+    pydir = os.path.dirname(sys.executable)
+    blackexe = os.path.join(pydir, "scripts", "black")
+    print("Running black")
+    cmd = [
+        blackexe,
+        "--line-length",
+        "100",
+        "--target-version",
+        "py37",
+        "--exclude",
+        "src/ansys/pyensight/ensight_api.py",
+        "codegen",
+        "src",
+        "tests",
+        "doc",
+        "pybuild.py",
+        "setup.py",
+    ]
+    subprocess.run(cmd)
+
+
+def isort():
+    pydir = os.path.dirname(sys.executable)
+    isortexe = os.path.join(pydir, "scripts", "isort")
+    print("Running isort")
+    cmd = [
+        isortexe,
+        "--profile",
+        "black",
+        "--skip-gitignore",
+        "--force-sort-within-sections",
+        "--line-length",
+        "100",
+        "--section-default",
+        "THIRDPARTY",
+        "--filter-files",
+        "--project",
+        "ansys",
+        "ansys",
+        "codegen",
+        "doc",
+        "tests",
+    ]
+    subprocess.run(cmd)
+
+
 def clean():
-    paths = ["dist", "build", os.path.join("src", "ansys", "api"),
-             os.path.join("doc", "build"), os.path.join("doc", "source", "_autosummary")]
+    paths = [
+        "dist",
+        "build",
+        os.path.join("src", "ansys", "api"),
+        os.path.join("doc", "build"),
+        os.path.join("doc", "source", "_autosummary"),
+    ]
     for path in paths:
         shutil.rmtree(path, ignore_errors=True)
-    files = [os.path.join("codegen", "ensight.proto"),
-             os.path.join("codegen", "ensight_api.xml"),
-             os.path.join("src", "ansys", "pyensight", "ensight_api.py")]
+    files = [
+        os.path.join("codegen", "ensight.proto"),
+        os.path.join("codegen", "ensight_api.xml"),
+        os.path.join("src", "ansys", "pyensight", "ensight_api.py"),
+    ]
     for file in files:
         try:
             os.remove(file)
@@ -45,37 +99,48 @@ def clean():
             pass
 
 
-if __name__ == '__main__':
-    operation_help = textwrap.dedent('''\
+if __name__ == "__main__":
+    operation_help = textwrap.dedent(
+        """\
 'clean' : Clean build directories.
+'precommit' : Run linting tools.
 'codegen' : Execute the codegen operations.
 'build' : Build the wheel.
 'docs' : Generate documentation.
-'all' : Run codegen, build the wheel and generate documentation.''')
+'all' : Run codegen, build the wheel and generate documentation."""
+    )
 
-    parser = argparse.ArgumentParser(description="Python only build script",
-                                     formatter_class=argparse.RawTextHelpFormatter)
-    parser.add_argument('operation', metavar="operation",
-                        choices=['clean', 'codegen', 'build', 'docs', 'all'],
-                        help=operation_help)
+    parser = argparse.ArgumentParser(
+        description="Python only build script",
+        formatter_class=argparse.RawTextHelpFormatter,
+    )
+    parser.add_argument(
+        "operation",
+        metavar="operation",
+        choices=["clean", "precommit", "codegen", "build", "docs", "all"],
+        help=operation_help,
+    )
 
     # parse the command line
     args = parser.parse_args()
 
-    if args.operation == 'clean':
+    if args.operation == "clean":
         clean()
-    elif args.operation == 'codegen':
+    elif args.operation == "precommit":
+        black()
+        isort()
+    elif args.operation == "codegen":
         generate()
-    elif args.operation == 'build':
-        generate()
-        wheel()
-    elif args.operation == 'docs':
-        generate()
-        docs()
-    elif args.operation == 'all':
+    elif args.operation == "build":
         generate()
         wheel()
+    elif args.operation == "docs":
+        generate()
         docs()
-    elif args.operations == '':
+    elif args.operation == "all":
+        generate()
+        wheel()
+        docs()
+    elif args.operations == "":
         print()
     print("Complete.")
