@@ -225,7 +225,7 @@ class ProcessAPI:
                 # add an instance of the class to the current class
                 s += f"{indent}    self.{name}: '{name}' = {name}(self._session)\n"
                 attributes += f"{indent}    {name}:\n"
-                attributes += f"{indent}        EnSight module instance clas\n"
+                attributes += f"{indent}        EnSight module instance class\n"
             elif child.tag == "method":
                 methods += self._process_method(child, indent=indent)
         s += methods
