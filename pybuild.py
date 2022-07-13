@@ -60,7 +60,12 @@ def isort():
         isortexe,
         "--profile",
         "black",
-        "--skip-gitignore",
+        "--skip-glob",
+        "venv/*",
+        "--extend-skip-glob",
+        "src/ansys/api",
+        "--extend-skip-glob",
+        "src/ansys/pyensight/ensight_api.py",
         "--force-sort-within-sections",
         "--line-length",
         "100",
@@ -69,10 +74,7 @@ def isort():
         "--filter-files",
         "--project",
         "ansys",
-        "ansys",
-        "codegen",
-        "doc",
-        "tests",
+        os.getcwd(),
     ]
     subprocess.run(cmd)
 
