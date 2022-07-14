@@ -99,10 +99,14 @@ class DockerLauncher(pyensight.Launcher):
         except Exception:
             raise RuntimeError(f"Can't pull Docker image: {self._image_name}")
 
-    def start(self) -> "pyensight.Session":
+    def start(self, host: str = "127.0.0.1") -> "pyensight.Session":
         """Start an EnSight session using the local Docker ensight image
         Launch a copy of EnSight in the container that supports the gRPC interface.  Create and
         bind a Session instance to the created gRPC session.  Return that session.
+
+        Args:
+            host:
+                Name of the host on which the EnSight gRPC service is running
 
         Returns:
             pyensight Session object instance
@@ -241,7 +245,7 @@ class DockerLauncher(pyensight.Launcher):
 
         # build the session instance
         session = pyensight.Session(
-            host="127.0.0.1",
+            host=host,
             grpc_port=ports[0],
             html_port=ports[2],
             ws_port=ports[3],
