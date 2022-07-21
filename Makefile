@@ -34,13 +34,18 @@ install-dev:
 	pip uninstall ansys-ensight -y
 	pip install -e .
 
+test:
+	pytest -rvx --setup-show --cov=ansys.pyensight --cov-report html:coverage-html --cov-report term --cov-config=.coveragerc
+
 smoketest:
 	python -c "from ansys.pyensight import LocalLauncher, DockerLauncher"
 
 clean:
 	rm -rf dist build
 	rm -rf src/ansys/api
-	rm -rf src/*.egg-info
+	rm -rf **/*.egg-info
+	rm -rf coverage-html
 	rm -f codegen/ensight.proto
 	rm -f codegen/ensight_api.xml
 	rm -f src/ansys/pyensight/ensight_api.py
+	find . -name \*.pyc -delete
