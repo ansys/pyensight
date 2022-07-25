@@ -114,7 +114,7 @@ class Renderable:
             name += f"'website', 'static', 'website', 'scripts', '{script}')"
             cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
         name = "os.path.join(enve.home(), f'nexus{ceiversion.nexus_suffix}', 'django', "
-        name += f"'website', 'static', 'website', 'content', 'bootstrap.min.css')"
+        name += "'website', 'static', 'website', 'content', 'bootstrap.min.css')"
         cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
         self._session.cmd(cmd, do_eval=False)
         # replace some bits in the HTML

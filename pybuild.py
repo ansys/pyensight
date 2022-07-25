@@ -30,6 +30,16 @@ def wheel():
     subprocess.run(cmd)
 
 
+def flake8():
+    pydir = os.path.dirname(sys.executable)
+    flake8exe = os.path.join(pydir, "scripts", "flake8")
+    print("Running flake8")
+    cmd = [
+        flake8exe,
+    ]
+    subprocess.run(cmd)
+
+
 def black():
     pydir = os.path.dirname(sys.executable)
     blackexe = os.path.join(pydir, "scripts", "black")
@@ -131,6 +141,7 @@ if __name__ == "__main__":
     elif args.operation == "precommit":
         black()
         isort()
+        flake8()
     elif args.operation == "codegen":
         generate()
     elif args.operation == "build":
