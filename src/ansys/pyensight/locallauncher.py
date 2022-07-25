@@ -35,8 +35,11 @@ class LocalLauncher(pyensight.Launcher):
             "envision" is also available.
 
     Examples:
-        >>> from ansys.pyensight import LocalLauncher
-        >>> session = LocalLauncher(ansys_installation='/ansys_inc/v222').start()
+        ::
+
+            from ansys.pyensight import LocalLauncher
+            session = LocalLauncher(ansys_installation='/ansys_inc/v222').start()
+
     """
 
     def __init__(
