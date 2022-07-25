@@ -5,6 +5,7 @@ via HTML over the websocketserver interface.
 """
 import os
 from typing import Optional
+import uuid
 
 
 class Renderable:
@@ -46,7 +47,7 @@ class Renderable:
         url = f"http://{self._session.hostname}:{self._session.html_port}/{url}"
         return filename, url
 
-    def _wrap_with_page(self, html: str, filename: str, url: str, suffix: str):
+    def _wrap_with_page(self, html: str, filename: str, url: str, suffix: str) -> str:
         """Create an HTML webpage on the remote host
 
         Given a snippet of HTML and the parameters passed to _generate_filename,
@@ -71,13 +72,58 @@ class Renderable:
         """
         # save "html" into a file on the remote server with filename .html
         remote_html_filename = filename.replace(suffix, ".html")
-        print("remote_html_filename=", remote_html_filename)
 
         cmd = f'open(r"""{remote_html_filename}""", "w").write("""{html}""")'
         self._session.grpc.command(cmd, do_eval=False)
         return url.replace(suffix, ".html")
 
-    def image(self, width: Optional[int], height: Optional[int], aa: int = 1):
+    def deep_pixel(self, width: Optional[int], height: Optional[int], aa: int = 1) -> str:
+        """Render a deep pixel iframe
+
+        Render a deep pixel image on the EnSight host system and make it available via
+        a webpage.
+
+        Args:
+            width:
+                The width of the image
+            height:
+                The height of the image
+            aa:
+                Number of antialiasing passes to use
+
+        Returns:
+            A URL to a webpage containing the image content
+        """
+        filename, url = self._generate_filename(".tif")
+        guid = str(uuid.uuid1()).replace("-", "")
+        # save the image file
+        if width is None:
+            width = 1920
+        if height is None:
+            height = 1080
+        deep = "enhanced=1"
+        cmd = f'ensight.render({width},{height},num_samples={aa},{deep}).save(r"""{filename}""")'
+        self._session.cmd(cmd)
+        html_source = os.path.join(os.path.dirname(__file__), "deep_pixel_view.html")
+        with open(html_source, "r") as fp:
+            html = fp.read()
+        # copy some files from Nexus
+        cmd = "import shutil, enve, ceiversion, os.path\n"
+        for script in ["jquery-3.4.1.min.js", "geotiff.js", "geotiff_nexus.js", "bootstrap.min.js"]:
+            name = "os.path.join(enve.home(), f'nexus{ceiversion.nexus_suffix}', 'django', "
+            name += f"'website', 'static', 'website', 'scripts', '{script}')"
+            cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
+        name = "os.path.join(enve.home(), f'nexus{ceiversion.nexus_suffix}', 'django', "
+        name += "'website', 'static', 'website', 'content', 'bootstrap.min.css')"
+        cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
+        self._session.cmd(cmd, do_eval=False)
+        # replace some bits in the HTML
+        html = html.replace("TIFF_URL", url)
+        html = html.replace("ITEMID", guid)
+        # save the HTML
+        return self._wrap_with_page(html, filename, url, ".tif")
+
+    def image(self, width: Optional[int], height: Optional[int], aa: int = 1) -> str:
         """Render an image iframe
 
         Render an image on the EnSight host system and make it available via
@@ -107,7 +153,7 @@ class Renderable:
         html = f'<img src="/{url_path}">\n'
         return self._wrap_with_page(html, filename, url, ".png")
 
-    def webgl(self):
+    def webgl(self) -> str:
         """Render a webgl iframe
 
         Render an AVZ file on the EnSight host system and make it available via
@@ -128,7 +174,7 @@ class Renderable:
         html += f"<ansys-nexus-viewer src='/{url_path}'></ansys-nexus-viewer>\n"
         return self._wrap_with_page(html, filename, url, ".avz")
 
-    def vnc(self):
+    def vnc(self) -> str:
         """Generate an HTML page to access the VNC renderer
 
         Generate a URL that can be used to connect to the EnSight VNC remote image renderer.

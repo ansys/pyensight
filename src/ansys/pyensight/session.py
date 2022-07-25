@@ -8,6 +8,7 @@ Examples:
     >>> type(session)
     ansys.pyensight.Session
 """
+import time
 from typing import Any, Callable, Optional
 from urllib.parse import urlparse
 import webbrowser
@@ -91,7 +92,14 @@ class Session:
         self._grpc = ensight_grpc.EnSightGRPC(
             host=self._hostname, port=self._grpc_port, secret_key=self._secret_key
         )
-        self._grpc.connect()
+
+        # update the enums to match current EnSight instance
+        cmd = "{key: getattr(ensight.objs.enums, key) for key in dir(ensight.objs.enums)}"
+        new_enums = self.cmd(cmd)
+        for key, value in new_enums.items():
+            if key.startswith("__") and (key != "__OBJID__"):
+                continue
+            setattr(self._ensight.objs.enums, key, value)
 
     def __repr__(self):
         s = f"Session(host='{self.hostname}', secret_key='{self.secret_key}', "
@@ -101,6 +109,15 @@ class Session:
 
     def __del__(self):
         self.close()
+
+    def _establish_connection(self, timeout: float = 120.0) -> None:
+        """Establish a gRPC connection to the EnSight instance."""
+        time_start = time.time()
+        while time.time() - time_start < timeout:
+            if self._grpc.is_connected():
+                return
+            self._grpc.connect()
+        raise RuntimeError("Unable to establish a gRPC connection to EnSight.")
 
     @property
     def jupyter_notebook(self) -> bool:
@@ -186,6 +203,7 @@ class Session:
         * 'image' is a simple rendered png image
         * 'webgl' is an interactive webgl-based browser viewer
         * 'remote' is a remote rendering based interactive EnSight viewer
+        * 'deepimage' is an EnSight deep pixel image
 
         Args:
             what:
@@ -203,6 +221,7 @@ class Session:
             RuntimeError:
                 if it is not possible to generate the content
         """
+        self._establish_connection()
         if self._html_port is None:
             raise RuntimeError("No websocketserver has been associated with this Session")
 
@@ -214,6 +233,8 @@ class Session:
             url = render.webgl()
         elif what == "remote":
             url = render.vnc()
+        elif what == "deep_pixel":
+            url = render.deep_pixel(width, height, aa=1)
 
         if url is None:
             raise RuntimeError("Unable to generate requested visualization")
@@ -244,6 +265,7 @@ class Session:
             >>> print(session.cmd("10+4"))
             14
         """
+        self._establish_connection()
         return self._grpc.command(value, do_eval=do_eval)
 
     def geometry(self, what: str = "glb") -> bytes:
@@ -260,6 +282,7 @@ class Session:
             >>> with open("file.glb", "wb") as fp:
             ...     fp.write(data)
         """
+        self._establish_connection()
         return self._grpc.geometry()
 
     def render(self, width: int, height: int, aa: int = 1) -> bytes:
@@ -278,6 +301,7 @@ class Session:
             >>> with open("file.png", "wb") as fp:
             ...     fp.write(data)
         """
+        self._establish_connection()
         return self._grpc.render(width=width, height=height, aa=aa)
 
     def close(self) -> None:
@@ -326,6 +350,7 @@ class Session:
             >>> session = LocalLauncher().start()
             >>> session.load_data(r'D:\data\CFX\example_data.res')
         """
+        self._establish_connection()
         # what application are we talking to?
         target = self.cmd("ensight.version('product').lower()")
         if target == "envision":
@@ -415,8 +440,7 @@ class Session:
             ...         session.ensight.objs.enums.HEIGHT], vp_callback)
             ...
         """
-        if not self._grpc.is_connected():
-            raise RuntimeError("No gRPC connection established.")
+        self._establish_connection()
         # shorten the tag up to the query block.  Macros only legal in the query block
         try:
             idx = tag.index("?")
