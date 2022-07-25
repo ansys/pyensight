@@ -26,6 +26,11 @@ class Session:
     class methods, but if the EnSight session is already running, an instance can be
     created directly to wrap the running EnSight.
 
+    If the session object was created via a Launcher .start() method call, when the
+    session object is garbage collected, the EnSight instance will be automatically stopped.
+    To prevent this behavior (and leave the EnSight instance running), set the
+    halt_ensight_on_close property to False.
+
     A gRPC connection is required to interact with an EnSight session. The host, grpc
     port number and secret key must be specified.  The html and ws ports are used to
     enable the show() method and require an instance of websocketserver to be running
@@ -46,11 +51,16 @@ class Session:
             Shared session secret used to validate gRPC communication
 
     Examples:
-        >>> from ansys.pyensight import Session
-        >>> session = Session(host="127.0.0.1", grpc_port=12345, http_port=8000, ws_port=8100)
+        ::
 
-        >>> from ansys.pyensight import LocalLauncher
-        >>> session = LocalLauncher(ansys_installation='/opt/ansys_inc/v222').start()
+            from ansys.pyensight import Session
+            session = Session(host="127.0.0.1", grpc_port=12345, http_port=8000, ws_port=8100)
+
+        ::
+
+            from ansys.pyensight import LocalLauncher
+            session = LocalLauncher().start()
+
     """
 
     def __init__(
@@ -70,6 +80,7 @@ class Session:
         self._ws_port = ws_port
         self._secret_key = secret_key
         self._grpc_port = grpc_port
+        self._halt_ensight_on_close = True
         self._callbacks = dict()
         # if the caller passed a session directory we will assume they are
         # creating effectively a proxy Session and create a lacu
@@ -120,6 +131,20 @@ class Session:
         raise RuntimeError("Unable to establish a gRPC connection to EnSight.")
 
     @property
+    def halt_ensight_on_close(self) -> bool:
+        """
+        If True and this session was created via a launcher, then when the session
+        is closed, the EnSight instance will be stopped.  Note: while this flag prevents
+        close() from shutting down EnSight, depending on how the host Python interpreter
+        is configured, the EnSight session may still be halted (e.g. Jupyter Lab).
+        """
+        return self._halt_ensight_on_close
+
+    @halt_ensight_on_close.setter
+    def halt_ensight_on_close(self, value: bool) -> None:
+        self._halt_ensight_on_close = value
+
+    @property
     def jupyter_notebook(self) -> bool:
         """
         True if the session is running in a jupyter notebook and should use
@@ -128,7 +153,7 @@ class Session:
         return self._jupyter_notebook
 
     @jupyter_notebook.setter
-    def jupyter_notebook(self, value: bool):
+    def jupyter_notebook(self, value: bool) -> None:
         self._jupyter_notebook = value
 
     @property
@@ -186,7 +211,7 @@ class Session:
 
     @staticmethod
     def help():
-        """Open the help pages for the pyansys project"""
+        """Open the help pages for the pyansys project in a webbrowser"""
         url = "https://furry-waffle-422870de.pages.github.io/"
         webbrowser.open(url)
 
@@ -203,7 +228,7 @@ class Session:
         * 'image' is a simple rendered png image
         * 'webgl' is an interactive webgl-based browser viewer
         * 'remote' is a remote rendering based interactive EnSight viewer
-        * 'deepimage' is an EnSight deep pixel image
+        * 'deep_pixel' is an EnSight deep pixel image
 
         Args:
             what:
@@ -278,9 +303,12 @@ class Session:
             the generated geometry file as a bytes object
 
         Examples:
-            >>> data = session.geometry()
-            >>> with open("file.glb", "wb") as fp:
-            ...     fp.write(data)
+            ::
+
+                data = session.geometry()
+                with open("file.glb", "wb") as fp:
+                    fp.write(data)
+
         """
         self._establish_connection()
         return self._grpc.geometry()
@@ -297,9 +325,12 @@ class Session:
             a bytes object that is a PNG image stream
 
         Examples:
-            >>> data = session.render(1920, 1080, aa=4)
-            >>> with open("file.png", "wb") as fp:
-            ...     fp.write(data)
+            ::
+
+                data = session.render(1920, 1080, aa=4)
+                with open("file.png", "wb") as fp:
+                    fp.write(data)
+
         """
         self._establish_connection()
         return self._grpc.render(width=width, height=height, aa=aa)
@@ -309,7 +340,7 @@ class Session:
 
         Terminate the current session and its gRPC connection.
         """
-        if self._launcher:
+        if self._launcher and self._halt_ensight_on_close:
             self._launcher.close(self)
         else:
             # lightweight shutdown, just close the gRPC connection
@@ -346,9 +377,12 @@ class Session:
                 data is being read.
 
         Examples:
-            >>> from ansys.pyensight import LocalLauncher
-            >>> session = LocalLauncher().start()
-            >>> session.load_data(r'D:\data\CFX\example_data.res')
+            ::
+
+                from ansys.pyensight import LocalLauncher
+                session = LocalLauncher().start()
+                session.load_data(r'D:\data\CFX\example_data.res')
+
         """
         self._establish_connection()
         # what application are we talking to?
@@ -419,26 +453,32 @@ class Session:
                 is False, every event will result in a callback.
 
         Examples:
-            >>> from ansys.pyensight import LocalLauncher
-            >>> s = LocalLauncher().start()
-            >>> def cb(v: str):
-            ...  print("Event:", v)
-            ...
-            >>> s.add_callback("ensight.objs.core", "partlist", ["PARTS"], cb)
-            >>> s.load_data(r"D:\ANSYSDev\data\CFX\HeatingCoil_001.res")
-            Event: grpc://f6f74dae-f0ed-11ec-aa58-381428170733/partlist?enum=PARTS&uid=221
+            A string like this:
+            'Event: grpc://f6f74dae-f0ed-11ec-aa58-381428170733/partlist?enum=PARTS&uid=221'
+            will be printed when the dataset is loaded and the partlist changes::
 
-            >>> from urllib.parse import urlparse, parse_qsl
-            >>> def vp_callback(uri):
-            ...     p = urlparse(uri)
-            ...     q = parse_qsl(p.query)
-            ...     print("Viewport:", q)
-            ...
-            >>> tag = "vport?w={{WIDTH}}&h={{HEIGHT}}&x={{ORIGINX}}&y={{ORIGINY}}"
-            >>> session.add_callback("'ENS_VPORT'", tag, [session.ensight.objs.enums.ORIGINX,
-            ...         session.ensight.objs.enums.ORIGINY, session.ensight.objs.enums.WIDTH,
-            ...         session.ensight.objs.enums.HEIGHT], vp_callback)
-            ...
+                from ansys.pyensight import LocalLauncher
+                s = LocalLauncher().start()
+                def cb(v: str):
+                    print("Event:", v)
+
+                s.add_callback("ensight.objs.core", "partlist", ["PARTS"], cb)
+                s.load_data(r"D:\ANSYSDev\data\CFX\HeatingCoil_001.res")
+
+
+            ::
+
+                from urllib.parse import urlparse, parse_qsl
+                def vp_callback(uri):
+                    p = urlparse(uri)
+                    q = parse_qsl(p.query)
+                    print("Viewport:", q)
+
+                tag = "vport?w={{WIDTH}}&h={{HEIGHT}}&x={{ORIGINX}}&y={{ORIGINY}}"
+                session.add_callback("'ENS_VPORT'", tag, [session.ensight.objs.enums.ORIGINX,
+                        session.ensight.objs.enums.ORIGINY, session.ensight.objs.enums.WIDTH,
+                        session.ensight.objs.enums.HEIGHT], vp_callback)
+
         """
         self._establish_connection()
         # shorten the tag up to the query block.  Macros only legal in the query block
