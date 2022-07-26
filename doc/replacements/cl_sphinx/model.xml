@@ -59,15 +59,17 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.model.ijk_axis).
-    | ensight.model.ijk_axis(&quot;ON&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.model.ijk_axis_scale).
-    | ensight.model.ijk_axis_scale(1.0000e+00)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.model.ijk_axis).
+        ensight.model.ijk_axis(&quot;ON&quot;)
+        ensight.part.modify_end()
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.model.ijk_axis_scale).
+        ensight.model.ijk_axis_scale(1.0000e+00)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -82,15 +84,17 @@ Args:
         &#x27;scale_value&#x27; scale factor
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.model.ijk_axis).
-    | ensight.model.ijk_axis(&quot;ON&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.model.ijk_axis_scale).
-    | ensight.model.ijk_axis_scale(1.0000e+00)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.model.ijk_axis).
+        ensight.model.ijk_axis(&quot;ON&quot;)
+        ensight.part.modify_end()
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.model.ijk_axis_scale).
+        ensight.model.ijk_axis_scale(1.0000e+00)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -111,31 +115,33 @@ Args:
         &#x27;val3&#x27; I, J, K stride
 
 Examples:
-    | # partial load a structured Plot3D part
-    | ensight.data_partbuild.data_type(&quot;structured&quot;)
-    | ensight.data_partbuild.select_begin(1)
-    | ensight.data_partbuild.domain(&quot;all&quot;)
-    | ensight.data_partbuild.noderange_i(1,40)
-    | ensight.data_partbuild.noderange_j(1,63)
-    | ensight.data_partbuild.noderange_k(1,45)
-    | ensight.data_partbuild.nodestep(10,1,1)
-    | ensight.data_partbuild.nodedelta(0,0,0)
-    | ensight.data_partbuild.description(&quot;partial grid&quot;)
-    | ensight.data_partbuild.create()
-    | ensight.data_partbuild.end()
-    | ensight.part.select_all()
-    | ensight.part.modify_begin()
-    | # load every other i coordinate
-    | ensight.model.noderangestep_i(1,40,2)
-    | ensight.model.noderangestep_j(1,63,1)
-    | ensight.model.noderangestep_k(1,45,1)
-    | ensight.part.modify_end()
-    | ensight.part.modify_begin()
-    | # load all i coordinates
-    | ensight.model.noderangestep_i(1,80,1)
-    | ensight.model.noderangestep_j(1,63,1)
-    | ensight.model.noderangestep_k(1,45,1)
-    | ensight.part.modify_end()
+    ::
+
+        # partial load a structured Plot3D part
+        ensight.data_partbuild.data_type(&quot;structured&quot;)
+        ensight.data_partbuild.select_begin(1)
+        ensight.data_partbuild.domain(&quot;all&quot;)
+        ensight.data_partbuild.noderange_i(1,40)
+        ensight.data_partbuild.noderange_j(1,63)
+        ensight.data_partbuild.noderange_k(1,45)
+        ensight.data_partbuild.nodestep(10,1,1)
+        ensight.data_partbuild.nodedelta(0,0,0)
+        ensight.data_partbuild.description(&quot;partial grid&quot;)
+        ensight.data_partbuild.create()
+        ensight.data_partbuild.end()
+        ensight.part.select_all()
+        ensight.part.modify_begin()
+        # load every other i coordinate
+        ensight.model.noderangestep_i(1,40,2)
+        ensight.model.noderangestep_j(1,63,1)
+        ensight.model.noderangestep_k(1,45,1)
+        ensight.part.modify_end()
+        ensight.part.modify_begin()
+        # load all i coordinates
+        ensight.model.noderangestep_i(1,80,1)
+        ensight.model.noderangestep_j(1,63,1)
+        ensight.model.noderangestep_k(1,45,1)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -156,31 +162,33 @@ Args:
         &#x27;val3&#x27; I, J, K stride
 
 Examples:
-    | # partial load a structured Plot3D part
-    | ensight.data_partbuild.data_type(&quot;structured&quot;)
-    | ensight.data_partbuild.select_begin(1)
-    | ensight.data_partbuild.domain(&quot;all&quot;)
-    | ensight.data_partbuild.noderange_i(1,40)
-    | ensight.data_partbuild.noderange_j(1,63)
-    | ensight.data_partbuild.noderange_k(1,45)
-    | ensight.data_partbuild.nodestep(10,1,1)
-    | ensight.data_partbuild.nodedelta(0,0,0)
-    | ensight.data_partbuild.description(&quot;partial grid&quot;)
-    | ensight.data_partbuild.create()
-    | ensight.data_partbuild.end()
-    | ensight.part.select_all()
-    | ensight.part.modify_begin()
-    | # load every other i coordinate
-    | ensight.model.noderangestep_i(1,40,2)
-    | ensight.model.noderangestep_j(1,63,1)
-    | ensight.model.noderangestep_k(1,45,1)
-    | ensight.part.modify_end()
-    | ensight.part.modify_begin()
-    | # load all i coordinates
-    | ensight.model.noderangestep_i(1,80,1)
-    | ensight.model.noderangestep_j(1,63,1)
-    | ensight.model.noderangestep_k(1,45,1)
-    | ensight.part.modify_end()
+    ::
+
+        # partial load a structured Plot3D part
+        ensight.data_partbuild.data_type(&quot;structured&quot;)
+        ensight.data_partbuild.select_begin(1)
+        ensight.data_partbuild.domain(&quot;all&quot;)
+        ensight.data_partbuild.noderange_i(1,40)
+        ensight.data_partbuild.noderange_j(1,63)
+        ensight.data_partbuild.noderange_k(1,45)
+        ensight.data_partbuild.nodestep(10,1,1)
+        ensight.data_partbuild.nodedelta(0,0,0)
+        ensight.data_partbuild.description(&quot;partial grid&quot;)
+        ensight.data_partbuild.create()
+        ensight.data_partbuild.end()
+        ensight.part.select_all()
+        ensight.part.modify_begin()
+        # load every other i coordinate
+        ensight.model.noderangestep_i(1,40,2)
+        ensight.model.noderangestep_j(1,63,1)
+        ensight.model.noderangestep_k(1,45,1)
+        ensight.part.modify_end()
+        ensight.part.modify_begin()
+        # load all i coordinates
+        ensight.model.noderangestep_i(1,80,1)
+        ensight.model.noderangestep_j(1,63,1)
+        ensight.model.noderangestep_k(1,45,1)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -201,31 +209,33 @@ Args:
         &#x27;val3&#x27; I, J, K stride
 
 Examples:
-    | # partial load a structured Plot3D part
-    | ensight.data_partbuild.data_type(&quot;structured&quot;)
-    | ensight.data_partbuild.select_begin(1)
-    | ensight.data_partbuild.domain(&quot;all&quot;)
-    | ensight.data_partbuild.noderange_i(1,40)
-    | ensight.data_partbuild.noderange_j(1,63)
-    | ensight.data_partbuild.noderange_k(1,45)
-    | ensight.data_partbuild.nodestep(10,1,1)
-    | ensight.data_partbuild.nodedelta(0,0,0)
-    | ensight.data_partbuild.description(&quot;partial grid&quot;)
-    | ensight.data_partbuild.create()
-    | ensight.data_partbuild.end()
-    | ensight.part.select_all()
-    | ensight.part.modify_begin()
-    | # load every other i coordinate
-    | ensight.model.noderangestep_i(1,40,2)
-    | ensight.model.noderangestep_j(1,63,1)
-    | ensight.model.noderangestep_k(1,45,1)
-    | ensight.part.modify_end()
-    | ensight.part.modify_begin()
-    | # load all i coordinates
-    | ensight.model.noderangestep_i(1,80,1)
-    | ensight.model.noderangestep_j(1,63,1)
-    | ensight.model.noderangestep_k(1,45,1)
-    | ensight.part.modify_end()
+    ::
+
+        # partial load a structured Plot3D part
+        ensight.data_partbuild.data_type(&quot;structured&quot;)
+        ensight.data_partbuild.select_begin(1)
+        ensight.data_partbuild.domain(&quot;all&quot;)
+        ensight.data_partbuild.noderange_i(1,40)
+        ensight.data_partbuild.noderange_j(1,63)
+        ensight.data_partbuild.noderange_k(1,45)
+        ensight.data_partbuild.nodestep(10,1,1)
+        ensight.data_partbuild.nodedelta(0,0,0)
+        ensight.data_partbuild.description(&quot;partial grid&quot;)
+        ensight.data_partbuild.create()
+        ensight.data_partbuild.end()
+        ensight.part.select_all()
+        ensight.part.modify_begin()
+        # load every other i coordinate
+        ensight.model.noderangestep_i(1,40,2)
+        ensight.model.noderangestep_j(1,63,1)
+        ensight.model.noderangestep_k(1,45,1)
+        ensight.part.modify_end()
+        ensight.part.modify_begin()
+        # load all i coordinates
+        ensight.model.noderangestep_i(1,80,1)
+        ensight.model.noderangestep_j(1,63,1)
+        ensight.model.noderangestep_k(1,45,1)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -238,38 +248,40 @@ Sets default attribute values for model parts
 | model commands that follow this one set default values for new model parts loaded at a latter time during the current session.
 
 Examples:
-    | ensight.model.select_default()
-    | ensight.part.modify_begin()
-    | ensight.part.bounding_rep(&quot;points&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.model.ijk_axis).
-    | ensight.model.ijk_axis(&quot;ON&quot;)
-    | ensight.part.modify_end()
-    | ensight.data.binary_files_are(&quot;big_endian&quot;)
-    | ensight.data.format(&quot;plot3d&quot;)
-    | ensight.data.plot3diblank(&quot;OFF&quot;)
-    | ensight.data.plot3dmulti_zone(&quot;OFF&quot;)
-    | ensight.data.plot3dread_as(&quot;c_binary&quot;)
-    | ensight.data.plot3ddimension(&quot;3d&quot;)
-    | ensight.data.path(&quot;/usr/local/bin/ensight92/data/e7data/plot3d&quot;)
-    | ensight.data.geometry(&quot;shuttle.xyz&quot;)
-    | ensight.data.result(&quot;shuttle.q&quot;)
-    | ensight.data_partbuild.begin()
-    | ensight.data.read()
-    | ensight.data_partbuild.data_type(&quot;structured&quot;)
-    | ensight.data_partbuild.select_begin(1)
-    | ensight.data_partbuild.domain(&quot;all&quot;)
-    | ensight.data_partbuild.noderange_i(1,80)
-    | ensight.data_partbuild.noderange_j(1,63)
-    | ensight.data_partbuild.noderange_k(1,45)
-    | ensight.data_partbuild.nodestep(1,1,1)
-    | ensight.data_partbuild.nodedelta(0,0,0)
-    | ensight.data_partbuild.description(&quot;&quot;)
-    | ensight.data_partbuild.create()
-    | ensight.data_partbuild.end()
-    | ensight.view_transf.rotate(-2.848098,21.765417,0.000000)
-    | ensight.view_transf.function(&quot;global&quot;)
+    ::
+
+        ensight.model.select_default()
+        ensight.part.modify_begin()
+        ensight.part.bounding_rep(&quot;points&quot;)
+        ensight.part.modify_end()
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.model.ijk_axis).
+        ensight.model.ijk_axis(&quot;ON&quot;)
+        ensight.part.modify_end()
+        ensight.data.binary_files_are(&quot;big_endian&quot;)
+        ensight.data.format(&quot;plot3d&quot;)
+        ensight.data.plot3diblank(&quot;OFF&quot;)
+        ensight.data.plot3dmulti_zone(&quot;OFF&quot;)
+        ensight.data.plot3dread_as(&quot;c_binary&quot;)
+        ensight.data.plot3ddimension(&quot;3d&quot;)
+        ensight.data.path(&quot;/usr/local/bin/ensight92/data/e7data/plot3d&quot;)
+        ensight.data.geometry(&quot;shuttle.xyz&quot;)
+        ensight.data.result(&quot;shuttle.q&quot;)
+        ensight.data_partbuild.begin()
+        ensight.data.read()
+        ensight.data_partbuild.data_type(&quot;structured&quot;)
+        ensight.data_partbuild.select_begin(1)
+        ensight.data_partbuild.domain(&quot;all&quot;)
+        ensight.data_partbuild.noderange_i(1,80)
+        ensight.data_partbuild.noderange_j(1,63)
+        ensight.data_partbuild.noderange_k(1,45)
+        ensight.data_partbuild.nodestep(1,1,1)
+        ensight.data_partbuild.nodedelta(0,0,0)
+        ensight.data_partbuild.description(&quot;&quot;)
+        ensight.data_partbuild.create()
+        ensight.data_partbuild.end()
+        ensight.view_transf.rotate(-2.848098,21.765417,0.000000)
+        ensight.view_transf.function(&quot;global&quot;)
 
 Returns:
     zero on success, non-zero on error

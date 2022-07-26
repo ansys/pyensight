@@ -10,8 +10,10 @@ Args:
         &#x27;value&#x27; time in seconds
 
 Examples:
-    | ensight.command.delay_refresh(&quot;OFF&quot;)
-    | ensight.command.delay(2)
+    ::
+
+        ensight.command.delay_refresh(&quot;OFF&quot;)
+        ensight.command.delay(2)
 
 Returns:
     zero on success, non-zero on error
@@ -33,16 +35,18 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # Save time by not drawing the image after each command 
-    | #
-    | ensight.command.delay_refresh(&quot;ON&quot;)
-    | # 
-    | # Other commands to set up the animation 
-    | # 
-    | # restore graphics updates 
-    | #
-    | ensight.command.delay_refresh(&quot;OFF&quot;)
+    ::
+
+        #
+        # Save time by not drawing the image after each command 
+        #
+        ensight.command.delay_refresh(&quot;ON&quot;)
+        # 
+        # Other commands to set up the animation 
+        # 
+        # restore graphics updates 
+        #
+        ensight.command.delay_refresh(&quot;OFF&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -78,25 +82,27 @@ Args:
         * name
 
 Examples:
-    | #
-    | # Turn visibility of part
-    | # number 2 off
-    | #
-    | ensight.command.part_selection_by(&quot;number&quot;)
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.part.visible(&quot;OFF&quot;)
-    | ensight.part.modify_end()
-    | ensight.command.part_selection_by(&quot;name&quot;)
-    | #
-    | # Turn visibility of part named &quot;external flow field&quot;
-    | # off
-    | #
-    | # WARNING: following line includes OBSOLETE call (ensight.part.select_partname_begin).
-    | ensight.part.select_partname_begin(&quot;external flow field&quot;)
-    | ensight.part.modify_begin()
-    | ensight.part.visible(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Turn visibility of part
+        # number 2 off
+        #
+        ensight.command.part_selection_by(&quot;number&quot;)
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.part.visible(&quot;OFF&quot;)
+        ensight.part.modify_end()
+        ensight.command.part_selection_by(&quot;name&quot;)
+        #
+        # Turn visibility of part named &quot;external flow field&quot;
+        # off
+        #
+        # WARNING: following line includes OBSOLETE call (ensight.part.select_partname_begin).
+        ensight.part.select_partname_begin(&quot;external flow field&quot;)
+        ensight.part.modify_begin()
+        ensight.part.visible(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error

@@ -11,8 +11,10 @@ Args:
         * OFF
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.animate_curves(&quot;ON&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.animate_curves(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -27,8 +29,10 @@ Args:
         &#x27;width&#x27; specifies the width in pixels and can be any value from  1 to 4
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_linewidth(2)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_linewidth(2)
 
 Returns:
     zero on success, non-zero on error
@@ -47,11 +51,13 @@ Args:
         &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | #
-    | # Set the plot axis to blue
-    | #
-    | ensight.plot.axis_rgb(0,0,1)
+    ::
+
+        ensight.plot.select_begin(1)
+        #
+        # Set the plot axis to blue
+        #
+        ensight.plot.axis_rgb(0,0,1)
 
 Returns:
     zero on success, non-zero on error
@@ -70,8 +76,10 @@ Args:
         * must be either x or y
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_swap_minmax(&quot;x&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_swap_minmax(&quot;x&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -109,9 +117,11 @@ Args:
         * tick
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_gridtype(&quot;tick&quot;)
-    | ensight.plot.axis_y_gridtype(&quot;grid&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_gridtype(&quot;tick&quot;)
+        ensight.plot.axis_y_gridtype(&quot;grid&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -133,9 +143,11 @@ Args:
         * tick
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_gridtype(&quot;tick&quot;)
-    | ensight.plot.axis_y_gridtype(&quot;grid&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_gridtype(&quot;tick&quot;)
+        ensight.plot.axis_y_gridtype(&quot;grid&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -150,9 +162,11 @@ Args:
         &#x27;format&#x27; may be any valid C language print format string
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_labelformat(&quot;%.2e&quot;)
-    | ensight.plot.axis_y_labelformat(&quot;%.3e&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_labelformat(&quot;%.2e&quot;)
+        ensight.plot.axis_y_labelformat(&quot;%.3e&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -167,9 +181,11 @@ Args:
         &#x27;format&#x27; may be any valid C language print format string
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_labelformat(&quot;%.2e&quot;)
-    | ensight.plot.axis_y_labelformat(&quot;%.3e&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_labelformat(&quot;%.2e&quot;)
+        ensight.plot.axis_y_labelformat(&quot;%.3e&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -188,9 +204,11 @@ Args:
         &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0.
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_labelrgb(0,0,1)
-    | ensight.plot.axis_y_labelrgb(1,0,0)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_labelrgb(0,0,1)
+        ensight.plot.axis_y_labelrgb(1,0,0)
 
 Returns:
     zero on success, non-zero on error
@@ -209,9 +227,11 @@ Args:
         &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0.
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_labelrgb(0,0,1)
-    | ensight.plot.axis_y_labelrgb(1,0,0)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_labelrgb(0,0,1)
+        ensight.plot.axis_y_labelrgb(1,0,0)
 
 Returns:
     zero on success, non-zero on error
@@ -226,9 +246,11 @@ Args:
         &#x27;size&#x27; label text size; can be any value from 1 to 100.0, with a value of one specifying the smallest text and 100 the largest.
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_labelsize(10)
-    | ensight.plot.axis_y_labelsize(10)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_labelsize(10)
+        ensight.plot.axis_y_labelsize(10)
 
 Returns:
     zero on success, non-zero on error
@@ -243,9 +265,11 @@ Args:
         &#x27;size&#x27; label text size; can be any value from 1 to 100.0, with a value of one specifying the smallest text and 100 the largest.
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_labelsize(10)
-    | ensight.plot.axis_y_labelsize(10)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_labelsize(10)
+        ensight.plot.axis_y_labelsize(10)
 
 Returns:
     zero on success, non-zero on error
@@ -267,9 +291,11 @@ Args:
         * beg_end
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_labeltype(&quot;none&quot;)
-    | ensight.plot.axis_y_labeltype(&quot;beg_end&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_labeltype(&quot;none&quot;)
+        ensight.plot.axis_y_labeltype(&quot;beg_end&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -291,9 +317,11 @@ Args:
         * beg_end
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_labeltype(&quot;none&quot;)
-    | ensight.plot.axis_y_labeltype(&quot;beg_end&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_labeltype(&quot;none&quot;)
+        ensight.plot.axis_y_labeltype(&quot;beg_end&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -308,9 +336,11 @@ Args:
         &#x27;max&#x27; max label number on the axis; can be any valid floating-point value
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_max(9.5)
-    | ensight.plot.axis_y_max(5.3)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_max(9.5)
+        ensight.plot.axis_y_max(5.3)
 
 Returns:
     zero on success, non-zero on error
@@ -325,9 +355,11 @@ Args:
         &#x27;max&#x27; max label number on the axis; can be any valid floating-point value
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_max(9.5)
-    | ensight.plot.axis_y_max(5.3)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_max(9.5)
+        ensight.plot.axis_y_max(5.3)
 
 Returns:
     zero on success, non-zero on error
@@ -342,9 +374,11 @@ Args:
         &#x27;min&#x27; min label number on the axis; can be any valid floating-point value
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_min(1.5)
-    | ensight.plot.axis_y_min(1.5)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_min(1.5)
+        ensight.plot.axis_y_min(1.5)
 
 Returns:
     zero on success, non-zero on error
@@ -359,9 +393,11 @@ Args:
         &#x27;min&#x27; min label number on the axis; can be any valid floating-point value
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_min(1.5)
-    | ensight.plot.axis_y_min(1.5)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_min(1.5)
+        ensight.plot.axis_y_min(1.5)
 
 Returns:
     zero on success, non-zero on error
@@ -376,9 +412,11 @@ Args:
         &#x27;num&#x27; number of grid lines along the axis; can be any whole number
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_numgrid(10)
-    | ensight.plot.axis_y_numgrid(6)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_numgrid(10)
+        ensight.plot.axis_y_numgrid(6)
 
 Returns:
     zero on success, non-zero on error
@@ -393,9 +431,11 @@ Args:
         &#x27;num&#x27; number of grid lines along the axis; can be any whole number
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_numgrid(10)
-    | ensight.plot.axis_y_numgrid(6)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_numgrid(10)
+        ensight.plot.axis_y_numgrid(6)
 
 Returns:
     zero on success, non-zero on error
@@ -412,10 +452,11 @@ Args:
         &#x27;num&#x27; number of subgrid lines (or ticks) to be used between grid lines along an axis; can be any whole number
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_numsubgrid(2)
-    | ensight.plot.axis_y_numsubgrid(1)
+    ::
 
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_numsubgrid(2)
+        ensight.plot.axis_y_numsubgrid(1)
 
 Returns:
     zero on success, non-zero on error
@@ -432,10 +473,11 @@ Args:
         &#x27;num&#x27; number of subgrid lines (or ticks) to be used between grid lines along an axis; can be any whole number
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_numsubgrid(2)
-    | ensight.plot.axis_y_numsubgrid(1)
+    ::
 
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_numsubgrid(2)
+        ensight.plot.axis_y_numsubgrid(1)
 
 Returns:
     zero on success, non-zero on error
@@ -452,9 +494,11 @@ Args:
         &#x27;origin&#x27; x or y location of origin within the plotter; range is the normalized values 0.0 to 1.0
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_origin(0.25)
-    | ensight.plot.axis_y_origin(0.18)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_origin(0.25)
+        ensight.plot.axis_y_origin(0.18)
 
 Returns:
     zero on success, non-zero on error
@@ -471,9 +515,11 @@ Args:
         &#x27;origin&#x27; x or y location of origin within the plotter; range is the normalized values 0.0 to 1.0
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_origin(0.25)
-    | ensight.plot.axis_y_origin(0.18)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_origin(0.25)
+        ensight.plot.axis_y_origin(0.18)
 
 Returns:
     zero on success, non-zero on error
@@ -494,9 +540,11 @@ Args:
         * logarithmic
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_scale(&quot;logarithmic&quot;)
-    | ensight.plot.axis_y_scale(&quot;linear&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_scale(&quot;logarithmic&quot;)
+        ensight.plot.axis_y_scale(&quot;linear&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -517,9 +565,11 @@ Args:
         * logarithmic
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_scale(&quot;logarithmic&quot;)
-    | ensight.plot.axis_y_scale(&quot;linear&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_scale(&quot;logarithmic&quot;)
+        ensight.plot.axis_y_scale(&quot;linear&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -541,9 +591,11 @@ Args:
         * tick
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_sgridtype(&quot;tick&quot;)
-    | ensight.plot.axis_y_sgridtype(&quot;grid&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_sgridtype(&quot;tick&quot;)
+        ensight.plot.axis_y_sgridtype(&quot;grid&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -565,9 +617,11 @@ Args:
         * tick
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_sgridtype(&quot;tick&quot;)
-    | ensight.plot.axis_y_sgridtype(&quot;grid&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_sgridtype(&quot;tick&quot;)
+        ensight.plot.axis_y_sgridtype(&quot;grid&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -598,9 +652,11 @@ Args:
         &#x27;title&#x27; x/y axis title
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_title(&quot;Time in Seconds&quot;)
-    | ensight.plot.axis_y_title(&quot;Pressure&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_title(&quot;Time in Seconds&quot;)
+        ensight.plot.axis_y_title(&quot;Pressure&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -615,9 +671,11 @@ Args:
         &#x27;title&#x27; x/y axis title
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_title(&quot;Time in Seconds&quot;)
-    | ensight.plot.axis_y_title(&quot;Pressure&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_title(&quot;Time in Seconds&quot;)
+        ensight.plot.axis_y_title(&quot;Pressure&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -636,9 +694,11 @@ Args:
         &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_titlergb(0,0,1)
-    | ensight.plot.axis_y_titlergb(0,1,0)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_titlergb(0,0,1)
+        ensight.plot.axis_y_titlergb(0,1,0)
 
 Returns:
     zero on success, non-zero on error
@@ -657,9 +717,11 @@ Args:
         &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_titlergb(0,0,1)
-    | ensight.plot.axis_y_titlergb(0,1,0)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_titlergb(0,0,1)
+        ensight.plot.axis_y_titlergb(0,1,0)
 
 Returns:
     zero on success, non-zero on error
@@ -674,9 +736,11 @@ Args:
         &#x27;size&#x27; axis title text size; can be any value from 1 to 100.0, with a value of one specifying the smallest text and 100 the largest.
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_titlesize(10)
-    | ensight.plot.axis_y_titlesize(12)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_titlesize(10)
+        ensight.plot.axis_y_titlesize(12)
 
 Returns:
     zero on success, non-zero on error
@@ -691,9 +755,11 @@ Args:
         &#x27;size&#x27; axis title text size; can be any value from 1 to 100.0, with a value of one specifying the smallest text and 100 the largest.
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_titlesize(10)
-    | ensight.plot.axis_y_titlesize(12)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_titlesize(10)
+        ensight.plot.axis_y_titlesize(12)
 
 Returns:
     zero on success, non-zero on error
@@ -713,9 +779,11 @@ Args:
         * OFF
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_visible(&quot;OFF&quot;)
-    | ensight.plot.axis_y_visible(&quot;ON&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_visible(&quot;OFF&quot;)
+        ensight.plot.axis_y_visible(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -735,9 +803,11 @@ Args:
         * OFF
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.axis_x_visible(&quot;OFF&quot;)
-    | ensight.plot.axis_y_visible(&quot;ON&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.axis_x_visible(&quot;OFF&quot;)
+        ensight.plot.axis_y_visible(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -758,8 +828,10 @@ Args:
         &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.background_rgb(0,0,1)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.background_rgb(0,0,1)
 
 Returns:
     zero on success, non-zero on error
@@ -780,8 +852,10 @@ Args:
         * solid
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.background_type(&quot;solid&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.background_type(&quot;solid&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -802,8 +876,10 @@ Args:
         &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.border_rgb(0,0,1)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.border_rgb(0,0,1)
 
 Returns:
     zero on success, non-zero on error
@@ -824,8 +900,10 @@ Args:
         * OFF
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.border_visible(&quot;ON&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.border_visible(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -836,8 +914,10 @@ Returns:
 Deletes the currently selected plot(s).
 
 Examples:
-    | ensight.plot.select_begin(1,2,3)
-    | ensight.plot.delete_plot()
+    ::
+
+        ensight.plot.select_begin(1,2,3)
+        ensight.plot.delete_plot()
 
 Returns:
     zero on success, non-zero on error
@@ -875,8 +955,10 @@ Args:
         * dash
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.grid_linetype(&quot;solid&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.grid_linetype(&quot;solid&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -891,8 +973,10 @@ Args:
         &#x27;width&#x27; specifies the line width in pixels of the grid lines, and can be any value from 1 to 4
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.grid_linewidth(2)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.grid_linewidth(2)
 
 Returns:
     zero on success, non-zero on error
@@ -911,8 +995,10 @@ Args:
         &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.grid_rgb(0,0,1)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.grid_rgb(0,0,1)
 
 Returns:
     zero on success, non-zero on error
@@ -929,9 +1015,11 @@ Args:
         &#x27;height&#x27; height of plot viewport in normalized coordinates, namely any value between 0 and 1.0, with a value of one corresponding to the height of the graphics window
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.width(0.5)
-    | ensight.plot.height(0.4)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.width(0.5)
+        ensight.plot.height(0.4)
 
 Returns:
     zero on success, non-zero on error
@@ -1008,8 +1096,10 @@ Args:
         &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.legend_rgb(0,0,1)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.legend_rgb(0,0,1)
 
 Returns:
     zero on success, non-zero on error
@@ -1024,8 +1114,10 @@ Args:
         &#x27;size&#x27; size of legend text; any value from 1 to 100.0, with a value of one specifying the smallest text and 100 the largest
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.legend_textsize(10)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.legend_textsize(10)
 
 Returns:
     zero on success, non-zero on error
@@ -1045,8 +1137,10 @@ Args:
         * OFF
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.legend_visible(&quot;OFF&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.legend_visible(&quot;OFF&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -1071,9 +1165,11 @@ Args:
         &#x27;coord&#x27; normalized coordinate of lower left corner of the plot viewport. A value of 0.0 indicates the left/bottom side of the window, while a value of 1.0 indicates the right/top side.
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.origin_x(0.5)
-    | ensight.plot.origin_y(0.5)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.origin_x(0.5)
+        ensight.plot.origin_y(0.5)
 
 Returns:
     zero on success, non-zero on error
@@ -1090,9 +1186,11 @@ Args:
         &#x27;coord&#x27; normalized coordinate of lower left corner of the plot viewport. A value of 0.0 indicates the left/bottom side of the window, while a value of 1.0 indicates the right/top side.
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.origin_x(0.5)
-    | ensight.plot.origin_y(0.5)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.origin_x(0.5)
+        ensight.plot.origin_y(0.5)
 
 Returns:
     zero on success, non-zero on error
@@ -1107,8 +1205,10 @@ Args:
         &#x27;title&#x27; plot title
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.plot_title(&quot;My Plot Title&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.plot_title(&quot;My Plot Title&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -1119,8 +1219,10 @@ Returns:
 Selects all of the plots in the graphics window as the target for future plot: commands.
 
 Examples:
-    | ensight.plot.select_all()
-    | ensight.plot.delete_plot()
+    ::
+
+        ensight.plot.select_all()
+        ensight.plot.delete_plot()
 
 Returns:
     zero on success, non-zero on error
@@ -1135,8 +1237,10 @@ Args:
         &#x27;indexN&#x27; plot number (zero based). Up to 10 numbers per line are allowed, but as many lines as needed can be used
 
 Examples:
-    | ensight.plot.select_begin(1,2)
-    | ensight.plot.delete_plot()
+    ::
+
+        ensight.plot.select_begin(1,2)
+        ensight.plot.delete_plot()
 
 Returns:
     zero on success, non-zero on error
@@ -1151,8 +1255,10 @@ Args:
         &#x27;indexN&#x27; plot number (zero based). Up to 10 numbers per line are allowed, but as many lines as needed can be used
 
 Examples:
-    | ensight.plot.select_begin(1,2)
-    | ensight.plot.delete_plot()
+    ::
+
+        ensight.plot.select_begin(1,2)
+        ensight.plot.delete_plot()
 
 Returns:
     zero on success, non-zero on error
@@ -1165,9 +1271,11 @@ Returns:
 | All plot: commands following plot: select_default will affect default settings until a new plot is selected using plot: select_begin/select_end.
 
 Examples:
-    | ensight.plot.select_default()
-    | ensight.plot.visible(&quot;OFF&quot;)
-    | ensight.plot.select_begin(1)
+    ::
+
+        ensight.plot.select_default()
+        ensight.plot.visible(&quot;OFF&quot;)
+        ensight.plot.select_begin(1)
 
 Returns:
     zero on success, non-zero on error
@@ -1189,8 +1297,10 @@ Args:
         * dash
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.subgrid_linetype(&quot;solid&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.subgrid_linetype(&quot;solid&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -1205,8 +1315,10 @@ Args:
         &#x27;width&#x27; the line width in pixels for subgrid lines (or tics); can be any value from 1 to 4
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.subgrid_linewidth(2)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.subgrid_linewidth(2)
 
 Returns:
     zero on success, non-zero on error
@@ -1226,12 +1338,14 @@ Args:
         * OFF
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.animate_curves(&quot;ON&quot;)
-    | ensight.plot.time_marker(&quot;ON&quot;)
-    | ensight.plot.time_marker_rgb(1.0,1.0,0.0)
-    | ensight.plot.time_marker_style(&quot;dotted&quot;)
-    | ensight.plot.time_marker_width(2)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.animate_curves(&quot;ON&quot;)
+        ensight.plot.time_marker(&quot;ON&quot;)
+        ensight.plot.time_marker_rgb(1.0,1.0,0.0)
+        ensight.plot.time_marker_style(&quot;dotted&quot;)
+        ensight.plot.time_marker_width(2)
 
 Returns:
     zero on success, non-zero on error
@@ -1252,12 +1366,14 @@ Args:
         &#x27;blu_val&#x27; red, green, blue contributions of the color (0.0 to 1.0)
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.animate_curves(&quot;ON&quot;)
-    | ensight.plot.time_marker(&quot;ON&quot;)
-    | ensight.plot.time_marker_rgb(1.0,1.0,0.0)
-    | ensight.plot.time_marker_style(&quot;dotted&quot;)
-    | ensight.plot.time_marker_width(2)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.animate_curves(&quot;ON&quot;)
+        ensight.plot.time_marker(&quot;ON&quot;)
+        ensight.plot.time_marker_rgb(1.0,1.0,0.0)
+        ensight.plot.time_marker_style(&quot;dotted&quot;)
+        ensight.plot.time_marker_width(2)
 
 Returns:
     zero on success, non-zero on error
@@ -1278,12 +1394,14 @@ Args:
         * dash
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.animate_curves(&quot;ON&quot;)
-    | ensight.plot.time_marker(&quot;ON&quot;)
-    | ensight.plot.time_marker_rgb(1.0,1.0,0.0)
-    | ensight.plot.time_marker_style(&quot;dotted&quot;)
-    | ensight.plot.time_marker_width(2)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.animate_curves(&quot;ON&quot;)
+        ensight.plot.time_marker(&quot;ON&quot;)
+        ensight.plot.time_marker_rgb(1.0,1.0,0.0)
+        ensight.plot.time_marker_style(&quot;dotted&quot;)
+        ensight.plot.time_marker_width(2)
 
 Returns:
     zero on success, non-zero on error
@@ -1308,12 +1426,14 @@ Args:
         &#x27;width&#x27; number of pixels in width of the marker line
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.animate_curves(&quot;ON&quot;)
-    | ensight.plot.time_marker(&quot;ON&quot;)
-    | ensight.plot.time_marker_rgb(1.0,1.0,0.0)
-    | ensight.plot.time_marker_style(&quot;dotted&quot;)
-    | ensight.plot.time_marker_width(2)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.animate_curves(&quot;ON&quot;)
+        ensight.plot.time_marker(&quot;ON&quot;)
+        ensight.plot.time_marker_rgb(1.0,1.0,0.0)
+        ensight.plot.time_marker_style(&quot;dotted&quot;)
+        ensight.plot.time_marker_width(2)
 
 Returns:
     zero on success, non-zero on error
@@ -1332,8 +1452,10 @@ Args:
         &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.subgrid_rgb(0,0,1)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.subgrid_rgb(0,0,1)
 
 Returns:
     zero on success, non-zero on error
@@ -1352,8 +1474,10 @@ Args:
         &#x27;blu_val&#x27; red, green, blue color components, must be between 0.0 and 1.0
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.title_rgb(0,0,1)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.title_rgb(0,0,1)
 
 Returns:
     zero on success, non-zero on error
@@ -1368,8 +1492,10 @@ Args:
         &#x27;size&#x27; size of title text; any value from 1 to 100.0, with a value of one specifying the smallest text and 100 the largest 
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.title_textsize(10)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.title_textsize(10)
 
 Returns:
     zero on success, non-zero on error
@@ -1389,8 +1515,10 @@ Args:
         * OFF
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.visible(&quot;OFF&quot;)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.visible(&quot;OFF&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -1405,9 +1533,11 @@ Args:
         &#x27;width&#x27; width of plot viewport in normalized coordinates, namely any value between 0 and 1.0, with a value of 1.0 corresponding to the width of the graphics window
 
 Examples:
-    | ensight.plot.select_begin(1)
-    | ensight.plot.width(0.5)
-    | ensight.plot.height(0.4)
+    ::
+
+        ensight.plot.select_begin(1)
+        ensight.plot.width(0.5)
+        ensight.plot.height(0.4)
 
 Returns:
     zero on success, non-zero on error

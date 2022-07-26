@@ -14,6 +14,14 @@ Delimit the modifications for iso-surface attributes
 | These commands are used to set the attributes for a isosurface part creation.
 
 Examples:
+    ::
+
+        ensight.isos.begin()
+        ensight.isos.variable(&quot;temperature&quot;)
+        ensight.isos.value(1.1)
+        ensight.isos.type(&quot;isosurface&quot;)
+        ensight.isos.end()
+        ensight.isos.create()
 
 Returns:
     zero on success, non-zero on error
@@ -26,6 +34,14 @@ Delimit the modifications for iso-surface attributes
 | These commands are used to set the attributes for a isosurface part creation.
 
 Examples:
+    ::
+
+        ensight.isos.begin()
+        ensight.isos.variable(&quot;temperature&quot;)
+        ensight.isos.value(1.1)
+        ensight.isos.type(&quot;isosurface&quot;)
+        ensight.isos.end()
+        ensight.isos.create()
 
 Returns:
     zero on success, non-zero on error
@@ -49,14 +65,15 @@ Args:
         &#x27;z_scale&#x27; factor to scale the x, y, z components of the vector
 
 Examples:
-    | # WARNING: following line includes OBSOLETE call (ensight.variables.select_varname_begin).
-    | ensight.variables.select_varname_begin(&quot;Stress&quot;,&quot;variables: select_varname_end&quot;,&quot;function: save /usr/tmp/mystress.pal&quot;,&quot;variables: select_varname_begin&quot;,&quot;Density&quot;,&quot;Energy&quot;,&quot;variables: select_varname_end&quot;,&quot;function: save /usr/tmp/myshuttlescalars.pal&quot;,&quot;function: save_all /usr/tmp/allmy.pal&quot;,&quot;function: save_current_case /usr/tmp/allmy.pal&quot;,&quot;function: palette N_temperature&quot;,&quot;function: type continuous&quot;,&quot;function: modify_begin&quot;,&quot;function: scale quadratic&quot;,&quot;function: edit_level 2&quot;,&quot;function: value 1.9373e+00&quot;,&quot;function: edit_level 3&quot;,&quot;function: value 7.7191e+00&quot;,&quot;function: edit_level 4&quot;,&quot;function: value 1.7356e+01&quot;,&quot;function: edit_level 5&quot;,&quot;function: value 3.0846e+01&quot;,&quot;function: edit_level 6&quot;,&quot;function: value 4.8192e+01&quot;,&quot;function: modify_end&quot;,&quot;function: select_default&quot;,&quot;function: #_of_levels 4&quot;,&quot;function: modify_begin&quot;,&quot;function: edit_level 1&quot;,&quot;function: value 1.0000e-02&quot;,&quot;function: edit_level 2&quot;,&quot;function: value 1.6071e+01&quot;,&quot;function: edit_level 3&quot;,&quot;function: value 3.2131e+01&quot;,&quot;function: edit_level 4&quot;,&quot;function: value 4.8192e+01&quot;,&quot;function: modify_end&quot;,&quot;function: set_palette_to_minmax&quot;,&quot;function: palette N_temperature&quot;,&quot;function: type banded&quot;,&quot;function: palette N_temperature&quot;,&quot;function: modify_begin&quot;,&quot;function: #_of_levels 6&quot;,&quot;function: edit_level 2&quot;,&quot;function: value 9.6464e+00&quot;,&quot;function: edit_level 3&quot;,&quot;function: value 1.9283e+01&quot;,&quot;function: edit_level 4&quot;,&quot;function: value 2.8919e+01&quot;,&quot;function: edit_level 5&quot;,&quot;function: value 3.8556e+01&quot;,&quot;function: edit_level 6&quot;,&quot;function: value 4.8192e+01&quot;,&quot;function: edit_level 1&quot;,&quot;function: RGB 5.0000e-01 0.0000e+00 1.0000e+00&quot;,&quot;function: edit_level 2&quot;,&quot;function: RGB 0.0000e+00 0.0000e+00 1.0000e+00&quot;,&quot;function: edit_level 3&quot;,&quot;function: RGB 0.0000e+00 1.0000e+00 1.0000e+00&quot;,&quot;function: edit_level 4&quot;,&quot;function: RGB 0.0000e+00 1.0000e+00 0.0000e+00&quot;,&quot;function: edit_level 5&quot;,&quot;function: RGB 1.0000e+00 1.0000e+00 0.0000e+00&quot;,&quot;function: edit_level 6&quot;,&quot;function: RGB 1.0000e+00 0.0000e+00 0.0000e+00&quot;,&quot;function: modify_end&quot;,&quot;isos: begin&quot;,&quot;isos: variable temperature&quot;,&quot;isos: value 1.1&quot;,&quot;isos: type isosurface&quot;,&quot;isos: end&quot;,&quot;isos: create&quot;,&quot;isos: begin&quot;,&quot;isos: variable temperature&quot;,&quot;isos: value 1.1&quot;,&quot;isos: type isosurface&quot;,&quot;isos: end&quot;,&quot;isos: create&quot;,&quot;part: select_begin&quot;,&quot; 3&quot;)
-    | #
-    | # Use the y_component of the vector
-    | #
-    | ensight.part.modify_begin()
-    | ensight.isos.component(0,1,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(3)
+        #
+        # Use the y_component of the vector
+        #
+        ensight.part.modify_begin()
+        ensight.isos.component(0,1,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -77,14 +94,16 @@ Args:
         * band
 
 Examples:
-    | ensight.isos.begin()
-    | ensight.isos.variable(&quot;temperature&quot;)
-    | ensight.isos.type(&quot;isovolume&quot;)
-    | ensight.isos.constraint(&quot;band&quot;)
-    | ensight.isos.min(1.)
-    | ensight.isos.max(2.)
-    | ensight.isos.end()
-    | ensight.isos.create()
+    ::
+
+        ensight.isos.begin()
+        ensight.isos.variable(&quot;temperature&quot;)
+        ensight.isos.type(&quot;isovolume&quot;)
+        ensight.isos.constraint(&quot;band&quot;)
+        ensight.isos.min(1.)
+        ensight.isos.max(2.)
+        ensight.isos.end()
+        ensight.isos.create()
 
 Returns:
     zero on success, non-zero on error
@@ -98,14 +117,16 @@ Create a isosurface part with the currently defined attributes using  the curren
 | The isosurface part is created using the currently set isosurface attributes.
 
 Examples:
-    | ensight.isos.begin()
-    | ensight.isos.variable(&quot;temperature&quot;)
-    | ensight.isos.type(&quot;isovolume&quot;)
-    | ensight.isos.constraint(&quot;band&quot;)
-    | ensight.isos.min(1.)
-    | ensight.isos.max(2.)
-    | ensight.isos.end()
-    | ensight.isos.create()
+    ::
+
+        ensight.isos.begin()
+        ensight.isos.variable(&quot;temperature&quot;)
+        ensight.isos.type(&quot;isovolume&quot;)
+        ensight.isos.constraint(&quot;band&quot;)
+        ensight.isos.min(1.)
+        ensight.isos.max(2.)
+        ensight.isos.end()
+        ensight.isos.create()
 
 Returns:
     zero on success, non-zero on error
@@ -122,14 +143,16 @@ Args:
         &#x27;delta&#x27; the delta value between multiple instances of an isosurface.
 
 Examples:
-    | ensight.isos.begin()
-    | ensight.isos.variable(&quot;temperature&quot;)
-    | ensight.isos.type(&quot;isosurface&quot;)
-    | ensight.isos.create_delta(0.5)
-    | ensight.isos.number_to_create(10)
-    | ensight.isos.value(1.76)
-    | ensight.isos.end()
-    | ensight.isos.create()
+    ::
+
+        ensight.isos.begin()
+        ensight.isos.variable(&quot;temperature&quot;)
+        ensight.isos.type(&quot;isosurface&quot;)
+        ensight.isos.create_delta(0.5)
+        ensight.isos.number_to_create(10)
+        ensight.isos.value(1.76)
+        ensight.isos.end()
+        ensight.isos.create()
 
 Returns:
     zero on success, non-zero on error
@@ -146,11 +169,13 @@ Args:
         &#x27;delta&#x27; delta value that will be added to the isosurface value for each refresh of the screen
 
 Examples:
-    | ensight.part.select_begin(3)
-    | ensight.isos.interactive_type(&quot;auto&quot;)
-    | ensight.isos.interactive_rangemin(0.)
-    | ensight.isos.interactive_rangemax(5.)
-    | ensight.isos.interactive_auto_delta(.5)
+    ::
+
+        ensight.part.select_begin(3)
+        ensight.isos.interactive_type(&quot;auto&quot;)
+        ensight.isos.interactive_rangemin(0.)
+        ensight.isos.interactive_rangemax(5.)
+        ensight.isos.interactive_auto_delta(.5)
 
 Returns:
     zero on success, non-zero on error
@@ -169,11 +194,13 @@ Args:
         &#x27;max_range&#x27; maximum isosurface value when displaying interactive
 
 Examples:
-    | ensight.part.select_begin(3)
-    | ensight.isos.interactive_type(&quot;auto&quot;)
-    | ensight.isos.interactive_rangemin(0.)
-    | ensight.isos.interactive_rangemax(5.)
-    | ensight.isos.interactive_auto_delta(.5)
+    ::
+
+        ensight.part.select_begin(3)
+        ensight.isos.interactive_type(&quot;auto&quot;)
+        ensight.isos.interactive_rangemin(0.)
+        ensight.isos.interactive_rangemax(5.)
+        ensight.isos.interactive_auto_delta(.5)
 
 Returns:
     zero on success, non-zero on error
@@ -192,11 +219,13 @@ Args:
         &#x27;max_range&#x27; maximum isosurface value when displaying interactive
 
 Examples:
-    | ensight.part.select_begin(3)
-    | ensight.isos.interactive_type(&quot;auto&quot;)
-    | ensight.isos.interactive_rangemin(0.)
-    | ensight.isos.interactive_rangemax(5.)
-    | ensight.isos.interactive_auto_delta(.5)
+    ::
+
+        ensight.part.select_begin(3)
+        ensight.isos.interactive_type(&quot;auto&quot;)
+        ensight.isos.interactive_rangemin(0.)
+        ensight.isos.interactive_rangemax(5.)
+        ensight.isos.interactive_auto_delta(.5)
 
 Returns:
     zero on success, non-zero on error
@@ -218,11 +247,13 @@ Args:
         * auto_cycle
 
 Examples:
-    | ensight.part.select_begin(3)
-    | ensight.isos.interactive_type(&quot;auto&quot;)
-    | ensight.isos.interactive_rangemin(0.)
-    | ensight.isos.interactive_rangemax(5.)
-    | ensight.isos.interactive_auto_delta(.5)
+    ::
+
+        ensight.part.select_begin(3)
+        ensight.isos.interactive_type(&quot;auto&quot;)
+        ensight.isos.interactive_rangemin(0.)
+        ensight.isos.interactive_rangemax(5.)
+        ensight.isos.interactive_auto_delta(.5)
 
 Returns:
     zero on success, non-zero on error
@@ -241,14 +272,16 @@ Args:
         &#x27;max_value&#x27; maximum iso constraint
 
 Examples:
-    | ensight.isos.begin()
-    | ensight.isos.variable(&quot;temperature&quot;)
-    | ensight.isos.type(&quot;isovolume&quot;)
-    | ensight.isos.constraint(&quot;band&quot;)
-    | ensight.isos.min(1.)
-    | ensight.isos.max(2.)
-    | ensight.isos.end()
-    | ensight.isos.create()
+    ::
+
+        ensight.isos.begin()
+        ensight.isos.variable(&quot;temperature&quot;)
+        ensight.isos.type(&quot;isovolume&quot;)
+        ensight.isos.constraint(&quot;band&quot;)
+        ensight.isos.min(1.)
+        ensight.isos.max(2.)
+        ensight.isos.end()
+        ensight.isos.create()
 
 Returns:
     zero on success, non-zero on error
@@ -267,14 +300,16 @@ Args:
         &#x27;max_value&#x27; maximum iso constraint
 
 Examples:
-    | ensight.isos.begin()
-    | ensight.isos.variable(&quot;temperature&quot;)
-    | ensight.isos.type(&quot;isovolume&quot;)
-    | ensight.isos.constraint(&quot;band&quot;)
-    | ensight.isos.min(1.)
-    | ensight.isos.max(2.)
-    | ensight.isos.end()
-    | ensight.isos.create()
+    ::
+
+        ensight.isos.begin()
+        ensight.isos.variable(&quot;temperature&quot;)
+        ensight.isos.type(&quot;isovolume&quot;)
+        ensight.isos.constraint(&quot;band&quot;)
+        ensight.isos.min(1.)
+        ensight.isos.max(2.)
+        ensight.isos.end()
+        ensight.isos.create()
 
 Returns:
     zero on success, non-zero on error
@@ -291,14 +326,16 @@ Args:
         &#x27;instances&#x27; number of instances to create.
 
 Examples:
-    | ensight.isos.begin()
-    | ensight.isos.variable(&quot;temperature&quot;)
-    | ensight.isos.type(&quot;isosurface&quot;)
-    | ensight.isos.create_delta(0.5)
-    | ensight.isos.number_to_create(10)
-    | ensight.isos.value(1.76)
-    | ensight.isos.end()
-    | ensight.isos.create()
+    ::
+
+        ensight.isos.begin()
+        ensight.isos.variable(&quot;temperature&quot;)
+        ensight.isos.type(&quot;isosurface&quot;)
+        ensight.isos.create_delta(0.5)
+        ensight.isos.number_to_create(10)
+        ensight.isos.value(1.76)
+        ensight.isos.end()
+        ensight.isos.create()
 
 Returns:
     zero on success, non-zero on error
@@ -309,11 +346,13 @@ Returns:
 Sets the target to the default settings for subsequent attribute modifications.
 
 Examples:
-    | ensight.isos.select_default()
-    | ensight.part.modify_begin()
-    | ensight.isos.variable(&quot;temperature&quot;)
-    | ensight.isos.value(1.0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.isos.select_default()
+        ensight.part.modify_begin()
+        ensight.isos.variable(&quot;temperature&quot;)
+        ensight.isos.value(1.0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -333,15 +372,17 @@ Args:
         * isovolume 
 
 Examples:
-    | ensight.isos.begin()
-    | ensight.isos.variable(&quot;temperature&quot;)
-    | ensight.isos.value(1.1)
-    | ensight.isos.type(&quot;isovolume&quot;)
-    | ensight.isos.constraint(&quot;band&quot;)
-    | ensight.isos.min(1.)
-    | ensight.isos.max(2.)
-    | ensight.isos.end()
-    | ensight.isos.create()
+    ::
+
+        ensight.isos.begin()
+        ensight.isos.variable(&quot;temperature&quot;)
+        ensight.isos.value(1.1)
+        ensight.isos.type(&quot;isovolume&quot;)
+        ensight.isos.constraint(&quot;band&quot;)
+        ensight.isos.min(1.)
+        ensight.isos.max(2.)
+        ensight.isos.end()
+        ensight.isos.create()
 
 Returns:
     zero on success, non-zero on error
@@ -369,12 +410,14 @@ Args:
         &#x27;iso_value&#x27; iso value
 
 Examples:
-    | ensight.isos.begin()
-    | ensight.isos.variable(&quot;temperature&quot;)
-    | ensight.isos.value(1.1)
-    | ensight.isos.type(&quot;isosurface&quot;)
-    | ensight.isos.end()
-    | ensight.isos.create()
+    ::
+
+        ensight.isos.begin()
+        ensight.isos.variable(&quot;temperature&quot;)
+        ensight.isos.value(1.1)
+        ensight.isos.type(&quot;isosurface&quot;)
+        ensight.isos.end()
+        ensight.isos.create()
 
 Returns:
     zero on success, non-zero on error
@@ -391,12 +434,14 @@ Args:
         &#x27;var_name&#x27; name of an active variable
 
 Examples:
-    | ensight.isos.begin()
-    | ensight.isos.variable(&quot;temperature&quot;)
-    | ensight.isos.value(1.1)
-    | ensight.isos.type(&quot;isosurface&quot;)
-    | ensight.isos.end()
-    | ensight.isos.create()
+    ::
+
+        ensight.isos.begin()
+        ensight.isos.variable(&quot;temperature&quot;)
+        ensight.isos.value(1.1)
+        ensight.isos.type(&quot;isosurface&quot;)
+        ensight.isos.end()
+        ensight.isos.create()
 
 Returns:
     zero on success, non-zero on error

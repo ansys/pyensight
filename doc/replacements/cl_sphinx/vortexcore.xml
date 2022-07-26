@@ -6,22 +6,24 @@ Delimit the modifications for vortexcore attributes.
 | These commands are used to set the attributes for a vortex core creation.
 
 Examples:
-    | #
-    | # Specify the 3D parent part(s) 
-    | # from which to create the vortex cores
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Compute the vortex cores part
-    | #
-    | ensight.vortexcore.begin()
-    | ensight.vortexcore.end()
-    | ensight.vortexcore.create()
-    | #
-    | # Now select the newly created vortex part 
-    | # for subsequent operations
-    | #
-    | ensight.part.select_begin(5)
+    ::
+
+        #
+        # Specify the 3D parent part(s) 
+        # from which to create the vortex cores
+        #
+        ensight.part.select_begin(1)
+        #
+        # Compute the vortex cores part
+        #
+        ensight.vortexcore.begin()
+        ensight.vortexcore.end()
+        ensight.vortexcore.create()
+        #
+        # Now select the newly created vortex part 
+        # for subsequent operations
+        #
+        ensight.part.select_begin(5)
 
 Returns:
     zero on success, non-zero on error
@@ -34,22 +36,24 @@ Delimit the modifications for vortexcore attributes.
 | These commands are used to set the attributes for a vortex core creation.
 
 Examples:
-    | #
-    | # Specify the 3D parent part(s) 
-    | # from which to create the vortex cores
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Compute the vortex cores part
-    | #
-    | ensight.vortexcore.begin()
-    | ensight.vortexcore.end()
-    | ensight.vortexcore.create()
-    | #
-    | # Now select the newly created vortex part 
-    | # for subsequent operations
-    | #
-    | ensight.part.select_begin(5)
+    ::
+
+        #
+        # Specify the 3D parent part(s) 
+        # from which to create the vortex cores
+        #
+        ensight.part.select_begin(1)
+        #
+        # Compute the vortex cores part
+        #
+        ensight.vortexcore.begin()
+        ensight.vortexcore.end()
+        ensight.vortexcore.create()
+        #
+        # Now select the newly created vortex part 
+        # for subsequent operations
+        #
+        ensight.part.select_begin(5)
 
 Returns:
     zero on success, non-zero on error
@@ -60,22 +64,24 @@ Returns:
 Create a vortex core part with the currently defined attributes and the selected 3D parent parts.
 
 Examples:
-    | #
-    | # Specify the 3D parent part(s) 
-    | # from which to create the vortex cores
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Compute the vortex cores part
-    | #
-    | ensight.vortexcore.begin()
-    | ensight.vortexcore.end()
-    | ensight.vortexcore.create()
-    | #
-    | # Now select the newly created vortex part 
-    | # for subsequent operations
-    | #
-    | ensight.part.select_begin(5)
+    ::
+
+        #
+        # Specify the 3D parent part(s) 
+        # from which to create the vortex cores
+        #
+        ensight.part.select_begin(1)
+        #
+        # Compute the vortex cores part
+        #
+        ensight.vortexcore.begin()
+        ensight.vortexcore.end()
+        ensight.vortexcore.create()
+        #
+        # Now select the newly created vortex part 
+        # for subsequent operations
+        #
+        ensight.part.select_begin(5)
 
 Returns:
     zero on success, non-zero on error
@@ -93,11 +99,13 @@ Args:
         &#x27;variable_name&#x27; the name of the density variable (the default &lt;none&gt; means to use nothing)
 
 Examples:
-    | ensight.variables.activate(&quot;Density&quot;)
-    | ensight.vortexcore.select_default()
-    | ensight.part.modify_begin()
-    | ensight.vortexcore.density(&quot;Density&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.variables.activate(&quot;Density&quot;)
+        ensight.vortexcore.select_default()
+        ensight.part.modify_begin()
+        ensight.vortexcore.density(&quot;Density&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -115,10 +123,12 @@ Args:
         * eigen_analysis
 
 Examples:
-    | ensight.part.select_begin(5)
-    | ensight.part.modify_begin()
-    | ensight.vortexcore.method(&quot;vorticity&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(5)
+        ensight.part.modify_begin()
+        ensight.vortexcore.method(&quot;vorticity&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -136,11 +146,13 @@ Args:
         &#x27;variable_name&#x27; name of the momentum variable (the default name &lt;none&gt; means to use nothing)
 
 Examples:
-    | ensight.variables.activate(&quot;Momentum&quot;)
-    | ensight.vortexcore.select_default()
-    | ensight.part.modify_begin()
-    | ensight.vortexcore.momentum(&quot;Momentum&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.variables.activate(&quot;Momentum&quot;)
+        ensight.vortexcore.select_default()
+        ensight.part.modify_begin()
+        ensight.vortexcore.momentum(&quot;Momentum&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -157,10 +169,12 @@ Args:
         &#x27;value&#x27; constant value (default = 1.4) for the ratio of specific heats
 
 Examples:
-    | ensight.vortexcore.select_default()
-    | ensight.part.modify_begin()
-    | ensight.vortexcore.ratio_of_spec_heat(1.4)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.vortexcore.select_default()
+        ensight.part.modify_begin()
+        ensight.vortexcore.ratio_of_spec_heat(1.4)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -171,10 +185,12 @@ Returns:
 Specify that the default attributes of the vortex core part are to be set for all subsequent vortex core creates and updates.
 
 Examples:
-    | ensight.vortexcore.select_default()
-    | ensight.part.modify_begin()
-    | ensight.vortexcore.momentum(&quot;none&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.vortexcore.select_default()
+        ensight.part.modify_begin()
+        ensight.vortexcore.momentum(&quot;none&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -191,10 +207,12 @@ Args:
         &#x27;variable_name&#x27; name of the scalar variable by which to filter the vortex core segments
 
 Examples:
-    | ensight.part.select_begin(5)
-    | ensight.part.modify_begin()
-    | ensight.vortexcore.threshold(&quot;Density&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(5)
+        ensight.part.modify_begin()
+        ensight.vortexcore.threshold(&quot;Density&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -212,10 +230,12 @@ Args:
         * &gt;=
 
 Examples:
-    | ensight.part.select_begin(5)
-    | ensight.part.modify_begin()
-    | ensight.vortexcore.threshold_filter(&quot;&gt;=&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(5)
+        ensight.part.modify_begin()
+        ensight.vortexcore.threshold_filter(&quot;&gt;=&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -232,10 +252,12 @@ Args:
         &#x27;threshold_value&#x27; maximum threshold variable range limit below which to threshold the vortex cores part
 
 Examples:
-    | ensight.part.select_begin(5)
-    | ensight.part.modify_begin()
-    | ensight.vortexcore.threshold_max(1.0000e+01)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(5)
+        ensight.part.modify_begin()
+        ensight.vortexcore.threshold_max(1.0000e+01)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -252,10 +274,12 @@ Args:
         &#x27;threshold_value&#x27; minimum threshold variable range limit above which to threshold the vortex cores part
 
 Examples:
-    | ensight.part.select_begin(5)
-    | ensight.part.modify_begin()
-    | ensight.vortexcore.threshold_min(1.0000e-01)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(5)
+        ensight.part.modify_begin()
+        ensight.vortexcore.threshold_min(1.0000e-01)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -272,10 +296,12 @@ Args:
         &#x27;threshold_value&#x27; variable value by which to apply the threshold filter to the vortex core segments
 
 Examples:
-    | ensight.part.select_begin(5)
-    | ensight.part.modify_begin()
-    | ensight.vortexcore.threshold_value(5.0000e-01)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(5)
+        ensight.part.modify_begin()
+        ensight.vortexcore.threshold_value(5.0000e-01)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -293,11 +319,13 @@ Args:
         &#x27;variable_name&#x27; name of the velocity variable (the default &lt;none&gt; means to use nothing)
 
 Examples:
-    | ensight.variables.activate(&quot;Velocity&quot;)
-    | ensight.vortexcore.select_default()
-    | ensight.part.modify_begin()
-    | ensight.vortexcore.velocity(&quot;Velocity&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.variables.activate(&quot;Velocity&quot;)
+        ensight.vortexcore.select_default()
+        ensight.part.modify_begin()
+        ensight.vortexcore.velocity(&quot;Velocity&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error

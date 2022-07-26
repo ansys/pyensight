@@ -8,16 +8,18 @@ Args:
         &#x27;filename&#x27; the filename to use for the animation
 
 Examples:
-    | ensight.file.image_format(&quot;envideo&quot;)
-    | ensight.file.animation_file(&quot;/tmp/test_animation&quot;)
-    | ensight.file.animation_window_size(&quot;NTSC&quot;)
-    | ensight.file.animation_window_xy(640,480)
-    | ensight.file.animation_frames(20)
-    | ensight.file.animation_multiple_images(&quot;OFF&quot;)
-    | ensight.file.animation_reset_flipbook(&quot;ON&quot;)
-    | ensight.file.animation_reset_traces(&quot;OFF&quot;)
-    | ensight.file.animation_reset_time(&quot;ON&quot;)
-    | ensight.file.save_animation()
+    ::
+
+        ensight.file.image_format(&quot;envideo&quot;)
+        ensight.file.animation_file(&quot;/tmp/test_animation&quot;)
+        ensight.file.animation_window_size(&quot;NTSC&quot;)
+        ensight.file.animation_window_xy(640,480)
+        ensight.file.animation_frames(20)
+        ensight.file.animation_multiple_images(&quot;OFF&quot;)
+        ensight.file.animation_reset_flipbook(&quot;ON&quot;)
+        ensight.file.animation_reset_traces(&quot;OFF&quot;)
+        ensight.file.animation_reset_time(&quot;ON&quot;)
+        ensight.file.save_animation()
 
 Returns:
     zero on success, non-zero on error
@@ -32,16 +34,18 @@ Args:
         &#x27;number_of&#x27; number of frames to save
 
 Examples:
-    | ensight.file.image_format(&quot;envideo&quot;)
-    | ensight.file.animation_file(&quot;/tmp/test_animation&quot;)
-    | ensight.file.animation_window_size(&quot;NTSC&quot;)
-    | ensight.file.animation_window_xy(640,480)
-    | ensight.file.animation_frames(20)
-    | ensight.file.animation_multiple_images(&quot;OFF&quot;)
-    | ensight.file.animation_reset_flipbook(&quot;ON&quot;)
-    | ensight.file.animation_reset_traces(&quot;OFF&quot;)
-    | ensight.file.animation_reset_time(&quot;ON&quot;)
-    | ensight.file.save_animation()
+    ::
+
+        ensight.file.image_format(&quot;envideo&quot;)
+        ensight.file.animation_file(&quot;/tmp/test_animation&quot;)
+        ensight.file.animation_window_size(&quot;NTSC&quot;)
+        ensight.file.animation_window_xy(640,480)
+        ensight.file.animation_frames(20)
+        ensight.file.animation_multiple_images(&quot;OFF&quot;)
+        ensight.file.animation_reset_flipbook(&quot;ON&quot;)
+        ensight.file.animation_reset_traces(&quot;OFF&quot;)
+        ensight.file.animation_reset_time(&quot;ON&quot;)
+        ensight.file.save_animation()
 
 Returns:
     zero on success, non-zero on error
@@ -61,16 +65,18 @@ Args:
         * OFF
 
 Examples:
-    | ensight.file.image_format(&quot;envideo&quot;)
-    | ensight.file.animation_file(&quot;/tmp/test_animation&quot;)
-    | ensight.file.animation_window_size(&quot;NTSC&quot;)
-    | ensight.file.animation_window_xy(640,480)
-    | ensight.file.animation_frames(20)
-    | ensight.file.animation_multiple_images(&quot;OFF&quot;)
-    | ensight.file.animation_reset_flipbook(&quot;ON&quot;)
-    | ensight.file.animation_reset_traces(&quot;OFF&quot;)
-    | ensight.file.animation_reset_time(&quot;ON&quot;)
-    | ensight.file.save_animation()
+    ::
+
+        ensight.file.image_format(&quot;envideo&quot;)
+        ensight.file.animation_file(&quot;/tmp/test_animation&quot;)
+        ensight.file.animation_window_size(&quot;NTSC&quot;)
+        ensight.file.animation_window_xy(640,480)
+        ensight.file.animation_frames(20)
+        ensight.file.animation_multiple_images(&quot;OFF&quot;)
+        ensight.file.animation_reset_flipbook(&quot;ON&quot;)
+        ensight.file.animation_reset_traces(&quot;OFF&quot;)
+        ensight.file.animation_reset_time(&quot;ON&quot;)
+        ensight.file.save_animation()
 
 Returns:
     zero on success, non-zero on error
@@ -106,16 +112,18 @@ Args:
         * OFF
 
 Examples:
-    | ensight.file.image_format(&quot;envideo&quot;)
-    | ensight.file.animation_file(&quot;/tmp/test_animation&quot;)
-    | ensight.file.animation_window_size(&quot;NTSC&quot;)
-    | ensight.file.animation_window_xy(640,480)
-    | ensight.file.animation_frames(20)
-    | ensight.file.animation_multiple_images(&quot;OFF&quot;)
-    | ensight.file.animation_reset_flipbook(&quot;ON&quot;)
-    | ensight.file.animation_reset_traces(&quot;OFF&quot;)
-    | ensight.file.animation_reset_time(&quot;ON&quot;)
-    | ensight.file.save_animation()
+    ::
+
+        ensight.file.image_format(&quot;envideo&quot;)
+        ensight.file.animation_file(&quot;/tmp/test_animation&quot;)
+        ensight.file.animation_window_size(&quot;NTSC&quot;)
+        ensight.file.animation_window_xy(640,480)
+        ensight.file.animation_frames(20)
+        ensight.file.animation_multiple_images(&quot;OFF&quot;)
+        ensight.file.animation_reset_flipbook(&quot;ON&quot;)
+        ensight.file.animation_reset_traces(&quot;OFF&quot;)
+        ensight.file.animation_reset_time(&quot;ON&quot;)
+        ensight.file.save_animation()
 
 Returns:
     zero on success, non-zero on error
@@ -135,16 +143,18 @@ Args:
         * OFF
 
 Examples:
-    | ensight.file.image_format(&quot;envideo&quot;)
-    | ensight.file.animation_file(&quot;/tmp/test_animation&quot;)
-    | ensight.file.animation_window_size(&quot;NTSC&quot;)
-    | ensight.file.animation_window_xy(640,480)
-    | ensight.file.animation_frames(20)
-    | ensight.file.animation_multiple_images(&quot;OFF&quot;)
-    | ensight.file.animation_reset_flipbook(&quot;ON&quot;)
-    | ensight.file.animation_reset_traces(&quot;OFF&quot;)
-    | ensight.file.animation_reset_time(&quot;ON&quot;)
-    | ensight.file.save_animation()
+    ::
+
+        ensight.file.image_format(&quot;envideo&quot;)
+        ensight.file.animation_file(&quot;/tmp/test_animation&quot;)
+        ensight.file.animation_window_size(&quot;NTSC&quot;)
+        ensight.file.animation_window_xy(640,480)
+        ensight.file.animation_frames(20)
+        ensight.file.animation_multiple_images(&quot;OFF&quot;)
+        ensight.file.animation_reset_flipbook(&quot;ON&quot;)
+        ensight.file.animation_reset_traces(&quot;OFF&quot;)
+        ensight.file.animation_reset_time(&quot;ON&quot;)
+        ensight.file.save_animation()
 
 Returns:
     zero on success, non-zero on error
@@ -164,16 +174,18 @@ Args:
         * OFF
 
 Examples:
-    | ensight.file.image_format(&quot;envideo&quot;)
-    | ensight.file.animation_file(&quot;/tmp/test_animation&quot;)
-    | ensight.file.animation_window_size(&quot;NTSC&quot;)
-    | ensight.file.animation_window_xy(640,480)
-    | ensight.file.animation_frames(20)
-    | ensight.file.animation_multiple_images(&quot;OFF&quot;)
-    | ensight.file.animation_reset_flipbook(&quot;ON&quot;)
-    | ensight.file.animation_reset_traces(&quot;OFF&quot;)
-    | ensight.file.animation_reset_time(&quot;ON&quot;)
-    | ensight.file.save_animation()
+    ::
+
+        ensight.file.image_format(&quot;envideo&quot;)
+        ensight.file.animation_file(&quot;/tmp/test_animation&quot;)
+        ensight.file.animation_window_size(&quot;NTSC&quot;)
+        ensight.file.animation_window_xy(640,480)
+        ensight.file.animation_frames(20)
+        ensight.file.animation_multiple_images(&quot;OFF&quot;)
+        ensight.file.animation_reset_flipbook(&quot;ON&quot;)
+        ensight.file.animation_reset_traces(&quot;OFF&quot;)
+        ensight.file.animation_reset_time(&quot;ON&quot;)
+        ensight.file.save_animation()
 
 Returns:
     zero on success, non-zero on error
@@ -201,16 +213,18 @@ Args:
         * DVDPAL
 
 Examples:
-    | ensight.file.image_format(&quot;envideo&quot;)
-    | ensight.file.animation_file(&quot;/tmp/test_animation&quot;)
-    | ensight.file.animation_window_size(&quot;NTSC&quot;)
-    | ensight.file.animation_window_xy(640,480)
-    | ensight.file.animation_frames(20)
-    | ensight.file.animation_multiple_images(&quot;OFF&quot;)
-    | ensight.file.animation_reset_flipbook(&quot;ON&quot;)
-    | ensight.file.animation_reset_traces(&quot;OFF&quot;)
-    | ensight.file.animation_reset_time(&quot;ON&quot;)
-    | ensight.file.save_animation()
+    ::
+
+        ensight.file.image_format(&quot;envideo&quot;)
+        ensight.file.animation_file(&quot;/tmp/test_animation&quot;)
+        ensight.file.animation_window_size(&quot;NTSC&quot;)
+        ensight.file.animation_window_xy(640,480)
+        ensight.file.animation_frames(20)
+        ensight.file.animation_multiple_images(&quot;OFF&quot;)
+        ensight.file.animation_reset_flipbook(&quot;ON&quot;)
+        ensight.file.animation_reset_traces(&quot;OFF&quot;)
+        ensight.file.animation_reset_time(&quot;ON&quot;)
+        ensight.file.save_animation()
 
 Returns:
     zero on success, non-zero on error
@@ -229,16 +243,18 @@ Args:
         &#x27;yres&#x27; window y resolution 
 
 Examples:
-    | ensight.file.image_format(&quot;envideo&quot;)
-    | ensight.file.animation_file(&quot;/tmp/test_animation&quot;)
-    | ensight.file.animation_window_size(&quot;user_defined&quot;)
-    | ensight.file.animation_window_xy(400,300)
-    | ensight.file.animation_frames(20)
-    | ensight.file.animation_multiple_images(&quot;OFF&quot;)
-    | ensight.file.animation_reset_flipbook(&quot;ON&quot;)
-    | ensight.file.animation_reset_traces(&quot;OFF&quot;)
-    | ensight.file.animation_reset_time(&quot;ON&quot;)
-    | ensight.file.save_animation()
+    ::
+
+        ensight.file.image_format(&quot;envideo&quot;)
+        ensight.file.animation_file(&quot;/tmp/test_animation&quot;)
+        ensight.file.animation_window_size(&quot;user_defined&quot;)
+        ensight.file.animation_window_xy(400,300)
+        ensight.file.animation_frames(20)
+        ensight.file.animation_multiple_images(&quot;OFF&quot;)
+        ensight.file.animation_reset_flipbook(&quot;ON&quot;)
+        ensight.file.animation_reset_traces(&quot;OFF&quot;)
+        ensight.file.animation_reset_time(&quot;ON&quot;)
+        ensight.file.save_animation()
 
 Returns:
     zero on success, non-zero on error
@@ -258,10 +274,12 @@ Args:
         * black&amp;white
 
 Examples:
-    | ensight.file.image_format(&quot;jpeg&quot;)
-    | ensight.file.image_color_type(&quot;black&amp;white&quot;)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;jpeg&quot;)
+        ensight.file.image_color_type(&quot;black&amp;white&quot;)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -279,11 +297,13 @@ Args:
         * OFF
 
 Examples:
-    | ensight.file.image_format(&quot;sgi_rgb&quot;)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.image_convert(&quot;ON&quot;)
-    | ensight.file.save_image()
-    | ensight.file.image_convert(&quot;OFF&quot;)
+    ::
+
+        ensight.file.image_format(&quot;sgi_rgb&quot;)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.image_convert(&quot;ON&quot;)
+        ensight.file.save_image()
+        ensight.file.image_convert(&quot;OFF&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -303,12 +323,14 @@ Args:
         * OFF
 
 Examples:
-    | ensight.file.image_format(&quot;postscript&quot;)
-    | ensight.file.image_color_type(&quot;black&amp;white&quot;)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.image_orientation(&quot;landscape&quot;)
-    | ensight.file.image_encapsulated(&quot;ON&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;postscript&quot;)
+        ensight.file.image_color_type(&quot;black&amp;white&quot;)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.image_orientation(&quot;landscape&quot;)
+        ensight.file.image_encapsulated(&quot;ON&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -328,11 +350,13 @@ Args:
         * jpeg 
 
 Examples:
-    | ensight.file.image_format(&quot;envideo&quot;)
-    | ensight.file.image_envideo_type(&quot;jpeg&quot;)
-    | ensight.file.image_quality(80)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;envideo&quot;)
+        ensight.file.image_envideo_type(&quot;jpeg&quot;)
+        ensight.file.image_quality(80)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -349,9 +373,11 @@ Args:
         &#x27;filename&#x27; name of the image file to be saved
 
 Examples:
-    | ensight.file.image_format(&quot;jpeg&quot;)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;jpeg&quot;)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -390,9 +416,11 @@ Args:
         * POVRAY
 
 Examples:
-    | ensight.file.image_format(&quot;jpeg&quot;)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;jpeg&quot;)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -425,11 +453,13 @@ Args:
         &#x27;gamma_value&#x27; The range is dependent on the system.  Typically values are on the order 1&lt;= gamma_value &lt;=3.
 
 Examples:
-    | ensight.file.image_format(&quot;pcl&quot;)
-    | ensight.file.image_gamma(1.7)
-    | ensight.file.image_printer_model(&quot;DeskJet_1200c&quot;)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;pcl&quot;)
+        ensight.file.image_gamma(1.7)
+        ensight.file.image_printer_model(&quot;DeskJet_1200c&quot;)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -446,11 +476,13 @@ Args:
         &#x27;value&#x27; The number of rendering passes
 
 Examples:
-    | ensight.file.image_numpasses(4)
-    | ensight.file.image_stereo(&quot;current&quot;)
-    | ensight.file.image_format(&quot;evo&quot;)
-    | ensight.file.image_file(&quot;/tmp/abc&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_numpasses(4)
+        ensight.file.image_stereo(&quot;current&quot;)
+        ensight.file.image_format(&quot;evo&quot;)
+        ensight.file.image_file(&quot;/tmp/abc&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -470,11 +502,13 @@ Args:
         * landscape
 
 Examples:
-    | ensight.file.image_format(&quot;postscript&quot;)
-    | ensight.file.image_color_type(&quot;black&amp;white&quot;)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.image_orientation(&quot;landscape&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;postscript&quot;)
+        ensight.file.image_color_type(&quot;black&amp;white&quot;)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.image_orientation(&quot;landscape&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -494,12 +528,14 @@ Args:
         * OFF 
 
 Examples:
-    | ensight.file.image_format(&quot;jpeg&quot;)
-    | ensight.file.image_quality(80)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.image_plot_only(&quot;ON&quot;)
-    | ensight.file.save_image()
-    | ensight.file.image_plot_only(&quot;OFF&quot;)
+    ::
+
+        ensight.file.image_format(&quot;jpeg&quot;)
+        ensight.file.image_quality(80)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.image_plot_only(&quot;ON&quot;)
+        ensight.file.save_image()
+        ensight.file.image_plot_only(&quot;OFF&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -521,11 +557,13 @@ Args:
         * OFF
 
 Examples:
-    | ensight.file.image_format(&quot;postscript&quot;)
-    | ensight.file.image_postscript_type(&quot;move_draw&quot;)
-    | ensight.file.image_postscript_cull(&quot;OFF&quot;)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;postscript&quot;)
+        ensight.file.image_postscript_type(&quot;move_draw&quot;)
+        ensight.file.image_postscript_cull(&quot;OFF&quot;)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -545,11 +583,13 @@ Args:
         * OFF
 
 Examples:
-    | ensight.file.image_format(&quot;postscript&quot;)
-    | ensight.file.image_encapsulated(&quot;ON&quot;)
-    | ensight.file.image_postscript_prev(&quot;ON&quot;)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;postscript&quot;)
+        ensight.file.image_encapsulated(&quot;ON&quot;)
+        ensight.file.image_postscript_prev(&quot;ON&quot;)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -569,11 +609,13 @@ Args:
         * OFF
 
 Examples:
-    | ensight.file.image_format(&quot;postscript&quot;)
-    | ensight.file.image_postscript_type(&quot;move_draw&quot;)
-    | ensight.file.image_postscript_subd(&quot;ON&quot;)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;postscript&quot;)
+        ensight.file.image_postscript_type(&quot;move_draw&quot;)
+        ensight.file.image_postscript_subd(&quot;ON&quot;)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -591,10 +633,12 @@ Args:
         * image_pixels
 
 Examples:
-    | ensight.file.image_format(&quot;postscript&quot;)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.image_postscript_type(&quot;image_pixels&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;postscript&quot;)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.image_postscript_type(&quot;image_pixels&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -611,11 +655,13 @@ Args:
         &#x27;command&#x27; printer command used to print the image
 
 Examples:
-    | ensight.file.image_format(&quot;postscript&quot;)
-    | ensight.file.image_to_file(&quot;OFF&quot;)
-    | ensight.file.image_to_printer(&quot;ON&quot;)
-    | ensight.file.image_printer_command(&quot;lpr -Pcolor&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;postscript&quot;)
+        ensight.file.image_to_file(&quot;OFF&quot;)
+        ensight.file.image_to_printer(&quot;ON&quot;)
+        ensight.file.image_printer_command(&quot;lpr -Pcolor&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -645,10 +691,12 @@ Args:
         * DeskJet_1200c
 
 Examples:
-    | ensight.file.image_format(&quot;pcl&quot;)
-    | ensight.file.image_printer_model(&quot;DeskJet_1200c&quot;)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;pcl&quot;)
+        ensight.file.image_printer_model(&quot;DeskJet_1200c&quot;)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -669,10 +717,12 @@ Args:
         &#x27;quality&#x27; 0 is the lowest quality (highest compression)
 
 Examples:
-    | ensight.file.image_format(&quot;jpeg&quot;)
-    | ensight.file.image_quality(80)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;jpeg&quot;)
+        ensight.file.image_quality(80)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -689,10 +739,12 @@ Args:
         &#x27;sat_value&#x27; A value from 0 (black and white) to 1 (full color saturation)
 
 Examples:
-    | ensight.file.image_format(&quot;sgi_rgb&quot;)
-    | ensight.file.image_saturation(0.8)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;sgi_rgb&quot;)
+        ensight.file.image_saturation(0.8)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -707,12 +759,14 @@ Args:
         &#x27;scale_value&#x27; a value from 0 to 1 specifying portion of the page to use for printing
 
 Examples:
-    | ensight.file.image_format(&quot;postscript&quot;)
-    | ensight.file.image_color_type(&quot;black&amp;white&quot;)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.image_orientation(&quot;landscape&quot;)
-    | ensight.file.image_scale_factor(.5)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;postscript&quot;)
+        ensight.file.image_color_type(&quot;black&amp;white&quot;)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.image_orientation(&quot;landscape&quot;)
+        ensight.file.image_scale_factor(.5)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -731,12 +785,14 @@ Args:
         &#x27;y_tiles&#x27; number of tiles in the y direction
 
 Examples:
-    | ensight.file.image_numpasses(4)
-    | ensight.file.image_window_xy(3840,2048)
-    | ensight.file.image_screen_tiling(3,2)
-    | ensight.file.image_format(&quot;evo&quot;)
-    | ensight.file.image_file(&quot;/tmp/abc&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_numpasses(4)
+        ensight.file.image_window_xy(3840,2048)
+        ensight.file.image_screen_tiling(3,2)
+        ensight.file.image_format(&quot;evo&quot;)
+        ensight.file.image_file(&quot;/tmp/abc&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -759,11 +815,13 @@ Args:
         * cyanred
 
 Examples:
-    | ensight.file.image_numpasses(4)
-    | ensight.file.image_stereo(&quot;redblue&quot;)
-    | ensight.file.image_format(&quot;evo&quot;)
-    | ensight.file.image_file(&quot;/tmp/abc&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_numpasses(4)
+        ensight.file.image_stereo(&quot;redblue&quot;)
+        ensight.file.image_format(&quot;evo&quot;)
+        ensight.file.image_file(&quot;/tmp/abc&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -783,10 +841,12 @@ Args:
         * OFF
 
 Examples:
-    | ensight.file.image_format(&quot;jpeg&quot;)
-    | ensight.file.image_to_file(&quot;ON&quot;)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;jpeg&quot;)
+        ensight.file.image_to_file(&quot;ON&quot;)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -806,11 +866,13 @@ Args:
         * OFF
 
 Examples:
-    | ensight.file.image_format(&quot;jpeg&quot;)
-    | ensight.file.image_to_file(&quot;OFF&quot;)
-    | ensight.file.image_to_printer(&quot;ON&quot;)
-    | ensight.file.image_printer_command(&quot;lpr -Pprinter&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;jpeg&quot;)
+        ensight.file.image_to_file(&quot;OFF&quot;)
+        ensight.file.image_to_printer(&quot;ON&quot;)
+        ensight.file.image_printer_command(&quot;lpr -Pprinter&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -838,10 +900,12 @@ Args:
         * DVDPAL
 
 Examples:
-    | ensight.file.image_format(&quot;sgi_rgb&quot;)
-    | ensight.file.image_window_size(&quot;full&quot;)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;sgi_rgb&quot;)
+        ensight.file.image_window_size(&quot;full&quot;)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -861,11 +925,13 @@ Args:
         &#x27;height&#x27; pixels in y direction
 
 Examples:
-    | ensight.file.image_format(&quot;sgi_rgb&quot;)
-    | ensight.file.image_window_size(&quot;user_defined&quot;)
-    | ensight.file.image_window_xy(800,600)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;sgi_rgb&quot;)
+        ensight.file.image_window_size(&quot;user_defined&quot;)
+        ensight.file.image_window_xy(800,600)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -884,7 +950,9 @@ Args:
         &#x27;filename&#x27; name of the context file to restore
 
 Examples:
-    | ensight.file.restore_context(&quot;/tmp/test.ctx&quot;)
+    ::
+
+        ensight.file.restore_context(&quot;/tmp/test.ctx&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -904,7 +972,9 @@ Args:
         &#x27;filename&#x27; name of the EnSight archive file
 
 Examples:
-    | ensight.file.restore_full_backup(&quot;/tmp/test.ar&quot;)
+    ::
+
+        ensight.file.restore_full_backup(&quot;/tmp/test.ar&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -932,7 +1002,9 @@ Args:
         &#x27;filename&#x27; name of the context file
 
 Examples:
-    | ensight.file.save_context(&quot;/tmp/test.ctx&quot;)
+    ::
+
+        ensight.file.save_context(&quot;/tmp/test.ctx&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -949,8 +1021,10 @@ Args:
         &#x27;current_case&#x27; A context file will be saved for the current case
 
 Examples:
-    | ensight.file.save_context_type(&quot;all_cases&quot;)
-    | ensight.file.save_context(&quot;myfile.ctx&quot;)
+    ::
+
+        ensight.file.save_context_type(&quot;all_cases&quot;)
+        ensight.file.save_context(&quot;myfile.ctx&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -968,7 +1042,9 @@ Args:
         &#x27;filename&#x27; name of the EnSight archive file
 
 Examples:
-    | ensight.file.save_full_backup(&quot;/tmp/test.ar&quot;)
+    ::
+
+        ensight.file.save_full_backup(&quot;/tmp/test.ar&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -981,9 +1057,11 @@ Save an image to a disk file.
 | Need to have specified the image file with the file: image_file &lt;filename&gt; command before invoking this command.
 
 Examples:
-    | ensight.file.image_format(&quot;jpeg&quot;)
-    | ensight.file.image_file(&quot;/tmp/test_image&quot;)
-    | ensight.file.save_image()
+    ::
+
+        ensight.file.image_format(&quot;jpeg&quot;)
+        ensight.file.image_file(&quot;/tmp/test_image&quot;)
+        ensight.file.save_image()
 
 Returns:
     zero on success, non-zero on error
@@ -1003,9 +1081,11 @@ Args:
         * OFF
 
 Examples:
-    | ensight.file.image_window_size(&quot;detached_display&quot;)
-    | ensight.file.save_multiple_images(&quot;ON&quot;)
-    | ensight.file.image_file(&quot;prefix&quot;)
+    ::
+
+        ensight.file.image_window_size(&quot;detached_display&quot;)
+        ensight.file.save_multiple_images(&quot;ON&quot;)
+        ensight.file.image_file(&quot;prefix&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -1024,7 +1104,9 @@ Args:
         &#x27;filename&#x27; name of the file to use for the scenario information
 
 Examples:
-    | ensight.file.save_scenario_file(&quot;/tmp/test_scenario_file&quot;)
+    ::
+
+        ensight.file.save_scenario_file(&quot;/tmp/test_scenario_file&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -1043,10 +1125,11 @@ Args:
         &#x27;filename&#x27; name of the file to use for the scenario information
 
 Examples:
-    | ensight.sendmesgoptions(version=&quot;8.23&quot;)
-    | ensight.part.select_all()
-    | ensight.file.scenario_format(&quot;enliten2&quot;)
+    ::
 
+        ensight.sendmesgoptions(version=&quot;8.23&quot;)
+        ensight.part.select_all()
+        ensight.file.scenario_format(&quot;enliten2&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -1064,8 +1147,6 @@ Args:
     p0:
         &#x27;pathname&#x27; executable file name
 
-Examples:
-
 Returns:
     zero on success, non-zero on error
 </description>
@@ -1081,8 +1162,6 @@ Specifies the architecture for the &#x27;file: save_scenario_png_format&#x27; co
 Args:
     p0:
         &#x27;arch&#x27; architecture name
-
-Examples:
 
 Returns:
     zero on success, non-zero on error
@@ -1101,8 +1180,6 @@ Args:
     p0:
         &#x27;directory_name&#x27; name of the directory to save the scenario information
 
-Examples:
-
 Returns:
     zero on success, non-zero on error
 </description>
@@ -1120,8 +1197,6 @@ Args:
     p0:
         &#x27;directory_name&#x27; name of the directory to save the scenario information
 
-Examples:
-
 Returns:
     zero on success, non-zero on error
 </description>
@@ -1136,8 +1211,6 @@ Args:
     p1:
         &#x27;viewname&#x27; a description for the view
 
-Examples:
-
 Returns:
     zero on success, non-zero on error
 </description>
@@ -1148,12 +1221,11 @@ Save a view as part of an existing scenario file.
 
 | The following command is closely related:
 | file: save_scenario_fileslct
+| file: save_scenario_fileslct test.csf
 
 Args:
     p0:
         &#x27;option&#x27; all, visible, or selected
-
-Examples:
 
 Returns:
     zero on success, non-zero on error
@@ -1166,9 +1238,11 @@ Delimit the description for a scenario project.
 | A scenario project contains descriptions of the project suitable for inclusion in HTML documents.
 
 Examples:
-    | # WARNING: following line includes OBSOLETE call (ensight.variables.select_varname_begin).
-    | ensight.variables.select_varname_begin(&quot;pressure&quot;,&quot;velocity&quot;,&quot;variables: select_varname_end&quot;,&quot;file: save_scenario_fileslct ami.csf&quot;,&quot;file: save_scenario_png_format win32&quot;,&quot;file: save_scenario_png_file ami.csf&quot;,&quot;VERSION 8.23&quot;,&quot;part: select_all&quot;,&quot;file: scenario_format enliten2&quot;,&quot;variables: select_varname_begin&quot;,&quot;pressure&quot;,&quot;velocity&quot;,&quot;variables: select_varname_end&quot;,&quot;file: save_scenario_fileslct ami.csf&quot;,&quot;file: save_scenario_png_format win32&quot;,&quot;file: save_scenario_png_file ami.csf&quot;,&quot;VERSION 8.23&quot;,&quot;part: select_all&quot;,&quot;file: scenario_format enliten2&quot;,&quot;variables: select_varname_begin&quot;,&quot;pressure&quot;,&quot;velocity&quot;,&quot;variables: select_varname_end&quot;,&quot;file: save_scenario_fileslct ami.csf&quot;,&quot;file: save_scenario_png_format win32&quot;,&quot;file: save_scenario_png_file ami.csf&quot;,&quot;file: save_scenario_project /tmp/test_scenario_project&quot;,&quot;file: save_scenario_projectslct /tmp/test_scenario_project&quot;,&quot;file: save_scenario_project /tmp/test_scenario_file&quot;,&quot;file: save_scenario_view /tmp/test_scenario_file top_view&quot;,&quot;VERSION 8.24&quot;,&quot;file: save_scenario_which_parts all&quot;,&quot;file: scenario_transient_anim 0 1 1 1&quot;,&quot;file: scenario_format enliten2&quot;,&quot;variables: select_varname_begin&quot;,&quot;variables: select_varname_end&quot;,&quot;file: save_scenario_fileslct test.csf&quot;,&quot;file: scenario_desc_begin&quot;,&quot;This project contains multiple studies from 2001&quot;)
-    | ensight.file.save_scenario_project(&quot;file  /tmp/test_project&quot;)
+    ::
+
+        # WARNING: following line includes OBSOLETE call (ensight.variables.select_varname_begin).
+        ensight.variables.select_varname_begin(&quot;pressure&quot;,&quot;velocity&quot;,&quot;variables: select_varname_end&quot;,&quot;file: save_scenario_fileslct ami.csf&quot;,&quot;file: save_scenario_png_format win32&quot;,&quot;file: save_scenario_png_file ami.csf&quot;,&quot;file: scenario_desc_begin&quot;,&quot;This project contains multiple studies from 2001&quot;)
+        ensight.file.save_scenario_project(&quot;file  /tmp/test_project&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -1181,8 +1255,10 @@ Delimit the description for a scenario project.
 | A scenario project contains descriptions of the project suitable for inclusion in HTML documents.
 
 Examples:
-    | ensight.file.scenario_desc_begin(&quot;This project contains multiple studies from 2001&quot;)
-    | ensight.file.save_scenario_project(&quot;file  /tmp/test_project&quot;)
+    ::
+
+        ensight.file.scenario_desc_begin(&quot;This project contains multiple studies from 2001&quot;)
+        ensight.file.save_scenario_project(&quot;file  /tmp/test_project&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -1202,8 +1278,10 @@ Args:
         * OFF
 
 Examples:
-    | ensight.file.scenario_flipbook_anim(&quot;ON&quot;)
-    | ensight.file.save_scenario_file(&quot;/tmp/test_scenario&quot;)
+    ::
+
+        ensight.file.scenario_flipbook_anim(&quot;ON&quot;)
+        ensight.file.save_scenario_file(&quot;/tmp/test_scenario&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -1221,8 +1299,10 @@ Args:
         * enliten2
 
 Examples:
-    | ensight.file.scenario_format(&quot;enliten1&quot;)
-    | ensight.file.save_scenario_file(&quot;/tmp/test_scenario.els&quot;)
+    ::
+
+        ensight.file.scenario_format(&quot;enliten1&quot;)
+        ensight.file.save_scenario_file(&quot;/tmp/test_scenario.els&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -1242,8 +1322,10 @@ Args:
         * OFF
 
 Examples:
-    | ensight.file.scenario_keyframe_anim(&quot;ON&quot;)
-    | ensight.file.save_scenario_file(&quot;/tmp/test_scenario&quot;)
+    ::
+
+        ensight.file.scenario_keyframe_anim(&quot;ON&quot;)
+        ensight.file.save_scenario_file(&quot;/tmp/test_scenario&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -1263,8 +1345,10 @@ Args:
         * OFF
 
 Examples:
-    | ensight.file.scenario_trace_anim(&quot;ON&quot;)
-    | ensight.file.save_scenario_file(&quot;/tmp/test_scenario&quot;)
+    ::
+
+        ensight.file.scenario_trace_anim(&quot;ON&quot;)
+        ensight.file.save_scenario_file(&quot;/tmp/test_scenario&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -1296,8 +1380,10 @@ Args:
         * step stride
 
 Examples:
-    | ensight.file.scenario_transient_anim(1,1,21,1)
-    | ensight.file.save_scenario_file(&quot;/tmp/test_scenario&quot;)
+    ::
+
+        ensight.file.scenario_transient_anim(1,1,21,1)
+        ensight.file.save_scenario_file(&quot;/tmp/test_scenario&quot;)
 
 Returns:
     zero on success, non-zero on error

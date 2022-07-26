@@ -8,8 +8,10 @@ Args:
         &#x27;revised_text&#x27; desired revised text
 
 Examples:
-    | ensight.text.select_begin(1)
-    | ensight.text.change_text(&quot;this is the revised text!&quot;)
+    ::
+
+        ensight.text.select_begin(1)
+        ensight.text.change_text(&quot;this is the revised text!&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -20,8 +22,10 @@ Returns:
 Deletes the currently selected text in the graphics window. 
 
 Examples:
-    | ensight.text.select_begin(1,2,3)
-    | ensight.text.delete()
+    ::
+
+        ensight.text.select_begin(1,2,3)
+        ensight.text.delete()
 
 Returns:
     zero on success, non-zero on error
@@ -52,10 +56,12 @@ Args:
         * right
 
 Examples:
-    | ensight.text.select_begin(1)
-    | ensight.text.location_x(0.5)
-    | ensight.text.location_y(0.6)
-    | ensight.text.justification(&quot;left&quot;)
+    ::
+
+        ensight.text.select_begin(1)
+        ensight.text.location_x(0.5)
+        ensight.text.location_y(0.6)
+        ensight.text.justification(&quot;left&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -73,11 +79,13 @@ Args:
         &#x27;coord&#x27; A value of 0.0 indicates the left/bottom side of the window, while a value of 1.0 indicates the right/top side.
 
 Examples:
-    | ensight.text.select_begin(1)
-    | ensight.text.relative_viewport(2)
-    | ensight.text.location_x(0.5)
-    | ensight.text.location_y(0.5)
-    | ensight.text.justification(&quot;center&quot;)
+    ::
+
+        ensight.text.select_begin(1)
+        ensight.text.relative_viewport(2)
+        ensight.text.location_x(0.5)
+        ensight.text.location_y(0.5)
+        ensight.text.justification(&quot;center&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -95,11 +103,13 @@ Args:
         &#x27;coord&#x27; A value of 0.0 indicates the left/bottom side of the window, while a value of 1.0 indicates the right/top side.
 
 Examples:
-    | ensight.text.select_begin(1)
-    | ensight.text.relative_viewport(2)
-    | ensight.text.location_x(0.5)
-    | ensight.text.location_y(0.5)
-    | ensight.text.justification(&quot;center&quot;)
+    ::
+
+        ensight.text.select_begin(1)
+        ensight.text.relative_viewport(2)
+        ensight.text.location_x(0.5)
+        ensight.text.location_y(0.5)
+        ensight.text.justification(&quot;center&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -112,12 +122,14 @@ Delimit the modifications for text attributes.
 | These optional commands can be used to execute a number of attribute changes at one time for better performance.
 
 Examples:
-    | ensight.text.select_begin(1)
-    | ensight.text.modify_begin()
-    | ensight.text.rgb(1,0,0)
-    | ensight.text.location_x(100)
-    | ensight.text.location_y(20)
-    | ensight.text.modify_end()
+    ::
+
+        ensight.text.select_begin(1)
+        ensight.text.modify_begin()
+        ensight.text.rgb(1,0,0)
+        ensight.text.location_x(100)
+        ensight.text.location_y(20)
+        ensight.text.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -130,12 +142,14 @@ Delimit the modifications for text attributes.
 | These optional commands can be used to execute a number of attribute changes at one time for better performance.
 
 Examples:
-    | ensight.text.select_begin(1)
-    | ensight.text.modify_begin()
-    | ensight.text.rgb(1,0,0)
-    | ensight.text.location_x(100)
-    | ensight.text.location_y(20)
-    | ensight.text.modify_end()
+    ::
+
+        ensight.text.select_begin(1)
+        ensight.text.modify_begin()
+        ensight.text.rgb(1,0,0)
+        ensight.text.location_x(100)
+        ensight.text.location_y(20)
+        ensight.text.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -158,9 +172,11 @@ Args:
         &#x27;text&#x27; desired text
 
 Examples:
-    | ensight.text.new_text(&quot;This is the new text!&quot;)
-    | ensight.text.location_x(0.5)
-    | ensight.text.location_y(0.6)
+    ::
+
+        ensight.text.new_text(&quot;This is the new text!&quot;)
+        ensight.text.location_x(0.5)
+        ensight.text.location_y(0.6)
 
 Returns:
     zero on success, non-zero on error
@@ -185,10 +201,12 @@ Args:
         &#x27;viewport&#x27; specifies the viewport
 
 Examples:
-    | ensight.text.select_begin(1)
-    | ensight.text.relative_viewport(0)
-    | ensight.text.location_x(0.5)
-    | ensight.text.location_y(0.6)
+    ::
+
+        ensight.text.select_begin(1)
+        ensight.text.relative_viewport(0)
+        ensight.text.location_x(0.5)
+        ensight.text.location_y(0.6)
 
 Returns:
     zero on success, non-zero on error
@@ -207,8 +225,10 @@ Args:
         &#x27;blu_val&#x27; red, green, blue color components, ( 0.0 to 1.0).
 
 Examples:
-    | ensight.text.select_begin(1)
-    | ensight.text.rgb(1.0,0,0)
+    ::
+
+        ensight.text.select_begin(1)
+        ensight.text.rgb(1.0,0,0)
 
 Returns:
     zero on success, non-zero on error
@@ -226,8 +246,10 @@ Args:
         &#x27;angle&#x27; must be within the range of 0.0 to 360.0
 
 Examples:
-    | ensight.text.select_begin(1)
-    | ensight.text.rotational_angle(45.0)
+    ::
+
+        ensight.text.select_begin(1)
+        ensight.text.rotational_angle(45.0)
 
 Returns:
     zero on success, non-zero on error
@@ -238,8 +260,10 @@ Returns:
   Selects all of the defined text annotations as the target for future text commands.
 
 Examples:
-    | ensight.text.select_all()
-    | ensight.text.delete()
+    ::
+
+        ensight.text.select_all()
+        ensight.text.delete()
 
 Returns:
     zero on success, non-zero on error
@@ -270,8 +294,10 @@ Args:
         &#x27;indexN&#x27; The text annotation ID
 
 Examples:
-    | ensight.text.select_begin(1,2)
-    | ensight.text.rgb(1,0,0)
+    ::
+
+        ensight.text.select_begin(1,2)
+        ensight.text.rgb(1,0,0)
 
 Returns:
     zero on success, non-zero on error
@@ -286,8 +312,10 @@ Args:
         &#x27;indexN&#x27; The text annotation ID
 
 Examples:
-    | ensight.text.select_begin(1,2)
-    | ensight.text.rgb(1,0,0)
+    ::
+
+        ensight.text.select_begin(1,2)
+        ensight.text.rgb(1,0,0)
 
 Returns:
     zero on success, non-zero on error
@@ -300,10 +328,12 @@ Causes any following text commands to affect the default settings, rather than a
 | All text commands following text: select_default will affect default settings until a new text object is selected using text: select_begin/select_end. 
 
 Examples:
-    | ensight.text.select_default()
-    | ensight.text.visible(&quot;OFF&quot;)
-    | ensight.text.rgb(1,0,0)
-    | ensight.text.select_begin(1)
+    ::
+
+        ensight.text.select_default()
+        ensight.text.visible(&quot;OFF&quot;)
+        ensight.text.rgb(1,0,0)
+        ensight.text.select_begin(1)
 
 Returns:
     zero on success, non-zero on error
@@ -321,8 +351,10 @@ Args:
         &#x27;size&#x27; must be within the range of 0 to 100
 
 Examples:
-    | ensight.text.select_begin(1)
-    | ensight.text.size(25)
+    ::
+
+        ensight.text.select_begin(1)
+        ensight.text.size(25)
 
 Returns:
     zero on success, non-zero on error
@@ -341,8 +373,10 @@ Args:
         &#x27;toggle&#x27; OFF
 
 Examples:
-    | ensight.text.select_begin(1)
-    | ensight.text.visible(&quot;ON&quot;)
+    ::
+
+        ensight.text.select_begin(1)
+        ensight.text.visible(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error

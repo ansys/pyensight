@@ -27,7 +27,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.prefs.auto_legend_replace(&quot;ON&quot;)
+    ::
+
+        ensight.prefs.auto_legend_replace(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -45,7 +47,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.prefs.auto_legend_replace(&quot;ON&quot;)
+    ::
+
+        ensight.prefs.auto_legend_replace(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -64,13 +68,15 @@ Args:
         * none
 
 Examples:
-    | ensight.prefs.starting_time_step(&quot;last&quot;)
-    | ensight.prefs.auto_load_parts(&quot;all&quot;)
-    | ensight.data.binary_files_are(&quot;big_endian&quot;)
-    | ensight.data.format(&quot;case&quot;)
-    | ensight.data.path(&quot;/usr/tmp&quot;)
-    | ensight.data.geometry(&quot;car_crash.case&quot;)
-    | ensight.data.read()
+    ::
+
+        ensight.prefs.starting_time_step(&quot;last&quot;)
+        ensight.prefs.auto_load_parts(&quot;all&quot;)
+        ensight.data.binary_files_are(&quot;big_endian&quot;)
+        ensight.data.format(&quot;case&quot;)
+        ensight.data.path(&quot;/usr/tmp&quot;)
+        ensight.data.geometry(&quot;car_crash.case&quot;)
+        ensight.data.read()
 
 Returns:
     zero on success, non-zero on error
@@ -88,7 +94,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.prefs.cull_lines(&quot;ON&quot;)
+    ::
+
+        ensight.prefs.cull_lines(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -103,7 +111,9 @@ Args:
         &#x27;directory_name&#x27; name of the default directory
 
 Examples:
-    | ensight.prefs.default_data_directory(&quot;/usr/local/bin/ensight92/data/ami&quot;)
+    ::
+
+        ensight.prefs.default_data_directory(&quot;/usr/local/bin/ensight92/data/ami&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -120,7 +130,9 @@ Args:
         &#x27;predefined_palette_name&#x27; palette name
 
 Examples:
-    | ensight.prefs.default_palette(&quot;FASTDefaultPalette&quot;)
+    ::
+
+        ensight.prefs.default_palette(&quot;FASTDefaultPalette&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -137,13 +149,15 @@ Args:
         &#x27;value&#x27; &gt;= 1
 
 Examples:
-    | ensight.view.fast_display(&quot;ON&quot;)
-    | ensight.prefs.static_fast_display(&quot;ON&quot;)
-    | ensight.prefs.fastdisplay_point_res(2)
-    | ensight.part.select_begin(1,3,4)
-    | ensight.part.modify_begin()
-    | ensight.part.bounding_rep(&quot;points&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.view.fast_display(&quot;ON&quot;)
+        ensight.prefs.static_fast_display(&quot;ON&quot;)
+        ensight.prefs.fastdisplay_point_res(2)
+        ensight.part.select_begin(1,3,4)
+        ensight.part.modify_begin()
+        ensight.part.bounding_rep(&quot;points&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -160,13 +174,15 @@ Args:
         &#x27;value&#x27; (1-100)
 
 Examples:
-    | ensight.view.fast_display(&quot;ON&quot;)
-    | ensight.prefs.static_fast_display(&quot;ON&quot;)
-    | ensight.prefs.fastdisplay_sparse_res(75)
-    | ensight.part.select_begin(1,3,4)
-    | ensight.part.modify_begin()
-    | ensight.part.bounding_rep(&quot;sparse_model&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.view.fast_display(&quot;ON&quot;)
+        ensight.prefs.static_fast_display(&quot;ON&quot;)
+        ensight.prefs.fastdisplay_sparse_res(75)
+        ensight.part.select_begin(1,3,4)
+        ensight.part.modify_begin()
+        ensight.part.bounding_rep(&quot;sparse_model&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -186,7 +202,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.prefs.frame_mode_allowed(&quot;ON&quot;)
+    ::
+
+        ensight.prefs.frame_mode_allowed(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -205,8 +223,10 @@ Args:
         * advanced
 
 Examples:
-    | # WARNING: following line includes OBSOLETE call (ensight.prefs.function_editor_type).
-    | ensight.prefs.function_editor_type(&quot;simple&quot;)
+    ::
+
+        # WARNING: following line includes OBSOLETE call (ensight.prefs.function_editor_type).
+        ensight.prefs.function_editor_type(&quot;simple&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -232,7 +252,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.prefs.icon_help_labels(&quot;ON&quot;)
+    ::
+
+        ensight.prefs.icon_help_labels(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -250,7 +272,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.prefs.large_parts_list(&quot;ON&quot;)
+    ::
+
+        ensight.prefs.large_parts_list(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -268,8 +292,10 @@ Args:
         * textures
 
 Examples:
-    | # WARNING: following line includes OBSOLETE call (ensight.prefs.legend_colorby).
-    | ensight.prefs.legend_colorby(&quot;textures&quot;)
+    ::
+
+        # WARNING: following line includes OBSOLETE call (ensight.prefs.legend_colorby).
+        ensight.prefs.legend_colorby(&quot;textures&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -289,7 +315,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.prefs.macro_panel(&quot;ON&quot;)
+    ::
+
+        ensight.prefs.macro_panel(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -318,7 +346,9 @@ Args:
         * prompt
 
 Examples:
-    | ensight.prefs.new_data_notification(&quot;auto_update&quot;)
+    ::
+
+        ensight.prefs.new_data_notification(&quot;auto_update&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -352,7 +382,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.prefs.part_panel(&quot;ON&quot;)
+    ::
+
+        ensight.prefs.part_panel(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -418,7 +450,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.prefs.resetlegend_ontimechange(&quot;OFF&quot;)
+    ::
+
+        ensight.prefs.resetlegend_ontimechange(&quot;OFF&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -437,12 +471,14 @@ Args:
         * last
 
 Examples:
-    | ensight.prefs.starting_time_step(&quot;last&quot;)
-    | ensight.data.binary_files_are(&quot;big_endian&quot;)
-    | ensight.data.format(&quot;case&quot;)
-    | ensight.data.path(&quot;/usr/tmp&quot;)
-    | ensight.data.geometry(&quot;car_crash.case&quot;)
-    | ensight.data.read()
+    ::
+
+        ensight.prefs.starting_time_step(&quot;last&quot;)
+        ensight.data.binary_files_are(&quot;big_endian&quot;)
+        ensight.data.format(&quot;case&quot;)
+        ensight.data.path(&quot;/usr/tmp&quot;)
+        ensight.data.geometry(&quot;car_crash.case&quot;)
+        ensight.data.read()
 
 Returns:
     zero on success, non-zero on error
@@ -462,12 +498,14 @@ Args:
         * OFF
 
 Examples:
-    | ensight.view.fast_display(&quot;ON&quot;)
-    | ensight.prefs.static_fast_display(&quot;ON&quot;)
-    | ensight.part.select_begin(1,3,4)
-    | ensight.part.modify_begin()
-    | ensight.part.bounding_rep(&quot;points&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.view.fast_display(&quot;ON&quot;)
+        ensight.prefs.static_fast_display(&quot;ON&quot;)
+        ensight.part.select_begin(1,3,4)
+        ensight.part.modify_begin()
+        ensight.part.bounding_rep(&quot;points&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -485,7 +523,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.prefs.tool_tips(&quot;ON&quot;)
+    ::
+
+        ensight.prefs.tool_tips(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -513,9 +553,11 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # set the preference to show the per element colored as a per node variable
-    | ensight.prefs.use_continuous_perelem(&quot;ON&quot;)
+    ::
+
+        #
+        # set the preference to show the per element colored as a per node variable
+        ensight.prefs.use_continuous_perelem(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -535,7 +577,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.prefs.user_defined_input(&quot;ON&quot;)
+    ::
+
+        ensight.prefs.user_defined_input(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -560,9 +604,11 @@ Args:
         &#x27;value&#x27; must be &gt; 0.0
 
 Examples:
-    | ensight.prefs.user_defined_input(&quot;ON&quot;)
-    | ensight.prefs.user_input_rotateusing(&quot;Position&quot;)
-    | ensight.prefs.user_input_rotatesens(0.5)
+    ::
+
+        ensight.prefs.user_defined_input(&quot;ON&quot;)
+        ensight.prefs.user_input_rotateusing(&quot;Position&quot;)
+        ensight.prefs.user_input_rotatesens(0.5)
 
 Returns:
     zero on success, non-zero on error
@@ -583,8 +629,10 @@ Args:
         * direct_mode
 
 Examples:
-    | ensight.prefs.user_defined_input(&quot;ON&quot;)
-    | ensight.prefs.user_input_rotateusing(&quot;direct_mode&quot;)
+    ::
+
+        ensight.prefs.user_defined_input(&quot;ON&quot;)
+        ensight.prefs.user_input_rotateusing(&quot;direct_mode&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -609,9 +657,11 @@ Args:
         &#x27;value&#x27; must be &gt; 0.0  (&lt; 1 slower, &gt; 1 faster)
 
 Examples:
-    | ensight.prefs.user_defined_input(&quot;ON&quot;)
-    | ensight.prefs.user_input_zoomusing(&quot;position&quot;)
-    | ensight.prefs.user_input_zoomsens(1.5)
+    ::
+
+        ensight.prefs.user_defined_input(&quot;ON&quot;)
+        ensight.prefs.user_input_zoomusing(&quot;position&quot;)
+        ensight.prefs.user_input_zoomsens(1.5)
 
 Returns:
     zero on success, non-zero on error
@@ -632,8 +682,10 @@ Args:
         * position
 
 Examples:
-    | ensight.prefs.user_defined_input(&quot;ON&quot;)
-    | ensight.prefs.user_input_zoomusing(&quot;position&quot;)
+    ::
+
+        ensight.prefs.user_defined_input(&quot;ON&quot;)
+        ensight.prefs.user_input_zoomusing(&quot;position&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -653,7 +705,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.prefs.view_mode_allowed(&quot;ON&quot;)
+    ::
+
+        ensight.prefs.view_mode_allowed(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error

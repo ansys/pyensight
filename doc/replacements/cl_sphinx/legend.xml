@@ -28,8 +28,10 @@ Args:
         &#x27;number_format&#x27; %.4f
 
 Examples:
-    | ensight.legend.select_palette_begin(&quot;pressure&quot;)
-    | ensight.legend.format(&quot;%.2e&quot;)
+    ::
+
+        ensight.legend.select_palette_begin(&quot;pressure&quot;)
+        ensight.legend.format(&quot;%.2e&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -54,11 +56,13 @@ Args:
         &#x27;num&#x27; height of the legend bar
 
 Examples:
-    | ensight.legend.select_palette_begin(&quot;pressure&quot;)
-    | ensight.legend.location_x(2.1362e-01)
-    | ensight.legend.location_y(4.5270e-02)
-    | ensight.legend.width(5.7778e-02)
-    | ensight.legend.height(8.5655e-01)
+    ::
+
+        ensight.legend.select_palette_begin(&quot;pressure&quot;)
+        ensight.legend.location_x(2.1362e-01)
+        ensight.legend.location_y(4.5270e-02)
+        ensight.legend.width(5.7778e-02)
+        ensight.legend.height(8.5655e-01)
 
 Returns:
     zero on success, non-zero on error
@@ -75,9 +79,11 @@ Args:
         &#x27;num&#x27; horizontal/vertical screen position of lower left of legend bar
 
 Examples:
-    | ensight.legend.select_palette_begin(&quot;pressure&quot;)
-    | ensight.legend.location_x(.2)
-    | ensight.legend.location_y(.05)
+    ::
+
+        ensight.legend.select_palette_begin(&quot;pressure&quot;)
+        ensight.legend.location_x(.2)
+        ensight.legend.location_y(.05)
 
 Returns:
     zero on success, non-zero on error
@@ -94,9 +100,11 @@ Args:
         &#x27;num&#x27; horizontal/vertical screen position of lower left of legend bar
 
 Examples:
-    | ensight.legend.select_palette_begin(&quot;pressure&quot;)
-    | ensight.legend.location_x(.2)
-    | ensight.legend.location_y(.05)
+    ::
+
+        ensight.legend.select_palette_begin(&quot;pressure&quot;)
+        ensight.legend.location_x(.2)
+        ensight.legend.location_y(.05)
 
 Returns:
     zero on success, non-zero on error
@@ -132,11 +140,13 @@ Args:
         * horizontal
 
 Examples:
-    | ensight.legend.select_palette_begin(&quot;velocity&quot;)
-    | ensight.legend.visible(&quot;ON&quot;)
-    | ensight.legend.orientation(&quot;horizontal&quot;)
-    | ensight.legend.select_palette_begin(&quot;pressure&quot;)
-    | ensight.legend.orientation(&quot;vertical&quot;)
+    ::
+
+        ensight.legend.select_palette_begin(&quot;velocity&quot;)
+        ensight.legend.visible(&quot;ON&quot;)
+        ensight.legend.orientation(&quot;horizontal&quot;)
+        ensight.legend.select_palette_begin(&quot;pressure&quot;)
+        ensight.legend.orientation(&quot;vertical&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -165,10 +175,12 @@ Selects all legends that are currently visible, for which other attributes will 
 | If any legends are currently visible, but not currently selected, this command will cause them to become selected. Thus, subsequent attribute modifications will apply to all visible legends.
 
 Examples:
-    | ensight.legend.select_all()
-    | ensight.legend.type(&quot;continuous&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.legend.title).
-    | ensight.legend.title(&quot;below&quot;)
+    ::
+
+        ensight.legend.select_all()
+        ensight.legend.type(&quot;continuous&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.legend.title).
+        ensight.legend.title(&quot;below&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -197,10 +209,12 @@ Sets the current legend selection to the default, so default attributes can be m
 | Any legend attributes set or modified after this command (and before another legend: select_palette_begin and legend: select_palette_end pair) will be applied to the &quot;default&quot; legend.  The default legend attributes will be applied for any subsequent legends which are made active (made visible for the first time).
 
 Examples:
-    | ensight.legend.select_default()
-    | ensight.legend.orientation(&quot;horizontal&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.legend.title).
-    | ensight.legend.title(&quot;below&quot;)
+    ::
+
+        ensight.legend.select_default()
+        ensight.legend.orientation(&quot;horizontal&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.legend.title).
+        ensight.legend.title(&quot;below&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -217,8 +231,10 @@ Args:
         &#x27;palette_name&#x27; palette name
 
 Examples:
-    | ensight.legend.select_palette_begin(&quot;pressure&quot;,&quot;velocity&quot;)
-    | ensight.legend.visible(&quot;ON&quot;)
+    ::
+
+        ensight.legend.select_palette_begin(&quot;pressure&quot;,&quot;velocity&quot;)
+        ensight.legend.visible(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -235,8 +251,10 @@ Args:
         &#x27;palette_name&#x27; palette name
 
 Examples:
-    | ensight.legend.select_palette_begin(&quot;pressure&quot;,&quot;velocity&quot;)
-    | ensight.legend.visible(&quot;ON&quot;)
+    ::
+
+        ensight.legend.select_palette_begin(&quot;pressure&quot;,&quot;velocity&quot;)
+        ensight.legend.visible(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -263,12 +281,14 @@ Args:
         * none
 
 Examples:
-    | ensight.legend.select_palette_begin(&quot;pressure&quot;)
-    | ensight.legend.text_position(&quot;left&quot;)
-    | ensight.legend.select_palette_begin(&quot;velocity&quot;)
-    | ensight.legend.text_position(&quot;right&quot;)
-    | ensight.legend.select_palette_begin(&quot;temperature&quot;)
-    | ensight.legend.text_position(&quot;none&quot;)
+    ::
+
+        ensight.legend.select_palette_begin(&quot;pressure&quot;)
+        ensight.legend.text_position(&quot;left&quot;)
+        ensight.legend.select_palette_begin(&quot;velocity&quot;)
+        ensight.legend.text_position(&quot;right&quot;)
+        ensight.legend.select_palette_begin(&quot;temperature&quot;)
+        ensight.legend.text_position(&quot;none&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -287,10 +307,12 @@ Args:
         &#x27;blu_val&#x27; red, green, blue contributions of the color (0.0 to 1.0)
 
 Examples:
-    | ensight.legend.select_palette_begin(&quot;velocity&quot;)
-    | ensight.legend.text_size(35)
-    | ensight.legend.format(&quot;%.2f&quot;)
-    | ensight.legend.text_rgb(1.0000e+00,0.0000e+00,3.9608e-01)
+    ::
+
+        ensight.legend.select_palette_begin(&quot;velocity&quot;)
+        ensight.legend.text_size(35)
+        ensight.legend.format(&quot;%.2f&quot;)
+        ensight.legend.text_rgb(1.0000e+00,0.0000e+00,3.9608e-01)
 
 Returns:
     zero on success, non-zero on error
@@ -307,10 +329,12 @@ Args:
         &#x27;size&#x27; font size to use
 
 Examples:
-    | ensight.legend.select_palette_begin(&quot;velocity&quot;)
-    | ensight.legend.text_size(35)
-    | ensight.legend.format(&quot;%.2f&quot;)
-    | ensight.legend.text_rgb(1.0000e+00,0.0000e+00,3.9608e-01)
+    ::
+
+        ensight.legend.select_palette_begin(&quot;velocity&quot;)
+        ensight.legend.text_size(35)
+        ensight.legend.format(&quot;%.2f&quot;)
+        ensight.legend.text_rgb(1.0000e+00,0.0000e+00,3.9608e-01)
 
 Returns:
     zero on success, non-zero on error
@@ -337,13 +361,15 @@ Args:
         * none
 
 Examples:
-    | ensight.legend.select_palette_begin(&quot;pressure&quot;)
-    | ensight.legend.type(&quot;continuous&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.legend.title).
-    | ensight.legend.title(&quot;below&quot;)
-    | ensight.legend.select_palette_begin(&quot;velocity&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.legend.title).
-    | ensight.legend.title(&quot;none&quot;)
+    ::
+
+        ensight.legend.select_palette_begin(&quot;pressure&quot;)
+        ensight.legend.type(&quot;continuous&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.legend.title).
+        ensight.legend.title(&quot;below&quot;)
+        ensight.legend.select_palette_begin(&quot;velocity&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.legend.title).
+        ensight.legend.title(&quot;none&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -371,10 +397,12 @@ Args:
         * discrete
 
 Examples:
-    | ensight.legend.select_palette_begin(&quot;pressure&quot;)
-    | ensight.legend.type(&quot;discrete&quot;)
-    | ensight.legend.select_palette_begin(&quot;velocity&quot;)
-    | ensight.legend.type(&quot;continuous&quot;)
+    ::
+
+        ensight.legend.select_palette_begin(&quot;pressure&quot;)
+        ensight.legend.type(&quot;discrete&quot;)
+        ensight.legend.select_palette_begin(&quot;velocity&quot;)
+        ensight.legend.type(&quot;continuous&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -394,10 +422,12 @@ Args:
         * OFF
 
 Examples:
-    | ensight.legend.select_palette_begin(&quot;pressure&quot;)
-    | ensight.legend.visible(&quot;ON&quot;)
-    | ensight.legend.select_palette_begin(&quot;velocity&quot;)
-    | ensight.legend.visible(&quot;OFF&quot;)
+    ::
+
+        ensight.legend.select_palette_begin(&quot;pressure&quot;)
+        ensight.legend.visible(&quot;ON&quot;)
+        ensight.legend.select_palette_begin(&quot;velocity&quot;)
+        ensight.legend.visible(&quot;OFF&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -414,11 +444,13 @@ Args:
         &#x27;num&#x27; width of the legend bar
 
 Examples:
-    | ensight.legend.select_palette_begin(&quot;pressure&quot;)
-    | ensight.legend.location_x(2.1362e-01)
-    | ensight.legend.location_y(4.5270e-02)
-    | ensight.legend.width(5.7778e-02)
-    | ensight.legend.height(8.5655e-01)
+    ::
+
+        ensight.legend.select_palette_begin(&quot;pressure&quot;)
+        ensight.legend.location_x(2.1362e-01)
+        ensight.legend.location_y(4.5270e-02)
+        ensight.legend.width(5.7778e-02)
+        ensight.legend.height(8.5655e-01)
 
 Returns:
     zero on success, non-zero on error

@@ -10,18 +10,20 @@ Args:
         &#x27;num&#x27; number of times to cycle the given transient data (default is 1)
 
 Examples:
-    | #
-    | # This sets several of the attributes using time steps
-    | # (Including having the data cycle twice)
-    | #
-    | ensight.solution_time.begin_step(0)
-    | ensight.solution_time.end_step(16)
-    | ensight.solution_time.current_step(0.0000e+00)
-    | ensight.solution_time.update_to_current()
-    | ensight.solution_time.number_of_cycles(2)
-    | ensight.solution_time.increment(1.0000e+00)
-    | ensight.solution_time.show_as(&quot;step&quot;)
-    | ensight.solution_time.update_type(&quot;discrete&quot;)
+    ::
+
+        #
+        # This sets several of the attributes using time steps
+        # (Including having the data cycle twice)
+        #
+        ensight.solution_time.begin_step(0)
+        ensight.solution_time.end_step(16)
+        ensight.solution_time.current_step(0.0000e+00)
+        ensight.solution_time.update_to_current()
+        ensight.solution_time.number_of_cycles(2)
+        ensight.solution_time.increment(1.0000e+00)
+        ensight.solution_time.show_as(&quot;step&quot;)
+        ensight.solution_time.update_type(&quot;discrete&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -39,17 +41,19 @@ Args:
         &#x27;time&#x27; solution time to use as the beginning/ending time
 
 Examples:
-    | #
-    | # This sets several of the attributes using simulation time
-    | #
-    | ensight.solution_time.show_as(&quot;time&quot;)
-    | ensight.solution_time.update_type(&quot;continuous&quot;)
-    | ensight.solution_time.begin_simtime(0.0000e+00)
-    | ensight.solution_time.end_simtime(1.6000e+01)
-    | ensight.solution_time.current_simtime(9.0000e+00)
-    | ensight.solution_time.update_to_current()
-    | ensight.solution_time.number_of_cycles(1)
-    | ensight.solution_time.increment(2.0000e+00)
+    ::
+
+        #
+        # This sets several of the attributes using simulation time
+        #
+        ensight.solution_time.show_as(&quot;time&quot;)
+        ensight.solution_time.update_type(&quot;continuous&quot;)
+        ensight.solution_time.begin_simtime(0.0000e+00)
+        ensight.solution_time.end_simtime(1.6000e+01)
+        ensight.solution_time.current_simtime(9.0000e+00)
+        ensight.solution_time.update_to_current()
+        ensight.solution_time.number_of_cycles(1)
+        ensight.solution_time.increment(2.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -67,17 +71,19 @@ Args:
         &#x27;time&#x27; solution time to use as the beginning/ending time
 
 Examples:
-    | #
-    | # This sets several of the attributes using simulation time
-    | #
-    | ensight.solution_time.show_as(&quot;time&quot;)
-    | ensight.solution_time.update_type(&quot;continuous&quot;)
-    | ensight.solution_time.begin_simtime(0.0000e+00)
-    | ensight.solution_time.end_simtime(1.6000e+01)
-    | ensight.solution_time.current_simtime(9.0000e+00)
-    | ensight.solution_time.update_to_current()
-    | ensight.solution_time.number_of_cycles(1)
-    | ensight.solution_time.increment(2.0000e+00)
+    ::
+
+        #
+        # This sets several of the attributes using simulation time
+        #
+        ensight.solution_time.show_as(&quot;time&quot;)
+        ensight.solution_time.update_type(&quot;continuous&quot;)
+        ensight.solution_time.begin_simtime(0.0000e+00)
+        ensight.solution_time.end_simtime(1.6000e+01)
+        ensight.solution_time.current_simtime(9.0000e+00)
+        ensight.solution_time.update_to_current()
+        ensight.solution_time.number_of_cycles(1)
+        ensight.solution_time.increment(2.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -95,17 +101,19 @@ Args:
         &#x27;step&#x27; time step to use as the beginning/ending time step
 
 Examples:
-    | #
-    | # This sets several of the attributes using time steps
-    | #
-    | ensight.solution_time.show_as(&quot;step&quot;)
-    | ensight.solution_time.update_type(&quot;discrete&quot;)
-    | ensight.solution_time.begin_step(0)
-    | ensight.solution_time.end_step(16)
-    | ensight.solution_time.current_step(0)
-    | ensight.solution_time.update_to_current()
-    | ensight.solution_time.number_of_cycles(1)
-    | ensight.solution_time.increment(1.0000e+00)
+    ::
+
+        #
+        # This sets several of the attributes using time steps
+        #
+        ensight.solution_time.show_as(&quot;step&quot;)
+        ensight.solution_time.update_type(&quot;discrete&quot;)
+        ensight.solution_time.begin_step(0)
+        ensight.solution_time.end_step(16)
+        ensight.solution_time.current_step(0)
+        ensight.solution_time.update_to_current()
+        ensight.solution_time.number_of_cycles(1)
+        ensight.solution_time.increment(1.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -123,17 +131,19 @@ Args:
         &#x27;step&#x27; time step to use as the beginning/ending time step
 
 Examples:
-    | #
-    | # This sets several of the attributes using time steps
-    | #
-    | ensight.solution_time.show_as(&quot;step&quot;)
-    | ensight.solution_time.update_type(&quot;discrete&quot;)
-    | ensight.solution_time.begin_step(0)
-    | ensight.solution_time.end_step(16)
-    | ensight.solution_time.current_step(0)
-    | ensight.solution_time.update_to_current()
-    | ensight.solution_time.number_of_cycles(1)
-    | ensight.solution_time.increment(1.0000e+00)
+    ::
+
+        #
+        # This sets several of the attributes using time steps
+        #
+        ensight.solution_time.show_as(&quot;step&quot;)
+        ensight.solution_time.update_type(&quot;discrete&quot;)
+        ensight.solution_time.begin_step(0)
+        ensight.solution_time.end_step(16)
+        ensight.solution_time.current_step(0)
+        ensight.solution_time.update_to_current()
+        ensight.solution_time.number_of_cycles(1)
+        ensight.solution_time.increment(1.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -150,17 +160,19 @@ Args:
         &#x27;time&#x27; The simulation time to use as the current time. If &quot;solution_time: update_type&quot; is &quot;continuous&quot;, this can be set to be any time between the beginning and ending times, even if it lies between data points (interpolation will take place).  If the &quot;solution_time: update_type&quot; is &quot;discrete&quot;, this should be the time associated with a time step.
 
 Examples:
-    | #
-    | # This sets several of the attributes using simulation time
-    | #
-    | ensight.solution_time.show_as(&quot;time&quot;)
-    | ensight.solution_time.update_type(&quot;continuous&quot;)
-    | ensight.solution_time.begin_simtime(0.0000e+00)
-    | ensight.solution_time.end_simtime(1.6000e+01)
-    | ensight.solution_time.current_simtime(9.0000e+00)
-    | ensight.solution_time.update_to_current()
-    | ensight.solution_time.number_of_cycles(1)
-    | ensight.solution_time.increment(2.0000e+00)
+    ::
+
+        #
+        # This sets several of the attributes using simulation time
+        #
+        ensight.solution_time.show_as(&quot;time&quot;)
+        ensight.solution_time.update_type(&quot;continuous&quot;)
+        ensight.solution_time.begin_simtime(0.0000e+00)
+        ensight.solution_time.end_simtime(1.6000e+01)
+        ensight.solution_time.current_simtime(9.0000e+00)
+        ensight.solution_time.update_to_current()
+        ensight.solution_time.number_of_cycles(1)
+        ensight.solution_time.increment(2.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -175,18 +187,20 @@ Args:
         &#x27;step&#x27; The time step to use as the current time step. If &quot;solution_time: update_type&quot; is &quot;continuous&quot;, this can be float and thus can be set to be fractionally between time steps (interpolation will take place).  If the &quot;solution_time: update_type&quot; is &quot;discrete&quot;, this should be an integer.
 
 Examples:
-    | #
-    | # This sets several of the attributes using time steps,
-    | # but the current is set 40% between steps 2 and 3.
-    | #
-    | ensight.solution_time.show_as(&quot;step&quot;)
-    | ensight.solution_time.update_type(&quot;continuous&quot;)
-    | ensight.solution_time.begin_step(0)
-    | ensight.solution_time.end_step(16)
-    | ensight.solution_time.current_step(2.4)
-    | ensight.solution_time.update_to_current()
-    | ensight.solution_time.number_of_cycles(1)
-    | ensight.solution_time.increment(1.0000e+00)
+    ::
+
+        #
+        # This sets several of the attributes using time steps,
+        # but the current is set 40% between steps 2 and 3.
+        #
+        ensight.solution_time.show_as(&quot;step&quot;)
+        ensight.solution_time.update_type(&quot;continuous&quot;)
+        ensight.solution_time.begin_step(0)
+        ensight.solution_time.end_step(16)
+        ensight.solution_time.current_step(2.4)
+        ensight.solution_time.update_to_current()
+        ensight.solution_time.number_of_cycles(1)
+        ensight.solution_time.increment(1.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -203,18 +217,20 @@ Args:
         &#x27;step_by&#x27; number of time steps to advance by or decrease by with one click of the solution time stepper buttons
 
 Examples:
-    | #
-    | # This sets several of the attributes using simulation time
-    | # (but at the end it sets the stepper button increment)
-    | #
-    | ensight.solution_time.show_as(&quot;time&quot;)
-    | ensight.solution_time.update_type(&quot;continuous&quot;)
-    | ensight.solution_time.begin_simtime(0.0000e+00)
-    | ensight.solution_time.end_simtime(1.6000e+01)
-    | ensight.solution_time.current_simtime(9.0000e+00)
-    | ensight.solution_time.update_to_current()
-    | ensight.solution_time.number_of_cycles(1)
-    | ensight.solution_time.increment(2.0000e+00)
+    ::
+
+        #
+        # This sets several of the attributes using simulation time
+        # (but at the end it sets the stepper button increment)
+        #
+        ensight.solution_time.show_as(&quot;time&quot;)
+        ensight.solution_time.update_type(&quot;continuous&quot;)
+        ensight.solution_time.begin_simtime(0.0000e+00)
+        ensight.solution_time.end_simtime(1.6000e+01)
+        ensight.solution_time.current_simtime(9.0000e+00)
+        ensight.solution_time.update_to_current()
+        ensight.solution_time.number_of_cycles(1)
+        ensight.solution_time.increment(2.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -235,7 +251,9 @@ Causes the model to be displayed backward/forward through time.
 | Is only in effect when the application is idle.
 
 Examples:
-    | ensight.solution_time.play_backward()
+    ::
+
+        ensight.solution_time.play_backward()
 
 Returns:
     zero on success, non-zero on error
@@ -248,7 +266,9 @@ Causes the model to be displayed backward/forward through time.
 | Is only in effect when the application is idle.
 
 Examples:
-    | ensight.solution_time.play_backward()
+    ::
+
+        ensight.solution_time.play_backward()
 
 Returns:
     zero on success, non-zero on error
@@ -274,28 +294,30 @@ Args:
         * time
 
 Examples:
-    | #
-    | # This sets several of the attributes using simulation time
-    | #
-    | ensight.solution_time.show_as(&quot;time&quot;)
-    | ensight.solution_time.update_type(&quot;continuous&quot;)
-    | ensight.solution_time.begin_simtime(0.0000e+00)
-    | ensight.solution_time.end_simtime(1.6000e+01)
-    | ensight.solution_time.current_simtime(9.0000e+00)
-    | ensight.solution_time.update_to_current()
-    | ensight.solution_time.number_of_cycles(1)
-    | ensight.solution_time.increment(2.0000e+00)
-    | #
-    | # But here we change it to use time steps
-    | #
-    | ensight.solution_time.show_as(&quot;step&quot;)
-    | ensight.solution_time.update_type(&quot;discrete&quot;)
-    | ensight.solution_time.begin_step(0)
-    | ensight.solution_time.end_step(16)
-    | ensight.solution_time.current_step(5)
-    | ensight.solution_time.update_to_current()
-    | ensight.solution_time.number_of_cycles(1)
-    | ensight.solution_time.increment(1.0000e+00)
+    ::
+
+        #
+        # This sets several of the attributes using simulation time
+        #
+        ensight.solution_time.show_as(&quot;time&quot;)
+        ensight.solution_time.update_type(&quot;continuous&quot;)
+        ensight.solution_time.begin_simtime(0.0000e+00)
+        ensight.solution_time.end_simtime(1.6000e+01)
+        ensight.solution_time.current_simtime(9.0000e+00)
+        ensight.solution_time.update_to_current()
+        ensight.solution_time.number_of_cycles(1)
+        ensight.solution_time.increment(2.0000e+00)
+        #
+        # But here we change it to use time steps
+        #
+        ensight.solution_time.show_as(&quot;step&quot;)
+        ensight.solution_time.update_type(&quot;discrete&quot;)
+        ensight.solution_time.begin_step(0)
+        ensight.solution_time.end_step(16)
+        ensight.solution_time.current_step(5)
+        ensight.solution_time.update_to_current()
+        ensight.solution_time.number_of_cycles(1)
+        ensight.solution_time.increment(1.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -308,7 +330,9 @@ Causes the model to be displayed at previous/next time.
 | This command is not generated by the EnSight GUI, but is intended for use with batch or context operations where the time of the first step could vary from model to model.
 
 Examples:
-    | ensight.solution_time.step_backward()
+    ::
+
+        ensight.solution_time.step_backward()
 
 Returns:
     zero on success, non-zero on error
@@ -321,7 +345,9 @@ Causes the model to be displayed at previous/next time.
 | This command is not generated by the EnSight GUI, but is intended for use with batch or context operations where the time of the first step could vary from model to model.
 
 Examples:
-    | ensight.solution_time.step_backward()
+    ::
+
+        ensight.solution_time.step_backward()
 
 Returns:
     zero on success, non-zero on error
@@ -332,7 +358,9 @@ Returns:
 Stops the model from being displayed through time. 
 
 Examples:
-    | ensight.solution_time.stop()
+    ::
+
+        ensight.solution_time.stop()
 
 Returns:
     zero on success, non-zero on error
@@ -352,7 +380,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.solution_time.time_annotation(&quot;ON&quot;)
+    ::
+
+        ensight.solution_time.time_annotation(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -373,21 +403,23 @@ Args:
         * right
 
 Examples:
-    | #
-    | # Selecting the timeset
-    | #
-    | ensight.solution_time.timeset_select(2)
-    | #
-    | # Setting the timeset span handling methods
-    | # (Note that we will interpolate if between)
-    | #
-    | ensight.solution_time.timeset_leftof(&quot;undefined&quot;)
-    | ensight.solution_time.timeset_between(&quot;interpolate&quot;)
-    | ensight.solution_time.timeset_rightof(&quot;nearest&quot;)
-    | #
-    | # Update timesets and model display
-    | #
-    | ensight.solution_time.timeset_update()
+    ::
+
+        #
+        # Selecting the timeset
+        #
+        ensight.solution_time.timeset_select(2)
+        #
+        # Setting the timeset span handling methods
+        # (Note that we will interpolate if between)
+        #
+        ensight.solution_time.timeset_leftof(&quot;undefined&quot;)
+        ensight.solution_time.timeset_between(&quot;interpolate&quot;)
+        ensight.solution_time.timeset_rightof(&quot;nearest&quot;)
+        #
+        # Update timesets and model display
+        #
+        ensight.solution_time.timeset_update()
 
 Returns:
     zero on success, non-zero on error
@@ -407,21 +439,23 @@ Args:
         * nearest
 
 Examples:
-    | #
-    | # Selecting the timeset
-    | #
-    | ensight.solution_time.timeset_select(2)
-    | #
-    | # Setting the timeset span handling methods
-    | # (Note that we will treat as undefined if left of)
-    | #
-    | ensight.solution_time.timeset_leftof(&quot;undefined&quot;)
-    | ensight.solution_time.timeset_between(&quot;interpolate&quot;)
-    | ensight.solution_time.timeset_rightof(&quot;nearest&quot;)
-    | #
-    | # Update timesets and model display
-    | #
-    | ensight.solution_time.timeset_update()
+    ::
+
+        #
+        # Selecting the timeset
+        #
+        ensight.solution_time.timeset_select(2)
+        #
+        # Setting the timeset span handling methods
+        # (Note that we will treat as undefined if left of)
+        #
+        ensight.solution_time.timeset_leftof(&quot;undefined&quot;)
+        ensight.solution_time.timeset_between(&quot;interpolate&quot;)
+        ensight.solution_time.timeset_rightof(&quot;nearest&quot;)
+        #
+        # Update timesets and model display
+        #
+        ensight.solution_time.timeset_update()
 
 Returns:
     zero on success, non-zero on error
@@ -441,21 +475,23 @@ Args:
         * nearest
 
 Examples:
-    | #
-    | # Selecting the timeset
-    | #
-    | ensight.solution_time.timeset_select(2)
-    | #
-    | # Setting the timeset span handling methods
-    | # (Note that we will treat as nearest if right of)
-    | #
-    | ensight.solution_time.timeset_leftof(&quot;undefined&quot;)
-    | ensight.solution_time.timeset_between(&quot;interpolate&quot;)
-    | ensight.solution_time.timeset_rightof(&quot;nearest&quot;)
-    | #
-    | # Update timesets and model display
-    | #
-    | ensight.solution_time.timeset_update()
+    ::
+
+        #
+        # Selecting the timeset
+        #
+        ensight.solution_time.timeset_select(2)
+        #
+        # Setting the timeset span handling methods
+        # (Note that we will treat as nearest if right of)
+        #
+        ensight.solution_time.timeset_leftof(&quot;undefined&quot;)
+        ensight.solution_time.timeset_between(&quot;interpolate&quot;)
+        ensight.solution_time.timeset_rightof(&quot;nearest&quot;)
+        #
+        # Update timesets and model display
+        #
+        ensight.solution_time.timeset_update()
 
 Returns:
     zero on success, non-zero on error
@@ -470,21 +506,23 @@ Args:
         &#x27;ts_num&#x27; timeset number
 
 Examples:
-    | #
-    | # Selecting the timeset
-    | #
-    | ensight.solution_time.timeset_select(2)
-    | #
-    | # Setting the timeset span handling methods
-    | # (Note that we will treat as nearest if right of)
-    | #
-    | ensight.solution_time.timeset_leftof(&quot;undefined&quot;)
-    | ensight.solution_time.timeset_between(&quot;interpolate&quot;)
-    | ensight.solution_time.timeset_rightof(&quot;nearest&quot;)
-    | #
-    | # Update timesets and model display 
-    | #
-    | ensight.solution_time.timeset_update()
+    ::
+
+        #
+        # Selecting the timeset
+        #
+        ensight.solution_time.timeset_select(2)
+        #
+        # Setting the timeset span handling methods
+        # (Note that we will treat as nearest if right of)
+        #
+        ensight.solution_time.timeset_leftof(&quot;undefined&quot;)
+        ensight.solution_time.timeset_between(&quot;interpolate&quot;)
+        ensight.solution_time.timeset_rightof(&quot;nearest&quot;)
+        #
+        # Update timesets and model display 
+        #
+        ensight.solution_time.timeset_update()
 
 Returns:
     zero on success, non-zero on error
@@ -495,21 +533,23 @@ Returns:
 Updates the selected timeset and any associated display of the model according to the span handling methods specified. 
 
 Examples:
-    | #
-    | # Selecting the timeset
-    | #
-    | ensight.solution_time.timeset_select(2)
-    | #
-    | # Setting the timeset span handling methods
-    | # (Note that we will treat as nearest if right of)
-    | #
-    | ensight.solution_time.timeset_leftof(&quot;undefined&quot;)
-    | ensight.solution_time.timeset_between(&quot;interpolate&quot;)
-    | ensight.solution_time.timeset_rightof(&quot;nearest&quot;)
-    | #
-    | # Update timesets and model display
-    | #
-    | ensight.solution_time.timeset_update()
+    ::
+
+        #
+        # Selecting the timeset
+        #
+        ensight.solution_time.timeset_select(2)
+        #
+        # Setting the timeset span handling methods
+        # (Note that we will treat as nearest if right of)
+        #
+        ensight.solution_time.timeset_leftof(&quot;undefined&quot;)
+        ensight.solution_time.timeset_between(&quot;interpolate&quot;)
+        ensight.solution_time.timeset_rightof(&quot;nearest&quot;)
+        #
+        # Update timesets and model display
+        #
+        ensight.solution_time.timeset_update()
 
 Returns:
     zero on success, non-zero on error
@@ -520,28 +560,30 @@ Returns:
 Causes the display and all associated computations of the model to be updated to the currently specified time or step. 
 
 Examples:
-    | #
-    | # This sets several of the attributes using simulation time
-    | #
-    | ensight.solution_time.show_as(&quot;time&quot;)
-    | ensight.solution_time.update_type(&quot;continuous&quot;)
-    | ensight.solution_time.begin_simtime(0.0000e+00)
-    | ensight.solution_time.end_simtime(1.6000e+01)
-    | ensight.solution_time.current_simtime(9.0000e+00)
-    | ensight.solution_time.update_to_current()
-    | ensight.solution_time.number_of_cycles(1)
-    | ensight.solution_time.increment(2.0000e+00)
-    | #
-    | # But here we change it to use time steps
-    | #
-    | ensight.solution_time.show_as(&quot;step&quot;)
-    | ensight.solution_time.update_type(&quot;discrete&quot;)
-    | ensight.solution_time.begin_step(0)
-    | ensight.solution_time.end_step(16)
-    | ensight.solution_time.current_step(5)
-    | ensight.solution_time.update_to_current()
-    | ensight.solution_time.number_of_cycles(1)
-    | ensight.solution_time.increment(1.0000e+00)
+    ::
+
+        #
+        # This sets several of the attributes using simulation time
+        #
+        ensight.solution_time.show_as(&quot;time&quot;)
+        ensight.solution_time.update_type(&quot;continuous&quot;)
+        ensight.solution_time.begin_simtime(0.0000e+00)
+        ensight.solution_time.end_simtime(1.6000e+01)
+        ensight.solution_time.current_simtime(9.0000e+00)
+        ensight.solution_time.update_to_current()
+        ensight.solution_time.number_of_cycles(1)
+        ensight.solution_time.increment(2.0000e+00)
+        #
+        # But here we change it to use time steps
+        #
+        ensight.solution_time.show_as(&quot;step&quot;)
+        ensight.solution_time.update_type(&quot;discrete&quot;)
+        ensight.solution_time.begin_step(0)
+        ensight.solution_time.end_step(16)
+        ensight.solution_time.current_step(5)
+        ensight.solution_time.update_to_current()
+        ensight.solution_time.number_of_cycles(1)
+        ensight.solution_time.increment(1.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -554,7 +596,9 @@ Causes the display and all associated computations of the model to be updated to
 | This command is not generated by the EnSight GUI, but is intended for use with batch or context operations where the time of the first step could vary from model to model.
 
 Examples:
-    | ensight.solution_time.update_to_first()
+    ::
+
+        ensight.solution_time.update_to_first()
 
 Returns:
     zero on success, non-zero on error
@@ -567,7 +611,9 @@ Causes the display and all associated computations of the model to be updated to
 | This command is not generated by the EnSight GUI, but is intended for use with batch or context operations where the time of the last step could vary from model to model.
 
 Examples:
-    | ensight.solution_time.update_to_last()
+    ::
+
+        ensight.solution_time.update_to_last()
 
 Returns:
     zero on success, non-zero on error
@@ -587,28 +633,30 @@ Args:
         * continuous
 
 Examples:
-    | #
-    | # This sets several of the attributes using simulation time
-    | #
-    | ensight.solution_time.show_as(&quot;time&quot;)
-    | ensight.solution_time.update_type(&quot;continuous&quot;)
-    | ensight.solution_time.begin_simtime(0.0000e+00)
-    | ensight.solution_time.end_simtime(1.6000e+01)
-    | ensight.solution_time.current_simtime(9.0000e+00)
-    | ensight.solution_time.update_to_current()
-    | ensight.solution_time.number_of_cycles(1)
-    | ensight.solution_time.increment(2.0000e+00)
-    | #
-    | # But here we change it to use time steps
-    | #
-    | ensight.solution_time.show_as(&quot;step&quot;)
-    | ensight.solution_time.update_type(&quot;discrete&quot;)
-    | ensight.solution_time.begin_step(0)
-    | ensight.solution_time.end_step(16)
-    | ensight.solution_time.current_step(5)
-    | ensight.solution_time.update_to_current()
-    | ensight.solution_time.number_of_cycles(1)
-    | ensight.solution_time.increment(1.0000e+00)
+    ::
+
+        #
+        # This sets several of the attributes using simulation time
+        #
+        ensight.solution_time.show_as(&quot;time&quot;)
+        ensight.solution_time.update_type(&quot;continuous&quot;)
+        ensight.solution_time.begin_simtime(0.0000e+00)
+        ensight.solution_time.end_simtime(1.6000e+01)
+        ensight.solution_time.current_simtime(9.0000e+00)
+        ensight.solution_time.update_to_current()
+        ensight.solution_time.number_of_cycles(1)
+        ensight.solution_time.increment(2.0000e+00)
+        #
+        # But here we change it to use time steps
+        #
+        ensight.solution_time.show_as(&quot;step&quot;)
+        ensight.solution_time.update_type(&quot;discrete&quot;)
+        ensight.solution_time.begin_step(0)
+        ensight.solution_time.end_step(16)
+        ensight.solution_time.current_step(5)
+        ensight.solution_time.update_to_current()
+        ensight.solution_time.number_of_cycles(1)
+        ensight.solution_time.increment(1.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -621,21 +669,23 @@ Resets the begin and end steps (or begin and end simtimes) to the widest possibl
 | This may be desirable after one has modified (narrowed) the begin and end steps or time for a given temporary purpose.
 
 Examples:
-    | ensight.solution_time.show_as(&quot;step&quot;)
-    | ensight.solution_time.update_type(&quot;discrete&quot;)
-    | ensight.solution_time.begin_step(3)
-    | ensight.solution_time.end_step(12)
-    | ensight.solution_time.current_step(5)
-    | ensight.solution_time.update_to_current()
-    | ensight.solution_time.number_of_cycles(1)
-    | ensight.solution_time.increment(1.0000e+00)
-    | #
-    | # One could load a flipbook or something like 
-    | # that at this point, using the narrowed range
-    | # of 3 to 12.  Then could use the next command
-    | # to get the range back to 0 to 16
-    | #
-    | ensight.solution_time.zoomout()
+    ::
+
+        ensight.solution_time.show_as(&quot;step&quot;)
+        ensight.solution_time.update_type(&quot;discrete&quot;)
+        ensight.solution_time.begin_step(3)
+        ensight.solution_time.end_step(12)
+        ensight.solution_time.current_step(5)
+        ensight.solution_time.update_to_current()
+        ensight.solution_time.number_of_cycles(1)
+        ensight.solution_time.increment(1.0000e+00)
+        #
+        # One could load a flipbook or something like 
+        # that at this point, using the narrowed range
+        # of 3 to 12.  Then could use the next command
+        # to get the range back to 0 to 16
+        #
+        ensight.solution_time.zoomout()
 
 Returns:
     zero on success, non-zero on error

@@ -6,21 +6,23 @@ Delimit the modifications for elevated  surface. parts.
 | These commands are used to set the attributes for an elevated surface part creation.
 
 Examples:
-    | #
-    | # Select parent
-    | #
-    | ensight.part.select_begin(2)
-    | #
-    | # Set the attributes
-    | #
-    | ensight.elevsurf.begin()
-    | ensight.elevsurf.variable(&quot;N_temperature&quot;)
-    | ensight.elevsurf.offset(0.0000e+00)
-    | ensight.elevsurf.scale_factor(2.0750e-02)
-    | ensight.elevsurf.sidewall(&quot;ON&quot;)
-    | ensight.elevsurf.surface(&quot;ON&quot;)
-    | ensight.elevsurf.end()
-    | ensight.elevsurf.create()
+    ::
+
+        #
+        # Select parent
+        #
+        ensight.part.select_begin(2)
+        #
+        # Set the attributes
+        #
+        ensight.elevsurf.begin()
+        ensight.elevsurf.variable(&quot;N_temperature&quot;)
+        ensight.elevsurf.offset(0.0000e+00)
+        ensight.elevsurf.scale_factor(2.0750e-02)
+        ensight.elevsurf.sidewall(&quot;ON&quot;)
+        ensight.elevsurf.surface(&quot;ON&quot;)
+        ensight.elevsurf.end()
+        ensight.elevsurf.create()
 
 Returns:
     zero on success, non-zero on error
@@ -33,21 +35,23 @@ Delimit the modifications for elevated  surface. parts.
 | These commands are used to set the attributes for an elevated surface part creation.
 
 Examples:
-    | #
-    | # Select parent
-    | #
-    | ensight.part.select_begin(2)
-    | #
-    | # Set the attributes
-    | #
-    | ensight.elevsurf.begin()
-    | ensight.elevsurf.variable(&quot;N_temperature&quot;)
-    | ensight.elevsurf.offset(0.0000e+00)
-    | ensight.elevsurf.scale_factor(2.0750e-02)
-    | ensight.elevsurf.sidewall(&quot;ON&quot;)
-    | ensight.elevsurf.surface(&quot;ON&quot;)
-    | ensight.elevsurf.end()
-    | ensight.elevsurf.create()
+    ::
+
+        #
+        # Select parent
+        #
+        ensight.part.select_begin(2)
+        #
+        # Set the attributes
+        #
+        ensight.elevsurf.begin()
+        ensight.elevsurf.variable(&quot;N_temperature&quot;)
+        ensight.elevsurf.offset(0.0000e+00)
+        ensight.elevsurf.scale_factor(2.0750e-02)
+        ensight.elevsurf.sidewall(&quot;ON&quot;)
+        ensight.elevsurf.surface(&quot;ON&quot;)
+        ensight.elevsurf.end()
+        ensight.elevsurf.create()
 
 Returns:
     zero on success, non-zero on error
@@ -68,18 +72,20 @@ Args:
         &#x27;z_scal&#x27; scale factor to apply to the x, y, z components of the vector
 
 Examples:
-    | #
-    | # Select existing elevated surface part
-    | #
-    | ensight.part.select_begin(3)
-    | ensight.part.modify_begin()
-    | ensight.elevsurf.variable(&quot;N_velocity&quot;)
-    | #
-    | # Use x-component of the vector
-    | #
-    | ensight.elevsurf.component(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.elevsurf.scale_factor(9.9660e-01)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Select existing elevated surface part
+        #
+        ensight.part.select_begin(3)
+        ensight.part.modify_begin()
+        ensight.elevsurf.variable(&quot;N_velocity&quot;)
+        #
+        # Use x-component of the vector
+        #
+        ensight.elevsurf.component(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.elevsurf.scale_factor(9.9660e-01)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -90,18 +96,20 @@ Returns:
 Create an elevated surface according to specified or default attributes.
 
 Examples:
-    | #
-    | # Select parent part
-    | #
-    | ensight.part.select_begin(2)
-    | ensight.elevsurf.begin()
-    | ensight.elevsurf.variable(&quot;N_temperature&quot;)
-    | ensight.elevsurf.offset(0.0000e+00)
-    | ensight.elevsurf.scale_factor(2.0750e-02)
-    | ensight.elevsurf.sidewall(&quot;ON&quot;)
-    | ensight.elevsurf.surface(&quot;ON&quot;)
-    | ensight.elevsurf.end()
-    | ensight.elevsurf.create()
+    ::
+
+        #
+        # Select parent part
+        #
+        ensight.part.select_begin(2)
+        ensight.elevsurf.begin()
+        ensight.elevsurf.variable(&quot;N_temperature&quot;)
+        ensight.elevsurf.offset(0.0000e+00)
+        ensight.elevsurf.scale_factor(2.0750e-02)
+        ensight.elevsurf.sidewall(&quot;ON&quot;)
+        ensight.elevsurf.surface(&quot;ON&quot;)
+        ensight.elevsurf.end()
+        ensight.elevsurf.create()
 
 Returns:
     zero on success, non-zero on error
@@ -116,16 +124,18 @@ Args:
         &#x27;offset_val&#x27; value that is applied to the variable values before scaling.
 
 Examples:
-    | #
-    | # Select existing elevated surface part
-    | #
-    | ensight.part.select_begin(3)
-    | ensight.part.modify_begin()
-    | ensight.elevsurf.variable(&quot;N_velocity&quot;)
-    | ensight.elevsurf.component(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.elevsurf.scale_factor(9.9660e-01)
-    | ensight.elevsurf.offset(1.5000e+00)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Select existing elevated surface part
+        #
+        ensight.part.select_begin(3)
+        ensight.part.modify_begin()
+        ensight.elevsurf.variable(&quot;N_velocity&quot;)
+        ensight.elevsurf.component(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.elevsurf.scale_factor(9.9660e-01)
+        ensight.elevsurf.offset(1.5000e+00)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -140,16 +150,18 @@ Args:
         &#x27;scale&#x27; scale factor to apply to variable values
 
 Examples:
-    | #
-    | # Select existing elevated surface part
-    | #
-    | ensight.part.select_begin(3)
-    | ensight.part.modify_begin()
-    | ensight.elevsurf.variable(&quot;N_velocity&quot;)
-    | ensight.elevsurf.component(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.elevsurf.scale_factor(9.9660e-01)
-    | ensight.elevsurf.offset(1.5000e+00)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Select existing elevated surface part
+        #
+        ensight.part.select_begin(3)
+        ensight.part.modify_begin()
+        ensight.elevsurf.variable(&quot;N_velocity&quot;)
+        ensight.elevsurf.component(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.elevsurf.scale_factor(9.9660e-01)
+        ensight.elevsurf.offset(1.5000e+00)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -162,10 +174,12 @@ Set elevated surface selection to none, so that subsequent elevated surface attr
 | The defaults are used for future elevated surface creations.
 
 Examples:
-    | ensight.elevsurf.select_default()
-    | ensight.part.modify_begin()
-    | ensight.elevsurf.scale_factor(3.0750e-02)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.elevsurf.select_default()
+        ensight.part.modify_begin()
+        ensight.elevsurf.scale_factor(3.0750e-02)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -185,18 +199,20 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # Select parent part
-    | #
-    | ensight.part.select_begin(2)
-    | ensight.elevsurf.begin()
-    | ensight.elevsurf.variable(&quot;N_temperature&quot;)
-    | ensight.elevsurf.offset(0.0000e+00)
-    | ensight.elevsurf.scale_factor(2.0750e-02)
-    | ensight.elevsurf.sidewall(&quot;ON&quot;)
-    | ensight.elevsurf.surface(&quot;ON&quot;)
-    | ensight.elevsurf.end()
-    | ensight.elevsurf.create()
+    ::
+
+        #
+        # Select parent part
+        #
+        ensight.part.select_begin(2)
+        ensight.elevsurf.begin()
+        ensight.elevsurf.variable(&quot;N_temperature&quot;)
+        ensight.elevsurf.offset(0.0000e+00)
+        ensight.elevsurf.scale_factor(2.0750e-02)
+        ensight.elevsurf.sidewall(&quot;ON&quot;)
+        ensight.elevsurf.surface(&quot;ON&quot;)
+        ensight.elevsurf.end()
+        ensight.elevsurf.create()
 
 Returns:
     zero on success, non-zero on error
@@ -216,18 +232,20 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # Select parent part
-    | #
-    | ensight.part.select_begin(2)
-    | ensight.elevsurf.begin()
-    | ensight.elevsurf.variable(&quot;N_temperature&quot;)
-    | ensight.elevsurf.offset(0.0000e+00)
-    | ensight.elevsurf.scale_factor(2.0750e-02)
-    | ensight.elevsurf.sidewall(&quot;ON&quot;)
-    | ensight.elevsurf.surface(&quot;ON&quot;)
-    | ensight.elevsurf.end()
-    | ensight.elevsurf.create()
+    ::
+
+        #
+        # Select parent part
+        #
+        ensight.part.select_begin(2)
+        ensight.elevsurf.begin()
+        ensight.elevsurf.variable(&quot;N_temperature&quot;)
+        ensight.elevsurf.offset(0.0000e+00)
+        ensight.elevsurf.scale_factor(2.0750e-02)
+        ensight.elevsurf.sidewall(&quot;ON&quot;)
+        ensight.elevsurf.surface(&quot;ON&quot;)
+        ensight.elevsurf.end()
+        ensight.elevsurf.create()
 
 Returns:
     zero on success, non-zero on error
@@ -242,18 +260,20 @@ Args:
         &#x27;variable_name&#x27; name of the variable to use
 
 Examples:
-    | #
-    | # Select parent part
-    | #
-    | ensight.part.select_begin(2)
-    | ensight.elevsurf.begin()
-    | ensight.elevsurf.variable(&quot;N_temperature&quot;)
-    | ensight.elevsurf.offset(0.0000e+00)
-    | ensight.elevsurf.scale_factor(2.0750e-02)
-    | ensight.elevsurf.sidewall(&quot;ON&quot;)
-    | ensight.elevsurf.surface(&quot;ON&quot;)
-    | ensight.elevsurf.end()
-    | ensight.elevsurf.create()
+    ::
+
+        #
+        # Select parent part
+        #
+        ensight.part.select_begin(2)
+        ensight.elevsurf.begin()
+        ensight.elevsurf.variable(&quot;N_temperature&quot;)
+        ensight.elevsurf.offset(0.0000e+00)
+        ensight.elevsurf.scale_factor(2.0750e-02)
+        ensight.elevsurf.sidewall(&quot;ON&quot;)
+        ensight.elevsurf.surface(&quot;ON&quot;)
+        ensight.elevsurf.end()
+        ensight.elevsurf.create()
 
 Returns:
     zero on success, non-zero on error

@@ -11,8 +11,10 @@ Args:
         * OFF
 
 Examples:
-    | ensight.texture.select(1)
-    | ensight.texture.autoscale(&quot;ON&quot;)
+    ::
+
+        ensight.texture.select(1)
+        ensight.texture.autoscale(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -31,8 +33,10 @@ Args:
         &#x27;blu_val&#x27; red, green, blue components of the color (range 0.0 to 1.0)
 
 Examples:
-    | ensight.texture.select(1)
-    | ensight.texture.border_rgb(1,.5,0.)
+    ::
+
+        ensight.texture.select(1)
+        ensight.texture.border_rgb(1,.5,0.)
 
 Returns:
     zero on success, non-zero on error
@@ -47,9 +51,11 @@ Args:
         &#x27;alpha&#x27; A 0 to 1 transparency value.  0 is fully transparent while 1 is fully opaque
 
 Examples:
-    | ensight.texture.select(1)
-    | ensight.texture.border_rgb(1,.5,0.)
-    | ensight.texture.border_transparency(0.)
+    ::
+
+        ensight.texture.select(1)
+        ensight.texture.border_rgb(1,.5,0.)
+        ensight.texture.border_transparency(0.)
 
 Returns:
     zero on success, non-zero on error
@@ -60,8 +66,10 @@ Returns:
 Remove the texture from the texture slot. 
 
 Examples:
-    | ensight.texture.select(0)
-    | ensight.texture.clear()
+    ::
+
+        ensight.texture.select(0)
+        ensight.texture.clear()
 
 Returns:
     zero on success, non-zero on error
@@ -86,8 +94,10 @@ Args:
         * compression scheme to use.
 
 Examples:
-    | ensight.texture.select(1)
-    | ensight.texture.compress(&quot;RLE&quot;)
+    ::
+
+        ensight.texture.select(1)
+        ensight.texture.compress(&quot;RLE&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -106,8 +116,10 @@ Args:
         * a
 
 Examples:
-    | ensight.texture.select(0)
-    | ensight.texture.display_type(&quot;rgb&quot;)
+    ::
+
+        ensight.texture.select(0)
+        ensight.texture.display_type(&quot;rgb&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -124,8 +136,10 @@ Args:
         &#x27;end_frame&#x27; start and end frames for the texture
 
 Examples:
-    | ensight.texture.select(0)
-    | ensight.texture.frame_limits(0,24)
+    ::
+
+        ensight.texture.select(0)
+        ensight.texture.frame_limits(0,24)
 
 Returns:
     zero on success, non-zero on error
@@ -142,8 +156,10 @@ Args:
         &#x27;filename&#x27; the image filename to be used as the texture
 
 Examples:
-    | ensight.texture.select(0)
-    | ensight.texture.read(&quot;/tmp/grass.jpg&quot;)
+    ::
+
+        ensight.texture.select(0)
+        ensight.texture.read(&quot;/tmp/grass.jpg&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -158,8 +174,10 @@ Args:
         &#x27;num&#x27; the texture slot for editing (0 to 7 inclusive)
 
 Examples:
-    | ensight.texture.select(0)
-    | ensight.texture.read(&quot;/tmp/grass.jpg&quot;)
+    ::
+
+        ensight.texture.select(0)
+        ensight.texture.read(&quot;/tmp/grass.jpg&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -176,8 +194,10 @@ Args:
         &#x27;end_time&#x27; start and end times for the texture
 
 Examples:
-    | ensight.texture.select(0)
-    | ensight.texture.time_limits(0.0,5.163)
+    ::
+
+        ensight.texture.select(0)
+        ensight.texture.time_limits(0.0,5.163)
 
 Returns:
     zero on success, non-zero on error

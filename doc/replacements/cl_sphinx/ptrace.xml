@@ -10,16 +10,18 @@ Args:
         &#x27;number_of&#x27; number of the arrowheads shown along each trace
 
 Examples:
-    | #
-    | # modifying an existing particle trace that has the default of
-    | # of 3 normal arrows per trace to be 5 cone arrows.
-    | #
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.ptrace.arrows(&quot;cone&quot;)
-    | ensight.ptrace.number_of_arrows(5)
-    | ensight.ptrace.arrow_size(0.15)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # modifying an existing particle trace that has the default of
+        # of 3 normal arrows per trace to be 5 cone arrows.
+        #
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.ptrace.arrows(&quot;cone&quot;)
+        ensight.ptrace.number_of_arrows(5)
+        ensight.ptrace.arrow_size(0.15)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -50,12 +52,14 @@ Args:
         &#x27;filename&#x27; The name of the emitter file
 
 Examples:
-    | #
-    | # Add emitters to a currently defined particle trace part 3
-    | # 
-    | #
-    | ensight.part.select_begin(3)
-    | ensight.ptrace.add_file(&quot;/tmp/emitter.file&quot;)
+    ::
+
+        #
+        # Add emitters to a currently defined particle trace part 3
+        # 
+        #
+        ensight.part.select_begin(3)
+        ensight.ptrace.add_file(&quot;/tmp/emitter.file&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -74,46 +78,48 @@ Args:
         &#x27;num_in_y&#x27; number of equally spaced points in the y direction of the plane tool
 
 Examples:
-    | #
-    | # Getting the plane tool to the desired location
-    | #
-    | ensight.view_transf.plane(1,1.750000,2.700000,0.000000)
-    | ensight.view_transf.plane(2,13.000000,2.700000,0.000000)
-    | ensight.view_transf.plane(3,13.000000,9.500000,0.000000)
-    | #
-    | # Selecting the parent part(s)
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Setting some attributes before creation
-    | # (others are the current defaults)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating 35 traces from the plane tool (becomes part 2)
-    | #
-    | ensight.ptrace.create_net(5,7)
-    | #
-    | # Moving the plane tool to a new location
-    | #
-    | ensight.tools.plane(&quot;ON&quot;)
-    | ensight.view_transf.function(&quot;plane&quot;)
-    | ensight.view_transf.scale(-0.522802,-1.195307,1.000000)
-    | ensight.view_transf.translate(-10.588167,-0.218373,0.000000)
-    | ensight.view_transf.function(&quot;global&quot;)
-    | #
-    | # Selecting the particle trace part to add to
-    | # and adding the 9 new emitters from which
-    | # more traces are made
-    | #
-    | ensight.part.select_begin(2)
-    | ensight.ptrace.add_net(3,3)
+    ::
+
+        #
+        # Getting the plane tool to the desired location
+        #
+        ensight.view_transf.plane(1,1.750000,2.700000,0.000000)
+        ensight.view_transf.plane(2,13.000000,2.700000,0.000000)
+        ensight.view_transf.plane(3,13.000000,9.500000,0.000000)
+        #
+        # Selecting the parent part(s)
+        #
+        ensight.part.select_begin(1)
+        #
+        # Setting some attributes before creation
+        # (others are the current defaults)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating 35 traces from the plane tool (becomes part 2)
+        #
+        ensight.ptrace.create_net(5,7)
+        #
+        # Moving the plane tool to a new location
+        #
+        ensight.tools.plane(&quot;ON&quot;)
+        ensight.view_transf.function(&quot;plane&quot;)
+        ensight.view_transf.scale(-0.522802,-1.195307,1.000000)
+        ensight.view_transf.translate(-10.588167,-0.218373,0.000000)
+        ensight.view_transf.function(&quot;global&quot;)
+        #
+        # Selecting the particle trace part to add to
+        # and adding the 9 new emitters from which
+        # more traces are made
+        #
+        ensight.part.select_begin(2)
+        ensight.ptrace.add_net(3,3)
 
 Returns:
     zero on success, non-zero on error
@@ -126,43 +132,45 @@ Adds emitters (and thus more traces) to the current particle trace part(s) from 
 | Any existing particle trace part can have emitters added to them. These trace parts must be selected, and the cursor must be at the new location, before the addition.
 
 Examples:
-    | #
-    | # Getting the cursor to the desired location
-    | #
-    | ensight.view_transf.cursor(-0.927830,1.474020,0.000000)
-    | #
-    | # Selecting the parent part(s)
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Setting some attributes before creation
-    | # (others are the current defaults)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating trace from a point (becomes part 2)
-    | #
-    | ensight.ptrace.create_pt()
-    | #
-    | # Moving the cursor to a new location
-    | #
-    | ensight.tools.cursor(&quot;ON&quot;)
-    | ensight.view_transf.function(&quot;cursor&quot;)
-    | ensight.view_transf.translate(-7.368053,-0.491341,0.000000)
-    | ensight.view_transf.function(&quot;global&quot;)
-    | #
-    | # Selecting the particle trace part to add to
-    | # and adding the new emitter from which another
-    | # trace is made
-    | #
-    | ensight.part.select_begin(2)
-    | ensight.ptrace.add_pt()
+    ::
+
+        #
+        # Getting the cursor to the desired location
+        #
+        ensight.view_transf.cursor(-0.927830,1.474020,0.000000)
+        #
+        # Selecting the parent part(s)
+        #
+        ensight.part.select_begin(1)
+        #
+        # Setting some attributes before creation
+        # (others are the current defaults)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating trace from a point (becomes part 2)
+        #
+        ensight.ptrace.create_pt()
+        #
+        # Moving the cursor to a new location
+        #
+        ensight.tools.cursor(&quot;ON&quot;)
+        ensight.view_transf.function(&quot;cursor&quot;)
+        ensight.view_transf.translate(-7.368053,-0.491341,0.000000)
+        ensight.view_transf.function(&quot;global&quot;)
+        #
+        # Selecting the particle trace part to add to
+        # and adding the new emitter from which another
+        # trace is made
+        #
+        ensight.part.select_begin(2)
+        ensight.ptrace.add_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -179,44 +187,46 @@ Args:
         &#x27;num_points&#x27; number of equally spaced points on the line to use as emitters
 
 Examples:
-    | #
-    | # Getting the line tool to the desired location
-    | #
-    | ensight.view_transf.line(1,9.000000,6.000000,0.000000)
-    | ensight.view_transf.line(2,30.000000,6.000000,0.000000)
-    | #
-    | # Selecting the parent part(s)
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Setting some attributes before creation
-    | # (others are the current defaults)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating 10 traces from a line tool (becomes part 2)
-    | #
-    | ensight.ptrace.create_rake(10)
-    | #
-    | # Moving the line tool to a new location
-    | #
-    | ensight.tools.line(&quot;ON&quot;)
-    | ensight.view_transf.function(&quot;line&quot;)
-    | ensight.view_transf.translate(-4.202520,4.531246,0.000000)
-    | ensight.view_transf.function(&quot;global&quot;)
-    | #
-    | # Selecting the particle trace part to add to
-    | # and adding the 6 new emitters from which more
-    | # traces are made
-    | #
-    | ensight.part.select_begin(2)
-    | ensight.ptrace.add_rake(6)
+    ::
+
+        #
+        # Getting the line tool to the desired location
+        #
+        ensight.view_transf.line(1,9.000000,6.000000,0.000000)
+        ensight.view_transf.line(2,30.000000,6.000000,0.000000)
+        #
+        # Selecting the parent part(s)
+        #
+        ensight.part.select_begin(1)
+        #
+        # Setting some attributes before creation
+        # (others are the current defaults)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating 10 traces from a line tool (becomes part 2)
+        #
+        ensight.ptrace.create_rake(10)
+        #
+        # Moving the line tool to a new location
+        #
+        ensight.tools.line(&quot;ON&quot;)
+        ensight.view_transf.function(&quot;line&quot;)
+        ensight.view_transf.translate(-4.202520,4.531246,0.000000)
+        ensight.view_transf.function(&quot;global&quot;)
+        #
+        # Selecting the particle trace part to add to
+        # and adding the 6 new emitters from which more
+        # traces are made
+        #
+        ensight.part.select_begin(2)
+        ensight.ptrace.add_rake(6)
 
 Returns:
     zero on success, non-zero on error
@@ -245,34 +255,36 @@ Args:
         &#x27;y2&#x27; screen y coordinate of the second point on the diagonal of the box (0.0 to 1.0)
 
 Examples:
-    | #
-    | # Selecting the parent part(s)
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Setting some attributes before creation
-    | # (surface_restricted must be on)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.surface_restricted(&quot;ON&quot;)
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating 35 surface restricted traces from
-    | # the box selection (becomes part 2)
-    | #
-    | ensight.ptrace.create_surface_net(5,7)
-    | #
-    | # Selecting the surface restricted particle trace
-    | # part to add to, and adding the 16 new emitters
-    | # from which more traces are made
-    | #
-    | ensight.part.select_begin(2)
-    | ensight.ptrace.create_surface_net(4,4,0.114734,0.424963,0.166667,0.362556)
+    ::
+
+        #
+        # Selecting the parent part(s)
+        #
+        ensight.part.select_begin(1)
+        #
+        # Setting some attributes before creation
+        # (surface_restricted must be on)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.surface_restricted(&quot;ON&quot;)
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating 35 surface restricted traces from
+        # the box selection (becomes part 2)
+        #
+        ensight.ptrace.create_surface_net(5,7)
+        #
+        # Selecting the surface restricted particle trace
+        # part to add to, and adding the 16 new emitters
+        # from which more traces are made
+        #
+        ensight.part.select_begin(2)
+        ensight.ptrace.create_surface_net(4,4,0.114734,0.424963,0.166667,0.362556)
 
 Returns:
     zero on success, non-zero on error
@@ -291,39 +303,41 @@ Args:
         &#x27;screen_y&#x27; screen y coordinate (0.0 to 1.0)
 
 Examples:
-    | #
-    | # Getting the cursor to the desired location
-    | #
-    | ensight.view_transf.cursor(-0.927830,1.474020,0.000000)
-    | #
-    | # Selecting the parent part(s)
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Setting some attributes before creation
-    | # (surface_restricted must be on)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.surface_restricted(&quot;ON&quot;)
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating surface restricted trace from a
-    | # screen location (becomes part 2)
-    | #
-    | ensight.ptrace.create_surface_pt(0.148551,0.484398)
-    | #
-    | # Selecting the particle trace part to add to
-    | # and adding a couple of new emitters from which
-    | # more traces are made
-    | #
-    | ensight.part.select_begin(2)
-    | ensight.ptrace.add_surface_pt(0.136473,0.646360)
-    | ensight.ptrace.add_surface_pt(0.193237,0.546805)
+    ::
+
+        #
+        # Getting the cursor to the desired location
+        #
+        ensight.view_transf.cursor(-0.927830,1.474020,0.000000)
+        #
+        # Selecting the parent part(s)
+        #
+        ensight.part.select_begin(1)
+        #
+        # Setting some attributes before creation
+        # (surface_restricted must be on)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.surface_restricted(&quot;ON&quot;)
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating surface restricted trace from a
+        # screen location (becomes part 2)
+        #
+        ensight.ptrace.create_surface_pt(0.148551,0.484398)
+        #
+        # Selecting the particle trace part to add to
+        # and adding a couple of new emitters from which
+        # more traces are made
+        #
+        ensight.part.select_begin(2)
+        ensight.ptrace.add_surface_pt(0.136473,0.646360)
+        ensight.ptrace.add_surface_pt(0.193237,0.546805)
 
 Returns:
     zero on success, non-zero on error
@@ -348,39 +362,41 @@ Args:
         &#x27;y2&#x27; screen y coordinate of the second end of the rake (0.0 to1.0)
 
 Examples:
-    | #
-    | # Getting the line tool to the desired location
-    | #
-    | ensight.view_transf.line(1,9.000000,6.000000,0.000000)
-    | ensight.view_transf.line(2,30.000000,6.000000,0.000000)
-    | #
-    | # Selecting the parent part(s)
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Setting some attributes before creation
-    | # (surface_restricted must be on)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.surface_restricted(&quot;ON&quot;)
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating 10 surface restricted traces from
-    | # a rake pick location (becomes part 2)
-    | #
-    | ensight.ptrace.create_surface_rake(10,0.117150,0.540862,0.117150,0.442793)
-    | #
-    | # Selecting the particle trace part to add to
-    | # and adding 6 new emitters from which more
-    | # traces are made
-    | #
-    | ensight.part.select_begin(2)
-    | ensight.ptrace.add_surface_rake(6,0.129227,0.594354,0.188406,0.592868)
+    ::
+
+        #
+        # Getting the line tool to the desired location
+        #
+        ensight.view_transf.line(1,9.000000,6.000000,0.000000)
+        ensight.view_transf.line(2,30.000000,6.000000,0.000000)
+        #
+        # Selecting the parent part(s)
+        #
+        ensight.part.select_begin(1)
+        #
+        # Setting some attributes before creation
+        # (surface_restricted must be on)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.surface_restricted(&quot;ON&quot;)
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating 10 surface restricted traces from
+        # a rake pick location (becomes part 2)
+        #
+        ensight.ptrace.create_surface_rake(10,0.117150,0.540862,0.117150,0.442793)
+        #
+        # Selecting the particle trace part to add to
+        # and adding 6 new emitters from which more
+        # traces are made
+        #
+        ensight.part.select_begin(2)
+        ensight.ptrace.add_surface_rake(6,0.129227,0.594354,0.188406,0.592868)
 
 Returns:
     zero on success, non-zero on error
@@ -398,16 +414,18 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # Selecting the trace(s) to animate
-    | #
-    | ensight.part.select_begin(7,8)
-    | #
-    | # Turning on the animation for the two selected trace parts
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.animate(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Selecting the trace(s) to animate
+        #
+        ensight.part.select_begin(7,8)
+        #
+        # Turning on the animation for the two selected trace parts
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.animate(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -429,16 +447,18 @@ Args:
         * triangles
 
 Examples:
-    | #
-    | # modifying an existing particle trace that has the default of
-    | # of 3 normal arrows per trace to be 5 cone arrows.
-    | #
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.ptrace.arrows(&quot;cone&quot;)
-    | ensight.ptrace.number_of_arrows(5)
-    | ensight.ptrace.arrow_size(0.15)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # modifying an existing particle trace that has the default of
+        # of 3 normal arrows per trace to be 5 cone arrows.
+        #
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.ptrace.arrows(&quot;cone&quot;)
+        ensight.ptrace.number_of_arrows(5)
+        ensight.ptrace.arrow_size(0.15)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -455,16 +475,18 @@ Args:
         &#x27;size&#x27; size of the arrowheads shown along each trace
 
 Examples:
-    | #
-    | # modifying an existing particle trace that has the default of
-    | # of 3 normal arrows per trace to be 5 cone arrows.
-    | #
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.ptrace.arrows(&quot;cone&quot;)
-    | ensight.ptrace.number_of_arrows(5)
-    | ensight.ptrace.arrow_size(0.15)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # modifying an existing particle trace that has the default of
+        # of 3 normal arrows per trace to be 5 cone arrows.
+        #
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.ptrace.arrows(&quot;cone&quot;)
+        ensight.ptrace.number_of_arrows(5)
+        ensight.ptrace.arrow_size(0.15)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -481,22 +503,24 @@ Args:
         &#x27;ptrace_command&#x27; any of the various attribute changing &quot;ptrace:&quot; commands
 
 Examples:
-    | #
-    | # Selecting the parent part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Setting some attributes before creation
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating trace from a point
-    | #
-    | ensight.ptrace.create_pt()
+    ::
+
+        #
+        # Selecting the parent part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Setting some attributes before creation
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating trace from a point
+        #
+        ensight.ptrace.create_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -513,22 +537,24 @@ Args:
         &#x27;ptrace_command&#x27; any of the various attribute changing &quot;ptrace:&quot; commands
 
 Examples:
-    | #
-    | # Selecting the parent part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Setting some attributes before creation
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating trace from a point
-    | #
-    | ensight.ptrace.create_pt()
+    ::
+
+        #
+        # Selecting the parent part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Setting some attributes before creation
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating trace from a point
+        #
+        ensight.ptrace.create_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -549,27 +575,29 @@ Args:
         &#x27;z_scal&#x27; scale factor to apply to the x, y, z components of the vector
 
 Examples:
-    | #
-    | # Selecting the parent part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Setting some attributes before creation
-    | # (the components are being set here)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | #
-    | # Create the particle trace with
-    | # the x and y components of the vector
-    | #
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,0.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating trace from a point
-    | #
-    | ensight.ptrace.create_pt()
+    ::
+
+        #
+        # Selecting the parent part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Setting some attributes before creation
+        # (the components are being set here)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.type(&quot;streamline&quot;)
+        #
+        # Create the particle trace with
+        # the x and y components of the vector
+        #
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,0.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating trace from a point
+        #
+        ensight.ptrace.create_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -584,15 +612,17 @@ Args:
         &#x27;filename&#x27; The name of the emitter file
 
 Examples:
-    | #
-    | # Create particle traces through part 1 by releasing
-    | # emitters as defined in the given file
-    | #
-    | ensight.part.select_begin(1)
-    | ensight.ptrace.begin()
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.create_file(&quot;/tmp/emitter.file&quot;)
+    ::
+
+        #
+        # Create particle traces through part 1 by releasing
+        # emitters as defined in the given file
+        #
+        ensight.part.select_begin(1)
+        ensight.ptrace.begin()
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.create_file(&quot;/tmp/emitter.file&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -613,31 +643,33 @@ Args:
         &#x27;num_in_y &#x27; number of equally spaced points in the y direction of the plane tool
 
 Examples:
-    | #
-    | # Getting the plane tool to the desired location
-    | #
-    | ensight.view_transf.plane(1,1.750000,2.700000,0.000000)
-    | ensight.view_transf.plane(2,13.000000,2.700000,0.000000)
-    | ensight.view_transf.plane(3,13.000000,9.500000,0.000000)
-    | #
-    | # Selecting the parent part(s)
-    | #
-    | ensight.part.select_begin(1,3,4)
-    | #
-    | # Setting some attributes before creation
-    | # (others are the current defaults)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating 35 traces from the plane tool
-    | #
-    | ensight.ptrace.create_net(5,7)
+    ::
+
+        #
+        # Getting the plane tool to the desired location
+        #
+        ensight.view_transf.plane(1,1.750000,2.700000,0.000000)
+        ensight.view_transf.plane(2,13.000000,2.700000,0.000000)
+        ensight.view_transf.plane(3,13.000000,9.500000,0.000000)
+        #
+        # Selecting the parent part(s)
+        #
+        ensight.part.select_begin(1,3,4)
+        #
+        # Setting some attributes before creation
+        # (others are the current defaults)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating 35 traces from the plane tool
+        #
+        ensight.ptrace.create_net(5,7)
 
 Returns:
     zero on success, non-zero on error
@@ -656,28 +688,30 @@ Args:
         &#x27;numemitpoints&#x27; number of emitters to use.  The minimum of this value and the number of nodes in the part will be used.
 
 Examples:
-    | #
-    | # Selecting the parent part(s)
-    | #
-    | ensight.part.select_begin(1,3,4)
-    | #
-    | # Setting some attributes before creation
-    | # (others are the current defaults)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.ptrace.emit_density).
-    | ensight.ptrace.emit_density(1.0000e+00)
-    | ensight.ptrace.end()
-    | #
-    | # Creating traces from all the nodes of the part 
-    | # entitled &quot;(CASE:Case 1)Clip_line&quot;
-    | #
-    | ensight.ptrace.create_bypartname(&quot;(CASE:Case&quot;,&quot;1)Clip_line&quot;,&quot;100&quot;)
+    ::
+
+        #
+        # Selecting the parent part(s)
+        #
+        ensight.part.select_begin(1,3,4)
+        #
+        # Setting some attributes before creation
+        # (others are the current defaults)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.ptrace.emit_density).
+        ensight.ptrace.emit_density(1.0000e+00)
+        ensight.ptrace.end()
+        #
+        # Creating traces from all the nodes of the part 
+        # entitled &quot;(CASE:Case 1)Clip_line&quot;
+        #
+        ensight.ptrace.create_bypartname(&quot;(CASE:Case&quot;,&quot;1)Clip_line&quot;,&quot;100&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -698,29 +732,31 @@ Create a particle trace from the current location of the cursor (a point).
 | The default attributes and/or any &quot;ptrace:&quot; attribute commands between &quot;ptrace: begin&quot; and &quot;ptrace: end&quot; commands are used for the trace creation. A parent part or parts (containing the flow field) must be selected prior to this command, and you need the cursor to be at the desired location.
 
 Examples:
-    | #
-    | # Getting the cursor to the desired location
-    | #
-    | ensight.view_transf.cursor(-0.927830,1.474020,0.000000)
-    | #
-    | # Selecting the parent part(s)
-    | #
-    | ensight.part.select_begin(1,3,4)
-    | #
-    | # Setting some attributes before creation
-    | # (others are the current defaults)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating trace from a point
-    | #
-    | ensight.ptrace.create_pt()
+    ::
+
+        #
+        # Getting the cursor to the desired location
+        #
+        ensight.view_transf.cursor(-0.927830,1.474020,0.000000)
+        #
+        # Selecting the parent part(s)
+        #
+        ensight.part.select_begin(1,3,4)
+        #
+        # Setting some attributes before creation
+        # (others are the current defaults)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating trace from a point
+        #
+        ensight.ptrace.create_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -737,30 +773,32 @@ Args:
         &#x27;num_points&#x27; number of equally spaced points on the line to use as emitters
 
 Examples:
-    | #
-    | # Getting the line tool to the desired location
-    | #
-    | ensight.view_transf.line(1,9.000000,6.000000,0.000000)
-    | ensight.view_transf.line(2,30.000000,6.000000,0.000000)
-    | #
-    | # Selecting the parent part(s)
-    | #
-    | ensight.part.select_begin(1,3,4)
-    | #
-    | # Setting some attributes before creation
-    | # (others are the current defaults)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating 10 traces from a line tool
-    | #
-    | ensight.ptrace.create_rake(10)
+    ::
+
+        #
+        # Getting the line tool to the desired location
+        #
+        ensight.view_transf.line(1,9.000000,6.000000,0.000000)
+        ensight.view_transf.line(2,30.000000,6.000000,0.000000)
+        #
+        # Selecting the parent part(s)
+        #
+        ensight.part.select_begin(1,3,4)
+        #
+        # Setting some attributes before creation
+        # (others are the current defaults)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating 10 traces from a line tool
+        #
+        ensight.ptrace.create_rake(10)
 
 Returns:
     zero on success, non-zero on error
@@ -788,23 +826,25 @@ Args:
         &#x27;y2&#x27; screen y coordinate of the second point on the diagonal of the box (0.0 to 1.0)
 
 Examples:
-    | ensight.part.select_begin(1,3,4)
-    | #
-    | # Setting some attributes before creation
-    | # (surface_restricted must be on)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.surface_restricted(&quot;ON&quot;)
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating 35 traces from the box selection
-    | #
-    | ensight.ptrace.create_surface_net(5,7)
+    ::
+
+        ensight.part.select_begin(1,3,4)
+        #
+        # Setting some attributes before creation
+        # (surface_restricted must be on)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.surface_restricted(&quot;ON&quot;)
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating 35 traces from the box selection
+        #
+        ensight.ptrace.create_surface_net(5,7)
 
 Returns:
     zero on success, non-zero on error
@@ -824,26 +864,28 @@ Args:
         &#x27;screen_y&#x27; screen y coordinate (0.0 to 1.0)
 
 Examples:
-    | #
-    | # Selecting the parent part(s)
-    | #
-    | ensight.part.select_begin(1,3,4)
-    | #
-    | # Setting some attributes before creation
-    | # (surface_restricted must be on)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.surface_restricted(&quot;ON&quot;)
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating surface restricted trace from a screen location
-    | #
-    | ensight.ptrace.create_surface_pt(0.148551,0.484398)
+    ::
+
+        #
+        # Selecting the parent part(s)
+        #
+        ensight.part.select_begin(1,3,4)
+        #
+        # Setting some attributes before creation
+        # (surface_restricted must be on)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.surface_restricted(&quot;ON&quot;)
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating surface restricted trace from a screen location
+        #
+        ensight.ptrace.create_surface_pt(0.148551,0.484398)
 
 Returns:
     zero on success, non-zero on error
@@ -869,26 +911,28 @@ Args:
         &#x27;y2&#x27; screen y coordinate of the second end of the rake (0.0 to 1.0)
 
 Examples:
-    | #
-    | # Selecting the parent part(s)
-    | #
-    | ensight.part.select_begin(1,3,4)
-    | #
-    | # Setting some attributes before creation
-    | # (surface_restricted must be on)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.surface_restricted(&quot;ON&quot;)
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating 10 traces from a screen rake location
-    | #
-    | ensight.ptrace.create_surface_rake(10,0.117150,0.540862,0.117150,0.442793)
+    ::
+
+        #
+        # Selecting the parent part(s)
+        #
+        ensight.part.select_begin(1,3,4)
+        #
+        # Setting some attributes before creation
+        # (surface_restricted must be on)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.surface_restricted(&quot;ON&quot;)
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating 10 traces from a screen rake location
+        #
+        ensight.ptrace.create_surface_rake(10,0.117150,0.540862,0.117150,0.442793)
 
 Returns:
     zero on success, non-zero on error
@@ -935,10 +979,12 @@ Args:
         &#x27;filename&#x27; The default emitter file name
 
 Examples:
-    | #
-    | # Set the default file emitter
-    | #
-    | ensight.ptrace.default_emit_file(&quot;/tmp/emitter.file&quot;)
+    ::
+
+        #
+        # Set the default file emitter
+        #
+        ensight.ptrace.default_emit_file(&quot;/tmp/emitter.file&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -957,11 +1003,13 @@ Args:
         &#x27;num_in_y&#x27; number of emission points to be the default for y direction of net
 
 Examples:
-    | #
-    | # Set the default number of emission points
-    | # for nets to be 10 x 12 in this case
-    | #
-    | ensight.ptrace.default_emit_net(10,12)
+    ::
+
+        #
+        # Set the default number of emission points
+        # for nets to be 10 x 12 in this case
+        #
+        ensight.ptrace.default_emit_net(10,12)
 
 Returns:
     zero on success, non-zero on error
@@ -974,7 +1022,9 @@ Set the user interface Emit From option to be Cursor.
 | Sets the default &quot;Emit From&quot; in the user interface.
 
 Examples:
-    | ensight.ptrace.default_emit_pt()
+    ::
+
+        ensight.ptrace.default_emit_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -991,11 +1041,13 @@ Args:
         &#x27;num&#x27; the number of emission points to be the default for rakes
 
 Examples:
-    | #
-    | # Set the default number of emission points
-    | # for rakes to be 10 in this case
-    | #
-    | ensight.ptrace.default_emit_rake(10)
+    ::
+
+        #
+        # Set the default number of emission points
+        # for rakes to be 10 in this case
+        #
+        ensight.ptrace.default_emit_rake(10)
 
 Returns:
     zero on success, non-zero on error
@@ -1008,16 +1060,18 @@ Remove emitters from a particle trace part (and their associated traces).
 | The desired emitter for the particle trace part must be selected before this command is issued.
 
 Examples:
-    | #
-    | # Selecting the parent part(s)
-    | #
-    | ensight.part.select_begin(2)
-    | #
-    | # Selecting the emitter within the part
-    | # (in this case we will delete the first 3 emitters)
-    | #
-    | ensight.ptrace.select_emitter_begin(0,1,2)
-    | ensight.ptrace.delete_emitter()
+    ::
+
+        #
+        # Selecting the parent part(s)
+        #
+        ensight.part.select_begin(2)
+        #
+        # Selecting the emitter within the part
+        # (in this case we will delete the first 3 emitters)
+        #
+        ensight.ptrace.select_emitter_begin(0,1,2)
+        ensight.ptrace.delete_emitter()
 
 Returns:
     zero on success, non-zero on error
@@ -1035,27 +1089,29 @@ Args:
         &#x27;emit_delta&#x27; the time interval between emissions. (The default is 0.0, which will cause only the initial emission to take place
 
 Examples:
-    | #
-    | # Selecting the parent part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Setting some attributes before creation
-    | # (the delta_time is being set here, to emit
-    | #  every 2.5 time units)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.start_time(1.5000e+01)
-    | ensight.ptrace.delta_time(2.5000e+00)
-    | ensight.ptrace.end()
-    | #
-    | # Creating trace from a point
-    | #
-    | ensight.ptrace.create_pt()
+    ::
+
+        #
+        # Selecting the parent part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Setting some attributes before creation
+        # (the delta_time is being set here, to emit
+        #  every 2.5 time units)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.start_time(1.5000e+01)
+        ensight.ptrace.delta_time(2.5000e+00)
+        ensight.ptrace.end()
+        #
+        # Creating trace from a point
+        #
+        ensight.ptrace.create_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -1072,27 +1128,29 @@ Args:
         &#x27;offset_distance&#x27; the distance normal to the surface at which to display the trace
 
 Examples:
-    | #
-    | # Selecting the parent part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Setting some attributes before creation
-    | # (the  display_offset for the surface restricted trace
-    | #  is being set here)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.part.description(&quot;Particle trace part&quot;)
-    | ensight.ptrace.surface_restricted(&quot;ON&quot;)
-    | ensight.ptrace.variable_offset(1.0000e-01)
-    | ensight.ptrace.display_offset(-0.5000e+00)
-    | ensight.ptrace.total_time(2.0000e+02)
-    | ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating trace from a point
-    | #
-    | ensight.ptrace.create_pt()
+    ::
+
+        #
+        # Selecting the parent part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Setting some attributes before creation
+        # (the  display_offset for the surface restricted trace
+        #  is being set here)
+        #
+        ensight.ptrace.begin()
+        ensight.part.description(&quot;Particle trace part&quot;)
+        ensight.ptrace.surface_restricted(&quot;ON&quot;)
+        ensight.ptrace.variable_offset(1.0000e-01)
+        ensight.ptrace.display_offset(-0.5000e+00)
+        ensight.ptrace.total_time(2.0000e+02)
+        ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating trace from a point
+        #
+        ensight.ptrace.create_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -1112,25 +1170,27 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # Selecting the parent part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Setting some attributes before creation
-    | # (the emit_at_current_time flag is being set here)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating trace from a point
-    | #
-    | ensight.ptrace.create_pt()
+    ::
+
+        #
+        # Selecting the parent part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Setting some attributes before creation
+        # (the emit_at_current_time flag is being set here)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating trace from a point
+        #
+        ensight.ptrace.create_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -1145,12 +1205,14 @@ Args:
         &#x27;coef&#x27; ballistic coefficient
 
 Examples:
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_buoyancy(&quot;OFF&quot;)
-    | ensight.ptrace.massed_use_ballistic(&quot;ON&quot;)
-    | ensight.ptrace.massed_ballistic_coef(0.01)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_buoyancy(&quot;OFF&quot;)
+        ensight.ptrace.massed_use_ballistic(&quot;ON&quot;)
+        ensight.ptrace.massed_ballistic_coef(0.01)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1173,18 +1235,20 @@ Args:
         &#x27;friction&#x27; coefficient of friction
 
 Examples:
-    | ensight.ptrace.select_default()
-    | ensight.ptrace.default_emit_pt()
-    | ensight.view_transf.cursor(7.1,6,0.)
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particles(&quot;ON&quot;)
-    | ensight.ptrace.massed_rebound(&quot;ON&quot;)
-    | ensight.ptrace.massed_rebound_wallhits(4)
-    | ensight.ptrace.massed_coef_restitution(0.8)
-    | ensight.ptrace.massed_coef_friction(1.000000e-01)
-    | ensight.part.modify_end()
-    | ensight.part.select_all()
-    | ensight.ptrace.create_pt()
+    ::
+
+        ensight.ptrace.select_default()
+        ensight.ptrace.default_emit_pt()
+        ensight.view_transf.cursor(7.1,6,0.)
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particles(&quot;ON&quot;)
+        ensight.ptrace.massed_rebound(&quot;ON&quot;)
+        ensight.ptrace.massed_rebound_wallhits(4)
+        ensight.ptrace.massed_coef_restitution(0.8)
+        ensight.ptrace.massed_coef_friction(1.000000e-01)
+        ensight.part.modify_end()
+        ensight.part.select_all()
+        ensight.ptrace.create_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -1199,18 +1263,20 @@ Args:
         &#x27;rebound&#x27; coefficient of restitution
 
 Examples:
-    | ensight.ptrace.select_default()
-    | ensight.ptrace.default_emit_pt()
-    | ensight.view_transf.cursor(7.1,6,0.)
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particles(&quot;ON&quot;)
-    | ensight.ptrace.massed_rebound(&quot;ON&quot;)
-    | ensight.ptrace.massed_rebound_wallhits(4)
-    | ensight.ptrace.massed_coef_restitution(0.8)
-    | ensight.ptrace.massed_coef_friction(1.000000e-01)
-    | ensight.part.modify_end()
-    | ensight.part.select_all()
-    | ensight.ptrace.create_pt()
+    ::
+
+        ensight.ptrace.select_default()
+        ensight.ptrace.default_emit_pt()
+        ensight.view_transf.cursor(7.1,6,0.)
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particles(&quot;ON&quot;)
+        ensight.ptrace.massed_rebound(&quot;ON&quot;)
+        ensight.ptrace.massed_rebound_wallhits(4)
+        ensight.ptrace.massed_coef_restitution(0.8)
+        ensight.ptrace.massed_coef_friction(1.000000e-01)
+        ensight.part.modify_end()
+        ensight.part.select_all()
+        ensight.ptrace.create_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -1230,32 +1296,33 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # Create a massless point trace
-    | #
-    | ensight.part.select_all()
-    | ensight.ptrace.select_default()
-    | ensight.part.modify_begin()
-    | ensight.ptrace.variable(&quot;velocity&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.select_all()
-    | ensight.ptrace.create_pt()
-    | ensight.part.select_begin(2)
-    | #
-    | # Toggle on massed-particle drag force term
-    | # Specify default drag coefficient function table
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_drag(&quot;ON&quot;)
-    | ensight.ptrace.massed_drag_coefficient(&quot;none&quot;)
-    | ensight.part.modify_end()
-    | #
-    | # Change part to massed trace using current settings
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particles(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
 
+        #
+        # Create a massless point trace
+        #
+        ensight.part.select_all()
+        ensight.ptrace.select_default()
+        ensight.part.modify_begin()
+        ensight.ptrace.variable(&quot;velocity&quot;)
+        ensight.part.modify_end()
+        ensight.part.select_all()
+        ensight.ptrace.create_pt()
+        ensight.part.select_begin(2)
+        #
+        # Toggle on massed-particle drag force term
+        # Specify default drag coefficient function table
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_drag(&quot;ON&quot;)
+        ensight.ptrace.massed_drag_coefficient(&quot;none&quot;)
+        ensight.part.modify_end()
+        #
+        # Change part to massed trace using current settings
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particles(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1281,37 +1348,39 @@ Args:
         &#x27;table_name&#x27; any User-Defined Math Function
 
 Examples:
-    | #
-    | # Create a massless point trace
-    | #
-    | ensight.part.select_all()
-    | ensight.ptrace.select_default()
-    | ensight.part.modify_begin()
-    | ensight.ptrace.variable(&quot;velocity&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.select_all()
-    | ensight.ptrace.create_pt()
-    | ensight.part.select_begin(2)
-    | #
-    | # Toggle on massed-particle drag force term
-    | # Specify default drag coefficient function table
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_drag(&quot;ON&quot;)
-    | ensight.ptrace.massed_drag_coefficient(&quot;none&quot;)
-    | ensight.part.modify_end()
-    | #
-    | # Change part to massed trace using current settings
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particles(&quot;ON&quot;)
-    | ensight.part.modify_end()
-    | #
-    | # Change the drag coefficient function to use the power formulation
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_drag_coefficient(&quot;DragCoefPower&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Create a massless point trace
+        #
+        ensight.part.select_all()
+        ensight.ptrace.select_default()
+        ensight.part.modify_begin()
+        ensight.ptrace.variable(&quot;velocity&quot;)
+        ensight.part.modify_end()
+        ensight.part.select_all()
+        ensight.ptrace.create_pt()
+        ensight.part.select_begin(2)
+        #
+        # Toggle on massed-particle drag force term
+        # Specify default drag coefficient function table
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_drag(&quot;ON&quot;)
+        ensight.ptrace.massed_drag_coefficient(&quot;none&quot;)
+        ensight.part.modify_end()
+        #
+        # Change part to massed trace using current settings
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particles(&quot;ON&quot;)
+        ensight.part.modify_end()
+        #
+        # Change the drag coefficient function to use the power formulation
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_drag_coefficient(&quot;DragCoefPower&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1332,29 +1401,31 @@ Args:
         &#x27;density&#x27; the fluid density variable name of the corresponding fluid field - defaults to &quot;none&quot; when constant value used
 
 Examples:
-    | #
-    | # Create a massless point trace
-    | #
-    | ensight.part.select_all()
-    | ensight.ptrace.select_default()
-    | ensight.part.modify_begin()
-    | ensight.ptrace.variable(&quot;velocity&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.select_all()
-    | ensight.ptrace.create_pt()
-    | ensight.part.select_begin(2)
-    | #
-    | # Specify density scalar field variable name of the fluid.
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_fluid_density(&quot;density&quot;)
-    | ensight.part.modify_end()
-    | #
-    | # Change part to massed trace using current settings
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particles(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Create a massless point trace
+        #
+        ensight.part.select_all()
+        ensight.ptrace.select_default()
+        ensight.part.modify_begin()
+        ensight.ptrace.variable(&quot;velocity&quot;)
+        ensight.part.modify_end()
+        ensight.part.select_all()
+        ensight.ptrace.create_pt()
+        ensight.part.select_begin(2)
+        #
+        # Specify density scalar field variable name of the fluid.
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_fluid_density(&quot;density&quot;)
+        ensight.part.modify_end()
+        #
+        # Change part to massed trace using current settings
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particles(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1375,29 +1446,31 @@ Args:
         &#x27;viscosity&#x27; the dynamic viscosity variable name of the corresponding fluid field - defaults to &quot;none&quot; when constant value used
 
 Examples:
-    | #
-    | # Create a massless point trace
-    | #
-    | ensight.part.select_all()
-    | ensight.ptrace.select_default()
-    | ensight.part.modify_begin()
-    | ensight.ptrace.variable(&quot;velocity&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.select_all()
-    | ensight.ptrace.create_pt()
-    | ensight.part.select_begin(2)
-    | #
-    | # Specify dynamic viscosity scalar field variable name of the fluid.
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_fluid_viscosity(&quot;dynamic_viscosity&quot;)
-    | ensight.part.modify_end()
-    | #
-    | # Change part to massed trace using current settings
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particles(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Create a massless point trace
+        #
+        ensight.part.select_all()
+        ensight.ptrace.select_default()
+        ensight.part.modify_begin()
+        ensight.ptrace.variable(&quot;velocity&quot;)
+        ensight.part.modify_end()
+        ensight.part.select_all()
+        ensight.ptrace.create_pt()
+        ensight.part.select_begin(2)
+        #
+        # Specify dynamic viscosity scalar field variable name of the fluid.
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_fluid_viscosity(&quot;dynamic_viscosity&quot;)
+        ensight.part.modify_end()
+        #
+        # Change part to massed trace using current settings
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particles(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1417,31 +1490,33 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # Create a massless point trace
-    | #
-    | ensight.part.select_all()
-    | ensight.ptrace.select_default()
-    | ensight.part.modify_begin()
-    | ensight.ptrace.variable(&quot;velocity&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.select_all()
-    | ensight.ptrace.create_pt()
-    | ensight.part.select_begin(2)
-    | #
-    | # Toggle on massed-particle gravity force term
-    | # Specify gravity vector
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_gravity(&quot;ON&quot;)
-    | ensight.ptrace.massed_gravity_vector(&quot;0.00000e+00-9.81000e+00&quot;,0.00000e+00)
-    | ensight.part.modify_end()
-    | #
-    | # Change part to massed trace using current settings
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particles(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Create a massless point trace
+        #
+        ensight.part.select_all()
+        ensight.ptrace.select_default()
+        ensight.part.modify_begin()
+        ensight.ptrace.variable(&quot;velocity&quot;)
+        ensight.part.modify_end()
+        ensight.part.select_all()
+        ensight.ptrace.create_pt()
+        ensight.part.select_begin(2)
+        #
+        # Toggle on massed-particle gravity force term
+        # Specify gravity vector
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_gravity(&quot;ON&quot;)
+        ensight.ptrace.massed_gravity_vector(&quot;0.00000e+00-9.81000e+00&quot;,0.00000e+00)
+        ensight.part.modify_end()
+        #
+        # Change part to massed trace using current settings
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particles(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1462,31 +1537,33 @@ Args:
         &#x27;gz&#x27; the z-component of the gravity vector
 
 Examples:
-    | #
-    | # Create a massless point trace
-    | #
-    | ensight.part.select_all()
-    | ensight.ptrace.select_default()
-    | ensight.part.modify_begin()
-    | ensight.ptrace.variable(&quot;velocity&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.select_all()
-    | ensight.ptrace.create_pt()
-    | ensight.part.select_begin(2)
-    | #
-    | # Toggle on massed-particle gravity force term
-    | # Specify the gravity vector
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_gravity(&quot;ON&quot;)
-    | ensight.ptrace.massed_gravity_vector(&quot;0.00000e+00-9.81000e+00&quot;,0.00000e+00)
-    | ensight.part.modify_end()
-    | #
-    | # Change part to massed trace using current settings
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particles(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Create a massless point trace
+        #
+        ensight.part.select_all()
+        ensight.ptrace.select_default()
+        ensight.part.modify_begin()
+        ensight.ptrace.variable(&quot;velocity&quot;)
+        ensight.part.modify_end()
+        ensight.part.select_all()
+        ensight.ptrace.create_pt()
+        ensight.part.select_begin(2)
+        #
+        # Toggle on massed-particle gravity force term
+        # Specify the gravity vector
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_gravity(&quot;ON&quot;)
+        ensight.ptrace.massed_gravity_vector(&quot;0.00000e+00-9.81000e+00&quot;,0.00000e+00)
+        ensight.part.modify_end()
+        #
+        # Change part to massed trace using current settings
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particles(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1506,31 +1583,33 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # Create a massless point trace
-    | #
-    | ensight.part.select_all()
-    | ensight.ptrace.select_default()
-    | ensight.part.modify_begin()
-    | ensight.ptrace.variable(&quot;velocity&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.select_all()
-    | ensight.ptrace.create_pt()
-    | ensight.part.select_begin(2)
-    | #
-    | # Do not use the field velocity as the initial particle velocity
-    | # Specify the initial velocity value for all the massed-particles
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_initial_use_fluid(&quot;OFF&quot;)
-    | ensight.ptrace.massed_initial_velocity(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.part.modify_end()
-    | #
-    | # Change part to massed trace using current settings
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particles(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Create a massless point trace
+        #
+        ensight.part.select_all()
+        ensight.ptrace.select_default()
+        ensight.part.modify_begin()
+        ensight.ptrace.variable(&quot;velocity&quot;)
+        ensight.part.modify_end()
+        ensight.part.select_all()
+        ensight.ptrace.create_pt()
+        ensight.part.select_begin(2)
+        #
+        # Do not use the field velocity as the initial particle velocity
+        # Specify the initial velocity value for all the massed-particles
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_initial_use_fluid(&quot;OFF&quot;)
+        ensight.ptrace.massed_initial_velocity(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.part.modify_end()
+        #
+        # Change part to massed trace using current settings
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particles(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1551,31 +1630,33 @@ Args:
         &#x27;vz&#x27; the z-component of the initial velocity vector
 
 Examples:
-    | #
-    | # Create a massless point trace
-    | #
-    | ensight.part.select_all()
-    | ensight.ptrace.select_default()
-    | ensight.part.modify_begin()
-    | ensight.ptrace.variable(&quot;velocity&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.select_all()
-    | ensight.ptrace.create_pt()
-    | ensight.part.select_begin(2)
-    | #
-    | # Do not use the field velocity as the initial particle velocity
-    | # Specify the initial velocity value for all the massed-particles
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_initial_use_fluid(&quot;OFF&quot;)
-    | ensight.ptrace.massed_initial_velocity(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.part.modify_end()
-    | #
-    | # Change part to massed trace using current settings
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particles(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Create a massless point trace
+        #
+        ensight.part.select_all()
+        ensight.ptrace.select_default()
+        ensight.part.modify_begin()
+        ensight.ptrace.variable(&quot;velocity&quot;)
+        ensight.part.modify_end()
+        ensight.part.select_all()
+        ensight.ptrace.create_pt()
+        ensight.part.select_begin(2)
+        #
+        # Do not use the field velocity as the initial particle velocity
+        # Specify the initial velocity value for all the massed-particles
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_initial_use_fluid(&quot;OFF&quot;)
+        ensight.ptrace.massed_initial_velocity(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.part.modify_end()
+        #
+        # Change part to massed trace using current settings
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particles(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1595,23 +1676,25 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # Create a massless point trace
-    | #
-    | ensight.part.select_all()
-    | ensight.ptrace.select_default()
-    | ensight.part.modify_begin()
-    | ensight.ptrace.variable(&quot;velocity&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.select_all()
-    | ensight.ptrace.create_pt()
-    | ensight.part.select_begin(2)
-    | #
-    | # Change part to massed trace using current settings
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particles(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Create a massless point trace
+        #
+        ensight.part.select_all()
+        ensight.ptrace.select_default()
+        ensight.part.modify_begin()
+        ensight.ptrace.variable(&quot;velocity&quot;)
+        ensight.part.modify_end()
+        ensight.part.select_all()
+        ensight.ptrace.create_pt()
+        ensight.part.select_begin(2)
+        #
+        # Change part to massed trace using current settings
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particles(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1628,29 +1711,31 @@ Args:
         &#x27;density&#x27; the density value of all the particles
 
 Examples:
-    | #
-    | # Create a massless point trace
-    | #
-    | ensight.part.select_all()
-    | ensight.ptrace.select_default()
-    | ensight.part.modify_begin()
-    | ensight.ptrace.variable(&quot;velocity&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.select_all()
-    | ensight.ptrace.create_pt()
-    | ensight.part.select_begin(2)
-    | #
-    | # Specify density of all the massed particles
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particle_density(1.0000e+03)
-    | ensight.part.modify_end()
-    | #
-    | # Change part to massed trace using current settings
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particles(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Create a massless point trace
+        #
+        ensight.part.select_all()
+        ensight.ptrace.select_default()
+        ensight.part.modify_begin()
+        ensight.ptrace.variable(&quot;velocity&quot;)
+        ensight.part.modify_end()
+        ensight.part.select_all()
+        ensight.ptrace.create_pt()
+        ensight.part.select_begin(2)
+        #
+        # Specify density of all the massed particles
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particle_density(1.0000e+03)
+        ensight.part.modify_end()
+        #
+        # Change part to massed trace using current settings
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particles(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1667,29 +1752,31 @@ Args:
         &#x27;diameter&#x27; the diameter value of all the particles
 
 Examples:
-    | #
-    | # Create a massless point trace
-    | #
-    | ensight.part.select_all()
-    | ensight.ptrace.select_default()
-    | ensight.part.modify_begin()
-    | ensight.ptrace.variable(&quot;velocity&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.select_all()
-    | ensight.ptrace.create_pt()
-    | ensight.part.select_begin(2)
-    | #
-    | # Specify diameter of the massed particle
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particle_diameter(1.0000e-03)
-    | ensight.part.modify_end()
-    | #
-    | # Change part to massed trace using current settings
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particles(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Create a massless point trace
+        #
+        ensight.part.select_all()
+        ensight.ptrace.select_default()
+        ensight.part.modify_begin()
+        ensight.ptrace.variable(&quot;velocity&quot;)
+        ensight.part.modify_end()
+        ensight.part.select_all()
+        ensight.ptrace.create_pt()
+        ensight.part.select_begin(2)
+        #
+        # Specify diameter of the massed particle
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particle_diameter(1.0000e-03)
+        ensight.part.modify_end()
+        #
+        # Change part to massed trace using current settings
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particles(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1709,31 +1796,33 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # Create a massless point trace
-    | #
-    | ensight.part.select_all()
-    | ensight.ptrace.select_default()
-    | ensight.part.modify_begin()
-    | ensight.ptrace.variable(&quot;velocity&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.select_all()
-    | ensight.ptrace.create_pt()
-    | ensight.part.select_begin(2)
-    | #
-    | # Toggle on massed-particle pressure force term
-    | # Specify pressure gradient variable
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_pressure(&quot;ON&quot;)
-    | ensight.ptrace.massed_pressure_gradient(&quot;grad_pressure&quot;)
-    | ensight.part.modify_end()
-    | #
-    | # Change part to massed trace using current settings
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particles(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Create a massless point trace
+        #
+        ensight.part.select_all()
+        ensight.ptrace.select_default()
+        ensight.part.modify_begin()
+        ensight.ptrace.variable(&quot;velocity&quot;)
+        ensight.part.modify_end()
+        ensight.part.select_all()
+        ensight.ptrace.create_pt()
+        ensight.part.select_begin(2)
+        #
+        # Toggle on massed-particle pressure force term
+        # Specify pressure gradient variable
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_pressure(&quot;ON&quot;)
+        ensight.ptrace.massed_pressure_gradient(&quot;grad_pressure&quot;)
+        ensight.part.modify_end()
+        #
+        # Change part to massed trace using current settings
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particles(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1746,31 +1835,33 @@ Specify the name of the pressure gradient variable used in the pressure force te
 | The &quot;ptrace: massed_particles&quot; command does not have to be ON in order to specify this command.  If &quot;none&quot; is specified, then the pressure force term is ignored in the massed-particle calculation.  The default setting is &quot;none&quot;.
 
 Examples:
-    | #
-    | # Create a massless point trace
-    | #
-    | ensight.part.select_all()
-    | ensight.ptrace.select_default()
-    | ensight.part.modify_begin()
-    | ensight.ptrace.variable(&quot;velocity&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.select_all()
-    | ensight.ptrace.create_pt()
-    | ensight.part.select_begin(2)
-    | #
-    | # Toggle on massed-particle pressure force term
-    | # Specify pressure gradient variable
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_pressure(&quot;ON&quot;)
-    | ensight.ptrace.massed_pressure_gradient(&quot;grad_pressure&quot;)
-    | ensight.part.modify_end()
-    | #
-    | # Change part to massed trace using current settings
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particles(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Create a massless point trace
+        #
+        ensight.part.select_all()
+        ensight.ptrace.select_default()
+        ensight.part.modify_begin()
+        ensight.ptrace.variable(&quot;velocity&quot;)
+        ensight.part.modify_end()
+        ensight.part.select_all()
+        ensight.ptrace.create_pt()
+        ensight.part.select_begin(2)
+        #
+        # Toggle on massed-particle pressure force term
+        # Specify pressure gradient variable
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_pressure(&quot;ON&quot;)
+        ensight.ptrace.massed_pressure_gradient(&quot;grad_pressure&quot;)
+        ensight.part.modify_end()
+        #
+        # Change part to massed trace using current settings
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particles(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1790,18 +1881,20 @@ Args:
         * OFF
 
 Examples:
-    | ensight.ptrace.select_default()
-    | ensight.ptrace.default_emit_pt()
-    | ensight.view_transf.cursor(7.1,6,0.)
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particles(&quot;ON&quot;)
-    | ensight.ptrace.massed_rebound(&quot;ON&quot;)
-    | ensight.ptrace.massed_rebound_wallhits(4)
-    | ensight.ptrace.massed_coef_restitution(0.8)
-    | ensight.ptrace.massed_coef_friction(1.000000e-01)
-    | ensight.part.modify_end()
-    | ensight.part.select_all()
-    | ensight.ptrace.create_pt()
+    ::
+
+        ensight.ptrace.select_default()
+        ensight.ptrace.default_emit_pt()
+        ensight.view_transf.cursor(7.1,6,0.)
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particles(&quot;ON&quot;)
+        ensight.ptrace.massed_rebound(&quot;ON&quot;)
+        ensight.ptrace.massed_rebound_wallhits(4)
+        ensight.ptrace.massed_coef_restitution(0.8)
+        ensight.ptrace.massed_coef_friction(1.000000e-01)
+        ensight.part.modify_end()
+        ensight.part.select_all()
+        ensight.ptrace.create_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -1818,10 +1911,12 @@ Args:
         &#x27;fraction&#x27; the fraction of initial impact velocity
 
 Examples:
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_rebound_fraction(.01)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_rebound_fraction(.01)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1838,18 +1933,20 @@ Args:
         &#x27;num_hits&#x27; the number of rebounds that will be computed
 
 Examples:
-    | ensight.ptrace.select_default()
-    | ensight.ptrace.default_emit_pt()
-    | ensight.view_transf.cursor(7.1,6,0.)
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_particles(&quot;ON&quot;)
-    | ensight.ptrace.massed_rebound(&quot;ON&quot;)
-    | ensight.ptrace.massed_rebound_wallhits(4)
-    | ensight.ptrace.massed_coef_restitution(0.8)
-    | ensight.ptrace.massed_coef_friction(1.000000e-01)
-    | ensight.part.modify_end()
-    | ensight.part.select_all()
-    | ensight.ptrace.create_pt()
+    ::
+
+        ensight.ptrace.select_default()
+        ensight.ptrace.default_emit_pt()
+        ensight.view_transf.cursor(7.1,6,0.)
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_particles(&quot;ON&quot;)
+        ensight.ptrace.massed_rebound(&quot;ON&quot;)
+        ensight.ptrace.massed_rebound_wallhits(4)
+        ensight.ptrace.massed_coef_restitution(0.8)
+        ensight.ptrace.massed_coef_friction(1.000000e-01)
+        ensight.part.modify_end()
+        ensight.part.select_all()
+        ensight.ptrace.create_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -1867,12 +1964,14 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.ptrace.massed_buoyancy(&quot;OFF&quot;)
-    | ensight.ptrace.massed_use_ballistic(&quot;ON&quot;)
-    | ensight.ptrace.massed_ballistic_coef(0.01)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.ptrace.massed_buoyancy(&quot;OFF&quot;)
+        ensight.ptrace.massed_use_ballistic(&quot;ON&quot;)
+        ensight.ptrace.massed_ballistic_coef(0.01)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1889,23 +1988,25 @@ Args:
         &#x27;value&#x27; desired maximum angle (in degrees).  If the angle between successive segments is greater than this, the integration step will be halved. The range is 1.0 to 90.0 degrees
 
 Examples:
-    | #
-    | # Selecting the trace(s)
-    | #
-    | ensight.part.select_begin(7,8)
-    | #
-    | # Modifying attributes for the two selected trace parts
-    | # (max_angle is modified in here)
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.min_steps(3)
-    | ensight.ptrace.min_angle(3.0000e+00)
-    | ensight.ptrace.max_angle(2.0000e+01)
-    | ensight.ptrace.rot_angle(3.2000e+01)
-    | #
-    | # Updates the traces with the modified attributes
-    | #
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Selecting the trace(s)
+        #
+        ensight.part.select_begin(7,8)
+        #
+        # Modifying attributes for the two selected trace parts
+        # (max_angle is modified in here)
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.min_steps(3)
+        ensight.ptrace.min_angle(3.0000e+00)
+        ensight.ptrace.max_angle(2.0000e+01)
+        ensight.ptrace.rot_angle(3.2000e+01)
+        #
+        # Updates the traces with the modified attributes
+        #
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1922,23 +2023,25 @@ Args:
         &#x27;value&#x27; desired minimum angle (in degrees).  If the angle between successive segments is less than this, the integration step will be doubled. The range is 1.0 to 90.0 degrees
 
 Examples:
-    | #
-    | # Selecting the trace(s)
-    | #
-    | ensight.part.select_begin(7,8)
-    | #
-    | # Modifying attributes for the two selected trace parts
-    | # (min_angle is modified in here)
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.min_steps(3)
-    | ensight.ptrace.min_angle(3.0000e+00)
-    | ensight.ptrace.max_angle(2.0000e+01)
-    | ensight.ptrace.rot_angle(3.2000e+01)
-    | #
-    | # Updates the traces with the modified attributes
-    | #
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Selecting the trace(s)
+        #
+        ensight.part.select_begin(7,8)
+        #
+        # Modifying attributes for the two selected trace parts
+        # (min_angle is modified in here)
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.min_steps(3)
+        ensight.ptrace.min_angle(3.0000e+00)
+        ensight.ptrace.max_angle(2.0000e+01)
+        ensight.ptrace.rot_angle(3.2000e+01)
+        #
+        # Updates the traces with the modified attributes
+        #
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1955,23 +2058,25 @@ Args:
         &#x27;num&#x27; desired minimum number of integration steps per element (range is 2 to 20)
 
 Examples:
-    | #
-    | # Selecting the trace(s)
-    | #
-    | ensight.part.select_begin(7,8)
-    | #
-    | # Modifying attributes for the two selected trace parts
-    | # (min_steps being modified in here)
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.min_steps(3)
-    | ensight.ptrace.min_angle(3.0000e+00)
-    | ensight.ptrace.max_angle(2.0000e+01)
-    | ensight.ptrace.rot_angle(3.2000e+01)
-    | #
-    | # Updates the traces with the modified attributes
-    | #
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Selecting the trace(s)
+        #
+        ensight.part.select_begin(7,8)
+        #
+        # Modifying attributes for the two selected trace parts
+        # (min_steps being modified in here)
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.min_steps(3)
+        ensight.ptrace.min_angle(3.0000e+00)
+        ensight.ptrace.max_angle(2.0000e+01)
+        ensight.ptrace.rot_angle(3.2000e+01)
+        #
+        # Updates the traces with the modified attributes
+        #
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2004,15 +2109,17 @@ Args:
         &#x27;emitter&#x27; emitter number (0-based)
 
 Examples:
-    | #
-    | # Change the location of the tool used for the emitter
-    | #
-    | ensight.view_transf.cursor(7.422632,-0.327560,0.000000)
-    | #
-    | # modify the trace emitter based on this tool
-    | # (in this case, it is emitter 0 in part 2
-    | #
-    | ensight.ptrace.modify_emit_totoolloc(2,0)
+    ::
+
+        #
+        # Change the location of the tool used for the emitter
+        #
+        ensight.view_transf.cursor(7.422632,-0.327560,0.000000)
+        #
+        # modify the trace emitter based on this tool
+        # (in this case, it is emitter 0 in part 2
+        #
+        ensight.ptrace.modify_emit_totoolloc(2,0)
 
 Returns:
     zero on success, non-zero on error
@@ -2029,15 +2136,17 @@ Args:
         &#x27;filename&#x27; The new emitter file name
 
 Examples:
-    | #
-    | # Select an existing particle trace part 3
-    | # 
-    | #
-    | ensight.part.select_begin(3)
-    | # 
-    | # Change the emitter name for emitter 0
-    | #
-    | ensight.ptrace.modify_fileemit_name(&quot;0 /tmp/new_emitter.file&quot;)
+    ::
+
+        #
+        # Select an existing particle trace part 3
+        # 
+        #
+        ensight.part.select_begin(3)
+        # 
+        # Change the emitter name for emitter 0
+        #
+        ensight.ptrace.modify_fileemit_name(&quot;0 /tmp/new_emitter.file&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -2056,18 +2165,20 @@ Args:
         &#x27;new_num_in_y&#x27; desired new number of emission points for the grid y direction
 
 Examples:
-    | #
-    | # Selecting an existing particle trace part
-    | # (which contains some net emitters)
-    | #
-    | ensight.part.select_begin(3)
-    | #
-    | # Changing the number of points in the
-    | # first 2 net emitters (emitters 0 and 1)
-    | # to 5 x 6, and 9 x 15 respectively
-    | #
-    | ensight.ptrace.modify_netemit_points(0,5,6)
-    | ensight.ptrace.modify_netemit_points(1,9,15)
+    ::
+
+        #
+        # Selecting an existing particle trace part
+        # (which contains some net emitters)
+        #
+        ensight.part.select_begin(3)
+        #
+        # Changing the number of points in the
+        # first 2 net emitters (emitters 0 and 1)
+        # to 5 x 6, and 9 x 15 respectively
+        #
+        ensight.ptrace.modify_netemit_points(0,5,6)
+        ensight.ptrace.modify_netemit_points(1,9,15)
 
 Returns:
     zero on success, non-zero on error
@@ -2084,16 +2195,18 @@ Args:
         &#x27;new_num_pts&#x27; desired new number of emission points along the rake
 
 Examples:
-    | #
-    | # Selecting an existing particle trace part
-    | # (which contains a rake emitter)
-    | #
-    | ensight.part.select_begin(3)
-    | #
-    | # Changing the number of points in the
-    | # first emitter (emitter 0), to 8
-    | #
-    | ensight.ptrace.modify_rakeemit_points(0,8)
+    ::
+
+        #
+        # Selecting an existing particle trace part
+        # (which contains a rake emitter)
+        #
+        ensight.part.select_begin(3)
+        #
+        # Changing the number of points in the
+        # first emitter (emitter 0), to 8
+        #
+        ensight.ptrace.modify_rakeemit_points(0,8)
 
 Returns:
     zero on success, non-zero on error
@@ -2122,21 +2235,23 @@ Args:
         * square_tubes
 
 Examples:
-    | #
-    | # Selecting the trace(s)
-    | #
-    | ensight.part.select_begin(7,8)
-    | #
-    | # Modifying attributes for the two selected trace parts
-    | # (representation is modified in here)
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.representation(&quot;ribbon&quot;)
-    | ensight.ptrace.ribbon_width(2.0000e+00)
-    | #
-    | # Updates the traces with the modified attributes
-    | #
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Selecting the trace(s)
+        #
+        ensight.part.select_begin(7,8)
+        #
+        # Modifying attributes for the two selected trace parts
+        # (representation is modified in here)
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.representation(&quot;ribbon&quot;)
+        ensight.ptrace.ribbon_width(2.0000e+00)
+        #
+        # Updates the traces with the modified attributes
+        #
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2153,21 +2268,23 @@ Args:
         &#x27;width&#x27; the width of the ribbon or square tube
 
 Examples:
-    | #
-    | # Selecting the trace(s)
-    | #
-    | ensight.part.select_begin(7,8)
-    | #
-    | # Modifying attributes for the two selected trace parts
-    | # (ribbon_width is modified in here)
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.representation(&quot;square_tubes&quot;)
-    | ensight.ptrace.ribbon_width(2.0000e+00)
-    | #
-    | # Updates the traces with the modified attributes
-    | #
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Selecting the trace(s)
+        #
+        ensight.part.select_begin(7,8)
+        #
+        # Modifying attributes for the two selected trace parts
+        # (ribbon_width is modified in here)
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.representation(&quot;square_tubes&quot;)
+        ensight.ptrace.ribbon_width(2.0000e+00)
+        #
+        # Updates the traces with the modified attributes
+        #
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2184,23 +2301,25 @@ Args:
         &#x27;value&#x27; desired rotational angle (in degrees). If the change in rotation angle is greater than this, the integration step will be halved.  range is 1.0 to 90.0 degrees
 
 Examples:
-    | #
-    | # Selecting the trace(s)
-    | #
-    | ensight.part.select_begin(7,8)
-    | #
-    | # Modifying attributes for the two selected trace parts
-    | # (rot_angle is modified in here)
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.min_steps(3)
-    | ensight.ptrace.min_angle(3.0000e+00)
-    | ensight.ptrace.max_angle(2.0000e+01)
-    | ensight.ptrace.rot_angle(3.2000e+01)
-    | #
-    | # Updates the traces with the modified attributes
-    | #
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Selecting the trace(s)
+        #
+        ensight.part.select_begin(7,8)
+        #
+        # Modifying attributes for the two selected trace parts
+        # (rot_angle is modified in here)
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.min_steps(3)
+        ensight.ptrace.min_angle(3.0000e+00)
+        ensight.ptrace.max_angle(2.0000e+01)
+        ensight.ptrace.rot_angle(3.2000e+01)
+        #
+        # Updates the traces with the modified attributes
+        #
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2213,17 +2332,19 @@ Sets the currently selected particle trace parts to none, so any following attri
 | When particle trace parts are created, the defaults, and any &quot;ptrace:&quot; attribute commands between &quot;ptrace: begin&quot; and &quot;ptrace: end&quot;, are used in the creation.
 
 Examples:
-    | #
-    | # Setting to default particle traces
-    | #
-    | ensight.ptrace.select_default()
-    | #
-    | # modifying some attributes
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;pathline&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Setting to default particle traces
+        #
+        ensight.ptrace.select_default()
+        #
+        # modifying some attributes
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;pathline&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2238,16 +2359,18 @@ Args:
         &#x27;emitterN&#x27; emitter numbers (0-based)
 
 Examples:
-    | #
-    | # Selecting the parent part(s)
-    | #
-    | ensight.part.select_begin(2)
-    | #
-    | # Selecting the first 3 emitters within the part
-    | # for the purpose of deleting them
-    | #
-    | ensight.ptrace.select_emitter_begin(0,1,2)
-    | ensight.ptrace.delete_emitter()
+    ::
+
+        #
+        # Selecting the parent part(s)
+        #
+        ensight.part.select_begin(2)
+        #
+        # Selecting the first 3 emitters within the part
+        # for the purpose of deleting them
+        #
+        ensight.ptrace.select_emitter_begin(0,1,2)
+        ensight.ptrace.delete_emitter()
 
 Returns:
     zero on success, non-zero on error
@@ -2262,16 +2385,18 @@ Args:
         &#x27;emitterN&#x27; emitter numbers (0-based)
 
 Examples:
-    | #
-    | # Selecting the parent part(s)
-    | #
-    | ensight.part.select_begin(2)
-    | #
-    | # Selecting the first 3 emitters within the part
-    | # for the purpose of deleting them
-    | #
-    | ensight.ptrace.select_emitter_begin(0,1,2)
-    | ensight.ptrace.delete_emitter()
+    ::
+
+        #
+        # Selecting the parent part(s)
+        #
+        ensight.part.select_begin(2)
+        #
+        # Selecting the first 3 emitters within the part
+        # for the purpose of deleting them
+        #
+        ensight.ptrace.select_emitter_begin(0,1,2)
+        ensight.ptrace.delete_emitter()
 
 Returns:
     zero on success, non-zero on error
@@ -2286,26 +2411,28 @@ Args:
         &#x27;emit_time&#x27; solution time for particle emission. Must be in the range of valid solution times
 
 Examples:
-    | #
-    | # Selecting the parent part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Setting some attributes before creation
-    | # (the start_time is being set here)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.start_time(1.5000e+01)
-    | ensight.ptrace.delta_time(1.0000e+00)
-    | ensight.ptrace.end()
-    | #
-    | # Creating trace from a point
-    | #
-    | ensight.ptrace.create_pt()
+    ::
+
+        #
+        # Selecting the parent part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Setting some attributes before creation
+        # (the start_time is being set here)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.start_time(1.5000e+01)
+        ensight.ptrace.delta_time(1.0000e+00)
+        ensight.ptrace.end()
+        #
+        # Creating trace from a point
+        #
+        ensight.ptrace.create_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -2323,26 +2450,28 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # Selecting the parent part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Setting some attributes before creation
-    | # (the surface_restricted flag is being set here)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.part.description(&quot;Particle trace part&quot;)
-    | ensight.ptrace.surface_restricted(&quot;ON&quot;)
-    | ensight.ptrace.variable_offset(1.0000e-01)
-    | ensight.ptrace.display_offset(0.5000e+00)
-    | ensight.ptrace.total_time(2.0000e+02)
-    | ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating trace from a point
-    | #
-    | ensight.ptrace.create_pt()
+    ::
+
+        #
+        # Selecting the parent part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Setting some attributes before creation
+        # (the surface_restricted flag is being set here)
+        #
+        ensight.ptrace.begin()
+        ensight.part.description(&quot;Particle trace part&quot;)
+        ensight.ptrace.surface_restricted(&quot;ON&quot;)
+        ensight.ptrace.variable_offset(1.0000e-01)
+        ensight.ptrace.display_offset(0.5000e+00)
+        ensight.ptrace.total_time(2.0000e+02)
+        ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating trace from a point
+        #
+        ensight.ptrace.create_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -2375,21 +2504,23 @@ Args:
         &#x27;limit&#x27; total time limit
 
 Examples:
-    | #
-    | # Selecting the trace(s)
-    | #
-    | ensight.part.select_begin(7,8)
-    | #
-    | # Modifying attributes for the two selected trace parts
-    | # (total_time is modified in here)
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.total_time(2.0000e+02)
-    | ensight.ptrace.trace_direction(&quot;+/-&quot;)
-    | #
-    | # Updates the traces with the modified attributes
-    | #
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Selecting the trace(s)
+        #
+        ensight.part.select_begin(7,8)
+        #
+        # Modifying attributes for the two selected trace parts
+        # (total_time is modified in here)
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.total_time(2.0000e+02)
+        ensight.ptrace.trace_direction(&quot;+/-&quot;)
+        #
+        # Updates the traces with the modified attributes
+        #
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2410,21 +2541,23 @@ Args:
         * +/-
 
 Examples:
-    | #
-    | # Selecting the trace(s)
-    | #
-    | ensight.part.select_begin(7,8)
-    | #
-    | # Modifying attributes for the two selected trace parts
-    | # (trace_direction is modified in here)
-    | #
-    | ensight.part.modify_begin()
-    | ensight.ptrace.total_time(2.0000e+02)
-    | ensight.ptrace.trace_direction(&quot;+/-&quot;)
-    | #
-    | # Updates the traces with the modified attributes
-    | #
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Selecting the trace(s)
+        #
+        ensight.part.select_begin(7,8)
+        #
+        # Modifying attributes for the two selected trace parts
+        # (trace_direction is modified in here)
+        #
+        ensight.part.modify_begin()
+        ensight.ptrace.total_time(2.0000e+02)
+        ensight.ptrace.trace_direction(&quot;+/-&quot;)
+        #
+        # Updates the traces with the modified attributes
+        #
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2447,30 +2580,32 @@ Args:
         * variablemaxtrack
 
 Examples:
-    | #
-    | # Setting default particle trace variable
-    | #
-    | ensight.ptrace.select_default()
-    | ensight.part.modify_begin()
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.part.modify_end()
-    | #
-    | # Selecting the parent part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Setting some attributes before creation
-    | # (the type is being set here)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating trace from a point
-    | #
-    | ensight.ptrace.create_pt()
+    ::
+
+        #
+        # Setting default particle trace variable
+        #
+        ensight.ptrace.select_default()
+        ensight.part.modify_begin()
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.part.modify_end()
+        #
+        # Selecting the parent part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Setting some attributes before creation
+        # (the type is being set here)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating trace from a point
+        #
+        ensight.ptrace.create_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -2485,24 +2620,26 @@ Args:
         &#x27;name&#x27; name of the vector variable
 
 Examples:
-    | #
-    | # Selecting the parent part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Setting some attributes before creation
-    | # (the variable is being set here)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.ptrace.variable(&quot;VITESSE&quot;)
-    | ensight.ptrace.type(&quot;streamline&quot;)
-    | ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.ptrace.representation(&quot;line&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating trace from a point
-    | #
-    | ensight.ptrace.create_pt()
+    ::
+
+        #
+        # Selecting the parent part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Setting some attributes before creation
+        # (the variable is being set here)
+        #
+        ensight.ptrace.begin()
+        ensight.ptrace.variable(&quot;VITESSE&quot;)
+        ensight.ptrace.type(&quot;streamline&quot;)
+        ensight.ptrace.component(1.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.ptrace.representation(&quot;line&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating trace from a point
+        #
+        ensight.ptrace.create_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -2520,27 +2657,29 @@ Args:
         &#x27;offset_distance&#x27; distance into the field
 
 Examples:
-    | #
-    | # Selecting the parent part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Setting some attributes before creation
-    | # (the variable_offset for the surface_restricted trace
-    | #  is being set here)
-    | #
-    | ensight.ptrace.begin()
-    | ensight.part.description(&quot;Particle trace part&quot;)
-    | ensight.ptrace.surface_restricted(&quot;ON&quot;)
-    | ensight.ptrace.variable_offset(1.0000e-01)
-    | ensight.ptrace.display_offset(0.5000e+00)
-    | ensight.ptrace.total_time(2.0000e+02)
-    | ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
-    | ensight.ptrace.end()
-    | #
-    | # Creating trace from a point
-    | #
-    | ensight.ptrace.create_pt()
+    ::
+
+        #
+        # Selecting the parent part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Setting some attributes before creation
+        # (the variable_offset for the surface_restricted trace
+        #  is being set here)
+        #
+        ensight.ptrace.begin()
+        ensight.part.description(&quot;Particle trace part&quot;)
+        ensight.ptrace.surface_restricted(&quot;ON&quot;)
+        ensight.ptrace.variable_offset(1.0000e-01)
+        ensight.ptrace.display_offset(0.5000e+00)
+        ensight.ptrace.total_time(2.0000e+02)
+        ensight.ptrace.emit_at_current_time(&quot;ON&quot;)
+        ensight.ptrace.end()
+        #
+        # Creating trace from a point
+        #
+        ensight.ptrace.create_pt()
 
 Returns:
     zero on success, non-zero on error
@@ -2559,32 +2698,34 @@ Args:
         &#x27;total_points&#x27; For queries over Distance using the Line Tool, this specifies the number of equally spaced points to query along the line (default = 20).  For queries Over Time, this specifies how many evenly timed moments over the specified range of time steps at which to query. If equal to the number of timesteps then you get a sample at each timestep.
 
 Examples:
-    | # 
-    | # Creation example... 
-    | # 
-    | ensight.part.select_begin(1)
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;distance&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(20)
-    | ensight.query_ent_var.constrain(&quot;line_tool&quot;)
-    | ensight.query_ent_var.line_loc(1,2.7770e-01,7.7363e-02,1.1348e-02)
-    | ensight.query_ent_var.line_loc(2,7.6144e-01,1.7007e-01,5.5697e-02)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
-    | ensight.query_ent_var.variable(&quot;Density&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
-    | ensight.curve.select_begin(0)
-    | # 
-    | # Modification example... 
-    | # 
-    | ensight.query_ent_var.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;distance&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(20)
-    | ensight.query_ent_var.constrain(&quot;line_tool&quot;)
-    | ensight.query_ent_var.modify_end()
+    ::
+
+        # 
+        # Creation example... 
+        # 
+        ensight.part.select_begin(1)
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;distance&quot;)
+        ensight.query_ent_var.number_of_sample_pts(20)
+        ensight.query_ent_var.constrain(&quot;line_tool&quot;)
+        ensight.query_ent_var.line_loc(1,2.7770e-01,7.7363e-02,1.1348e-02)
+        ensight.query_ent_var.line_loc(2,7.6144e-01,1.7007e-01,5.5697e-02)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
+        ensight.query_ent_var.variable(&quot;Density&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
+        ensight.curve.select_begin(0)
+        # 
+        # Modification example... 
+        # 
+        ensight.query_ent_var.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;distance&quot;)
+        ensight.query_ent_var.number_of_sample_pts(20)
+        ensight.query_ent_var.constrain(&quot;line_tool&quot;)
+        ensight.query_ent_var.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2604,7 +2745,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.query_ent_var.auto_plot_checkexisting(&quot;ON&quot;)
+    ::
+
+        ensight.query_ent_var.auto_plot_checkexisting(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -2624,7 +2767,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.query_ent_var.auto_plot_queries(&quot;ON&quot;)
+    ::
+
+        ensight.query_ent_var.auto_plot_queries(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -2637,20 +2782,22 @@ Delimit the modifications for query attributes.
 | These commands are used to set the attributes for a query creation.
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;distance&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(20)
-    | ensight.query_ent_var.constrain(&quot;line_tool&quot;)
-    | ensight.query_ent_var.line_loc(1,2.7770e-01,7.7363e-02,1.1348e-02)
-    | ensight.query_ent_var.line_loc(2,7.6144e-01,1.7007e-01,5.5697e-02)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
-    | ensight.query_ent_var.variable(&quot;Density&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
-    | ensight.curve.select_begin(0)
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;distance&quot;)
+        ensight.query_ent_var.number_of_sample_pts(20)
+        ensight.query_ent_var.constrain(&quot;line_tool&quot;)
+        ensight.query_ent_var.line_loc(1,2.7770e-01,7.7363e-02,1.1348e-02)
+        ensight.query_ent_var.line_loc(2,7.6144e-01,1.7007e-01,5.5697e-02)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
+        ensight.query_ent_var.variable(&quot;Density&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
+        ensight.curve.select_begin(0)
 
 Returns:
     zero on success, non-zero on error
@@ -2663,20 +2810,22 @@ Delimit the modifications for query attributes.
 | These commands are used to set the attributes for a query creation.
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;distance&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(20)
-    | ensight.query_ent_var.constrain(&quot;line_tool&quot;)
-    | ensight.query_ent_var.line_loc(1,2.7770e-01,7.7363e-02,1.1348e-02)
-    | ensight.query_ent_var.line_loc(2,7.6144e-01,1.7007e-01,5.5697e-02)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
-    | ensight.query_ent_var.variable(&quot;Density&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
-    | ensight.curve.select_begin(0)
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;distance&quot;)
+        ensight.query_ent_var.number_of_sample_pts(20)
+        ensight.query_ent_var.constrain(&quot;line_tool&quot;)
+        ensight.query_ent_var.line_loc(1,2.7770e-01,7.7363e-02,1.1348e-02)
+        ensight.query_ent_var.line_loc(2,7.6144e-01,1.7007e-01,5.5697e-02)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
+        ensight.query_ent_var.variable(&quot;Density&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
+        ensight.curve.select_begin(0)
 
 Returns:
     zero on success, non-zero on error
@@ -2694,31 +2843,33 @@ Args:
         &#x27;time_value&#x27; beginning simulation time value (that corresponds to a valid time step) in which to start the query over time
 
 Examples:
-    | # 
-    | # Select part 
-    | # 
-    | ensight.part.select_begin(2)
-    | # 
-    | # Query over time 
-    | # 
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;time&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(84)
-    | ensight.query_ent_var.begin_simtime(2.2300e+02)
-    | ensight.query_ent_var.end_simtime(4.8800e+02)
-    | ensight.query_ent_var.constrain(&quot;node&quot;)
-    | ensight.query_ent_var.sample_by(&quot;value&quot;)
-    | ensight.query_ent_var.node_id(1)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
-    | ensight.query_ent_var.variable(&quot;temp&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
-    | # 
-    | # Select resulting plot curve 
-    | # 
-    | ensight.curve.select_begin(0)
+    ::
+
+        # 
+        # Select part 
+        # 
+        ensight.part.select_begin(2)
+        # 
+        # Query over time 
+        # 
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;time&quot;)
+        ensight.query_ent_var.number_of_sample_pts(84)
+        ensight.query_ent_var.begin_simtime(2.2300e+02)
+        ensight.query_ent_var.end_simtime(4.8800e+02)
+        ensight.query_ent_var.constrain(&quot;node&quot;)
+        ensight.query_ent_var.sample_by(&quot;value&quot;)
+        ensight.query_ent_var.node_id(1)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
+        ensight.query_ent_var.variable(&quot;temp&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
+        # 
+        # Select resulting plot curve 
+        # 
+        ensight.curve.select_begin(0)
 
 Returns:
     zero on success, non-zero on error
@@ -2748,15 +2899,17 @@ Args:
         * spline
 
 Examples:
-    | # 
-    | # Modification change: 
-    | # 
-    | ensight.query_ent_var.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;distance&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(20)
-    | ensight.query_ent_var.constrain(&quot;line_tool&quot;)
-    | ensight.query_ent_var.modify_end()
+    ::
+
+        # 
+        # Modification change: 
+        # 
+        ensight.query_ent_var.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;distance&quot;)
+        ensight.query_ent_var.number_of_sample_pts(20)
+        ensight.query_ent_var.constrain(&quot;line_tool&quot;)
+        ensight.query_ent_var.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2778,27 +2931,29 @@ Args:
         &#x27;z_coord&#x27; specify the x, y, z coordinate locations of the cursor in model space
 
 Examples:
-    | # 
-    | # Specify part on which to perform query 
-    | # 
-    | ensight.part.select_begin(2)
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;time&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(84)
-    | ensight.query_ent_var.begin_simtime()
-    | ensight.query_ent_var.end_simtime()
-    | ensight.query_ent_var.constrain(&quot;cursor&quot;)
-    | ensight.query_ent_var.sample_by(&quot;value&quot;)
-    | ensight.query_ent_var.cursor_loc(1.4870e+00,4.3663e-01,1.1934e+01)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
-    | ensight.query_ent_var.variable(&quot;temp&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
-    | # 
-    | # Specify new curve to be current 
-    | # 
+    ::
+
+        # 
+        # Specify part on which to perform query 
+        # 
+        ensight.part.select_begin(2)
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;time&quot;)
+        ensight.query_ent_var.number_of_sample_pts(84)
+        ensight.query_ent_var.begin_simtime()
+        ensight.query_ent_var.end_simtime()
+        ensight.query_ent_var.constrain(&quot;cursor&quot;)
+        ensight.query_ent_var.sample_by(&quot;value&quot;)
+        ensight.query_ent_var.cursor_loc(1.4870e+00,4.3663e-01,1.1934e+01)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
+        ensight.query_ent_var.variable(&quot;temp&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
+        # 
+        # Specify new curve to be current 
+        # 
 
 Returns:
     zero on success, non-zero on error
@@ -2815,22 +2970,24 @@ Args:
         &#x27;desc&#x27; text description for the query entity
 
 Examples:
-    | ensight.curve.select_begin(1,&quot;curve:&quot;,&quot;select_begin&quot;,&quot;part:&quot;,&quot;select_begin&quot;,2)
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;Temp Vs. Time&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;time&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(10)
-    | ensight.query_ent_var.begin_simtime(2.2300e+02)
-    | ensight.query_ent_var.end_simtime(4.8800e+02)
-    | ensight.query_ent_var.constrain(&quot;cursor&quot;)
-    | ensight.query_ent_var.sample_by(&quot;value&quot;)
-    | ensight.query_ent_var.cursor_loc(1.4870e+00,4.3663e-01,1.1934e+01)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
-    | ensight.query_ent_var.variable(&quot;temp&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
-    | ensight.curve.select_begin(2)
+    ::
+
+        ensight.curve.select_begin(1,&quot;curve:&quot;,&quot;select_begin&quot;,&quot;part:&quot;,&quot;select_begin&quot;,2)
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;Temp Vs. Time&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;time&quot;)
+        ensight.query_ent_var.number_of_sample_pts(10)
+        ensight.query_ent_var.begin_simtime(2.2300e+02)
+        ensight.query_ent_var.end_simtime(4.8800e+02)
+        ensight.query_ent_var.constrain(&quot;cursor&quot;)
+        ensight.query_ent_var.sample_by(&quot;value&quot;)
+        ensight.query_ent_var.cursor_loc(1.4870e+00,4.3663e-01,1.1934e+01)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
+        ensight.query_ent_var.variable(&quot;temp&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
+        ensight.curve.select_begin(2)
 
 Returns:
     zero on success, non-zero on error
@@ -2857,15 +3014,17 @@ Args:
         * z_from_origin
 
 Examples:
-    | # 
-    | # Modify to parameterize using only the x-component of the arc length 
-    | # 
-    | ensight.query_ent_var.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;distance&quot;)
-    | ensight.query_ent_var.constrain(&quot;line_tool&quot;)
-    | ensight.query_ent_var.distance(&quot;x_arc_length&quot;)
-    | ensight.query_ent_var.modify_end()
+    ::
+
+        # 
+        # Modify to parameterize using only the x-component of the arc length 
+        # 
+        ensight.query_ent_var.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;distance&quot;)
+        ensight.query_ent_var.constrain(&quot;line_tool&quot;)
+        ensight.query_ent_var.distance(&quot;x_arc_length&quot;)
+        ensight.query_ent_var.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2885,22 +3044,24 @@ Args:
         &#x27;element_id_#&#x27; valid element id number (0-bias
 
 Examples:
-    | ensight.part.select_begin(4)
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;time&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(10)
-    | ensight.query_ent_var.begin_simtime(2.2300e+02)
-    | ensight.query_ent_var.end_simtime(4.8800e+02)
-    | ensight.query_ent_var.constrain(&quot;element&quot;)
-    | ensight.query_ent_var.sample_by(&quot;value&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
-    | ensight.query_ent_var.variable(&quot;NodeToElem&quot;)
-    | ensight.query_ent_var.elem_id(14)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
-    | ensight.curve.select_begin(0)
+    ::
+
+        ensight.part.select_begin(4)
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;time&quot;)
+        ensight.query_ent_var.number_of_sample_pts(10)
+        ensight.query_ent_var.begin_simtime(2.2300e+02)
+        ensight.query_ent_var.end_simtime(4.8800e+02)
+        ensight.query_ent_var.constrain(&quot;element&quot;)
+        ensight.query_ent_var.sample_by(&quot;value&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
+        ensight.query_ent_var.variable(&quot;NodeToElem&quot;)
+        ensight.query_ent_var.elem_id(14)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
+        ensight.curve.select_begin(0)
 
 Returns:
     zero on success, non-zero on error
@@ -2918,31 +3079,33 @@ Args:
         &#x27;time_value&#x27; ending simulation time value (that corresponds to a time step) at which to stop the computed query over time
 
 Examples:
-    | # 
-    | # Select part 
-    | # 
-    | ensight.part.select_begin(2)
-    | # 
-    | # Query over time 
-    | # 
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;time&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(84)
-    | ensight.query_ent_var.begin_simtime(2.2300e+02)
-    | ensight.query_ent_var.end_simtime(4.8800e+02)
-    | ensight.query_ent_var.constrain(&quot;node&quot;)
-    | ensight.query_ent_var.sample_by(&quot;value&quot;)
-    | ensight.query_ent_var.node_id(1)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
-    | ensight.query_ent_var.variable(&quot;temp&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
-    | # 
-    | # Select resulting plot curve 
-    | # 
-    | ensight.curve.select_begin(0)
+    ::
+
+        # 
+        # Select part 
+        # 
+        ensight.part.select_begin(2)
+        # 
+        # Query over time 
+        # 
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;time&quot;)
+        ensight.query_ent_var.number_of_sample_pts(84)
+        ensight.query_ent_var.begin_simtime(2.2300e+02)
+        ensight.query_ent_var.end_simtime(4.8800e+02)
+        ensight.query_ent_var.constrain(&quot;node&quot;)
+        ensight.query_ent_var.sample_by(&quot;value&quot;)
+        ensight.query_ent_var.node_id(1)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
+        ensight.query_ent_var.variable(&quot;temp&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
+        # 
+        # Select resulting plot curve 
+        # 
+        ensight.curve.select_begin(0)
 
 Returns:
     zero on success, non-zero on error
@@ -2962,21 +3125,23 @@ Args:
         * time
 
 Examples:
-    | ensight.part.select_all()
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | ensight.query_ent_var.query_type(&quot;generated&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(20)
-    | ensight.query_ent_var.begin_simtime(0.0000e+00)
-    | ensight.query_ent_var.end_simtime(0.1900e+02)
-    | ensight.query_ent_var.constrain(&quot;node&quot;)
-    | ensight.query_ent_var.sample_by(&quot;value&quot;)
-    | ensight.query_ent_var.node_id(139)
-    | ensight.query_ent_var.variable_1(&quot;temperature&quot;)
-    | ensight.query_ent_var.generate_over(&quot;time&quot;)
-    | ensight.query_ent_var.variable_2(&quot;TIME&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
+    ::
+
+        ensight.part.select_all()
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        ensight.query_ent_var.query_type(&quot;generated&quot;)
+        ensight.query_ent_var.number_of_sample_pts(20)
+        ensight.query_ent_var.begin_simtime(0.0000e+00)
+        ensight.query_ent_var.end_simtime(0.1900e+02)
+        ensight.query_ent_var.constrain(&quot;node&quot;)
+        ensight.query_ent_var.sample_by(&quot;value&quot;)
+        ensight.query_ent_var.node_id(139)
+        ensight.query_ent_var.variable_1(&quot;temperature&quot;)
+        ensight.query_ent_var.generate_over(&quot;time&quot;)
+        ensight.query_ent_var.variable_2(&quot;TIME&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
 
 Returns:
     zero on success, non-zero on error
@@ -2998,22 +3163,24 @@ Args:
         &#x27;k-plane_#&#x27; i, j, and k component values which must lie within the min/max of the i, j, and k range
 
 Examples:
-    | ensight.part.select_begin(4)
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;time&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(10)
-    | ensight.query_ent_var.begin_simtime(2.2300e+02)
-    | ensight.query_ent_var.end_simtime(4.8800e+02)
-    | ensight.query_ent_var.constrain(&quot;ijk&quot;)
-    | ensight.query_ent_var.sample_by(&quot;value&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
-    | ensight.query_ent_var.variable(&quot;temp&quot;)
-    | ensight.query_ent_var.ijk(2,4,14)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
-    | ensight.curve.select_begin(0)
+    ::
+
+        ensight.part.select_begin(4)
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;time&quot;)
+        ensight.query_ent_var.number_of_sample_pts(10)
+        ensight.query_ent_var.begin_simtime(2.2300e+02)
+        ensight.query_ent_var.end_simtime(4.8800e+02)
+        ensight.query_ent_var.constrain(&quot;ijk&quot;)
+        ensight.query_ent_var.sample_by(&quot;value&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
+        ensight.query_ent_var.variable(&quot;temp&quot;)
+        ensight.query_ent_var.ijk(2,4,14)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
+        ensight.curve.select_begin(0)
 
 Returns:
     zero on success, non-zero on error
@@ -3036,20 +3203,22 @@ Args:
         &#x27;z_comp&#x27; x , y, or z component of the corresponding line endpoint in model coordinates
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;distance&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(20)
-    | ensight.query_ent_var.constrain(&quot;line_tool&quot;)
-    | ensight.query_ent_var.line_loc(1,2.7770e-01,7.7363e-02,1.1348e-02)
-    | ensight.query_ent_var.line_loc(2,7.6144e-01,1.7007e-01,5.5697e-02)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
-    | ensight.query_ent_var.variable(&quot;Density&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
-    | ensight.curve.select_begin(0)
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;distance&quot;)
+        ensight.query_ent_var.number_of_sample_pts(20)
+        ensight.query_ent_var.constrain(&quot;line_tool&quot;)
+        ensight.query_ent_var.line_loc(1,2.7770e-01,7.7363e-02,1.1348e-02)
+        ensight.query_ent_var.line_loc(2,7.6144e-01,1.7007e-01,5.5697e-02)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
+        ensight.query_ent_var.variable(&quot;Density&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
+        ensight.curve.select_begin(0)
 
 Returns:
     zero on success, non-zero on error
@@ -3071,12 +3240,14 @@ Args:
         &#x27;blu_val&#x27; red, green, or blue component of color (0. to 1.)
 
 Examples:
-    | ensight.query_ent_var.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;distance&quot;)
-    | ensight.query_ent_var.constrain(&quot;1d_part&quot;)
-    | ensight.query_ent_var.marker_rgb(1.0000e+00,0.0000e+00,1.0000e+00)
-    | ensight.query_ent_var.modify_end()
+    ::
+
+        ensight.query_ent_var.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;distance&quot;)
+        ensight.query_ent_var.constrain(&quot;1d_part&quot;)
+        ensight.query_ent_var.marker_rgb(1.0000e+00,0.0000e+00,1.0000e+00)
+        ensight.query_ent_var.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -3096,12 +3267,14 @@ Args:
         &#x27;size_value&#x27; size of the marker
 
 Examples:
-    | ensight.query_ent_var.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;distance&quot;)
-    | ensight.query_ent_var.constrain(&quot;1d_part&quot;)
-    | ensight.query_ent_var.marker_size_normalized(2.0000e+00)
-    | ensight.query_ent_var.modify_end()
+    ::
+
+        ensight.query_ent_var.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;distance&quot;)
+        ensight.query_ent_var.constrain(&quot;1d_part&quot;)
+        ensight.query_ent_var.marker_size_normalized(2.0000e+00)
+        ensight.query_ent_var.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -3122,12 +3295,14 @@ Args:
         * OFF
 
 Examples:
-    | ensight.query_ent_var.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;time&quot;)
-    | ensight.query_ent_var.constrain(&quot;element&quot;)
-    | ensight.query_ent_var.marker_visible(&quot;OFF&quot;)
-    | ensight.query_ent_var.modify_end()
+    ::
+
+        ensight.query_ent_var.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;time&quot;)
+        ensight.query_ent_var.constrain(&quot;element&quot;)
+        ensight.query_ent_var.marker_visible(&quot;OFF&quot;)
+        ensight.query_ent_var.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -3140,15 +3315,17 @@ Delimit the modifications for query entity attributes.
 | These commands are used to set the attributes for a query entity. 
 
 Examples:
-    | # 
-    | # Modification change: 
-    | # 
-    | ensight.query_ent_var.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;distance&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(20)
-    | ensight.query_ent_var.constrain(&quot;line_tool&quot;)
-    | ensight.query_ent_var.modify_end()
+    ::
+
+        # 
+        # Modification change: 
+        # 
+        ensight.query_ent_var.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;distance&quot;)
+        ensight.query_ent_var.number_of_sample_pts(20)
+        ensight.query_ent_var.constrain(&quot;line_tool&quot;)
+        ensight.query_ent_var.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -3161,15 +3338,17 @@ Delimit the modifications for query entity attributes.
 | These commands are used to set the attributes for a query entity. 
 
 Examples:
-    | # 
-    | # Modification change: 
-    | # 
-    | ensight.query_ent_var.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;distance&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(20)
-    | ensight.query_ent_var.constrain(&quot;line_tool&quot;)
-    | ensight.query_ent_var.modify_end()
+    ::
+
+        # 
+        # Modification change: 
+        # 
+        ensight.query_ent_var.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;distance&quot;)
+        ensight.query_ent_var.number_of_sample_pts(20)
+        ensight.query_ent_var.constrain(&quot;line_tool&quot;)
+        ensight.query_ent_var.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -3190,12 +3369,14 @@ Args:
         * reset_each
 
 Examples:
-    | ensight.query_ent_var.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;distance&quot;)
-    | ensight.query_ent_var.constrain(&quot;1d_part&quot;)
-    | ensight.query_ent_var.multiple_segments_by(&quot;reset_each&quot;)
-    | ensight.query_ent_var.modify_end()
+    ::
+
+        ensight.query_ent_var.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;distance&quot;)
+        ensight.query_ent_var.constrain(&quot;1d_part&quot;)
+        ensight.query_ent_var.multiple_segments_by(&quot;reset_each&quot;)
+        ensight.query_ent_var.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -3213,27 +3394,29 @@ Args:
         &#x27;node_id_#&#x27; node id, or label, number
 
 Examples:
-    | # 
-    | # Select part 
-    | # 
-    | ensight.part.select_begin(2)
-    | # 
-    | # Query over time 
-    | # 
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;time&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(84)
-    | ensight.query_ent_var.begin_simtime(2.2300e+02)
-    | ensight.query_ent_var.end_simtime(4.8800e+02)
-    | ensight.query_ent_var.constrain(&quot;node&quot;)
-    | ensight.query_ent_var.sample_by(&quot;value&quot;)
-    | ensight.query_ent_var.node_id(1)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
-    | ensight.query_ent_var.variable(&quot;temp&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
+    ::
+
+        # 
+        # Select part 
+        # 
+        ensight.part.select_begin(2)
+        # 
+        # Query over time 
+        # 
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;time&quot;)
+        ensight.query_ent_var.number_of_sample_pts(84)
+        ensight.query_ent_var.begin_simtime(2.2300e+02)
+        ensight.query_ent_var.end_simtime(4.8800e+02)
+        ensight.query_ent_var.constrain(&quot;node&quot;)
+        ensight.query_ent_var.sample_by(&quot;value&quot;)
+        ensight.query_ent_var.node_id(1)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
+        ensight.query_ent_var.variable(&quot;temp&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
 
 Returns:
     zero on success, non-zero on error
@@ -3258,15 +3441,17 @@ Args:
         &#x27;scale&#x27; value to scale the respective query by
 
 Examples:
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | ensight.query_ent_var.query_type(&quot;operation&quot;)
-    | ensight.query_ent_var.operation_factor1(2.0000e+00)
-    | ensight.query_ent_var.operation_factor2(-1.5000e+01)
-    | ensight.query_ent_var.operation_query1byname(&quot;Distance&quot;,&quot;vs.&quot;,&quot;temp&quot;,&quot;for&quot;,&quot;line&quot;,&quot;tool&quot;)
-    | ensight.query_ent_var.operation_query2byname(&quot;Time&quot;,&quot;vs.&quot;,&quot;temp&quot;,&quot;for&quot;,&quot;Node&quot;,1)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
+    ::
+
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        ensight.query_ent_var.query_type(&quot;operation&quot;)
+        ensight.query_ent_var.operation_factor1(2.0000e+00)
+        ensight.query_ent_var.operation_factor2(-1.5000e+01)
+        ensight.query_ent_var.operation_query1byname(&quot;Distance&quot;,&quot;vs.&quot;,&quot;temp&quot;,&quot;for&quot;,&quot;line&quot;,&quot;tool&quot;)
+        ensight.query_ent_var.operation_query2byname(&quot;Time&quot;,&quot;vs.&quot;,&quot;temp&quot;,&quot;for&quot;,&quot;Node&quot;,1)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
 
 Returns:
     zero on success, non-zero on error
@@ -3283,15 +3468,17 @@ Args:
         &#x27;scale&#x27; value to scale the respective query by
 
 Examples:
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | ensight.query_ent_var.query_type(&quot;operation&quot;)
-    | ensight.query_ent_var.operation_factor1(2.0000e+00)
-    | ensight.query_ent_var.operation_factor2(-1.5000e+01)
-    | ensight.query_ent_var.operation_query1byname(&quot;Distance&quot;,&quot;vs.&quot;,&quot;temp&quot;,&quot;for&quot;,&quot;line&quot;,&quot;tool&quot;)
-    | ensight.query_ent_var.operation_query2byname(&quot;Time&quot;,&quot;vs.&quot;,&quot;temp&quot;,&quot;for&quot;,&quot;Node&quot;,1)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
+    ::
+
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        ensight.query_ent_var.query_type(&quot;operation&quot;)
+        ensight.query_ent_var.operation_factor1(2.0000e+00)
+        ensight.query_ent_var.operation_factor2(-1.5000e+01)
+        ensight.query_ent_var.operation_query1byname(&quot;Distance&quot;,&quot;vs.&quot;,&quot;temp&quot;,&quot;for&quot;,&quot;line&quot;,&quot;tool&quot;)
+        ensight.query_ent_var.operation_query2byname(&quot;Time&quot;,&quot;vs.&quot;,&quot;temp&quot;,&quot;for&quot;,&quot;Node&quot;,1)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
 
 Returns:
     zero on success, non-zero on error
@@ -3308,15 +3495,17 @@ Args:
         &#x27;name&#x27; existing query name
 
 Examples:
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | ensight.query_ent_var.query_type(&quot;operation&quot;)
-    | ensight.query_ent_var.operation_factor1(2.0000e+00)
-    | ensight.query_ent_var.operation_factor2(-1.5000e+01)
-    | ensight.query_ent_var.operation_query1byname(&quot;Distance&quot;,&quot;vs.&quot;,&quot;temp&quot;,&quot;for&quot;,&quot;line&quot;,&quot;tool&quot;)
-    | ensight.query_ent_var.operation_query2byname(&quot;Time&quot;,&quot;vs.&quot;,&quot;temp&quot;,&quot;for&quot;,&quot;Node&quot;,1)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
+    ::
+
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        ensight.query_ent_var.query_type(&quot;operation&quot;)
+        ensight.query_ent_var.operation_factor1(2.0000e+00)
+        ensight.query_ent_var.operation_factor2(-1.5000e+01)
+        ensight.query_ent_var.operation_query1byname(&quot;Distance&quot;,&quot;vs.&quot;,&quot;temp&quot;,&quot;for&quot;,&quot;line&quot;,&quot;tool&quot;)
+        ensight.query_ent_var.operation_query2byname(&quot;Time&quot;,&quot;vs.&quot;,&quot;temp&quot;,&quot;for&quot;,&quot;Node&quot;,1)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
 
 Returns:
     zero on success, non-zero on error
@@ -3333,15 +3522,17 @@ Args:
         &#x27;name&#x27; existing query name
 
 Examples:
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | ensight.query_ent_var.query_type(&quot;operation&quot;)
-    | ensight.query_ent_var.operation_factor1(2.0000e+00)
-    | ensight.query_ent_var.operation_factor2(-1.5000e+01)
-    | ensight.query_ent_var.operation_query1byname(&quot;Distance&quot;,&quot;vs.&quot;,&quot;temp&quot;,&quot;for&quot;,&quot;line&quot;,&quot;tool&quot;)
-    | ensight.query_ent_var.operation_query2byname(&quot;Time&quot;,&quot;vs.&quot;,&quot;temp&quot;,&quot;for&quot;,&quot;Node&quot;,1)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
+    ::
+
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        ensight.query_ent_var.query_type(&quot;operation&quot;)
+        ensight.query_ent_var.operation_factor1(2.0000e+00)
+        ensight.query_ent_var.operation_factor2(-1.5000e+01)
+        ensight.query_ent_var.operation_query1byname(&quot;Distance&quot;,&quot;vs.&quot;,&quot;temp&quot;,&quot;for&quot;,&quot;line&quot;,&quot;tool&quot;)
+        ensight.query_ent_var.operation_query2byname(&quot;Time&quot;,&quot;vs.&quot;,&quot;temp&quot;,&quot;for&quot;,&quot;Node&quot;,1)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
 
 Returns:
     zero on success, non-zero on error
@@ -3365,9 +3556,11 @@ Args:
         &#x27;z_coord&#x27; x, y, or z coordinate value in model coordinates
 
 Examples:
-    | ensight.query_ent_var.modify_begin()
-    | ensight.query_ent_var.origin(2.3596e+00,1.8494e+00,1.1773e+01)
-    | ensight.query_ent_var.modify_end()
+    ::
+
+        ensight.query_ent_var.modify_begin()
+        ensight.query_ent_var.origin(2.3596e+00,1.8494e+00,1.1773e+01)
+        ensight.query_ent_var.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -3384,19 +3577,21 @@ Args:
         &#x27;part_id_#&#x27; GUI number of the part
 
 Examples:
-    | ensight.part.select_begin(4)
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;distance&quot;)
-    | ensight.query_ent_var.part_id(4)
-    | ensight.query_ent_var.constrain(&quot;1d_part&quot;)
-    | ensight.query_ent_var.distance(&quot;arc_length&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
-    | ensight.query_ent_var.variable(&quot;temp&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
-    | ensight.curve.select_begin(0)
+    ::
+
+        ensight.part.select_begin(4)
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;distance&quot;)
+        ensight.query_ent_var.part_id(4)
+        ensight.query_ent_var.constrain(&quot;1d_part&quot;)
+        ensight.query_ent_var.distance(&quot;arc_length&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
+        ensight.query_ent_var.variable(&quot;temp&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
+        ensight.curve.select_begin(0)
 
 Returns:
     zero on success, non-zero on error
@@ -3413,19 +3608,21 @@ Args:
         &#x27;part_name&#x27; GUI name of the part
 
 Examples:
-    | ensight.part.select_begin(&quot;Flow&quot;,&quot;Field&quot;)
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;distance&quot;)
-    | ensight.query_ent_var.part_idbyname(&quot;Line&quot;,&quot;Clip&quot;)
-    | ensight.query_ent_var.constrain(&quot;1d_part&quot;)
-    | ensight.query_ent_var.distance(&quot;arc_length&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
-    | ensight.query_ent_var.variable(&quot;temp&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
-    | ensight.curve.select_begin(0)
+    ::
+
+        ensight.part.select_begin(&quot;Flow&quot;,&quot;Field&quot;)
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;distance&quot;)
+        ensight.query_ent_var.part_idbyname(&quot;Line&quot;,&quot;Clip&quot;)
+        ensight.query_ent_var.constrain(&quot;1d_part&quot;)
+        ensight.query_ent_var.distance(&quot;arc_length&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
+        ensight.query_ent_var.variable(&quot;temp&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
+        ensight.curve.select_begin(0)
 
 Returns:
     zero on success, non-zero on error
@@ -3438,20 +3635,22 @@ Specify the creation of a query entity.
 | The query is created using the current query attributes.
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;distance&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(20)
-    | ensight.query_ent_var.constrain(&quot;line_tool&quot;)
-    | ensight.query_ent_var.line_loc(1,2.7770e-01,7.7363e-02,1.1348e-02)
-    | ensight.query_ent_var.line_loc(2,7.6144e-01,1.7007e-01,5.5697e-02)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
-    | ensight.query_ent_var.variable(&quot;Density&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
-    | ensight.curve.select_begin(0)
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;distance&quot;)
+        ensight.query_ent_var.number_of_sample_pts(20)
+        ensight.query_ent_var.constrain(&quot;line_tool&quot;)
+        ensight.query_ent_var.line_loc(1,2.7770e-01,7.7363e-02,1.1348e-02)
+        ensight.query_ent_var.line_loc(2,7.6144e-01,1.7007e-01,5.5697e-02)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
+        ensight.query_ent_var.variable(&quot;Density&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
+        ensight.curve.select_begin(0)
 
 Returns:
     zero on success, non-zero on error
@@ -3472,23 +3671,25 @@ Args:
         * external
 
 Examples:
-    | ensight.part.select_all()
-    | #
-    | # At line tool over distance query
-    | #
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | ensight.query_ent_var.query_type(&quot;generated&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(20)
-    | ensight.query_ent_var.constrain(&quot;line_tool&quot;)
-    | ensight.query_ent_var.constrain(&quot;line_tool&quot;)
-    | ensight.query_ent_var.line_loc(1,-7.5000e-01,1.1561e+00,1.0000e+00)
-    | ensight.query_ent_var.line_loc(2,1.7500e+00,1.1561e+00,1.0000e+00)
-    | ensight.query_ent_var.variable_1(&quot;temperature&quot;)
-    | ensight.query_ent_var.generate_over(&quot;distance&quot;)
-    | ensight.query_ent_var.variable_2(&quot;DISTANCE&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
+    ::
+
+        ensight.part.select_all()
+        #
+        # At line tool over distance query
+        #
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        ensight.query_ent_var.query_type(&quot;generated&quot;)
+        ensight.query_ent_var.number_of_sample_pts(20)
+        ensight.query_ent_var.constrain(&quot;line_tool&quot;)
+        ensight.query_ent_var.constrain(&quot;line_tool&quot;)
+        ensight.query_ent_var.line_loc(1,-7.5000e-01,1.1561e+00,1.0000e+00)
+        ensight.query_ent_var.line_loc(2,1.7500e+00,1.1561e+00,1.0000e+00)
+        ensight.query_ent_var.variable_1(&quot;temperature&quot;)
+        ensight.query_ent_var.generate_over(&quot;distance&quot;)
+        ensight.query_ent_var.variable_2(&quot;DISTANCE&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
 
 Returns:
     zero on success, non-zero on error
@@ -3509,40 +3710,42 @@ Args:
         * fft
 
 Examples:
-    | # 
-    | # Select part 
-    | # 
-    | ensight.part.select_begin(2)
-    | # 
-    | # Query over time 
-    | # 
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;time&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(84)
-    | ensight.query_ent_var.begin_simtime(2.2300e+02)
-    | ensight.query_ent_var.end_simtime(4.8800e+02)
-    | ensight.query_ent_var.constrain(&quot;node&quot;)
-    | ensight.query_ent_var.sample_by(&quot;value&quot;)
-    | ensight.query_ent_var.node_id(1)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
-    | ensight.query_ent_var.variable(&quot;temp&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
-    | # 
-    | # Select resulting plot curve 
-    | # 
-    | ensight.curve.select_begin(0)
-    | # 
-    | # Modified to sample by FFT 
-    | # 
-    | ensight.query_ent_var.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
-    | ensight.query_ent_var.type(&quot;time&quot;)
-    | ensight.query_ent_var.constrain(&quot;node&quot;)
-    | ensight.query_ent_var.sample_by(&quot;fft&quot;)
-    | ensight.query_ent_var.modify_end()
+    ::
+
+        # 
+        # Select part 
+        # 
+        ensight.part.select_begin(2)
+        # 
+        # Query over time 
+        # 
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;time&quot;)
+        ensight.query_ent_var.number_of_sample_pts(84)
+        ensight.query_ent_var.begin_simtime(2.2300e+02)
+        ensight.query_ent_var.end_simtime(4.8800e+02)
+        ensight.query_ent_var.constrain(&quot;node&quot;)
+        ensight.query_ent_var.sample_by(&quot;value&quot;)
+        ensight.query_ent_var.node_id(1)
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.variable).
+        ensight.query_ent_var.variable(&quot;temp&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
+        # 
+        # Select resulting plot curve 
+        # 
+        ensight.curve.select_begin(0)
+        # 
+        # Modified to sample by FFT 
+        # 
+        ensight.query_ent_var.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
+        ensight.query_ent_var.type(&quot;time&quot;)
+        ensight.query_ent_var.constrain(&quot;node&quot;)
+        ensight.query_ent_var.sample_by(&quot;fft&quot;)
+        ensight.query_ent_var.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -3568,26 +3771,28 @@ Returns:
 <description>
 Causes all current timesteps to be selected for querying.
 
-| This command is not generated by EnSight, but can be placed in a command file to generalize it so you don��t have to know how many time steps are present.  It can replace the following commands:
+| This command is not generated by EnSight, but can be placed in a command file to generalize it so you do not have to know how many time steps are present.  It can replace the following commands:
 | query_ent_var: begin_simtime &lt;time_value&gt;
 | query_ent_var: end_simtime &lt;time_value&gt;
 | query_ent_var: number_of_sample_pts &lt;total_points&gt;
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | ensight.query_ent_var.query_type(&quot;generated&quot;)
-    | ensight.query_ent_var.select_all_timesteps()
-    | ensight.query_ent_var.constrain(&quot;node&quot;)
-    | ensight.query_ent_var.sample_by(&quot;value&quot;)
-    | ensight.query_ent_var.node_id(100)
-    | ensight.query_ent_var.variable_1(&quot;Stress&quot;)
-    | ensight.query_ent_var.generate_over(&quot;time&quot;)
-    | ensight.query_ent_var.variable_2(&quot;TIME&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
-    | ensight.curve.select_begin(0)
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        ensight.query_ent_var.query_type(&quot;generated&quot;)
+        ensight.query_ent_var.select_all_timesteps()
+        ensight.query_ent_var.constrain(&quot;node&quot;)
+        ensight.query_ent_var.sample_by(&quot;value&quot;)
+        ensight.query_ent_var.node_id(100)
+        ensight.query_ent_var.variable_1(&quot;Stress&quot;)
+        ensight.query_ent_var.generate_over(&quot;time&quot;)
+        ensight.query_ent_var.variable_2(&quot;TIME&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
+        ensight.curve.select_begin(0)
 
 Returns:
     zero on success, non-zero on error
@@ -3620,24 +3825,25 @@ Args:
         &#x27;name&#x27; name of the active variable. For variable_1 it can be any active variable. For variable_2, it can be DISTANCE if a non-scatter query over distance is being created, TIME if a non-scatter query over time is being created, or any active variable if a scatter query is being created.  If plotted, variable_1 will be the Y-axis variable and varibe_2 will be the X-axis variable.
 
 Examples:
-    | ensight.part.select_all()
-    | #
-    | # At line tool over distance query
-    | #
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | ensight.query_ent_var.query_type(&quot;generated&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(20)
-    | ensight.query_ent_var.constrain(&quot;line_tool&quot;)
-    | ensight.query_ent_var.constrain(&quot;line_tool&quot;)
-    | ensight.query_ent_var.line_loc(1,-7.5000e-01,1.1561e+00,1.0000e+00)
-    | ensight.query_ent_var.line_loc(2,1.7500e+00,1.1561e+00,1.0000e+00)
-    | ensight.query_ent_var.variable_1(&quot;temperature&quot;)
-    | ensight.query_ent_var.generate_over(&quot;distance&quot;)
-    | ensight.query_ent_var.variable_2(&quot;DISTANCE&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
+    ::
 
+        ensight.part.select_all()
+        #
+        # At line tool over distance query
+        #
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        ensight.query_ent_var.query_type(&quot;generated&quot;)
+        ensight.query_ent_var.number_of_sample_pts(20)
+        ensight.query_ent_var.constrain(&quot;line_tool&quot;)
+        ensight.query_ent_var.constrain(&quot;line_tool&quot;)
+        ensight.query_ent_var.line_loc(1,-7.5000e-01,1.1561e+00,1.0000e+00)
+        ensight.query_ent_var.line_loc(2,1.7500e+00,1.1561e+00,1.0000e+00)
+        ensight.query_ent_var.variable_1(&quot;temperature&quot;)
+        ensight.query_ent_var.generate_over(&quot;distance&quot;)
+        ensight.query_ent_var.variable_2(&quot;DISTANCE&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
 
 Returns:
     zero on success, non-zero on error
@@ -3654,24 +3860,25 @@ Args:
         &#x27;name&#x27; name of the active variable. For variable_1 it can be any active variable. For variable_2, it can be DISTANCE if a non-scatter query over distance is being created, TIME if a non-scatter query over time is being created, or any active variable if a scatter query is being created.  If plotted, variable_1 will be the Y-axis variable and varibe_2 will be the X-axis variable.
 
 Examples:
-    | ensight.part.select_all()
-    | #
-    | # At line tool over distance query
-    | #
-    | ensight.query_ent_var.begin()
-    | ensight.query_ent_var.description(&quot;&quot;)
-    | ensight.query_ent_var.query_type(&quot;generated&quot;)
-    | ensight.query_ent_var.number_of_sample_pts(20)
-    | ensight.query_ent_var.constrain(&quot;line_tool&quot;)
-    | ensight.query_ent_var.constrain(&quot;line_tool&quot;)
-    | ensight.query_ent_var.line_loc(1,-7.5000e-01,1.1561e+00,1.0000e+00)
-    | ensight.query_ent_var.line_loc(2,1.7500e+00,1.1561e+00,1.0000e+00)
-    | ensight.query_ent_var.variable_1(&quot;temperature&quot;)
-    | ensight.query_ent_var.generate_over(&quot;distance&quot;)
-    | ensight.query_ent_var.variable_2(&quot;DISTANCE&quot;)
-    | ensight.query_ent_var.end()
-    | ensight.query_ent_var.query()
+    ::
 
+        ensight.part.select_all()
+        #
+        # At line tool over distance query
+        #
+        ensight.query_ent_var.begin()
+        ensight.query_ent_var.description(&quot;&quot;)
+        ensight.query_ent_var.query_type(&quot;generated&quot;)
+        ensight.query_ent_var.number_of_sample_pts(20)
+        ensight.query_ent_var.constrain(&quot;line_tool&quot;)
+        ensight.query_ent_var.constrain(&quot;line_tool&quot;)
+        ensight.query_ent_var.line_loc(1,-7.5000e-01,1.1561e+00,1.0000e+00)
+        ensight.query_ent_var.line_loc(2,1.7500e+00,1.1561e+00,1.0000e+00)
+        ensight.query_ent_var.variable_1(&quot;temperature&quot;)
+        ensight.query_ent_var.generate_over(&quot;distance&quot;)
+        ensight.query_ent_var.variable_2(&quot;DISTANCE&quot;)
+        ensight.query_ent_var.end()
+        ensight.query_ent_var.query()
 
 Returns:
     zero on success, non-zero on error

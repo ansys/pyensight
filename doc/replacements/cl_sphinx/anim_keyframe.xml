@@ -13,21 +13,23 @@ Args:
         * OFF
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.rotate(20,30,5)
-    | ensight.view_transf.translate(5,0,0)
-    | ensight.anim_keyframe.create_keyframe()
-    | #
-    | # accelerate out of keyframe 1
-    | #
-    | ensight.anim_keyframe.acceleration(&quot;1&quot;,&quot;ON&quot;)
-    | ensight.anim_keyframe.use_spline(&quot;ON&quot;)
-    | #
-    | # deaccelerate into keyframe 2
-    | #
-    | ensight.anim_keyframe.acceleration(&quot;2&quot;,&quot;ON&quot;)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.rotate(20,30,5)
+        ensight.view_transf.translate(5,0,0)
+        ensight.anim_keyframe.create_keyframe()
+        #
+        # accelerate out of keyframe 1
+        #
+        ensight.anim_keyframe.acceleration(&quot;1&quot;,&quot;ON&quot;)
+        ensight.anim_keyframe.use_spline(&quot;ON&quot;)
+        #
+        # deaccelerate into keyframe 2
+        #
+        ensight.anim_keyframe.acceleration(&quot;2&quot;,&quot;ON&quot;)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -47,22 +49,24 @@ Args:
         * OFF
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | # WARNING: following line includes OBSOLETE call (ensight.part.select_partname_begin).
-    | ensight.part.select_partname_begin(&quot;(CASE:Case 1)Isosurface part&quot;)
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.part.opaqueness).
-    | ensight.part.opaqueness(0.0)
-    | ensight.part.modify_end()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.part.opaqueness).
-    | ensight.part.opaqueness(1.0)
-    | ensight.part.modify_end()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.animate_transparency(&quot;ON&quot;)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        # WARNING: following line includes OBSOLETE call (ensight.part.select_partname_begin).
+        ensight.part.select_partname_begin(&quot;(CASE:Case 1)Isosurface part&quot;)
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.part.opaqueness).
+        ensight.part.opaqueness(0.0)
+        ensight.part.modify_end()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.part.opaqueness).
+        ensight.part.opaqueness(1.0)
+        ensight.part.modify_end()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.animate_transparency(&quot;ON&quot;)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -79,16 +83,18 @@ Args:
         &#x27;time_value&#x27; beginning/ending simulation time
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.zoom(0.561365)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | ensight.anim_keyframe.specify_time_as(&quot;simulation&quot;)
-    | ensight.anim_keyframe.begin_simtime(4.7000e-02)
-    | ensight.anim_keyframe.end_simtime(1.1750e-01)
-    | ensight.anim_keyframe.step_simtime(2.0000e-02)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.zoom(0.561365)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        ensight.anim_keyframe.specify_time_as(&quot;simulation&quot;)
+        ensight.anim_keyframe.begin_simtime(4.7000e-02)
+        ensight.anim_keyframe.end_simtime(1.1750e-01)
+        ensight.anim_keyframe.step_simtime(2.0000e-02)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -105,16 +111,18 @@ Args:
         &#x27;time_value&#x27; beginning/ending simulation time
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.zoom(0.561365)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | ensight.anim_keyframe.specify_time_as(&quot;simulation&quot;)
-    | ensight.anim_keyframe.begin_simtime(4.7000e-02)
-    | ensight.anim_keyframe.end_simtime(1.1750e-01)
-    | ensight.anim_keyframe.step_simtime(2.0000e-02)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.zoom(0.561365)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        ensight.anim_keyframe.specify_time_as(&quot;simulation&quot;)
+        ensight.anim_keyframe.begin_simtime(4.7000e-02)
+        ensight.anim_keyframe.end_simtime(1.1750e-01)
+        ensight.anim_keyframe.step_simtime(2.0000e-02)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -129,13 +137,15 @@ Args:
         &#x27;step_value&#x27; beginning/ending time step
 
 Examples:
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | ensight.anim_keyframe.step_by(2.0000e+00)
-    | ensight.anim_keyframe.cycle(&quot;ON&quot;)
-    | ensight.anim_keyframe.begin_time_step(2)
-    | ensight.anim_keyframe.end_time_step(15)
-    | ensight.anim_keyframe.specify_time_as(&quot;step&quot;)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        ensight.anim_keyframe.step_by(2.0000e+00)
+        ensight.anim_keyframe.cycle(&quot;ON&quot;)
+        ensight.anim_keyframe.begin_time_step(2)
+        ensight.anim_keyframe.end_time_step(15)
+        ensight.anim_keyframe.specify_time_as(&quot;step&quot;)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -150,13 +160,15 @@ Args:
         &#x27;step_value&#x27; beginning/ending time step
 
 Examples:
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | ensight.anim_keyframe.step_by(2.0000e+00)
-    | ensight.anim_keyframe.cycle(&quot;ON&quot;)
-    | ensight.anim_keyframe.begin_time_step(2)
-    | ensight.anim_keyframe.end_time_step(15)
-    | ensight.anim_keyframe.specify_time_as(&quot;step&quot;)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        ensight.anim_keyframe.step_by(2.0000e+00)
+        ensight.anim_keyframe.cycle(&quot;ON&quot;)
+        ensight.anim_keyframe.begin_time_step(2)
+        ensight.anim_keyframe.end_time_step(15)
+        ensight.anim_keyframe.specify_time_as(&quot;step&quot;)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -177,16 +189,18 @@ Args:
         &#x27;command&#x27; specifies the command to execute
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.zoom(0.561365)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.zoom(0.561365)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.command(1,1,&quot;view:&quot;,&quot;full_screen&quot;,&quot;on&quot;)
-    | ensight.anim_keyframe.command(1,2,&quot;view:&quot;,&quot;hidden_surface&quot;,&quot;on&quot;)
-    | ensight.anim_keyframe.command(2,1,&quot;play:&quot;,&quot;/usr/tmp/ensight_cmds.cmd&quot;)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.zoom(0.561365)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.zoom(0.561365)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.command(1,1,&quot;view:&quot;,&quot;full_screen&quot;,&quot;on&quot;)
+        ensight.anim_keyframe.command(1,2,&quot;view:&quot;,&quot;hidden_surface&quot;,&quot;on&quot;)
+        ensight.anim_keyframe.command(2,1,&quot;play:&quot;,&quot;/usr/tmp/ensight_cmds.cmd&quot;)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -197,12 +211,14 @@ Returns:
 Records the current set of transformations/attributes as a keyframe.
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.zoom(0.561365)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.sub_frames(1,2,30)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.zoom(0.561365)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.sub_frames(1,2,30)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -220,13 +236,15 @@ Args:
         * OFF
 
 Examples:
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | ensight.anim_keyframe.step_by(2.0000e+00)
-    | ensight.anim_keyframe.cycle(&quot;ON&quot;)
-    | ensight.anim_keyframe.begin_time_step(2)
-    | ensight.anim_keyframe.end_time_step(15)
-    | ensight.anim_keyframe.specify_time_as(&quot;step&quot;)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        ensight.anim_keyframe.step_by(2.0000e+00)
+        ensight.anim_keyframe.cycle(&quot;ON&quot;)
+        ensight.anim_keyframe.begin_time_step(2)
+        ensight.anim_keyframe.end_time_step(15)
+        ensight.anim_keyframe.specify_time_as(&quot;step&quot;)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -241,13 +259,15 @@ Args:
         &#x27;keyframe_num&#x27; keyframe to delete back to
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.zoom(1.5)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.zoom(5.0)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.delete_back_to(2)
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.zoom(1.5)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.zoom(5.0)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.delete_back_to(2)
 
 Returns:
     zero on success, non-zero on error
@@ -264,15 +284,17 @@ Args:
         &#x27;num_frames&#x27; display this many frames
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.rotate(-84.910713,-3.917774,0.000000)
-    | ensight.view_transf.function(&quot;global&quot;)
-    | ensight.view_transf.rotate(13.660716,39.395405,0.000000)
-    | ensight.view_transf.function(&quot;global&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.hold(1,10)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.rotate(-84.910713,-3.917774,0.000000)
+        ensight.view_transf.function(&quot;global&quot;)
+        ensight.view_transf.rotate(13.660716,39.395405,0.000000)
+        ensight.view_transf.function(&quot;global&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.hold(1,10)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -292,12 +314,14 @@ Args:
         * OFF
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.rotate(28.489212,79.540230,0.000000)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.run()
-    | ensight.anim_keyframe.keyframing(&quot;OFF&quot;)
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.rotate(28.489212,79.540230,0.000000)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.run()
+        ensight.anim_keyframe.keyframing(&quot;OFF&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -312,8 +336,10 @@ Args:
         &#x27;filename&#x27; file name to use
 
 Examples:
-    | ensight.anim_keyframe.save(&quot;./my_anim&quot;)
-    | ensight.anim_keyframe.restore(&quot;./my_anim&quot;)
+    ::
+
+        ensight.anim_keyframe.save(&quot;./my_anim&quot;)
+        ensight.anim_keyframe.restore(&quot;./my_anim&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -328,8 +354,10 @@ Args:
         &#x27;filename&#x27; file name to use
 
 Examples:
-    | ensight.anim_keyframe.save(&quot;./my_anim&quot;)
-    | ensight.anim_keyframe.restore(&quot;./my_anim&quot;)
+    ::
+
+        ensight.anim_keyframe.save(&quot;./my_anim&quot;)
+        ensight.anim_keyframe.restore(&quot;./my_anim&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -340,12 +368,14 @@ Returns:
 Plays the keyframe animation.
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.zoom(0.561365)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.sub_frames(1,2,30)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.zoom(0.561365)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.sub_frames(1,2,30)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -362,9 +392,11 @@ Args:
         &#x27;keyframe_num&#x27; beginning/ending keyframe
 
 Examples:
-    | ensight.anim_keyframe.run_from(2)
-    | ensight.anim_keyframe.run_to(3)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.run_from(2)
+        ensight.anim_keyframe.run_to(3)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -381,9 +413,11 @@ Args:
         &#x27;keyframe_num&#x27; beginning/ending keyframe
 
 Examples:
-    | ensight.anim_keyframe.run_from(2)
-    | ensight.anim_keyframe.run_to(3)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.run_from(2)
+        ensight.anim_keyframe.run_to(3)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -394,12 +428,14 @@ Returns:
 Selects all timesteps for the transient portion of the run.  It is the same as setting the transient start step to the beginning and the transient end step to the end.
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | ensight.anim_keyframe.select_all_timesteps()
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        ensight.anim_keyframe.select_all_timesteps()
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -417,13 +453,15 @@ Args:
         * step
 
 Examples:
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | ensight.anim_keyframe.specify_time_as(&quot;step&quot;)
-    | ensight.anim_keyframe.step_by(2.0000e+00)
-    | ensight.anim_keyframe.cycle(&quot;ON&quot;)
-    | ensight.anim_keyframe.begin_time_step(2)
-    | ensight.anim_keyframe.end_time_step(15)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        ensight.anim_keyframe.specify_time_as(&quot;step&quot;)
+        ensight.anim_keyframe.step_by(2.0000e+00)
+        ensight.anim_keyframe.cycle(&quot;ON&quot;)
+        ensight.anim_keyframe.begin_time_step(2)
+        ensight.anim_keyframe.end_time_step(15)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -440,12 +478,14 @@ Args:
         &#x27;increment&#x27; time step increment
 
 Examples:
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | ensight.anim_keyframe.specify_time_as(&quot;step&quot;)
-    | ensight.anim_keyframe.step_by(2.0000e+00)
-    | ensight.anim_keyframe.begin_time_step(2)
-    | ensight.anim_keyframe.end_time_step(15)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        ensight.anim_keyframe.specify_time_as(&quot;step&quot;)
+        ensight.anim_keyframe.step_by(2.0000e+00)
+        ensight.anim_keyframe.begin_time_step(2)
+        ensight.anim_keyframe.end_time_step(15)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -462,17 +502,19 @@ Args:
         &#x27;increment&#x27; simulation time increment
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.zoom(0.561365)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | ensight.anim_keyframe.cycle(&quot;ON&quot;)
-    | ensight.anim_keyframe.specify_time_as(&quot;simulation&quot;)
-    | ensight.anim_keyframe.begin_simtime(4.7000e-02)
-    | ensight.anim_keyframe.end_simtime(1.1750e-01)
-    | ensight.anim_keyframe.step_simtime(2.0000e-02)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.zoom(0.561365)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        ensight.anim_keyframe.cycle(&quot;ON&quot;)
+        ensight.anim_keyframe.specify_time_as(&quot;simulation&quot;)
+        ensight.anim_keyframe.begin_simtime(4.7000e-02)
+        ensight.anim_keyframe.end_simtime(1.1750e-01)
+        ensight.anim_keyframe.step_simtime(2.0000e-02)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -493,12 +535,14 @@ Args:
         &#x27;subframes&#x27; specifies the number of in-between frames between key1 and key2
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.zoom(0.561365)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.sub_frames(1,2,30)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.zoom(0.561365)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.sub_frames(1,2,30)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -511,54 +555,56 @@ Create a new timeline.
 | Is only possible if the previous (if exists) timeline does not completely span the available keyframes
 
 Examples:
-    | #
-    | # turn on keyframing and create 4 keyframes 
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | #
-    | # transient data (and timelines) will be used during the animation
-    | #
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | #
-    | # 
-    | ensight.anim_keyframe.timeline_select(1)
-    | #
-    | # the first timeline goes from keyframe 2 to 3 (i.e, no transient
-    | # data is used for keyframe 1 to 2)
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(2)
-    | ensight.anim_keyframe.timeline_end_keyframe(3)
-    | #
-    | # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
-    | # time is used.  At keyframe 3 the &quot;End&quot; time is used.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
-    | #
-    | # Create a new timeline and select it for editing
-    | #
-    | ensight.anim_keyframe.timeline_new()
-    | ensight.anim_keyframe.timeline_select(2)
-    | #
-    | # This timeline goes from keyframe 3 to 4
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(3)
-    | ensight.anim_keyframe.timeline_end_keyframe(4)
-    | #
-    | # At keyframe 3 the current time will be used (which will
-    | # be the &quot;End&quot; time since the first timeline ends with this time
-    | # We do not specify the time at keyframe 4 but rather increment time
-    | # by 1.4 unit for each frame.  If we arrive at the begin/end time we will
-    | # &quot;swing&quot;
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
-    | ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
-    | ensight.anim_keyframe.timeline_time_increment(1.4)
-    | ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
+    ::
+
+        #
+        # turn on keyframing and create 4 keyframes 
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        #
+        # transient data (and timelines) will be used during the animation
+        #
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        #
+        # 
+        ensight.anim_keyframe.timeline_select(1)
+        #
+        # the first timeline goes from keyframe 2 to 3 (i.e, no transient
+        # data is used for keyframe 1 to 2)
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(2)
+        ensight.anim_keyframe.timeline_end_keyframe(3)
+        #
+        # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
+        # time is used.  At keyframe 3 the &quot;End&quot; time is used.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
+        #
+        # Create a new timeline and select it for editing
+        #
+        ensight.anim_keyframe.timeline_new()
+        ensight.anim_keyframe.timeline_select(2)
+        #
+        # This timeline goes from keyframe 3 to 4
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(3)
+        ensight.anim_keyframe.timeline_end_keyframe(4)
+        #
+        # At keyframe 3 the current time will be used (which will
+        # be the &quot;End&quot; time since the first timeline ends with this time
+        # We do not specify the time at keyframe 4 but rather increment time
+        # by 1.4 unit for each frame.  If we arrive at the begin/end time we will
+        # &quot;swing&quot;
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
+        ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
+        ensight.anim_keyframe.timeline_time_increment(1.4)
+        ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -573,54 +619,56 @@ Args:
         &#x27;timeline&#x27; existing timeline to edit
 
 Examples:
-    | #
-    | # turn on keyframing and create 4 keyframes 
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | #
-    | # transient data (and timelines) will be used during the animation
-    | #
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | #
-    | # 
-    | ensight.anim_keyframe.timeline_select(1)
-    | #
-    | # the first timeline goes from keyframe 2 to 3 (i.e, no transient
-    | # data is used for keyframe 1 to 2)
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(2)
-    | ensight.anim_keyframe.timeline_end_keyframe(3)
-    | #
-    | # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
-    | # time is used.  At keyframe 3 the &quot;End&quot; time is used.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
-    | #
-    | # Create a new timeline and select it for editing
-    | #
-    | ensight.anim_keyframe.timeline_new()
-    | ensight.anim_keyframe.timeline_select(2)
-    | #
-    | # This timeline goes from keyframe 3 to 4
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(3)
-    | ensight.anim_keyframe.timeline_end_keyframe(4)
-    | #
-    | # At keyframe 3 the current time will be used (which will
-    | # be the &quot;End&quot; time since the first timeline ends with this time
-    | # We do not specify the time at keyframe 4 but rather increment time
-    | # by 1. unit for each frame.  If we arrive at the begin/end time we will
-    | # &quot;swing&quot;
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
-    | ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
-    | ensight.anim_keyframe.timeline_step_increment(1.)
-    | ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
+    ::
+
+        #
+        # turn on keyframing and create 4 keyframes 
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        #
+        # transient data (and timelines) will be used during the animation
+        #
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        #
+        # 
+        ensight.anim_keyframe.timeline_select(1)
+        #
+        # the first timeline goes from keyframe 2 to 3 (i.e, no transient
+        # data is used for keyframe 1 to 2)
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(2)
+        ensight.anim_keyframe.timeline_end_keyframe(3)
+        #
+        # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
+        # time is used.  At keyframe 3 the &quot;End&quot; time is used.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
+        #
+        # Create a new timeline and select it for editing
+        #
+        ensight.anim_keyframe.timeline_new()
+        ensight.anim_keyframe.timeline_select(2)
+        #
+        # This timeline goes from keyframe 3 to 4
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(3)
+        ensight.anim_keyframe.timeline_end_keyframe(4)
+        #
+        # At keyframe 3 the current time will be used (which will
+        # be the &quot;End&quot; time since the first timeline ends with this time
+        # We do not specify the time at keyframe 4 but rather increment time
+        # by 1. unit for each frame.  If we arrive at the begin/end time we will
+        # &quot;swing&quot;
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
+        ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
+        ensight.anim_keyframe.timeline_step_increment(1.)
+        ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -638,54 +686,56 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # turn on keyframing and create 4 keyframes 
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | #
-    | # transient data (and timelines) will be used during the animation
-    | #
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | #
-    | # 
-    | ensight.anim_keyframe.timeline_select(1)
-    | #
-    | # the first timeline goes from keyframe 2 to 3 (i.e, no transient
-    | # data is used for keyframe 1 to 2)
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(2)
-    | ensight.anim_keyframe.timeline_end_keyframe(3)
-    | #
-    | # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
-    | # time is used.  At keyframe 3 the &quot;End&quot; time is used.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
-    | #
-    | # Create a new timeline and select it for editing
-    | #
-    | ensight.anim_keyframe.timeline_new()
-    | ensight.anim_keyframe.timeline_select(2)
-    | #
-    | # This timeline goes from keyframe 3 to 4
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(3)
-    | ensight.anim_keyframe.timeline_end_keyframe(4)
-    | #
-    | # At keyframe 3 the current time will be used (which will
-    | # be the &quot;End&quot; time since the first timeline ends with this time
-    | # We do not specify the time at keyframe 4 but rather increment time
-    | # by 1. unit for each frame.  If we arrive at the begin/end time we will
-    | # &quot;swing&quot;
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
-    | ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
-    | ensight.anim_keyframe.timeline_step_increment(1.)
-    | ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
+    ::
+
+        #
+        # turn on keyframing and create 4 keyframes 
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        #
+        # transient data (and timelines) will be used during the animation
+        #
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        #
+        # 
+        ensight.anim_keyframe.timeline_select(1)
+        #
+        # the first timeline goes from keyframe 2 to 3 (i.e, no transient
+        # data is used for keyframe 1 to 2)
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(2)
+        ensight.anim_keyframe.timeline_end_keyframe(3)
+        #
+        # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
+        # time is used.  At keyframe 3 the &quot;End&quot; time is used.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
+        #
+        # Create a new timeline and select it for editing
+        #
+        ensight.anim_keyframe.timeline_new()
+        ensight.anim_keyframe.timeline_select(2)
+        #
+        # This timeline goes from keyframe 3 to 4
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(3)
+        ensight.anim_keyframe.timeline_end_keyframe(4)
+        #
+        # At keyframe 3 the current time will be used (which will
+        # be the &quot;End&quot; time since the first timeline ends with this time
+        # We do not specify the time at keyframe 4 but rather increment time
+        # by 1. unit for each frame.  If we arrive at the begin/end time we will
+        # &quot;swing&quot;
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
+        ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
+        ensight.anim_keyframe.timeline_step_increment(1.)
+        ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -705,54 +755,56 @@ Args:
         * loop
 
 Examples:
-    | #
-    | # turn on keyframing and create 4 keyframes 
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | #
-    | # transient data (and timelines) will be used during the animation
-    | #
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | #
-    | # 
-    | ensight.anim_keyframe.timeline_select(1)
-    | #
-    | # the first timeline goes from keyframe 2 to 3 (i.e, no transient
-    | # data is used for keyframe 1 to 2)
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(2)
-    | ensight.anim_keyframe.timeline_end_keyframe(3)
-    | #
-    | # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
-    | # time is used.  At keyframe 3 the &quot;End&quot; time is used.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
-    | #
-    | # Create a new timeline and select it for editing
-    | #
-    | ensight.anim_keyframe.timeline_new()
-    | ensight.anim_keyframe.timeline_select(2)
-    | #
-    | # This timeline goes from keyframe 3 to 4
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(3)
-    | ensight.anim_keyframe.timeline_end_keyframe(4)
-    | #
-    | # At keyframe 3 the current time will be used (which will
-    | # be the &quot;End&quot; time since the first timeline ends with this time
-    | # We do not specify the time at keyframe 4 but rather increment time
-    | # by 1.4 unit for each frame.  If we arrive at the begin/end time we will
-    | # &quot;swing&quot;
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
-    | ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
-    | ensight.anim_keyframe.timeline_time_increment(1.4)
-    | ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
+    ::
+
+        #
+        # turn on keyframing and create 4 keyframes 
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        #
+        # transient data (and timelines) will be used during the animation
+        #
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        #
+        # 
+        ensight.anim_keyframe.timeline_select(1)
+        #
+        # the first timeline goes from keyframe 2 to 3 (i.e, no transient
+        # data is used for keyframe 1 to 2)
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(2)
+        ensight.anim_keyframe.timeline_end_keyframe(3)
+        #
+        # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
+        # time is used.  At keyframe 3 the &quot;End&quot; time is used.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
+        #
+        # Create a new timeline and select it for editing
+        #
+        ensight.anim_keyframe.timeline_new()
+        ensight.anim_keyframe.timeline_select(2)
+        #
+        # This timeline goes from keyframe 3 to 4
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(3)
+        ensight.anim_keyframe.timeline_end_keyframe(4)
+        #
+        # At keyframe 3 the current time will be used (which will
+        # be the &quot;End&quot; time since the first timeline ends with this time
+        # We do not specify the time at keyframe 4 but rather increment time
+        # by 1.4 unit for each frame.  If we arrive at the begin/end time we will
+        # &quot;swing&quot;
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
+        ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
+        ensight.anim_keyframe.timeline_time_increment(1.4)
+        ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -767,31 +819,33 @@ Args:
         &#x27;timeline&#x27; timeline number to delete
 
 Examples:
-    | #
-    | # turn on keyframing and create 4 keyframes 
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | #
-    | # transient data (and timelines) will be used during the animation
-    | #
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | #
-    | # 
-    | ensight.anim_keyframe.timeline_new()
-    | ensight.anim_keyframe.timeline_select(2)
-    | #
-    | # This timeline goes from keyframe 3 to 4
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(3)
-    | ensight.anim_keyframe.timeline_end_keyframe(4)
-    | #
-    | # delete the first timeline
-    | #
-    | ensight.anim_keyframe.timeline_delete(1)
+    ::
+
+        #
+        # turn on keyframing and create 4 keyframes 
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        #
+        # transient data (and timelines) will be used during the animation
+        #
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        #
+        # 
+        ensight.anim_keyframe.timeline_new()
+        ensight.anim_keyframe.timeline_select(2)
+        #
+        # This timeline goes from keyframe 3 to 4
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(3)
+        ensight.anim_keyframe.timeline_end_keyframe(4)
+        #
+        # delete the first timeline
+        #
+        ensight.anim_keyframe.timeline_delete(1)
 
 Returns:
     zero on success, non-zero on error
@@ -806,54 +860,56 @@ Args:
         &#x27;keyframe_num&#x27; beginning/ending keyframe for the timeline
 
 Examples:
-    | #
-    | # turn on keyframing and create 4 keyframes 
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | #
-    | # transient data (and timelines) will be used during the animation
-    | #
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | #
-    | # 
-    | ensight.anim_keyframe.timeline_select(1)
-    | #
-    | # the first timeline goes from keyframe 2 to 3 (i.e, no transient
-    | # data is used for keyframe 1 to 2)
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(2)
-    | ensight.anim_keyframe.timeline_end_keyframe(3)
-    | #
-    | # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
-    | # time is used.  At keyframe 3 the &quot;End&quot; time is used.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
-    | #
-    | # Create a new timeline and select it for editing
-    | #
-    | ensight.anim_keyframe.timeline_new()
-    | ensight.anim_keyframe.timeline_select(2)
-    | #
-    | # This timeline goes from keyframe 3 to 4
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(3)
-    | ensight.anim_keyframe.timeline_end_keyframe(4)
-    | #
-    | # At keyframe 3 the current time will be used (which will
-    | # be the &quot;End&quot; time since the first timeline ends with this time
-    | # We do not specify the time at keyframe 4 but rather increment time
-    | # by 1. unit for each frame.  If we arrive at the begin/end time we will
-    | # &quot;swing&quot;
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
-    | ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
-    | ensight.anim_keyframe.timeline_step_increment(1.)
-    | ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
+    ::
+
+        #
+        # turn on keyframing and create 4 keyframes 
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        #
+        # transient data (and timelines) will be used during the animation
+        #
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        #
+        # 
+        ensight.anim_keyframe.timeline_select(1)
+        #
+        # the first timeline goes from keyframe 2 to 3 (i.e, no transient
+        # data is used for keyframe 1 to 2)
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(2)
+        ensight.anim_keyframe.timeline_end_keyframe(3)
+        #
+        # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
+        # time is used.  At keyframe 3 the &quot;End&quot; time is used.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
+        #
+        # Create a new timeline and select it for editing
+        #
+        ensight.anim_keyframe.timeline_new()
+        ensight.anim_keyframe.timeline_select(2)
+        #
+        # This timeline goes from keyframe 3 to 4
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(3)
+        ensight.anim_keyframe.timeline_end_keyframe(4)
+        #
+        # At keyframe 3 the current time will be used (which will
+        # be the &quot;End&quot; time since the first timeline ends with this time
+        # We do not specify the time at keyframe 4 but rather increment time
+        # by 1. unit for each frame.  If we arrive at the begin/end time we will
+        # &quot;swing&quot;
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
+        ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
+        ensight.anim_keyframe.timeline_step_increment(1.)
+        ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -868,54 +924,56 @@ Args:
         &#x27;keyframe_num&#x27; beginning/ending keyframe for the timeline
 
 Examples:
-    | #
-    | # turn on keyframing and create 4 keyframes 
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | #
-    | # transient data (and timelines) will be used during the animation
-    | #
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | #
-    | # 
-    | ensight.anim_keyframe.timeline_select(1)
-    | #
-    | # the first timeline goes from keyframe 2 to 3 (i.e, no transient
-    | # data is used for keyframe 1 to 2)
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(2)
-    | ensight.anim_keyframe.timeline_end_keyframe(3)
-    | #
-    | # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
-    | # time is used.  At keyframe 3 the &quot;End&quot; time is used.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
-    | #
-    | # Create a new timeline and select it for editing
-    | #
-    | ensight.anim_keyframe.timeline_new()
-    | ensight.anim_keyframe.timeline_select(2)
-    | #
-    | # This timeline goes from keyframe 3 to 4
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(3)
-    | ensight.anim_keyframe.timeline_end_keyframe(4)
-    | #
-    | # At keyframe 3 the current time will be used (which will
-    | # be the &quot;End&quot; time since the first timeline ends with this time
-    | # We do not specify the time at keyframe 4 but rather increment time
-    | # by 1. unit for each frame.  If we arrive at the begin/end time we will
-    | # &quot;swing&quot;
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
-    | ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
-    | ensight.anim_keyframe.timeline_step_increment(1.)
-    | ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
+    ::
+
+        #
+        # turn on keyframing and create 4 keyframes 
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        #
+        # transient data (and timelines) will be used during the animation
+        #
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        #
+        # 
+        ensight.anim_keyframe.timeline_select(1)
+        #
+        # the first timeline goes from keyframe 2 to 3 (i.e, no transient
+        # data is used for keyframe 1 to 2)
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(2)
+        ensight.anim_keyframe.timeline_end_keyframe(3)
+        #
+        # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
+        # time is used.  At keyframe 3 the &quot;End&quot; time is used.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
+        #
+        # Create a new timeline and select it for editing
+        #
+        ensight.anim_keyframe.timeline_new()
+        ensight.anim_keyframe.timeline_select(2)
+        #
+        # This timeline goes from keyframe 3 to 4
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(3)
+        ensight.anim_keyframe.timeline_end_keyframe(4)
+        #
+        # At keyframe 3 the current time will be used (which will
+        # be the &quot;End&quot; time since the first timeline ends with this time
+        # We do not specify the time at keyframe 4 but rather increment time
+        # by 1. unit for each frame.  If we arrive at the begin/end time we will
+        # &quot;swing&quot;
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
+        ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
+        ensight.anim_keyframe.timeline_step_increment(1.)
+        ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -932,51 +990,53 @@ Args:
         &#x27;time_value&#x27; The time value (step) for the start/end of the timeline
 
 Examples:
-    | #
-    | # turn on keyframing and create 4 keyframes 
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | #
-    | # transient data (and timelines) will be used during the animation
-    | #
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | #
-    | # 
-    | ensight.anim_keyframe.timeline_select(1)
-    | #
-    | # the first timeline goes from keyframe 2 to 3 (i.e, no transient
-    | # data is used for keyframe 1 to 2)
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(2)
-    | ensight.anim_keyframe.timeline_end_keyframe(3)
-    | #
-    | # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
-    | # time is used.  At keyframe 3 the &quot;End&quot; time is used.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
-    | #
-    | # Create a new timeline and select it for editing
-    | #
-    | ensight.anim_keyframe.timeline_new()
-    | ensight.anim_keyframe.timeline_select(2)
-    | #
-    | # This timeline goes from keyframe 3 to 4
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(3)
-    | ensight.anim_keyframe.timeline_end_keyframe(4)
-    | #
-    | # At keyframe 3 the current time will be used (which will
-    | # be the &quot;End&quot; time since the first timeline ends with this time
-    | # At keyframe 4 we set time step to 4.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;specify&quot;)
-    | ensight.anim_keyframe.timeline_end_time(4.)
+    ::
+
+        #
+        # turn on keyframing and create 4 keyframes 
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        #
+        # transient data (and timelines) will be used during the animation
+        #
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        #
+        # 
+        ensight.anim_keyframe.timeline_select(1)
+        #
+        # the first timeline goes from keyframe 2 to 3 (i.e, no transient
+        # data is used for keyframe 1 to 2)
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(2)
+        ensight.anim_keyframe.timeline_end_keyframe(3)
+        #
+        # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
+        # time is used.  At keyframe 3 the &quot;End&quot; time is used.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
+        #
+        # Create a new timeline and select it for editing
+        #
+        ensight.anim_keyframe.timeline_new()
+        ensight.anim_keyframe.timeline_select(2)
+        #
+        # This timeline goes from keyframe 3 to 4
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(3)
+        ensight.anim_keyframe.timeline_end_keyframe(4)
+        #
+        # At keyframe 3 the current time will be used (which will
+        # be the &quot;End&quot; time since the first timeline ends with this time
+        # At keyframe 4 we set time step to 4.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;specify&quot;)
+        ensight.anim_keyframe.timeline_end_time(4.)
 
 Returns:
     zero on success, non-zero on error
@@ -993,51 +1053,53 @@ Args:
         &#x27;time_value&#x27; The time value (step) for the start/end of the timeline
 
 Examples:
-    | #
-    | # turn on keyframing and create 4 keyframes 
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | #
-    | # transient data (and timelines) will be used during the animation
-    | #
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | #
-    | # 
-    | ensight.anim_keyframe.timeline_select(1)
-    | #
-    | # the first timeline goes from keyframe 2 to 3 (i.e, no transient
-    | # data is used for keyframe 1 to 2)
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(2)
-    | ensight.anim_keyframe.timeline_end_keyframe(3)
-    | #
-    | # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
-    | # time is used.  At keyframe 3 the &quot;End&quot; time is used.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
-    | #
-    | # Create a new timeline and select it for editing
-    | #
-    | ensight.anim_keyframe.timeline_new()
-    | ensight.anim_keyframe.timeline_select(2)
-    | #
-    | # This timeline goes from keyframe 3 to 4
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(3)
-    | ensight.anim_keyframe.timeline_end_keyframe(4)
-    | #
-    | # At keyframe 3 the current time will be used (which will
-    | # be the &quot;End&quot; time since the first timeline ends with this time
-    | # At keyframe 4 we set time step to 4.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;specify&quot;)
-    | ensight.anim_keyframe.timeline_end_time(4.)
+    ::
+
+        #
+        # turn on keyframing and create 4 keyframes 
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        #
+        # transient data (and timelines) will be used during the animation
+        #
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        #
+        # 
+        ensight.anim_keyframe.timeline_select(1)
+        #
+        # the first timeline goes from keyframe 2 to 3 (i.e, no transient
+        # data is used for keyframe 1 to 2)
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(2)
+        ensight.anim_keyframe.timeline_end_keyframe(3)
+        #
+        # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
+        # time is used.  At keyframe 3 the &quot;End&quot; time is used.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
+        #
+        # Create a new timeline and select it for editing
+        #
+        ensight.anim_keyframe.timeline_new()
+        ensight.anim_keyframe.timeline_select(2)
+        #
+        # This timeline goes from keyframe 3 to 4
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(3)
+        ensight.anim_keyframe.timeline_end_keyframe(4)
+        #
+        # At keyframe 3 the current time will be used (which will
+        # be the &quot;End&quot; time since the first timeline ends with this time
+        # At keyframe 4 we set time step to 4.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;specify&quot;)
+        ensight.anim_keyframe.timeline_end_time(4.)
 
 Returns:
     zero on success, non-zero on error
@@ -1054,51 +1116,53 @@ Args:
         &#x27;time_value&#x27; The time value (simulation) for the start/end of the timeline
 
 Examples:
-    | #
-    | # turn on keyframing and create 4 keyframes 
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | #
-    | # transient data (and timelines) will be used during the animation
-    | #
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | #
-    | # 
-    | ensight.anim_keyframe.timeline_select(1)
-    | #
-    | # the first timeline goes from keyframe 2 to 3 (i.e, no transient
-    | # data is used for keyframe 1 to 2)
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(2)
-    | ensight.anim_keyframe.timeline_end_keyframe(3)
-    | #
-    | # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
-    | # time is used.  At keyframe 3 the &quot;End&quot; time is used.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
-    | #
-    | # Create a new timeline and select it for editing
-    | #
-    | ensight.anim_keyframe.timeline_new()
-    | ensight.anim_keyframe.timeline_select(2)
-    | #
-    | # This timeline goes from keyframe 3 to 4
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(3)
-    | ensight.anim_keyframe.timeline_end_keyframe(4)
-    | #
-    | # At keyframe 3 the current time will be used (which will
-    | # be the &quot;End&quot; time since the first timeline ends with this time
-    | # At keyframe 4 we set time to be 40.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;specify&quot;)
-    | ensight.anim_keyframe.timeline_end_time(40.)
+    ::
+
+        #
+        # turn on keyframing and create 4 keyframes 
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        #
+        # transient data (and timelines) will be used during the animation
+        #
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        #
+        # 
+        ensight.anim_keyframe.timeline_select(1)
+        #
+        # the first timeline goes from keyframe 2 to 3 (i.e, no transient
+        # data is used for keyframe 1 to 2)
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(2)
+        ensight.anim_keyframe.timeline_end_keyframe(3)
+        #
+        # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
+        # time is used.  At keyframe 3 the &quot;End&quot; time is used.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
+        #
+        # Create a new timeline and select it for editing
+        #
+        ensight.anim_keyframe.timeline_new()
+        ensight.anim_keyframe.timeline_select(2)
+        #
+        # This timeline goes from keyframe 3 to 4
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(3)
+        ensight.anim_keyframe.timeline_end_keyframe(4)
+        #
+        # At keyframe 3 the current time will be used (which will
+        # be the &quot;End&quot; time since the first timeline ends with this time
+        # At keyframe 4 we set time to be 40.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;specify&quot;)
+        ensight.anim_keyframe.timeline_end_time(40.)
 
 Returns:
     zero on success, non-zero on error
@@ -1115,51 +1179,53 @@ Args:
         &#x27;time_value&#x27; The time value (simulation) for the start/end of the timeline
 
 Examples:
-    | #
-    | # turn on keyframing and create 4 keyframes 
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | #
-    | # transient data (and timelines) will be used during the animation
-    | #
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | #
-    | # 
-    | ensight.anim_keyframe.timeline_select(1)
-    | #
-    | # the first timeline goes from keyframe 2 to 3 (i.e, no transient
-    | # data is used for keyframe 1 to 2)
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(2)
-    | ensight.anim_keyframe.timeline_end_keyframe(3)
-    | #
-    | # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
-    | # time is used.  At keyframe 3 the &quot;End&quot; time is used.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
-    | #
-    | # Create a new timeline and select it for editing
-    | #
-    | ensight.anim_keyframe.timeline_new()
-    | ensight.anim_keyframe.timeline_select(2)
-    | #
-    | # This timeline goes from keyframe 3 to 4
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(3)
-    | ensight.anim_keyframe.timeline_end_keyframe(4)
-    | #
-    | # At keyframe 3 the current time will be used (which will
-    | # be the &quot;End&quot; time since the first timeline ends with this time
-    | # At keyframe 4 we set time to be 40.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;specify&quot;)
-    | ensight.anim_keyframe.timeline_end_time(40.)
+    ::
+
+        #
+        # turn on keyframing and create 4 keyframes 
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        #
+        # transient data (and timelines) will be used during the animation
+        #
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        #
+        # 
+        ensight.anim_keyframe.timeline_select(1)
+        #
+        # the first timeline goes from keyframe 2 to 3 (i.e, no transient
+        # data is used for keyframe 1 to 2)
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(2)
+        ensight.anim_keyframe.timeline_end_keyframe(3)
+        #
+        # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
+        # time is used.  At keyframe 3 the &quot;End&quot; time is used.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
+        #
+        # Create a new timeline and select it for editing
+        #
+        ensight.anim_keyframe.timeline_new()
+        ensight.anim_keyframe.timeline_select(2)
+        #
+        # This timeline goes from keyframe 3 to 4
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(3)
+        ensight.anim_keyframe.timeline_end_keyframe(4)
+        #
+        # At keyframe 3 the current time will be used (which will
+        # be the &quot;End&quot; time since the first timeline ends with this time
+        # At keyframe 4 we set time to be 40.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;specify&quot;)
+        ensight.anim_keyframe.timeline_end_time(40.)
 
 Returns:
     zero on success, non-zero on error
@@ -1179,54 +1245,56 @@ Args:
         * specify
 
 Examples:
-    | #
-    | # turn on keyframing and create 4 keyframes 
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | #
-    | # transient data (and timelines) will be used during the animation
-    | #
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | #
-    | # 
-    | ensight.anim_keyframe.timeline_select(1)
-    | #
-    | # the first timeline goes from keyframe 2 to 3 (i.e, no transient
-    | # data is used for keyframe 1 to 2)
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(2)
-    | ensight.anim_keyframe.timeline_end_keyframe(3)
-    | #
-    | # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
-    | # time is used.  At keyframe 3 the &quot;End&quot; time is used.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
-    | #
-    | # Create a new timeline and select it for editing
-    | #
-    | ensight.anim_keyframe.timeline_new()
-    | ensight.anim_keyframe.timeline_select(2)
-    | #
-    | # This timeline goes from keyframe 3 to 4
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(3)
-    | ensight.anim_keyframe.timeline_end_keyframe(4)
-    | #
-    | # At keyframe 3 the current time will be used (which will
-    | # be the &quot;End&quot; time since the first timeline ends with this time
-    | # We do not specify the time at keyframe 4 but rather increment time
-    | # by 1. unit for each frame.  If we arrive at the begin/end time we will
-    | # &quot;swing&quot;
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
-    | ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
-    | ensight.anim_keyframe.timeline_step_increment(1.)
-    | ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
+    ::
+
+        #
+        # turn on keyframing and create 4 keyframes 
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        #
+        # transient data (and timelines) will be used during the animation
+        #
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        #
+        # 
+        ensight.anim_keyframe.timeline_select(1)
+        #
+        # the first timeline goes from keyframe 2 to 3 (i.e, no transient
+        # data is used for keyframe 1 to 2)
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(2)
+        ensight.anim_keyframe.timeline_end_keyframe(3)
+        #
+        # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
+        # time is used.  At keyframe 3 the &quot;End&quot; time is used.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
+        #
+        # Create a new timeline and select it for editing
+        #
+        ensight.anim_keyframe.timeline_new()
+        ensight.anim_keyframe.timeline_select(2)
+        #
+        # This timeline goes from keyframe 3 to 4
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(3)
+        ensight.anim_keyframe.timeline_end_keyframe(4)
+        #
+        # At keyframe 3 the current time will be used (which will
+        # be the &quot;End&quot; time since the first timeline ends with this time
+        # We do not specify the time at keyframe 4 but rather increment time
+        # by 1. unit for each frame.  If we arrive at the begin/end time we will
+        # &quot;swing&quot;
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
+        ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
+        ensight.anim_keyframe.timeline_step_increment(1.)
+        ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -1246,54 +1314,56 @@ Args:
         * specify
 
 Examples:
-    | #
-    | # turn on keyframing and create 4 keyframes 
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | #
-    | # transient data (and timelines) will be used during the animation
-    | #
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | #
-    | # 
-    | ensight.anim_keyframe.timeline_select(1)
-    | #
-    | # the first timeline goes from keyframe 2 to 3 (i.e, no transient
-    | # data is used for keyframe 1 to 2)
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(2)
-    | ensight.anim_keyframe.timeline_end_keyframe(3)
-    | #
-    | # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
-    | # time is used.  At keyframe 3 the &quot;End&quot; time is used.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
-    | #
-    | # Create a new timeline and select it for editing
-    | #
-    | ensight.anim_keyframe.timeline_new()
-    | ensight.anim_keyframe.timeline_select(2)
-    | #
-    | # This timeline goes from keyframe 3 to 4
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(3)
-    | ensight.anim_keyframe.timeline_end_keyframe(4)
-    | #
-    | # At keyframe 3 the current time will be used (which will
-    | # be the &quot;End&quot; time since the first timeline ends with this time
-    | # We do not specify the time at keyframe 4 but rather increment time
-    | # by 1. unit for each frame.  If we arrive at the begin/end time we will
-    | # &quot;swing&quot;
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
-    | ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
-    | ensight.anim_keyframe.timeline_step_increment(1.)
-    | ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
+    ::
+
+        #
+        # turn on keyframing and create 4 keyframes 
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        #
+        # transient data (and timelines) will be used during the animation
+        #
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        #
+        # 
+        ensight.anim_keyframe.timeline_select(1)
+        #
+        # the first timeline goes from keyframe 2 to 3 (i.e, no transient
+        # data is used for keyframe 1 to 2)
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(2)
+        ensight.anim_keyframe.timeline_end_keyframe(3)
+        #
+        # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
+        # time is used.  At keyframe 3 the &quot;End&quot; time is used.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
+        #
+        # Create a new timeline and select it for editing
+        #
+        ensight.anim_keyframe.timeline_new()
+        ensight.anim_keyframe.timeline_select(2)
+        #
+        # This timeline goes from keyframe 3 to 4
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(3)
+        ensight.anim_keyframe.timeline_end_keyframe(4)
+        #
+        # At keyframe 3 the current time will be used (which will
+        # be the &quot;End&quot; time since the first timeline ends with this time
+        # We do not specify the time at keyframe 4 but rather increment time
+        # by 1. unit for each frame.  If we arrive at the begin/end time we will
+        # &quot;swing&quot;
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
+        ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
+        ensight.anim_keyframe.timeline_step_increment(1.)
+        ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -1311,54 +1381,56 @@ Args:
         &#x27;delta_step&#x27; The time step increment between frames during the timeline
 
 Examples:
-    | #
-    | # turn on keyframing and create 4 keyframes 
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | #
-    | # transient data (and timelines) will be used during the animation
-    | #
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | #
-    | # 
-    | ensight.anim_keyframe.timeline_select(1)
-    | #
-    | # the first timeline goes from keyframe 2 to 3 (i.e, no transient
-    | # data is used for keyframe 1 to 2)
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(2)
-    | ensight.anim_keyframe.timeline_end_keyframe(3)
-    | #
-    | # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
-    | # time is used.  At keyframe 3 the &quot;End&quot; time is used.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
-    | #
-    | # Create a new timeline and select it for editing
-    | #
-    | ensight.anim_keyframe.timeline_new()
-    | ensight.anim_keyframe.timeline_select(2)
-    | #
-    | # This timeline goes from keyframe 3 to 4
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(3)
-    | ensight.anim_keyframe.timeline_end_keyframe(4)
-    | #
-    | # At keyframe 3 the current time will be used (which will
-    | # be the &quot;End&quot; time since the first timeline ends with this time
-    | # We do not specify the time at keyframe 4 but rather increment time
-    | # by 1. unit for each frame.  If we arrive at the begin/end time we will
-    | # &quot;swing&quot;
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
-    | ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
-    | ensight.anim_keyframe.timeline_step_increment(1.)
-    | ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
+    ::
+
+        #
+        # turn on keyframing and create 4 keyframes 
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        #
+        # transient data (and timelines) will be used during the animation
+        #
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        #
+        # 
+        ensight.anim_keyframe.timeline_select(1)
+        #
+        # the first timeline goes from keyframe 2 to 3 (i.e, no transient
+        # data is used for keyframe 1 to 2)
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(2)
+        ensight.anim_keyframe.timeline_end_keyframe(3)
+        #
+        # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
+        # time is used.  At keyframe 3 the &quot;End&quot; time is used.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
+        #
+        # Create a new timeline and select it for editing
+        #
+        ensight.anim_keyframe.timeline_new()
+        ensight.anim_keyframe.timeline_select(2)
+        #
+        # This timeline goes from keyframe 3 to 4
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(3)
+        ensight.anim_keyframe.timeline_end_keyframe(4)
+        #
+        # At keyframe 3 the current time will be used (which will
+        # be the &quot;End&quot; time since the first timeline ends with this time
+        # We do not specify the time at keyframe 4 but rather increment time
+        # by 1. unit for each frame.  If we arrive at the begin/end time we will
+        # &quot;swing&quot;
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
+        ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
+        ensight.anim_keyframe.timeline_step_increment(1.)
+        ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -1376,54 +1448,56 @@ Args:
         &#x27;delta_time&#x27; The time increment between frames during the timeline
 
 Examples:
-    | #
-    | # turn on keyframing and create 4 keyframes 
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.create_keyframe()
-    | #
-    | # transient data (and timelines) will be used during the animation
-    | #
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | #
-    | # 
-    | ensight.anim_keyframe.timeline_select(1)
-    | #
-    | # the first timeline goes from keyframe 2 to 3 (i.e, no transient
-    | # data is used for keyframe 1 to 2)
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(2)
-    | ensight.anim_keyframe.timeline_end_keyframe(3)
-    | #
-    | # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
-    | # time is used.  At keyframe 3 the &quot;End&quot; time is used.
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
-    | ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
-    | #
-    | # Create a new timeline and select it for editing
-    | #
-    | ensight.anim_keyframe.timeline_new()
-    | ensight.anim_keyframe.timeline_select(2)
-    | #
-    | # This timeline goes from keyframe 3 to 4
-    | #
-    | ensight.anim_keyframe.timeline_start_keyframe(3)
-    | ensight.anim_keyframe.timeline_end_keyframe(4)
-    | #
-    | # At keyframe 3 the current time will be used (which will
-    | # be the &quot;End&quot; time since the first timeline ends with this time
-    | # We do not specify the time at keyframe 4 but rather increment time
-    | # by 1.4 unit for each frame.  If we arrive at the begin/end time we will
-    | # &quot;swing&quot;
-    | #
-    | ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
-    | ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
-    | ensight.anim_keyframe.timeline_time_increment(1.4)
-    | ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
+    ::
+
+        #
+        # turn on keyframing and create 4 keyframes 
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.create_keyframe()
+        #
+        # transient data (and timelines) will be used during the animation
+        #
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        #
+        # 
+        ensight.anim_keyframe.timeline_select(1)
+        #
+        # the first timeline goes from keyframe 2 to 3 (i.e, no transient
+        # data is used for keyframe 1 to 2)
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(2)
+        ensight.anim_keyframe.timeline_end_keyframe(3)
+        #
+        # At keyframe 2 the &quot;Begin&quot; (as defined in the solution time dialog)
+        # time is used.  At keyframe 3 the &quot;End&quot; time is used.
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_begin&quot;)
+        ensight.anim_keyframe.timeline_end_type(&quot;use_end&quot;)
+        #
+        # Create a new timeline and select it for editing
+        #
+        ensight.anim_keyframe.timeline_new()
+        ensight.anim_keyframe.timeline_select(2)
+        #
+        # This timeline goes from keyframe 3 to 4
+        #
+        ensight.anim_keyframe.timeline_start_keyframe(3)
+        ensight.anim_keyframe.timeline_end_keyframe(4)
+        #
+        # At keyframe 3 the current time will be used (which will
+        # be the &quot;End&quot; time since the first timeline ends with this time
+        # We do not specify the time at keyframe 4 but rather increment time
+        # by 1.4 unit for each frame.  If we arrive at the begin/end time we will
+        # &quot;swing&quot;
+        #
+        ensight.anim_keyframe.timeline_start_type(&quot;use_current&quot;)
+        ensight.anim_keyframe.timeline_specify_incr(&quot;ON&quot;)
+        ensight.anim_keyframe.timeline_time_increment(1.4)
+        ensight.anim_keyframe.timeline_arrive_type(&quot;swing&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -1443,16 +1517,18 @@ Args:
         * OFF
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | # WARNING: following line includes OBSOLETE call (ensight.part.select_partname_begin).
-    | ensight.part.select_partname_begin(&quot;(CASE:Case 1)Isosurface part&quot;)
-    | ensight.part.modify_begin()
-    | ensight.isos.value(9.9000e-01)
-    | ensight.part.modify_end()
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.use_interactive_parts(&quot;ON&quot;)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        # WARNING: following line includes OBSOLETE call (ensight.part.select_partname_begin).
+        ensight.part.select_partname_begin(&quot;(CASE:Case 1)Isosurface part&quot;)
+        ensight.part.modify_begin()
+        ensight.isos.value(9.9000e-01)
+        ensight.part.modify_end()
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.use_interactive_parts(&quot;ON&quot;)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -1472,15 +1548,17 @@ Args:
         * OFF
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.translate(5,0,0)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.translate(0,5,0)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_keyframe.use_spline(&quot;ON&quot;)
-    | ensight.anim_keyframe.acceleration(&quot;3&quot;,&quot;ON&quot;)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.translate(5,0,0)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.translate(0,5,0)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_keyframe.use_spline(&quot;ON&quot;)
+        ensight.anim_keyframe.acceleration(&quot;3&quot;,&quot;ON&quot;)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -1500,12 +1578,14 @@ Args:
         * OFF
 
 Examples:
-    | ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
-    | ensight.anim_keyframe.specify_time_as(&quot;step&quot;)
-    | ensight.anim_keyframe.step_by(2.0000e+00)
-    | ensight.anim_keyframe.begin_time_step(2)
-    | ensight.anim_keyframe.end_time_step(15)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.use_transient_data(&quot;ON&quot;)
+        ensight.anim_keyframe.specify_time_as(&quot;step&quot;)
+        ensight.anim_keyframe.step_by(2.0000e+00)
+        ensight.anim_keyframe.begin_time_step(2)
+        ensight.anim_keyframe.end_time_step(15)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error

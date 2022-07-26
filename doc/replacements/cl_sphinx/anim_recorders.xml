@@ -11,15 +11,17 @@ Args:
         &#x27;filename&#x27; animation file name prefix
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.rotate(0.0,90.0,0.0)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.file.image_format(&quot;envideo&quot;)
-    | # record envideo file to /tmp/my_animation.evo
-    | ensight.anim_recorders.file_prefix(&quot;/tmp/my_animation&quot;)
-    | ensight.anim_recorders.record(&quot;ON&quot;)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.rotate(0.0,90.0,0.0)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.file.image_format(&quot;envideo&quot;)
+        # record envideo file to /tmp/my_animation.evo
+        ensight.anim_recorders.file_prefix(&quot;/tmp/my_animation&quot;)
+        ensight.anim_recorders.record(&quot;ON&quot;)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -37,14 +39,16 @@ Args:
         * OFF
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.rotate(0.0,90.0,0.0)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.file.image_format(&quot;envideo&quot;)
-    | ensight.anim_recorders.file_prefix(&quot;./my_animation&quot;)
-    | ensight.anim_recorders.record(&quot;ON&quot;)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.rotate(0.0,90.0,0.0)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.file.image_format(&quot;envideo&quot;)
+        ensight.anim_recorders.file_prefix(&quot;./my_animation&quot;)
+        ensight.anim_recorders.record(&quot;ON&quot;)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -64,15 +68,17 @@ Args:
         * OFF
 
 Examples:
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.rotate(0.0,90.0,0.0)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.file.image_format(&quot;envideo&quot;)
-    | ensight.anim_recorders.file_prefix(&quot;./my_animation&quot;)
-    | ensight.anim_recorders.record(&quot;ON&quot;)
-    | ensight.anim_recorders.render_offscreen(&quot;ON&quot;)
-    | ensight.anim_keyframe.run()
+    ::
+
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.rotate(0.0,90.0,0.0)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.file.image_format(&quot;envideo&quot;)
+        ensight.anim_recorders.file_prefix(&quot;./my_animation&quot;)
+        ensight.anim_recorders.record(&quot;ON&quot;)
+        ensight.anim_recorders.render_offscreen(&quot;ON&quot;)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error

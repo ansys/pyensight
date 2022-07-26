@@ -10,15 +10,17 @@ Args:
         &#x27;num&#x27; number of queries
 
 Examples:
-    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
-    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
-    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
-    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
-    | ensight.query_interact.query(&quot;xyz&quot;)
-    | ensight.query_interact.number_displayed(3)
-    | ensight.query_interact.create(12.0,15.1,10.3)
-    | ensight.query_interact.create(11.0,15.0,10.1)
-    | ensight.query_interact.create(10.0,15.0,10.3)
+    ::
+
+        #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+        #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+        ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+        ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+        ensight.query_interact.query(&quot;xyz&quot;)
+        ensight.query_interact.number_displayed(3)
+        ensight.query_interact.create(12.0,15.1,10.3)
+        ensight.query_interact.create(11.0,15.0,10.1)
+        ensight.query_interact.create(10.0,15.0,10.3)
 
 Returns:
     zero on success, non-zero on error
@@ -82,12 +84,14 @@ Args:
         &#x27;z_coord&#x27; xyz model coordinates
 
 Examples:
-    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
-    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
-    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
-    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
-    | ensight.query_interact.query(&quot;xyz&quot;)
-    | ensight.query_interact.create(12.0,15.1,10.3)
+    ::
+
+        #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+        #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+        ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+        ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+        ensight.query_interact.query(&quot;xyz&quot;)
+        ensight.query_interact.create(12.0,15.1,10.3)
 
 Returns:
     zero on success, non-zero on error
@@ -115,14 +119,16 @@ Args:
         * OFF
 
 Examples:
-    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
-    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
-    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
-    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
-    | ensight.query_interact.query(&quot;cursor&quot;)
-    | ensight.query_interact.search(&quot;closest_node&quot;)
-    | ensight.query_interact.display_id(&quot;ON&quot;)
-    | ensight.query_interact.create(12.0,15.1,10.3)
+    ::
+
+        #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+        #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+        ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+        ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+        ensight.query_interact.query(&quot;cursor&quot;)
+        ensight.query_interact.search(&quot;closest_node&quot;)
+        ensight.query_interact.display_id(&quot;ON&quot;)
+        ensight.query_interact.create(12.0,15.1,10.3)
 
 Returns:
     zero on success, non-zero on error
@@ -142,13 +148,15 @@ Args:
         * OFF
 
 Examples:
-    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
-    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
-    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
-    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
-    | ensight.query_interact.query(&quot;cursor&quot;)
-    | ensight.query_interact.label_always_on_top(&quot;ON&quot;)
-    | ensight.query_interact.create(12.0,15.1,10.3)
+    ::
+
+        #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+        #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+        ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+        ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+        ensight.query_interact.query(&quot;cursor&quot;)
+        ensight.query_interact.label_always_on_top(&quot;ON&quot;)
+        ensight.query_interact.create(12.0,15.1,10.3)
 
 Returns:
     zero on success, non-zero on error
@@ -167,13 +175,15 @@ Args:
         &#x27;blu_val&#x27; red, green, blue contributions of the color within range of  0.0 to 1.0
 
 Examples:
-    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
-    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
-    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
-    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
-    | ensight.query_interact.query(&quot;cursor&quot;)
-    | ensight.query_interact.label_rgb(0,1,1)
-    | ensight.query_interact.create(12.0,15.1,10.3)
+    ::
+
+        #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+        #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+        ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+        ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+        ensight.query_interact.query(&quot;cursor&quot;)
+        ensight.query_interact.label_rgb(0,1,1)
+        ensight.query_interact.create(12.0,15.1,10.3)
 
 Returns:
     zero on success, non-zero on error
@@ -208,15 +218,17 @@ Args:
         &#x27;scale&#x27; size of marker
 
 Examples:
-    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
-    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
-    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.query_interact.variable).
-    | ensight.query_interact.variable(&quot;pressure&quot;)
-    | ensight.query_interact.query(&quot;cursor&quot;)
-    | ensight.query_interact.label_visible(&quot;OFF&quot;)
-    | ensight.query_interact.marker_size_normalized(0.5)
-    | ensight.query_interact.create(12.0,15.1,10.3)
+    ::
+
+        #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+        #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+        ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.query_interact.variable).
+        ensight.query_interact.variable(&quot;pressure&quot;)
+        ensight.query_interact.query(&quot;cursor&quot;)
+        ensight.query_interact.label_visible(&quot;OFF&quot;)
+        ensight.query_interact.marker_size_normalized(0.5)
+        ensight.query_interact.create(12.0,15.1,10.3)
 
 Returns:
     zero on success, non-zero on error
@@ -236,14 +248,16 @@ Args:
         * OFF
 
 Examples:
-    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
-    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
-    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
-    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
-    | ensight.query_interact.query(&quot;cursor&quot;)
-    | ensight.query_interact.label_visible(&quot;OFF&quot;)
-    | ensight.query_interact.marker_visible(&quot;OFF&quot;)
-    | ensight.query_interact.create(12.0,15.1,10.3)
+    ::
+
+        #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+        #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+        ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+        ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+        ensight.query_interact.query(&quot;cursor&quot;)
+        ensight.query_interact.label_visible(&quot;OFF&quot;)
+        ensight.query_interact.marker_visible(&quot;OFF&quot;)
+        ensight.query_interact.create(12.0,15.1,10.3)
 
 Returns:
     zero on success, non-zero on error
@@ -271,13 +285,15 @@ Args:
         * max
 
 Examples:
-    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
-    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
-    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
-    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
-    | ensight.query_interact.query(&quot;cursor&quot;)
-    | ensight.query_interact.search(&quot;closest_node&quot;)
-    | ensight.query_interact.create(12.0,15.1,10.3)
+    ::
+
+        #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+        #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+        ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+        ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+        ensight.query_interact.query(&quot;cursor&quot;)
+        ensight.query_interact.search(&quot;closest_node&quot;)
+        ensight.query_interact.create(12.0,15.1,10.3)
 
 Returns:
     zero on success, non-zero on error
@@ -298,13 +314,15 @@ Args:
         * pick
 
 Examples:
-    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
-    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
-    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
-    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
-    | ensight.query_interact.query(&quot;cursor&quot;)
-    | ensight.query_interact.request_method(&quot;pick&quot;)
-    | ensight.query_interact.create(12.0,15.1,10.3)
+    ::
+
+        #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+        #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+        ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+        ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+        ensight.query_interact.query(&quot;cursor&quot;)
+        ensight.query_interact.request_method(&quot;pick&quot;)
+        ensight.query_interact.create(12.0,15.1,10.3)
 
 Returns:
     zero on success, non-zero on error
@@ -319,16 +337,18 @@ Args:
         &#x27;filename&#x27; filename to receive the results table information
 
 Examples:
-    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
-    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
-    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
-    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
-    | ensight.query_interact.query(&quot;xyz&quot;)
-    | ensight.query_interact.number_displayed(3)
-    | ensight.query_interact.create(12.0,15.1,10.3)
-    | ensight.query_interact.create(11.0,15.0,10.1)
-    | ensight.query_interact.create(10.0,15.0,10.3)
-    | ensight.query_interact.save(&quot;/home/users/me/probe.txt&quot;)
+    ::
+
+        #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+        #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+        ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+        ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+        ensight.query_interact.query(&quot;xyz&quot;)
+        ensight.query_interact.number_displayed(3)
+        ensight.query_interact.create(12.0,15.1,10.3)
+        ensight.query_interact.create(11.0,15.0,10.1)
+        ensight.query_interact.create(10.0,15.0,10.3)
+        ensight.query_interact.save(&quot;/home/users/me/probe.txt&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -347,13 +367,15 @@ Args:
         * closest_node
 
 Examples:
-    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
-    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
-    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
-    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
-    | ensight.query_interact.query(&quot;cursor&quot;)
-    | ensight.query_interact.search(&quot;closest_node&quot;)
-    | ensight.query_interact.create(12.0,15.1,10.3)
+    ::
+
+        #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+        #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+        ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+        ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+        ensight.query_interact.query(&quot;cursor&quot;)
+        ensight.query_interact.search(&quot;closest_node&quot;)
+        ensight.query_interact.create(12.0,15.1,10.3)
 
 Returns:
     zero on success, non-zero on error
@@ -367,10 +389,12 @@ Causes any following query_interact: commands to affect the default query settin
 | query_interact: select_varname_begin.
 
 Examples:
-    | ensight.query_interact.select_default()
-    | ensight.query_interact.marker_visible(&quot;OFF&quot;)
-    | ensight.query_interact.marker_rgb(1,0,0)
-    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
+    ::
+
+        ensight.query_interact.select_default()
+        ensight.query_interact.marker_visible(&quot;OFF&quot;)
+        ensight.query_interact.marker_rgb(1,0,0)
+        ensight.query_interact.select_varname_begin(&quot;pressure&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -385,15 +409,17 @@ Args:
         &#x27;varnameN&#x27; names of variables to be queried
 
 Examples:
-    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
-    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
-    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
-    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
-    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
-    | ensight.sendmesg(r&quot;variable: activate temperature&quot;)
-    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;,&quot;temperature &quot;)
-    | ensight.query_interact.query(&quot;cursor&quot;)
-    | ensight.query_interact.create(12.0,15.1,10.3)
+    ::
+
+        #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+        #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+        ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+        #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+        #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+        ensight.sendmesg(r&quot;variable: activate temperature&quot;)
+        ensight.query_interact.select_varname_begin(&quot;pressure&quot;,&quot;temperature &quot;)
+        ensight.query_interact.query(&quot;cursor&quot;)
+        ensight.query_interact.create(12.0,15.1,10.3)
 
 Returns:
     zero on success, non-zero on error
@@ -408,15 +434,17 @@ Args:
         &#x27;varnameN&#x27; names of variables to be queried
 
 Examples:
-    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
-    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
-    | ensight.sendmesg(r&quot;variable: activate pressure&quot;)
-    | #WARNING: the following line failed to translate because the function could not be found in the ensight python module
-    | #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
-    | ensight.sendmesg(r&quot;variable: activate temperature&quot;)
-    | ensight.query_interact.select_varname_begin(&quot;pressure&quot;,&quot;temperature &quot;)
-    | ensight.query_interact.query(&quot;cursor&quot;)
-    | ensight.query_interact.create(12.0,15.1,10.3)
+    ::
+
+        #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+        #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+        ensight.sendmesg(r&quot;variable: activate pressure&quot;)
+        #WARNING: the following line failed to translate because the function could not be found in the ensight python module
+        #   Actual error: module &#x27;ensight&#x27; has no attribute &#x27;variable&#x27;
+        ensight.sendmesg(r&quot;variable: activate temperature&quot;)
+        ensight.query_interact.select_varname_begin(&quot;pressure&quot;,&quot;temperature &quot;)
+        ensight.query_interact.query(&quot;cursor&quot;)
+        ensight.query_interact.create(12.0,15.1,10.3)
 
 Returns:
     zero on success, non-zero on error

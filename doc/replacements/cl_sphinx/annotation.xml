@@ -21,7 +21,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.annotation.axis_global(&quot;ON&quot;)
+    ::
+
+        ensight.annotation.axis_global(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -41,15 +43,17 @@ Args:
         * OFF
 
 Examples:
-    | ensight.frame.create()
-    | ensight.frame.select_begin(1)
-    | ensight.annotation.axis_local(&quot;ON&quot;)
-    | ensight.frame.x_labels(&quot;ON&quot;)
-    | ensight.frame.len_x(1.0000e+03)
-    | ensight.frame.len_y(7.4565e+02)
-    | ensight.frame.len_z(7.4565e+02)
-    | ensight.frame.rgb(0.0000e+00,0.0000e+00,1.0000e+00)
-    | ensight.frame.visible(&quot;ON&quot;)
+    ::
+
+        ensight.frame.create()
+        ensight.frame.select_begin(1)
+        ensight.annotation.axis_local(&quot;ON&quot;)
+        ensight.frame.x_labels(&quot;ON&quot;)
+        ensight.frame.len_x(1.0000e+03)
+        ensight.frame.len_y(7.4565e+02)
+        ensight.frame.len_z(7.4565e+02)
+        ensight.frame.rgb(0.0000e+00,0.0000e+00,1.0000e+00)
+        ensight.frame.visible(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -69,7 +73,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.annotation.axis_model(&quot;ON&quot;)
+    ::
+
+        ensight.annotation.axis_model(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -80,13 +86,15 @@ Returns:
 Deselects all annotations.
 
 Examples:
-    | ensight.text.new_text(&quot;A Test&quot;)
-    | ensight.text.select_begin(0)
-    | ensight.text.new_text(&quot;A Second Test&quot;)
-    | ensight.text.select_begin(1)
-    | ensight.text.select_all()
-    | ensight.text.select_begin(0,1)
-    | ensight.annotation.deselect_all()
+    ::
+
+        ensight.text.new_text(&quot;A Test&quot;)
+        ensight.text.select_begin(0)
+        ensight.text.new_text(&quot;A Second Test&quot;)
+        ensight.text.select_begin(1)
+        ensight.text.select_all()
+        ensight.text.select_begin(0,1)
+        ensight.annotation.deselect_all()
 
 Returns:
     zero on success, non-zero on error
@@ -106,18 +114,20 @@ Args:
         * OFF
 
 Examples:
-    | ensight.annotation.element_labeling(&quot;ON&quot;)
-    | ensight.view_transf.function(&quot;global&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.select_partname_begin).
-    | ensight.part.select_partname_begin(&quot;(CASE:Case 1)Subset of parts: 2&quot;)
-    | ensight.part.modify_begin()
-    | ensight.part.entity_label_elt(&quot;ON&quot;)
-    | ensight.part.modify_end()
-    | ensight.view_transf.function(&quot;global&quot;)
-    | ensight.annot_entlbl.node_thresholds(&quot;high&quot;)
-    | ensight.annot_entlbl.node_threshold_low(1)
-    | ensight.annot_entlbl.node_threshold_high(10)
-    | ensight.annot_entlbl.node_rgb(0.000000,0.000000,1.000000)
+    ::
+
+        ensight.annotation.element_labeling(&quot;ON&quot;)
+        ensight.view_transf.function(&quot;global&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.select_partname_begin).
+        ensight.part.select_partname_begin(&quot;(CASE:Case 1)Subset of parts: 2&quot;)
+        ensight.part.modify_begin()
+        ensight.part.entity_label_elt(&quot;ON&quot;)
+        ensight.part.modify_end()
+        ensight.view_transf.function(&quot;global&quot;)
+        ensight.annot_entlbl.node_thresholds(&quot;high&quot;)
+        ensight.annot_entlbl.node_threshold_low(1)
+        ensight.annot_entlbl.node_threshold_high(10)
+        ensight.annot_entlbl.node_rgb(0.000000,0.000000,1.000000)
 
 Returns:
     zero on success, non-zero on error
@@ -135,16 +145,18 @@ Args:
         * OFF
 
 Examples:
-    | ensight.legend.select_palette_begin(&quot;pressure&quot;)
-    | ensight.legend.visible(&quot;ON&quot;)
-    | ensight.legend.select_palette_begin(&quot;velocity&quot;)
-    | ensight.legend.visible(&quot;ON&quot;)
-    | ensight.legend.select_palette_begin(&quot;pressure&quot;)
-    | ensight.legend.select_palette_begin(&quot;pressure&quot;)
-    | ensight.legend.location_x(3.2353e-01)
-    | ensight.legend.location_y(5.3681e-02)
-    | ensight.legend.select_palette_begin(&quot;pressure&quot;)
-    | ensight.annotation.legend(&quot;off&quot;)
+    ::
+
+        ensight.legend.select_palette_begin(&quot;pressure&quot;)
+        ensight.legend.visible(&quot;ON&quot;)
+        ensight.legend.select_palette_begin(&quot;velocity&quot;)
+        ensight.legend.visible(&quot;ON&quot;)
+        ensight.legend.select_palette_begin(&quot;pressure&quot;)
+        ensight.legend.select_palette_begin(&quot;pressure&quot;)
+        ensight.legend.location_x(3.2353e-01)
+        ensight.legend.location_y(5.3681e-02)
+        ensight.legend.select_palette_begin(&quot;pressure&quot;)
+        ensight.annotation.legend(&quot;off&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -164,17 +176,19 @@ Args:
         * OFF
 
 Examples:
-    | ensight.annotation.node_labeling(&quot;ON&quot;)
-    | ensight.view_transf.function(&quot;global&quot;)
-    | ensight.view_transf.function(&quot;global&quot;)
-    | ensight.part.modify_begin()
-    | ensight.part.entity_label_node(&quot;ON&quot;)
-    | ensight.part.modify_end()
-    | ensight.view_transf.function(&quot;global&quot;)
-    | ensight.annot_entlbl.element_thresholds(&quot;band&quot;)
-    | ensight.annot_entlbl.element_threshold_low(10)
-    | ensight.annot_entlbl.element_threshold_high(20)
-    | ensight.annot_entlbl.element_rgb(0.000000,1.000000,0.000000)
+    ::
+
+        ensight.annotation.node_labeling(&quot;ON&quot;)
+        ensight.view_transf.function(&quot;global&quot;)
+        ensight.view_transf.function(&quot;global&quot;)
+        ensight.part.modify_begin()
+        ensight.part.entity_label_node(&quot;ON&quot;)
+        ensight.part.modify_end()
+        ensight.view_transf.function(&quot;global&quot;)
+        ensight.annot_entlbl.element_thresholds(&quot;band&quot;)
+        ensight.annot_entlbl.element_threshold_low(10)
+        ensight.annot_entlbl.element_threshold_high(20)
+        ensight.annot_entlbl.element_rgb(0.000000,1.000000,0.000000)
 
 Returns:
     zero on success, non-zero on error
@@ -196,10 +210,12 @@ Args:
         * origin_closestwithnormal
 
 Examples:
-    | # WARNING: following line includes OBSOLETE call (ensight.annotation.pick_mode).
-    | ensight.annotation.pick_mode(&quot;origin_closestnode&quot;)
-    | ensight.arrow.select_begin(0)
-    | ensight.arrow.location(2.009204e+000,1.154697e+000,2.000000e+000)
+    ::
+
+        # WARNING: following line includes OBSOLETE call (ensight.annotation.pick_mode).
+        ensight.annotation.pick_mode(&quot;origin_closestnode&quot;)
+        ensight.arrow.select_begin(0)
+        ensight.arrow.location(2.009204e+000,1.154697e+000,2.000000e+000)
 
 Returns:
     zero on success, non-zero on error
@@ -219,9 +235,11 @@ Args:
         * OFF
 
 Examples:
-    | ensight.text.new_text(&quot;My Test Data&quot;)
-    | # turn off all annotations
-    | ensight.annotation.text_display(&quot;OFF&quot;)
+    ::
+
+        ensight.text.new_text(&quot;My Test Data&quot;)
+        # turn off all annotations
+        ensight.annotation.text_display(&quot;OFF&quot;)
 
 Returns:
     zero on success, non-zero on error
