@@ -10,13 +10,15 @@ Args:
         &#x27;name&#x27; name of the variable to activate
 
 Examples:
-    | #
-    | # Activate a variable and use it
-    | # to color a part
-    | #
-    | ensight.variables.activate(&quot;temperature&quot;)
-    | ensight.part.select_begin(1)
-    | ensight.part.colorby_palette(&quot;temperature&quot;)
+    ::
+
+        #
+        # Activate a variable and use it
+        # to color a part
+        #
+        ensight.variables.activate(&quot;temperature&quot;)
+        ensight.part.select_begin(1)
+        ensight.part.colorby_palette(&quot;temperature&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -27,10 +29,12 @@ Returns:
 Activates all variables.
 
 Examples:
-    | # 
-    | # Activating all variables 
-    | # 
-    | ensight.variables.activate_all()
+    ::
+
+        # 
+        # Activating all variables 
+        # 
+        ensight.variables.activate_all()
 
 Returns:
     zero on success, non-zero on error
@@ -48,7 +52,9 @@ Args:
         &#x27;name&#x27; name of the variable to deactivate
 
 Examples:
-    | ensight.variables.deactivate(&quot;temperature&quot;)
+    ::
+
+        ensight.variables.deactivate(&quot;temperature&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -65,11 +71,13 @@ Args:
         &#x27;expression&#x27; expression needed to create a computed variable
 
 Examples:
-    | ensight.part.select_all()
-    | ensight.variables.activate_all()
-    | ensight.variables.evaluate(&quot;Area = Area(plist)&quot;)
-    | ensight.variables.evaluate(&quot;Grad = Grad(plist,temperature)&quot;)
-    | ensight.variables.evaluate(&quot;CmplxTransResp = CmplxTransResp(plist,c_scalar,90.0)&quot;)
+    ::
+
+        ensight.part.select_all()
+        ensight.variables.activate_all()
+        ensight.variables.evaluate(&quot;Area = Area(plist)&quot;)
+        ensight.variables.evaluate(&quot;Grad = Grad(plist,temperature)&quot;)
+        ensight.variables.evaluate(&quot;CmplxTransResp = CmplxTransResp(plist,c_scalar,90.0)&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -106,11 +114,13 @@ Args:
         &#x27;string or value&#x27; proper modified string, or number for the parameter specified
 
 Examples:
-    | ensight.variables.activate_all()
-    | ensight.part.select_all()
-    | ensight.variables.evaluate(&quot;CmplxTransResp = CmplxTransResp(plist,c_scalar,90.0)&quot;)
-    | ensight.function.palette(&quot;CmplxTransResp&quot;)
-    | ensight.variables.modify_parameter(&quot;CmplxTransResp param 3=1.1700e+02&quot;)
+    ::
+
+        ensight.variables.activate_all()
+        ensight.part.select_all()
+        ensight.variables.evaluate(&quot;CmplxTransResp = CmplxTransResp(plist,c_scalar,90.0)&quot;)
+        ensight.function.palette(&quot;CmplxTransResp&quot;)
+        ensight.variables.modify_parameter(&quot;CmplxTransResp param 3=1.1700e+02&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -128,7 +138,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.variables.notify_before_activate(&quot;ON&quot;)
+    ::
+
+        ensight.variables.notify_before_activate(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -143,21 +155,23 @@ Args:
         &#x27;filename&#x27; name of the file in which to save the constants
 
 Examples:
-    | # 
-    | # Activating all variables 
-    | # 
-    | ensight.variables.activate_all()
-    | # 
-    | # Computing area of one part 
-    | # 
-    | ensight.part.select_begin(1)
-    | ensight.variables.evaluate(&quot;Area = Area(plist)&quot;)
-    | # 
-    | # Computing area of another part 
-    | # 
-    | ensight.part.select_begin(2)
-    | ensight.variables.evaluate(&quot;Area2 = Area(plist)&quot;)
-    | ensight.variables.save_all_constants(&quot;/usr/tmp/all_constants&quot;)
+    ::
+
+        # 
+        # Activating all variables 
+        # 
+        ensight.variables.activate_all()
+        # 
+        # Computing area of one part 
+        # 
+        ensight.part.select_begin(1)
+        ensight.variables.evaluate(&quot;Area = Area(plist)&quot;)
+        # 
+        # Computing area of another part 
+        # 
+        ensight.part.select_begin(2)
+        ensight.variables.evaluate(&quot;Area2 = Area(plist)&quot;)
+        ensight.variables.save_all_constants(&quot;/usr/tmp/all_constants&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -172,23 +186,25 @@ Args:
         &#x27;filename&#x27; name of the file in which to save the constants
 
 Examples:
-    | # 
-    | # Activating all variables 
-    | # 
-    | ensight.variables.activate_all()
-    | # 
-    | # Computing area of one part 
-    | # 
-    | ensight.part.select_begin(1)
-    | ensight.variables.evaluate(&quot;Area = Area(plist)&quot;)
-    | # 
-    | # Computing area of another part 
-    | # 
-    | ensight.part.select_begin(2)
-    | ensight.variables.evaluate(&quot;Area2 = Area(plist)&quot;)
-    | # 
-    | # Selecting the computed area constant to write them out 
-    | # 
+    ::
+
+        # 
+        # Activating all variables 
+        # 
+        ensight.variables.activate_all()
+        # 
+        # Computing area of one part 
+        # 
+        ensight.part.select_begin(1)
+        ensight.variables.evaluate(&quot;Area = Area(plist)&quot;)
+        # 
+        # Computing area of another part 
+        # 
+        ensight.part.select_begin(2)
+        ensight.variables.evaluate(&quot;Area2 = Area(plist)&quot;)
+        # 
+        # Selecting the computed area constant to write them out 
+        # 
 
 Returns:
     zero on success, non-zero on error
@@ -203,17 +219,19 @@ Args:
         &#x27;varname&#x27; valid name of a variable
 
 Examples:
-    | # WARNING: following line includes OBSOLETE call (ensight.variables.select_varname_begin).
-    | ensight.variables.select_varname_begin(&quot;Area &quot;,&quot;Area2 &quot;,&quot;variables: select_varname_end &quot;,&quot;# &quot;,&quot;# Saving the areas to a file &quot;,&quot;# &quot;,&quot;variables: save_constants /usr/tmp/my_constants&quot;,&quot;# &quot;,&quot;# Activating all variables &quot;,&quot;# &quot;,&quot;variables: activate_all &quot;,&quot;# &quot;,&quot;# Computing area of one part &quot;,&quot;# &quot;,&quot;part: select_begin &quot;,&quot;1 &quot;)
-    | ensight.variables.evaluate(&quot;Area = Area(plist)&quot;)
-    | # 
-    | # Computing area of another part 
-    | # 
-    | ensight.part.select_begin(2)
-    | ensight.variables.evaluate(&quot;Area2 = Area(plist)&quot;)
-    | # 
-    | # Selecting the computed area constant to write them out 
-    | # 
+    ::
+
+        # WARNING: following line includes OBSOLETE call (ensight.variables.select_varname_begin).
+        ensight.variables.select_varname_begin(&quot;Area &quot;,&quot;Area2 &quot;,&quot;variables: select_varname_end &quot;,&quot;# &quot;,&quot;# Saving the areas to a file &quot;,&quot;# &quot;,&quot;variables: save_constants /usr/tmp/my_constants&quot;,&quot;# &quot;,&quot;# Activating all variables &quot;,&quot;# &quot;,&quot;variables: activate_all &quot;,&quot;# &quot;,&quot;# Computing area of one part &quot;,&quot;# &quot;,&quot;part: select_begin &quot;,&quot;1 &quot;)
+        ensight.variables.evaluate(&quot;Area = Area(plist)&quot;)
+        # 
+        # Computing area of another part 
+        # 
+        ensight.part.select_begin(2)
+        ensight.variables.evaluate(&quot;Area2 = Area(plist)&quot;)
+        # 
+        # Selecting the computed area constant to write them out 
+        # 
 
 Returns:
     zero on success, non-zero on error
@@ -228,17 +246,19 @@ Args:
         &#x27;varname&#x27; valid name of a variable
 
 Examples:
-    | # WARNING: following line includes OBSOLETE call (ensight.variables.select_varname_begin).
-    | ensight.variables.select_varname_begin(&quot;Area &quot;,&quot;Area2 &quot;,&quot;variables: select_varname_end &quot;,&quot;# &quot;,&quot;# Saving the areas to a file &quot;,&quot;# &quot;,&quot;variables: save_constants /usr/tmp/my_constants&quot;,&quot;# &quot;,&quot;# Activating all variables &quot;,&quot;# &quot;,&quot;variables: activate_all &quot;,&quot;# &quot;,&quot;# Computing area of one part &quot;,&quot;# &quot;,&quot;part: select_begin &quot;,&quot;1 &quot;)
-    | ensight.variables.evaluate(&quot;Area = Area(plist)&quot;)
-    | # 
-    | # Computing area of another part 
-    | # 
-    | ensight.part.select_begin(2)
-    | ensight.variables.evaluate(&quot;Area2 = Area(plist)&quot;)
-    | # 
-    | # Selecting the computed area constant to write them out 
-    | # 
+    ::
+
+        # WARNING: following line includes OBSOLETE call (ensight.variables.select_varname_begin).
+        ensight.variables.select_varname_begin(&quot;Area &quot;,&quot;Area2 &quot;,&quot;variables: select_varname_end &quot;,&quot;# &quot;,&quot;# Saving the areas to a file &quot;,&quot;# &quot;,&quot;variables: save_constants /usr/tmp/my_constants&quot;,&quot;# &quot;,&quot;# Activating all variables &quot;,&quot;# &quot;,&quot;variables: activate_all &quot;,&quot;# &quot;,&quot;# Computing area of one part &quot;,&quot;# &quot;,&quot;part: select_begin &quot;,&quot;1 &quot;)
+        ensight.variables.evaluate(&quot;Area = Area(plist)&quot;)
+        # 
+        # Computing area of another part 
+        # 
+        ensight.part.select_begin(2)
+        ensight.variables.evaluate(&quot;Area2 = Area(plist)&quot;)
+        # 
+        # Selecting the computed area constant to write them out 
+        # 
 
 Returns:
     zero on success, non-zero on error

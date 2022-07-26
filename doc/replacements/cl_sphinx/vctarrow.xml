@@ -15,11 +15,13 @@ Args:
         * element_center
 
 Examples:
-    | # WARNING: following line includes OBSOLETE call (ensight.variables.select_varname_begin).
-    | ensight.variables.select_varname_begin(&quot;Area &quot;,&quot;Area2 &quot;,&quot;variables: select_varname_end &quot;,&quot;# &quot;,&quot;# Saving the areas to a file &quot;,&quot;# &quot;,&quot;variables: save_constants /usr/tmp/my_constants&quot;,&quot;part: select_begin &quot;,&quot;2 &quot;)
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.arrow_location(&quot;element_center&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        # WARNING: following line includes OBSOLETE call (ensight.variables.select_varname_begin).
+        ensight.variables.select_varname_begin(&quot;Area &quot;,&quot;Area2 &quot;,&quot;variables: select_varname_end &quot;,&quot;# &quot;,&quot;# Saving the areas to a file &quot;,&quot;# &quot;,&quot;variables: save_constants /usr/tmp/my_constants&quot;,&quot;part: select_begin &quot;,&quot;2 &quot;)
+        ensight.part.modify_begin()
+        ensight.vctarrow.arrow_location(&quot;element_center&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -38,10 +40,12 @@ Args:
         * curved
 
 Examples:
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.arrow_type(&quot;curved&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.vctarrow.arrow_type(&quot;curved&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -54,10 +58,12 @@ Delimit the modifications for vector arrow attributes
 | These commands are used to set the attributes for a vector arrow part creation. 
 
 Examples:
-    | ensight.vctarrow.begin()
-    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
-    | ensight.vctarrow.end()
-    | ensight.vctarrow.create()
+    ::
+
+        ensight.vctarrow.begin()
+        ensight.vctarrow.variable(&quot;VITESSE&quot;)
+        ensight.vctarrow.end()
+        ensight.vctarrow.create()
 
 Returns:
     zero on success, non-zero on error
@@ -70,10 +76,12 @@ Delimit the modifications for vector arrow attributes
 | These commands are used to set the attributes for a vector arrow part creation. 
 
 Examples:
-    | ensight.vctarrow.begin()
-    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
-    | ensight.vctarrow.end()
-    | ensight.vctarrow.create()
+    ::
+
+        ensight.vctarrow.begin()
+        ensight.vctarrow.variable(&quot;VITESSE&quot;)
+        ensight.vctarrow.end()
+        ensight.vctarrow.create()
 
 Returns:
     zero on success, non-zero on error
@@ -95,14 +103,16 @@ Args:
         &#x27;z_scale&#x27; scaling for the z-component 
 
 Examples:
-    | ensight.vctarrow.begin()
-    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
-    | ensight.vctarrow.end()
-    | ensight.vctarrow.create()
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.component(2.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.vctarrow.begin()
+        ensight.vctarrow.variable(&quot;VITESSE&quot;)
+        ensight.vctarrow.end()
+        ensight.vctarrow.create()
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.vctarrow.component(2.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -115,12 +125,14 @@ Create a new vector arrow part using the currently defined attributes and select
 | The vector variable must be set via the vctarrow: variable command before the part can be created. 
 
 Examples:
-    | ensight.variables.activate(&quot;VITESSE&quot;)
-    | ensight.part.select_all()
-    | ensight.vctarrow.begin()
-    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
-    | ensight.vctarrow.end()
-    | ensight.vctarrow.create()
+    ::
+
+        ensight.variables.activate(&quot;VITESSE&quot;)
+        ensight.part.select_all()
+        ensight.vctarrow.begin()
+        ensight.vctarrow.variable(&quot;VITESSE&quot;)
+        ensight.vctarrow.end()
+        ensight.vctarrow.create()
 
 Returns:
     zero on success, non-zero on error
@@ -137,14 +149,16 @@ Args:
         &#x27;value&#x27; density value between 0 and 1
 
 Examples:
-    | ensight.vctarrow.begin()
-    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
-    | ensight.vctarrow.end()
-    | ensight.vctarrow.create()
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.density(5.0000e-01)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.vctarrow.begin()
+        ensight.vctarrow.variable(&quot;VITESSE&quot;)
+        ensight.vctarrow.end()
+        ensight.vctarrow.create()
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.vctarrow.density(5.0000e-01)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -161,14 +175,16 @@ Args:
         &#x27;offset&#x27; offset in world coordinates
 
 Examples:
-    | ensight.vctarrow.begin()
-    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
-    | ensight.vctarrow.end()
-    | ensight.vctarrow.create()
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.display_offset(1.0000e-01)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.vctarrow.begin()
+        ensight.vctarrow.variable(&quot;VITESSE&quot;)
+        ensight.vctarrow.end()
+        ensight.vctarrow.create()
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.vctarrow.display_offset(1.0000e-01)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -190,15 +206,17 @@ Args:
         * component
 
 Examples:
-    | ensight.variables.activate(&quot;velocity&quot;)
-    | ensight.vctarrow.begin()
-    | ensight.vctarrow.variable(&quot;velocity&quot;)
-    | ensight.vctarrow.end()
-    | ensight.vctarrow.create()
-    | ensight.part.select_begin(4)
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.projection(&quot;component&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.variables.activate(&quot;velocity&quot;)
+        ensight.vctarrow.begin()
+        ensight.vctarrow.variable(&quot;velocity&quot;)
+        ensight.vctarrow.end()
+        ensight.vctarrow.create()
+        ensight.part.select_begin(4)
+        ensight.part.modify_begin()
+        ensight.vctarrow.projection(&quot;component&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -215,14 +233,16 @@ Args:
         &#x27;scale/time&#x27; scale factor or time
 
 Examples:
-    | ensight.vctarrow.begin()
-    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
-    | ensight.vctarrow.end()
-    | ensight.vctarrow.create()
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.scale_factor(7.0000e-01)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.vctarrow.begin()
+        ensight.vctarrow.variable(&quot;VITESSE&quot;)
+        ensight.vctarrow.end()
+        ensight.vctarrow.create()
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.vctarrow.scale_factor(7.0000e-01)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -233,10 +253,12 @@ Returns:
 Sets the target to the default settings for subsequent attribute modifications.
 
 Examples:
-    | ensight.vctarrow.select_default()
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.vctarrow.select_default()
+        ensight.part.modify_begin()
+        ensight.vctarrow.variable(&quot;VITESSE&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -255,20 +277,22 @@ Args:
         &#x27;high&#x27; high filter threshold
 
 Examples:
-    | ensight.vctarrow.begin()
-    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
-    | ensight.vctarrow.end()
-    | ensight.vctarrow.create()
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.thresholds(&quot;band&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.threshold_low(5.0000e-1)
-    | ensight.part.modify_end()
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.threshold_high(7.5000e-1)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.vctarrow.begin()
+        ensight.vctarrow.variable(&quot;VITESSE&quot;)
+        ensight.vctarrow.end()
+        ensight.vctarrow.create()
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.vctarrow.thresholds(&quot;band&quot;)
+        ensight.part.modify_end()
+        ensight.part.modify_begin()
+        ensight.vctarrow.threshold_low(5.0000e-1)
+        ensight.part.modify_end()
+        ensight.part.modify_begin()
+        ensight.vctarrow.threshold_high(7.5000e-1)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -287,20 +311,22 @@ Args:
         &#x27;high&#x27; high filter threshold
 
 Examples:
-    | ensight.vctarrow.begin()
-    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
-    | ensight.vctarrow.end()
-    | ensight.vctarrow.create()
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.thresholds(&quot;band&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.threshold_low(5.0000e-1)
-    | ensight.part.modify_end()
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.threshold_high(7.5000e-1)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.vctarrow.begin()
+        ensight.vctarrow.variable(&quot;VITESSE&quot;)
+        ensight.vctarrow.end()
+        ensight.vctarrow.create()
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.vctarrow.thresholds(&quot;band&quot;)
+        ensight.part.modify_end()
+        ensight.part.modify_begin()
+        ensight.vctarrow.threshold_low(5.0000e-1)
+        ensight.part.modify_end()
+        ensight.part.modify_begin()
+        ensight.vctarrow.threshold_high(7.5000e-1)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -323,20 +349,22 @@ Args:
         * low_high
 
 Examples:
-    | ensight.vctarrow.begin()
-    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
-    | ensight.vctarrow.end()
-    | ensight.vctarrow.create()
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.thresholds(&quot;band&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.threshold_low(5.0000e-1)
-    | ensight.part.modify_end()
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.threshold_high(7.5000e-1)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.vctarrow.begin()
+        ensight.vctarrow.variable(&quot;VITESSE&quot;)
+        ensight.vctarrow.end()
+        ensight.vctarrow.create()
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.vctarrow.thresholds(&quot;band&quot;)
+        ensight.part.modify_end()
+        ensight.part.modify_begin()
+        ensight.vctarrow.threshold_low(5.0000e-1)
+        ensight.part.modify_end()
+        ensight.part.modify_begin()
+        ensight.vctarrow.threshold_high(7.5000e-1)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -357,17 +385,19 @@ Args:
         &#x27;blu_val&#x27; red, green, blue components of the color tip (range 0.0 to 1.0)
 
 Examples:
-    | ensight.vctarrow.begin()
-    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
-    | ensight.vctarrow.end()
-    | ensight.vctarrow.create()
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.tip_shape(&quot;tipped&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.tip_rgb(0.0000e00,1.0000e00,0.0000e00)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.vctarrow.begin()
+        ensight.vctarrow.variable(&quot;VITESSE&quot;)
+        ensight.vctarrow.end()
+        ensight.vctarrow.create()
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.vctarrow.tip_shape(&quot;tipped&quot;)
+        ensight.part.modify_end()
+        ensight.part.modify_begin()
+        ensight.vctarrow.tip_rgb(0.0000e00,1.0000e00,0.0000e00)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -388,14 +418,16 @@ Args:
         * tipped
 
 Examples:
-    | ensight.vctarrow.begin()
-    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
-    | ensight.vctarrow.end()
-    | ensight.vctarrow.create()
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.tip_shape(&quot;cone&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.vctarrow.begin()
+        ensight.vctarrow.variable(&quot;VITESSE&quot;)
+        ensight.vctarrow.end()
+        ensight.vctarrow.create()
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.vctarrow.tip_shape(&quot;cone&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -431,20 +463,22 @@ Args:
         * proportional
 
 Examples:
-    | ensight.vctarrow.begin()
-    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
-    | ensight.vctarrow.end()
-    | ensight.vctarrow.create()
-    | ensight.part.select_begin(2)
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.tip_shape(&quot;triangle&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.tip_size_rep(&quot;fixed&quot;)
-    | ensight.part.modify_end()
-    | ensight.part.modify_begin()
-    | ensight.vctarrow.tip_size(2.0000e-1)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.vctarrow.begin()
+        ensight.vctarrow.variable(&quot;VITESSE&quot;)
+        ensight.vctarrow.end()
+        ensight.vctarrow.create()
+        ensight.part.select_begin(2)
+        ensight.part.modify_begin()
+        ensight.vctarrow.tip_shape(&quot;triangle&quot;)
+        ensight.part.modify_end()
+        ensight.part.modify_begin()
+        ensight.vctarrow.tip_size_rep(&quot;fixed&quot;)
+        ensight.part.modify_end()
+        ensight.part.modify_begin()
+        ensight.vctarrow.tip_size(2.0000e-1)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -461,12 +495,14 @@ Args:
         &#x27;var_name&#x27; name of an active vector variable
 
 Examples:
-    | ensight.variables.activate(&quot;VITESSE&quot;)
-    | ensight.part.select_all()
-    | ensight.vctarrow.begin()
-    | ensight.vctarrow.variable(&quot;VITESSE&quot;)
-    | ensight.vctarrow.end()
-    | ensight.vctarrow.create()
+    ::
+
+        ensight.variables.activate(&quot;VITESSE&quot;)
+        ensight.part.select_all()
+        ensight.vctarrow.begin()
+        ensight.vctarrow.variable(&quot;VITESSE&quot;)
+        ensight.vctarrow.end()
+        ensight.vctarrow.create()
 
 Returns:
     zero on success, non-zero on error

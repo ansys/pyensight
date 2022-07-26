@@ -13,12 +13,14 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # turn on bounds display but turn the bounds off for viewport 1
-    | #
-    | ensight.view.bounds(&quot;ON&quot;)
-    | ensight.viewport.select_begin(1)
-    | ensight.viewport_bounds.visible(&quot;OFF&quot;)
+    ::
+
+        #
+        # turn on bounds display but turn the bounds off for viewport 1
+        #
+        ensight.view.bounds(&quot;ON&quot;)
+        ensight.viewport.select_begin(1)
+        ensight.viewport_bounds.visible(&quot;OFF&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -36,7 +38,7 @@ Returns:
 <description>
 Toggles on or off the auxiliary clipping plane
 
-| When auxiliary clipping is on, objects on the negative side of the plane tool are not drawn. By toggling on or off parts�� individual auxiliary clipping attribute (part: clip), some parts can be clipped while others are not.
+| When auxiliary clipping is on, objects on the negative side of the plane tool are not drawn. By toggling on or off parts individual auxiliary clipping attribute (part: clip), some parts can be clipped while others are not.
 
 Args:
     p0:
@@ -46,16 +48,18 @@ Args:
         * OFF
 
 Examples:
-    | ensight.tools.plane(&quot;ON&quot;)
-    | ensight.view.clipping(&quot;ON&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.select_partname_begin).
-    | ensight.part.select_partname_begin(&quot;(CASE:Case 1)ami-x hypersonic body&quot;)
-    | ensight.part.modify_begin()
-    | ensight.part.clip(&quot;OFF&quot;)
-    | ensight.part.modify_end()
-    | ensight.view_transf.function(&quot;plane&quot;)
-    | ensight.view_transf.rotate(106.516396,0.000000,0.000000)
-    | ensight.view_transf.function(&quot;global&quot;)
+    ::
+
+        ensight.tools.plane(&quot;ON&quot;)
+        ensight.view.clipping(&quot;ON&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.select_partname_begin).
+        ensight.part.select_partname_begin(&quot;(CASE:Case 1)ami-x hypersonic body&quot;)
+        ensight.part.modify_begin()
+        ensight.part.clip(&quot;OFF&quot;)
+        ensight.part.modify_end()
+        ensight.view_transf.function(&quot;plane&quot;)
+        ensight.view_transf.rotate(106.516396,0.000000,0.000000)
+        ensight.view_transf.function(&quot;global&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -80,7 +84,9 @@ Args:
         * -z
 
 Examples:
-    | ensight.view.default_orientation(&quot;+x&quot;)
+    ::
+
+        ensight.view.default_orientation(&quot;+x&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -90,7 +96,7 @@ Returns:
 <description>
 Toggles the fast display setting. When on, parts can be rendered using an alternative representation while being interactively moved.
 
-| Each part has an attribute that indicates how it will be drawn when fast display is on. See &#x27;part: bounding_rep��.
+| Each part has an attribute that indicates how it will be drawn when fast display is on. See &#x27;part: bounding_rep&#x27;.
 
 Args:
     p0:
@@ -100,14 +106,16 @@ Args:
         * OFF
 
 Examples:
-    | ensight.view.fast_display(&quot;ON&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.select_partname_begin).
-    | ensight.part.select_partname_begin(&quot;(CASE:Case 1)external flow field&quot;)
-    | ensight.part.modify_begin()
-    | ensight.part.bounding_rep(&quot;points&quot;)
-    | ensight.part.modify_end()
-    | ensight.view_transf.rotate(-3.021584,51.034481,0.000000)
-    | ensight.view_transf.function(&quot;global&quot;)
+    ::
+
+        ensight.view.fast_display(&quot;ON&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.select_partname_begin).
+        ensight.part.select_partname_begin(&quot;(CASE:Case 1)external flow field&quot;)
+        ensight.part.modify_begin()
+        ensight.part.bounding_rep(&quot;points&quot;)
+        ensight.part.modify_end()
+        ensight.view_transf.rotate(-3.021584,51.034481,0.000000)
+        ensight.view_transf.function(&quot;global&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -135,7 +143,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.view.full_screen(&quot;ON&quot;)
+    ::
+
+        ensight.view.full_screen(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -155,9 +165,11 @@ Args:
         * OFF
 
 Examples:
-    | ensight.view.hardware_line_offset(&quot;ON&quot;)
-    | ensight.view.default_orientation(&quot;+Z&quot;)
-    | ensight.view.hidden_surface(&quot;OFF&quot;)
+    ::
+
+        ensight.view.hardware_line_offset(&quot;ON&quot;)
+        ensight.view.default_orientation(&quot;+Z&quot;)
+        ensight.view.hidden_surface(&quot;OFF&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -184,11 +196,13 @@ Args:
         &#x27;blu_val&#x27; optional red, green, blue color values (range 0.0 to 1.0) for the hidden lines when hidden surface (See view: hidden_surface) is also ON
 
 Examples:
-    | ensight.sendmesgoptions(version=&quot;8.20 &quot;)
-    | ensight.view.hidden_line(&quot;ON&quot;,1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.part.modify_begin()
-    | ensight.part.hidden_line(&quot;OFF&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.sendmesgoptions(version=&quot;8.20 &quot;)
+        ensight.view.hidden_line(&quot;ON&quot;,1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.part.modify_begin()
+        ensight.part.hidden_line(&quot;OFF&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -208,12 +222,14 @@ Args:
         * OFF
 
 Examples:
-    | ensight.view.hidden_surface(&quot;ON&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.select_partname_begin).
-    | ensight.part.select_partname_begin(&quot;(CASE:Case 1)ami-x hypersonic body&quot;)
-    | ensight.part.modify_begin()
-    | ensight.part.hidden_surface(&quot;OFF&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.view.hidden_surface(&quot;ON&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.select_partname_begin).
+        ensight.part.select_partname_begin(&quot;(CASE:Case 1)ami-x hypersonic body&quot;)
+        ensight.part.modify_begin()
+        ensight.part.hidden_surface(&quot;OFF&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -233,7 +249,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.view.highlight_parts(&quot;OFF&quot;)
+    ::
+
+        ensight.view.highlight_parts(&quot;OFF&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -254,7 +272,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.view.perspective(&quot;ON&quot;)
+    ::
+
+        ensight.view.perspective(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -272,7 +292,9 @@ Args:
         * software
 
 Examples:
-    | ensight.view.pick_method(&quot;hardware&quot;)
+    ::
+
+        ensight.view.pick_method(&quot;hardware&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -310,9 +332,11 @@ Args:
         * frame_origin
 
 Examples:
-    | ensight.view.pick_mode(&quot;part&quot;)
-    | ensight.view.pick_mode(&quot;cursor&quot;)
-    | ensight.view_transf.cursor(-9.941673,-39.746929,3.714395)
+    ::
+
+        ensight.view.pick_mode(&quot;part&quot;)
+        ensight.view.pick_mode(&quot;cursor&quot;)
+        ensight.view_transf.cursor(-9.941673,-39.746929,3.714395)
 
 Returns:
     zero on success, non-zero on error
@@ -340,7 +364,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.view.stereo(&quot;ON&quot;)
+    ::
+
+        ensight.view.stereo(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error

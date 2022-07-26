@@ -11,7 +11,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.tools.box(&quot;ON&quot;)
+    ::
+
+        ensight.tools.box(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -29,7 +31,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.tools.cursor(&quot;ON&quot;)
+    ::
+
+        ensight.tools.cursor(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -46,8 +50,10 @@ Args:
         &#x27;&#x27; outside
 
 Examples:
-    | ensight.tools.element_blank_domain(&quot;inside&quot;)
-    | ensight.tools.element_blank_domain(&quot;outside&quot;)
+    ::
+
+        ensight.tools.element_blank_domain(&quot;inside&quot;)
+        ensight.tools.element_blank_domain(&quot;outside&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -64,8 +70,10 @@ Args:
         &#x27;&#x27; all
 
 Examples:
-    | ensight.tools.element_blank_layer(&quot;top&quot;)
-    | ensight.tools.element_blank_layer(&quot;all&quot;)
+    ::
+
+        ensight.tools.element_blank_layer(&quot;top&quot;)
+        ensight.tools.element_blank_layer(&quot;all&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -83,7 +91,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.tools.line(&quot;ON&quot;)
+    ::
+
+        ensight.tools.line(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -119,7 +129,9 @@ Args:
         * FILLED
 
 Examples:
-    | ensight.tools.plane(&quot;ON&quot;)
+    ::
+
+        ensight.tools.plane(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -140,7 +152,9 @@ Args:
         * NONE
 
 Examples:
-    | ensight.tools.quadric(&quot;SPHERE&quot;)
+    ::
+
+        ensight.tools.quadric(&quot;SPHERE&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -158,7 +172,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.tools.select_tool(&quot;ON&quot;)
+    ::
+
+        ensight.tools.select_tool(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error

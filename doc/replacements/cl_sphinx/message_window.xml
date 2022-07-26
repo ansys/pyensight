@@ -4,7 +4,9 @@
 Clears the EnSight Message Window dialog
 
 Examples:
-    | ensight.message_window.clear()
+    ::
+
+        ensight.message_window.clear()
 
 Returns:
     zero on success, non-zero on error
@@ -19,7 +21,9 @@ Args:
         &#x27;filename&#x27; filename into which the contents of the message window is to be saved.
 
 Examples:
-    | ensight.message_window.save(&quot;/home/users/me/myfile.txt&quot;)
+    ::
+
+        ensight.message_window.save(&quot;/home/users/me/myfile.txt&quot;)
 
 Returns:
     zero on success, non-zero on error

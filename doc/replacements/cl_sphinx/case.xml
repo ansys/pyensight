@@ -10,12 +10,14 @@ Args:
         &#x27;case_id&#x27; id of the new case (see Notes below)
 
 Examples:
-    | ensight.case.create_viewport(&quot;ON&quot;)
-    | ensight.case.apply_context(&quot;OFF&quot;)
-    | ensight.case.reflect_model_in(&quot;&#x27;none&#x27;&quot;)
-    | ensight.case.add(&quot;Case 2&quot;)
-    | ensight.case.select(&quot;Case 2&quot;)
-    | ensight.viewport.select_begin(1)
+    ::
+
+        ensight.case.create_viewport(&quot;ON&quot;)
+        ensight.case.apply_context(&quot;OFF&quot;)
+        ensight.case.reflect_model_in(&quot;&#x27;none&#x27;&quot;)
+        ensight.case.add(&quot;Case 2&quot;)
+        ensight.case.select(&quot;Case 2&quot;)
+        ensight.viewport.select_begin(1)
 
 Returns:
     zero on success, non-zero on error
@@ -33,12 +35,14 @@ Args:
         * OFF
 
 Examples:
-    | ensight.case.create_viewport(&quot;ON&quot;)
-    | ensight.case.apply_context(&quot;ON&quot;)
-    | ensight.case.reflect_model_in(&quot;&#x27;none&#x27;&quot;)
-    | ensight.case.add(&quot;Case 2&quot;)
-    | ensight.case.select(&quot;Case 2&quot;)
-    | ensight.viewport.select_begin(1)
+    ::
+
+        ensight.case.create_viewport(&quot;ON&quot;)
+        ensight.case.apply_context(&quot;ON&quot;)
+        ensight.case.reflect_model_in(&quot;&#x27;none&#x27;&quot;)
+        ensight.case.add(&quot;Case 2&quot;)
+        ensight.case.select(&quot;Case 2&quot;)
+        ensight.viewport.select_begin(1)
 
 Returns:
     zero on success, non-zero on error
@@ -56,12 +60,14 @@ Args:
         * OFF
 
 Examples:
-    | ensight.case.create_viewport(&quot;ON&quot;)
-    | ensight.case.apply_context(&quot;OFF&quot;)
-    | ensight.case.reflect_model_in(&quot;&#x27;none&#x27;&quot;)
-    | ensight.case.add(&quot;Case 2&quot;)
-    | ensight.case.select(&quot;Case 2&quot;)
-    | ensight.viewport.select_begin(1)
+    ::
+
+        ensight.case.create_viewport(&quot;ON&quot;)
+        ensight.case.apply_context(&quot;OFF&quot;)
+        ensight.case.reflect_model_in(&quot;&#x27;none&#x27;&quot;)
+        ensight.case.add(&quot;Case 2&quot;)
+        ensight.case.select(&quot;Case 2&quot;)
+        ensight.viewport.select_begin(1)
 
 Returns:
     zero on success, non-zero on error
@@ -78,18 +84,20 @@ Args:
         &#x27;case_id&#x27; id of the new case (see Notes below)
 
 Examples:
-    | #
-    | # select case 2 for deletion
-    | #
-    | ensight.case.select(&quot;2&quot;)
-    | #
-    | # delete case 2
-    | #
-    | ensight.case.delete(&quot;2&quot;)
-    | #
-    | # select case 1 as current, or default
-    | #
-    | ensight.case.select(&quot;1&quot;)
+    ::
+
+        #
+        # select case 2 for deletion
+        #
+        ensight.case.select(&quot;2&quot;)
+        #
+        # delete case 2
+        #
+        ensight.case.delete(&quot;2&quot;)
+        #
+        # select case 1 as current, or default
+        #
+        ensight.case.select(&quot;1&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -116,12 +124,14 @@ Args:
         &#x27;option&#x27; &#x27;X&#x27;&#x27;Y&#x27;
 
 Examples:
-    | ensight.case.create_viewport(&quot;ON&quot;)
-    | ensight.case.apply_context(&quot;OFF&quot;)
-    | ensight.case.reflect_model_in(&quot;&#x27;Z&#x27;&quot;)
-    | ensight.case.add(&quot;Case 2&quot;)
-    | ensight.case.select(&quot;Case 2&quot;)
-    | ensight.viewport.select_begin(1)
+    ::
+
+        ensight.case.create_viewport(&quot;ON&quot;)
+        ensight.case.apply_context(&quot;OFF&quot;)
+        ensight.case.reflect_model_in(&quot;&#x27;Z&#x27;&quot;)
+        ensight.case.add(&quot;Case 2&quot;)
+        ensight.case.select(&quot;Case 2&quot;)
+        ensight.viewport.select_begin(1)
 
 Returns:
     zero on success, non-zero on error
@@ -143,13 +153,15 @@ Args:
         &#x27;z_comp&#x27; z component of the origin (in model coordinates) about which to reflect the new case dataset
 
 Examples:
-    | ensight.case.create_viewport(&quot;ON&quot;)
-    | ensight.case.apply_context(&quot;OFF&quot;)
-    | ensight.case.reflect_model_in(&quot;&#x27;X&#x27;&quot;)
-    | ensight.case.reflect_model_in(&quot;1.0000e+00 0.0000e+00 0.0000e+00&quot;)
-    | ensight.case.add(&quot;Case 2&quot;)
-    | ensight.case.select(&quot;Case 2&quot;)
-    | ensight.viewport.select_begin(1)
+    ::
+
+        ensight.case.create_viewport(&quot;ON&quot;)
+        ensight.case.apply_context(&quot;OFF&quot;)
+        ensight.case.reflect_model_in(&quot;&#x27;X&#x27;&quot;)
+        ensight.case.reflect_model_in(&quot;1.0000e+00 0.0000e+00 0.0000e+00&quot;)
+        ensight.case.add(&quot;Case 2&quot;)
+        ensight.case.select(&quot;Case 2&quot;)
+        ensight.viewport.select_begin(1)
 
 Returns:
     zero on success, non-zero on error
@@ -168,31 +180,35 @@ Args:
         &#x27;new_value&#x27; name (id) of the case replacing the old string value
 
 Examples:
-    | #
-    | # select 2nd case
-    | #
-    | ensight.case.select(&quot;Case 2&quot;)
-    | #
-    | # replace 2nd case w/2nd case
-    | #
-    | ensight.case.replace(&quot;Case 2&quot;)
-    | #
-    | # select 2nd case &#x27;Case 2&#x27;
-    | #
-    | ensight.case.select(&quot;Case 2&quot;)
+    ::
 
-    | #
-    | # select 2nd case
-    | #
-    | ensight.case.select(&quot;Case 2&quot;)
-    | #
-    | # replace 2nd case w/3rd case
-    | #
-    | ensight.case.replace(&quot;Case 2&quot;,&quot;Case 3&quot;)
-    | #
-    | # select 2nd case
-    | #
-    | ensight.case.select(&quot;Case 3&quot;)
+        #
+        # select 2nd case
+        #
+        ensight.case.select(&quot;Case 2&quot;)
+        #
+        # replace 2nd case w/2nd case
+        #
+        ensight.case.replace(&quot;Case 2&quot;)
+        #
+        # select 2nd case &#x27;Case 2&#x27;
+        #
+        ensight.case.select(&quot;Case 2&quot;)
+
+    ::
+
+        #
+        # select 2nd case
+        #
+        ensight.case.select(&quot;Case 2&quot;)
+        #
+        # replace 2nd case w/3rd case
+        #
+        ensight.case.replace(&quot;Case 2&quot;,&quot;Case 3&quot;)
+        #
+        # select 2nd case
+        #
+        ensight.case.select(&quot;Case 3&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -209,7 +225,9 @@ Args:
         &#x27;case_id&#x27; id of the active case
 
 Examples:
-    | ensight.case.select(&quot;Case 2&quot;)
+    ::
+
+        ensight.case.select(&quot;Case 2&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -234,20 +252,22 @@ Args:
         &#x27;vp#&#x27; viewport integer # in I[1,N] which correspond to the respective viewports in which case data is to be displayed. N is the number of active viewports.
 
 Examples:
-    | #
-    | # Preliminary setup (for reference) - given two viewports
-    | #
-    | ensight.viewport.select_begin(0)
-    | ensight.view_transf.function(&quot;global&quot;)
-    | ensight.viewport.viewport_layout(&quot;two_horizontal&quot;)
-    | ensight.viewport.select_begin(1)
-    | #
-    | # Displaying a case in both viewports
-    | #
-    | ensight.case.viewports(&quot;1 2&quot;)
-    | #
-    | # Displaying a case in only the first viewport
-    | ensight.case.viewports(&quot;case  1&quot;)
+    ::
+
+        #
+        # Preliminary setup (for reference) - given two viewports
+        #
+        ensight.viewport.select_begin(0)
+        ensight.view_transf.function(&quot;global&quot;)
+        ensight.viewport.viewport_layout(&quot;two_horizontal&quot;)
+        ensight.viewport.select_begin(1)
+        #
+        # Displaying a case in both viewports
+        #
+        ensight.case.viewports(&quot;1 2&quot;)
+        #
+        # Displaying a case in only the first viewport
+        ensight.case.viewports(&quot;case  1&quot;)
 
 Returns:
     zero on success, non-zero on error

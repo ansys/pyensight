@@ -13,10 +13,12 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.active(&quot;OFF&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.active(&quot;OFF&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -37,7 +39,9 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.allow_default_editing(&quot;OFF&quot;)
+    ::
+
+        ensight.part.allow_default_editing(&quot;OFF&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -70,10 +74,12 @@ Args:
         * invisible
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.bounding_rep(&quot;sparse_model&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.bounding_rep(&quot;sparse_model&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -109,11 +115,13 @@ Args:
         * OFF
 
 Examples:
-    | ensight.view.clipping(&quot;ON&quot;)
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.clip(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.view.clipping(&quot;ON&quot;)
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.clip(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -128,10 +136,12 @@ Args:
         &#x27;varname&#x27; the name of an existing variable (or the word &quot;none&quot;) 
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_palette(&quot;pressure&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.colorby_palette(&quot;pressure&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -150,10 +160,12 @@ Args:
         &#x27;blu_val&#x27; red, green, blue color components (must be between 0.0 and 1.0)
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_rgb(1.0,0.4,0.0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.colorby_rgb(1.0,0.4,0.0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -166,11 +178,13 @@ Colors a part by the palette tied to the variable selected in the main variable 
 | Used with the HUM to tie parts selected to variables selected.
 
 Examples:
-    | ensight.variables.get_mainvarlist_select()
-    | ensight.part.get_mainpartlist_select()
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_selected_var()
-    | ensight.part.modify_end()
+    ::
+
+        ensight.variables.get_mainvarlist_select()
+        ensight.part.get_mainpartlist_select()
+        ensight.part.modify_begin()
+        ensight.part.colorby_selected_var()
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -184,8 +198,10 @@ Creates a copy of the currently selected part(s).
 | The copy is created on the client and its existence is not known to the EnSight Server process. A copy shares geometric data and variable data with the original part.
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.copy()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.copy()
 
 Returns:
     zero on success, non-zero on error
@@ -196,8 +212,10 @@ Returns:
 Creates a new viewport and assigns the currently selected part(s) to it.
 
 Examples:
-    | ensight.part.select_begin(3,5)
-    | ensight.part.create_assign_viewport()
+    ::
+
+        ensight.part.select_begin(3,5)
+        ensight.part.create_assign_viewport()
 
 Returns:
     zero on success, non-zero on error
@@ -208,8 +226,10 @@ Returns:
 Creates a new viewport for each of the currently selected part(s) and assigns one part to each viewport.
 
 Examples:
-    | ensight.part.select_begin(3,5)
-    | ensight.part.create_assign_viewports()
+    ::
+
+        ensight.part.select_begin(3,5)
+        ensight.part.create_assign_viewports()
 
 Returns:
     zero on success, non-zero on error
@@ -220,8 +240,10 @@ Returns:
 Deletes the currently selected part(s).
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.delete()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.delete()
 
 Returns:
     zero on success, non-zero on error
@@ -236,10 +258,12 @@ Args:
         &#x27;desc&#x27; name that will show up in the user interface; can be up to 50 characters in length
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.description(&quot;compressor inlet&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.description(&quot;compressor inlet&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -256,11 +280,13 @@ Args:
         &#x27;disp_factor&#x27; the scaling factor that will be applied to the displacement values.
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.displace_factor(0.9)
-    | ensight.part.displace_by(&quot;pressure&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.displace_factor(0.9)
+        ensight.part.displace_by(&quot;pressure&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -277,11 +303,13 @@ Args:
         &#x27;variable_name&#x27; name of an activated variable
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.displace_factor(0.9)
-    | ensight.part.displace_by(&quot;pressure&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.displace_factor(0.9)
+        ensight.part.displace_by(&quot;pressure&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -299,10 +327,12 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.elt_blanking(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.elt_blanking(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -321,20 +351,22 @@ Args:
         * none
 
 Examples:
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
-    | ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
-    | ensight.part.elt_failure_op1(&quot;&lt;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
-    | ensight.part.elt_failure_op2(&quot;&gt;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
-    | ensight.part.elt_failure_op1value(2.00000e-01)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
-    | ensight.part.elt_failure_op2value(5.00000e-01)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
-    | ensight.part.elt_failure_logicalop(&quot;or&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
+        ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
+        ensight.part.elt_failure_op1(&quot;&lt;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
+        ensight.part.elt_failure_op2(&quot;&gt;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
+        ensight.part.elt_failure_op1value(2.00000e-01)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
+        ensight.part.elt_failure_op2value(5.00000e-01)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
+        ensight.part.elt_failure_logicalop(&quot;or&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -355,20 +387,22 @@ Args:
         * Not used
 
 Examples:
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
-    | ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
-    | ensight.part.elt_failure_op1(&quot;&lt;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
-    | ensight.part.elt_failure_op2(&quot;&gt;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
-    | ensight.part.elt_failure_op1value(2.00000e-01)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
-    | ensight.part.elt_failure_op2value(5.00000e-01)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
-    | ensight.part.elt_failure_logicalop(&quot;or&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
+        ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
+        ensight.part.elt_failure_op1(&quot;&lt;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
+        ensight.part.elt_failure_op2(&quot;&gt;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
+        ensight.part.elt_failure_op1value(2.00000e-01)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
+        ensight.part.elt_failure_op2value(5.00000e-01)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
+        ensight.part.elt_failure_logicalop(&quot;or&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -389,20 +423,22 @@ Args:
         * Not used
 
 Examples:
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
-    | ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
-    | ensight.part.elt_failure_op1(&quot;&lt;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
-    | ensight.part.elt_failure_op2(&quot;&gt;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
-    | ensight.part.elt_failure_op1value(2.00000e-01)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
-    | ensight.part.elt_failure_op2value(5.00000e-01)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
-    | ensight.part.elt_failure_logicalop(&quot;or&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
+        ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
+        ensight.part.elt_failure_op1(&quot;&lt;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
+        ensight.part.elt_failure_op2(&quot;&gt;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
+        ensight.part.elt_failure_op1value(2.00000e-01)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
+        ensight.part.elt_failure_op2value(5.00000e-01)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
+        ensight.part.elt_failure_logicalop(&quot;or&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -417,20 +453,22 @@ Args:
         &#x27; value&#x27; the values 
 
 Examples:
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
-    | ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
-    | ensight.part.elt_failure_op1(&quot;&lt;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
-    | ensight.part.elt_failure_op2(&quot;&gt;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
-    | ensight.part.elt_failure_op1value(2.00000e-01)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
-    | ensight.part.elt_failure_op2value(5.00000e-01)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
-    | ensight.part.elt_failure_logicalop(&quot;or&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
+        ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
+        ensight.part.elt_failure_op1(&quot;&lt;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
+        ensight.part.elt_failure_op2(&quot;&gt;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
+        ensight.part.elt_failure_op1value(2.00000e-01)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
+        ensight.part.elt_failure_op2value(5.00000e-01)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
+        ensight.part.elt_failure_logicalop(&quot;or&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -445,20 +483,22 @@ Args:
         &#x27; value&#x27; the values 
 
 Examples:
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
-    | ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
-    | ensight.part.elt_failure_op1(&quot;&lt;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
-    | ensight.part.elt_failure_op2(&quot;&gt;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
-    | ensight.part.elt_failure_op1value(2.00000e-01)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
-    | ensight.part.elt_failure_op2value(5.00000e-01)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
-    | ensight.part.elt_failure_logicalop(&quot;or&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
+        ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
+        ensight.part.elt_failure_op1(&quot;&lt;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
+        ensight.part.elt_failure_op2(&quot;&gt;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
+        ensight.part.elt_failure_op1value(2.00000e-01)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
+        ensight.part.elt_failure_op2value(5.00000e-01)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
+        ensight.part.elt_failure_logicalop(&quot;or&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -475,20 +515,22 @@ Args:
         &#x27; var_name&#x27; the name of the variable to use for element failure
 
 Examples:
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
-    | ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
-    | ensight.part.elt_failure_op1(&quot;&lt;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
-    | ensight.part.elt_failure_op2(&quot;&gt;&quot;)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
-    | ensight.part.elt_failure_op1value(2.00000e-01)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
-    | ensight.part.elt_failure_op2value(5.00000e-01)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
-    | ensight.part.elt_failure_logicalop(&quot;or&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_variable).
+        ensight.part.elt_failure_variable(&quot;NodeToElem&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1).
+        ensight.part.elt_failure_op1(&quot;&lt;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2).
+        ensight.part.elt_failure_op2(&quot;&gt;&quot;)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op1value).
+        ensight.part.elt_failure_op1value(2.00000e-01)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_op2value).
+        ensight.part.elt_failure_op2value(5.00000e-01)
+        # WARNING: following line includes OBSOLETE call (ensight.part.elt_failure_logicalop).
+        ensight.part.elt_failure_logicalop(&quot;or&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -503,11 +545,13 @@ Args:
         &#x27; angle&#x27; angle between adjacent polygons, above which the edge will be drawn, below which the edge will not be drawn. the range is 0.0 to 180.0 degrees
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.elt_representation(&quot;feature_angle&quot;)
-    | ensight.part.elt_feature_angle(20.0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.elt_representation(&quot;feature_angle&quot;)
+        ensight.part.elt_feature_angle(20.0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -525,9 +569,11 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.modify_begin()
-    | ensight.part.elt_rep_pointsnormals(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.modify_begin()
+        ensight.part.elt_rep_pointsnormals(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -552,10 +598,12 @@ Args:
         * 3D_notloaded_2D_full
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.elt_representation(&quot;full&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.elt_representation(&quot;full&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -570,10 +618,12 @@ Args:
         &#x27;scale_factor&#x27; shrinkage factor which must be within the range of 0.0 to 1.0. The default is 0.0 for no shrinkage.  If set to 1.0, elements will completely disappear.
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.elt_shrink_factor(0.5)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.elt_shrink_factor(0.5)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -591,10 +641,12 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.entity_label_elt(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.entity_label_elt(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -612,10 +664,12 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.entity_label_node(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.entity_label_node(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -629,8 +683,10 @@ Creates an extract of the currently selected part(s).
 | The part: extract command creates a new part using the geometry of the current representation (what you see is what you get). Extracted parts which are in Full Representation are actual copies of the original, but extracted parts which are in Border Representation are only the shell or boundary of the original.
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.extract()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.extract()
 
 Returns:
     zero on success, non-zero on error
@@ -647,12 +703,14 @@ Args:
         &#x27;pattern_num&#x27; must be within the range of  0 to 3.  transparency value of 0 specifies an opaque surface, while a value of 3 specifies a sparse (transparent) fill pattern
 
 Examples:
-    | ensight.view.hidden_surface(&quot;ON&quot;)
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.hidden_surface(&quot;ON&quot;)
-    | ensight.part.fill_pattern(2)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.view.hidden_surface(&quot;ON&quot;)
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.hidden_surface(&quot;ON&quot;)
+        ensight.part.fill_pattern(2)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -663,11 +721,13 @@ Returns:
 Causes the parts highlighted in the main part list to become the currently selected parts.
 
 Examples:
-    | ensight.part.get_mainpartlist_select()
-    | ensight.part.modify_begin()
-    | ensight.part.mirror_original(&quot;OFF&quot;)
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.get_mainpartlist_select()
+        ensight.part.modify_begin()
+        ensight.part.mirror_original(&quot;OFF&quot;)
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -682,9 +742,11 @@ Args:
         &#x27;groupname&#x27; name of the group
 
 Examples:
-    | ensight.part.select_begin(3,5)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.group).
-    | ensight.part.group(&quot;yinyang&quot;)
+    ::
+
+        ensight.part.select_begin(3,5)
+        # WARNING: following line includes OBSOLETE call (ensight.part.group).
+        ensight.part.group(&quot;yinyang&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -704,11 +766,13 @@ Args:
         * OFF
 
 Examples:
-    | ensight.view.hidden_line(&quot;ON&quot;)
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.hidden_line(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.view.hidden_line(&quot;ON&quot;)
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.hidden_line(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -728,11 +792,13 @@ Args:
         * OFF
 
 Examples:
-    | ensight.view.hidden_surface(&quot;ON&quot;)
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.hidden_surface(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.view.hidden_surface(&quot;ON&quot;)
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.hidden_surface(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -747,11 +813,13 @@ Args:
         &#x27;diffuse&#x27; diffuse light value, must be within the range of 0.0 to 1.0
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.part.light_diff).
-    | ensight.part.light_diff(0.9)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.part.light_diff).
+        ensight.part.light_diff(0.9)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -766,11 +834,13 @@ Args:
         &#x27;intensity&#x27; highlight intensity, must be within the range of 0.0 to 1.0
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.part.light_h_int).
-    | ensight.part.light_h_int(0.5)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.part.light_h_int).
+        ensight.part.light_h_int(0.5)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -787,13 +857,15 @@ Args:
         &#x27;shiny&#x27; &quot;shinyness&quot; value, must be within the range of 1.0 to 100.0 . Lower values specify less shine
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.part.light_h_int).
-    | ensight.part.light_h_int(0.9)
-    | # WARNING: following line includes OBSOLETE call (ensight.part.light_shin).
-    | ensight.part.light_shin(50.0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.part.light_h_int).
+        ensight.part.light_h_int(0.9)
+        # WARNING: following line includes OBSOLETE call (ensight.part.light_shin).
+        ensight.part.light_shin(50.0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -813,10 +885,12 @@ Args:
         * dot_dash
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.line_style(&quot;dotted&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.line_style(&quot;dotted&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -831,10 +905,12 @@ Args:
         &#x27;width&#x27; pixel width of line; must be within the range of  1 to 4.
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.line_width(2)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.line_width(2)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -845,8 +921,10 @@ Returns:
 Merges the currently selected parts into a single part.
 
 Examples:
-    | ensight.part.select_begin(3,5)
-    | ensight.part.merge()
+    ::
+
+        ensight.part.select_begin(3,5)
+        ensight.part.merge()
 
 Returns:
     zero on success, non-zero on error
@@ -866,12 +944,14 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.part.mirror_z).
-    | ensight.part.mirror_z(&quot;ON&quot;)
-    | ensight.part.mirror_original(&quot;OFF&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.part.mirror_z).
+        ensight.part.mirror_z(&quot;ON&quot;)
+        ensight.part.mirror_original(&quot;OFF&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -882,12 +962,14 @@ Returns:
 These commands are used to demarcate part attribute changing commands.  The attributes within them will be changed when the modify_end is reached.
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.visibility_node(&quot;ON&quot;)
-    | ensight.part.node_type(&quot;sphere&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.visibility_node(&quot;ON&quot;)
+        ensight.part.node_type(&quot;sphere&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -898,12 +980,14 @@ Returns:
 These commands are used to demarcate part attribute changing commands.  The attributes within them will be changed when the modify_end is reached.
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.visibility_node(&quot;ON&quot;)
-    | ensight.part.node_type(&quot;sphere&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.visibility_node(&quot;ON&quot;)
+        ensight.part.node_type(&quot;sphere&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -920,11 +1004,13 @@ Args:
         &#x27;level&#x27; detail level for the spheres used to represent the nodes; must be within the range of  2 to 10.
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.node_type(&quot;sphere&quot;)
-    | ensight.part.node_detail(5)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.node_type(&quot;sphere&quot;)
+        ensight.part.node_detail(5)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -939,10 +1025,12 @@ Args:
         &#x27;scale&#x27; scaling factor to be applied to the node cross or sphere representation; can be any valid floating point value
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.node_scale(1.5)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.node_scale(1.5)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -965,12 +1053,14 @@ Args:
         * vector_zcomp
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.node_type(&quot;sphere&quot;)
-    | ensight.part.node_size_by(&quot;vector_mag&quot;)
-    | ensight.part.node_variable(&quot;velocity&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.node_type(&quot;sphere&quot;)
+        ensight.part.node_size_by(&quot;vector_mag&quot;)
+        ensight.part.node_variable(&quot;velocity&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -989,10 +1079,12 @@ Args:
         * sphere
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.node_type(&quot;sphere&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.node_type(&quot;sphere&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1007,12 +1099,14 @@ Args:
         &#x27;variable_name&#x27; the name of an activated variable
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.node_type(&quot;sphere&quot;)
-    | ensight.part.node_size_by(&quot;vector_mag&quot;)
-    | ensight.part.node_variable(&quot;velocity&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.node_type(&quot;sphere&quot;)
+        ensight.part.node_size_by(&quot;vector_mag&quot;)
+        ensight.part.node_variable(&quot;velocity&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1029,11 +1123,13 @@ Args:
         &#x27;value&#x27; opaqueness; must be within the range of 0.0 to 1.0
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | # WARNING: following line includes OBSOLETE call (ensight.part.opaqueness).
-    | ensight.part.opaqueness(0.4)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        # WARNING: following line includes OBSOLETE call (ensight.part.opaqueness).
+        ensight.part.opaqueness(0.4)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1051,11 +1147,13 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.reduce_polygons_factor(1)
-    | ensight.part.reduce_polygons(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.reduce_polygons_factor(1)
+        ensight.part.reduce_polygons(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1073,11 +1171,13 @@ Args:
         &#x27;factor&#x27; 0 (less) to 10 (more) controlling the number of polygons
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.reduce_polygons_factor(1)
-    | ensight.part.reduce_polygons(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.reduce_polygons_factor(1)
+        ensight.part.reduce_polygons(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1092,10 +1192,12 @@ Args:
         &#x27;frame#&#x27; an existing reference frame number
 
 Examples:
-    | ensight.part.select_begin(1,2,5)
-    | ensight.part.modify_begin()
-    | ensight.part.ref_frame(2)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1,2,5)
+        ensight.part.modify_begin()
+        ensight.part.ref_frame(2)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1108,15 +1210,17 @@ Restores the selected parts from a previous seleciton using the store_selected c
 | To make the highlighted parts the currently selected parts, use part: get_mainpartlist_select or part: select_all.
 
 Examples:
-    | ensight.part.store_selected()
-    | #
-    | # EnSight commands here...
-    | #
-    | ensight.part.restore_selected()
-    | ensight.part.get_mainpartlist_select()
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.store_selected()
+        #
+        # EnSight commands here...
+        #
+        ensight.part.restore_selected()
+        ensight.part.get_mainpartlist_select()
+        ensight.part.modify_begin()
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1127,10 +1231,12 @@ Returns:
 Selects all parts as the target for future part: commands.
 
 Examples:
-    | ensight.part.select_all()
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_all()
+        ensight.part.modify_begin()
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1141,10 +1247,12 @@ Returns:
 Selects all parts in the current case as the target for future part: commands.
 
 Examples:
-    | ensight.part.select_all_case()
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_all_case()
+        ensight.part.modify_begin()
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1157,11 +1265,13 @@ Causes any following part editing commands to affect the default settings for al
 | All part: commands following part: select_all_default will affect default settings until a new part is selected using part: select_begin/end. 
 
 Examples:
-    | ensight.part.select_all_default()
-    | ensight.part.modify_begin()
-    | ensight.part.mirror_original(&quot;OFF&quot;)
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_all_default()
+        ensight.part.modify_begin()
+        ensight.part.mirror_original(&quot;OFF&quot;)
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1176,10 +1286,12 @@ Args:
         &#x27;pnN&#x27; part number(s).  Up to a maximum of  10 per line, but can use as many lines as needed.
 
 Examples:
-    | ensight.part.select_begin(1,2)
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1,2)
+        ensight.part.modify_begin()
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1194,10 +1306,12 @@ Args:
         &#x27;pnN&#x27; part number(s).  Up to a maximum of  10 per line, but can use as many lines as needed.
 
 Examples:
-    | ensight.part.select_begin(1,2)
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1,2)
+        ensight.part.modify_begin()
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1214,11 +1328,13 @@ Args:
         &#x27;exprN&#x27; part expression (partial name with asterisk(s))
 
 Examples:
-    | ensight.part.select_byexpr_begin(&quot;flui*&quot;,&quot;soli*&quot;)
-    | ensight.part.modify_begin()
-    | ensight.part.reduce_polygons_factor(1)
-    | ensight.part.reduce_polygons(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_byexpr_begin(&quot;flui*&quot;,&quot;soli*&quot;)
+        ensight.part.modify_begin()
+        ensight.part.reduce_polygons_factor(1)
+        ensight.part.reduce_polygons(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1235,11 +1351,13 @@ Args:
         &#x27;exprN&#x27; part expression (partial name with asterisk(s))
 
 Examples:
-    | ensight.part.select_byexpr_begin(&quot;flui*&quot;,&quot;soli*&quot;)
-    | ensight.part.modify_begin()
-    | ensight.part.reduce_polygons_factor(1)
-    | ensight.part.reduce_polygons(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_byexpr_begin(&quot;flui*&quot;,&quot;soli*&quot;)
+        ensight.part.modify_begin()
+        ensight.part.reduce_polygons_factor(1)
+        ensight.part.reduce_polygons(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1254,10 +1372,12 @@ Args:
         &#x27;nameN&#x27; part name (as opposed to number)
 
 Examples:
-    | ensight.part.select_byname_begin(&quot;impeller&quot;,&quot;main chamber&quot;,&quot;exhaust port&quot;)
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_byname_begin(&quot;impeller&quot;,&quot;main chamber&quot;,&quot;exhaust port&quot;)
+        ensight.part.modify_begin()
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1272,10 +1392,12 @@ Args:
         &#x27;nameN&#x27; part name (as opposed to number)
 
 Examples:
-    | ensight.part.select_byname_begin(&quot;impeller&quot;,&quot;main chamber&quot;,&quot;exhaust port&quot;)
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_byname_begin(&quot;impeller&quot;,&quot;main chamber&quot;,&quot;exhaust port&quot;)
+        ensight.part.modify_begin()
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1288,11 +1410,13 @@ Causes any following part editing commands to affect the default settings for al
 | All part editing commands following part: select_default will affect default settings until a new part is selected using part: select_begin/select_end.
 
 Examples:
-    | ensight.part.select_default()
-    | ensight.part.modify_begin()
-    | ensight.part.mirror_original(&quot;OFF&quot;)
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_default()
+        ensight.part.modify_begin()
+        ensight.part.mirror_original(&quot;OFF&quot;)
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1303,10 +1427,12 @@ Returns:
 Selects all of the parts created in the last part-creating operation.
 
 Examples:
-    | ensight.part.select_lastcreatedpart()
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_lastcreatedpart()
+        ensight.part.modify_begin()
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1317,10 +1443,12 @@ Returns:
 Selects the last single part from the last part-creating operation.
 
 Examples:
-    | ensight.part.select_lastonecreated()
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_lastonecreated()
+        ensight.part.modify_begin()
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1333,11 +1461,13 @@ Causes all parts in the main part list to be highlighted.  Note that this does N
 | To make the highlighted parts the currently selected parts, use part: get_mainpartlist_select or part: select_all.
 
 Examples:
-    | ensight.part.select_mainpartlist_all()
-    | ensight.part.get_mainpartlist_select()
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_mainpartlist_all()
+        ensight.part.get_mainpartlist_select()
+        ensight.part.modify_begin()
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1350,11 +1480,13 @@ Causes all parts showing parts to be highlighted.  Note that this does NOT cause
 | To make the highlighted parts the currently selected parts, use part: get_mainpartlist_select or part: select_all.
 
 Examples:
-    | ensight.part.select_showing()
-    | ensight.part.get_mainpartlist_select()
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_showing()
+        ensight.part.get_mainpartlist_select()
+        ensight.part.modify_begin()
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1367,11 +1499,13 @@ Causes all parts visible parts to be highlighted.  Note that this does NOT cause
 | To make the highlighted parts the currently selected parts, use part: get_mainpartlist_select or part: select_all.
 
 Examples:
-    | ensight.part.select_visible()
-    | ensight.part.get_mainpartlist_select()
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_visible()
+        ensight.part.get_mainpartlist_select()
+        ensight.part.modify_begin()
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1384,11 +1518,13 @@ Causes all parts invisible parts to be highlighted.  Note that this does NOT cau
 | To make the highlighted parts the currently selected parts, use part: get_mainpartlist_select or part: select_all.
 
 Examples:
-    | ensight.part.select_invisible()
-    | ensight.part.get_mainpartlist_select()
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_invisible()
+        ensight.part.get_mainpartlist_select()
+        ensight.part.modify_begin()
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1408,13 +1544,14 @@ Args:
         * smooth
 
 Examples:
-    | ensight.view.hidden_surface(&quot;ON&quot;)
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.hidden_surface(&quot;ON&quot;)
-    | ensight.part.shading(&quot;gouraud&quot;)
-    | ensight.part.modify_end()
+    ::
 
+        ensight.view.hidden_surface(&quot;ON&quot;)
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.hidden_surface(&quot;ON&quot;)
+        ensight.part.shading(&quot;gouraud&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1427,15 +1564,17 @@ Stores the selected parts to be used later using the restore_selected command.  
 | To make the highlighted parts the currently selected parts, use part: get_mainpartlist_select or part: select_all.
 
 Examples:
-    | ensight.part.store_selected()
-    | #
-    | # EnSight commands here...
-    | #
-    | ensight.part.restore_selected()
-    | ensight.part.get_mainpartlist_select()
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_rgb(1,0,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.store_selected()
+        #
+        # EnSight commands here...
+        #
+        ensight.part.restore_selected()
+        ensight.part.get_mainpartlist_select()
+        ensight.part.modify_begin()
+        ensight.part.colorby_rgb(1,0,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1446,9 +1585,11 @@ Returns:
 Updates the Part List GUI menu to reflect the currently selected part(s).
 
 Examples:
-    | ensight.view.hidden_surface(&quot;ON&quot;)
-    | ensight.part.select_begin(1)
-    | ensight.part.show_selection_inmainlist()
+    ::
+
+        ensight.view.hidden_surface(&quot;ON&quot;)
+        ensight.part.select_begin(1)
+        ensight.part.show_selection_inmainlist()
 
 Returns:
     zero on success, non-zero on error
@@ -1465,17 +1606,19 @@ Args:
         &#x27;angle&#x27; The angle (in degrees) for the rotation
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | #
-    | # turn on rotational symmetry about the x axis
-    | # use 4 instances rotated 90 degrees
-    | #
-    | ensight.part.symmetry_type(&quot;rotational&quot;)
-    | ensight.part.symmetry_axis(&quot;x&quot;)
-    | ensight.part.symmetry_rinstances(4)
-    | ensight.part.symmetry_angle(90.)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        #
+        # turn on rotational symmetry about the x axis
+        # use 4 instances rotated 90 degrees
+        #
+        ensight.part.symmetry_type(&quot;rotational&quot;)
+        ensight.part.symmetry_axis(&quot;x&quot;)
+        ensight.part.symmetry_rinstances(4)
+        ensight.part.symmetry_angle(90.)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1486,7 +1629,7 @@ Returns:
 Specifies the rotational symmetry axis.
 
 | Used only when part: symmetry_type is set to rotational.
-| The axis is in reference to the part��s coordinate frame.
+| The axis is in reference to the part coordinate frame.
 
 Args:
     p0:
@@ -1497,17 +1640,19 @@ Args:
         * z
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | #
-    | # turn on rotational symmetry about the x axis
-    | # use 4 instances rotated 90 degrees
-    | #
-    | ensight.part.symmetry_type(&quot;rotational&quot;)
-    | ensight.part.symmetry_axis(&quot;x&quot;)
-    | ensight.part.symmetry_rinstances(4)
-    | ensight.part.symmetry_angle(90.)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        #
+        # turn on rotational symmetry about the x axis
+        # use 4 instances rotated 90 degrees
+        #
+        ensight.part.symmetry_type(&quot;rotational&quot;)
+        ensight.part.symmetry_axis(&quot;x&quot;)
+        ensight.part.symmetry_rinstances(4)
+        ensight.part.symmetry_angle(90.)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1527,13 +1672,15 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.symmetry_mirror_x(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_y(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.symmetry_mirror_x(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_y(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1553,13 +1700,15 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.symmetry_mirror_x(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_y(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.symmetry_mirror_x(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_y(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1579,13 +1728,15 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.symmetry_mirror_x(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_y(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.symmetry_mirror_x(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_y(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1605,13 +1756,15 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.symmetry_mirror_x(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_y(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.symmetry_mirror_x(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_y(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1631,13 +1784,15 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.symmetry_mirror_x(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_y(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.symmetry_mirror_x(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_y(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1657,13 +1812,15 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.symmetry_mirror_x(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_y(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.symmetry_mirror_x(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_y(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1683,13 +1840,15 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.symmetry_mirror_x(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_y(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
-    | ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.symmetry_mirror_x(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_y(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_xy(&quot;ON&quot;)
+        ensight.part.symmetry_mirror_xyz(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1706,17 +1865,19 @@ Args:
         &#x27;num&#x27; The number of rotational instances
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | #
-    | # turn on rotational symmetry about the x axis
-    | # use 4 instances rotated 90 degrees
-    | #
-    | ensight.part.symmetry_type(&quot;rotational&quot;)
-    | ensight.part.symmetry_axis(&quot;x&quot;)
-    | ensight.part.symmetry_rinstances(4)
-    | ensight.part.symmetry_angle(90.)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        #
+        # turn on rotational symmetry about the x axis
+        # use 4 instances rotated 90 degrees
+        #
+        ensight.part.symmetry_type(&quot;rotational&quot;)
+        ensight.part.symmetry_axis(&quot;x&quot;)
+        ensight.part.symmetry_rinstances(4)
+        ensight.part.symmetry_angle(90.)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1735,17 +1896,19 @@ Args:
         * none
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | #
-    | # turn on rotational symmetry about the x axis
-    | # use 4 instances rotated 90 degrees
-    | #
-    | ensight.part.symmetry_type(&quot;rotational&quot;)
-    | ensight.part.symmetry_axis(&quot;x&quot;)
-    | ensight.part.symmetry_rinstances(4)
-    | ensight.part.symmetry_angle(90.)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        #
+        # turn on rotational symmetry about the x axis
+        # use 4 instances rotated 90 degrees
+        #
+        ensight.part.symmetry_type(&quot;rotational&quot;)
+        ensight.part.symmetry_axis(&quot;x&quot;)
+        ensight.part.symmetry_rinstances(4)
+        ensight.part.symmetry_angle(90.)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1763,13 +1926,15 @@ Args:
         * variable
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.texture_coord_type(&quot;projection&quot;)
-    | ensight.part.texture_origin(-1,.2,1)
-    | ensight.part.texture_svector(2,0,0)
-    | ensight.part.texture_tvector(0,2,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.texture_coord_type(&quot;projection&quot;)
+        ensight.part.texture_origin(-1,.2,1)
+        ensight.part.texture_svector(2,0,0)
+        ensight.part.texture_tvector(0,2,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1787,13 +1952,15 @@ Args:
         * linear
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.texture_object(1)
-    | ensight.part.texture_repeat_mode(&quot;clamp&quot;)
-    | ensight.part.texture_interpolation(&quot;linear&quot;)
-    | ensight.part.texture_mode(&quot;decal&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.texture_object(1)
+        ensight.part.texture_repeat_mode(&quot;clamp&quot;)
+        ensight.part.texture_interpolation(&quot;linear&quot;)
+        ensight.part.texture_mode(&quot;decal&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1812,12 +1979,14 @@ Args:
         * modulate
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.texture_object(1)
-    | ensight.part.texture_repeat_mode(&quot;clamp&quot;)
-    | ensight.part.texture_mode(&quot;decal&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.texture_object(1)
+        ensight.part.texture_repeat_mode(&quot;clamp&quot;)
+        ensight.part.texture_mode(&quot;decal&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1832,10 +2001,12 @@ Args:
         &#x27;num&#x27; the texture object to color by
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.texture_object(1)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.texture_object(1)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1856,12 +2027,14 @@ Args:
         &#x27;z_orig&#x27; the z coordinate for the texture origin
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.texture_origin(-1,.2,1)
-    | ensight.part.texture_svector(2,0,0)
-    | ensight.part.texture_tvector(0,2,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.texture_origin(-1,.2,1)
+        ensight.part.texture_svector(2,0,0)
+        ensight.part.texture_tvector(0,2,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1879,18 +2052,20 @@ Args:
         &#x27;node_id&#x27; The node id that will be used as the origin offset
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.texture_coord_type(&quot;projection&quot;)
-    | #
-    | # offset the texture by one unit in the x direction from nodeid 3443
-    | #
-    | ensight.part.texture_origin_use(&quot;offset_by_nodeid&quot;)
-    | ensight.part.texture_origin_nodeid(3443)
-    | ensight.part.texture_origin(1,0,0)
-    | ensight.part.texture_svector(2,0,0)
-    | ensight.part.texture_tvector(0,2,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.texture_coord_type(&quot;projection&quot;)
+        #
+        # offset the texture by one unit in the x direction from nodeid 3443
+        #
+        ensight.part.texture_origin_use(&quot;offset_by_nodeid&quot;)
+        ensight.part.texture_origin_nodeid(3443)
+        ensight.part.texture_origin(1,0,0)
+        ensight.part.texture_svector(2,0,0)
+        ensight.part.texture_tvector(0,2,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1911,18 +2086,20 @@ Args:
         * offsetvectors_by_nodeid
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.texture_coord_type(&quot;projection&quot;)
-    | #
-    | # offset the texture by one unit in the x direction from nodeid 3443
-    | #
-    | ensight.part.texture_origin_use(&quot;offset_by_nodeid&quot;)
-    | ensight.part.texture_origin_nodeid(3443)
-    | ensight.part.texture_origin(1,0,0)
-    | ensight.part.texture_svector(2,0,0)
-    | ensight.part.texture_tvector(0,2,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.texture_coord_type(&quot;projection&quot;)
+        #
+        # offset the texture by one unit in the x direction from nodeid 3443
+        #
+        ensight.part.texture_origin_use(&quot;offset_by_nodeid&quot;)
+        ensight.part.texture_origin_nodeid(3443)
+        ensight.part.texture_origin(1,0,0)
+        ensight.part.texture_svector(2,0,0)
+        ensight.part.texture_tvector(0,2,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1940,12 +2117,14 @@ Args:
         * clamp
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.texture_object(1)
-    | ensight.part.texture_repeat_mode(&quot;clamp&quot;)
-    | ensight.part.texture_mode(&quot;decal&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.texture_object(1)
+        ensight.part.texture_repeat_mode(&quot;clamp&quot;)
+        ensight.part.texture_mode(&quot;decal&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1962,17 +2141,19 @@ Args:
         &#x27;node_id&#x27; The node id to use to describe the s/t texture direction.
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.texture_coord_type(&quot;projection&quot;)
-    | ensight.part.texture_origin_use(&quot;offsetvectors_by_nodeid&quot;)
-    | ensight.part.texture_origin_nodeid(3443)
-    | ensight.part.texture_sorigin_nodeid(4944)
-    | ensight.part.texture_torigin_nodeid(5998)
-    | ensight.part.texture_origin(1,0,0)
-    | ensight.part.texture_svector(2,0,0)
-    | ensight.part.texture_tvector(0,2,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.texture_coord_type(&quot;projection&quot;)
+        ensight.part.texture_origin_use(&quot;offsetvectors_by_nodeid&quot;)
+        ensight.part.texture_origin_nodeid(3443)
+        ensight.part.texture_sorigin_nodeid(4944)
+        ensight.part.texture_torigin_nodeid(5998)
+        ensight.part.texture_origin(1,0,0)
+        ensight.part.texture_svector(2,0,0)
+        ensight.part.texture_tvector(0,2,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -1989,17 +2170,19 @@ Args:
         &#x27;node_id&#x27; The node id to use to describe the s/t texture direction.
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.texture_coord_type(&quot;projection&quot;)
-    | ensight.part.texture_origin_use(&quot;offsetvectors_by_nodeid&quot;)
-    | ensight.part.texture_origin_nodeid(3443)
-    | ensight.part.texture_sorigin_nodeid(4944)
-    | ensight.part.texture_torigin_nodeid(5998)
-    | ensight.part.texture_origin(1,0,0)
-    | ensight.part.texture_svector(2,0,0)
-    | ensight.part.texture_tvector(0,2,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.texture_coord_type(&quot;projection&quot;)
+        ensight.part.texture_origin_use(&quot;offsetvectors_by_nodeid&quot;)
+        ensight.part.texture_origin_nodeid(3443)
+        ensight.part.texture_sorigin_nodeid(4944)
+        ensight.part.texture_torigin_nodeid(5998)
+        ensight.part.texture_origin(1,0,0)
+        ensight.part.texture_svector(2,0,0)
+        ensight.part.texture_tvector(0,2,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2016,12 +2199,14 @@ Args:
         &#x27;name&#x27; s/t variable name
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.texture_coord_type(&quot;variables&quot;)
-    | ensight.part.texture_svariable(&quot;norm_temperature&quot;)
-    | ensight.part.texture_tvariable(&quot;none&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.texture_coord_type(&quot;variables&quot;)
+        ensight.part.texture_svariable(&quot;norm_temperature&quot;)
+        ensight.part.texture_tvariable(&quot;none&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2038,12 +2223,14 @@ Args:
         &#x27;name&#x27; s/t variable name
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.texture_coord_type(&quot;variables&quot;)
-    | ensight.part.texture_svariable(&quot;norm_temperature&quot;)
-    | ensight.part.texture_tvariable(&quot;none&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.texture_coord_type(&quot;variables&quot;)
+        ensight.part.texture_svariable(&quot;norm_temperature&quot;)
+        ensight.part.texture_tvariable(&quot;none&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2064,12 +2251,14 @@ Args:
         &#x27;z&#x27; s vector z value in world coordinates
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.texture_origin(-1,.2,1)
-    | ensight.part.texture_svector(2,0,0)
-    | ensight.part.texture_tvector(0,2,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.texture_origin(-1,.2,1)
+        ensight.part.texture_svector(2,0,0)
+        ensight.part.texture_tvector(0,2,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2090,12 +2279,14 @@ Args:
         &#x27;z&#x27; t vector z value in world coordinates
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.texture_origin(-1,.2,1)
-    | ensight.part.texture_svector(2,0,0)
-    | ensight.part.texture_tvector(0,2,0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.texture_origin(-1,.2,1)
+        ensight.part.texture_svector(2,0,0)
+        ensight.part.texture_tvector(0,2,0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2106,8 +2297,10 @@ Returns:
 Ungroups the currently selected (grouped) parts.
 
 Examples:
-    | ensight.part.select_begin(3,5)
-    | ensight.part.ungroup()
+    ::
+
+        ensight.part.select_begin(3,5)
+        ensight.part.ungroup()
 
 Returns:
     zero on success, non-zero on error
@@ -2122,8 +2315,10 @@ Args:
         &#x27;parent&#x27; part number of the new parent(s)
 
 Examples:
-    | ensight.part.select_begin(3,5)
-    | ensight.part.updtparts(2)
+    ::
+
+        ensight.part.select_begin(3,5)
+        ensight.part.updtparts(2)
 
 Returns:
     zero on success, non-zero on error
@@ -2145,10 +2340,12 @@ Args:
         * viewport numbers in which to modify part visibility
 
 Examples:
-    | ensight.part.select_begin(1,2,5)
-    | ensight.part.modify_begin()
-    | ensight.part.viewport_vis(&quot;OFF&quot;,1,3)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1,2,5)
+        ensight.part.modify_begin()
+        ensight.part.viewport_vis(&quot;OFF&quot;,1,3)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2166,10 +2363,12 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.visibility_elt(&quot;OFF&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.visibility_elt(&quot;OFF&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2189,10 +2388,12 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.visibility_line(&quot;OFF&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.visibility_line(&quot;OFF&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2210,10 +2411,12 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.part.visibility_node(&quot;ON&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.part.visibility_node(&quot;ON&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -2231,10 +2434,12 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_begin(1,2,5)
-    | ensight.part.modify_begin()
-    | ensight.part.visible(&quot;OFF&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1,2,5)
+        ensight.part.modify_begin()
+        ensight.part.visible(&quot;OFF&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error

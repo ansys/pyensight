@@ -8,13 +8,15 @@ Args:
         &#x27;num&#x27; number of labels
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.x_labels(&quot;ON&quot;)
-    | ensight.frame.y_labels(&quot;ON&quot;)
-    | ensight.frame.z_labels(&quot;ON&quot;)
-    | ensight.frame.number_of_labels_x(3)
-    | ensight.frame.number_of_labels_y(4)
-    | ensight.frame.number_of_labels_z(3)
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.x_labels(&quot;ON&quot;)
+        ensight.frame.y_labels(&quot;ON&quot;)
+        ensight.frame.z_labels(&quot;ON&quot;)
+        ensight.frame.number_of_labels_x(3)
+        ensight.frame.number_of_labels_y(4)
+        ensight.frame.number_of_labels_z(3)
 
 Returns:
     zero on success, non-zero on error
@@ -29,13 +31,15 @@ Args:
         &#x27;num&#x27; number of labels
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.x_labels(&quot;ON&quot;)
-    | ensight.frame.y_labels(&quot;ON&quot;)
-    | ensight.frame.z_labels(&quot;ON&quot;)
-    | ensight.frame.number_of_labels_x(3)
-    | ensight.frame.number_of_labels_y(4)
-    | ensight.frame.number_of_labels_z(3)
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.x_labels(&quot;ON&quot;)
+        ensight.frame.y_labels(&quot;ON&quot;)
+        ensight.frame.z_labels(&quot;ON&quot;)
+        ensight.frame.number_of_labels_x(3)
+        ensight.frame.number_of_labels_y(4)
+        ensight.frame.number_of_labels_z(3)
 
 Returns:
     zero on success, non-zero on error
@@ -50,13 +54,15 @@ Args:
         &#x27;num&#x27; number of labels
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.x_labels(&quot;ON&quot;)
-    | ensight.frame.y_labels(&quot;ON&quot;)
-    | ensight.frame.z_labels(&quot;ON&quot;)
-    | ensight.frame.number_of_labels_x(3)
-    | ensight.frame.number_of_labels_y(4)
-    | ensight.frame.number_of_labels_z(3)
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.x_labels(&quot;ON&quot;)
+        ensight.frame.y_labels(&quot;ON&quot;)
+        ensight.frame.z_labels(&quot;ON&quot;)
+        ensight.frame.number_of_labels_x(3)
+        ensight.frame.number_of_labels_y(4)
+        ensight.frame.number_of_labels_z(3)
 
 Returns:
     zero on success, non-zero on error
@@ -73,10 +79,12 @@ Args:
         &#x27;num&#x27; frame to assign the selected parts to
 
 Examples:
-    | ensight.frame.create()
-    | ensight.frame.select_begin(1)
-    | ensight.part.select_begin(2)
-    | ensight.frame.assign(1)
+    ::
+
+        ensight.frame.create()
+        ensight.frame.select_begin(1)
+        ensight.part.select_begin(2)
+        ensight.frame.assign(1)
 
 Returns:
     zero on success, non-zero on error
@@ -89,7 +97,9 @@ Creates a new frame.
 | The new frame will be created with the current default attributes. 
 
 Examples:
-    | ensight.frame.create()
+    ::
+
+        ensight.frame.create()
 
 Returns:
     zero on success, non-zero on error
@@ -102,8 +112,10 @@ Deletes selected frames.
 | Before this command is issued, you need to select the frames you want deleted.
 
 Examples:
-    | ensight.frame.select_begin(1,2)
-    | ensight.frame.delete()
+    ::
+
+        ensight.frame.select_begin(1,2)
+        ensight.frame.delete()
 
 Returns:
     zero on success, non-zero on error
@@ -118,10 +130,12 @@ Args:
         &#x27;len&#x27; length of the displayed frame axis (in model coordinates)
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.len_x(8.0000e-01)
-    | ensight.frame.len_y(8.3333e-01)
-    | ensight.frame.len_z(8.3333e-01)
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.len_x(8.0000e-01)
+        ensight.frame.len_y(8.3333e-01)
+        ensight.frame.len_z(8.3333e-01)
 
 Returns:
     zero on success, non-zero on error
@@ -136,10 +150,12 @@ Args:
         &#x27;len&#x27; length of the displayed frame axis (in model coordinates)
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.len_x(8.0000e-01)
-    | ensight.frame.len_y(8.3333e-01)
-    | ensight.frame.len_z(8.3333e-01)
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.len_x(8.0000e-01)
+        ensight.frame.len_y(8.3333e-01)
+        ensight.frame.len_z(8.3333e-01)
 
 Returns:
     zero on success, non-zero on error
@@ -154,10 +170,12 @@ Args:
         &#x27;len&#x27; length of the displayed frame axis (in model coordinates)
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.len_x(8.0000e-01)
-    | ensight.frame.len_y(8.3333e-01)
-    | ensight.frame.len_z(8.3333e-01)
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.len_x(8.0000e-01)
+        ensight.frame.len_y(8.3333e-01)
+        ensight.frame.len_z(8.3333e-01)
 
 Returns:
     zero on success, non-zero on error
@@ -172,8 +190,10 @@ Args:
         &#x27;width&#x27; number of pixels wide
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.line_width(3)
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.line_width(3)
 
 Returns:
     zero on success, non-zero on error
@@ -190,13 +210,15 @@ Args:
         &#x27;frame_command&#x27; any of the attribute changing frame: commands
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.modify_begin()
-    | ensight.frame.symmetry_type(&quot;translational&quot;)
-    | ensight.frame.symmetry_use_file(&quot;OFF&quot;)
-    | ensight.frame.symmetry_tinstances(2)
-    | ensight.frame.symmetry_delta(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.frame.modify_end()
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.modify_begin()
+        ensight.frame.symmetry_type(&quot;translational&quot;)
+        ensight.frame.symmetry_use_file(&quot;OFF&quot;)
+        ensight.frame.symmetry_tinstances(2)
+        ensight.frame.symmetry_delta(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.frame.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -213,13 +235,15 @@ Args:
         &#x27;frame_command&#x27; any of the attribute changing frame: commands
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.modify_begin()
-    | ensight.frame.symmetry_type(&quot;translational&quot;)
-    | ensight.frame.symmetry_use_file(&quot;OFF&quot;)
-    | ensight.frame.symmetry_tinstances(2)
-    | ensight.frame.symmetry_delta(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.frame.modify_end()
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.modify_begin()
+        ensight.frame.symmetry_type(&quot;translational&quot;)
+        ensight.frame.symmetry_use_file(&quot;OFF&quot;)
+        ensight.frame.symmetry_tinstances(2)
+        ensight.frame.symmetry_delta(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.frame.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -240,11 +264,13 @@ Args:
         &#x27;z_comp&#x27; x, y, z components of vector representing the frame axis.
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.origin(1.0000e+00,1.0000e+00,5.0000e-01)
-    | ensight.frame.orientation_x(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.frame.orientation_y(0.0000e+00,1.0000e+00,0.0000e+00)
-    | ensight.frame.orientation_z(0.0000e+00,0.0000e+00,1.0000e+00)
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.origin(1.0000e+00,1.0000e+00,5.0000e-01)
+        ensight.frame.orientation_x(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.frame.orientation_y(0.0000e+00,1.0000e+00,0.0000e+00)
+        ensight.frame.orientation_z(0.0000e+00,0.0000e+00,1.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -265,11 +291,13 @@ Args:
         &#x27;z_comp&#x27; x, y, z components of vector representing the frame axis.
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.origin(1.0000e+00,1.0000e+00,5.0000e-01)
-    | ensight.frame.orientation_x(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.frame.orientation_y(0.0000e+00,1.0000e+00,0.0000e+00)
-    | ensight.frame.orientation_z(0.0000e+00,0.0000e+00,1.0000e+00)
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.origin(1.0000e+00,1.0000e+00,5.0000e-01)
+        ensight.frame.orientation_x(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.frame.orientation_y(0.0000e+00,1.0000e+00,0.0000e+00)
+        ensight.frame.orientation_z(0.0000e+00,0.0000e+00,1.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -290,11 +318,13 @@ Args:
         &#x27;z_comp&#x27; x, y, z components of vector representing the frame axis.
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.origin(1.0000e+00,1.0000e+00,5.0000e-01)
-    | ensight.frame.orientation_x(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.frame.orientation_y(0.0000e+00,1.0000e+00,0.0000e+00)
-    | ensight.frame.orientation_z(0.0000e+00,0.0000e+00,1.0000e+00)
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.origin(1.0000e+00,1.0000e+00,5.0000e-01)
+        ensight.frame.orientation_x(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.frame.orientation_y(0.0000e+00,1.0000e+00,0.0000e+00)
+        ensight.frame.orientation_z(0.0000e+00,0.0000e+00,1.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -315,11 +345,13 @@ Args:
         &#x27;z_coord&#x27; model x, y, z coordinates of the origin of the frame
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.origin(1.0000e+00,1.0000e+00,5.0000e-01)
-    | ensight.frame.orientation_x(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.frame.orientation_y(0.0000e+00,1.0000e+00,0.0000e+00)
-    | ensight.frame.orientation_z(0.0000e+00,0.0000e+00,1.0000e+00)
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.origin(1.0000e+00,1.0000e+00,5.0000e-01)
+        ensight.frame.orientation_x(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.frame.orientation_y(0.0000e+00,1.0000e+00,0.0000e+00)
+        ensight.frame.orientation_z(0.0000e+00,0.0000e+00,1.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -338,8 +370,10 @@ Args:
         &#x27;blu_val&#x27;  red, green, and blue components between 0.0 and 1.0
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.rgb(1.0000e+00,0.0000e+00,3.9608e-01)
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.rgb(1.0000e+00,0.0000e+00,3.9608e-01)
 
 Returns:
     zero on success, non-zero on error
@@ -352,7 +386,9 @@ Selection of all visible frames.
 | Can be used to select all visible frames that subsequent frame commands will apply to.
 
 Examples:
-    | ensight.frame.select_all()
+    ::
+
+        ensight.frame.select_all()
 
 Returns:
     zero on success, non-zero on error
@@ -369,8 +405,10 @@ Args:
         &#x27;frameN&#x27; frame numbers
 
 Examples:
-    | ensight.frame.select_begin(1,2)
-    | ensight.frame.delete()
+    ::
+
+        ensight.frame.select_begin(1,2)
+        ensight.frame.delete()
 
 Returns:
     zero on success, non-zero on error
@@ -387,8 +425,10 @@ Args:
         &#x27;frameN&#x27; frame numbers
 
 Examples:
-    | ensight.frame.select_begin(1,2)
-    | ensight.frame.delete()
+    ::
+
+        ensight.frame.select_begin(1,2)
+        ensight.frame.delete()
 
 Returns:
     zero on success, non-zero on error
@@ -401,7 +441,9 @@ Deselects all frames, such that subsequent frame attribute commands will modify 
 | When a new frame is created, it uses default attributes.  This command allows you to change the defaults. 
 
 Examples:
-    | ensight.frame.select_default()
+    ::
+
+        ensight.frame.select_default()
 
 Returns:
     zero on success, non-zero on error
@@ -418,13 +460,15 @@ Args:
         &#x27;angle&#x27; angle, in degrees, between instances
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.modify_begin()
-    | ensight.frame.symmetry_type(&quot;rotational&quot;)
-    | ensight.frame.symmetry_angle(3.5000e+01)
-    | ensight.frame.symmetry_rinstances(2)
-    | ensight.frame.symmetry_use_file(&quot;OFF&quot;)
-    | ensight.frame.modify_end()
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.modify_begin()
+        ensight.frame.symmetry_type(&quot;rotational&quot;)
+        ensight.frame.symmetry_angle(3.5000e+01)
+        ensight.frame.symmetry_rinstances(2)
+        ensight.frame.symmetry_use_file(&quot;OFF&quot;)
+        ensight.frame.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -441,14 +485,16 @@ Args:
         &#x27;axis&#x27; major axis:   x, y, or z
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.modify_begin()
-    | ensight.frame.symmetry_type(&quot;rotational&quot;)
-    | ensight.frame.symmetry_angle(3.5000e+01)
-    | ensight.frame.symmetry_rinstances(2)
-    | ensight.frame.symmetry_use_file(&quot;OFF&quot;)
-    | ensight.frame.symmetry_axis(&quot;y&quot;)
-    | ensight.frame.modify_end()
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.modify_begin()
+        ensight.frame.symmetry_type(&quot;rotational&quot;)
+        ensight.frame.symmetry_angle(3.5000e+01)
+        ensight.frame.symmetry_rinstances(2)
+        ensight.frame.symmetry_use_file(&quot;OFF&quot;)
+        ensight.frame.symmetry_axis(&quot;y&quot;)
+        ensight.frame.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -469,13 +515,15 @@ Args:
         &#x27;del_z&#x27; x, y, z delta values (in model coordinates) between instances
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.modify_begin()
-    | ensight.frame.symmetry_type(&quot;translational&quot;)
-    | ensight.frame.symmetry_use_file(&quot;OFF&quot;)
-    | ensight.frame.symmetry_tinstances(2)
-    | ensight.frame.symmetry_delta(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.frame.modify_end()
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.modify_begin()
+        ensight.frame.symmetry_type(&quot;translational&quot;)
+        ensight.frame.symmetry_use_file(&quot;OFF&quot;)
+        ensight.frame.symmetry_tinstances(2)
+        ensight.frame.symmetry_delta(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.frame.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -493,13 +541,15 @@ Args:
         &#x27;filename&#x27; filename of periodic symmetry match file - should be a full path name.
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.modify_begin()
-    | ensight.frame.symmetry_type(&quot;rotational&quot;)
-    | ensight.frame.symmetry_rinstances(5)
-    | ensight.frame.symmetry_use_file(&quot;ON&quot;)
-    | ensight.frame.symmetry_file(&quot;/usr/tmp/model.trn_match&quot;)
-    | ensight.frame.modify_end()
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.modify_begin()
+        ensight.frame.symmetry_type(&quot;rotational&quot;)
+        ensight.frame.symmetry_rinstances(5)
+        ensight.frame.symmetry_use_file(&quot;ON&quot;)
+        ensight.frame.symmetry_file(&quot;/usr/tmp/model.trn_match&quot;)
+        ensight.frame.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -519,17 +569,19 @@ Args:
         * OFF
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.modify_begin()
-    | ensight.frame.symmetry_type(&quot;mirror&quot;)
-    | ensight.frame.symmetry_mirror_x(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_z(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_y(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_xy(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_yz(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_xz(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_xyz(&quot;OFF&quot;)
-    | ensight.frame.modify_end()
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.modify_begin()
+        ensight.frame.symmetry_type(&quot;mirror&quot;)
+        ensight.frame.symmetry_mirror_x(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_z(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_y(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_xy(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_yz(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_xz(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_xyz(&quot;OFF&quot;)
+        ensight.frame.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -549,17 +601,19 @@ Args:
         * OFF
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.modify_begin()
-    | ensight.frame.symmetry_type(&quot;mirror&quot;)
-    | ensight.frame.symmetry_mirror_x(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_z(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_y(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_xy(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_yz(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_xz(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_xyz(&quot;OFF&quot;)
-    | ensight.frame.modify_end()
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.modify_begin()
+        ensight.frame.symmetry_type(&quot;mirror&quot;)
+        ensight.frame.symmetry_mirror_x(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_z(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_y(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_xy(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_yz(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_xz(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_xyz(&quot;OFF&quot;)
+        ensight.frame.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -579,17 +633,19 @@ Args:
         * OFF
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.modify_begin()
-    | ensight.frame.symmetry_type(&quot;mirror&quot;)
-    | ensight.frame.symmetry_mirror_x(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_z(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_y(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_xy(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_yz(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_xz(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_xyz(&quot;OFF&quot;)
-    | ensight.frame.modify_end()
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.modify_begin()
+        ensight.frame.symmetry_type(&quot;mirror&quot;)
+        ensight.frame.symmetry_mirror_x(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_z(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_y(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_xy(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_yz(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_xz(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_xyz(&quot;OFF&quot;)
+        ensight.frame.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -609,17 +665,19 @@ Args:
         * OFF
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.modify_begin()
-    | ensight.frame.symmetry_type(&quot;mirror&quot;)
-    | ensight.frame.symmetry_mirror_x(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_z(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_y(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_xy(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_yz(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_xz(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_xyz(&quot;OFF&quot;)
-    | ensight.frame.modify_end()
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.modify_begin()
+        ensight.frame.symmetry_type(&quot;mirror&quot;)
+        ensight.frame.symmetry_mirror_x(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_z(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_y(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_xy(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_yz(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_xz(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_xyz(&quot;OFF&quot;)
+        ensight.frame.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -639,17 +697,19 @@ Args:
         * OFF
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.modify_begin()
-    | ensight.frame.symmetry_type(&quot;mirror&quot;)
-    | ensight.frame.symmetry_mirror_x(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_z(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_y(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_xy(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_yz(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_xz(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_xyz(&quot;OFF&quot;)
-    | ensight.frame.modify_end()
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.modify_begin()
+        ensight.frame.symmetry_type(&quot;mirror&quot;)
+        ensight.frame.symmetry_mirror_x(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_z(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_y(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_xy(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_yz(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_xz(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_xyz(&quot;OFF&quot;)
+        ensight.frame.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -669,17 +729,19 @@ Args:
         * OFF
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.modify_begin()
-    | ensight.frame.symmetry_type(&quot;mirror&quot;)
-    | ensight.frame.symmetry_mirror_x(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_z(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_y(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_xy(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_yz(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_xz(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_xyz(&quot;OFF&quot;)
-    | ensight.frame.modify_end()
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.modify_begin()
+        ensight.frame.symmetry_type(&quot;mirror&quot;)
+        ensight.frame.symmetry_mirror_x(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_z(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_y(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_xy(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_yz(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_xz(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_xyz(&quot;OFF&quot;)
+        ensight.frame.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -699,17 +761,19 @@ Args:
         * OFF
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.modify_begin()
-    | ensight.frame.symmetry_type(&quot;mirror&quot;)
-    | ensight.frame.symmetry_mirror_x(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_z(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_y(&quot;ON&quot;)
-    | ensight.frame.symmetry_mirror_xy(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_yz(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_xz(&quot;OFF&quot;)
-    | ensight.frame.symmetry_mirror_xyz(&quot;OFF&quot;)
-    | ensight.frame.modify_end()
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.modify_begin()
+        ensight.frame.symmetry_type(&quot;mirror&quot;)
+        ensight.frame.symmetry_mirror_x(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_z(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_y(&quot;ON&quot;)
+        ensight.frame.symmetry_mirror_xy(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_yz(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_xz(&quot;OFF&quot;)
+        ensight.frame.symmetry_mirror_xyz(&quot;OFF&quot;)
+        ensight.frame.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -726,13 +790,15 @@ Args:
         &#x27;num&#x27; number of instances
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.modify_begin()
-    | ensight.frame.symmetry_type(&quot;rotational&quot;)
-    | ensight.frame.symmetry_angle(3.5000e+01)
-    | ensight.frame.symmetry_rinstances(5)
-    | ensight.frame.symmetry_use_file(&quot;OFF&quot;)
-    | ensight.frame.modify_end()
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.modify_begin()
+        ensight.frame.symmetry_type(&quot;rotational&quot;)
+        ensight.frame.symmetry_angle(3.5000e+01)
+        ensight.frame.symmetry_rinstances(5)
+        ensight.frame.symmetry_use_file(&quot;OFF&quot;)
+        ensight.frame.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -749,13 +815,15 @@ Args:
         &#x27;num&#x27; number of instances
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.modify_begin()
-    | ensight.frame.symmetry_type(&quot;translational&quot;)
-    | ensight.frame.symmetry_use_file(&quot;OFF&quot;)
-    | ensight.frame.symmetry_tinstances(2)
-    | ensight.frame.symmetry_delta(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.frame.modify_end()
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.modify_begin()
+        ensight.frame.symmetry_type(&quot;translational&quot;)
+        ensight.frame.symmetry_use_file(&quot;OFF&quot;)
+        ensight.frame.symmetry_tinstances(2)
+        ensight.frame.symmetry_delta(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.frame.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -777,13 +845,15 @@ Args:
         * non
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.modify_begin()
-    | ensight.frame.symmetry_type(&quot;rotational&quot;)
-    | ensight.frame.symmetry_angle(3.5000e+01)
-    | ensight.frame.symmetry_rinstances(2)
-    | ensight.frame.symmetry_use_file(&quot;OFF&quot;)
-    | ensight.frame.modify_end()
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.modify_begin()
+        ensight.frame.symmetry_type(&quot;rotational&quot;)
+        ensight.frame.symmetry_angle(3.5000e+01)
+        ensight.frame.symmetry_rinstances(2)
+        ensight.frame.symmetry_use_file(&quot;OFF&quot;)
+        ensight.frame.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -804,13 +874,15 @@ Args:
         * OFF
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.modify_begin()
-    | ensight.frame.symmetry_type(&quot;rotational&quot;)
-    | ensight.frame.symmetry_rinstances(5)
-    | ensight.frame.symmetry_use_file(&quot;ON&quot;)
-    | ensight.frame.symmetry_file(&quot;/usr/tmp/model.trn_match&quot;)
-    | ensight.frame.modify_end()
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.modify_begin()
+        ensight.frame.symmetry_type(&quot;rotational&quot;)
+        ensight.frame.symmetry_rinstances(5)
+        ensight.frame.symmetry_use_file(&quot;ON&quot;)
+        ensight.frame.symmetry_file(&quot;/usr/tmp/model.trn_match&quot;)
+        ensight.frame.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -829,8 +901,10 @@ Args:
         * spherical
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.type(&quot;cylindrical&quot;)
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.type(&quot;cylindrical&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -848,8 +922,10 @@ Args:
         * OFF
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.visible(&quot;ON&quot;)
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.visible(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -867,13 +943,15 @@ Args:
         * OFF
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.x_labels(&quot;ON&quot;)
-    | ensight.frame.y_labels(&quot;ON&quot;)
-    | ensight.frame.z_labels(&quot;ON&quot;)
-    | ensight.frame.number_of_labels_x(3)
-    | ensight.frame.number_of_labels_y(4)
-    | ensight.frame.number_of_labels_z(3)
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.x_labels(&quot;ON&quot;)
+        ensight.frame.y_labels(&quot;ON&quot;)
+        ensight.frame.z_labels(&quot;ON&quot;)
+        ensight.frame.number_of_labels_x(3)
+        ensight.frame.number_of_labels_y(4)
+        ensight.frame.number_of_labels_z(3)
 
 Returns:
     zero on success, non-zero on error
@@ -891,13 +969,15 @@ Args:
         * OFF
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.x_labels(&quot;ON&quot;)
-    | ensight.frame.y_labels(&quot;ON&quot;)
-    | ensight.frame.z_labels(&quot;ON&quot;)
-    | ensight.frame.number_of_labels_x(3)
-    | ensight.frame.number_of_labels_y(4)
-    | ensight.frame.number_of_labels_z(3)
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.x_labels(&quot;ON&quot;)
+        ensight.frame.y_labels(&quot;ON&quot;)
+        ensight.frame.z_labels(&quot;ON&quot;)
+        ensight.frame.number_of_labels_x(3)
+        ensight.frame.number_of_labels_y(4)
+        ensight.frame.number_of_labels_z(3)
 
 Returns:
     zero on success, non-zero on error
@@ -915,13 +995,15 @@ Args:
         * OFF
 
 Examples:
-    | ensight.frame.select_begin(1)
-    | ensight.frame.x_labels(&quot;ON&quot;)
-    | ensight.frame.y_labels(&quot;ON&quot;)
-    | ensight.frame.z_labels(&quot;ON&quot;)
-    | ensight.frame.number_of_labels_x(3)
-    | ensight.frame.number_of_labels_y(4)
-    | ensight.frame.number_of_labels_z(3)
+    ::
+
+        ensight.frame.select_begin(1)
+        ensight.frame.x_labels(&quot;ON&quot;)
+        ensight.frame.y_labels(&quot;ON&quot;)
+        ensight.frame.z_labels(&quot;ON&quot;)
+        ensight.frame.number_of_labels_x(3)
+        ensight.frame.number_of_labels_y(4)
+        ensight.frame.number_of_labels_z(3)
 
 Returns:
     zero on success, non-zero on error

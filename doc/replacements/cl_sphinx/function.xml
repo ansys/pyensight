@@ -10,8 +10,10 @@ Args:
         &#x27;num&#x27; number of colors per level in the texture palette
 
 Examples:
-    | ensight.function.palette(&quot;temperature&quot;)
-    | ensight.function.number_of_colors(4)
+    ::
+
+        ensight.function.palette(&quot;temperature&quot;)
+        ensight.function.number_of_colors(4)
 
 Returns:
     zero on success, non-zero on error
@@ -28,32 +30,34 @@ Args:
         &#x27;num&#x27; number of levels in the palette
 
 Examples:
-    | ensight.function.palette(&quot;N_temperature&quot;)
-    | ensight.function.modify_begin()
-    | ensight.function.number_of_levels(6)
-    | ensight.function.edit_level(2)
-    | ensight.function.value(9.6464e+00)
-    | ensight.function.edit_level(3)
-    | ensight.function.value(1.9283e+01)
-    | ensight.function.edit_level(4)
-    | ensight.function.value(2.8919e+01)
-    | ensight.function.edit_level(5)
-    | ensight.function.value(3.8556e+01)
-    | ensight.function.edit_level(6)
-    | ensight.function.value(4.8192e+01)
-    | ensight.function.edit_level(1)
-    | ensight.function.rgb(5.0000e-01,0.0000e+00,1.0000e+00)
-    | ensight.function.edit_level(2)
-    | ensight.function.rgb(0.0000e+00,0.0000e+00,1.0000e+00)
-    | ensight.function.edit_level(3)
-    | ensight.function.rgb(0.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.function.edit_level(4)
-    | ensight.function.rgb(0.0000e+00,1.0000e+00,0.0000e+00)
-    | ensight.function.edit_level(5)
-    | ensight.function.rgb(1.0000e+00,1.0000e+00,0.0000e+00)
-    | ensight.function.edit_level(6)
-    | ensight.function.rgb(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.function.modify_end()
+    ::
+
+        ensight.function.palette(&quot;N_temperature&quot;)
+        ensight.function.modify_begin()
+        ensight.function.number_of_levels(6)
+        ensight.function.edit_level(2)
+        ensight.function.value(9.6464e+00)
+        ensight.function.edit_level(3)
+        ensight.function.value(1.9283e+01)
+        ensight.function.edit_level(4)
+        ensight.function.value(2.8919e+01)
+        ensight.function.edit_level(5)
+        ensight.function.value(3.8556e+01)
+        ensight.function.edit_level(6)
+        ensight.function.value(4.8192e+01)
+        ensight.function.edit_level(1)
+        ensight.function.rgb(5.0000e-01,0.0000e+00,1.0000e+00)
+        ensight.function.edit_level(2)
+        ensight.function.rgb(0.0000e+00,0.0000e+00,1.0000e+00)
+        ensight.function.edit_level(3)
+        ensight.function.rgb(0.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.function.edit_level(4)
+        ensight.function.rgb(0.0000e+00,1.0000e+00,0.0000e+00)
+        ensight.function.edit_level(5)
+        ensight.function.rgb(1.0000e+00,1.0000e+00,0.0000e+00)
+        ensight.function.edit_level(6)
+        ensight.function.rgb(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.function.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -158,32 +162,34 @@ Args:
         &#x27;num&#x27; level number (1 based, with 1 being the lowest level)
 
 Examples:
-    | ensight.function.palette(&quot;N_temperature&quot;)
-    | ensight.function.modify_begin()
-    | ensight.function.number_of_levels(6)
-    | ensight.function.edit_level(2)
-    | ensight.function.value(9.6464e+00)
-    | ensight.function.edit_level(3)
-    | ensight.function.value(1.9283e+01)
-    | ensight.function.edit_level(4)
-    | ensight.function.value(2.8919e+01)
-    | ensight.function.edit_level(5)
-    | ensight.function.value(3.8556e+01)
-    | ensight.function.edit_level(6)
-    | ensight.function.value(4.8192e+01)
-    | ensight.function.edit_level(1)
-    | ensight.function.rgb(5.0000e-01,0.0000e+00,1.0000e+00)
-    | ensight.function.edit_level(2)
-    | ensight.function.rgb(0.0000e+00,0.0000e+00,1.0000e+00)
-    | ensight.function.edit_level(3)
-    | ensight.function.rgb(0.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.function.edit_level(4)
-    | ensight.function.rgb(0.0000e+00,1.0000e+00,0.0000e+00)
-    | ensight.function.edit_level(5)
-    | ensight.function.rgb(1.0000e+00,1.0000e+00,0.0000e+00)
-    | ensight.function.edit_level(6)
-    | ensight.function.rgb(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.function.modify_end()
+    ::
+
+        ensight.function.palette(&quot;N_temperature&quot;)
+        ensight.function.modify_begin()
+        ensight.function.number_of_levels(6)
+        ensight.function.edit_level(2)
+        ensight.function.value(9.6464e+00)
+        ensight.function.edit_level(3)
+        ensight.function.value(1.9283e+01)
+        ensight.function.edit_level(4)
+        ensight.function.value(2.8919e+01)
+        ensight.function.edit_level(5)
+        ensight.function.value(3.8556e+01)
+        ensight.function.edit_level(6)
+        ensight.function.value(4.8192e+01)
+        ensight.function.edit_level(1)
+        ensight.function.rgb(5.0000e-01,0.0000e+00,1.0000e+00)
+        ensight.function.edit_level(2)
+        ensight.function.rgb(0.0000e+00,0.0000e+00,1.0000e+00)
+        ensight.function.edit_level(3)
+        ensight.function.rgb(0.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.function.edit_level(4)
+        ensight.function.rgb(0.0000e+00,1.0000e+00,0.0000e+00)
+        ensight.function.edit_level(5)
+        ensight.function.rgb(1.0000e+00,1.0000e+00,0.0000e+00)
+        ensight.function.edit_level(6)
+        ensight.function.rgb(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.function.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -203,11 +209,13 @@ Args:
         * by_invisible
 
 Examples:
-    | ensight.function.palette(&quot;N_temperature&quot;)
-    | ensight.function.modify_begin()
-    | ensight.function.type(&quot;continuous&quot;)
-    | ensight.function.limit_fringes(&quot;by_invisible&quot;)
-    | ensight.function.modify_end()
+    ::
+
+        ensight.function.palette(&quot;N_temperature&quot;)
+        ensight.function.modify_begin()
+        ensight.function.type(&quot;continuous&quot;)
+        ensight.function.limit_fringes(&quot;by_invisible&quot;)
+        ensight.function.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -222,21 +230,23 @@ Args:
         &#x27;function_commandN&#x27; any of the function commands which modify attributes
 
 Examples:
-    | ensight.function.palette(&quot;Stress&quot;)
-    | ensight.function.modify_begin()
-    | ensight.function.edit_level(1)
-    | ensight.function.rgb(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.function.edit_level(2)
-    | ensight.function.rgb(1.0000e+00,1.0000e+00,0.0000e+00)
-    | ensight.function.edit_level(3)
-    | ensight.function.rgb(0.0000e+00,1.0000e+00,0.0000e+00)
-    | ensight.function.edit_level(4)
-    | ensight.function.rgb(0.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.function.edit_level(5)
-    | ensight.function.rgb(0.0000e+00,0.0000e+00,1.0000e+00)
-    | ensight.function.edit_level(6)
-    | ensight.function.rgb(5.0000e-01,0.0000e+00,1.0000e+00)
-    | ensight.function.modify_end()
+    ::
+
+        ensight.function.palette(&quot;Stress&quot;)
+        ensight.function.modify_begin()
+        ensight.function.edit_level(1)
+        ensight.function.rgb(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.function.edit_level(2)
+        ensight.function.rgb(1.0000e+00,1.0000e+00,0.0000e+00)
+        ensight.function.edit_level(3)
+        ensight.function.rgb(0.0000e+00,1.0000e+00,0.0000e+00)
+        ensight.function.edit_level(4)
+        ensight.function.rgb(0.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.function.edit_level(5)
+        ensight.function.rgb(0.0000e+00,0.0000e+00,1.0000e+00)
+        ensight.function.edit_level(6)
+        ensight.function.rgb(5.0000e-01,0.0000e+00,1.0000e+00)
+        ensight.function.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -251,21 +261,23 @@ Args:
         &#x27;function_commandN&#x27; any of the function commands which modify attributes
 
 Examples:
-    | ensight.function.palette(&quot;Stress&quot;)
-    | ensight.function.modify_begin()
-    | ensight.function.edit_level(1)
-    | ensight.function.rgb(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.function.edit_level(2)
-    | ensight.function.rgb(1.0000e+00,1.0000e+00,0.0000e+00)
-    | ensight.function.edit_level(3)
-    | ensight.function.rgb(0.0000e+00,1.0000e+00,0.0000e+00)
-    | ensight.function.edit_level(4)
-    | ensight.function.rgb(0.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.function.edit_level(5)
-    | ensight.function.rgb(0.0000e+00,0.0000e+00,1.0000e+00)
-    | ensight.function.edit_level(6)
-    | ensight.function.rgb(5.0000e-01,0.0000e+00,1.0000e+00)
-    | ensight.function.modify_end()
+    ::
+
+        ensight.function.palette(&quot;Stress&quot;)
+        ensight.function.modify_begin()
+        ensight.function.edit_level(1)
+        ensight.function.rgb(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.function.edit_level(2)
+        ensight.function.rgb(1.0000e+00,1.0000e+00,0.0000e+00)
+        ensight.function.edit_level(3)
+        ensight.function.rgb(0.0000e+00,1.0000e+00,0.0000e+00)
+        ensight.function.edit_level(4)
+        ensight.function.rgb(0.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.function.edit_level(5)
+        ensight.function.rgb(0.0000e+00,0.0000e+00,1.0000e+00)
+        ensight.function.edit_level(6)
+        ensight.function.rgb(5.0000e-01,0.0000e+00,1.0000e+00)
+        ensight.function.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -289,10 +301,12 @@ Args:
         &#x27;end_step&#x27; The ending time step to consider for the time range.
 
 Examples:
-    | ensight.function.palette(&quot;Stress&quot;)
-    | ensight.function.over_time(&quot;ON&quot;,&quot;0&quot;,&quot;16&quot;)
-    | ensight.function.palette(&quot;Displacement&quot;)
-    | ensight.function.over_time(&quot;OFF&quot;)
+    ::
+
+        ensight.function.palette(&quot;Stress&quot;)
+        ensight.function.over_time(&quot;ON&quot;,&quot;0&quot;,&quot;16&quot;)
+        ensight.function.palette(&quot;Displacement&quot;)
+        ensight.function.over_time(&quot;OFF&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -309,22 +323,24 @@ Args:
         &#x27;palette_name&#x27; name of the palette (It will be the same as the variable, or variable component that it represents).
 
 Examples:
-    | ensight.function.palette(&quot;N_temperature&quot;)
-    | ensight.function.modify_begin()
-    | ensight.function.number_of_levels(4)
-    | ensight.function.edit_level(2)
-    | ensight.function.value(1.6064e+01)
-    | ensight.function.edit_level(3)
-    | ensight.function.value(3.2128e+01)
-    | ensight.function.edit_level(4)
-    | ensight.function.value(4.8192e+01)
-    | ensight.function.edit_level(2)
-    | ensight.function.rgb(0.0000e+00,1.0000e+00,6.6667e-01)
-    | ensight.function.edit_level(3)
-    | ensight.function.rgb(6.6667e-01,1.0000e+00,0.0000e+00)
-    | ensight.function.edit_level(4)
-    | ensight.function.rgb(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.function.modify_end()
+    ::
+
+        ensight.function.palette(&quot;N_temperature&quot;)
+        ensight.function.modify_begin()
+        ensight.function.number_of_levels(4)
+        ensight.function.edit_level(2)
+        ensight.function.value(1.6064e+01)
+        ensight.function.edit_level(3)
+        ensight.function.value(3.2128e+01)
+        ensight.function.edit_level(4)
+        ensight.function.value(4.8192e+01)
+        ensight.function.edit_level(2)
+        ensight.function.rgb(0.0000e+00,1.0000e+00,6.6667e-01)
+        ensight.function.edit_level(3)
+        ensight.function.rgb(6.6667e-01,1.0000e+00,0.0000e+00)
+        ensight.function.edit_level(4)
+        ensight.function.rgb(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.function.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -341,9 +357,10 @@ Args:
         &#x27;max&#x27; maximum value
 
 Examples:
-    | ensight.function.palette(&quot;temperature&quot;)
-    | ensight.function.range(0.0000e+00,9.6464e+00)
+    ::
 
+        ensight.function.palette(&quot;temperature&quot;)
+        ensight.function.range(0.0000e+00,9.6464e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -358,8 +375,10 @@ Args:
         &#x27;palette_filename&#x27; name of the file containing a palette definition
 
 Examples:
-    | ensight.function.restore(&quot;/usr/tmp/mystress.pal&quot;)
-    | ensight.function.palette(&quot;Stress&quot;)
+    ::
+
+        ensight.function.restore(&quot;/usr/tmp/mystress.pal&quot;)
+        ensight.function.palette(&quot;Stress&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -382,7 +401,9 @@ Args:
         &#x27;palette_name&#x27; name of the predefined palette to restore
 
 Examples:
-    | ensight.function.restore_predefinedpal(&quot;use_new_levels&quot;,&quot;mypal&quot;)
+    ::
+
+        ensight.function.restore_predefinedpal(&quot;use_new_levels&quot;,&quot;mypal&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -403,32 +424,34 @@ Args:
         &#x27;blu_val&#x27; red, green, blue components of color (0.0 to 1.0)
 
 Examples:
-    | ensight.function.palette(&quot;N_temperature&quot;)
-    | ensight.function.modify_begin()
-    | ensight.function.number_of_levels(6)
-    | ensight.function.edit_level(2)
-    | ensight.function.value(9.6464e+00)
-    | ensight.function.edit_level(3)
-    | ensight.function.value(1.9283e+01)
-    | ensight.function.edit_level(4)
-    | ensight.function.value(2.8919e+01)
-    | ensight.function.edit_level(5)
-    | ensight.function.value(3.8556e+01)
-    | ensight.function.edit_level(6)
-    | ensight.function.value(4.8192e+01)
-    | ensight.function.edit_level(1)
-    | ensight.function.rgb(5.0000e-01,0.0000e+00,1.0000e+00)
-    | ensight.function.edit_level(2)
-    | ensight.function.rgb(0.0000e+00,0.0000e+00,1.0000e+00)
-    | ensight.function.edit_level(3)
-    | ensight.function.rgb(0.0000e+00,1.0000e+00,1.0000e+00)
-    | ensight.function.edit_level(4)
-    | ensight.function.rgb(0.0000e+00,1.0000e+00,0.0000e+00)
-    | ensight.function.edit_level(5)
-    | ensight.function.rgb(1.0000e+00,1.0000e+00,0.0000e+00)
-    | ensight.function.edit_level(6)
-    | ensight.function.rgb(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.function.modify_end()
+    ::
+
+        ensight.function.palette(&quot;N_temperature&quot;)
+        ensight.function.modify_begin()
+        ensight.function.number_of_levels(6)
+        ensight.function.edit_level(2)
+        ensight.function.value(9.6464e+00)
+        ensight.function.edit_level(3)
+        ensight.function.value(1.9283e+01)
+        ensight.function.edit_level(4)
+        ensight.function.value(2.8919e+01)
+        ensight.function.edit_level(5)
+        ensight.function.value(3.8556e+01)
+        ensight.function.edit_level(6)
+        ensight.function.value(4.8192e+01)
+        ensight.function.edit_level(1)
+        ensight.function.rgb(5.0000e-01,0.0000e+00,1.0000e+00)
+        ensight.function.edit_level(2)
+        ensight.function.rgb(0.0000e+00,0.0000e+00,1.0000e+00)
+        ensight.function.edit_level(3)
+        ensight.function.rgb(0.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.function.edit_level(4)
+        ensight.function.rgb(0.0000e+00,1.0000e+00,0.0000e+00)
+        ensight.function.edit_level(5)
+        ensight.function.rgb(1.0000e+00,1.0000e+00,0.0000e+00)
+        ensight.function.edit_level(6)
+        ensight.function.rgb(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.function.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -443,9 +466,6 @@ Save the palette for the currently selected variable.
 Args:
     p0:
         &#x27;palette_filename&#x27; name of the file containing a palette definition
-
-Examples:
-
 
 Returns:
     zero on success, non-zero on error
@@ -462,6 +482,9 @@ Args:
         &#x27;palette_filename&#x27; name of the file containing palette definitions
 
 Examples:
+    ::
+
+        ensight.function.save_all(&quot;/usr/tmp/allmy.pal&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -479,6 +502,9 @@ Args:
         &#x27;palette_filename&#x27; name of the file containing palette definitions
 
 Examples:
+    ::
+
+        ensight.function.save_current_case(&quot;/usr/tmp/allmy.pal&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -498,6 +524,23 @@ Args:
         * logarithmic
 
 Examples:
+    ::
+
+        ensight.function.palette(&quot;N_temperature&quot;)
+        ensight.function.type(&quot;continuous&quot;)
+        ensight.function.modify_begin()
+        ensight.function.scale(&quot;quadratic&quot;)
+        ensight.function.edit_level(2)
+        ensight.function.value(1.9373e+00)
+        ensight.function.edit_level(3)
+        ensight.function.value(7.7191e+00)
+        ensight.function.edit_level(4)
+        ensight.function.value(1.7356e+01)
+        ensight.function.edit_level(5)
+        ensight.function.value(3.0846e+01)
+        ensight.function.edit_level(6)
+        ensight.function.value(4.8192e+01)
+        ensight.function.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -508,6 +551,20 @@ Returns:
 Set palette selection to none, so that subsequent function attribute commands will apply to the default.
 
 Examples:
+    ::
+
+        ensight.function.select_default()
+        ensight.function.number_of_levels(4)
+        ensight.function.modify_begin()
+        ensight.function.edit_level(1)
+        ensight.function.value(1.0000e-02)
+        ensight.function.edit_level(2)
+        ensight.function.value(1.6071e+01)
+        ensight.function.edit_level(3)
+        ensight.function.value(3.2131e+01)
+        ensight.function.edit_level(4)
+        ensight.function.value(4.8192e+01)
+        ensight.function.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -518,6 +575,9 @@ Returns:
 Set palette to the min/max of the variable. This allows the user to set the palette level values back to their original values or to newly computed min/max as may have been defined by the &quot;over_time&quot; toggle and it&#x27;s associated commands.
 
 Examples:
+    ::
+
+        ensight.function.set_palette_to_minmax()
 
 Returns:
     zero on success, non-zero on error
@@ -553,6 +613,10 @@ Args:
         * constant
 
 Examples:
+    ::
+
+        ensight.function.palette(&quot;N_temperature&quot;)
+        ensight.function.type(&quot;banded&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -569,6 +633,34 @@ Args:
         &#x27;var_value&#x27; variable value to assign to the level
 
 Examples:
+    ::
+
+        ensight.function.palette(&quot;N_temperature&quot;)
+        ensight.function.modify_begin()
+        ensight.function.number_of_levels(6)
+        ensight.function.edit_level(2)
+        ensight.function.value(9.6464e+00)
+        ensight.function.edit_level(3)
+        ensight.function.value(1.9283e+01)
+        ensight.function.edit_level(4)
+        ensight.function.value(2.8919e+01)
+        ensight.function.edit_level(5)
+        ensight.function.value(3.8556e+01)
+        ensight.function.edit_level(6)
+        ensight.function.value(4.8192e+01)
+        ensight.function.edit_level(1)
+        ensight.function.rgb(5.0000e-01,0.0000e+00,1.0000e+00)
+        ensight.function.edit_level(2)
+        ensight.function.rgb(0.0000e+00,0.0000e+00,1.0000e+00)
+        ensight.function.edit_level(3)
+        ensight.function.rgb(0.0000e+00,1.0000e+00,1.0000e+00)
+        ensight.function.edit_level(4)
+        ensight.function.rgb(0.0000e+00,1.0000e+00,0.0000e+00)
+        ensight.function.edit_level(5)
+        ensight.function.rgb(1.0000e+00,1.0000e+00,0.0000e+00)
+        ensight.function.edit_level(6)
+        ensight.function.rgb(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.function.modify_end()
 
 Returns:
     zero on success, non-zero on error

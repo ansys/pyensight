@@ -8,7 +8,9 @@ Args:
         &#x27;filename&#x27; file name of the first file as mapped in the extension-to-reader mapping file.
 
 Examples:
-    | ensight.data.add(&quot;/home/users/joe/project1/crash.geo&quot;)
+    ::
+
+        ensight.data.add(&quot;/home/users/joe/project1/crash.geo&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -31,13 +33,15 @@ Args:
         * native
 
 Examples:
-    | ensight.sendmesgoptions(version=&quot;8.20&quot;)
-    | ensight.data.binary_files_are(&quot;big_endian&quot;)
-    | ensight.data.format(&quot;ensight&quot;)
-    | ensight.data.path(&quot;/usr/tmp&quot;)
-    | ensight.data.geometry(&quot;ski_c.geo&quot;)
-    | ensight.data.result(&quot;ski_c.res&quot;)
-    | ensight.data.read()
+    ::
+
+        ensight.sendmesgoptions(version=&quot;8.20&quot;)
+        ensight.data.binary_files_are(&quot;big_endian&quot;)
+        ensight.data.format(&quot;ensight&quot;)
+        ensight.data.path(&quot;/usr/tmp&quot;)
+        ensight.data.geometry(&quot;ski_c.geo&quot;)
+        ensight.data.result(&quot;ski_c.res&quot;)
+        ensight.data.read()
 
 Returns:
     zero on success, non-zero on error
@@ -56,17 +60,19 @@ Args:
         &#x27;filename&#x27; boundary file name
 
 Examples:
-    | ensight.data.binary_files_are(&quot;big_endian&quot;)
-    | ensight.data.format(&quot;plot3d&quot;)
-    | ensight.data.plot3diblank(&quot;OFF&quot;)
-    | ensight.data.plot3dmulti_zone(&quot;ON&quot;)
-    | ensight.data.plot3dread_as(&quot;ascii&quot;)
-    | ensight.data.plot3ddimension(&quot;3d&quot;)
-    | ensight.data.path(&quot;/usr/tmp&quot;)
-    | ensight.data.geometry(&quot;single.grid&quot;)
-    | ensight.data.boundary(&quot;single.bnd&quot;)
-    | ensight.data.result(&quot;single.q&quot;)
-    | ensight.data.read()
+    ::
+
+        ensight.data.binary_files_are(&quot;big_endian&quot;)
+        ensight.data.format(&quot;plot3d&quot;)
+        ensight.data.plot3diblank(&quot;OFF&quot;)
+        ensight.data.plot3dmulti_zone(&quot;ON&quot;)
+        ensight.data.plot3dread_as(&quot;ascii&quot;)
+        ensight.data.plot3ddimension(&quot;3d&quot;)
+        ensight.data.path(&quot;/usr/tmp&quot;)
+        ensight.data.geometry(&quot;single.grid&quot;)
+        ensight.data.boundary(&quot;single.bnd&quot;)
+        ensight.data.result(&quot;single.q&quot;)
+        ensight.data.read()
 
 Returns:
     zero on success, non-zero on error
@@ -97,19 +103,21 @@ Args:
         * casesos
 
 Examples:
-    | #
-    | # Read a datafile in case format and load a part from it.
-    | #
-    | ensight.data.binary_files_are(&quot;big_endian&quot;)
-    | ensight.data.format(&quot;case&quot;)
-    | ensight.data.path(&quot;/usr/tmp&quot;)
-    | ensight.data.geometry(&quot;cube.case&quot;)
-    | ensight.data.read()
-    | ensight.data_partbuild.begin()
-    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
-    | ensight.data_partbuild.select_begin(1)
-    | ensight.data_partbuild.create()
-    | ensight.data_partbuild.end()
+    ::
+
+        #
+        # Read a datafile in case format and load a part from it.
+        #
+        ensight.data.binary_files_are(&quot;big_endian&quot;)
+        ensight.data.format(&quot;case&quot;)
+        ensight.data.path(&quot;/usr/tmp&quot;)
+        ensight.data.geometry(&quot;cube.case&quot;)
+        ensight.data.read()
+        ensight.data_partbuild.begin()
+        ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+        ensight.data_partbuild.select_begin(1)
+        ensight.data_partbuild.create()
+        ensight.data_partbuild.end()
 
 Returns:
     zero on success, non-zero on error
@@ -140,19 +148,21 @@ Args:
         * casesos
 
 Examples:
-    | #
-    | # Read a datafile in case format and load a part from it.
-    | #
-    | ensight.data.binary_files_are(&quot;big_endian&quot;)
-    | ensight.data.format(&quot;case&quot;)
-    | ensight.data.path(&quot;/usr/tmp&quot;)
-    | ensight.data.geometry(&quot;cube.case&quot;)
-    | ensight.data.read()
-    | ensight.data_partbuild.begin()
-    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
-    | ensight.data_partbuild.select_begin(1)
-    | ensight.data_partbuild.create()
-    | ensight.data_partbuild.end()
+    ::
+
+        #
+        # Read a datafile in case format and load a part from it.
+        #
+        ensight.data.binary_files_are(&quot;big_endian&quot;)
+        ensight.data.format(&quot;case&quot;)
+        ensight.data.path(&quot;/usr/tmp&quot;)
+        ensight.data.geometry(&quot;cube.case&quot;)
+        ensight.data.read()
+        ensight.data_partbuild.begin()
+        ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+        ensight.data_partbuild.select_begin(1)
+        ensight.data_partbuild.create()
+        ensight.data_partbuild.end()
 
 Returns:
     zero on success, non-zero on error
@@ -170,15 +180,17 @@ Args:
         &#x27;filename&#x27; geometry file name
 
 Examples:
-    | ensight.data.binary_files_are(&quot;big_endian&quot;)
-    | ensight.data.format(&quot;case&quot;)
-    | ensight.data.geometry(&quot;cube.case&quot;)
-    | ensight.data.read()
-    | ensight.data_partbuild.begin()
-    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
-    | ensight.data_partbuild.select_begin(1)
-    | ensight.data_partbuild.create()
-    | ensight.data_partbuild.end()
+    ::
+
+        ensight.data.binary_files_are(&quot;big_endian&quot;)
+        ensight.data.format(&quot;case&quot;)
+        ensight.data.geometry(&quot;cube.case&quot;)
+        ensight.data.read()
+        ensight.data_partbuild.begin()
+        ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+        ensight.data_partbuild.select_begin(1)
+        ensight.data_partbuild.create()
+        ensight.data_partbuild.end()
 
 Returns:
     zero on success, non-zero on error
@@ -197,18 +209,20 @@ Args:
         &#x27;filename&#x27; measured file name
 
 Examples:
-    | # Read a geometry file and a measured particle file and create a part.
-    | ensight.data.format(&quot;ensight&quot;)
-    | ensight.data.path(&quot;/usr/tmp&quot;)
-    | ensight.data.geometry(&quot;cube.geom&quot;)
-    | ensight.data.measured(&quot;cube.mres&quot;)
-    | ensight.data.start_time(1)
-    | ensight.data.read()
-    | ensight.data_partbuild.begin()
-    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
-    | ensight.data_partbuild.select_begin(1)
-    | ensight.data_partbuild.create()
-    | ensight.data_partbuild.end()
+    ::
+
+        # Read a geometry file and a measured particle file and create a part.
+        ensight.data.format(&quot;ensight&quot;)
+        ensight.data.path(&quot;/usr/tmp&quot;)
+        ensight.data.geometry(&quot;cube.geom&quot;)
+        ensight.data.measured(&quot;cube.mres&quot;)
+        ensight.data.start_time(1)
+        ensight.data.read()
+        ensight.data_partbuild.begin()
+        ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+        ensight.data_partbuild.select_begin(1)
+        ensight.data_partbuild.create()
+        ensight.data_partbuild.end()
 
 Returns:
     zero on success, non-zero on error
@@ -241,7 +255,7 @@ Returns:
 <description>
 Informs client that a new transient time step is available
 
-| Each time the command is called, it��s value must be increasing.
+| Each time the command is called, its value must be increasing.
 
 Args:
     p0:
@@ -255,7 +269,7 @@ Returns:
 <description>
 Informs client of last transient time step available
 
-| Each time the command is called, it��s value must be increasing.
+| Each time the command is called, its value must be increasing.
 
 Args:
     p0:
@@ -276,17 +290,19 @@ Args:
         &#x27;data_path&#x27; path to the data files
 
 Examples:
-    | # Read a data file located in /usr/tmp and load a part from it.
-    | ensight.data.binary_files_are(&quot;big_endian&quot;)
-    | ensight.data.format(&quot;case&quot;)
-    | ensight.data.path(&quot;/usr/tmp&quot;)
-    | ensight.data.geometry(&quot;cube.case&quot;)
-    | ensight.data.read()
-    | ensight.data_partbuild.begin()
-    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
-    | ensight.data_partbuild.select_begin(1)
-    | ensight.data_partbuild.create()
-    | ensight.data_partbuild.end()
+    ::
+
+        # Read a data file located in /usr/tmp and load a part from it.
+        ensight.data.binary_files_are(&quot;big_endian&quot;)
+        ensight.data.format(&quot;case&quot;)
+        ensight.data.path(&quot;/usr/tmp&quot;)
+        ensight.data.geometry(&quot;cube.case&quot;)
+        ensight.data.read()
+        ensight.data_partbuild.begin()
+        ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+        ensight.data_partbuild.select_begin(1)
+        ensight.data_partbuild.create()
+        ensight.data_partbuild.end()
 
 Returns:
     zero on success, non-zero on error
@@ -309,28 +325,30 @@ Args:
         * 3d
 
 Examples:
-    | #
-    | # Read a 3D plot3d file and extract a part.
-    | #
-    | ensight.data.format(&quot;plot3d&quot;)
-    | ensight.data.plot3diblank(&quot;OFF&quot;)
-    | ensight.data.plot3dmulti_zone(&quot;OFF&quot;)
-    | ensight.data.plot3dread_as(&quot;c_binary&quot;)
-    | ensight.data.plot3ddimension(&quot;3d&quot;)
-    | ensight.data.path(&quot;/usr/tmp&quot;)
-    | ensight.data.geometry(&quot;shuttle.xyz&quot;)
-    | ensight.data.result(&quot;shuttle.q&quot;)
-    | ensight.data.read()
-    | ensight.data_partbuild.begin()
-    | ensight.data_partbuild.data_type(&quot;structured&quot;)
-    | ensight.data_partbuild.select_begin(1)
-    | ensight.data_partbuild.domain(&quot;all&quot;)
-    | ensight.data_partbuild.noderange_i(1,52)
-    | ensight.data_partbuild.noderange_j(1,63)
-    | ensight.data_partbuild.noderange_k(1,1)
-    | ensight.data_partbuild.nodestep(1,1,1)
-    | ensight.data_partbuild.nodedelta(0,0,0)
-    | ensight.data_partbuild.create()
+    ::
+
+        #
+        # Read a 3D plot3d file and extract a part.
+        #
+        ensight.data.format(&quot;plot3d&quot;)
+        ensight.data.plot3diblank(&quot;OFF&quot;)
+        ensight.data.plot3dmulti_zone(&quot;OFF&quot;)
+        ensight.data.plot3dread_as(&quot;c_binary&quot;)
+        ensight.data.plot3ddimension(&quot;3d&quot;)
+        ensight.data.path(&quot;/usr/tmp&quot;)
+        ensight.data.geometry(&quot;shuttle.xyz&quot;)
+        ensight.data.result(&quot;shuttle.q&quot;)
+        ensight.data.read()
+        ensight.data_partbuild.begin()
+        ensight.data_partbuild.data_type(&quot;structured&quot;)
+        ensight.data_partbuild.select_begin(1)
+        ensight.data_partbuild.domain(&quot;all&quot;)
+        ensight.data_partbuild.noderange_i(1,52)
+        ensight.data_partbuild.noderange_j(1,63)
+        ensight.data_partbuild.noderange_k(1,1)
+        ensight.data_partbuild.nodestep(1,1,1)
+        ensight.data_partbuild.nodedelta(0,0,0)
+        ensight.data_partbuild.create()
 
 Returns:
     zero on success, non-zero on error
@@ -350,28 +368,30 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # Read a plot3d file with no iblanking and extract a part.
-    | #
-    | ensight.data.format(&quot;plot3d&quot;)
-    | ensight.data.plot3diblank(&quot;OFF&quot;)
-    | ensight.data.plot3dmulti_zone(&quot;OFF&quot;)
-    | ensight.data.plot3dread_as(&quot;c_binary&quot;)
-    | ensight.data.plot3ddimension(&quot;3d&quot;)
-    | ensight.data.path(&quot;/usr/tmp&quot;)
-    | ensight.data.geometry(&quot;shuttle.xyz&quot;)
-    | ensight.data.result(&quot;shuttle.q&quot;)
-    | ensight.data.read()
-    | ensight.data_partbuild.begin()
-    | ensight.data_partbuild.data_type(&quot;structured&quot;)
-    | ensight.data_partbuild.select_begin(1)
-    | ensight.data_partbuild.domain(&quot;all&quot;)
-    | ensight.data_partbuild.noderange_i(1,52)
-    | ensight.data_partbuild.noderange_j(1,63)
-    | ensight.data_partbuild.noderange_k(1,1)
-    | ensight.data_partbuild.nodestep(1,1,1)
-    | ensight.data_partbuild.nodedelta(0,0,0)
-    | ensight.data_partbuild.create()
+    ::
+
+        #
+        # Read a plot3d file with no iblanking and extract a part.
+        #
+        ensight.data.format(&quot;plot3d&quot;)
+        ensight.data.plot3diblank(&quot;OFF&quot;)
+        ensight.data.plot3dmulti_zone(&quot;OFF&quot;)
+        ensight.data.plot3dread_as(&quot;c_binary&quot;)
+        ensight.data.plot3ddimension(&quot;3d&quot;)
+        ensight.data.path(&quot;/usr/tmp&quot;)
+        ensight.data.geometry(&quot;shuttle.xyz&quot;)
+        ensight.data.result(&quot;shuttle.q&quot;)
+        ensight.data.read()
+        ensight.data_partbuild.begin()
+        ensight.data_partbuild.data_type(&quot;structured&quot;)
+        ensight.data_partbuild.select_begin(1)
+        ensight.data_partbuild.domain(&quot;all&quot;)
+        ensight.data_partbuild.noderange_i(1,52)
+        ensight.data_partbuild.noderange_j(1,63)
+        ensight.data_partbuild.noderange_k(1,1)
+        ensight.data_partbuild.nodestep(1,1,1)
+        ensight.data_partbuild.nodedelta(0,0,0)
+        ensight.data_partbuild.create()
 
 Returns:
     zero on success, non-zero on error
@@ -392,28 +412,30 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # Read a single zone plot3d file and extract a part.
-    | #
-    | ensight.data.format(&quot;plot3d&quot;)
-    | ensight.data.plot3diblank(&quot;OFF&quot;)
-    | ensight.data.plot3dmulti_zone(&quot;OFF&quot;)
-    | ensight.data.plot3dread_as(&quot;c_binary&quot;)
-    | ensight.data.plot3ddimension(&quot;3d&quot;)
-    | ensight.data.path(&quot;/usr/tmp&quot;)
-    | ensight.data.geometry(&quot;shuttle.xyz&quot;)
-    | ensight.data.result(&quot;shuttle.q&quot;)
-    | ensight.data.read()
-    | ensight.data_partbuild.begin()
-    | ensight.data_partbuild.data_type(&quot;structured&quot;)
-    | ensight.data_partbuild.select_begin(1)
-    | ensight.data_partbuild.domain(&quot;all&quot;)
-    | ensight.data_partbuild.noderange_i(1,52)
-    | ensight.data_partbuild.noderange_j(1,63)
-    | ensight.data_partbuild.noderange_k(1,1)
-    | ensight.data_partbuild.nodestep(1,1,1)
-    | ensight.data_partbuild.nodedelta(0,0,0)
-    | ensight.data_partbuild.create()
+    ::
+
+        #
+        # Read a single zone plot3d file and extract a part.
+        #
+        ensight.data.format(&quot;plot3d&quot;)
+        ensight.data.plot3diblank(&quot;OFF&quot;)
+        ensight.data.plot3dmulti_zone(&quot;OFF&quot;)
+        ensight.data.plot3dread_as(&quot;c_binary&quot;)
+        ensight.data.plot3ddimension(&quot;3d&quot;)
+        ensight.data.path(&quot;/usr/tmp&quot;)
+        ensight.data.geometry(&quot;shuttle.xyz&quot;)
+        ensight.data.result(&quot;shuttle.q&quot;)
+        ensight.data.read()
+        ensight.data_partbuild.begin()
+        ensight.data_partbuild.data_type(&quot;structured&quot;)
+        ensight.data_partbuild.select_begin(1)
+        ensight.data_partbuild.domain(&quot;all&quot;)
+        ensight.data_partbuild.noderange_i(1,52)
+        ensight.data_partbuild.noderange_j(1,63)
+        ensight.data_partbuild.noderange_k(1,1)
+        ensight.data_partbuild.nodestep(1,1,1)
+        ensight.data_partbuild.nodedelta(0,0,0)
+        ensight.data_partbuild.create()
 
 Returns:
     zero on success, non-zero on error
@@ -437,28 +459,30 @@ Args:
         * fortran_binary
 
 Examples:
-    | #
-    | # Read a c binary plot3d file and extract a part.
-    | #
-    | ensight.data.format(&quot;plot3d&quot;)
-    | ensight.data.plot3diblank(&quot;OFF&quot;)
-    | ensight.data.plot3dmulti_zone(&quot;OFF&quot;)
-    | ensight.data.plot3dread_as(&quot;c_binary&quot;)
-    | ensight.data.plot3ddimension(&quot;3d&quot;)
-    | ensight.data.path(&quot;/usr/tmp&quot;)
-    | ensight.data.geometry(&quot;shuttle.xyz&quot;)
-    | ensight.data.result(&quot;shuttle.q&quot;)
-    | ensight.data.read()
-    | ensight.data_partbuild.begin()
-    | ensight.data_partbuild.data_type(&quot;structured&quot;)
-    | ensight.data_partbuild.select_begin(1)
-    | ensight.data_partbuild.domain(&quot;all&quot;)
-    | ensight.data_partbuild.noderange_i(1,52)
-    | ensight.data_partbuild.noderange_j(1,63)
-    | ensight.data_partbuild.noderange_k(1,1)
-    | ensight.data_partbuild.nodestep(1,1,1)
-    | ensight.data_partbuild.nodedelta(0,0,0)
-    | ensight.data_partbuild.create()
+    ::
+
+        #
+        # Read a c binary plot3d file and extract a part.
+        #
+        ensight.data.format(&quot;plot3d&quot;)
+        ensight.data.plot3diblank(&quot;OFF&quot;)
+        ensight.data.plot3dmulti_zone(&quot;OFF&quot;)
+        ensight.data.plot3dread_as(&quot;c_binary&quot;)
+        ensight.data.plot3ddimension(&quot;3d&quot;)
+        ensight.data.path(&quot;/usr/tmp&quot;)
+        ensight.data.geometry(&quot;shuttle.xyz&quot;)
+        ensight.data.result(&quot;shuttle.q&quot;)
+        ensight.data.read()
+        ensight.data_partbuild.begin()
+        ensight.data_partbuild.data_type(&quot;structured&quot;)
+        ensight.data_partbuild.select_begin(1)
+        ensight.data_partbuild.domain(&quot;all&quot;)
+        ensight.data_partbuild.noderange_i(1,52)
+        ensight.data_partbuild.noderange_j(1,63)
+        ensight.data_partbuild.noderange_k(1,1)
+        ensight.data_partbuild.nodestep(1,1,1)
+        ensight.data_partbuild.nodedelta(0,0,0)
+        ensight.data_partbuild.create()
 
 Returns:
     zero on success, non-zero on error
@@ -471,19 +495,21 @@ Read the geometry, result, and/or measured data files.
 | The geometry and/or result and/or measured data file names must be set before making this call.
 
 Examples:
-    | #
-    | # Read a geometry and associated result file and create a part.
-    | #
-    | ensight.data.format(&quot;ensight&quot;)
-    | ensight.data.path(&quot;/usr/tmp&quot;)
-    | ensight.data.geometry(&quot;cube.geom&quot;)
-    | ensight.data.result(&quot;cube.res&quot;)
-    | ensight.data.read()
-    | ensight.data_partbuild.begin()
-    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
-    | ensight.data_partbuild.select_begin(1)
-    | ensight.data_partbuild.create()
-    | ensight.data_partbuild.end()
+    ::
+
+        #
+        # Read a geometry and associated result file and create a part.
+        #
+        ensight.data.format(&quot;ensight&quot;)
+        ensight.data.path(&quot;/usr/tmp&quot;)
+        ensight.data.geometry(&quot;cube.geom&quot;)
+        ensight.data.result(&quot;cube.res&quot;)
+        ensight.data.read()
+        ensight.data_partbuild.begin()
+        ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+        ensight.data_partbuild.select_begin(1)
+        ensight.data_partbuild.create()
+        ensight.data_partbuild.end()
 
 Returns:
     zero on success, non-zero on error
@@ -508,8 +534,10 @@ Args:
         &#x27;option&#x27; Name of the option and any data that describes the option state
 
 Examples:
-    | ensight.data.format(&quot;LS-DYNA3D_2.04&quot;)
-    | ensight.data.reader_option(&quot;&#x27;Enable Failed Elems&#x27; ON&quot;)
+    ::
+
+        ensight.data.format(&quot;LS-DYNA3D_2.04&quot;)
+        ensight.data.reader_option(&quot;&#x27;Enable Failed Elems&#x27; ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -524,7 +552,9 @@ Args:
         &#x27;filename&#x27; file name of the first file as mapped in the extension-to-reader mapping file.
 
 Examples:
-    | ensight.data.replace(&quot;/home/users/joe/project2/frame.case&quot;)
+    ::
+
+        ensight.data.replace(&quot;/home/users/joe/project2/frame.case&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -539,13 +569,15 @@ Args:
         &#x27;pathname&#x27; resource file name.
 
 Examples:
-    | ensight.data.binary_files_are(&quot;big_endian&quot;)
-    | ensight.data.format(&quot;case&quot;)
-    | ensight.data.shift_time(1.000000,0.000000,0.000000)
-    | ensight.data.resource(&quot;/usr/tmp/localhost.res&quot;)
-    | ensight.data.sos_pass_wildcards(&quot;YES&quot;)
-    | ensight.data.sos_auto_distrib(&quot;dont&quot;)
-    | ensight.data.replace(&quot;/usr/local/CEI/ensight92/data/ami/ami.case&quot;)
+    ::
+
+        ensight.data.binary_files_are(&quot;big_endian&quot;)
+        ensight.data.format(&quot;case&quot;)
+        ensight.data.shift_time(1.000000,0.000000,0.000000)
+        ensight.data.resource(&quot;/usr/tmp/localhost.res&quot;)
+        ensight.data.sos_pass_wildcards(&quot;YES&quot;)
+        ensight.data.sos_auto_distrib(&quot;dont&quot;)
+        ensight.data.replace(&quot;/usr/local/CEI/ensight92/data/ami/ami.case&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -564,29 +596,31 @@ Args:
         &#x27;filename&#x27; result file name
 
 Examples:
-    | #
-    | # Read a geometry and result file,
-    | # create a part,
-    | # rotate the scene,
-    | # and color the part by a variable
-    | #
-    | ensight.data.format(&quot;ensight&quot;)
-    | ensight.data.path(&quot;/usr/tmp&quot;)
-    | ensight.data.geometry(&quot;cube.geom&quot;)
-    | ensight.data.result(&quot;cube.res&quot;)
-    | ensight.data.read()
-    | ensight.data_partbuild.begin()
-    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
-    | ensight.data_partbuild.select_begin(1)
-    | ensight.data_partbuild.create()
-    | ensight.data_partbuild.end()
-    | ensight.view_transf.rotate(-91.339279,2.611849,0.000000)
-    | ensight.view_transf.rotate(18.749998,42.660221,0.000000)
-    | ensight.variables.activate(&quot;temperature&quot;)
-    | ensight.part.select_all()
-    | ensight.part.modify_begin()
-    | ensight.part.colorby_palette(&quot;temperature&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Read a geometry and result file,
+        # create a part,
+        # rotate the scene,
+        # and color the part by a variable
+        #
+        ensight.data.format(&quot;ensight&quot;)
+        ensight.data.path(&quot;/usr/tmp&quot;)
+        ensight.data.geometry(&quot;cube.geom&quot;)
+        ensight.data.result(&quot;cube.res&quot;)
+        ensight.data.read()
+        ensight.data_partbuild.begin()
+        ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+        ensight.data_partbuild.select_begin(1)
+        ensight.data_partbuild.create()
+        ensight.data_partbuild.end()
+        ensight.view_transf.rotate(-91.339279,2.611849,0.000000)
+        ensight.view_transf.rotate(18.749998,42.660221,0.000000)
+        ensight.variables.activate(&quot;temperature&quot;)
+        ensight.part.select_all()
+        ensight.part.modify_begin()
+        ensight.part.colorby_palette(&quot;temperature&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -613,13 +647,15 @@ Args:
         * reader
 
 Examples:
-    | ensight.data.binary_files_are(&quot;big_endian&quot;)
-    | ensight.data.format(&quot;case&quot;)
-    | ensight.data.shift_time(1.000000,0.000000,0.000000)
-    | ensight.data.resource(&quot;/usr/tmp/localhost.res&quot;)
-    | ensight.data.sos_pass_wildcards(&quot;NO&quot;)
-    | ensight.data.sos_auto_distrib(&quot;server&quot;)
-    | ensight.data.replace(&quot;/usr/tmp/decomposed_data.*.case&quot;)
+    ::
+
+        ensight.data.binary_files_are(&quot;big_endian&quot;)
+        ensight.data.format(&quot;case&quot;)
+        ensight.data.shift_time(1.000000,0.000000,0.000000)
+        ensight.data.resource(&quot;/usr/tmp/localhost.res&quot;)
+        ensight.data.sos_pass_wildcards(&quot;NO&quot;)
+        ensight.data.sos_auto_distrib(&quot;server&quot;)
+        ensight.data.replace(&quot;/usr/tmp/decomposed_data.*.case&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -637,13 +673,15 @@ Args:
         * NO - don&#x27;t pass the wild card symbol to the server; SOS will evaluate it.
 
 Examples:
-    | ensight.data.binary_files_are(&quot;big_endian&quot;)
-    | ensight.data.format(&quot;case&quot;)
-    | ensight.data.shift_time(1.000000,0.000000,0.000000)
-    | ensight.data.resource(&quot;/usr/tmp/localhost.res&quot;)
-    | ensight.data.sos_pass_wildcards(&quot;NO&quot;)
-    | ensight.data.sos_auto_distrib(&quot;server&quot;)
-    | ensight.data.replace(&quot;/usr/tmp/decomposed_data.*.case #&quot;)
+    ::
+
+        ensight.data.binary_files_are(&quot;big_endian&quot;)
+        ensight.data.format(&quot;case&quot;)
+        ensight.data.shift_time(1.000000,0.000000,0.000000)
+        ensight.data.resource(&quot;/usr/tmp/localhost.res&quot;)
+        ensight.data.sos_pass_wildcards(&quot;NO&quot;)
+        ensight.data.sos_auto_distrib(&quot;server&quot;)
+        ensight.data.replace(&quot;/usr/tmp/decomposed_data.*.case #&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -661,21 +699,23 @@ Args:
         &#x27;step_number&#x27; timestep to use for the initial data load. Values range from 1 (the first timestep) to N where N is the total number of timesteps supplied.
 
 Examples:
-    | #
-    | # Read a geometry file and a measured particle file
-    | # at the first timestep, then create a part.
-    | #
-    | ensight.data.format(&quot;ensight&quot;)
-    | ensight.data.path(&quot;/usr/tmp&quot;)
-    | ensight.data.geometry(&quot;cube.geom&quot;)
-    | ensight.data.measured(&quot;cube.mres&quot;)
-    | ensight.data.start_time(1)
-    | ensight.data.read()
-    | ensight.data_partbuild.begin()
-    | ensight.data_partbuild.data_type(&quot;unstructured&quot;)
-    | ensight.data_partbuild.select_begin(1)
-    | ensight.data_partbuild.create()
-    | ensight.data_partbuild.end()
+    ::
+
+        #
+        # Read a geometry file and a measured particle file
+        # at the first timestep, then create a part.
+        #
+        ensight.data.format(&quot;ensight&quot;)
+        ensight.data.path(&quot;/usr/tmp&quot;)
+        ensight.data.geometry(&quot;cube.geom&quot;)
+        ensight.data.measured(&quot;cube.mres&quot;)
+        ensight.data.start_time(1)
+        ensight.data.read()
+        ensight.data_partbuild.begin()
+        ensight.data_partbuild.data_type(&quot;unstructured&quot;)
+        ensight.data_partbuild.select_begin(1)
+        ensight.data_partbuild.create()
+        ensight.data_partbuild.end()
 
 Returns:
     zero on success, non-zero on error

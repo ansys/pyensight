@@ -10,27 +10,29 @@ Args:
         &#x27;var&#x27; name of the density variable
 
 Examples:
-    | #
-    | # Activating all variables in this case
-    | #
-    | ensight.variables.activate_all()
-    | #
-    | # Making extended variables available
-    | #
-    | ensight.varextcfd.show_extended(&quot;ON&quot;)
-    | #
-    | # Setting the basis variables and constants
-    | #
-    | ensight.varextcfd.modify_begin()
-    | ensight.varextcfd.density(&quot;Density&quot;)
-    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
-    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
-    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
-    | ensight.varextcfd.freestream_mach(1.0000e+00)
-    | ensight.varextcfd.gas_constant(1.0000e+00)
-    | ensight.varextcfd.freestream_density(1.0000e+00)
-    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
-    | ensight.varextcfd.modify_end()
+    ::
+
+        #
+        # Activating all variables in this case
+        #
+        ensight.variables.activate_all()
+        #
+        # Making extended variables available
+        #
+        ensight.varextcfd.show_extended(&quot;ON&quot;)
+        #
+        # Setting the basis variables and constants
+        #
+        ensight.varextcfd.modify_begin()
+        ensight.varextcfd.density(&quot;Density&quot;)
+        ensight.varextcfd.momentum(&quot;Momentum&quot;)
+        ensight.varextcfd.total_energy(&quot;Energy&quot;)
+        ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+        ensight.varextcfd.freestream_mach(1.0000e+00)
+        ensight.varextcfd.gas_constant(1.0000e+00)
+        ensight.varextcfd.freestream_density(1.0000e+00)
+        ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+        ensight.varextcfd.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -47,27 +49,29 @@ Args:
         &#x27;dens&#x27; desired value of the freestream density constant
 
 Examples:
-    | #
-    | # Activating all variables in this case
-    | #
-    | ensight.variables.activate_all()
-    | #
-    | # Making extended variables available
-    | #
-    | ensight.varextcfd.show_extended(&quot;ON&quot;)
-    | #
-    | # Setting the basis variables and constants
-    | #
-    | ensight.varextcfd.modify_begin()
-    | ensight.varextcfd.density(&quot;Density&quot;)
-    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
-    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
-    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
-    | ensight.varextcfd.freestream_mach(1.0000e+00)
-    | ensight.varextcfd.gas_constant(1.0000e+00)
-    | ensight.varextcfd.freestream_density(1.0000e+00)
-    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
-    | ensight.varextcfd.modify_end()
+    ::
+
+        #
+        # Activating all variables in this case
+        #
+        ensight.variables.activate_all()
+        #
+        # Making extended variables available
+        #
+        ensight.varextcfd.show_extended(&quot;ON&quot;)
+        #
+        # Setting the basis variables and constants
+        #
+        ensight.varextcfd.modify_begin()
+        ensight.varextcfd.density(&quot;Density&quot;)
+        ensight.varextcfd.momentum(&quot;Momentum&quot;)
+        ensight.varextcfd.total_energy(&quot;Energy&quot;)
+        ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+        ensight.varextcfd.freestream_mach(1.0000e+00)
+        ensight.varextcfd.gas_constant(1.0000e+00)
+        ensight.varextcfd.freestream_density(1.0000e+00)
+        ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+        ensight.varextcfd.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -84,27 +88,29 @@ Args:
         &#x27;num&#x27; desired value of the freestream mach number constant
 
 Examples:
-    | #
-    | # Activating all variables in this case
-    | #
-    | ensight.variables.activate_all()
-    | #
-    | # Making extended variables available
-    | #
-    | ensight.varextcfd.show_extended(&quot;ON&quot;)
-    | #
-    | # Setting the basis variables and constants
-    | #
-    | ensight.varextcfd.modify_begin()
-    | ensight.varextcfd.density(&quot;Density&quot;)
-    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
-    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
-    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
-    | ensight.varextcfd.freestream_mach(1.0000e+00)
-    | ensight.varextcfd.gas_constant(1.0000e+00)
-    | ensight.varextcfd.freestream_density(1.0000e+00)
-    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
-    | ensight.varextcfd.modify_end()
+    ::
+
+        #
+        # Activating all variables in this case
+        #
+        ensight.variables.activate_all()
+        #
+        # Making extended variables available
+        #
+        ensight.varextcfd.show_extended(&quot;ON&quot;)
+        #
+        # Setting the basis variables and constants
+        #
+        ensight.varextcfd.modify_begin()
+        ensight.varextcfd.density(&quot;Density&quot;)
+        ensight.varextcfd.momentum(&quot;Momentum&quot;)
+        ensight.varextcfd.total_energy(&quot;Energy&quot;)
+        ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+        ensight.varextcfd.freestream_mach(1.0000e+00)
+        ensight.varextcfd.gas_constant(1.0000e+00)
+        ensight.varextcfd.freestream_density(1.0000e+00)
+        ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+        ensight.varextcfd.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -121,27 +127,29 @@ Args:
         &#x27;num&#x27; desired value of the freestream speed of sound constant
 
 Examples:
-    | #
-    | # Activating all variables in this case
-    | #
-    | ensight.variables.activate_all()
-    | #
-    | # Making extended variables available
-    | #
-    | ensight.varextcfd.show_extended(&quot;ON&quot;)
-    | #
-    | # Setting the basis variables and constants
-    | #
-    | ensight.varextcfd.modify_begin()
-    | ensight.varextcfd.density(&quot;Density&quot;)
-    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
-    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
-    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
-    | ensight.varextcfd.freestream_mach(1.0000e+00)
-    | ensight.varextcfd.gas_constant(1.0000e+00)
-    | ensight.varextcfd.freestream_density(1.0000e+00)
-    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
-    | ensight.varextcfd.modify_end()
+    ::
+
+        #
+        # Activating all variables in this case
+        #
+        ensight.variables.activate_all()
+        #
+        # Making extended variables available
+        #
+        ensight.varextcfd.show_extended(&quot;ON&quot;)
+        #
+        # Setting the basis variables and constants
+        #
+        ensight.varextcfd.modify_begin()
+        ensight.varextcfd.density(&quot;Density&quot;)
+        ensight.varextcfd.momentum(&quot;Momentum&quot;)
+        ensight.varextcfd.total_energy(&quot;Energy&quot;)
+        ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+        ensight.varextcfd.freestream_mach(1.0000e+00)
+        ensight.varextcfd.gas_constant(1.0000e+00)
+        ensight.varextcfd.freestream_density(1.0000e+00)
+        ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+        ensight.varextcfd.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -158,27 +166,29 @@ Args:
         &#x27;num&#x27; desired value of the gas constant
 
 Examples:
-    | #
-    | # Activating all variables in this case
-    | #
-    | ensight.variables.activate_all()
-    | #
-    | # Making extended variables available
-    | #
-    | ensight.varextcfd.show_extended(&quot;ON&quot;)
-    | #
-    | # Setting the basis variables and constants
-    | #
-    | ensight.varextcfd.modify_begin()
-    | ensight.varextcfd.density(&quot;Density&quot;)
-    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
-    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
-    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
-    | ensight.varextcfd.freestream_mach(1.0000e+00)
-    | ensight.varextcfd.gas_constant(1.0000e+00)
-    | ensight.varextcfd.freestream_density(1.0000e+00)
-    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
-    | ensight.varextcfd.modify_end()
+    ::
+
+        #
+        # Activating all variables in this case
+        #
+        ensight.variables.activate_all()
+        #
+        # Making extended variables available
+        #
+        ensight.varextcfd.show_extended(&quot;ON&quot;)
+        #
+        # Setting the basis variables and constants
+        #
+        ensight.varextcfd.modify_begin()
+        ensight.varextcfd.density(&quot;Density&quot;)
+        ensight.varextcfd.momentum(&quot;Momentum&quot;)
+        ensight.varextcfd.total_energy(&quot;Energy&quot;)
+        ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+        ensight.varextcfd.freestream_mach(1.0000e+00)
+        ensight.varextcfd.gas_constant(1.0000e+00)
+        ensight.varextcfd.freestream_density(1.0000e+00)
+        ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+        ensight.varextcfd.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -196,27 +206,29 @@ Args:
         &#x27;varextcfd_command&#x27; any of the varextcfd commands
 
 Examples:
-    | #
-    | # Activating all variables in this case
-    | #
-    | ensight.variables.activate_all()
-    | #
-    | # Making extended variables available
-    | #
-    | ensight.varextcfd.show_extended(&quot;ON&quot;)
-    | #
-    | # Setting the basis variables and constants
-    | #
-    | ensight.varextcfd.modify_begin()
-    | ensight.varextcfd.density(&quot;Density&quot;)
-    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
-    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
-    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
-    | ensight.varextcfd.freestream_mach(1.0000e+00)
-    | ensight.varextcfd.gas_constant(1.0000e+00)
-    | ensight.varextcfd.freestream_density(1.0000e+00)
-    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
-    | ensight.varextcfd.modify_end()
+    ::
+
+        #
+        # Activating all variables in this case
+        #
+        ensight.variables.activate_all()
+        #
+        # Making extended variables available
+        #
+        ensight.varextcfd.show_extended(&quot;ON&quot;)
+        #
+        # Setting the basis variables and constants
+        #
+        ensight.varextcfd.modify_begin()
+        ensight.varextcfd.density(&quot;Density&quot;)
+        ensight.varextcfd.momentum(&quot;Momentum&quot;)
+        ensight.varextcfd.total_energy(&quot;Energy&quot;)
+        ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+        ensight.varextcfd.freestream_mach(1.0000e+00)
+        ensight.varextcfd.gas_constant(1.0000e+00)
+        ensight.varextcfd.freestream_density(1.0000e+00)
+        ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+        ensight.varextcfd.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -234,27 +246,29 @@ Args:
         &#x27;varextcfd_command&#x27; any of the varextcfd commands
 
 Examples:
-    | #
-    | # Activating all variables in this case
-    | #
-    | ensight.variables.activate_all()
-    | #
-    | # Making extended variables available
-    | #
-    | ensight.varextcfd.show_extended(&quot;ON&quot;)
-    | #
-    | # Setting the basis variables and constants
-    | #
-    | ensight.varextcfd.modify_begin()
-    | ensight.varextcfd.density(&quot;Density&quot;)
-    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
-    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
-    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
-    | ensight.varextcfd.freestream_mach(1.0000e+00)
-    | ensight.varextcfd.gas_constant(1.0000e+00)
-    | ensight.varextcfd.freestream_density(1.0000e+00)
-    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
-    | ensight.varextcfd.modify_end()
+    ::
+
+        #
+        # Activating all variables in this case
+        #
+        ensight.variables.activate_all()
+        #
+        # Making extended variables available
+        #
+        ensight.varextcfd.show_extended(&quot;ON&quot;)
+        #
+        # Setting the basis variables and constants
+        #
+        ensight.varextcfd.modify_begin()
+        ensight.varextcfd.density(&quot;Density&quot;)
+        ensight.varextcfd.momentum(&quot;Momentum&quot;)
+        ensight.varextcfd.total_energy(&quot;Energy&quot;)
+        ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+        ensight.varextcfd.freestream_mach(1.0000e+00)
+        ensight.varextcfd.gas_constant(1.0000e+00)
+        ensight.varextcfd.freestream_density(1.0000e+00)
+        ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+        ensight.varextcfd.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -271,27 +285,29 @@ Args:
         &#x27;var&#x27; name of the momentum variable
 
 Examples:
-    | #
-    | # Activating all variables in this case
-    | #
-    | ensight.variables.activate_all()
-    | #
-    | # Making extended variables available
-    | #
-    | ensight.varextcfd.show_extended(&quot;ON&quot;)
-    | #
-    | # Setting the basis variables and constants
-    | #
-    | ensight.varextcfd.modify_begin()
-    | ensight.varextcfd.density(&quot;Density&quot;)
-    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
-    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
-    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
-    | ensight.varextcfd.freestream_mach(1.0000e+00)
-    | ensight.varextcfd.gas_constant(1.0000e+00)
-    | ensight.varextcfd.freestream_density(1.0000e+00)
-    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
-    | ensight.varextcfd.modify_end()
+    ::
+
+        #
+        # Activating all variables in this case
+        #
+        ensight.variables.activate_all()
+        #
+        # Making extended variables available
+        #
+        ensight.varextcfd.show_extended(&quot;ON&quot;)
+        #
+        # Setting the basis variables and constants
+        #
+        ensight.varextcfd.modify_begin()
+        ensight.varextcfd.density(&quot;Density&quot;)
+        ensight.varextcfd.momentum(&quot;Momentum&quot;)
+        ensight.varextcfd.total_energy(&quot;Energy&quot;)
+        ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+        ensight.varextcfd.freestream_mach(1.0000e+00)
+        ensight.varextcfd.gas_constant(1.0000e+00)
+        ensight.varextcfd.freestream_density(1.0000e+00)
+        ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+        ensight.varextcfd.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -308,27 +324,29 @@ Args:
         &#x27;var or num&#x27; name of the ratio of specific heat variable, or the value to use as a constant
 
 Examples:
-    | #
-    | # Activating all variables in this case
-    | #
-    | ensight.variables.activate_all()
-    | #
-    | # Making extended variables available
-    | #
-    | ensight.varextcfd.show_extended(&quot;ON&quot;)
-    | #
-    | # Setting the basis variables and constants
-    | #
-    | ensight.varextcfd.modify_begin()
-    | ensight.varextcfd.density(&quot;Density&quot;)
-    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
-    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
-    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
-    | ensight.varextcfd.freestream_mach(1.0000e+00)
-    | ensight.varextcfd.gas_constant(1.0000e+00)
-    | ensight.varextcfd.freestream_density(1.0000e+00)
-    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
-    | ensight.varextcfd.modify_end()
+    ::
+
+        #
+        # Activating all variables in this case
+        #
+        ensight.variables.activate_all()
+        #
+        # Making extended variables available
+        #
+        ensight.varextcfd.show_extended(&quot;ON&quot;)
+        #
+        # Setting the basis variables and constants
+        #
+        ensight.varextcfd.modify_begin()
+        ensight.varextcfd.density(&quot;Density&quot;)
+        ensight.varextcfd.momentum(&quot;Momentum&quot;)
+        ensight.varextcfd.total_energy(&quot;Energy&quot;)
+        ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+        ensight.varextcfd.freestream_mach(1.0000e+00)
+        ensight.varextcfd.gas_constant(1.0000e+00)
+        ensight.varextcfd.freestream_density(1.0000e+00)
+        ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+        ensight.varextcfd.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -348,27 +366,29 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # Activating all variables in this case
-    | #
-    | ensight.variables.activate_all()
-    | #
-    | # Making extended variables available
-    | #
-    | ensight.varextcfd.show_extended(&quot;ON&quot;)
-    | #
-    | # Setting the basis variables and constants
-    | #
-    | ensight.varextcfd.modify_begin()
-    | ensight.varextcfd.density(&quot;Density&quot;)
-    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
-    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
-    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
-    | ensight.varextcfd.freestream_mach(1.0000e+00)
-    | ensight.varextcfd.gas_constant(1.0000e+00)
-    | ensight.varextcfd.freestream_density(1.0000e+00)
-    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
-    | ensight.varextcfd.modify_end()
+    ::
+
+        #
+        # Activating all variables in this case
+        #
+        ensight.variables.activate_all()
+        #
+        # Making extended variables available
+        #
+        ensight.varextcfd.show_extended(&quot;ON&quot;)
+        #
+        # Setting the basis variables and constants
+        #
+        ensight.varextcfd.modify_begin()
+        ensight.varextcfd.density(&quot;Density&quot;)
+        ensight.varextcfd.momentum(&quot;Momentum&quot;)
+        ensight.varextcfd.total_energy(&quot;Energy&quot;)
+        ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+        ensight.varextcfd.freestream_mach(1.0000e+00)
+        ensight.varextcfd.gas_constant(1.0000e+00)
+        ensight.varextcfd.freestream_density(1.0000e+00)
+        ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+        ensight.varextcfd.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -385,27 +405,29 @@ Args:
         &#x27;var&#x27; name of the total_energy variable
 
 Examples:
-    | #
-    | # Activating all variables in this case
-    | #
-    | ensight.variables.activate_all()
-    | #
-    | # Making extended variables available
-    | #
-    | ensight.varextcfd.show_extended(&quot;ON&quot;)
-    | #
-    | # Setting the basis variables and constants
-    | #
-    | ensight.varextcfd.modify_begin()
-    | ensight.varextcfd.density(&quot;Density&quot;)
-    | ensight.varextcfd.momentum(&quot;Momentum&quot;)
-    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
-    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
-    | ensight.varextcfd.freestream_mach(1.0000e+00)
-    | ensight.varextcfd.gas_constant(1.0000e+00)
-    | ensight.varextcfd.freestream_density(1.0000e+00)
-    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
-    | ensight.varextcfd.modify_end()
+    ::
+
+        #
+        # Activating all variables in this case
+        #
+        ensight.variables.activate_all()
+        #
+        # Making extended variables available
+        #
+        ensight.varextcfd.show_extended(&quot;ON&quot;)
+        #
+        # Setting the basis variables and constants
+        #
+        ensight.varextcfd.modify_begin()
+        ensight.varextcfd.density(&quot;Density&quot;)
+        ensight.varextcfd.momentum(&quot;Momentum&quot;)
+        ensight.varextcfd.total_energy(&quot;Energy&quot;)
+        ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+        ensight.varextcfd.freestream_mach(1.0000e+00)
+        ensight.varextcfd.gas_constant(1.0000e+00)
+        ensight.varextcfd.freestream_density(1.0000e+00)
+        ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+        ensight.varextcfd.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -422,27 +444,29 @@ Args:
         &#x27;var&#x27; name of the velocity variable
 
 Examples:
-    | #
-    | # Activating all variables in this case
-    | #
-    | ensight.variables.activate_all()
-    | #
-    | # Making extended variables available
-    | #
-    | ensight.varextcfd.show_extended(&quot;ON&quot;)
-    | #
-    | # Setting the basis variables and constants
-    | #
-    | ensight.varextcfd.modify_begin()
-    | ensight.varextcfd.density(&quot;Density&quot;)
-    | ensight.varextcfd.velocity(&quot;Velocity&quot;)
-    | ensight.varextcfd.total_energy(&quot;Energy&quot;)
-    | ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
-    | ensight.varextcfd.freestream_mach(1.0000e+00)
-    | ensight.varextcfd.gas_constant(1.0000e+00)
-    | ensight.varextcfd.freestream_density(1.0000e+00)
-    | ensight.varextcfd.freestream_speed_sound(1.0000e+00)
-    | ensight.varextcfd.modify_end()
+    ::
+
+        #
+        # Activating all variables in this case
+        #
+        ensight.variables.activate_all()
+        #
+        # Making extended variables available
+        #
+        ensight.varextcfd.show_extended(&quot;ON&quot;)
+        #
+        # Setting the basis variables and constants
+        #
+        ensight.varextcfd.modify_begin()
+        ensight.varextcfd.density(&quot;Density&quot;)
+        ensight.varextcfd.velocity(&quot;Velocity&quot;)
+        ensight.varextcfd.total_energy(&quot;Energy&quot;)
+        ensight.varextcfd.ratio_of_spec_heat(&quot;1.4000e+00&quot;)
+        ensight.varextcfd.freestream_mach(1.0000e+00)
+        ensight.varextcfd.gas_constant(1.0000e+00)
+        ensight.varextcfd.freestream_density(1.0000e+00)
+        ensight.varextcfd.freestream_speed_sound(1.0000e+00)
+        ensight.varextcfd.modify_end()
 
 Returns:
     zero on success, non-zero on error

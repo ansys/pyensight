@@ -6,22 +6,24 @@ Delimit the modifications for separation or attachment line attributes.
 | These commands are used to set the attributes for a separation or attachment line part creation.
 
 Examples:
-    | #
-    | # Specify the 2D parent part(s) from which
-    | # to create the separation and attachment lines
-    | #
-    | ensight.part.select_begin(2,3)
-    | #
-    | # Compute the separation and attachment lines parts
-    | #
-    | ensight.sepattach.begin()
-    | ensight.sepattach.end()
-    | ensight.sepattach.create()
-    | #
-    | # Now select the newly created separation and 
-    | # attachment line parts for subsequent operations
-    | #
-    | ensight.part.select_begin(6,7)
+    ::
+
+        #
+        # Specify the 2D parent part(s) from which
+        # to create the separation and attachment lines
+        #
+        ensight.part.select_begin(2,3)
+        #
+        # Compute the separation and attachment lines parts
+        #
+        ensight.sepattach.begin()
+        ensight.sepattach.end()
+        ensight.sepattach.create()
+        #
+        # Now select the newly created separation and 
+        # attachment line parts for subsequent operations
+        #
+        ensight.part.select_begin(6,7)
 
 Returns:
     zero on success, non-zero on error
@@ -34,22 +36,24 @@ Delimit the modifications for separation or attachment line attributes.
 | These commands are used to set the attributes for a separation or attachment line part creation.
 
 Examples:
-    | #
-    | # Specify the 2D parent part(s) from which
-    | # to create the separation and attachment lines
-    | #
-    | ensight.part.select_begin(2,3)
-    | #
-    | # Compute the separation and attachment lines parts
-    | #
-    | ensight.sepattach.begin()
-    | ensight.sepattach.end()
-    | ensight.sepattach.create()
-    | #
-    | # Now select the newly created separation and 
-    | # attachment line parts for subsequent operations
-    | #
-    | ensight.part.select_begin(6,7)
+    ::
+
+        #
+        # Specify the 2D parent part(s) from which
+        # to create the separation and attachment lines
+        #
+        ensight.part.select_begin(2,3)
+        #
+        # Compute the separation and attachment lines parts
+        #
+        ensight.sepattach.begin()
+        ensight.sepattach.end()
+        ensight.sepattach.create()
+        #
+        # Now select the newly created separation and 
+        # attachment line parts for subsequent operations
+        #
+        ensight.part.select_begin(6,7)
 
 Returns:
     zero on success, non-zero on error
@@ -62,22 +66,24 @@ Create separation and attachment line parts using the currently selected 2D part
 | This feature is different from other features in that it creates two parts, i.e. a separation line part, and an attachment line part.  In addition, both of these parts are modified with any command change applied to either one or both of these parts.
 
 Examples:
-    | #
-    | # Specify the 2D parent part(s) from which
-    | # to create the separation and attachment lines
-    | #
-    | ensight.part.select_begin(2,3)
-    | #
-    | # Compute the separation and attachment lines parts
-    | #
-    | ensight.sepattach.begin()
-    | ensight.sepattach.end()
-    | ensight.sepattach.create()
-    | #
-    | # Now select the newly created separation and 
-    | # attachment line parts for subsequent operations
-    | #
-    | ensight.part.select_begin(6,7)
+    ::
+
+        #
+        # Specify the 2D parent part(s) from which
+        # to create the separation and attachment lines
+        #
+        ensight.part.select_begin(2,3)
+        #
+        # Compute the separation and attachment lines parts
+        #
+        ensight.sepattach.begin()
+        ensight.sepattach.end()
+        ensight.sepattach.create()
+        #
+        # Now select the newly created separation and 
+        # attachment line parts for subsequent operations
+        #
+        ensight.part.select_begin(6,7)
 
 Returns:
     zero on success, non-zero on error
@@ -94,11 +100,13 @@ Args:
         &#x27;variable_name&#x27; name of the density variable (the default &lt;none&gt; means to use nothing)
 
 Examples:
-    | ensight.variables.activate(&quot;Density&quot;)
-    | ensight.sepattach.select_default()
-    | ensight.part.modify_begin()
-    | ensight.sepattach.density(&quot;Density&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.variables.activate(&quot;Density&quot;)
+        ensight.sepattach.select_default()
+        ensight.part.modify_begin()
+        ensight.sepattach.density(&quot;Density&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -115,9 +123,11 @@ Args:
         &#x27;offset_value&#x27; numerical offset value from the 2D surface, (default = 0.)
 
 Examples:
-    | ensight.part.modify_begin()
-    | ensight.sepattach.display_offset(-1.0000e-03)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.modify_begin()
+        ensight.sepattach.display_offset(-1.0000e-03)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -136,10 +146,12 @@ Args:
         * phase_plane
 
 Examples:
-    | ensight.part.select_begin(6,7)
-    | ensight.part.modify_begin()
-    | ensight.sepattach.method(&quot;phase_plane&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(6,7)
+        ensight.part.modify_begin()
+        ensight.sepattach.method(&quot;phase_plane&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -156,11 +168,13 @@ Args:
         &#x27;variable_name&#x27; name of the momentum variable (the default &lt;none&gt; means to use nothing)
 
 Examples:
-    | ensight.variables.activate(&quot;Momentum&quot;)
-    | ensight.sepattach.select_default()
-    | ensight.part.modify_begin()
-    | ensight.sepattach.momentum(&quot;Momentum&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.variables.activate(&quot;Momentum&quot;)
+        ensight.sepattach.select_default()
+        ensight.part.modify_begin()
+        ensight.sepattach.momentum(&quot;Momentum&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -179,10 +193,12 @@ Args:
         &#x27;value&#x27; constant value (default = 1.4) for the ratio of specific heats
 
 Examples:
-    | ensight.sepattach.select_default()
-    | ensight.part.modify_begin()
-    | ensight.sepattach.ratio_of_spec_heat(1.4)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.sepattach.select_default()
+        ensight.part.modify_begin()
+        ensight.sepattach.ratio_of_spec_heat(1.4)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -193,10 +209,12 @@ Returns:
 Specify that the default attributes of the separation and attachment line parts are to be set for all subsequent separation and attachment line creates and updates.
 
 Examples:
-    | ensight.sepattach.select_default()
-    | ensight.part.modify_begin()
-    | ensight.sepattach.momentum(&quot;none&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.sepattach.select_default()
+        ensight.part.modify_begin()
+        ensight.sepattach.momentum(&quot;none&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -213,10 +231,12 @@ Args:
         &#x27;variable_name&#x27; name of the scalar variable by which to filter the vortex core segments
 
 Examples:
-    | ensight.part.select_begin(5)
-    | ensight.part.modify_begin()
-    | ensight.sepattach.threshold(&quot;Density&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(5)
+        ensight.part.modify_begin()
+        ensight.sepattach.threshold(&quot;Density&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -234,10 +254,12 @@ Args:
         * &gt;=
 
 Examples:
-    | ensight.part.select_begin(5)
-    | ensight.part.modify_begin()
-    | ensight.sepattach.threshold_filter(&quot;&gt;=&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(5)
+        ensight.part.modify_begin()
+        ensight.sepattach.threshold_filter(&quot;&gt;=&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -254,10 +276,12 @@ Args:
         &#x27;threshold_value&#x27; maximum/minimum threshold variable range limit below which to threshold the separation and attachment lines parts
 
 Examples:
-    | ensight.part.select_begin(5)
-    | ensight.part.modify_begin()
-    | ensight.sepattach.threshold_max(1.0000e+01)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(5)
+        ensight.part.modify_begin()
+        ensight.sepattach.threshold_max(1.0000e+01)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -274,10 +298,12 @@ Args:
         &#x27;threshold_value&#x27; maximum/minimum threshold variable range limit below which to threshold the separation and attachment lines parts
 
 Examples:
-    | ensight.part.select_begin(5)
-    | ensight.part.modify_begin()
-    | ensight.sepattach.threshold_max(1.0000e+01)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(5)
+        ensight.part.modify_begin()
+        ensight.sepattach.threshold_max(1.0000e+01)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -294,10 +320,12 @@ Args:
         &#x27;threshold_value&#x27; variable value by which to apply the threshold filter to the vortex core segments
 
 Examples:
-    | ensight.part.select_begin(5)
-    | ensight.part.modify_begin()
-    | ensight.sepattach.threshold_value(5.0000e-01)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(5)
+        ensight.part.modify_begin()
+        ensight.sepattach.threshold_value(5.0000e-01)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -314,11 +342,13 @@ Args:
         &#x27;variable_name&#x27; name of the velocity variable (the default &lt;none&gt; means to use nothing)
 
 Examples:
-    | ensight.variables.activate(&quot;Velocity&quot;)
-    | ensight.sepattach.select_default()
-    | ensight.part.modify_begin()
-    | ensight.sepattach.velocity(&quot;Velocity&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.variables.activate(&quot;Velocity&quot;)
+        ensight.sepattach.select_default()
+        ensight.part.modify_begin()
+        ensight.sepattach.velocity(&quot;Velocity&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error

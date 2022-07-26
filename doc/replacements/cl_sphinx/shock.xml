@@ -10,41 +10,45 @@ Args:
         &#x27;shock_command&#x27; &quot;shock: variable&quot; commands
 
 Examples:
-    | #
-    | # Specify the 3D parent part(s) 
-    | # from which to create the shock part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Compute the shock part by the Surface method
-    | #
-    | ensight.shock.begin()
-    | ensight.shock.variable(&quot;Pressure&quot;)
-    | ensight.shock.end()
-    | ensight.shock.create()
-    | #
-    | # Now select the newly created shock part 
-    | # for subsequent operations
-    | #
-    | ensight.part.select_begin(5)
+    ::
 
-    | #
-    | # Specify the 3D parent part(s) 
-    | # from which to create the shock part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Compute the shock part by the Region method
-    | #
-    | ensight.shock.begin()
-    | ensight.shock.variable(&quot;none&quot;)
-    | ensight.shock.end()
-    | ensight.shock.create()
-    | #
-    | # Now select the newly created shock part 
-    | # for subsequent operations
-    | #
-    | ensight.part.select_begin(5)
+        #
+        # Specify the 3D parent part(s) 
+        # from which to create the shock part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Compute the shock part by the Surface method
+        #
+        ensight.shock.begin()
+        ensight.shock.variable(&quot;Pressure&quot;)
+        ensight.shock.end()
+        ensight.shock.create()
+        #
+        # Now select the newly created shock part 
+        # for subsequent operations
+        #
+        ensight.part.select_begin(5)
+
+    ::
+
+        #
+        # Specify the 3D parent part(s) 
+        # from which to create the shock part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Compute the shock part by the Region method
+        #
+        ensight.shock.begin()
+        ensight.shock.variable(&quot;none&quot;)
+        ensight.shock.end()
+        ensight.shock.create()
+        #
+        # Now select the newly created shock part 
+        # for subsequent operations
+        #
+        ensight.part.select_begin(5)
 
 Returns:
     zero on success, non-zero on error
@@ -61,41 +65,45 @@ Args:
         &#x27;shock_command&#x27; &quot;shock: variable&quot; commands
 
 Examples:
-    | #
-    | # Specify the 3D parent part(s) 
-    | # from which to create the shock part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Compute the shock part by the Surface method
-    | #
-    | ensight.shock.begin()
-    | ensight.shock.variable(&quot;Pressure&quot;)
-    | ensight.shock.end()
-    | ensight.shock.create()
-    | #
-    | # Now select the newly created shock part 
-    | # for subsequent operations
-    | #
-    | ensight.part.select_begin(5)
+    ::
 
-    | #
-    | # Specify the 3D parent part(s) 
-    | # from which to create the shock part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Compute the shock part by the Region method
-    | #
-    | ensight.shock.begin()
-    | ensight.shock.variable(&quot;none&quot;)
-    | ensight.shock.end()
-    | ensight.shock.create()
-    | #
-    | # Now select the newly created shock part 
-    | # for subsequent operations
-    | #
-    | ensight.part.select_begin(5)
+        #
+        # Specify the 3D parent part(s) 
+        # from which to create the shock part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Compute the shock part by the Surface method
+        #
+        ensight.shock.begin()
+        ensight.shock.variable(&quot;Pressure&quot;)
+        ensight.shock.end()
+        ensight.shock.create()
+        #
+        # Now select the newly created shock part 
+        # for subsequent operations
+        #
+        ensight.part.select_begin(5)
+
+    ::
+
+        #
+        # Specify the 3D parent part(s) 
+        # from which to create the shock part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Compute the shock part by the Region method
+        #
+        ensight.shock.begin()
+        ensight.shock.variable(&quot;none&quot;)
+        ensight.shock.end()
+        ensight.shock.create()
+        #
+        # Now select the newly created shock part 
+        # for subsequent operations
+        #
+        ensight.part.select_begin(5)
 
 Returns:
     zero on success, non-zero on error
@@ -106,23 +114,25 @@ Returns:
 Create a shock part with the currently defined attributes using the currently selected 3D part(s).
 
 Examples:
-    | #
-    | # Specify the 3D parent part(s)
-    | # from which to create the shock part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Compute the shock part by the Surface method
-    | #
-    | ensight.shock.begin()
-    | ensight.shock.variable(&quot;Pressure&quot;)
-    | ensight.shock.end()
-    | ensight.shock.create()
-    | #
-    | # Now select the newly created shock part 
-    | # for subsequent operations
-    | #
-    | ensight.part.select_begin(5)
+    ::
+
+        #
+        # Specify the 3D parent part(s)
+        # from which to create the shock part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Compute the shock part by the Surface method
+        #
+        ensight.shock.begin()
+        ensight.shock.variable(&quot;Pressure&quot;)
+        ensight.shock.end()
+        ensight.shock.create()
+        #
+        # Now select the newly created shock part 
+        # for subsequent operations
+        #
+        ensight.part.select_begin(5)
 
 Returns:
     zero on success, non-zero on error
@@ -140,11 +150,13 @@ Args:
         &#x27;variable_name&#x27; name of the density variable (the default name &lt;none&gt; means to use nothing)
 
 Examples:
-    | ensight.variables.activate(&quot;Density&quot;)
-    | ensight.shock.select_default()
-    | ensight.part.modify_begin()
-    | ensight.shock.density(&quot;Density&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.variables.activate(&quot;Density&quot;)
+        ensight.shock.select_default()
+        ensight.part.modify_begin()
+        ensight.shock.density(&quot;Density&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -161,11 +173,13 @@ Args:
         &#x27;variable_name&#x27; name of the enthalpy variable (the default name &lt;none&gt; means to use nothing).
 
 Examples:
-    | ensight.variables.activate(&quot;Enthalpy&quot;)
-    | ensight.shock.select_default()
-    | ensight.part.modify_begin()
-    | ensight.shock.density(&quot;Enthalpy&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.variables.activate(&quot;Enthalpy&quot;)
+        ensight.shock.select_default()
+        ensight.part.modify_begin()
+        ensight.shock.density(&quot;Enthalpy&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -182,10 +196,12 @@ Args:
         &#x27;value&#x27; a constant value (default =1.) for the gas constant
 
 Examples:
-    | ensight.shock.select_default()
-    | ensight.part.modify_begin()
-    | ensight.shock.gas_constant(1.)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.shock.select_default()
+        ensight.part.modify_begin()
+        ensight.shock.gas_constant(1.)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -202,11 +218,13 @@ Args:
         &#x27;variable_name&#x27; name of the mach variable (the default name &lt;none&gt; means to use nothing)
 
 Examples:
-    | ensight.variables.activate(&quot;Mach&quot;)
-    | ensight.vortexcore.select_default()
-    | ensight.part.modify_begin()
-    | ensight.vortexcore.density(&quot;Mach&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.variables.activate(&quot;Mach&quot;)
+        ensight.vortexcore.select_default()
+        ensight.part.modify_begin()
+        ensight.vortexcore.density(&quot;Mach&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -226,10 +244,12 @@ Args:
         * surface
 
 Examples:
-    | ensight.part.select_begin(8)
-    | ensight.part.modify_begin()
-    | ensight.shock.method(&quot;region&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(8)
+        ensight.part.modify_begin()
+        ensight.shock.method(&quot;region&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -247,11 +267,13 @@ Args:
         &#x27;variable_name&#x27; name of the momentum variable (the default name &lt;none&gt; means to use nothing
 
 Examples:
-    | ensight.variables.activate(&quot;momentum&quot;)
-    | ensight.shock.select_default()
-    | ensight.part.modify_begin()
-    | ensight.shock.momentum(&quot;momentum&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.variables.activate(&quot;momentum&quot;)
+        ensight.shock.select_default()
+        ensight.part.modify_begin()
+        ensight.shock.momentum(&quot;momentum&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -268,11 +290,13 @@ Args:
         &#x27;variable_name&#x27; name of the pressure variable (the default name &lt;none&gt; means to use nothing
 
 Examples:
-    | ensight.variables.activate(&quot;Pressure&quot;)
-    | ensight.shock.select_default()
-    | ensight.part.modify_begin()
-    | ensight.shock.pressure(&quot;Pressure&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.variables.activate(&quot;Pressure&quot;)
+        ensight.shock.select_default()
+        ensight.part.modify_begin()
+        ensight.shock.pressure(&quot;Pressure&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -289,10 +313,12 @@ Args:
         &#x27;value&#x27; a constant value (default = 1.4) for the ratio of specific heats
 
 Examples:
-    | ensight.shock.select_default()
-    | ensight.part.modify_begin()
-    | ensight.shock.ratio_of_spec_heat(1.4)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.shock.select_default()
+        ensight.part.modify_begin()
+        ensight.shock.ratio_of_spec_heat(1.4)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -303,10 +329,12 @@ Returns:
 Specify that the default attributes of the shock part are to be set for all subsequent shock attribute  updates.
 
 Examples:
-    | ensight.vortexcore.select_default()
-    | ensight.part.modify_begin()
-    | ensight.shock.momentum(&quot;none&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.vortexcore.select_default()
+        ensight.part.modify_begin()
+        ensight.shock.momentum(&quot;none&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -324,11 +352,13 @@ Args:
         &#x27;variable_name&#x27; name of the temperature variable (the default name &lt;none&gt; means to use nothing
 
 Examples:
-    | ensight.variables.activate(&quot;Temperature&quot;)
-    | ensight.shock.select_default()
-    | ensight.part.modify_begin()
-    | ensight.shock.momentum(&quot;Temperature&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.variables.activate(&quot;Temperature&quot;)
+        ensight.shock.select_default()
+        ensight.part.modify_begin()
+        ensight.shock.momentum(&quot;Temperature&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -345,10 +375,12 @@ Args:
         &#x27;variable_name&#x27; name of the scalar variable by which to filter the vortex core segments
 
 Examples:
-    | ensight.part.select_begin(8)
-    | ensight.part.modify_begin()
-    | ensight.shock.threshold(&quot;Density&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(8)
+        ensight.part.modify_begin()
+        ensight.shock.threshold(&quot;Density&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -366,10 +398,12 @@ Args:
         * &gt;=
 
 Examples:
-    | ensight.part.select_begin(8)
-    | ensight.part.modify_begin()
-    | ensight.shock.threshold_filter(&quot;&gt;=&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(8)
+        ensight.part.modify_begin()
+        ensight.shock.threshold_filter(&quot;&gt;=&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -386,11 +420,13 @@ Args:
         &#x27;threshold_value&#x27; maximum/minimum threshold variable range limit below/above which to threshold the shock part
 
 Examples:
-    | ensight.part.select_begin(8)
-    | ensight.part.modify_begin()
-    | ensight.shock.threshold_min(0.1)
-    | ensight.shock.threshold_max(10.0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(8)
+        ensight.part.modify_begin()
+        ensight.shock.threshold_min(0.1)
+        ensight.shock.threshold_max(10.0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -407,11 +443,13 @@ Args:
         &#x27;threshold_value&#x27; maximum/minimum threshold variable range limit below/above which to threshold the shock part
 
 Examples:
-    | ensight.part.select_begin(8)
-    | ensight.part.modify_begin()
-    | ensight.shock.threshold_min(0.1)
-    | ensight.shock.threshold_max(10.0)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(8)
+        ensight.part.modify_begin()
+        ensight.shock.threshold_min(0.1)
+        ensight.shock.threshold_max(10.0)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -429,10 +467,12 @@ Args:
         &#x27;threshold_value&#x27; variable value by which to apply the threshold filter to the shock elements
 
 Examples:
-    | ensight.part.select_begin(8)
-    | ensight.part.modify_begin()
-    | ensight.shock.threshold_value(5.0000e-01)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(8)
+        ensight.part.modify_begin()
+        ensight.shock.threshold_value(5.0000e-01)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -450,11 +490,13 @@ Args:
         &#x27;variable_name&#x27; name of the total energy variable (the default &lt;none&gt; means to use nothing)
 
 Examples:
-    | ensight.variables.activate(&quot;TotalEnergy&quot;)
-    | ensight.vortexcore.select_default()
-    | ensight.part.modify_begin()
-    | ensight.shock.velocity(&quot;TotalEnergy&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.variables.activate(&quot;TotalEnergy&quot;)
+        ensight.vortexcore.select_default()
+        ensight.part.modify_begin()
+        ensight.shock.velocity(&quot;TotalEnergy&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -472,41 +514,45 @@ Args:
         &#x27;variable_name&#x27; name of the variable in which to use as the creation variable or the variable in which to apply the gradient calculations for the shock function
 
 Examples:
-    | #
-    | # Specify the 3D parent part(s) 
-    | # from which to create the shock part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Compute the shock part by the Surface method
-    | #
-    | ensight.shock.begin()
-    | ensight.shock.variable(&quot;Pressure&quot;)
-    | ensight.shock.end()
-    | ensight.shock.create()
-    | #
-    | # Now select the newly created shock part 
-    | # for subsequent operations
-    | #
-    | ensight.part.select_begin(5)
+    ::
 
-    | #
-    | # Specify the 3D parent part(s) 
-    | # from which to create the shock part
-    | #
-    | ensight.part.select_begin(1)
-    | #
-    | # Compute the shock part by the Region method
-    | #
-    | ensight.shock.begin()
-    | ensight.shock.variable(&quot;none&quot;)
-    | ensight.shock.end()
-    | ensight.shock.create()
-    | #
-    | # Now select the newly created shock part 
-    | # for subsequent operations
-    | #
-    | ensight.part.select_begin(5)
+        #
+        # Specify the 3D parent part(s) 
+        # from which to create the shock part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Compute the shock part by the Surface method
+        #
+        ensight.shock.begin()
+        ensight.shock.variable(&quot;Pressure&quot;)
+        ensight.shock.end()
+        ensight.shock.create()
+        #
+        # Now select the newly created shock part 
+        # for subsequent operations
+        #
+        ensight.part.select_begin(5)
+
+    ::
+
+        #
+        # Specify the 3D parent part(s) 
+        # from which to create the shock part
+        #
+        ensight.part.select_begin(1)
+        #
+        # Compute the shock part by the Region method
+        #
+        ensight.shock.begin()
+        ensight.shock.variable(&quot;none&quot;)
+        ensight.shock.end()
+        ensight.shock.create()
+        #
+        # Now select the newly created shock part 
+        # for subsequent operations
+        #
+        ensight.part.select_begin(5)
 
 Returns:
     zero on success, non-zero on error
@@ -523,11 +569,13 @@ Args:
         &#x27;variable_name&#x27; name of the velocity variable (the default &lt;none&gt; means to use nothing)
 
 Examples:
-    | ensight.variables.activate(&quot;Velocity&quot;)
-    | ensight.shock.select_default()
-    | ensight.part.modify_begin()
-    | ensight.shock.velocity(&quot;Velocity&quot;)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.variables.activate(&quot;Velocity&quot;)
+        ensight.shock.select_default()
+        ensight.part.modify_begin()
+        ensight.shock.velocity(&quot;Velocity&quot;)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error

@@ -11,26 +11,28 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # turn on keyframe animation
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | #
-    | # move the camera to the right one half revolution
-    | #
-    | ensight.anim_quick.fly_around(&quot;ON&quot;)
-    | ensight.anim_quick.fly_direction(&quot;right&quot;)
-    | ensight.anim_quick.fly_revolutions(0.5)
-    | #
-    | # accelerate at the first keyframe but not at the last
-    | #
-    | ensight.anim_quick.accelerate_first(&quot;ON&quot;)
-    | ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
-    | #
-    | # create a total of 125 frames 
-    | # 
-    | ensight.anim_quick.total_frames(125)
-    | ensight.anim_quick.create_keyframes()
+    ::
+
+        #
+        # turn on keyframe animation
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        #
+        # move the camera to the right one half revolution
+        #
+        ensight.anim_quick.fly_around(&quot;ON&quot;)
+        ensight.anim_quick.fly_direction(&quot;right&quot;)
+        ensight.anim_quick.fly_revolutions(0.5)
+        #
+        # accelerate at the first keyframe but not at the last
+        #
+        ensight.anim_quick.accelerate_first(&quot;ON&quot;)
+        ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
+        #
+        # create a total of 125 frames 
+        # 
+        ensight.anim_quick.total_frames(125)
+        ensight.anim_quick.create_keyframes()
 
 Returns:
     zero on success, non-zero on error
@@ -48,26 +50,28 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # turn on keyframe animation
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | #
-    | # move the camera to the right one half revolution
-    | #
-    | ensight.anim_quick.fly_around(&quot;ON&quot;)
-    | ensight.anim_quick.fly_direction(&quot;right&quot;)
-    | ensight.anim_quick.fly_revolutions(0.5)
-    | #
-    | # accelerate at the first keyframe but not at the last
-    | #
-    | ensight.anim_quick.accelerate_first(&quot;ON&quot;)
-    | ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
-    | #
-    | # create a total of 125 frames 
-    | # 
-    | ensight.anim_quick.total_frames(125)
-    | ensight.anim_quick.create_keyframes()
+    ::
+
+        #
+        # turn on keyframe animation
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        #
+        # move the camera to the right one half revolution
+        #
+        ensight.anim_quick.fly_around(&quot;ON&quot;)
+        ensight.anim_quick.fly_direction(&quot;right&quot;)
+        ensight.anim_quick.fly_revolutions(0.5)
+        #
+        # accelerate at the first keyframe but not at the last
+        #
+        ensight.anim_quick.accelerate_first(&quot;ON&quot;)
+        ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
+        #
+        # create a total of 125 frames 
+        # 
+        ensight.anim_quick.total_frames(125)
+        ensight.anim_quick.create_keyframes()
 
 Returns:
     zero on success, non-zero on error
@@ -78,34 +82,36 @@ Returns:
 Creates the keyframes for the quick_animation setup.
 
 Examples:
-    | #
-    | # turn on keyframe animation
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | #
-    | # create an exploded view about 2,0,0 in the x direction.
-    | # The exploded distance is set to 200 units
-    | #
-    | ensight.anim_quick.explode_view(&quot;ON&quot;)
-    | ensight.anim_quick.explode_origin(2,0,0)
-    | ensight.anim_quick.explode_direction(&quot;x&quot;)
-    | ensight.anim_quick.explode_distance(200)
-    | #
-    | # while rotating the scene about the x axis 2 revolutions positive direction
-    | #
-    | ensight.anim_quick.rotate_objects(&quot;ON&quot;)
-    | ensight.anim_quick.rotate_direction(&quot;x positively&quot;)
-    | ensight.anim_quick.rotate_revolutions(&quot;x&quot;,2.000000)
-    | #
-    | # accelerate at the first keyframe but not at the last
-    | #
-    | ensight.anim_quick.accelerate_first(&quot;ON&quot;)
-    | ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
-    | #
-    | # create a total of 125 frames 
-    | # 
-    | ensight.anim_quick.total_frames(125)
-    | ensight.anim_quick.create_keyframes()
+    ::
+
+        #
+        # turn on keyframe animation
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        #
+        # create an exploded view about 2,0,0 in the x direction.
+        # The exploded distance is set to 200 units
+        #
+        ensight.anim_quick.explode_view(&quot;ON&quot;)
+        ensight.anim_quick.explode_origin(2,0,0)
+        ensight.anim_quick.explode_direction(&quot;x&quot;)
+        ensight.anim_quick.explode_distance(200)
+        #
+        # while rotating the scene about the x axis 2 revolutions positive direction
+        #
+        ensight.anim_quick.rotate_objects(&quot;ON&quot;)
+        ensight.anim_quick.rotate_direction(&quot;x positively&quot;)
+        ensight.anim_quick.rotate_revolutions(&quot;x&quot;,2.000000)
+        #
+        # accelerate at the first keyframe but not at the last
+        #
+        ensight.anim_quick.accelerate_first(&quot;ON&quot;)
+        ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
+        #
+        # create a total of 125 frames 
+        # 
+        ensight.anim_quick.total_frames(125)
+        ensight.anim_quick.create_keyframes()
 
 Returns:
     zero on success, non-zero on error
@@ -126,34 +132,36 @@ Args:
         * radial
 
 Examples:
-    | #
-    | # turn on keyframe animation
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | #
-    | # create an exploded view about 2,0,0 in the x direction.
-    | # The exploded distance is set to 200 units
-    | #
-    | ensight.anim_quick.explode_view(&quot;ON&quot;)
-    | ensight.anim_quick.explode_origin(2,0,0)
-    | ensight.anim_quick.explode_direction(&quot;x&quot;)
-    | ensight.anim_quick.explode_distance(200)
-    | #
-    | # while rotating the scene about the x axis 2 revolutions positive direction
-    | #
-    | ensight.anim_quick.rotate_objects(&quot;ON&quot;)
-    | ensight.anim_quick.rotate_direction(&quot;x positively&quot;)
-    | ensight.anim_quick.rotate_revolutions(&quot;x&quot;,2.000000)
-    | #
-    | # accelerate at the first keyframe but not at the last
-    | #
-    | ensight.anim_quick.accelerate_first(&quot;ON&quot;)
-    | ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
-    | #
-    | # create a total of 125 frames 
-    | # 
-    | ensight.anim_quick.total_frames(125)
-    | ensight.anim_quick.create_keyframes()
+    ::
+
+        #
+        # turn on keyframe animation
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        #
+        # create an exploded view about 2,0,0 in the x direction.
+        # The exploded distance is set to 200 units
+        #
+        ensight.anim_quick.explode_view(&quot;ON&quot;)
+        ensight.anim_quick.explode_origin(2,0,0)
+        ensight.anim_quick.explode_direction(&quot;x&quot;)
+        ensight.anim_quick.explode_distance(200)
+        #
+        # while rotating the scene about the x axis 2 revolutions positive direction
+        #
+        ensight.anim_quick.rotate_objects(&quot;ON&quot;)
+        ensight.anim_quick.rotate_direction(&quot;x positively&quot;)
+        ensight.anim_quick.rotate_revolutions(&quot;x&quot;,2.000000)
+        #
+        # accelerate at the first keyframe but not at the last
+        #
+        ensight.anim_quick.accelerate_first(&quot;ON&quot;)
+        ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
+        #
+        # create a total of 125 frames 
+        # 
+        ensight.anim_quick.total_frames(125)
+        ensight.anim_quick.create_keyframes()
 
 Returns:
     zero on success, non-zero on error
@@ -168,34 +176,36 @@ Args:
         &#x27;distance&#x27; the maximum distance a part will be moved
 
 Examples:
-    | #
-    | # turn on keyframe animation
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | #
-    | # create an exploded view about 2,0,0 in the x direction.
-    | # The exploded distance is set to 200 units
-    | #
-    | ensight.anim_quick.explode_view(&quot;ON&quot;)
-    | ensight.anim_quick.explode_origin(2,0,0)
-    | ensight.anim_quick.explode_direction(&quot;x&quot;)
-    | ensight.anim_quick.explode_distance(200)
-    | #
-    | # while rotating the scene about the x axis 2 revolutions positive direction
-    | #
-    | ensight.anim_quick.rotate_objects(&quot;ON&quot;)
-    | ensight.anim_quick.rotate_direction(&quot;x positively&quot;)
-    | ensight.anim_quick.rotate_revolutions(&quot;x&quot;,2.000000)
-    | #
-    | # accelerate at the first keyframe but not at the last
-    | #
-    | ensight.anim_quick.accelerate_first(&quot;ON&quot;)
-    | ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
-    | #
-    | # create a total of 125 frames 
-    | # 
-    | ensight.anim_quick.total_frames(125)
-    | ensight.anim_quick.create_keyframes()
+    ::
+
+        #
+        # turn on keyframe animation
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        #
+        # create an exploded view about 2,0,0 in the x direction.
+        # The exploded distance is set to 200 units
+        #
+        ensight.anim_quick.explode_view(&quot;ON&quot;)
+        ensight.anim_quick.explode_origin(2,0,0)
+        ensight.anim_quick.explode_direction(&quot;x&quot;)
+        ensight.anim_quick.explode_distance(200)
+        #
+        # while rotating the scene about the x axis 2 revolutions positive direction
+        #
+        ensight.anim_quick.rotate_objects(&quot;ON&quot;)
+        ensight.anim_quick.rotate_direction(&quot;x positively&quot;)
+        ensight.anim_quick.rotate_revolutions(&quot;x&quot;,2.000000)
+        #
+        # accelerate at the first keyframe but not at the last
+        #
+        ensight.anim_quick.accelerate_first(&quot;ON&quot;)
+        ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
+        #
+        # create a total of 125 frames 
+        # 
+        ensight.anim_quick.total_frames(125)
+        ensight.anim_quick.create_keyframes()
 
 Returns:
     zero on success, non-zero on error
@@ -214,34 +224,36 @@ Args:
         &#x27;z_ori&#x27; z coordinate of the explode origin
 
 Examples:
-    | #
-    | # turn on keyframe animation
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | #
-    | # create an exploded view about 2,0,0 in the x direction.
-    | # The exploded distance is set to 200 units
-    | #
-    | ensight.anim_quick.explode_view(&quot;ON&quot;)
-    | ensight.anim_quick.explode_origin(2,0,0)
-    | ensight.anim_quick.explode_direction(&quot;x&quot;)
-    | ensight.anim_quick.explode_distance(200)
-    | #
-    | # while rotating the scene about the x axis 2 revolutions positive direction
-    | #
-    | ensight.anim_quick.rotate_objects(&quot;ON&quot;)
-    | ensight.anim_quick.rotate_direction(&quot;x positively&quot;)
-    | ensight.anim_quick.rotate_revolutions(&quot;x&quot;,2.000000)
-    | #
-    | # accelerate at the first keyframe but not at the last
-    | #
-    | ensight.anim_quick.accelerate_first(&quot;ON&quot;)
-    | ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
-    | #
-    | # create a total of 125 frames 
-    | # 
-    | ensight.anim_quick.total_frames(125)
-    | ensight.anim_quick.create_keyframes()
+    ::
+
+        #
+        # turn on keyframe animation
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        #
+        # create an exploded view about 2,0,0 in the x direction.
+        # The exploded distance is set to 200 units
+        #
+        ensight.anim_quick.explode_view(&quot;ON&quot;)
+        ensight.anim_quick.explode_origin(2,0,0)
+        ensight.anim_quick.explode_direction(&quot;x&quot;)
+        ensight.anim_quick.explode_distance(200)
+        #
+        # while rotating the scene about the x axis 2 revolutions positive direction
+        #
+        ensight.anim_quick.rotate_objects(&quot;ON&quot;)
+        ensight.anim_quick.rotate_direction(&quot;x positively&quot;)
+        ensight.anim_quick.rotate_revolutions(&quot;x&quot;,2.000000)
+        #
+        # accelerate at the first keyframe but not at the last
+        #
+        ensight.anim_quick.accelerate_first(&quot;ON&quot;)
+        ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
+        #
+        # create a total of 125 frames 
+        # 
+        ensight.anim_quick.total_frames(125)
+        ensight.anim_quick.create_keyframes()
 
 Returns:
     zero on success, non-zero on error
@@ -262,34 +274,36 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # turn on keyframe animation
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | #
-    | # create an exploded view about 2,0,0 in the x direction.
-    | # The exploded distance is set to 200 units
-    | #
-    | ensight.anim_quick.explode_view(&quot;ON&quot;)
-    | ensight.anim_quick.explode_origin(2,0,0)
-    | ensight.anim_quick.explode_direction(&quot;x&quot;)
-    | ensight.anim_quick.explode_distance(200)
-    | #
-    | # while rotating the scene about the x axis 2 revolutions positive direction
-    | #
-    | ensight.anim_quick.rotate_objects(&quot;ON&quot;)
-    | ensight.anim_quick.rotate_direction(&quot;x positively&quot;)
-    | ensight.anim_quick.rotate_revolutions(&quot;x&quot;,2.000000)
-    | #
-    | # accelerate at the first keyframe but not at the last
-    | #
-    | ensight.anim_quick.accelerate_first(&quot;ON&quot;)
-    | ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
-    | #
-    | # create a total of 125 frames 
-    | # 
-    | ensight.anim_quick.total_frames(125)
-    | ensight.anim_quick.create_keyframes()
+    ::
+
+        #
+        # turn on keyframe animation
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        #
+        # create an exploded view about 2,0,0 in the x direction.
+        # The exploded distance is set to 200 units
+        #
+        ensight.anim_quick.explode_view(&quot;ON&quot;)
+        ensight.anim_quick.explode_origin(2,0,0)
+        ensight.anim_quick.explode_direction(&quot;x&quot;)
+        ensight.anim_quick.explode_distance(200)
+        #
+        # while rotating the scene about the x axis 2 revolutions positive direction
+        #
+        ensight.anim_quick.rotate_objects(&quot;ON&quot;)
+        ensight.anim_quick.rotate_direction(&quot;x positively&quot;)
+        ensight.anim_quick.rotate_revolutions(&quot;x&quot;,2.000000)
+        #
+        # accelerate at the first keyframe but not at the last
+        #
+        ensight.anim_quick.accelerate_first(&quot;ON&quot;)
+        ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
+        #
+        # create a total of 125 frames 
+        # 
+        ensight.anim_quick.total_frames(125)
+        ensight.anim_quick.create_keyframes()
 
 Returns:
     zero on success, non-zero on error
@@ -310,26 +324,28 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # turn on keyframe animation
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | #
-    | # move the camera to the right one half revolution
-    | #
-    | ensight.anim_quick.fly_around(&quot;ON&quot;)
-    | ensight.anim_quick.fly_direction(&quot;right&quot;)
-    | ensight.anim_quick.fly_revolutions(0.5)
-    | #
-    | # accelerate at the first keyframe but not at the last
-    | #
-    | ensight.anim_quick.accelerate_first(&quot;ON&quot;)
-    | ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
-    | #
-    | # create a total of 125 frames 
-    | # 
-    | ensight.anim_quick.total_frames(125)
-    | ensight.anim_quick.create_keyframes()
+    ::
+
+        #
+        # turn on keyframe animation
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        #
+        # move the camera to the right one half revolution
+        #
+        ensight.anim_quick.fly_around(&quot;ON&quot;)
+        ensight.anim_quick.fly_direction(&quot;right&quot;)
+        ensight.anim_quick.fly_revolutions(0.5)
+        #
+        # accelerate at the first keyframe but not at the last
+        #
+        ensight.anim_quick.accelerate_first(&quot;ON&quot;)
+        ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
+        #
+        # create a total of 125 frames 
+        # 
+        ensight.anim_quick.total_frames(125)
+        ensight.anim_quick.create_keyframes()
 
 Returns:
     zero on success, non-zero on error
@@ -349,26 +365,28 @@ Args:
         * left
 
 Examples:
-    | #
-    | # turn on keyframe animation
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | #
-    | # move the camera to the right one half revolution
-    | #
-    | ensight.anim_quick.fly_around(&quot;ON&quot;)
-    | ensight.anim_quick.fly_direction(&quot;right&quot;)
-    | ensight.anim_quick.fly_revolutions(0.5)
-    | #
-    | # accelerate at the first keyframe but not at the last
-    | #
-    | ensight.anim_quick.accelerate_first(&quot;ON&quot;)
-    | ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
-    | #
-    | # create a total of 125 frames 
-    | # 
-    | ensight.anim_quick.total_frames(125)
-    | ensight.anim_quick.create_keyframes()
+    ::
+
+        #
+        # turn on keyframe animation
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        #
+        # move the camera to the right one half revolution
+        #
+        ensight.anim_quick.fly_around(&quot;ON&quot;)
+        ensight.anim_quick.fly_direction(&quot;right&quot;)
+        ensight.anim_quick.fly_revolutions(0.5)
+        #
+        # accelerate at the first keyframe but not at the last
+        #
+        ensight.anim_quick.accelerate_first(&quot;ON&quot;)
+        ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
+        #
+        # create a total of 125 frames 
+        # 
+        ensight.anim_quick.total_frames(125)
+        ensight.anim_quick.create_keyframes()
 
 Returns:
     zero on success, non-zero on error
@@ -383,26 +401,28 @@ Args:
         &#x27;many_revs&#x27; The number of revolutions to add
 
 Examples:
-    | #
-    | # turn on keyframe animation
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | #
-    | # move the camera to the right one half revolution
-    | #
-    | ensight.anim_quick.fly_around(&quot;ON&quot;)
-    | ensight.anim_quick.fly_direction(&quot;right&quot;)
-    | ensight.anim_quick.fly_revolutions(0.5)
-    | #
-    | # accelerate at the first keyframe but not at the last
-    | #
-    | ensight.anim_quick.accelerate_first(&quot;ON&quot;)
-    | ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
-    | #
-    | # create a total of 125 frames 
-    | # 
-    | ensight.anim_quick.total_frames(125)
-    | ensight.anim_quick.create_keyframes()
+    ::
+
+        #
+        # turn on keyframe animation
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        #
+        # move the camera to the right one half revolution
+        #
+        ensight.anim_quick.fly_around(&quot;ON&quot;)
+        ensight.anim_quick.fly_direction(&quot;right&quot;)
+        ensight.anim_quick.fly_revolutions(0.5)
+        #
+        # accelerate at the first keyframe but not at the last
+        #
+        ensight.anim_quick.accelerate_first(&quot;ON&quot;)
+        ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
+        #
+        # create a total of 125 frames 
+        # 
+        ensight.anim_quick.total_frames(125)
+        ensight.anim_quick.create_keyframes()
 
 Returns:
     zero on success, non-zero on error
@@ -426,32 +446,34 @@ Args:
         * negatively
 
 Examples:
-    | #
-    | # turn on keyframe animation
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | #
-    | # move the camera to the right one half revolution
-    | #
-    | ensight.anim_quick.fly_around(&quot;ON&quot;)
-    | ensight.anim_quick.fly_direction(&quot;right&quot;)
-    | ensight.anim_quick.fly_revolutions(0.5)
-    | #
-    | # while rotating the scene about the x axis 2 revolutions negative direction
-    | #
-    | ensight.anim_quick.rotate_objects(&quot;ON&quot;)
-    | ensight.anim_quick.rotate_direction(&quot;x negatively&quot;)
-    | ensight.anim_quick.rotate_revolutions(&quot;x&quot;,2.000000)
-    | #
-    | # accelerate at the first keyframe but not at the last
-    | #
-    | ensight.anim_quick.accelerate_first(&quot;ON&quot;)
-    | ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
-    | #
-    | # create a total of 125 frames 
-    | # 
-    | ensight.anim_quick.total_frames(125)
-    | ensight.anim_quick.create_keyframes()
+    ::
+
+        #
+        # turn on keyframe animation
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        #
+        # move the camera to the right one half revolution
+        #
+        ensight.anim_quick.fly_around(&quot;ON&quot;)
+        ensight.anim_quick.fly_direction(&quot;right&quot;)
+        ensight.anim_quick.fly_revolutions(0.5)
+        #
+        # while rotating the scene about the x axis 2 revolutions negative direction
+        #
+        ensight.anim_quick.rotate_objects(&quot;ON&quot;)
+        ensight.anim_quick.rotate_direction(&quot;x negatively&quot;)
+        ensight.anim_quick.rotate_revolutions(&quot;x&quot;,2.000000)
+        #
+        # accelerate at the first keyframe but not at the last
+        #
+        ensight.anim_quick.accelerate_first(&quot;ON&quot;)
+        ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
+        #
+        # create a total of 125 frames 
+        # 
+        ensight.anim_quick.total_frames(125)
+        ensight.anim_quick.create_keyframes()
 
 Returns:
     zero on success, non-zero on error
@@ -472,32 +494,34 @@ Args:
         * OFF
 
 Examples:
-    | #
-    | # turn on keyframe animation
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | #
-    | # move the camera to the right one half revolution
-    | #
-    | ensight.anim_quick.fly_around(&quot;ON&quot;)
-    | ensight.anim_quick.fly_direction(&quot;right&quot;)
-    | ensight.anim_quick.fly_revolutions(0.5)
-    | #
-    | # while rotating the scene about the x axis 2 revolutions negative direction
-    | #
-    | ensight.anim_quick.rotate_objects(&quot;ON&quot;)
-    | ensight.anim_quick.rotate_direction(&quot;x negatively&quot;)
-    | ensight.anim_quick.rotate_revolutions(&quot;x&quot;,2.000000)
-    | #
-    | # accelerate at the first keyframe but not at the last
-    | #
-    | ensight.anim_quick.accelerate_first(&quot;ON&quot;)
-    | ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
-    | #
-    | # create a total of 125 frames 
-    | # 
-    | ensight.anim_quick.total_frames(125)
-    | ensight.anim_quick.create_keyframes()
+    ::
+
+        #
+        # turn on keyframe animation
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        #
+        # move the camera to the right one half revolution
+        #
+        ensight.anim_quick.fly_around(&quot;ON&quot;)
+        ensight.anim_quick.fly_direction(&quot;right&quot;)
+        ensight.anim_quick.fly_revolutions(0.5)
+        #
+        # while rotating the scene about the x axis 2 revolutions negative direction
+        #
+        ensight.anim_quick.rotate_objects(&quot;ON&quot;)
+        ensight.anim_quick.rotate_direction(&quot;x negatively&quot;)
+        ensight.anim_quick.rotate_revolutions(&quot;x&quot;,2.000000)
+        #
+        # accelerate at the first keyframe but not at the last
+        #
+        ensight.anim_quick.accelerate_first(&quot;ON&quot;)
+        ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
+        #
+        # create a total of 125 frames 
+        # 
+        ensight.anim_quick.total_frames(125)
+        ensight.anim_quick.create_keyframes()
 
 Returns:
     zero on success, non-zero on error
@@ -512,32 +536,34 @@ Args:
         &#x27;many_revs&#x27; The number of revolutions to add
 
 Examples:
-    | #
-    | # turn on keyframe animation
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | #
-    | # move the camera to the right one half revolution
-    | #
-    | ensight.anim_quick.fly_around(&quot;ON&quot;)
-    | ensight.anim_quick.fly_direction(&quot;right&quot;)
-    | ensight.anim_quick.fly_revolutions(0.5)
-    | #
-    | # while rotating the scene about the x axis 2 revolutions negative direction
-    | #
-    | ensight.anim_quick.rotate_objects(&quot;ON&quot;)
-    | ensight.anim_quick.rotate_direction(&quot;x negatively&quot;)
-    | ensight.anim_quick.rotate_revolutions(&quot;x&quot;,2.000000)
-    | #
-    | # accelerate at the first keyframe but not at the last
-    | #
-    | ensight.anim_quick.accelerate_first(&quot;ON&quot;)
-    | ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
-    | #
-    | # create a total of 125 frames 
-    | # 
-    | ensight.anim_quick.total_frames(125)
-    | ensight.anim_quick.create_keyframes()
+    ::
+
+        #
+        # turn on keyframe animation
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        #
+        # move the camera to the right one half revolution
+        #
+        ensight.anim_quick.fly_around(&quot;ON&quot;)
+        ensight.anim_quick.fly_direction(&quot;right&quot;)
+        ensight.anim_quick.fly_revolutions(0.5)
+        #
+        # while rotating the scene about the x axis 2 revolutions negative direction
+        #
+        ensight.anim_quick.rotate_objects(&quot;ON&quot;)
+        ensight.anim_quick.rotate_direction(&quot;x negatively&quot;)
+        ensight.anim_quick.rotate_revolutions(&quot;x&quot;,2.000000)
+        #
+        # accelerate at the first keyframe but not at the last
+        #
+        ensight.anim_quick.accelerate_first(&quot;ON&quot;)
+        ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
+        #
+        # create a total of 125 frames 
+        # 
+        ensight.anim_quick.total_frames(125)
+        ensight.anim_quick.create_keyframes()
 
 Returns:
     zero on success, non-zero on error
@@ -552,26 +578,28 @@ Args:
         &#x27;num_frames&#x27; The total number of frames that will be created
 
 Examples:
-    | #
-    | # turn on keyframe animation
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | #
-    | # move the camera to the right one half revolution
-    | #
-    | ensight.anim_quick.fly_around(&quot;ON&quot;)
-    | ensight.anim_quick.fly_direction(&quot;right&quot;)
-    | ensight.anim_quick.fly_revolutions(0.5)
-    | #
-    | # accelerate at the first keyframe but not at the last
-    | #
-    | ensight.anim_quick.accelerate_first(&quot;ON&quot;)
-    | ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
-    | #
-    | # create a total of 125 frames 
-    | # 
-    | ensight.anim_quick.total_frames(125)
-    | ensight.anim_quick.create_keyframes()
+    ::
+
+        #
+        # turn on keyframe animation
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        #
+        # move the camera to the right one half revolution
+        #
+        ensight.anim_quick.fly_around(&quot;ON&quot;)
+        ensight.anim_quick.fly_direction(&quot;right&quot;)
+        ensight.anim_quick.fly_revolutions(0.5)
+        #
+        # accelerate at the first keyframe but not at the last
+        #
+        ensight.anim_quick.accelerate_first(&quot;ON&quot;)
+        ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
+        #
+        # create a total of 125 frames 
+        # 
+        ensight.anim_quick.total_frames(125)
+        ensight.anim_quick.create_keyframes()
 
 Returns:
     zero on success, non-zero on error

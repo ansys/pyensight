@@ -15,12 +15,14 @@ Args:
         &#x27;dz&#x27; cartesian vector x, y, z components of the developing cylinder&#x27;s longitudinal axis
 
 Examples:
-    | ensight.devsrf.select_default()
-    | ensight.part.modify_begin()
-    | ensight.devsrf.origin(5.0000e-01,5.0000e-01,0.0000e+00)
-    | ensight.devsrf.axis(0.0000e+00,0.0000e+00,1.0000e+00)
-    | ensight.devsrf.seam_vector(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.devsrf.select_default()
+        ensight.part.modify_begin()
+        ensight.devsrf.origin(5.0000e-01,5.0000e-01,0.0000e+00)
+        ensight.devsrf.axis(0.0000e+00,0.0000e+00,1.0000e+00)
+        ensight.devsrf.seam_vector(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -35,13 +37,15 @@ Args:
         &#x27;command list&#x27; appropriate devsrf commands that affect the creation of the developed surface part - see Example Usage below
 
 Examples:
-    | ensight.part.select_begin(2)
-    | ensight.devsrf.begin()
-    | ensight.devsrf.origin(5.0000e-01,5.0000e-01,0.0000e+00)
-    | ensight.devsrf.axis(0.0000e+00,0.0000e+00,1.0000e+00)
-    | ensight.devsrf.seam_vector(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.devsrf.end()
-    | ensight.devsrf.create()
+    ::
+
+        ensight.part.select_begin(2)
+        ensight.devsrf.begin()
+        ensight.devsrf.origin(5.0000e-01,5.0000e-01,0.0000e+00)
+        ensight.devsrf.axis(0.0000e+00,0.0000e+00,1.0000e+00)
+        ensight.devsrf.seam_vector(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.devsrf.end()
+        ensight.devsrf.create()
 
 Returns:
     zero on success, non-zero on error
@@ -56,13 +60,15 @@ Args:
         &#x27;command list&#x27; appropriate devsrf commands that affect the creation of the developed surface part - see Example Usage below
 
 Examples:
-    | ensight.part.select_begin(2)
-    | ensight.devsrf.begin()
-    | ensight.devsrf.origin(5.0000e-01,5.0000e-01,0.0000e+00)
-    | ensight.devsrf.axis(0.0000e+00,0.0000e+00,1.0000e+00)
-    | ensight.devsrf.seam_vector(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.devsrf.end()
-    | ensight.devsrf.create()
+    ::
+
+        ensight.part.select_begin(2)
+        ensight.devsrf.begin()
+        ensight.devsrf.origin(5.0000e-01,5.0000e-01,0.0000e+00)
+        ensight.devsrf.axis(0.0000e+00,0.0000e+00,1.0000e+00)
+        ensight.devsrf.seam_vector(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.devsrf.end()
+        ensight.devsrf.create()
 
 Returns:
     zero on success, non-zero on error
@@ -75,27 +81,28 @@ Specifies the creation of a developed, or unrolled surface. This unrolls the sel
 | In the example below, the 2 in the 2D parent part 2 is unrolled into the 2D developed part 3.
 
 Examples:
-    | #
-    | # Align default settings according to parent part
-    | #
-    | ensight.part.select_begin(2)
-    | ensight.devsrf.select_default()
-    | ensight.part.modify_begin()
-    | ensight.devsrf.origin(5.0000e-01,5.0000e-01,0.0000e+00)
-    | ensight.devsrf.axis(0.0000e+00,0.0000e+00,1.0000e+00)
-    | ensight.devsrf.seam_vector(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.part.modify_end()
-    | #
-    | # Create developed part 3 from parent part 2
-    | #
-    | ensight.part.select_begin(2)
-    | ensight.devsrf.begin()
-    | ensight.devsrf.origin(5.0000e-01,5.0000e-01,0.0000e+00)
-    | ensight.devsrf.axis(0.0000e+00,0.0000e+00,1.0000e+00)
-    | ensight.devsrf.seam_vector(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.devsrf.end()
-    | ensight.devsrf.create()
+    ::
 
+        #
+        # Align default settings according to parent part
+        #
+        ensight.part.select_begin(2)
+        ensight.devsrf.select_default()
+        ensight.part.modify_begin()
+        ensight.devsrf.origin(5.0000e-01,5.0000e-01,0.0000e+00)
+        ensight.devsrf.axis(0.0000e+00,0.0000e+00,1.0000e+00)
+        ensight.devsrf.seam_vector(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.part.modify_end()
+        #
+        # Create developed part 3 from parent part 2
+        #
+        ensight.part.select_begin(2)
+        ensight.devsrf.begin()
+        ensight.devsrf.origin(5.0000e-01,5.0000e-01,0.0000e+00)
+        ensight.devsrf.axis(0.0000e+00,0.0000e+00,1.0000e+00)
+        ensight.devsrf.seam_vector(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.devsrf.end()
+        ensight.devsrf.create()
 
 Returns:
     zero on success, non-zero on error
@@ -116,15 +123,17 @@ Args:
         &#x27;z_comp&#x27; x, y, z components of the origin of the developing cylinder (located on the longitudinal axis) in model coordinates
 
 Examples:
-    | #
-    | # Modify the default
-    | #
-    | ensight.devsrf.select_default()
-    | ensight.part.modify_begin()
-    | ensight.devsrf.origin(5.0000e-01,5.0000e-01,0.0000e+00)
-    | ensight.devsrf.axis(0.0000e+00,0.0000e+00,1.0000e+00)
-    | ensight.devsrf.seam_vector(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Modify the default
+        #
+        ensight.devsrf.select_default()
+        ensight.part.modify_begin()
+        ensight.devsrf.origin(5.0000e-01,5.0000e-01,0.0000e+00)
+        ensight.devsrf.axis(0.0000e+00,0.0000e+00,1.0000e+00)
+        ensight.devsrf.seam_vector(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -149,11 +158,13 @@ Args:
         * theta,r
 
 Examples:
-    | ensight.part.select_begin(3)
-    | ensight.part.modify_begin()
-    | ensight.devsrf.projection(&quot;m,theta&quot;)
-    | ensight.part.modify_end()
-    | ensight.viewport.select_begin(1)
+    ::
+
+        ensight.part.select_begin(3)
+        ensight.part.modify_begin()
+        ensight.devsrf.projection(&quot;m,theta&quot;)
+        ensight.part.modify_end()
+        ensight.viewport.select_begin(1)
 
 Returns:
     zero on success, non-zero on error
@@ -170,11 +181,13 @@ Args:
         &#x27;factor&#x27; scale factor applied to the abscissa/ordinate of the developed surface projection
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.devsrf.scale_factor_u(5.0000e-01)
-    | ensight.devsrf.scale_factor_v(2.0000e+00)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.devsrf.scale_factor_u(5.0000e-01)
+        ensight.devsrf.scale_factor_v(2.0000e+00)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -191,11 +204,13 @@ Args:
         &#x27;factor&#x27; scale factor applied to the abscissa/ordinate of the developed surface projection
 
 Examples:
-    | ensight.part.select_begin(1)
-    | ensight.part.modify_begin()
-    | ensight.devsrf.scale_factor_u(5.0000e-01)
-    | ensight.devsrf.scale_factor_v(2.0000e+00)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.part.modify_begin()
+        ensight.devsrf.scale_factor_u(5.0000e-01)
+        ensight.devsrf.scale_factor_v(2.0000e+00)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -216,15 +231,17 @@ Args:
         &#x27;z_comp&#x27; cartesian x, y, z vector components of a vector perpendicular to and starting from the axis of revolution and pointing to the seam line
 
 Examples:
-    | #
-    | # Modify the default
-    | #
-    | ensight.devsrf.select_default()
-    | ensight.part.modify_begin()
-    | ensight.devsrf.origin(5.0000e-01,5.0000e-01,0.0000e+00)
-    | ensight.devsrf.axis(0.0000e+00,0.0000e+00,1.0000e+00)
-    | ensight.devsrf.seam_vector(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.part.modify_end()
+    ::
+
+        #
+        # Modify the default
+        #
+        ensight.devsrf.select_default()
+        ensight.part.modify_begin()
+        ensight.devsrf.origin(5.0000e-01,5.0000e-01,0.0000e+00)
+        ensight.devsrf.axis(0.0000e+00,0.0000e+00,1.0000e+00)
+        ensight.devsrf.seam_vector(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error
@@ -237,12 +254,14 @@ Specifies the default origin, axis (of rotation), and seam vector to align accor
 | This command facilitates a method for the origin, axis, and seam vector to inherit the position and direction of the longitudinal axis of the 2D parent part.
 
 Examples:
-    | ensight.devsrf.select_default()
-    | ensight.part.modify_begin()
-    | ensight.devsrf.origin(5.0000e-01,5.0000e-01,0.0000e+00)
-    | ensight.devsrf.axis(0.0000e+00,0.0000e+00,1.0000e+00)
-    | ensight.devsrf.seam_vector(1.0000e+00,0.0000e+00,0.0000e+00)
-    | ensight.part.modify_end()
+    ::
+
+        ensight.devsrf.select_default()
+        ensight.part.modify_begin()
+        ensight.devsrf.origin(5.0000e-01,5.0000e-01,0.0000e+00)
+        ensight.devsrf.axis(0.0000e+00,0.0000e+00,1.0000e+00)
+        ensight.devsrf.seam_vector(1.0000e+00,0.0000e+00,0.0000e+00)
+        ensight.part.modify_end()
 
 Returns:
     zero on success, non-zero on error

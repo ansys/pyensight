@@ -6,13 +6,15 @@ Indicates that the following &#x27;connect:&#x27; commands will apply to new ser
 | To change the default server connection settings, use the &#x27;connect: default&#x27; command.
 
 Examples:
-    | # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
-    | ensight.connect.backend()
-    | ensight.connect.machine(&quot;localhost&quot;)
-    | ensight.connect.executable(&quot;.server&quot;)
-    | ensight.connect.directory(&quot;&quot;)
-    | ensight.connect.type(&quot;auto&quot;)
-    | ensight.connect.connect()
+    ::
+
+        # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
+        ensight.connect.backend()
+        ensight.connect.machine(&quot;localhost&quot;)
+        ensight.connect.executable(&quot;.server&quot;)
+        ensight.connect.directory(&quot;&quot;)
+        ensight.connect.type(&quot;auto&quot;)
+        ensight.connect.connect()
 
 Returns:
     zero on success, non-zero on error
@@ -26,13 +28,15 @@ Cause the client to wait for a connection to the EnSight server.
 | The client will wait and listen for a connection from the  server.  By default it will listen on TCP port 1106.  This port number can be modified with the &#x27;-ports #&#x27; argument to the client and server.
 
 Examples:
-    | # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
-    | ensight.connect.backend()
-    | ensight.connect.machine(&quot;localhost&quot;)
-    | ensight.connect.executable(&quot;.server&quot;)
-    | ensight.connect.directory(&quot;&quot;)
-    | ensight.connect.type(&quot;auto&quot;)
-    | ensight.connect.connect()
+    ::
+
+        # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
+        ensight.connect.backend()
+        ensight.connect.machine(&quot;localhost&quot;)
+        ensight.connect.executable(&quot;.server&quot;)
+        ensight.connect.directory(&quot;&quot;)
+        ensight.connect.type(&quot;auto&quot;)
+        ensight.connect.connect()
 
 Returns:
     zero on success, non-zero on error
@@ -45,11 +49,13 @@ Indicates that the following &#x27;connect:&#x27; commands will change the EnSig
 | To temporarily change server connection settings, use the &#x27;connect: backend&#x27; command.
 
 Examples:
-    | ensight.connect.default()
-    | ensight.connect.machine(&quot;localhost&quot;)
-    | ensight.connect.executable(&quot;.server&quot;)
-    | ensight.connect.directory(&quot;/tmp&quot;)
-    | ensight.connect.type(&quot;auto&quot;)
+    ::
+
+        ensight.connect.default()
+        ensight.connect.machine(&quot;localhost&quot;)
+        ensight.connect.executable(&quot;.server&quot;)
+        ensight.connect.directory(&quot;/tmp&quot;)
+        ensight.connect.type(&quot;auto&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -64,14 +70,16 @@ Args:
         &#x27;pathname&#x27; name of the directory
 
 Examples:
-    | # Show the /tmp director on &#x27;slim&#x27; in the Data Reader dialog
-    | # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
-    | ensight.connect.backend()
-    | ensight.connect.machine(&quot;slim&quot;)
-    | ensight.connect.executable(&quot;.server&quot;)
-    | ensight.connect.directory(&quot;/tmp&quot;)
-    | ensight.connect.type(&quot;auto&quot;)
-    | ensight.connect.connect()
+    ::
+
+        # Show the /tmp director on &#x27;slim&#x27; in the Data Reader dialog
+        # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
+        ensight.connect.backend()
+        ensight.connect.machine(&quot;slim&quot;)
+        ensight.connect.executable(&quot;.server&quot;)
+        ensight.connect.directory(&quot;/tmp&quot;)
+        ensight.connect.type(&quot;auto&quot;)
+        ensight.connect.connect()
 
 Returns:
     zero on success, non-zero on error
@@ -88,14 +96,16 @@ Args:
         &#x27;filename&#x27; name of the server
 
 Examples:
-    | # use server found in /usr/local/bin/
-    | # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
-    | ensight.connect.backend()
-    | ensight.connect.machine(&quot;slim&quot;)
-    | ensight.connect.executable(&quot;/usr/local/bin/.server&quot;)
-    | ensight.connect.directory(&quot;/tmp&quot;)
-    | ensight.connect.type(&quot;auto&quot;)
-    | ensight.connect.connect()
+    ::
+
+        # use server found in /usr/local/bin/
+        # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
+        ensight.connect.backend()
+        ensight.connect.machine(&quot;slim&quot;)
+        ensight.connect.executable(&quot;/usr/local/bin/.server&quot;)
+        ensight.connect.directory(&quot;/tmp&quot;)
+        ensight.connect.type(&quot;auto&quot;)
+        ensight.connect.connect()
 
 Returns:
     zero on success, non-zero on error
@@ -112,15 +122,17 @@ Args:
         &#x27;username&#x27; login name
 
 Examples:
-    | # log in to host slim as user &#x27;joe&#x27;
-    | # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
-    | ensight.connect.backend()
-    | ensight.connect.machine(&quot;slim&quot;)
-    | ensight.connect.login_id(&quot;joe&quot;)
-    | ensight.connect.executable(&quot;.server&quot;)
-    | ensight.connect.directory(&quot;&quot;)
-    | ensight.connect.type(&quot;auto&quot;)
-    | ensight.connect.connect()
+    ::
+
+        # log in to host slim as user &#x27;joe&#x27;
+        # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
+        ensight.connect.backend()
+        ensight.connect.machine(&quot;slim&quot;)
+        ensight.connect.login_id(&quot;joe&quot;)
+        ensight.connect.executable(&quot;.server&quot;)
+        ensight.connect.directory(&quot;&quot;)
+        ensight.connect.type(&quot;auto&quot;)
+        ensight.connect.connect()
 
 Returns:
     zero on success, non-zero on error
@@ -137,14 +149,16 @@ Args:
         &#x27;hostname&#x27; name of the computer where the server should run
 
 Examples:
-    | # use an auto connection to host &#x27;slim&#x27;
-    | # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
-    | ensight.connect.backend()
-    | ensight.connect.machine(&quot;slim&quot;)
-    | ensight.connect.executable(&quot;.server&quot;)
-    | ensight.connect.directory(&quot;/tmp&quot;)
-    | ensight.connect.type(&quot;auto&quot;)
-    | ensight.connect.connect()
+    ::
+
+        # use an auto connection to host &#x27;slim&#x27;
+        # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
+        ensight.connect.backend()
+        ensight.connect.machine(&quot;slim&quot;)
+        ensight.connect.executable(&quot;.server&quot;)
+        ensight.connect.directory(&quot;/tmp&quot;)
+        ensight.connect.type(&quot;auto&quot;)
+        ensight.connect.connect()
 
 Returns:
     zero on success, non-zero on error
@@ -162,20 +176,24 @@ Args:
         * manual
 
 Examples:
-    | # use a manual connection
-    | # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
-    | ensight.connect.backend()
-    | ensight.connect.type(&quot;manual&quot;)
-    | ensight.connect.connect()
+    ::
 
-    | # use an auto connection
-    | # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
-    | ensight.connect.backend()
-    | ensight.connect.machine(&quot;slim&quot;)
-    | ensight.connect.executable(&quot;.server&quot;)
-    | ensight.connect.directory(&quot;/tmp&quot;)
-    | ensight.connect.type(&quot;auto&quot;)
-    | ensight.connect.connect()
+        # use a manual connection
+        # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
+        ensight.connect.backend()
+        ensight.connect.type(&quot;manual&quot;)
+        ensight.connect.connect()
+
+    ::
+
+        # use an auto connection
+        # WARNING: following line includes OBSOLETE call (ensight.connect.backend).
+        ensight.connect.backend()
+        ensight.connect.machine(&quot;slim&quot;)
+        ensight.connect.executable(&quot;.server&quot;)
+        ensight.connect.directory(&quot;/tmp&quot;)
+        ensight.connect.type(&quot;auto&quot;)
+        ensight.connect.connect()
 
 Returns:
     zero on success, non-zero on error

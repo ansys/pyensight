@@ -17,21 +17,23 @@ Args:
         &#x27;z-coord&#x27; x, y, z  locations of the cursor in model coordinates
 
 Examples:
-    | # 
-    | # Toggle-on and position the cursor tool 
-    | # 
-    | ensight.view_transf.function(&quot;cursor&quot;)
-    | ensight.tools.cursor(&quot;ON&quot;)
-    | ensight.view_transf.action(&quot;translate&quot;)
-    | ensight.view_transf.cursor(-1.0000e+00,0.500000,0.500000)
-    | # 
-    | # Revert back to global transformation mode 
-    | # 
-    | ensight.view_transf.function(&quot;global&quot;)
-    | # 
-    | # Show part and all active variable information at cursor location 
-    | # 
-    | ensight.show_info.cursor(-1.0000e+00,0.0000e+00,0.0000e+00)
+    ::
+
+        # 
+        # Toggle-on and position the cursor tool 
+        # 
+        ensight.view_transf.function(&quot;cursor&quot;)
+        ensight.tools.cursor(&quot;ON&quot;)
+        ensight.view_transf.action(&quot;translate&quot;)
+        ensight.view_transf.cursor(-1.0000e+00,0.500000,0.500000)
+        # 
+        # Revert back to global transformation mode 
+        # 
+        ensight.view_transf.function(&quot;global&quot;)
+        # 
+        # Show part and all active variable information at cursor location 
+        # 
+        ensight.show_info.cursor(-1.0000e+00,0.0000e+00,0.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -46,14 +48,16 @@ Args:
         &#x27;element_id_number&#x27; a valid element id corresponding to the specified part
 
 Examples:
-    | # 
-    | # Specify which part 
-    | # 
-    | ensight.part.select_begin(1)
-    | # 
-    | # from which to show the corresponding element information. 
-    | # 
-    | ensight.show_info.element(20)
+    ::
+
+        # 
+        # Specify which part 
+        # 
+        ensight.part.select_begin(1)
+        # 
+        # from which to show the corresponding element information. 
+        # 
+        ensight.show_info.element(20)
 
 Returns:
     zero on success, non-zero on error
@@ -74,13 +78,15 @@ Args:
         &#x27;k-plane_value&#x27; corresponding i, j, k-plane values
 
 Examples:
-    | # 
-    | # Specify the part ... 
-    | # 
-    | ensight.part.select_begin(1)
-    | # 
-    | # and active variables ... 
-    | # 
+    ::
+
+        # 
+        # Specify the part ... 
+        # 
+        ensight.part.select_begin(1)
+        # 
+        # and active variables ... 
+        # 
 
 Returns:
     zero on success, non-zero on error
@@ -95,10 +101,11 @@ Args:
         &#x27;node_id_number&#x27; valid node id corresponding to the specified part
 
 Examples:
-    | # WARNING: following line includes OBSOLETE call (ensight.variables.select_varname_begin).
-    | ensight.variables.select_varname_begin(&quot;Density &quot;,&quot;Energy &quot;,&quot;Momentum &quot;,&quot;Velo &quot;,&quot;variables: select_varname_end &quot;,&quot;# &quot;,&quot;# at which to show the specified ijk information. &quot;,&quot;# &quot;,&quot;show_info: ijk 1 41 1&quot;,&quot;# &quot;,&quot;# Specify to show the information of node 8000 of part 1 &quot;,&quot;# &quot;,&quot;part: select_begin &quot;,&quot;1 &quot;)
-    | ensight.show_info.node(8000)
+    ::
 
+        # WARNING: following line includes OBSOLETE call (ensight.variables.select_varname_begin).
+        ensight.variables.select_varname_begin(&quot;Density &quot;,&quot;Energy &quot;,&quot;Momentum &quot;,&quot;Velo &quot;,&quot;variables: select_varname_end &quot;,&quot;# &quot;,&quot;# at which to show the specified ijk information. &quot;,&quot;# &quot;,&quot;show_info: ijk 1 41 1&quot;,&quot;# &quot;,&quot;# Specify to show the information of node 8000 of part 1 &quot;,&quot;# &quot;,&quot;part: select_begin &quot;,&quot;1 &quot;)
+        ensight.show_info.node(8000)
 
 Returns:
     zero on success, non-zero on error
@@ -113,15 +120,16 @@ Args:
         &#x27;part_id_number&#x27; the part GUI number
 
 Examples:
-    | # 
-    | # First, select the part ... 
-    | # 
-    | ensight.part.select_begin(1)
-    | # 
-    | # Then, specify to show its corresponding information. 
-    | # 
-    | ensight.show_info.part(1)
+    ::
 
+        # 
+        # First, select the part ... 
+        # 
+        ensight.part.select_begin(1)
+        # 
+        # Then, specify to show its corresponding information. 
+        # 
+        ensight.show_info.part(1)
 
 Returns:
     zero on success, non-zero on error

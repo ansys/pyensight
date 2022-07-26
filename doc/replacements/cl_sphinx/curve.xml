@@ -15,9 +15,11 @@ Args:
         &#x27;description&#x27; description of the plotter
 
 Examples:
-    | ensight.curve.select_begin(0)
-    | ensight.curve.assign(&quot;rescale&quot;,&quot;Velocity&quot;,&quot;vs.&quot;,&quot;Distance&quot;,&quot;for&quot;,&quot;part&quot;,2)
-    | ensight.plot.select_begin(0)
+    ::
+
+        ensight.curve.select_begin(0)
+        ensight.curve.assign(&quot;rescale&quot;,&quot;Velocity&quot;,&quot;vs.&quot;,&quot;Distance&quot;,&quot;for&quot;,&quot;part&quot;,2)
+        ensight.plot.select_begin(0)
 
 Returns:
     zero on success, non-zero on error
@@ -28,8 +30,10 @@ Returns:
 Delete the selected curve(s).
 
 Examples:
-    | ensight.curve.select_begin(0)
-    | ensight.curve.delete()
+    ::
+
+        ensight.curve.select_begin(0)
+        ensight.curve.delete()
 
 Returns:
     zero on success, non-zero on error
@@ -44,9 +48,10 @@ Args:
         &#x27;description&#x27; description of the selected curve
 
 Examples:
-    | ensight.curve.select_begin(0)
-    | ensight.curve.desc(&quot;Velocity vs. Distance for part 2&quot;)
+    ::
 
+        ensight.curve.select_begin(0)
+        ensight.curve.desc(&quot;Velocity vs. Distance for part 2&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -67,9 +72,11 @@ Args:
         * dash
 
 Examples:
-    | ensight.curve.select_begin(1)
-    | ensight.curve.line_type(&quot;connect_dots&quot;)
-    | ensight.curve.line_style(&quot;dotted&quot;)
+    ::
+
+        ensight.curve.select_begin(1)
+        ensight.curve.line_type(&quot;connect_dots&quot;)
+        ensight.curve.line_style(&quot;dotted&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -88,8 +95,10 @@ Args:
         * smooth
 
 Examples:
-    | ensight.curve.select_begin(1)
-    | ensight.curve.line_type(&quot;none&quot;)
+    ::
+
+        ensight.curve.select_begin(1)
+        ensight.curve.line_type(&quot;none&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -104,8 +113,10 @@ Args:
         &#x27;width&#x27; pixel line width of 1, 2 (default), 3, or 4.
 
 Examples:
-    | ensight.curve.select_begin(1)
-    | ensight.curve.line_width(3)
+    ::
+
+        ensight.curve.select_begin(1)
+        ensight.curve.line_width(3)
 
 Returns:
     zero on success, non-zero on error
@@ -122,9 +133,10 @@ Args:
         &#x27;filename&#x27; file (path and) name of the saved curve file
 
 Examples:
-    | ensight.curve.select_begin(2)
-    | ensight.curve.load(&quot;Curve0&quot;)
+    ::
 
+        ensight.curve.select_begin(2)
+        ensight.curve.load(&quot;Curve0&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -145,8 +157,10 @@ Args:
         * square
 
 Examples:
-    | ensight.curve.select_begin(0,1)
-    | ensight.curve.marker(&quot;circle&quot;)
+    ::
+
+        ensight.curve.select_begin(0,1)
+        ensight.curve.marker(&quot;circle&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -161,8 +175,10 @@ Args:
         &#x27;size&#x27; size of the curve point markers (default = 1.)
 
 Examples:
-    | ensight.curve.select_begin(0,1)
-    | ensight.curve.marker_scale(2.0000e+00)
+    ::
+
+        ensight.curve.select_begin(0,1)
+        ensight.curve.marker_scale(2.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -182,9 +198,11 @@ Args:
         * OFF
 
 Examples:
-    | ensight.curve.select_begin(0,1)
-    | ensight.curve.normalize_x(&quot;ON&quot;)
-    | ensight.curve.normalize_y(&quot;OFF&quot;)
+    ::
+
+        ensight.curve.select_begin(0,1)
+        ensight.curve.normalize_x(&quot;ON&quot;)
+        ensight.curve.normalize_y(&quot;OFF&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -204,9 +222,11 @@ Args:
         * OFF
 
 Examples:
-    | ensight.curve.select_begin(0,1)
-    | ensight.curve.normalize_x(&quot;ON&quot;)
-    | ensight.curve.normalize_y(&quot;OFF&quot;)
+    ::
+
+        ensight.curve.select_begin(0,1)
+        ensight.curve.normalize_x(&quot;ON&quot;)
+        ensight.curve.normalize_y(&quot;OFF&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -233,11 +253,13 @@ Args:
         &#x27;blu_val&#x27; red, green, blue component of color (0 to 1.)
 
 Examples:
-    | #
-    | # Set the curve color to cyan
-    | #
-    | ensight.curve.select_begin(1)
-    | ensight.curve.rgb(0.0000e+00,1.0000e+00,1.0000e+00)
+    ::
+
+        #
+        # Set the curve color to cyan
+        #
+        ensight.curve.select_begin(1)
+        ensight.curve.rgb(0.0000e+00,1.0000e+00,1.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -283,8 +305,10 @@ Args:
         &#x27;filename&#x27; name of the file in which to save the curve points
 
 Examples:
-    | ensight.curve.select_begin(0)
-    | ensight.curve.save(&quot;xy_data&quot;,&quot;Curve0&quot;)
+    ::
+
+        ensight.curve.select_begin(0)
+        ensight.curve.save(&quot;xy_data&quot;,&quot;Curve0&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -303,8 +327,10 @@ Args:
         &#x27;y_scale&#x27; query y scale factor
 
 Examples:
-    | ensight.curve.select_begin(1)
-    | ensight.curve.scale(60.0,1.)
+    ::
+
+        ensight.curve.select_begin(1)
+        ensight.curve.scale(60.0,1.)
 
 Returns:
     zero on success, non-zero on error
@@ -315,7 +341,9 @@ Returns:
 Select all curves for subsequent operations.
 
 Examples:
-    | ensight.curve.select_all()
+    ::
+
+        ensight.curve.select_all()
 
 Returns:
     zero on success, non-zero on error
@@ -330,9 +358,11 @@ Curve(s) selection construct for subsequent curve operation.
 | Curve ids to be selected must be specified between curve: select_begin and curve: select_end.
 
 Examples:
-    | ensight.curve.select_begin(0)
-    | ensight.curve.assign(&quot;rescale&quot;,&quot;Velocity&quot;,&quot;vs.&quot;,&quot;Distance&quot;,&quot;for&quot;,&quot;part&quot;,2)
-    | ensight.plot.select_begin(0)
+    ::
+
+        ensight.curve.select_begin(0)
+        ensight.curve.assign(&quot;rescale&quot;,&quot;Velocity&quot;,&quot;vs.&quot;,&quot;Distance&quot;,&quot;for&quot;,&quot;part&quot;,2)
+        ensight.plot.select_begin(0)
 
 Returns:
     zero on success, non-zero on error
@@ -347,9 +377,11 @@ Curve(s) selection construct for subsequent curve operation.
 | Curve ids to be selected must be specified between curve: select_begin and curve: select_end.
 
 Examples:
-    | ensight.curve.select_begin(0)
-    | ensight.curve.assign(&quot;rescale&quot;,&quot;Velocity&quot;,&quot;vs.&quot;,&quot;Distance&quot;,&quot;for&quot;,&quot;part&quot;,2)
-    | ensight.plot.select_begin(0)
+    ::
+
+        ensight.curve.select_begin(0)
+        ensight.curve.assign(&quot;rescale&quot;,&quot;Velocity&quot;,&quot;vs.&quot;,&quot;Distance&quot;,&quot;for&quot;,&quot;part&quot;,2)
+        ensight.plot.select_begin(0)
 
 Returns:
     zero on success, non-zero on error
@@ -362,7 +394,9 @@ Specify the default curve to be selected - or unselect all curves.
 | This is used to set the default (unselected) curve attributes.
 
 Examples:
-    | ensight.curve.select_default()
+    ::
+
+        ensight.curve.select_default()
 
 Returns:
     zero on success, non-zero on error
@@ -387,9 +421,11 @@ Args:
         &#x27;num&#x27; number of subpoints in which to display the smoothed line type between curve points (default is 3)
 
 Examples:
-    | ensight.curve.select_begin(1)
-    | ensight.curve.line_type(&quot;smooth&quot;)
-    | ensight.curve.smooth_subpoints(4.0000e+00)
+    ::
+
+        ensight.curve.select_begin(1)
+        ensight.curve.line_type(&quot;smooth&quot;)
+        ensight.curve.smooth_subpoints(4.0000e+00)
 
 Returns:
     zero on success, non-zero on error
@@ -407,8 +443,10 @@ Args:
         * OFF
 
 Examples:
-    | ensight.curve.select_begin(1)
-    | ensight.curve.visible(&quot;OFF&quot;)
+    ::
+
+        ensight.curve.select_begin(1)
+        ensight.curve.visible(&quot;OFF&quot;)
 
 Returns:
     zero on success, non-zero on error

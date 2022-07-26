@@ -14,7 +14,9 @@ Args:
         &#x27;blu_val&#x27; red, green, blue component of the color (0.0 to 1.0)
 
 Examples:
-    | ensight.annot_entlbl.element_rgb(1.000000,0.400000,0.800000)
+    ::
+
+        ensight.annot_entlbl.element_rgb(1.000000,0.400000,0.800000)
 
 Returns:
     zero on success, non-zero on error
@@ -31,9 +33,11 @@ Args:
         &#x27;element_id&#x27; high/low threshold element id
 
 Examples:
-    | ensight.annot_entlbl.element_thresholds(&quot;band&quot;)
-    | ensight.annot_entlbl.element_threshold_low(30)
-    | ensight.annot_entlbl.element_threshold_high(1200)
+    ::
+
+        ensight.annot_entlbl.element_thresholds(&quot;band&quot;)
+        ensight.annot_entlbl.element_threshold_low(30)
+        ensight.annot_entlbl.element_threshold_high(1200)
 
 Returns:
     zero on success, non-zero on error
@@ -50,9 +54,11 @@ Args:
         &#x27;element_id&#x27; high/low threshold element id
 
 Examples:
-    | ensight.annot_entlbl.element_thresholds(&quot;band&quot;)
-    | ensight.annot_entlbl.element_threshold_low(30)
-    | ensight.annot_entlbl.element_threshold_high(1200)
+    ::
+
+        ensight.annot_entlbl.element_thresholds(&quot;band&quot;)
+        ensight.annot_entlbl.element_threshold_low(30)
+        ensight.annot_entlbl.element_threshold_high(1200)
 
 Returns:
     zero on success, non-zero on error
@@ -75,9 +81,11 @@ Args:
         * none
 
 Examples:
-    | ensight.annot_entlbl.element_thresholds(&quot;band&quot;)
-    | ensight.annot_entlbl.element_threshold_low(30)
-    | ensight.annot_entlbl.element_threshold_high(1200)
+    ::
+
+        ensight.annot_entlbl.element_thresholds(&quot;band&quot;)
+        ensight.annot_entlbl.element_threshold_low(30)
+        ensight.annot_entlbl.element_threshold_high(1200)
 
 Returns:
     zero on success, non-zero on error
@@ -98,7 +106,9 @@ Args:
         &#x27;blu_val&#x27; red, green, blue components of the color (0.0 to 1.0)
 
 Examples:
-    | ensight.annot_entlbl.node_rgb(0.000000,1.000000,0.800000)
+    ::
+
+        ensight.annot_entlbl.node_rgb(0.000000,1.000000,0.800000)
 
 Returns:
     zero on success, non-zero on error
@@ -115,9 +125,11 @@ Args:
         &#x27;node_id&#x27; high/low threshold node id
 
 Examples:
-    | ensight.annot_entlbl.node_thresholds(&quot;low_high&quot;)
-    | ensight.annot_entlbl.node_threshold_low(2)
-    | ensight.annot_entlbl.node_threshold_high(20)
+    ::
+
+        ensight.annot_entlbl.node_thresholds(&quot;low_high&quot;)
+        ensight.annot_entlbl.node_threshold_low(2)
+        ensight.annot_entlbl.node_threshold_high(20)
 
 Returns:
     zero on success, non-zero on error
@@ -134,9 +146,11 @@ Args:
         &#x27;node_id&#x27; high/low threshold node id
 
 Examples:
-    | ensight.annot_entlbl.node_thresholds(&quot;low_high&quot;)
-    | ensight.annot_entlbl.node_threshold_low(2)
-    | ensight.annot_entlbl.node_threshold_high(20)
+    ::
+
+        ensight.annot_entlbl.node_thresholds(&quot;low_high&quot;)
+        ensight.annot_entlbl.node_threshold_low(2)
+        ensight.annot_entlbl.node_threshold_high(20)
 
 Returns:
     zero on success, non-zero on error
@@ -159,9 +173,11 @@ Args:
         * none
 
 Examples:
-    | ensight.annot_entlbl.node_thresholds(&quot;low_high&quot;)
-    | ensight.annot_entlbl.node_threshold_low(2)
-    | ensight.annot_entlbl.node_threshold_high(20)
+    ::
+
+        ensight.annot_entlbl.node_thresholds(&quot;low_high&quot;)
+        ensight.annot_entlbl.node_threshold_low(2)
+        ensight.annot_entlbl.node_threshold_high(20)
 
 Returns:
     zero on success, non-zero on error

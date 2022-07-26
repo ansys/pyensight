@@ -13,13 +13,15 @@ Args:
         * floats
 
 Examples:
-    | ensight.part.select_all()
-    | ensight.savegeom.format(&quot;brick&quot;)
-    | ensight.savegeom.brick_format(&quot;floats&quot;)
-    | ensight.savegeom.resolution(128,128,128)
-    | ensight.savegeom.undefined(-1.2345e-10)
-    | ensight.savegeom.variable(&quot;pressure&quot;)
-    | ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
+    ::
+
+        ensight.part.select_all()
+        ensight.savegeom.format(&quot;brick&quot;)
+        ensight.savegeom.brick_format(&quot;floats&quot;)
+        ensight.savegeom.resolution(128,128,128)
+        ensight.savegeom.undefined(-1.2345e-10)
+        ensight.savegeom.variable(&quot;pressure&quot;)
+        ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -34,14 +36,16 @@ Args:
         &#x27;step&#x27; the beginning/ending time step in the range I[0,n], where n is the last time step
 
 Examples:
-    | ensight.part.select_all()
-    | ensight.savegeom.format(&quot;case&quot;)
-    | ensight.savegeom.binary(&quot;ON&quot;)
-    | ensight.savegeom.single_file(&quot;OFF&quot;)
-    | ensight.savegeom.begin_step(0)
-    | ensight.savegeom.end_step(16)
-    | ensight.savegeom.step_by(1)
-    | ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
+    ::
+
+        ensight.part.select_all()
+        ensight.savegeom.format(&quot;case&quot;)
+        ensight.savegeom.binary(&quot;ON&quot;)
+        ensight.savegeom.single_file(&quot;OFF&quot;)
+        ensight.savegeom.begin_step(0)
+        ensight.savegeom.end_step(16)
+        ensight.savegeom.step_by(1)
+        ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -56,14 +60,16 @@ Args:
         &#x27;step&#x27; the beginning/ending time step in the range I[0,n], where n is the last time step
 
 Examples:
-    | ensight.part.select_all()
-    | ensight.savegeom.format(&quot;case&quot;)
-    | ensight.savegeom.binary(&quot;ON&quot;)
-    | ensight.savegeom.single_file(&quot;OFF&quot;)
-    | ensight.savegeom.begin_step(0)
-    | ensight.savegeom.end_step(16)
-    | ensight.savegeom.step_by(1)
-    | ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
+    ::
+
+        ensight.part.select_all()
+        ensight.savegeom.format(&quot;case&quot;)
+        ensight.savegeom.binary(&quot;ON&quot;)
+        ensight.savegeom.single_file(&quot;OFF&quot;)
+        ensight.savegeom.begin_step(0)
+        ensight.savegeom.end_step(16)
+        ensight.savegeom.step_by(1)
+        ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -81,12 +87,14 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_all()
-    | ensight.savegeom.format(&quot;case&quot;)
-    | ensight.savegeom.binary(&quot;ON&quot;)
-    | ensight.savegeom.single_file(&quot;OFF&quot;)
-    | ensight.savegeom.select_all_steps()
-    | ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
+    ::
+
+        ensight.part.select_all()
+        ensight.savegeom.format(&quot;case&quot;)
+        ensight.savegeom.binary(&quot;ON&quot;)
+        ensight.savegeom.single_file(&quot;OFF&quot;)
+        ensight.savegeom.select_all_steps()
+        ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -109,12 +117,14 @@ Args:
         * UDWName
 
 Examples:
-    | ensight.part.select_all()
-    | ensight.savegeom.format(&quot;case&quot;)
-    | ensight.savegeom.binary(&quot;ON&quot;)
-    | ensight.savegeom.single_file(&quot;OFF&quot;)
-    | ensight.savegeom.select_all_steps()
-    | ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
+    ::
+
+        ensight.part.select_all()
+        ensight.savegeom.format(&quot;case&quot;)
+        ensight.savegeom.binary(&quot;ON&quot;)
+        ensight.savegeom.single_file(&quot;OFF&quot;)
+        ensight.savegeom.select_all_steps()
+        ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -131,13 +141,15 @@ Args:
         &#x27;size&#x27; file size limit in MB (Mega-Bytes)
 
 Examples:
-    | ensight.part.select_all()
-    | ensight.savegeom.format(&quot;case&quot;)
-    | ensight.savegeom.binary(&quot;ON&quot;)
-    | ensight.savegeom.single_file(&quot;ON&quot;)
-    | ensight.savegeom.maximum_file_size(2147.479980)
-    | ensight.savegeom.select_all_steps()
-    | ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
+    ::
+
+        ensight.part.select_all()
+        ensight.savegeom.format(&quot;case&quot;)
+        ensight.savegeom.binary(&quot;ON&quot;)
+        ensight.savegeom.single_file(&quot;ON&quot;)
+        ensight.savegeom.maximum_file_size(2147.479980)
+        ensight.savegeom.select_all_steps()
+        ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -154,10 +166,12 @@ Args:
         &#x27;input_string&#x27; up to 200 characters of information that will be passed into the user-defined writer selected.
 
 Examples:
-    | ensight.part.select_all()
-    | ensight.savegeom.format(&quot;STL&quot;)
-    | ensight.savegeom.parameters(&quot;test string&quot;)
-    | ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
+    ::
+
+        ensight.part.select_all()
+        ensight.savegeom.format(&quot;STL&quot;)
+        ensight.savegeom.parameters(&quot;test string&quot;)
+        ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -178,13 +192,15 @@ Args:
         &#x27;z&#x27; x, y, z direction resolution
 
 Examples:
-    | ensight.part.select_all()
-    | ensight.savegeom.format(&quot;brick&quot;)
-    | ensight.savegeom.brick_format(&quot;floats&quot;)
-    | ensight.savegeom.resolution(128,128,128)
-    | ensight.savegeom.undefined(-1.2345e-10)
-    | ensight.savegeom.variable(&quot;pressure&quot;)
-    | ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
+    ::
+
+        ensight.part.select_all()
+        ensight.savegeom.format(&quot;brick&quot;)
+        ensight.savegeom.brick_format(&quot;floats&quot;)
+        ensight.savegeom.resolution(128,128,128)
+        ensight.savegeom.undefined(-1.2345e-10)
+        ensight.savegeom.variable(&quot;pressure&quot;)
+        ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -202,19 +218,23 @@ Args:
         &#x27;filename_prefix&#x27; directory path and filename prefix to be used for the exported data file
 
 Examples:
-    | ensight.part.select_all()
-    | ensight.savegeom.format(&quot;case&quot;)
-    | ensight.savegeom.binary(&quot;ON&quot;)
-    | ensight.savegeom.single_file(&quot;OFF&quot;)
-    | ensight.savegeom.select_all_steps()
-    | ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
+    ::
 
-    | ensight.part.select_begin(1)
-    | ensight.savegeom.format(&quot;case&quot;)
-    | ensight.savegeom.binary(&quot;ON&quot;)
-    | ensight.savegeom.single_file(&quot;OFF&quot;)
-    | ensight.savegeom.select_all_steps()
-    | ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
+        ensight.part.select_all()
+        ensight.savegeom.format(&quot;case&quot;)
+        ensight.savegeom.binary(&quot;ON&quot;)
+        ensight.savegeom.single_file(&quot;OFF&quot;)
+        ensight.savegeom.select_all_steps()
+        ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
+
+    ::
+
+        ensight.part.select_begin(1)
+        ensight.savegeom.format(&quot;case&quot;)
+        ensight.savegeom.binary(&quot;ON&quot;)
+        ensight.savegeom.single_file(&quot;OFF&quot;)
+        ensight.savegeom.select_all_steps()
+        ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -225,12 +245,14 @@ Returns:
 Specify all time step data of selected parts (geometry) and active variables to be exported to an EnSight case or VRML file(s).
 
 Examples:
-    | ensight.part.select_all()
-    | ensight.savegeom.format(&quot;case&quot;)
-    | ensight.savegeom.binary(&quot;ON&quot;)
-    | ensight.savegeom.single_file(&quot;OFF&quot;)
-    | ensight.savegeom.select_all_steps()
-    | ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
+    ::
+
+        ensight.part.select_all()
+        ensight.savegeom.format(&quot;case&quot;)
+        ensight.savegeom.binary(&quot;ON&quot;)
+        ensight.savegeom.single_file(&quot;OFF&quot;)
+        ensight.savegeom.select_all_steps()
+        ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -248,13 +270,15 @@ Args:
         * OFF
 
 Examples:
-    | ensight.part.select_all()
-    | ensight.savegeom.format(&quot;case&quot;)
-    | ensight.savegeom.binary(&quot;ON&quot;)
-    | ensight.savegeom.single_file(&quot;ON&quot;)
-    | ensight.savegeom.maximum_file_size(2147.479980)
-    | ensight.savegeom.select_all_steps()
-    | ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
+    ::
+
+        ensight.part.select_all()
+        ensight.savegeom.format(&quot;case&quot;)
+        ensight.savegeom.binary(&quot;ON&quot;)
+        ensight.savegeom.single_file(&quot;ON&quot;)
+        ensight.savegeom.maximum_file_size(2147.479980)
+        ensight.savegeom.select_all_steps()
+        ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -269,14 +293,16 @@ Args:
         &#x27;increment&#x27; increment to stride the time steps in the range of the beginning and ending time steps
 
 Examples:
-    | ensight.part.select_all()
-    | ensight.savegeom.format(&quot;case&quot;)
-    | ensight.savegeom.binary(&quot;ON&quot;)
-    | ensight.savegeom.single_file(&quot;OFF&quot;)
-    | ensight.savegeom.begin_step(0)
-    | ensight.savegeom.end_step(16)
-    | ensight.savegeom.step_by(1)
-    | ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
+    ::
+
+        ensight.part.select_all()
+        ensight.savegeom.format(&quot;case&quot;)
+        ensight.savegeom.binary(&quot;ON&quot;)
+        ensight.savegeom.single_file(&quot;OFF&quot;)
+        ensight.savegeom.begin_step(0)
+        ensight.savegeom.end_step(16)
+        ensight.savegeom.step_by(1)
+        ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -293,13 +319,15 @@ Args:
         &#x27;undef_value&#x27; any undefined value is written out as this value
 
 Examples:
-    | ensight.part.select_all()
-    | ensight.savegeom.format(&quot;brick&quot;)
-    | ensight.savegeom.brick_format(&quot;floats&quot;)
-    | ensight.savegeom.resolution(128,128,128)
-    | ensight.savegeom.undefined(-1.2345e-10)
-    | ensight.savegeom.variable(&quot;pressure&quot;)
-    | ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
+    ::
+
+        ensight.part.select_all()
+        ensight.savegeom.format(&quot;brick&quot;)
+        ensight.savegeom.brick_format(&quot;floats&quot;)
+        ensight.savegeom.resolution(128,128,128)
+        ensight.savegeom.undefined(-1.2345e-10)
+        ensight.savegeom.variable(&quot;pressure&quot;)
+        ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -316,13 +344,15 @@ Args:
         &#x27;var_name&#x27; variable name
 
 Examples:
-    | ensight.part.select_all()
-    | ensight.savegeom.format(&quot;brick&quot;)
-    | ensight.savegeom.brick_format(&quot;floats&quot;)
-    | ensight.savegeom.resolution(128,128,128)
-    | ensight.savegeom.undefined(-1.2345e-10)
-    | ensight.savegeom.variable(&quot;pressure&quot;)
-    | ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
+    ::
+
+        ensight.part.select_all()
+        ensight.savegeom.format(&quot;brick&quot;)
+        ensight.savegeom.brick_format(&quot;floats&quot;)
+        ensight.savegeom.resolution(128,128,128)
+        ensight.savegeom.undefined(-1.2345e-10)
+        ensight.savegeom.variable(&quot;pressure&quot;)
+        ensight.savegeom.save_geometric_entities(&quot;/tmp/file_prefix&quot;)
 
 Returns:
     zero on success, non-zero on error

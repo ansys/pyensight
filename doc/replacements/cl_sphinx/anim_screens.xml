@@ -13,11 +13,13 @@ Args:
         * OFF
 
 Examples:
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.rotate(-4.500000e+01,7.500000e+01,0.000000e+00)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_screens.type(&quot;detached_display&quot;)
-    | ensight.anim_screens.save_multiple_images(&quot;ON&quot;)
+    ::
+
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.rotate(-4.500000e+01,7.500000e+01,0.000000e+00)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_screens.type(&quot;detached_display&quot;)
+        ensight.anim_screens.save_multiple_images(&quot;ON&quot;)
 
 Returns:
     zero on success, non-zero on error
@@ -45,19 +47,21 @@ Args:
         * DVDPAL
 
 Examples:
-    | #
-    | # This plays a keyframe animation in a 320x200 window.
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.zoom(0.561365)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_screens.type(&quot;user_defined&quot;)
-    | ensight.anim_screens.x_min(0)
-    | ensight.anim_screens.x_max(319)
-    | ensight.anim_screens.y_min(0)
-    | ensight.anim_screens.y_max(199)
-    | ensight.anim_keyframe.run()
+    ::
+
+        #
+        # This plays a keyframe animation in a 320x200 window.
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.zoom(0.561365)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_screens.type(&quot;user_defined&quot;)
+        ensight.anim_screens.x_min(0)
+        ensight.anim_screens.x_max(319)
+        ensight.anim_screens.y_min(0)
+        ensight.anim_screens.y_max(199)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -74,19 +78,21 @@ Args:
         &#x27;coord&#x27; screen coordinate of the left (x_min), right (x_max), bottom (y_min) and top (y_max)
 
 Examples:
-    | #
-    | # This plays a keyframe animation in a 320x200 window.
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.zoom(0.561365)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_screens.type(&quot;user_defined&quot;)
-    | ensight.anim_screens.x_min(0)
-    | ensight.anim_screens.x_max(319)
-    | ensight.anim_screens.y_min(0)
-    | ensight.anim_screens.y_max(199)
-    | ensight.anim_keyframe.run()
+    ::
+
+        #
+        # This plays a keyframe animation in a 320x200 window.
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.zoom(0.561365)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_screens.type(&quot;user_defined&quot;)
+        ensight.anim_screens.x_min(0)
+        ensight.anim_screens.x_max(319)
+        ensight.anim_screens.y_min(0)
+        ensight.anim_screens.y_max(199)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -103,19 +109,21 @@ Args:
         &#x27;coord&#x27; screen coordinate of the left (x_min), right (x_max), bottom (y_min) and top (y_max)
 
 Examples:
-    | #
-    | # This plays a keyframe animation in a 320x200 window.
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.zoom(0.561365)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_screens.type(&quot;user_defined&quot;)
-    | ensight.anim_screens.x_min(0)
-    | ensight.anim_screens.x_max(319)
-    | ensight.anim_screens.y_min(0)
-    | ensight.anim_screens.y_max(199)
-    | ensight.anim_keyframe.run()
+    ::
+
+        #
+        # This plays a keyframe animation in a 320x200 window.
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.zoom(0.561365)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_screens.type(&quot;user_defined&quot;)
+        ensight.anim_screens.x_min(0)
+        ensight.anim_screens.x_max(319)
+        ensight.anim_screens.y_min(0)
+        ensight.anim_screens.y_max(199)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -132,19 +140,21 @@ Args:
         &#x27;coord&#x27; screen coordinate of the left (x_min), right (x_max), bottom (y_min) and top (y_max)
 
 Examples:
-    | #
-    | # This plays a keyframe animation in a 320x200 window.
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.zoom(0.561365)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_screens.type(&quot;user_defined&quot;)
-    | ensight.anim_screens.x_min(0)
-    | ensight.anim_screens.x_max(319)
-    | ensight.anim_screens.y_min(0)
-    | ensight.anim_screens.y_max(199)
-    | ensight.anim_keyframe.run()
+    ::
+
+        #
+        # This plays a keyframe animation in a 320x200 window.
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.zoom(0.561365)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_screens.type(&quot;user_defined&quot;)
+        ensight.anim_screens.x_min(0)
+        ensight.anim_screens.x_max(319)
+        ensight.anim_screens.y_min(0)
+        ensight.anim_screens.y_max(199)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
@@ -161,19 +171,21 @@ Args:
         &#x27;coord&#x27; screen coordinate of the left (x_min), right (x_max), bottom (y_min) and top (y_max)
 
 Examples:
-    | #
-    | # This plays a keyframe animation in a 320x200 window.
-    | #
-    | ensight.anim_keyframe.keyframing(&quot;ON&quot;)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.view_transf.zoom(0.561365)
-    | ensight.anim_keyframe.create_keyframe()
-    | ensight.anim_screens.type(&quot;user_defined&quot;)
-    | ensight.anim_screens.x_min(0)
-    | ensight.anim_screens.x_max(319)
-    | ensight.anim_screens.y_min(0)
-    | ensight.anim_screens.y_max(199)
-    | ensight.anim_keyframe.run()
+    ::
+
+        #
+        # This plays a keyframe animation in a 320x200 window.
+        #
+        ensight.anim_keyframe.keyframing(&quot;ON&quot;)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.view_transf.zoom(0.561365)
+        ensight.anim_keyframe.create_keyframe()
+        ensight.anim_screens.type(&quot;user_defined&quot;)
+        ensight.anim_screens.x_min(0)
+        ensight.anim_screens.x_max(319)
+        ensight.anim_screens.y_min(0)
+        ensight.anim_screens.y_max(199)
+        ensight.anim_keyframe.run()
 
 Returns:
     zero on success, non-zero on error
