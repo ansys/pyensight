@@ -83,10 +83,12 @@ class Session:
         self._halt_ensight_on_close = True
         self._callbacks = dict()
         # if the caller passed a session directory we will assume they are
-        # creating effectively a proxy Session and create a lacu
+        # creating effectively a proxy Session and create a (stub) launcher
         if session_directory is not None:
             self._launcher = pyensight.Launcher()
             self._launcher.session_directory = session_directory
+            # The stub will not know about us
+            self._halt_ensight_on_close = False
 
         # are we in a jupyter notebook?
         try:
