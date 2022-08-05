@@ -28,9 +28,12 @@ class DockerLauncher(pyensight.Launcher):
     bind a Session instance to the created gRPC session.  Return that session.
 
     Args:
-        ansys_installation:
-            Location of the ANSYS installation, including the version
-            directory Default: None (causes common locations to be scanned)
+        data_directory:
+            Host directory to make into the container at /data
+        docker_image_name:
+            Optional Docker Image name to use
+        use_dev:
+            Option to use the latest ensight_dev Docker Image; overriden by docker_image_name if specified.
 
     Examples:
         >>> from ansys.pyensight import DockerLauncher
@@ -110,7 +113,9 @@ class DockerLauncher(pyensight.Launcher):
 
         Args:
             host:
-                Name of the host on which the EnSight gRPC service is running
+                Optional hostname on which the EnSight gRPC service is running
+            use_egl:
+                Specify True if EnSight should try to use EGL.  Beta flag.
 
         Returns:
             pyensight Session object instance
