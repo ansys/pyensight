@@ -73,6 +73,9 @@ class Session:
         ws_port: Optional[int] = None,
         session_directory: Optional[str] = None,
     ) -> None:
+        self._timeout = 120.0
+        self._cei_home = ""
+        self._cei_suffix = ""
         self._hostname = host
         self._install_path = install_path
         self._launcher = None
@@ -106,6 +109,9 @@ class Session:
             host=self._hostname, port=self._grpc_port, secret_key=self._secret_key
         )
 
+        # establish the connection with retry
+        self._establish_connection(validate=True)
+
         # update the enums to match current EnSight instance
         cmd = "{key: getattr(ensight.objs.enums, key) for key in dir(ensight.objs.enums)}"
         new_enums = self.cmd(cmd)
@@ -123,12 +129,21 @@ class Session:
     def __del__(self):
         self.close()
 
-    def _establish_connection(self, timeout: float = 120.0) -> None:
-        """Establish a gRPC connection to the EnSight instance."""
+    def _establish_connection(self, validate: bool = False) -> None:
+        """Establish a gRPC connection to the EnSight instance.
+        Args:
+            validate: If true, actually try to communicate with EnSight
+        """
         time_start = time.time()
-        while time.time() - time_start < timeout:
+        while time.time() - time_start < self._timeout:
             if self._grpc.is_connected():
-                return
+                try:
+                    if validate:
+                        self._cei_home = self.cmd("ensight.version('CEI_HOME')")
+                        self._cei_suffix = self.cmd("ensight.version('suffix')")
+                    return
+                except OSError:
+                    pass
             self._grpc.connect()
         raise RuntimeError("Unable to establish a gRPC connection to EnSight.")
 
@@ -145,6 +160,31 @@ class Session:
     @halt_ensight_on_close.setter
     def halt_ensight_on_close(self, value: bool) -> None:
         self._halt_ensight_on_close = value
+
+    @property
+    def timeout(self) -> float:
+        """
+        The amount of time in seconds before a gRPC call is considered to have failed.
+        """
+        return self._timeout
+
+    @timeout.setter
+    def timeout(self, value: float) -> None:
+        self._timeout = value
+
+    @property
+    def cei_home(self) -> str:
+        """
+        The value of CEI_HOME for the connected EnSight session.
+        """
+        return self._cei_home
+
+    @property
+    def cei_suffix(self) -> str:
+        """
+        The "suffix" string (e.g. "222" or 231") the connected EnSight session.
+        """
+        return self._cei_suffix
 
     @property
     def jupyter_notebook(self) -> bool:

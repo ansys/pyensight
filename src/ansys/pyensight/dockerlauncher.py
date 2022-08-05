@@ -28,9 +28,12 @@ class DockerLauncher(pyensight.Launcher):
     bind a Session instance to the created gRPC session.  Return that session.
 
     Args:
-        ansys_installation:
-            Location of the ANSYS installation, including the version
-            directory Default: None (causes common locations to be scanned)
+        data_directory:
+            Host directory to make into the container at /data
+        docker_image_name:
+            Optional Docker Image name to use
+        use_dev:
+            Option to use the latest ensight_dev Docker Image; overridden by docker_image_name if specified.
 
     Examples:
         >>> from ansys.pyensight import DockerLauncher
@@ -99,14 +102,18 @@ class DockerLauncher(pyensight.Launcher):
         except Exception:
             raise RuntimeError(f"Can't pull Docker image: {self._image_name}")
 
-    def start(self, host: str = "127.0.0.1") -> "pyensight.Session":
+    def start(
+        self, host: Optional[str] = "127.0.0.1", use_egl: Optional[bool] = False
+    ) -> "pyensight.Session":
         """Start an EnSight session using the local Docker ensight image
         Launch a copy of EnSight in the container that supports the gRPC interface.  Create and
         bind a Session instance to the created gRPC session.  Return that session.
 
         Args:
             host:
-                Name of the host on which the EnSight gRPC service is running
+                Optional hostname on which the EnSight gRPC service is running
+            use_egl:
+                Specify True if EnSight should try to use EGL.  Beta flag.
 
         Returns:
             pyensight Session object instance
@@ -158,16 +165,29 @@ class DockerLauncher(pyensight.Launcher):
 
         # FIXME_MFK: probably need a unique name for our container
         # in case the user launches multiple sessions
-        self._container = self._docker_client.containers.run(
-            self._image_name,
-            entrypoint="/bin/bash",
-            volumes=data_volume,
-            environment=container_env,
-            ports=ports_to_map,
-            name="ensight",
-            tty=True,
-            detach=True,
-        )
+        if use_egl:
+            self._container = self._docker_client.containers.run(
+                self._image_name,
+                entrypoint="/bin/bash",
+                volumes=data_volume,
+                environment=container_env,
+                device_requests=[docker.types.DeviceRequest(count=-1, capabilities=[["gpu"]])],
+                ports=ports_to_map,
+                name="ensight",
+                tty=True,
+                detach=True,
+            )
+        else:
+            self._container = self._docker_client.containers.run(
+                self._image_name,
+                entrypoint="/bin/bash",
+                volumes=data_volume,
+                environment=container_env,
+                ports=ports_to_map,
+                name="ensight",
+                tty=True,
+                detach=True,
+            )
 
         # Build up the command to run ensight and send it to the container
         # as a detached command.
@@ -207,6 +227,9 @@ class DockerLauncher(pyensight.Launcher):
         # Run EnSight
         cmd = ["bash", "--login", "-c"]
         cmd2 = "ensight -batch -v 3"
+
+        if use_egl:
+            cmd2 += " -egl"
 
         cmd2 += " -grpc_server " + str(ports[0])
 
