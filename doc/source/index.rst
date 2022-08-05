@@ -9,7 +9,10 @@ PyEnSight  documentation |version|
    :maxdepth: 3
 
    getting_started/index
+   user_guide/index
+   examples/index
    class_documentation
+   contributing
 
 |title|
 
