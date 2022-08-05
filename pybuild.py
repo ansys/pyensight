@@ -11,7 +11,7 @@ import textwrap
 
 
 def docs():
-    print("Build sphinx docs")
+    print("-" * 10, "Build sphinx docs")
     pydir = os.path.dirname(sys.executable)
     sphinx = os.path.join(pydir, "scripts", "sphinx-build")
     cmd = [sphinx, "-M", "html", "doc/source", "doc/build"]
@@ -19,21 +19,39 @@ def docs():
 
 
 def generate():
-    print("Running generate.py")
+    print("-" * 10, "Running generate.py")
     cmd = [sys.executable, "codegen/generate.py"]
     subprocess.run(cmd)
 
 
 def wheel():
-    print("Building wheel")
+    print("-" * 10, "Building wheel")
     cmd = [sys.executable, "-m", "build", "--wheel"]
     subprocess.run(cmd)
+
+
+def codespell():
+    pydir = os.path.dirname(sys.executable)
+    codespellexe = os.path.join(pydir, "scripts", "codespell")
+    print("-" * 10, "Running codespell")
+    cmd = [
+        codespellexe,
+        "--count",
+        "src",
+    ]
+    ret = subprocess.run(cmd, capture_output=True)
+    if ret.returncode < 0:
+        raise RuntimeError(f"Error running {codespellexe}")
+    print(ret.stdout.decode().strip())
+    num = int(ret.stderr.decode().split()[-1])
+    if num > 0:
+        print(f"Warning: {num} potential spelling error(s) detected")
 
 
 def flake8():
     pydir = os.path.dirname(sys.executable)
     flake8exe = os.path.join(pydir, "scripts", "flake8")
-    print("Running flake8")
+    print("-" * 10, "Running flake8")
     cmd = [
         flake8exe,
     ]
@@ -43,7 +61,7 @@ def flake8():
 def black():
     pydir = os.path.dirname(sys.executable)
     blackexe = os.path.join(pydir, "scripts", "black")
-    print("Running black")
+    print("-" * 10, "Running black")
     cmd = [
         blackexe,
         "--line-length",
@@ -65,7 +83,7 @@ def black():
 def isort():
     pydir = os.path.dirname(sys.executable)
     isortexe = os.path.join(pydir, "scripts", "isort")
-    print("Running isort")
+    print("-" * 10, "Running isort")
     cmd = [
         isortexe,
         "--profile",
@@ -142,6 +160,7 @@ if __name__ == "__main__":
         black()
         isort()
         flake8()
+        codespell()
     elif args.operation == "codegen":
         generate()
     elif args.operation == "build":
