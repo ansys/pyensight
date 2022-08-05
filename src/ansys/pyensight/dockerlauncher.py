@@ -33,7 +33,7 @@ class DockerLauncher(pyensight.Launcher):
         docker_image_name:
             Optional Docker Image name to use
         use_dev:
-            Option to use the latest ensight_dev Docker Image; overriden by docker_image_name if specified.
+            Option to use the latest ensight_dev Docker Image; overridden by docker_image_name if specified.
 
     Examples:
         >>> from ansys.pyensight import DockerLauncher
