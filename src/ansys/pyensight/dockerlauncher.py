@@ -103,9 +103,7 @@ class DockerLauncher(pyensight.Launcher):
             raise RuntimeError(f"Can't pull Docker image: {self._image_name}")
 
     def start(
-        self,
-        host: Optional[str] = "127.0.0.1",
-        use_egl: Optional[bool] = False
+        self, host: Optional[str] = "127.0.0.1", use_egl: Optional[bool] = False
     ) -> "pyensight.Session":
         """Start an EnSight session using the local Docker ensight image
         Launch a copy of EnSight in the container that supports the gRPC interface.  Create and
@@ -173,7 +171,7 @@ class DockerLauncher(pyensight.Launcher):
                 entrypoint="/bin/bash",
                 volumes=data_volume,
                 environment=container_env,
-                device_requests=[docker.types.DeviceRequest(count=-1, capabilities=[['gpu']])],
+                device_requests=[docker.types.DeviceRequest(count=-1, capabilities=[["gpu"]])],
                 ports=ports_to_map,
                 name="ensight",
                 tty=True,
