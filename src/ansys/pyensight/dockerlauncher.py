@@ -56,7 +56,7 @@ class DockerLauncher(pyensight.Launcher):
         # get the optional user specified image name
         self._image_name: str = "ghcr.io/ansys/ensight"
         if use_dev:
-            self._image_name: str = "ghcr.io/ansys/ensight_dev"
+            self._image_name: str = "ghcr.io/ansys/ensight_dev2"
         if docker_image_name:
             self._image_name: str = docker_image_name
 
@@ -226,7 +226,12 @@ class DockerLauncher(pyensight.Launcher):
 
         # Run EnSight
         cmd = ["bash", "--login", "-c"]
-        cmd2 = "ensight -batch -v 3"
+        
+        cmd2 = ""
+        if use_egl:
+            cmd2 = "export LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1 ;"
+
+        cmd2 +=" ensight -batch -v 3"
 
         if use_egl:
             cmd2 += " -egl"
