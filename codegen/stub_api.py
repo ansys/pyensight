@@ -117,11 +117,11 @@ class ProcessAPI:
         return value
 
     @staticmethod
-    def _cap1(s: str):
+    def _cap1(s: str) -> str:
         return s[0].upper() + s[1:]
 
     @staticmethod
-    def _process_variable(node: ElementTree.Element, indent: str = ""):
+    def _process_variable(node: ElementTree.Element, indent: str = "") -> str:
         """Process <variable> tag
 
         Variable tags are converted into class members
@@ -136,7 +136,7 @@ class ProcessAPI:
         return s + "\n"
 
     @staticmethod
-    def _process_argument(node: ElementTree.Element):
+    def _process_argument(node: ElementTree.Element) -> str:
         """Process <argument> tag
 
         Argument tags are placed inside of member function bindings
@@ -153,7 +153,7 @@ class ProcessAPI:
                 s += f" = {node.text}"
         return s
 
-    def _process_method(self, node: ElementTree.Element, indent: str = ""):
+    def _process_method(self, node: ElementTree.Element, indent: str = "") -> str:
         """Process <method> tag
 
         Map a method tag to a 'def' member function
@@ -193,7 +193,85 @@ class ProcessAPI:
         s += f"{indent}return self._session.cmd(cmd)\n"
         return s
 
-    def _process_module(self, node: ElementTree.Element, indent: str = ""):
+    @staticmethod
+    def _process_property(node: ElementTree.Element, indent: str = "") -> str:
+        """Process a <property> tag
+
+        Generate the property getter/setter for the class property
+        """
+        name = node.get("name")
+        desc = node.get("description")
+        value_type = node.get("type")
+        value_type = value_type.replace("'ensobjlist'", "List")
+        value_type = value_type.replace("ensobjlist", "List")
+        read_only = node.get("ro", "0")
+        indent2 = indent + "    "
+
+        s = "\n"
+        s += f"{indent}@property\n"
+        s += f"{indent}def {name}(self) -> {value_type}:\n"
+        s += f'{indent2}"""{desc}"""\n'
+        s += f"{indent2}return self.getattr(self._session.ensight.objs.enums.{name})\n"
+        if read_only == "0":
+            s += "\n"
+            s += f"{indent}@{name}.setter\n"
+            s += f"{indent}def {name}(self, value: {value_type}) -> None:\n"
+            s += f"{indent2}self.setattr(self._session.ensight.objs.enums.{name}, value.__repr__())\n"
+        return s
+
+    def _process_class(self, node: ElementTree.Element, indent: str = "") -> str:
+        """Process a <class> tag
+
+        Generate the proxy class object for the ENSOBJ subclass
+        """
+        classname = node.get("name")
+        superclass = node.get("super", "ENSOBJ")
+        # the new class
+        s = "\n\n"
+        s += f"{indent}class {classname}({superclass}):\n"
+        indent += "    "
+        s += f'{indent}"""\n'
+        s += f"{indent}This class acts as a proxy for the EnSight Python module {node.get('ns')}\n"
+        s += "__ATTRIBUTES__"
+        s += f'{indent}"""\n'
+        s += f"{indent}attr_list = []\n"
+        s += "\n"
+        s += f"{indent}def __init__(self, *args, **kwargs) -> None:\n"
+        s += f"{indent}    super().__init__(*args, **kwargs)\n"
+        s += f"{indent}    self._update_attr_list(self._session, self._objid)\n"
+        s += "\n"
+        s += f"{indent}@classmethod\n"
+        s += f"{indent}def _update_attr_list(cls, session: 'Session', id: int) -> None:\n"
+        s += f"{indent}    if cls.attr_list:\n"
+        s += f"{indent}        return\n"
+        s += f"{indent}    cmd = session.remote_obj(id) + '.__ids__'\n"
+        s += f"{indent}    cls.attr_list = session.cmd(cmd)\n"
+        s += "\n"
+        s += f"{indent}@property\n"
+        s += f"{indent}def __class__(self) -> str:\n"
+        s += f"{indent}    return '{classname}'\n"
+        attributes = ""
+        for child in node:
+            if child.tag == "property":
+                name = child.get("name")
+                desc = child.get("description")
+                if name == "__class__":
+                    desc = "The name of the class as a string"
+                elif name == "__ids__":
+                    desc = "A list of the attribute ids supported by this class"
+                attributes += f"{indent}    {name}:\n"
+                attributes += f"{indent}        {desc}\n"
+                # __class__ handled directly and __OBJID__ handled in superclass
+                if name not in ("__class__", "__OBJID__", "__ids__"):
+                    s += self._process_property(child, indent)
+            elif child.tag == "method":
+                # TODO: handle class specific methods
+                pass
+        if attributes:
+            attributes = f"\n{indent}Attributes:\n" + attributes + "\n"
+        return s.replace("__ATTRIBUTES__", attributes)
+
+    def _process_module(self, node: ElementTree.Element, indent: str = "") -> str:
         """Process a <module> tag
 
         Module tags are converted into classes
@@ -212,6 +290,7 @@ class ProcessAPI:
         s += f"{indent}    self._session = session\n"
         attributes = ""
         # walk the children
+        classes = ""
         methods = ""
         for child in node:
             if child.tag == "variable":
@@ -228,7 +307,15 @@ class ProcessAPI:
                 attributes += f"{indent}        EnSight module instance class\n"
             elif child.tag == "method":
                 methods += self._process_method(child, indent=indent)
+            elif child.tag == "class":
+                classname = node.get("name")
+                # ENSOBJ is hand-crafted
+                if classname != "ENSOBJ":
+                    attributes += f"{indent}    {classname}:\n"
+                    attributes += f"{indent}        EnSight {classname} proxy class\n"
+                    classes += self._process_class(child, indent=indent)
         s += methods
+        s += classes
         if attributes:
             attributes = f"\n{indent}Attributes:\n" + attributes + "\n"
         return s.replace("__ATTRIBUTES__", attributes)
@@ -239,7 +326,8 @@ class ProcessAPI:
         s += f"Autogenerated from: {name}.xml at {datetime.datetime.now().isoformat()}\n"
         s += '"""\n'
         s += "from ansys.pyensight import Session\n"
-        s += "from typing import Any\n"
+        s += "from ansys.pyensight.ensobj import ENSOBJ\n"
+        s += "from typing import Any, List\n"
         for child in self._root:
             if child.tag == "module":
                 s += self._process_module(child)

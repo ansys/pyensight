@@ -73,6 +73,8 @@ class Session:
         ws_port: Optional[int] = None,
         session_directory: Optional[str] = None,
     ) -> None:
+        # when objects come into play, we can reuse them, so hash ID to instance here
+        self._ensobj_hash = {}
         self._timeout = 120.0
         self._cei_home = ""
         self._cei_suffix = ""
@@ -119,6 +121,9 @@ class Session:
             if key.startswith("__") and (key != "__OBJID__"):
                 continue
             setattr(self._ensight.objs.enums, key, value)
+
+        # create ensight.core
+        self._ensight.objs.core = self.cmd("ensight.objs.core")
 
     def __repr__(self):
         s = f"Session(host='{self.hostname}', secret_key='{self.secret_key}', "
@@ -333,7 +338,11 @@ class Session:
             14
         """
         self._establish_connection()
-        return self._grpc.command(value, do_eval=do_eval)
+        ret = self._grpc.command(value, do_eval=do_eval)
+        if do_eval:
+            ret = self._convert_ctor(ret)
+            return eval(ret, dict(session=self))
+        return ret
 
     def geometry(self, what: str = "glb") -> bytes:
         """Return the current EnSight scene as a geometry file
@@ -537,7 +546,7 @@ class Session:
             flags = ",flags=ensight.objs.EVENTMAP_FLAG_COMP_GLOBAL"
         cmd = f"ensight.objs.addcallback({target},None,"
         cmd += f"'{self._grpc.prefix()}{tag}',attrs={repr(attr_list)}{flags})"
-        callback_id = self._grpc.command(cmd)
+        callback_id = self.cmd(cmd)
         # if this is the first callback, start the event stream
         if len(self._callbacks) == 0:
             self._grpc.event_stream_enable(callback=self._event_callback)
@@ -564,7 +573,7 @@ class Session:
         callback_id = self._callbacks[tag][0]
         del self._callbacks[tag]
         cmd = f"ensight.objs.removecallback({callback_id})"
-        self._grpc.command(cmd, do_eval=False)
+        _ = self.cmd(cmd, do_eval=False)
 
     def _event_callback(self, cmd: str) -> None:
         """Pass the URL back to the registered callback
@@ -591,3 +600,155 @@ class Session:
                 value[1](cmd)
                 return
         print(f"Unhandled event: {cmd}")
+
+    # Object API helper functions
+    @staticmethod
+    def remote_obj(ensobjid: int) -> str:
+        """Generate a string that, for a given ENSOBJ ID, returns a proxy object instance"""
+        return f"ensight.objs.wrap_id({ensobjid})"
+
+    def _prune_hash(self) -> None:
+        """The ensobj hash table may need flushing if it gets too big, do that here"""
+        if len(self._ensobj_hash) > 1000000:
+            self._ensobj_hash = {}
+
+    def add_ensobj_instance(self, obj: "ENSOBJ") -> None:
+        """Add a new ENSOBJ instance to the hash table"""
+        self._ensobj_hash[obj.__OBJID__] = obj
+
+    def obj_instance(self, ensobjid: int) -> Optional["ENSOBJ"]:
+        """Get any existing proxy object associated with a given ID"""
+        return self._ensobj_hash.get(ensobjid, None)
+
+    def _obj_attr_subtype(self, classname: str) -> (int, dict):
+        """Get subtype information for a given class
+        For the input classname, return the proper Python proxy classname and if the
+        class supports subclasses, the attribute id number of the differentiating
+        attribute.
+
+        Args:
+            classname:
+                The root classname to lookup
+
+        Return:
+            (attr_id, subclassnamedict): the attribute used to differentiate between classes
+                and a dictionary of the classnames for each value of the attribute.
+        """
+        if classname == "ENS_PART":
+            part_lookup_dict = dict()
+            part_lookup_dict[0] = "ENS_PART_MODEL"
+            part_lookup_dict[1] = "ENS_PART_CLIP"
+            part_lookup_dict[2] = "ENS_PART_CONTOUR"
+            part_lookup_dict[3] = "ENS_PART_DISCRETE_PARTICLE"
+            part_lookup_dict[4] = "ENS_PART_FRAME"
+            part_lookup_dict[5] = "ENS_PART_ISOSURFACE"
+            part_lookup_dict[6] = "ENS_PART_PARTICLE_TRACE"
+            part_lookup_dict[7] = "ENS_PART_PROFILE"
+            part_lookup_dict[8] = "ENS_PART_VECTOR_ARROW"
+            part_lookup_dict[9] = "ENS_PART_ELEVATED_SURFACE"
+            part_lookup_dict[10] = "ENS_PART_DEVELOPED_SURFACE"
+            part_lookup_dict[15] = "ENS_PART_BUILTUP"
+            part_lookup_dict[16] = "ENS_PART_TENSOR_GLYPH"
+            part_lookup_dict[17] = "ENS_PART_FX_VORTEX_CORE"
+            part_lookup_dict[18] = "ENS_PART_FX_SHOCK"
+            part_lookup_dict[19] = "ENS_PART_FX_SEP_ATT"
+            part_lookup_dict[20] = "ENS_PART_MAT_INTERFACE"
+            part_lookup_dict[21] = "ENS_PART_POINT"
+            part_lookup_dict[22] = "ENS_PART_AXISYMMETRIC"
+            part_lookup_dict[24] = "ENS_PART_VOF"
+            part_lookup_dict[25] = "ENS_PART_AUX_GEOM"
+            part_lookup_dict[26] = "ENS_PART_FILTER"
+            return self.ensight.objs.enums.PARTTYPE, part_lookup_dict
+
+        elif classname == "ENS_ANNOT":
+            annot_lookup_dict = dict()
+            annot_lookup_dict[0] = "ENS_ANNOT_TEXT"
+            annot_lookup_dict[1] = "ENS_ANNOT_LINE"
+            annot_lookup_dict[2] = "ENS_ANNOT_LOGO"
+            annot_lookup_dict[3] = "ENS_ANNOT_LGND"
+            annot_lookup_dict[4] = "ENS_ANNOT_MARKER"
+            annot_lookup_dict[5] = "ENS_ANNOT_ARROW"
+            annot_lookup_dict[6] = "ENS_ANNOT_DIAL"
+            annot_lookup_dict[7] = "ENS_ANNOT_GAUGE"
+            annot_lookup_dict[8] = "ENS_ANNOT_SHAPE"
+            return self.ensight.objs.enums.PARTTYPE, annot_lookup_dict
+
+        elif classname == "ENS_TOOL":
+            tool_lookup_dict = dict()
+            tool_lookup_dict[0] = "ENS_TOOL_CURSOR"
+            tool_lookup_dict[1] = "ENS_TOOL_LINE"
+            tool_lookup_dict[2] = "ENS_TOOL_PLANE"
+            tool_lookup_dict[3] = "ENS_TOOL_BOX"
+            tool_lookup_dict[4] = "ENS_TOOL_CYLINDER"
+            tool_lookup_dict[5] = "ENS_TOOL_CONE"
+            tool_lookup_dict[6] = "ENS_TOOL_SPHERE"
+            tool_lookup_dict[7] = "ENS_TOOL_REVOLUTION"
+            return self.ensight.objs.enums.TOOLTYPE, tool_lookup_dict
+
+        return None, None
+
+    def _convert_ctor(self, s: str) -> str:
+        """Convert ENSOBJ references into executable code in __repl__ strings
+        The __repl__() implementation for an ENSOBJ subclass will generate strings like these::
+
+            Class: ENS_GLOBALS, CvfObjID: 221, cached:yes
+            Class: ENS_PART, desc: 'Sphere', CvfObjID: 1078, cached:no
+
+        This method will detect strings like those and convert them into strings like this::
+
+            session.ensight.objs.ENS_GLOBALS(session, 221)
+            session.ensight.objs.ENS_PART_MODEL(session, 1078, attr_id=1610612792, attr_value=0)
+
+        Where 1610612792 is ensight.objs.enums.PARTTYPE.
+
+        It can also generate strings like this::
+
+            session.obj_instance(221)
+
+        If a proxy object for the id already exists.
+        """
+        self._prune_hash()
+        while True:
+            # Find the object repl block to replace
+            id = s.find("CvfObjID:")
+            if id == -1:
+                break
+            start = s.find("Class: ")
+            if (start == -1) or (start > id):
+                break
+            tail_len = 11
+            tail = s.find(", cached:no")
+            if tail == -1:
+                tail_len = 12
+                tail = s.find(", cached:yes")
+            if tail == -1:
+                break
+            # isolate the block to replace
+            prefix = s[:start]
+            suffix = s[tail + tail_len :]
+            # parse out the object id and classname
+            objid = int(s[id + 9 : tail])
+            classname = s[start + 7 : tail]
+            comma = classname.find(",")
+            classname = classname[:comma]
+            # pick the subclass based on the classname
+            attr_id, classname_lookup = self._obj_attr_subtype(classname)
+            # generate the replacement text
+            if objid in self._ensobj_hash:
+                replace_text = f"session.obj_instance({objid})"
+            else:
+                subclass_info = ""
+                if attr_id is not None:
+                    # if a "subclass" case and no subclass attrid value, ask for it...
+                    if classname_lookup is not None:
+                        remote_name = self.remote_obj(objid)
+                        cmd = f"{remote_name}.getattr({attr_id})"
+                        attr_value = self.cmd(cmd)
+                        if attr_value in classname_lookup:
+                            classname = classname_lookup[attr_value]
+                            subclass_info = f",attr_id={attr_id}, attr_value={attr_value}"
+                replace_text = f"session.ensight.objs.{classname}(session, {objid}{subclass_info})"
+            if replace_text is None:
+                break
+            s = prefix + replace_text + suffix
+        return s
