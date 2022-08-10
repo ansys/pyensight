@@ -64,18 +64,9 @@ def black():
     print("-" * 10, "Running black")
     cmd = [
         blackexe,
-        "--line-length",
-        "100",
-        "--target-version",
-        "py37",
-        "--exclude",
-        "src/ansys/pyensight/ensight_api.py",
-        "codegen",
-        "src",
-        "tests",
-        "doc",
-        "pybuild.py",
-        "setup.py",
+        "--line-length", "100",
+        "--target-version", "py37",
+        "src/ansys", "codegen", "doc", "tests",
     ]
     subprocess.run(cmd)
 
@@ -86,23 +77,14 @@ def isort():
     print("-" * 10, "Running isort")
     cmd = [
         isortexe,
-        "--profile",
-        "black",
-        "--skip-glob",
-        "venv/*",
-        "--extend-skip-glob",
-        "src/ansys/api",
-        "--extend-skip-glob",
-        "src/ansys/pyensight/ensight_api.py",
+        "--profile", "black",
+        "--skip-gitignore",
         "--force-sort-within-sections",
-        "--line-length",
-        "100",
-        "--section-default",
-        "THIRDPARTY",
+        "--line-length", "100",
+        "--section-default", "THIRDPARTY",
         "--filter-files",
-        "--project",
-        "ansys",
-        os.getcwd(),
+        "--project", "ansys",
+        "ansys", "codegen", "doc", "tests"
     ]
     subprocess.run(cmd)
 
