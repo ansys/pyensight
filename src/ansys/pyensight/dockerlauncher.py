@@ -223,7 +223,7 @@ class DockerLauncher(pyensight.Launcher):
         self._ansys_version = m.group(1)
         print("CEI_HOME=", self._cei_home)
         print("Ansys Version=", self._ansys_version)
-
+        
         # Run EnSight
         cmd = ["bash", "--login", "-c"]
         
@@ -231,7 +231,7 @@ class DockerLauncher(pyensight.Launcher):
         if use_egl:
             cmd2 = "export LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1 ;"
 
-        cmd2 +=" ensight -batch -v 3"
+        cmd2 += " ensight -batch -v 3"
 
         if use_egl:
             cmd2 += " -egl"
