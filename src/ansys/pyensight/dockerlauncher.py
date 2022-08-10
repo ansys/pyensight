@@ -171,9 +171,7 @@ class DockerLauncher(pyensight.Launcher):
                 entrypoint="/bin/bash",
                 volumes=data_volume,
                 environment=container_env,
-                device_requests=[
-                    docker.types.DeviceRequest(count=-1, capabilities=[["gpu"]])
-                ],
+                device_requests=[docker.types.DeviceRequest(count=-1, capabilities=[["gpu"]])],
                 ports=ports_to_map,
                 name="ensight",
                 tty=True,
@@ -221,9 +219,7 @@ class DockerLauncher(pyensight.Launcher):
             self.stop()
             # raise RuntimeError(f"Can't find version from {} in the Docker container.",
             #   self._cei_home)
-            raise RuntimeError(
-                "Can't find version from cei_home in the Docker container."
-            )
+            raise RuntimeError("Can't find version from cei_home in the Docker container.")
         self._ansys_version = m.group(1)
         print("CEI_HOME=", self._cei_home)
         print("Ansys Version=", self._ansys_version)
