@@ -16,6 +16,7 @@ ensight.part.select_all() is available in PyEnSight as session.ensight.part.sele
 Generally, most scripts written for the embedded EnSight Python interpreter should work with 
 PyEnSight using the 'ansys.pyensight.Session.ensight' interface.
 
+
 .. autosummary::
    :toctree: _autosummary/
 
@@ -110,4 +111,4 @@ PyEnSight using the 'ansys.pyensight.Session.ensight' interface.
    ansys.pyensight.ensight_api.views
    ansys.pyensight.ensight_api.vof
    ansys.pyensight.ensight_api.vortexcore
-
+   ansys.pyensight.ensobj.ENSOBJ

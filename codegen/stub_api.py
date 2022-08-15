@@ -117,8 +117,10 @@ class ProcessAPI:
         return value
 
     @staticmethod
-    def _cap1(s: str) -> str:
-        return s[0].upper() + s[1:]
+    def _cap1(s: Optional[str]) -> Optional[str]:
+        if s:
+            return s[0].upper() + s[1:]
+        return s
 
     @staticmethod
     def _process_variable(node: ElementTree.Element, indent: str = "") -> str:
@@ -193,14 +195,14 @@ class ProcessAPI:
         s += f"{indent}return self._session.cmd(cmd)\n"
         return s
 
-    @staticmethod
-    def _process_property(node: ElementTree.Element, indent: str = "") -> str:
+    def _process_property(self, node: ElementTree.Element, indent: str = "") -> str:
         """Process a <property> tag
 
         Generate the property getter/setter for the class property
         """
         name = node.get("name")
         desc = node.get("description")
+        desc = self._cap1(desc)
         value_type = node.get("type")
         value_type = value_type.replace("'ensobjlist'", "List")
         value_type = value_type.replace("ensobjlist", "List")
@@ -255,6 +257,7 @@ class ProcessAPI:
             if child.tag == "property":
                 name = child.get("name")
                 desc = child.get("description")
+                desc = self._cap1(desc)
                 if name == "__class__":
                     desc = "The name of the class as a string"
                 elif name == "__ids__":
@@ -308,7 +311,7 @@ class ProcessAPI:
             elif child.tag == "method":
                 methods += self._process_method(child, indent=indent)
             elif child.tag == "class":
-                classname = node.get("name")
+                classname = child.get("name")
                 # ENSOBJ is hand-crafted
                 if classname != "ENSOBJ":
                     attributes += f"{indent}    {classname}:\n"
