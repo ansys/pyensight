@@ -45,7 +45,7 @@ class ENSOBJ(object):
         self._session.add_ensobj_instance(self)
 
     @property
-    def __OBJID__(self) -> int:   # noqa: N802
+    def __OBJID__(self) -> int:  # noqa: N802
         return self._objid
 
     def _remote_obj(self) -> str:
