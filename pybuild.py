@@ -35,9 +35,17 @@ def test():
     print("-" * 10, "Run tests")
     pydir = os.path.dirname(sys.executable)
     pytest = os.path.join(pydir, "scripts", "pytest")
-    cmd = [pytest, "-rvx", "--setup-show", "--cov=ansys.pyensight",
-           "--cov-report", "html:coverage-html", "--cov-report", "term",
-           "--cov-config=.coveragerc"]
+    cmd = [
+        pytest,
+        "-rvx",
+        "--setup-show",
+        "--cov=ansys.pyensight",
+        "--cov-report",
+        "html:coverage-html",
+        "--cov-report",
+        "term",
+        "--cov-config=.coveragerc",
+    ]
     subprocess.run(cmd)
 
 
@@ -75,9 +83,15 @@ def black():
     print("-" * 10, "Running black")
     cmd = [
         blackexe,
-        "--line-length", "100",
-        "--target-version", "py37",
-        "src/ansys", "codegen", "doc", "tests",
+        "--line-length",
+        "100",
+        "--target-version",
+        "py37",
+        "src/ansys",
+        "codegen",
+        "doc",
+        "tests",
+        "pybuild.py",
     ]
     subprocess.run(cmd)
 
@@ -88,14 +102,21 @@ def isort():
     print("-" * 10, "Running isort")
     cmd = [
         isortexe,
-        "--profile", "black",
+        "--profile",
+        "black",
         "--skip-gitignore",
         "--force-sort-within-sections",
-        "--line-length", "100",
-        "--section-default", "THIRDPARTY",
+        "--line-length",
+        "100",
+        "--section-default",
+        "THIRDPARTY",
         "--filter-files",
-        "--project", "ansys",
-        "ansys", "codegen", "doc", "tests"
+        "--project",
+        "ansys",
+        "ansys",
+        "codegen",
+        "doc",
+        "tests",
     ]
     subprocess.run(cmd)
 
