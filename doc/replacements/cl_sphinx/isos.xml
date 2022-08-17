@@ -49,7 +49,7 @@ Returns:
 </override>
 <override namespace="ensight.isos.component">
 <description>
-The isosurface algorithim works only on scalar variables.  For a vector, this command specifies how a scalar will be created from the vector.
+The isosurface algorithm works only on scalar variables.  For a vector, this command specifies how a scalar will be created from the vector.
 
 | The scale factors apply only if the isosurface variable is a vector.
 | Usually used with a scale factor of 0 or 1. in order to use only a component of a vector. 
