@@ -56,6 +56,9 @@ repos:
         name: codespell
         entry: codespell
         language: system
+        args: [
+            --ignore-words, ignore_words.txt
+        ]
       - id: bandit
         name: bandit
         entry: bandit

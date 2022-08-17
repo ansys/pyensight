@@ -53,11 +53,7 @@ def codespell():
     pydir = os.path.dirname(sys.executable)
     codespellexe = os.path.join(pydir, "scripts", "codespell")
     print("-" * 10, "Running codespell")
-    cmd = [
-        codespellexe,
-        "--count",
-        "src",
-    ]
+    cmd = [codespellexe, "--count", "--ignore-words", "ignore_words.txt", "src", "codegen"]
     ret = subprocess.run(cmd, capture_output=True)
     if ret.returncode < 0:
         raise RuntimeError(f"Error running {codespellexe}")
