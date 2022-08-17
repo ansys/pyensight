@@ -44,7 +44,7 @@ Returns:
 </override>
 <override namespace="ensight.texture.border_transparency">
 <description>
-Sets the transparency value that will be used outside of the texture space when the texure is clamped
+Sets the transparency value that will be used outside of the texture space when the texture is clamped
 
 Args:
     p0:

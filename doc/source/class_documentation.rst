@@ -16,6 +16,7 @@ ensight.part.select_all() is available in PyEnSight as session.ensight.part.sele
 Generally, most scripts written for the embedded EnSight Python interpreter should work with 
 PyEnSight using the 'ansys.pyensight.Session.ensight' interface.
 
+
 .. autosummary::
    :toctree: _autosummary/
 
@@ -110,4 +111,66 @@ PyEnSight using the 'ansys.pyensight.Session.ensight' interface.
    ansys.pyensight.ensight_api.views
    ansys.pyensight.ensight_api.vof
    ansys.pyensight.ensight_api.vortexcore
-
+   ansys.pyensight.ensobj.ENSOBJ
+   ansys.pyensight.ens_annot.ENS_ANNOT
+   ansys.pyensight.ens_annot_text.ENS_ANNOT_TEXT
+   ansys.pyensight.ens_annot_line.ENS_ANNOT_LINE
+   ansys.pyensight.ens_annot_logo.ENS_ANNOT_LOGO
+   ansys.pyensight.ens_annot_lgnd.ENS_ANNOT_LGND
+   ansys.pyensight.ens_annot_marker.ENS_ANNOT_MARKER
+   ansys.pyensight.ens_annot_arrow.ENS_ANNOT_ARROW
+   ansys.pyensight.ens_annot_dial.ENS_ANNOT_DIAL
+   ansys.pyensight.ens_annot_gauge.ENS_ANNOT_GAUGE
+   ansys.pyensight.ens_annot_shape.ENS_ANNOT_SHAPE
+   ansys.pyensight.ens_camera.ENS_CAMERA
+   ansys.pyensight.ens_case.ENS_CASE
+   ansys.pyensight.ens_flipbook.ENS_FLIPBOOK
+   ansys.pyensight.ens_frame.ENS_FRAME
+   ansys.pyensight.ens_globals.ENS_GLOBALS
+   ansys.pyensight.ens_group.ENS_GROUP
+   ansys.pyensight.ens_lightsource.ENS_LIGHTSOURCE
+   ansys.pyensight.ens_lpart.ENS_LPART
+   ansys.pyensight.ens_mat.ENS_MAT
+   ansys.pyensight.ens_palette.ENS_PALETTE
+   ansys.pyensight.ens_part.ENS_PART
+   ansys.pyensight.ens_part_model.ENS_PART_MODEL
+   ansys.pyensight.ens_part_clip.ENS_PART_CLIP
+   ansys.pyensight.ens_part_contour.ENS_PART_CONTOUR
+   ansys.pyensight.ens_part_discrete_particle.ENS_PART_DISCRETE_PARTICLE
+   ansys.pyensight.ens_part_frame.ENS_PART_FRAME
+   ansys.pyensight.ens_part_isosurface.ENS_PART_ISOSURFACE
+   ansys.pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE
+   ansys.pyensight.ens_part_profile.ENS_PART_PROFILE
+   ansys.pyensight.ens_part_vector_arrow.ENS_PART_VECTOR_ARROW
+   ansys.pyensight.ens_part_elevated_surface.ENS_PART_ELEVATED_SURFACE
+   ansys.pyensight.ens_part_developed_surface.ENS_PART_DEVELOPED_SURFACE
+   ansys.pyensight.ens_part_builtup.ENS_PART_BUILTUP
+   ansys.pyensight.ens_part_tensor_glyph.ENS_PART_TENSOR_GLYPH
+   ansys.pyensight.ens_part_fx_vortex_core.ENS_PART_FX_VORTEX_CORE
+   ansys.pyensight.ens_part_fx_shock.ENS_PART_FX_SHOCK
+   ansys.pyensight.ens_part_fx_sep_att.ENS_PART_FX_SEP_ATT
+   ansys.pyensight.ens_part_mat_interface.ENS_PART_MAT_INTERFACE
+   ansys.pyensight.ens_part_point.ENS_PART_POINT
+   ansys.pyensight.ens_part_axisymmetric.ENS_PART_AXISYMMETRIC
+   ansys.pyensight.ens_part_vof.ENS_PART_VOF
+   ansys.pyensight.ens_part_aux_geom.ENS_PART_AUX_GEOM
+   ansys.pyensight.ens_part_filter.ENS_PART_FILTER
+   ansys.pyensight.ens_plotter.ENS_PLOTTER
+   ansys.pyensight.ens_polyline.ENS_POLYLINE
+   ansys.pyensight.ens_probe.ENS_PROBE
+   ansys.pyensight.ens_query.ENS_QUERY
+   ansys.pyensight.ens_source.ENS_SOURCE
+   ansys.pyensight.ens_spec.ENS_SPEC
+   ansys.pyensight.ens_state.ENS_STATE
+   ansys.pyensight.ens_texture.ENS_TEXTURE
+   ansys.pyensight.ens_tool.ENS_TOOL
+   ansys.pyensight.ens_tool_cursor.ENS_TOOL_CURSOR
+   ansys.pyensight.ens_tool_line.ENS_TOOL_LINE
+   ansys.pyensight.ens_tool_plane.ENS_TOOL_PLANE
+   ansys.pyensight.ens_tool_box.ENS_TOOL_BOX
+   ansys.pyensight.ens_tool_cylinder.ENS_TOOL_CYLINDER
+   ansys.pyensight.ens_tool_cone.ENS_TOOL_CONE
+   ansys.pyensight.ens_tool_sphere.ENS_TOOL_SPHERE
+   ansys.pyensight.ens_tool_revolution.ENS_TOOL_REVOLUTION
+   ansys.pyensight.ens_var.ENS_VAR
+   ansys.pyensight.ens_vport.ENS_VPORT

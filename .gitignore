@@ -40,6 +40,7 @@ codegen/ensight_api.xml
 src/ansys/api/ensight/v*/ensight_pb2*.py
 src/ansys/api/ensight/v*/ensight.proto
 src/ansys/pyensight/ensight_api.py
+src/ansys/pyensight/ens_*.py
 
 # Testing
 .coverage

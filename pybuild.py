@@ -1,4 +1,5 @@
 import argparse
+import glob
 import os
 import shutil
 import subprocess
@@ -30,15 +31,29 @@ def wheel():
     subprocess.run(cmd)
 
 
+def test():
+    print("-" * 10, "Run tests")
+    pydir = os.path.dirname(sys.executable)
+    pytest = os.path.join(pydir, "scripts", "pytest")
+    cmd = [
+        pytest,
+        "-rvx",
+        "--setup-show",
+        "--cov=ansys.pyensight",
+        "--cov-report",
+        "html:coverage-html",
+        "--cov-report",
+        "term",
+        "--cov-config=.coveragerc",
+    ]
+    subprocess.run(cmd)
+
+
 def codespell():
     pydir = os.path.dirname(sys.executable)
     codespellexe = os.path.join(pydir, "scripts", "codespell")
     print("-" * 10, "Running codespell")
-    cmd = [
-        codespellexe,
-        "--count",
-        "src",
-    ]
+    cmd = [codespellexe, "--count", "--ignore-words", "ignore_words.txt", "src", "codegen"]
     ret = subprocess.run(cmd, capture_output=True)
     if ret.returncode < 0:
         raise RuntimeError(f"Error running {codespellexe}")
@@ -68,14 +83,11 @@ def black():
         "100",
         "--target-version",
         "py37",
-        "--exclude",
-        "src/ansys/pyensight/ensight_api.py",
+        "src/ansys",
         "codegen",
-        "src",
-        "tests",
         "doc",
+        "tests",
         "pybuild.py",
-        "setup.py",
     ]
     subprocess.run(cmd)
 
@@ -88,12 +100,7 @@ def isort():
         isortexe,
         "--profile",
         "black",
-        "--skip-glob",
-        "venv/*",
-        "--extend-skip-glob",
-        "src/ansys/api",
-        "--extend-skip-glob",
-        "src/ansys/pyensight/ensight_api.py",
+        "--skip-gitignore",
         "--force-sort-within-sections",
         "--line-length",
         "100",
@@ -102,7 +109,10 @@ def isort():
         "--filter-files",
         "--project",
         "ansys",
-        os.getcwd(),
+        "ansys",
+        "codegen",
+        "doc",
+        "tests",
     ]
     subprocess.run(cmd)
 
@@ -122,6 +132,8 @@ def clean():
         os.path.join("codegen", "ensight_api.xml"),
         os.path.join("src", "ansys", "pyensight", "ensight_api.py"),
     ]
+    ensobj_files = os.path.join("src", "ansys", "pyensight", "ens_*.py")
+    files.extend(glob.glob(ensobj_files))
     for file in files:
         try:
             os.remove(file)
@@ -135,6 +147,7 @@ if __name__ == "__main__":
 'clean' : Clean build directories.
 'precommit' : Run linting tools.
 'codegen' : Execute the codegen operations.
+'test' : Execute the pytests.
 'build' : Build the wheel.
 'docs' : Generate documentation.
 'all' : Run codegen, build the wheel and generate documentation."""
@@ -147,7 +160,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "operation",
         metavar="operation",
-        choices=["clean", "precommit", "codegen", "build", "docs", "all"],
+        choices=["clean", "precommit", "codegen", "test", "build", "docs", "all"],
         help=operation_help,
     )
 
@@ -163,6 +176,8 @@ if __name__ == "__main__":
         codespell()
     elif args.operation == "codegen":
         generate()
+    elif args.operation == "test":
+        test()
     elif args.operation == "build":
         generate()
         wheel()

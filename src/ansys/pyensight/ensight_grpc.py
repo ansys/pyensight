@@ -231,8 +231,8 @@ class EnSightGRPC(object):
         The string will be run or evaluated in the EnSight Python interpreter via the
         EnSightService::RunPython() gRPC all.  If an exception or other error occurs, this
         function will throw a RuntimeError.  If do_eval is False, the return value will be None,
-        otherwise it will be the result of eval() of the string.  If json is True, the return
-        value will be a JSON representation of the report execution result.
+        otherwise it will be the returned string (eval() will not be performed).  If json is True,
+        the return value will be a JSON representation of the report execution result.
 
         Args:
             command_string:
@@ -244,7 +244,7 @@ class EnSightGRPC(object):
                 the evaluated value.
 
         Returns:
-             None or the result of the evaluation of the string as a Python object or JSON.
+             None, a string ready for Python eval() or a JSON string.
 
         Raises:
             RuntimeError if the operation fails.
@@ -267,8 +267,9 @@ class EnSightGRPC(object):
             raise RuntimeError("Remote execution error")
         if flags == ensight_pb2.PythonRequest.EXEC_NO_RESULT:
             return None
-        elif flags == ensight_pb2.PythonRequest.EXEC_RETURN_PYTHON:
-            return eval(response.value)
+        # This was moved externally so pre-processing could be performed
+        # elif flags == ensight_pb2.PythonRequest.EXEC_RETURN_PYTHON:
+        #    return eval(response.value)
         return response.value
 
     def prefix(self) -> str:
