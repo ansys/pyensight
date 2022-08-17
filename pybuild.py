@@ -32,7 +32,7 @@ def wheel():
 
 
 def test():
-    print("-" * 10, "Build sphinx docs")
+    print("-" * 10, "Run tests")
     pydir = os.path.dirname(sys.executable)
     pytest = os.path.join(pydir, "scripts", "pytest")
     cmd = [pytest, "-rvx", "--setup-show", "--cov=ansys.pyensight",
