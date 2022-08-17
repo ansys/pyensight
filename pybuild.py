@@ -1,4 +1,5 @@
 import argparse
+import glob
 import os
 import shutil
 import subprocess
@@ -27,6 +28,16 @@ def generate():
 def wheel():
     print("-" * 10, "Building wheel")
     cmd = [sys.executable, "-m", "build", "--wheel"]
+    subprocess.run(cmd)
+
+
+def test():
+    print("-" * 10, "Build sphinx docs")
+    pydir = os.path.dirname(sys.executable)
+    pytest = os.path.join(pydir, "scripts", "pytest")
+    cmd = [pytest, "-rvx", "--setup-show", "--cov=ansys.pyensight",
+           "--cov-report", "html:coverage-html", "--cov-report", "term",
+           "--cov-config=.coveragerc"]
     subprocess.run(cmd)
 
 
@@ -104,6 +115,8 @@ def clean():
         os.path.join("codegen", "ensight_api.xml"),
         os.path.join("src", "ansys", "pyensight", "ensight_api.py"),
     ]
+    ensobj_files = os.path.join("src", "ansys", "pyensight", "ens_*.py")
+    files.extend(glob.glob(ensobj_files))
     for file in files:
         try:
             os.remove(file)
@@ -117,6 +130,7 @@ if __name__ == "__main__":
 'clean' : Clean build directories.
 'precommit' : Run linting tools.
 'codegen' : Execute the codegen operations.
+'test' : Execute the pytests.
 'build' : Build the wheel.
 'docs' : Generate documentation.
 'all' : Run codegen, build the wheel and generate documentation."""
@@ -129,7 +143,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "operation",
         metavar="operation",
-        choices=["clean", "precommit", "codegen", "build", "docs", "all"],
+        choices=["clean", "precommit", "codegen", "test", "build", "docs", "all"],
         help=operation_help,
     )
 
@@ -145,6 +159,8 @@ if __name__ == "__main__":
         codespell()
     elif args.operation == "codegen":
         generate()
+    elif args.operation == "test":
+        test()
     elif args.operation == "build":
         generate()
         wheel()

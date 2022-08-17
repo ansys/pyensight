@@ -6,7 +6,7 @@ The ensobj module provides the base class to all EnSight proxy objects
 from typing import Any, Optional
 
 
-class ENSOBJ:
+class ENSOBJ(object):
     """Bass class for all EnSight proxy objects
 
     The ENSOBJ class is the base class for the EnSight object proxy interface.
@@ -18,7 +18,7 @@ class ENSOBJ:
             The session object associated with this object instance.
 
         objid:
-            The EnSight CvfObjID of the object instance that this intance will
+            The EnSight CvfObjID of the object instance that this instance will
             serve as the proxy for.
 
         attr_id:
@@ -209,10 +209,16 @@ class ENSOBJ:
         """
         return self._session.cmd(f"{self._remote_obj()}.attrissensitive({attrid})")
 
-    def attrgroupinfo(self, all: int = 0, filter: Optional[list] = None,
-                      exclude: Optional[list] = None, include: Optional[list] = None,
-                      group_exclude: Optional[list] = None, group_include: Optional[list] = None,
-                      insensitive: int = 1) -> dict:
+    def attrgroupinfo(
+        self,
+        all: int = 0,
+        filter: Optional[list] = None,
+        exclude: Optional[list] = None,
+        include: Optional[list] = None,
+        group_exclude: Optional[list] = None,
+        group_include: Optional[list] = None,
+        insensitive: int = 1,
+    ) -> dict:
         """Get detailed GUI information for attributes of this object.
 
         This method is on MOST of the intrinsic objects, but not all of them. This method is used
@@ -393,7 +399,7 @@ class ENSOBJ:
                 # self.DESCRIPTION is a gRPC call that can fail for default objects
                 desc_text = ""
             desc = f", desc: '{desc_text}'"
-        return f"Class: {self.__class__}{desc}, CvfObjID: {self._objid}, cached:no"
+        return f"Class: {self.__class__.__name__}{desc}, CvfObjID: {self._objid}, cached:no"
 
     def destroy(self) -> None:
         """Destroy the EnSight object associated with this proxy object"""

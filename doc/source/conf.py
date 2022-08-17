@@ -37,6 +37,16 @@ extensions = [
     "sphinx_copybutton",
 ]
 
+autoapi_options = [
+    "members",
+    "undoc-members",
+    # 'private-members',
+    # 'special-members',
+    "show-inheritance",
+    "show-module-summary",
+    "imported-members",
+]
+
 # Intersphinx mapping
 intersphinx_mapping = {
     "python": ("https://docs.python.org/dev", None),

@@ -1,6 +1,6 @@
-"""Session module
+"""session module
 
-The Session module allows pyensight to control the EnSight session
+The session module allows pyensight to control the EnSight session
 
 Examples:
     >>> from ansys.pyensight import LocalLauncher
@@ -263,7 +263,11 @@ class Session:
         webbrowser.open(url)
 
     def show(
-        self, what: str = "image", width: Optional[int] = None, height: Optional[int] = None
+        self,
+        what: str = "image",
+        width: Optional[int] = None,
+        height: Optional[int] = None,
+        temporal: bool = False,
     ) -> Optional[str]:
         """
         Cause the current EnSight scene to be captured or otherwise made available for
@@ -285,6 +289,8 @@ class Session:
                 The width of the rendered entity
             height:
                 The height of the rendered entity
+            temporal:
+                If True, include all timesteps
 
         Returns:
             URL for the renderable.
@@ -302,7 +308,7 @@ class Session:
         if what == "image":
             url = render.image(width, height, aa=4)
         elif what == "webgl":
-            url = render.webgl()
+            url = render.webgl(temporal=temporal)
         elif what == "remote":
             url = render.vnc()
         elif what == "deep_pixel":

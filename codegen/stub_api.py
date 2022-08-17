@@ -77,7 +77,9 @@ class ProcessAPI:
 
     def __init__(self, data: str, overrides: XMLOverrides = None) -> None:
         self._root: ElementTree.Element = ElementTree.fromstring(data)
-        self._overrides = overrides
+        self._overrides: XMLOverrides = overrides
+        self._dirname: str = ""
+        self._imports: str = ""
 
     def _replace(
         self,
@@ -129,6 +131,8 @@ class ProcessAPI:
         Variable tags are converted into class members
         """
         var_type = node.get("type", "Any")
+        if var_type.startswith("ENS_"):
+            var_type = f"Type[{var_type}]"
         s = f"{indent}self.{node.get('name')}: {var_type}"
         if node.text:
             if var_type == "str":
@@ -212,7 +216,9 @@ class ProcessAPI:
         s = "\n"
         s += f"{indent}@property\n"
         s += f"{indent}def {name}(self) -> {value_type}:\n"
-        s += f'{indent2}"""{desc}"""\n'
+        s += f'{indent2}"""\n'
+        s += f"{indent2}{desc}\n"
+        s += f'{indent2}"""\n'
         s += f"{indent2}return self.getattr(self._session.ensight.objs.enums.{name})\n"
         if read_only == "0":
             s += "\n"
@@ -229,14 +235,31 @@ class ProcessAPI:
         classname = node.get("name")
         superclass = node.get("super", "ENSOBJ")
         # the new class
-        s = "\n\n"
+        s = f'"""{classname.lower()} module\n'
+        s += "\n"
+        s += f"The {classname.lower()} module provides a proxy interface to EnSight {classname} "
+        s += "instances\n"
+        s += "\n"
+        s += '"""\n'
+        s += "from ansys.pyensight.session import Session\n"
+        s += "from ansys.pyensight.ensobj import ENSOBJ\n"
+        if superclass != "ENSOBJ":
+            s += f"from ansys.pyensight.{superclass.lower()} import {superclass}\n"
+        s += "from typing import Any, List\n"
+        s += "\n\n"
         s += f"{indent}class {classname}({superclass}):\n"
         indent += "    "
-        s += f'{indent}"""\n'
-        s += f"{indent}This class acts as a proxy for the EnSight Python module {node.get('ns')}\n"
+        s += f'{indent}"""'
+        s += f"This class acts as a proxy for the EnSight Python class {node.get('ns')}\n"
+        s += "\n"
+        s += f"{indent}Args:\n"
+        s += f"{indent}    \\*args:\n"
+        s += f"{indent}        Superclass ({superclass}) arguments\n"
+        s += f"{indent}    \\**kwargs:\n"
+        s += f"{indent}        Superclass ({superclass}) keyword arguments\n"
         s += "__ATTRIBUTES__"
+        s += "\n"
         s += f'{indent}"""\n'
-        s += f"{indent}attr_list = []\n"
         s += "\n"
         s += f"{indent}def __init__(self, *args, **kwargs) -> None:\n"
         s += f"{indent}    super().__init__(*args, **kwargs)\n"
@@ -244,27 +267,26 @@ class ProcessAPI:
         s += "\n"
         s += f"{indent}@classmethod\n"
         s += f"{indent}def _update_attr_list(cls, session: 'Session', id: int) -> None:\n"
-        s += f"{indent}    if cls.attr_list:\n"
+        s += f"{indent}    if hasattr(cls, 'attr_list'):\n"
         s += f"{indent}        return\n"
         s += f"{indent}    cmd = session.remote_obj(id) + '.__ids__'\n"
         s += f"{indent}    cls.attr_list = session.cmd(cmd)\n"
-        s += "\n"
-        s += f"{indent}@property\n"
-        s += f"{indent}def __class__(self) -> str:\n"
-        s += f"{indent}    return '{classname}'\n"
         attributes = ""
         for child in node:
             if child.tag == "property":
                 name = child.get("name")
                 desc = child.get("description")
                 desc = self._cap1(desc)
+                prop_type = child.get("type", "Any")
                 if name == "__class__":
-                    desc = "The name of the class as a string"
+                    # this is actually a bug in the ENSOBJ EnSight bindings, don't propagate it
+                    continue
                 elif name == "__ids__":
                     desc = "A list of the attribute ids supported by this class"
-                attributes += f"{indent}    {name}:\n"
+                attributes += f"{indent}    {name} ({prop_type}):\n"
                 attributes += f"{indent}        {desc}\n"
-                # __class__ handled directly and __OBJID__ handled in superclass
+                attributes += "\n"
+                # __class__ is a legacy bug and __OBJID__ handled in superclass
                 if name not in ("__class__", "__OBJID__", "__ids__"):
                     s += self._process_property(child, indent)
             elif child.tag == "method":
@@ -272,7 +294,12 @@ class ProcessAPI:
                 pass
         if attributes:
             attributes = f"\n{indent}Attributes:\n" + attributes + "\n"
-        return s.replace("__ATTRIBUTES__", attributes)
+        s = s.replace("__ATTRIBUTES__", attributes)
+        filename = classname.lower() + ".py"
+        pathname = os.path.join(self._dirname, filename)
+        with open(pathname, "w") as fp:
+            fp.write(s)
+        return f"from ansys.pyensight.{classname.lower()} import {classname}\n"
 
     def _process_module(self, node: ElementTree.Element, indent: str = "") -> str:
         """Process a <module> tag
@@ -293,13 +320,14 @@ class ProcessAPI:
         s += f"{indent}    self._session = session\n"
         attributes = ""
         # walk the children
-        classes = ""
         methods = ""
+        classes = ""
         for child in node:
             if child.tag == "variable":
                 s += self._process_variable(child, indent=f"{indent}    ")
-                attributes += f"{indent}    {child.get('name')}:\n"
-                attributes += f"{indent}        Instance specific constant\n"
+                prop_type = child.get("type", "Any")
+                attributes += f"{indent}    {child.get('name')} ({prop_type}):\n"
+                attributes += f"{indent}        Instance specific constant\n\n"
             elif child.tag == "module":
                 # Prepend the submodule
                 name = child.get("name")
@@ -307,34 +335,39 @@ class ProcessAPI:
                 # add an instance of the class to the current class
                 s += f"{indent}    self.{name}: '{name}' = {name}(self._session)\n"
                 attributes += f"{indent}    {name}:\n"
-                attributes += f"{indent}        EnSight module instance class\n"
+                attributes += f"{indent}        EnSight module instance class\n\n"
             elif child.tag == "method":
                 methods += self._process_method(child, indent=indent)
             elif child.tag == "class":
                 classname = child.get("name")
-                # ENSOBJ is hand-crafted
-                if classname != "ENSOBJ":
-                    attributes += f"{indent}    {classname}:\n"
-                    attributes += f"{indent}        EnSight {classname} proxy class\n"
-                    classes += self._process_class(child, indent=indent)
-        s += methods
+                # ENSOBJ and ensobjlist are hand-crafted
+                if classname not in ["ENSOBJ", "ensobjlist"]:
+                    attributes += f"{indent}    {classname} ({classname}):\n"
+                    attributes += f"{indent}        EnSight {classname} proxy class\n\n"
+                    self._imports += self._process_class(child)
+                    classes += f"{indent}    self.{classname}: Type[{classname}] = {classname}\n"
         s += classes
+        s += methods
         if attributes:
             attributes = f"\n{indent}Attributes:\n" + attributes + "\n"
         return s.replace("__ATTRIBUTES__", attributes)
 
-    def process(self, filename: str) -> None:
+    def process(self, dirname: str, filename: str) -> None:
+        self._dirname = dirname
+        self._imports = ""
         (name, _) = os.path.splitext(os.path.basename(filename))
         s = f'"""Module {name}\n'
         s += f"Autogenerated from: {name}.xml at {datetime.datetime.now().isoformat()}\n"
         s += '"""\n'
         s += "from ansys.pyensight import Session\n"
         s += "from ansys.pyensight.ensobj import ENSOBJ\n"
-        s += "from typing import Any, List\n"
+        s += "ENSIMPORTS"
+        s += "from typing import Any, List, Type\n"
         for child in self._root:
             if child.tag == "module":
                 s += self._process_module(child)
                 s += "\n\n"
+        s = s.replace("ENSIMPORTS", self._imports)
         with open(filename, "w") as f:
             f.write(s)
 
@@ -370,7 +403,7 @@ def generate_stub_api() -> None:
         overrides = XMLOverrides(["../doc/replacements"])
         generator = ProcessAPI(result.text, overrides=overrides)
         outname = os.path.join(target_dir, api_name.replace(".xml", ".py"))
-        generator.process(outname)
+        generator.process(target_dir, outname)
 
 
 def generate() -> None:

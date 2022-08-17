@@ -48,4 +48,5 @@ clean:
 	rm -f codegen/ensight.proto
 	rm -f codegen/ensight_api.xml
 	rm -f src/ansys/pyensight/ensight_api.py
+	rm -f src/ansys/pyensight/ens_*.py
 	find . -name \*.pyc -delete

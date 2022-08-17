@@ -153,11 +153,15 @@ class Renderable:
         html = f'<img src="/{url_path}">\n'
         return self._wrap_with_page(html, filename, url, ".png")
 
-    def webgl(self) -> str:
+    def webgl(self, temporal: bool = False) -> str:
         """Render a webgl iframe
 
         Render an AVZ file on the EnSight host system and make it available via
         a webpage.
+
+        Args:
+            temporal:
+                If True, save all timesteps.  If False, just the current one.
 
         Returns:
             A URL to a webpage containing the avz interactive viewer
@@ -166,6 +170,14 @@ class Renderable:
         # save the .avz file
         self._session.grpc.command("ensight.part.select_all()", do_eval=False)
         self._session.grpc.command('ensight.savegeom.format("avz")', do_eval=False)
+        ts = self._session.ensight.objs.core.TIMESTEP
+        st = ts
+        en = ts
+        if temporal:
+            st, en = self._session.ensight.objs.core.TIMESTEP_LIMITS
+        self._session.grpc.command(f"ensight.savegeom.begin_step({st})", do_eval=False)
+        self._session.grpc.command(f"ensight.savegeom.end_step({en})", do_eval=False)
+        self._session.grpc.command("ensight.savegeom.step_by(1)", do_eval=False)
         cmd = f'ensight.savegeom.save_geometric_entities(r"""{filename}""")'
         self._session.grpc.command(cmd, do_eval=False)
         # generate HTML page with file references local to the websocketserver root
