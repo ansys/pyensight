@@ -256,7 +256,7 @@ class ProcessAPI:
             num_loops = 2
         enum_name = f"self._session.ensight.objs.enums.{name}"
         comment = ""
-        for loop in range(num_loops):
+        for _ in range(num_loops):
             s += "\n"
             s += f"{indent}@property\n"
             s += f"{indent}def {name}(self) -> {value_type}:\n"
