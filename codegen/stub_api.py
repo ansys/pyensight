@@ -6,8 +6,10 @@ Usage
 `python generate_stub_api.py`
 """
 import datetime
+import fnmatch
 import glob
 import os.path
+import re
 import sys
 from typing import Any, List, Optional
 from xml.etree import ElementTree
@@ -32,6 +34,7 @@ class XMLOverrides:
 
     def __init__(self, directory_list: Optional[List[str]] = None) -> None:
         self._replacements = dict()
+        self._expressions = list()
         if directory_list is None:
             return
         for directory in directory_list:
@@ -46,23 +49,52 @@ class XMLOverrides:
                         for child in override:
                             attribute = child.tag
                             text = child.text
-                            self._replacements[f"{namespace}:{attribute}"] = text
+                            key = f"{namespace}:{attribute}"
+                            globlist = "?*[]"
+                            # break up the items into a hash dict and a list of re expressions
+                            if any(c in key for c in globlist):
+                                exp = fnmatch.translate(key)
+                                reobj = re.compile(exp)
+                                self._expressions.append((reobj, text))
+                            else:
+                                self._replacements[key] = text
 
     def replace(self, namespace: str, attribute: str, default: Optional[str] = None) -> str:
         """Find the replacement for an attribute
         For a given namespace and attribute, get the replacement string (or return
         the default value).
+
+        Wildcards are supported in the replacement XML, one could specify:
+
+        <override namespace="ensight.objs.ENS_PART.ENS_PLIST_KEY_SEL_*">
+        <description>
+        </description>
+        </override>
+
+        That would match ensight.objs.ENS_PART.ENS_PLIST_KEY_SEL_3 description
+        attribute.
+
         Args:
             namespace:
                 The namespace to perform replacement for
             attribute:
-                The attribute to look up a replacement string for
+                The XML attribute to look up a replacement string for,
+                for example "description"
             default:
                 In the case of no known replacement, return this value
         Returns:
             The replacement string or the default parameter
         """
-        return self._replacements.get(f"{namespace}:{attribute}", default)
+        # The keys in the replacement dictionary may include fnmatch wildcards.
+        # So, we walk the keys, looking for the first match.
+        target = f"{namespace}:{attribute}"
+        value = self._replacements.get(target, None)
+        if value is not None:
+            return value
+        for reobj, value in self._expressions:
+            if reobj.match(target):
+                return value
+        return default
 
 
 class ProcessAPI:
@@ -206,18 +238,18 @@ class ProcessAPI:
         """
         name = node.get("name")
         desc = node.get("description")
-        desc = self._cap1(desc)
         value_type = node.get("type")
         value_type = value_type.replace("'ensobjlist'", "List")
         value_type = value_type.replace("ensobjlist", "List")
         read_only = node.get("ro", "0")
         indent2 = indent + "    "
+        desc = self._replace(node.get("ns"), default=desc, indent=indent2)
+        desc = self._cap1(desc)
 
         s = "\n"
         s += f"{indent}@property\n"
         s += f"{indent}def {name}(self) -> {value_type}:\n"
-        s += f'{indent2}"""\n'
-        s += f"{indent2}{desc}\n"
+        s += f'{indent2}"""{desc}\n'
         s += f'{indent2}"""\n'
         s += f"{indent2}return self.getattr(self._session.ensight.objs.enums.{name})\n"
         if read_only == "0":
