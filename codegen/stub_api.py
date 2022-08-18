@@ -246,17 +246,35 @@ class ProcessAPI:
         desc = self._replace(node.get("ns"), default=desc, indent=indent2)
         desc = self._cap1(desc)
 
-        s = "\n"
-        s += f"{indent}@property\n"
-        s += f"{indent}def {name}(self) -> {value_type}:\n"
-        s += f'{indent2}"""{desc}\n'
-        s += f'{indent2}"""\n'
-        s += f"{indent2}return self.getattr(self._session.ensight.objs.enums.{name})\n"
-        if read_only == "0":
+        # Ok, Sphinx refuses to document an attribute in all caps and EnSight uses them a lot
+        # Also, the EnSight API allows both upper and lower.  So, we register both the upper
+        # and lower property names if the incoming name is uppercase.  Sphinx will document
+        # the lowercase one, but both work.
+        s = ""
+        num_loops = 1
+        if name.isupper():
+            num_loops = 2
+        enum_name = f"self._session.ensight.objs.enums.{name}"
+        comment = ""
+        for loop in range(num_loops):
             s += "\n"
-            s += f"{indent}@{name}.setter\n"
-            s += f"{indent}def {name}(self, value: {value_type}) -> None:\n"
-            s += f"{indent2}self.setattr(self._session.ensight.objs.enums.{name}, value.__repr__())\n"
+            s += f"{indent}@property\n"
+            s += f"{indent}def {name}(self) -> {value_type}:\n"
+            s += f'{indent2}"""{desc}\n'
+            if comment:
+                s += f"{indent2}{comment}\n"
+            s += f'{indent2}"""\n'
+            s += f"{indent2}return self.getattr({enum_name})\n"
+            if read_only == "0":
+                s += "\n"
+                s += f"{indent}@{name}.setter\n"
+                s += f"{indent}def {name}(self, value: {value_type}) -> None:\n"
+                s += f"{indent2}self.setattr({enum_name}, value.__repr__())\n"
+            name = name.lower()
+            comment = (
+                f"Note: both '{name.lower()}' and '{name.upper()}' property names are supported."
+            )
+
         return s
 
     def _process_class(self, node: ElementTree.Element, indent: str = "") -> str:
@@ -289,7 +307,7 @@ class ProcessAPI:
         s += f"{indent}        Superclass ({superclass}) arguments\n"
         s += f"{indent}    \\**kwargs:\n"
         s += f"{indent}        Superclass ({superclass}) keyword arguments\n"
-        s += "__ATTRIBUTES__"
+        # s += "__ATTRIBUTES__"
         s += "\n"
         s += f'{indent}"""\n'
         s += "\n"
