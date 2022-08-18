@@ -187,7 +187,7 @@ class Session:
     @property
     def cei_suffix(self) -> str:
         """
-        The "suffix" string (e.g. "222" or 231") the connected EnSight session.
+        The suffix string, 222 for example, of the connected EnSight session.
         """
         return self._cei_suffix
 
@@ -195,7 +195,7 @@ class Session:
     def jupyter_notebook(self) -> bool:
         """
         True if the session is running in a jupyter notebook and should use
-        display features of that interface
+        display features of that interface.
         """
         return self._jupyter_notebook
 
@@ -284,13 +284,13 @@ class Session:
         Args:
             what:
                 The type of scene display to generate.  Three values are supported: 'image',
-                'webgl', 'remote'.
+                'webgl', 'remote', 'deep_pixel'.
             width:
                 The width of the rendered entity
             height:
                 The height of the rendered entity
             temporal:
-                If True, include all timesteps
+                If True, include all timesteps in 'webgl' views
 
         Returns:
             URL for the renderable.

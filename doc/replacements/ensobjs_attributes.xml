@@ -1,0 +1,16 @@
+<docstrings>
+
+<override namespace="ensight.objs.ENS_*.HANDLES_ENABLED">
+<description>
+Control the display and use of EnSight click and go handles for an object
+
+EnSight allows for direct interaction with many objects via click and go handles.
+The handles allow things like annotations and viewports to be moved or resized.
+They allow for the adjustment of values for clip planes and palette dynamic ranges.
+In some situations, allowing the user to directly adjust these values can be
+undesirable.  Setting this attribute to zero disables display of and interaction
+with click and go handles for the specific object instance.
+</description>
+</override>
+
+</docstrings>
