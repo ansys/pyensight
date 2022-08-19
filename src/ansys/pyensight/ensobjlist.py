@@ -3,13 +3,14 @@
 Emulation of the EnSight ensobjlist class
 
 """
-import fnmatch
 from collections import Iterable
-from ansys.pyensight.ensobj import ENSOBJ
+import fnmatch
 from typing import Any, Optional
 
+from ansys.pyensight.ensobj import ENSOBJ
 
-class ensobjlist(list):
+
+class ensobjlist(list):  # noqa: N801
     """Bass class for all EnSight proxy objects
 
     In the EnSight object Python bindings, whenever a list is returned that
@@ -54,7 +55,7 @@ class ensobjlist(list):
                 fnmatch between the string representation of the item and the value.  This allows
                 values to be specified using glob wildcard specifications.  If wildcard is set
                 to 1, this is a case-sensitive wildcard operation.  If set to 2, the comparison
-                is case-insensitive.  The default is not to use wildcard comparisions (0).
+                is case-insensitive.  The default is not to use wildcard comparisons (0).
 
         Return:
             An ensobjlist of the items that matched the search criteria.

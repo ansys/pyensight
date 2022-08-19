@@ -109,7 +109,7 @@ def isort():
         "--filter-files",
         "--project",
         "ansys",
-        "ansys",
+        "src",
         "codegen",
         "doc",
         "tests",
