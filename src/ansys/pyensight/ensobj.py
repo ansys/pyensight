@@ -69,7 +69,7 @@ class ENSOBJ(object):
                 v = part.getattr(session.ensight.objs.enums.VISIBLE)
 
         """
-        return self._session.cmd(f"{self._remote_obj()}.getattr({attrid})")
+        return self._session.cmd(f"{self._remote_obj()}.getattr({attrid.__repr__()})")
 
     def getattrs(self, attrid: Optional[list] = None, text: int = 0) -> dict:
         """Query the value of a collection of attributes
@@ -101,7 +101,7 @@ class ENSOBJ(object):
         if attrid is None:
             cmd = f"{self._remote_obj()}.getattrs(text={text})"
         else:
-            cmd = f"{self._remote_obj()}.getattrs({attrid},text={text})"
+            cmd = f"{self._remote_obj()}.getattrs({attrid.__repr__()},text={text})"
         return self._session.cmd(cmd)
 
     def setattr(self, attrid: Any, value: Any) -> None:
@@ -122,7 +122,9 @@ class ENSOBJ(object):
                 part.getattr(session.ensight.objs.enums.VISIBLE, True)
 
         """
-        return self._session.cmd(f"{self._remote_obj()}.setattr({attrid}, {value})")
+        return self._session.cmd(
+            f"{self._remote_obj()}.setattr({attrid.__repr__()}, {value.__repr__()})"
+        )
 
     def setattrs(self, values: dict, all_errors: int = 0) -> None:
         """Set the values of a collection of attributes
@@ -144,7 +146,7 @@ class ENSOBJ(object):
                 part.setattrs({session.ensight.objs.enums.VISIBLE: True})
 
         """
-        cmd = f"{self._remote_obj()}.setattrs({values}, all_errors={all_errors})"
+        cmd = f"{self._remote_obj()}.setattrs({values.__repr__()}, all_errors={all_errors})"
         return self._session.cmd(cmd)
 
     def attrinfo(self, attrid: Any) -> dict:
@@ -190,7 +192,7 @@ class ENSOBJ(object):
                 part.attrinfo(session.ensight.objs.enums.VISIBLE)
 
         """
-        return self._session.cmd(f"{self._remote_obj()}.attrinfo({attrid})")
+        return self._session.cmd(f"{self._remote_obj()}.attrinfo({attrid.__repr__()})")
 
     def attrissensitive(self, attrid: Any) -> bool:
         """Check to see if a given attribute is 'sensitive'
@@ -207,7 +209,7 @@ class ENSOBJ(object):
             True or False
 
         """
-        return self._session.cmd(f"{self._remote_obj()}.attrissensitive({attrid})")
+        return self._session.cmd(f"{self._remote_obj()}.attrissensitive({attrid.__repr__()})")
 
     def attrgroupinfo(
         self,
@@ -295,15 +297,15 @@ class ENSOBJ(object):
         options = f"all={all}"
         options += f",insensitive={insensitive}"
         if filter:
-            options += f",filter={filter}"
+            options += f",filter={filter.__repr__()}"
         if include:
-            options += f",include={include}"
+            options += f",include={include.__repr__()}"
         if exclude:
-            options += f",exclude={exclude}"
+            options += f",exclude={exclude.__repr__()}"
         if group_exclude:
-            options += f",group_exclude={group_exclude}"
+            options += f",group_exclude={group_exclude.__repr__()}"
         if group_include:
-            options += f",group_include={group_include}"
+            options += f",group_include={group_include.__repr__()}"
         return self._session.cmd(f"{obj}.attrgroupinfo({options})")
 
     def setattr_begin(self) -> None:
@@ -353,9 +355,9 @@ class ENSOBJ(object):
 
         """
         if value is None:
-            cmd = f"{self._remote_obj()}.setmetatag({tag})"
+            cmd = f"{self._remote_obj()}.setmetatag({tag.__repr__()})"
         else:
-            cmd = f"{self._remote_obj()}.setmetatag({tag}, {value})"
+            cmd = f"{self._remote_obj()}.setmetatag({tag.__repr__()}, {value.__repr__()})"
         return self._session.cmd(cmd)
 
     def hasmetatag(self, tag: str) -> bool:
@@ -369,7 +371,7 @@ class ENSOBJ(object):
             True if the named tag exists in the METADATA attribute.
 
         """
-        return self._session.cmd(f"{self._remote_obj()}.hasmetatag({tag})")
+        return self._session.cmd(f"{self._remote_obj()}.hasmetatag({tag.__repr__()})")
 
     def getmetatag(self, tag: str) -> Any:
         """Get the value of a tag in the METADATA attribute
@@ -388,7 +390,7 @@ class ENSOBJ(object):
                 print(session.ensight.objs.core.PARTS[0].getmetatag("FOO"))
 
         """
-        return self._session.cmd(f"{self._remote_obj()}.getmetatag({tag})")
+        return self._session.cmd(f"{self._remote_obj()}.getmetatag({tag.__repr__()})")
 
     def __repr__(self) -> str:
         desc = ""

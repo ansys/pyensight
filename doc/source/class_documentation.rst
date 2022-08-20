@@ -112,6 +112,7 @@ PyEnSight using the 'ansys.pyensight.Session.ensight' interface.
    ansys.pyensight.ensight_api.vof
    ansys.pyensight.ensight_api.vortexcore
    ansys.pyensight.ensobj.ENSOBJ
+   ansys.pyensight.ensobjlist.ensobjlist
    ansys.pyensight.ens_annot.ENS_ANNOT
    ansys.pyensight.ens_annot_text.ENS_ANNOT_TEXT
    ansys.pyensight.ens_annot_line.ENS_ANNOT_LINE
