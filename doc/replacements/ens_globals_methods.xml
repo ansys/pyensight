@@ -9,7 +9,7 @@ Access the EnSight selection objects::
 
 Returns an ENS_GROUP object representing the current selection in EnSight.
 The method supports two keyword: 'name' and 'type'.  Only one of these
-can set specified.  They specifiy which selection ENS_GROUP to return.
+can set specified.  They specify which selection ENS_GROUP to return.
 If no keyword is specified, name='ENS_PART' is the default.
 
 Args:

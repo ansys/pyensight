@@ -3,7 +3,7 @@
 Emulation of the EnSight ensobjlist class
 
 """
-from collections import Iterable
+from collections.abc import Iterable
 import fnmatch
 from typing import Any, Optional
 

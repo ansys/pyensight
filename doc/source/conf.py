@@ -4,6 +4,7 @@ import os
 import sys
 
 from ansys_sphinx_theme import ansys_favicon, pyansys_logo_black
+from sphinx_gallery.sorting import FileNameSortKey
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src"))
 from ansys.pyensight import __version__  # noqa
@@ -82,8 +83,6 @@ numpydoc_validation_checks = {
 }
 
 # -- Sphinx Gallery Options
-from sphinx_gallery.sorting import FileNameSortKey
-
 examples_source = os.path.join(os.path.dirname(__file__), "examples_source")
 default_gallery_thumbnail = os.path.join(examples_source, "default_thumb.png")
 
@@ -94,7 +93,7 @@ sphinx_gallery_conf = {
     "examples_dirs": [examples_source],
     # path where to save gallery generated examples
     "gallery_dirs": ["_examples"],
-    # Patter to search for example files
+    # Pattern to search for example files
     "filename_pattern": r"\.py",
     # Remove the "Download all examples" button from the top level gallery
     "download_all_examples": False,
