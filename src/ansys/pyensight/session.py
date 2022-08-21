@@ -14,6 +14,7 @@ from urllib.parse import urlparse
 import webbrowser
 
 from ansys import pyensight
+from ansys.pyensight.ensobjlist import ensobjlist
 from ansys.pyensight.renderable import Renderable
 
 
@@ -347,7 +348,7 @@ class Session:
         ret = self._grpc.command(value, do_eval=do_eval)
         if do_eval:
             ret = self._convert_ctor(ret)
-            return eval(ret, dict(session=self))
+            return eval(ret, dict(session=self, ensobjlist=ensobjlist))
         return ret
 
     def geometry(self, what: str = "glb") -> bytes:
@@ -757,4 +758,7 @@ class Session:
             if replace_text is None:
                 break
             s = prefix + replace_text + suffix
+        s = s.strip()
+        if s.startswith("[") and s.endswith("]"):
+            s = "ensobjlist(" + s + ")"
         return s

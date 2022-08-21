@@ -10,7 +10,7 @@ PyEnSight  documentation |version|
 
    getting_started/index
    user_guide/index
-   examples/index
+   _examples/index
    class_documentation
    contributing
 

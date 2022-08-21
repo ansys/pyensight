@@ -211,7 +211,7 @@ class ENSOBJ(object):
         """
         return self._session.cmd(f"{self._remote_obj()}.attrissensitive({attrid.__repr__()})")
 
-    def attrgroupinfo(
+    def attrtree(
         self,
         all: int = 0,
         filter: Optional[list] = None,

@@ -23,3 +23,4 @@ help:
 clean:
 	rm -rf build
 	rm -rf $(SOURCEDIR)/_autosummary
+	rm -rf $(SOURCEDIR)/_examples

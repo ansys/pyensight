@@ -1,0 +1,52 @@
+<docstrings>
+
+<override namespace="ensight.objs.ENS_GLOBALS.selection">
+<description>
+Access the EnSight selection objects::
+
+    ENS_GLOBALS.selection(name: str = None, type: Type[ENSOBJ] = None)
+
+
+Returns an ENS_GROUP object representing the current selection in EnSight.
+The method supports two keyword: 'name' and 'type'.  Only one of these
+can set specified.  They specify which selection ENS_GROUP to return.
+If no keyword is specified, name='ENS_PART' is the default.
+
+Args:
+    name:
+        This keyword can be 'ENS_PART', 'ENS_VAR', 'ENS_ANNOT' to select a specific class.
+    type:
+        This keyword can be ensight.objs.ENS_PART, ensight.objs.ENS_VAR, ensight.objs.ENS_ANNOT.
+
+</description>
+</override>
+
+<override namespace="ensight.objs.ENS_GLOBALS.create_variable">
+<description>
+Create a new EnSight variable::
+
+    ENS_GLOBALS.create_variable(name: str, expression: str, sources: list = None, private: int = 0)
+
+It creates a variable with the provided name, using the calculator expression
+supplied by the value. If the expression requires a partlist, this
+is supplied using the 'sources' keyword (the default is the current part selection).
+
+Args:
+    name:
+        The name of the variable to create.
+    expression:
+        The expression to evaluate as the new variable.
+    sources:
+        A list of parts to create the variable with. This can be specified as an ENS_GROUP object, or a list of part names/ids/objects.
+    private:
+        If the private=1 keyword is set, the variable will be marked as "hidden" and will not show up in some part lists (e.g. in popup dialogs).
+
+Example:
+    ::
+
+        var = session.ensight.objs.core.create_variable("EleSize", "EleSize(plist)", sources=session.ensight.objs.core.PARTS)
+
+</description>
+</override>
+
+</docstrings>

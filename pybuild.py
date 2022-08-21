@@ -124,6 +124,7 @@ def clean():
         os.path.join("src", "ansys", "api"),
         os.path.join("doc", "build"),
         os.path.join("doc", "source", "_autosummary"),
+        os.path.join("doc", "source", "_example"),
     ]
     for path in paths:
         shutil.rmtree(path, ignore_errors=True)
@@ -182,7 +183,6 @@ if __name__ == "__main__":
         generate()
         wheel()
     elif args.operation == "docs":
-        generate()
         docs()
     elif args.operation == "all":
         generate()
