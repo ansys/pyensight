@@ -112,6 +112,31 @@ class ProcessAPI:
         self._overrides: XMLOverrides = overrides
         self._dirname: str = ""
         self._imports: str = ""
+        self._custom_names = []
+        self._custom_names.append("getattr")
+        self._custom_names.append("getattrs")
+        self._custom_names.append("setattr")
+        self._custom_names.append("setattrs")
+        self._custom_names.append("attrinfo")
+        self._custom_names.append("attrissensitive")
+        self._custom_names.append("attrtree")
+        self._custom_names.append("setattr_begin")
+        self._custom_names.append("setattr_end")
+        self._custom_names.append("setattr_status")
+        self._custom_names.append("setmetatag")
+        self._custom_names.append("hasmetatag")
+        self._custom_names.append("getmetatag")
+        self._custom_names.append("destroy")
+        self._custom_names.append("__init__")
+        self._custom_names.append("pyref")
+        self._custom_names.append("pyunref")
+        self._custom_names.append("cmdfromattr")
+        # This one is odd.  The problem is that ENS_GLOBALS.create_group() returns
+        # a proxy object that owns the C++ object.  What happens is that the object
+        # is created in the EnSight Python, the proxy binding is passed back to
+        # pyensight and then the object goes out of scope in EnSight and is destroyed.
+        # For the present, we do not allow this method to be exposed.
+        self._custom_names.append("create_group")
 
     def _replace(
         self,
@@ -231,6 +256,60 @@ class ProcessAPI:
         s += f"{indent}return self._session.cmd(cmd)\n"
         return s
 
+    def _process_undefined_method(self, node: ElementTree.Element, indent: str = "") -> str:
+        """For methods that have no provided argument details use *args, **kwargs
+
+        We do not know the parameters for this method, so we document as *args, **kwargs.
+
+        Args:
+            node:
+                The 'method' node
+            indent:
+                Current indenting for source generation
+
+        Return:
+            The string for the method implementation
+        """
+        name = node.get("name")
+        if name in self._custom_names:
+            return ""
+        desc = node.get("description")
+        indent2 = indent + "    "
+        desc = self._replace(node.get("ns"), default=desc, indent=indent2)
+        desc = self._cap1(desc)
+
+        s = "\n"
+        s += f"{indent}def {name}(self, *args, **kwargs) -> Any:\n"
+        s += f'{indent2}"""{desc}\n'
+        s += f'{indent2}"""\n'
+        s += f'{indent2}obj = f"{{self._remote_obj()}}"\n'
+        s += f"{indent2}arg_list = []\n"
+        s += f"{indent2}for arg in args:\n"
+        s += f"{indent2}    arg_list.append(arg.__repr__())\n"
+        s += f"{indent2}for key, value in kwargs.items():\n"
+        s += f'{indent2}    arg_list.append(f"{{key.__repr__()}}={{value.__repr__()}}")\n'
+        s += f'{indent2}arg_string = ",".join(arg_list)\n'
+        s += f'{indent2}cmd = f"{{obj}}.{name}({{arg_string}})"\n'
+        s += f"{indent2}return self._session.cmd(cmd)\n"
+
+        # generate code of this form:
+        '''
+        def method(self, *args, **kwargs):
+            """description
+            """
+            obj = f"{self._remote_obj()}"
+            arg_list = []
+            for arg in args:
+                arg_list.append(arg.__repr__())
+            for key, value in kwargs.items():
+                arg_list.append(f"{key.__repr__()}={value.__repr__()}")
+            arg_string = ",".join(arg_list)
+            cmd = f"{obj}.method({arg_string})"
+            return self._session.cmd(cmd)
+        '''
+
+        return s
+
     def _process_property(self, node: ElementTree.Element, indent: str = "") -> str:
         """Process a <property> tag
 
@@ -340,8 +419,12 @@ class ProcessAPI:
                 if name not in ("__class__", "__OBJID__", "__ids__"):
                     s += self._process_property(child, indent)
             elif child.tag == "method":
-                # TODO: handle class specific methods
-                pass
+                if len(child) == 0:
+                    # in some cases, we have no information about the method
+                    s += self._process_undefined_method(child, indent)
+                else:
+                    # TODO: handle class specific methods
+                    pass
         if attributes:
             attributes = f"\n{indent}Attributes:\n" + attributes + "\n"
         s = s.replace("__ATTRIBUTES__", attributes)

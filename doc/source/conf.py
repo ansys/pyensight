@@ -35,13 +35,14 @@ extensions = [
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
     "sphinx_copybutton",
+    "sphinx_gallery.gen_gallery",
 ]
 
 autoapi_options = [
     "members",
     "undoc-members",
-    # 'private-members',
-    # 'special-members',
+    "private-members",
+    "special-members",
     "show-inheritance",
     "show-module-summary",
     "imported-members",
@@ -78,6 +79,33 @@ numpydoc_validation_checks = {
     # "SS05", # Summary must start with infinitive verb, not third person
     "RT02",  # The first line of the Returns section should contain only the
     # type, unless multiple values are being returned"
+}
+
+# -- Sphinx Gallery Options
+from sphinx_gallery.sorting import FileNameSortKey
+
+examples_source = os.path.join(os.path.dirname(__file__), "examples_source")
+default_gallery_thumbnail = os.path.join(examples_source, "default_thumb.png")
+
+sphinx_gallery_conf = {
+    # convert rst to md for ipynb
+    "pypandoc": False,
+    # path to your examples scripts
+    "examples_dirs": [examples_source],
+    # path where to save gallery generated examples
+    "gallery_dirs": ["_examples"],
+    # Patter to search for example files
+    "filename_pattern": r"\.py",
+    # Remove the "Download all examples" button from the top level gallery
+    "download_all_examples": False,
+    # Sort gallery example by file name instead of number of lines (default)
+    "within_subsection_order": FileNameSortKey,
+    # directory where function granular galleries are stored
+    "backreferences_dir": None,
+    # the initial notebook cell
+    "first_notebook_cell": ("# PyEnSight example Notebook\n" "#\n"),
+    "default_thumb_file": default_gallery_thumbnail,
+    "plot_gallery": False,
 }
 
 # static path

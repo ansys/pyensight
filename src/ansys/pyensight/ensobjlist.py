@@ -11,12 +11,26 @@ from ansys.pyensight.ensobj import ENSOBJ
 
 
 class ensobjlist(list):  # noqa: N801
-    """Bass class for all EnSight proxy objects
+    """Bass class for all EnSight proxy objects.  It is a subclass of 'list'.
 
     In the EnSight object Python bindings, whenever a list is returned that
     is known to exclusively contain ENSOBJ subclass objects, the ensobjlist
     (list subclass) is returned instead.  This class simply adds a few
     ENSOBJ specific methods and some functionality to the list object.
+
+    One additional feature of the ensobjlist is that the __getitem__()
+    interface supports strings and lists of strings.  In that situation,
+    the object acts as if the find() method is called.
+
+        These are equivalent::
+
+            a = objlist["Hello"]
+            a = objlist.find("Hello", attr="DESCRIPTION")
+
+        These are as well::
+
+            a = objlist[("Hello", "Goodbye")]
+            a = objlist.find(("Hello", "Goodbye"), attr="DESCRIPTION")
 
     Args:
         \*args:
@@ -152,7 +166,7 @@ class ensobjlist(list):  # noqa: N801
             out_list.append(item_value)
         return out_list
 
-    def __get_item__(self, index: Any) -> Any:
+    def __getitem__(self, index: Any) -> Any:
         """Overload the getitem operator to allow for tuple and string DESCRIPTION queries"""
         if isinstance(index, str) or isinstance(index, tuple):
             return self.find(index)
