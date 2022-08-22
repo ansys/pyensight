@@ -10,7 +10,7 @@ an EnSight post-processing instance.
 API Differences
 ---------------
 
-There aare a few differences between the EnSight Python and and the
+There are a few differences between the EnSight Python and and the
 PyEnSight API.  Generally, the 'ensight' module in EnSight and the
 Session.ensight class instance have the same interface.  Most
 source code written against that API will run in both environment.
