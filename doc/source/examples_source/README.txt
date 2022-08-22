@@ -1,9 +1,9 @@
 
 .. _gallery:
 
-========
-Examples
-========
+==================
+PyEnSight Examples
+==================
 
-TBD
-
+These examples illustrate how the PyEnSight interfaces work and
+demonstrate some common post-processing workflows.

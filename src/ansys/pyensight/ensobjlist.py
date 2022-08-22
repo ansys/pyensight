@@ -171,3 +171,7 @@ class ensobjlist(list):  # noqa: N801
         if isinstance(index, str) or isinstance(index, tuple):
             return self.find(index)
         return super().__getitem__(index)
+
+    def __str__(self):
+        ret_str = ", ".join([str(x) for x in self])
+        return f"[{ret_str}]"

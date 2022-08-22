@@ -137,6 +137,10 @@ class ProcessAPI:
         # pyensight and then the object goes out of scope in EnSight and is destroyed.
         # For the present, we do not allow this method to be exposed.
         self._custom_names.append("create_group")
+        # Another odd issue.  The get_values() call in EnSight does not properly
+        # generate repr() of the numpy arrays because they are embedded in a
+        # dictionary.  For the present, get_values() cannot be called directly.
+        self._custom_names.append("get_values")
 
     def _replace(
         self,
@@ -287,7 +291,7 @@ class ProcessAPI:
         s += f"{indent2}for arg in args:\n"
         s += f"{indent2}    arg_list.append(arg.__repr__())\n"
         s += f"{indent2}for key, value in kwargs.items():\n"
-        s += f'{indent2}    arg_list.append(f"{{key.__repr__()}}={{value.__repr__()}}")\n'
+        s += f'{indent2}    arg_list.append(f"{{key}}={{value.__repr__()}}")\n'
         s += f'{indent2}arg_string = ",".join(arg_list)\n'
         s += f'{indent2}cmd = f"{{obj}}.{name}({{arg_string}})"\n'
         s += f"{indent2}return self._session.cmd(cmd)\n"
@@ -302,7 +306,7 @@ class ProcessAPI:
             for arg in args:
                 arg_list.append(arg.__repr__())
             for key, value in kwargs.items():
-                arg_list.append(f"{key.__repr__()}={value.__repr__()}")
+                arg_list.append(f"{key}={value.__repr__()}")
             arg_string = ",".join(arg_list)
             cmd = f"{obj}.method({arg_string})"
             return self._session.cmd(cmd)
@@ -348,7 +352,7 @@ class ProcessAPI:
                 s += "\n"
                 s += f"{indent}@{name}.setter\n"
                 s += f"{indent}def {name}(self, value: {value_type}) -> None:\n"
-                s += f"{indent2}self.setattr({enum_name}, value.__repr__())\n"
+                s += f"{indent2}self.setattr({enum_name}, value)\n"
             name = name.lower()
             comment = (
                 f"Note: both '{name.lower()}' and '{name.upper()}' property names are supported."

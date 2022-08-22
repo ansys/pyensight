@@ -3,5 +3,5 @@
 Basic PyEnSight Examples
 ========================
 
-These examples explain the basic concepts of PyEnSight.
-
+These examples demonstrate the core PyEnSight interface and basic post-processing
+operations.
