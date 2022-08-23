@@ -1,9 +1,9 @@
 
 .. _gallery:
 
-==================
-PyEnSight Examples
-==================
++=======
+Examples
+========
 
 These examples illustrate how the PyEnSight interfaces work and
-demonstrate some common post-processing workflows.
+demonstrate post-processing workflows.
