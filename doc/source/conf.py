@@ -7,6 +7,7 @@ from ansys_sphinx_theme import ansys_favicon, pyansys_logo_black
 from sphinx_gallery.sorting import FileNameSortKey
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src"))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src", "ansys"))
 from ansys.pyensight import __version__  # noqa
 
 # Project information

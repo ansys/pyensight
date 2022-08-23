@@ -392,6 +392,10 @@ class ENSOBJ(object):
         """
         return self._session.cmd(f"{self._remote_obj()}.getmetatag({tag.__repr__()})")
 
+    def destroy(self) -> None:
+        """Destroy the EnSight object associated with this proxy object"""
+        self._session.cmd(f"{self._remote_obj()}.destroy()")
+
     def __str__(self) -> str:
         desc = ""
         if self._session.ensight.objs.enums.DESCRIPTION in self.attr_list:
@@ -412,6 +416,6 @@ class ENSOBJ(object):
         """
         return f"ensight.objs.wrap_id({self._objid})"
 
-    def destroy(self) -> None:
-        """Destroy the EnSight object associated with this proxy object"""
-        self._session.cmd(f"{self._remote_obj()}.destroy()")
+    def _repr_pretty_(self, p: "pretty", cycle: bool) -> None:
+        """Support the pretty module for better IPython support"""
+        p.text(self.__str__())
