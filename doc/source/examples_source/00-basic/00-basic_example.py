@@ -45,6 +45,7 @@ clip_default = core.DEFAULTPARTS[session.ensight.PART_CLIP_PLANE]
 parent_parts = core.PARTS
 clip = clip_default.createpart(name="Clip", sources=parent_parts)[0]
 session.show("image", width=800, height=600)
+print("Parts:", core.PARTS)
 
 ###############################################################################
 # Color the plane
@@ -54,8 +55,9 @@ session.show("image", width=800, height=600)
 #
 # Color the clip plane using the temperature variable
 
-clip.setattr("COLORBYPALETTE", core.VARIABLES["temperature"][0])
+clip.COLORBYPALETTE = core.VARIABLES["temperature"][0]
 session.show("image", width=800, height=600)
+print("Variables:", core.VARIABLES)
 
 ###############################################################################
 # Visual representation

@@ -84,6 +84,7 @@ numpydoc_validation_checks = {
 
 # -- Sphinx Gallery Options
 examples_source = os.path.join(os.path.dirname(__file__), "examples_source")
+default_thumb = os.path.join(os.path.dirname(__file__), "_static", "default_thumb.png")
 
 sphinx_gallery_conf = {
     # convert rst to md for ipynb
@@ -102,7 +103,7 @@ sphinx_gallery_conf = {
     "backreferences_dir": None,
     # the initial notebook cell
     "first_notebook_cell": ("# PyEnSight example Notebook\n" "#\n"),
-    "default_thumb_file": "_static/default_thumb.png",
+    "default_thumb_file": default_thumb,
     "plot_gallery": False,
 }
 
