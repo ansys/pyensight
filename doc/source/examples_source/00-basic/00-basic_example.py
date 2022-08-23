@@ -21,7 +21,7 @@ session = LocalLauncher().start()
 core = session.ensight.objs.core
 
 ###############################################################################
-# Load some data
+# Load a dataset
 # ~~~~~~~~~~~~~~
 #
 # .. image:: /_static/00_basic_0.png
@@ -48,8 +48,8 @@ session.show("image", width=800, height=600)
 print("Parts:", core.PARTS)
 
 ###############################################################################
-# Color the plane
-# ~~~~~~~~~~~~~~~
+# Color the clip plane
+# ~~~~~~~~~~~~~~~~~~~~
 #
 # .. image:: /_static/00_basic_2.png
 #
