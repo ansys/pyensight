@@ -175,3 +175,16 @@ class ensobjlist(list):  # noqa: N801
     def __str__(self):
         ret_str = ", ".join([str(x) for x in self])
         return f"[{ret_str}]"
+
+    def _repr_pretty_(self, p: "pretty", cycle: bool) -> None:
+        """Support the pretty module for better IPython support"""
+        name = self.__class__.__name__
+        if cycle:
+            p.text(f"{name}(...)")
+        else:
+            with p.group(len(name) + 2, f"{name}([", "])"):
+                for idx, item in enumerate(self):
+                    if idx:
+                        p.text(",")
+                        p.breakable()
+                    p.pretty(item)
