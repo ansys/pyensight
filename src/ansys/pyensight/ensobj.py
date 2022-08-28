@@ -392,7 +392,11 @@ class ENSOBJ(object):
         """
         return self._session.cmd(f"{self._remote_obj()}.getmetatag({tag.__repr__()})")
 
-    def __repr__(self) -> str:
+    def destroy(self) -> None:
+        """Destroy the EnSight object associated with this proxy object"""
+        self._session.cmd(f"{self._remote_obj()}.destroy()")
+
+    def __str__(self) -> str:
         desc = ""
         if self._session.ensight.objs.enums.DESCRIPTION in self.attr_list:
             try:
@@ -403,6 +407,15 @@ class ENSOBJ(object):
             desc = f", desc: '{desc_text}'"
         return f"Class: {self.__class__.__name__}{desc}, CvfObjID: {self._objid}, cached:no"
 
-    def destroy(self) -> None:
-        """Destroy the EnSight object associated with this proxy object"""
-        self._session.cmd(f"{self._remote_obj()}.destroy()")
+    def __repr__(self) -> str:
+        """Custom __repr__ method used by the stub API
+
+        In some cases, we need to specify the object representation in the EnSight
+        instance.  For ENSOBJ instances, this means using the wrap_id() mechanism
+        instead of the built-in __repr__.  So the generated API uses this interface.
+        """
+        return f"ensight.objs.wrap_id({self._objid})"
+
+    def _repr_pretty_(self, p: "pretty", cycle: bool) -> None:
+        """Support the pretty module for better IPython support"""
+        p.text(self.__str__())

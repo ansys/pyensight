@@ -1,7 +1,6 @@
 .. _basic-gallery:
 
-Basic PyEnSight Examples
-========================
+Basic Examples
+==============
 
-These examples explain the basic concepts of PyEnSight.
-
+Introductory examples using the PyEnSight APIs to produce simple scenes.

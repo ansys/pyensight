@@ -678,7 +678,7 @@ class Session:
             annot_lookup_dict[6] = "ENS_ANNOT_DIAL"
             annot_lookup_dict[7] = "ENS_ANNOT_GAUGE"
             annot_lookup_dict[8] = "ENS_ANNOT_SHAPE"
-            return self.ensight.objs.enums.PARTTYPE, annot_lookup_dict
+            return self.ensight.objs.enums.ANNOTTYPE, annot_lookup_dict
 
         elif classname == "ENS_TOOL":
             tool_lookup_dict = dict()
