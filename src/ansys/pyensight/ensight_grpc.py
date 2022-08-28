@@ -264,7 +264,7 @@ class EnSightGRPC(object):
         except Exception:
             raise IOError("gRPC connection dropped")
         if response.error < 0:
-            raise RuntimeError("Remote execution error")
+            raise RuntimeError(response.value)
         if flags == ensight_pb2.PythonRequest.EXEC_NO_RESULT:
             return None
         # This was moved externally so pre-processing could be performed

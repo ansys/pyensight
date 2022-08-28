@@ -24,6 +24,7 @@ PyEnSight using the 'ansys.pyensight.Session.ensight' interface.
    pyensight.LocalLauncher
    pyensight.DockerLauncher
    pyensight.Session
+   pyensight.renderable.Renderable
    pyensight.ensight_api
    pyensight.ensight_api.anim
    pyensight.ensight_api.anim_flipbook
