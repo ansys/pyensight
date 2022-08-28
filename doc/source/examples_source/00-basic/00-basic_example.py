@@ -65,7 +65,7 @@ print("Variables:", core.VARIABLES)
 #
 # .. image:: /_static/00_basic_3.png
 #
-# Change the visual representation a bit:
+# Change the visual representation a bit
 #   1) Display the volume part in border mode instead of feature mode
 #   2) Make the volume part transparent so the clip is still visible
 #   3) Enable element edge display, outlining elements in black lines

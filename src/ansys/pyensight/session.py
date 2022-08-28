@@ -15,7 +15,13 @@ import webbrowser
 
 from ansys import pyensight
 from ansys.pyensight.ensobjlist import ensobjlist
-from ansys.pyensight.renderable import Renderable
+from ansys.pyensight.renderable import (
+    Renderable,
+    RenderableDeepPixel,
+    RenderableImage,
+    RenderableVNC,
+    RenderableWebGL,
+)
 
 
 class Session:
@@ -269,11 +275,13 @@ class Session:
         width: Optional[int] = None,
         height: Optional[int] = None,
         temporal: bool = False,
-    ) -> Optional[str]:
+        aa: int = 4,
+    ) -> Renderable:
         """
         Cause the current EnSight scene to be captured or otherwise made available for
-        display in a web browser.  The appropriate visuals are generated and the HTML
-        for viewing is returned.
+        display in a web browser.  The appropriate visuals are generated and the renderable
+        object for viewing is returned.  If the session is in a Jupyter notebook, the cell
+        in which the show() command is issued will be updated with the renderable display.
 
         Legal values for the 'what' argument include:
 
@@ -292,42 +300,51 @@ class Session:
                 The height of the rendered entity
             temporal:
                 If True, include all timesteps in 'webgl' views
+            aa:
+                The number of anti-aliasing passes to use when rendering images
 
         Returns:
-            URL for the renderable.
+            The Renderable object instance
 
         Raises:
             RuntimeError:
                 if it is not possible to generate the content
+
+        Examples:
+            Render an image and display it in a browser.  Rotate the scene and update the display::
+
+                image = session.show('image', width=800, height=600)
+                image.browser()
+                session.ensight.view_transf.rotate(30, 30, 0)
+                image.update()
+                image.browser()
+
         """
         self._establish_connection()
         if self._html_port is None:
             raise RuntimeError("No websocketserver has been associated with this Session")
 
-        url = None
-        render = Renderable(self)
-        if what == "image":
-            url = render.image(width, height, aa=4)
-        elif what == "webgl":
-            url = render.webgl(temporal=temporal)
-        elif what == "remote":
-            url = render.vnc()
-        elif what == "deep_pixel":
-            url = render.deep_pixel(width, height, aa=1)
+        kwargs = dict(height=height, width=width, temporal=temporal, aa=aa)
+        if self._jupyter_notebook:
+            from IPython.display import display
 
-        if url is None:
+            # get the cell DisplayHandle instance
+            kwargs["cell_handle"] = display(display_id=True)
+
+        render = None
+        if what == "image":
+            render = RenderableImage(self, **kwargs)
+        elif what == "webgl":
+            render = RenderableWebGL(self, **kwargs)
+        elif what == "remote":
+            render = RenderableVNC(self, **kwargs)
+        elif what == "deep_pixel":
+            render = RenderableDeepPixel(self, **kwargs)
+
+        if render is None:
             raise RuntimeError("Unable to generate requested visualization")
 
-        if self.jupyter_notebook:
-            if width is None:
-                width = 800
-            if height is None:
-                height = 600
-            from IPython.display import IFrame, display
-
-            display(IFrame(src=url, width=width, height=height))
-
-        return url
+        return render
 
     def cmd(self, value: str, do_eval: bool = True) -> Any:
         """Run a command in EnSight and return the results
