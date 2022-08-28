@@ -175,6 +175,7 @@ class RenderableImage(Renderable):
     Render an image on the EnSight host system and make it available via
     a webpage.
     """
+
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self._rendertype = "image"
@@ -208,6 +209,7 @@ class RenderableDeepPixel(Renderable):
     Render a deep pixel image on the EnSight host system and make it available via
     a webpage.
     """
+
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self._rendertype = "deep_pixel"
@@ -256,6 +258,7 @@ class RenderableWebGL(Renderable):
     Render an AVZ file on the EnSight host system and make it available via
     a webpage.
     """
+
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self._rendertype = "webgl"
@@ -299,6 +302,7 @@ class RenderableVNC(Renderable):
 
     Generate a URL that can be used to connect to the EnSight VNC remote image renderer.
     """
+
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self._rendertype = "remote"
