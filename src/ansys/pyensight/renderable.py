@@ -108,7 +108,7 @@ class Renderable:
         self._session.grpc.command(cmd, do_eval=False)
 
     def browser(self) -> None:
-        """Open a webbrowser page to the renderable content"""
+        """Open a webbrowser page to display the renderable content"""
         if self._url:
             webbrowser.open(self._url)
 
@@ -144,12 +144,13 @@ class Renderable:
     def update(self) -> None:
         """Update the visualization and display it
 
-        This method is normally overridden by the subclasses.  The subclass should generate
-        an updated visual for the renderable.  If the renderable is part of a Jupyter cell,
-        that cell is updated as an IFrame reference.
+        When this method is called, the graphics content will be updated to the
+        current EnSight instance state (e.g. an image might be re-captured).  The
+        URL of the content stays the same, but the content that URL displays is
+        updated.
 
-        The base class only implements the update of the IPython cell content.  It does not
-        generate any of the rendered data.
+        If the renderable was created in the context of a Jupyter notebook cell,
+        the original cell display is updated.
         """
         if self._cell_handle:
             from IPython.display import IFrame

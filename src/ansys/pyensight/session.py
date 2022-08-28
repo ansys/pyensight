@@ -16,7 +16,6 @@ import webbrowser
 from ansys import pyensight
 from ansys.pyensight.ensobjlist import ensobjlist
 from ansys.pyensight.renderable import (
-    Renderable,
     RenderableDeepPixel,
     RenderableImage,
     RenderableVNC,
@@ -276,7 +275,7 @@ class Session:
         height: Optional[int] = None,
         temporal: bool = False,
         aa: int = 4,
-    ) -> Renderable:
+    ) -> "pyensight.renderable.Renderable":
         """
         Cause the current EnSight scene to be captured or otherwise made available for
         display in a web browser.  The appropriate visuals are generated and the renderable
