@@ -253,6 +253,39 @@ class RenderableDeepPixel(Renderable):
         super().update()
 
 
+class RenderableMP4(Renderable):
+    """Animation renderable
+
+    Render the timesteps of the current dataset into an mp4 file and view the results.
+    """
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self._rendertype = "animation"
+        self._generate_url()
+        # the HTML serves up a PNG file
+        pathname, filename = self._generate_filename(".png")
+        self._png_pathname = pathname
+        self._png_filename = filename
+        self.update()
+
+    def update(self):
+        """Update the animation and display it
+
+        If the renderable is part of a Jupyter cell, that cell is updated as an IFrame reference.
+
+        """
+        # save the image file on the remote host
+        w, h = self._default_size(1920, 1080)
+        cmd = f'ensight.render({w},{h},num_samples={self._aa}).save(r"""{self._png_pathname}""")'
+        self._session.cmd(cmd)
+        # generate HTML page with file references local to the websocketserver root
+        html = f'<img src="/{self._png_filename}">\n'
+        # refresh the remote HTML
+        self._save_remote_html_page(html)
+        super().update()
+
+
 class RenderableWebGL(Renderable):
     """WebGL renderable
 
@@ -319,4 +352,84 @@ class RenderableVNC(Renderable):
         url += "/ansys/nexus/novnc/vnc_envision.html"
         url += f"?autoconnect=true&host={self._session.hostname}&port={self._session.ws_port}"
         self._url = url
+        super().update()
+
+
+class RenderableEVSN(Renderable):
+    """Remote rendering scene capture (VNC) renderable
+
+    Generate a URL that can be used to connect to the EnVision VNC remote image renderer.
+    """
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self._rendertype = "remote_scene"
+        self.update()
+
+    def update(self):
+        """Update the remote rendering widget and display it
+
+        If the renderable is part of a Jupyter cell, that cell is updated as an IFrame reference.
+
+        """
+        url = f"http://{self._session.hostname}:{self._session.html_port}"
+        url += "/ansys/nexus/novnc/vnc_envision.html"
+        url += f"?autoconnect=true&host={self._session.hostname}&port={self._session.ws_port}"
+        self._url = url
+        super().update()
+
+
+class RenderableDSG(Renderable):
+    """Distributed scene graph renderable
+
+    A webGL-based renderable that leverages the dynamic scene graph interface
+    for progressive geometry transport.
+    """
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self._generate_url()
+        pathname, filename = self._generate_filename("")
+        # on the server, a JSON block can be accessed via:
+        # {_dsg_base_pathname}/status.json
+        # and the update files:
+        # {_dsg_base_pathname}/update_0.dsgz
+        self._dsg_base_pathname = pathname
+        self._dsg_base_filename = filename
+        # keep track of the number of updates...
+        self._last_update_number = -1
+        # and the last complete update
+        self._last_full_update = -1
+        self.update()
+
+    def update(self, incremental: bool = True):
+        """Generate a DSG update
+
+        Cause the EnSight session to generate a DSG update and cause any attached
+        webGL viewer to (eventually) display the results.
+
+        If the renderable is part of a Jupyter cell, that cell is updated as an IFrame reference.
+
+        Args:
+            incremental:
+                If True, the update will incremental
+        """
+        # TODO: send an update over to EnSight...
+        # save an update
+        if self._last_full_update < 0:
+            incremental = True
+
+        # next update
+        self._last_update_number += 1
+        if not incremental:
+            self._last_full_update = self._last_update_number
+
+        # If the first update, generate the HTML
+        if self._last_update_number == 0:
+            # generate HTML page with file references local to the websocketserver root
+            attributes = f"src='/{self._dsg_base_filename}/update_0.dsgz'"
+            html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
+            html += f"<ansys-nexus-viewer {attributes}></ansys-nexus-viewer>\n"
+            # refresh the remote HTML
+            self._save_remote_html_page(html)
         super().update()
