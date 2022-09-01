@@ -17,7 +17,10 @@ from ansys import pyensight
 from ansys.pyensight.ensobjlist import ensobjlist
 from ansys.pyensight.renderable import (
     RenderableDeepPixel,
+    RenderableDSG,
+    RenderableEVSN,
     RenderableImage,
+    RenderableMP4,
     RenderableVNC,
     RenderableWebGL,
 )
@@ -285,9 +288,10 @@ class Session:
         Legal values for the 'what' argument include:
 
         * 'image' is a simple rendered png image
-        * 'webgl' is an interactive webgl-based browser viewer
-        * 'remote' is a remote rendering based interactive EnSight viewer
         * 'deep_pixel' is an EnSight deep pixel image
+        * 'webgl' is an interactive webgl-based browser viewer
+        * 'dsg' is a webgl-based renderer using the dynamic scene graph transport mechanism
+        * 'remote' is a remote rendering based interactive EnSight viewer
 
         Args:
             what:
@@ -328,17 +332,28 @@ class Session:
             from IPython.display import display
 
             # get the cell DisplayHandle instance
-            kwargs["cell_handle"] = display(display_id=True)
+            kwargs["cell_handle"] = display("", display_id=True)
 
         render = None
         if what == "image":
             render = RenderableImage(self, **kwargs)
-        elif what == "webgl":
-            render = RenderableWebGL(self, **kwargs)
-        elif what == "remote":
-            render = RenderableVNC(self, **kwargs)
         elif what == "deep_pixel":
             render = RenderableDeepPixel(self, **kwargs)
+        elif what == "animation":
+            render = RenderableMP4(self, **kwargs)
+        elif what == "webgl":
+            render = RenderableWebGL(self, **kwargs)
+        elif what == "dsg":
+            # the DSG protocol is only supported in 2023 R1 and higher
+            if int(self._cei_suffix) < 231:
+                # Use the AVZ viewer in older versions of EnSight
+                render = RenderableWebGL(self, **kwargs)
+            else:
+                render = RenderableDSG(self, **kwargs)
+        elif what == "remote":
+            render = RenderableVNC(self, **kwargs)
+        elif what == "remote_scene":
+            render = RenderableEVSN(self, **kwargs)
 
         if render is None:
             raise RuntimeError("Unable to generate requested visualization")
