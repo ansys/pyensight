@@ -4,11 +4,14 @@ The docker launcher module provides pyensight with the ability to launch an
 EnSight session using a local Docker installation.
 
 Examples:
-    >>> from ansys.pyensight import DockerLauncher
-    >>> launcher = DockerLauncher(data_directory="D:\\data")
-    >>> launcher.pull()
-    >>> session = launcher.start()
-    >>> launcher.stop()
+    ::
+
+        from ansys.pyensight import DockerLauncher
+        launcher = DockerLauncher(data_directory="D:\\data")
+        launcher.pull()
+        session = launcher.start()
+        launcher.stop()
+
 """
 # import atexit
 import os.path
@@ -36,11 +39,14 @@ class DockerLauncher(pyensight.Launcher):
             Option to use the latest ensight_dev Docker Image; overridden by docker_image_name if specified.
 
     Examples:
-        >>> from ansys.pyensight import DockerLauncher
-        >>> launcher = DockerLauncher(data_directory="D:\\data")
-        >>> launcher.pull()
-        >>> session = launcher.start()
-        >>> launcher.stop()
+        ::
+
+            from ansys.pyensight import DockerLauncher
+            launcher = DockerLauncher(data_directory="D:\\data")
+            launcher.pull()
+            session = launcher.start()
+            launcher.stop()
+
     """
 
     def __init__(
@@ -263,6 +269,8 @@ class DockerLauncher(pyensight.Launcher):
         cmd2 += " --http_port " + str(ports[2])
         # vnc port
         cmd2 += " --client_port " + str(ports[1])
+        # EnVision sessions
+        cmd2 += " --local_session envision 5"
         # websocket port
         cmd2 += " " + str(ports[3])
 

@@ -452,9 +452,13 @@ class RenderableEVSN(Renderable):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self._rendertype = "remote_scene"
+        self._generate_url()
         pathname, filename = self._generate_filename(".evsn")
         self._evsn_pathname = pathname
         self._evsn_filename = filename
+        pathname, filename = self._generate_filename(".png")
+        self._proxy_pathname = pathname
+        self._proxy_filename = filename
         # the download is the evsn file
         self._download_names.append(self._evsn_filename)
         self.update()
@@ -465,6 +469,10 @@ class RenderableEVSN(Renderable):
         If the renderable is part of a Jupyter cell, that cell is updated as an IFrame reference.
 
         """
+        # Save the proxy image
+        w, h = self._default_size(1920, 1080)
+        cmd = f'ensight.render({w},{h},num_samples={self._aa}).save(r"""{self._proxy_pathname}""")'
+        self._session.cmd(cmd)
         # save the .evsn file
         self._session.grpc.command('ensight.file.save_scenario_which_parts("all")', do_eval=False)
         self._session.grpc.command('ensight.file.scenario_format("envision")', do_eval=False)
@@ -481,11 +489,21 @@ class RenderableEVSN(Renderable):
         # Save the file
         cmd = f'ensight.file.save_scenario_fileslct(r"""{self._evsn_pathname}""")'
         self._session.grpc.command(cmd, do_eval=False)
-        # TODO: how to handle this one...
-        url = f"http://{self._session.hostname}:{self._session.html_port}"
-        url += "/ansys/nexus/novnc/vnc_envision.html"
-        url += f"?autoconnect=true&host={self._session.hostname}&port={self._session.ws_port}"
-        self._url = url
+
+        # generate HTML page with file references local to the websocketserver root
+        html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
+        server = f"http://{self._session.hostname}:{self._session.html_port}"
+        attributes = f"src='{server}/{self._evsn_filename}'"
+        attributes += f" proxy_img='{server}/{self._proxy_filename}'"
+        attributes += " aspect_ratio='proxy'"
+        attributes += " renderer='envnc'"
+        http_uri = f'"http":"http://{self._session.hostname}:{self._session.html_port}"'
+        ws_uri = f'"ws":"http://{self._session.hostname}:{self._session.ws_port}"'
+        secrets = f'"security_token":"{self._session.secret_key}"'
+        attributes += f"renderer_options='{{ {http_uri}, {ws_uri}, {secrets} }}'"
+        html += f"<ansys-nexus-viewer {attributes}></ansys-nexus-viewer>\n"
+        # refresh the remote HTML
+        self._save_remote_html_page(html)
         super().update()
 
 
