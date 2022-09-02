@@ -133,6 +133,8 @@ class LocalLauncher(pyensight.Launcher):
             cmd.extend(["--http_port", str(self._ports[2])])
             # vnc port
             cmd.extend(["--client_port", str(self._ports[1])])
+            # EnVision sessions
+            cmd.extend(["--local_session", "envision", "5"])
             # websocket port
             cmd.append(str(self._ports[3]))
             if is_windows:
