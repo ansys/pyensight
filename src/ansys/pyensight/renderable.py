@@ -5,7 +5,7 @@ via HTML over the websocketserver interface.
 """
 import os
 import shutil
-from typing import Any, Optional
+from typing import Any, List, Optional
 import uuid
 import webbrowser
 
@@ -180,7 +180,7 @@ class Renderable:
         """
         pass
 
-    def download(self, dirname: str) -> list[str]:
+    def download(self, dirname: str) -> List[str]:
         """Download the content files for this renderable
 
         A renderable saves files (image, mpeg, geometry, etc) in the EnSight instance.
