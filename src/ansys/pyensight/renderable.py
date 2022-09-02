@@ -31,6 +31,7 @@ class Renderable:
         height: Optional[int] = None,
         temporal: bool = False,
         aa: int = 1,
+        fps: float = 30.0,
     ) -> None:
         self._session = session
         self._filename_index: int = 0
@@ -48,6 +49,7 @@ class Renderable:
         self._height: Optional[int] = height
         self._temporal: bool = temporal
         self._aa: int = aa
+        self._fps: float = fps
 
     def __repr__(self) -> str:
         name = self.__class__.__name__
@@ -259,7 +261,7 @@ class RenderableMP4(Renderable):
     Render the timesteps of the current dataset into an mp4 file and view the results.
     """
 
-    def __init__(self, *args, fps=None, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self._rendertype = "animation"
         self._generate_url()
@@ -267,10 +269,6 @@ class RenderableMP4(Renderable):
         pathname, filename = self._generate_filename(".mp4")
         self._mp4_pathname = pathname
         self._mp4_filename = filename
-        # FPS
-        self._fps = 30
-        if fps is not None:
-            self._fps = fps
         self.update()
 
     def update(self):
