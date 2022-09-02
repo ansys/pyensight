@@ -4,8 +4,11 @@ The Launcher module provides a base class responsible for managing an EnSight
 instance.  Subclasses of the class implement specific launching paradighms.
 
 Examples:
->>> from ansys.pyensight import LocalLauncher
->>> session = LocalLauncher().start()
+    ::
+
+        from ansys.pyensight import LocalLauncher
+        session = LocalLauncher().start()
+
 """
 import os.path
 import socket
