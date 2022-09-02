@@ -31,6 +31,7 @@ class Renderable:
         height: Optional[int] = None,
         temporal: bool = False,
         aa: int = 1,
+        fps: float = 30.0,
     ) -> None:
         self._session = session
         self._filename_index: int = 0
@@ -48,6 +49,7 @@ class Renderable:
         self._height: Optional[int] = height
         self._temporal: bool = temporal
         self._aa: int = aa
+        self._fps: float = fps
 
     def __repr__(self) -> str:
         name = self.__class__.__name__
@@ -264,9 +266,9 @@ class RenderableMP4(Renderable):
         self._rendertype = "animation"
         self._generate_url()
         # the HTML serves up a PNG file
-        pathname, filename = self._generate_filename(".png")
-        self._png_pathname = pathname
-        self._png_filename = filename
+        pathname, filename = self._generate_filename(".mp4")
+        self._mp4_pathname = pathname
+        self._mp4_filename = filename
         self.update()
 
     def update(self):
@@ -277,10 +279,47 @@ class RenderableMP4(Renderable):
         """
         # save the image file on the remote host
         w, h = self._default_size(1920, 1080)
-        cmd = f'ensight.render({w},{h},num_samples={self._aa}).save(r"""{self._png_pathname}""")'
-        self._session.cmd(cmd)
+
+        # get the timestep limits, [0,0] is non-time varying
+        st, en = self._session.ensight.objs.core.TIMESTEP_LIMITS
+        num_frames = en - st + 1
+
+        cmds = [
+            'ensight.file.animation_rend_offscreen("ON")',
+            'ensight.file.animation_stereo("current")',
+            "ensight.file.animation_screen_tiling(1, 1)",
+            'ensight.file.animation_format("mpeg4")',
+            'ensight.file.animation_format_options("Quality High Type 1")',
+            f"ensight.file.animation_frame_rate({self._fps})",
+            'ensight.file.animation_rend_offscreen("ON")',
+            f"ensight.file.animation_numpasses({self._aa})",
+            'ensight.file.animation_stereo("current")',
+            "ensight.file.animation_screen_tiling(1, 1)",
+            f'ensight.file.animation_file(r"""{self._mp4_pathname}""")',
+            'ensight.file.animation_window_size("user_defined")',
+            f"ensight.file.animation_window_xy({w}, {h})",
+            f"ensight.file.animation_frames({num_frames})",
+            f"ensight.file.animation_start_number({st})",
+            'ensight.file.animation_multiple_images("OFF")',
+            'ensight.file.animation_raytrace_it("OFF")',
+            'ensight.file.animation_raytrace_ext("OFF")',
+            'ensight.file.animation_play_flipbook("OFF")',
+            'ensight.file.animation_play_time("ON")',
+            'ensight.file.animation_play_keyframe("OFF")',
+            'ensight.file.animation_reset_flipbook("OFF")',
+            'ensight.file.animation_reset_traces("OFF")',
+            'ensight.file.animation_reset_time("ON")',
+            'ensight.file.animation_reset_keyframe("OFF")',
+            "ensight.file.save_animation()",
+        ]
+        for cmd in cmds:
+            self._session.cmd(cmd)
+
         # generate HTML page with file references local to the websocketserver root
-        html = f'<img src="/{self._png_filename}">\n'
+        html = f'<video width="{w}" height="{h}" controls>\n'
+        html += f'    <source src="/{self._mp4_filename}" type="video/mp4" />\n'
+        html += "</video>\n"
+
         # refresh the remote HTML
         self._save_remote_html_page(html)
         super().update()
@@ -364,6 +403,9 @@ class RenderableEVSN(Renderable):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self._rendertype = "remote_scene"
+        pathname, filename = self._generate_filename(".evsn")
+        self._evsn_pathname = pathname
+        self._evsn_filename = filename
         self.update()
 
     def update(self):
@@ -372,6 +414,23 @@ class RenderableEVSN(Renderable):
         If the renderable is part of a Jupyter cell, that cell is updated as an IFrame reference.
 
         """
+        # save the .evsn file
+        self._session.grpc.command('ensight.file.save_scenario_which_parts("all")', do_eval=False)
+        self._session.grpc.command('ensight.file.scenario_format("envision")', do_eval=False)
+        # current timestep or all of the timesteps
+        if self._temporal:
+            st, en = self._session.ensight.objs.core.TIMESTEP_LIMITS
+            time_cmd = f"ensight.file.scenario_steptime_anim(1, {st}, {en}, 1.0)"
+        else:
+            time_cmd = "ensight.file.scenario_steptime_anim(0, 1, 1, 1)"
+        self._session.grpc.command(time_cmd, do_eval=False)
+        var_cmd = '[x.DESCRIPTION for x in ensight.objs.core.VARIABLES.find(True, "Active")]'
+        vars = self._session.grpc.command(var_cmd)
+        self._session.grpc.command(f"ensight.variables.select_byname_begin({vars})", do_eval=False)
+        # Save the file
+        cmd = f'ensight.file.save_scenario_fileslct(r"""{self._evsn_pathname}""")'
+        self._session.grpc.command(cmd, do_eval=False)
+        # TODO: how to handle this one...
         url = f"http://{self._session.hostname}:{self._session.html_port}"
         url += "/ansys/nexus/novnc/vnc_envision.html"
         url += f"?autoconnect=true&host={self._session.hostname}&port={self._session.ws_port}"

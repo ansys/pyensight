@@ -278,6 +278,7 @@ class Session:
         height: Optional[int] = None,
         temporal: bool = False,
         aa: int = 4,
+        fps: float = 30.0,
     ) -> "pyensight.renderable.Renderable":
         """
         Cause the current EnSight scene to be captured or otherwise made available for
@@ -289,6 +290,7 @@ class Session:
 
         * 'image' is a simple rendered png image
         * 'deep_pixel' is an EnSight deep pixel image
+        * 'animation' renders an mpeg4 movie
         * 'webgl' is an interactive webgl-based browser viewer
         * 'dsg' is a webgl-based renderer using the dynamic scene graph transport mechanism
         * 'remote' is a remote rendering based interactive EnSight viewer
@@ -305,6 +307,8 @@ class Session:
                 If True, include all timesteps in 'webgl' views
             aa:
                 The number of anti-aliasing passes to use when rendering images
+            fps:
+                For animation playback, the number of frames per second to use
 
         Returns:
             The Renderable object instance
@@ -327,7 +331,7 @@ class Session:
         if self._html_port is None:
             raise RuntimeError("No websocketserver has been associated with this Session")
 
-        kwargs = dict(height=height, width=width, temporal=temporal, aa=aa)
+        kwargs = dict(height=height, width=width, temporal=temporal, aa=aa, fps=fps)
         if self._jupyter_notebook:
             from IPython.display import display
 
