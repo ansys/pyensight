@@ -446,6 +446,8 @@ class Session:
         result_file: str = None,
         file_format: str = None,
         reader_options: Optional[dict] = None,
+        new_case: bool = False,
+        representation: str = "3D_feature_2D_full",
     ) -> None:
         """Load a dataset into the EnSight instance
 
@@ -454,15 +456,21 @@ class Session:
 
         Args:
             data_file:
-                Filename to load
+                Filename to load.
             result_file:
-                For dual-file datasets, the second data file
+                For dual-file datasets, the second data file.
             file_format:
                 The name of the EnSight reader to be used to read.  If None, ask
                 EnSight to select a reader.
             reader_options:
                 Dictionary of reader specific option/value pairs which can be used
                 to customize the reader behavior.
+            new_case:
+                If True, the dataset will be loaded into another case.  If False, the
+                dataset will replace the one (if any) loaded in the existing current case.
+            representation:
+                The representation for parts loaded by default.  The default value is
+                "3D_feature_2D_full".
 
         Raises:
             RuntimeError:
@@ -486,6 +494,38 @@ class Session:
                 raise RuntimeError("Unable to load the dataset.")
             return
 
+        # Handle case changes...
+        cmds = [
+            'ensight.case.link_modelparts_byname("OFF")',
+            'ensight.case.create_viewport("OFF")',
+            'ensight.case.apply_context("OFF")',
+            "ensight.case.reflect_model_in(\"'none'\")",
+        ]
+        for cmd in cmds:
+            self.cmd(cmd, do_eval=False)
+
+        if new_case:
+            # New case
+            new_case_name = None
+            for case in self.ensight.objs.core.CASES:
+                if case.ACTIVE == 0:
+                    new_case_name = case.DESCRIPTION
+                    break
+            if new_case_name is None:
+                raise RuntimeError("No cases available for adding.")
+            cmd = f'ensight.case.add("{new_case_name}")'
+            self.cmd(cmd, do_eval=False)
+            cmd = f'ensight.case.select("{new_case_name}")'
+            self.cmd(cmd, do_eval=False)
+        else:
+            # Case replace
+            current_case_name = self.ensight.objs.core.CURRENTCASE[0].DESCRIPTION
+            cmd = f'ensight.case.replace("{current_case_name}", "{current_case_name}")'
+            self.cmd(cmd, do_eval=False)
+            cmd = f'ensight.case.select("{current_case_name}")'
+            self.cmd(cmd, do_eval=False)
+
+        # Attempt to find the file format if none is specified
         if file_format is None:
             try:
                 cmd = "ensight.objs.core.CURRENTCASE[0]"
@@ -493,10 +533,12 @@ class Session:
                 file_format = self.cmd(cmd)
             except RuntimeError:
                 raise RuntimeError(f"Unable to determine file format for {data_file}")
+
+        # Load the data
         cmds = [
             "ensight.part.select_default()",
             "ensight.part.modify_begin()",
-            'ensight.part.elt_representation("3D_feature_2D_full")',
+            f'ensight.part.elt_representation("{representation}")',
             "ensight.part.modify_end()",
             'ensight.data.binary_files_are("native")',
             f'ensight.data.format("{file_format}")',

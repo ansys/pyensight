@@ -11,12 +11,15 @@ import textwrap
 # python pybuild.py all
 
 
-def docs():
+def docs(full: bool = True):
     print("-" * 10, "Build sphinx docs")
     pydir = os.path.dirname(sys.executable)
     sphinx = os.path.join(pydir, "scripts", "sphinx-build")
     cmd = [sphinx, "-M", "html", "doc/source", "doc/build"]
-    subprocess.run(cmd)
+    env = os.environ.copy()
+    if not full:
+        env["FASTDOCS"] = "1"
+    subprocess.run(cmd, env=env)
 
 
 def generate():
@@ -150,6 +153,7 @@ if __name__ == "__main__":
 'codegen' : Execute the codegen operations.
 'test' : Execute the pytests.
 'build' : Build the wheel.
+'fastdocs' : Generate partial documentation.
 'docs' : Generate documentation.
 'all' : Run codegen, build the wheel and generate documentation."""
     )
@@ -161,7 +165,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "operation",
         metavar="operation",
-        choices=["clean", "precommit", "codegen", "test", "build", "docs", "all"],
+        choices=["clean", "precommit", "codegen", "test", "build", "fastdocs", "docs", "all"],
         help=operation_help,
     )
 
@@ -184,6 +188,8 @@ if __name__ == "__main__":
         wheel()
     elif args.operation == "docs":
         docs()
+    elif args.operation == "fastdocs":
+        docs(full=False)
     elif args.operation == "all":
         generate()
         wheel()

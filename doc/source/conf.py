@@ -116,6 +116,8 @@ templates_path = ["_templates"]
 
 # The suffix(es) of source filenames.
 source_suffix = ".rst"
+if os.environ.get("FASTDOCS", "0") == "1":
+    exclude_patterns = ["class_documentation.rst"]
 
 # The master toctree document.
 master_doc = "index"
