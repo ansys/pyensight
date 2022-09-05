@@ -32,14 +32,14 @@ core = session.ensight.objs.core
 
 session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/guard_rail/crash.case")
 # Apply displacements
-displacement = session.ensight.objs.core.VARIABLES['displacement'][0]
+displacement = session.ensight.objs.core.VARIABLES["displacement"][0]
 session.ensight.objs.core.PARTS.set_attr("DISPLACEBY", displacement)
 # Color by the variable "plaastic"
-plastic = session.ensight.objs.core.VARIABLES['plastic'][0]
+plastic = session.ensight.objs.core.VARIABLES["plastic"][0]
 session.ensight.objs.core.PARTS.set_attr("COLORBYPALETTE", plastic)
 # Adjust the palette range
-plastic.LEGEND[0].RANGE = [0., 0.007]
-session.ensight.view_transf.rotate(-36., 23., 0.)
+plastic.LEGEND[0].RANGE = [0.0, 0.007]
+session.ensight.view_transf.rotate(-36.0, 23.0, 0.0)
 session.ensight.view_transf.fit(0)
 
 ###############################################################################
@@ -62,7 +62,7 @@ image = session.show("image", width=800, height=600, aa=4)
 # will re-generate the renderable.  Adjust the scene rotation and update the
 # scene to update the display.
 
-session.ensight.view_transf.rotate(10., 0., 0.)
+session.ensight.view_transf.rotate(10.0, 0.0, 0.0)
 image.update()
 
 ###############################################################################
