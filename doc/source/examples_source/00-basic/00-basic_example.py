@@ -2,7 +2,7 @@
 .. _ref_basic_example:
 
 Basic PyEnSight Usage
-~~~~~~~~~~~~~~~~~~~~~
+=====================
 
 This is the most basic EnSight processing example.  It loads some data
 from an EnSight install and generates a simplistic scene.
@@ -11,7 +11,7 @@ from an EnSight install and generates a simplistic scene.
 
 ###############################################################################
 # Start an EnSight session
-# ~~~~~~~~~~~~~~~~~~~~~~~~
+# ------------------------
 # Start by launching and connecting to an instance of EnSight
 # In this case, we use a local installation of EnSight
 
@@ -22,7 +22,7 @@ core = session.ensight.objs.core
 
 ###############################################################################
 # Load a dataset
-# ~~~~~~~~~~~~~~
+# --------------
 #
 # .. image:: /_static/00_basic_0.png
 #
@@ -35,7 +35,7 @@ session.show("image", width=800, height=600)
 
 ###############################################################################
 # Create a clip plane
-# ~~~~~~~~~~~~~~~~~~~
+# -------------------
 #
 # .. image:: /_static/00_basic_1.png
 #
@@ -49,7 +49,7 @@ print("Parts:", core.PARTS)
 
 ###############################################################################
 # Color the clip plane
-# ~~~~~~~~~~~~~~~~~~~~
+# --------------------
 #
 # .. image:: /_static/00_basic_2.png
 #
@@ -61,7 +61,7 @@ print("Variables:", core.VARIABLES)
 
 ###############################################################################
 # Visual representation
-# ~~~~~~~~~~~~~~~~~~~~~
+# ---------------------
 #
 # .. image:: /_static/00_basic_3.png
 #
@@ -78,7 +78,7 @@ session.show("image", width=800, height=600)
 
 ###############################################################################
 # Create an annotation
-# ~~~~~~~~~~~~~~~~~~~~
+# --------------------
 #
 # .. image:: /_static/00_basic_4.png
 #
@@ -90,7 +90,7 @@ session.show("image", width=800, height=600)
 
 ###############################################################################
 # Exporting content
-# ~~~~~~~~~~~~~~~~~
+# -----------------
 # Save the current image and a GLB file of the scene to disk
 
 pngdata = session.render(1920, 1080, aa=4)
@@ -102,14 +102,14 @@ with open("simple_example.glb", "wb") as fp:
 
 ###############################################################################
 # Enable direct interaction
-# ~~~~~~~~~~~~~~~~~~~~~~~~~
+# -------------------------
 # Open an embedded EnSight window in a browser frame
 
 session.show("remote")
 
 ###############################################################################
 # Close the session
-# ~~~~~~~~~~~~~~~~~
+# -----------------
 # Close the connection and shut down the EnSight instance
 
 session.close()
