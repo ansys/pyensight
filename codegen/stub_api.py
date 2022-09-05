@@ -328,7 +328,16 @@ class ProcessAPI:
         indent2 = indent + "    "
         desc = self._replace(node.get("ns"), default=desc, indent=indent2)
         desc = self._cap1(desc)
-
+        # check for enum values
+        enums = None
+        for child in node:
+            if child.tag == "enums":
+                entry = dict(
+                    name=child.get("name"), desc=child.get("description"), value=child.get("value")
+                )
+                if enums is None:
+                    enums = []
+                enums.append(entry)
         # Ok, Sphinx refuses to document an attribute in all caps and EnSight uses them a lot
         # Also, the EnSight API allows both upper and lower.  So, we register both the upper
         # and lower property names if the incoming name is uppercase.  Sphinx will document
@@ -344,6 +353,13 @@ class ProcessAPI:
             s += f"{indent}@property\n"
             s += f"{indent}def {name}(self) -> {value_type}:\n"
             s += f'{indent2}"""{desc}\n'
+            if enums is not None:
+                s += f"{indent2}Valid values include:\n"
+                s += "\n"
+                for enum in enums:
+                    s += f"{indent2}* ensight.objs.enums.{enum['name']} "
+                    s += f"({enum['value']}) - {enum['desc']}\n"
+                s += "\n"
             if comment:
                 s += f"{indent2}{comment}\n"
             s += f'{indent2}"""\n'
