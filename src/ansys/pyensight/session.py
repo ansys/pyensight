@@ -279,7 +279,7 @@ class Session:
         temporal: bool = False,
         aa: int = 4,
         fps: float = 30.0,
-    ) -> "pyensight.renderable.Renderable":
+    ) -> "renderable.Renderable":
         """
         Cause the current EnSight scene to be captured or otherwise made available for
         display in a web browser.  The appropriate visuals are generated and the renderable

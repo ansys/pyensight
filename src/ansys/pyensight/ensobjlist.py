@@ -11,7 +11,7 @@ from ansys.pyensight.ensobj import ENSOBJ
 
 
 class ensobjlist(list):  # noqa: N801
-    """Bass class for all EnSight proxy objects.  It is a subclass of 'list'.
+    """Class used when returning lists of EnSight proxy objects.  A subclass of 'list'.
 
     In the EnSight object Python bindings, whenever a list is returned that
     is known to exclusively contain ENSOBJ subclass objects, the ensobjlist
