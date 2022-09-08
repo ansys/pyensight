@@ -493,15 +493,17 @@ class RenderableEVSN(Renderable):
         # generate HTML page with file references local to the websocketserver root
         html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
         server = f"http://{self._session.hostname}:{self._session.html_port}"
-        attributes = f"src='{server}/{self._evsn_filename}'"
-        attributes += f" proxy_img='{server}/{self._proxy_filename}'"
+        cleanname = self._evsn_pathname.replace("\\", "/")
+        attributes = f"src='{cleanname}'"
+        attributes += f" proxy_img='/{self._proxy_filename}'"
         attributes += " aspect_ratio='proxy'"
         attributes += " renderer='envnc'"
-        http_uri = f'"http":"http://{self._session.hostname}:{self._session.html_port}"'
+        http_uri = f'"http":"{server}"'
         ws_uri = f'"ws":"http://{self._session.hostname}:{self._session.ws_port}"'
         secrets = f'"security_token":"{self._session.secret_key}"'
         attributes += f"renderer_options='{{ {http_uri}, {ws_uri}, {secrets} }}'"
         html += f"<ansys-nexus-viewer {attributes}></ansys-nexus-viewer>\n"
+        print("The HTML", html)
         # refresh the remote HTML
         self._save_remote_html_page(html)
         super().update()

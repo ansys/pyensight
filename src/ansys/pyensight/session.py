@@ -14,7 +14,7 @@ from urllib.parse import urlparse
 import webbrowser
 
 from ansys import pyensight
-from ansys.pyensight.ensobjlist import ensobjlist
+from ansys.pyensight.listobj import ensobjlist
 from ansys.pyensight.renderable import (
     RenderableDeepPixel,
     RenderableDSG,

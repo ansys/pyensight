@@ -322,10 +322,13 @@ class ProcessAPI:
         name = node.get("name")
         desc = node.get("description")
         value_type = node.get("type")
-        # remove quotes
-        value_type = value_type.replace("'ensobjlist'", "ensobjlist")
-        # give the documented name
-        value_type = value_type.replace("ensobjlist", "ensobjlist.ensobjlist")
+        # use the actual class (this is correct for Python 3.9 and higher)
+        if sys.version_info >= (3, 9, 0):
+            value_type = value_type.replace("'ensobjlist'", "ensobjlist")
+        else:
+            # for 3.7 and 3.8, make do with "List"
+            value_type = value_type.replace("'ensobjlist'", "List")
+            value_type = value_type.replace("ensobjlist", "List")
         read_only = node.get("ro", "0")
         indent2 = indent + "    "
         # Check for enum values

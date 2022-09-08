@@ -16,6 +16,9 @@ def find_exe(name: str):
     pathname = os.path.join(pydir, "scripts", name)
     if os.path.exists(pathname):
         return pathname
+    pathname += ".exe"
+    if os.path.exists(pathname):
+        return pathname
     pathname = os.path.join(pydir, name)
     if os.path.exists(pathname):
         return pathname
