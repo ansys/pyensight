@@ -120,7 +120,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.7
+          python-version: 3.9
 
       - name: Install build requirements
         run: pip install -r requirements/build.txt
