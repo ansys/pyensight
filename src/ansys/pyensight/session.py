@@ -14,7 +14,7 @@ from urllib.parse import urlparse
 import webbrowser
 
 from ansys import pyensight
-from ansys.pyensight.ensobjlist import ensobjlist
+from ansys.pyensight.listobj import ensobjlist
 from ansys.pyensight.renderable import (
     RenderableDeepPixel,
     RenderableDSG,
@@ -279,7 +279,7 @@ class Session:
         temporal: bool = False,
         aa: int = 4,
         fps: float = 30.0,
-    ) -> "pyensight.renderable.Renderable":
+    ) -> "renderable.Renderable":
         """
         Cause the current EnSight scene to be captured or otherwise made available for
         display in a web browser.  The appropriate visuals are generated and the renderable

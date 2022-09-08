@@ -322,13 +322,16 @@ class ProcessAPI:
         name = node.get("name")
         desc = node.get("description")
         value_type = node.get("type")
-        value_type = value_type.replace("'ensobjlist'", "List")
-        value_type = value_type.replace("ensobjlist", "List")
+        # use the actual class (this is correct for Python 3.9 and higher)
+        if sys.version_info >= (3, 9, 0):
+            value_type = value_type.replace("'ensobjlist'", "ensobjlist")
+        else:
+            # for 3.7 and 3.8, make do with "List"
+            value_type = value_type.replace("'ensobjlist'", "List")
+            value_type = value_type.replace("ensobjlist", "List")
         read_only = node.get("ro", "0")
         indent2 = indent + "    "
-        desc = self._replace(node.get("ns"), default=desc, indent=indent2)
-        desc = self._cap1(desc)
-        # check for enum values
+        # Check for enum values
         enums = None
         for child in node:
             if child.tag == "enums":
@@ -338,6 +341,51 @@ class ProcessAPI:
                 if enums is None:
                     enums = []
                 enums.append(entry)
+        # range string
+        limits = ["[inf", "inf]"]
+        has_limits = False
+        for child in node:
+            # <minvalue strict="1" value="0.0"/>
+            if child.tag == "minvalue":
+                strict = child.get("strict", "0")
+                value = child.get("value", "inf")
+                s = "["
+                if strict != "0":
+                    s = "("
+                limits[0] = s + value
+                has_limits = True
+            # <maxvalue strict="1" value="0.0"/>
+            if child.tag == "maxvalue":
+                strict = child.get("strict", "0")
+                value = child.get("value", "inf")
+                s = "]"
+                if strict != "0":
+                    s = ")"
+                limits[1] = value + s
+                has_limits = True
+        # Add parenthetical comment
+        if (read_only == "1") or has_limits:
+            desc += " ("
+            if read_only == "1":
+                desc += "read-only"
+                if has_limits:
+                    desc += ","
+            if has_limits:
+                desc += "Range: " + ", ".join(limits)
+            desc += ")"
+        # Add enums to the description
+        if enums is not None:
+            enums = sorted(enums, key=lambda d: d["value"])
+            desc += "\n\n"
+            desc += f"{indent2}Valid values include:\n"
+            desc += "\n"
+            for enum in enums:
+                desc += f"{indent2}* ensight.objs.enums.{enum['name']} "
+                desc += f"({enum['value']}) - {enum['desc']}\n"
+            desc += "\n"
+        # Allow override
+        desc = self._replace(node.get("ns"), default=desc, indent=indent2)
+        desc = self._cap1(desc)
         # Ok, Sphinx refuses to document an attribute in all caps and EnSight uses them a lot
         # Also, the EnSight API allows both upper and lower.  So, we register both the upper
         # and lower property names if the incoming name is uppercase.  Sphinx will document
@@ -353,13 +401,6 @@ class ProcessAPI:
             s += f"{indent}@property\n"
             s += f"{indent}def {name}(self) -> {value_type}:\n"
             s += f'{indent2}"""{desc}\n'
-            if enums is not None:
-                s += f"{indent2}Valid values include:\n"
-                s += "\n"
-                for enum in enums:
-                    s += f"{indent2}* ensight.objs.enums.{enum['name']} "
-                    s += f"({enum['value']}) - {enum['desc']}\n"
-                s += "\n"
             if comment:
                 s += f"{indent2}{comment}\n"
             s += f'{indent2}"""\n'
@@ -392,6 +433,7 @@ class ProcessAPI:
         s += '"""\n'
         s += "from ansys.pyensight.session import Session\n"
         s += "from ansys.pyensight.ensobj import ENSOBJ\n"
+        s += "from ansys.pyensight import ensobjlist\n"
         if superclass != "ENSOBJ":
             s += f"from ansys.pyensight.{superclass.lower()} import {superclass}\n"
         s += "from typing import Any, List\n"
@@ -514,6 +556,7 @@ class ProcessAPI:
         s += '"""\n'
         s += "from ansys.pyensight import Session\n"
         s += "from ansys.pyensight.ensobj import ENSOBJ\n"
+        s += "from ansys.pyensight import ensobjlist\n"
         s += "ENSIMPORTS"
         s += "from typing import Any, List, Type\n"
         for child in self._root:

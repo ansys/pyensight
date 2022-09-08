@@ -11,10 +11,23 @@ import textwrap
 # python pybuild.py all
 
 
+def find_exe(name: str):
+    pydir = os.path.dirname(sys.executable)
+    pathname = os.path.join(pydir, "scripts", name)
+    if os.path.exists(pathname):
+        return pathname
+    pathname += ".exe"
+    if os.path.exists(pathname):
+        return pathname
+    pathname = os.path.join(pydir, name)
+    if os.path.exists(pathname):
+        return pathname
+    raise RuntimeError(f"Unable to find script {name}.  Is it installed?")
+
+
 def docs(full: bool = True):
     print("-" * 10, "Build sphinx docs")
-    pydir = os.path.dirname(sys.executable)
-    sphinx = os.path.join(pydir, "scripts", "sphinx-build")
+    sphinx = find_exe("sphinx-build")
     cmd = [sphinx, "-M", "html", "doc/source", "doc/build"]
     env = os.environ.copy()
     if not full:
@@ -36,8 +49,7 @@ def wheel():
 
 def test():
     print("-" * 10, "Run tests")
-    pydir = os.path.dirname(sys.executable)
-    pytest = os.path.join(pydir, "scripts", "pytest")
+    pytest = find_exe("pytest")
     cmd = [
         pytest,
         "-rvx",
@@ -53,8 +65,7 @@ def test():
 
 
 def codespell():
-    pydir = os.path.dirname(sys.executable)
-    codespellexe = os.path.join(pydir, "scripts", "codespell")
+    codespellexe = find_exe("codespell")
     print("-" * 10, "Running codespell")
     cmd = [codespellexe, "--count", "--ignore-words", "ignore_words.txt", "src", "codegen"]
     ret = subprocess.run(cmd, capture_output=True)
@@ -67,8 +78,7 @@ def codespell():
 
 
 def flake8():
-    pydir = os.path.dirname(sys.executable)
-    flake8exe = os.path.join(pydir, "scripts", "flake8")
+    flake8exe = find_exe("flake8")
     print("-" * 10, "Running flake8")
     cmd = [
         flake8exe,
@@ -77,8 +87,7 @@ def flake8():
 
 
 def black():
-    pydir = os.path.dirname(sys.executable)
-    blackexe = os.path.join(pydir, "scripts", "black")
+    blackexe = find_exe("black")
     print("-" * 10, "Running black")
     cmd = [
         blackexe,
@@ -96,8 +105,7 @@ def black():
 
 
 def isort():
-    pydir = os.path.dirname(sys.executable)
-    isortexe = os.path.join(pydir, "scripts", "isort")
+    isortexe = find_exe("isort")
     print("-" * 10, "Running isort")
     cmd = [
         isortexe,

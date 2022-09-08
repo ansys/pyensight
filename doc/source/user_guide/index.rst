@@ -1,7 +1,7 @@
 
 .. _user_guide:
 
-User Guide
+User guide
 ==========
 
 In this document we describe how to use the PyEnSight APIs to control
