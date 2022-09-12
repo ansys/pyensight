@@ -20,7 +20,6 @@ variety of available Renderables is explored.
 from ansys.pyensight import LocalLauncher
 
 session = LocalLauncher().start()
-core = session.ensight.objs.core
 
 ###############################################################################
 # Load a time varying dataset
@@ -162,7 +161,6 @@ remote = session.show("remote")
 # If downloaded, the saved file will be an EnVision evsn file.
 
 remote_scene = session.show("remote_scene", width=800, height=600, temporal=True)
-
 
 ###############################################################################
 # Exporting raw content
