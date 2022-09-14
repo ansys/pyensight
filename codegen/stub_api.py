@@ -260,7 +260,7 @@ class ProcessAPI:
         s += f"{indent}return self._session.cmd(cmd)\n"
         return s
 
-    def _process_undefined_method(self, node: ElementTree.Element, indent: str = "") -> str:
+    def _process_undefined_class_method(self, node: ElementTree.Element, indent: str = "") -> str:
         """For methods that have no provided argument details use *args, **kwargs
 
         We do not know the parameters for this method, so we document as *args, **kwargs.
@@ -309,6 +309,59 @@ class ProcessAPI:
                 arg_list.append(f"{key}={value.__repr__()}")
             arg_string = ",".join(arg_list)
             cmd = f"{obj}.method({arg_string})"
+            return self._session.cmd(cmd)
+        '''
+
+        return s
+
+    def _process_undefined_function(self, node: ElementTree.Element, indent: str = "") -> str:
+        """For functions that have no provided argument details use *args, **kwargs
+
+        We do not know the parameters for this method, so we document as *args, **kwargs.
+
+        Args:
+            node:
+                The 'method' node
+            indent:
+                Current indenting for source generation
+
+        Return:
+            The string for the method implementation
+        """
+        name = node.get("name")
+        if name in self._custom_names:
+            return ""
+        desc = node.get("description")
+        indent2 = indent + "    "
+        desc = self._replace(node.get("ns"), default=desc, indent=indent2)
+        desc = self._cap1(desc)
+        ns = node.get("ns")
+
+        s = "\n"
+        s += f"{indent}def {name}(self, *args, **kwargs) -> Any:\n"
+        s += f'{indent2}"""{desc}\n'
+        s += f'{indent2}"""\n'
+        s += f"{indent2}arg_list = []\n"
+        s += f"{indent2}for arg in args:\n"
+        s += f"{indent2}    arg_list.append(arg.__repr__())\n"
+        s += f"{indent2}for key, value in kwargs.items():\n"
+        s += f'{indent2}    arg_list.append(f"{{key}}={{value.__repr__()}}")\n'
+        s += f'{indent2}arg_string = ",".join(arg_list)\n'
+        s += f'{indent2}cmd = f"{ns}({{arg_string}})"\n'
+        s += f"{indent2}return self._session.cmd(cmd)\n"
+
+        # generate code of this form:
+        '''
+        def name(self, *args, **kwargs):
+            """description
+            """
+            arg_list = []
+            for arg in args:
+                arg_list.append(arg.__repr__())
+            for key, value in kwargs.items():
+                arg_list.append(f"{key}={value.__repr__()}")
+            arg_string = ",".join(arg_list)
+            cmd = f"namespace({arg_string})"
             return self._session.cmd(cmd)
         '''
 
@@ -481,9 +534,9 @@ class ProcessAPI:
                 if name not in ("__class__", "__OBJID__", "__ids__"):
                     s += self._process_property(child, indent)
             elif child.tag == "method":
-                if len(child) == 0:
+                if child.get("unknownsignature", "0") == "1":
                     # in some cases, we have no information about the method
-                    s += self._process_undefined_method(child, indent)
+                    s += self._process_undefined_class_method(child, indent)
                 else:
                     # TODO: handle class specific methods
                     pass
@@ -532,7 +585,11 @@ class ProcessAPI:
                 attributes += f"{indent}    {name}:\n"
                 attributes += f"{indent}        EnSight module instance class\n\n"
             elif child.tag == "method":
-                methods += self._process_method(child, indent=indent)
+                if child.get("unknownsignature", "0") == "1":
+                    methods += self._process_undefined_function(child, indent=indent)
+                else:
+                    # Likely a command language method
+                    methods += self._process_method(child, indent=indent)
             elif child.tag == "class":
                 classname = child.get("name")
                 # ENSOBJ and ensobjlist are hand-crafted

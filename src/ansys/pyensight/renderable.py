@@ -534,7 +534,7 @@ class RenderableDSG(Renderable):
         # and the last complete update
         self._last_full_update = -1
         # get a stream ID
-        self._stream_id = self._session.cmd("ensight.dsg_new_stream()")
+        self._stream_id = self._session.ensight.dsg_new_stream()
         self.update()
 
     def update(self, incremental: bool = True):
@@ -547,11 +547,11 @@ class RenderableDSG(Renderable):
 
         Args:
             incremental:
-                If True, the update will incremental
+                If True, the update will incremental instead of full
         """
-        # save an update
+        # save an update, initial update will not be incremental
         if self._last_full_update < 0:
-            incremental = True
+            incremental = False
 
         # next update
         self._last_update_number += 1
@@ -560,9 +560,15 @@ class RenderableDSG(Renderable):
 
         # Ask for an update to be generated
         remote_filename = f"{self._dsg_base_pathname}/update_{self._last_update_number}.dsgz"
-        cmd = f'ensight.dsg_save_update(r"""{remote_filename}""",temporal={self._temporal},'
-        cmd += f"incremental={incremental},stream={self._stream_id})"
-        self._session.cmd(cmd, do_eval=False)
+        self._session.ensight.dsg_save_update(
+            remote_filename,
+            temporal=self._temporal,
+            incremental=incremental,
+            stream=self._stream_id,
+        )
+
+        # Update the proxy image
+        self._update_proxy()
 
         # Record the file(s) to the status file...
         status = dict(
@@ -578,11 +584,6 @@ class RenderableDSG(Renderable):
 
         # If the first update, generate the HTML
         if self._last_update_number == 0:
-            # save a proxy image
-            w, h = self._default_size(1920, 1080)
-            remote_filename = f"{self._dsg_base_pathname}/proxy.png"
-            cmd = f'ensight.render({w},{h},num_samples={self._aa}).save(r"""{remote_filename}""")'
-            self._session.cmd(cmd, do_eval=False)
             # generate HTML page with file references local to the websocketserver root
             attributes = f"src='/{self._dsg_base_filename}/update_0.dsgz'"
             attributes += f" proxy_img='/{self._dsg_base_filename}/proxy.png'"
@@ -593,9 +594,17 @@ class RenderableDSG(Renderable):
             self._save_remote_html_page(html)
         super().update()
 
+    def _update_proxy(self):
+        """Replace the current proxy image with the current view"""
+        # save a proxy image
+        w, h = self._default_size(1920, 1080)
+        remote_filename = f"{self._dsg_base_pathname}/proxy.png"
+        cmd = f'ensight.render({w},{h},num_samples={self._aa}).save(r"""{remote_filename}""")'
+        self._session.cmd(cmd, do_eval=False)
+
     def delete(self) -> None:
         try:
-            _ = self._session.cmd(f"ensight.dsg_close_stream({self._stream_id})", do_eval=False)
+            _ = self._session.ensight.dsg_close_stream(self._stream_id)
         except Exception:
             pass
         super().delete()
