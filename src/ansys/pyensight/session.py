@@ -288,17 +288,17 @@ class Session:
 
         Legal values for the 'what' argument include:
 
-        * 'image' is a simple rendered png image
-        * 'deep_pixel' is an EnSight deep pixel image
+        * 'image' simple rendered png image
+        * 'deep_pixel' EnSight deep pixel image
         * 'animation' renders an mpeg4 movie
-        * 'webgl' is an interactive webgl-based browser viewer
-        * 'dsg' is a webgl-based renderer using the dynamic scene graph transport mechanism
-        * 'remote' is a remote rendering based interactive EnSight viewer
+        * 'webgl' interactive webgl-based browser viewer
+        * 'dsg' webgl-based renderer using the dynamic scene graph transport mechanism
+        * 'remote' remote rendering based interactive EnSight viewer
+        * 'remote_scene' remote rendering based interactive EnSight viewer
 
         Args:
             what:
-                The type of scene display to generate.  Three values are supported: 'image',
-                'webgl', 'remote', 'deep_pixel'.
+                The type of scene display to generate.
             width:
                 The width of the rendered entity
             height:

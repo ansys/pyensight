@@ -210,14 +210,25 @@ class LocalLauncher(pyensight.Launcher):
         """
         dirs_to_check = []
         if ansys_installation:
+            # User passed directory
             dirs_to_check.append(os.path.join(ansys_installation, "CEI"))
             dirs_to_check.append(ansys_installation)
         else:
+            # Environmental variable
             if "PYENSIGHT_ANSYS_INSTALLATION" in os.environ:
                 dirs_to_check.append(os.environ["PYENSIGHT_ANSYS_INSTALLATION"])
+            # 'enve' home directory (running in local distro)
+            try:
+                import enve
+
+                dirs_to_check.append(enve.home())
+            except ModuleNotFoundError:
+                pass
+            # Look for Ansys install using target version number
             version = pyensight.__ansys_version__
             if f"AWP_ROOT{version}" in os.environ:
                 dirs_to_check.append(os.path.join(os.environ[f"AWP_ROOT{version}"], "CEI"))
+            # Common, default install locations
             install_dir = f"/ansys_inc/v{version}/CEI"
             if platform.system().startswith("Wind"):
                 install_dir = rf"C:\Program Files\ANSYS Inc\v{version}\CEI"
