@@ -3,6 +3,7 @@
 Interface to create objects in the EnSight session that can be displayed
 via HTML over the websocketserver interface.
 """
+import json
 import os
 import shutil
 from typing import Any, List, Optional
@@ -397,20 +398,20 @@ class RenderableWebGL(Renderable):
 
         """
         # save the .avz file
-        self._session.grpc.command("ensight.part.select_all()", do_eval=False)
-        self._session.grpc.command('ensight.savegeom.format("avz")', do_eval=False)
+        self._session.cmd("ensight.part.select_all()", do_eval=False)
+        self._session.cmd('ensight.savegeom.format("avz")', do_eval=False)
         # current timestep or all of the timesteps
         ts = self._session.ensight.objs.core.TIMESTEP
         st = ts
         en = ts
         if self._temporal:
             st, en = self._session.ensight.objs.core.TIMESTEP_LIMITS
-        self._session.grpc.command(f"ensight.savegeom.begin_step({st})", do_eval=False)
-        self._session.grpc.command(f"ensight.savegeom.end_step({en})", do_eval=False)
-        self._session.grpc.command("ensight.savegeom.step_by(1)", do_eval=False)
+        self._session.cmd(f"ensight.savegeom.begin_step({st})", do_eval=False)
+        self._session.cmd(f"ensight.savegeom.end_step({en})", do_eval=False)
+        self._session.cmd("ensight.savegeom.step_by(1)", do_eval=False)
         # Save the file
         cmd = f'ensight.savegeom.save_geometric_entities(r"""{self._avz_pathname}""")'
-        self._session.grpc.command(cmd, do_eval=False)
+        self._session.cmd(cmd, do_eval=False)
         # generate HTML page with file references local to the websocketserver root
         html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
         html += f"<ansys-nexus-viewer src='/{self._avz_filename}'></ansys-nexus-viewer>\n"
@@ -474,21 +475,21 @@ class RenderableEVSN(Renderable):
         cmd = f'ensight.render({w},{h},num_samples={self._aa}).save(r"""{self._proxy_pathname}""")'
         self._session.cmd(cmd)
         # save the .evsn file
-        self._session.grpc.command('ensight.file.save_scenario_which_parts("all")', do_eval=False)
-        self._session.grpc.command('ensight.file.scenario_format("envision")', do_eval=False)
+        self._session.cmd('ensight.file.save_scenario_which_parts("all")', do_eval=False)
+        self._session.cmd('ensight.file.scenario_format("envision")', do_eval=False)
         # current timestep or all of the timesteps
         if self._temporal:
             st, en = self._session.ensight.objs.core.TIMESTEP_LIMITS
             time_cmd = f"ensight.file.scenario_steptime_anim(1, {st}, {en}, 1.0)"
         else:
             time_cmd = "ensight.file.scenario_steptime_anim(0, 1, 1, 1)"
-        self._session.grpc.command(time_cmd, do_eval=False)
-        var_cmd = '[x.DESCRIPTION for x in ensight.objs.core.VARIABLES.find(True, "Active")]'
-        vars = self._session.grpc.command(var_cmd)
-        self._session.grpc.command(f"ensight.variables.select_byname_begin({vars})", do_eval=False)
+        self._session.cmd(time_cmd, do_eval=False)
+        varlist = self._session.ensight.objs.core.VARIABLES.find(True, "ACTIVE")
+        vars = [x.DESCRIPTION for x in varlist]
+        self._session.cmd(f"ensight.variables.select_byname_begin({vars})", do_eval=False)
         # Save the file
         cmd = f'ensight.file.save_scenario_fileslct(r"""{self._evsn_pathname}""")'
-        self._session.grpc.command(cmd, do_eval=False)
+        self._session.cmd(cmd, do_eval=False)
 
         # generate HTML page with file references local to the websocketserver root
         html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
@@ -503,7 +504,6 @@ class RenderableEVSN(Renderable):
         secrets = f'"security_token":"{self._session.secret_key}"'
         attributes += f"renderer_options='{{ {http_uri}, {ws_uri}, {secrets} }}'"
         html += f"<ansys-nexus-viewer {attributes}></ansys-nexus-viewer>\n"
-        print("The HTML", html)
         # refresh the remote HTML
         self._save_remote_html_page(html)
         super().update()
@@ -526,10 +526,15 @@ class RenderableDSG(Renderable):
         # {_dsg_base_pathname}/update_0.dsgz
         self._dsg_base_pathname = pathname
         self._dsg_base_filename = filename
+        # Create the directory where the status file and .dsgz files will go
+        cmd = f'import os\nos.mkdir(r"""{self._dsg_base_pathname}""")\n'
+        self._session.cmd(cmd, do_eval=False)
         # keep track of the number of updates...
         self._last_update_number = -1
         # and the last complete update
         self._last_full_update = -1
+        # get a stream ID
+        self._stream_id = self._session.ensight.dsg_new_stream()
         self.update()
 
     def update(self, incremental: bool = True):
@@ -542,26 +547,64 @@ class RenderableDSG(Renderable):
 
         Args:
             incremental:
-                If True, the update will incremental
+                If True, the update will incremental instead of full
         """
-        # save an update
+        # save an update, initial update will not be incremental
         if self._last_full_update < 0:
-            incremental = True
-
-        # TODO: send an update over to EnSight...
-        # TODO: record the file(s) to the downloads...
+            incremental = False
 
         # next update
         self._last_update_number += 1
         if not incremental:
             self._last_full_update = self._last_update_number
 
+        # Ask for an update to be generated
+        remote_filename = f"{self._dsg_base_pathname}/update_{self._last_update_number}.dsgz"
+        self._session.ensight.dsg_save_update(
+            remote_filename,
+            temporal=self._temporal,
+            incremental=incremental,
+            stream=self._stream_id,
+        )
+
+        # Update the proxy image
+        self._update_proxy()
+
+        # Record the file(s) to the status file...
+        status = dict(
+            magic="dsg_status_file_v1.0",
+            latest_update=self._last_update_number,
+            latest_fullupdate=self._last_full_update,
+        )
+        # Save json over to file in EnSight session
+        content = json.dumps(status)
+        remote_filename = f"{self._dsg_base_pathname}/status.json"
+        cmd = f'open(r"""{remote_filename}""", "w").write("""{content}""")'
+        self._session.cmd(cmd, do_eval=False)
+
         # If the first update, generate the HTML
         if self._last_update_number == 0:
             # generate HTML page with file references local to the websocketserver root
             attributes = f"src='/{self._dsg_base_filename}/update_0.dsgz'"
+            attributes += f" proxy_img='/{self._dsg_base_filename}/proxy.png'"
+            attributes += " aspect_ratio='proxy'"
             html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
             html += f"<ansys-nexus-viewer {attributes}></ansys-nexus-viewer>\n"
             # refresh the remote HTML
             self._save_remote_html_page(html)
         super().update()
+
+    def _update_proxy(self):
+        """Replace the current proxy image with the current view"""
+        # save a proxy image
+        w, h = self._default_size(1920, 1080)
+        remote_filename = f"{self._dsg_base_pathname}/proxy.png"
+        cmd = f'ensight.render({w},{h},num_samples={self._aa}).save(r"""{remote_filename}""")'
+        self._session.cmd(cmd, do_eval=False)
+
+    def delete(self) -> None:
+        try:
+            _ = self._session.ensight.dsg_close_stream(self._stream_id)
+        except Exception:
+            pass
+        super().delete()
