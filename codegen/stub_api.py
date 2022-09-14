@@ -278,23 +278,23 @@ class ProcessAPI:
         if name in self._custom_names:
             return ""
         desc = node.get("description")
-        indent2 = indent + "    "
-        desc = self._replace(node.get("ns"), default=desc, indent=indent2)
+        new_indent = indent + "    "
+        desc = self._replace(node.get("ns"), default=desc, indent=new_indent)
         desc = self._cap1(desc)
 
         s = "\n"
         s += f"{indent}def {name}(self, *args, **kwargs) -> Any:\n"
-        s += f'{indent2}"""{desc}\n'
-        s += f'{indent2}"""\n'
-        s += f'{indent2}obj = f"{{self._remote_obj()}}"\n'
-        s += f"{indent2}arg_list = []\n"
-        s += f"{indent2}for arg in args:\n"
-        s += f"{indent2}    arg_list.append(arg.__repr__())\n"
-        s += f"{indent2}for key, value in kwargs.items():\n"
-        s += f'{indent2}    arg_list.append(f"{{key}}={{value.__repr__()}}")\n'
-        s += f'{indent2}arg_string = ",".join(arg_list)\n'
-        s += f'{indent2}cmd = f"{{obj}}.{name}({{arg_string}})"\n'
-        s += f"{indent2}return self._session.cmd(cmd)\n"
+        s += f'{new_indent}"""{desc}\n'
+        s += f'{new_indent}"""\n'
+        s += f'{new_indent}obj = f"{{self._remote_obj()}}"\n'
+        s += f"{new_indent}arg_list = []\n"
+        s += f"{new_indent}for arg in args:\n"
+        s += f"{new_indent}    arg_list.append(arg.__repr__())\n"
+        s += f"{new_indent}for key, value in kwargs.items():\n"
+        s += f'{new_indent}    arg_list.append(f"{{key}}={{value.__repr__()}}")\n'
+        s += f'{new_indent}arg_string = ",".join(arg_list)\n'
+        s += f'{new_indent}cmd = f"{{obj}}.{name}({{arg_string}})"\n'
+        s += f"{new_indent}return self._session.cmd(cmd)\n"
 
         # generate code of this form:
         '''
