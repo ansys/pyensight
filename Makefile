@@ -45,6 +45,7 @@ clean:
 	rm -rf src/ansys/api
 	rm -rf **/*.egg-info
 	rm -rf coverage-html
+	rm -rf .pytest_cache
 	rm -f codegen/ensight.proto
 	rm -f codegen/ensight_api.xml
 	rm -f src/ansys/pyensight/ensight_api.py
