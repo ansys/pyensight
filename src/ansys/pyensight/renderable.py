@@ -331,37 +331,32 @@ class RenderableMP4(Renderable):
         # get the timestep limits, [0,0] is non-time varying
         st, en = self._session.ensight.objs.core.TIMESTEP_LIMITS
         num_frames = en - st + 1
-
-        cmds = [
-            'ensight.file.animation_rend_offscreen("ON")',
-            'ensight.file.animation_stereo("current")',
-            "ensight.file.animation_screen_tiling(1, 1)",
-            'ensight.file.animation_format("mpeg4")',
-            'ensight.file.animation_format_options("Quality High Type 1")',
-            f"ensight.file.animation_frame_rate({self._fps})",
-            'ensight.file.animation_rend_offscreen("ON")',
-            f"ensight.file.animation_numpasses({self._aa})",
-            'ensight.file.animation_stereo("current")',
-            "ensight.file.animation_screen_tiling(1, 1)",
-            f'ensight.file.animation_file(r"""{self._mp4_pathname}""")',
-            'ensight.file.animation_window_size("user_defined")',
-            f"ensight.file.animation_window_xy({w}, {h})",
-            f"ensight.file.animation_frames({num_frames})",
-            f"ensight.file.animation_start_number({st})",
-            'ensight.file.animation_multiple_images("OFF")',
-            'ensight.file.animation_raytrace_it("OFF")',
-            'ensight.file.animation_raytrace_ext("OFF")',
-            'ensight.file.animation_play_flipbook("OFF")',
-            'ensight.file.animation_play_time("ON")',
-            'ensight.file.animation_play_keyframe("OFF")',
-            'ensight.file.animation_reset_flipbook("OFF")',
-            'ensight.file.animation_reset_traces("OFF")',
-            'ensight.file.animation_reset_time("ON")',
-            'ensight.file.animation_reset_keyframe("OFF")',
-            "ensight.file.save_animation()",
-        ]
-        for cmd in cmds:
-            self._session.cmd(cmd)
+        self._session.ensight.file.animation_rend_offscreen("ON")
+        self._session.ensight.file.animation_stereo("current")
+        self._session.ensight.file.animation_screen_tiling(1, 1)
+        self._session.ensight.file.animation_format("mpeg4")
+        self._session.ensight.file.animation_format_options("Quality High Type 1")
+        self._session.ensight.file.animation_frame_rate(self._fps)
+        self._session.ensight.file.animation_rend_offscreen("ON")
+        self._session.ensight.file.animation_numpasses(self._aa)
+        self._session.ensight.file.animation_stereo("current")
+        self._session.ensight.file.animation_screen_tiling(1, 1)
+        self._session.ensight.file.animation_file(self._mp4_pathname)
+        self._session.ensight.file.animation_window_size("user_defined")
+        self._session.ensight.file.animation_window_xy(w, h)
+        self._session.ensight.file.animation_frames(num_frames)
+        self._session.ensight.file.animation_start_number(st)
+        self._session.ensight.file.animation_multiple_images("OFF")
+        self._session.ensight.file.animation_raytrace_it("OFF")
+        self._session.ensight.file.animation_raytrace_ext("OFF")
+        self._session.ensight.file.animation_play_flipbook("OFF")
+        self._session.ensight.file.animation_play_time("ON")
+        self._session.ensight.file.animation_play_keyframe("OFF")
+        self._session.ensight.file.animation_reset_flipbook("OFF")
+        self._session.ensight.file.animation_reset_traces("OFF")
+        self._session.ensight.file.animation_reset_time("ON")
+        self._session.ensight.file.animation_reset_keyframe("OFF")
+        self._session.ensight.file.save_animation()
 
         # generate HTML page with file references local to the websocketserver root
         html = f'<video width="{w}" height="{h}" controls>\n'
@@ -398,20 +393,19 @@ class RenderableWebGL(Renderable):
 
         """
         # save the .avz file
-        self._session.cmd("ensight.part.select_all()", do_eval=False)
-        self._session.cmd('ensight.savegeom.format("avz")', do_eval=False)
+        self._session.ensight.part.select_all()
+        self._session.ensight.savegeom.format("avz")
         # current timestep or all of the timesteps
         ts = self._session.ensight.objs.core.TIMESTEP
         st = ts
         en = ts
         if self._temporal:
             st, en = self._session.ensight.objs.core.TIMESTEP_LIMITS
-        self._session.cmd(f"ensight.savegeom.begin_step({st})", do_eval=False)
-        self._session.cmd(f"ensight.savegeom.end_step({en})", do_eval=False)
-        self._session.cmd("ensight.savegeom.step_by(1)", do_eval=False)
+        self._session.ensight.savegeom.begin_step(st)
+        self._session.ensight.savegeom.end_step(en)
+        self._session.ensight.savegeom.step_by(1)
         # Save the file
-        cmd = f'ensight.savegeom.save_geometric_entities(r"""{self._avz_pathname}""")'
-        self._session.cmd(cmd, do_eval=False)
+        self._session.ensight.savegeom.save_geometric_entities(self._avz_pathname)
         # generate HTML page with file references local to the websocketserver root
         html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
         html += f"<ansys-nexus-viewer src='/{self._avz_filename}'></ansys-nexus-viewer>\n"
@@ -475,21 +469,19 @@ class RenderableEVSN(Renderable):
         cmd = f'ensight.render({w},{h},num_samples={self._aa}).save(r"""{self._proxy_pathname}""")'
         self._session.cmd(cmd)
         # save the .evsn file
-        self._session.cmd('ensight.file.save_scenario_which_parts("all")', do_eval=False)
-        self._session.cmd('ensight.file.scenario_format("envision")', do_eval=False)
+        self._session.ensight.file.save_scenario_which_parts("all")
+        self._session.ensight.file.scenario_format("envision")
         # current timestep or all of the timesteps
         if self._temporal:
             st, en = self._session.ensight.objs.core.TIMESTEP_LIMITS
-            time_cmd = f"ensight.file.scenario_steptime_anim(1, {st}, {en}, 1.0)"
+            self._session.ensight.file.scenario_steptime_anim(1, st, en, 1.0)
         else:
-            time_cmd = "ensight.file.scenario_steptime_anim(0, 1, 1, 1)"
-        self._session.cmd(time_cmd, do_eval=False)
+            self._session.ensight.file.scenario_steptime_anim(0, 1, 1, 1)
         varlist = self._session.ensight.objs.core.VARIABLES.find(True, "ACTIVE")
         vars = [x.DESCRIPTION for x in varlist]
-        self._session.cmd(f"ensight.variables.select_byname_begin({vars})", do_eval=False)
+        self._session.ensight.variables.select_byname_begin(vars)
         # Save the file
-        cmd = f'ensight.file.save_scenario_fileslct(r"""{self._evsn_pathname}""")'
-        self._session.cmd(cmd, do_eval=False)
+        self._session.ensight.file.save_scenario_fileslct(self._evsn_pathname)
 
         # generate HTML page with file references local to the websocketserver root
         html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
