@@ -8,6 +8,7 @@ Examples:
     >>> type(session)
     ansys.pyensight.Session
 """
+import platform
 import time
 from typing import Any, Callable, Optional
 from urllib.parse import urlparse
@@ -133,6 +134,10 @@ class Session:
 
         # create ensight.core
         self._ensight.objs.core = self.cmd("ensight.objs.core")
+
+        # get the remote Python interpreter version
+        self.cmd("import platform", do_eval=False)
+        self._ensight_python_version = self.cmd("platform.python_version_tuple()")
 
     def __repr__(self):
         s = f"Session(host='{self.hostname}', secret_key='{self.secret_key}', "
@@ -270,6 +275,64 @@ class Session:
         """Open the help pages for the pyansys project in a webbrowser"""
         url = "https://furry-waffle-422870de.pages.github.io/"
         webbrowser.open(url)
+
+    def exec(self, function: Callable, *args, remote: bool = False, **kwargs) -> Any:
+        """Run a function containing 'ensight' API calls locally or in the EnSight interpreter
+        Given a function of the form::
+
+            def myfunc(ensight, *args, **kwargs):
+                ...
+                return value
+
+        The exec method allows for the function to be executed in the PyEnSight Python
+        interpreter or the (remote) EnSight interpreter.  Thus, a function making a large
+        number of RPC calls can run much faster than if run solely in the PyEnSight
+        interpreter.
+
+        There are a number of constraints on this capability.
+        The function may only use arguments passed to the exec method and can only return a
+        single value.  It cannot modify the input arguments.  The input arguments must be
+        serializable and the PyEnSight Python interpreter version must match the version in
+        EnSight.
+
+        Examples:
+            ::
+
+                def get_part(ensight, name):
+                    parts = ensight.objs.core.PARTS[name]
+                    if parts:
+                        return parts[0]
+                    return None
+
+                data = f"{session.cei_home}/ensight{session.cei_suffix}/data/cube/cube.case"
+                session.load_data(data)
+                print(session.exec(get_part, 'Computational mesh'))
+                print(session.exec(get_part, 'Computational mesh', remote=True))
+                session.exec(get_part, 'Computational mesh', remote=True).VISIBLE
+
+        """
+        if remote:
+            # remote execution only supported in 2023 R1 or later
+            if int(self._cei_suffix) < 231:
+                raise RuntimeError("Remote function execution only supported in 2023 R1 and later")
+            local_python_version = platform.python_version_tuple()
+            if self._ensight_python_version != local_python_version:
+                vers = f"'{local_python_version}' vs '{self._ensight_python_version}'"
+                raise RuntimeError(f"Local and remote Python versions must match: {vers}")
+            import dill  # pylint: disable=import-outside-toplevel
+
+            # Create a bound object that allows for direct encoding of the args/kwargs params
+            # The new function would be bound_function(ensight) where the args are captured
+            # in the lambda.
+            bound_function = lambda ens: function(ens, *args, **kwargs)  # noqa: E731
+            # Serialize the bound function
+            serialized_function = dill.dumps(bound_function, recurse=True)
+            self.cmd("import dill", do_eval=False)
+            # Run it remotely, passing the the instance ensight instead of self._ensight
+            cmd = f"dill.loads(eval(repr({serialized_function})))(ensight)"
+            return self.cmd(cmd)
+        else:
+            return function(self._ensight, *args, **kwargs)
 
     def show(
         self,

@@ -8,6 +8,7 @@ REQUIREMENTS = [
     "protobuf>=3.9.1",
     "grpcio>=1.23.0",
     "requests>=2.20.1",
+    "dill>=0.3.5.1",
 ]
 
 curr_dir = os.path.abspath(os.path.dirname(__file__))
