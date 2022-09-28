@@ -298,17 +298,42 @@ class Session:
         Examples:
             ::
 
-                def get_part(ensight, name):
-                    parts = ensight.objs.core.PARTS[name]
-                    if parts:
-                        return parts[0]
-                    return None
+                from ansys.pyensight import LocalLauncher
+                session = LocalLauncher().start()
+                options = dict()
+                options['Verbose mode'] = 'OFF'
+                options['Use ghost elements'] = 'OFF'
+                options['Long names'] = 'OFF'
+                options['Compatibility mode'] = 'ON'
+                options['Move Transient Parts'] = 'ON'
+                options['Element type'] = 'Tri 3'
+                options['Boundary ghosts'] = 'None'
+                options['Spread out parts'] = 'Legacy'
+                options['Number of spheres'] = 100
+                options['Number of cubes'] = 100
+                options['Number of planes'] = 0
+                options['Number of elements start'] = 1000
+                options['Number of elements end'] = 1000
+                options['Number of timesteps'] = 1
+                options['Part scaling factor'] = 1.000000e+00
+                options['Random number seed'] = 0
+                options['Number of scalars'] = 3
+                options['Number of vectors'] = 3
+                options['Number of constants'] = 3
+                session.load_data("dummy", file_format="Synthetic", reader_options=options)
 
-                data = f"{session.cei_home}/ensight{session.cei_suffix}/data/cube/cube.case"
-                session.load_data(data)
-                print(session.exec(get_part, 'Computational mesh'))
-                print(session.exec(get_part, 'Computational mesh', remote=True))
-                session.exec(get_part, 'Computational mesh', remote=True).VISIBLE
+                def count(ensight, attr, value):
+                    import time
+                    start = time.time()
+                    count = 0
+                    for p in ensight.objs.core.PARTS:
+                        if p.getattr(attr) == value:
+                            count += 1
+                    return count, time.time() - start
+
+                print(count(session.ensight, "VISIBLE", True))
+                print(session.exec(count, "VISIBLE", True))
+                print(session.exec(count, "VISIBLE", True, remote=True))
 
         """
         if remote:
@@ -607,8 +632,8 @@ class Session:
             f'ensight.data.format("{file_format}")',
         ]
         if reader_options:
-            for key, value in reader_options:
-                option = f"""ensight.data.reader_option("'{key}' '{value}'")"""
+            for key, value in reader_options.items():
+                option = f"""ensight.data.reader_option("{repr(key)} {repr(value)}")"""
                 cmds.append(option)
         if result_file:
             cmds.append(f'ensight.data.result(r"""{result_file}""")')
