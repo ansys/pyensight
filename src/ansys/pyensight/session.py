@@ -8,6 +8,7 @@ Examples:
     >>> type(session)
     ansys.pyensight.Session
 """
+import atexit
 import platform
 import time
 from typing import Any, Callable, Optional
@@ -139,14 +140,16 @@ class Session:
         self.cmd("import platform", do_eval=False)
         self._ensight_python_version = self.cmd("platform.python_version_tuple()")
 
+        # Since this session can have allocated significant external resources
+        # we very much want an chance to close it up cleanly.  It is legal to
+        # call close() twice on this class if needed.
+        atexit.register(self.close)
+
     def __repr__(self):
         s = f"Session(host='{self.hostname}', secret_key='{self.secret_key}', "
         s += f"html_port={self.html_port}, grpc_port={self._grpc_port},"
         s += f"ws_port={self.ws_port}, session_directory=r'{self.launcher.session_directory}')"
         return s
-
-    def __del__(self):
-        self.close()
 
     def _establish_connection(self, validate: bool = False) -> None:
         """Establish a gRPC connection to the EnSight instance.
@@ -341,9 +344,12 @@ class Session:
             if int(self._cei_suffix) < 231:
                 raise RuntimeError("Remote function execution only supported in 2023 R1 and later")
             local_python_version = platform.python_version_tuple()
-            if self._ensight_python_version != local_python_version:
-                vers = f"'{local_python_version}' vs '{self._ensight_python_version}'"
-                raise RuntimeError(f"Local and remote Python versions must match: {vers}")
+            if self._ensight_python_version[0:2] != local_python_version[0:2]:
+                vers = "Local and remote Python versions must match: "
+                vers += ".".join(local_python_version)
+                vers += " vs "
+                vers += ".".join(self._ensight_python_version)
+                raise RuntimeError(vers)
             import dill  # pylint: disable=import-outside-toplevel
 
             # Create a bound object that allows for direct encoding of the args/kwargs params
@@ -353,7 +359,7 @@ class Session:
             # Serialize the bound function
             serialized_function = dill.dumps(bound_function, recurse=True)
             self.cmd("import dill", do_eval=False)
-            # Run it remotely, passing the the instance ensight instead of self._ensight
+            # Run it remotely, passing the instance ensight instead of self._ensight
             cmd = f"dill.loads(eval(repr({serialized_function})))(ensight)"
             return self.cmd(cmd)
         else:

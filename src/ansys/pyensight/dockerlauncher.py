@@ -13,13 +13,10 @@ Examples:
         launcher.stop()
 
 """
-# import atexit
 import os.path
 import re
 from typing import Optional
 import uuid
-
-import docker
 
 from ansys import pyensight
 
@@ -53,24 +50,29 @@ class DockerLauncher(pyensight.Launcher):
         self,
         data_directory: str,
         docker_image_name: Optional[str] = None,
-        use_dev: Optional[bool] = False,
+        use_dev: bool = False,
     ) -> None:
         super().__init__()
 
-        self._data_directory = data_directory
+        self._data_directory: str = data_directory
+        self._container = None
 
         # get the optional user specified image name
         self._image_name: str = "ghcr.io/ansys/ensight"
         if use_dev:
-            self._image_name: str = "ghcr.io/ansys/ensight_dev2"
+            self._image_name = "ghcr.io/ansys/ensight_dev2"
         if docker_image_name:
-            self._image_name: str = docker_image_name
+            self._image_name = docker_image_name
 
         # Load up Docker from the user's environment
         try:
+            import docker
+
             self._docker_client: docker.client.DockerClient = docker.from_env()
+        except ModuleNotFoundError:
+            raise RuntimeError("The pyansys-docker module must be installed for DockerLauncher")
         except Exception:
-            raise RuntimeError("Can't initialize Docker")
+            raise RuntimeError("Cannot initialize Docker")
 
         # EnSight session secret key
         self._secret_key: str = str(uuid.uuid1())
@@ -108,9 +110,7 @@ class DockerLauncher(pyensight.Launcher):
         except Exception:
             raise RuntimeError(f"Can't pull Docker image: {self._image_name}")
 
-    def start(
-        self, host: Optional[str] = "127.0.0.1", use_egl: Optional[bool] = False
-    ) -> "pyensight.Session":
+    def start(self, host: str = "127.0.0.1", use_egl: bool = False) -> "pyensight.Session":
         """Start an EnSight session using the local Docker ensight image
         Launch a copy of EnSight in the container that supports the gRPC interface.  Create and
         bind a Session instance to the created gRPC session.  Return that session.
@@ -294,7 +294,7 @@ class DockerLauncher(pyensight.Launcher):
 
     def stop(self) -> None:
         """Release any additional resources allocated during launching"""
-        # atexit.register(shutil.rmtree, self._session_directory)
-        self._container.stop()
-        self._container.remove()
-        self._container = None
+        if self._container:
+            self._container.stop()
+            self._container.remove()
+            self._container = None

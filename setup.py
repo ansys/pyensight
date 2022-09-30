@@ -4,7 +4,6 @@ import os
 from setuptools import find_namespace_packages, setup
 
 REQUIREMENTS = [
-    "pyansys-docker>=5.0.4",
     "protobuf>=3.9.1",
     "grpcio>=1.23.0",
     "requests>=2.20.1",
