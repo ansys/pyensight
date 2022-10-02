@@ -36,6 +36,7 @@ class Renderable:
         temporal: bool = False,
         aa: int = 1,
         fps: float = 30.0,
+        num_frames: Optional[int] = None,
     ) -> None:
         self._session = session
         self._filename_index: int = 0
@@ -55,6 +56,7 @@ class Renderable:
         self._temporal: bool = temporal
         self._aa: int = aa
         self._fps: float = fps
+        self._num_frames: Optional[int] = num_frames
 
     def __repr__(self) -> str:
         name = self.__class__.__name__
@@ -305,6 +307,7 @@ class RenderableMP4(Renderable):
     """Animation renderable
 
     Render the timesteps of the current dataset into an mp4 file and view the results.
+
     """
 
     def __init__(self, *args, **kwargs) -> None:
@@ -327,19 +330,21 @@ class RenderableMP4(Renderable):
         """
         # save the image file on the remote host
         w, h = self._default_size(1920, 1080)
-
-        # get the timestep limits, [0,0] is non-time varying
-        st, en = self._session.ensight.objs.core.TIMESTEP_LIMITS
-        num_frames = en - st + 1
+        # Assume this is a particle trace animation save...
+        num_frames = self._num_frames
+        st = 0
+        if self._num_frames is None:
+            # get the timestep limits, [0,0] is non-time varying
+            st, en = self._session.ensight.objs.core.TIMESTEP_LIMITS
+            num_frames = en - st + 1
         self._session.ensight.file.animation_rend_offscreen("ON")
-        self._session.ensight.file.animation_stereo("current")
         self._session.ensight.file.animation_screen_tiling(1, 1)
         self._session.ensight.file.animation_format("mpeg4")
         self._session.ensight.file.animation_format_options("Quality High Type 1")
         self._session.ensight.file.animation_frame_rate(self._fps)
         self._session.ensight.file.animation_rend_offscreen("ON")
         self._session.ensight.file.animation_numpasses(self._aa)
-        self._session.ensight.file.animation_stereo("current")
+        self._session.ensight.file.animation_stereo("mono")
         self._session.ensight.file.animation_screen_tiling(1, 1)
         self._session.ensight.file.animation_file(self._mp4_pathname)
         self._session.ensight.file.animation_window_size("user_defined")
@@ -350,11 +355,20 @@ class RenderableMP4(Renderable):
         self._session.ensight.file.animation_raytrace_it("OFF")
         self._session.ensight.file.animation_raytrace_ext("OFF")
         self._session.ensight.file.animation_play_flipbook("OFF")
-        self._session.ensight.file.animation_play_time("ON")
         self._session.ensight.file.animation_play_keyframe("OFF")
+
+        if self._num_frames is None:
+            # playing over time
+            self._session.ensight.file.animation_play_time("ON")
+            self._session.ensight.file.animation_reset_traces("OFF")
+            self._session.ensight.file.animation_reset_time("ON")
+        else:
+            # recording particle traces/etc
+            self._session.ensight.file.animation_play_time("OFF")
+            self._session.ensight.file.animation_reset_traces("ON")
+            self._session.ensight.file.animation_reset_time("OFF")
+
         self._session.ensight.file.animation_reset_flipbook("OFF")
-        self._session.ensight.file.animation_reset_traces("OFF")
-        self._session.ensight.file.animation_reset_time("ON")
         self._session.ensight.file.animation_reset_keyframe("OFF")
         self._session.ensight.file.save_animation()
 

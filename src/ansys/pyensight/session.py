@@ -373,6 +373,7 @@ class Session:
         temporal: bool = False,
         aa: int = 4,
         fps: float = 30.0,
+        num_frames: Optional[int] = None,
     ) -> "renderable.Renderable":
         """
         Cause the current EnSight scene to be captured or otherwise made available for
@@ -403,6 +404,8 @@ class Session:
                 The number of anti-aliasing passes to use when rendering images
             fps:
                 For animation playback, the number of frames per second to use
+            num_frames:
+                For animation playback, number of frames of static timestep to record
 
         Returns:
             The Renderable object instance
@@ -425,7 +428,9 @@ class Session:
         if self._html_port is None:
             raise RuntimeError("No websocketserver has been associated with this Session")
 
-        kwargs = dict(height=height, width=width, temporal=temporal, aa=aa, fps=fps)
+        kwargs = dict(
+            height=height, width=width, temporal=temporal, aa=aa, fps=fps, num_frames=num_frames
+        )
         if self._jupyter_notebook:
             from IPython.display import display
 
