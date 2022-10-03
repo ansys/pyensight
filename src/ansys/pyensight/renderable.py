@@ -246,7 +246,9 @@ class RenderableImage(Renderable):
         cmd = f'ensight.render({w},{h},num_samples={self._aa}).save(r"""{self._png_pathname}""")'
         self._session.cmd(cmd)
         # generate HTML page with file references local to the websocketserver root
-        html = f'<img src="/{self._png_filename}">\n'
+        html = '<body style="margin:0px;padding:0px;">\n'
+        html += f'<img src="/{self._png_filename}">\n'
+        html += '</body>\n'
         # refresh the remote HTML
         self._save_remote_html_page(html)
         super().update()
@@ -373,9 +375,11 @@ class RenderableMP4(Renderable):
         self._session.ensight.file.save_animation()
 
         # generate HTML page with file references local to the websocketserver root
-        html = f'<video width="{w}" height="{h}" controls>\n'
+        html = '<body style="margin:0px;padding:0px;">\n'
+        html += f'<video width="{w}" height="{h}" controls>\n'
         html += f'    <source src="/{self._mp4_filename}" type="video/mp4" />\n'
         html += "</video>\n"
+        html += "</body>\n"
 
         # refresh the remote HTML
         self._save_remote_html_page(html)
