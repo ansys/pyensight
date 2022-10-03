@@ -248,7 +248,7 @@ class RenderableImage(Renderable):
         # generate HTML page with file references local to the websocketserver root
         html = '<body style="margin:0px;padding:0px;">\n'
         html += f'<img src="/{self._png_filename}">\n'
-        html += '</body>\n'
+        html += "</body>\n"
         # refresh the remote HTML
         self._save_remote_html_page(html)
         super().update()
