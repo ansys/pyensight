@@ -10,8 +10,11 @@ import uuid
 
 import grpc
 
-from ansys.api.ensight.v0 import ensight_pb2, ensight_pb2_grpc
 
+try:
+    from ansys.api.ensight.v0 import ensight_pb2, ensight_pb2_grpc
+except ImportError:
+    import ensight_pb2, ensight_pb2_grpc
 
 class EnSightGRPC(object):
     """Wrapper around a gRPC connection to an EnSight instance
