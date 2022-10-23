@@ -541,7 +541,7 @@ class RenderableSGEO(Renderable):
         # get a stream ID
         self._stream_id = self._session.ensight.dsg_new_stream(sgeo=1)
         #
-        self._generated_html = False
+        self._revision = 0
         self.update()
 
     def update(self):
@@ -568,21 +568,28 @@ class RenderableSGEO(Renderable):
         self._update_proxy()
 
         # If the first update, generate the HTML
-        if not self._generated_html:
+        if self._revision == 0:
             # generate HTML page with file references local to the websocketserver root
             attributes = f"src='/{self._sgeo_base_filename}/geometry.sgeo'"
             attributes += f" proxy_img='/{self._sgeo_base_filename}/proxy.png'"
             attributes += " aspect_ratio='proxy'"
             attributes += " renderer='sgeo'"
+
             html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
-            html += f"<ansys-nexus-viewer {attributes}></ansys-nexus-viewer>\n"
+            html += f"<ansys-nexus-viewer id='{self._guid}' {attributes}></ansys-nexus-viewer>\n"
+            html += self._periodic_script()
             # refresh the remote HTML
             self._save_remote_html_page(html)
-            self._generated_html = True
-        else:
-            pass
-            # Need to send a src="" to the viewer instance.
-        super().update()
+            # Subsequent updates are handled by the component itself
+            super().update()
+
+        # update the revision file
+        rev_filename = f"{self._sgeo_base_pathname}/geometry.rev"
+        cmd = f'with open(r"""{rev_filename}""", "w") as fp:\n'
+        cmd += f'    fp.write("{self._revision}")\n'
+        self._session.cmd(cmd, do_eval=False)
+
+        self._revision += 1
 
     def _update_proxy(self):
         """Replace the current proxy image with the current view"""
@@ -598,3 +605,12 @@ class RenderableSGEO(Renderable):
         except Exception:
             pass
         super().delete()
+
+    def _periodic_script(self) -> str:
+        html_source = os.path.join(os.path.dirname(__file__), "sgeo_poll.html")
+        with open(html_source, "r") as fp:
+            html = fp.read()
+        revision_uri = f"/{self._sgeo_base_filename}/geometry.rev"
+        html = html.replace("REVURL_ITEMID", revision_uri)
+        html = html.replace("ITEMID", self._guid)
+        return html
