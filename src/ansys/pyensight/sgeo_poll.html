@@ -1,0 +1,24 @@
+<script>
+    let last_rev_ITEMID = "";
+    function reload_src(text) {
+        if (last_rev_ITEMID !== text) {
+            const viewer = document.getElementById("ITEMID");
+            viewer.src = viewer.src;
+            last_rev_ITEMID = text;
+        }
+        setTimeout(check_revision, 100);
+    }
+    function check_revision() {
+        const url = "REVURL_ITEMID";
+        fetch(url).then((response) => {
+            if (response.status === 200) {
+                return response.text();
+            } else {
+                setTimeout(check_revision, 100);
+            }
+        }).then(reload_src).catch((error) => {
+             setTimeout(check_revision, 100);
+        });
+    }
+    let id_ITEMID = setTimeout(check_revision, 100);
+</script>
