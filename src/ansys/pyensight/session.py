@@ -19,10 +19,10 @@ from ansys import pyensight
 from ansys.pyensight.listobj import ensobjlist
 from ansys.pyensight.renderable import (
     RenderableDeepPixel,
-    RenderableDSG,
     RenderableEVSN,
     RenderableImage,
     RenderableMP4,
+    RenderableSGEO,
     RenderableVNC,
     RenderableWebGL,
 )
@@ -387,7 +387,7 @@ class Session:
         * 'deep_pixel' EnSight deep pixel image
         * 'animation' renders an mpeg4 movie
         * 'webgl' interactive webgl-based browser viewer
-        * 'dsg' webgl-based renderer using the dynamic scene graph transport mechanism
+        * 'sgeo' webgl-based renderer using an incremental scene graph transport mechanism
         * 'remote' remote rendering based interactive EnSight viewer
         * 'remote_scene' remote rendering based interactive EnSight viewer
 
@@ -446,13 +446,13 @@ class Session:
             render = RenderableMP4(self, **kwargs)
         elif what == "webgl":
             render = RenderableWebGL(self, **kwargs)
-        elif what == "dsg":
-            # the DSG protocol is only supported in 2023 R1 and higher
+        elif what == "sgeo":
+            # the SGEO protocol is only supported in 2023 R1 and higher
             if int(self._cei_suffix) < 231:
                 # Use the AVZ viewer in older versions of EnSight
                 render = RenderableWebGL(self, **kwargs)
             else:
-                render = RenderableDSG(self, **kwargs)
+                render = RenderableSGEO(self, **kwargs)
         elif what == "remote":
             render = RenderableVNC(self, **kwargs)
         elif what == "remote_scene":

@@ -3,7 +3,6 @@
 Interface to create objects in the EnSight session that can be displayed
 via HTML over the websocketserver interface.
 """
-import json
 import os
 import shutil
 from typing import Any, List, Optional
@@ -519,10 +518,10 @@ class RenderableEVSN(Renderable):
         super().update()
 
 
-class RenderableDSG(Renderable):
-    """Distributed scene graph renderable
+class RenderableSGEO(Renderable):
+    """Incremental scene graph renderable
 
-    A webGL-based renderable that leverages the dynamic scene graph interface
+    A webGL-based renderable that leverages the sgeo format/viewer interface
     for progressive geometry transport.
     """
 
@@ -531,27 +530,25 @@ class RenderableDSG(Renderable):
         self._generate_url()
         pathname, filename = self._generate_filename("")
         # on the server, a JSON block can be accessed via:
-        # {_dsg_base_pathname}/status.json
+        # {_sgeo_base_pathname}/geometry.sgeo
         # and the update files:
-        # {_dsg_base_pathname}/update_0.dsgz
-        self._dsg_base_pathname = pathname
-        self._dsg_base_filename = filename
-        # Create the directory where the status file and .dsgz files will go
-        cmd = f'import os\nos.mkdir(r"""{self._dsg_base_pathname}""")\n'
+        # {_sgeo_base_pathname}/{names}.bin
+        self._sgeo_base_pathname = pathname
+        self._sgeo_base_filename = filename
+        # Create the directory where the sgeo files will go '/{filename}/' URL base
+        cmd = f'import os\nos.mkdir(r"""{self._sgeo_base_pathname}""")\n'
         self._session.cmd(cmd, do_eval=False)
-        # keep track of the number of updates...
-        self._last_update_number = -1
-        # and the last complete update
-        self._last_full_update = -1
         # get a stream ID
-        self._stream_id = self._session.ensight.dsg_new_stream()
+        self._stream_id = self._session.ensight.dsg_new_stream(sgeo=1)
+        #
+        self._generated_html = False
         self.update()
 
-    def update(self, incremental: bool = True):
-        """Generate a DSG update
+    def update(self):
+        """Generate a SGEO geometry file
 
-        Cause the EnSight session to generate a DSG update and cause any attached
-        webGL viewer to (eventually) display the results.
+        Cause the EnSight session to generate an updated geometry.sgeo file and content and
+        cause any attached webGL viewer to (eventually) display the results.
 
         If the renderable is part of a Jupyter cell, that cell is updated as an IFrame reference.
 
@@ -559,56 +556,39 @@ class RenderableDSG(Renderable):
             incremental:
                 If True, the update will incremental instead of full
         """
-        # save an update, initial update will not be incremental
-        if self._last_full_update < 0:
-            incremental = False
-
-        # next update
-        self._last_update_number += 1
-        if not incremental:
-            self._last_full_update = self._last_update_number
-
         # Ask for an update to be generated
-        remote_filename = f"{self._dsg_base_pathname}/update_{self._last_update_number}.dsgz"
+        remote_filename = f"{self._sgeo_base_pathname}/geometry.sgeo"
         self._session.ensight.dsg_save_update(
             remote_filename,
-            temporal=self._temporal,
-            incremental=incremental,
+            urlprefix=f"/{self._sgeo_base_filename}/",
             stream=self._stream_id,
         )
 
         # Update the proxy image
         self._update_proxy()
 
-        # Record the file(s) to the status file...
-        status = dict(
-            magic="dsg_status_file_v1.0",
-            latest_update=self._last_update_number,
-            latest_fullupdate=self._last_full_update,
-        )
-        # Save json over to file in EnSight session
-        content = json.dumps(status)
-        remote_filename = f"{self._dsg_base_pathname}/status.json"
-        cmd = f'open(r"""{remote_filename}""", "w").write("""{content}""")'
-        self._session.cmd(cmd, do_eval=False)
-
         # If the first update, generate the HTML
-        if self._last_update_number == 0:
+        if not self._generated_html:
             # generate HTML page with file references local to the websocketserver root
-            attributes = f"src='/{self._dsg_base_filename}/update_0.dsgz'"
-            attributes += f" proxy_img='/{self._dsg_base_filename}/proxy.png'"
+            attributes = f"src='/{self._sgeo_base_filename}/geometry.sgeo'"
+            attributes += f" proxy_img='/{self._sgeo_base_filename}/proxy.png'"
             attributes += " aspect_ratio='proxy'"
+            attributes += " renderer='sgeo'"
             html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
             html += f"<ansys-nexus-viewer {attributes}></ansys-nexus-viewer>\n"
             # refresh the remote HTML
             self._save_remote_html_page(html)
+            self._generated_html = True
+        else:
+            pass
+            # Need to send a src="" to the viewer instance.
         super().update()
 
     def _update_proxy(self):
         """Replace the current proxy image with the current view"""
         # save a proxy image
         w, h = self._default_size(1920, 1080)
-        remote_filename = f"{self._dsg_base_pathname}/proxy.png"
+        remote_filename = f"{self._sgeo_base_pathname}/proxy.png"
         cmd = f'ensight.render({w},{h},num_samples={self._aa}).save(r"""{remote_filename}""")'
         self._session.cmd(cmd, do_eval=False)
 
