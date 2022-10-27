@@ -33,6 +33,9 @@ class LocalLauncher(pyensight.Launcher):
         application:
             The application to be launched. By default, "ensight", but
             "envision" is also available.
+        batch:
+            By default, the EnSight/EnVision instance will run in batch mode.
+            If batch is set to True, the full GUI will be presented.
 
     Examples:
         ::
@@ -43,7 +46,10 @@ class LocalLauncher(pyensight.Launcher):
     """
 
     def __init__(
-        self, ansys_installation: Optional[str] = None, application: str = "ensight"
+        self,
+        ansys_installation: Optional[str] = None,
+        application: str = "ensight",
+        batch: bool = True,
     ) -> None:
         super().__init__()
 
@@ -60,6 +66,8 @@ class LocalLauncher(pyensight.Launcher):
         self._websocketserver_pid = None
         # and ports
         self._ports = None
+        # Are we running the instance in batch
+        self._batch = batch
 
     @property
     def application(self):
@@ -100,7 +108,12 @@ class LocalLauncher(pyensight.Launcher):
 
             # build the EnSight command
             exe = os.path.join(self._install_path, "bin", self.application)
-            cmd = [exe, "-batch", "-grpc_server", str(self._ports[0])]
+            cmd = [exe]
+            if self._batch:
+                cmd.append("-batch")
+            else:
+                cmd.append("-no_start_screen")
+            cmd.extend(["-grpc_server", str(self._ports[0])])
             vnc_url = f"vnc://%%3Frfb_port={self._ports[1]}%%26use_auth=0"
             cmd.extend(["-vnc", vnc_url])
             if is_windows:
