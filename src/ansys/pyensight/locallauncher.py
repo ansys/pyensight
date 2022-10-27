@@ -33,6 +33,9 @@ class LocalLauncher(pyensight.Launcher):
         application:
             The application to be launched. By default, "ensight", but
             "envision" is also available.
+        batch:
+            By default, the EnSight/EnVision instance will run in batch mode.
+            If batch is set to True, the full GUI will be presented.
 
     Examples:
         ::
