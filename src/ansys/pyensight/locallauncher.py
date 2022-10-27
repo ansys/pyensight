@@ -108,6 +108,8 @@ class LocalLauncher(pyensight.Launcher):
             cmd = [exe]
             if self._batch:
                 cmd.append("-batch")
+            else:
+                cmd.append("-no_start_screen")
             cmd.extend(["-grpc_server", str(self._ports[0])])
             vnc_url = f"vnc://%%3Frfb_port={self._ports[1]}%%26use_auth=0"
             cmd.extend(["-vnc", vnc_url])
