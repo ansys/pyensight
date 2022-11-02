@@ -229,6 +229,10 @@ class ProcessAPI:
         # bindings only use the "begin" methods
         if node.get("tbl", "") == "0e":
             return ""
+        # if it is a "begin" method, the parse structure is different (similar to the "end"
+        # suppression case).  Anyway, treat these like the "unknown" case and allow *args
+        if node.get("tbl", "") == "0b":
+            return self._process_undefined_function(node, indent=indent)
         # regular processing
         s = "\n"
         s += f"{indent}def {node.get('name')}(self"
@@ -376,7 +380,7 @@ class ProcessAPI:
         desc = node.get("description")
         value_type = node.get("type")
         # use the actual class (this is correct for Python 3.9 and higher)
-        if sys.version_info >= (3, 9, 0):
+        if sys.version_info >= (3, 10, 0):
             value_type = value_type.replace("'ensobjlist'", "ensobjlist")
         else:
             # for 3.7 and 3.8, make do with "List"
