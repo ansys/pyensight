@@ -1,8 +1,8 @@
 """
 .. _ref_basic_example:
 
-Basic PyEnSight Usage
-=====================
+Basic Usage
+===========
 
 This is the most basic EnSight processing example.  It loads some data
 from an EnSight install and generates a simplistic scene.

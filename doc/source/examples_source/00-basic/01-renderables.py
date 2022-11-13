@@ -1,8 +1,8 @@
 """
 .. _ref_renderables:
 
-Introducing PyEnSight Renderables
-=================================
+Introducing Renderables
+=======================
 
 EnSight is a simulation results post-processing engine with an advanced rendering
 and display component.  PyEnSight provides direct, Jupyter notebook/lab aware
@@ -33,7 +33,7 @@ session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/guard_ra
 # Apply displacements
 displacement = session.ensight.objs.core.VARIABLES["displacement"][0]
 session.ensight.objs.core.PARTS.set_attr("DISPLACEBY", displacement)
-# Color by the variable "plaastic"
+# Color by the variable "plastic"
 plastic = session.ensight.objs.core.VARIABLES["plastic"][0]
 session.ensight.objs.core.PARTS.set_attr("COLORBYPALETTE", plastic)
 # Adjust the palette range
