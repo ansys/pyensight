@@ -16,11 +16,13 @@ with different mechanisms for getting data values.
 # Start by launching and connecting to an instance of EnSight
 # In this case, we use a local installation of EnSight
 
+from urllib.parse import parse_qs, urlparse
+
 from IPython.display import display
 from ipywidgets import widgets
-from urllib.parse import urlparse, parse_qs
 
 from ansys.pyensight import LocalLauncher
+
 session = LocalLauncher().start()
 
 ###############################################################################
@@ -83,15 +85,15 @@ display(part_disp)
 def part_event(uri: str):
     p = urlparse(uri)
     q = parse_qs(p.query)
-    obj = session.ensight.objs.wrap_id(int(q['uid'][0]))
-    value = obj.getattr(q['enum'][0])
+    obj = session.ensight.objs.wrap_id(int(q["uid"][0]))
+    value = obj.getattr(q["enum"][0])
     part_disp.value = f"Part: {obj}, Attribute: {q['enum'][0]} Value: {value}"
 
 
 attribs = [session.ensight.objs.enums.VISIBLE, session.ensight.objs.enums.COLORBYRGB]
 session.add_callback("'ENS_PART'", "partattr", attribs, part_event)
 
-session.ensight.objs.core.PARTS["hood"][0].COLORBYRGB = [1., 0., 0.]
+session.ensight.objs.core.PARTS["hood"][0].COLORBYRGB = [1.0, 0.0, 0.0]
 
 
 ###############################################################################
@@ -127,8 +129,8 @@ display(macro_disp)
 def macro_event(uri: str):
     p = urlparse(uri)
     q = parse_qs(p.query)
-    obj = session.ensight.objs.wrap_id(int(q['uid'][0]))
-    obj.getattr(q['enum'][0])
+    obj = session.ensight.objs.wrap_id(int(q["uid"][0]))
+    obj.getattr(q["enum"][0])
     macro_disp.value = f"Part: {obj}, Attr: {q['enum'][0]} Visible: {q['visible']}  RGB: {q['rgb']}"
 
 
@@ -136,7 +138,7 @@ attribs = [session.ensight.objs.enums.VISIBLE, session.ensight.objs.enums.COLORB
 name = "partmacro?visible={{VISIBLE}}&rgb={{COLORBYRGB}}"
 session.add_callback("'ENS_PART'", name, attribs, macro_event)
 
-session.ensight.objs.core.PARTS["hood"][0].COLORBYRGB = [0., 1., 0.]
+session.ensight.objs.core.PARTS["hood"][0].COLORBYRGB = [0.0, 1.0, 0.0]
 
 ###############################################################################
 # Close the session
