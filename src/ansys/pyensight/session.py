@@ -694,7 +694,7 @@ class Session:
         self.cmd(script, do_eval=False)
 
     def add_callback(
-        self, target: str, tag: str, attr_list: list, method: Callable, compress: bool = True
+        self, target: Any, tag: str, attr_list: list, method: Callable, compress: bool = True
     ) -> None:
         """Register a callback with an event tuple
 
@@ -708,7 +708,8 @@ class Session:
         Args:
             target:
                 The name of the target object or the name of a class as a string to
-                match all objects of that class.
+                match all objects of that class.  Note: a proxy class reference is
+                also allowed (e.g. session.ensight.objs.core).
             tag:
                 The unique name for the callback. A tag can end with macros of
                 the form {{attrname}} to return the value of an attribute of the
@@ -765,6 +766,8 @@ class Session:
         flags = ""
         if compress:
             flags = ",flags=ensight.objs.EVENTMAP_FLAG_COMP_GLOBAL"
+        if hasattr(target, "__OBJID__"):
+            target = self.remote_obj(target.__OBJID__)
         cmd = f"ensight.objs.addcallback({target},None,"
         cmd += f"'{self._grpc.prefix()}{tag}',attrs={repr(attr_list)}{flags})"
         callback_id = self.cmd(cmd)
