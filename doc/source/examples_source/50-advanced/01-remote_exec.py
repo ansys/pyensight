@@ -137,7 +137,7 @@ print(names)
 # Remote function calls
 # ---------------------
 #
-# Note: this feature requires that the version of the EnSight Pyton interpreter
+# Note: this feature requires that the version of the EnSight Python interpreter
 # and the PyEnSight interpreter must be the same.  PyEnSight makes a check for
 # this when the such execution is requested.
 #
