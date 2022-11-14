@@ -44,7 +44,7 @@ def part_list(name: str):
     partlist_disp.value = f"Event: {name}"
 
 
-session.add_callback("ensight.objs.core", "partlist_name", ["PARTS"], part_list)
+session.add_callback(session.ensight.objs.core, "partlist_name", ["PARTS"], part_list)
 
 
 ###############################################################################
