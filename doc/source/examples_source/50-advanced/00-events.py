@@ -13,8 +13,8 @@ with different mechanisms for getting data values.
 ###############################################################################
 # Start an EnSight session
 # ------------------------
-# Start by launching and connecting to an instance of EnSight
-# In this case, we use a local installation of EnSight
+# Start by launching and connecting to an instance of EnSight.
+# In this case, we use a local installation of EnSight.
 
 from urllib.parse import parse_qs, urlparse
 
