@@ -86,6 +86,7 @@ class Session:
     ) -> None:
         # when objects come into play, we can reuse them, so hash ID to instance here
         self._ensobj_hash = {}
+        self._language = "en"
         self._timeout = 120.0
         self._cei_home = ""
         self._cei_suffix = ""
@@ -168,6 +169,29 @@ class Session:
                     pass
             self._grpc.connect()
         raise RuntimeError("Unable to establish a gRPC connection to EnSight.")
+
+    @property
+    def language(self) -> str:
+        """
+        The current language specification for the EnSight session.  Various
+        information calls will return their information in the target language
+        if possible. The default is: 'en'.
+
+        Examples:
+            ::
+
+                session.language = "en"
+                session.ensight.objs.core.attrinfo(session.ensight.objs.enums.PREDEFINEDPALETTES)
+                session.language = "zh"
+                session.ensight.objs.core.attrinfo(session.ensight.objs.enums.PREDEFINEDPALETTES)
+
+        """
+        return self._language
+
+    @language.setter
+    def language(self, value: str) -> None:
+        self._language = value
+        self.cmd(f"ensight.core.tr.changelang(lin='{self._language}')", do_eval=False)
 
     @property
     def halt_ensight_on_close(self) -> bool:
