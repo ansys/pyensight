@@ -10,8 +10,8 @@ PyEnSight  documentation |version|
 
    getting_started/index
    user_guide/index
-   _examples/index
    class_documentation
+   _examples/index
    contributing
 
 |title|
