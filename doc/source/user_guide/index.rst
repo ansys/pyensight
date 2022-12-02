@@ -103,7 +103,7 @@ ENS_PROBE        The probe object allows for creation of spatial data
                  probes.  The result of probe queries can be
                  accessed via this object.
 ENS_TEXTURE      Texture object maintain the pixel arrays that can
-                 be applied via projective or explict texture coordinates.
+                 be applied via projective or explicit texture coordinates.
 ENS_TOOL         Tools are spatial input devices in the scene.  They
                  allow for the selection of points, regions of space,
                  reference lines/planes, etc.  There are several
