@@ -6,10 +6,17 @@ max-complexity = 10
 max-line-length = 100
 statistics = True
 ignore =
-  E203, # Whitespace before ':'.
-  E501, # Line too long (82 > 79 characters).
-  W503, # Line break occurred before a binary operator.
-  W605, # Invalid escape sequence
-  F821, # undefined name name
-  C901,  # Function is too complex
-  B904   # https://docs.python.org/3/tutorial/errors.html#exception-chaining for details
+  # Whitespace before ':'.
+  E203,
+  # Line too long (82 > 79 characters).
+  E501,
+  # Line break occurred before a binary operator.
+  W503,
+  # Invalid escape sequence
+  W605,
+  # undefined name name
+  F821,
+  # Function is too complex
+  C901,
+  # https://docs.python.org/3/tutorial/errors.html#exception-chaining for details
+  B904
