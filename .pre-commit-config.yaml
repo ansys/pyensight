@@ -57,7 +57,7 @@ repos:
         entry: codespell
         language: system
         args: [
-            --ignore-words, ignore_words.txt
+            --ignore-words, ignore_words.txt,
             --skip, "*.pyc,*.xml,*.gif,*.png,*.jpg,*.js,*.html,*.svg"
 
         ]
