@@ -118,18 +118,56 @@ this API.
 
 
 EnSight Architecture
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
-The EnSight Python APIs reflect the core EnSight architecture.  There are two
-types of objects in EnSight.  The first set are part of the code and are
+The EnSight Python APIs reflect the core EnSight architecture.  Specifically,
+they reflect the various objects inside of EnSight and their relationships.
+The interface to these objects is largely a collection of properties. Note,
+these are properties in the PyEnSight interface.  The core interface refers to
+them as attributes and properties almost interchangeably in documentation.
+
+There are two types of objects in EnSight.  The first set are part of the code and are
 generally created automatically at startup.
+Note: in the following sections, many of the core classes are described in brief.  This
+is not a complete list, only commonly used objects.
 
-Note: in the following sections, many of the core classes are described.  This
-is not a complete list, only commonly used objects are discussed here.
+There are two unique concepts in the EnSight architecture that are important in
+helping explain core EnSight behavior.  The first is the idea of hierarchical property filtering
+and the second being the concept of default objects.
+
+Hierarchical Property Filters
+`````````````````````````````
+
+A number of properties have "global" versions as well as per-object versions.
+Often a specific visual property must be enabled globally and then the
+object specific value is applied.  This can happen at different levels in
+the visible object tree.  Consider the hidden line property.  This property can
+be set on a ENS_PART, ENS_VPORT and ENS_GLOBAL level.  In the object API::
+
+    print(ensight.objs.core.HIDDENLINE)
+    print(ensight.objs.core.VPORTS[0].HIDDENLINE)
+    print(ensight.objs.core.PARTS[0].HIDDENLINE)
+
+If the property is False at the ENS_PART level, hidden lines will never be displayed on that part.
+If the property is False at the ENS_VPORT level, no hidden lines will be displayed on
+any parts that might be viable (and have HIDDENLINE True) in the specific ENS_VPORT.
+If the property is False at the ENS_GLOBAL level (ensight.objs.core) then no hidden lines
+will be displayed on any parts in any viewports.
+
+
+Default Objects
+```````````````
+
+The default object is a key concept for EnSight.  To create a new object in EnSight,
+one will often set up the properties on a fake, "default" object and then make a "create"
+call to realize a new object of that type.  The new object will have the same properties
+as the current default object properties.  Specific examples
+are covered in the :ref:`ref_object_api` and :ref:`ref_cmdlang_native`
+sections.
 
 
 Common Static Objects
----------------------
+`````````````````````
 
 There are fixed number of each of these objects and they are all allocated
 statically at startup.  The Python API allows for attributes on these objects
@@ -185,7 +223,7 @@ Class            Description
 
 
 Common Dynamic Objects
-----------------------
+``````````````````````
 
 There are fixed number of each of these objects and they are all allocated
 statically at startup.  The Python API allows for attributes on these objects
@@ -195,11 +233,7 @@ Many of the dynamically created objects are created implicitly through other
 objects.  For example, part objects are created from lpart objects and legend
 objects are created automatically when variable objects are created.  Other
 objects (e.g., annotation objects and derived part objects like clips) are
-created using "default" objects.  The default object is a key concept for
-EnSight.  The basic idea is that one changes properties on the default
-object of the desired type and then call the create method.  Specific examples
-are covered in the :ref:`ref_object_api` and :ref:`ref_cmdlang_native`
-sections.
+created using "default" objects.
 The various properties on these objects are documented here: :ref:`ref_api_docs`.
 
 ================ ==================================================
@@ -232,7 +266,7 @@ Class            Description
                  groups can be the output of a find operation, which can be handy
                  since they support fast, recursive, bulk property changes.
 |LPART|          The LPART object represents an unloaded mesh object in a dataset.
-                 LPARTs are created by ENS_CASE objects when a case loads a dataset.
+                 LPART objects are created by ENS_CASE objects when a case loads a dataset.
                  The LPART object is used to create ENS_PART objects from a dataset.
                  In most cases, these objects are automatically leveraged when a
                  dataset is loaded.
