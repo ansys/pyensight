@@ -1,3 +1,5 @@
+.. _ref_api_docs:
+
 *************
 API reference
 *************
@@ -146,7 +148,7 @@ PyEnSight using the 'ansys.pyensight.Session.ensight' interface.
    pyensight.ens_part_vector_arrow.ENS_PART_VECTOR_ARROW
    pyensight.ens_part_elevated_surface.ENS_PART_ELEVATED_SURFACE
    pyensight.ens_part_developed_surface.ENS_PART_DEVELOPED_SURFACE
-   pyensight.ens_part_builtup.ENS_PART_BUILTUP
+   pyensight.ens_part_built_up.ENS_PART_BUILT_UP
    pyensight.ens_part_tensor_glyph.ENS_PART_TENSOR_GLYPH
    pyensight.ens_part_fx_vortex_core.ENS_PART_FX_VORTEX_CORE
    pyensight.ens_part_fx_shock.ENS_PART_FX_SHOCK
