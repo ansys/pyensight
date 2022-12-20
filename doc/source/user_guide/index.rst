@@ -141,8 +141,8 @@ Hierarchical Property Filters
 A number of properties have "global" versions as well as per-object versions.
 Often a specific visual property must be enabled globally and then the
 object specific value is applied.  This can happen at different levels in
-the visible object tree.  Consider the hidden line property.  This property can
-be set on a ENS_PART, ENS_VPORT and ENS_GLOBAL level.  In the object API::
+the visible object tree.  Consider the hidden line property: HIDDENLINE.  This property can
+be set on ENS_PART, ENS_VPORT and ENS_GLOBAL levels.  In the object API::
 
     print(ensight.objs.core.HIDDENLINE)
     print(ensight.objs.core.VPORTS[0].HIDDENLINE)

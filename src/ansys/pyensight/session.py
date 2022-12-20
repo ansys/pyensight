@@ -895,7 +895,7 @@ class Session:
             part_lookup_dict[8] = "ENS_PART_VECTOR_ARROW"
             part_lookup_dict[9] = "ENS_PART_ELEVATED_SURFACE"
             part_lookup_dict[10] = "ENS_PART_DEVELOPED_SURFACE"
-            part_lookup_dict[15] = "ENS_PART_BUILTUP"
+            part_lookup_dict[15] = "ENS_PART_BUILT_UP"
             part_lookup_dict[16] = "ENS_PART_TENSOR_GLYPH"
             part_lookup_dict[17] = "ENS_PART_FX_VORTEX_CORE"
             part_lookup_dict[18] = "ENS_PART_FX_SHOCK"

@@ -89,6 +89,5 @@ that can be used to view/interact with the representation.
 
 .. code:: python
 
-    import webbrowser
     remote = session.show("remote")
     remote.browser()
