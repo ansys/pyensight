@@ -48,6 +48,16 @@ session.show("image", width=800, height=600)
 print("Parts:", core.PARTS)
 
 ###############################################################################
+# Note:
+#    There is an issue with the version of PyEnSight that ships with EnSight
+#    2023 R1.  The core.DEFAULTPARTS attribute may fail with an error message along the
+#    lines: :samp:`"AttributeError: 'objs' object has no attribute 'ENS_PART_BUILTUP'"`.
+#    A workaround, other than updating the PyEnSight install, is to use the cmd() method:
+
+clip_default = session.cmd("ensight.objs.core.DEFAULTPARTS[ensight.PART_CLIP_PLANE]")
+
+
+###############################################################################
 # Color the clip plane
 # --------------------
 #
