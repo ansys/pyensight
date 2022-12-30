@@ -543,7 +543,7 @@ class ProcessAPI:
                     s += self._process_undefined_class_method(child, indent)
                 else:
                     # TODO: handle class specific methods
-                    pass
+                    s += self._process_undefined_class_method(child, indent)
         if attributes:
             attributes = f"\n{indent}Attributes:\n" + attributes + "\n"
         s = s.replace("__ATTRIBUTES__", attributes)
