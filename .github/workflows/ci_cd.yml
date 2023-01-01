@@ -173,10 +173,6 @@ jobs:
 
       - uses: actions/download-artifact@v2
         with:
-          name: Documentation-pdf
-
-      - uses: actions/download-artifact@v2
-        with:
           name: Documentation-html
           path: ~/html
 
@@ -208,7 +204,6 @@ jobs:
           files: |
             ./**/*.whl
             ./**/*.zip
-            ./**/*.pdf
 
   build-failure:
     name: Teams notify on failure
