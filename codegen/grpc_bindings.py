@@ -23,9 +23,14 @@ def generate_bindings() -> None:
 
     # Get the default Ansys version number
     sys.path.append("../src")
-    from ansys import pyensight  # pylint: disable=import-outside-toplevel
+    from ansys.pyensight._version import (  # pylint: disable=import-outside-toplevel
+        DEFAULT_ANSYS_VERSION,
+        VERSION,
+    )
 
-    version = pyensight.__ansys_version__
+    version = DEFAULT_ANSYS_VERSION
+
+    print(f"Generating gRPC v{DEFAULT_ANSYS_VERSION} bindings for release {VERSION}")
 
     # cleanup old files
     for filename in glob.glob("*.proto"):
