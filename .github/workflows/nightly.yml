@@ -28,13 +28,13 @@ jobs:
       - name: Validate wheel
         run: twine check dist/*
 
-      - name: Upload to Azure PyPi
+      - name: Upload to Ansys Azure PyPi
         if: ${{ !env.ACT }}
         run: twine upload --verbose dist/*
         env:
           TWINE_USERNAME: PAT
           TWINE_PASSWORD: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
-          TWINE_REPOSITORY_URL: ${{ secrets.PRIVATE_PYPI_URL }}
+          TWINE_REPOSITORY_URL: https://pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/upload
 
   build-failure:
     name: Teams notify on failure
