@@ -116,6 +116,7 @@ allows for more interactive and reactive components interfaces to be used.
 So much so, that a significant portion of the EnSight GUI is written using
 this API.
 
+.. _ensight_architecture:
 
 EnSight Architecture
 --------------------
