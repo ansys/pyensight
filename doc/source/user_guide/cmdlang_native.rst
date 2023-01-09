@@ -3,12 +3,13 @@
 EnSight Command Language Native Python API
 ==========================================
 
-Since its inception, EnSight has has a journaling language, commonly referred to as
+Since its inception, EnSight has had a journaling language, commonly referred to as
 "command language".  Every operation in EnSight can be captured in command language.
 Scripts can be generated using this language and played back in the GUI or in batch mode.
 Furthermore, features like context files (that capture a session state) do so using
 a command language variant.  Command language is not documented but it roughly follows
-the :ref:`EnSight Architecture <ensight_architecture>`.
+the :ref:`EnSight Architecture <ensight_architecture>`.  The "Native" Python API
+is a binding to this command language interface.
 
 Command Language Overview
 -------------------------
@@ -104,7 +105,6 @@ One can also arrange to have error return values converted int exceptions:
         ensight.sendmesgoptions(exception=False)
 
 prints the error :samp:`RuntimeError: Command: (part: colorby_rgb 0.0 0.0 sad ) returned: RGB color: bad parameter`
-
 
 GUI Conversion
 --------------
