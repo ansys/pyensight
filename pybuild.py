@@ -1,4 +1,5 @@
 import argparse
+import datetime
 import glob
 import os
 import shutil
@@ -45,6 +46,17 @@ def wheel():
     print("-" * 10, "Building wheel")
     cmd = [sys.executable, "-m", "build", "--wheel"]
     subprocess.run(cmd)
+    # rename: ansys_ensight-0.2.dev0-py3-none-any.whl to
+    # ansys_ensight-0.2.dev0-{date_tag}-py3-none-any.whl
+    # monotonically increasing number with minute level
+    # resolution so a nightly can be run once a minute
+    date_tag = datetime.datetime.now().strftime("%Y%m%d%H%M")
+    for name in glob.glob("dist/*.whl"):
+        chunks = name.split("-")
+        if len(chunks) == 5:
+            chunks.insert(2, date_tag)
+            new_name = "-".join(chunks)
+            os.rename(name, new_name)
 
 
 def test():
@@ -143,6 +155,7 @@ def clean():
         os.path.join("codegen", "ensight.proto"),
         os.path.join("codegen", "ensight_api.xml"),
         os.path.join("src", "ansys", "pyensight", "ensight_api.py"),
+        os.path.join("src", "ansys", "pyensight", "build_info.py"),
     ]
     ensobj_files = os.path.join("src", "ansys", "pyensight", "ens_*.py")
     files.extend(glob.glob(ensobj_files))
