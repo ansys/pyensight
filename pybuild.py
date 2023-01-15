@@ -44,6 +44,10 @@ def generate():
 
 def wheel():
     print("-" * 10, "Building wheel")
+    # Clean up the dist director
+    for name in glob.glob("dist/*.whl"):
+        os.unlink(name)
+    # Build the wheel
     cmd = [sys.executable, "-m", "build", "--wheel"]
     subprocess.run(cmd)
     # rename: ansys_ensight-0.2.dev0-py3-none-any.whl to
@@ -57,6 +61,7 @@ def wheel():
             chunks.insert(2, date_tag)
             new_name = "-".join(chunks)
             os.rename(name, new_name)
+            print(f"Rename wheel to: '{new_name}'")
 
 
 def test():

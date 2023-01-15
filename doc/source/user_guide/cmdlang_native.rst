@@ -136,19 +136,19 @@ Python names. A few examples include::
 
 Some reasons a name might be invalid include:
 
-* Name includes an invalid character (for example, "#")
+* Name includes an invalid character (e.g., "#")
 
-* Name begins with a digit (for example, "1")
+* Name begins with a digit (e.g., "1")
 
-* Name is a Python reserved word (for example, "raise")
+* Name is a Python reserved word (e.g., "raise")
 
 These are transformed using the following rules:
 
-* "#" characters are replaced with the text number
+* "#" characters are replaced with the text "number"
 
-* Names that start with a digit are prefixed with an _
+* Names that start with a digit are prefixed with an underscore
 
-* Names that are the same as a Python reserved word are prefixed with an _
+* Names that are the same as a Python reserved word are prefixed with an underscore
 
 The previous examples become:
 

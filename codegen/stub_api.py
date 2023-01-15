@@ -519,6 +519,14 @@ class ProcessAPI:
         s += f"{indent}        return\n"
         s += f"{indent}    cmd = session.remote_obj(id) + '.__ids__'\n"
         s += f"{indent}    cls.attr_list = session.cmd(cmd)\n"
+        s += "\n"
+        s += f"{indent}@property\n"
+        s += f"{indent}def objid(self) -> int:  # noqa: N802\n"
+        s += f'{indent}    """\n'
+        s += f"{indent}    Return the EnSight object proxy ID (__OBJID__).\n"
+        s += f'{indent}    """\n'
+        s += f"{indent}    return self._objid\n"
+
         attributes = ""
         for child in node:
             if child.tag == "property":

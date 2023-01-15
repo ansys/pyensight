@@ -38,7 +38,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx_copybutton",
     "sphinx_gallery.gen_gallery",
-    "sphinxcontrib.mermaid",
+    # "sphinxcontrib.mermaid",
 ]
 
 autoapi_options = [
@@ -111,11 +111,6 @@ sphinx_gallery_conf = {
 
 # static path
 html_static_path = ["_static"]
-
-# Mermaid JavaScript
-html_js_files = [
-    "js/mermaid.js",
-]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]

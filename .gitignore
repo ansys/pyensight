@@ -53,6 +53,7 @@ test-output.xml
 .\#*
 /.ipynb_checkpoints
 
-# PyCharm
+# IDE and virtual environment files
 .idea/
 venv/
+.vscode/
