@@ -20,7 +20,7 @@ Install the latest ansys-pyensight release with:
 
    pip install ansys-pyensight
 
-For a local, "development" version:
+For a local, "development" version under Linux:
 
 .. code::
 
@@ -28,9 +28,23 @@ For a local, "development" version:
    cd pyensight
    pip install virtualenv
    virtualenv venv  # create virtual environment
-   source venv/bin/activate  # (.\venv\Scripts\activate for Windows shell)
+   source venv/bin/activate
    pip install -r requirements/dev.txt  # install dependencies
    make install-dev  # install pyensight in editable mode
+
+Similarly under Windows one can build the wheel using the 'pybuild.py'
+script:
+
+.. code::
+
+   git clone https://github.com/pyansys/pyensight
+   cd pyensight
+   C:\Python310\python.exe -m pip install virtualenv
+   C:\Python310\Scripts\virtualenv.exe venv
+   .\venv\Scripts\activate
+   .\venv\Scripts\pip.exe install -r .\requirements\dev.txt
+   .\venv\Scripts\python.exe pybuild.py clean
+   .\venv\Scripts\python.exe pybuild.py build
 
 Now you can start developing pyensight.
 
