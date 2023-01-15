@@ -38,7 +38,10 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx_copybutton",
     "sphinx_gallery.gen_gallery",
-    # "sphinxcontrib.mermaid",
+    "sphinxcontrib.mermaid",
+    "sphinxcontrib.jquery",
+    "ansys_sphinx_theme",
+    "notfound.extension",
 ]
 
 autoapi_options = [
@@ -111,6 +114,16 @@ sphinx_gallery_conf = {
 
 # static path
 html_static_path = ["_static"]
+
+html_js_files = [
+    "js/mermaid.js",
+    "jquery.js",
+]
+
+html_css_files = [
+    "css/ansys_sphinx_theme.css",
+    "css/breadcrumbs.css",
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
