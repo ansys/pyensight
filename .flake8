@@ -19,4 +19,6 @@ ignore =
   # Function is too complex
   C901,
   # https://docs.python.org/3/tutorial/errors.html#exception-chaining for details
-  B904
+  B904,
+  # Use of !r in f strings when internal values are quoted
+  B028
