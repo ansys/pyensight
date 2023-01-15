@@ -21,7 +21,7 @@ Proxy Objects: ENSOBJ Class
 The object interface revolves around proxy object classes. The base class for these
 objects is :class:`ENSOBJ<pyensight.ensobj.ENSOBJ>`.  The object is a wrapper around an EnSight
 object ID.  An EnSight object ID is a monotonically increasing 64bit integer, unique for a
-given EnSight session.  The proxy object stores the object ID in :samp:`__objid__` and
+given EnSight session.  The proxy object stores the object ID in :samp:`objid` and
 can make method and attribute calls directly on the C++ core objects via that ID.  The
 ENSOBJ interface supports attribute introspection including attribute names, types and
 general organization.  In most cases where an attribute takes an object, the API supports
@@ -54,7 +54,8 @@ Global State: ensight.objs.core
 
 Access to the global state of the EnSight session is stored in an ENS_GLOBALS singleton object
 accessed by:  :samp:`session.ensight.objs.core`.  All other object instances can be
-accessed through attributes or methods on this object.
+accessed through attributes or methods on this object.  For example, ENS_PART objects can
+be accessed via the PARTS property, ENS_VAR objects accessed via the VARIABLES property, etc.
 
 
 Attributes
@@ -92,12 +93,27 @@ Events
 
 Whenever an attribute changes its value, an event is generated.  Callback functions
 can be attached to these events.  Thus a PyEnSight application can respond to changes
-in state caused by Python calls or intrinsic changes in the EnSight core state. For
-example time-varying animation playback.
+in state caused by Python calls or intrinsic changes in the EnSight core state (e.g.,
+time-varying animation playback).   A simple example might be::
+
+    def part_event(uri: str):
+        p = urlparse(uri)
+        q = parse_qs(p.query)
+        obj = session.ensight.objs.wrap_id(int(q["uid"][0]))
+        value = obj.getattr(q["enum"][0])
+        part_disp.value = f"Part: {obj}, Attribute: {q['enum'][0]} Value: {value}"
+
+    attribs = [session.ensight.objs.enums.VISIBLE, session.ensight.objs.enums.COLORBYRGB]
+    session.add_callback("'ENS_PART'", "partattr", attribs, part_event)
+
+Which connects the function part_event() to any changes in the VISIBLE or COLORBYRGB properties
+on any ENS_PART subclass object.  Replacing the the ENS_PART string which a specific ENSOBJ
+instance will limit the function to the one specific object instance rather than a class
+of objects.
 
 
 Tips and Tricks
 ---------------
 
-Finally, an additional collection of EnSight specific Python notes are accessible via the
+An additional collection of EnSight specific Python notes are accessible via the
 `EnSight Python <https://nexusdemo.ensight.com/docs/python/html/Python.html>`_ website.
