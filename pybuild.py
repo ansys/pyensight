@@ -2,22 +2,25 @@ import argparse
 import datetime
 import glob
 import os
+import platform
 import shutil
 import subprocess
 import sys
 import textwrap
 
 # Python script alternative to 'make' targets.  To build everything:
-# python pybuild.py clean
 # python pybuild.py all
 
 
 def find_exe(name: str):
+    # exe files under Windows
+    if platform.system().lower().startswith("win"):
+        name += ".exe"
     pydir = os.path.dirname(sys.executable)
-    pathname = os.path.join(pydir, "scripts", name)
+    pathname = os.path.join(pydir, "Scripts", name)
     if os.path.exists(pathname):
         return pathname
-    pathname += ".exe"
+    pathname = os.path.join(pydir, "bin", name)
     if os.path.exists(pathname):
         return pathname
     pathname = os.path.join(pydir, name)
@@ -181,7 +184,7 @@ if __name__ == "__main__":
 'build' : Build the wheel.
 'fastdocs' : Generate partial documentation.
 'docs' : Generate documentation.
-'all' : Run codegen, build the wheel and generate documentation."""
+'all' : Run clean codegen, build and complete documentation."""
     )
 
     parser = argparse.ArgumentParser(
@@ -217,6 +220,7 @@ if __name__ == "__main__":
     elif args.operation == "fastdocs":
         docs(full=False)
     elif args.operation == "all":
+        clean()
         generate()
         wheel()
         docs()
