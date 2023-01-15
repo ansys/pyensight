@@ -29,6 +29,7 @@ html_theme_options = {
 
 # Sphinx extensions
 extensions = [
+    # "sphinx.ext.napoleon",
     "numpydoc",
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
@@ -38,7 +39,9 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx_copybutton",
     "sphinx_gallery.gen_gallery",
-    # "sphinxcontrib.mermaid",
+    "sphinxcontrib.mermaid",
+    "sphinxcontrib.jquery",
+    # "ansys_sphinx_theme",
 ]
 
 autoapi_options = [
@@ -72,10 +75,10 @@ numpydoc_validate = True
 numpydoc_validation_checks = {
     "GL06",  # Found unknown section
     "GL07",  # Sections are in the wrong order.
-    "GL08",  # The object does not have a docstring
+    # "GL08",  # The object does not have a docstring
     "GL09",  # Deprecation warning should precede extended summary
     "GL10",  # reST directives {directives} must be followed by two colons
-    "SS01",  # No summary found
+    # "SS01",  # No summary found
     "SS02",  # Summary does not start with a capital letter
     # "SS03", # Summary does not end with a period
     "SS04",  # Summary contains heading whitespaces
@@ -111,6 +114,16 @@ sphinx_gallery_conf = {
 
 # static path
 html_static_path = ["_static"]
+
+html_js_files = [
+    "js/mermaid.js",
+    "jquery.js",
+]
+
+html_css_files = [
+    "css/ansys-sphinx-theme.css",
+    "css/breadcrumbs.css",
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
