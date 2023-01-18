@@ -55,7 +55,7 @@ class DockerLauncher(pyensight.Launcher):
         data_directory: str,
         docker_image_name: Optional[str] = None,
         use_dev: bool = False,
-        timeout: float = 120.,
+        timeout: float = 120.0,
     ) -> None:
         super().__init__()
 

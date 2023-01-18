@@ -54,7 +54,7 @@ class LocalLauncher(pyensight.Launcher):
         ansys_installation: Optional[str] = None,
         application: str = "ensight",
         batch: bool = True,
-        timeout: float = 120.,
+        timeout: float = 120.0,
     ) -> None:
         super().__init__()
 

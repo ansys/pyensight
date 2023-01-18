@@ -88,7 +88,7 @@ class Session:
         html_port: Optional[int] = None,
         ws_port: Optional[int] = None,
         session_directory: Optional[str] = None,
-        timeout: float = 120.,
+        timeout: float = 120.0,
     ) -> None:
         # when objects come into play, we can reuse them, so hash ID to instance here
         self._ensobj_hash = {}
