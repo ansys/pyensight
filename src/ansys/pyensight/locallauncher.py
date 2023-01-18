@@ -36,6 +36,10 @@ class LocalLauncher(pyensight.Launcher):
         batch:
             By default, the EnSight/EnVision instance will run in batch mode.
             If batch is set to True, the full GUI will be presented.
+        timeout:
+            In some cases where the EnSight session can take a significant amount of
+            timme to start up, this is the number of seconds to wait before failing
+            the connection.  The deafult is 120.0.
 
     Examples:
         ::
@@ -50,6 +54,7 @@ class LocalLauncher(pyensight.Launcher):
         ansys_installation: Optional[str] = None,
         application: str = "ensight",
         batch: bool = True,
+        timeout: float = 120.,
     ) -> None:
         super().__init__()
 
@@ -68,6 +73,8 @@ class LocalLauncher(pyensight.Launcher):
         self._ports = None
         # Are we running the instance in batch
         self._batch = batch
+        # The gRPC timeout
+        self._timeout = timeout
 
     @property
     def application(self):
@@ -179,6 +186,7 @@ class LocalLauncher(pyensight.Launcher):
             ws_port=self._ports[3],
             install_path=self._install_path,
             secret_key=self._secret_key,
+            timeout=self._timeout,
         )
         session.launcher = self
         self._sessions.append(session)
