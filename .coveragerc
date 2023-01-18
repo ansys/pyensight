@@ -1,6 +1,6 @@
 # .coveragerc to control coverage.py
 [run]
-omit = */ansys/api/*, */ansys/pyensight/ensight_api.py
+omit = */ansys/api/*, */ansys/pyensight/ensight_api.py, */ansys/pyensight/ens*.py
 
 branch = True
 

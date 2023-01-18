@@ -37,7 +37,7 @@ class DockerLauncher(pyensight.Launcher):
         timeout:
             In some cases where the EnSight session can take a significant amount of
             timme to start up, this is the number of seconds to wait before failing
-            the connection.  The deafult is 120.0.
+            the connection.  The default is 120.0.
 
     Examples:
         ::
