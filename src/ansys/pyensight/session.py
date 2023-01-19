@@ -49,17 +49,22 @@ class Session:
 
     Args:
         host:
-            Name of the host on which the EnSight gRPC service is running
-        grpc_port:
-            Port number of the EnSight gRPC service
-        html_port:
-            Port number of the websocketserver HTTP server
-        ws_port:
-            Port number of the websocketserver WS server
+            Name of the host on which the EnSight gRPC service is running.
         install_path:
-            Pathname to the 'CEI' directory from which EnSight was launched
+            Pathname to the 'CEI' directory from which EnSight was launched.
         secret_key:
-            Shared session secret used to validate gRPC communication
+            Shared session secret used to validate gRPC communication.
+        grpc_port:
+            Port number of the EnSight gRPC service.
+        html_port:
+            Port number of the websocketserver HTTP server.
+        ws_port:
+            Port number of the websocketserver WS server.
+        session_directory:
+            The directory used for local data storage on the server.
+        timeout:
+            The number of seconds to retry a gRPC connection before giving up.
+            The default is 120.
 
     Examples:
         ::
@@ -83,11 +88,12 @@ class Session:
         html_port: Optional[int] = None,
         ws_port: Optional[int] = None,
         session_directory: Optional[str] = None,
+        timeout: float = 120.0,
     ) -> None:
         # when objects come into play, we can reuse them, so hash ID to instance here
         self._ensobj_hash = {}
         self._language = "en"
-        self._timeout = 120.0
+        self._timeout = timeout
         self._cei_home = ""
         self._cei_suffix = ""
         self._hostname = host

@@ -34,6 +34,10 @@ class DockerLauncher(pyensight.Launcher):
             Optional Docker Image name to use
         use_dev:
             Option to use the latest ensight_dev Docker Image; overridden by docker_image_name if specified.
+        timeout:
+            In some cases where the EnSight session can take a significant amount of
+            timme to start up, this is the number of seconds to wait before failing
+            the connection.  The default is 120.0.
 
     Examples:
         ::
@@ -51,6 +55,7 @@ class DockerLauncher(pyensight.Launcher):
         data_directory: str,
         docker_image_name: Optional[str] = None,
         use_dev: bool = False,
+        timeout: float = 120.0,
     ) -> None:
         super().__init__()
 
@@ -287,6 +292,7 @@ class DockerLauncher(pyensight.Launcher):
             ws_port=ports[3],
             install_path=None,
             secret_key=self._secret_key,
+            timeout=self._timeout,
         )
         session.launcher = self
         self._sessions.append(session)
