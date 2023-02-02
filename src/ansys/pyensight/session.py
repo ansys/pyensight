@@ -173,7 +173,7 @@ class Session:
                     return
                 except OSError:
                     pass
-            self._grpc.connect()
+            self._grpc.connect(timeout=self._timeout)
         raise RuntimeError("Unable to establish a gRPC connection to EnSight.")
 
     @property

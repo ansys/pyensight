@@ -59,6 +59,7 @@ class DockerLauncher(pyensight.Launcher):
     ) -> None:
         super().__init__()
 
+        self._timeout = timeout
         self._data_directory: str = data_directory
         self._container = None
 
