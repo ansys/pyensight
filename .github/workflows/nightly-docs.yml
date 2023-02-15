@@ -1,0 +1,53 @@
+name: Nightly Documentation Build
+
+on:
+  schedule:  # UTC at 0400 - 12am EDT
+    - cron:  '0 4 * * *'
+  workflow_dispatch:
+
+env:
+  DOCUMENTATION_CNAME: 'ensight.docs.pyansys.com'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  docs_build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: Install pyensight
+        run: |
+          pip install .
+      - name: Install doc build requirements
+        run: |
+          pip install -r requirements/requirements_docs.txt
+      - name: Full Documentation Build
+        run: |
+          make -C doc phtml
+      - name: Upload documentation HTML artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: documentation-html
+          path: doc/build/html
+          retention-days: 7
+
+  docs_upload:
+    needs: docs_build
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Deploy development documentation
+        uses: pyansys/actions/doc-deploy-dev@v3
+        with:
+          cname: ${{ env.DOCUMENTATION_CNAME }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
