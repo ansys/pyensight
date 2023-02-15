@@ -10,6 +10,9 @@ on:
     branches:
       - main
 
+env:
+  DOCUMENTATION_CNAME: 'ensight.docs.pyansys.com'
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -144,15 +147,19 @@ jobs:
           path: doc/build/html
           retention-days: 7
 
-      - name: Deploy
-        if: ${{ !env.ACT }} && github.event_name == 'push' && contains(github.ref, 'refs/tags')
-        uses: JamesIves/github-pages-deploy-action@4.2.0
+  doc-deploy-dev:
+    name: "Deploy development documentation"
+    # Deploy development only when merging to main
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    needs: docs
+    steps:
+      - name: "Deploy the latest documentation"
+        uses: pyansys/actions/doc-deploy-dev@v3
         with:
-          repository-name: pyansys/pyensight-dev-docs
-          token: ${{ secrets.PAT_DOCS_DEPLOY }}
-          branch: gh-pages
-          folder: doc/build/html
-          clean: true
+            doc-artifact-name: Documentation-html
+            cname: ${{ env.DOCUMENTATION_CNAME }}
+            token: ${{ secrets.GITHUB_TOKEN }}
 
   release:
     name: Release
@@ -180,14 +187,6 @@ jobs:
       - name: List directory structure
         run: ls -R
 
-      - name: Deploy
-        if: ${{ !env.ACT }}
-        uses: JamesIves/github-pages-deploy-action@4.1.5
-        with:
-          BRANCH: gh-pages
-          FOLDER: ~/html
-          CLEAN: true
-
       - name: Upload to Azure PyPi (disabled)
         if: ${{ !env.ACT }}
         run: |
@@ -204,6 +203,20 @@ jobs:
           files: |
             ./**/*.whl
             ./**/*.zip
+
+  doc-deploy-stable:
+    name: "Deploy stable documentation"
+    # Deploy release documentation when creating a new tag
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
+    runs-on: ubuntu-latest
+    needs: docs
+    steps:
+      - name: "Deploy the stable documentation"
+        uses: pyansys/actions/doc-deploy-stable@v3
+        with:
+            doc-artifact-name: Documentation-html
+            cname: ${{ env.DOCUMENTATION_CNAME }}
+            token: ${{ secrets.GITHUB_TOKEN }}
 
   build-failure:
     name: Teams notify on failure
