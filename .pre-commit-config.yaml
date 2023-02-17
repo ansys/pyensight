@@ -58,7 +58,7 @@ repos:
         language: system
         args: [
             --ignore-words, ignore_words.txt,
-            --skip, "*.pyc,*.xml,*.gif,*.png,*.jpg,*.js,*.html,*.svg"
+            --skip, "*.pyc,*.xml,*.gif,*.png,*.jpg,*.js,*.html,*.svg,tests/ensigth_api_test_assets.txt"
 
         ]
       - id: bandit
