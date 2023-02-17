@@ -1,3 +1,4 @@
+import os
 from unittest import mock
 
 import docker
@@ -8,6 +9,7 @@ from ansys.pyensight import DockerLauncher
 
 
 def test_start(mocker, capsys):
+    os.environ["ANSYSLMD_LICENSE_FILE"] = "1055@mockedserver.com"
     docker_client = mock.MagicMock("Docker")
     run = mock.MagicMock("MockedRun")
     run.exec_run = mock.MagicMock("MockedExec")
@@ -24,9 +26,7 @@ def test_start(mocker, capsys):
     mocker.patch.object(docker_client.containers, "run", return_value=run)
     dock = mocker.patch.object(docker, "from_env", return_value=docker_client)
     launcher = DockerLauncher(data_directory=".")
-    launcher = DockerLauncher(
-        data_directory=".", use_dev=True, docker_image_name="super_ensight"
-    )
+    launcher = DockerLauncher(data_directory=".", use_dev=True, docker_image_name="super_ensight")
     mocked_session = mock.MagicMock("MockedSession")
     mocker.patch.object(ansys.pyensight, "Session", return_value=mocked_session)
     assert launcher.start() == mocked_session
@@ -34,17 +34,16 @@ def test_start(mocker, capsys):
     assert "Ansys Version= 345" in out
     assert "Run:  ['bash', '--login', '-c', ' ensight -batch -v 3" in out
     assert (
-        "Run:  ['bash', '--login', '-c', 'cpython /ansys_inc/v345/CEI/nexus345/nexus_launcher/websocketserver.py --http_directory /home/ensight"
-        in out
+        "Run:  ['bash', '--login', '-c', "
+        "'cpython /ansys_inc/v345/CEI/nexus345/nexus_launcher/websocketserver.py "
+        "--http_directory /home/ensight" in out
     )
     assert launcher.ansys_version() == "345"
     values[0][0] = 1
     returned.side_effect = values.copy()
     with pytest.raises(RuntimeError) as exec_info:
         launcher.start()
-    assert "find /ansys_inc/vNNN/CEI/bin/ensight in the Docker container." in str(
-        exec_info
-    )
+    assert "find /ansys_inc/vNNN/CEI/bin/ensight in the Docker container." in str(exec_info)
     values[0][0] = 0
     values[0][1] = "/path/to/darkness".encode("utf-8")
     returned.side_effect = values.copy()
@@ -55,9 +54,7 @@ def test_start(mocker, capsys):
     dock.side_effect = ModuleNotFoundError
     with pytest.raises(RuntimeError) as exec_info:
         launcher = DockerLauncher(data_directory=".")
-    assert "The pyansys-docker module must be installed for DockerLauncher" in str(
-        exec_info
-    )
+    assert "The pyansys-docker module must be installed for DockerLauncher" in str(exec_info)
     dock.side_effect = KeyError
     with pytest.raises(RuntimeError) as exec_info:
         launcher = DockerLauncher(data_directory=".")
@@ -72,7 +69,7 @@ def test_pull(mocker):
     docker_client.images = mock.MagicMock("ImagesInterface")
     docker_client.images.pull = mock.MagicMock("Pull")
     docker_client.images.pull = lambda unused: True
-    dock = mocker.patch.object(docker, "from_env", return_value=docker_client)
+    mocker.patch.object(docker, "from_env", return_value=docker_client)
     launcher = DockerLauncher(data_directory=".")
     launcher.pull()
     docker_client.images.pull = simulate_network_issue
