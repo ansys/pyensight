@@ -29,7 +29,7 @@ jobs:
           pip install .
       - name: Install doc build requirements
         run: |
-          pip install -r requirements/requirements_docs.txt
+          pip install -r requirements/docs.txt
       - name: Full Documentation Build
         run: |
           make -C doc phtml
