@@ -1,14 +1,14 @@
 """Unit tests for session.py"""
 import os
 import platform
-import webbrowser
 from unittest import mock
+import webbrowser
 
 import pytest
 
 import ansys.pyensight
-import ansys.pyensight.renderable
 from ansys.pyensight import Launcher, LocalLauncher, ensobjlist
+import ansys.pyensight.renderable
 
 
 def test_session_without_installation() -> None:
@@ -233,25 +233,19 @@ def test_convert_ctor(mocked_session, mocker):
     value = session._convert_ctor("Class: ENS_GLOBALS, CvfObjID: 221, cached:yes")
     assert value == "session.ensight.objs.ENS_GLOBALS(session, 221)"
     cmd = mocker.patch.object(session, "cmd", return_value=0)
-    value = session._convert_ctor(
-        "Class: ENS_PART, desc: 'Sphere', CvfObjID: 1078, cached:no"
-    )
+    value = session._convert_ctor("Class: ENS_PART, desc: 'Sphere', CvfObjID: 1078, cached:no")
     assert (
         value
         == "session.ensight.objs.ENS_PART_MODEL(session, 1078,attr_id=1610612792, attr_value=0)"
     )
     cmd.return_value = 3
-    value = session._convert_ctor(
-        "Class: ENS_ANNOT, desc: 'Pressure', CvfObjID: 4761, cached:no"
-    )
+    value = session._convert_ctor("Class: ENS_ANNOT, desc: 'Pressure', CvfObjID: 4761, cached:no")
     assert (
         value
         == "session.ensight.objs.ENS_ANNOT_LGND(session, 4761,attr_id=1610612991, attr_value=3)"
     )
     cmd.return_value = 6
-    value = session._convert_ctor(
-        "Class: ENS_TOOL, desc: 'Sphere', CvfObjID: 763, cached:no"
-    )
+    value = session._convert_ctor("Class: ENS_TOOL, desc: 'Sphere', CvfObjID: 763, cached:no")
     assert (
         value
         == "session.ensight.objs.ENS_TOOL_SPHERE(session, 763,attr_id=1610613030, attr_value=6)"
@@ -266,9 +260,7 @@ def test_convert_ctor(mocked_session, mocker):
     object.__OBJID__ = 763
     session.add_ensobj_instance(object)
     assert session.obj_instance(763) == object
-    value = session._convert_ctor(
-        "Class: ENS_TOOL, desc: 'Sphere', CvfObjID: 763, cached:no"
-    )
+    value = session._convert_ctor("Class: ENS_TOOL, desc: 'Sphere', CvfObjID: 763, cached:no")
     assert value == "session.obj_instance(763)"
 
 

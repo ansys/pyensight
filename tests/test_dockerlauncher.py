@@ -24,9 +24,7 @@ def test_start(mocker, capsys):
     mocker.patch.object(docker_client.containers, "run", return_value=run)
     dock = mocker.patch.object(docker, "from_env", return_value=docker_client)
     launcher = DockerLauncher(data_directory=".")
-    launcher = DockerLauncher(
-        data_directory=".", use_dev=True, docker_image_name="super_ensight"
-    )
+    launcher = DockerLauncher(data_directory=".", use_dev=True, docker_image_name="super_ensight")
     mocked_session = mock.MagicMock("MockedSession")
     mocker.patch.object(ansys.pyensight, "Session", return_value=mocked_session)
     assert launcher.start() == mocked_session
@@ -42,9 +40,7 @@ def test_start(mocker, capsys):
     returned.side_effect = values.copy()
     with pytest.raises(RuntimeError) as exec_info:
         launcher.start()
-    assert "find /ansys_inc/vNNN/CEI/bin/ensight in the Docker container." in str(
-        exec_info
-    )
+    assert "find /ansys_inc/vNNN/CEI/bin/ensight in the Docker container." in str(exec_info)
     values[0][0] = 0
     values[0][1] = "/path/to/darkness".encode("utf-8")
     returned.side_effect = values.copy()
@@ -55,9 +51,7 @@ def test_start(mocker, capsys):
     dock.side_effect = ModuleNotFoundError
     with pytest.raises(RuntimeError) as exec_info:
         launcher = DockerLauncher(data_directory=".")
-    assert "The pyansys-docker module must be installed for DockerLauncher" in str(
-        exec_info
-    )
+    assert "The pyansys-docker module must be installed for DockerLauncher" in str(exec_info)
     dock.side_effect = KeyError
     with pytest.raises(RuntimeError) as exec_info:
         launcher = DockerLauncher(data_directory=".")

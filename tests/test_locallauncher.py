@@ -13,9 +13,7 @@ from ansys.pyensight import LocalLauncher
 
 
 def test_start(mocker):
-    mocker.patch.object(
-        LocalLauncher, "get_cei_install_directory", return_value="/path/to/awp/CEI"
-    )
+    mocker.patch.object(LocalLauncher, "get_cei_install_directory", return_value="/path/to/awp/CEI")
     launcher = LocalLauncher("/path/to/awp/")
     popen = mock.MagicMock("MockedPopen")
     popen.pid = 3456
@@ -34,9 +32,7 @@ def test_start(mocker):
 
 
 def test_stop(mocker, tmpdir):
-    mocker.patch.object(
-        LocalLauncher, "get_cei_install_directory", return_value="/path/to/awp/CEI"
-    )
+    mocker.patch.object(LocalLauncher, "get_cei_install_directory", return_value="/path/to/awp/CEI")
     session_dir = tmpdir.mkdir("session_dir")
     launcher = LocalLauncher("/path/to/awp/")
     launcher.session_directory = session_dir
