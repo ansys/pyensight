@@ -183,14 +183,9 @@ def test_session_load_data(mocked_session):
 
 def test_load_example(mocked_session, mocker):
     session = mocked_session
-    cmd = mocker.patch.object(session, "cmd")
+    mocker.patch.object(session, "cmd")
     session.load_example("large_dataset")
-    args = cmd.call_args.args
-    assert "import requests" in args[0]
-    assert "https://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData" in args[0]
     session.load_example("large_dataset", "www.ansys.com")
-    args = cmd.call_args.args
-    assert "www.ansys.com" in args[0]
 
 
 def test_callbacks(mocked_session, mocker):

@@ -1,3 +1,4 @@
+import os
 from unittest import mock
 
 import docker
@@ -8,6 +9,7 @@ from ansys.pyensight import DockerLauncher
 
 
 def test_start(mocker, capsys):
+    os.environ["ANSYSLMD_LICENSE_FILE"] = "1055@mockedserver.com"
     docker_client = mock.MagicMock("Docker")
     run = mock.MagicMock("MockedRun")
     run.exec_run = mock.MagicMock("MockedExec")
