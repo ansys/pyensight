@@ -1,6 +1,6 @@
 import shutil
-import webbrowser
 from unittest import mock
+import webbrowser
 
 import requests
 
@@ -13,9 +13,7 @@ def test_generate_filename(mocked_session):
     assert repr(render) == f"Renderable( url='{render.url}' )"
     mocked_session.launcher = launcher.Launcher()
     mocked_session.launcher.session_directory = "/this/path"
-    filename = (
-        f"{render._session.secret_key}_{render._guid}_{render._filename_index}.png"
-    )
+    filename = f"{render._session.secret_key}_{render._guid}_{render._filename_index}.png"
     assert render._generate_filename(".png") == (f"/this/path/{filename}", filename)
 
 

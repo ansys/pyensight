@@ -1,9 +1,7 @@
 import glob
 import os
 import platform
-import shutil
 import subprocess
-import time
 from unittest import mock
 
 import pytest
@@ -13,9 +11,7 @@ from ansys.pyensight import LocalLauncher
 
 
 def test_start(mocker):
-    mocker.patch.object(
-        LocalLauncher, "get_cei_install_directory", return_value="/path/to/awp/CEI"
-    )
+    mocker.patch.object(LocalLauncher, "get_cei_install_directory", return_value="/path/to/awp/CEI")
     launcher = LocalLauncher("/path/to/awp/")
     popen = mock.MagicMock("MockedPopen")
     popen.pid = 3456
@@ -27,16 +23,14 @@ def test_start(mocker):
     # Mocking Popen breaks platform.system, so the function is mocked
     system = mocker.patch.object(platform, "system", return_value="Windows")
     launcher.start()
-    system = mocker.patch.object(platform, "system", return_value="Linux")
+    system.return_value = "Linux"
     glob_mock.side_effect = ["/path/to/awp/CEI/nexus345/websocketserver.py"]
     launcher = LocalLauncher("/path/to/awp/", batch=False)
     launcher.start()
 
 
 def test_stop(mocker, tmpdir):
-    mocker.patch.object(
-        LocalLauncher, "get_cei_install_directory", return_value="/path/to/awp/CEI"
-    )
+    mocker.patch.object(LocalLauncher, "get_cei_install_directory", return_value="/path/to/awp/CEI")
     session_dir = tmpdir.mkdir("session_dir")
     launcher = LocalLauncher("/path/to/awp/")
     launcher.session_directory = session_dir
