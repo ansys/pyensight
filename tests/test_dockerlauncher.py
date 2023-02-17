@@ -32,8 +32,9 @@ def test_start(mocker, capsys):
     assert "Ansys Version= 345" in out
     assert "Run:  ['bash', '--login', '-c', ' ensight -batch -v 3" in out
     assert (
-        "Run:  ['bash', '--login', '-c', 'cpython /ansys_inc/v345/CEI/nexus345/nexus_launcher/websocketserver.py --http_directory /home/ensight"
-        in out
+        "Run:  ['bash', '--login', '-c', "
+        "'cpython /ansys_inc/v345/CEI/nexus345/nexus_launcher/websocketserver.py "
+        "--http_directory /home/ensight" in out
     )
     assert launcher.ansys_version() == "345"
     values[0][0] = 1
@@ -66,7 +67,7 @@ def test_pull(mocker):
     docker_client.images = mock.MagicMock("ImagesInterface")
     docker_client.images.pull = mock.MagicMock("Pull")
     docker_client.images.pull = lambda unused: True
-    dock = mocker.patch.object(docker, "from_env", return_value=docker_client)
+    mocker.patch.object(docker, "from_env", return_value=docker_client)
     launcher = DockerLauncher(data_directory=".")
     launcher.pull()
     docker_client.images.pull = simulate_network_issue

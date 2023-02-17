@@ -1,9 +1,7 @@
 import glob
 import os
 import platform
-import shutil
 import subprocess
-import time
 from unittest import mock
 
 import pytest
@@ -25,7 +23,7 @@ def test_start(mocker):
     # Mocking Popen breaks platform.system, so the function is mocked
     system = mocker.patch.object(platform, "system", return_value="Windows")
     launcher.start()
-    system = mocker.patch.object(platform, "system", return_value="Linux")
+    system.return_value = "Linux"
     glob_mock.side_effect = ["/path/to/awp/CEI/nexus345/websocketserver.py"]
     launcher = LocalLauncher("/path/to/awp/", batch=False)
     launcher.start()

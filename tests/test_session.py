@@ -7,7 +7,7 @@ import webbrowser
 import pytest
 
 import ansys.pyensight
-from ansys.pyensight import Launcher, LocalLauncher, ensobjlist
+from ansys.pyensight import Launcher, LocalLauncher
 import ansys.pyensight.renderable
 
 
@@ -292,14 +292,14 @@ def test_properties(mocked_session):
     assert mocked_session.timeout == 120.0
     mocked_session.timeout = 113.5
     assert mocked_session.language == "en"
-    assert mocked_session.halt_ensight_on_close == False
+    assert mocked_session.halt_ensight_on_close is False
     mocked_session._cei_home = "/new/path"
     mocked_session._cei_suffix = "178"
     assert mocked_session.cei_home == "/new/path"
     assert mocked_session.cei_suffix == "178"
-    assert mocked_session.jupyter_notebook == False
+    assert mocked_session.jupyter_notebook is False
     mocked_session._jupyter_notebook = True
-    assert mocked_session.jupyter_notebook == True
+    assert mocked_session.jupyter_notebook is True
 
 
 def test_help(mocked_session, mocker):
