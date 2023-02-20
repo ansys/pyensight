@@ -1,5 +1,4 @@
 """Unit tests for session.py"""
-import os
 import platform
 from unittest import mock
 import webbrowser
@@ -7,7 +6,7 @@ import webbrowser
 import pytest
 
 import ansys.pyensight
-from ansys.pyensight import Launcher, LocalLauncher
+from ansys.pyensight import Launcher
 import ansys.pyensight.renderable
 
 
