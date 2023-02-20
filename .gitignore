@@ -11,6 +11,7 @@
 *.o
 *.cache
 .pytest_cache/
+*/__pycache__
 
 # OS generated files #
 ######################
@@ -57,3 +58,4 @@ test-output.xml
 .idea/
 venv/
 .vscode/
+.venv/
