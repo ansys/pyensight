@@ -7,9 +7,9 @@ import pytest
 from ansys.pyensight import ensight_api
 
 # This function has been used for finding all the classes in ensight_api.py
-# def classesinmodule(module):
-#    md = module.__dict__
-#    return [md[c] for c in md if (isinstance(md[c], type) and md[c].__module__ == module.__name__)]
+#def classesinmodule(module):
+#   md = module.__dict__
+#   return [md[c] for c in md if (isinstance(md[c], type) and md[c].__module__ == module.__name__)]
 
 
 # The test function test_api has been then modified to get the list of classes,
@@ -18,7 +18,7 @@ from ansys.pyensight import ensight_api
 # dumped into a file which is now part of the unit tests distribution
 
 
-# def test_generate_assets_api(mocked_session):
+#def test_generate_assets_api(mocked_session):
 #    list_of_classes = classesinmodule(ensight_api)
 #    text = open("input_output.txt", "w")
 #    for _class in list_of_classes:
@@ -33,7 +33,7 @@ from ansys.pyensight import ensight_api
 #            sig = getfullargspec(_method)
 #            num_args = len(sig.args)
 #            if "self" in sig.args or "cls" in sig.args:
-#                num_args -= 1
+#               num_args -= 1
 #            if sig.varargs:
 #                num_args += 1
 #            args = [1] * num_args
@@ -42,7 +42,7 @@ from ansys.pyensight import ensight_api
 #                num_kwargs += 1
 #            kwargs = {"{}".format(i): i for i in range(num_kwargs)}
 #            mocked_session.cmd = lambda command: command
-#            if not isinstance(instance, ansys.pyensight.ensight_api.objs):
+#            if not isinstance(instance, ensight_api.objs):
 #                value = _method(*args, **kwargs)
 #                text.write(f"{_class},{method},,{value}\n")
 #            else:
