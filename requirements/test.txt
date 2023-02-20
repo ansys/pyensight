@@ -3,4 +3,4 @@ pytest-cov>=3.0.0
 requests>=2.20.1
 dill>=0.3.5.1
 pyansys-docker>=5.0.4
-pytest-mock==3.10.0
+pytest-mock>=3.10.0
