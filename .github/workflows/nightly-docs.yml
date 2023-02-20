@@ -32,7 +32,7 @@ jobs:
           pip install -r requirements/docs.txt
       - name: Full Documentation Build
         run: |
-          make -C doc phtml
+          make -C doc html
       - name: Upload documentation HTML artifact
         uses: actions/upload-artifact@v3
         with:
