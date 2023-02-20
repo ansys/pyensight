@@ -11,20 +11,6 @@ from ansys.pyensight import Launcher, LocalLauncher
 import ansys.pyensight.renderable
 
 
-def test_session_without_installation() -> None:
-    """todo: just a stub. Remove and write actual tests like below"""
-    version = ansys.pyensight.__ansys_version__
-    # In case tests are launched locally and the environment variable is
-    # set, the launcher would manage to find an install. This trick
-    # avoids it
-    if f"AWP_ROOT{version}" in os.environ:
-        del os.environ[f"AWP_ROOT{version}"]
-    with pytest.raises(RuntimeError) as exec_info:
-        session = LocalLauncher().start()
-        session.close()
-    assert "Unable to detect an EnSight installation" in str(exec_info)
-
-
 def test_show(mocked_session, mocker):
     session = mocked_session
     session.ensight.objs.core.TIMESTEP = 1
