@@ -3,7 +3,7 @@ from datetime import datetime
 import os
 import sys
 
-from ansys_sphinx_theme import ansys_favicon, pyansys_logo_black
+from ansys_sphinx_theme import ansys_favicon, get_version_match, pyansys_logo_black
 from sphinx_gallery.sorting import FileNameSortKey
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src"))
@@ -16,12 +16,20 @@ copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "Ansys Inc."
 release = version = __version__
 
+cname = os.getenv("DOCUMENTATION_CNAME", "<DEFAULT_CNAME>")
+"""The canonical name of the webpage hosting the documentation."""
+
 # HTML output options
 html_short_title = html_title = "PyEnSight"
 html_logo = pyansys_logo_black
 html_theme = "ansys_sphinx_theme"
 html_favicon = ansys_favicon
 html_theme_options = {
+    "switcher": {
+        "json_url": f"https://{cname}/release/versions.json",
+        "version_match": get_version_match(__version__),
+    },
+    "navbar_end": ["version-switcher", "theme-switcher", "navbar-icon-links"],
     "github_url": "https://github.com/pyansys/pyensight",
     "show_prev_next": False,
     "show_breadcrumbs": True,
