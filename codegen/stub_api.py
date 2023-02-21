@@ -141,6 +141,8 @@ class ProcessAPI:
         # generate repr() of the numpy arrays because they are embedded in a
         # dictionary.  For the present, get_values() cannot be called directly.
         self._custom_names.append("get_values")
+        root = os.path.dirname(os.path.dirname(__file__))
+        self.api_assets_file = open(os.path.join(root, "tests", "ensight_api_test_assets.txt"), "w")
 
     def _replace(
         self,
@@ -220,7 +222,9 @@ class ProcessAPI:
                 s += f" = {node.text}"
         return s
 
-    def _process_method(self, node: ElementTree.Element, indent: str = "") -> str:
+    def _process_method(
+        self, node: ElementTree.Element, indent: str = "", classname: str = ""
+    ) -> str:
         """Process <method> tag
 
         Map a method tag to a 'def' member function
@@ -232,7 +236,7 @@ class ProcessAPI:
         # if it is a "begin" method, the parse structure is different (similar to the "end"
         # suppression case).  Anyway, treat these like the "unknown" case and allow *args
         if node.get("tbl", "") == "0b":
-            return self._process_undefined_function(node, indent=indent)
+            return self._process_undefined_function(node, indent=indent, classname=classname)
         # regular processing
         s = "\n"
         s += f"{indent}def {node.get('name')}(self"
@@ -262,9 +266,19 @@ class ProcessAPI:
         s += ",".join(arg_names)
         s += ")'''\n"
         s += f"{indent}return self._session.cmd(cmd)\n"
+        method_name = node.get("name")
+        arg_string = ""
+        if arg_names:
+            arg_string = "1"
+        for _ in range(len(arg_names) - 1):
+            arg_string += ",1"
+        api_name = node.get("ns") + "(" + arg_string + ")"
+        self.api_assets_file.write(f"{classname},{method_name},,{api_name}\n")
         return s
 
-    def _process_undefined_class_method(self, node: ElementTree.Element, indent: str = "") -> str:
+    def _process_undefined_class_method(
+        self, node: ElementTree.Element, indent: str = "", classname: str = ""
+    ) -> str:
         """For methods that have no provided argument details use *args, **kwargs
 
         We do not know the parameters for this method, so we document as *args, **kwargs.
@@ -315,10 +329,15 @@ class ProcessAPI:
             cmd = f"{obj}.method({arg_string})"
             return self._session.cmd(cmd)
         '''
-
+        method_name = node.get("name")
+        if "__init__" not in method_name:
+            api_name = f"ensight.objs.wrap_id(1).{name}(1,0=0)"
+            self.api_assets_file.write(f"{classname},{method_name},{api_name}\n")
         return s
 
-    def _process_undefined_function(self, node: ElementTree.Element, indent: str = "") -> str:
+    def _process_undefined_function(
+        self, node: ElementTree.Element, indent: str = "", classname: str = ""
+    ) -> str:
         """For functions that have no provided argument details use *args, **kwargs
 
         We do not know the parameters for this method, so we document as *args, **kwargs.
@@ -334,6 +353,7 @@ class ProcessAPI:
         """
         name = node.get("name")
         if name in self._custom_names:
+            self.api_assets_file.write(f",{name},ensight.objs.wrap_id(1).{name}{1}")
             return ""
         desc = node.get("description")
         indent2 = indent + "    "
@@ -353,7 +373,9 @@ class ProcessAPI:
         s += f'{indent2}arg_string = ",".join(arg_list)\n'
         s += f'{indent2}cmd = f"{ns}({{arg_string}})"\n'
         s += f"{indent2}return self._session.cmd(cmd)\n"
-
+        method_name = node.get("name")
+        api_name = f"{ns}(1,0=0)"
+        self.api_assets_file.write(f"{classname},{method_name},,{api_name}\n")
         # generate code of this form:
         '''
         def name(self, *args, **kwargs):
@@ -371,7 +393,9 @@ class ProcessAPI:
 
         return s
 
-    def _process_property(self, node: ElementTree.Element, indent: str = "") -> str:
+    def _process_property(
+        self, node: ElementTree.Element, indent: str = "", classname: str = ""
+    ) -> str:
         """Process a <property> tag
 
         Generate the property getter/setter for the class property
@@ -471,7 +495,13 @@ class ProcessAPI:
             comment = (
                 f"Note: both '{name.lower()}' and '{name.upper()}' property names are supported."
             )
-
+        self.api_assets_file.write(f"objs,{classname},{name.upper()},EMPTY\n")
+        if num_loops > 1:
+            self.api_assets_file.write(f"objs,{classname},{name.lower()},EMPTY\n")
+        if read_only == "0":
+            self.api_assets_file.write(f"objs,{classname},{name.upper()},SETTER\n")
+            if num_loops > 1:
+                self.api_assets_file.write(f"objs,{classname},{name.lower()},SETTER\n")
         return s
 
     def _process_class(self, node: ElementTree.Element, indent: str = "") -> str:
@@ -526,7 +556,9 @@ class ProcessAPI:
         s += f"{indent}    Return the EnSight object proxy ID (__OBJID__).\n"
         s += f'{indent}    """\n'
         s += f"{indent}    return self._objid\n"
-
+        self.api_assets_file.write(f"objs,{classname},objid,EMPTY\n")
+        self.api_assets_file.write(f"objs,{classname},_update_attr_list,None\n")
+        self.api_assets_file.write(f"objs,{classname},_remote_obj,ensight.objs.wrap_id(1)\n")
         attributes = ""
         for child in node:
             if child.tag == "property":
@@ -544,14 +576,18 @@ class ProcessAPI:
                 attributes += "\n"
                 # __class__ is a legacy bug and __OBJID__ handled in superclass
                 if name not in ("__class__", "__OBJID__", "__ids__"):
-                    s += self._process_property(child, indent)
+                    s += self._process_property(child, indent, classname=classname)
             elif child.tag == "method":
                 if child.get("unknownsignature", "0") == "1":
                     # in some cases, we have no information about the method
-                    s += self._process_undefined_class_method(child, indent)
+                    s += self._process_undefined_class_method(
+                        child, indent, classname="objs," + classname
+                    )
                 else:
                     # TODO: handle class specific methods
-                    s += self._process_undefined_class_method(child, indent)
+                    s += self._process_undefined_class_method(
+                        child, indent, classname="objs," + classname
+                    )
         if attributes:
             attributes = f"\n{indent}Attributes:\n" + attributes + "\n"
         s = s.replace("__ATTRIBUTES__", attributes)
@@ -590,6 +626,7 @@ class ProcessAPI:
                 attributes += f"{indent}        Instance specific constant\n\n"
             elif child.tag == "module":
                 # Prepend the submodule
+                classname = node.get("name")
                 name = child.get("name")
                 s = self._process_module(child) + s
                 # add an instance of the class to the current class
@@ -598,10 +635,14 @@ class ProcessAPI:
                 attributes += f"{indent}        EnSight module instance class\n\n"
             elif child.tag == "method":
                 if child.get("unknownsignature", "0") == "1":
-                    methods += self._process_undefined_function(child, indent=indent)
+                    classname = node.get("name")
+                    methods += self._process_undefined_function(
+                        child, indent=indent, classname=classname
+                    )
                 else:
                     # Likely a command language method
-                    methods += self._process_method(child, indent=indent)
+                    classname = node.get("name")
+                    methods += self._process_method(child, indent=indent, classname=classname)
             elif child.tag == "class":
                 classname = child.get("name")
                 # ENSOBJ and ensobjlist are hand-crafted
@@ -610,6 +651,7 @@ class ProcessAPI:
                     attributes += f"{indent}        EnSight {classname} proxy class\n\n"
                     self._imports += self._process_class(child)
                     classes += f"{indent}    self.{classname}: Type[{classname}] = {classname}\n"
+
         s += classes
         s += methods
         if attributes:
@@ -635,6 +677,7 @@ class ProcessAPI:
         s = s.replace("ENSIMPORTS", self._imports)
         with open(filename, "w") as f:
             f.write(s)
+        self.api_assets_file.close()
 
 
 def generate_stub_api() -> None:
