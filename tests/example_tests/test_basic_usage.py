@@ -48,3 +48,4 @@ def test_basic_usage(tmpdir):
     assert len(html) == 5
     assert len(png_local) == 1
     assert len(glb_local) == 1
+    session.close()

@@ -25,8 +25,7 @@ def test_renderables(tmpdir):
     session.ensight.view_transf.rotate(10.0, 0.0, 0.0)
     image.update()
     print(image.url)
-    local_directory_pathname = "."
-    image.download(local_directory_pathname)
+    image.download(data_dir)
     deep_image = session.show("deep_pixel", width=800, height=600, aa=4)
     animation = session.show("animation", width=800, height=600, aa=2, fps=2.0)
     webgl = session.show("webgl")
@@ -52,5 +51,6 @@ def test_renderables(tmpdir):
     assert len(avz) == 1
     assert len(tiff) == 1
     assert len(evsn) == 1
-    assert len(png_local) == 1
+    assert len(png_local) == 2
     assert len(glb_local) == 1
+    session.close()
