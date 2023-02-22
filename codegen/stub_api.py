@@ -142,7 +142,7 @@ class ProcessAPI:
         # dictionary.  For the present, get_values() cannot be called directly.
         self._custom_names.append("get_values")
         root = os.path.dirname(os.path.dirname(__file__))
-        self.api_assets_file = open(os.path.join(root, "tests", "ensight_api_test_assets.txt"), "w")
+        self.api_assets_file = open(os.path.join(root, "tests", "unit_tests", "ensight_api_test_assets.txt"), "w")
 
     def _replace(
         self,
