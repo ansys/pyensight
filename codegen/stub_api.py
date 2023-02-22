@@ -141,8 +141,9 @@ class ProcessAPI:
         # generate repr() of the numpy arrays because they are embedded in a
         # dictionary.  For the present, get_values() cannot be called directly.
         self._custom_names.append("get_values")
-        root = os.path.dirname(os.path.dirname(__file__))
-        self.api_assets_file = open(os.path.join(root, "tests", "unit_tests", "ensight_api_test_assets.txt"), "w")
+        # api_assets_file is the string holding the text that will be written
+        # in the assets file for unit testing
+        self.api_assets_file = ""
 
     def _replace(
         self,
@@ -273,7 +274,7 @@ class ProcessAPI:
         for _ in range(len(arg_names) - 1):
             arg_string += ",1"
         api_name = node.get("ns") + "(" + arg_string + ")"
-        self.api_assets_file.write(f"{classname},{method_name},,{api_name}\n")
+        self.api_assets_file += f"{classname},{method_name},,{api_name}\n"
         return s
 
     def _process_undefined_class_method(
@@ -332,7 +333,7 @@ class ProcessAPI:
         method_name = node.get("name")
         if "__init__" not in method_name:
             api_name = f"ensight.objs.wrap_id(1).{name}(1,0=0)"
-            self.api_assets_file.write(f"{classname},{method_name},{api_name}\n")
+            self.api_assets_file += f"{classname},{method_name},{api_name}\n"
         return s
 
     def _process_undefined_function(
@@ -353,7 +354,7 @@ class ProcessAPI:
         """
         name = node.get("name")
         if name in self._custom_names:
-            self.api_assets_file.write(f",{name},ensight.objs.wrap_id(1).{name}{1}")
+            self.api_assets_file += f",{name},ensight.objs.wrap_id(1).{name}{1}"
             return ""
         desc = node.get("description")
         indent2 = indent + "    "
@@ -375,7 +376,7 @@ class ProcessAPI:
         s += f"{indent2}return self._session.cmd(cmd)\n"
         method_name = node.get("name")
         api_name = f"{ns}(1,0=0)"
-        self.api_assets_file.write(f"{classname},{method_name},,{api_name}\n")
+        self.api_assets_file += f"{classname},{method_name},,{api_name}\n"
         # generate code of this form:
         '''
         def name(self, *args, **kwargs):
@@ -495,13 +496,13 @@ class ProcessAPI:
             comment = (
                 f"Note: both '{name.lower()}' and '{name.upper()}' property names are supported."
             )
-        self.api_assets_file.write(f"objs,{classname},{name.upper()},EMPTY\n")
+        self.api_assets_file += f"objs,{classname},{name.upper()},EMPTY\n"
         if num_loops > 1:
-            self.api_assets_file.write(f"objs,{classname},{name.lower()},EMPTY\n")
+            self.api_assets_file += f"objs,{classname},{name.lower()},EMPTY\n"
         if read_only == "0":
-            self.api_assets_file.write(f"objs,{classname},{name.upper()},SETTER\n")
+            self.api_assets_file += f"objs,{classname},{name.upper()},SETTER\n"
             if num_loops > 1:
-                self.api_assets_file.write(f"objs,{classname},{name.lower()},SETTER\n")
+                self.api_assets_file += f"objs,{classname},{name.lower()},SETTER\n"
         return s
 
     def _process_class(self, node: ElementTree.Element, indent: str = "") -> str:
@@ -556,9 +557,9 @@ class ProcessAPI:
         s += f"{indent}    Return the EnSight object proxy ID (__OBJID__).\n"
         s += f'{indent}    """\n'
         s += f"{indent}    return self._objid\n"
-        self.api_assets_file.write(f"objs,{classname},objid,EMPTY\n")
-        self.api_assets_file.write(f"objs,{classname},_update_attr_list,None\n")
-        self.api_assets_file.write(f"objs,{classname},_remote_obj,ensight.objs.wrap_id(1)\n")
+        self.api_assets_file += f"objs,{classname},objid,EMPTY\n"
+        self.api_assets_file += f"objs,{classname},_update_attr_list,None\n"
+        self.api_assets_file += f"objs,{classname},_remote_obj,ensight.objs.wrap_id(1)\n"
         attributes = ""
         for child in node:
             if child.tag == "property":
@@ -677,7 +678,10 @@ class ProcessAPI:
         s = s.replace("ENSIMPORTS", self._imports)
         with open(filename, "w") as f:
             f.write(s)
-        self.api_assets_file.close()
+        root = os.path.dirname(os.path.dirname(__file__))
+        assets_file_name = os.path.join(root, "tests", "ensight_api_test_assets.txt")
+        with open(assets_file_name, "w") as assets_file:
+            assets_file.write(self.api_assets_file)
 
 
 def generate_stub_api() -> None:
