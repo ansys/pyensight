@@ -170,7 +170,7 @@ first supported version being Ansys 2022 R2.
 
 Documentation and Issues
 ------------------------
-Please see the latest release `documentation <https://furry-waffle-422870de.pages.github.io/>`_
+Please see the latest release `documentation <https://ensight.docs.pyansys.com/>`_
 page for more details.
 
 Please feel free to post issues and other questions at `PyEnSight Issues
