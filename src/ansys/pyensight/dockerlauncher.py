@@ -66,7 +66,7 @@ class DockerLauncher(pyensight.Launcher):
         # get the optional user specified image name
         self._image_name: str = "ghcr.io/ansys/ensight"
         if use_dev:
-            self._image_name = "ghcr.io/ansys/ensight_dev2"
+            self._image_name = "ghcr.io/ansys/ensight_dev"
         if docker_image_name:
             self._image_name = docker_image_name
 
