@@ -25,6 +25,7 @@ html_logo = pyansys_logo_black
 html_theme = "ansys_sphinx_theme"
 html_favicon = ansys_favicon
 html_theme_options = {
+    "check_switcher": False,
     "switcher": {
         "json_url": f"https://{cname}/release/versions.json",
         "version_match": get_version_match(__version__),
