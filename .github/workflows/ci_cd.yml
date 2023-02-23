@@ -94,6 +94,8 @@ jobs:
       - name: Unit testing
         run: |
           make test
+        env:
+          ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
 
       - name: Upload coverage report
         if: ${{ !env.ACT }}
