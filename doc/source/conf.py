@@ -16,7 +16,7 @@ copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "Ansys Inc."
 release = version = __version__
 
-cname = os.getenv("DOCUMENTATION_CNAME", "<DEFAULT_CNAME>")
+cname = os.getenv("DOCUMENTATION_CNAME", "ensight.docs.pyansys.com")
 """The canonical name of the webpage hosting the documentation."""
 
 # HTML output options
@@ -25,6 +25,7 @@ html_logo = pyansys_logo_black
 html_theme = "ansys_sphinx_theme"
 html_favicon = ansys_favicon
 html_theme_options = {
+    "check_switcher": False,
     "switcher": {
         "json_url": f"https://{cname}/release/versions.json",
         "version_match": get_version_match(__version__),

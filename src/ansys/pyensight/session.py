@@ -306,7 +306,7 @@ class Session:
     @staticmethod
     def help():
         """Open the help pages for the pyansys project in a webbrowser"""
-        url = "https://furry-waffle-422870de.pages.github.io/"
+        url = "https://ensight.docs.pyansys.com/"
         webbrowser.open(url)
 
     def exec(self, function: Callable, *args, remote: bool = False, **kwargs) -> Any:
