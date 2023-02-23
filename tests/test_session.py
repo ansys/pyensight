@@ -285,7 +285,7 @@ def test_properties(mocked_session):
 def test_help(mocked_session, mocker):
     web = mocker.patch.object(webbrowser, "open")
     mocked_session.help()
-    web.assert_called_once_with("https://furry-waffle-422870de.pages.github.io/")
+    web.assert_called_once_with("https://ensight.docs.pyansys.com/")
 
 
 """
