@@ -679,7 +679,7 @@ class ProcessAPI:
         with open(filename, "w") as f:
             f.write(s)
         root = os.path.dirname(os.path.dirname(__file__))
-        assets_file_name = os.path.join(root, "tests", "ensight_api_test_assets.txt")
+        assets_file_name = os.path.join(root, "tests", "unit_tests", "ensight_api_test_assets.txt")
         with open(assets_file_name, "w") as assets_file:
             assets_file.write(self.api_assets_file)
 

@@ -24,7 +24,6 @@ def test_async_events(tmpdir):
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     except:
         launcher = LocalLauncher()
-    session = launcher.start()
     
     ###############################################################################
     # Simple event
