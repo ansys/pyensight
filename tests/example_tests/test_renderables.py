@@ -1,13 +1,14 @@
-import os
 import glob
+import os
 
 from ansys.pyensight import DockerLauncher, LocalLauncher
+
 
 def test_renderables(tmpdir):
     data_dir = tmpdir.mkdir("datadir")
     try:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
-    except:
+    except Exception:
         launcher = LocalLauncher()
     session = launcher.start()
     session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/guard_rail/crash.case")
@@ -26,11 +27,11 @@ def test_renderables(tmpdir):
     image.update()
     print(image.url)
     image.download(data_dir)
-    deep_image = session.show("deep_pixel", width=800, height=600, aa=4)
-    animation = session.show("animation", width=800, height=600, aa=2, fps=2.0)
-    webgl = session.show("webgl")
-    remote = session.show("remote")
-    remote_scene = session.show("remote_scene", width=800, height=600, temporal=True)
+    session.show("deep_pixel", width=800, height=600, aa=4)
+    session.show("animation", width=800, height=600, aa=2, fps=2.0)
+    session.show("webgl")
+    session.show("remote")
+    session.show("remote_scene", width=800, height=600, temporal=True)
     pngdata = session.render(1920, 1080, aa=4)
     with open(os.path.join(data_dir, "simple_example.png"), "wb") as fp:
         fp.write(pngdata)

@@ -1,13 +1,14 @@
 import glob
 import os
-import requests
+
 from ansys.pyensight import DockerLauncher, LocalLauncher
+
 
 def test_basic_usage(tmpdir):
     data_dir = tmpdir.mkdir("datadir")
     try:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
-    except:
+    except Exception:
         launcher = LocalLauncher()
     session = launcher.start()
     core = session.ensight.objs.core
