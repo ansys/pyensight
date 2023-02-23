@@ -30,6 +30,10 @@ install-dev:
 	pip uninstall ansys-ensight -y
 	pip install -e .
 
+pull-docker:
+	bash .ci/pull_ensight_image.sh
+
+
 test:
 	pytest -rvx --setup-show --cov=ansys.pyensight --cov-report html:coverage-html --cov-report term --cov-config=.coveragerc
 
