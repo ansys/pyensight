@@ -57,7 +57,7 @@ setup(
     ],
     url="https://github.com/pyansys/pyensight",
     project_urls={
-        "Documentation": "https://furry-waffle-422870de.pages.github.io/",
+        "Documentation": "https://ensight.docs.pyansys.com/",
         "Changelog": "https://github.com/pyansys/pyensight/blob/main/CHANGELOG.rst",
         "Bug Tracker": "https://github.com/pyansys/pyensight/issues",
         "Source Code": "https://github.com/pyansys/pyensight",
