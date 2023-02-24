@@ -8,3 +8,5 @@ pyansys-docker>=5.0.4
 matplotlib>=3.5.3
 requests>=2.20.1
 sphinxcontrib.jquery==3.0.0
+
+-r build.txt

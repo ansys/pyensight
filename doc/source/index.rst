@@ -66,7 +66,7 @@ License
 This module, ``ansys-pyensight`` makes no commercial claim over Ansys whatsoever.
 This tool extends the functionality of ``Ansys EnSight`` by adding a remote Python
 interface to EnSight without changing the core behavior or license of the original
-software. The use of interactive ``Ansys EnSight`` ``control by ``PyEnSight`` requires
+software. The use of interactive ``Ansys EnSight`` control by ``PyEnSight`` requires
 a legally licensed local copy of ``Ansys EnSight``.
 
 To obtain a copy, please visit `Ansys EnSight <https://www.ansys.com/products/fluids/ansys-ensight>`_.
