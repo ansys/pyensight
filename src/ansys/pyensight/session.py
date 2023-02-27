@@ -11,7 +11,6 @@ Examples:
 import atexit
 import os.path
 import platform
-import shutil
 import time
 from typing import Any, Callable, Optional
 from urllib.parse import urlparse
@@ -687,9 +686,9 @@ class Session:
             if self.cmd(cmd) != 0:
                 raise RuntimeError("Unable to load the dataset.")
 
-    def load_example(self, example_name: str,
-                     uncompress: bool = False,
-                     root: Optional[str] = None) -> str:
+    def load_example(
+        self, example_name: str, uncompress: bool = False, root: Optional[str] = None
+    ) -> str:
         """Load an example dataset
         Download an EnSight session file from a known location and load it into
         the current EnSight instance.  The url for the dataset is formed by
@@ -732,7 +731,7 @@ class Session:
         if uncompress:
             # in this case, remove the extension and unzip the file
             pathname_dir = os.path.splitext(pathname)[0]
-            script += 'outpath_dir = os.path.splitext(outpath)[0]\n'
+            script += "outpath_dir = os.path.splitext(outpath)[0]\n"
             script += "os.mkdir(outpath_dir)\n"
             script += "shutil.unpack_archive(outpath, outpath_dir, 'zip')\n"
             print(script)

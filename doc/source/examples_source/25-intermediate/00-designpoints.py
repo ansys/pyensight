@@ -18,6 +18,7 @@ between the temperature fields is computed and displayed in a third viewport.
 # In this case, we use a local installation of EnSight.
 
 from ansys.pyensight import LocalLauncher
+
 session = LocalLauncher().start()
 
 
@@ -72,8 +73,9 @@ session.ensight.objs.core.VPORTS.set_attr(session.ensight.objs.enums.LINKED, Tru
 # Hide all but the "fluid" parts
 session.ensight.objs.core.PARTS.set_attr(session.ensight.objs.enums.VISIBLE, False)
 session.ensight.objs.core.PARTS["fluid"].set_attr(session.ensight.objs.enums.VISIBLE, True)
-session.ensight.objs.core.PARTS["fluid"].set_attr(session.ensight.objs.enums.ELTREPRESENTATION,
-                                                  session.ensight.objs.enums.BORD_FULL)
+session.ensight.objs.core.PARTS["fluid"].set_attr(
+    session.ensight.objs.enums.ELTREPRESENTATION, session.ensight.objs.enums.BORD_FULL
+)
 session.show("image", width=800, height=600)
 
 
@@ -118,7 +120,9 @@ session.show("image", width=800, height=600)
 # field "Temperature_Difference" on the "fluid0" part.
 
 session.ensight.part.select_begin(fluid0.PARTNUMBER)
-session.ensight.variables.evaluate("Temperature_Difference = CaseMapDiff(plist, 2, Static_Temperature, 0, 1)")
+session.ensight.variables.evaluate(
+    "Temperature_Difference = CaseMapDiff(plist, 2, Static_Temperature, 0, 1)"
+)
 temperature_diff = session.ensight.objs.core.VARIABLES["Temperature_Difference"][0]
 fluid0.COLORBYPALETTE = temperature_diff
 session.show("image", width=800, height=600)
@@ -131,10 +135,10 @@ session.show("image", width=800, height=600)
 # .. image:: /_static/00_compare_4.png
 #
 # To make the visualization a bit easier to interpret, adjust the palette limits
-# to the nearest factor of 5.  Further adjustments to rotation, palette location,
-# etc can be made to improve visual appeal of the imagery.
+# to the nearest factor of five.  Further adjustments to rotation, palette location,
+# etc. can be made to improve visual appeal of the imagery.
 
-limits = [round(v/5)*5 for v in temperature_diff.MINMAX]
+limits = [(round(v / 5.0) * 5) for v in temperature_diff.MINMAX]
 temperature_diff.PALETTE[0].MINMAX = limits
 remote = session.show("remote")
 

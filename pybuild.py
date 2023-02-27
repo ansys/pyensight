@@ -155,7 +155,7 @@ def clean():
         os.path.join("src", "ansys", "api"),
         os.path.join("doc", "build"),
         os.path.join("doc", "source", "_autosummary"),
-        os.path.join("doc", "source", "_example"),
+        os.path.join("doc", "source", "_examples"),
     ]
     for path in paths:
         shutil.rmtree(path, ignore_errors=True)
