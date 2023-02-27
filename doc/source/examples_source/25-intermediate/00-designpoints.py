@@ -30,7 +30,7 @@ session = LocalLauncher().start()
 #
 # Here we use a remote session to load the two datasets into different
 # cases.  Note the names of the parts that are loaded, but the parts are
-# displayed over the top of each other.  Note this step can take a minute or more
+# displayed over the top of each other.  This step can take a minute or more
 # to download the data.
 
 session.load_example("elbow_dp0_dp1.ens")
@@ -88,24 +88,32 @@ session.show("image", width=800, height=600)
 # We color the "fluid" parts using the "Static_Temperature" variable and
 # assign specific parts to specific viewports.
 #
-# One note: a clone of the design point 0 fluid part is used to fill in
-# the geometry for the upper left viewport.   This frees up the original
-# part so that it can be displayed in the third viewport colored by the
-# difference field.
+# Loading the datasets created fluid parts for both of the loaded cases.
+# We need another part to display the temperature difference variable
+# in the lower pane. For this purpose, we use the "LPART" (part loader part)
+# to create a second instance of the first case "fluid" part.  We will
+# compute the difference field on this part to make it easier to display
+# all three at the same time.
 
 fluid0 = session.ensight.objs.core.PARTS["fluid"][0]
 fluid1 = session.ensight.objs.core.PARTS["fluid"][1]
+
+# Using an LPART: we find the ENS_LPART instance in the first case
+# for the part named "fluid".  If we load() this object, we get a
+# new instance of the case 0 "fluid" mesh.
+fluid0_diff = session.ensight.objs.core.CASES[0].LPARTS.find("fluid")[0].load()
+fluid0_diff.ELTREPRESENTATION = session.ensight.objs.enums.BORD_FULL
+
 # Get the temperature variable and color the fluid parts by it.
 temperature = session.ensight.objs.core.VARIABLES["Static_Temperature"][0]
+fluid0_diff.COLORBYPALETTE = temperature
 fluid0.COLORBYPALETTE = temperature
 fluid1.COLORBYPALETTE = temperature
-# Close the fluid part from the first case.
-session.ensight.part.clone(0, fluid0.PARTNUMBER)
-fluid0_clone = session.ensight.objs.core.PARTS.find("fluid *", wildcard=1)[0]
+
 # Each of the three parts should only be visible in one viewport.
-fluid0_clone.VIEWPORTVIS = session.ensight.objs.enums.VIEWPORT00
+fluid0.VIEWPORTVIS = session.ensight.objs.enums.VIEWPORT00
 fluid1.VIEWPORTVIS = session.ensight.objs.enums.VIEWPORT01
-fluid0.VIEWPORTVIS = session.ensight.objs.enums.VIEWPORT02
+fluid0_diff.VIEWPORTVIS = session.ensight.objs.enums.VIEWPORT02
 session.show("image", width=800, height=600)
 
 
@@ -117,14 +125,16 @@ session.show("image", width=800, height=600)
 #
 # Use the "CaseMapDiff" calculator function to compute the different between the
 # "Static_Temperature" fields between the two design points.  This defines a new
-# field "Temperature_Difference" on the "fluid0" part.
+# field "Temperature_Difference" on the "fluid0_diff" part.  Color that part
+# by the resulting variable.
 
-session.ensight.part.select_begin(fluid0.PARTNUMBER)
-session.ensight.variables.evaluate(
-    "Temperature_Difference = CaseMapDiff(plist, 2, Static_Temperature, 0, 1)"
+temperature_diff = session.ensight.objs.core.create_variable(
+    "Temperature_Difference",
+    value="CaseMapDiff(plist, 2, Static_Temperature, 0, 1)",
+    sources=[fluid0_diff],
 )
-temperature_diff = session.ensight.objs.core.VARIABLES["Temperature_Difference"][0]
-fluid0.COLORBYPALETTE = temperature_diff
+
+fluid0_diff.COLORBYPALETTE = temperature_diff
 session.show("image", width=800, height=600)
 
 
@@ -136,7 +146,7 @@ session.show("image", width=800, height=600)
 #
 # To make the visualization a bit easier to interpret, adjust the palette limits
 # to the nearest factor of five.  Further adjustments to rotation, palette location,
-# etc. can be made to improve visual appeal of the imagery.
+# etc can be made to improve visual appeal of the imagery.
 
 limits = [(round(v / 5.0) * 5) for v in temperature_diff.MINMAX]
 temperature_diff.PALETTE[0].MINMAX = limits
