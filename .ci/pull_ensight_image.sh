@@ -8,4 +8,6 @@ _IMAGE_NAME="ghcr.io/ansys/ensight_dev"
 docker pull $_IMAGE_NAME
 
 # Remove all dangling images
+docker container stop $(docker container ls -aq)
+docker container prune -f
 docker image prune -f
