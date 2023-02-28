@@ -62,4 +62,8 @@ def test_renderables(tmpdir):
     assert len(evsn) == 1
     assert len(png_local) == 2
     assert len(glb_local) == 1
-    session.close()
+    launcher.stop()
+    try:
+        session.close()
+    except:
+        pass

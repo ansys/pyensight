@@ -152,5 +152,8 @@ def test_async_events(tmpdir):
     # Close the session
     # -----------------
     # Close the connection and shut down the EnSight instance
-
-    session.close()
+    launcher.stop()
+    try:
+        session.close()
+    except:
+        pass
