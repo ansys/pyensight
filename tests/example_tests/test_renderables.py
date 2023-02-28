@@ -1,17 +1,25 @@
 import glob
-import os
+import os, shutil
 
 from ansys.pyensight import DockerLauncher, LocalLauncher
 
 
 def test_renderables(tmpdir):
     data_dir = tmpdir.mkdir("datadir")
+    shutil.copytree(
+        os.path.join(
+            os.path.dirname(__file__), 
+            "test_data", 
+            "guard_rail"
+        ), 
+        os.path.join(data_dir, "guard_rail")
+    )
     try:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     except Exception:
         launcher = LocalLauncher()
     session = launcher.start()
-    session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/guard_rail/crash.case")
+    session.load_data("/data/guard_rail/crash.case")
     # Apply displacements
     displacement = session.ensight.objs.core.VARIABLES["displacement"][0]
     session.ensight.objs.core.PARTS.set_attr("DISPLACEBY", displacement)

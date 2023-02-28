@@ -1,18 +1,26 @@
 import glob
-import os
+import os, shutil
 
 from ansys.pyensight import DockerLauncher, LocalLauncher
 
 
 def test_basic_usage(tmpdir):
     data_dir = tmpdir.mkdir("datadir")
+    shutil.copytree(
+        os.path.join(
+            os.path.dirname(__file__), 
+            "test_data", 
+            "cube"
+        ), 
+        os.path.join(data_dir, "cube")
+    )
     try:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     except Exception:
         launcher = LocalLauncher()
     session = launcher.start()
     core = session.ensight.objs.core
-    session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/cube/cube.case")
+    session.load_data("/data/cube/cube.case")
     session.ensight.view_transf.rotate(30, 30, 0)
     session.show("image", width=800, height=600)
     clip_default = core.DEFAULTPARTS[session.ensight.PART_CLIP_PLANE]
