@@ -5,8 +5,11 @@ set -ex
 _IMAGE_NAME="ghcr.io/ansys/ensight_dev"
 
 # Remove all dangling images
-docker stop $(docker ps -aq)
-docker rm $(docker ps -aq)
+containers=$(docker container ls -aq)
+if [ ! -z "$containers" ]; then
+    docker container stop $containers
+fi
+docker container prune -f
 docker image prune -f
 
 # Pull nexus image based on tag
