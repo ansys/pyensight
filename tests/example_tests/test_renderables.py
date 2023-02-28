@@ -1,5 +1,6 @@
 import glob
-import os, shutil
+import os
+import shutil
 
 from ansys.pyensight import DockerLauncher, LocalLauncher
 
@@ -7,12 +8,8 @@ from ansys.pyensight import DockerLauncher, LocalLauncher
 def test_renderables(tmpdir):
     data_dir = tmpdir.mkdir("datadir")
     shutil.copytree(
-        os.path.join(
-            os.path.dirname(__file__), 
-            "test_data", 
-            "guard_rail"
-        ), 
-        os.path.join(data_dir, "guard_rail")
+        os.path.join(os.path.dirname(__file__), "test_data", "guard_rail"),
+        os.path.join(data_dir, "guard_rail"),
     )
     try:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
@@ -65,5 +62,5 @@ def test_renderables(tmpdir):
     launcher.stop()
     try:
         session.close()
-    except:
+    except Exception:
         pass

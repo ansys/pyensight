@@ -1,5 +1,6 @@
 import glob
-import os, shutil
+import os
+import shutil
 
 from ansys.pyensight import DockerLauncher, LocalLauncher
 
@@ -7,12 +8,7 @@ from ansys.pyensight import DockerLauncher, LocalLauncher
 def test_basic_usage(tmpdir):
     data_dir = tmpdir.mkdir("datadir")
     shutil.copytree(
-        os.path.join(
-            os.path.dirname(__file__), 
-            "test_data", 
-            "cube"
-        ), 
-        os.path.join(data_dir, "cube")
+        os.path.join(os.path.dirname(__file__), "test_data", "cube"), os.path.join(data_dir, "cube")
     )
     try:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
@@ -60,5 +56,5 @@ def test_basic_usage(tmpdir):
     launcher.stop()
     try:
         session.close()
-    except:
+    except Exception:
         pass

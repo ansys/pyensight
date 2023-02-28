@@ -14,7 +14,8 @@ with different mechanisms for getting data values.
 # Start by launching and connecting to an instance of EnSight.
 # In this case, we use a local installation of EnSight.
 
-import os, shutil
+import os
+import shutil
 from urllib.parse import parse_qs, urlparse
 
 from ansys.pyensight import DockerLauncher, LocalLauncher
@@ -23,12 +24,8 @@ from ansys.pyensight import DockerLauncher, LocalLauncher
 def test_async_events(tmpdir):
     data_dir = tmpdir.mkdir("datadir")
     shutil.copytree(
-        os.path.join(
-            os.path.dirname(__file__), 
-            "test_data", 
-            "guard_rail"
-        ), 
-        os.path.join(data_dir, "guard_rail")
+        os.path.join(os.path.dirname(__file__), "test_data", "guard_rail"),
+        os.path.join(data_dir, "guard_rail"),
     )
     try:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
@@ -70,9 +67,7 @@ def test_async_events(tmpdir):
     # call.  The name of the attribute is always returned as "enum" and the id of the object
     # will be returned in "uid".
 
-    session.load_data(
-        "/data/guard_rail/crash.case"
-    )
+    session.load_data("/data/guard_rail/crash.case")
     session.show("remote")
 
     ###############################################################################
@@ -155,5 +150,5 @@ def test_async_events(tmpdir):
     launcher.stop()
     try:
         session.close()
-    except:
+    except Exception:
         pass
