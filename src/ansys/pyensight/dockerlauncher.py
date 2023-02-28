@@ -185,7 +185,6 @@ class DockerLauncher(pyensight.Launcher):
                 environment=container_env,
                 device_requests=[docker.types.DeviceRequest(count=-1, capabilities=[["gpu"]])],
                 ports=ports_to_map,
-                name="ensight",
                 tty=True,
                 detach=True,
             )
@@ -196,7 +195,6 @@ class DockerLauncher(pyensight.Launcher):
                 volumes=data_volume,
                 environment=container_env,
                 ports=ports_to_map,
-                name="ensight",
                 tty=True,
                 detach=True,
             )
