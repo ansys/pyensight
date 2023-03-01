@@ -9,6 +9,7 @@ Examples:
     ansys.pyensight.Session
 """
 import atexit
+import os.path
 import platform
 import time
 from typing import Any, Callable, Optional
@@ -685,7 +686,9 @@ class Session:
             if self.cmd(cmd) != 0:
                 raise RuntimeError("Unable to load the dataset.")
 
-    def load_example(self, example_name: str, root: Optional[str] = None) -> None:
+    def load_example(
+        self, example_name: str, uncompress: bool = False, root: Optional[str] = None
+    ) -> str:
         """Load an example dataset
         Download an EnSight session file from a known location and load it into
         the current EnSight instance.  The url for the dataset is formed by
@@ -694,9 +697,13 @@ class Session:
 
         Args:
             example_name:
-                The name of the EnSight session file (.ens) to download and load
+                The name of the EnSight session file (.ens) to download and load.
+            uncompress:
+                If True, unzip the downloaded file into the returned directory name.
             root:
                 The base url for the download.
+        Return:
+            The pathname to the downloaded file in the EnSight session.
 
         Example:
             ::
@@ -715,13 +722,25 @@ class Session:
         pathname = f"{self.launcher.session_directory}/{example_name}"
         script = "import requests\n"
         script += "import shutil\n"
+        script += "import os\n"
         script += f'url = "{uri}"\n'
         script += f'outpath = r"""{pathname}"""\n'
         script += "with requests.get(url, stream=True) as r:\n"
         script += "    with open(outpath, 'wb') as f:\n"
         script += "        shutil.copyfileobj(r.raw, f)\n"
-        script += "ensight.objs.ensxml_restore_file(outpath)\n"
+        if uncompress:
+            # in this case, remove the extension and unzip the file
+            pathname_dir = os.path.splitext(pathname)[0]
+            script += "outpath_dir = os.path.splitext(outpath)[0]\n"
+            script += "os.mkdir(outpath_dir)\n"
+            script += "shutil.unpack_archive(outpath, outpath_dir, 'zip')\n"
+            print(script)
+            # return the directory name
+            pathname = pathname_dir
+        else:
+            script += "ensight.objs.ensxml_restore_file(outpath)\n"
         self.cmd(script, do_eval=False)
+        return pathname
 
     def add_callback(
         self, target: Any, tag: str, attr_list: list, method: Callable, compress: bool = True

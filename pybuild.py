@@ -29,10 +29,10 @@ def find_exe(name: str):
     raise RuntimeError(f"Unable to find script {name}.  Is it installed?")
 
 
-def docs(full: bool = True):
+def docs(target: str = "html", full: bool = True):
     print("-" * 10, "Build sphinx docs")
     sphinx = find_exe("sphinx-build")
-    cmd = [sphinx, "-M", "html", "doc/source", "doc/build"]
+    cmd = [sphinx, "-M", target, "doc/source", "doc/build"]
     env = os.environ.copy()
     if not full:
         env["FASTDOCS"] = "1"
@@ -155,7 +155,7 @@ def clean():
         os.path.join("src", "ansys", "api"),
         os.path.join("doc", "build"),
         os.path.join("doc", "source", "_autosummary"),
-        os.path.join("doc", "source", "_example"),
+        os.path.join("doc", "source", "_examples"),
     ]
     for path in paths:
         shutil.rmtree(path, ignore_errors=True)
@@ -216,9 +216,11 @@ if __name__ == "__main__":
         generate()
         wheel()
     elif args.operation == "docs":
-        docs()
+        generate()
+        docs(target="html")
     elif args.operation == "fastdocs":
-        docs(full=False)
+        generate()
+        docs(target="html", full=False)
     elif args.operation == "all":
         clean()
         generate()
