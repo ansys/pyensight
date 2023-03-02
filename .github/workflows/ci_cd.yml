@@ -91,9 +91,21 @@ jobs:
       - name: Install test requirements
         run: pip install -r requirements/test.txt
 
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: docker
+        run: make pull-docker
+
       - name: Unit testing
         run: |
           make test
+        env:
+          ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
 
       - name: Upload coverage report
         if: ${{ !env.ACT }}

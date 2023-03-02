@@ -1,0 +1,16 @@
+# 
+# Thu Sep 29 15:30:07 2016
+# EnSight 10.2.0 ((a))
+# Case File: cubeE.case
+
+FORMAT
+type:                      ensight gold
+
+GEOMETRY
+model:                     cubeE.geo
+
+VARIABLE
+scalar per node:           temperature cubeE.temperature
+vector per node:           velocity cubeE.velocity
+#scalar per element:        temp_per_elem cubeE.temp_per_elem
+#vector per element:        velo_per_elem cubeE.velo_per_elem

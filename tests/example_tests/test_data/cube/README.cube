@@ -1,0 +1,9 @@
+This MPGS5 data set simulates internal heat flow and temperature 
+distributation over a cube object.
+
+The model consists of 8872 nodes and 7512 cells.
+
+This data set originated as a test case courtesy of FIDAP, and 
+subsequently translated to MPGS format.  This data set has had 
+some corrections made to it based on new features that we added 
+to MPGS 5.1.1 and later.
