@@ -1,15 +1,18 @@
 import glob
 import os
 
+import pytest
+
 from ansys.pyensight import DockerLauncher, LocalLauncher
 
 
-def test_designpoints(tmpdir):
+def test_designpoints(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
-    try:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
-    except Exception:
+    use_local = pytestconfig.getoption("use_local_launcher")
+    if use_local:
         launcher = LocalLauncher()
+    else:
+        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     session = launcher.start()
     session.load_example("elbow_dp0_dp1.ens")
     image = session.show("image", width=800, height=600)

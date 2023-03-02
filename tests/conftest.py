@@ -21,6 +21,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
         action="store",
         default="/ansys_inc/v222/",
     )
+    parser.addoption("--use-local-launcher", default=False, action="store_true")
 
 
 @pytest.fixture

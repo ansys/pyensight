@@ -18,19 +18,22 @@ import os
 import shutil
 from urllib.parse import parse_qs, urlparse
 
+import pytest
+
 from ansys.pyensight import DockerLauncher, LocalLauncher
 
 
-def test_async_events(tmpdir):
+def test_async_events(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
     shutil.copytree(
         os.path.join(os.path.dirname(__file__), "test_data", "guard_rail"),
         os.path.join(data_dir, "guard_rail"),
     )
-    try:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
-    except Exception:
+    use_local = pytestconfig.getoption("use_local_launcher")
+    if use_local:
         launcher = LocalLauncher()
+    else:
+        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     session = launcher.start()
     ###############################################################################
     # Simple event
@@ -67,7 +70,10 @@ def test_async_events(tmpdir):
     # call.  The name of the attribute is always returned as "enum" and the id of the object
     # will be returned in "uid".
 
-    session.load_data("/data/guard_rail/crash.case")
+    if use_local:
+        session.load_data(os.path.join(data_dir, "guard_rail", "crash.case"))
+    else:
+        session.load_data("/data/guard_rail/crash.case")
     session.show("remote")
 
     ###############################################################################

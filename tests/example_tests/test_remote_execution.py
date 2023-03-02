@@ -2,10 +2,12 @@ import os
 import shutil
 import time
 
+import pytest
+
 from ansys.pyensight import DockerLauncher, LocalLauncher
 
 
-def test_remote_execution(tmpdir):
+def test_remote_execution(tmpdir, pytestconfig: pytest.Config):
     def myfunc(ensight):
         names = []
         for p in ensight.objs.core.PARTS:
@@ -25,13 +27,18 @@ def test_remote_execution(tmpdir):
     data_dir = tmpdir.mkdir("datadir")
     shutil.copytree(
         os.path.join(os.path.dirname(__file__), "test_data", "guard_rail"),
-        os.path.join(data_dir, "cube"),
+        os.path.join(data_dir, "guard_rail"),
     )
-    try:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
-    except Exception:
+    use_local = pytestconfig.getoption("use_local_launcher")
+    if use_local:
         launcher = LocalLauncher()
+    else:
+        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     session = launcher.start()
+    if use_local:
+        session.load_data(os.path.join(data_dir, "guard_rail", "crash.case"))
+    else:
+        session.load_data("/data/guard_rail/crash.case")
     start = time.time()
     names = myfunc(session.ensight)
     print(f"Remote: {time.time()-start}")
