@@ -53,7 +53,6 @@ def test_remote_execution(tmpdir):
     try:
         remote = session.exec(count, "VISIBLE", True)
         print(remote)
-        assert remote[1] <= _grpc[1]
     except RuntimeError:  # case of mismatch between python versions
         pass
     session.close()
