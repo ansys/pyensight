@@ -6,6 +6,36 @@ on:
   workflow_dispatch:
 
 jobs:
+  smoketest:
+    name: Smoke test
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: [ '3.7', '3.8', '3.9', '3.10' ]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: 'refs/heads/main'
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install build requirements
+        run: pip install -r requirements/build.txt
+
+      - name: Create wheel
+        run: make build
+
+      - name: Install pyensight
+        run: make install
+
+      - name: Test import
+        run: make smoketest
+
   nightly:
     name: Nightly build
     runs-on: ubuntu-latest
@@ -27,6 +57,37 @@ jobs:
 
       - name: Validate wheel
         run: twine check dist/*
+
+      - name: Install pyensight
+        run: make install
+
+      - name: Install test requirements
+        run: pip install -r requirements/test.txt
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: docker
+        run: make pull-docker
+
+      - name: Unit testing
+        run: |
+          make test
+        env:
+          ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
+
+      - name: Upload coverage report
+        if: ${{ !env.ACT }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-html
+          path: coverage-html/
+          retention-days: 7
+          if-no-files-found: error
 
       - name: Upload to Ansys Azure PyPi
         if: ${{ !env.ACT }}
