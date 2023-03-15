@@ -93,7 +93,7 @@ session.ensight.query_ent_var.query()
 # use the query object.  EnSight object 'values' are monotonically
 # increasing numbers.  Thus, the 'max()' operation on a list
 # of EnSight objects will return the most recently created one.
-line_query = max(session.ensight.objs.core.QUERIES, key=lambda x: x.__OBJID__)
+line_query = max(session.ensight.objs.core.QUERIES)
 print(line_query, line_query.QUERY_DATA["xydata"])
 
 
@@ -173,7 +173,7 @@ for id in elem_ids:
     session.ensight.query_ent_var.end()
     session.ensight.query_ent_var.query()
     # Just like before, grab the query objects.
-    elem_queries.append(max(session.ensight.objs.core.QUERIES, key=lambda x: x.__OBJID__))
+    elem_queries.append(max(session.ensight.objs.core.QUERIES))
 print(elem_queries)
 
 
@@ -196,7 +196,7 @@ elem_plot.PLOTTITLE = "Elements vs Time"
 elem_plot.AXISXLABELFORMAT = "%.1f"
 elem_plot.AXISXGRIDTYPE = 1
 elem_plot.AXISYGRIDTYPE = 1
-session.show('animation', width=800, height=600, fps=5)
+session.show("animation", width=800, height=600, fps=5)
 
 
 ###############################################################################
@@ -217,7 +217,7 @@ fit = np.polyfit(data[:, 0], data[:, 1], 6)
 new_y = np.polyval(fit, data[:, 0])
 data[:, 1] = new_y
 session.ensight.query_xy_create("curvefit", "fit", "Distance", data.tolist())
-fit_query = max(session.ensight.objs.core.QUERIES, key=lambda x: x.__OBJID__)
+fit_query = max(session.ensight.objs.core.QUERIES)
 fit_query.addtoplot(line_plot)
 session.show("remote")
 
