@@ -263,6 +263,7 @@ class ProcessAPI:
         s += f"{indent}def {node.get('name')}(self"
         ret = ""
         arg_names = []
+        add_kwargs = False
         if node.get("tbl", None) is None:
             if self._is_unknown_function(node):
                 s += ", *args, **kwargs) -> Any:\n"
@@ -283,6 +284,7 @@ class ProcessAPI:
                 s += f"{indent}cmd = f'''{func}({{arg_string}})'''\n"
                 s += f"{indent}return self._session.cmd(cmd)\n"
                 arg_names.append("args")
+                add_kwargs = True
         else:
             for child in node:
                 if child.tag == "return":
@@ -314,6 +316,8 @@ class ProcessAPI:
             arg_string = "1"
         for _ in range(len(arg_names) - 1):
             arg_string += ",1"
+        if add_kwargs is True:
+            arg_string += ",0=0"
         api_name = node.get("ns") + "(" + arg_string + ")"
         self.api_assets_file += f"{classname},{method_name},,{api_name}\n"
         return s
