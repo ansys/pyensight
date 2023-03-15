@@ -223,6 +223,26 @@ class ProcessAPI:
                 s += f" = {node.text}"
         return s
 
+    @staticmethod
+    def _is_unknown_function(node) -> Optional[str]:
+        """Handle unknown functions like ensight.query_xy_create()
+
+        Definition: one arg named "args" of type "any" and no return
+        arg. In this case, generate *args, **kwargs generic bindings.
+
+        """
+        num_args = 0
+        for child in node:
+            if child.tag == "return":
+                return False
+            elif child.tag == "argument":
+                if child.get("type") != "Any":
+                    return False
+                num_args += 1
+                if num_args > 1:
+                    return False
+        return True
+
     def _process_method(
         self, node: ElementTree.Element, indent: str = "", classname: str = ""
     ) -> str:
@@ -243,36 +263,61 @@ class ProcessAPI:
         s += f"{indent}def {node.get('name')}(self"
         ret = ""
         arg_names = []
-        for child in node:
-            if child.tag == "return":
-                ret = child.get("type")
-            elif child.tag == "argument":
-                arg = self._process_argument(child)
-                arg_names.append(f"{{repr({child.get('name')})}}")
-                s += ", "
-                s += f"{arg}"
-        if ret:
-            s += f") -> {ret}:\n"
+        add_kwargs = False
+        if node.get("tbl", None) is None:
+            if self._is_unknown_function(node):
+                s += ", *args, **kwargs) -> Any:\n"
+                indent += "    "
+                desc = node.get("description", "")
+                desc = self._replace(node.get("ns"), default=desc, indent=indent)
+                if desc:
+                    desc = self._cap1(desc)
+                    s += f'{indent}"""{desc}\n'
+                    s += f'{indent}"""\n'
+                s += f"{indent}arg_list = []\n"
+                s += f"{indent}for arg in args:\n"
+                s += f"{indent}    arg_list.append(arg.__repr__())\n"
+                s += f"{indent}for key, value in kwargs.items():\n"
+                s += f'{indent}    arg_list.append(f"{{key}}={{value.__repr__()}}")\n'
+                s += f'{indent}arg_string = ",".join(arg_list)\n'
+                func = node.get("ns")
+                s += f"{indent}cmd = f'''{func}({{arg_string}})'''\n"
+                s += f"{indent}return self._session.cmd(cmd)\n"
+                arg_names.append("args")
+                add_kwargs = True
         else:
-            s += "):\n"
-        indent += "    "
-        desc = node.get("description", "")
-        desc = self._replace(node.get("ns"), default=desc, indent=indent)
-        if desc:
-            desc = self._cap1(desc)
-            s += f'{indent}"""{desc}\n'
-            s += f'{indent}"""\n'
-        s += f"{indent}cmd = f'''"
-        s += node.get("ns") + "("
-        s += ",".join(arg_names)
-        s += ")'''\n"
-        s += f"{indent}return self._session.cmd(cmd)\n"
+            for child in node:
+                if child.tag == "return":
+                    ret = child.get("type")
+                elif child.tag == "argument":
+                    arg = self._process_argument(child)
+                    arg_names.append(f"{{repr({child.get('name')})}}")
+                    s += ", "
+                    s += f"{arg}"
+            if ret:
+                s += f") -> {ret}:\n"
+            else:
+                s += "):\n"
+            indent += "    "
+            desc = node.get("description", "")
+            desc = self._replace(node.get("ns"), default=desc, indent=indent)
+            if desc:
+                desc = self._cap1(desc)
+                s += f'{indent}"""{desc}\n'
+                s += f'{indent}"""\n'
+            s += f"{indent}cmd = f'''"
+            s += node.get("ns") + "("
+            s += ",".join(arg_names)
+            s += ")'''\n"
+            s += f"{indent}return self._session.cmd(cmd)\n"
         method_name = node.get("name")
         arg_string = ""
         if arg_names:
             arg_string = "1"
         for _ in range(len(arg_names) - 1):
             arg_string += ",1"
+        if add_kwargs is True:
+            arg_string += ",0=0"
         api_name = node.get("ns") + "(" + arg_string + ")"
         self.api_assets_file += f"{classname},{method_name},,{api_name}\n"
         return s

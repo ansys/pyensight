@@ -130,7 +130,11 @@ class EnSightGRPC(object):
         # set up the channel
         self._channel = grpc.insecure_channel(
             "{}:{}".format(self._host, self._port),
-            options=[("grpc.max_receive_message_length", -1)],
+            options=[
+                ("grpc.max_receive_message_length", -1),
+                ("grpc.max_send_message_length", -1),
+                ("grpc.testing.fixed_reconnect_backoff_ms", 1100),
+            ],
         )
         try:
             grpc.channel_ready_future(self._channel).result(timeout=timeout)
