@@ -44,6 +44,12 @@ class ENSOBJ(object):
         self._attr_value = attr_value
         self._session.add_ensobj_instance(self)
 
+    def __eq__(self, obj):
+        return self._objid == obj._objid
+
+    def __lt__(self, obj):
+        return self._objid < obj._objid
+
     @property
     def __OBJID__(self) -> int:  # noqa: N802
         return self._objid
