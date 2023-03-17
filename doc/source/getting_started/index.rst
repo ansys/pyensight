@@ -4,23 +4,26 @@
 ===============
 Getting started
 ===============
-You will need a locally installed and licensed copy of ``Ansys EnSight`` to use  ``PyEnSight``,
-with the first supported version being 2022 R2.
+To use PyEnSight, you must have a locally installed and licensed copy of Ansys EnSight
+2022 R2 or later.
 
-To obtain a copy, please visit `Ansys EnSight <https://www.ansys.com/products/fluids/ansys-ensight>`_.
+To obtain a copy, see the `Ansys EnSight page <https://www.ansys.com/products/fluids/ansys-ensight>`_
+on the Ansys website.
 
 Installation
 ------------
-The ``ansys-pyensight`` package currently supports Python 3.7 through
+The ``ansys-pyensight`` package supports Python 3.7 through
 Python 3.10 on Windows and Linux.
 
-Install the latest ansys-pyensight release with:
+Install the latest package with this code:
 
 .. code::
 
    pip install ansys-pyensight
 
-For a local, "development" version under Linux:
+
+If you plan on doing local *development* of PyEnSight on Linux,
+install the latest package with this code:
 
 .. code::
 
@@ -32,8 +35,9 @@ For a local, "development" version under Linux:
    pip install -r requirements/dev.txt  # install dependencies
    make install-dev  # install pyensight in editable mode
 
-Similarly under Windows one can build the wheel using the 'pybuild.py'
-script:
+
+If you plan on doing local *development* of PyEnSight on Windows,
+build the wheel using a ``pybuild.py`` script like this one:
 
 .. code::
 
@@ -46,22 +50,24 @@ script:
    .\venv\Scripts\python.exe pybuild.py clean
    .\venv\Scripts\python.exe pybuild.py build
 
-Now you can start developing pyensight.
+
+Now you can start developing PyEnSight.
 
 
-Starting the EnSight session
-----------------------------
-The simplest PyEnSight session may be started like this:
+Start the EnSight session
+-------------------------
+The simplest way of starting an EnSight session is to use this code:
 
 .. code:: python
 
    from ansys.pyensight import LocalLauncher
    session = LocalLauncher().start()
 
-This code will look for a local Ansys software installation a use it to launch an
+
+The preceding code looks for a local Ansys software installation to use to launch an
 EnSight instance on the local system.
 
-Optionally, PyEnSight can work with an EnSight Docker container like this:
+Optionally, you can start an EnSight Docker container by using code like this:
 
 .. code:: python
 
@@ -70,23 +76,26 @@ Optionally, PyEnSight can work with an EnSight Docker container like this:
    launcher.pull()
    session = launcher.start()
 
+
 The ``data_directory`` keyword specifies the host directory to map into the container at the mount
 point /data within the container. This provides a method for EnSight running in the container
-to access the host's file system to read or write data.  The optional argument ``use_dev=True``
+to access the host's file system to read or write data. The optional argument ``use_dev=True``
 specifies that the latest development version of EnSight should be used.
 
-Running commands
-----------------
-At this point, the session interface may be used to interact with the running
-EnSight instance.   The 'cmd()' method will execute any Python string in
-the EnSight Python interpreter:
+Run commands
+------------
+Once an EnSight instance is running, you can use the session interface to interact with it.
+The ``cmd()`` method can execute any Python string in the EnSight Python interpreter.
+
+For example, this code returns the value 25.0:
 
 .. code:: python
 
     value = session.cmd("10.*2.5")
 
-will return the value 25.0.  One may load a dataset using the ``load_data()`` method and
-render the current scene into a png formatted stream with:
+
+This code uses the ``load_data()`` method to load a dataset and
+render the current scene into a PNG-formatted stream:
 
 .. code:: python
 
@@ -95,11 +104,12 @@ render the current scene into a png formatted stream with:
     with open("image.png", "wb") as f:
         f.write(image_data)
 
-The resulting image will be 1920x1080 and will have been rendered using 4x antialiasing.
 
-The current EnSight session can be viewed/interacted with via the web using the ``show()``
-method.  The method can create various graphical representations and will return a URL
-that can be used to view/interact with the representation.
+The resulting image, which is rendered using 4x antialiasing, is 1920x1080 pixels.
+
+You can use the ``show()`` method to view or interact with the current EnSight session
+via the web. This method supports creating various graphical representations and returns URLs
+for viewing or interacting with these representations.
 
 .. code:: python
 

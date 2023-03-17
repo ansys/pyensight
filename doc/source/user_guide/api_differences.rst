@@ -1,40 +1,41 @@
 .. _api_differences:
 
-PyEnSight/EnSight Python API Differences
-========================================
+Python API Differences in Ensight versus PyEnSight
+==================================================
 
-There are a few differences between the EnSight Python and and the
-PyEnSight API.  Generally, the 'ensight' module in EnSight and the
-Session.ensight class instance have the same interface.  Most
-source code written against that API will run in both environment.
+There are a few differences between the EnSight Python API and the
+PyEnSight API. Generally, the ``ensight`` module in EnSight and the
+``Session.ensight`` class instance have the same interface. Most
+source code written against this API runs in both environment.
 
-Free ENS_GROUP Objects
-^^^^^^^^^^^^^^^^^^^^^^
+Free ``ENS_GROUP`` objects
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In EnSight, the following is legal::
+In EnSight, the following code is legal::
 
     group = ensight.objs.core.create_group()
 
-This is not legal in PyEnSight as the target object ('group') does not exist
-in the EnSight session.  In general, methods that create fre ENS_GROUP
+
+This code is not legal in PyEnSight because the target object (*group*) does not exist
+in the EnSight session. In general, methods that create free ``ENS_GROUP``
 objects have been removed from the PyEnSight API.
 
-Object Class Specialization
+Object class specialization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In EnSight, ENS_PART proxy objects are used for all part types. Model,
-Clip and Iso-contours are all of class ENS_PART.  In PyEnSight,
-model parts are ENS_PART_MODEL class and clips are ENS_PART_CLIP class.
-These are both subclasses of ENS_PART in PyEnSight.  This mechanism
-applies to ENS_PART, ENS_ANNOT and ENS_TOOL.
+In EnSight, ``ENS_PART`` proxy objects are used for all part types. Model,
+Clip and Iso-contours are all of the ``ENS_PART`` class.  In PyEnSight,
+model parts are of the ``ENS_PART_MODEL`` class and clips are of the
+``ENS_PART_CLIP`` class. These are both subclasses of PyEnSight's ``ENS_PART``
+class. This mechanism applies to ``ENS_PART``, ``ENS_ANNOT``, and ``ENS_TOOL``
+classes.
 
-ENS_PART.get_values()
-^^^^^^^^^^^^^^^^^^^^^
+``ENS_PART.get_values()`` method
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ENS_PART get_values() method does not properly generate numpy
-arrays for the remote stream.  For the present, the method cannot
-be called directly.  It is possible to run the command by running
-more of the method remotely::
+The ``ENS_PART get_values()`` method does not properly generate numpy
+arrays for the remote stream. While this method cannot be called directly,
+you can generate numpy arrays for the remote stream by using this coe::
 
     shape = session.cmd("ensight.objs.core.PARTS[0].get_values(['Coordinates'])['Coordinates'].shape")
     s = session.cmd("ensight.objs.core.PARTS[0].get_values(['Coordinates'])['Coordinates'].tostring()")
