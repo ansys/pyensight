@@ -1,0 +1,104 @@
+<docstrings>
+
+<override namespace="ensight.batch">
+<description>
+Detect if EnSight is running in batch mode::
+
+    ensight.batch() -> int
+
+
+Returns:
+    If EnSight is running in batch mode, this function returns 1.
+
+</description>
+</override>
+
+<override namespace="ensight.objs.next_id">
+<description>
+Return the object id of the next object EnSight will allocate::
+
+    ensight.objs.next_id() -> int
+
+
+All EnSight objects have a unique object ID.  These IDs are monotonically increasing.
+This function returns the id number that EnSight will assign to the next object that
+it creates.  It can be used to detect if an object is new, relative to when this function
+is called.
+
+
+Returns:
+    The ENSOBJ object id of the next allocated object.
+
+</description>
+</override>
+
+<override namespace="ensight.objs.wrap_id">
+<description>
+Return the Python proxy object for a specific EnSight object id::
+
+    ensight.objs.wrap_id(id: int) -> ENSOBJ
+
+
+The EnSight Python object interface uses proxy objects.  This method creates
+a proxy object associated with a given object id.  If the specified id does
+not exist, a RuntimeError exception is raised.
+
+Args:
+    id:
+        An object id number.
+
+
+Returns:
+    The ENSOBJ proxy object associated with the specified id.
+
+</description>
+</override>
+
+<override namespace="ensight.objs.valid_id">
+<description>
+Check to see if a given id corresponds to an existing EnSight object::
+
+    ensight.objs.valid_id(id: int) -> bool
+
+
+Args:
+    id:
+        An object id number.
+
+
+Returns:
+    True if the EnSight object with the passed id currently exists.
+
+</description>
+</override>
+
+<override namespace="ensight.objs.enum_to_name">
+<description>
+Convert an attribute id into the associated string name::
+
+    ensight.objs.enum_to_name(attrid: int) -> str
+
+
+For a given attribute id, return the ASCII name of the
+attribute.  If the input id is not a valid attribute,
+a RuntimeError will be raised.
+
+
+Args:
+    attrid:
+        An attribute id number.
+
+
+Returns:
+    The string name for the attribute number.
+
+Example:
+    ::
+
+        ensight.objs.enum_to_name(1610613151)
+        'NODEVARIABLE'
+
+</description>
+</override>
+
+</docstrings>

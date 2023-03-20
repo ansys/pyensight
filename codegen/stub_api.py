@@ -639,7 +639,7 @@ class ProcessAPI:
         s = s.replace("__ATTRIBUTES__", attributes)
         filename = classname.lower() + ".py"
         pathname = os.path.join(self._dirname, filename)
-        with open(pathname, "w") as fp:
+        with open(pathname, "w", encoding='utf-8') as fp:
             fp.write(s)
         return f"from ansys.pyensight.{classname.lower()} import {classname}\n"
 
