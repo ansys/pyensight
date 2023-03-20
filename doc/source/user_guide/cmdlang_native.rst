@@ -129,7 +129,7 @@ The **File** menu provides two items to execute the current file text in the EnS
 interpreter. The **Run script** option causes the file contents to be executed in the global
 namespace (for example, like the ``execfile()`` function). The **Import script as module**
 option first saves the current file to disk and then executes a Python import operation on the
-file, which executes in a private namespace. Both optons check the syntax of the current
+file, which executes in a private namespace. Both options check the syntax of the current
 file and allow for rapid prototyping.
 
 Special cases
