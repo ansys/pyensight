@@ -57,7 +57,7 @@
 User guide
 ==========
 
-In these pages we will describe the relationship between the various EnSight Python
+This section explains the relationship between the various EnSight Python
 interfaces and the EnSight core.
 
 .. toctree::
@@ -72,177 +72,182 @@ interfaces and the EnSight core.
 EnSight and PyEnSight Interfaces
 --------------------------------
 
-There is a Python interpreter embedded in the EnSight desktop application.  In
-general that interpreter is referred to as the 'EnSight' or 'embedded' interpreter.
-This interface is based on a built-in 'ensight' module that cannot be imported
-into any other interpreter.  It is the fastest Python interface to EnSight and
+There is a Python interpreter embedded in the EnSight desktop app. In
+general, this interpreter is referred to as EnSight or the *embedded* interpreter.
+This interface is based on a built-in ``ensight`` module that cannot be imported
+into any other interpreter. It is the fastest Python interface to EnSight, and
 much of EnSight itself is written in Python running in this interpreter.
 
-The other interface is PyEnSight.  This interface is implemented as a portable
-wheel and can be installed in most any Python interpreter.  The interface provided
-by this component resides in the ansys.pyensight module.  It is a 'remote' interface
+The other interface is PyEnSight. This interface is implemented as a portable
+wheel and can be installed in most any Python interpreter. The interface provided
+by this component resides in the ``ansys.pyensight`` module. It is a *remote* interface
 in that it actually starts an independent EnSight instance in another process and
-connects to it.  Over that connection, the pyensight interface makes it possible
+connects to it. Over this connection, the PyEnSight interface makes it possible
 to execute Python commands in the embedded interpreter and return results.
-The pyensight interface has a nearly identical API to the embedded interface
-so code written for one interface will basically work in the other if the code
-is structured properly.  See: :ref:`api_differences` for more differences.
+Because the PyEnSight interface has a nearly identical API to the embedded interfac,
+code written for one interface basically works in the other interface, providing
+that the code is structured properly. For information on API differences, see
+:ref:`api_differences`.
 
 
-History: Native and Object APIs
+History: Native and object APIs
 -------------------------------
 
-The EnSight application has always has a journaling language, often referred to
-as 'command language' or 'cmdlang'.  This system made it possible to view and
-review every interaction in EnSight as a command stream and users could play
-back the journal streams to automate tasks.
+EnSight has always had a journaling language, often referred to
+as the *command language* or *cmdlang*. This hournaling language makes
+it possible to view and review every interaction in EnSight as a command
+stream. You can play back the journal streams to automate tasks.
 
-Around EnSight 9.x, an embedded Python interpreter was introduced into the EnSight
-core.  The initial language binding to EnSight was via the 'native API'.  The native
-API is derived from the EnSight journaling language.  It is basically a direct Python
-mapping with object specific conversion operations to simplify the interface.  See
-:ref:`ref_cmdlang_native` for more details.  This interface is the most complete
-interface to EnSight and there are tools in the EnSight script editor that allow
-for the conversion of blocks of command language into this Python API.
+In an EnSight 9.x release, an embedded Python interpreter was introduced into the
+EnSight core. The initial language binding to EnSight was via the *native API*. The
+native API is derived from the EnSight journaling language. It is basically a direct
+Python mapping with object-specific conversion operations to simplify the interface.
+For more information, see :ref:`ref_cmdlang_native`. This interface is the most
+complete interface to EnSight. The EnSight script editor provides tools for the
+conversion of blocks of command language into this Python API.
 
-As the sophistication of Python scripts increased, users began to run into limitations
-in the journal-based interface.  In response, the object API was developed.
-The object API is a direct interface to the core C++ EnSight objects.  It is a
+As the sophistication of Python scripts increased, limitations in the
+journal-based interface were exposed. In response, the *object API* was developed.
+The object API is a direct interface to the core C++ EnSight objects. It is a
 proxy interface that exposes C++ object attribute interfaces as Python
-properties.  The advantages of the object API is support for fine grained
-queries and event handling. See :ref:`ref_object_api` for more details.  This
-API does not as of yet cover all of the ground the native API does, but it
-allows for more interactive and reactive components interfaces to be used.
-So much so, that a significant portion of the EnSight GUI is written using
+properties. The advantages of the object API is support for fine-grained
+queries and event handling. For more information, see :ref:`ref_object_api`.
+This API does not yet cover everything the native API does, but it
+allows for using more interactive and reactive component interfaces.
+Because of this, a significant portion of the EnSight GUI is written using
 this API.
 
 .. _ensight_architecture:
 
-EnSight Architecture
+EnSight architecture
 --------------------
 
-The EnSight Python APIs reflect the core EnSight architecture.  Specifically,
+The EnSight Python APIs reflect the core EnSight architecture. Specifically,
 they reflect the various objects inside of EnSight and their relationships.
-The interface to these objects is largely a collection of properties. Note,
-these are properties in the PyEnSight interface.  The core interface refers to
-them as attributes and properties almost interchangeably in documentation.
+The interface to these objects is largely a collection of properties. Note
+that these are properties in the PyEnSight interface. The documentation for
+the core interface refers to them as attributes and properties almost
+interchangeably.
 
-There are two types of objects in EnSight.  The first set are part of the code and are
-generally created automatically at startup.
-Note: in the following sections, many of the core classes are described in brief.  This
-is not a complete list, only commonly used objects.
+There are two types of objects in EnSight. The first set are parts of the code
+that are generally created automatically at startup.
+
+.. note::
+   The following sections briefly describe many of the core classes. However, 
+   they do not describe all core classes but only commonly used objects.
 
 There are two unique concepts in the EnSight architecture that are important in
-helping explain core EnSight behavior.  The first is the idea of hierarchical property filtering
-and the second being the concept of default objects.
+helping explain core EnSight behavior. The first is the idea of hierarchical
+property filtering. The second is the concept of default objects.
 
-Hierarchical Property Filters
+Hierarchical property filters
 `````````````````````````````
 
-A number of properties have "global" versions as well as per-object versions.
-Often a specific visual property must be enabled globally and then the
-object specific value is applied.  This can happen at different levels in
-the visible object tree.  Consider the hidden line property: HIDDENLINE.  This property can
-be set on ENS_PART, ENS_VPORT and ENS_GLOBAL levels.  In the object API::
+A number of properties have *global* versions as well as per-object versions.
+Often a specific visual property must be enabled globally before the
+object-specific value can be applied. This can happen at different levels in
+the visible object tree. Consider the hidden line property: ``HIDDENLINE``.
+This property can be set on these levels: ``ENS_PART``, ``ENS_VPORT``, and
+``ENS_GLOBAL``. Here is an example in the object API::
 
     print(ensight.objs.core.HIDDENLINE)
     print(ensight.objs.core.VPORTS[0].HIDDENLINE)
     print(ensight.objs.core.PARTS[0].HIDDENLINE)
 
-If the property is False at the ENS_PART level, hidden lines will never be displayed on that part.
-If the property is False at the ENS_VPORT level, no hidden lines will be displayed on
-any parts that might be viable (and have HIDDENLINE True) in the specific ENS_VPORT.
-If the property is False at the ENS_GLOBAL level (ensight.objs.core) then no hidden lines
-will be displayed on any parts in any viewports.
+If the property is ``False`` at the ``ENS_PART`` level, hidden lines are never
+displayed on that part. If the property is ``False`` at the ``ENS_VPORT`` level,
+no hidden lines are displayed on any parts that might be viable (and have ``HIDDENLINE``
+set to ``True``) in the specific ``ENS_VPORT`` level. If the property is ``False``
+at the ``ENS_GLOBAL`` level (``ensight.objs.core``), then no hidden lines
+are displayed on any parts in any viewports.
 
 
-Default Objects
+Default objects
 ```````````````
 
-The default object is a key concept for EnSight.  To create a new object in EnSight,
-one will often set up the properties on a fake, "default" object and then make a "create"
-call to realize a new object of that type.  The new object will have the same properties
-as the current default object properties.  Specific examples
-are covered in the :ref:`ref_object_api` and :ref:`ref_cmdlang_native`
-sections.
+The default object is a key concept for EnSight. To create a new object in EnSight,
+you often set up the properties on a fake *default* object and then make a *create*
+call to realize a new object of this type. The new object has the same properties
+as the current default object properties. For examples, see :ref:`ref_object_api`
+and :ref:`ref_cmdlang_native`.
 
 
-Common Static Objects
+Common static objects
 `````````````````````
 
-There are fixed number of each of these objects and they are all allocated
-statically at startup.  The Python API allows for attributes on these objects
-to be modified and their status queried.  The key object is ENS_GLOBAL which
-is accessed via ensight.objs.core.  Properties on the ENS_GLOBAL object can generally
-access all of the other objects in the system.
-The various properties on these objects are documented here: :ref:`ref_api_docs`.
+There are a fixed number of each of the common static objects that are all allocated
+statically at startup. The Python API allows you to modify the attributes on these objects
+and query their statuses. The key object is ``ENS_GLOBAL``, which is accessed via
+``ensight.objs.core``. Properties on the ``ENS_GLOBAL`` object can generally
+access all of the other objects in the system. For descriptions of the properties on
+these objects, see :ref:`ref_api_docs`.
 
 ================ ==================================================
 Class            Description
 ================ ==================================================
-|CAMERA|         Cameras are used to set up views of the current scene.
-                 They can be associated with viewports and attached to
-                 polylines, nodes and other graphics entities.
-|CASE|           Case objects are used to read a dataset.  There are a
-                 fixed number of case objects that can be active and
-                 each case can load a dataset in a different format.
-|GLOBALS|        The globals object provides an interface to the
-                 core EnSight state.  All of the objects
-                 cane be accessed via properties on this object.
+|CAMERA|         ``CAMERA`` objects are used to set up views of the current
+                 scene. They can be associated with viewports and attached to
+                 polylines, nodes, and other graphics entities.
+|CASE|           ``CASE`` objects are used to read a dataset. There are a
+                 fixed number of case objects that can be active.
+                 Each case can load a dataset in a different format.
+|GLOBALS|        The ``GLOBALS`` object provides an interface to the
+                 core EnSight state. All objects can be accessed via
+                 the properties on the ``GLOBALS`` object.
 |LIGHTSOURCE|    The EnSight scene supports a finite number of
-                 preallocated lighting sources.  These objects
+                 preallocated lighting sources. ``LIGHTSOURCE`` objects
                  provide the interface to the light properties.
-|PROBE|          The probe object allows for creation of spatial data
-                 probes.  The result of probe queries can be
-                 accessed via this object.
-|TEXTURE|        Texture object maintain the pixel arrays that can
+|PROBE|          The ``PROBE`` object allows for creation of spatial data
+                 probes. The result of probe queries can be
+                 accessed via the ``PROBE`` object.
+|TEXTURE|        The ``TEXTURE`` object maintains the pixel arrays that can
                  be applied via projective or explicit texture coordinates.
-|TOOL|           Tools are spatial input devices in the scene.  They
+|TOOL|           ``Tool`` objects are spatial input devices in the scene. They
                  allow for the selection of points, regions of space,
-                 reference lines/planes, etc.  There are several
-                 unique tools types.  The PyEnSight API uses these
+                 reference lines or planes, and more. There are several
+                 unique tool types. The PyEnSight API uses these
                  subclasses for each tool singleton.
 
                  =================== ===========================================
                  Subclass            Description
                  =================== ===========================================
-                 |TOOL_BOX|          box.
-                 |TOOL_CONE|         line segment with a base radius.
-                 |TOOL_SPHERE|       sphere.
-                 |TOOL_CURSOR|       single point.
-                 |TOOL_CYLINDER|     line segment with fixed radius.
-                 |TOOL_LINE|         line segment.
-                 |TOOL_PLANE|        bounded plane.
-                 |TOOL_REVOLUTION|   line segment with a list of radii.
+                 |TOOL_BOX|          Box.
+                 |TOOL_CONE|         Line segment with a base radius.
+                 |TOOL_SPHERE|       Sphere.
+                 |TOOL_CURSOR|       Single point.
+                 |TOOL_CYLINDER|     Line segment with a fixed radius.
+                 |TOOL_LINE|         Line segment.
+                 |TOOL_PLANE|        Bounded plane.
+                 |TOOL_REVOLUTION|   Line segment with a list of radii.
                  =================== ===========================================
 
 |VPORT|          There are a fixed number of independent viewports.
-                 Each viewport has an independent camera/projection
-                 and the visibility of all 3D objects can be specified
+                 Each ``VPORT`` object has an independent camera or projection.
+                 The visibility of all 3D objects can be specified
                  independently for each viewport.
 ================ ==================================================
 
 
-Common Dynamic Objects
+Common dynamic objects
 ``````````````````````
 
-There are fixed number of each of these objects and they are all allocated
-statically at startup.  The Python API allows for attributes on these objects
-to be modified and their status queried.
+There are a fixed number of each common dynamic object that are all allocated
+statically at startup. The Python API allows you to modify attributes on these
+objects and query their statuses.
 
 Many of the dynamically created objects are created implicitly through other
-objects.  For example, part objects are created from lpart objects and legend
-objects are created automatically when variable objects are created.  Other
-objects (e.g., annotation objects and derived part objects like clips) are
-created using "default" objects.
-The various properties on these objects are documented here: :ref:`ref_api_docs`.
+objects. For example, part objects are created from lpart objects and legend
+objects are created automatically when variable objects are created. Other
+objects (such as annotation objects and derived part objects like clips) are
+created using *default* objects. For descriptions of the properties on
+these objects, see :ref:`ref_api_docs`.
 
 ================ ==================================================
 Class            Description
 ================ ==================================================
-|ANNOT|          Annotation base class.  Annotations are mostly 2D objects that
-                 overlay the 3D scene.  Things like text blocks, lines, etc.
-                 There are more complex types, for example a legend annotation
+|ANNOT|          Provides the base class for annotation. Annotations are mostly
+                 2D objects that overlay the 3D scene, such as text blocks and lines.
+                 However, there are more complex types. For example, a legend annotation
                  is used to display the palette associated with a variable.
                  The PyEnSight API uses specific subclasses for each annotation
                  type.
@@ -251,53 +256,54 @@ Class            Description
                  Subclass        Description
                  =============== ===============================================
                  |ANNOT_ARROW|   3D arrow pointing at a location in data space.
-                 |ANNOT_DIAL|    display of a constant variable as a dial.
-                 |ANNOT_GAUGE|   display of a constant variable as a linear gauge.
-                 |ANNOT_LGND|    legend representation of a variable palette.
-                                 Note: these are only created by ENS_VAR objects.
-                 |ANNOT_LINE|    single line.
-                 |ANNOT_LOGO|    image annotation.
-                 |ANNOT_SHAPE|   generic 2D shapes: box, circle and 2D arrow.
-                 |ANNOT_TEXT|    block of 2D overlay text.
+                 |ANNOT_DIAL|    Display of a constant variable as a dial.
+                 |ANNOT_GAUGE|   Display of a constant variable as a linear gauge.
+                 |ANNOT_LGND|    Legend representation of a variable palette.
+                                 Note: These are only created by ``ENS_VAR`` objects.
+                 |ANNOT_LINE|    Single line.
+                 |ANNOT_LOGO|    Image annotation.
+                 |ANNOT_SHAPE|   Generic 2D shapes, such as a box, circle, and 2D arrow.
+                 |ANNOT_TEXT|    Block of 2D overlay text.
                  =============== ===============================================
 
-|GROUP|          Group objects play two roles.  First, they provide a
-                 hierarchical interface to collections of ENS_PART, ENS_LPART
-                 objects for display in the GUI or general organization.  Second,
-                 groups can be the output of a find operation, which can be handy
-                 since they support fast, recursive, bulk property changes.
-|LPART|          The LPART object represents an unloaded mesh object in a dataset.
-                 LPART objects are created by ENS_CASE objects when a case loads a dataset.
-                 The LPART object is used to create ENS_PART objects from a dataset.
-                 In most cases, these objects are automatically leveraged when a
-                 dataset is loaded.
-|PALETTE|        These objects are allocated dynamically, but only indirectly under user
-                 control. Every ENS_VARIABLE object has one or more ENS_PALETTE objects.
-                 One for scalars and four for vectors ([X],[Y],[Z],mag).
-|PART|           A PART object represents a block of geometry in the current scene.  The
-                 geometry can come from the dataset on disk (via an LPART) or it can come
-                 from part "creation" methods for example: iso-contour, clips, profiles,
-                 vortex cores, etc.
+|GROUP|          ``GROUP`` objects play two roles. First, they provide a
+                 hierarchical interface to collections of ``ENS_PART`` and ``ENS_LPART``
+                 objects for display in the GUI or general organization. Second,
+                 ``GROUP`` objects can be the output of a find operation, which can be handy
+                 because they support fast, recursive, bulk property changes.
+|LPART|          The ``LPART`` object represents an unloaded mesh object in a dataset.
+                 These objects are created by ``ENS_CASE`` objects when a case loads a
+                 dataset. The ``LPART`` object is used to create ``ENS_PART`` objects
+                 from a dataset. In most cases, these objects are automatically leveraged
+                 when a dataset is loaded.
+|PALETTE|        ``PALETTE`` objects are allocated dynamically, but only indirectly under user
+                 control. Every ``ENS_VARIABLE`` object has one or more ``ENS_PALETTE``
+                 objects. For example, a ``ENS_VARIABLE`` object has one ``ENS_PALETTE`` object
+                 for scalars and four ``ENS_PALETTE`` objects for vectors ([X],[Y],[Z],mag).
+|PART|           A ``PART`` object represents a block of geometry in the current scene. The
+                 geometry can come from the dataset on disk (via an ``LPART`` object), or it
+                 can come from part *creation* methods. For example, a geometry can come
+                 from creating such parts as iso-contours, clips, profiles, and vortex cores.
                  The PyEnSight API uses specific subclasses for each annotation
-                 type.  They all represent a mesh consisting of a collection of elements.
-                 Usually these are located in the EnSight server, but in some cases they
-                 are realized in the client.
+                 type. They all represent a mesh consisting of a collection of elements.
+                 Usually these are located on the EnSight server, but in some cases they
+                 are realized on the client.
 
                  ========================== ======================================================
                  Subclass                   Description
                  ========================== ======================================================
                  |PART_AUX_GEOM|            An auxiliary geometry part allows for scripted creation
                                             of objects like boxes that can be used in other
-                                            calculations or to enhance visualizations (e.g., for a
-                                            backdrop).
-                 |PART_BUILT_UP|            This part is more commonly known as a "subset" part. It
-                                            allows for collections of elements/nodes to be selected
-                                            from a set of input parts.  These are merged into this
+                                            calculations or to enhance visualizations. An example
+                                            is a backdrop.
+                 |PART_BUILT_UP|            This part is more commonly known as a *subset* part. It
+                                            allows for collections of elements and nodes to be selected
+                                            from a set of input parts. These are merged into this
                                             part.
-                 |PART_CLIP|                Created by clipping a parent set of parts.
-                 |PART_CONTOUR|             The result of contouring a parent set of parts.
+                 |PART_CLIP|                This part is created by clipping a parent set of parts.
+                 |PART_CONTOUR|             The part is a result of contouring a parent set of parts.
                  |PART_DEVELOPED_SURFACE|   A developed surface is generated by treating any
-                                            2D Part (or parent Part) as a surface of revolution,
+                                            2D part (or parent part) as a surface of revolution
                                             and mapping specific curvilinear coordinates of the
                                             revolved surface into a planar representation.
                  |PART_ELEVATED_SURFACE|    For a given collection of 2D parent parts, this
@@ -307,7 +313,7 @@ Class            Description
                  |PART_FILTER|              A filter part is created by applying a collection of
                                             variable range filters to a collection of parent parts.
                  |PART_FX_SEP_ATT|          Separation and attachment lines can be created on
-                                            2D surfaces.  These help visualize areas where flow
+                                            2D surfaces. These help visualize areas where flow
                                             abruptly leaves or returns to the 2D surface in 3D flow
                                             fields.
                  |PART_FX_SHOCK|            Shock region parts help visualize shock waves in a 3D
@@ -318,36 +324,36 @@ Class            Description
                  |PART_FX_VORTEX_CORE|      Vortex cores help visualize the centers of swirling
                                             flow in a flow field. EnSight creates vortex core
                                             segments from the velocity gradient tensor of 3D flow
-                                            field part(s).
-                 |PART_ISOSURFACE|          Created by applying isosurfacing to a parent set of
-                                            parts.
-                 |PART_MODEL|               Read from a dataset via an LPART.
+                                            field parts.
+                 |PART_ISOSURFACE|          This part is created by applying isosurfacing to a parent
+                                            set of parts.
+                 |PART_MODEL|               This part is read from a dataset via an ``LPART`` object.
                  |PART_PARTICLE_TRACE|      Particle traces generated by integrating points
                                             through a vector field defined on a collection of
                                             parent parts.
-                 |PART_POINT|               This part can be created via API or from a file.  It is
-                                            a list of points.  Commonly, the point tool is used to
+                 |PART_POINT|               This part can be created via the API or from a file. It is
+                                            a list of points. Commonly, the point tool is used to
                                             generate these parts.
                  |PART_PROFILE|             Profile parts are created by combining a 1D entity
-                                            (line clip, contour, particle trace) with a surface
-                                            part.  The profile of a specific variable, sampled over
-                                            the 1D entity is captured in a profile part.
+                                            (such as a line clip, contour, or particle trace) with a
+                                            surface part. The profile of a specific variable, sampled
+                                            over the 1D entity, is captured in a profile part.
                  |PART_TENSOR_GLYPH|        A part representing a tensor field on a collection of
                                             parts as a collection of orientated and colored glyphs.
                  |PART_VECTOR_ARROW|        A part representing a vector field on a collection of
                                             parts as a collection of orientated and colored arrows.
                  ========================== ======================================================
 
-|PLOTTER|        A plotter object is a visual frame for displaying one or more ENS_QUERY objects.
-                 It includes axis, title, backgrounds, borders, legends, etc.
-|POLYLINE|       Polyline objects are called splines in EnSight.  They can be used to set up
+|PLOTTER|        A ``PLOTTER`` object is a visual frame for displaying one or more ``ENS_QUERY``
+                 objects. It includes axes, titles, backgrounds, borders, and legends.
+|POLYLINE|       In EnSight, ``POLYLINE`` objects are called splines. They can be used to set up
                  things like camera paths.
-|QUERY|          Query objects represent y = f(x) data.  This data can come directly from a dataset,
-                 created when the ENS_CASE object loads a dataset, or queries can be created using
-                 loaded/computed data.  For example, one could query the values of pressure along
-                 a line segment through a PART of volumetric elements.
-|VAR|            Variable objects represent a specific field variable, case or part constant.
-                 The base object contains the metadata associated with the variable (e.g.,
-                 ranges, etc).  Variables can be introduced directly from datasets, but they
+|QUERY|          A ``QUERY``object represents ``y = f(x)`` data. This data can come directly from a
+                 dataset, created when the ``ENS_CASE`` object loads a dataset. Or, queries can be
+                 created using loaded or computed data. For example, you could query the values of
+                 pressure along a line segment through a ``PART`` object of volumetric elements.
+|VAR|            A ``VAR`` object represents a specific field variable, case, or part constant.
+                 The base object contains the metadata associated with the variable, such as
+                 ranges. Variables can be introduced directly from datasets, but they
                  can also be created using calculator functions.
 ================ ==================================================
