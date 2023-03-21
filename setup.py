@@ -1,7 +1,7 @@
 """The setup script."""
 import os
 
-from setuptools import find_namespace_packages, setup
+from setuptools import find_namespace_packages, find_packages, setup
 
 REQUIREMENTS = [
     "protobuf>=3.9.1",
@@ -25,9 +25,10 @@ with open(_version_file) as fp:
 version = _version["VERSION"]
 
 packages = []
-for package in find_namespace_packages(where="src", include="ansys*"):
-    if package.startswith("ansys.pyensight") or package.startswith("ansys.api"):
+for package in find_namespace_packages(where="src", include=("ansys*")):
+    if package.startswith("ansys.pyensight") or package.startswith("ansys.api") or package.startswith("tests"):
         packages.append(package)
+
 
 setup(
     name="ansys-ensight",
@@ -41,7 +42,7 @@ setup(
     maintainer_email="pyansys.maintainers@ansys.com",
     license="MIT",
     packages=packages,
-    package_dir={"": "src"},
+    package_dir = {"": "src"},
     include_package_data=True,
     zip_safe=False,
     classifiers=[
@@ -65,5 +66,5 @@ setup(
     python_requires=">=3.7",
     keywords="ensight pyensight pyansys ansys",
     test_suite="tests",
-    install_requires=REQUIREMENTS,
+    install_requires=REQUIREMENTS 
 )
