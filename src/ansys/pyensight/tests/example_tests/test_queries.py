@@ -1,4 +1,5 @@
 import glob
+from operator import attrgetter
 import os
 
 import numpy as np
@@ -58,7 +59,7 @@ def test_queries(tmpdir, pytestconfig: pytest.Config):
     # use the query object.  EnSight object 'values' are monotonically
     # increasing numbers.  Thus, the 'max()' operation on a list
     # of EnSight objects will return the most recently created one.
-    line_query = max(session.ensight.objs.core.QUERIES)
+    line_query = max(session.ensight.objs.core.QUERIES, key=attrgetter("__OBJID__"))
     print(line_query, line_query.QUERY_DATA["xydata"])
     line_plot = session.ensight.objs.core.defaultplot[0].createplotter()
     line_query.addtoplot(line_plot)
@@ -112,7 +113,7 @@ def test_queries(tmpdir, pytestconfig: pytest.Config):
         session.ensight.query_ent_var.end()
         session.ensight.query_ent_var.query()
         # Just like before, grab the query objects.
-        elem_queries.append(max(session.ensight.objs.core.QUERIES))
+        elem_queries.append(max(session.ensight.objs.core.QUERIES, key=attrgetter("__OBJID__")))
     print(elem_queries)
     elem_plot = session.ensight.objs.core.defaultplot[0].createplotter(
         xtitle="Time", ytitle=var.DESCRIPTION
