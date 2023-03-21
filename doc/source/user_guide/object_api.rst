@@ -43,7 +43,7 @@ those types are provided::
 
 
 Interface root: ``ensight.objs`` module
---------------------------------------
+---------------------------------------
 
 The session ``ensight.objs`` module serves as the access point into the object interface.
 All other EnSight objects can be accessed from methods and objects in this
@@ -54,7 +54,7 @@ and manipulating object IDs.
 
 
 Global state: ``ensight.objs.core``
--------------------------------
+-----------------------------------
 
 Access to the global state of the EnSight session is stored in an ``ENS_GLOBALS`` singleton object
 accessed by the :samp:`session.ensight.objs.core` object. All other object instances can be
