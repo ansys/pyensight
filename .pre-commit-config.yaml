@@ -28,7 +28,7 @@ repos:
         args: [  # black ignores files in .gitignore by default
             --line-length, "100",
             --target-version, "py37",
-            src/ansys, codegen, doc, tests
+            src/ansys, codegen, doc
         ]
       - id: isort
         name: isort
