@@ -1,9 +1,7 @@
 include src/ansys/pyensight/deep_pixel_view.html
 include src/ansys/pyensight/sgeo_poll.html
-include src/ansys/pyensight/tests/*.py
-include src/ansys/pyensight/tests/unit_tests/*.py
-include src/ansys/pyensight/tests/unit_tests/*.txt
-include src/ansys/pyensight/tests/example_tests/*.py
-include src/ansys/pyensight/tests/example_tests/test_data/cube/*
-include src/ansys/pyensight/tests/example_tests/test_data/guard_rail/*
+include tests/*.py
+include tests/unit_tests/*.py
+include tests/unit_tests/*.txt
+include tests/example_tests/*.py
 include .coveragerc
