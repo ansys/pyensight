@@ -1,0 +1,249 @@
+<docstrings>
+
+<override namespace="ensight.objs.next_id">
+<description>
+Return the object id of the next object EnSight will allocate::
+
+    ensight.objs.next_id() -> int
+
+
+All EnSight objects have a unique object ID.  These IDs are monotonically increasing.
+This function returns the id number that EnSight will assign to the next object that
+it creates.  It can be used to detect if an object is new, relative to when this function
+is called.
+
+
+Returns:
+    The ENSOBJ object id of the next allocated object.
+
+</description>
+</override>
+
+<override namespace="ensight.objs.wrap_id">
+<description>
+Return the Python proxy object for a specific EnSight object id::
+
+    ensight.objs.wrap_id(id: int) -> ENSOBJ
+
+
+The EnSight Python object interface uses proxy objects.  This method creates
+a proxy object associated with a given object id.  If the specified id does
+not exist, a RuntimeError exception is raised.
+
+Args:
+    id:
+        An object id number.
+
+
+Returns:
+    The ENSOBJ proxy object associated with the specified id.
+
+</description>
+</override>
+
+<override namespace="ensight.objs.valid_id">
+<description>
+Check to see if a given id corresponds to an existing EnSight object::
+
+    ensight.objs.valid_id(id: int) -> bool
+
+
+Args:
+    id:
+        An object id number.
+
+
+Returns:
+    True if the EnSight object with the passed id currently exists.
+
+</description>
+</override>
+
+<override namespace="ensight.objs.enum_to_name">
+<description>
+Convert an attribute id into the associated string name::
+
+    ensight.objs.enum_to_name(attrid: int) -> str
+
+
+For a given attribute id, return the ASCII name of the
+attribute.  If the input id is not a valid attribute,
+a RuntimeError will be raised.
+
+
+Args:
+    attrid:
+        An attribute id number.
+
+
+Returns:
+    The string name for the attribute number.
+
+Example:
+    ::
+
+        ensight.objs.enum_to_name(1610613151)
+        'NODEVARIABLE'
+
+</description>
+</override>
+
+
+<override namespace="ensight.exit">
+<description>
+Terminate the EnSight instance::
+
+    ensight.exit(code: int) -> None
+
+
+Args:
+    code:
+        The exit code reported by the process termination.
+
+</description>
+</override>
+
+<override namespace="ensight.idle">
+<description>
+Execute EnSight idle processing::
+
+    ensight.idle(yield_cpu: bool = False) -> None
+
+
+Call the EnSight idle processing loop a single time.  It is used in closed
+Python loops where EnSight idle processing (animation, gRPC, etc) needs to
+be allowed to take place.
+
+
+Args:
+    yield_cpu:
+        If True, the call will give up the cpu time slice when executing
+        the idle loop.  It can help reduce cpu utilization while polling.
+
+</description>
+</override>
+
+<override namespace="ensight.refresh">
+<description>
+Refresh the EnSight rendering window::
+
+    ensight.refresh(force: int  = 0) -> None
+
+
+Cause the EnSight rendering window to update.
+
+
+Args:
+    force:
+        By default, the redraw will only occur if the scene is dirty.  If force
+        is set to 1, the scene will be forcibly redrawn.
+
+</description>
+</override>
+
+<override namespace="ensight.batch">
+<description>
+Detect if EnSight is running in batch mode::
+
+    ensight.batch() -> int
+
+
+Returns:
+    If EnSight is running in batch mode, this function returns 1.
+
+</description>
+</override>
+
+<override namespace="ensight.query_xy_create">
+<description>
+Create an ENS_QUERY instance::
+
+    ensight.query_xy_create(title: str, xtitle: str, ytitle: str,
+                            data: List[List[float, float]],
+                            segments: Optional[list], filename: Optional[str] = None,
+                            record: int = 0, xvariable: Optional[ENS_VAR] = None,
+                            yvariable: Optional[ENS_VAR] = None,
+                            case: Optional[ENS_CASE] = None) -> int
+
+
+Create a new "file" XY query object.
+
+
+Args:
+    title:
+        The title string for the query.
+    xtitle:
+        The title for the X axis
+    ytitle:
+        The title for the Y axis
+    data:
+        A list of XY list values.
+    segments:
+        This is an array of point counts.  After every count point, there will
+        be a "break" in the plotted query line.
+    filename:
+        The filename to be associated with this query.  Note: this is just for
+        reference, the file is not read.
+    record:
+        If set to 1, this operation will be recorded into command language.
+    xvariable:
+        If set to an ENS_VAR object, that object will define the units for the X axis.
+    yvariable:
+        If set to an ENS_VAR object, that object will define the units for the Y axis.
+    case:
+        If set to an ENS_CASE object, that object will define the unit system for the query.
+
+Returns:
+    The index of the created query.   The INDEX attribute of the ENS_QUERY object
+    will have this value.
+
+
+Example:
+    ::
+
+        data = [[1, 1], [2, 4], [3, 9]]
+        qidx = ensight.query_xy_create("New Data", "X Axis", "Y Axis", data)
+        query_object = max(ensight.objs.core.QUERIES)
+
+
+</description>
+</override>
+
+<override namespace="ensight.query_xy_update">
+<description>
+Update the data values in a query::
+
+    ensight.query_xy_update(qidx: int, data: List[List[float, float]],
+                            segments: Optional[list] = None) -> int
+
+
+Update the data values of a "file" XY query.
+
+
+Args:
+    qidx:
+        The INDEX attribute for the ENS_QUERY object to be updated.
+    data:
+        A list of XY list values.
+    segments:
+        This is an array of point counts.  After every count point, there will
+        be a "break" in the plotted query line.
+
+Returns:
+    The qidx that was updated or a negative number on an error.
+
+
+Example:
+    ::
+
+        data = [[1, 1], [2, 4], [3, 9]]
+        qidx = ensight.query_xy_create("New Data", "X Axis", "Y Axis", data)
+        query_object = max(ensight.objs.core.QUERIES)
+        data = [[1, 0.5], [2, 3.5], [3, 8.5], [4, 15.5]]
+        err = ensight.query_xy_create(query_object.INDEX, data)
+
+
+</description>
+</override>
+
+</docstrings>
