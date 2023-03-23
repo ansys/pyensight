@@ -1,7 +1,6 @@
 """The setup script."""
+from distutils.core import setup
 import os
-
-from setuptools import find_namespace_packages, setup
 
 REQUIREMENTS = [
     "protobuf>=3.9.1",
@@ -24,10 +23,17 @@ with open(_version_file) as fp:
     exec(fp.read(), _version)
 version = _version["VERSION"]
 
-packages = []
-for package in find_namespace_packages(where="src", include="ansys*"):
-    if package.startswith("ansys.pyensight") or package.startswith("ansys.api"):
-        packages.append(package)
+packages = [
+    "ansys",
+    "ansys.api",
+    "ansys.api.ensight",
+    "ansys.api.ensight.v0",
+    "ansys.pyensight",
+    "ansys.tests.ensight",
+    "ansys.tests.ensight.example_tests",
+    "ansys.tests.ensight.unit_tests",
+]
+
 
 setup(
     name="ansys-ensight",
@@ -41,7 +47,16 @@ setup(
     maintainer_email="pyansys.maintainers@ansys.com",
     license="MIT",
     packages=packages,
-    package_dir={"": "src"},
+    package_dir={
+        "ansys": "src/ansys",
+        "ansys.pyensight": "src/ansys/pyensight",
+        "ansys.api": "src/ansys/api",
+        "ansys.api.ensight": "src/ansys/api/ensight",
+        "ansys.api.ensight.v0": "src/ansys/api/ensight/v0",
+        "ansys.tests.ensight": "tests",
+        "ansys.tests.ensight.example_tests": "tests/example_tests",
+        "ansys.tests.ensight.unit_tests": "tests/unit_tests",
+    },
     include_package_data=True,
     zip_safe=False,
     classifiers=[
