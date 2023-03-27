@@ -64,6 +64,7 @@ interfaces and the EnSight core.
    :maxdepth: 1
    :hidden:
 
+   ensight_scripts
    cmdlang_native
    object_api
    api_differences
