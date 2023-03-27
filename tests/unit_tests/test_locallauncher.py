@@ -59,10 +59,14 @@ def test_get_cei_install_directory(mocker):
         import enve
 
         second_path = enve.home()
+        found = True
     except ModuleNotFoundError:
         pass
     os.environ[f"AWP_ROOT{version}"] = second_path
-    assert method(None) == os.path.join(second_path, "CEI")
+    if found:
+        assert method(None) == second_path
+    else:
+        assert method(None) == os.path.join(second_path, "CEI")
     exists.return_value = False
     with pytest.raises(RuntimeError):
         method(None)
