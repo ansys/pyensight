@@ -55,6 +55,7 @@ def test_get_cei_install_directory(mocker):
     # cleans it, to check all the paths
     if f"AWP_ROOT{version}" in os.environ:
         del os.environ[f"AWP_ROOT{version}"]
+    found = False
     try:
         import enve
 
@@ -63,7 +64,7 @@ def test_get_cei_install_directory(mocker):
     except ModuleNotFoundError:
         pass
     os.environ[f"AWP_ROOT{version}"] = second_path
-    if found:
+    if found is True:
         assert method(None) == second_path
     else:
         assert method(None) == os.path.join(second_path, "CEI")
