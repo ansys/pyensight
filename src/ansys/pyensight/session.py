@@ -9,9 +9,12 @@ Examples:
     ansys.pyensight.Session
 """
 import atexit
+import importlib.util
 import os.path
 import platform
+import sys
 import time
+import types
 from typing import Any, Callable, Optional
 from urllib.parse import urlparse
 import webbrowser
@@ -309,6 +312,40 @@ class Session:
         """Open the help pages for the pyansys project in a webbrowser"""
         url = "https://ensight.docs.pyansys.com/"
         webbrowser.open(url)
+
+    def run_script(self, filename: str) -> types.ModuleType:
+        """Execute an EnSight Python 'script' file
+
+        In EnSight, there is a notion of a Python 'script' that is normally executed line by
+        line in EnSight.  In such scripts, the 'ensight' module is assumed to be preloaded.
+        This function runs such scripts by importing them as modules and running the commands
+        through the PyEnSight interface.  This is done by installing the session ensight
+        object into the module before it is imported.  This makes it possible to use a
+        Python debugger with an EnSight Python script, using the pyensight interface.
+
+        Note: the script filename must end with '.py' since it will be imported as a module.
+
+        Args:
+            filename:
+                The filename of the Python script to be run (loaded as a module by pyensight).
+
+        Returns:
+            The imported module.
+        """
+        dirname = os.path.dirname(filename)
+        if not dirname:
+            dirname = "."
+        if dirname not in sys.path:
+            sys.path.append(dirname)
+        module_name, _ = os.path.splitext(os.path.basename(filename))
+        # get the module reference
+        spec = importlib.util.find_spec(module_name)
+        module = importlib.util.module_from_spec(spec)
+        # insert an ensight interface into the module
+        module.ensight = self.ensight
+        # load (run) the module
+        spec.loader.exec_module(module)
+        return module
 
     def exec(self, function: Callable, *args, remote: bool = False, **kwargs) -> Any:
         """Run a function containing 'ensight' API calls locally or in the EnSight interpreter
