@@ -152,7 +152,7 @@ class Session:
         self._ensight_python_version = self.cmd("platform.python_version_tuple()")
 
         # Since this session can have allocated significant external resources
-        # we very much want an chance to close it up cleanly.  It is legal to
+        # we very much want a chance to close it up cleanly.  It is legal to
         # call close() twice on this class if needed.
         atexit.register(self.close)
 
