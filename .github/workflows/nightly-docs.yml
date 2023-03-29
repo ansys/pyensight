@@ -24,9 +24,15 @@ jobs:
         with:
           python-version: 3.8
 
+      - name: Install build requirements
+        run: pip install -r requirements/build.txt
+
+      - name: Create wheel
+        run: make build-nightly
+
       - name: Install pyensight
-        run: |
-          pip install .
+        run: make install
+        
       - name: Install doc build requirements
         run: |
           pip install -r requirements/docs.txt
