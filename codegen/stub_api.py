@@ -382,8 +382,8 @@ class ProcessAPI:
         """
         name = node.get("name")
         if name in self._custom_names:
-            if not object_method:
-                self.api_assets_file += f",{name},ensight.objs.wrap_id(1).{name}{1}"
+            #if not object_method:
+            #    self.api_assets_file += f",{name},ensight.objs.wrap_id(1).{name}{1}"
             return ""
         new_indent = indent + "    "
         # get the namespace for the function
@@ -610,12 +610,12 @@ class ProcessAPI:
                 if child.get("unknownsignature", "0") == "1":
                     # in some cases, we have no information about the method
                     s += self._process_undefined_callable(
-                        child, indent=indent, classname="objs," + classname
+                        child, indent=indent, classname="objs," + classname, object_method=True
                     )
                 else:
                     # TODO: handle class specific methods
                     s += self._process_undefined_callable(
-                        child, indent=indent, classname="objs," + classname
+                        child, indent=indent, classname="objs," + classname, object_method=True
                     )
         if attributes:
             attributes = f"\n{indent}Attributes:\n" + attributes + "\n"
