@@ -382,7 +382,7 @@ class ProcessAPI:
         """
         name = node.get("name")
         if name in self._custom_names:
-            #if not object_method:
+            # if not object_method:
             #    self.api_assets_file += f",{name},ensight.objs.wrap_id(1).{name}{1}"
             return ""
         new_indent = indent + "    "
