@@ -10,6 +10,7 @@ import fnmatch
 import glob
 import os.path
 import re
+import string
 import sys
 from typing import Any, List, Optional
 from xml.etree import ElementTree
@@ -183,6 +184,51 @@ class ProcessAPI:
         return value
 
     @staticmethod
+    def _scan_signature(s: str) -> List[str]:
+        """
+        For a function signature of the form:
+
+        foo(arg0: type, arg1: type, kwarg0: type = value, kwarg1: type = value) -> type
+
+        Parse the names of the various args and return a list.  For the above:
+
+        [arg0, arg1, kwarg0, kwarg1]
+
+        This is used with a function override coming from XML.  It allows for a more
+        detailed function signature to be used instead of generic *args, **kwargs.
+
+        Args:
+            s: The function signature
+
+        Returns:
+            The list of arg names
+        """
+        params = []
+        # strip the return value
+        ret_index = s.index("->")
+        if ret_index > 0:
+            s = s[:ret_index]
+        # isolate the args
+        start = s.index("(")
+        end = s.rindex(")")
+        s = s[start + 1 : end].replace("\n", "")
+        # walk the args
+        args = s.split(":")
+        valid = string.ascii_lowercase + string.ascii_uppercase + string.digits + "_"
+        for a in args:
+            # reverse each chunk
+            tmp = a.strip()[::-1]
+            # collect the name
+            name = ""
+            while tmp and (tmp[0] in valid):
+                name = tmp[0] + name
+                tmp = tmp[1:]
+            # save any names we found
+            if name:
+                params.append(name)
+        return params
+
+    @staticmethod
     def _cap1(s: Optional[str]) -> Optional[str]:
         if s:
             return s[0].upper() + s[1:]
@@ -254,38 +300,24 @@ class ProcessAPI:
         # bindings only use the "begin" methods
         if node.get("tbl", "") == "0e":
             return ""
+
         # if it is a "begin" method, the parse structure is different (similar to the "end"
         # suppression case).  Anyway, treat these like the "unknown" case and allow *args
         if node.get("tbl", "") == "0b":
-            return self._process_undefined_function(node, indent=indent, classname=classname)
-        # regular processing
+            return self._process_undefined_callable(node, indent=indent, classname=classname)
+
+        # if this is not command language and unknown, then it can be handled by
+        # _process_undefined_callable().
+        if (node.get("tbl", None) is None) and self._is_unknown_function(node):
+            return self._process_undefined_callable(node, indent=indent, classname=classname)
+
+        # regular processing, using the argument and return child nodes
         s = "\n"
         s += f"{indent}def {node.get('name')}(self"
         ret = ""
         arg_names = []
         add_kwargs = False
         if node.get("tbl", None) is None:
-            if self._is_unknown_function(node):
-                s += ", *args, **kwargs) -> Any:\n"
-                indent += "    "
-                desc = node.get("description", "")
-                desc = self._replace(node.get("ns"), default=desc, indent=indent)
-                if desc:
-                    desc = self._cap1(desc)
-                    s += f'{indent}"""{desc}\n'
-                    s += f'{indent}"""\n'
-                s += f"{indent}arg_list = []\n"
-                s += f"{indent}for arg in args:\n"
-                s += f"{indent}    arg_list.append(arg.__repr__())\n"
-                s += f"{indent}for key, value in kwargs.items():\n"
-                s += f'{indent}    arg_list.append(f"{{key}}={{value.__repr__()}}")\n'
-                s += f'{indent}arg_string = ",".join(arg_list)\n'
-                func = node.get("ns")
-                s += f"{indent}cmd = f'''{func}({{arg_string}})'''\n"
-                s += f"{indent}return self._session.cmd(cmd)\n"
-                arg_names.append("args")
-                add_kwargs = True
-        else:
             for child in node:
                 if child.tag == "return":
                     ret = child.get("type")
@@ -322,120 +354,71 @@ class ProcessAPI:
         self.api_assets_file += f"{classname},{method_name},,{api_name}\n"
         return s
 
-    def _process_undefined_class_method(
-        self, node: ElementTree.Element, indent: str = "", classname: str = ""
+    def _process_undefined_callable(
+        self,
+        node: ElementTree.Element,
+        indent: str = "",
+        classname: str = "",
+        object_method: bool = False,
     ) -> str:
-        """For methods that have no provided argument details use *args, **kwargs
+        """Generate bindings for a callable w/o explicit parameter description
 
-        We do not know the parameters for this method, so we document as *args, **kwargs.
+        The callable can be an object method or a general function (which is mapped to an
+        object method in the pyensight scheme for mapping modules into classes).
 
         Args:
             node:
-                The 'method' node
+                The node in the XML API description
             indent:
-                Current indenting for source generation
+                The current output text indent string
+            classname:
+                If a specific class, the name of the class
+            object_method:
+                If True, this is a method on an ENS_OBJ subclass and may reference
+                self._remote_obj() to generate a "wrap_id()" string at runtime.
 
-        Return:
-            The string for the method implementation
+        Returns:
+            The generated Python binding source code or an empty string (on failure).
         """
         name = node.get("name")
         if name in self._custom_names:
+            if not object_method:
+                self.api_assets_file += f",{name},ensight.objs.wrap_id(1).{name}{1}"
             return ""
-        desc = node.get("description")
         new_indent = indent + "    "
-        desc = self._replace(node.get("ns"), default=desc, indent=new_indent)
-        desc = self._cap1(desc)
-
+        # get the namespace for the function
+        namespace = node.get("ns")
+        # get the description, potentially with substitution
+        desc = node.get("description", "")
+        desc = self._replace(namespace, default=desc, indent=new_indent)
+        # Start recording
         s = "\n"
         s += f"{indent}def {name}(self, *args, **kwargs) -> Any:\n"
-        s += f'{new_indent}"""{desc}\n'
-        s += f'{new_indent}"""\n'
-        s += f'{new_indent}obj = f"{{self._remote_obj()}}"\n'
+        if desc:
+            desc = self._cap1(desc)
+            s += f'{new_indent}"""{desc}\n'
+            s += f'{new_indent}"""\n'
+        if object_method:
+            s += f'{new_indent}obj = f"{{self._remote_obj()}}"\n'
         s += f"{new_indent}arg_list = []\n"
         s += f"{new_indent}for arg in args:\n"
         s += f"{new_indent}    arg_list.append(arg.__repr__())\n"
         s += f"{new_indent}for key, value in kwargs.items():\n"
         s += f'{new_indent}    arg_list.append(f"{{key}}={{value.__repr__()}}")\n'
         s += f'{new_indent}arg_string = ",".join(arg_list)\n'
-        s += f'{new_indent}cmd = f"{{obj}}.{name}({{arg_string}})"\n'
+        if object_method:
+            s += f'{new_indent}cmd = f"{{obj}}.{name}({{arg_string}})"\n'
+        else:
+            s += f'{new_indent}cmd = f"{namespace}({{arg_string}})"\n'
         s += f"{new_indent}return self._session.cmd(cmd)\n"
 
-        # generate code of this form:
-        '''
-        def method(self, *args, **kwargs):
-            """description
-            """
-            obj = f"{self._remote_obj()}"
-            arg_list = []
-            for arg in args:
-                arg_list.append(arg.__repr__())
-            for key, value in kwargs.items():
-                arg_list.append(f"{key}={value.__repr__()}")
-            arg_string = ",".join(arg_list)
-            cmd = f"{obj}.method({arg_string})"
-            return self._session.cmd(cmd)
-        '''
-        method_name = node.get("name")
-        if "__init__" not in method_name:
-            api_name = f"ensight.objs.wrap_id(1).{name}(1,0=0)"
-            self.api_assets_file += f"{classname},{method_name},{api_name}\n"
-        return s
-
-    def _process_undefined_function(
-        self, node: ElementTree.Element, indent: str = "", classname: str = ""
-    ) -> str:
-        """For functions that have no provided argument details use *args, **kwargs
-
-        We do not know the parameters for this method, so we document as *args, **kwargs.
-
-        Args:
-            node:
-                The 'method' node
-            indent:
-                Current indenting for source generation
-
-        Return:
-            The string for the method implementation
-        """
-        name = node.get("name")
-        if name in self._custom_names:
-            self.api_assets_file += f",{name},ensight.objs.wrap_id(1).{name}{1}"
-            return ""
-        desc = node.get("description")
-        indent2 = indent + "    "
-        desc = self._replace(node.get("ns"), default=desc, indent=indent2)
-        desc = self._cap1(desc)
-        ns = node.get("ns")
-
-        s = "\n"
-        s += f"{indent}def {name}(self, *args, **kwargs) -> Any:\n"
-        s += f'{indent2}"""{desc}\n'
-        s += f'{indent2}"""\n'
-        s += f"{indent2}arg_list = []\n"
-        s += f"{indent2}for arg in args:\n"
-        s += f"{indent2}    arg_list.append(arg.__repr__())\n"
-        s += f"{indent2}for key, value in kwargs.items():\n"
-        s += f'{indent2}    arg_list.append(f"{{key}}={{value.__repr__()}}")\n'
-        s += f'{indent2}arg_string = ",".join(arg_list)\n'
-        s += f'{indent2}cmd = f"{ns}({{arg_string}})"\n'
-        s += f"{indent2}return self._session.cmd(cmd)\n"
-        method_name = node.get("name")
-        api_name = f"{ns}(1,0=0)"
-        self.api_assets_file += f"{classname},{method_name},,{api_name}\n"
-        # generate code of this form:
-        '''
-        def name(self, *args, **kwargs):
-            """description
-            """
-            arg_list = []
-            for arg in args:
-                arg_list.append(arg.__repr__())
-            for key, value in kwargs.items():
-                arg_list.append(f"{key}={value.__repr__()}")
-            arg_string = ",".join(arg_list)
-            cmd = f"namespace({arg_string})"
-            return self._session.cmd(cmd)
-        '''
+        if object_method:
+            if "__init__" not in name:
+                api_name = f"ensight.objs.wrap_id(1).{name}(1,0=0)"
+                self.api_assets_file += f"{classname},{name},{api_name}\n"
+        else:
+            api_name = f"{namespace}(1,0=0)"
+            self.api_assets_file += f"{classname},{name},,{api_name}\n"
 
         return s
 
@@ -626,13 +609,13 @@ class ProcessAPI:
             elif child.tag == "method":
                 if child.get("unknownsignature", "0") == "1":
                     # in some cases, we have no information about the method
-                    s += self._process_undefined_class_method(
-                        child, indent, classname="objs," + classname
+                    s += self._process_undefined_callable(
+                        child, indent=indent, classname="objs," + classname
                     )
                 else:
                     # TODO: handle class specific methods
-                    s += self._process_undefined_class_method(
-                        child, indent, classname="objs," + classname
+                    s += self._process_undefined_callable(
+                        child, indent=indent, classname="objs," + classname
                     )
         if attributes:
             attributes = f"\n{indent}Attributes:\n" + attributes + "\n"
@@ -682,7 +665,7 @@ class ProcessAPI:
             elif child.tag == "method":
                 if child.get("unknownsignature", "0") == "1":
                     classname = node.get("name")
-                    methods += self._process_undefined_function(
+                    methods += self._process_undefined_callable(
                         child, indent=indent, classname=classname
                     )
                 else:
