@@ -317,7 +317,7 @@ class ProcessAPI:
         ret = ""
         arg_names = []
         add_kwargs = False
-        if node.get("tbl", None) is None:
+        if node.get("tbl", None):
             for child in node:
                 if child.tag == "return":
                     ret = child.get("type")
