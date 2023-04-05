@@ -87,7 +87,18 @@ def test():
 def codespell():
     codespellexe = find_exe("codespell")
     print("-" * 10, "Running codespell")
-    cmd = [codespellexe, "--count", "--ignore-words", "ignore_words.txt", "src", "codegen"]
+    codespell_skip = "*.pyc,*.xml,*.txt,*.gif,*.png,*.jpg,*.js,*.html,*.doctree,*.ttf,*.woff,*.woff2,*.eot,*.mp4,*.inv,*.pickle,*.ipynb,flycheck*,./.git/*,./.hypothesis/*,*.yml,./docs/build/*,./docs/images/*,./dist/*,*~,.hypothesis*,./docs/source/examples/*,*cover,*.dat,*.mac,\#*,PKG-INFO,*.mypy_cache/*,*.xml,*.aedt,*.svg"
+    cmd = [
+        codespellexe,
+        "--count",
+        "--ignore-words",
+        "ignore_words.txt",
+        "--skip",
+        codespell_skip,
+        "src",
+        "doc",
+        "codegen",
+    ]
     ret = subprocess.run(cmd, capture_output=True)
     if ret.returncode < 0:
         raise RuntimeError(f"Error running {codespellexe}")
