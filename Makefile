@@ -1,17 +1,12 @@
-CODESPELL_DIRS ?= ./pyensight
-CODESPELL_SKIP ?= "*.pyc,*.xml,*.txt,*.gif,*.png,*.jpg,*.js,*.html,*.doctree,*.ttf,*.woff,*.woff2,*.eot,*.mp4,*.inv,*.pickle,*.ipynb,flycheck*,./.git/*,./.hypothesis/*,*.yml,./docs/build/*,./docs/images/*,./dist/*,*~,.hypothesis*,./docs/source/examples/*,*cover,*.dat,*.mac,\#*,PKG-INFO,*.mypy_cache/*,*.xml,*.aedt,*.svg"
-CODESPELL_IGNORE ?= "ignore_words.txt"
 DATE = $(shell date +'%Y%m%d%H%')
 
 doctest: codespell
 
 codespell:
-	echo "Running codespell"
-	codespell $(CODESPELL_DIRS) -S $(CODESPELL_SKIP) # -I $(CODESPELL_IGNORE)
+	python pybuild.py precommit
 
 flake8:
-	echo "Running flake8"
-	flake8 .
+	python pybuild.py precommit
 
 generate:
 	python pybuild.py codegen
@@ -35,7 +30,8 @@ pull-docker:
 
 
 test:
-	pytest -rvx --setup-show --cov=ansys.pyensight --cov-report html:coverage-html --cov-report term --cov-config=.coveragerc
+	python pybuild.py test
+
 
 smoketest:
 	python -c "from ansys.pyensight import LocalLauncher, DockerLauncher"

@@ -18,7 +18,8 @@ def generate() -> None:
 
     source = os.path.dirname(root)
     source_path = os.path.join(source, "src")
-    sys.path.append(source_path)
+    # prepend this path!!!
+    sys.path.insert(0, source_path)
     from ansys.pyensight._version import VERSION
 
     now = datetime.datetime.now()

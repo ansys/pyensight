@@ -19,7 +19,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
     parser.addoption(
         "--install-path",
         action="store",
-        default="/ansys_inc/v222/",
+        default=f"/ansys_inc/v{ansys.pyensight.__ansys_version__}/",
     )
     parser.addoption("--use-local-launcher", default=False, action="store_true")
 

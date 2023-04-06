@@ -149,7 +149,7 @@ Optionally, PyEnSight can work with an EnSight Docker container like this:
 .. code:: python
 
    >>> from ansys.pyensight import DockerLauncher
-   >>> launcher = DockerLauncher(data_directory="d:\\data", use_dev=True)
+   >>> launcher = DockerLauncher(data_directory="d:/data", use_dev=True)
    >>> launcher.pull()
    >>> session = launcher.start()
    >>> data = session.render(1920, 1080, aa=4)
