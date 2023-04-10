@@ -27,7 +27,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.9
 
       - name: Install linter requirements
         run: pip install -r requirements/lint.txt
@@ -41,7 +41,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        python-version: [ '3.7', '3.8', '3.9', '3.10' ]
+        python-version: [ '3.9', '3.10', '3.11' ]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -74,7 +74,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.7'
+          python-version: '3.9'
 
       - name: Install build requirements
         run: pip install -r requirements/build.txt
@@ -182,7 +182,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v1
         with:
-          python-version: 3.7
+          python-version: 3.9
 
       - uses: actions/checkout@v2
 
