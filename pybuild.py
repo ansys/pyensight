@@ -12,7 +12,7 @@ import textwrap
 # python pybuild.py all
 
 
-def find_exe(name: str):
+def find_exe(name: str) -> str:
     # exe files under Windows
     if platform.system().lower().startswith("win"):
         name += ".exe"
@@ -29,7 +29,11 @@ def find_exe(name: str):
     raise RuntimeError(f"Unable to find script {name}.  Is it installed?")
 
 
-def docs(target: str = "html", full: bool = True):
+def docs(target: str = "html", full: bool = True) -> None:
+    # We run the tests first so we have access to their results when
+    # building the documentation
+    test()
+    # Build the actual docs
     print("-" * 10, "Build sphinx docs")
     sphinx = find_exe("sphinx-build")
     cmd = [sphinx, "-M", target, "doc/source", "doc/build"]
@@ -37,15 +41,19 @@ def docs(target: str = "html", full: bool = True):
     if not full:
         env["FASTDOCS"] = "1"
     subprocess.run(cmd, env=env)
+    # build the coverage badge, overriding the default badge
+    cov_badge = find_exe("coverage-badge")
+    cmd = [cov_badge, "-f", "-o", "doc/build/html/_static/coverage.svg"]
+    subprocess.run(cmd)
 
 
-def generate():
+def generate() -> None:
     print("-" * 10, "Running generate.py")
     cmd = [sys.executable, "codegen/generate.py"]
     subprocess.run(cmd)
 
 
-def wheel():
+def wheel() -> None:
     print("-" * 10, "Building wheel")
     # Clean up the dist director
     for name in glob.glob("dist/*.whl"):
@@ -67,7 +75,7 @@ def wheel():
             print(f"Rename wheel to: '{new_name}'")
 
 
-def test():
+def test() -> None:
     print("-" * 10, "Run tests")
     pytest = find_exe("pytest")
     cmd = [
@@ -84,7 +92,7 @@ def test():
     subprocess.run(cmd)
 
 
-def codespell():
+def codespell() -> None:
     codespellexe = find_exe("codespell")
     print("-" * 10, "Running codespell")
     codespell_skip = "*.pyc,*.xml,*.txt,*.gif,*.png,*.jpg,*.js,*.html,*.doctree,*.ttf,*.woff,"
@@ -113,7 +121,7 @@ def codespell():
         print(f"Warning: {num} potential spelling error(s) detected")
 
 
-def flake8():
+def flake8() -> None:
     flake8exe = find_exe("flake8")
     print("-" * 10, "Running flake8")
     cmd = [
@@ -122,7 +130,7 @@ def flake8():
     subprocess.run(cmd)
 
 
-def black():
+def black() -> None:
     blackexe = find_exe("black")
     print("-" * 10, "Running black")
     cmd = [
@@ -140,7 +148,7 @@ def black():
     subprocess.run(cmd)
 
 
-def isort():
+def isort() -> None:
     isortexe = find_exe("isort")
     print("-" * 10, "Running isort")
     cmd = [
@@ -164,7 +172,7 @@ def isort():
     subprocess.run(cmd)
 
 
-def clean():
+def clean() -> None:
     paths = [
         "dist",
         "build",
