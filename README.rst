@@ -1,11 +1,11 @@
 PyEnSight
 =========
-|pyansys| |python| |MIT| |pre-commit| |black| |isort| |bandit| |ci|
+|pyansys| |python| |ci| |coverage| |MIT| |pre-commit| |black| |isort| |bandit|
 
 .. |pyansys| image:: https://img.shields.io/badge/Py-Ansys-ffc107.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAABDklEQVQ4jWNgoDfg5mD8vE7q/3bpVyskbW0sMRUwofHD7Dh5OBkZGBgW7/3W2tZpa2tLQEOyOzeEsfumlK2tbVpaGj4N6jIs1lpsDAwMJ278sveMY2BgCA0NFRISwqkhyQ1q/Nyd3zg4OBgYGNjZ2ePi4rB5loGBhZnhxTLJ/9ulv26Q4uVk1NXV/f///////69du4Zdg78lx//t0v+3S88rFISInD59GqIH2esIJ8G9O2/XVwhjzpw5EAam1xkkBJn/bJX+v1365hxxuCAfH9+3b9/+////48cPuNehNsS7cDEzMTAwMMzb+Q2u4dOnT2vWrMHu9ZtzxP9vl/69RVpCkBlZ3N7enoDXBwEAAA+YYitOilMVAAAAAElFTkSuQmCC
    :target: https://docs.pyansys.com/
 
-.. |python| image:: https://img.shields.io/badge/Python-%3E%3D3.7-blue.svg
+.. |python| image:: https://img.shields.io/badge/Python-%3E%3D3.9-blue.svg
    :target: https://nexusdemo.ensight.com/docs/python/html/Python.html
 
 .. |MIT| image:: https://img.shields.io/badge/License-MIT-yellow.svg
@@ -27,9 +27,13 @@ PyEnSight
 .. |ci| image:: https://github.com/pyansys/pyensight/actions/workflows/ci_cd.yml/badge.svg?branch=main
    :target: https://github.com/pyansys/pyensight/actions?query=branch%3Amain
 
+.. |coverage| image:: https://ensight.docs.pyansys.com/dev/_static/coverage.svg
+   :target: https://ensight.docs.pyansys.com/dev
+
 .. |title| image:: https://s3.amazonaws.com/www3.ensight.com/build/media/pyensight_title.png
 
 .. _EnSight: https://www.ansys.com/products/fluids/ansys-ensight
+
 
 Overview
 --------
