@@ -43,7 +43,7 @@ def docs(target: str = "html", full: bool = True) -> None:
     subprocess.run(cmd, env=env)
     # build the coverage badge, overriding the default badge
     cov_badge = find_exe("coverage-badge")
-    cmd = [cov_badge, "-f", "-o", "doc/build/html/_static/coverage.svg"]
+    cmd = [cov_badge, "-f", "-o", "doc/build/html/_images/coverage.svg"]
     subprocess.run(cmd)
 
 
