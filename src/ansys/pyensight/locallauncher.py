@@ -83,10 +83,16 @@ class LocalLauncher(pyensight.Launcher):
         """
         return self._application
 
-    def start(self) -> "pyensight.Session":
+    def start(self, use_egl: bool = False) -> "pyensight.Session":
         """Start an EnSight session using the local ensight install
         Launch a copy of EnSight locally that supports the gRPC interface.  Create and
         bind a Session instance to the created gRPC session.  Return that session.
+
+        Args:
+            host:
+                Optional hostname on which the EnSight gRPC service is running
+            use_egl:
+                Specify True if EnSight should try to use EGL.
 
         Returns:
             pyensight Session object instance
@@ -104,7 +110,7 @@ class LocalLauncher(pyensight.Launcher):
             self._ports = self._find_unused_ports(4)
             if self._ports is None:
                 raise RuntimeError("Unable to allocate local ports for EnSight session")
-            is_windows = platform.system() == "Windows"
+            is_windows = self._is_windows()
 
             # Launch EnSight
             # create the environmental variables
@@ -123,8 +129,12 @@ class LocalLauncher(pyensight.Launcher):
             cmd.extend(["-grpc_server", str(self._ports[0])])
             vnc_url = f"vnc://%%3Frfb_port={self._ports[1]}%%26use_auth=0"
             cmd.extend(["-vnc", vnc_url])
+            egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
+            use_egl = use_egl or egl_env or self._has_egl()
             if is_windows:
                 cmd[0] += ".bat"
+            if use_egl:
+                cmd.append("-egl")
             # cmd.append("-minimize_console")
             self._ensight_pid = subprocess.Popen(
                 cmd,
@@ -261,3 +271,18 @@ class LocalLauncher(pyensight.Launcher):
                 return install_dir
 
         raise RuntimeError(f"Unable to detect an EnSight installation in: {dirs_to_check}")
+
+    def _has_egl(self) -> bool:
+        """Return True if the system supports the EGL launch.
+
+        Returns:
+            A bool value that is True if the system supports the EGL launch.
+        """
+        if self._is_windows():
+            return False
+        egl_test_path = os.path.join(self._install_path, "bin", "cei_egltest")
+        egl_proc = subprocess.Popen([egl_test_path], stdout=subprocess.PIPE)
+        _, _ = egl_proc.communicate()
+        if egl_proc.returncode == 0:
+            return True
+        return False

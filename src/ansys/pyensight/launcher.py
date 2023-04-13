@@ -11,6 +11,7 @@ Examples:
 
 """
 import os.path
+import platform
 import socket
 from typing import List, Optional
 
@@ -156,3 +157,19 @@ class Launcher:
         if len(ports) < count:
             return None
         return ports
+
+    def _has_egl(self) -> bool:
+        """Return True if the system supports the EGL launch.
+
+        Returns:
+            A bool value that is True if the system supports the EGL launch.
+        """
+        raise RuntimeError("Unsupported method for this configuration")
+
+    def _is_windows(self) -> None:
+        """Return True if it is Windows
+
+        Returns:
+            a bool that is True if the platform is Windows
+        """
+        return platform.system() == "Windows"

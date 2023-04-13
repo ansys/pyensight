@@ -15,6 +15,7 @@ Examples:
 """
 import os.path
 import re
+import subprocess
 from typing import Optional
 import uuid
 
@@ -177,6 +178,8 @@ class DockerLauncher(pyensight.Launcher):
 
         # FIXME_MFK: probably need a unique name for our container
         # in case the user launches multiple sessions
+        egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
+        use_egl = use_egl or egl_env or self._has_egl()
         if use_egl:
             self._container = self._docker_client.containers.run(
                 self._image_name,
@@ -303,3 +306,12 @@ class DockerLauncher(pyensight.Launcher):
             self._container.stop()
             self._container.remove()
             self._container = None
+
+    def _has_egl(self) -> bool:
+        if self._is_windows():
+            return False
+        try:
+            subprocess.check_output("nvidia-smi")
+            return True
+        except subprocess.CalledProcessError:
+            return False
