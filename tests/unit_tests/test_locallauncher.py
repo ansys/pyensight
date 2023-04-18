@@ -17,7 +17,7 @@ def test_start(mocker):
     mocker.patch.object(platform, "system", return_value=str(platform.system()))
     popen = mock.MagicMock("MockedPopen")
     popen.pid = 3456
-    popen.communicate = lambda: True, True
+    mocker.patch.object(LocalLauncher, "_has_egl", return_value=False)
     mocker.patch.object(subprocess, "Popen", return_value=popen)
     glob_mock = mock.MagicMock("superGlob")
     glob_mock.side_effect = ["/path/to/awp/CEI/nexus345/websocketserver.py"]
