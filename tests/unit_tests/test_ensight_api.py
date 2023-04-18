@@ -1,6 +1,8 @@
+import inspect
 from inspect import getfullargspec
 import os
 import re
+from typing import List
 
 from ansys.pyensight import ensight_api
 
@@ -68,15 +70,48 @@ def test_ensight_api(mocked_session):
             # the kwargs all to dictionaries of kind 1=1, where the key
             # is of course a string. This is just to check that they can
             # be called.
-            sig = getfullargspec(method)
-            num_args = len(sig.args)
-            if "self" in sig.args or "cls" in sig.args:
-                num_args -= 1
-            if sig.varargs:
-                num_args += 1
-            args = [1] * num_args
-            num_kwargs = len(sig.kwonlyargs)
-            if sig.varkw:
-                num_kwargs += 1
-            kwargs = {"{}".format(i): i for i in range(num_kwargs)}
+            s_args, s_kwargs = get_args_kwargs(method)
+            # args are passed as 1
+            args = [1] * len(s_args)
+            # kwargs are passed as 0
+            kwargs = {}
+            for kw in s_kwargs:
+                kwargs[kw] = 0
+
             assert method(*args, **kwargs) == output
+
+
+def get_args_kwargs(method: callable) -> (List, List):
+    """
+    Parse the signature of a callable and return lists of the
+    args and kwargs using the inspect signature.
+    Rules:
+        1) skip 'self' and 'cls'
+        2) if both '*args' and '**kwargs' set, return [1], ["0"] for backward compatibility
+        3) something is a keyword if it has a default value, otherwise it is an arg.
+
+    Args:
+        method:
+            The callable to parse
+
+    Returns:
+        A tuple of the args name list and the kwargs name list.  Note: either list can
+        be empty.
+    """
+    sig = inspect.signature(method)
+    # backward compatibility with getfullargspec for *args, **kwargs only cases
+    if ("args" in sig.parameters) and ("kwargs" in sig.parameters):
+        return [1], ["0"]
+    # more complete method
+    a_list = []
+    kw_list = []
+    for p in sig.parameters.values():
+        # skip these special cases
+        if p.name in ("self", "cls"):
+            continue
+        # treat no-default as arg and default as keyword for this case
+        if p.default == inspect.Parameter.empty:
+            a_list.append(p.name)
+        else:
+            kw_list.append(p.name)
+    return a_list, kw_list
