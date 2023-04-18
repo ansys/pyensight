@@ -313,5 +313,5 @@ class DockerLauncher(pyensight.Launcher):
         try:
             subprocess.check_output("nvidia-smi")
             return True
-        except subprocess.CalledProcessError:
+        except (subprocess.CalledProcessError, FileNotFoundError):
             return False
