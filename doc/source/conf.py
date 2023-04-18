@@ -171,4 +171,4 @@ def lowercase_property_skip(app, what, name, obj, skip, options):
 
 # Attach lowercase_property_skip to the skip event
 def setup(app):
-    app.connect('autodoc-skip-member', lowercase_property_skip)
+    app.connect("autodoc-skip-member", lowercase_property_skip)

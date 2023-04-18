@@ -10,7 +10,6 @@ import fnmatch
 import glob
 import os.path
 import re
-import string
 import sys
 from typing import Any, List, Optional
 from xml.etree import ElementTree
@@ -351,7 +350,7 @@ class ProcessAPI:
         # get the description, potentially with substitution
         desc = node.get("description", "")
         desc = self._replace(namespace, default=desc, indent=new_indent)
-        # signature is '(parm:type, parm2:type, ...) -> type'
+        # signature is '(param:type, param2:type, ...) -> type'
         # paramnames is '[param, param2 ...]' if a param name ends with '=' it is a keyword
         signature = "(*args, **kwargs) -> Any"
         paramnames = self._replace(namespace, "paramnames", None, simple=True)
