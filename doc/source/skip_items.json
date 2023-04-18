@@ -1,0 +1,17 @@
+{
+	"ENS_stdio" : { "what": "method" },
+	"color_components_for_mattype" : { "what": "method" },
+	"eep_execfile" : { "what": "method" },
+	"expandPartGroup" : { "what": "method" },
+	"int_feature" : { "what": "method" },
+	"int_help" : { "what": "method" },
+	"int_message" : { "what": "method" },
+	"makecolorswatch" : { "what": "method" },
+	"makeraytracedcolorswatch" : { "what": "method" },
+	"qtparent" : { "what": "method" },
+	"qtparent_int" : { "what": "method" },
+	"qtposition" : { "what": "method" },
+	"qtwinflags" : { "what": "method" },
+	"setLpartMode" : { "what": "method" },
+	"transfFeedbackRefresh" : { "what": "method" }
+}

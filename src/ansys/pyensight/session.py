@@ -164,8 +164,10 @@ class Session:
 
     def _establish_connection(self, validate: bool = False) -> None:
         """Establish a gRPC connection to the EnSight instance.
+
         Args:
-            validate: If true, actually try to communicate with EnSight
+            validate:
+                If true, actually try to communicate with EnSight
         """
         time_start = time.time()
         while time.time() - time_start < self._timeout:
