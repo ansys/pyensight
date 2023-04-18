@@ -155,3 +155,20 @@ language = "en"
 # exclude traditional Python prompts from the copied code
 copybutton_prompt_text = r">>> ?|\.\.\. "
 copybutton_prompt_is_regexp = True
+
+
+# In PyEnSight we have both upper and lowercase versions of the
+# ENSOBJ properties.  We need to suppress the lowercase versions
+# of the properties for Linux sphinx generation.
+def lowercase_property_skip(app, what, name, obj, skip, options):
+    # Testing:
+    # print(app, what, name, obj, skip, options)
+    if what == "property":
+        if name.islower():
+            return True
+    return False
+
+
+# Attach lowercase_property_skip to the skip event
+def setup(app):
+    app.connect('autodoc-skip-member', lowercase_property_skip)
