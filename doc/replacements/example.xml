@@ -1,5 +1,7 @@
 <docstrings>
 <override namespace="ensight.version">
+<signature>(element: str = "") -> Any</signature>
+<paramnames>["element="]</paramnames>
 <description>
 EnSight version information
 

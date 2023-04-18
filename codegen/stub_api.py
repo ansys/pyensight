@@ -399,6 +399,8 @@ class ProcessAPI:
                         api_name += "1,"
                     for p in [s for s in paramnames if s.endswith("=")]:
                         api_name += f"{p}0,"
+                    if api_name.endswith(","):
+                        api_name = api_name[:-1]
                     api_name += ")"
                 self.api_assets_file += f"{classname},{name},{api_name}\n"
         else:
@@ -409,6 +411,8 @@ class ProcessAPI:
                     api_name += "1,"
                 for p in [s for s in paramnames if s.endswith("=")]:
                     api_name += f"{p}0,"
+                if api_name.endswith(","):
+                    api_name = api_name[:-1]
                 api_name += ")"
             self.api_assets_file += f"{classname},{name},,{api_name}\n"
 

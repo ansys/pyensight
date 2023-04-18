@@ -92,8 +92,6 @@ Example:
 
 
 <override namespace="ensight.exit">
-<signature>(code: int) -> None</signature>
-<paramnames>["code"]</paramnames>
 <description>
 Terminate the EnSight instance::
 
@@ -167,7 +165,7 @@ Returns:
 <override namespace="ensight.query_xy_create">
 <signature>(title: str, xtitle: str, ytitle: str,
                             data: List[List[float]],
-                            segments: Optional[list], filename: Optional[str] = None,
+                            segments: Optional[list] = None, filename: str = "",
                             record: int = 0, xvariable: Optional["ENS_VAR"] = None,
                             yvariable: Optional["ENS_VAR"] = None,
                             case: Optional["ENS_CASE"] = None) -> int</signature>
