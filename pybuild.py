@@ -8,6 +8,8 @@ import subprocess
 import sys
 import textwrap
 
+import junitparser
+
 # Python script alternative to 'make' targets.  To build everything:
 # python pybuild.py all
 
@@ -77,6 +79,11 @@ def wheel() -> None:
 
 def test(local: bool = False) -> None:
     print("-" * 10, "Run tests")
+    junit_path = os.path.join(os.getcwd(), "pyensight_test_results.xml")
+    try:
+        os.unlink(junit_path)
+    except IOError:
+        pass
     pytest = find_exe("pytest")
     cmd = [
         pytest,
@@ -88,10 +95,25 @@ def test(local: bool = False) -> None:
         "--cov-report",
         "term",
         "--cov-config=.coveragerc",
+        "--junit-xml={}".format(junit_path),
     ]
     if local:
         cmd.append("--use-local-launcher")
-    subprocess.run(cmd)
+    result = subprocess.run(cmd)
+    # Attempt check of the return code
+    if result.returncode == 0:
+        print("pyEnSight tests run successfully.")
+    else:
+        print("pyEnSight tests failed.")
+        sys.exit(1)
+    # Check also junit file
+    xml = junitparser.JUnitXml.fromfile(junit_path)
+    if xml.failures > 0:
+        print(f"There were {xml.failures} PyEnSight failures.")
+        sys.exit(1)
+    if xml.errors > 0:
+        print(f"There were {xml.errors} errors in the PyEnSight tests.")
+        sys.exit(1)
 
 
 def codespell() -> None:
