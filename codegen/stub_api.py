@@ -10,7 +10,6 @@ import fnmatch
 import glob
 import os.path
 import re
-import string
 import sys
 from typing import Any, List, Optional
 from xml.etree import ElementTree
@@ -73,7 +72,7 @@ class XMLOverrides:
         </override>
 
         That would match ensight.objs.ENS_PART.ENS_PLIST_KEY_SEL_3 description
-        attribute.
+        attribute.  Other common replacements include "paramnames" and "signature".
 
         Args:
             namespace:
@@ -152,6 +151,7 @@ class ProcessAPI:
         attribute: str = "description",
         default: Optional[str] = None,
         indent: str = "",
+        simple: bool = False,
     ) -> Any:
         """Allow replacement of a given attribute for a given namespace
         When looking up an attribute for a given node namespace, allow for
@@ -167,6 +167,8 @@ class ProcessAPI:
                 The default value to be returned if no replacement is to be made
             indent:
                 This prefix should be used for all lines after the first line.
+            simple:
+                If True, no post-processing will be performed.
         Returns:
             The attribute replacement
         """
@@ -174,6 +176,8 @@ class ProcessAPI:
             return default
         value = self._overrides.replace(namespace, attribute, default)
         if type(value) == str:
+            if simple:
+                return value.strip().replace("\r", "").replace("\n", "")
             lines = value.strip().replace("\r", "").split("\n")
             tmp_indent = ""
             value = ""
@@ -182,51 +186,6 @@ class ProcessAPI:
                 value += line + "\n"
                 tmp_indent = indent
         return value
-
-    @staticmethod
-    def _scan_signature(s: str) -> List[str]:
-        """
-        For a function signature of the form:
-
-        foo(arg0: type, arg1: type, kwarg0: type = value, kwarg1: type = value) -> type
-
-        Parse the names of the various args and return a list.  For the above:
-
-        [arg0, arg1, kwarg0, kwarg1]
-
-        This is used with a function override coming from XML.  It allows for a more
-        detailed function signature to be used instead of generic *args, **kwargs.
-
-        Args:
-            s: The function signature
-
-        Returns:
-            The list of arg names
-        """
-        params = []
-        # strip the return value
-        ret_index = s.index("->")
-        if ret_index > 0:
-            s = s[:ret_index]
-        # isolate the args
-        start = s.index("(")
-        end = s.rindex(")")
-        s = s[start + 1 : end].replace("\n", "")
-        # walk the args
-        args = s.split(":")
-        valid = string.ascii_lowercase + string.ascii_uppercase + string.digits + "_"
-        for a in args:
-            # reverse each chunk
-            tmp = a.strip()[::-1]
-            # collect the name
-            name = ""
-            while tmp and (tmp[0] in valid):
-                name = tmp[0] + name
-                tmp = tmp[1:]
-            # save any names we found
-            if name:
-                params.append(name)
-        return params
 
     @staticmethod
     def _cap1(s: Optional[str]) -> Optional[str]:
@@ -391,9 +350,17 @@ class ProcessAPI:
         # get the description, potentially with substitution
         desc = node.get("description", "")
         desc = self._replace(namespace, default=desc, indent=new_indent)
+        # signature is '(param:type, param2:type, ...) -> type'
+        # paramnames is '[param, param2 ...]' if a param name ends with '=' it is a keyword
+        signature = "(*args, **kwargs) -> Any"
+        paramnames = self._replace(namespace, "paramnames", None, simple=True)
+        if paramnames is not None:
+            signature = self._replace(namespace, "signature", signature, simple=True)
+            paramnames = eval(paramnames)
+        signature = "(self, " + signature[1:]
         # Start recording
         s = "\n"
-        s += f"{indent}def {name}(self, *args, **kwargs) -> Any:\n"
+        s += f"{indent}def {name}{signature}:\n"
         if desc:
             desc = self._cap1(desc)
             s += f'{new_indent}"""{desc}\n'
@@ -401,10 +368,21 @@ class ProcessAPI:
         if object_method:
             s += f'{new_indent}obj = f"{{self._remote_obj()}}"\n'
         s += f"{new_indent}arg_list = []\n"
-        s += f"{new_indent}for arg in args:\n"
-        s += f"{new_indent}    arg_list.append(arg.__repr__())\n"
-        s += f"{new_indent}for key, value in kwargs.items():\n"
-        s += f'{new_indent}    arg_list.append(f"{{key}}={{value.__repr__()}}")\n'
+        # arguments
+        if paramnames is not None:
+            for p in [s for s in paramnames if not s.endswith("=")]:
+                s += f"{new_indent}arg_list.append({p}.__repr__())\n"
+        else:
+            s += f"{new_indent}for arg in args:\n"
+            s += f"{new_indent}    arg_list.append(arg.__repr__())\n"
+        # keywords
+        if paramnames is not None:
+            for p in [s for s in paramnames if s.endswith("=")]:
+                s += f'{new_indent}arg_list.append(f"{p[:-1]}={{{p[:-1]}.__repr__()}}")\n'
+        else:
+            s += f"{new_indent}for key, value in kwargs.items():\n"
+            s += f'{new_indent}    arg_list.append(f"{{key}}={{value.__repr__()}}")\n'
+        # build the command
         s += f'{new_indent}arg_string = ",".join(arg_list)\n'
         if object_method:
             s += f'{new_indent}cmd = f"{{obj}}.{name}({{arg_string}})"\n'
@@ -415,9 +393,27 @@ class ProcessAPI:
         if object_method:
             if "__init__" not in name:
                 api_name = f"ensight.objs.wrap_id(1).{name}(1,0=0)"
+                if paramnames is not None:
+                    api_name = f"ensight.objs.wrap_id(1).{name}("
+                    for _ in [s for s in paramnames if not s.endswith("=")]:
+                        api_name += "1,"
+                    for p in [s for s in paramnames if s.endswith("=")]:
+                        api_name += f"{p}0,"
+                    if api_name.endswith(","):
+                        api_name = api_name[:-1]
+                    api_name += ")"
                 self.api_assets_file += f"{classname},{name},{api_name}\n"
         else:
             api_name = f"{namespace}(1,0=0)"
+            if paramnames is not None:
+                api_name = f"{namespace}("
+                for _ in [s for s in paramnames if not s.endswith("=")]:
+                    api_name += "1,"
+                for p in [s for s in paramnames if s.endswith("=")]:
+                    api_name += f"{p}0,"
+                if api_name.endswith(","):
+                    api_name = api_name[:-1]
+                api_name += ")"
             self.api_assets_file += f"{classname},{name},,{api_name}\n"
 
         return s
@@ -698,7 +694,7 @@ class ProcessAPI:
         s += "from ansys.pyensight.ensobj import ENSOBJ\n"
         s += "from ansys.pyensight import ensobjlist\n"
         s += "ENSIMPORTS"
-        s += "from typing import Any, List, Type\n"
+        s += "from typing import Any, List, Type, Union, Optional\n"
         for child in self._root:
             if child.tag == "module":
                 s += self._process_module(child)

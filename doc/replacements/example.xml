@@ -1,12 +1,14 @@
 <docstrings>
 <override namespace="ensight.version">
+<signature>(element: str = "") -> Any</signature>
+<paramnames>["element="]</paramnames>
 <description>
 EnSight version information
 
 Return EnSight version information.
 
 Args:
-    args:
+    element:
         The specific value to return is selected by this argument. If no arguments are
         passed, the return value will be a list in the form:
 
@@ -16,7 +18,7 @@ Args:
             'contact': 'SOMEONE', 'slimversion': '6.31',
             'keypath': 'C:\\Program Files (x86)\\CEI\\license8\\slim8.key'}, '222', 'Qt', '222']
 
-        Specific query argument values include:
+        Specific element strings include:
             * 'ip' - system ip address
             * 'version-full' - EnSight version display string, for example: '2022 R1'
             * 'numeric' - EnSight version broken down as a list of integers and a single string in the form: [year, release, patch, beta]. For example: [2022, 1, 0, 'Beta']

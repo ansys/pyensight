@@ -20,6 +20,8 @@ Returns:
 </override>
 
 <override namespace="ensight.objs.wrap_id">
+<signature>(id: int) -> "ENSOBJ"</signature>
+<paramnames>["id"]</paramnames>
 <description>
 Return the Python proxy object for a specific EnSight object id::
 
@@ -104,6 +106,8 @@ Args:
 </override>
 
 <override namespace="ensight.idle">
+<signature>(yield_cpu: bool = False) -> None</signature>
+<paramnames>["yield_cpu="]</paramnames>
 <description>
 Execute EnSight idle processing::
 
@@ -124,6 +128,8 @@ Args:
 </override>
 
 <override namespace="ensight.refresh">
+<signature>(force: int = 0) -> None</signature>
+<paramnames>["force="]</paramnames>
 <description>
 Refresh the EnSight rendering window::
 
@@ -142,6 +148,8 @@ Args:
 </override>
 
 <override namespace="ensight.batch">
+<signature>() -> int</signature>
+<paramnames>[]</paramnames>
 <description>
 Detect if EnSight is running in batch mode::
 
@@ -155,11 +163,18 @@ Returns:
 </override>
 
 <override namespace="ensight.query_xy_create">
+<signature>(title: str, xtitle: str, ytitle: str,
+                            data: List[List[float]],
+                            segments: Optional[list] = None, filename: str = "",
+                            record: int = 0, xvariable: Optional["ENS_VAR"] = None,
+                            yvariable: Optional["ENS_VAR"] = None,
+                            case: Optional["ENS_CASE"] = None) -> int</signature>
+<paramnames>['title', 'xtitle', 'ytitle', 'data', 'segments=', 'filename=', 'record=', 'xvariable=', 'yvariable=', 'case=']</paramnames>
 <description>
 Create an ENS_QUERY instance::
 
     ensight.query_xy_create(title: str, xtitle: str, ytitle: str,
-                            data: List[List[float, float]],
+                            data: List[List[float]],
                             segments: Optional[list], filename: Optional[str] = None,
                             record: int = 0, xvariable: Optional[ENS_VAR] = None,
                             yvariable: Optional[ENS_VAR] = None,
@@ -210,10 +225,12 @@ Example:
 </override>
 
 <override namespace="ensight.query_xy_update">
+<signature>(id: int, data: List[List[float]], segments: Optional[list] = None) -> int</signature>
+<paramnames>['id', 'data', 'segments=']</paramnames>
 <description>
 Update the data values in a query::
 
-    ensight.query_xy_update(qidx: int, data: List[List[float, float]],
+    ensight.query_xy_update(id: int, data: List[List[float]],
                             segments: Optional[list] = None) -> int
 
 
@@ -221,7 +238,7 @@ Update the data values of a "file" XY query.
 
 
 Args:
-    qidx:
+    id:
         The INDEX attribute for the ENS_QUERY object to be updated.
     data:
         A list of XY list values.
@@ -230,7 +247,7 @@ Args:
         be a "break" in the plotted query line.
 
 Returns:
-    The qidx that was updated or a negative number on an error.
+    The query index id that was updated or a negative number on an error.
 
 
 Example:

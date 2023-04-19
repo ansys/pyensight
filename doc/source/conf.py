@@ -1,5 +1,6 @@
 """Sphinx documentation configuration file."""
 from datetime import datetime
+import json
 import os
 import sys
 
@@ -155,3 +156,30 @@ language = "en"
 # exclude traditional Python prompts from the copied code
 copybutton_prompt_text = r">>> ?|\.\.\. "
 copybutton_prompt_is_regexp = True
+
+
+# In PyEnSight we have both upper and lowercase versions of the
+# ENSOBJ properties.  We need to suppress the lowercase versions
+# of the properties for Linux sphinx generation.
+with open("skip_items.json", "r") as fp:
+    s = fp.read()
+skip_items = json.loads(s)
+
+
+def lowercase_property_skip(app, what, name, obj, skip, options):
+    # Testing:
+    # print(app, what, name, obj, skip, options)
+    if what == "property":
+        if name.islower():
+            return True
+    if name.startswith("__") and name.endswith("__"):
+        return not (name == "__OBJID__")
+    if name in skip_items:
+        if what == skip_items[name].get("what", ""):
+            return True
+    return False
+
+
+# Attach lowercase_property_skip to the skip event
+def setup(app):
+    app.connect("autodoc-skip-member", lowercase_property_skip)

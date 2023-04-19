@@ -75,7 +75,7 @@ def wheel() -> None:
             print(f"Rename wheel to: '{new_name}'")
 
 
-def test() -> None:
+def test(local: bool = False) -> None:
     print("-" * 10, "Run tests")
     pytest = find_exe("pytest")
     cmd = [
@@ -89,6 +89,8 @@ def test() -> None:
         "term",
         "--cov-config=.coveragerc",
     ]
+    if local:
+        cmd.append("--use-local-launcher")
     subprocess.run(cmd)
 
 
@@ -205,6 +207,7 @@ if __name__ == "__main__":
 'precommit' : Run linting tools.
 'codegen' : Execute the codegen operations.
 'test' : Execute the pytests.
+'testlocal' : Execute the pytests using LocalLauncher.
 'build' : Build the wheel.
 'fastdocs' : Generate partial documentation.
 'docs' : Generate documentation.
@@ -218,7 +221,17 @@ if __name__ == "__main__":
     parser.add_argument(
         "operation",
         metavar="operation",
-        choices=["clean", "precommit", "codegen", "test", "build", "fastdocs", "docs", "all"],
+        choices=[
+            "clean",
+            "precommit",
+            "codegen",
+            "test",
+            "testlocal",
+            "build",
+            "fastdocs",
+            "docs",
+            "all",
+        ],
         help=operation_help,
     )
 
@@ -236,6 +249,8 @@ if __name__ == "__main__":
         generate()
     elif args.operation == "test":
         test()
+    elif args.operation == "testlocal":
+        test(local=True)
     elif args.operation == "build":
         generate()
         wheel()
