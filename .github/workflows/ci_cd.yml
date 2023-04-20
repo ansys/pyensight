@@ -156,6 +156,8 @@ jobs:
         run: |
           make -C doc html SPHINXOPTS="-W"
           touch doc/build/html/.nojekyll
+        env:
+          ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
 
       - name: Upload HTML Documentation
         if: ${{ !env.ACT }} && github.event_name == 'push' && contains(github.ref, 'refs/tags')
