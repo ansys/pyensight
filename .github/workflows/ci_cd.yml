@@ -143,6 +143,9 @@ jobs:
       - name: Generate EnSight bindings
         run: make generate
 
+      - name: Build EnSight wheel
+        run: make build
+
       - name: Install EnSight bindings
         run: make install
 
