@@ -143,6 +143,9 @@ jobs:
       - name: Generate EnSight bindings
         run: make generate
 
+      - name: Install EnSight bindings
+        run: make install
+
       - name: Install doc requirements
         run: pip install -r requirements/docs.txt
 
