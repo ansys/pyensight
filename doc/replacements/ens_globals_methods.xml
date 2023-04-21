@@ -63,7 +63,7 @@ Example:
 
 
 <override namespace="ensight.objs.ENS_GLOBALS.get_units">
-<signature>(obj: Union[ENS_VAR, str], format: int = 0, utf8: int = 0,
+<signature>(obj: Union["ENS_VAR", str], format: int = 0, utf8: int = 0,
             prefix: str = "", suffix: str = "") -> Union[str, bytes]</signature>
 <paramnames>["obj", "format=", "utf8=", "prefix=", "suffix="]</paramnames>
 <description>
@@ -195,7 +195,7 @@ See also:
 </override>
 
 <override namespace="ensight.objs.ENS_GLOBALS.get_unit_dimensions">
-<signature>(obj: ENS_VAR, normalized: bool = False) -> str</signature>
+<signature>(obj: "ENS_VAR", normalized: bool = False) -> str</signature>
 <paramnames>["obj", "normalized="]</paramnames>
 <description>
 This method will return the units dimension string for a given variable object.
@@ -318,9 +318,9 @@ Examples:
 </override>
 
 <override namespace="ensight.objs.ENS_GLOBALS.find_objs">
-<signature>(list: Union[ENS_GROUP, list] = [], filter: Optional[dict] = None,
+<signature>(list: Union["ENS_GROUP", list] = [], filter: Optional[dict] = None,
             group: int = 0, recurse: int = 0, depth: int = -1,
-            types: Optional[list] = None) -> Union[ENS_GROUP, list]</signature>
+            types: Optional[list] = None) -> Union["ENS_GROUP", list]</signature>
 <paramnames>["list=", "filter=", "group=", "recurse=", "depth=", "types="]</paramnames>
 <description>
 Search an object (tree) for objects that match a specific criteria.
