@@ -85,7 +85,7 @@ an UTF8 encoded bytes object will be returned.
 
 Args:
     obj:
-        A variable or part object or a string representing units by dimensional specification.  For
+        A variable/part object or a string representing units by dimensional specification.  For
         example, "L/TT" (length/time*time) for acceleration.
     format:
         The specific string format.  0=simple raw ASCII, 1=Unicode string, 2=EnSight annotation.

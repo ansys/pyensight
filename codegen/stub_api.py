@@ -366,7 +366,7 @@ class ProcessAPI:
             s += f'{new_indent}"""{desc}\n'
             s += f'{new_indent}"""\n'
         if object_method:
-            s += f'{new_indent}obj = f"{{self._remote_obj()}}"\n'
+            s += f'{new_indent}arg_obj = f"{{self._remote_obj()}}"\n'
         s += f"{new_indent}arg_list = []\n"
         # arguments
         if paramnames is not None:
@@ -385,7 +385,7 @@ class ProcessAPI:
         # build the command
         s += f'{new_indent}arg_string = ",".join(arg_list)\n'
         if object_method:
-            s += f'{new_indent}cmd = f"{{obj}}.{name}({{arg_string}})"\n'
+            s += f'{new_indent}cmd = f"{{arg_obj}}.{name}({{arg_string}})"\n'
         else:
             s += f'{new_indent}cmd = f"{namespace}({{arg_string}})"\n'
         s += f"{new_indent}return self._session.cmd(cmd)\n"
