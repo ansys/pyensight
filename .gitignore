@@ -49,6 +49,7 @@ src/ansys/pyensight/build_info.py
 .coverage
 *,cover
 test-output.xml
+pyensight_test_results.xml
 
 \#*
 .\#*

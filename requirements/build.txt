@@ -3,3 +3,4 @@ grpcio_tools>=1.23.0
 requests>=2.20.1
 twine>=4.0.1
 pyansys-docker>=5.0.4
+junitparser>=2.8.0
