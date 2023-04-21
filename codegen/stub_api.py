@@ -548,7 +548,7 @@ class ProcessAPI:
         s += "from ansys.pyensight import ensobjlist\n"
         if superclass != "ENSOBJ":
             s += f"from ansys.pyensight.{superclass.lower()} import {superclass}\n"
-        s += "from typing import Any, List, Type, Union, Optional\n"
+        s += "from typing import Any, List, Type, Union, Optional, Tuple\n"
         s += "\n\n"
         s += f"{indent}class {classname}({superclass}):\n"
         indent += "    "
@@ -694,7 +694,7 @@ class ProcessAPI:
         s += "from ansys.pyensight.ensobj import ENSOBJ\n"
         s += "from ansys.pyensight import ensobjlist\n"
         s += "ENSIMPORTS"
-        s += "from typing import Any, List, Type, Union, Optional\n"
+        s += "from typing import Any, List, Type, Union, Optional, Tuple\n"
         for child in self._root:
             if child.tag == "module":
                 s += self._process_module(child)
