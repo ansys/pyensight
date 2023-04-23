@@ -50,17 +50,14 @@ def test_ensight_api(mocked_session):
                 # the kwargs all to dictionaries of kind 1=1, where the key
                 # is of course a string. This is just to check that they can
                 # be called.
-                sig = getfullargspec(submethod)
-                num_args = len(sig.args)
-                if "self" in sig.args or "cls" in sig.args:
-                    num_args -= 1
-                if sig.varargs:
-                    num_args += 1
-                args = [1] * num_args
-                num_kwargs = len(sig.kwonlyargs)
-                if sig.varkw:
-                    num_kwargs += 1
-                kwargs = {"{}".format(i): i for i in range(num_kwargs)}
+                s_args, s_kwargs = get_args_kwargs(submethod)
+                # args are passed as 1
+                args = [1] * len(s_args)
+                # kwargs are passed as 0
+                kwargs = {}
+                for kw in s_kwargs:
+                    kwargs[kw] = 0
+
                 assert submethod(*args, **kwargs) == output
         else:
             # In this case we are actually calling a method.

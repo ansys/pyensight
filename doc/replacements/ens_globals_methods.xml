@@ -63,6 +63,9 @@ Example:
 
 
 <override namespace="ensight.objs.ENS_GLOBALS.get_units">
+<signature>(obj: Union["ENS_VAR", str], format: int = 0, utf8: int = 0,
+            prefix: str = "", suffix: str = "") -> Union[str, bytes]</signature>
+<paramnames>["obj", "format=", "utf8=", "prefix=", "suffix="]</paramnames>
 <description>
 Generate a string that represents the appropriate label for a given object.
 
