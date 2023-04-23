@@ -63,11 +63,11 @@ Example:
 
 
 <override namespace="ensight.objs.ENS_GLOBALS.get_units">
+<signature>(obj: Union["ENS_VAR", str], format: int = 0, utf8: int = 0,
+            prefix: str = "", suffix: str = "") -> Union[str, bytes]</signature>
+<paramnames>["obj", "format=", "utf8=", "prefix=", "suffix="]</paramnames>
 <description>
-Generate a string that represents the appropriate label for a given object::
-
-    ENS_GLOBALS.get_units(object: Union[ENS_VAR, str], format: int = 0, utf8: int = 0,
-                          prefix: str = "", suffix: str = "") -> Union[str, bytes]
+Generate a string that represents the appropriate label for a given object.
 
 
 This method will look at the specified :class:`ENS_VAR&lt;pyensight.ensobj.ENS_VAR&gt;` object
@@ -84,8 +84,8 @@ an UTF8 encoded bytes object will be returned.
 
 
 Args:
-    object:
-        A variable or part object or a string representing units by dimensional specification.  For
+    obj:
+        A variable/part object or a string representing units by dimensional specification.  For
         example, "L/TT" (length/time*time) for acceleration.
     format:
         The specific string format.  0=simple raw ASCII, 1=Unicode string, 2=EnSight annotation.
@@ -122,11 +122,11 @@ See also:
 </override>
 
 <override namespace="ensight.objs.ENS_GLOBALS.unit_system">
+<signature>(name: Optional[str] = None, silent: int = 1, enumerate: int = -1,
+            record: int = 0) -> Tuple[str, str, bool, dict]</signature>
+<paramnames>["name=", "silent=", "enumerate=", "record="]</paramnames>
 <description>
-Get/set the current unit system to the named value (see ENS_UNITS_SYSTEM)::
-
-    ensight.objs.core.unit_system(name: Optional[str] = None, silent: int = 1, enumerate: int = -1,
-                                  record: int = 0) -> Tuple[str, str, bool, dict]
+Get/set the current unit system to the named value (see ENS_UNITS_SYSTEM).
 
 
 With no arguments, this method simply returns a tuple:
@@ -148,7 +148,7 @@ Args:
         If non-zero suppress exceptions.
     enumerate:
         If 0 or greater, return details of the 'n-th' unit system.
-    recode:
+    record:
         If non-zero, any operation that changes the unit system will be recorded to
         command language.
 
@@ -195,10 +195,10 @@ See also:
 </override>
 
 <override namespace="ensight.objs.ENS_GLOBALS.get_unit_dimensions">
+<signature>(obj: "ENS_VAR", normalized: bool = False) -> str</signature>
+<paramnames>["obj", "normalized="]</paramnames>
 <description>
-This method will return the units dimension string for a given variable object::
-
-    ensight.objs.core.get_unit_dimensions(varobj: ENS_VAR, normalized: bool = False) -> str
+This method will return the units dimension string for a given variable object.
 
 
 The dimension string is a collection of characters that represent fundamental quantities, mass,
@@ -226,7 +226,7 @@ will return the dimension string: "L/T".
 
 
 Args:
-    varobj:
+    obj:
         An ENS_VAR object instance.
     normalized:
         If normalized is set to True, the form of the dimension string will be standardized.
@@ -246,12 +246,12 @@ See also:
 </override>
 
 <override namespace="ensight.objs.ENS_GLOBALS.get_unit_conversion">
+<signature>(from_system: str, to_system: str,
+            dimensionality: str) -> Tuple[float, float]</signature>
+<paramnames>["from_system", "to_system", "dimensionality"]</paramnames>
 <description>
 Return the linear conversion parameters for converting a variable from one unit system to
-another::
-
-    ensight.objs.core.get_unit_conversion(from_unit_system: str, to_unit_system: str,
-                                          dimension_string: str) -> Tuple[float, float]
+another.
 
 
 This method will return the M and B linear equation parameters for the equation:
@@ -263,11 +263,11 @@ tuple of two floats.  The list of valid unit systems can be obtained using:
 
 
 Args:
-    from_unit_system:
+    from_system:
         The unit system to convert from.
-    to_unit_system:
+    to_system:
         The unit system to convert to.
-    dimension_string:
+    dimensionality:
         The unit quantity dimension string to convert.
         See: :samp:`ensight.objs.core.get_unit_dimensions()`
 
@@ -294,10 +294,10 @@ See also:
 </override>
 
 <override namespace="ensight.objs.ENS_GLOBALS.generate_uuid">
+<signature>() -> str</signature>
+<paramnames>[]</paramnames>
 <description>
-Generate a new UUID::
-
-    ensight.objs.core.generate_uuid() -> str
+Generate a new UUID.
 
 
 This method will generate and return a new GUID.
@@ -318,12 +318,12 @@ Examples:
 </override>
 
 <override namespace="ensight.objs.ENS_GLOBALS.find_objs">
+<signature>(list: Union["ENS_GROUP", list] = [], filter: Optional[dict] = None,
+            group: int = 0, recurse: int = 0, depth: int = -1,
+            types: Optional[list] = None) -> Union["ENS_GROUP", list]</signature>
+<paramnames>["list=", "filter=", "group=", "recurse=", "depth=", "types="]</paramnames>
 <description>
-Search an object (tree) for objects that match a specific criteria::
-
-    ensight.objs.core.find_objs(list: Union[ENS_GROUP, list] = [], filter: Optional[dict] = None,
-                                group: int = 0, recurse: int = 0, depth: int = -1,
-                                types: Optional[list] = None) -> Union[ENS_GROUP, list]
+Search an object (tree) for objects that match a specific criteria.
 
 
 This method walks an array of objects or an ENS_GROUP rooted object tree, looking for

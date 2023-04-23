@@ -1,10 +1,10 @@
 <docstrings>
 
 <override namespace="ensight.objs.next_id">
+<signature>() -> int</signature>
+<paramnames>[]</paramnames>
 <description>
-Return the object id of the next object EnSight will allocate::
-
-    ensight.objs.next_id() -> int
+Return the object id of the next object EnSight will allocate
 
 
 All EnSight objects have a unique object ID.  These IDs are monotonically increasing.
@@ -23,9 +23,7 @@ Returns:
 <signature>(id: int) -> "ENSOBJ"</signature>
 <paramnames>["id"]</paramnames>
 <description>
-Return the Python proxy object for a specific EnSight object id::
-
-    ensight.objs.wrap_id(id: int) -> ENSOBJ
+Return the Python proxy object for a specific EnSight object id
 
 
 The EnSight Python object interface uses proxy objects.  This method creates
@@ -44,10 +42,10 @@ Returns:
 </override>
 
 <override namespace="ensight.objs.valid_id">
+<signature>(id: int) -> bool</signature>
+<paramnames>["id"]</paramnames>
 <description>
-Check to see if a given id corresponds to an existing EnSight object::
-
-    ensight.objs.valid_id(id: int) -> bool
+Check to see if a given id corresponds to an existing EnSight object
 
 
 Args:
@@ -62,10 +60,10 @@ Returns:
 </override>
 
 <override namespace="ensight.objs.enum_to_name">
+<signature>(attrid: int) -> str</signature>
+<paramnames>["attrid"]</paramnames>
 <description>
-Convert an attribute id into the associated string name::
-
-    ensight.objs.enum_to_name(attrid: int) -> str
+Convert an attribute id into the associated string name
 
 
 For a given attribute id, return the ASCII name of the
@@ -109,9 +107,7 @@ Args:
 <signature>(yield_cpu: bool = False) -> None</signature>
 <paramnames>["yield_cpu="]</paramnames>
 <description>
-Execute EnSight idle processing::
-
-    ensight.idle(yield_cpu: bool = False) -> None
+Execute EnSight idle processing
 
 
 Call the EnSight idle processing loop a single time.  It is used in closed
@@ -131,9 +127,7 @@ Args:
 <signature>(force: int = 0) -> None</signature>
 <paramnames>["force="]</paramnames>
 <description>
-Refresh the EnSight rendering window::
-
-    ensight.refresh(force: int  = 0) -> None
+Refresh the EnSight rendering window
 
 
 Cause the EnSight rendering window to update.
@@ -151,9 +145,7 @@ Args:
 <signature>() -> int</signature>
 <paramnames>[]</paramnames>
 <description>
-Detect if EnSight is running in batch mode::
-
-    ensight.batch() -> int
+Detect if EnSight is running in batch mode
 
 
 Returns:
@@ -171,15 +163,7 @@ Returns:
                             case: Optional["ENS_CASE"] = None) -> int</signature>
 <paramnames>['title', 'xtitle', 'ytitle', 'data', 'segments=', 'filename=', 'record=', 'xvariable=', 'yvariable=', 'case=']</paramnames>
 <description>
-Create an ENS_QUERY instance::
-
-    ensight.query_xy_create(title: str, xtitle: str, ytitle: str,
-                            data: List[List[float]],
-                            segments: Optional[list], filename: Optional[str] = None,
-                            record: int = 0, xvariable: Optional[ENS_VAR] = None,
-                            yvariable: Optional[ENS_VAR] = None,
-                            case: Optional[ENS_CASE] = None) -> int
-
+Create an ENS_QUERY instance
 
 Create a new "file" XY query object.
 
@@ -228,11 +212,7 @@ Example:
 <signature>(id: int, data: List[List[float]], segments: Optional[list] = None) -> int</signature>
 <paramnames>['id', 'data', 'segments=']</paramnames>
 <description>
-Update the data values in a query::
-
-    ensight.query_xy_update(id: int, data: List[List[float]],
-                            segments: Optional[list] = None) -> int
-
+Update the data values in a query
 
 Update the data values of a "file" XY query.
 

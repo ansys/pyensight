@@ -13,5 +13,21 @@
 	"qtposition" : { "what": "method" },
 	"qtwinflags" : { "what": "method" },
 	"setLpartMode" : { "what": "method" },
-	"transfFeedbackRefresh" : { "what": "method" }
+	"transfFeedbackRefresh" : { "what": "method" },
+	"_is_iterable" : { "what": "method" },
+	"_repr_pretty_" : { "what": "method" },
+	"_remote_obj" : { "what": "method" },
+	"_update_attr_list" : { "what": "method" },
+	"_find_unused_ports" : { "what": "method" },
+	"_has_egl" : { "what": "method" },
+	"_is_windows" : { "what": "method" },
+	"_convert_ctor" : { "what": "method" },
+	"_establish_connection" : { "what": "method" },
+	"_event_callback" : { "what": "method" },
+	"_obj_attr_subtype" : { "what": "method" },
+	"_prune_hash" : { "what": "method" },
+	"_default_size" : { "what": "method" },
+	"_generate_filename" : { "what": "method" },
+	"_generate_url" : { "what": "method" },
+	"_save_remote_html_page" : { "what": "method" }
 }
