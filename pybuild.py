@@ -31,10 +31,11 @@ def find_exe(name: str) -> str:
     raise RuntimeError(f"Unable to find script {name}.  Is it installed?")
 
 
-def docs(target: str = "html", full: bool = True) -> None:
+def docs(target: str = "html", full: bool = True, skip_tests: bool = False) -> None:
     # We run the tests first so we have access to their results when
     # building the documentation
-    test()
+    if not skip_tests:
+        test()
     # Build the actual docs
     print("-" * 10, "Build sphinx docs")
     sphinx = find_exe("sphinx-build")
@@ -43,10 +44,11 @@ def docs(target: str = "html", full: bool = True) -> None:
     if not full:
         env["FASTDOCS"] = "1"
     subprocess.run(cmd, env=env)
-    # build the coverage badge, overriding the default badge
-    cov_badge = find_exe("coverage-badge")
-    cmd = [cov_badge, "-f", "-o", "doc/build/html/_images/coverage.svg"]
-    subprocess.run(cmd)
+    if not skip_tests:
+        # build the coverage badge, overriding the default badge
+        cov_badge = find_exe("coverage-badge")
+        cmd = [cov_badge, "-f", "-o", "doc/build/html/_images/coverage.svg"]
+        subprocess.run(cmd)
 
 
 def generate() -> None:
@@ -256,6 +258,12 @@ if __name__ == "__main__":
         ],
         help=operation_help,
     )
+    parser.add_argument(
+        "--skip_tests",
+        default=False,
+        action="store_true",
+        help="Set to skip running tests when building documentation",
+    )
 
     # parse the command line
     args = parser.parse_args()
@@ -278,10 +286,10 @@ if __name__ == "__main__":
         wheel()
     elif args.operation == "docs":
         generate()
-        docs(target="html")
+        docs(target="html", skip_tests=args.skip_tests)
     elif args.operation == "fastdocs":
         generate()
-        docs(target="html", full=False)
+        docs(target="html", full=False, skip_tests=args.skip_tests)
     elif args.operation == "all":
         clean()
         generate()
