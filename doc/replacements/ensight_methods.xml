@@ -101,7 +101,7 @@ Note: this method should only be used in EnSight Python scripts.  For
 PyEnSight scripts, use:  :meth:`pyensight.Session.add_callback`
 instead.
 
-    
+
 This function will register a callback on the ``target``. The target can either be an EnSight
 ENSOBJ object or the name of a class (e.g. "ENS_PART").
 A Python function of the form::
@@ -330,7 +330,7 @@ Example:
 <override namespace="ensight.query_pixelbuffer">
 <signature>(x: int, y: int, x2: int = 2147483647, y2: int = 2147483647, parts_only: int = 0,
             deep_part_check: int = 0) -> list</signature>
-<paramnames>['x1', 'y1', 'x2=', 'y2=', 'parts_only=', 'deep_part_check=']</paramnames>
+<paramnames>['x', 'y', 'x2=', 'y2=', 'parts_only=', 'deep_part_check=']</paramnames>
 <description>
 Find the EnSight objects under a point or for all the points in a rectangle.
 
