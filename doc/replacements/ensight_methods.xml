@@ -89,6 +89,90 @@ Example:
 </override>
 
 
+<override namespace="ensight.objs.addcallback">
+<signature>(target: Union["ENSOBJ", str], obj: Any, method: str, userdata: Any = None,
+            attrs: List[int] = [], flags: int = 0) -> int</signature>
+<paramnames>["target", "obj", "method", "userdata=", "attrs=", "flags="]</paramnames>
+<description>
+Set up a Python callback that will be executed when the selected conditions are met.
+
+
+Note: this method should only be used in EnSight Python scripts.  For
+PyEnSight scripts, use:  :meth:`pyensight.Session.add_callback`
+instead.
+
+
+This function will register a callback on the ``target``. The target can either be an EnSight
+ENSOBJ object or the name of a class (e.g. "ENS_PART").
+A Python function of the form::
+
+
+    class obj:
+        def method(self, target: "ENSOBJ", attribute: int, userdata: Any) -> int:
+            return 0
+
+
+will be called whenever an attribute of the target object/class changes.  The object whose
+attribute changed will be passed to the callback as ``target``.
+The actual attribute that changed is passed to the callback as the ``attribute`` parameter.
+By default, the callback is made for all attributes, but a restricted list of attributes
+can be provided by the ``attrs`` keyword.
+If a value is specified via the ``userdata`` keyword, it will passed to the callback as well.
+The return value of the callback controls if the callback will be made again in the future.
+If any value other than 0 is returned, the callback is removed from the queue and will
+not be called again.
+
+Args:
+    target:
+        The ENSOBJ instance or the string name of the ENSOBJ subclass that the callback should
+        respond to attribute changes on.
+    obj:
+        The Python object that has the named callback method.
+    method:
+        The string name of the method on ``obj`` that should be called when the attribute
+        change conditions are met.
+    userdata:
+        An optional object that will be passed to the callback.  Often used as a differentiator
+        when the same method is register for multiple target/attribute tuples.
+    attrs:
+        The list of attribute IDs.  If there is a change in any of the attributes on the
+        target object, then the callback will be executed.
+    flags:
+        ``ensight.objs.EVENTMAP_FLAG_IMMEDIATE`` causes the callback to be called immediately
+        instead of being queued up for later when EnSight is idle. Use this flag with caution,
+        it can be very expensive and can lead to recursion issues.
+        ``ensight.objs.EVENTMAP_FLAG_COMP_LOCAL`` causes multiple consecutive instances of
+        this callback in the deferred event queue to be consolidated into a single event.
+        ``ensight.objs.EVENTMAP_FLAG_COMP_GLOBAL`` performs the same consolidation, but allows
+        for discontinuous instances of the callback to be collapsed to the last callback instance.
+
+Returns:
+    The registered callback id on success or -1 if the callback could not be registered.
+
+</description>
+</override>
+
+<override namespace="ensight.objs.removecallback">
+<signature>(id: int) -> int</signature>
+<paramnames>["id"]</paramnames>
+<description>
+Remove a callback that was registered using ensight.objs.addcallback()
+
+Note: this method should only be used in EnSight Python scripts.  For
+PyEnSight scripts, use:  :meth:`pyensight.Session.remove_callback`
+instead.
+
+Args:
+    id:
+        A callback number returned by addcallback().
+
+
+Returns:
+    0 on success or -1 if the passed id could not be removed.
+
+</description>
+</override>
+
 <override namespace="ensight.exit">
 <description>
 Terminate the EnSight instance::
@@ -238,6 +322,151 @@ Example:
         query_object = max(ensight.objs.core.QUERIES)
         data = [[1, 0.5], [2, 3.5], [3, 8.5], [4, 15.5]]
         err = ensight.query_xy_create(query_object.INDEX, data)
+
+
+</description>
+</override>
+
+<override namespace="ensight.query_pixelbuffer">
+<signature>(x: int, y: int, x2: int = 2147483647, y2: int = 2147483647, parts_only: int = 0,
+            deep_part_check: int = 0) -> list</signature>
+<paramnames>['x', 'y', 'x2=', 'y2=', 'parts_only=', 'deep_part_check=']</paramnames>
+<description>
+Find the EnSight objects under a point or for all the points in a rectangle.
+
+This method allows the caller to probe the rendered pixel buffer and determine
+which EnSight objects are visible at a point or within a rectangle of pixels.
+The x and y coordinates within the rendering window must be specified in pixels.
+``0, 0`` is the lower left corner of the window.
+``ensight.objs.core.WINDOWSIZE[0]-1, ensight.objs.core.WINDOWSIZE[1]-1`` is the
+upper-rightmost pixel.
+Specifying a rectangle of pixels is done by including x2 and y2 keyword arguments.
+Note that 2147483647 is treated as "undefined" for x2 and y2.
+
+
+The method can work in two ways, "Object mode" or "Part mode".  Object mode is selected
+by only passing the x and y single pick point and no other options. In this mode, the
+returned value is a list of lists. For example::
+
+    [[partobj, [x,y,z]], [partobj, [x,y,z]], [annotobj, [x,y,z]]]
+
+
+For a part, the x,y,z coordinates are the location on the part in model space.
+For a 2D object like an annotation, x and y are the normalized screen coordinates and z is
+the normalized front clip plane.  Note, this operation can be slow if a rectangle is specified.
+
+
+Part mode is selected by specifying ``parts_only=1`` or ``deep_part_check=1``.  In part mode,
+the return value is a simple list of ENS_PART objects. This is normally done by interrogating the
+rendered pixels for the target parts.  If deep_part_check is 1, it is computed by intersecting
+the geometry with the point or rectangle.  This can pick parts hidden behind other parts.
+
+
+Args:
+    x:
+        The x position of the pixel to query (or a corner if x2 and y2 are specified).
+    y:
+        The y position of the pixel to query (or a corner if x2 and y2 are specified).
+    x2:
+        The x position of the other corner of the rectangle to query.
+    y2:
+        The y position of the other corner of the rectangle to query.
+    parts_only:
+        If set to 1, only x2 and y2 cannot be specified and the return value will be
+        restricted to ENS_PART objects only.  Note: no x,y,z location will be
+        included in the return value if the option is selected.
+    deep_part_check:
+        If set to 1, the returned set of ENS_PART objects will not be limited to the first
+        part object hit in depth.  Use this option if you want to return parts that might
+        be occluded by parts that are closer to the viewer.  Note: no x,y,z location will be
+        included in the return value if the option is selected.
+
+Returns:
+    A list of objects that would be intersected by passing rays from the viewer though the
+    selected pixel or block of pixels.  The return value may or may not include the x,y,z
+    coordinates (in data space) of the intersection.
+
+</description>
+</override>
+
+
+<override namespace="ensight.ensvariable">
+<signature>(varname: str) -> Tuple[Any, int, int]</signature>
+<paramnames>['varname']</paramnames>
+<description>
+This method will query EnSight command language variable values and
+return a tuple containing the value, its type and the scope it was
+found in (similar to the command language $ functionality), allowing
+access to variables defined directly in command language or computed
+constants. The function returns None if the variable cannot be found.
+
+Args:
+    varname:
+        The name of the command language variable to query
+
+Returns:
+    A tuple of the form: ``(value, type, scope)``.   ``type`` will be
+    0 if the value is an integer, 1 if the value is a float and 2 if
+    the value is a string. The ``scope`` is an integer that specifies
+    where the variable was found.  -2 if the variable is in the enscl
+    namespace (for example, ensight.ensvariable(enscl.FOO)).  -1 if the
+    variable is an EnSight constant variable (file, case or computed variable).
+    0 if the variable is global in the command language interpreter
+    (for example, $globalint BAR) or is a special command language
+    variable like: APPTOTALTIMESTEPS. A positive integer if the variable
+    is local in the command language interpreter.  The number is the depth
+    in the interpreter stack where the value is defined.
+
+</description>
+</override>
+
+<override namespace="ensight.query_points">
+<description>
+This function is a basic variable and mesh query mechanism::
+
+    ensight.query_points(points: List[List[float, float, float],
+                         parts: Any = None,
+                         variables: List[int] = None,
+                         time: float = -1e9) -> List[Any]
+
+
+Args:
+    points:
+        A list of points to query (a Python list of 3 value python lists).
+        An example would be: ``[ [1,2,0], [2,4,2] ]`` for two points. The function
+        will perform a query at each point in the list.
+    parts:
+        If no parts are specified, the currently selected parts will be used.
+        Otherwise, parts may be set to the string "all" to search all parts or
+        it may be a list of parts.  In the list, the values can be part names,
+        part numbers or part objects. For example: ``parts=["mesh","field",8]``
+        will include the parts named mesh, field and part number 8 in the query.
+    variables:
+        If present, variables should be a Python list variable that may include
+        any mixture of string names, variable numbers or variable objects for
+        all the variables that should be included in the query. For
+        example: ``variables=["velocity","pressure",2]`` will include output
+        for the variables named velocity, pressure and variable number 2 in the query.
+    time:
+        If not present, the query will be for the current time value in EnSight.
+        The caller can also specify a specific time value using this keyword.
+
+Return:
+    The return value is a list of output lists. One list for each input point.
+    If no variables are specified, the query will be about the mesh structure
+    and the list for each point will appear as::
+
+        [part_number, structuredpart_flag, closest_node, element_id]
+
+
+    The values are the part number the point was found in, a flag that is non-zero
+    if the part is structured, the node id of the node closest to the point and
+    the element id of the element that contains the point. If a list of variables
+    is specified, the returned value will be a list of lists, one for each
+    variable. If the input variables were "pressure" and "velocity" (a
+    scalar and a vector), the output (per point) would be::
+
+        [ [pressure_value], [velocity_x, velocity_y, velocity_z] ]
 
 
 </description>
