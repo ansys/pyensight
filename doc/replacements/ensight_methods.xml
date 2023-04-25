@@ -341,6 +341,7 @@ The x and y coordinates within the rendering window must be specified in pixels.
 ``ensight.objs.core.WINDOWSIZE[0]-1, ensight.objs.core.WINDOWSIZE[1]-1`` is the
 upper-rightmost pixel.
 Specifying a rectangle of pixels is done by including x2 and y2 keyword arguments.
+Note that 2147483647 is treated as "undefined" for x2 and y2.
 
 
 The method can work in two ways, "Object mode" or "Part mode".  Object mode is selected
@@ -362,10 +363,10 @@ the geometry with the point or rectangle.  This can pick parts hidden behind oth
 
 
 Args:
-    x1:
-        The x position of the pixel to query or a corner if x2 and y2 are specified.
-    y1:
-        The y position of the pixel to query or a corner if x2 and y2 are specified.
+    x:
+        The x position of the pixel to query (or a corner if x2 and y2 are specified).
+    y:
+        The y position of the pixel to query (or a corner if x2 and y2 are specified).
     x2:
         The x position of the other corner of the rectangle to query.
     y2:
@@ -384,6 +385,89 @@ Returns:
     A list of objects that would be intersected by passing rays from the viewer though the
     selected pixel or block of pixels.  The return value may or may not include the x,y,z
     coordinates (in data space) of the intersection.
+
+</description>
+</override>
+
+
+<override namespace="ensight.ensvariable">
+<signature>(varname: str) -> Tuple[Any, int, int]</signature>
+<paramnames>['varname']</paramnames>
+<description>
+This method will query EnSight command language variable values and
+return a tuple containing the value, its type and the scope it was
+found in (similar to the command language $ functionality), allowing
+access to variables defined directly in command language or computed
+constants. The function returns None if the variable cannot be found.
+
+Args:
+    varname:
+        The name of the command language variable to query
+
+Returns:
+    A tuple of the form: ``(value, type, scope)``.   ``type`` will be
+    0 if the value is an integer, 1 if the value is a float and 2 if
+    the value is a string. The ``scope`` is an integer that specifies
+    where the variable was found.  -2 if the variable is in the enscl
+    namespace (for example, ensight.ensvariable(enscl.FOO)).  -1 if the
+    variable is an EnSight constant variable (file, case or computed variable).
+    0 if the variable is global in the command language interpreter
+    (for example, $globalint BAR) or is a special command language
+    variable like: APPTOTALTIMESTEPS. A positive integer if the variable
+    is local in the command language interpreter.  The number is the depth
+    in the interpreter stack where the value is defined.
+
+</description>
+</override>
+
+<override namespace="ensight.query_points">
+<description>
+This function is a basic variable and mesh query mechanism::
+
+    ensight.query_points(points: List[List[float, float, float],
+                         parts: Any = None,
+                         variables: List[int] = None,
+                         time: float = -1e9) -> List[Any]
+
+
+Args:
+    points:
+        A list of points to query (a Python list of 3 value python lists).
+        An example would be: ``[ [1,2,0], [2,4,2] ]`` for two points. The function
+        will perform a query at each point in the list.
+    parts:
+        If no parts are specified, the currently selected parts will be used.
+        Otherwise, parts may be set to the string "all" to search all parts or
+        it may be a list of parts.  In the list, the values can be part names,
+        part numbers or part objects. For example: ``parts=["mesh","field",8]``
+        will include the parts named mesh, field and part number 8 in the query.
+    variables:
+        If present, variables should be a Python list variable that may include
+        any mixture of string names, variable numbers or variable objects for
+        all the variables that should be included in the query. For
+        example: ``variables=["velocity","pressure",2]`` will include output
+        for the variables named velocity, pressure and variable number 2 in the query.
+    time:
+        If not present, the query will be for the current time value in EnSight.
+        The caller can also specify a specific time value using this keyword.
+
+Return:
+    The return value is a list of output lists. One list for each input point.
+    If no variables are specified, the query will be about the mesh structure
+    and the list for each point will appear as::
+
+        [part_number, structuredpart_flag, closest_node, element_id]
+
+
+    The values are the part number the point was found in, a flag that is non-zero
+    if the part is structured, the node id of the node closest to the point and
+    the element id of the element that contains the point. If a list of variables
+    is specified, the returned value will be a list of lists, one for each
+    variable. If the input variables were "pressure" and "velocity" (a
+    scalar and a vector), the output (per point) would be::
+
+        [ [pressure_value], [velocity_x, velocity_y, velocity_z] ]
+
 
 </description>
 </override>

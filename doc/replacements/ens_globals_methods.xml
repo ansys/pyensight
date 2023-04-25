@@ -269,7 +269,8 @@ Args:
         The unit system to convert to.
     dimensionality:
         The unit quantity dimension string to convert.
-        See: :samp:`ensight.objs.core.get_unit_dimensions()`
+        See: :meth:`pyensight.Session.ensight.objs.core.get_unit_dimensions`
+
 
 Returns:
     A string describing the dimensionality of the variable.

@@ -231,7 +231,6 @@ if __name__ == "__main__":
 'precommit' : Run linting tools.
 'codegen' : Execute the codegen operations.
 'test' : Execute the pytests.
-'testlocal' : Execute the pytests using LocalLauncher.
 'build' : Build the wheel.
 'fastdocs' : Generate partial documentation.
 'docs' : Generate documentation.
@@ -250,7 +249,6 @@ if __name__ == "__main__":
             "precommit",
             "codegen",
             "test",
-            "testlocal",
             "build",
             "fastdocs",
             "docs",
@@ -263,6 +261,12 @@ if __name__ == "__main__":
         default=False,
         action="store_true",
         help="Set to skip running tests when building documentation",
+    )
+    parser.add_argument(
+        "--locallauncher",
+        default=False,
+        action="store_true",
+        help="Set to use LocalLauncher instead of DockerLauncher for tests",
     )
 
     # parse the command line
@@ -278,9 +282,7 @@ if __name__ == "__main__":
     elif args.operation == "codegen":
         generate()
     elif args.operation == "test":
-        test()
-    elif args.operation == "testlocal":
-        test(local=True)
+        test(local=args.locallauncher)
     elif args.operation == "build":
         generate()
         wheel()
