@@ -187,7 +187,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         # FIXME_MFK: fix egl and remove the next line
         use_egl = False
         enshellCmd = "-app -grpc_server "+str(ports[0])
-        print("Starting Container...\n")
+        #print("Starting Container...\n")
         if use_egl:
             self._container = self._docker_client.containers.run(
                 self._image_name,
@@ -200,8 +200,8 @@ class DockerLauncherEnShell(pyensight.Launcher):
                 detach=True,
             )
         else:
-            print(f"Running container {self._image_name} with cmd {enshellCmd}\n")
-            print(f"ports to map: {ports}\n")
+            #print(f"Running container {self._image_name} with cmd {enshellCmd}\n")
+            #print(f"ports to map: {ports}\n")
             self._container = self._docker_client.containers.run(
                 self._image_name,
                 command=enshellCmd,
@@ -211,8 +211,8 @@ class DockerLauncherEnShell(pyensight.Launcher):
                 tty=True,
                 detach=True,
             )
-            print(f"_container = {str(self._container)}\n")
-        print("Container started.  Connecting to EnShell over gRPC...\n")
+            #print(f"_container = {str(self._container)}\n")
+        #print("Container started.  Connecting to EnShell over gRPC...\n")
 
         # Start up the EnShell gRPC interface
         self._enshell = enshell_grpc.EnShellGRPC(port=ports[0])
@@ -223,16 +223,16 @@ class DockerLauncherEnShell(pyensight.Launcher):
                 "Can't connect to EnShell over gRPC in the Docker container."
             )
 
-        print("Connected to EnShell.  Getting CEI_HOME and Ansys version...\n")
+        #print("Connected to EnShell.  Getting CEI_HOME and Ansys version...\n")
 
         # Build up the command to run ensight via the EnShell gRPC interface
 
         self._cei_home = self._enshell.cei_home()
         self._ansys_version = self._enshell.ansys_version()
-        print("CEI_HOME=", self._cei_home)
-        print("Ansys Version=", self._ansys_version)
+        #print("CEI_HOME=", self._cei_home)
+        #print("Ansys Version=", self._ansys_version)
 
-        print("Got them.  Starting EnSight...\n")
+        #print("Got them.  Starting EnSight...\n")
 
         # Run EnSight
         ensight_env = None
@@ -249,12 +249,12 @@ class DockerLauncherEnShell(pyensight.Launcher):
         vnc_url = f"vnc://%%3Frfb_port={ports[2]}%%26use_auth=0"
         ensight_args += " -vnc " + vnc_url
 
-        print(f"Starting EnSight with args: {ensight_args}\n")
+        #print(f"Starting EnSight with args: {ensight_args}\n")
         ret = self._enshell.start_ensight(ensight_args, ensight_env)
         if ret[0] != 0:
             raise RuntimeError(f"Error starting EnSight with args: {ensight_args}")
 
-        print("EnSight started.  Starting wss...\n")
+        #print("EnSight started.  Starting wss...\n")
 
         # Run websocketserver
         wss_cmd = "cpython /ansys_inc/v"+self._ansys_version+"/CEI/nexus"
@@ -269,12 +269,12 @@ class DockerLauncherEnShell(pyensight.Launcher):
         # websocket port
         wss_cmd += " " + str(ports[4])
 
-        print(f"Starting WSS: {wss_cmd}\n")
+        #print(f"Starting WSS: {wss_cmd}\n")
         ret = self._enshell.start_other(wss_cmd)
         if ret[0] != 0:
             raise RuntimeError(f"Error starting WSS: {wss_cmd}\n")
 
-        print("wss started.  Making session...\n")
+        #print("wss started.  Making session...\n")
 
         # build the session instance
         session = pyensight.Session(
@@ -289,7 +289,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         session.launcher = self
         self._sessions.append(session)
 
-        print("Return session.\n")
+        #print("Return session.\n")
 
         return session
 
