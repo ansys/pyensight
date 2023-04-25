@@ -39,6 +39,9 @@ jobs:
       - name: Full Documentation Build
         run: |
           make -C doc html
+        env:
+          ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
+
       - name: Upload documentation HTML artifact
         uses: actions/upload-artifact@v3
         with:
