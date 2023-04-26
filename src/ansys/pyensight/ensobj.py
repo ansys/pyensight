@@ -50,6 +50,9 @@ class ENSOBJ(object):
     def __lt__(self, obj):
         return self._objid < obj._objid
 
+    def __hash__(self):
+        return self._objid
+
     @property
     def __OBJID__(self) -> int:  # noqa: N802
         return self._objid
