@@ -26,6 +26,12 @@ class XMLOverrides:
     For a given object namespace, it records a collection of text blocks that
     should be used to override attributes for objects of that namespace.
 
+    Common tags include:
+    <description> - the doc string text for the namespace
+    <signature> - the typehint for a function:  "(foo: int, bar: str = "") -> "ENSOBJ"
+    <paramnames> - the names used in <signature> ('=' is a keyword):  "['foo', 'bar=']"
+    <code> - a custom binding implementation
+
     Args:
         directory_list:
             A list of directories to scan for .xml files.  Parse them, extracting
@@ -137,10 +143,6 @@ class ProcessAPI:
         # pyensight and then the object goes out of scope in EnSight and is destroyed.
         # For the present, we do not allow this method to be exposed.
         self._custom_names.append("create_group")
-        # Another odd issue.  The get_values() call in EnSight does not properly
-        # generate repr() of the numpy arrays because they are embedded in a
-        # dictionary.  For the present, get_values() cannot be called directly.
-        self._custom_names.append("get_values")
         # api_assets_file is the string holding the text that will be written
         # in the assets file for unit testing
         self.api_assets_file = ""
@@ -358,6 +360,7 @@ class ProcessAPI:
             signature = self._replace(namespace, "signature", signature, simple=True)
             paramnames = eval(paramnames)
         signature = "(self, " + signature[1:]
+        code = self._replace(namespace, "code", default=None, indent=new_indent)
         # Start recording
         s = "\n"
         s += f"{indent}def {name}{signature}:\n"
@@ -365,30 +368,34 @@ class ProcessAPI:
             desc = self._cap1(desc)
             s += f'{new_indent}"""{desc}\n'
             s += f'{new_indent}"""\n'
-        if object_method:
-            s += f'{new_indent}arg_obj = f"{{self._remote_obj()}}"\n'
-        s += f"{new_indent}arg_list = []\n"
-        # arguments
-        if paramnames is not None:
-            for p in [s for s in paramnames if not s.endswith("=")]:
-                s += f"{new_indent}arg_list.append({p}.__repr__())\n"
+        if code:
+            s += new_indent + code
+            return s  # TODO: for the moment, code replacement blocks are not auto-tested
         else:
-            s += f"{new_indent}for arg in args:\n"
-            s += f"{new_indent}    arg_list.append(arg.__repr__())\n"
-        # keywords
-        if paramnames is not None:
-            for p in [s for s in paramnames if s.endswith("=")]:
-                s += f'{new_indent}arg_list.append(f"{p[:-1]}={{{p[:-1]}.__repr__()}}")\n'
-        else:
-            s += f"{new_indent}for key, value in kwargs.items():\n"
-            s += f'{new_indent}    arg_list.append(f"{{key}}={{value.__repr__()}}")\n'
-        # build the command
-        s += f'{new_indent}arg_string = ",".join(arg_list)\n'
-        if object_method:
-            s += f'{new_indent}cmd = f"{{arg_obj}}.{name}({{arg_string}})"\n'
-        else:
-            s += f'{new_indent}cmd = f"{namespace}({{arg_string}})"\n'
-        s += f"{new_indent}return self._session.cmd(cmd)\n"
+            if object_method:
+                s += f'{new_indent}arg_obj = f"{{self._remote_obj()}}"\n'
+            s += f"{new_indent}arg_list = []\n"
+            # arguments
+            if paramnames is not None:
+                for p in [s for s in paramnames if not s.endswith("=")]:
+                    s += f"{new_indent}arg_list.append({p}.__repr__())\n"
+            else:
+                s += f"{new_indent}for arg in args:\n"
+                s += f"{new_indent}    arg_list.append(arg.__repr__())\n"
+            # keywords
+            if paramnames is not None:
+                for p in [s for s in paramnames if s.endswith("=")]:
+                    s += f'{new_indent}arg_list.append(f"{p[:-1]}={{{p[:-1]}.__repr__()}}")\n'
+            else:
+                s += f"{new_indent}for key, value in kwargs.items():\n"
+                s += f'{new_indent}    arg_list.append(f"{{key}}={{value.__repr__()}}")\n'
+            # build the command
+            s += f'{new_indent}arg_string = ",".join(arg_list)\n'
+            if object_method:
+                s += f'{new_indent}cmd = f"{{arg_obj}}.{name}({{arg_string}})"\n'
+            else:
+                s += f'{new_indent}cmd = f"{namespace}({{arg_string}})"\n'
+            s += f"{new_indent}return self._session.cmd(cmd)\n"
 
         if object_method:
             if "__init__" not in name:
