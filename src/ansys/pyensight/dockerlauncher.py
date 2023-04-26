@@ -10,7 +10,7 @@ Examples:
         launcher = DockerLauncher(data_directory="D:\\data")
         launcher.pull()
         session = launcher.start()
-        launcher.stop()
+        session.close()
 
 """
 import os.path
@@ -47,7 +47,7 @@ class DockerLauncher(pyensight.Launcher):
             launcher = DockerLauncher(data_directory="D:\\data")
             launcher.pull()
             session = launcher.start()
-            launcher.stop()
+            session.close()
 
     """
 

@@ -35,7 +35,7 @@ class LocalLauncher(pyensight.Launcher):
             "envision" is also available.
         batch:
             By default, the EnSight/EnVision instance will run in batch mode.
-            If batch is set to True, the full GUI will be presented.
+            If batch is set to True, the full GUI will not be presented.
         timeout:
             In some cases where the EnSight session can take a significant amount of
             timme to start up, this is the number of seconds to wait before failing
