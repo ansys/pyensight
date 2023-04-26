@@ -83,7 +83,10 @@ class LocalLauncher(pyensight.Launcher):
         """
         return self._application
 
-    def start(self, use_egl: bool = False) -> "pyensight.Session":
+    def start(self,
+        use_egl: bool = False,
+        use_sos: Optional[bool] = False,
+        nservers: Optional[int] = 2) -> "pyensight.Session":
         """Start an EnSight session using the local ensight install
         Launch a copy of EnSight locally that supports the gRPC interface.  Create and
         bind a Session instance to the created gRPC session.  Return that session.
@@ -93,6 +96,10 @@ class LocalLauncher(pyensight.Launcher):
                 Optional hostname on which the EnSight gRPC service is running
             use_egl:
                 Specify True if EnSight should try to use EGL.
+            use_sos:
+                If True, EnSight will use SOS.
+            nservers:
+                The number of EnSight Servers to use if using SOS.
 
         Returns:
             pyensight Session object instance
@@ -135,6 +142,10 @@ class LocalLauncher(pyensight.Launcher):
                 cmd[0] += ".bat"
             if use_egl:
                 cmd.append("-egl")
+            if use_sos:
+                cmd.append("-sos")
+                cmd.append("-nservers")
+                cmd.append(str(nservers))
             # cmd.append("-minimize_console")
             self._ensight_pid = subprocess.Popen(
                 cmd,

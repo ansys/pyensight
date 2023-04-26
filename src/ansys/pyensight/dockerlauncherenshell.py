@@ -353,6 +353,9 @@ class DockerLauncherEnShell(pyensight.Launcher):
         if self._use_egl:
             ensight_args += " -egl"
 
+        if use_sos:
+            ensight_args += " -sos -nservers "+str(nservers)
+
         ensight_args += " -grpc_server " + str(self._ports[1])
 
         vnc_url = f"vnc://%%3Frfb_port=1999%%26use_auth=0"
