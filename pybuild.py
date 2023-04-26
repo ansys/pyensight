@@ -8,6 +8,8 @@ import subprocess
 import sys
 import textwrap
 
+import junitparser
+
 # Python script alternative to 'make' targets.  To build everything:
 # python pybuild.py all
 
@@ -29,10 +31,11 @@ def find_exe(name: str) -> str:
     raise RuntimeError(f"Unable to find script {name}.  Is it installed?")
 
 
-def docs(target: str = "html", full: bool = True) -> None:
+def docs(target: str = "html", full: bool = True, skip_tests: bool = False) -> None:
     # We run the tests first so we have access to their results when
     # building the documentation
-    test()
+    if not skip_tests:
+        test()
     # Build the actual docs
     print("-" * 10, "Build sphinx docs")
     sphinx = find_exe("sphinx-build")
@@ -41,10 +44,11 @@ def docs(target: str = "html", full: bool = True) -> None:
     if not full:
         env["FASTDOCS"] = "1"
     subprocess.run(cmd, env=env)
-    # build the coverage badge, overriding the default badge
-    cov_badge = find_exe("coverage-badge")
-    cmd = [cov_badge, "-f", "-o", "doc/build/html/_images/coverage.svg"]
-    subprocess.run(cmd)
+    if not skip_tests:
+        # build the coverage badge, overriding the default badge
+        cov_badge = find_exe("coverage-badge")
+        cmd = [cov_badge, "-f", "-o", "doc/build/html/_images/coverage.svg"]
+        subprocess.run(cmd)
 
 
 def generate() -> None:
@@ -77,6 +81,11 @@ def wheel() -> None:
 
 def test(local: bool = False) -> None:
     print("-" * 10, "Run tests")
+    junit_path = os.path.join(os.getcwd(), "pyensight_test_results.xml")
+    try:
+        os.unlink(junit_path)
+    except IOError:
+        pass
     pytest = find_exe("pytest")
     cmd = [
         pytest,
@@ -88,10 +97,25 @@ def test(local: bool = False) -> None:
         "--cov-report",
         "term",
         "--cov-config=.coveragerc",
+        "--junit-xml={}".format(junit_path),
     ]
     if local:
         cmd.append("--use-local-launcher")
-    subprocess.run(cmd)
+    result = subprocess.run(cmd)
+    # Attempt check of the return code
+    if result.returncode == 0:
+        print("pyEnSight tests run successfully.")
+    else:
+        print("pyEnSight tests failed.")
+        sys.exit(1)
+    # Check also junit file
+    xml = junitparser.JUnitXml.fromfile(junit_path)
+    if xml.failures > 0:
+        print(f"There were {xml.failures} PyEnSight failures.")
+        sys.exit(1)
+    if xml.errors > 0:
+        print(f"There were {xml.errors} errors in the PyEnSight tests.")
+        sys.exit(1)
 
 
 def codespell() -> None:
@@ -207,7 +231,6 @@ if __name__ == "__main__":
 'precommit' : Run linting tools.
 'codegen' : Execute the codegen operations.
 'test' : Execute the pytests.
-'testlocal' : Execute the pytests using LocalLauncher.
 'build' : Build the wheel.
 'fastdocs' : Generate partial documentation.
 'docs' : Generate documentation.
@@ -226,13 +249,24 @@ if __name__ == "__main__":
             "precommit",
             "codegen",
             "test",
-            "testlocal",
             "build",
             "fastdocs",
             "docs",
             "all",
         ],
         help=operation_help,
+    )
+    parser.add_argument(
+        "--skip_tests",
+        default=False,
+        action="store_true",
+        help="Set to skip running tests when building documentation",
+    )
+    parser.add_argument(
+        "--locallauncher",
+        default=False,
+        action="store_true",
+        help="Set to use LocalLauncher instead of DockerLauncher for tests",
     )
 
     # parse the command line
@@ -248,18 +282,16 @@ if __name__ == "__main__":
     elif args.operation == "codegen":
         generate()
     elif args.operation == "test":
-        test()
-    elif args.operation == "testlocal":
-        test(local=True)
+        test(local=args.locallauncher)
     elif args.operation == "build":
         generate()
         wheel()
     elif args.operation == "docs":
         generate()
-        docs(target="html")
+        docs(target="html", skip_tests=args.skip_tests)
     elif args.operation == "fastdocs":
         generate()
-        docs(target="html", full=False)
+        docs(target="html", full=False, skip_tests=args.skip_tests)
     elif args.operation == "all":
         clean()
         generate()

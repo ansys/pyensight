@@ -29,15 +29,3 @@ model parts are of the ``ENS_PART_MODEL`` class and clips are of the
 ``ENS_PART_CLIP`` class. These are both subclasses of PyEnSight's ``ENS_PART``
 class. This mechanism applies to ``ENS_PART``, ``ENS_ANNOT``, and ``ENS_TOOL``
 classes.
-
-``ENS_PART.get_values()`` method
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The ``ENS_PART get_values()`` method does not properly generate numpy
-arrays for the remote stream. While this method cannot be called directly,
-you can generate numpy arrays for the remote stream by using this coe::
-
-    shape = session.cmd("ensight.objs.core.PARTS[0].get_values(['Coordinates'])['Coordinates'].shape")
-    s = session.cmd("ensight.objs.core.PARTS[0].get_values(['Coordinates'])['Coordinates'].tostring()")
-    array = numpy.frombuffer(s, dtype=numpy.float32).reshape(shape)
-

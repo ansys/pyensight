@@ -143,13 +143,34 @@ jobs:
       - name: Generate EnSight bindings
         run: make generate
 
+      - name: Build EnSight wheel
+        run: make build
+
+      - name: Install EnSight bindings
+        run: make install
+
       - name: Install doc requirements
         run: pip install -r requirements/docs.txt
+
+      - name: Install test requirements
+        run: pip install -r requirements/test.txt
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: docker
+        run: make pull-docker
 
       - name: Build HTML
         run: |
           make -C doc html SPHINXOPTS="-W"
           touch doc/build/html/.nojekyll
+        env:
+          ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
 
       - name: Upload HTML Documentation
         if: ${{ !env.ACT }} && github.event_name == 'push' && contains(github.ref, 'refs/tags')

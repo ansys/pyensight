@@ -32,13 +32,30 @@ jobs:
 
       - name: Install pyensight
         run: make install
-        
+
+      - name: Install test requirements
+        run: pip install -r requirements/test.txt
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: docker
+        run: make pull-docker
+
       - name: Install doc build requirements
         run: |
           pip install -r requirements/docs.txt
+
       - name: Full Documentation Build
         run: |
           make -C doc html
+        env:
+          ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
+
       - name: Upload documentation HTML artifact
         uses: actions/upload-artifact@v3
         with:
