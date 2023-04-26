@@ -83,10 +83,9 @@ class LocalLauncher(pyensight.Launcher):
         """
         return self._application
 
-    def start(self,
-        use_egl: bool = False,
-        use_sos: Optional[bool] = False,
-        nservers: Optional[int] = 2) -> "pyensight.Session":
+    def start(
+        self, use_egl: bool = False, use_sos: Optional[bool] = False, nservers: Optional[int] = 2
+    ) -> "pyensight.Session":
         """Start an EnSight session using the local ensight install
         Launch a copy of EnSight locally that supports the gRPC interface.  Create and
         bind a Session instance to the created gRPC session.  Return that session.

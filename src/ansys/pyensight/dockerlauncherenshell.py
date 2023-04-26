@@ -14,7 +14,6 @@ Examples:
 
 """
 import os.path
-import re
 import subprocess
 from typing import Any, Optional
 import uuid
@@ -40,7 +39,7 @@ try:
     import ansys.platform.instancemanagement as pypim
 
     pim_is_available = True
-except:
+except Exception:
     pass
 
 
@@ -115,7 +114,8 @@ class DockerLauncherEnShell(pyensight.Launcher):
 
         if self._enshell_grpc_channel:
             if not pim_is_available:
-                raise RuntimeError("pim is not available")
+                if not pypim.is_configured():
+                    raise RuntimeError("pim is not available")
             if len(ports) != 3:
                 raise RuntimeError(
                     "If channel is specified, ports must be a list of 3 unused TCP port numbers."
@@ -241,14 +241,14 @@ class DockerLauncherEnShell(pyensight.Launcher):
         #
         import docker
 
-        enshellCmd = "-app -grpc_server " + str(self._ports[0])
+        enshell_cmd = "-app -grpc_server " + str(self._ports[0])
 
         # print("Starting Container...\n")
         if data_volume:
             if self._use_egl:
                 self._container = self._docker_client.containers.run(
                     self._image_name,
-                    command=enshellCmd,
+                    command=enshell_cmd,
                     volumes=data_volume,
                     environment=container_env,
                     device_requests=[docker.types.DeviceRequest(count=-1, capabilities=[["gpu"]])],
@@ -261,7 +261,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
                 # print(f"ports to map: {self._ports}\n")
                 self._container = self._docker_client.containers.run(
                     self._image_name,
-                    command=enshellCmd,
+                    command=enshell_cmd,
                     volumes=data_volume,
                     environment=container_env,
                     ports=ports_to_map,
@@ -273,7 +273,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
             if self._use_egl:
                 self._container = self._docker_client.containers.run(
                     self._image_name,
-                    command=enshellCmd,
+                    command=enshell_cmd,
                     environment=container_env,
                     device_requests=[docker.types.DeviceRequest(count=-1, capabilities=[["gpu"]])],
                     ports=ports_to_map,
@@ -285,7 +285,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
                 # print(f"ports to map: {self._ports}\n")
                 self._container = self._docker_client.containers.run(
                     self._image_name,
-                    command=enshellCmd,
+                    command=enshell_cmd,
                     environment=container_env,
                     ports=ports_to_map,
                     tty=True,
@@ -354,11 +354,11 @@ class DockerLauncherEnShell(pyensight.Launcher):
             ensight_args += " -egl"
 
         if use_sos:
-            ensight_args += " -sos -nservers "+str(nservers)
+            ensight_args += " -sos -nservers " + str(nservers)
 
         ensight_args += " -grpc_server " + str(self._ports[1])
 
-        vnc_url = f"vnc://%%3Frfb_port=1999%%26use_auth=0"
+        vnc_url = "vnc://%%3Frfb_port=1999%%26use_auth=0"
         ensight_args += " -vnc " + vnc_url
 
         # print(f"Starting EnSight with args: {ensight_args}\n")
