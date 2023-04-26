@@ -360,7 +360,7 @@ class ProcessAPI:
             signature = self._replace(namespace, "signature", signature, simple=True)
             paramnames = eval(paramnames)
         signature = "(self, " + signature[1:]
-        code = self._replace(namespace, "code", default="", indent=new_indent)
+        code = self._replace(namespace, "code", default=None, indent=new_indent)
         # Start recording
         s = "\n"
         s += f"{indent}def {name}{signature}:\n"
