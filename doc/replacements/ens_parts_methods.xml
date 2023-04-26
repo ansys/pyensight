@@ -4,7 +4,7 @@
 <signature>(variables: List[Any] = None) -> list</signature>
 <paramnames>['variables=']</paramnames>
 <description>
-For an :class:`ENS_PART_PARTICLE_TRACE<pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE>`
+For an :class:`pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE`
 instance, this method will return the data spce coordinates and time of each
 particle trace point.  Optionally, it can return variable values sampled at
 those coordinates.
