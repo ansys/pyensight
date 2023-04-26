@@ -70,7 +70,7 @@ if pim_is_available:
             product_version=product_version,
         )
         instance.wait_for_ready()
-        # use defalts as specified by PIM
+        # use defaults as specified by PIM
         channel = instance.build_grpc_channel(
             options=[("grpc.max_receive_message_length", 8 * 1024**2)]
         )
