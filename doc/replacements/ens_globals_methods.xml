@@ -1,6 +1,8 @@
 <docstrings>
 
 <override namespace="ensight.objs.ENS_GLOBALS.selection">
+<todosignature>(type: Type["ENSOBJ"] = None, name: str = "") -> "ENS_GROUP"</todosignature>
+<todoparamnames>['type=', 'name=']</todoparamnames>
 <description>
 Access the EnSight selection objects::
 
@@ -21,17 +23,17 @@ Args:
 
 
 Returns:
-    An :class:`ENS_GROUP&lt;pyensight.ensobj.ENS_GROUP&gt;` instance.
+    An :class:`ENS_GROUP&lt;pyensight.ens_group.ENS_GROUP&gt;` instance.
 
 </description>
 </override>
 
 <override namespace="ensight.objs.ENS_GLOBALS.create_variable">
+<signature>(name: str, value: str, sources: List["ENS_PART"] = None,
+            private: int = 0) -> "ENS_VAR"</signature>
+<paramnames>['name', 'value', "sources=", "private="]</paramnames>
 <description>
-Create a new EnSight variable::
-
-    ENS_GLOBALS.create_variable(name: str, expression: str, sources: list = None,
-                                private: int = 0) -> ENS_VAR
+This method creates a new EnSight variable.
 
 
 It creates a variable with the provided name, using the calculator expression
@@ -41,7 +43,7 @@ is supplied using the 'sources' keyword (the default is the current part selecti
 Args:
     name:
         The name of the variable to create.
-    expression:
+    value:
         The expression to evaluate as the new variable.
     sources:
         A list of parts to create the variable with. This can be specified as an ENS_GROUP object, or a list of part names/ids/objects.
@@ -50,7 +52,7 @@ Args:
 
 
 Returns:
-    An :class:`ENS_VAR&lt;pyensight.ensobj.ENS_VAR&gt;` instance.
+    An :class:`ENS_VAR&lt;pyensight.ens_var.ENS_VAR&gt;` instance.
 
 
 Example:
@@ -220,9 +222,9 @@ A          Substance amount (Mol)
 ========== ======================
 
 
-If there is a variable 'v' that is velocity, the call
-:samp:`ensight.object.core.get_unit_dimensions(v)`
-will return the dimension string: "L/T".
+If there is a variable 'v' that is velocity,
+the call :samp:`ensight.object.core.get_unit_dimensions(v)` will return the
+dimension string: "L/T".
 
 
 Args:
@@ -269,7 +271,7 @@ Args:
         The unit system to convert to.
     dimensionality:
         The unit quantity dimension string to convert.
-        See: :meth:`pyensight.Session.ensight.objs.core.get_unit_dimensions`
+        See: :meth:`pyensight.ens_globals.ENS_GLOBALS.get_unit_dimensions`
 
 
 Returns:
