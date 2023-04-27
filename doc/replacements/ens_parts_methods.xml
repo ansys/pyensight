@@ -1,5 +1,62 @@
 <docstrings>
 
+<override namespace="ensight.objs.ENS_PART.tracepaths">
+<signature>(variables: List[Any] = None) -> list</signature>
+<paramnames>['variables=']</paramnames>
+<description>
+This method returns the point and time values of particle traces.
+
+For an :class:`pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE`
+instance, this method will return the data spce coordinates and time of each
+particle trace point.  Optionally, it can return variable values sampled at
+those coordinates.
+
+Args:
+    variables:
+        An optional list of variable references.  A mixture of ENS_VAR objects,
+        variable names (string) or variable ids (integers) is allowed.
+
+Returns:
+    If ``variables`` is not specified, the return value is a list of lists.  There
+    is one list for each trace.   Each point withing the trace list is represented
+    as a list of four floats representing the x,y,z,t values for the point::
+
+        [[[x0,y0,z0,t0], [x1,y1,z1,t1], ...], [trace 2], ... ]
+
+
+    If ``variables`` is specified, the return value is a list of lists of lists.
+    There is one list for each trace, one list for each point and a list of
+    lists for each variable.  For a scalar field 'a' and a vector field 'b'::
+
+        [[[[a0], [b0x,b0y,b0z]], [[a1], [b1,b1y,b1z]], ...], [trace 2], ...]
+
+Example:
+    ::
+
+        # get the particle trace part
+        p = session.ensight.objs.core.PARTS["particletrace"][0]
+        # get the coordinates of the 5th trace
+        traces = p.tracepaths()
+        coords = []
+        # walk the 5th trace
+        for point in traces[5]:
+            coords.append(point[0:3])
+        print(f"Coords = {coords}")
+        # get the velocity (vector) and pressure (scalar) values
+        # on the particle trace points from the 5th trace
+        traces = p.tracepaths(variables=["velocity", "pressure"])
+        pressure = []
+        velocity = []
+        # walk the 5th trace
+        for point in traces[5]:
+            velocity.append(point[0])   # velocity is first in variables
+            pressure.append(point[1][0])  # grab just the pressure scalar value
+        print(f"Velocities = {velocity}")
+        print(f"Pressure = {pressure}")
+
+</description>
+</override>
+
 <override namespace="ensight.objs.ENS_PART.get_values">
 <signature>(variables: List[Any], ids: List[int] = None,
             use_nan: int = 0, activate: int = 0) -> dict</signature>
