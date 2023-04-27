@@ -1,5 +1,59 @@
 <docstrings>
 
+<override namespace="ensight.objs.ENS_PART.tracepaths">
+<signature>(variables: List[Any] = None) -> list</signature>
+<paramnames>['variables=']</paramnames>
+<description>
+For an :class:`pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE`
+instance, this method will return the data spce coordinates and time of each
+particle trace point.  Optionally, it can return variable values sampled at
+those coordinates.
+
+Args:
+    variables:
+        An optional list of variable references.  A mixture of ENS_VAR objects,
+        variable names (string) or variable ids (integers) is allowed.
+
+Returns:
+    If ``variables`` is not specified, the return value is a list of lists.  There
+    is one list for each trace.   Each point withing the trace list is represented
+    as a list of four floats representing the x,y,z,t values for the point::
+
+        [[[x0,y0,z0,t0], [x1,y1,z1,t1], ...], [trace 2], ... ]
+
+
+    If ``variables`` is specified, the return value is a list of lists of lists.
+    There is one list for each trace, one list for each point and a list of
+    lists for each variable.  For a scalar field 'a' and a vector field 'b'::
+
+        [[[[a0],[b0x,b0y,b0z]], [[a1], [b1, b1y, b1z], ...], [trace 2], ...]
+
+Example:
+    ::
+        # get the particle trace part
+        p = session.ensight.objs.core.PARTS["particletrace"][0]
+        # get the coordinates of the 5th trace
+        traces = p.tracepaths()
+        coords = []
+        # walk the 5th trace
+        for point in traces[5]:
+            coords.append(point[0:3])
+        print(f"Coords = {coords}")
+        # get the velocity (vector) and pressure (scalar) values
+        # on the particle trace points from the 5th trace
+        traces = p.tracepaths(variables=["velocity", "pressure"])
+        pressure = []
+        velocity = []
+        # walk the 5th trace
+        for point in traces[5]:
+            velocity.append(point[0])   # velocity is first in variables
+            pressure.append(point[1][0])  # grab just the pressure scalar value
+        print(f"Velocities = {velocity}")
+        print(f"Pressure = {pressure}")
+
+</description>
+</override>
+
 <override namespace="ensight.objs.ENS_PART.get_values">
 <signature>(variables: List[Any], ids: List[int] = None,
             use_nan: int = 0, activate: int = 0) -> dict</signature>
@@ -75,10 +129,11 @@ Example:
         s = LocalLauncher().start()
         s.load_data(f"{s.cei_home}/ensight{s.cei_suffix}/data/guard_rail/crash.case")
         p = s.ensight.objs.core.PARTS['guardrail'][0]
-        p.get_values(['Coordinates','plastic'], activate=1)
-        # returned dictionary includes all of the nodal Coordinates and plastic values
-        # as well as the node IDs.
-        {'Coordinates': array([[ 0.0000e+00, -8.1700e+00,  3.7600e+02],
+        v = s.ensight.objs.core.VARIABLES[('Coordinates', 'plastic')]
+        p.get_values(v, activate=1)
+        # returned dictionary includes all the nodal Coordinates and plastic values
+        # as well as the node IDs.  Note: the ENS_VAR 'Coordinates' is object id 1034.
+        {ensight.objs.wrap_id(1034): array([[ 0.0000e+00, -8.1700e+00,  3.7600e+02],
            [ 0.0000e+00, -4.8670e+01,  3.9850e+02],
            [ 0.0000e+00, -8.9170e+01,  4.2100e+02],
            ...,
@@ -86,7 +141,7 @@ Example:
            [ 1.1430e+04, -4.8670e+01,  6.6750e+02],
            [ 1.1430e+04, -8.1700e+00,  6.9000e+02]], dtype=float32),
            'NODE_IDS': array([   1,    2,    3, ..., 1818, 1819, 1820]),
-           'plastic': array([2.3110e-03, 1.2812e-03, 3.5511e-04, ..., 8.2598e-06, 8.2598e-06,
+           ensight.objs.wrap_id(1022): array([2.3110e-03, 1.2812e-03, 3.5511e-04, ..., 8.2598e-06, 8.2598e-06,
            1.6520e-05], dtype=float32)}
 
 </description>
