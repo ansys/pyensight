@@ -4,6 +4,8 @@
 <signature>(variables: List[Any] = None) -> list</signature>
 <paramnames>['variables=']</paramnames>
 <description>
+This method returns the point and time values of particle traces.
+
 For an :class:`pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE`
 instance, this method will return the data spce coordinates and time of each
 particle trace point.  Optionally, it can return variable values sampled at
@@ -26,10 +28,11 @@ Returns:
     There is one list for each trace, one list for each point and a list of
     lists for each variable.  For a scalar field 'a' and a vector field 'b'::
 
-        [[[[a0],[b0x,b0y,b0z]], [[a1], [b1, b1y, b1z], ...], [trace 2], ...]
+        [[[[a0], [b0x,b0y,b0z]], [[a1], [b1,b1y,b1z]], ...], [trace 2], ...]
 
 Example:
     ::
+
         # get the particle trace part
         p = session.ensight.objs.core.PARTS["particletrace"][0]
         # get the coordinates of the 5th trace
