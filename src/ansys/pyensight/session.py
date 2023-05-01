@@ -9,6 +9,7 @@ Examples:
     ansys.pyensight.Session
 """
 import atexit
+import glob
 import importlib.util
 import os.path
 import platform
@@ -129,6 +130,7 @@ class Session:
         from ansys.pyensight import ensight_grpc  # pylint: disable=import-outside-toplevel
 
         self._ensight = ensight_api.ensight(self)
+        self._build_utils_interface()
         self._grpc = ensight_grpc.EnSightGRPC(
             host=self._hostname, port=self._grpc_port, secret_key=self._secret_key
         )
@@ -608,6 +610,33 @@ class Session:
             # lightweight shutdown, just close the gRPC connection
             self._grpc.shutdown(stop_ensight=False)
         self._launcher = None
+
+    def _build_utils_interface(self) -> None:
+        """Build the ensight.utils interface
+
+        Walk the .py files in the utils directory.  Create instances
+        of the classes in those files and place them in the
+        Session.ensight.utils namespace.
+        """
+        self._ensight.utils = types.SimpleNamespace()
+        _utils_dir = os.path.join(os.path.dirname(__file__), "utils")
+        if _utils_dir not in sys.path:
+            sys.path.insert(0, _utils_dir)
+        for _filename in glob.glob(os.path.join(_utils_dir, "*.py")):
+            try:
+                # get the module and class names
+                _name = os.path.splitext(os.path.basename(_filename))[0]
+                _cap_name = _name[0].upper() + _name[1:]
+                # import the module
+                _module = __import__(_name)
+                # get the class from the module (query.py filename -> Query() object)
+                _the_class = getattr(_module, _cap_name)  # noqa: F841
+                # Create an instance, using ensight as the EnSight interface
+                # and place it in this module.
+                exec(f"self._ensight.utils.{_name} = _the_class(self._ensight)")
+            except Exception as e:
+                # Warn on import errors
+                print(f"Error loading ensight.utils from: '{_filename}' : {e}")
 
     def load_data(
         self,
