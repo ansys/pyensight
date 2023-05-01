@@ -630,10 +630,10 @@ class Session:
                 # import the module
                 _module = __import__(_name)
                 # get the class from the module (query.py filename -> Query() object)
-                _the_class = getattr(_module, _cap_name)  # noqa: F841
+                _the_class = getattr(_module, _cap_name)
                 # Create an instance, using ensight as the EnSight interface
                 # and place it in this module.
-                exec(f"self._ensight.utils.{_name} = _the_class(self._ensight)")
+                setattr(self._ensight.utils, _name, _the_class(self._ensight))
             except Exception as e:
                 # Warn on import errors
                 print(f"Error loading ensight.utils from: '{_filename}' : {e}")
