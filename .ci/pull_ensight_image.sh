@@ -2,7 +2,7 @@
 set -ex
 
 # Image name
-_IMAGE_NAME="ghcr.io/ansys/ensight_dev"
+_IMAGE_NAME="ghcr.io/ansys-internal/ensight_dev"
 
 # Remove all dangling images
 containers=$(docker container ls -aq)
