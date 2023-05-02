@@ -72,24 +72,14 @@ if pim_is_available:
         instance.wait_for_ready()
         # use defaults as specified by PIM
         channel = instance.build_grpc_channel(
-            options=[("grpc.max_receive_message_length", 8 * 1024**2)]
+          options=[
+            ("grpc.max_receive_message_length", -1),
+            ("grpc.max_send_message_length", -1),
+            ("grpc.testing.fixed_reconnect_backoff_ms", 1100),
+          ]
         )
 
-        """
-    # defaults used by EnSight's grpc channel
-    channel = instance.build_grpc_channel(
-      options=[
-        ("grpc.max_receive_message_length", -1),
-        ("grpc.max_send_message_length", -1),
-        ("grpc.testing.fixed_reconnect_backoff_ms", 1100),
-      ]
-    """
-
-        ports = []
-        ports.append(instance.services["ensight-grpc-server"])
-        ports.append(instance.services["ensight-http-server"])
-        ports.append(instance.services["ensight-wss-server"])
-        launcher = DockerLauncherEnShell(channel=channel, ports=ports, pim_instance=instance)
+        launcher = DockerLauncherEnShell(channel=channel, pim_instance=instance)
         return launcher.connect(use_egl=use_egl, use_sos=use_sos, nservers=nservers)
 
 

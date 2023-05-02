@@ -62,9 +62,6 @@ class DockerLauncherEnShell(pyensight.Launcher):
             the connection.  The default is 120.0.
         channel:
             Existing gRPC channel to a running EnShell instance such as provided by PIM
-        ports:
-            List of TCP ports to use by a running EnShell instance such a provided by PIM.
-            Must be length 3 for: EnSight gRPC, HTTP, WSS
         pim_instance:
             The PyPIM instance if using PIM (internal)
 
@@ -86,7 +83,6 @@ class DockerLauncherEnShell(pyensight.Launcher):
         use_dev: Optional[bool] = False,
         timeout: Optional[float] = 120.0,
         channel: Optional[grpc.Channel] = None,
-        ports: Optional[list[int]] = None,
         pim_instance: Optional[Any] = None,
     ) -> None:
         super().__init__()
@@ -94,8 +90,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         self._data_directory = data_directory
         self._timeout = timeout
         self._enshell_grpc_channel = channel
-
-        self._ports = None
+        self._service_uris = {}
         self._image_name = None
         self._docker_client = None
         self._container = None
@@ -112,25 +107,33 @@ class DockerLauncherEnShell(pyensight.Launcher):
         # to be reassigned later
         self._ansys_version = None
 
+        self._ports = None
         if self._enshell_grpc_channel:
-            if not pim_is_available:
-                if not pypim.is_configured():
-                    raise RuntimeError("pim is not available")
-            if len(ports) != 3:
+            if len(self._pim_instance.services) != 3:
                 raise RuntimeError(
-                    "If channel is specified, ports must be a list of 3 unused TCP port numbers."
+                    "If channel is specified, the PIM instance must have a list of length 3 containing the approriate service URIs. It does not."
                 )
-            # this is all we need to do if channel and ports are provided
-            # EnShell gRPC port, EnSight gRPC port, HTTP port, WSS port
-            self._ports = [-1, ports[0], ports[1], ports[2]]
+            self._service_uris = {}
+            # for now, just grab the URIs for the 3 required ones passed in from PIM
+            # the 'grpc' isn't used in this class when using PIM, so just fill in a blank
+            self._service_uris['grpc'] = ""
+            self._service_uris['grpc_private'] = service_uris['grpc_private'].uri()
+            self._service_uris['http'] = service_uris['http'].uri()
+            self._service_uris['ws'] = service_uris['ws'].uri()
             return
 
         # EnShell gRPC port, EnSight gRPC port, HTTP port, WSS port
         # skip 1999 as we'll use that internal to the Container for the VNC connection
-        self._ports = self._find_unused_ports(4, avoid=[1999])
-        if self._ports is None:
+        ports = self._find_unused_ports(4, avoid=[1999])
+        if ports is None:
             raise RuntimeError("Unable to allocate local ports for EnSight session")
-
+        self._service_urls = {}
+        self._service_urls['grpc'] = f"dns://127.0.0.1:"+str(ports[0])
+        self._service_urls['grpc_private'] = f"dns://127.0.0.1:"+str(ports[1])
+        self._service_urls['http'] = f"http://127.0.0.1:"+str(ports[2])
+        self._service_urls['ws'] = f"wss://127.0.0.1:"+str(ports[3])
+        
+        
         # get the optional user specified image name
         self._image_name = "ghcr.io/ansys/ensight"
         if use_dev:
@@ -217,6 +220,11 @@ class DockerLauncherEnShell(pyensight.Launcher):
         }
 
         # Ports to map between the host and the container
+        # If we're here in the code, then we're not using PIM
+        # and we're not really using URIs where the hostname
+        # is anything other than 127.0.0.1, so, we only need
+        # to grab the port numbers.
+        grpc_port = self._service_uris['grpc']
         ports_to_map = {
             str(self._ports[0]) + "/tcp": str(self._ports[0]),
             str(self._ports[1]) + "/tcp": str(self._ports[1]),
