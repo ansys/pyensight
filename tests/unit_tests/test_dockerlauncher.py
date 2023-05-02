@@ -75,4 +75,4 @@ def test_pull(mocker):
     docker_client.images.pull = simulate_network_issue
     with pytest.raises(RuntimeError) as exec_info:
         launcher.pull()
-    assert "pull Docker image: ghcr.io/ansys/ensight" in str(exec_info)
+    assert "pull Docker image: ghcr.io/ansys-internal/ensight" in str(exec_info)
