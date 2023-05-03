@@ -255,7 +255,7 @@ class DockerLauncher(pyensight.Launcher):
             cmd2 += " -egl"
 
         if self._use_sos:
-            ensight_args += " -sos -nservers " + str(int(self._use_sos))
+            cmd2 += " -sos -nservers " + str(int(self._use_sos))
 
         cmd2 += " -grpc_server " + str(ports[0])
 

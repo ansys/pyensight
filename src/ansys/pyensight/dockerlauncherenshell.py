@@ -34,14 +34,6 @@ except ModuleNotFoundError:
 except Exception:
     raise RuntimeError("Cannot initialize grpc")
 
-pim_is_available = False
-try:
-    import ansys.platform.instancemanagement as pypim
-
-    pim_is_available = True
-except Exception:
-    pass
-
 
 class DockerLauncherEnShell(pyensight.Launcher):
     """Create a Session instance by launching a local Docker copy of EnSight via EnShell
@@ -116,7 +108,8 @@ class DockerLauncherEnShell(pyensight.Launcher):
         if self._enshell_grpc_channel:
             if len(self._pim_instance.services) != 3:
                 raise RuntimeError(
-                    "If channel is specified, the PIM instance must have a list of length 3 containing the appropriate service URIs. It does not."
+                    "If channel is specified, the PIM instance must have a list of length 3 "
+                    + "containing the appropriate service URIs. It does not."
                 )
             self._service_host_port = {}
             # grab the URIs for the 3 required services passed in from PIM
