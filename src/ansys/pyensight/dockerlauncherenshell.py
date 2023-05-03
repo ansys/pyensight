@@ -60,6 +60,11 @@ class DockerLauncherEnShell(pyensight.Launcher):
             In some cases where the EnSight session can take a significant amount of
             timme to start up, this is the number of seconds to wait before failing
             the connection.  The default is 120.0.
+        use_egl:
+            If True, EGL hardware accelerated graphics will be used. The platform
+            must be able to support it.
+        use_sos:
+            If None, don't use SOS. Otherwise, it's the number of EnSight Servers to use (int).
         channel:
             Existing gRPC channel to a running EnShell instance such as provided by PIM
         pim_instance:
@@ -82,13 +87,14 @@ class DockerLauncherEnShell(pyensight.Launcher):
         docker_image_name: Optional[str] = None,
         use_dev: Optional[bool] = False,
         timeout: Optional[float] = 120.0,
+        use_egl: bool = False,
+        use_sos: Optional[int] = None,
         channel: Optional[grpc.Channel] = None,
         pim_instance: Optional[Any] = None,
     ) -> None:
-        super().__init__()
+        super().__init__(timeout, use_egl, use_sos)
 
         self._data_directory = data_directory
-        self._timeout = timeout
         self._enshell_grpc_channel = channel
         self._service_uris = {}
         self._image_name = None
@@ -107,19 +113,21 @@ class DockerLauncherEnShell(pyensight.Launcher):
         # to be reassigned later
         self._ansys_version = None
 
-        self._ports = None
         if self._enshell_grpc_channel:
             if len(self._pim_instance.services) != 3:
                 raise RuntimeError(
-                    "If channel is specified, the PIM instance must have a list of length 3 containing the approriate service URIs. It does not."
+                    "If channel is specified, the PIM instance must have a list of length 3 containing the appropriate service URIs. It does not."
                 )
-            self._service_uris = {}
-            # for now, just grab the URIs for the 3 required ones passed in from PIM
-            # the 'grpc' isn't used in this class when using PIM, so just fill in a blank
-            self._service_uris['grpc'] = ""
-            self._service_uris['grpc_private'] = service_uris['grpc_private'].uri()
-            self._service_uris['http'] = service_uris['http'].uri()
-            self._service_uris['ws'] = service_uris['ws'].uri()
+            self._service_host_port = {}
+            # grab the URIs for the 3 required services passed in from PIM
+            self._service_host_port["grpc_private"] = self._get_host_port(
+                self._pim_instance.services["grpc_private"].uri()
+            )
+            self._service_host_port["http"] = self._pim_instance.services["http"].uri()
+            self._service_host_port["ws"] = self._pim_instance.services["ws"].uri()
+            # for parity, add 'grpc' as a placeholder even though pim use sets up the grpc channel.
+            # this isn't used in this situation.
+            self._service_host_port["grpc"] = ("127.0.0.1", -1)
             return
 
         # EnShell gRPC port, EnSight gRPC port, HTTP port, WSS port
@@ -127,17 +135,17 @@ class DockerLauncherEnShell(pyensight.Launcher):
         ports = self._find_unused_ports(4, avoid=[1999])
         if ports is None:
             raise RuntimeError("Unable to allocate local ports for EnSight session")
-        self._service_urls = {}
-        self._service_urls['grpc'] = f"dns://127.0.0.1:"+str(ports[0])
-        self._service_urls['grpc_private'] = f"dns://127.0.0.1:"+str(ports[1])
-        self._service_urls['http'] = f"http://127.0.0.1:"+str(ports[2])
-        self._service_urls['ws'] = f"wss://127.0.0.1:"+str(ports[3])
-        
-        
+        self._service_host_port = {}
+        self._service_host_port["grpc"] = ("127.0.0.1", ports[0])
+        self._service_host_port["grpc_private"] = ("127.0.0.1", ports[1])
+        self._service_host_port["http"] = ("127.0.0.1", ports[2])
+        self._service_host_port["ws"] = ("127.0.0.1", ports[3])
+
         # get the optional user specified image name
-        self._image_name = "ghcr.io/ansys/ensight"
+        # Note: the default name will need to change over time...  TODO
+        self._image_name: str = "ghcr.io/ansys-internal/ensight"
         if use_dev:
-            self._image_name = "ghcr.io/ansys/ensight_dev"
+            self._image_name = "ghcr.io/ansys-internal/ensight_dev"
         if docker_image_name:
             self._image_name = docker_image_name
 
@@ -175,9 +183,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         except Exception:
             raise RuntimeError(f"Can't pull Docker image: {self._image_name}")
 
-    def start(
-        self, use_egl: bool = False, use_sos: Optional[bool] = False, nservers: Optional[int] = 2
-    ) -> "pyensight.Session":
+    def start(self) -> "pyensight.Session":
         """Start EnShell by running a local Docker EnSight Image.
         Then, connect to the EnShell in the Container over gRPC.  Once connected,
         have EnShell launch a copy of EnSight and WSS in the Container.
@@ -185,13 +191,6 @@ class DockerLauncherEnShell(pyensight.Launcher):
         Return the Session.
 
         Args:
-            use_egl:
-                If True, EGL hardware accelerated graphics will be used. The platform
-                must be able to support it.
-            use_sos:
-                If True, EnSight will use SOS.
-            nservers:
-                The number of EnSight Servers to use if using SOS.
 
         Returns:
             pyensight Session object instance
@@ -224,12 +223,15 @@ class DockerLauncherEnShell(pyensight.Launcher):
         # and we're not really using URIs where the hostname
         # is anything other than 127.0.0.1, so, we only need
         # to grab the port numbers.
-        grpc_port = self._service_uris['grpc']
+        grpc_port = self._service_host_port["grpc"][1]
         ports_to_map = {
-            str(self._ports[0]) + "/tcp": str(self._ports[0]),
-            str(self._ports[1]) + "/tcp": str(self._ports[1]),
-            str(self._ports[2]) + "/tcp": str(self._ports[2]),
-            str(self._ports[3]) + "/tcp": str(self._ports[3]),
+            str(self._service_host_port["grpc"][1])
+            + "/tcp": str(self._service_host_port["grpc"][1]),
+            str(self._service_host_port["grpc_private"][1])
+            + "/tcp": str(self._service_host_port["grpc_private"][1]),
+            str(self._service_host_port["http"][1])
+            + "/tcp": str(self._service_host_port["http"][1]),
+            str(self._service_host_port["ws"][1]) + "/tcp": str(self._service_host_port["ws"][1]),
         }
 
         # The data directory to map into the container
@@ -240,7 +242,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         # FIXME_MFK: probably need a unique name for our container
         # in case the user launches multiple sessions
         egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
-        self._use_egl = use_egl or egl_env or self._has_egl()
+        self._use_egl or egl_env or self._has_egl()
         # FIXME_MFK: fix egl and remove the next line
         self._use_egl = False
 
@@ -249,7 +251,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         #
         import docker
 
-        enshell_cmd = "-app -grpc_server " + str(self._ports[0])
+        enshell_cmd = "-app -grpc_server " + str(grpc_port)
 
         # print("Starting Container...\n")
         if data_volume:
@@ -266,7 +268,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
                 )
             else:
                 # print(f"Running container {self._image_name} with cmd {enshellCmd}\n")
-                # print(f"ports to map: {self._ports}\n")
+                # print(f"ports to map: {ports_to_map}\n")
                 self._container = self._docker_client.containers.run(
                     self._image_name,
                     command=enshell_cmd,
@@ -290,7 +292,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
                 )
             else:
                 # print(f"Running container {self._image_name} with cmd {enshellCmd}\n")
-                # print(f"ports to map: {self._ports}\n")
+                # print(f"ports to map: {ports_to_map}\n")
                 self._container = self._docker_client.containers.run(
                     self._image_name,
                     command=enshell_cmd,
@@ -301,22 +303,13 @@ class DockerLauncherEnShell(pyensight.Launcher):
                 )
                 # print(f"_container = {str(self._container)}\n")
         # print("Container started.\n")
-        return self.connect(use_egl, use_sos, nservers)
+        return self.connect()
 
-    def connect(
-        self, use_egl: bool = False, use_sos: Optional[bool] = False, nservers: Optional[int] = 2
-    ):
+    def connect(self):
         """Internal method. Create and bind a Session instance to the created gRPC EnSight
            session as started by EnShell.  Return that session.
 
         Args:
-            use_egl:
-                If True, EGL hardware accelerated graphics will be used. The platform
-                must be able to support it.
-            use_sos:
-                If True, EnSight will use SOS.
-            nservers:
-                The number of EnSight Servers to use if using SOS.
 
         Returns:
             pyensight Session object instance
@@ -328,12 +321,14 @@ class DockerLauncherEnShell(pyensight.Launcher):
         #
         #
         # Start up the EnShell gRPC interface
-        # print(f"Connecting to EnShell over gRPC port: {self._ports[0]}...\n")
-        self._enshell = enshell_grpc.EnShellGRPC(port=self._ports[0])
         if self._enshell_grpc_channel:
+            self._enshell = enshell_grpc.EnShellGRPC()
             self._enshell.connect_existing_channel(self._enshell_grpc_channel)
         else:
-            self._enshell.connect()
+            # print(f"Connecting to EnShell over gRPC port: {self._service_host_port['grpc'][1]}...\n")
+            self._enshell = enshell_grpc.EnShellGRPC(port=self._service_host_port["grpc"][1])
+            self._enshell.connect(self._timeout)
+
         if not self._enshell.is_connected():
             self.stop()
             raise RuntimeError("Can't connect to EnShell over gRPC.")
@@ -361,10 +356,10 @@ class DockerLauncherEnShell(pyensight.Launcher):
         if self._use_egl:
             ensight_args += " -egl"
 
-        if use_sos:
-            ensight_args += " -sos -nservers " + str(nservers)
+        if self._use_sos:
+            ensight_args += " -sos -nservers " + str(int(self._use_sos))
 
-        ensight_args += " -grpc_server " + str(self._ports[1])
+        ensight_args += " -grpc_server " + str(self._service_host_port["grpc_private"][1])
 
         vnc_url = "vnc://%%3Frfb_port=1999%%26use_auth=0"
         ensight_args += " -vnc " + vnc_url
@@ -381,13 +376,13 @@ class DockerLauncherEnShell(pyensight.Launcher):
         wss_cmd += self._ansys_version + "/nexus_launcher/websocketserver.py"
         wss_cmd += " --http_directory " + self._session_directory
         # http port
-        wss_cmd += " --http_port " + str(self._ports[2])
+        wss_cmd += " --http_port " + str(self._service_host_port["http"][1])
         # vnc port
         wss_cmd += " --client_port 1999"
         # EnVision sessions
         wss_cmd += " --local_session envision 5"
         # websocket port
-        wss_cmd += " " + str(self._ports[3])
+        wss_cmd += " " + str(self._service_host_port["ws"][1])
 
         # print(f"Starting WSS: {wss_cmd}\n")
         ret = self._enshell.start_other(wss_cmd)
@@ -397,11 +392,14 @@ class DockerLauncherEnShell(pyensight.Launcher):
         # print("wss started.  Making session...\n")
 
         # build the session instance
+        # WARNING: assuming the host is the same for grpc_private, http, and ws
+        # This may not be true in the future if using PIM.
+        # revise Session to handle three different hosts if necessary.
         session = pyensight.Session(
-            host="127.0.0.1",
-            grpc_port=self._ports[1],
-            html_port=self._ports[2],
-            ws_port=self._ports[3],
+            host=self._service_host_port["grpc"][0],
+            grpc_port=self._service_host_port["grpc_private"][1],
+            html_port=self._service_host_port["http"][1],
+            ws_port=self._service_host_port["ws"][1],
             install_path=None,
             secret_key=self._secret_key,
             timeout=self._timeout,

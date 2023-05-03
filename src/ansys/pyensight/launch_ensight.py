@@ -41,8 +41,7 @@ if pim_is_available:
     def _launch_ensight_with_pim(
         product_version: str = None,
         use_egl: Optional[bool] = False,
-        use_sos: Optional[bool] = False,
-        nservers: Optional[int] = 2,
+        use_sos: Optional[int] = None,
     ) -> "Session":
         """Internal function.
         Start via PyPIM the EnSight Docker container with EnShell as the ENTRYPOINT.
@@ -55,10 +54,7 @@ if pim_is_available:
             If True, EGL hardware accelerated graphics will be used. The platform
             must be able to support it.
           use_sos:
-            If True, EnSight will use SOS.
-          nservers:
-            The number of EnSight Servers to use if using SOS.
-            the newest installed version is used.
+            If None, don't use SOS. Otherwise, it's the number of EnSight Servers to use (int).
 
         Returns:
           pyensight Session object instance
@@ -72,15 +68,20 @@ if pim_is_available:
         instance.wait_for_ready()
         # use defaults as specified by PIM
         channel = instance.build_grpc_channel(
-          options=[
-            ("grpc.max_receive_message_length", -1),
-            ("grpc.max_send_message_length", -1),
-            ("grpc.testing.fixed_reconnect_backoff_ms", 1100),
-          ]
+            options=[
+                ("grpc.max_receive_message_length", -1),
+                ("grpc.max_send_message_length", -1),
+                ("grpc.testing.fixed_reconnect_backoff_ms", 1100),
+            ]
         )
 
-        launcher = DockerLauncherEnShell(channel=channel, pim_instance=instance)
-        return launcher.connect(use_egl=use_egl, use_sos=use_sos, nservers=nservers)
+        launcher = DockerLauncherEnShell(
+            use_egl=use_egl,
+            use_sos=use_sos,
+            channel=channel,
+            pim_instance=instance,
+        )
+        return launcher.connect()
 
 
 def launch_ensight(
@@ -94,8 +95,7 @@ def launch_ensight(
     application: Optional[str] = "ensight",
     batch: Optional[bool] = True,
     use_egl: Optional[bool] = False,
-    use_sos: Optional[bool] = False,
-    nservers: Optional[int] = 2,
+    use_sos: Optional[int] = None,
     timeout: Optional[float] = 120.0,
 ) -> "Session":
     """Start an EnSight session via EnShell using the Docker EnSight Image.
@@ -132,9 +132,7 @@ def launch_ensight(
         If True, EGL hardware accelerated graphics will be used. The platform
         must be able to support it.
       use_sos:
-        If True, EnSight will use SOS.
-      nservers:
-        The number of EnSight Servers to use if using SOS.
+        If None, don't use SOS. Otherwise, it's the number of EnSight Servers to use (int).
       timeout:
         In some cases where the EnSight session can take a significant amount of
         time to start up, this is the number of seconds to wait before failing
@@ -152,10 +150,7 @@ def launch_ensight(
     if pim_is_available and use_pim:
         if pypim.is_configured():
             return _launch_ensight_with_pim(
-                product_version=product_version,
-                use_egl=use_egl,
-                use_sos=use_sos,
-                nservers=nservers,
+                product_version=product_version, use_egl=use_egl, use_sos=use_sos
             )
 
     # not using PIM, but use Docker
@@ -166,8 +161,10 @@ def launch_ensight(
             docker_image_name=docker_image_name,
             use_dev=use_dev,
             timeout=timeout,
+            use_egl=use_egl,
+            use_sos=use_sos,
         )
-        return launcher.start(use_egl=use_egl, use_sos=use_sos, nservers=nservers)
+        return launcher.start()
 
     # use local installation of EnSight
     launcher = LocalLauncher(
@@ -175,5 +172,7 @@ def launch_ensight(
         application=application,
         batch=batch,
         timeout=timeout,
+        use_egl=use_egl,
+        use_sos=use_sos,
     )
-    return launcher.start(use_egl=use_egl, use_sos=use_sos, nservers=nservers)
+    return launcher.start()

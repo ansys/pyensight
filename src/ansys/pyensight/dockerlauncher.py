@@ -39,6 +39,11 @@ class DockerLauncher(pyensight.Launcher):
             In some cases where the EnSight session can take a significant amount of
             timme to start up, this is the number of seconds to wait before failing
             the connection.  The default is 120.0.
+        use_egl:
+            If True, EGL hardware accelerated graphics will be used. The platform
+            must be able to support it.
+        use_sos:
+            If None, don't use SOS. Otherwise, it's the number of EnSight Servers to use (int).
 
     Examples:
         ::
@@ -57,10 +62,11 @@ class DockerLauncher(pyensight.Launcher):
         docker_image_name: Optional[str] = None,
         use_dev: bool = False,
         timeout: float = 120.0,
+        use_egl: bool = False,
+        use_sos: Optional[int] = None,
     ) -> None:
-        super().__init__()
+        super().__init__(timeout, use_egl, use_sos)
 
-        self._timeout = timeout
         self._data_directory: str = data_directory
         self._container = None
 
@@ -118,7 +124,7 @@ class DockerLauncher(pyensight.Launcher):
         except Exception:
             raise RuntimeError(f"Can't pull Docker image: {self._image_name}")
 
-    def start(self, host: str = "127.0.0.1", use_egl: bool = False) -> "pyensight.Session":
+    def start(self, host: str = "127.0.0.1") -> "pyensight.Session":
         """Start an EnSight session using the local Docker ensight image
         Launch a copy of EnSight in the container that supports the gRPC interface.  Create and
         bind a Session instance to the created gRPC session.  Return that session.
@@ -126,8 +132,6 @@ class DockerLauncher(pyensight.Launcher):
         Args:
             host:
                 Optional hostname on which the EnSight gRPC service is running
-            use_egl:
-                Specify True if EnSight should try to use EGL.  Beta flag.
 
         Returns:
             pyensight Session object instance
@@ -180,7 +184,7 @@ class DockerLauncher(pyensight.Launcher):
         # FIXME_MFK: probably need a unique name for our container
         # in case the user launches multiple sessions
         egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
-        use_egl = use_egl or egl_env or self._has_egl()
+        use_egl = self._use_egl or egl_env or self._has_egl()
         if use_egl:
             self._container = self._docker_client.containers.run(
                 self._image_name,
@@ -249,6 +253,9 @@ class DockerLauncher(pyensight.Launcher):
 
         if use_egl:
             cmd2 += " -egl"
+
+        if self._use_sos:
+            ensight_args += " -sos -nservers " + str(int(self._use_sos))
 
         cmd2 += " -grpc_server " + str(ports[0])
 
