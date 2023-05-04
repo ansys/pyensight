@@ -16,6 +16,7 @@ Examples:
 import os.path
 import subprocess
 from typing import Any, Optional
+from urllib.parse import urlparse
 import uuid
 
 try:
@@ -106,7 +107,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         self._ansys_version = None
 
         if self._enshell_grpc_channel:
-            if len(self._pim_instance.services) != 3:
+            if not set(("grpc_private", "http", "ws")).issubset(self._pim_instance.services):
                 raise RuntimeError(
                     "If channel is specified, the PIM instance must have a list of length 3 "
                     + "containing the appropriate service URIs. It does not."
@@ -114,10 +115,14 @@ class DockerLauncherEnShell(pyensight.Launcher):
             self._service_host_port = {}
             # grab the URIs for the 3 required services passed in from PIM
             self._service_host_port["grpc_private"] = self._get_host_port(
-                self._pim_instance.services["grpc_private"].uri()
+                self._pim_instance.services["grpc_private"].uri
             )
-            self._service_host_port["http"] = self._pim_instance.services["http"].uri()
-            self._service_host_port["ws"] = self._pim_instance.services["ws"].uri()
+            self._service_host_port["http"] = self._get_host_port(
+                self._pim_instance.services["http"].uri
+            )
+            self._service_host_port["ws"] = self._get_host_port(
+                self._pim_instance.services["ws"].uri
+            )
             # for parity, add 'grpc' as a placeholder even though pim use sets up the grpc channel.
             # this isn't used in this situation.
             self._service_host_port["grpc"] = ("127.0.0.1", -1)
@@ -427,3 +432,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
             return True
         except (subprocess.CalledProcessError, FileNotFoundError):
             return False
+
+    def _get_host_port(self, uri: str) -> tuple:
+        parse_results = urlparse(uri)
+        return (parse_results.hostname, parse_results.port)
