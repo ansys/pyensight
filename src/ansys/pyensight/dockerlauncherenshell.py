@@ -365,6 +365,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         # print(f"Starting EnSight with args: {ensight_args}\n")
         ret = self._enshell.start_ensight(ensight_args, ensight_env)
         if ret[0] != 0:
+            self.stop()
             raise RuntimeError(f"Error starting EnSight with args: {ensight_args}")
 
         # print("EnSight started.  Starting wss...\n")
@@ -385,6 +386,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         # print(f"Starting WSS: {wss_cmd}\n")
         ret = self._enshell.start_other(wss_cmd)
         if ret[0] != 0:
+            self.stop()
             raise RuntimeError(f"Error starting WSS: {wss_cmd}\n")
 
         # print("wss started.  Making session...\n")
