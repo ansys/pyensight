@@ -90,7 +90,7 @@ def launch_ensight(
     use_docker: Optional[bool] = True,
     data_directory: Optional[str] = None,
     docker_image_name: Optional[str] = None,
-    use_dev: bool = False,
+    use_dev: Optional[bool] = False,
     ansys_installation: Optional[str] = None,
     application: Optional[str] = "ensight",
     batch: Optional[bool] = True,

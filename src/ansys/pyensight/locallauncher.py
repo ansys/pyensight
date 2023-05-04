@@ -57,13 +57,13 @@ class LocalLauncher(pyensight.Launcher):
     def __init__(
         self,
         ansys_installation: Optional[str] = None,
-        application: str = "ensight",
-        batch: bool = True,
-        timeout: float = 120.0,
-        use_egl: bool = False,
+        application: Optional[str] = "ensight",
+        batch: Optional[bool] = True,
+        timeout: Optional[float] = 120.0,
+        use_egl: Optional[bool] = False,
         use_sos: Optional[int] = None,
     ) -> None:
-        super().__init__(timeout, use_egl, use_sos)
+        super().__init__(timeout=timeout, use_egl=use_egl, use_sos=use_sos)
 
         # get the user selected installation directory
         self._install_path: str = self.get_cei_install_directory(ansys_installation)

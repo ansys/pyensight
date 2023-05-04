@@ -16,8 +16,9 @@ Examples:
 import os.path
 import subprocess
 from typing import Any, Optional
-from urllib.parse import urlparse
 import uuid
+
+import urllib3
 
 try:
     import grpc
@@ -80,12 +81,12 @@ class DockerLauncherEnShell(pyensight.Launcher):
         docker_image_name: Optional[str] = None,
         use_dev: Optional[bool] = False,
         timeout: Optional[float] = 120.0,
-        use_egl: bool = False,
+        use_egl: Optional[bool] = False,
         use_sos: Optional[int] = None,
         channel: Optional[grpc.Channel] = None,
         pim_instance: Optional[Any] = None,
     ) -> None:
-        super().__init__(timeout, use_egl, use_sos)
+        super().__init__(timeout=timeout, use_egl=use_egl, use_sos=use_sos)
 
         self._data_directory = data_directory
         self._enshell_grpc_channel = channel
@@ -414,12 +415,21 @@ class DockerLauncherEnShell(pyensight.Launcher):
     def stop(self) -> None:
         """Release any additional resources allocated during launching"""
         if self._enshell.is_connected():
-            self._enshell.stop_server()
+            try:
+                self._enshell.stop_server()
+            except Exception:
+                pass
             self._enshell = None
         #
         if self._container:
-            self._container.stop()
-            self._container.remove()
+            try:
+                self._container.stop()
+            except Exception:
+                pass
+            try:
+                self._container.remove()
+            except Exception:
+                pass
             self._container = None
 
         if self._pim_instance is not None:
@@ -436,5 +446,5 @@ class DockerLauncherEnShell(pyensight.Launcher):
             return False
 
     def _get_host_port(self, uri: str) -> tuple:
-        parse_results = urlparse(uri)
-        return (parse_results.hostname, parse_results.port)
+        parse_results = urllib3.util.parse_url(uri)
+        return (parse_results.host, parse_results.port)
