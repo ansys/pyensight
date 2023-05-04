@@ -6,6 +6,7 @@ REQUIREMENTS = [
     "protobuf>=3.9.1",
     "grpcio>=1.23.0",
     "requests>=2.20.1",
+    "urllib3>=1.26.10",
     "dill>=0.3.5.1",
 ]
 
