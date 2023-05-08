@@ -36,9 +36,28 @@ class Launcher:
 
     A Launcher instance is used to start/end an EnSight session.  Specific subclasses
     handle different types of launching semantics.
+
+    Args:
+        timeout:
+            In some cases where the EnSight session can take a significant amount of
+            timme to start up, this is the number of seconds to wait before failing
+            the connection.  The default is 120.0.
+        use_egl:
+            If True, EGL hardware accelerated graphics will be used. The platform
+            must be able to support it.
+        use_sos:
+            If None, don't use SOS. Otherwise, it's the number of EnSight Servers to use (int).
     """
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        timeout: float = 120.0,
+        use_egl: bool = False,
+        use_sos: Optional[int] = None,
+    ) -> None:
+        self._timeout = timeout
+        self._use_egl = use_egl
+        self._use_sos = use_sos
         self._sessions = []
         self._session_directory: str = "."
 

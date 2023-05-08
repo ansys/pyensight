@@ -2,6 +2,7 @@
 Global fixtures go here.
 """
 import atexit
+import subprocess
 from unittest import mock
 
 import pytest
@@ -31,8 +32,26 @@ def local_launcher_session(pytestconfig: pytest.Config) -> "ansys.pyensight.Sess
     session.close()
 
 
+def cleanup_docker(request) -> None:
+    # Stop and remove 'ensight' and 'ensight_dev' containers. This needs to be deleted
+    # once we address the issue in the pyensight code by giving unique names to the containers
+    try:
+        subprocess.run(["docker", "stop", "ensight"])
+        subprocess.run(["docker", "rm", "ensight"])
+    except Exception:
+        # There might not be a running ensight container. That is fine, just continue
+        pass
+    try:
+        subprocess.run(["docker", "stop", "ensight_dev"])
+        subprocess.run(["docker", "rm", "ensight_dev"])
+    except Exception:
+        # There might not be a running ensight_dev container. That is fine, just continue
+        pass
+
+
 @pytest.fixture
 def docker_launcher_session() -> "ansys.pyensight.Session":
+    cleanup_docker()
     launcher = DockerLauncher(data_directory=".", use_dev=True)
     launcher.pull()
     session = launcher.start()

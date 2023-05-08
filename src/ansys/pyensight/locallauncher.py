@@ -35,11 +35,16 @@ class LocalLauncher(pyensight.Launcher):
             "envision" is also available.
         batch:
             By default, the EnSight/EnVision instance will run in batch mode.
-            If batch is set to True, the full GUI will be presented.
+            If batch is set to True, the full GUI will not be presented.
         timeout:
             In some cases where the EnSight session can take a significant amount of
             timme to start up, this is the number of seconds to wait before failing
             the connection.  The default is 120.0.
+        use_egl:
+            If True, EGL hardware accelerated graphics will be used. The platform
+            must be able to support it.
+        use_sos:
+            If None, don't use SOS. Otherwise, it's the number of EnSight Servers to use (int).
 
     Examples:
         ::
@@ -52,11 +57,13 @@ class LocalLauncher(pyensight.Launcher):
     def __init__(
         self,
         ansys_installation: Optional[str] = None,
-        application: str = "ensight",
-        batch: bool = True,
-        timeout: float = 120.0,
+        application: Optional[str] = "ensight",
+        batch: Optional[bool] = True,
+        timeout: Optional[float] = 120.0,
+        use_egl: Optional[bool] = False,
+        use_sos: Optional[int] = None,
     ) -> None:
-        super().__init__()
+        super().__init__(timeout=timeout, use_egl=use_egl, use_sos=use_sos)
 
         # get the user selected installation directory
         self._install_path: str = self.get_cei_install_directory(ansys_installation)
@@ -73,8 +80,6 @@ class LocalLauncher(pyensight.Launcher):
         self._ports = None
         # Are we running the instance in batch
         self._batch = batch
-        # The gRPC timeout
-        self._timeout = timeout
 
     @property
     def application(self):
@@ -83,7 +88,7 @@ class LocalLauncher(pyensight.Launcher):
         """
         return self._application
 
-    def start(self, use_egl: bool = False) -> "pyensight.Session":
+    def start(self) -> "pyensight.Session":
         """Start an EnSight session using the local ensight install
         Launch a copy of EnSight locally that supports the gRPC interface.  Create and
         bind a Session instance to the created gRPC session.  Return that session.
@@ -91,8 +96,6 @@ class LocalLauncher(pyensight.Launcher):
         Args:
             host:
                 Optional hostname on which the EnSight gRPC service is running
-            use_egl:
-                Specify True if EnSight should try to use EGL.
 
         Returns:
             pyensight Session object instance
@@ -130,11 +133,15 @@ class LocalLauncher(pyensight.Launcher):
             vnc_url = f"vnc://%%3Frfb_port={self._ports[1]}%%26use_auth=0"
             cmd.extend(["-vnc", vnc_url])
             egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
-            use_egl = use_egl or egl_env or self._has_egl()
+            use_egl = self._use_egl or egl_env or self._has_egl()
             if is_windows:
                 cmd[0] += ".bat"
             if use_egl:
                 cmd.append("-egl")
+            if self._use_sos:
+                cmd.append("-sos")
+                cmd.append("-nservers")
+                cmd.append(str(int(self._use_sos)))
             # cmd.append("-minimize_console")
             self._ensight_pid = subprocess.Popen(
                 cmd,
