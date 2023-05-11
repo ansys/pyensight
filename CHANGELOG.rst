@@ -2,7 +2,13 @@
 History
 =======
 
-v0.3.0.dev0 (tbd)
+v0.4.0.dev0 (tbd)
+-----------------
+
+* 2024 R1 Nexus Python distribution target.
+
+
+v0.3.0.dev0 (05-11-2023)
 -----------------
 
 * 2023 R2 Nexus Python distribution target.
