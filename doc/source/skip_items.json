@@ -32,5 +32,6 @@
 	"_generate_filename" : { "what": "method" },
 	"_generate_url" : { "what": "method" },
 	"_save_remote_html_page" : { "what": "method" },
-	"_build_utils_interface" : { "what": "method" }
+	"_build_utils_interface" : { "what": "method" },
+	"NoCommand" : { "what": "method" }
 }

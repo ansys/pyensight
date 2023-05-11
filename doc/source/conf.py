@@ -171,7 +171,10 @@ def lowercase_property_skip(app, what, name, obj, skip, options):
     # print(app, what, name, obj, skip, options)
     if what == "property":
         if name.islower():
-            return True
+            # Filter out the "duplicate" lowercase properties, for ENS_OBJ subclasses
+            # These have a special note in their docstrings
+            if "Note: both '" in obj.__doc__:
+                return True
     if name.startswith("__") and name.endswith("__"):
         return not (name == "__OBJID__")
     if name in skip_items:

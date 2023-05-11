@@ -77,7 +77,7 @@ setup(
         "Bug Tracker": "https://github.com/pyansys/pyensight/issues",
         "Source Code": "https://github.com/pyansys/pyensight",
     },
-    python_requires=">=3.7",
+    python_requires=">=3.9",
     keywords="ensight pyensight pyansys ansys",
     test_suite="tests",
     install_requires=REQUIREMENTS,
