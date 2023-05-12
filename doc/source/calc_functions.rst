@@ -122,7 +122,7 @@ viscosity, ymax, flow comp(0,1,or2), grad)``
 
 
 Computes a scalar variable which is the edge skin-friction
-coefficient :math:`{C}_{f\left(e\right)}`  (that is, using the density :math:`{\rho }_{e}`  and velocity Ue values at the edge of the boundary layer - not
+coefficient :math:`{C}_{f\left(e\right)}`  (that is, using the density :math:`{\rho }_{e}` and velocity :math:`{U}_{e}` values at the edge of the boundary layer - not
 the free-stream density :math:`{\rho }_{\infty }`  and velocity :math:`{U}_{\infty }`  values) defined as:
 
 Component: 0 = Total tangential-flow (parallel) to wall:
@@ -4304,7 +4304,7 @@ variable to the surface of the selected part(s) from the neighboring 3D field
 
 In other words, this function gets the value of a
 variable from surrounding field(s), a fixed distance from the surface of the
-selected part(s) and assigns it to the surface fo the selected part. For
+selected part(s) and assigns it to the surface of the selected part. For
 example, you might use this function to get the value of the velocity in the
 flow field a slight distance above your vehicle surface and assign that value to
 your vehicle surface.
