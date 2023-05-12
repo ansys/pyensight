@@ -23,12 +23,12 @@ class Renderable:
 
     Args:
         session:
-            The pyansys session to generate the renderables for
+            The pyensight session to generate the renderables for
     """
 
     def __init__(
         self,
-        session: "pyansys.Session",
+        session: "pyensight.Session",
         cell_handle: Optional[Any] = None,
         width: Optional[int] = None,
         height: Optional[int] = None,
@@ -95,7 +95,7 @@ class Renderable:
         The URL to the file (through the session HTTP server):
             http://{system}:{websocketserverhtmlport}/{session}_{guid}_{index}_{type}.html
 
-        After this call, the _url and _url_remote_pathane will reflect those names.
+        After this call, the _url and _url_remote_pathname will reflect those names.
         """
         suffix = f"_{self._rendertype}.html"
         filename_index = self._filename_index

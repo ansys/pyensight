@@ -473,7 +473,7 @@ class Session:
             temporal:
                 If True, include all timesteps in 'webgl' views
             aa:
-                The number of anti-aliasing passes to use when rendering images
+                The number of antialiasing passes to use when rendering images
             fps:
                 For animation playback, the number of frames per second to use
             num_frames:
@@ -549,6 +549,7 @@ class Session:
         Examples:
             >>> print(session.cmd("10+4"))
             14
+
         """
         self._establish_connection()
         ret = self._grpc.command(value, do_eval=do_eval)
