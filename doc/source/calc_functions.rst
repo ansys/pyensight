@@ -1,8 +1,8 @@
 .. _caculator_functions:
 
-============================
-EnSight Calculator Functions
-============================
+====================
+Calculator Functions
+====================
 
 EnSight supports a large number of calculator functions.
 An :class:`ENS_VAR<pyensight.ens_var.ENS_VAR>` object can represent
@@ -99,7 +99,7 @@ where:
     Server (SoS) decomposition.
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - *Boundary part*
@@ -117,8 +117,7 @@ BL_CfEdge()
 
 **Boundary Layer: Edge Skin-Friction Coefficient**
 
-``BL_CfEdge(boundary part(s), velocity, density,
-viscosity, ymax, flow comp(0,1,or2), grad)``
+``BL_CfEdge(boundary part(s), velocity, density, viscosity, ymax, flow comp(0,1,or2), grad)``
 
 
 Computes a scalar variable which is the edge skin-friction
@@ -165,7 +164,7 @@ where:
       - velocity at the edge of the boundary layer
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - boundary part
@@ -258,7 +257,7 @@ This is a non-dimensionalized measure of the fluid shear
 stress at the surface. An important aspect of the Skin Friction Coefficient
 is that :math:`{C}_{f\left(\infty \right)}=0`, indicates boundary layer separation.
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - boundary part
@@ -331,7 +330,7 @@ where:
       - velocity at the edge of the boundary layer
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - boundary part
@@ -418,7 +417,7 @@ where:
         the normal direction at the wall
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - boundary part
@@ -518,7 +517,7 @@ Provides a measure for the effect of the boundary layer
 on the **outside** flow. The boundary layer causes a
 displacement of the streamlines around the body.
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - boundary part
@@ -588,7 +587,7 @@ Computes a scalar variable which is the distance
       - scalar value at which to assign d
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - boundary part
@@ -676,7 +675,7 @@ where:
 
 Relates to the momentum loss in the boundary layer.
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - boundary part
@@ -742,7 +741,7 @@ the corresponding scalar field at the edge of the boundary layer. The function
 extracts the scalar value while computing the boundary-layer
 thickness (see :ref:`Boundary Layer: Thickness<BL_Thick>`).
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - boundary part
@@ -811,7 +810,7 @@ recovery thickness :math:`{\delta }_{rec}`  defined as:
 This quantity does not appear in any physical
 conservation equations, but is sometimes used in the evaluation of inlet flows.
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - boundary part
@@ -914,7 +913,7 @@ The distance normal from the surface to where:
       - magnitude of the velocity just outside the boundary layer
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - boundary part
@@ -1018,7 +1017,7 @@ Computes a scalar variable which is the boundary-layer thickness
 Computes a scalar variable which is the boundary-layer
 thickness :math:`\delta`  defined as:
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - boundary part
@@ -1105,7 +1104,7 @@ models used, and whether the law of the wall is used or not. Consult a
 boundary-layer text for correct interpolation of the values for your
 application.
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - boundary part
@@ -1153,7 +1152,7 @@ centroid. The velocity variable is only used to determine whether the variable
 is nodal or elemental to maintain consistency with the :math:`{y}_{1}^{+}`
 calculation above.
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - boundary part
@@ -1194,7 +1193,7 @@ so, the value is mapped to the parts nodes or element value. The algorithm can
 be fairly expensive, so there are options to inform the search that finds a
 matching variable location.
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - case to map from
@@ -1301,7 +1300,7 @@ the view orientation from the specified viewport number, similar to a texture
 mapping. The function in effect maps 2D results to a 3d geometry taking into
 account view orientation and surface visibility.
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - part to map from
@@ -1352,11 +1351,13 @@ where:
       - z component of normal
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
+    * - variable
+      - scalar or vector
     * - component
-      - [X], [Y], or [Z]
+      - if variable is a vector: [X], [Y], or [Z]
 
 
 Specify [X], [Y], or [Z] to get the corresponding coefficient.
@@ -1383,7 +1384,7 @@ reference.
 
 Z = A + Bi
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - real portion
@@ -1555,7 +1556,7 @@ where:
     defined frequency.
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - phi angle
@@ -1761,7 +1762,7 @@ where:
       - gas constant
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - pressure
@@ -1800,7 +1801,7 @@ where:
       - freestream density
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - density
@@ -1836,7 +1837,7 @@ where:
       - freestream density
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - density
@@ -1878,7 +1879,7 @@ where:
 
 where:
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - density
@@ -1928,7 +1929,7 @@ where:
 
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - density
@@ -1979,7 +1980,7 @@ Nodes are designated by their node ids, so the part must have node ids.
     (namely, more than one part has the same node id) use the line tool.
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - nodeID1
@@ -2035,7 +2036,7 @@ select the origin part as well as your 3D field parts. No need to have normal
 vectors. Create your scalar variable, called say **distTo2Dpart**, then create
 an isosurface=0 in your field using the **distTo2Dpart** as your variable.
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - origin part
@@ -2095,7 +2096,7 @@ because it allows for distances between nodes and element surfaces on the origin
 improved accuracy results in increased computational complexity and as a result this function
 can be several times slower than :ref:`Dist2Part() <Dist2Part>`.
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - origin part
@@ -2570,7 +2571,7 @@ Or based on gamma, pressure and velocity:
 :math:`e=\frac{p}{\left(\gamma -1\right)}+\rho \frac{{V}^{2}}{2}`
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - density
@@ -2611,7 +2612,7 @@ where:
       - velocity variable
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - velocity
@@ -2652,7 +2653,7 @@ Computes a scalar variable which is Enthalpy
 
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - density
@@ -2693,7 +2694,7 @@ Computes a scalar variable which is Normalized Enthalpy
       - freestream enthalpy
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - density
@@ -2738,7 +2739,7 @@ Computes a scalar variable which is *Stagnation Enthalpy* :math:`{h}_{o}`  defin
       - velocity magnitude
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - density
@@ -2780,7 +2781,7 @@ Computes a scalar variable which is *Normalized Stagnation Enthalpy* :math:`{h}_
       - freestream stagnation enthalpy
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - density
@@ -2845,7 +2846,7 @@ with freestream pressure,
 :math:`{p}_{\infty }=\frac{{\rho }_{\infty }{a}_{\infty }^{2}}{\gamma }`
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths:  30 70
 
     * - density
@@ -2895,7 +2896,7 @@ where:
       - 1D or 2D domain
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - velocity
@@ -2940,7 +2941,7 @@ where:
       - 1D or 2D
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - velocity
@@ -2995,7 +2996,7 @@ where:
     #. Compute Fluid Shear variable (on the 2D surface).
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - velocity gradient
@@ -3094,7 +3095,7 @@ with:
 given the strain tensor :math:`{e}_{ij}`  defined by :math:`{e}_{ij}=\frac{1}{2}{d}_{ij}` 
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - velocity
@@ -3141,7 +3142,7 @@ where:
     The force acts in the surface normal direction.
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - pressure
@@ -3176,7 +3177,7 @@ where:
       - unit length normal vector
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - pressure
@@ -3289,7 +3290,7 @@ where:
 
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - velocity
@@ -3332,7 +3333,7 @@ where:
 
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - velocity
@@ -3372,7 +3373,7 @@ where:
       - :math:`0.1{\left({V}_{\infty }\right)}^{2}`
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - velocity
@@ -3394,8 +3395,7 @@ IblankingValues()
 
 **Iblanking Values**
 
-``IblankingValues(Any iblanked structured
-part(s))``
+``IblankingValues(Any iblanked structured part(s))``
 
 
 Computes a scalar variable whose value is the iblanking
@@ -3427,8 +3427,7 @@ IntegralLine()
 
 **Integrals: Line Integral**
 
-``IntegralLine(1D part(s), scalar or (vector,
-component))``
+``IntegralLine(1D part(s), scalar or (vector, component))``
 
 
 Computes a constant or constant per part variable whose
@@ -3446,8 +3445,7 @@ IntegralSurface()
 
 **Integrals: Surface Integral**
 
-``IntegralSurface(2D part(s), scalar or (vector,
-component))``
+``IntegralSurface(2D part(s), scalar or (vector, component))``
 
 
 Computes a constant or constant per part variable whose
@@ -3465,15 +3463,13 @@ IntegralVolume()
 
 **Integrals: Volume Integral**
 
-``IntegralVolume(3D part(s), scalar or (vector,
-component))``
+``IntegralVolume(3D part(s), scalar or (vector, component))``
 
 
 Computes a constant or constant per part variable whose
 value is the integral of the input variable over the volume of the specified 3D
 part(s). Nodal variables are first converted to elemental variable using a
 weighted average of the shape function.
-(See under Energy)
 
 
 .. _Length:
@@ -3491,7 +3487,6 @@ Length()
 Computes a constant or constant per part variable whose
 value is the length of selected parts. While any part can be specified, it will
 only return a nonzero length if the part has 1D elements.
-See .
 
 
 .. _LineVectors:
@@ -3520,7 +3515,6 @@ Computes a nodal, vector variable which is the
       - Coordinates of Point i of 1D part
     * - :math:`n`
       - Number of points in the 1D part
-
 
 
 
@@ -3659,7 +3653,7 @@ where:
 
 See for a description.
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 50 50
 
     * - density
@@ -3682,8 +3676,7 @@ MakeScalElem()
 
 **Make Scalar at Elements**
 
-``MakeScalElem(any part(s), constant number or constant
-or constant per part variable)``
+``MakeScalElem(any part(s), constant number or constant or constant per part variable)``
 
 
 Assigns the specified constant value to each element,
@@ -3716,8 +3709,7 @@ MakeScalNode()
 
 **Make Scalar at Nodes**
 
-``MakeScalNode(any part(s), constant number or constant
-or constant per part variable)``
+``MakeScalNode(any part(s), constant number or constant or constant per part variable)``
 
 
 Assigns the specified constant value to each node,
@@ -3804,8 +3796,7 @@ MassFluxAvg()
 
 **Mass-Flux Average**
 
-``MassFluxAvg(any 1D or 2D part(s), scalar, velocity,
-density)``
+``MassFluxAvg(any 1D or 2D part(s), scalar, velocity, density)``
 
 
 Computes a constant or constant per part variable whose
@@ -3833,7 +3824,7 @@ where:
 
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 10 90
 
     * - scalar
@@ -4065,7 +4056,7 @@ where:
 
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - force vector
@@ -4101,7 +4092,7 @@ where:
 
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - velocity
@@ -4214,7 +4205,7 @@ where:
       - border of a 2D or 3D domain
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - pressure
@@ -4315,7 +4306,7 @@ the 3D field part(s) adjacent to your selected part(s) surface(s) and reach into
 these fields by your offset in the normal direction to obtain the variable value
 and then assign it to the surface of your selected part(s). 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - constant offset value
@@ -4387,7 +4378,7 @@ Computes a scalar variable whose value is the pressure
       - ratio of specific heats (1.4 for air)
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - density
@@ -4434,7 +4425,7 @@ Computes a scalar variable which is Pressure Coefficient
 
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - density
@@ -4483,7 +4474,7 @@ Computes a scalar variable which is Dynamic Pressure :math:`q`  defined as:
 
 See :ref:`KinEn() <KinEn>`.
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - density
@@ -4522,7 +4513,7 @@ where:
       - pressure
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - density
@@ -4574,7 +4565,7 @@ Normalized Pressure defined as:
 
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - density
@@ -4633,7 +4624,7 @@ Pressure :math:`{p}_{o}` defined as:
     using the incompressible flow equation (see Total Pressure below).
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - density
@@ -4681,7 +4672,7 @@ where:
       - freestream stagnation pressure
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - density
@@ -4743,7 +4734,7 @@ where:
 
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - density
@@ -4803,7 +4794,7 @@ where:
       - pressure
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - density
@@ -4862,7 +4853,7 @@ where:
 
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - density
@@ -4923,7 +4914,7 @@ where:
     equation (see Stagnation Pressure above).
     
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - pressure
@@ -5057,7 +5048,7 @@ preference to avoid being stuck in a computation loop that exceeds your
 patience.)
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - dir X
@@ -5108,7 +5099,7 @@ being stuck in a computation loop that exceeds your patience. The
 Radiograph_grid function will generally be considerably quicker.
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - dir X
@@ -5199,7 +5190,7 @@ where:
 
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - density
@@ -5263,7 +5254,7 @@ where :math:`x`  = nodal position at pass (i)
 
 :math:`n`  = edge connected nodes
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - number of passes
@@ -5305,7 +5296,7 @@ essentially the sum operation divided by the number of servers) or the minimum/m
 values on each of the servers.
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - variable
@@ -5348,7 +5339,7 @@ where: :math:`{s}_{i}`  = Scalar taken at centroid of element i
 
 :math:`vo{l}_{i}` = Volume (or Area, or Length) of element i
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - [component]
@@ -5394,7 +5385,7 @@ i
 
 :math:`vo{l}_{i}`  = Volume (or Area, or Length) of element i
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - [component]
@@ -5422,7 +5413,7 @@ defined as:
 
 where: :math:`u,v,w`  = velocity components in the :math:`x,y,z`  directions.
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - velocity
@@ -5453,7 +5444,7 @@ where :math:`\gamma`  = ratio of specific heats
 
 :math:`p`  = pressure
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - density
@@ -5529,7 +5520,7 @@ variable must be pre-weighted.
     shared among servers. The function parameters are defined as:
     
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - v
@@ -5578,7 +5569,7 @@ that variable as the weight. The function returns a scalar constant whose value
 is the R-squared value for the regression.
 The function parameters are defined as:
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - y
@@ -5620,7 +5611,7 @@ as well as the R-squared value.
 
 The function parameters are defined as:
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - regression_variable
@@ -5655,7 +5646,7 @@ itself and its standard error.
 
 The function parameters are defined as:
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 45 55
 
     * - regression_variable
@@ -5689,7 +5680,7 @@ sumPerPart()
 Sums scalar values of each part as a constant per part or a constant per case
 value, where:
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - plist
@@ -5717,7 +5708,7 @@ sumPerPartArg()
 Sums the constant per part value of each part into a case constant
 value where:
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - plist
@@ -5760,7 +5751,7 @@ where:
       - velocity
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 20 80
 
     * - density
@@ -5811,7 +5802,7 @@ where:
       - gas constant
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - density
@@ -5858,7 +5849,7 @@ Computes a scalar variable which is Normalized Temperature :math:`{T}_{n}`  defi
       - freestream temperature
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - density
@@ -5913,7 +5904,7 @@ Normalized Temperature defined as:
 
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - density
@@ -5969,7 +5960,7 @@ Temperature :math:`{T}_{o}` defined as:
       - mach number
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - density
@@ -6019,7 +6010,7 @@ Stagnation Temperature :math:`{T}_{on}` defined as:
 
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - density
@@ -6071,7 +6062,7 @@ time interval. Because any derived parts may vary in size over time, this
 function is only allowed on model parts. Model parts with changing connectivity
 are also not allowed.
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - timestep1
@@ -6104,7 +6095,7 @@ component of the vector. Because any derived parts may vary in size over time,
 this function is only allowed on model parts. Model parts with changing
 connectivity are also not allowed.
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - timestep1
@@ -6137,7 +6128,7 @@ i = given row (1 to 3)
 
 j = given column (1 to 3)
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - tensor row
@@ -6393,7 +6384,7 @@ new vector variable will be in the direction of the chosen axis (Z, R, or Theta)
 with a magnitude computed by the dot product of the vector variable against the
 direction vector.
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - vector
@@ -6426,7 +6417,7 @@ system) or any other defined frame in any arbitrary orientation. The resulting n
 the direction of the chosen axis (X, Y, or Z) with a magnitude computed by the
 dot product of the vector variable against the direction vector.
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - vector
@@ -6467,7 +6458,7 @@ where:
       - momentum
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - momentum
@@ -6529,7 +6520,7 @@ where:
         directions
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - velocity
@@ -6617,7 +6608,7 @@ where:
 
 
 
-.. list-table::
+.. list-table:: Function Arguments
     :widths: 30 70
 
     * - velocity
