@@ -1243,7 +1243,7 @@ matching variable location.
         values differ.
 
         *Parts selected for case to map from* (3) - Select
-        parts in the Case *From*as well as the Cas *To*. Only selected parts
+        parts in the Case *From* as well as the Case *To*. Only selected parts
         will be used in the two cases.
 
 
@@ -3754,8 +3754,8 @@ for some of the scalars, creating a 2D or 1D vector field.
     
     A quick way to make a vector, is to select the parts that you wish to use
     and then select three scalars, *scalar_x*, *scalar_y*, and *scalar_z* in the
-    variable list and then right click and choose*Make
-    Vector*in the pull-down and in the side choose whether to use
+    variable list and then right click and choose *Make Vector* in the pull-down
+    and in the side choose whether to use
     all (or all available, if you have measured) parts or your currently
     selected parts (if you have parts selected) to calculate the vector. A
     vector variable will be calculated and named hopefully adequately using the
@@ -4998,7 +4998,11 @@ Velocity = velocity vector variable
 
     which (in terms of our EnSight variables) literally reduces to:
 
-    ``Q = - 0.5 * ( Grad_Vel_x[X] * Grad_vel_x[X] + Grad_Vel_y[Y] * Grad_vel_y[Y] + Grad_Vel_z[Z] * Grad_Vel_z[Z] + 2 * (Grad_Vel_x[Y] * Grad_Vel_y[X] + Grad_Vel_x[Z] * Grad_Vel_z[X] + Grad_Vel_y[Z] * Grad_Vel_z[Y])) > 0``
+    .. code-block::
+
+       Q = - 0.5 * ( Grad_Vel_x[X] * Grad_vel_x[X] + Grad_Vel_y[Y] * Grad_vel_y[Y] + Grad_Vel_z[Z] * Grad_Vel_z[Z] +
+             2 * (Grad_Vel_x[Y] * Grad_Vel_y[X] + Grad_Vel_x[Z] * Grad_Vel_z[X] + Grad_Vel_y[Z] * Grad_Vel_z[Y])) > 0
+
 
     Now, to find the vortices, create an isosurface where Q
     is positive (Q > 0). This is because an isosurface with positive Q isolates
@@ -6650,7 +6654,9 @@ where:
         1 to include only cells entirely located in the
         proximity area. Use this option along with the radius to control the
         number of nodes (or elements) used in the calculation for each node
-        (or element) P. Consider using option 0 as the radius gets small
+        (or element) P.
+
+        Consider using option 0 as the radius gets small
         relative to element size, and 1 as the radius is enlarged. At a
         minimum, the proximity area will always include elements that
         contain P.

@@ -81,6 +81,9 @@ Examples:
 
 Returns:
     zero on success, non-zero on error
+	
+See also:
+    :ref:`Calculator Functions &lt;caculator_functions&gt;`
 </description>
 </override>
 <override namespace="ensight.variables.get_mainvarlist_select">

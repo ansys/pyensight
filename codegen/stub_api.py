@@ -46,9 +46,12 @@ class XMLOverrides:
         for directory in directory_list:
             files = glob.glob(os.path.join(directory, "**/*.xml"), recursive=True)
             for filename in files:
-                with open(filename, "r") as f:
-                    data = f.read()
-                root = ElementTree.fromstring(data)
+                try:
+                    with open(filename, "r") as f:
+                        data = f.read()
+                    root = ElementTree.fromstring(data)
+                except Exception as e:
+                    raise RuntimeError(f"Unable to read override file: {filename} : {e}")
                 for override in root.findall(".//override"):
                     namespace = override.get("namespace", "")
                     if namespace:
