@@ -24,8 +24,8 @@ PyEnSight
     :target: https://github.com/PyCQA/bandit
     :alt: Security Status
 
-.. |ci| image:: https://github.com/pyansys/pyensight/actions/workflows/ci_cd.yml/badge.svg?branch=main
-   :target: https://github.com/pyansys/pyensight/actions?query=branch%3Amain
+.. |ci| image:: https://github.com/ansys/pyensight/actions/workflows/ci_cd.yml/badge.svg?branch=main
+   :target: https://github.com/ansys/pyensight/actions?query=branch%3Amain
 
 .. |title| image:: https://s3.amazonaws.com/www3.ensight.com/build/media/pyensight_title.png
 
@@ -67,7 +67,7 @@ To clone and install in development mode:
 
 .. code::
 
-   git clone https://github.com/pyansys/pyensight
+   git clone https://github.com/ansys/pyensight
    cd pyensight
    pip install virtualenv
    virtualenv venv  # create virtual environment
@@ -175,7 +175,7 @@ Please see the latest release `documentation <https://ensight.docs.pyansys.com/>
 page for more details.
 
 Please feel free to post issues and other questions at `PyEnSight Issues
-<https://github.com/pyansys/pyensight/issues>`_.  This is the best place
+<https://github.com/ansys/pyensight/issues>`_.  This is the best place
 to post questions and code.
 
 
