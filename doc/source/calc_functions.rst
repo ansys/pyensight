@@ -32,6 +32,25 @@ Examples::
                                                        sources=session.ensight.objs.core.PARTS)
 
 
+.. admonition::  Per-part Constants
+
+    Some calculator functions (e.g. :ref:`Area() <Area>`) return constant values.  EnSight
+    supports constant values that are per-case and per-part.  For example, if *Area()* is
+    computed as a per-case constant, the value will be the sum of the area values computed
+    part by part.   If *Area()* is computed as a per-part constant, the individual values
+    for each part will be stored on each part.
+
+    By default, all constant values are computed as per-case.  If per-part computation is
+    desired, an optional additional argument is added to the function.  For example, "Area(plist)"
+    results in a per-case constant by default.  "Area(plist,Compute_Per_case)" is also computed
+    as per-case, explicitly.  "Area(plist,Compute_Per_part)" will result in the variable being
+    computed as per-part.
+
+    Not all calculator functions support this.  For those that do, this will be noted by the
+    notion ``[,Compute_Per_part]`` in this documentation.  See: :ref:`Area() <Area>` for an
+    example.
+
+
 .. _Area:
 
 ------
@@ -40,7 +59,7 @@ Area()
 
 **Area**
 
-``Area(any part(s))``
+``Area(any part(s) [, Compute_Per_part])``
 
 Computes a constant or constant per part variable whose
 value is the area of the selected parts. If a part is composed of 3D elements,
@@ -180,7 +199,7 @@ where:
 
         > 0 = Baldwin-Lomax-Spalart algorithm
 
-        0 = convergence algorithm (See Algorithm Noteunder Boundary Layer Thickness)
+        0 = convergence algorithm (See Algorithm Note under Boundary Layer Thickness)
 
     * - flow comp
       - constant number
@@ -202,7 +221,7 @@ tangent (parallel to surface) direction, and in its tangent's respective
 stream-wise and cross-flow directions, respective to the decomposed velocity
 parallel to the surface at the edge of the boundary layer.
 
-This is a non-dimensionalized measure of the fluid shear
+This is a non-dimensional measure of the fluid shear
 stress at the surface based on the local density and velocity at the edge of the
 boundary layer. The following figure illustrates the derivations of the computed
 'edge' related velocity values :math:`{U}_{e}`, :math:`{u}_{s}`, :math:`{u}_{c}` & :math:`{c}_{}`.
@@ -253,7 +272,7 @@ where:
         "where" list.
 
 
-This is a non-dimensionalized measure of the fluid shear
+This is a non-dimensional measure of the fluid shear
 stress at the surface. An important aspect of the Skin Friction Coefficient
 is that :math:`{C}_{f\left(\infty \right)}=0`, indicates boundary layer separation.
 
@@ -1326,7 +1345,7 @@ Coeff()
 
 **Coefficient**
 
-``Coeff(any 1D or 2D part(s), scalar, component)``
+``Coeff(any 1D or 2D part(s), scalar, component [, Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -1335,6 +1354,7 @@ such that :math:`{C}_{x}={\displaystyle {\int }_{S}f{n}_{x}dS}`,
 :math:`{C}_{y}={\displaystyle {\int }_{S}f{n}_{y}dS}`,
 :math:`{C}_{z}={\displaystyle {\int }_{S}f{n}_{z}dS}`
 where:
+
 
 .. list-table::
     :widths:  30 70
@@ -1646,7 +1666,7 @@ Defect_Count()
 
 **Defect Count**
 
-``Defect_Count(2D or 3D part(s), Defect scalar per elem, min value, max value))``
+``Defect_Count(2D or 3D part(s), Defect scalar per elem, min value, max value) [,Compute_Per_part])``
 
 
 Returns a case constant which filters the count of the
@@ -2875,7 +2895,7 @@ Flow()
 
 **Flow**
 
-``Flow(any 1D or 2D part(s), velocity).``
+``Flow(any 1D or 2D part(s), velocity [,Compute_Per_part]).``
 
 
 Computes a constant or constant per part variable whose
@@ -3295,9 +3315,6 @@ where:
 
     * - velocity
       - vector variable
-    * - vorticity
-      - vector variable
-
 
 
 
@@ -3338,9 +3355,6 @@ where:
 
     * - velocity
       - vector variable
-    * - vorticity
-      - vector variable
-
 
 
 
@@ -3427,7 +3441,7 @@ IntegralLine()
 
 **Integrals: Line Integral**
 
-``IntegralLine(1D part(s), scalar or (vector, component))``
+``IntegralLine(1D part(s), scalar or (vector, component) [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -3445,7 +3459,7 @@ IntegralSurface()
 
 **Integrals: Surface Integral**
 
-``IntegralSurface(2D part(s), scalar or (vector, component))``
+``IntegralSurface(2D part(s), scalar or (vector, component) [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -3463,7 +3477,7 @@ IntegralVolume()
 
 **Integrals: Volume Integral**
 
-``IntegralVolume(3D part(s), scalar or (vector, component))``
+``IntegralVolume(3D part(s), scalar or (vector, component) [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -3481,7 +3495,7 @@ Length()
 
 **Length**
 
-``Length(any 1D part(s))``
+``Length(any 1D part(s) [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -3796,7 +3810,7 @@ MassFluxAvg()
 
 **Mass-Flux Average**
 
-``MassFluxAvg(any 1D or 2D part(s), scalar, velocity, density)``
+``MassFluxAvg(any 1D or 2D part(s), scalar, velocity, density [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -3934,7 +3948,7 @@ Max()
 
 **Max**
 
-``Max(any part(s), scalar or (vector, component))``
+``Max(any part(s), scalar or (vector, component) [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -3957,7 +3971,7 @@ Min()
 
 **Min**
 
-``Min(any part(s), scalar or (vector, component))``
+``Min(any part(s), scalar or (vector, component) [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -3981,7 +3995,7 @@ Moment()
 
 **Moment**
 
-``Moment(any part(s), vector, component)``
+``Moment(any part(s), vector, component [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable (the
@@ -4111,7 +4125,7 @@ NodeCount()
 
 **Node Count**
 
-``NodeCount(any part(s))``
+``NodeCount(any part(s) [,Compute_Per_part])``
 
 
 Produces a constant or constant per part variable
@@ -4180,7 +4194,7 @@ NormC()
 
 **Normal Constraints**
 
-``NormC(2D or 3D part(s), pressure, velocity, viscosity)``
+``NormC(2D or 3D part(s), pressure, velocity, viscosity [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -4332,11 +4346,12 @@ PartNumber()
 
 **Part Number**
 
-``PartNumber(any part(s)``
+``PartNumber(any part(s) [,Compute_Per_part])``
 
 
 Computes a constant per part variable which is the GUI
-part number, if the part is a server-side part.
+part number, if the part is a server-side part.  If computed as 'Compute_Per_case', the value
+will be the maximum part number.
 
 
 .. note::
@@ -5252,7 +5267,9 @@ For each pass, the following formula is applied:
 
 :math:`{x}_{i+1}={x}_{i}+w{\displaystyle \sum _{j=0}^{n}\left({x}_{j}-{x}_{i}\right)}` 
 
-where :math:`x`  = nodal position at pass (i)
+where
+
+:math:`x`  = nodal position at pass (i)
 
 :math:`w`  = nodal weight
 
@@ -5280,8 +5297,7 @@ SOSConstant()
 
 **SOS Constant**
 
-``SOSConstant(any part(s), variable, reduction operation
-(0-3))``
+``SOSConstant(any part(s), variable, reduction operation (0-3))``
 
 
 .. note::
@@ -5322,7 +5338,7 @@ SpaMean()
 
 **Spatial Mean**
 
-``SpaMean(any part(s), scalar or (vector, component))``
+``SpaMean(any part(s), scalar or (vector, component) [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -5339,7 +5355,9 @@ divided by the total volume (or area) of the part.
 
 :math:`\text{Spatial Mean}=\frac{{\displaystyle \sum {s}_{i}vo{l}_{i}}}{{\displaystyle \sum vo{l}_{i}}}` 
 
-where: :math:`{s}_{i}`  = Scalar taken at centroid of element i
+where:
+
+:math:`{s}_{i}`  = Scalar taken at centroid of element i
 
 :math:`vo{l}_{i}` = Volume (or Area, or Length) of element i
 
@@ -5360,7 +5378,7 @@ SpaMeanWeighted()
 
 **Spatial Mean Weighted**
 
-``SpaMeanWeighted(any part(s), scalar or (vector, component), weight, component)``
+``SpaMeanWeighted(any part(s), scalar or (vector, component), weight, component [,Compute_Per_part])``
 
 
 Weighted Computes a constant or constant per part
@@ -5415,7 +5433,9 @@ defined as:
 
 :math:`speed=\sqrt{{u}^{2}+{v}^{2}+{w}^{2}}` 
 
-where: :math:`u,v,w`  = velocity components in the :math:`x,y,z`  directions.
+where:
+
+:math:`u,v,w`  = velocity components in the :math:`x,y,z`  directions.
 
 .. list-table:: Function Arguments
     :widths: 20 80
@@ -5434,8 +5454,7 @@ SonicSpeed()
 
 **Sonic Speed**
 
-``SonicSpeed(any part(s), density, total energy, velocity,
-ratio of specific heats).``
+``SonicSpeed(any part(s), density, total energy, velocity, ratio of specific heats).``
 
 
 Computes a scalar variable :math:`c` , whose value is:
@@ -5471,7 +5490,7 @@ StatMoment()
 
 **Statistics Moments**
 
-``StatMoment(any part(s), v, function)``
+``StatMoment(any part(s), v, function [,Compute_Per_part])``
 
 
 Computes a constant or constant per part by which is the
@@ -6482,7 +6501,7 @@ Vol()
 
 **Volume**
 
-``Vol(3D part(s))``
+``Vol(3D part(s) [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
