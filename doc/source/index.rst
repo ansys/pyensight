@@ -86,7 +86,7 @@ In addition to installation and usage information, the `PyEnSight documentation
 <https://ensight.docs.pyansys.com/>`_ provides API member descriptions, examples,
 and contribution information.
 
-On the `PyEnSight Issues <https://github.com/pyansys/pyensight/issues>`_ page,
+On the `PyEnSight Issues <https://github.com/ansys/pyensight/issues>`_ page,
 you can create issues to submit questions, report bugs, and request new features.
 This is the best place to post questions and code.
 

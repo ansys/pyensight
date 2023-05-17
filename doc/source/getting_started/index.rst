@@ -27,7 +27,7 @@ install the latest package with this code:
 
 .. code::
 
-   git clone https://github.com/pyansys/pyensight
+   git clone https://github.com/ansys/pyensight
    cd pyensight
    pip install virtualenv
    virtualenv venv  # create virtual environment
@@ -41,7 +41,7 @@ build the wheel using a ``pybuild.py`` script like this one:
 
 .. code::
 
-   git clone https://github.com/pyansys/pyensight
+   git clone https://github.com/ansys/pyensight
    cd pyensight
    C:\Python310\python.exe -m pip install virtualenv
    C:\Python310\Scripts\virtualenv.exe venv

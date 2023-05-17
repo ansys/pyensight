@@ -188,7 +188,7 @@ jobs:
     needs: docs
     steps:
       - name: "Deploy the latest documentation"
-        uses: pyansys/actions/doc-deploy-dev@v3
+        uses: ansys/actions/doc-deploy-dev@v3
         with:
             doc-artifact-name: Documentation-html
             cname: ${{ env.DOCUMENTATION_CNAME }}
@@ -245,7 +245,7 @@ jobs:
     needs: docs
     steps:
       - name: "Deploy the stable documentation"
-        uses: pyansys/actions/doc-deploy-stable@v3
+        uses: ansys/actions/doc-deploy-stable@v3
         with:
             doc-artifact-name: Documentation-html
             cname: ${{ env.DOCUMENTATION_CNAME }}

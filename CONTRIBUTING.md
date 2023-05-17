@@ -9,5 +9,5 @@ make this software a useful tool for all users. As such, we welcome and
 encourage any questions or submissions to this repository.
 
 Please reference the [PyAnsys Developer's
-Guide](https://github.com/pyansys/about) for the full documentation
+Guide](https://dev.docs.pyansys.com/) for the full documentation
 regarding contributing to the pyensight project.
