@@ -95,7 +95,7 @@ jobs:
         env:
           TWINE_USERNAME: PAT
           TWINE_PASSWORD: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
-          TWINE_REPOSITORY_URL: https://pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/upload
+          TWINE_REPOSITORY_URL: ${{ secrets.PRIVATE_PYPI_URL }}
 
   build-failure:
     name: Teams notify on failure

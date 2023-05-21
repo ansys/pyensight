@@ -398,7 +398,7 @@ BL_CfWallTau()
 
 **Boundary Layer: Wall Fluid Shear-Stress**
 
-``BL_CfWallTau(boundary part(s), velocity, viscosity, ymax, flow comp(0,1,or 2), grad).``
+``BL_CfWallTau(boundary part(s), velocity, viscosity, ymax, flow comp(0,1,or 2), grad)``
 
 
 Computes a scalar variable which is the fluid's
@@ -481,7 +481,7 @@ BL_DispThick()
 
 **Boundary Layer: Displacement Thickness**
 
-``BL_DispThick(boundary part(s), velocity, density, ymax, flow comp(0,1,or 2), grad).``
+``BL_DispThick(boundary part(s), velocity, density, ymax, flow comp(0,1,or 2), grad)``
 
 
 Computes a scalar variable which is the boundary-layer
@@ -584,7 +584,7 @@ BL_DistToValue()
 
 **Boundary Layer: Distance to Value from Wall**
 
-``BL_DistToValue(boundary part(s), scalar, scalar value).``
+``BL_DistToValue(boundary part(s), scalar, scalar value)``
 
 
 Computes a scalar variable which is the distance
@@ -631,7 +631,7 @@ BL_MomeThick()
 
 **Boundary Layer: Momentum Thickness**
 
-``BL_MomeThick(boundary part(s), velocity, density, ymax, flow compi(0,1,or2), flow compj(0,1,or2), grad).``
+``BL_MomeThick(boundary part(s), velocity, density, ymax, flow compi(0,1,or2), flow compj(0,1,or2), grad)``
 
 
 Computes a scalar variable which is the boundary-layer
@@ -751,8 +751,7 @@ BL_Scalar()
 
 **Boundary Layer: Scalar**
 
-``BL_Scalar(boundary part(s), velocity, scalar, ymax,
-grad).``
+``BL_Scalar(boundary part(s), velocity, scalar, ymax, grad)``
 
 
 Computes a scalar variable which is the scalar value of
@@ -798,7 +797,7 @@ BL_RecoveryThick()
 
 **Boundary Layer: Recovery Thickness**
 
-``BL_RecoveryThick(boundary part(s), velocity, total pressure, ymax, grad).``
+``BL_RecoveryThick(boundary part(s), velocity, total pressure, ymax, grad)``
 
 
 Computes a scalar variable which is the boundary-layer
@@ -910,7 +909,7 @@ BL_Thick()
 
 **Boundary Layer: Thickness**
 
-``BL_Thick(boundary part(s), velocity, ymax, grad).``
+``BL_Thick(boundary part(s), velocity, ymax, grad)``
 
 
 Computes a scalar variable which is the boundary-layer
@@ -994,7 +993,7 @@ BL_VelocityAtEdge()
 
 **Boundary Layer: Velocity at Edge**
 
-``BL_VelocityAtEdge(boundary part(s), velocity, ymax,comp(0,1,2),grad).``
+``BL_VelocityAtEdge(boundary part(s), velocity, ymax,comp(0,1,2),grad)``
 
 Extracts a vector variable which is a velocity vector
 :math:`{V}_{e}`, :math:`{V}_{p}`, or :math:`{V}_{n}`  defined as:
@@ -1085,7 +1084,7 @@ BL_Y1Plus()
 
 **Boundary Layer: off Wall**
 
-``BL_Y1Plus(boundary part(s), density, viscosity, grad option, vector variable).``
+``BL_Y1Plus(boundary part(s), density, viscosity, grad option, vector variable)``
 
 
 
@@ -1162,7 +1161,7 @@ BL_Y1PlusDist()
 
 **Boundary Layer: Distance off Wall**
 
-``BL_Y1PlusDist(boundary part(s), velocity).``
+``BL_Y1PlusDist(boundary part(s), velocity)``
 
 
 :math:`{y}_{1}`  Computes a scalar variable which is the off-the-wall distance,
