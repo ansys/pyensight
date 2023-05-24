@@ -267,7 +267,7 @@ class ProcessAPI:
 
         # if it is a "begin" method, the parse structure is different (similar to the "end"
         # suppression case).  Anyway, treat these like the "unknown" case and allow *args
-        if node.get("tbl", "") == "0b":
+        if node.get("tbl", "") == "0b" or node.get("tbl", "") == "0m":
             return self._process_undefined_callable(node, indent=indent, classname=classname)
 
         # if this is not command language and unknown, then it can be handled by
@@ -735,21 +735,21 @@ def generate_stub_api() -> None:
     print(f"Generating API v{DEFAULT_ANSYS_VERSION} bindings for release {VERSION}")
 
     # cleanup old files
-    for filename in glob.glob("*.xml"):
-        os.unlink(filename)
+    #for filename in glob.glob("*.xml"):
+    #    os.unlink(filename)
     target_dir = "../src/ansys/pyensight"
 
     # get the API file(s)
     api_uris = [f"https://s3.amazonaws.com/www3.ensight.com/build/v{version}/ensight_api.xml"]
     for uri in api_uris:
-        result = requests.get(uri)
-        if not result.ok:
-            raise RuntimeError(f"URL fetch error: {result.status_code} ({uri})")
+        #result = requests.get(uri)
+        #if not result.ok:
+        #    raise RuntimeError(f"URL fetch error: {result.status_code} ({uri})")
         api_name = os.path.basename(uri)
-        with open(api_name, "w", encoding="utf8") as fp:
-            fp.write(result.text)
+        with open(api_name, "r", encoding="utf8") as fp:
+            text = fp.read()
         overrides = XMLOverrides(["../doc/replacements"])
-        generator = ProcessAPI(result.text, overrides=overrides)
+        generator = ProcessAPI(text, overrides=overrides)
         outname = os.path.join(target_dir, api_name.replace(".xml", ".py"))
         generator.process(target_dir, outname)
 
