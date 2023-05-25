@@ -6563,7 +6563,8 @@ VortGamma()
 
 
 Computes a dimensionless scalar variable on a 2D clip
-part, whose value is the vorticity-gamma function Gk(P), defined at each node
+part, whose value is the vorticity-gamma
+function :math:`{\Gamma }_{k}\left(P\right)`, defined at each node
 (or element centroid for cell centered data), P as follows:
 
 :math:`{\Gamma }_{k}\left(P\right)=\frac{1}{S}{\displaystyle \int \mathrm{sin}\left({\Theta }_{M}\right)dS}=\frac{1}{S}{\displaystyle \underset{\left(M\in S\right)}{\int }\left(\frac{\left(\stackrel{\rightharpoonup }{PM}\times {\stackrel{\rightharpoonup }{V}}_{M}\right)·\widehat{n}}{\Vert \stackrel{\rightharpoonup }{PM}\Vert ·\Vert {\stackrel{\rightharpoonup }{V}}_{M}\Vert }\right)dS}` 
@@ -6573,7 +6574,7 @@ where:
 .. list-table::
     :widths: 30 70
 
-    * - G1
+    * - :math:`{\Gamma }_{1}`
       - (gamma function number k=1) is a (non-Galilean invariant)
         vortex center approximation method "...a dimensionless scalar,
         with G1 bounded by 1. It can be shown that this bound is
@@ -6583,7 +6584,7 @@ where:
         of P and the rotation sign of the vortex. ... Typically, near
         the vortex centre, G1 reaches values ranging from 0.9 to 1.0"
         [ref.2, 1424-5]
-    * - G2
+    * - :math:`{\Gamma }_{2}`
       - (gamma function number k=2) a (Galilean invariant) vortex
         boundary approximation method resulting in a dimensionless
         scalar, "... a local function depending only on W and μ,
@@ -6625,9 +6626,8 @@ where:
         part.
     * - :math:`θ_M`
       - The angle between VM and PM. Since -1 < sin(QM) < 1
-        (and n is a unit vector), then -1 < Gk(P) < 1.
-
-
+        (and n is a unit vector),
+        then -1 < :math:`{\Gamma }_{k}\left(P\right)` < 1.
 
 
 .. list-table:: Function Arguments
