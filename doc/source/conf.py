@@ -180,6 +180,8 @@ def lowercase_property_skip(app, what, name, obj, skip, options):
     if name in skip_items:
         if what == skip_items[name].get("what", ""):
             return True
+    if name.startswith("_"):
+        return True
     return False
 
 
