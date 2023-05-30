@@ -18,19 +18,10 @@ submit questions, report bugs, and request new features.
 Adhere to code style
 --------------------
 PyEnSight is compliant with the `Coding style <https://dev.docs.pyansys.com/coding-style/index.html>`_
-documented in the *PyAnsys Developer's Guide*. It uses the tool
-`pre-commit <https://pre-commit.com/>`_ to check the code style. You can
-install and activate this tool with this code:
+documented in the *PyAnsys Developer's Guide*. It uses a build target
+to check the code style. You can verify the code style with this command:
 
 .. code:: bash
 
-   python -m pip install pre-commit
-   pre-commit install
-
-
-Once ``pre-commit`` is installed, you can directly execute this tool with this command:
-
-.. code:: bash
-
-    pre-commit run --all-files --show-diff-on-failure
+   python pybuild.py precommit
 

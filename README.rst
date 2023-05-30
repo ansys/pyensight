@@ -53,11 +53,11 @@ Include installation directions.  Note that this README will be
 included in your PyPI package, so be sure to include ``pip``
 directions along with developer installation directions.  For example.
 
-Install ansys-pyensight with:
+Install ansys-ensight with:
 
 .. code::
 
-   pip install ansys-pyensight
+   pip install ansys-ensight
 
 
 Development
@@ -183,7 +183,7 @@ License
 -------
 ``PyEnSight`` is licensed under the MIT license.
 
-This module, ``ansys-pyensight`` makes no commercial claim over Ansys whatsoever.
+This module, ``ansys-ensight`` makes no commercial claim over Ansys whatsoever.
 This tool extends the functionality of ``EnSight`` by adding a remote Python interface
 to EnSight without changing the core behavior or license of the original
 software.  The use of interactive EnSight control by ``PyEnSight`` requires a
