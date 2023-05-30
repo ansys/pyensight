@@ -182,7 +182,7 @@ class Views:
             name (str): the name of the view to restore
         """
         if not self.views_dict.get(name):
-            print("ERROR: view set not available")
+            raise KeyError("ERROR: view set not available")
         viewport, coretransform = self.views_dict.get(name)
         vport = self.ensight.objs.core.VPORTS[viewport]
         vport.CORETRANSFORM = coretransform
