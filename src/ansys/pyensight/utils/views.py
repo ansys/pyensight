@@ -3,10 +3,13 @@
 The views module allows pyensight to control the view in the EnSight session
 
 Example to set an isometric view:
-    >>> from ansys.pyensight import LocalLauncher
-    >>> session = LocalLauncher().start()
-    >>> views = session.ensight.utils.views
-    >>> views.set_view_direct(1,1,1)
+
+::
+
+    from ansys.pyensight import LocalLauncher
+    session = LocalLauncher().start()
+    views = session.ensight.utils.views
+    views.set_view_direct(1,1,1)
 """
 
 import math
@@ -107,19 +110,32 @@ class Views:
         Returns:
             (list): the coordinates of the model centroid
         """
-        enabled = False
-        if self.ensight.objs.core.BOUNDS is False:
-            enabled = True
-            self.ensight.view.bounds("ON")
         vport = self.ensight.objs.core.VPORTS[vport]
-        xmax = vport.AXISXMAX
-        xmin = vport.AXISXMIN
-        ymax = vport.AXISYMAX
-        ymin = vport.AXISYMIN
-        zmax = vport.AXISZMAX
-        zmin = vport.AXISZMIN
-        if enabled:
-            self.ensight.view.bounds("OFF")
+        try:
+            # Available from release 24.1. The order is:
+            # xmin,ymin,zmin,xmax,ymax,zmax
+            bounds = vport.BOUNDINGBOX
+            xmax = bounds[3]
+            xmin = bounds[0]
+            ymax = bounds[4]
+            ymin = bounds[1]
+            zmax = bounds[5]
+            zmin = bounds[2]
+        except AttributeError:
+            # Old method. It assumes autosize is set to True and
+            # that the bounds have not been modified
+            enabled = False
+            if self.ensight.objs.core.BOUNDS is False:
+                enabled = True
+                self.ensight.view.bounds("ON")
+            xmax = vport.AXISXMAX
+            xmin = vport.AXISXMIN
+            ymax = vport.AXISYMAX
+            ymin = vport.AXISYMIN
+            zmax = vport.AXISZMAX
+            zmin = vport.AXISZMIN
+            if enabled:
+                self.ensight.view.bounds("OFF")
         xavg = (xmax + xmin) / 2
         yavg = (ymax + ymin) / 2
         zavg = (zmax + zmin) / 2
