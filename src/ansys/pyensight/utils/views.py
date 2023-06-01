@@ -180,6 +180,21 @@ class Views:
         vport.CORETRANSFORM = coretransform
         if perspective:
             self.ensight.view.perspective("ON")
+        self.save_current_view(name=name, vport=vport)
+
+    def save_current_view(
+        self,
+        name: Optional[str] = None,
+        vport: int = 0,
+    ) -> None:
+        """Save the current view with an optional name.
+        If not provided, a default incremental name will be given otherwise
+
+        Args:
+            name (str): the name to give to the new direction
+            vport (int): the viewport to set the view direction for
+        """
+        coretransform = vport.CORETRANSFORM
         if not name:
             count = 0
             while True and count < 100:
