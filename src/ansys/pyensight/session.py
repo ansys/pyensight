@@ -627,6 +627,8 @@ class Session:
             try:
                 # get the module and class names
                 _name = os.path.splitext(os.path.basename(_filename))[0]
+                if _name == "__init__":
+                    continue
                 _cap_name = _name[0].upper() + _name[1:]
                 # import the module
                 _module = __import__(_name)
