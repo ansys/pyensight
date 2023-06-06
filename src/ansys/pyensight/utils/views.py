@@ -64,13 +64,20 @@ class Views:
             vec1[0] * vec2[1] - vec1[1] * vec2[0],
         ]
 
-    def _convert_rotation_vector_to_rotation_matrix(
+    def _convert_view_direction_to_rotation_matrix(
         self, direction: List[float], up_axis: Tuple[float] = (0, 1, 0)
     ) -> Tuple[List[float]]:
         """Convert the input direction vector in a rotation matrix.
         The third row of the rotation matrix will be the view direction.
         The first and second rows define the rotation with the respect to the
         up axis and the rotated x axis to rotate towards the view direction.
+
+        Args:
+            direction (list): a list describing the desired direction view
+            up_axis (tuple): a tuple describing the up_direction. The Y axis is assumed by default
+
+        Returns:
+            (tuple) a tuple containing the three rows of the rotation matrix
         """
         direction = self._normalize_vector(direction)
         xaxis = self._normalize_vector(self._cross_product(up_axis, direction))
@@ -79,6 +86,63 @@ class Views:
         if xaxis == [0.0, 0.0, 0.0] and yaxis == [0.0, 0.0, 0.0]:
             raise ValueError("Cannot set the up direction and the view direction to be parallel")
         return xaxis, yaxis, direction
+
+    def _convert_view_direction_to_quaternion(
+        self, direction: List[float], up_axis: Tuple[float] = (0, 1, 0)
+    ) -> Tuple[List[float]]:
+        """Convert the input direction vector into a list of quaternions.
+
+        Args:
+            direction (list): a list describing the desired direction view
+            up_axis (tuple): a tuple describing the up_direction. The Y axis is assumed by default
+
+        Returns:
+            (tuple) a tuple containing the 4 quaternions describing the required rotation
+        """
+        row0, row1, row2 = self._convert_view_direction_to_rotation_matrix(
+            direction=direction,
+            up_axis=up_axis,
+        )
+        return self._convert_rotation_matrix_to_quaternion(row0, row1, row2)
+
+    @staticmethod
+    def _convert_rotation_matrix_to_quaternion(row0, row1, row2):
+        """Convert a rotation matrix to quaternions
+
+        Args:
+            row0: the first row of the matrix
+            row1: the second row of the matrix
+            row2: the third row of the matrix
+
+        Returns:
+            (tuple): the four quaternions describing the rotation
+        """
+        trace = row0[0] + row1[1] + row2[2]
+        if trace > 0:
+            s = math.sqrt(trace + 1) * 2
+            qw = s / 4
+            qx = (row2[1] - row1[2]) / s
+            qy = (row0[2] - row2[0]) / s
+            qz = (row1[0] - row0[1]) / s
+        elif row0[0] > row1[1] and row0[0] > row2[2]:
+            s = math.sqrt(1 + row0[0] - row1[1] - row2[2]) * 2
+            qw = (row2[1] - row1[2]) / s
+            qx = s / 4
+            qy = (row0[1] + row1[0]) / s
+            qz = (row0[2] + row2[0]) / s
+        elif row1[1] > row2[2]:
+            s = math.sqrt(1 + row1[1] - row0[0] - row2[2]) * 2
+            qw = (row0[2] - row2[0]) / s
+            qx = (row0[1] + row1[0]) / s
+            qy = s / 4
+            qz = (row1[2] + row2[1]) / s
+        else:
+            s = math.sqrt(1 + row2[2] - row0[0] - row1[1]) * 2
+            qw = (row1[0] - row0[1]) / s
+            qx = (row0[2] + row2[0]) / s
+            qy = (row1[2] + row2[1]) / s
+            qz = s / 4
+        return qx, qy, qz, qw
 
     @property
     def views_dict(self) -> Dict[str, List[float]]:
@@ -169,15 +233,9 @@ class Views:
         self.ensight.view.perspective("OFF")
         direction = [xdir, ydir, zdir]
         vport = self.ensight.objs.core.VPORTS[vport]
-        coretransform = vport.CORETRANSFORM.copy()
-        rots = self._convert_rotation_vector_to_rotation_matrix(direction, up_axis=up_axis)
-        column1 = [rots[0][0], rots[1][0], rots[2][0], 0]
-        column2 = [rots[0][1], rots[1][1], rots[2][1], 0]
-        column3 = [rots[0][2], rots[1][2], rots[2][2], 0]
-        coretransform[0:4] = column1
-        coretransform[4:8] = column2
-        coretransform[8:12] = column3
-        vport.CORETRANSFORM = coretransform
+        rots = vport.ROTATION.copy()
+        rots[0:4] = self._convert_view_direction_to_quaternion(direction, up_axis=up_axis)
+        vport.ROTATION = rots
         if perspective:
             self.ensight.view.perspective("ON")
         self.save_current_view(name=name, vport=vport)
