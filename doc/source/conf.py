@@ -51,6 +51,7 @@ extensions = [
     "sphinx_gallery.gen_gallery",
     "sphinxcontrib.mermaid",
     "sphinxcontrib.jquery",
+    "sphinxcontrib.openapi",
     # "ansys_sphinx_theme",
 ]
 
