@@ -134,7 +134,7 @@ class EnsContext:
         """
         self._buffer = io.BytesIO()
         thefile = zipfile.ZipFile(self._buffer, "w", compression=zipfile.ZIP_DEFLATED)
-        for folder_name, sub_folders, file_names in os.walk(pathname):
+        for folder_name, _, file_names in os.walk(pathname):
             for filename in file_names:
                 file_pathname = os.path.join(folder_name, filename)
                 thefile.write(file_pathname, os.path.basename(file_pathname))
