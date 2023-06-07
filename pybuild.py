@@ -38,6 +38,7 @@ def docs(target: str = "html", full: bool = True, skip_tests: bool = False) -> N
         test()
     # Build the actual docs
     print("-" * 10, "Build sphinx docs")
+    # run sphinx
     sphinx = find_exe("sphinx-build")
     cmd = [sphinx, "-M", target, "doc/source", "doc/build"]
     env = os.environ.copy()
@@ -49,6 +50,10 @@ def docs(target: str = "html", full: bool = True, skip_tests: bool = False) -> N
         cov_badge = find_exe("coverage-badge")
         cmd = [cov_badge, "-f", "-o", "doc/build/html/_images/coverage.svg"]
         subprocess.run(cmd)
+    # make the yaml file available to enable the swagger edtiro
+    src = os.path.join("doc", "source", "rest_api", "ensight_rest_v1.yaml")
+    dst = os.path.join("doc", "build", "html", "_static", "ensight_rest_v1.yaml")
+    shutil.copyfile(src, dst)
 
 
 def generate() -> None:
