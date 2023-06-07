@@ -16,7 +16,7 @@ import platform
 import sys
 import time
 import types
-from typing import Any, Callable, Optional
+from typing import TYPE_CHECKING, Any, Callable, Dict, Optional, Tuple
 from urllib.parse import urlparse
 import webbrowser
 
@@ -31,6 +31,16 @@ from ansys.pyensight.renderable import (
     RenderableVNC,
     RenderableWebGL,
 )
+
+if TYPE_CHECKING:
+    from ansys.pyensight import renderable
+    from ansys.pyensight.ensobj import ENSOBJ
+
+try:
+    from ansys.pyensight import ensight_api, ensight_grpc
+except ImportError:
+    ensight_api = None
+    ensight_grpc = None
 
 
 class Session:
@@ -96,7 +106,7 @@ class Session:
         timeout: float = 120.0,
     ) -> None:
         # when objects come into play, we can reuse them, so hash ID to instance here
-        self._ensobj_hash = {}
+        self._ensobj_hash: Dict[int, "ENSOBJ"] = {}
         self._language = "en"
         self._timeout = timeout
         self._cei_home = ""
@@ -109,7 +119,7 @@ class Session:
         self._secret_key = secret_key
         self._grpc_port = grpc_port
         self._halt_ensight_on_close = True
-        self._callbacks = dict()
+        self._callbacks: Dict[str, Tuple[int, Any]] = dict()
         # if the caller passed a session directory we will assume they are
         # creating effectively a proxy Session and create a (stub) launcher
         if session_directory is not None:
@@ -120,14 +130,16 @@ class Session:
 
         # are we in a jupyter notebook?
         try:
-            _ = get_ipython()
+            _ = get_ipython()  # type: ignore
             self._jupyter_notebook = True
         except NameError:
             self._jupyter_notebook = False
 
         # Connect to the EnSight instance
-        from ansys.pyensight import ensight_api  # pylint: disable=import-outside-toplevel
-        from ansys.pyensight import ensight_grpc  # pylint: disable=import-outside-toplevel
+        from ansys.pyensight import (  # pylint: disable=import-outside-toplevel
+            ensight_api,
+            ensight_grpc,
+        )
 
         self._ensight = ensight_api.ensight(self)
         self._build_utils_interface()
@@ -259,14 +271,14 @@ class Session:
         self._jupyter_notebook = value
 
     @property
-    def ensight(self) -> "ensight_api.ensight":
+    def ensight(self) -> "ensight_api.ensight":  # type: ignore
         """
         Core EnSight API wrapper
         """
         return self._ensight
 
     @property
-    def grpc(self) -> "ensight_grpc.EnSightGRPC":
+    def grpc(self) -> "ensight_grpc.EnSightGRPC":  # type: ignore
         """
         The gRPC wrapper instance used by this session to access EnSight
         """
@@ -280,14 +292,14 @@ class Session:
         return self._secret_key
 
     @property
-    def html_port(self) -> int:
+    def html_port(self) -> Optional[int]:
         """
         The port supporting HTML interaction with EnSight
         """
         return self._html_port
 
     @property
-    def ws_port(self) -> int:
+    def ws_port(self) -> Optional[int]:
         """
         The port supporting WS interaction with EnSight
         """
@@ -317,7 +329,7 @@ class Session:
         url = "https://ensight.docs.pyansys.com/"
         webbrowser.open(url)
 
-    def run_script(self, filename: str) -> types.ModuleType:
+    def run_script(self, filename: str) -> Optional[types.ModuleType]:
         """Execute an EnSight Python 'script' file
 
         In EnSight, there is a notion of a Python 'script' that is normally executed line by
@@ -344,12 +356,16 @@ class Session:
         module_name, _ = os.path.splitext(os.path.basename(filename))
         # get the module reference
         spec = importlib.util.find_spec(module_name)
-        module = importlib.util.module_from_spec(spec)
-        # insert an ensight interface into the module
-        module.ensight = self.ensight
-        # load (run) the module
-        spec.loader.exec_module(module)
-        return module
+        if spec:
+            module = importlib.util.module_from_spec(spec)
+            # insert an ensight interface into the module
+            if self.ensight:
+                module.ensight = self.ensight  # type: ignore
+                # load (run) the module
+                if spec.loader:
+                    spec.loader.exec_module(module)
+            return module
+        return None
 
     def exec(self, function: Callable, *args, remote: bool = False, **kwargs) -> Any:
         """Run a function containing 'ensight' API calls locally or in the EnSight interpreter
@@ -644,8 +660,8 @@ class Session:
     def load_data(
         self,
         data_file: str,
-        result_file: str = None,
-        file_format: str = None,
+        result_file: Optional[str] = None,
+        file_format: Optional[str] = None,
         reader_options: Optional[dict] = None,
         new_case: bool = False,
         representation: str = "3D_feature_2D_full",
@@ -964,7 +980,7 @@ class Session:
         """Get any existing proxy object associated with a given ID"""
         return self._ensobj_hash.get(ensobjid, None)
 
-    def _obj_attr_subtype(self, classname: str) -> (int, dict):
+    def _obj_attr_subtype(self, classname: str) -> Tuple[Optional[int], Optional[dict]]:
         """Get subtype information for a given class
         For the input classname, return the proper Python proxy classname and if the
         class supports subclasses, the attribute id number of the differentiating

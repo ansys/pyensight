@@ -202,6 +202,16 @@ def isort() -> None:
     ]
     subprocess.run(cmd)
 
+def mypy() -> None:
+    mypyexe = find_exe("mypy")
+    print("-" * 10, "Running mypy")
+    cmd = [
+    mypyexe,
+        "--config-file", os.path.join(os.path.dirname(__file__), "mypy.ini"),
+        os.path.join(os.path.dirname(__file__), "src", "ansys", "pyensight"),
+    ]
+    subprocess.run(cmd)
+
 
 def clean() -> None:
     paths = [
@@ -239,8 +249,9 @@ if __name__ == "__main__":
 'build' : Build the wheel.
 'fastdocs' : Generate partial documentation.
 'docs' : Generate documentation.
+'mypy : Run mypy check.
 'all' : Run clean codegen, build and complete documentation."""
-    )
+)
 
     parser = argparse.ArgumentParser(
         description="Python only build script",
@@ -257,6 +268,7 @@ if __name__ == "__main__":
             "build",
             "fastdocs",
             "docs",
+            "mypy",
             "all",
         ],
         help=operation_help,
@@ -302,6 +314,8 @@ if __name__ == "__main__":
         generate()
         wheel()
         docs()
-    elif args.operations == "":
+    elif args.operation == "":
         print()
+    elif args.operation == "mypy":
+        mypy()
     print("Complete.")

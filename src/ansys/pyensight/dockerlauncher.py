@@ -21,6 +21,11 @@ import uuid
 
 from ansys import pyensight
 
+try:
+    import docker
+except ImportError:
+    docker = None
+
 
 class DockerLauncher(pyensight.Launcher):
     """Create a Session instance by launching a local Docker copy of EnSight
@@ -98,9 +103,9 @@ class DockerLauncher(pyensight.Launcher):
 
         # the Ansys / EnSight version we found in the container
         # to be reassigned later
-        self._ansys_version = None
+        self._ansys_version: Optional[str] = None
 
-    def ansys_version(self) -> str:
+    def ansys_version(self) -> Optional[str]:
         """Returns the Ansys version as a 3 digit number string as found in the Docker container.
 
         Returns:
@@ -225,22 +230,23 @@ class DockerLauncher(pyensight.Launcher):
         # number.
 
         cmd = ["bash", "--login", "-c", "ls /ansys_inc/v*/CEI/bin/ensight"]
-        ret = self._container.exec_run(cmd, user="ensight")
-        if ret[0] != 0:
-            self.stop()
-            raise RuntimeError(
-                "Can't find /ansys_inc/vNNN/CEI/bin/ensight in the Docker container."
-            )
-        self._cei_home = ret[1].decode("utf-8").strip()
-        m = re.search("/v(\d\d\d)/", self._cei_home)
-        if not m:
-            self.stop()
-            # raise RuntimeError(f"Can't find version from {} in the Docker container.",
-            #   self._cei_home)
-            raise RuntimeError("Can't find version from cei_home in the Docker container.")
-        self._ansys_version = m.group(1)
-        print("CEI_HOME=", self._cei_home)
-        print("Ansys Version=", self._ansys_version)
+        if self._container:
+            ret = self._container.exec_run(cmd, user="ensight")
+            if ret[0] != 0:
+                self.stop()
+                raise RuntimeError(
+                    "Can't find /ansys_inc/vNNN/CEI/bin/ensight in the Docker container."
+                )
+            self._cei_home = ret[1].decode("utf-8").strip()
+            m = re.search("/v(\d\d\d)/", self._cei_home)
+            if not m:
+                self.stop()
+                # raise RuntimeError(f"Can't find version from {} in the Docker container.",
+                #   self._cei_home)
+                raise RuntimeError("Can't find version from cei_home in the Docker container.")
+            self._ansys_version = m.group(1)
+            print("CEI_HOME=", self._cei_home)
+            print("Ansys Version=", self._ansys_version)
 
         # Run EnSight
         cmd = ["bash", "--login", "-c"]
@@ -265,34 +271,38 @@ class DockerLauncher(pyensight.Launcher):
         cmd.extend([cmd2])
 
         print("Run: ", str(cmd))
-        self._container.exec_run(cmd, user="ensight", detach=True)
+        if self._container:
+            self._container.exec_run(cmd, user="ensight", detach=True)
 
         # Run websocketserver
         cmd = ["bash", "--login", "-c"]
         # cmd2 = "cpython /home/ensight/websocketserver.py"
-        cmd2 = (
-            "cpython /ansys_inc/v"
-            + self._ansys_version
-            + "/CEI/nexus"
-            + self._ansys_version
-            + "/nexus_launcher/websocketserver.py"
-        )
+        cmd2 = ""
+        if self._ansys_version:
+            cmd2 = (
+                "cpython /ansys_inc/v"
+                + self._ansys_version
+                + "/CEI/nexus"
+                + self._ansys_version
+                + "/nexus_launcher/websocketserver.py"
+            )
 
-        # cmd2 += " --verbose 1 --log /home/ensight/wss.log"
-        cmd2 += " --http_directory " + self._session_directory
-        # http port
-        cmd2 += " --http_port " + str(ports[2])
-        # vnc port
-        cmd2 += " --client_port " + str(ports[1])
-        # EnVision sessions
-        cmd2 += " --local_session envision 5"
-        # websocket port
-        cmd2 += " " + str(ports[3])
+            # cmd2 += " --verbose 1 --log /home/ensight/wss.log"
+            cmd2 += " --http_directory " + self._session_directory
+            # http port
+            cmd2 += " --http_port " + str(ports[2])
+            # vnc port
+            cmd2 += " --client_port " + str(ports[1])
+            # EnVision sessions
+            cmd2 += " --local_session envision 5"
+            # websocket port
+            cmd2 += " " + str(ports[3])
 
-        cmd.extend([cmd2])
+            cmd.extend([cmd2])
 
         print("Run: ", str(cmd))
-        self._container.exec_run(cmd, user="ensight", detach=True)
+        if self._container:
+            self._container.exec_run(cmd, user="ensight", detach=True)
 
         # build the session instance
         session = pyensight.Session(
