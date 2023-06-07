@@ -40,12 +40,8 @@ class Views:
         """
         magnitude = math.sqrt(sum(v**2 for v in direction))
         if magnitude == 0.0:
-            return [0, 0, 0]
-        return [
-            direction[0] / magnitude,
-            direction[1] / magnitude,
-            direction[2] / magnitude,
-        ]
+            return [0] * len(direction)
+        return [x / magnitude for x in direction]
 
     @staticmethod
     def _cross_product(vec1: List[float], vec2: List[float]) -> List[float]:
@@ -69,8 +65,14 @@ class Views:
     ) -> Tuple[List[float]]:
         """Convert the input direction vector in a rotation matrix.
         The third row of the rotation matrix will be the view direction.
-        The first and second rows define the rotation with the respect to the
-        up axis and the rotated x axis to rotate towards the view direction.
+        The first and second rows are computed to be orthogonal to the view direction,
+        to form an orthogonal matrix.
+        This is because a rotation matrix to get a specific view direction has got
+        the third column to be the view direction itself (i.e. the view direction becomes the z
+        axis after the rotation, while the transformed x and y axis are computed to be orthogonal to
+        the z transformed axis). The rotation is defined as the matrix transpose of the
+        defined rotation matrix since the aim is to have the view direction pointing towards the camera
+        and not the contrary.
 
         Args:
             direction (list): a list describing the desired direction view
@@ -82,10 +84,7 @@ class Views:
         direction = self._normalize_vector(direction)
         xaxis = self._normalize_vector(self._cross_product(up_axis, direction))
         yaxis = self._normalize_vector(self._cross_product(direction, xaxis))
-        # Handle the case where up direction and view direction are parallel
-        if xaxis == [0.0, 0.0, 0.0] and yaxis == [0.0, 0.0, 0.0]:
-            raise ValueError("Cannot set the up direction and the view direction to be parallel")
-        return xaxis, yaxis, direction
+        return (xaxis, yaxis, direction)
 
     def _convert_view_direction_to_quaternion(
         self, direction: List[float], up_axis: Tuple[float] = (0, 1, 0)
@@ -105,8 +104,9 @@ class Views:
         )
         return self._convert_rotation_matrix_to_quaternion(row0, row1, row2)
 
-    @staticmethod
-    def _convert_rotation_matrix_to_quaternion(row0, row1, row2):
+    def _convert_rotation_matrix_to_quaternion(
+        self, row0: List[float], row1: List[float], row2: List[float]
+    ) -> Tuple[float]:
         """Convert a rotation matrix to quaternions
 
         Args:
@@ -119,30 +119,39 @@ class Views:
         """
         trace = row0[0] + row1[1] + row2[2]
         if trace > 0:
-            s = math.sqrt(trace + 1) * 2
-            qw = s / 4
-            qx = (row2[1] - row1[2]) / s
-            qy = (row0[2] - row2[0]) / s
-            qz = (row1[0] - row0[1]) / s
+            s = math.sqrt(trace + 1)
+            print(s)
+            qw = s / 2
+            s = 1 / (2 * s)
+            print(s)
+            qx = (row2[1] - row1[2]) * s
+            qy = (row0[2] - row2[0]) * s
+            qz = (row1[0] - row0[1]) * s
+            print(qx, qy, qz, qw)
         elif row0[0] > row1[1] and row0[0] > row2[2]:
-            s = math.sqrt(1 + row0[0] - row1[1] - row2[2]) * 2
-            qw = (row2[1] - row1[2]) / s
-            qx = s / 4
-            qy = (row0[1] + row1[0]) / s
-            qz = (row0[2] + row2[0]) / s
+            s = math.sqrt(1 + row0[0] - row1[1] - row2[2])
+            qx = s / 2
+            s = 1 / (2 * s)
+            qw = (row2[1] - row1[2]) * s
+            qy = (row0[1] + row1[0]) * s
+            qz = (row0[2] + row2[0]) * s
         elif row1[1] > row2[2]:
-            s = math.sqrt(1 + row1[1] - row0[0] - row2[2]) * 2
-            qw = (row0[2] - row2[0]) / s
-            qx = (row0[1] + row1[0]) / s
-            qy = s / 4
-            qz = (row1[2] + row2[1]) / s
+            s = math.sqrt(1 + row1[1] - row0[0] - row2[2])
+            qy = s / 2
+            s = 1 / (2 * s)
+            qw = (row0[2] - row2[0]) * s
+            qx = (row0[1] + row1[0]) * s
+            qz = (row1[2] + row2[1]) * s
         else:
-            s = math.sqrt(1 + row2[2] - row0[0] - row1[1]) * 2
-            qw = (row1[0] - row0[1]) / s
-            qx = (row0[2] + row2[0]) / s
-            qy = (row1[2] + row2[1]) / s
-            qz = s / 4
-        return qx, qy, qz, qw
+            s = math.sqrt(1 + row2[2] - row0[0] - row1[1])
+            qz = s / 2
+            if s != 0.0:
+                s = 1 / (2 * s)
+            qw = (row1[0] - row0[1]) * s
+            qx = (row0[2] + row2[0]) * s
+            qy = (row1[2] + row2[1]) * s
+        quats = tuple(self._normalize_vector([qx, qy, qz, qw]))
+        return quats
 
     @property
     def views_dict(self) -> Dict[str, List[float]]:
