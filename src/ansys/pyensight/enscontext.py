@@ -1,13 +1,10 @@
 """EnsContext module
 
 Interface to objects that contain a representation of an EnSight session state.
-Basically, this is a wrapper around a ZIP format file that contains an EnSight
-context or state. Three types of content are supported:
+Three types of content are supported:
 
 #. Full context: a complete EnSight context file.
 #. Simple context: an EnSight context file without any data loading reference.
-#. State context: an EnSight state file, all object attributes, no part/object creation.
-
 
 """
 import base64
@@ -54,21 +51,23 @@ class EnsContext:
         elif "simplecontext.txt" in names:
             self._type = self.SIMPLE_CONTEXT
 
-    def from_zip_file(self, filename: str) -> None:
+    def load(self, filename: str) -> None:
         """Read a context from a local zip file
 
-        Given the name of a zip file, read in into memory and make the contents
-        available via self._zip.
+        Given the name of a context file, read it into memory and make it available
+        for use by the PyEnSight Session methods.
 
         Args:
             filename:
                 The name of the file to read
         """
+        if not zipfile.is_zipfile(filename):
+            raise RuntimeError(f"'{filename}' is not a saved context file.")
         with open(filename, "rb") as f:
             data = f.read()
         self.from_zip_data(data)
 
-    def from_zip_data(self, data: Union[bytes, str]) -> None:
+    def _from_data(self, data: Union[bytes, str]) -> None:
         """Read a context from a blob or string
 
         Given a context file in the form of a bytes object or a
@@ -86,10 +85,10 @@ class EnsContext:
         thefile = zipfile.ZipFile(self._buffer, "r")
         self._set_type(thefile.namelist())
 
-    def save_as_zip(self, filename: str) -> None:
-        """Save the context information in zip file
+    def save(self, filename: str) -> None:
+        """Save the context information to a file
 
-        Save any current context to disk as a zip file.
+        Save the current context to disk.
 
         Args:
             filename:
@@ -101,7 +100,7 @@ class EnsContext:
         with open(filename, "wb") as fp:
             fp.write(data)
 
-    def data(self, b64: bool = False) -> Union[bytes, str]:
+    def _data(self, b64: bool = False) -> Union[bytes, str]:
         """Return a representation of the context file as a string or bytes object
 
         Either a bytes object or a string (base64 encoded bytes object) representation
@@ -199,7 +198,7 @@ class EnsContext:
         except Exception as e:
             warnings.warn("Unable to filter out undesired context file content: {}".format(e))
 
-    def restore_context(self, ensight: Any) -> None:
+    def _restore_context(self, ensight: Any) -> None:
         """Restore a context from the state in this object
 
         Unpack the zip contents to disk (temporary directory) and perform a context restore on
@@ -216,7 +215,7 @@ class EnsContext:
                 _ = ensight.file.context_restore_rescale("OFF")
                 _ = ensight.file.restore_context(os.path.join(tempdirname, "context.ctx"))
 
-    def capture_context(
+    def _capture_context(
         self, ensight: Any, context: int = SIMPLE_CONTEXT, all_cases: bool = True
     ) -> None:
         """Capture the current state
