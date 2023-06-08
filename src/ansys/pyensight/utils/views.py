@@ -24,7 +24,7 @@ class Views:
 
     def __init__(self, ensight: "Session.ensight"):
         self.ensight = ensight
-        self._views_dict: Dict[str, List[float]] = {}
+        self._views_dict: Dict[str, Tuple[int, List[float]]] = {}
 
     # Utilities
     @staticmethod
@@ -154,7 +154,7 @@ class Views:
         return list_of_quats[0], list_of_quats[1], list_of_quats[2], list_of_quats[3]
 
     @property
-    def views_dict(self) -> Dict[str, List[float]]:
+    def views_dict(self) -> Dict[str, Tuple[int, List[float]]]:
         """Getter for the views_dict dictionary holding the stored views
 
         Returns:
@@ -269,10 +269,10 @@ class Views:
                 if self.views_dict.get("view_{}".format(count)):
                     count += 1
                 else:
-                    self.views_dict["view_{}".format(count)] = (vport, coretransform)
+                    self.views_dict["view_{}".format(count)] = (vportindex, coretransform)
                     break
         else:
-            self.views_dict[name] = (vport, coretransform)
+            self.views_dict[name] = (vportindex, coretransform)
 
     def restore_view(self, name: str) -> None:
         """Restore a stored view by its name.
@@ -282,8 +282,9 @@ class Views:
         """
         if not self.views_dict.get(name):
             raise KeyError("ERROR: view set not available")
-        if self.views_dict:
-            viewport, coretransform = self.views_dict.get(name)
+        found = self.views_dict.get(name)
+        if found:
+            viewport, coretransform = found
             vport = self.ensight.objs.core.VPORTS[viewport]
             vport.CORETRANSFORM = coretransform
 
