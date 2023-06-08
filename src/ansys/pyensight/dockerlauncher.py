@@ -239,6 +239,7 @@ class DockerLauncher(pyensight.Launcher):
                 )
             self._cei_home = ret[1].decode("utf-8").strip()
             m = re.search("/v(\d\d\d)/", self._cei_home)
+            print(m)
             if not m:
                 self.stop()
                 # raise RuntimeError(f"Can't find version from {} in the Docker container.",

@@ -6,7 +6,7 @@ from typing import List
 from ansys.pyensight import ensight_api
 
 
-def test_ensight_api(mocked_session):
+def test_ensight_api(mocked_session, mocker):
     assets = []
     # The assets file contains the objects to be checked during the test.
     # This is generated when the API itself is generated
@@ -29,6 +29,7 @@ def test_ensight_api(mocked_session):
         # It might be not a method, but another class, and this is set by the
         # asset having a "submethod_name" value
         method = getattr(class_instance, method_name)
+        mocker.patch.object(class_instance, "attrinfo", return_value={})
         if submethod_name:
             subinstance = method(mocked_session, 1)
             submethod = getattr(subinstance, submethod_name)
