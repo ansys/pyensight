@@ -16,13 +16,13 @@ import math
 from typing import TYPE_CHECKING, Dict, List, Optional, Tuple
 
 if TYPE_CHECKING:
-    from ansys.pyensight.session import Session
+    from ansys.pyensight import ensight_api
 
 
 class Views:
     """A class to handle the view in the current EnSight session."""
 
-    def __init__(self, ensight: "Session.ensight"):
+    def __init__(self, ensight: "ensight_api.ensight"):
         self.ensight = ensight
         self._views_dict: Dict[str, Tuple[int, List[float]]] = {}
 
