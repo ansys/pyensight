@@ -332,16 +332,17 @@ class DockerLauncherEnShell(pyensight.Launcher):
             self.stop()
             raise RuntimeError("Can't connect to EnShell over gRPC.")
 
-        # print("Connected to EnShell.  Getting CEI_HOME and Ansys version...\n")
+        print("Connected to EnShell.  Getting CEI_HOME and Ansys version...\n")
+        print(f"  _enshell: {self._enshell}\n\n")
 
         # Build up the command to run ensight via the EnShell gRPC interface
 
         self._cei_home = self._enshell.cei_home()
         self._ansys_version = self._enshell.ansys_version()
-        # print("CEI_HOME=", self._cei_home)
-        # print("Ansys Version=", self._ansys_version)
+        print("CEI_HOME=", self._cei_home)
+        print("Ansys Version=", self._ansys_version)
 
-        # print("Got them.  Starting EnSight...\n")
+        print("Got them.  Starting EnSight...\n")
 
         # Run EnSight
         ensight_env = None
@@ -363,13 +364,13 @@ class DockerLauncherEnShell(pyensight.Launcher):
         vnc_url = "vnc://%%3Frfb_port=1999%%26use_auth=0"
         ensight_args += " -vnc " + vnc_url
 
-        # print(f"Starting EnSight with args: {ensight_args}\n")
+        print(f"Starting EnSight with args: {ensight_args}\n")
         ret = self._enshell.start_ensight(ensight_args, ensight_env)
         if ret[0] != 0:
             self.stop()
             raise RuntimeError(f"Error starting EnSight with args: {ensight_args}")
 
-        # print("EnSight started.  Starting wss...\n")
+        print("EnSight started.  Starting wss...\n")
 
         # Run websocketserver
         wss_cmd = "cpython /ansys_inc/v" + self._ansys_version + "/CEI/nexus"
@@ -384,20 +385,23 @@ class DockerLauncherEnShell(pyensight.Launcher):
         # websocket port
         wss_cmd += " " + str(self._service_host_port["ws"][1])
 
-        # print(f"Starting WSS: {wss_cmd}\n")
+        print(f"Starting WSS: {wss_cmd}\n")
         ret = self._enshell.start_other(wss_cmd)
         if ret[0] != 0:
             self.stop()
             raise RuntimeError(f"Error starting WSS: {wss_cmd}\n")
 
-        # print("wss started.  Making session...\n")
+        # print("wss started.  Returning self...\n")
+        # return self
+
+        print("wss started.  Making session...\n")
 
         # build the session instance
         # WARNING: assuming the host is the same for grpc_private, http, and ws
         # This may not be true in the future if using PIM.
         # revise Session to handle three different hosts if necessary.
         session = pyensight.Session(
-            host=self._service_host_port["grpc"][0],
+            host=self._service_host_port["grpc_private"][0],
             grpc_port=self._service_host_port["grpc_private"][1],
             html_port=self._service_host_port["http"][1],
             ws_port=self._service_host_port["ws"][1],
@@ -408,7 +412,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         session.launcher = self
         self._sessions.append(session)
 
-        # print("Return session.\n")
+        print("Return session.\n")
 
         return session
 

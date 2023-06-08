@@ -2,11 +2,16 @@
 from distutils.core import setup
 import os
 
+# Add version constraints to play nice with other packages
+# running on Ansys Lab.  Which versions to use is determined
+# by installing the pyensight wheel on Ansys Lab and seeing
+# what pip complains about.
 REQUIREMENTS = [
-    "protobuf>=3.9.1",
+    "protobuf>=3.9.1,<=3.20.2",
+    "docutils<0.19",
     "grpcio>=1.23.0",
     "requests>=2.20.1",
-    "urllib3>=1.26.10",
+    "urllib3<=1.25.4",
     "dill>=0.3.5.1",
 ]
 

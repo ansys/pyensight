@@ -81,6 +81,7 @@ if pim_is_available:
             channel=channel,
             pim_instance=instance,
         )
+        print(f"launcher: {launcher}\n\n")
         return launcher.connect()
 
 
