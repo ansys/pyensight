@@ -253,12 +253,12 @@ class DockerLauncher(pyensight.Launcher):
         cmd = ["bash", "--login", "-c"]
 
         cmd2 = ""
-        if use_egl:
+        if self._use_egl:
             cmd2 = "export LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1 ;"
 
         cmd2 += " ensight -batch -v 3"
 
-        if use_egl:
+        if self._use_egl:
             cmd2 += " -egl"
 
         if self._use_sos:

@@ -261,7 +261,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
 
         # print("Starting Container...\n")
         if data_volume:
-            if use_egl:
+            if self._use_egl:
                 if self._docker_client:
                     self._container = self._docker_client.containers.run(
                         self._image_name,
@@ -290,7 +290,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
                     )
                 # print(f"_container = {str(self._container)}\n")
         else:
-            if use_egl:
+            if self._use_egl:
                 if self._docker_client:
                     self._container = self._docker_client.containers.run(
                         self._image_name,
