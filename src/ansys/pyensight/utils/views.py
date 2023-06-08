@@ -24,7 +24,7 @@ class Views:
 
     def __init__(self, ensight: "Session.ensight"):
         self.ensight = ensight
-        self._views_dict = {}
+        self._views_dict: Dict[str, List[float]] = {}
 
     # Utilities
     @staticmethod
@@ -61,8 +61,8 @@ class Views:
         ]
 
     def _convert_view_direction_to_rotation_matrix(
-        self, direction: List[float], up_axis: Tuple[float] = (0, 1, 0)
-    ) -> Tuple[List[float]]:
+        self, direction: List[float], up_axis: Tuple[float, float, float] = (0.0, 1.0, 0.0)
+    ) -> Tuple[List[float], List[float], List[float]]:
         """Convert the input direction vector in a rotation matrix.
         The third row of the rotation matrix will be the view direction.
         The first and second rows are computed to be orthogonal to the view direction,
@@ -82,13 +82,13 @@ class Views:
             (tuple) a tuple containing the three rows of the rotation matrix
         """
         direction = self._normalize_vector(direction)
-        xaxis = self._normalize_vector(self._cross_product(up_axis, direction))
+        xaxis = self._normalize_vector(self._cross_product(list(up_axis), direction))
         yaxis = self._normalize_vector(self._cross_product(direction, xaxis))
         return (xaxis, yaxis, direction)
 
     def _convert_view_direction_to_quaternion(
-        self, direction: List[float], up_axis: Tuple[float] = (0, 1, 0)
-    ) -> Tuple[List[float]]:
+        self, direction: List[float], up_axis: Tuple[float, float, float] = (0.0, 1.0, 0.0)
+    ) -> Tuple[float, float, float, float]:
         """Convert the input direction vector into a list of quaternions.
 
         Args:
@@ -106,7 +106,7 @@ class Views:
 
     def _convert_rotation_matrix_to_quaternion(
         self, row0: List[float], row1: List[float], row2: List[float]
-    ) -> Tuple[float]:
+    ) -> Tuple[float, float, float, float]:
         """Convert a rotation matrix to quaternions
 
         Args:
@@ -150,8 +150,8 @@ class Views:
             qw = (row1[0] - row0[1]) * s
             qx = (row0[2] + row2[0]) * s
             qy = (row1[2] + row2[1]) * s
-        quats = tuple(self._normalize_vector([qx, qy, qz, qw]))
-        return quats
+        list_of_quats = self._normalize_vector([qx, qy, qz, qw])
+        return list_of_quats[0], list_of_quats[1], list_of_quats[2], list_of_quats[3]
 
     @property
     def views_dict(self) -> Dict[str, List[float]]:
@@ -174,7 +174,7 @@ class Views:
         """
         self.ensight.view_transf.center_of_transform(xc, yc, zc)
 
-    def compute_model_centroid(self, vport: int = 0) -> List[float]:
+    def compute_model_centroid(self, vportindex: int = 0) -> List[float]:
         """Computes the model centroid using the model BOUNDS.
 
         Args:
@@ -183,7 +183,7 @@ class Views:
         Returns:
             (list): the coordinates of the model centroid
         """
-        vport = self.ensight.objs.core.VPORTS[vport]
+        vport = self.ensight.objs.core.VPORTS[vportindex]
         try:
             # Available from release 24.1. The order is:
             # xmin,ymin,zmin,xmax,ymax,zmax
@@ -222,8 +222,8 @@ class Views:
         zdir: float,
         name: Optional[str] = None,
         perspective: Optional[bool] = False,
-        up_axis: Tuple[float] = (0, 1, 0),
-        vport: int = 0,
+        up_axis: Tuple[float, float, float] = (0.0, 1.0, 0.0),
+        vportindex: int = 0,
     ) -> None:
         """Sets the view direction of the session.
         A name can be given as input to save the new view settings;
@@ -237,30 +237,31 @@ class Views:
             name (str): the name to give to the new direction
             perspective (bool): Enable the perspective view if True
             up_axis (list): the up direction for the view direction
-            vport (int): the viewport to set the view direction for
+            vportindex (int): the viewport to set the view direction for
         """
         self.ensight.view.perspective("OFF")
         direction = [xdir, ydir, zdir]
-        vport = self.ensight.objs.core.VPORTS[vport]
+        vport = self.ensight.objs.core.VPORTS[vportindex]
         rots = vport.ROTATION.copy()
         rots[0:4] = self._convert_view_direction_to_quaternion(direction, up_axis=up_axis)
         vport.ROTATION = rots
         if perspective:
             self.ensight.view.perspective("ON")
-        self.save_current_view(name=name, vport=vport)
+        self.save_current_view(name=name, vportindex=vportindex)
 
     def save_current_view(
         self,
         name: Optional[str] = None,
-        vport: int = 0,
+        vportindex: int = 0,
     ) -> None:
         """Save the current view with an optional name.
         If not provided, a default incremental name will be given otherwise
 
         Args:
             name (str): the name to give to the new direction
-            vport (int): the viewport to set the view direction for
+            vportindex (int): the viewport to set the view direction for
         """
+        vport = self.ensight.objs.core.VPORTS[vportindex]
         coretransform = vport.CORETRANSFORM
         if not name:
             count = 0
@@ -281,9 +282,10 @@ class Views:
         """
         if not self.views_dict.get(name):
             raise KeyError("ERROR: view set not available")
-        viewport, coretransform = self.views_dict.get(name)
-        vport = self.ensight.objs.core.VPORTS[viewport]
-        vport.CORETRANSFORM = coretransform
+        if self.views_dict:
+            viewport, coretransform = self.views_dict.get(name)
+            vport = self.ensight.objs.core.VPORTS[viewport]
+            vport.CORETRANSFORM = coretransform
 
     def restore_center_of_transform(self) -> None:
         """Restore the center of transform to the model centroid."""
