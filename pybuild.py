@@ -298,6 +298,7 @@ if __name__ == "__main__":
         isort()
         flake8()
         codespell()
+        mypy()
     elif args.operation == "codegen":
         generate()
     elif args.operation == "test":

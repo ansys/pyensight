@@ -3,43 +3,48 @@
 Interface to objects that contain a representation of an EnSight session state.
 Three types of content are supported:
 
-#. Full context: a complete EnSight context file.
-#. Simple context: an EnSight context file without any data loading reference.
+    #. Full context: a complete EnSight context file.
+    #. Simple context: an EnSight context file without any data loading reference.
 
 """
 import base64
 import io
 import os
 import tempfile
-from typing import Any, Union
+from typing import Any, Optional, Union
 import warnings
 import zipfile
 
 
 class EnsContext:
-    """A saved EnSight state
+    """A saved EnSight session state
 
-    This object allows for the generation and application of an
-    EnSight "state".  The object can store an EnSight "context",
-    or a "data-less context".  The internal storage is in a zip
-    file wrapper and leverages BytesIO buffers to allow for
-    "file-less" operation and provides a mechanism for network
-    transport.
+    This object allows for the generation and application of the
+    EnSight "state".  The object may store a EnSight "context",
+    or a "data-less context" representation.  The object can
+    save() and load() the context to/from disk.
+
+    Args:
+        filename:
+            If specified, "load()" the named context file after
+            creating the object instance.
     """
 
     UNKNOWN: int = 0
     FULL_CONTEXT: int = 1
     SIMPLE_CONTEXT: int = 2
 
-    def __init__(self) -> None:
+    def __init__(self, filename: Optional[str] = None) -> None:
         self._type: int = self.UNKNOWN
         self._buffer: io.BytesIO = io.BytesIO()
+        if filename is not None:
+            self.load(filename)
 
     def _set_type(self, names: list) -> None:
         """Update the 'type' of the context
 
-        Look though the file files stored in the zip file.  Look for the special "type" files
-        and set the object type accordingly.
+        Look though the file files stored in the zip file.  Look for the special
+        embedded "type" files and set the object type accordingly.
 
         Args:
             names:
@@ -59,13 +64,13 @@ class EnsContext:
 
         Args:
             filename:
-                The name of the file to read
+                The name of the file to read.
         """
         if not zipfile.is_zipfile(filename):
             raise RuntimeError(f"'{filename}' is not a saved context file.")
         with open(filename, "rb") as f:
             data = f.read()
-        self.from_zip_data(data)
+        self._from_data(data)
 
     def _from_data(self, data: Union[bytes, str]) -> None:
         """Read a context from a blob or string
@@ -82,8 +87,8 @@ class EnsContext:
         if type(data) != bytes:
             data = base64.b64decode(data)
         self._buffer = io.BytesIO(data)
-        thefile = zipfile.ZipFile(self._buffer, "r")
-        self._set_type(thefile.namelist())
+        the_file = zipfile.ZipFile(self._buffer, "r")
+        self._set_type(the_file.namelist())
 
     def save(self, filename: str) -> None:
         """Save the context information to a file
@@ -103,8 +108,8 @@ class EnsContext:
     def _data(self, b64: bool = False) -> Union[bytes, str]:
         """Return a representation of the context file as a string or bytes object
 
-        Either a bytes object or a string (base64 encoded bytes object) representation
-        of the current context file is returned.
+        Either a bytes object or a string (base64 encoded bytes object)
+        representation of the current context file is returned.
 
         Args:
             b64:
@@ -129,16 +134,17 @@ class EnsContext:
 
         Args:
             pathname:
-                The directory of filenames to be placed in the context file.
+                The directory of filenames to be placed in the context
+                file.
         """
         self._buffer = io.BytesIO()
-        thefile = zipfile.ZipFile(self._buffer, "w", compression=zipfile.ZIP_DEFLATED)
+        the_file = zipfile.ZipFile(self._buffer, "w", compression=zipfile.ZIP_DEFLATED)
         for folder_name, _, file_names in os.walk(pathname):
             for filename in file_names:
                 file_pathname = os.path.join(folder_name, filename)
-                thefile.write(file_pathname, os.path.basename(file_pathname))
-        self._set_type(thefile.namelist())
-        thefile.close()
+                the_file.write(file_pathname, os.path.basename(file_pathname))
+        self._set_type(the_file.namelist())
+        the_file.close()
 
     @staticmethod
     def _fix_context_file(ctx_file: str) -> None:
@@ -149,7 +155,7 @@ class EnsContext:
         cases in the .ctx file.  Remove that information and rewrite the file.
 
         Args:
-              ctx_file:
+            ctx_file:
                 The name of the context file to process.
         """
         try:
@@ -209,8 +215,8 @@ class EnsContext:
                 The EnSight interface to use to make the actual native API commands.
         """
         with tempfile.TemporaryDirectory() as tempdirname:
-            thefile = zipfile.ZipFile(self._buffer, "r")
-            thefile.extractall(path=tempdirname)
+            the_file = zipfile.ZipFile(self._buffer, "r")
+            the_file.extractall(path=tempdirname)
             if self._type in (self.SIMPLE_CONTEXT, self.FULL_CONTEXT):
                 _ = ensight.file.context_restore_rescale("OFF")
                 _ = ensight.file.restore_context(os.path.join(tempdirname, "context.ctx"))
