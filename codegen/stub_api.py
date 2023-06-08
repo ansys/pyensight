@@ -544,15 +544,14 @@ class ProcessAPI:
         comment = ""
         for _ in range(num_loops):
             s += "\n"
-            type_cured = value_type.replace("'", "")
             s += f"{indent}@property\n"
-            s += f"{indent}def {name}(self) -> {type_cured}:\n"
+            s += f"{indent}def {name}(self) -> {value_type}:\n"
             s += f'{indent2}"""{desc}\n'
             if comment:
                 s += f"{indent2}{comment}\n"
             s += f'{indent2}"""\n'
             s += f"{indent2}value = self.getattr({enum_name})\n"
-            s += f"{indent2}_value = cast({type_cured}, value)\n"
+            s += f"{indent2}_value = cast({value_type}, value)\n"
             s += f"{indent2}return _value\n"
             if read_only == "0":
                 s += "\n"
