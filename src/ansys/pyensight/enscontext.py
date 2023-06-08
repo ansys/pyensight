@@ -120,7 +120,7 @@ class EnsContext:
         """
         data = self._buffer.getvalue()
         if b64:
-            return base64.b64encode(data)
+            return base64.b64encode(data).decode("ascii")
         return data
 
     def _build_from_directory(self, pathname: str) -> None:
@@ -255,3 +255,40 @@ class EnsContext:
                 with open(os.path.join(tempdirname, "fullcontext.txt"), "w") as fp:
                     fp.write("fullcontext")
             self._build_from_directory(tempdirname)
+
+
+def _capture_context(ensight: Any, full: bool) -> Any:
+    """Private interface called by PyEnSight
+
+    API that makes it simpler to capture a context from a PyEnSight session.
+
+    Args:
+        ensight:
+            EnSight session interface
+        full:
+            True if a "full context" should be saved.
+    Returns:
+        A base64 representation of the context.
+    """
+    tmp = EnsContext()
+    mode = EnsContext.SIMPLE_CONTEXT
+    if full:
+        mode = EnsContext.FULL_CONTEXT
+    tmp._capture_context(ensight, context=mode)
+    return tmp._data(b64=True)
+
+
+def _restore_context(ensight: Any, data: str) -> None:
+    """Private interface called by PyEnSight
+
+    API that makes it simpler to restore a context from a PyEnSight session.
+
+    Args:
+        ensight:
+            EnSight session interface
+        data:
+            A base64 representation of the context.
+    """
+    tmp = EnsContext()
+    tmp._from_data(data)
+    tmp._restore_context(ensight)
