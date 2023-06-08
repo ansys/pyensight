@@ -21,11 +21,6 @@ import uuid
 
 from ansys import pyensight
 
-try:
-    import docker
-except ImportError:
-    docker = None
-
 
 class DockerLauncher(pyensight.Launcher):
     """Create a Session instance by launching a local Docker copy of EnSight
@@ -196,7 +191,7 @@ class DockerLauncher(pyensight.Launcher):
                 entrypoint="/bin/bash",
                 volumes=data_volume,
                 environment=container_env,
-                device_requests=[docker.types.DeviceRequest(count=-1, capabilities=[["gpu"]])],
+                device_requests=[docker.types.DeviceRequest(count=-1, capabilities=[["gpu"]])],  # type: ignore
                 ports=ports_to_map,
                 tty=True,
                 detach=True,
@@ -230,24 +225,22 @@ class DockerLauncher(pyensight.Launcher):
         # number.
 
         cmd = ["bash", "--login", "-c", "ls /ansys_inc/v*/CEI/bin/ensight"]
-        if self._container:
-            ret = self._container.exec_run(cmd, user="ensight")
-            if ret[0] != 0:
-                self.stop()
-                raise RuntimeError(
-                    "Can't find /ansys_inc/vNNN/CEI/bin/ensight in the Docker container."
-                )
-            self._cei_home = ret[1].decode("utf-8").strip()
-            m = re.search("/v(\d\d\d)/", self._cei_home)
-            print(m)
-            if not m:
-                self.stop()
-                # raise RuntimeError(f"Can't find version from {} in the Docker container.",
-                #   self._cei_home)
-                raise RuntimeError("Can't find version from cei_home in the Docker container.")
-            self._ansys_version = m.group(1)
-            print("CEI_HOME=", self._cei_home)
-            print("Ansys Version=", self._ansys_version)
+        ret = self._container.exec_run(cmd, user="ensight")  # type: ignore
+        if ret[0] != 0:
+            self.stop()
+            raise RuntimeError(
+                "Can't find /ansys_inc/vNNN/CEI/bin/ensight in the Docker container."
+            )
+        self._cei_home = ret[1].decode("utf-8").strip()
+        m = re.search("/v(\d\d\d)/", self._cei_home)
+        if not m:
+            self.stop()
+            # raise RuntimeError(f"Can't find version from {} in the Docker container.",
+            #   self._cei_home)
+            raise RuntimeError("Can't find version from cei_home in the Docker container.")
+        self._ansys_version = m.group(1)
+        print("CEI_HOME=", self._cei_home)
+        print("Ansys Version=", self._ansys_version)
 
         # Run EnSight
         cmd = ["bash", "--login", "-c"]
@@ -272,8 +265,7 @@ class DockerLauncher(pyensight.Launcher):
         cmd.extend([cmd2])
 
         print("Run: ", str(cmd))
-        if self._container:
-            self._container.exec_run(cmd, user="ensight", detach=True)
+        self._container.exec_run(cmd, user="ensight", detach=True)  # type: ignore
 
         # Run websocketserver
         cmd = ["bash", "--login", "-c"]
@@ -302,8 +294,7 @@ class DockerLauncher(pyensight.Launcher):
             cmd.extend([cmd2])
 
         print("Run: ", str(cmd))
-        if self._container:
-            self._container.exec_run(cmd, user="ensight", detach=True)
+        self._container.exec_run(cmd, user="ensight", detach=True)  # type: ignore
 
         # build the session instance
         session = pyensight.Session(

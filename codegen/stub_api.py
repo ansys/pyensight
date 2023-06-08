@@ -393,7 +393,6 @@ class ProcessAPI:
             signature = signature.replace('List["ENS_PART"]', 'Optional[List["ENS_PART"]]')
         if "-> list" in signature:
             signature = signature.replace("-> list", "-> List[Any]")
-        print(signature)
         code = self._replace(namespace, "code", default=None, indent=new_indent)
         # Start recording
         s = "\n"
