@@ -181,10 +181,17 @@ class DockerLauncher(pyensight.Launcher):
         # the default entrypoint command "ensight" which is in the
         # container's path for user "ensight".
 
+        try:
+            import docker
+        except ModuleNotFoundError:
+            raise RuntimeError("The pyansys-docker module must be installed for DockerLauncher")
+        except Exception:
+            raise RuntimeError("Cannot initialize Docker")
+
         # FIXME_MFK: probably need a unique name for our container
         # in case the user launches multiple sessions
         egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
-        use_egl = self._use_egl or egl_env or self._has_egl()
+        use_egl = (self._use_egl or egl_env) and self._has_egl()
         if use_egl:
             self._container = self._docker_client.containers.run(
                 self._image_name,

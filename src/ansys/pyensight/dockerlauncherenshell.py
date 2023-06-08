@@ -30,9 +30,9 @@ except Exception:
 from ansys import pyensight
 
 try:
-    from enshell_remote import enshell_grpc
+    from ansys.pyensight import enshell_grpc
 except ModuleNotFoundError:
-    raise RuntimeError("The enshell_remote module must be installed for DockerLauncherEnShell")
+    raise RuntimeError("The enshell_grpc must be installed for DockerLauncherEnShell")
 except Exception:
     raise RuntimeError("Cannot initialize grpc")
 
@@ -241,9 +241,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         # FIXME_MFK: probably need a unique name for our container
         # in case the user launches multiple sessions
         egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
-        self._use_egl or egl_env or self._has_egl()
-        # FIXME_MFK: fix egl and remove the next line
-        self._use_egl = False
+        self._use_egl = (self._use_egl or egl_env) and self._has_egl()
 
         # Start the container in detached mode with EnShell as a
         # gRPC server as the command
@@ -251,6 +249,13 @@ class DockerLauncherEnShell(pyensight.Launcher):
         import docker
 
         enshell_cmd = "-app -grpc_server " + str(grpc_port)
+
+        try:
+            import docker
+        except ModuleNotFoundError:
+            raise RuntimeError("The pyansys-docker module must be installed for DockerLauncher")
+        except Exception:
+            raise RuntimeError("Cannot initialize Docker")
 
         # print("Starting Container...\n")
         if data_volume:

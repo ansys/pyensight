@@ -1,4 +1,4 @@
-﻿import grpc
+﻿from concurrent import futures
 import os
 import platform
 import random
@@ -6,13 +6,21 @@ import re
 import subprocess
 import sys
 from typing import Optional
-from concurrent import futures
+
+import grpc
 
 # these modules are the result of running protoc on the .proto file
 try:
-    from ansys.api.ensight.v0.enshell_remote import ensight_pb2, ensight_pb2_grpc
+    from ansys.api.enshell.v0 import enshell_pb2, enshell_pb2_grpc
 except ImportError:
-    from enshell_remote import ensight_pb2, ensight_pb2_grpc
+    import enshell_pb2, enshell_pb2_grpc
+
+
+from ansys.pyensight._version import (  # pylint: disable=import-outside-toplevel
+    DEFAULT_ANSYS_VERSION,
+    VERSION,
+)
+
 
 
 ## @defgroup enshell_grpc enshell_grpc
