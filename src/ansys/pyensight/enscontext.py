@@ -30,12 +30,12 @@ class EnsContext:
             creating the object instance.
     """
 
-    UNKNOWN: int = 0
-    FULL_CONTEXT: int = 1
-    SIMPLE_CONTEXT: int = 2
+    _UNKNOWN: int = 0
+    _FULL_CONTEXT: int = 1
+    _SIMPLE_CONTEXT: int = 2
 
     def __init__(self, filename: Optional[str] = None) -> None:
-        self._type: int = self.UNKNOWN
+        self._type: int = self._UNKNOWN
         self._buffer: io.BytesIO = io.BytesIO()
         if filename is not None:
             self.load(filename)
@@ -50,11 +50,11 @@ class EnsContext:
             names:
                 A list of filenames in the zip file.
         """
-        self._type = self.UNKNOWN
+        self._type = self._UNKNOWN
         if "fullcontext.txt" in names:
-            self._type = self.FULL_CONTEXT
+            self._type = self._FULL_CONTEXT
         elif "simplecontext.txt" in names:
-            self._type = self.SIMPLE_CONTEXT
+            self._type = self._SIMPLE_CONTEXT
 
     def load(self, filename: str) -> None:
         """Read a context from a local zip file
@@ -217,12 +217,12 @@ class EnsContext:
         with tempfile.TemporaryDirectory() as tempdirname:
             the_file = zipfile.ZipFile(self._buffer, "r")
             the_file.extractall(path=tempdirname)
-            if self._type in (self.SIMPLE_CONTEXT, self.FULL_CONTEXT):
+            if self._type in (self._SIMPLE_CONTEXT, self._FULL_CONTEXT):
                 _ = ensight.file.context_restore_rescale("OFF")
                 _ = ensight.file.restore_context(os.path.join(tempdirname, "context.ctx"))
 
     def _capture_context(
-        self, ensight: Any, context: int = SIMPLE_CONTEXT, all_cases: bool = True
+        self, ensight: Any, context: int = _SIMPLE_CONTEXT, all_cases: bool = True
     ) -> None:
         """Capture the current state
 
@@ -246,12 +246,12 @@ class EnsContext:
                 which = "all_cases"
             _ = ensight.file.save_context_type(which)
             _ = ensight.file.save_context(os.path.join(tempdirname, "context.ctx"))
-            if context == self.SIMPLE_CONTEXT:
+            if context == self._SIMPLE_CONTEXT:
                 # remove sections that cause problems
                 with open(os.path.join(tempdirname, "simplecontext.txt"), "w") as fp:
                     fp.write("simplecontext")
                 self._fix_context_file(os.path.join(tempdirname, "context.ctx"))
-            elif context == self.FULL_CONTEXT:
+            elif context == self._FULL_CONTEXT:
                 with open(os.path.join(tempdirname, "fullcontext.txt"), "w") as fp:
                     fp.write("fullcontext")
             self._build_from_directory(tempdirname)
@@ -271,9 +271,9 @@ def _capture_context(ensight: Any, full: bool) -> Any:
         A base64 representation of the context.
     """
     tmp = EnsContext()
-    mode = EnsContext.SIMPLE_CONTEXT
+    mode = EnsContext._SIMPLE_CONTEXT
     if full:
-        mode = EnsContext.FULL_CONTEXT
+        mode = EnsContext._FULL_CONTEXT
     tmp._capture_context(ensight, context=mode)
     return tmp._data(b64=True)
 

@@ -36,7 +36,7 @@ from ansys.pyensight.renderable import (
 )
 
 if TYPE_CHECKING:
-    from ansys.pyensight import renderable
+    from ansys.pyensight import enscontext, renderable
     from ansys.pyensight.ensobj import ENSOBJ
 
 try:
@@ -1119,7 +1119,7 @@ class Session:
             s = "ensobjlist(" + s + ")"
         return s
 
-    def capture_context(self, full_context: bool = False) -> EnsContext:
+    def capture_context(self, full_context: bool = False) -> "enscontext.EnsContext":
         """Capture the current EnSight instance state
 
         Cause the EnSight instance to save a context and return an EnsContext object
@@ -1148,7 +1148,7 @@ class Session:
         context._from_data(data_str)
         return context
 
-    def restore_context(self, context: EnsContext) -> None:
+    def restore_context(self, context: "enscontext.EnsContext") -> None:
         """Restore the current EnSight instance state
 
         Restore EnSight to the state stored in an EnsContext object that was either
