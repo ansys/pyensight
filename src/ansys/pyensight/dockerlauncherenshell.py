@@ -15,7 +15,7 @@ Examples:
 """
 import os.path
 import subprocess
-from typing import Any, Optional
+from typing import Any, Dict, Optional
 import uuid
 
 import urllib3
@@ -90,12 +90,12 @@ class DockerLauncherEnShell(pyensight.Launcher):
 
         self._data_directory = data_directory
         self._enshell_grpc_channel = channel
-        self._service_uris = {}
-        self._image_name = None
-        self._docker_client = None
+        self._service_uris: Dict[Any, str] = {}
+        self._image_name: Optional[str] = None
+        self._docker_client: Optional[Any] = None
         self._container = None
-        self._enshell = None
-        self._pim_instance = pim_instance
+        self._enshell: Optional[Any] = None
+        self._pim_instance: Optional[Any] = pim_instance
 
         # EnSight session secret key
         self._secret_key: str = str(uuid.uuid1())
@@ -105,9 +105,9 @@ class DockerLauncherEnShell(pyensight.Launcher):
         self._session_directory: str = "/home/ensight"
         # the Ansys / EnSight version we found in the container
         # to be reassigned later
-        self._ansys_version = None
+        self._ansys_version: Optional[str] = None
 
-        if self._enshell_grpc_channel:
+        if self._enshell_grpc_channel and self._pim_instance:
             if not set(("grpc_private", "http", "ws")).issubset(self._pim_instance.services):
                 raise RuntimeError(
                     "If channel is specified, the PIM instance must have a list of length 3 "
@@ -142,7 +142,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
 
         # get the optional user specified image name
         # Note: the default name will need to change over time...  TODO
-        self._image_name: str = "ghcr.io/ansys-internal/ensight"
+        self._image_name = "ghcr.io/ansys-internal/ensight"
         if use_dev:
             self._image_name = "ghcr.io/ansys-internal/ensight_dev"
         if docker_image_name:
@@ -158,7 +158,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         except Exception:
             raise RuntimeError("Cannot initialize Docker")
 
-    def ansys_version(self) -> str:
+    def ansys_version(self) -> Optional[str]:
         """Returns the Ansys version as a 3 digit number string as found in the Docker container.
 
         Returns:
@@ -178,7 +178,8 @@ class DockerLauncherEnShell(pyensight.Launcher):
                 if Docker couldn't pull the image.
         """
         try:
-            self._docker_client.images.pull(self._image_name)
+            if self._docker_client:
+                self._docker_client.images.pull(self._image_name)
         except Exception:
             raise RuntimeError(f"Can't pull Docker image: {self._image_name}")
 
@@ -242,6 +243,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         # in case the user launches multiple sessions
         egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
         self._use_egl = (self._use_egl or egl_env) and self._has_egl()
+        # FIXME_MFK: fix egl and remove the next line
 
         # Start the container in detached mode with EnShell as a
         # gRPC server as the command
@@ -259,52 +261,60 @@ class DockerLauncherEnShell(pyensight.Launcher):
 
         # print("Starting Container...\n")
         if data_volume:
-            if self._use_egl:
-                self._container = self._docker_client.containers.run(
-                    self._image_name,
-                    command=enshell_cmd,
-                    volumes=data_volume,
-                    environment=container_env,
-                    device_requests=[docker.types.DeviceRequest(count=-1, capabilities=[["gpu"]])],
-                    ports=ports_to_map,
-                    tty=True,
-                    detach=True,
-                )
+            if use_egl:
+                if self._docker_client:
+                    self._container = self._docker_client.containers.run(
+                        self._image_name,
+                        command=enshell_cmd,
+                        volumes=data_volume,
+                        environment=container_env,
+                        device_requests=[
+                            docker.types.DeviceRequest(count=-1, capabilities=[["gpu"]])
+                        ],
+                        ports=ports_to_map,
+                        tty=True,
+                        detach=True,
+                    )
             else:
                 # print(f"Running container {self._image_name} with cmd {enshellCmd}\n")
                 # print(f"ports to map: {ports_to_map}\n")
-                self._container = self._docker_client.containers.run(
-                    self._image_name,
-                    command=enshell_cmd,
-                    volumes=data_volume,
-                    environment=container_env,
-                    ports=ports_to_map,
-                    tty=True,
-                    detach=True,
-                )
+                if self._docker_client:
+                    self._container = self._docker_client.containers.run(
+                        self._image_name,
+                        command=enshell_cmd,
+                        volumes=data_volume,
+                        environment=container_env,
+                        ports=ports_to_map,
+                        tty=True,
+                        detach=True,
+                    )
                 # print(f"_container = {str(self._container)}\n")
         else:
-            if self._use_egl:
-                self._container = self._docker_client.containers.run(
-                    self._image_name,
-                    command=enshell_cmd,
-                    environment=container_env,
-                    device_requests=[docker.types.DeviceRequest(count=-1, capabilities=[["gpu"]])],
-                    ports=ports_to_map,
-                    tty=True,
-                    detach=True,
-                )
+            if use_egl:
+                if self._docker_client:
+                    self._container = self._docker_client.containers.run(
+                        self._image_name,
+                        command=enshell_cmd,
+                        environment=container_env,
+                        device_requests=[
+                            docker.types.DeviceRequest(count=-1, capabilities=[["gpu"]])
+                        ],
+                        ports=ports_to_map,
+                        tty=True,
+                        detach=True,
+                    )
             else:
                 # print(f"Running container {self._image_name} with cmd {enshellCmd}\n")
                 # print(f"ports to map: {ports_to_map}\n")
-                self._container = self._docker_client.containers.run(
-                    self._image_name,
-                    command=enshell_cmd,
-                    environment=container_env,
-                    ports=ports_to_map,
-                    tty=True,
-                    detach=True,
-                )
+                if self._docker_client:
+                    self._container = self._docker_client.containers.run(
+                        self._image_name,
+                        command=enshell_cmd,
+                        environment=container_env,
+                        ports=ports_to_map,
+                        tty=True,
+                        detach=True,
+                    )
                 # print(f"_container = {str(self._container)}\n")
         # print("Container started.\n")
         return self.connect()
@@ -423,12 +433,13 @@ class DockerLauncherEnShell(pyensight.Launcher):
 
     def stop(self) -> None:
         """Release any additional resources allocated during launching"""
-        if self._enshell.is_connected():
-            try:
-                self._enshell.stop_server()
-            except Exception:
-                pass
-            self._enshell = None
+        if self._enshell:
+            if self._enshell.is_connected():
+                try:
+                    self._enshell.stop_server()
+                except Exception:
+                    pass
+                self._enshell = None
         #
         if self._container:
             try:

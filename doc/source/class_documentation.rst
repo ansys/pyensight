@@ -186,4 +186,5 @@ PyEnSight using the ``ansys.pyensight.Session.ensight`` interface.
    pyensight.ens_tool_revolution.ENS_TOOL_REVOLUTION
    pyensight.ens_var.ENS_VAR
    pyensight.ens_vport.ENS_VPORT
+   pyensight.utils.views.Views
    pyensight.utils.query.Query

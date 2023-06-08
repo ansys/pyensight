@@ -98,9 +98,9 @@ class DockerLauncher(pyensight.Launcher):
 
         # the Ansys / EnSight version we found in the container
         # to be reassigned later
-        self._ansys_version = None
+        self._ansys_version: Optional[str] = None
 
-    def ansys_version(self) -> str:
+    def ansys_version(self) -> Optional[str]:
         """Returns the Ansys version as a 3 digit number string as found in the Docker container.
 
         Returns:
@@ -191,14 +191,14 @@ class DockerLauncher(pyensight.Launcher):
         # FIXME_MFK: probably need a unique name for our container
         # in case the user launches multiple sessions
         egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
-        use_egl = (self._use_egl or egl_env) and self._has_egl()
-        if use_egl:
+        self._use_egl = (self._use_egl or egl_env) and self._has_egl()
+        if self._use_egl:
             self._container = self._docker_client.containers.run(
                 self._image_name,
                 entrypoint="/bin/bash",
                 volumes=data_volume,
                 environment=container_env,
-                device_requests=[docker.types.DeviceRequest(count=-1, capabilities=[["gpu"]])],
+                device_requests=[docker.types.DeviceRequest(count=-1, capabilities=[["gpu"]])],  # type: ignore
                 ports=ports_to_map,
                 tty=True,
                 detach=True,
@@ -232,7 +232,7 @@ class DockerLauncher(pyensight.Launcher):
         # number.
 
         cmd = ["bash", "--login", "-c", "ls /ansys_inc/v*/CEI/bin/ensight"]
-        ret = self._container.exec_run(cmd, user="ensight")
+        ret = self._container.exec_run(cmd, user="ensight")  # type: ignore
         if ret[0] != 0:
             self.stop()
             raise RuntimeError(
@@ -272,34 +272,36 @@ class DockerLauncher(pyensight.Launcher):
         cmd.extend([cmd2])
 
         print("Run: ", str(cmd))
-        self._container.exec_run(cmd, user="ensight", detach=True)
+        self._container.exec_run(cmd, user="ensight", detach=True)  # type: ignore
 
         # Run websocketserver
         cmd = ["bash", "--login", "-c"]
         # cmd2 = "cpython /home/ensight/websocketserver.py"
-        cmd2 = (
-            "cpython /ansys_inc/v"
-            + self._ansys_version
-            + "/CEI/nexus"
-            + self._ansys_version
-            + "/nexus_launcher/websocketserver.py"
-        )
+        cmd2 = ""
+        if self._ansys_version:
+            cmd2 = (
+                "cpython /ansys_inc/v"
+                + self._ansys_version
+                + "/CEI/nexus"
+                + self._ansys_version
+                + "/nexus_launcher/websocketserver.py"
+            )
 
-        # cmd2 += " --verbose 1 --log /home/ensight/wss.log"
-        cmd2 += " --http_directory " + self._session_directory
-        # http port
-        cmd2 += " --http_port " + str(ports[2])
-        # vnc port
-        cmd2 += " --client_port " + str(ports[1])
-        # EnVision sessions
-        cmd2 += " --local_session envision 5"
-        # websocket port
-        cmd2 += " " + str(ports[3])
+            # cmd2 += " --verbose 1 --log /home/ensight/wss.log"
+            cmd2 += " --http_directory " + self._session_directory
+            # http port
+            cmd2 += " --http_port " + str(ports[2])
+            # vnc port
+            cmd2 += " --client_port " + str(ports[1])
+            # EnVision sessions
+            cmd2 += " --local_session envision 5"
+            # websocket port
+            cmd2 += " " + str(ports[3])
 
-        cmd.extend([cmd2])
+            cmd.extend([cmd2])
 
         print("Run: ", str(cmd))
-        self._container.exec_run(cmd, user="ensight", detach=True)
+        self._container.exec_run(cmd, user="ensight", detach=True)  # type: ignore
 
         # build the session instance
         session = pyensight.Session(

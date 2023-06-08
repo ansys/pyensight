@@ -5,7 +5,7 @@ interface to the EnSight gRPC interface, including event streams.
 
 """
 import threading
-from typing import Any, Callable, List, Optional
+from typing import Any, Callable, List, Optional, Tuple, Union
 import uuid
 
 import grpc
@@ -45,11 +45,11 @@ class EnSightGRPC(object):
         # Streaming APIs
         # Event (strings)
         self._event_stream = None
-        self._event_thread = None
-        self._events = list()
+        self._event_thread: Optional[threading.Thread] = None
+        self._events: List[Any] = list()
         # Callback for events (self._events not used)
-        self._event_callback = None
-        self._prefix = None
+        self._event_callback: Optional[Callable] = None
+        self._prefix: Optional[str] = None
 
     @property
     def host(self) -> str:
@@ -99,11 +99,13 @@ class EnSightGRPC(object):
                         # we expect this as the exit can result in the gRPC call failing
                         pass
                 else:
-                    _ = self._stub.Exit(ensight_pb2.ExitRequest(), metadata=self._metadata())
+                    if self._stub:
+                        _ = self._stub.Exit(ensight_pb2.ExitRequest(), metadata=self._metadata())
             # clean up control objects
             self._stub = None
             self._dsg_stub = None
-            self._channel.close()
+            if self._channel:
+                self._channel.close()
             self._channel = None
 
     def is_connected(self) -> bool:
@@ -145,12 +147,13 @@ class EnSightGRPC(object):
         # hook up the stub interface
         self._stub = ensight_pb2_grpc.EnSightServiceStub(self._channel)
 
-    def _metadata(self) -> List[tuple]:
+    def _metadata(self) -> List[Tuple[bytes, Union[str, bytes]]]:
         """Compute the gRPC stream metadata
 
         Compute the list to be passed to the gRPC calls for things like security.
         """
-        ret = list()
+        ret: List[Tuple[bytes, Union[str, bytes]]] = list()
+        s: Union[str, bytes]
         if self._security_token:
             s = self._security_token
             if type(s) == str:
@@ -194,17 +197,19 @@ class EnSightGRPC(object):
         ret_type = ensight_pb2.RenderRequest.IMAGE_RAW
         if png:
             ret_type = ensight_pb2.RenderRequest.IMAGE_PNG
+        response: Any
         try:
-            response = self._stub.RenderImage(
-                ensight_pb2.RenderRequest(
-                    type=ret_type,
-                    image_width=width,
-                    image_height=height,
-                    image_aa_passes=aa,
-                    include_highlighting=highlighting,
-                ),
-                metadata=self._metadata(),
-            )
+            if self._stub:
+                response = self._stub.RenderImage(
+                    ensight_pb2.RenderRequest(
+                        type=ret_type,
+                        image_width=width,
+                        image_height=height,
+                        image_aa_passes=aa,
+                        include_highlighting=highlighting,
+                    ),
+                    metadata=self._metadata(),
+                )
         except Exception:
             raise IOError("gRPC connection dropped")
         return response.value
@@ -225,11 +230,13 @@ class EnSightGRPC(object):
             IOError if the operation fails
         """
         self.connect()
+        response: Any
         try:
-            response = self._stub.GetGeometry(
-                ensight_pb2.GeometryRequest(type=ensight_pb2.GeometryRequest.GEOMETRY_GLB),
-                metadata=self._metadata(),
-            )
+            if self._stub:
+                response = self._stub.GetGeometry(
+                    ensight_pb2.GeometryRequest(type=ensight_pb2.GeometryRequest.GEOMETRY_GLB),
+                    metadata=self._metadata(),
+                )
         except Exception:
             raise IOError("gRPC connection dropped")
         return response.value
@@ -261,15 +268,17 @@ class EnSightGRPC(object):
         """
         self.connect()
         flags = ensight_pb2.PythonRequest.EXEC_RETURN_PYTHON
+        response: Any
         if json:
             flags = ensight_pb2.PythonRequest.EXEC_RETURN_JSON
         if not do_eval:
             flags = ensight_pb2.PythonRequest.EXEC_NO_RESULT
         try:
-            response = self._stub.RunPython(
-                ensight_pb2.PythonRequest(type=flags, command=command_string),
-                metadata=self._metadata(),
-            )
+            if self._stub:
+                response = self._stub.RunPython(
+                    ensight_pb2.PythonRequest(type=flags, command=command_string),
+                    metadata=self._metadata(),
+                )
         except Exception:
             raise IOError("gRPC connection dropped")
         if response.error < 0:
@@ -296,7 +305,7 @@ class EnSightGRPC(object):
             self._prefix = "grpc://" + str(uuid.uuid1()) + "/"
         return self._prefix
 
-    def event_stream_enable(self, callback: Callable = None) -> None:
+    def event_stream_enable(self, callback: Optional[Callable] = None) -> None:
         """Enable a simple gRPC-based event stream from EnSight
 
         This method makes a EnSightService::GetEventStream() gRPC call into EnSight, returning
@@ -309,10 +318,11 @@ class EnSightGRPC(object):
             return
         self._event_callback = callback
         self.connect()
-        self._event_stream = self._stub.GetEventStream(
-            ensight_pb2.EventStreamRequest(prefix=self.prefix()),
-            metadata=self._metadata(),
-        )
+        if self._stub:
+            self._event_stream = self._stub.GetEventStream(
+                ensight_pb2.EventStreamRequest(prefix=self.prefix()),
+                metadata=self._metadata(),
+            )
         self._event_thread = threading.Thread(target=self._poll_events)
         self._event_thread.daemon = True
         self._event_thread.start()

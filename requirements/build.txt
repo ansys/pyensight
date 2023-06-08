@@ -5,3 +5,5 @@ twine>=4.0.1
 pyansys-docker>=5.0.4
 junitparser>=2.8.0
 urllib3>=1.26.10
+typing>=3.7.4.3
+typing-extensions>=4.5.0

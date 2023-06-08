@@ -1,4 +1,7 @@
-from typing import Any, List, Optional
+from typing import TYPE_CHECKING, Any, List, Optional
+
+if TYPE_CHECKING:
+    from ansys.pyensight.ens_query import ENS_QUERY
 
 
 class Query:
@@ -194,7 +197,7 @@ class Query:
         variable2: Optional[Any] = None,
         start_time: Optional[float] = None,
         end_time: Optional[float] = None,
-        num_samples: int = None,
+        num_samples: Optional[int] = None,
         node_id: Optional[int] = None,
         element_id: Optional[int] = None,
         xyz: Optional[List[float]] = None,
@@ -363,7 +366,7 @@ class Query:
             raise RuntimeError(error_msg)
         return query
 
-    def _create_query_core_begin(self, name: str, parts: Optional[list], single=False) -> None:
+    def _create_query_core_begin(self, name: str, parts: Optional[List[int]], single=False) -> None:
         """Common query setup
 
         Make the common calls for all queries.  Select the appropriate source parts, set the
@@ -379,13 +382,15 @@ class Query:
                 ensure that the proper parts are selected.
         """
         part_list = []
-        for p in parts:
-            if type(p) == str:
-                part_list.append(self._ensight.objs.core.PARTS[p][0].PARTNUMBER)
-            elif type(p) == int:
-                part_list.append(p)
-            else:
-                part_list.append(p.PARTNUMBER)
+        if parts:
+            for p in parts:
+                if type(p) == str:
+                    part_list.append(self._ensight.objs.core.PARTS[p][0].PARTNUMBER)
+                elif type(p) == int:
+                    part_list.append(p)
+                else:
+                    if hasattr(p, "PARTNUMBER"):
+                        part_list.append(p.PARTNUMBER)
         if not single:
             self._ensight.part.select_begin(part_list)
         self._ensight.query_ent_var.begin()

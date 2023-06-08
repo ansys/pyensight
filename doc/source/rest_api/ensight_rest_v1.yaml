@@ -48,6 +48,7 @@ paths:
           required: true
           schema:
             type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
       requestBody:
         content:
           application/json:
@@ -55,6 +56,12 @@ paths:
               type: array
               items:
                 type: string
+            example:
+              [
+                "ensight.part.modify_begin()",
+                "ensight.part.elt_representation('3D_feature_2D_full')",
+                "ensight.part.modify_end()"
+              ]
       responses:
         '200':
           description: Successful operation
@@ -78,6 +85,7 @@ paths:
           required: true
           schema:
             type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
         - name: returns
           in: query
           description: A list of attribute to return when an ENS_OBJ object is returned. __OBJID__ is the default.
@@ -94,6 +102,7 @@ paths:
           application/json:
             schema:
               type: string
+            example: "ensight.objs.core.unit_system()"
       responses:
         '200':
           description: Successful operation
@@ -101,6 +110,22 @@ paths:
             application/json:
               schema:
                 type: object
+              example:
+                [
+                  "SI",
+                  "Metric SI",
+                  true,
+                  {
+                    "M": "kg",
+                    "L": "m",
+                    "T": "s",
+                    "K": "K",
+                    "Q": "A",
+                    "D": "rad",
+                    "I": "cd",
+                    "A": "mol"
+                  }
+                ]
         '400':
           description: Python error encountered during execution
         '401':
@@ -121,6 +146,7 @@ paths:
           required: true
           schema:
             type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
         - name: app
           in: path
           description: A namespace to place the new function in.  Generally used to avoid
@@ -129,12 +155,14 @@ paths:
           required: true
           schema:
             type: string
+          example: "myapp"
         - name: funcname
           in: path
           description: The name of the function to be defined
           required: true
           schema:
             type: string
+          example: "funcname"
         - name: imports
           in: query
           description: A list of modules that should be import before the function is defined.
@@ -182,6 +210,7 @@ paths:
           required: true
           schema:
             type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
         - name: app
           in: path
           description: A namespace to place the new function in.  Generally used to avoid
@@ -190,12 +219,14 @@ paths:
           required: true
           schema:
             type: string
+          example: "myapp"
         - name: funcname
           in: path
           description: The name of the function to be called.
           required: true
           schema:
             type: string
+          example: "funcname"
         - name: returns
           in: query
           description: A list of attribute to return when an ENS_OBJ object is 
@@ -252,12 +283,14 @@ paths:
           required: true
           schema:
             type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
         - name: nativecommandname
           in: path
           description: The native python binding for a command language command.
           required: true
           schema:
             type: string
+          example: "ensight.view_transf.rotate"
       requestBody:
         content:
           application/json:
@@ -265,6 +298,10 @@ paths:
               type: array
               items: 
                 type: object
+            example:
+              [
+                33.7, -0.402, 0.0
+              ]
       responses:
         '200':
           description: Successful operation
@@ -287,6 +324,7 @@ paths:
           required: true
           schema:
             type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
         - name: objectid
           in: path
           description: The name of an EnSight object or an object id
@@ -304,6 +342,7 @@ paths:
           required: true
           schema:
             type: string
+          example: "VISIBLE"
         - name: returns
           in: query
           description: A list of attribute to return when an ENS_OBJ object is returned. __OBJID__ is the default.
@@ -340,6 +379,7 @@ paths:
           required: true
           schema:
             type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
         - name: objectid
           in: path
           description: The name of an EnSight object or an object id
@@ -357,6 +397,7 @@ paths:
           required: true
           schema:
             type: string
+          example: "VISIBLE"
       requestBody:
         content:
           application/json:
@@ -384,6 +425,7 @@ paths:
           required: true
           schema:
             type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
         - name: suppress_errors
           in: query
           description: If this is true and there is an error during the set operation, do not
@@ -437,6 +479,7 @@ paths:
           required: true
           schema:
             type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
         - name: returns
           in: query
           description: A list of attribute to return when an ENS_OBJ object is returned. __OBJID__ is the default.
@@ -500,6 +543,7 @@ paths:
           required: true
           schema:
             type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
         - name: objectid
           in: path
           description: The name of an EnSight object or an object id.
@@ -517,6 +561,7 @@ paths:
           required: true
           schema:
             type: string
+          example: "createvariable"
         - name: returns
           in: query
           description: A list of attribute to return when an ENS_OBJ object is returned. __OBJID__ is the default.

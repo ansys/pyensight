@@ -39,7 +39,7 @@ except Exception:
 if pim_is_available:
 
     def _launch_ensight_with_pim(
-        product_version: str = None,
+        product_version: Optional[str] = None,
         use_egl: Optional[bool] = False,
         use_sos: Optional[int] = None,
     ) -> "Session":

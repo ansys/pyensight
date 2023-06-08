@@ -3,10 +3,10 @@ import os
 import re
 from typing import List
 
-from ansys.pyensight import ensight_api
+from ansys.pyensight import ensight_api, ensobj
 
 
-def test_ensight_api(mocked_session):
+def test_ensight_api(mocked_session, mocker):
     assets = []
     # The assets file contains the objects to be checked during the test.
     # This is generated when the API itself is generated
@@ -24,11 +24,16 @@ def test_ensight_api(mocked_session):
         mocked_session.cmd = lambda command: command
         # As first operation, I get an instance of the class. This might be,
         # for example, a class inside a module, like vortexcore
+        class_object = getattr(ensight_api, class_name)
+        if issubclass(ensobj.ENSOBJ, class_object):
+            mocker.patch.object(getattr(ensight_api, class_name), "attrinfo", return_value={})
         class_instance = getattr(ensight_api, class_name)(mocked_session)
         # The second operation is to get an eventual "method" of the class.
         # It might be not a method, but another class, and this is set by the
         # asset having a "submethod_name" value
         method = getattr(class_instance, method_name)
+        if hasattr(method, "attrinfo"):
+            mocker.patch.object(method, "attrinfo", return_value={})
         if submethod_name:
             subinstance = method(mocked_session, 1)
             submethod = getattr(subinstance, submethod_name)
