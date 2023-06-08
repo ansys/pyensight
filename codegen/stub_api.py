@@ -16,6 +16,28 @@ from xml.etree import ElementTree
 
 import requests
 
+LIST_OF_IMPORTS = [
+    "ENS_VAR",
+    "ENS_ANNOT",
+    "ENS_PALETTE",
+    "ENS_PART",
+    "ENS_SOURCE",
+    "ENS_CASE",
+    "ENS_QUERY",
+    "ENS_GROUP",
+    "ENS_TOOL",
+    "ENS_TEXTURE",
+    "ENS_VPORT",
+    "ENS_PLOTTER",
+    "ENS_POLYLINE",
+    "ENS_FRAME",
+    "ENS_PROBE",
+    "ENS_FLIPBOOK",
+    "ENS_SCENE",
+    "ENS_LPART",
+    "ens_emitterobj",
+]
+
 
 class XMLOverrides:
     """Provide a mechanism for attribute override
@@ -363,6 +385,14 @@ class ProcessAPI:
             signature = self._replace(namespace, "signature", signature, simple=True)
             paramnames = eval(paramnames)
         signature = "(self, " + signature[1:]
+        if "List[Any] = None" in signature:
+            signature = signature.replace("List[Any]", "Optional[List[Any]]")
+        if "List[int] = None" in signature:
+            signature = signature.replace("List[int]", "Optional[List[int]]")
+        if 'List["ENS_PART"] = None' in signature:
+            signature = signature.replace('List["ENS_PART"]', 'Optional[List["ENS_PART"]]')
+        if "-> list" in signature:
+            signature = signature.replace("-> list", "-> List[Any]")
         code = self._replace(namespace, "code", default=None, indent=new_indent)
         # Start recording
         s = "\n"
@@ -377,7 +407,7 @@ class ProcessAPI:
         else:
             if object_method:
                 s += f'{new_indent}arg_obj = f"{{self._remote_obj()}}"\n'
-            s += f"{new_indent}arg_list = []\n"
+            s += f"{new_indent}arg_list: List[str] = []\n"
             # arguments
             if paramnames is not None:
                 for p in [s for s in paramnames if not s.endswith("=")]:
@@ -546,6 +576,9 @@ class ProcessAPI:
         """
         classname = node.get("name")
         superclass = node.get("super", "ENSOBJ")
+        list_of_imports_cured = LIST_OF_IMPORTS.copy()
+        if classname in list_of_imports_cured:
+            list_of_imports_cured.pop(list_of_imports_cured.index(classname))
         # the new class
         s = f'"""{classname.lower()} module\n'
         s += "\n"
@@ -558,7 +591,10 @@ class ProcessAPI:
         s += "from ansys.pyensight import ensobjlist\n"
         if superclass != "ENSOBJ":
             s += f"from ansys.pyensight.{superclass.lower()} import {superclass}\n"
-        s += "from typing import Any, List, Type, Union, Optional, Tuple\n"
+        s += "from typing import Any, List, Type, Union, Optional, Tuple, TYPE_CHECKING\n"
+        s += "\n"
+        s += "if TYPE_CHECKING:\n"
+        s += "    from ansys.pyensight.ensight_api import " + ", ".join(list_of_imports_cured)
         s += "\n\n"
         s += f"{indent}class {classname}({superclass}):\n"
         indent += "    "

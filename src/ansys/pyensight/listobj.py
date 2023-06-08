@@ -5,12 +5,16 @@ Emulation of the EnSight ensobjlist class
 """
 from collections.abc import Iterable
 import fnmatch
-from typing import Any, Optional
+from typing import Any, List, Optional, TypeVar, Union, no_type_check, overload
+
+from typing_extensions import SupportsIndex
 
 from ansys.pyensight.ensobj import ENSOBJ
 
+T = TypeVar("T")
 
-class ensobjlist(list):  # noqa: N801
+
+class ensobjlist(List[T]):  # noqa: N801
     """Class used when returning lists of EnSight proxy objects.  A subclass of 'list'.
 
     In the EnSight object Python bindings, whenever a list is returned that
@@ -50,7 +54,7 @@ class ensobjlist(list):  # noqa: N801
 
     def find(
         self, value: Any, attr: Any = "DESCRIPTION", group: int = 0, wildcard: int = 0
-    ) -> "ensobjlist":
+    ) -> Union["ensobjlist[T]", T]:
         """Find objects in the list using the ENSOBJ interface
 
         This method will scan the ENSOBJ subclass objects in the list and return
@@ -77,7 +81,7 @@ class ensobjlist(list):  # noqa: N801
         value_list = value
         if not self._is_iterable(value):
             value_list = [value]
-        out_list = ensobjlist()
+        out_list: ensobjlist[Any] = ensobjlist()
         for item in self:
             if isinstance(item, ENSOBJ):
                 try:
@@ -166,7 +170,15 @@ class ensobjlist(list):  # noqa: N801
             out_list.append(item_value)
         return out_list
 
-    def __getitem__(self, index: Any) -> Any:
+    @overload
+    def __getitem__(self, index: SupportsIndex) -> T:
+        ...
+
+    @overload
+    def __getitem__(self, index: slice) -> List[T]:
+        ...
+
+    def __getitem__(self, index):
         """Overload the getitem operator to allow for tuple and string DESCRIPTION queries"""
         if isinstance(index, str) or isinstance(index, tuple):
             return self.find(index)
@@ -176,6 +188,7 @@ class ensobjlist(list):  # noqa: N801
         ret_str = ", ".join([str(x) for x in self])
         return f"[{ret_str}]"
 
+    @no_type_check
     def _repr_pretty_(self, p: "pretty", cycle: bool) -> None:
         """Support the pretty module for better IPython support"""
         name = self.__class__.__name__
