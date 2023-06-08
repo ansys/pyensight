@@ -13,11 +13,14 @@ Examples:
 import os.path
 import platform
 import socket
-from typing import List, Optional
+from typing import TYPE_CHECKING, List, Optional
 
 import requests
 
 from ansys import pyensight
+
+if TYPE_CHECKING:
+    from ansys.pyensight import Session
 
 # Don't remove this line.  The idna encoding
 # is used by getaddrinfo when dealing with unicode hostnames,
@@ -58,11 +61,11 @@ class Launcher:
         self._timeout = timeout
         self._use_egl = use_egl
         self._use_sos = use_sos
-        self._sessions = []
+        self._sessions: List[Session] = []
         self._session_directory: str = "."
 
     @property
-    def session_directory(self):
+    def session_directory(self) -> str:
         """The root directory for HTML files
         This directory contents can be accessed as http://hostname:port/...
         """
@@ -185,7 +188,7 @@ class Launcher:
         """
         raise RuntimeError("Unsupported method for this configuration")
 
-    def _is_windows(self) -> None:
+    def _is_windows(self) -> bool:
         """Return True if it is Windows
 
         Returns:
