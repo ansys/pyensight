@@ -591,7 +591,7 @@ class ProcessAPI:
         s += "from ansys.pyensight import ensobjlist\n"
         if superclass != "ENSOBJ":
             s += f"from ansys.pyensight.{superclass.lower()} import {superclass}\n"
-        s += "from typing import Any, List, Type, Union, Optional, Tuple, TYPE_CHECKING\n"
+        s += "from typing import Any, Dict, List, Type, Union, Optional, Tuple, TYPE_CHECKING\n"
         s += "\n"
         s += "if TYPE_CHECKING:\n"
         s += "    from ansys.pyensight.ensight_api import " + ", ".join(list_of_imports_cured)
