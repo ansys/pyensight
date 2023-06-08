@@ -202,12 +202,14 @@ def isort() -> None:
     ]
     subprocess.run(cmd)
 
+
 def mypy() -> None:
     mypyexe = find_exe("mypy")
     print("-" * 10, "Running mypy")
     cmd = [
-    mypyexe,
-        "--config-file", os.path.join(os.path.dirname(__file__), "mypy.ini"),
+        mypyexe,
+        "--config-file",
+        os.path.join(os.path.dirname(__file__), "mypy.ini"),
         os.path.join(os.path.dirname(__file__), "src", "ansys", "pyensight"),
     ]
     subprocess.run(cmd)
@@ -251,7 +253,7 @@ if __name__ == "__main__":
 'docs' : Generate documentation.
 'mypy : Run mypy check.
 'all' : Run clean codegen, build and complete documentation."""
-)
+    )
 
     parser = argparse.ArgumentParser(
         description="Python only build script",

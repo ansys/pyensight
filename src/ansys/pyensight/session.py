@@ -271,14 +271,14 @@ class Session:
         self._jupyter_notebook = value
 
     @property
-    def ensight(self) -> "ensight_api.ensight":  # type: ignore
+    def ensight(self) -> "ensight_api.ensight":
         """
         Core EnSight API wrapper
         """
         return self._ensight
 
     @property
-    def grpc(self) -> "ensight_grpc.EnSightGRPC":  # type: ignore
+    def grpc(self) -> "ensight_grpc.EnSightGRPC":
         """
         The gRPC wrapper instance used by this session to access EnSight
         """
