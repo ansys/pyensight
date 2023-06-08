@@ -3,7 +3,10 @@
 The ensobj module provides the base class to all EnSight proxy objects
 
 """
-from typing import Any, Optional
+from typing import TYPE_CHECKING, Any, List, Optional, no_type_check
+
+if TYPE_CHECKING:
+    from ansys.pyensight import Session
 
 
 class ENSOBJ(object):
@@ -43,6 +46,7 @@ class ENSOBJ(object):
         self._attr_id = attr_id
         self._attr_value = attr_value
         self._session.add_ensobj_instance(self)
+        self.attr_list = self.populate_attr_list()
 
     def __eq__(self, obj):
         return self._objid == obj._objid
@@ -158,7 +162,7 @@ class ENSOBJ(object):
         cmd = f"{self._remote_obj()}.setattrs({values.__repr__()}, all_errors={all_errors})"
         return self._session.cmd(cmd)
 
-    def attrinfo(self, attrid: Any) -> dict:
+    def attrinfo(self, attrid: Optional[Any] = None) -> dict:
         """For a given attribute id, return type information
 
         The dictionary returned by will always have the following keys:
@@ -201,7 +205,12 @@ class ENSOBJ(object):
                 part.attrinfo(session.ensight.objs.enums.VISIBLE)
 
         """
+        if not attrid:
+            return self._session.cmd(f"{self._remote_obj()}.attrinfo()")
         return self._session.cmd(f"{self._remote_obj()}.attrinfo({attrid.__repr__()})")
+
+    def populate_attr_list(self) -> List[str]:
+        return [k for k, _ in self.attrinfo().items()]
 
     def attrissensitive(self, attrid: Any) -> bool:
         """Check to see if a given attribute is 'sensitive'
@@ -409,7 +418,10 @@ class ENSOBJ(object):
         desc = ""
         if self._session.ensight.objs.enums.DESCRIPTION in self.attr_list:
             try:
-                desc_text = self.DESCRIPTION
+                if hasattr(self, "DESCRIPTION"):
+                    desc_text = self.DESCRIPTION
+                else:
+                    desc_text = ""
             except RuntimeError:
                 # self.DESCRIPTION is a gRPC call that can fail for default objects
                 desc_text = ""
@@ -425,6 +437,7 @@ class ENSOBJ(object):
         """
         return f"ensight.objs.wrap_id({self._objid})"
 
+    @no_type_check
     def _repr_pretty_(self, p: "pretty", cycle: bool) -> None:
         """Support the pretty module for better IPython support"""
         p.text(self.__str__())

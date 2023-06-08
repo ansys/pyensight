@@ -73,3 +73,10 @@ repos:
             -r,
             -x, "venv/*,src/ansys/api/*,src/ansys/pyensight/ensight_api.py,setup.py,tests/*,codegen/*"
         ]
+      - id: mypy
+        name: mypy
+        entry: mypy
+        language: system
+        types: [ python ]
+        require_serial: true
+        files: ^src/ansys/pyensight

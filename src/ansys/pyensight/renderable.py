@@ -5,11 +5,14 @@ via HTML over the websocketserver interface.
 """
 import os
 import shutil
-from typing import Any, List, Optional
+from typing import TYPE_CHECKING, Any, List, Optional, Tuple, no_type_check
 import uuid
 import webbrowser
 
 import requests
+
+if TYPE_CHECKING:
+    from ansys.pyensight import Session
 
 
 class Renderable:
@@ -28,7 +31,7 @@ class Renderable:
 
     def __init__(
         self,
-        session: "pyensight.Session",
+        session: "Session",
         cell_handle: Optional[Any] = None,
         width: Optional[int] = None,
         height: Optional[int] = None,
@@ -40,7 +43,7 @@ class Renderable:
         self._session = session
         self._filename_index: int = 0
         self._guid: str = str(uuid.uuid1()).replace("-", "")
-        self._download_names: list[str] = []
+        self._download_names: List[str] = []
         # The Jupyter notebook cell handle (if any)
         self._cell_handle = cell_handle
         # the URL to the base HTML file for this entity
@@ -61,12 +64,13 @@ class Renderable:
         name = self.__class__.__name__
         return f"{name}( url='{self._url}' )"
 
+    @no_type_check
     def _repr_pretty_(self, p: "pretty", cycle: bool) -> None:
         """Support the pretty module for better IPython support"""
         name = self.__class__.__name__
         p.text(f"{name}( url='{self._url}' )")
 
-    def _generate_filename(self, suffix: str) -> (str, str):
+    def _generate_filename(self, suffix: str) -> Tuple[str, str]:
         """Create new session specific files and urls
 
         Every time this method is called, a new filename (on the EnSight host)
@@ -126,11 +130,11 @@ class Renderable:
             webbrowser.open(self._url)
 
     @property
-    def url(self) -> str:
+    def url(self) -> Optional[str]:
         """The URL to the renderable content"""
         return self._url
 
-    def _default_size(self, width: int, height: int) -> (int, int):
+    def _default_size(self, width: int, height: int) -> Tuple[int, int]:
         """Propose and return a size for a rectangle
 
         The renderable may have been constructed with user-supplied width and height
