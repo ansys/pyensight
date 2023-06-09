@@ -13,16 +13,19 @@ Example to set an isometric view:
 """
 
 import math
-from typing import TYPE_CHECKING, Dict, List, Optional, Tuple
+from typing import TYPE_CHECKING, Dict, List, Optional, Tuple, Union
 
 if TYPE_CHECKING:
-    from ansys.pyensight.session import Session
+    try:
+        import ensight
+    except ImportError:
+        from ansys.pyensight import ensight_api
 
 
 class Views:
     """A class to handle the view in the current EnSight session."""
 
-    def __init__(self, ensight: "Session.ensight"):
+    def __init__(self, ensight: Union["ensight_api.ensight", "ensight"]):
         self.ensight = ensight
         self._views_dict: Dict[str, Tuple[int, List[float]]] = {}
 
