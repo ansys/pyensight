@@ -59,7 +59,7 @@ class Launcher:
         use_sos: Optional[int] = None,
     ) -> None:
         self._timeout = timeout
-        self._use_egl = use_egl
+        self._use_egl: bool = use_egl
         self._use_sos = use_sos
         self._sessions: List[Session] = []
         self._session_directory: str = "."

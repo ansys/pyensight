@@ -57,10 +57,10 @@ class LocalLauncher(pyensight.Launcher):
     def __init__(
         self,
         ansys_installation: Optional[str] = None,
-        application: Optional[str] = "ensight",
-        batch: Optional[bool] = True,
-        timeout: Optional[float] = 120.0,
-        use_egl: Optional[bool] = False,
+        application: str = "ensight",
+        batch: bool = True,
+        timeout: float = 120.0,
+        use_egl: bool = False,
         use_sos: Optional[int] = None,
     ) -> None:
         super().__init__(timeout=timeout, use_egl=use_egl, use_sos=use_sos)

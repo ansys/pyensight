@@ -60,9 +60,9 @@ class DockerLauncher(pyensight.Launcher):
         self,
         data_directory: str,
         docker_image_name: Optional[str] = None,
-        use_dev: Optional[bool] = False,
-        timeout: Optional[float] = 120.0,
-        use_egl: Optional[bool] = False,
+        use_dev: bool = False,
+        timeout: float = 120.0,
+        use_egl: bool = False,
         use_sos: Optional[int] = None,
     ) -> None:
         super().__init__(timeout=timeout, use_egl=use_egl, use_sos=use_sos)
@@ -190,9 +190,15 @@ class DockerLauncher(pyensight.Launcher):
 
         # FIXME_MFK: probably need a unique name for our container
         # in case the user launches multiple sessions
+
         egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
-        self._use_egl = (self._use_egl or egl_env) and self._has_egl()
-        if self._use_egl:
+        egl_env_val = False
+        if egl_env is not None:
+            if egl_env == "1":
+                egl_env_val = True
+        use_egl = (self._use_egl or egl_env_val) and self._has_egl()
+
+        if use_egl:
             self._container = self._docker_client.containers.run(
                 self._image_name,
                 entrypoint="/bin/bash",

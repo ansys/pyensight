@@ -53,7 +53,7 @@ class EnShellGRPC(object):
         self._stub = None
         #
         # self._security_token = str(random.randint(0, 1000000))
-        self._security_token = None
+        self._security_token: Optional[int] = None
         #
         # values found from EnShell in the Container
         self._cei_home = None
@@ -83,7 +83,7 @@ class EnShellGRPC(object):
     # Note: for this module, the security token must be a in bytes() format.
     # For example:  str(1000).encode("utf-8")
     # @param n an string to be used as the security token
-    def set_security_token(self, n: int):
+    def set_security_token(self, n: Optional[int] = None):
         self._security_token = n
 
     # @brief set a random security token for the gRPC connection.
@@ -226,6 +226,8 @@ class EnShellGRPC(object):
     # @return A tuple of (int, string) for (returnCode, returnString)
     def run_command(self, command_string: str):
         self.connect()
+        if not self._stub:
+            return (0, "")
         try:
             response = self._stub.run_command(
                 enshell_pb2.EnShellCommandLine(command_line=command_string),
@@ -233,6 +235,7 @@ class EnShellGRPC(object):
             )
         except Exception:
             raise IOError("gRPC connection dropped")
+
         return (response.ret, response.response)
 
     # @brief Tell EnShell to start EnSight

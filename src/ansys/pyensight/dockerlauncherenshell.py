@@ -79,9 +79,9 @@ class DockerLauncherEnShell(pyensight.Launcher):
         self,
         data_directory: Optional[str] = None,
         docker_image_name: Optional[str] = None,
-        use_dev: Optional[bool] = False,
-        timeout: Optional[float] = 120.0,
-        use_egl: Optional[bool] = False,
+        use_dev: bool = False,
+        timeout: float = 120.0,
+        use_egl: bool = False,
         use_sos: Optional[int] = None,
         channel: Optional[grpc.Channel] = None,
         pim_instance: Optional[Any] = None,
@@ -241,9 +241,13 @@ class DockerLauncherEnShell(pyensight.Launcher):
 
         # FIXME_MFK: probably need a unique name for our container
         # in case the user launches multiple sessions
+
         egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
-        self._use_egl = (self._use_egl or egl_env) and self._has_egl()
-        # FIXME_MFK: fix egl and remove the next line
+        egl_env_val = False
+        if egl_env is not None:
+            if egl_env == "1":
+                egl_env_val = True
+        use_egl = (self._use_egl or egl_env_val) and self._has_egl()
 
         # Start the container in detached mode with EnShell as a
         # gRPC server as the command
@@ -259,7 +263,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
 
         # print("Starting Container...\n")
         if data_volume:
-            if self._use_egl:
+            if use_egl:
                 if self._docker_client:
                     self._container = self._docker_client.containers.run(
                         self._image_name,
@@ -288,7 +292,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
                     )
                 # print(f"_container = {str(self._container)}\n")
         else:
-            if self._use_egl:
+            if use_egl:
                 if self._docker_client:
                     self._container = self._docker_client.containers.run(
                         self._image_name,
