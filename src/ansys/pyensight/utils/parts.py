@@ -13,9 +13,9 @@ Example to select all the 3D parts:
 """
 
 import math
-from typing import TYPE_CHECKING, Dict, List, Optional, Tuple, Union
-
 from ansys.pyensight.listobj import ensobjlist
+from ansys.pyensight.ens_part import ENS_PART
+from typing import TYPE_CHECKING, Dict, List, Optional, Tuple, Union
 
 if TYPE_CHECKING:
     try:
@@ -30,6 +30,6 @@ class Parts:
     def __init__(self, ensight: Union["ensight_api.ensight", "ensight"]):
         self.ensight = ensight
 
-    def select_parts_by_dimension(self, dimension: int) -> None:
+    def select_parts_by_dimension(self, dimension: int) -> Optional[Union[ensobjlist["ENS_PART"], "ENS_PART"]]:
         parts = self.ensight.objs.core.PARTS
-        return ensobjlist([p for p in parts if getattr(p, f"HAS{dimension}DELEMENTS") == True])
+        return parts.find("TRUE", f"HAS{dimension}DELEMENTS")
