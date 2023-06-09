@@ -188,15 +188,10 @@ class DockerLauncher(pyensight.Launcher):
         except Exception:
             raise RuntimeError("Cannot initialize Docker")
 
+        use_egl = self._use_egl()
+
         # FIXME_MFK: probably need a unique name for our container
         # in case the user launches multiple sessions
-
-        egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
-        egl_env_val = False
-        if egl_env is not None:
-            if egl_env == "1":
-                egl_env_val = True
-        use_egl = (self._use_egl or egl_env_val) and self._has_egl()
 
         if use_egl:
             self._container = self._docker_client.containers.run(
@@ -259,12 +254,12 @@ class DockerLauncher(pyensight.Launcher):
         cmd = ["bash", "--login", "-c"]
 
         cmd2 = ""
-        if self._use_egl:
+        if use_egl:
             cmd2 = "export LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1 ;"
 
         cmd2 += " ensight -batch -v 3"
 
-        if self._use_egl:
+        if use_egl:
             cmd2 += " -egl"
 
         if self._use_sos:
@@ -330,7 +325,7 @@ class DockerLauncher(pyensight.Launcher):
             self._container.remove()
             self._container = None
 
-    def _has_egl(self) -> bool:
+    def _is_system_egl_capable(self) -> bool:
         if self._is_windows():
             return False
         try:

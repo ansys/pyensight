@@ -32,6 +32,8 @@ version = _version["VERSION"]
 packages = [
     "ansys",
     "ansys.api",
+    "ansys.api.enshell",
+    "ansys.api.enshell.v0",
     "ansys.api.ensight",
     "ansys.api.ensight.v0",
     "ansys.pyensight",
@@ -58,6 +60,9 @@ setup(
         "ansys": "src/ansys",
         "ansys.pyensight": "src/ansys/pyensight",
         "ansys.api": "src/ansys/api",
+        "ansys.api.enshell": "src/ansys/api/enshell",
+        "ansys.api.enshell.utils": "src/ansys/api/enshell/utils",
+        "ansys.api.enshell.v0": "src/ansys/api/enshell/v0",
         "ansys.api.ensight": "src/ansys/api/ensight",
         "ansys.api.ensight.utils": "src/ansys/api/ensight/utils",
         "ansys.api.ensight.v0": "src/ansys/api/ensight/v0",

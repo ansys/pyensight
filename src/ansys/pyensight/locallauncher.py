@@ -132,8 +132,9 @@ class LocalLauncher(pyensight.Launcher):
             cmd.extend(["-grpc_server", str(self._ports[0])])
             vnc_url = f"vnc://%%3Frfb_port={self._ports[1]}%%26use_auth=0"
             cmd.extend(["-vnc", vnc_url])
-            egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
-            use_egl = self._use_egl or egl_env or self._has_egl()
+
+            use_egl = self._use_egl()
+
             if is_windows:
                 cmd[0] += ".bat"
             if use_egl:
@@ -279,7 +280,7 @@ class LocalLauncher(pyensight.Launcher):
 
         raise RuntimeError(f"Unable to detect an EnSight installation in: {dirs_to_check}")
 
-    def _has_egl(self) -> bool:
+    def _is_system_egl_capable(self) -> bool:
         """Return True if the system supports the EGL launch.
 
         Returns:

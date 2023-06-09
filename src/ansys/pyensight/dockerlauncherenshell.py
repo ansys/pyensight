@@ -14,7 +14,6 @@ Examples:
 
 """
 import os.path
-import subprocess
 from typing import Any, Dict, Optional
 import uuid
 
@@ -239,16 +238,6 @@ class DockerLauncherEnShell(pyensight.Launcher):
         if self._data_directory:
             data_volume = {self._data_directory: {"bind": "/data", "mode": "rw"}}
 
-        # FIXME_MFK: probably need a unique name for our container
-        # in case the user launches multiple sessions
-
-        egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
-        egl_env_val = False
-        if egl_env is not None:
-            if egl_env == "1":
-                egl_env_val = True
-        use_egl = (self._use_egl or egl_env_val) and self._has_egl()
-
         # Start the container in detached mode with EnShell as a
         # gRPC server as the command
         #
@@ -260,6 +249,11 @@ class DockerLauncherEnShell(pyensight.Launcher):
             raise RuntimeError("The pyansys-docker module must be installed for DockerLauncher")
         except Exception:
             raise RuntimeError("Cannot initialize Docker")
+
+        use_egl = self._use_egl()
+
+        # FIXME_MFK: probably need a unique name for our container
+        # in case the user launches multiple sessions
 
         # print("Starting Container...\n")
         if data_volume:
@@ -361,16 +355,18 @@ class DockerLauncherEnShell(pyensight.Launcher):
 
         print("Got them.  Starting EnSight...\n")
 
+        use_egl = self._use_egl()
+
         # Run EnSight
         ensight_env = None
-        if self._use_egl:
+        if use_egl:
             ensight_env = (
                 "export LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1 ;"
             )
 
         ensight_args = "-batch -v 3"
 
-        if self._use_egl:
+        if use_egl:
             ensight_args += " -egl"
 
         if self._use_sos:
@@ -458,15 +454,21 @@ class DockerLauncherEnShell(pyensight.Launcher):
             self._pim_instance.delete()
             self._pim_instance = None
 
-    def _has_egl(self) -> bool:
+    def _get_host_port(self, uri: str) -> tuple:
+        parse_results = urllib3.util.parse_url(uri)
+        return (parse_results.host, parse_results.port)
+
+    def _is_system_egl_capable(self) -> bool:
         if self._is_windows():
             return False
+
+        return False
+        # FIXME: MFK, need to figure out how we'd do this
+        # with a system such as Ansys Lab
+        """
         try:
             subprocess.check_output("nvidia-smi")
             return True
         except (subprocess.CalledProcessError, FileNotFoundError):
             return False
-
-    def _get_host_port(self, uri: str) -> tuple:
-        parse_results = urllib3.util.parse_url(uri)
-        return (parse_results.host, parse_results.port)
+        """

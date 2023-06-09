@@ -40,7 +40,7 @@ if pim_is_available:
 
     def _launch_ensight_with_pim(
         product_version: Optional[str] = None,
-        use_egl: Optional[bool] = False,
+        use_egl: bool = False,
         use_sos: Optional[int] = None,
     ) -> "Session":
         """Internal function.
@@ -87,17 +87,17 @@ if pim_is_available:
 
 def launch_ensight(
     product_version: Optional[str] = None,
-    use_pim: Optional[bool] = True,
-    use_docker: Optional[bool] = True,
+    use_pim: bool = True,
+    use_docker: bool = True,
     data_directory: Optional[str] = None,
     docker_image_name: Optional[str] = None,
-    use_dev: Optional[bool] = False,
+    use_dev: bool = False,
     ansys_installation: Optional[str] = None,
-    application: Optional[str] = "ensight",
-    batch: Optional[bool] = True,
-    use_egl: Optional[bool] = False,
+    application: str = "ensight",
+    batch: bool = True,
+    use_egl: bool = False,
     use_sos: Optional[int] = None,
-    timeout: Optional[float] = 120.0,
+    timeout: float = 120.0,
 ) -> "Session":
     """Start an EnSight session via EnShell using the Docker EnSight Image.
     Return that session.

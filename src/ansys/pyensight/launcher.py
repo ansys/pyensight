@@ -59,10 +59,20 @@ class Launcher:
         use_sos: Optional[int] = None,
     ) -> None:
         self._timeout = timeout
-        self._use_egl: bool = use_egl
+        self._use_egl_param_val: bool = use_egl
         self._use_sos = use_sos
+
         self._sessions: List[Session] = []
         self._session_directory: str = "."
+
+        self._is_egl_capable: Optional[bool] = None
+        self._egl_env_val: Optional[bool] = None
+        egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
+        if egl_env is not None:
+            if egl_env == "1":
+                self._egl_env_val = True
+            else:
+                self._egl_env_val = False
 
     @property
     def session_directory(self) -> str:
@@ -180,7 +190,28 @@ class Launcher:
             return None
         return ports
 
-    def _has_egl(self) -> bool:
+    def _use_egl(self) -> bool:
+        """Return True if the system supports the EGL and if EGL was desired.
+
+        Returns:
+            A bool value that is True if we should use EGL.
+        """
+        if self._is_egl_capable is None:
+            # if we haven't checked with the subclasss if the system can do EGL
+            self._is_egl_capable = self._is_system_egl_capable()
+
+        if self._is_egl_capable is False:
+            # if the system can't do it, return False now
+            return False
+
+        if self._egl_env_val is not None:
+            # if the environment variable was set, that overrides the constructor option
+            return self._egl_env_val
+
+        # otherwise, use the arg passed to the constructor
+        return self._use_egl_param_val
+
+    def _is_system_egl_capable(self) -> bool:
         """Return True if the system supports the EGL launch.
 
         Returns:
