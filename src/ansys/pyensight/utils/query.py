@@ -1,6 +1,10 @@
-from typing import TYPE_CHECKING, Any, List, Optional
+from typing import TYPE_CHECKING, Any, List, Optional, Union
 
 if TYPE_CHECKING:
+    try:
+        import ensight
+    except ImportError:
+        from ansys.pyensight import ensight_api
     from ansys.pyensight.ens_query import ENS_QUERY
 
 
@@ -23,7 +27,7 @@ class Query:
             EnSight Python, the ``ensight`` module is passed.
     """
 
-    def __init__(self, interface):
+    def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
         self._ensight = interface
 
     DISTANCE_PART1D: str = "1d_part"

@@ -36,14 +36,8 @@ from ansys.pyensight.renderable import (
 )
 
 if TYPE_CHECKING:
-    from ansys.pyensight import enscontext, renderable
+    from ansys.pyensight import enscontext, ensight_api, ensight_grpc, renderable
     from ansys.pyensight.ensobj import ENSOBJ
-
-try:
-    from ansys.pyensight import ensight_api, ensight_grpc
-except ImportError:
-    ensight_api = None
-    ensight_grpc = None
 
 
 class Session:

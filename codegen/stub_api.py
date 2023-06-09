@@ -550,7 +550,9 @@ class ProcessAPI:
             if comment:
                 s += f"{indent2}{comment}\n"
             s += f'{indent2}"""\n'
-            s += f"{indent2}return self.getattr({enum_name})\n"
+            s += f"{indent2}value = self.getattr({enum_name})\n"
+            s += f"{indent2}_value = cast({value_type}, value)\n"
+            s += f"{indent2}return _value\n"
             if read_only == "0":
                 s += "\n"
                 s += f"{indent}@{name}.setter\n"
@@ -591,7 +593,7 @@ class ProcessAPI:
         s += "from ansys.pyensight import ensobjlist\n"
         if superclass != "ENSOBJ":
             s += f"from ansys.pyensight.{superclass.lower()} import {superclass}\n"
-        s += "from typing import Any, Dict, List, Type, Union, Optional, Tuple, TYPE_CHECKING\n"
+        s += "from typing import Any, Dict, List, Type, Union, Optional, Tuple, TYPE_CHECKING, cast\n"
         s += "\n"
         s += "if TYPE_CHECKING:\n"
         s += "    from ansys.pyensight.ensight_api import " + ", ".join(list_of_imports_cured)
