@@ -30,7 +30,7 @@ class Support:
     def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
         self._ensight = interface
 
-    class scoped_name:
+    class ScopedName:
         """Allow for the use of 'with' to shorten APIs
 
         In the ensight and pyensight APIs, the interfaces can become lengthy.
@@ -41,14 +41,14 @@ class Support:
 
             ::
 
-                sn = s.ensight.utils.support.scoped_name
+                sn = s.ensight.utils.support.ScopedName
                 with sn(s.ensight.objs.core) as core, sn(s.ensight.objs.enums) as enums:
                     print(core.PARTS.find(True, enums.VISIBLE))
 
 
             ::
 
-                sn = ensight.utils.support.scoped_name
+                sn = ensight.utils.support.ScopedName
                 with sn(ensight.objs.core) as core, sn(ensight.objs.enums) as enums:
                     print(core.PARTS.find(True, enums.VISIBLE))
 
