@@ -1,0 +1,56 @@
+<docstrings>
+
+<override namespace="ensight.objs.ENS_VPORT.transform">
+<signature>(axis_angle: Optional[List[float]] = None, quaternion: Optional[List[float]] = None,
+    translation: Optional[List[float]] = None, data_translation: Optional[List[float]] = None,
+    scale: Optional[List[float]] = None, link: int = 0) -> None</signature>
+<paramnames>['axis_angle=', 'quaternion=', 'translation=', 'data_translation=', 'scale=', 'link=']</paramnames>
+<description>
+This method applies an incremental transformation to the specified viewport view.
+
+For an :class:`pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE`
+instance, this method will return the data spce coordinates and time of each
+particle trace point.  Optionally, it can return variable values sampled at
+those coordinates.
+
+Args:
+    axis_angle:
+        For a four value input tuple of the form ``[nx,ny,nz,angle]``, apply a rotation over
+        the normal specified by ``[nx,ny,nz]`` in data space by the ``angle`` (in radians).
+    quaternion:
+        For a four value input tuple of the form ``[a,b,c,d]``, apply the rotation specified
+        by the normalized quaternion represented by the tuple.  The rotation is applied in
+        data space.  Note: this is equivalent to combining the input with the
+        to the :class:`pyensight.ens_vport.ENS_VPORT.ROTATION` attribute.
+    translation:
+        For a three value input tuple of the form ``[dx,dy,dz]``, apply a translation in
+        screen space by the input tuple.  Note: this is equivalent to adding the components
+        to the :class:`pyensight.ens_vport.ENS_VPORT.TRANSLATION` attribute.
+    data_translation:
+        For a three value input tuple of the form ``[dx,dy,dz]``, apply a translation in
+        data space by the input tuple.
+    scale:
+        The value may either be a scalar or a three value tuple.  The former specifies isotropic
+        data space scaling and the latter allows for anisotropic scaling.  Note: it is strongly
+        recommended that anisotropic scaling not be used if it can at all be avoided as many
+        EnSight operations assume isotropic scaling.  This is equivalent to component-wise
+        multiplication with the :class:`pyensight.ens_vport.ENS_VPORT.SCALE` attribute.
+    link:
+        If non-zero and the target viewport is linked to other viewports, the transform will
+        be applied to this and all linked viewports.
+
+Example:
+    ::
+
+        # get the default viewport
+        v = session.ensight.objs.core.VPORTS[0]
+        # apply a rotation over the data X axis and increase the scale 20%
+        v.transform(axis_angle=[1,0,0,0.07], scale=1.2)
+        # translate in the data space X axis by one unit
+        v.transform(data_translation=(-1,0,0))
+
+
+</description>
+</override>
+
+</docstrings>

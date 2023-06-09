@@ -3,10 +3,12 @@
 The session module allows pyensight to control the EnSight session
 
 Examples:
+
     >>> from ansys.pyensight import LocalLauncher
     >>> session = LocalLauncher().start()
     >>> type(session)
     ansys.pyensight.Session
+
 """
 import atexit
 import glob
@@ -21,6 +23,7 @@ from urllib.parse import urlparse
 import webbrowser
 
 from ansys import pyensight
+from ansys.pyensight.enscontext import EnsContext
 from ansys.pyensight.listobj import ensobjlist
 from ansys.pyensight.renderable import (
     RenderableDeepPixel,
@@ -33,7 +36,7 @@ from ansys.pyensight.renderable import (
 )
 
 if TYPE_CHECKING:
-    from ansys.pyensight import ensight_api, ensight_grpc, renderable
+    from ansys.pyensight import enscontext, ensight_api, ensight_grpc, renderable
     from ansys.pyensight.ensobj import ENSOBJ
 
 
@@ -1109,3 +1112,57 @@ class Session:
         if s.startswith("[") and s.endswith("]"):
             s = "ensobjlist(" + s + ")"
         return s
+
+    def capture_context(self, full_context: bool = False) -> "enscontext.EnsContext":
+        """Capture the current EnSight instance state
+
+        Cause the EnSight instance to save a context and return an EnsContext object
+        representing that saved state.
+
+        Args:
+            full_context:
+                If True, the saved context will include all aspects of the EnSight
+                instance, including data references, units, etc.   The default is False.
+        Returns:
+            A new EnsContext instance.
+
+        Example:
+
+            ::
+
+                ctx = session.capture_context()
+                ctx.save("session_context.ctxz")
+
+        """
+        self.cmd("import ansys.pyensight.enscontext", do_eval=False)
+        data_str = self.cmd(
+            f"ansys.pyensight.enscontext._capture_context(ensight,{full_context})", do_eval=True
+        )
+        context = EnsContext()
+        context._from_data(data_str)
+        return context
+
+    def restore_context(self, context: "enscontext.EnsContext") -> None:
+        """Restore the current EnSight instance state
+
+        Restore EnSight to the state stored in an EnsContext object that was either
+        read from disk or returned by the capture_context() method.
+
+        Args:
+            context:
+                The context to set the current EnSight instance to.
+
+        Example:
+
+            ::
+
+                tmp_ctx = session.capture_context()
+                session.restore_context(EnsContext("session_context.ctxz"))
+                session.restore_context(tmp_ctx)
+
+        """
+        data_str = context._data(b64=True)
+        self.cmd("import ansys.pyensight.enscontext", do_eval=False)
+        self.cmd(
+            f"ansys.pyensight.enscontext._restore_context(ensight,'{data_str}')", do_eval=False
+        )
