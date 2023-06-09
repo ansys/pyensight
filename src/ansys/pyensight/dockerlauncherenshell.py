@@ -248,8 +248,6 @@ class DockerLauncherEnShell(pyensight.Launcher):
         # Start the container in detached mode with EnShell as a
         # gRPC server as the command
         #
-        import docker
-
         enshell_cmd = "-app -grpc_server " + str(grpc_port)
 
         try:

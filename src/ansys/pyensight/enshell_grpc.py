@@ -1,6 +1,4 @@
-﻿from concurrent import futures
-import os
-import platform
+﻿import os
 import random
 import re
 import subprocess
@@ -13,17 +11,14 @@ import grpc
 try:
     from ansys.api.enshell.v0 import enshell_pb2, enshell_pb2_grpc
 except ImportError:
-    import enshell_pb2, enshell_pb2_grpc
-
+    import enshell_pb2
+    import enshell_pb2_grpc
 
 from ansys.pyensight._version import (  # pylint: disable=import-outside-toplevel
     DEFAULT_ANSYS_VERSION,
-    VERSION,
 )
 
-
-
-## @defgroup enshell_grpc enshell_grpc
+# @defgroup enshell_grpc enshell_grpc
 # @ingroup grpc
 # @brief Python wrapper for the core enshellservice
 #
@@ -32,12 +27,12 @@ from ansys.pyensight._version import (  # pylint: disable=import-outside-topleve
 # @{
 
 
-## @brief Python binding for the EnShell gRPC API
+# @brief Python binding for the EnShell gRPC API
 #
 # This class provides an asynchronous interface to the EnShell
 # core gRPC interface.
 class EnShellGRPC(object):
-    ## @brief create an instance of the EnShell gRPC interface wrapper
+    # @brief create an instance of the EnShell gRPC interface wrapper
     #
     # The default is to make a connection to an EnShell gRPC server
     # on port 12345 on the loopback host.  If requested to launch
@@ -67,19 +62,19 @@ class EnShellGRPC(object):
     def __del__(self):
         self.shutdown()
 
-    ## @brief get the hostname for this connection
+    # @brief get the hostname for this connection
     #
     # Returns the current connection hostname.
     def host(self):
         return self._host
 
-    ## @brief get the port number for this connection
+    # @brief get the port number for this connection
     #
     # Returns the current connection port number.
     def port(self):
         return self._port
 
-    ## @brief set the security token for the gRPC connection.
+    # @brief set the security token for the gRPC connection.
     #
     # EnShell supports a security token in either numeric (-security {int}) or
     # string (ENSIGHT_SECURITY_TOKEN environmental variable) form.  If EnShell
@@ -91,18 +86,18 @@ class EnShellGRPC(object):
     def set_security_token(self, n: int):
         self._security_token = n
 
-    ## @brief set a random security token for the gRPC connection.
+    # @brief set a random security token for the gRPC connection.
     #
     def set_random_security_token(self):
         self._security_token = str(random.randint(0, 1000000))
 
-    ## @brief return the security token for the gRPC connection.
+    # @brief return the security token for the gRPC connection.
     #
     # Returns the current connection security token
     def security_token(self):
         return self._security_token
 
-    ## @brief shut down all gRPC connections
+    # @brief shut down all gRPC connections
     #
     # If this class launched the EnShell client instance, it will
     # send the gRPC exit() call and then shut down all connections.
@@ -111,7 +106,7 @@ class EnShellGRPC(object):
         if self._pid is not None:
             _ = self.stop_server()
 
-    ## @brief Start an EnShell gRPC server instance
+    # @brief Start an EnShell gRPC server instance
     #
     # If the host application wishes to launch an EnShell instance, start_server()
     # will launch a batch mode EnShell application with the security token and
@@ -145,7 +140,7 @@ class EnShellGRPC(object):
             self._pid = subprocess.Popen(cmd, close_fds=True, env=my_env).pid
         return self._pid
 
-    ## @brief shut down any gPRC connection made by this class
+    # @brief shut down any gPRC connection made by this class
     #
     # First, if this class launched the EnShell instance, via start_server(), the
     # exit_cleanly() gRPC command will be sent.  Second, the local gRPC connection is
@@ -165,7 +160,7 @@ class EnShellGRPC(object):
         self._pid = None
         return response
 
-    ## @brief check if a gRPC connection has been established
+    # @brief check if a gRPC connection has been established
     #
     # Returns True if a previous connect() call made a valid gRPC connection.
     def is_connected(self):
@@ -173,7 +168,7 @@ class EnShellGRPC(object):
             return False
         return self._channel is not None
 
-    ## @brief establish a connection to an EnShell gRPC server
+    # @brief establish a connection to an EnShell gRPC server
     #
     # Attempt to connect to an EnShell gRPC server using the host and port
     # established by the constructor.  Note on failure, this function just
@@ -193,7 +188,7 @@ class EnShellGRPC(object):
             return
         self._stub = enshell_pb2_grpc.EnShellServiceStub(self._channel)
 
-    ## @brief establish a connection to an EnShell gRPC server
+    # @brief establish a connection to an EnShell gRPC server
     #
     # Attempt to connect to an EnShell gRPC server using the host and port
     # established by the constructor.  Note on failure, this function just
@@ -209,7 +204,7 @@ class EnShellGRPC(object):
         self._channel = channel
         self._stub = enshell_pb2_grpc.EnShellServiceStub(self._channel)
 
-    ## @brief compute internal gRPC stream metadata
+    # @brief compute internal gRPC stream metadata
     #
     # @private
     def metadata(self):
@@ -221,7 +216,7 @@ class EnShellGRPC(object):
             ret.append((b"shared_secret", s))
         return ret
 
-    ## @brief send an EnShell command string to be executed in EnShell
+    # @brief send an EnShell command string to be executed in EnShell
     #
     # The string will be sent to EnShell via the EnShellService::run_command()
     # gRPC call.  An IOError exception may be thrown
@@ -236,11 +231,11 @@ class EnShellGRPC(object):
                 enshell_pb2.EnShellCommandLine(command_line=command_string),
                 metadata=self.metadata(),
             )
-        except:
+        except Exception:
             raise IOError("gRPC connection dropped")
         return (response.ret, response.response)
 
-    ## @brief Tell EnShell to start EnSight
+    # @brief Tell EnShell to start EnSight
     #
     # The string will be sent to EnShell via the EnShellService::run_command()
     # gRPC call.  An IOError exception may be thrown
@@ -257,7 +252,7 @@ class EnShellGRPC(object):
 
         return self.run_command(command_string)
 
-    ## @brief Tell EnShell to start a non-EnShell aware command
+    # @brief Tell EnShell to start a non-EnShell aware command
     #
     # The string will be sent to EnShell via the EnShellService::run_command()
     # gRPC call.  An IOError exception may be thrown
@@ -271,18 +266,18 @@ class EnShellGRPC(object):
 
         return self.run_command(command_string)
 
-    ## @brief Get the value of CEI_HOME from EnShell
+    # @brief Get the value of CEI_HOME from EnShell
     def cei_home(self):
         self._get_cei_home()
         return self._cei_home
 
-    ## @brief Get the Ansys version from EnShell (e.g. 232)
+    # @brief Get the Ansys version from EnShell (e.g. 232)
     def ansys_version(self):
         self._get_cei_home()
         return self._ansys_version
 
     def _get_cei_home(self):
-        if self._cei_home != None:
+        if self._cei_home is not None:
             return
 
         self.connect()

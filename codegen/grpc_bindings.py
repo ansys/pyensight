@@ -35,7 +35,7 @@ def generate_bindings(app: str = "ensight") -> None:
     # cleanup old files
     try:
         os.unlink(f"{app}.proto")
-    except:
+    except Exception:
         pass
     target_dir = f"../src/ansys/api/{app}/v0"
     os.makedirs(target_dir, exist_ok=True)
@@ -86,8 +86,8 @@ def generate_bindings(app: str = "ensight") -> None:
 
 
 def generate() -> None:
-    generate_bindings('ensight')
-    generate_bindings('enshell')
+    generate_bindings("ensight")
+    generate_bindings("enshell")
 
 
 if __name__ == "__main__":
