@@ -3,9 +3,10 @@ from typing import TYPE_CHECKING, Any, List, Optional, Union
 if TYPE_CHECKING:
     try:
         import ensight
+        from ensight.objs import ENS_QUERY  # type: ignore
     except ImportError:
         from ansys.pyensight import ensight_api
-    from ansys.pyensight.ens_query import ENS_QUERY
+        from ansys.pyensight.ens_query import ENS_QUERY
 
 
 class Query:
