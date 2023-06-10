@@ -50,8 +50,10 @@ class LocalLauncher(pyensight.Launcher):
         ::
 
             from ansys.pyensight import LocalLauncher
-            session = LocalLauncher(ansys_installation='/ansys_inc/v222').start()
-
+            # Create one EnSight session
+            session1 = LocalLauncher(ansys_installation='/ansys_inc/v232').start()
+            # Create a second session (a new LocalLauncher instance is required)
+            session2 = LocalLauncher(ansys_installation='/ansys_inc/v232').start()
     """
 
     def __init__(
@@ -59,11 +61,9 @@ class LocalLauncher(pyensight.Launcher):
         ansys_installation: Optional[str] = None,
         application: Optional[str] = "ensight",
         batch: Optional[bool] = True,
-        timeout: Optional[float] = 120.0,
-        use_egl: Optional[bool] = False,
-        use_sos: Optional[int] = None,
+        **kwargs,
     ) -> None:
-        super().__init__(timeout=timeout, use_egl=use_egl, use_sos=use_sos)
+        super().__init__(**kwargs)
 
         # get the user selected installation directory
         self._install_path: str = self.get_cei_install_directory(ansys_installation)
@@ -104,6 +104,9 @@ class LocalLauncher(pyensight.Launcher):
             RuntimeError:
                 if the necessary number of ports could not be allocated.
         """
+        tmp_session = super().start()
+        if tmp_session:
+            return tmp_session
         if self._ports is None:
             # session directory and UUID
             self._secret_key = str(uuid.uuid1())
@@ -217,6 +220,7 @@ class LocalLauncher(pyensight.Launcher):
             try:
                 shutil.rmtree(self.session_directory)
                 self._ports = None
+                super().stop()
                 return
             except PermissionError:
                 pass
