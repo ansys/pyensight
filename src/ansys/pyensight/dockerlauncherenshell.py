@@ -78,7 +78,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         self,
         data_directory: Optional[str] = None,
         docker_image_name: Optional[str] = None,
-        use_dev: Optional[bool] = False,
+        use_dev: bool = False,
         channel: Optional[grpc.Channel] = None,
         pim_instance: Optional[Any] = None,
         **kwargs,

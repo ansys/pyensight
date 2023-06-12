@@ -60,7 +60,7 @@ class LocalLauncher(pyensight.Launcher):
         self,
         ansys_installation: Optional[str] = None,
         application: Optional[str] = "ensight",
-        batch: Optional[bool] = True,
+        batch: bool = True,
         **kwargs,
     ) -> None:
         super().__init__(**kwargs)
