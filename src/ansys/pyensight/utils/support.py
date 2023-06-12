@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Union
+from typing import TYPE_CHECKING, Any, ContextManager, Union
 
 if TYPE_CHECKING:
     try:
@@ -30,7 +30,8 @@ class Support:
     def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
         self._ensight = interface
 
-    class ScopedName:
+    @staticmethod
+    def scoped_name(obj: Any) -> ContextManager:
         """Allow for the use of 'with' to shorten APIs
 
         In the ensight and pyensight APIs, the interfaces can become lengthy.
@@ -41,25 +42,36 @@ class Support:
 
             ::
 
-                sn = s.ensight.utils.support.ScopedName
+                sn = s.ensight.utils.support.scoped_name
                 with sn(s.ensight.objs.core) as core, sn(s.ensight.objs.enums) as enums:
                     print(core.PARTS.find(True, enums.VISIBLE))
 
 
             ::
 
-                sn = ensight.utils.support.ScopedName
+                sn = ensight.utils.support.scoped_name
                 with sn(ensight.objs.core) as core, sn(ensight.objs.enums) as enums:
                     print(core.PARTS.find(True, enums.VISIBLE))
 
 
         """
+        return ScopedName(obj)
 
-        def __init__(self, obj: Any):
-            self._obj = obj
 
-        def __enter__(self) -> Any:
-            return self._obj
+class ScopedName:
+    """Allow for the use of 'with' to shorten APIs
 
-        def __exit__(self, exc_type, exc_value, exc_trace):
-            pass
+    In the ensight and pyensight APIs, the interfaces can become lengthy.
+    This class makes it possible to shorten APIs for modules, classes,
+    namespaces, etc.
+
+    """
+
+    def __init__(self, obj: Any):
+        self._obj = obj
+
+    def __enter__(self) -> Any:
+        return self._obj
+
+    def __exit__(self, exc_type, exc_value, exc_trace):
+        pass
