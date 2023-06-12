@@ -189,4 +189,5 @@ PyEnSight using the ``ansys.pyensight.Session.ensight`` interface.
    pyensight.ens_vport.ENS_VPORT
    pyensight.utils.views.Views
    pyensight.utils.query.Query
+   pyensight.utils.query.Parts
    pyensight.utils.support.Support
