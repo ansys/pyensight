@@ -78,14 +78,12 @@ class DockerLauncherEnShell(pyensight.Launcher):
         self,
         data_directory: Optional[str] = None,
         docker_image_name: Optional[str] = None,
-        use_dev: bool = False,
-        timeout: float = 120.0,
-        use_egl: bool = False,
-        use_sos: Optional[int] = None,
+        use_dev: Optional[bool] = False,
         channel: Optional[grpc.Channel] = None,
         pim_instance: Optional[Any] = None,
+        **kwargs,
     ) -> None:
-        super().__init__(timeout=timeout, use_egl=use_egl, use_sos=use_sos)
+        super().__init__(**kwargs)
 
         self._data_directory = data_directory
         self._enshell_grpc_channel = channel
@@ -198,6 +196,9 @@ class DockerLauncherEnShell(pyensight.Launcher):
             RuntimeError:
                 variety of error conditions.
         """
+        tmp_session = super().start()
+        if tmp_session:
+            return tmp_session
 
         # Launch the EnSight Docker container locally as a detached container
         # initially running EnShell over the first gRPC port. Then launch EnSight
@@ -453,6 +454,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         if self._pim_instance is not None:
             self._pim_instance.delete()
             self._pim_instance = None
+        super().stop()
 
     def _get_host_port(self, uri: str) -> tuple:
         parse_results = urllib3.util.parse_url(uri)

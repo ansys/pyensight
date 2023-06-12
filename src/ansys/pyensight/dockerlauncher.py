@@ -60,12 +60,10 @@ class DockerLauncher(pyensight.Launcher):
         self,
         data_directory: str,
         docker_image_name: Optional[str] = None,
-        use_dev: bool = False,
-        timeout: float = 120.0,
-        use_egl: bool = False,
-        use_sos: Optional[int] = None,
+        use_dev: Optional[bool] = False,
+        **kwargs,
     ) -> None:
-        super().__init__(timeout=timeout, use_egl=use_egl, use_sos=use_sos)
+        super().__init__(**kwargs)
 
         self._data_directory: str = data_directory
         self._container = None
@@ -140,6 +138,9 @@ class DockerLauncher(pyensight.Launcher):
             RuntimeError:
                 variety of error conditions.
         """
+        tmp_session = super().start()
+        if tmp_session:
+            return tmp_session
         # gRPC port, VNC port, websocketserver ws, websocketserver html
         ports = self._find_unused_ports(4)
         if ports is None:
@@ -324,6 +325,7 @@ class DockerLauncher(pyensight.Launcher):
             self._container.stop()
             self._container.remove()
             self._container = None
+        super().stop()
 
     def _is_system_egl_capable(self) -> bool:
         if self._is_windows():
