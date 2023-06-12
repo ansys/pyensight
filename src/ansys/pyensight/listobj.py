@@ -5,7 +5,7 @@ Emulation of the EnSight ensobjlist class
 """
 from collections.abc import Iterable
 import fnmatch
-from typing import Any, List, Optional, TypeVar, Union, no_type_check, overload
+from typing import Any, List, Optional, TypeVar, no_type_check, overload
 
 from typing_extensions import SupportsIndex
 
@@ -54,7 +54,7 @@ class ensobjlist(List[T]):  # noqa: N801
 
     def find(
         self, value: Any, attr: Any = "DESCRIPTION", group: int = 0, wildcard: int = 0
-    ) -> Union["ensobjlist[T]", T]:
+    ) -> "ensobjlist[T]":
         """Find objects in the list using the ENSOBJ interface
 
         This method will scan the ENSOBJ subclass objects in the list and return
