@@ -60,7 +60,7 @@ class DockerLauncher(pyensight.Launcher):
         self,
         data_directory: str,
         docker_image_name: Optional[str] = None,
-        use_dev: Optional[bool] = False,
+        use_dev: bool = False,
         **kwargs,
     ) -> None:
         super().__init__(**kwargs)
