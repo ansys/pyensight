@@ -14,6 +14,7 @@ import os.path
 import platform
 import socket
 from typing import TYPE_CHECKING, List, Optional
+import warnings
 
 import requests
 
@@ -50,6 +51,9 @@ class Launcher:
             must be able to support it.
         use_sos:
             If None, don't use SOS. Otherwise, it's the number of EnSight Servers to use (int).
+    Note:
+        A launcher can create only a single EnSight instance.  If one needs more than
+        one EnSight instance, a new launcher instance will be required.
     """
 
     def __init__(
@@ -104,16 +108,24 @@ class Launcher:
         # Stop the launcher instance
         self.stop()
 
-    def start(self) -> "pyensight.Session":
-        """Base method for starting the actual session
+    def start(self) -> Optional["pyensight.Session"]:
+        """Start a session using the current launcher
 
-        The base launcher class is used internally and does not support
-        this method.  Subclasses do support this method
+        The start() method will only allocate a single instance of
+        a Session object.  If called a second time, return the
+        result of the first call.
 
-        Raises:
-            RuntimeError
+        Returns:
+            If start() has been called previously, return that session
+            and emit a warning.   If start() has not been called,
+            return None
         """
-        raise RuntimeError("Unsupported method for this configuration")
+        if len(self._sessions):
+            msg = "The launcher start() method may only be called once. "
+            msg += "Create a new launcher instance to start a new EnSight instance."
+            warnings.warn(msg, RuntimeWarning)
+            return self._sessions[0]
+        return None
 
     def stop(self) -> None:
         """Base method for stopping a session initiated by start()
