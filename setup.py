@@ -7,7 +7,7 @@ import os
 # by installing the pyensight wheel on Ansys Lab and seeing
 # what pip complains about.
 REQUIREMENTS = [
-    "protobuf>=3.9.1,<=3.20.2",
+    "protobuf>=3.9.1",
     "docutils<0.19",
     "grpcio>=1.23.0",
     "requests>=2.20.1",

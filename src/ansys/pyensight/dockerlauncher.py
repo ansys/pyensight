@@ -13,6 +13,7 @@ Examples:
         session.close()
 
 """
+import logging
 import os.path
 import re
 import subprocess
@@ -273,7 +274,7 @@ class DockerLauncher(pyensight.Launcher):
 
         cmd.extend([cmd2])
 
-        print("Run: ", str(cmd))
+        logging.debug(f"Running command: {cmd}\n")
         self._container.exec_run(cmd, user="ensight", detach=True)  # type: ignore
 
         # Run websocketserver
@@ -302,7 +303,7 @@ class DockerLauncher(pyensight.Launcher):
 
             cmd.extend([cmd2])
 
-        print("Run: ", str(cmd))
+        logging.debug(f"Running command: {cmd}\n")
         self._container.exec_run(cmd, user="ensight", detach=True)  # type: ignore
 
         # build the session instance
