@@ -5,11 +5,17 @@ The views module allows pyensight to control the view in the EnSight session
 Example to set an isometric view:
 
 ::
-
+    (PyEnSight)
     from ansys.pyensight import LocalLauncher
     session = LocalLauncher().start()
     views = session.ensight.utils.views
-    views.set_view_direct(1,1,1)
+    views.set_view_direction(1,1,1)
+
+    (EnSight)
+    from ensight.utils import views
+    views.set_view_direction(1,1,1)
+
+
 """
 
 import math
