@@ -19,14 +19,18 @@ Example to select all the 3D parts:
 
 from typing import TYPE_CHECKING, Dict, Optional, Union
 
-from ansys.pyensight.ens_part import ENS_PART
-from ansys.pyensight.listobj import ensobjlist
+try:
+    import ensight
+    from ensight.objs import ensobjlist  # type: ignore
+except ImportError:
+    from ansys.pyensight.listobj import ensobjlist
 
 if TYPE_CHECKING:
     try:
-        import ensight
+        from ensight.objs import ENS_PART  # type: ignore
     except ImportError:
         from ansys.pyensight import ensight_api
+        from ansys.pyensight.ens_query import ENS_PART
 
 
 class Parts:
@@ -35,7 +39,7 @@ class Parts:
     def __init__(self, ensight: Union["ensight_api.ensight", "ensight"]):
         self.ensight = ensight
 
-    def select_parts_by_dimension(self, dimension: int) -> Optional[ensobjlist["ENS_PART"]]:
+    def select_parts_by_dimension(self, dimension: int) -> ensobjlist["ENS_PART"]:
         """Select parts by the input dimension and return
         the parts found.
 
@@ -51,7 +55,7 @@ class Parts:
         found.set_attr("SELECTED", True)
         return found
 
-    def select_parts_invert(self) -> Optional[ensobjlist["ENS_PART"]]:
+    def select_parts_invert(self) -> ensobjlist["ENS_PART"]:
         """Select the parts currently not selected and deselect the currently
         selected ones.
 
@@ -67,7 +71,7 @@ class Parts:
         tag: Optional[str] = None,
         value: Optional[str] = None,
         tagdict: Optional[Dict[str, str]] = None,
-    ) -> Optional[ensobjlist["ENS_PART"]]:
+    ) -> ensobjlist["ENS_PART"]:
         """Select parts by the input dimension and return
         the parts found.
 
