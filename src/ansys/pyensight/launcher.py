@@ -51,6 +51,9 @@ class Launcher:
             must be able to support it.
         use_sos:
             If None, don't use SOS. Otherwise, it's the number of EnSight Servers to use (int).
+        enable_rest_api:
+            If True, try to enable the EnSight REST API.  Note: initial support is in 2024 R1
+
     Note:
         A launcher can create only a single EnSight instance.  If one needs more than
         one EnSight instance, a new launcher instance will be required.
@@ -61,10 +64,12 @@ class Launcher:
         timeout: float = 120.0,
         use_egl: bool = False,
         use_sos: Optional[int] = None,
+        enable_rest_api: bool = False,
     ) -> None:
         self._timeout = timeout
         self._use_egl_param_val: bool = use_egl
         self._use_sos = use_sos
+        self._enable_rest_api = enable_rest_api
 
         self._sessions: List[Session] = []
         self._session_directory: str = "."

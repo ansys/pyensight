@@ -130,7 +130,6 @@ class EnSightGRPC(object):
         if self.is_connected():
             return
         # set up the channel
-        print(f"EnSight GRPC connecting to {self._host}:{self._port}\n\n")
         self._channel = grpc.insecure_channel(
             "{}:{}".format(self._host, self._port),
             options=[
