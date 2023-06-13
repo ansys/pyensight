@@ -240,7 +240,7 @@ paths:
               value: "VISIBLE,DESCRIPTION"
       requestBody:
         description: The keyword parameters for the Python call.
-                     An input string starting with '@ENSOBJ=v' will be converted into
+                     An input string of the form '@ENSOBJ=v@' will be converted into
                      ensight.objs.wrap_id(v).
                      In the example,
                      app.funcname(app, num_samples=4, source=ensight.objs.wrap_id(120)) will
