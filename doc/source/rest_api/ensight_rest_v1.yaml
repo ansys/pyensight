@@ -72,8 +72,8 @@ paths:
           
   /ensight/v1/{sessionid}/eval:
     put:
-      summary: Eval Python a command
-      description: Execute one strings as a Python command in the remote EnSight session and return
+      summary: Eval a Python command
+      description: Execute one string as a Python command in the remote EnSight session and return
                    the result.
       operationId: evalPython
       tags:
@@ -88,7 +88,7 @@ paths:
           example: "ab32cefa055411eeb8a654435d7ef902"
         - name: returns
           in: query
-          description: A list of attribute to return when an ENS_OBJ object is returned. __OBJID__ is the default.
+          description: A list of attributes to return when an ENSOBJ object is returned. __OBJID__ is the default.
           required: false
           schema:
             type: string
@@ -181,7 +181,7 @@ paths:
             schema:
               type: string
             example: |-
-              def funcname(app: SimpleNamespace, o: typing.Optional['ENS_OBJ'] = None, s : str = 'VISIBLE') -> dict:
+              def funcname(app: SimpleNamespace, o: typing.Optional['ENSOBJ'] = None, s : str = 'VISIBLE') -> dict:
                   v = o.getattr(s)
                   return dict(s=v)
       responses:
@@ -229,8 +229,7 @@ paths:
           example: "funcname"
         - name: returns
           in: query
-          description: A list of attribute to return when an ENS_OBJ object is 
-                       returned. __OBJID__ is the default.
+          description: A list of attributes to return when an ENSOBJ object is returned. __OBJID__ is the default.
           required: false
           schema:
             type: string
@@ -241,7 +240,7 @@ paths:
               value: "VISIBLE,DESCRIPTION"
       requestBody:
         description: The keyword parameters for the Python call.
-                     An input string starting with '@ENS_OBJ=v' will be converted into
+                     An input string starting with '@ENSOBJ=v' will be converted into
                      ensight.objs.wrap_id(v).
                      In the example,
                      app.funcname(app, num_samples=4, source=ensight.objs.wrap_id(120)) will
@@ -254,7 +253,7 @@ paths:
               example:
                 {
                     "num_samples": 4,
-                    "source": "@ENS_OBJ=120"
+                    "source": "@ENSOBJ=120@"
                 }
       responses:
         '200':
@@ -312,8 +311,8 @@ paths:
           
   /ensight/v1/{sessionid}/ensobjs/{objectid}/{attributeid}:
     get:
-      summary: ENS_OBJ attributes
-      description: Get an ENS_OBJ attribute value
+      summary: ENSOBJ attributes
+      description: Get an ENSOBJ attribute value
       operationId: getobjAttr
       tags:
         - Object API
@@ -338,14 +337,14 @@ paths:
               value: 1234
         - name: attributeid
           in: path
-          description: The native python binding for a command language command.
+          description: An ENSOBJ attribute name like VISIBLE.
           required: true
           schema:
             type: string
           example: "VISIBLE"
         - name: returns
           in: query
-          description: A list of attribute to return when an ENS_OBJ object is returned. __OBJID__ is the default.
+          description: A list of attributes to return when an ENSOBJ object is returned. __OBJID__ is the default.
           required: false
           schema:
             type: string
@@ -367,8 +366,8 @@ paths:
           description: Invalid sessionid
 
     put:
-      summary: ENS_OBJ attributes
-      description: Set an ENS_OBJ attribute value
+      summary: ENSOBJ attributes
+      description: Set an ENSOBJ attribute value
       operationId: setobjAttr
       tags:
         - Object API
@@ -413,8 +412,8 @@ paths:
           
   /ensight/v1/{sessionid}/ensobjs/setattrs:
     put:
-      summary: Multi-ENS_OBJ setattrs
-      description: Set a collection of attributes on a collection of ENS_OBJ objects.
+      summary: Multi-ENSOBJ setattrs
+      description: Set a collection of attributes on a collection of ENSOBJ objects.
       operationId: setobjsAttr
       tags:
         - Object API
@@ -467,8 +466,8 @@ paths:
 
   /ensight/v1/{sessionid}/ensobjs/getattrs:
     put:
-      summary: Multi-ENS_OBJ getattrs
-      description: Get a collection of attributes on a collection of ENS_OBJ objects.
+      summary: Multi-ENSOBJ getattrs
+      description: Get a collection of attributes on a collection of ENSOBJ objects.
       operationId: getobjsAttr
       tags:
         - Object API
@@ -482,7 +481,7 @@ paths:
           example: "ab32cefa055411eeb8a654435d7ef902"
         - name: returns
           in: query
-          description: A list of attribute to return when an ENS_OBJ object is returned. __OBJID__ is the default.
+          description: A list of attributes to return when an ENSOBJ object is returned. __OBJID__ is the default.
           required: false
           schema:
             type: string
@@ -500,7 +499,7 @@ paths:
           schema:
             type: boolean
       requestBody:
-        description: A list of object names and ids to queyr the attributes listed by the returns= query
+        description: A list of object names and ids to query the attributes listed by the returns= query
         content:
           application/json:
             schema:
@@ -531,8 +530,8 @@ paths:
           
   /ensight/v1/{sessionid}/ensobjs/{objectid}/methods/{method}:
     put:
-      summary: Run ENS_OBJ method
-      description: Execute an ENS_OBJ method and return the result.
+      summary: Run ENSOBJ method
+      description: Execute an ENSOBJ method and return the result.
       operationId: objMethod
       tags:
         - Object API
@@ -564,7 +563,7 @@ paths:
           example: "createvariable"
         - name: returns
           in: query
-          description: A list of attribute to return when an ENS_OBJ object is returned. __OBJID__ is the default.
+          description: A list of attributes to return when an ENSOBJ object is returned. __OBJID__ is the default.
           required: false
           schema:
             type: string
@@ -575,7 +574,7 @@ paths:
               value: "VISIBLE,DESCRIPTION"
       requestBody:
         description: The positional and keyword parameters for the Python call.
-                     An input string starting with '@ENS_OBJ=v' will be converted into
+                     An input string starting with '@ENSOBJ=v@' will be converted into
                      ensight.objs.wrap_id(v).
                      In the example,
                      foo("param1", 1.0, num_samples=4, source=ensight.objs.wrap_id(120))
@@ -595,7 +594,7 @@ paths:
                   "args": ["param1", 1.0],
                   "kwargs": {
                     "num_samples": 4,
-                    "source": "@ENS_OBJ=120"
+                    "source": "@ENSOBJ=120@"
                   }
                 }
       responses:
