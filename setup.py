@@ -2,11 +2,16 @@
 from distutils.core import setup
 import os
 
+# Add version constraints to play nice with other packages
+# running on Ansys Lab.  Which versions to use is determined
+# by installing the pyensight wheel on Ansys Lab and seeing
+# what pip complains about.
 REQUIREMENTS = [
     "protobuf>=3.9.1",
+    "docutils<0.19",
     "grpcio>=1.23.0",
     "requests>=2.20.1",
-    "urllib3>=1.26.10",
+    "urllib3<=1.25.4",
     "dill>=0.3.5.1",
 ]
 
@@ -27,6 +32,8 @@ version = _version["VERSION"]
 packages = [
     "ansys",
     "ansys.api",
+    "ansys.api.enshell",
+    "ansys.api.enshell.v0",
     "ansys.api.ensight",
     "ansys.api.ensight.v0",
     "ansys.pyensight",
@@ -53,6 +60,9 @@ setup(
         "ansys": "src/ansys",
         "ansys.pyensight": "src/ansys/pyensight",
         "ansys.api": "src/ansys/api",
+        "ansys.api.enshell": "src/ansys/api/enshell",
+        "ansys.api.enshell.utils": "src/ansys/api/enshell/utils",
+        "ansys.api.enshell.v0": "src/ansys/api/enshell/v0",
         "ansys.api.ensight": "src/ansys/api/ensight",
         "ansys.api.ensight.utils": "src/ansys/api/ensight/utils",
         "ansys.api.ensight.v0": "src/ansys/api/ensight/v0",

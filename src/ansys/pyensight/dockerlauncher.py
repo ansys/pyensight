@@ -13,6 +13,7 @@ Examples:
         session.close()
 
 """
+import logging
 import os.path
 import re
 import subprocess
@@ -60,7 +61,7 @@ class DockerLauncher(pyensight.Launcher):
         self,
         data_directory: str,
         docker_image_name: Optional[str] = None,
-        use_dev: Optional[bool] = False,
+        use_dev: bool = False,
         **kwargs,
     ) -> None:
         super().__init__(**kwargs)
@@ -182,10 +183,18 @@ class DockerLauncher(pyensight.Launcher):
         # the default entrypoint command "ensight" which is in the
         # container's path for user "ensight".
 
+        try:
+            import docker
+        except ModuleNotFoundError:
+            raise RuntimeError("The pyansys-docker module must be installed for DockerLauncher")
+        except Exception:
+            raise RuntimeError("Cannot initialize Docker")
+
+        use_egl = self._use_egl()
+
         # FIXME_MFK: probably need a unique name for our container
         # in case the user launches multiple sessions
-        egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
-        use_egl = self._use_egl or egl_env or self._has_egl()
+
         if use_egl:
             self._container = self._docker_client.containers.run(
                 self._image_name,
@@ -265,7 +274,7 @@ class DockerLauncher(pyensight.Launcher):
 
         cmd.extend([cmd2])
 
-        print("Run: ", str(cmd))
+        logging.debug(f"Running command: {cmd}\n")
         self._container.exec_run(cmd, user="ensight", detach=True)  # type: ignore
 
         # Run websocketserver
@@ -294,7 +303,7 @@ class DockerLauncher(pyensight.Launcher):
 
             cmd.extend([cmd2])
 
-        print("Run: ", str(cmd))
+        logging.debug(f"Running command: {cmd}\n")
         self._container.exec_run(cmd, user="ensight", detach=True)  # type: ignore
 
         # build the session instance
@@ -319,7 +328,7 @@ class DockerLauncher(pyensight.Launcher):
             self._container = None
         super().stop()
 
-    def _has_egl(self) -> bool:
+    def _is_system_egl_capable(self) -> bool:
         if self._is_windows():
             return False
         try:

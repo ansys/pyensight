@@ -13,7 +13,7 @@ import sys
 import requests
 
 
-def generate_bindings() -> None:
+def generate_bindings(app: str = "ensight") -> None:
     """Build the EnSight gRPC interface
 
     Pull the .proto file(s) from the archive and run the grpc tools on it.
@@ -30,18 +30,20 @@ def generate_bindings() -> None:
 
     version = DEFAULT_ANSYS_VERSION
 
-    print(f"Generating gRPC v{DEFAULT_ANSYS_VERSION} bindings for release {VERSION}")
+    print(f"Generating {app} gRPC v{DEFAULT_ANSYS_VERSION} bindings for release {VERSION}")
 
     # cleanup old files
-    for filename in glob.glob("*.proto"):
-        os.unlink(filename)
-    target_dir = "../src/ansys/api/ensight/v0"
+    try:
+        os.unlink(f"{app}.proto")
+    except Exception:
+        pass
+    target_dir = f"../src/ansys/api/{app}/v0"
     os.makedirs(target_dir, exist_ok=True)
-    for filename in glob.glob(target_dir + "/ensight_pb2*.py"):
+    for filename in glob.glob(target_dir + f"/{app}_pb2*.py"):
         os.unlink(filename)
 
     # get the URI
-    proto_uris = [f"https://s3.amazonaws.com/www3.ensight.com/build/v{version}/ensight.proto"]
+    proto_uris = [f"https://s3.amazonaws.com/www3.ensight.com/build/v{version}/{app}.proto"]
     proto_files = []
     for uri in proto_uris:
         result = requests.get(uri)
@@ -78,12 +80,14 @@ def generate_bindings() -> None:
         with open(grpc_filename, "rb") as fp:
             data = fp.read()
         data = data.replace(b"import ensight_pb2", b"import ansys.api.ensight.v0.ensight_pb2")
+        data = data.replace(b"import enshell_pb2", b"import ansys.api.enshell.v0.enshell_pb2")
         with open(grpc_filename, "wb") as fp:
             fp.write(data)
 
 
 def generate() -> None:
-    generate_bindings()
+    generate_bindings("ensight")
+    generate_bindings("enshell")
 
 
 if __name__ == "__main__":

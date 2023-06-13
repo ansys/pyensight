@@ -210,6 +210,7 @@ def mypy() -> None:
         mypyexe,
         "--config-file",
         os.path.join(os.path.dirname(__file__), "mypy.ini"),
+        "--no-site-packages",
         os.path.join(os.path.dirname(__file__), "src", "ansys", "pyensight"),
     ]
     subprocess.run(cmd)

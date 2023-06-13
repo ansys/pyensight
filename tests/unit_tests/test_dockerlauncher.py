@@ -1,3 +1,4 @@
+import logging
 import os
 from unittest import mock
 
@@ -8,7 +9,7 @@ import ansys.pyensight
 from ansys.pyensight import DockerLauncher
 
 
-def test_start(mocker, capsys):
+def test_start(mocker, capsys, caplog):
     os.environ["ANSYSLMD_LICENSE_FILE"] = "1055@mockedserver.com"
     docker_client = mock.MagicMock("Docker")
     run = mock.MagicMock("MockedRun")
@@ -29,15 +30,19 @@ def test_start(mocker, capsys):
     launcher = DockerLauncher(data_directory=".", use_dev=True, docker_image_name="super_ensight")
     mocked_session = mock.MagicMock("MockedSession")
     mocker.patch.object(ansys.pyensight, "Session", return_value=mocked_session)
-    assert launcher.start() == mocked_session
-    out, err = capsys.readouterr()
-    assert "Ansys Version= 345" in out
-    assert "Run:  ['bash', '--login', '-c', ' ensight -batch -v 3" in out
-    assert (
-        "Run:  ['bash', '--login', '-c', "
-        "'cpython /ansys_inc/v345/CEI/nexus345/nexus_launcher/websocketserver.py "
-        "--http_directory /home/ensight" in out
-    )
+    with caplog.at_level(logging.DEBUG):
+        assert launcher.start() == mocked_session
+        out, err = capsys.readouterr()
+        assert "Ansys Version= 345" in out
+        assert (
+            "Running command: ['bash', '--login', '-c', ' ensight -batch -v 3"
+            in caplog.records[0].message
+        )
+        assert (
+            "Running command: ['bash', '--login', '-c', "
+            "'cpython /ansys_inc/v345/CEI/nexus345/nexus_launcher/websocketserver.py "
+            "--http_directory /home/ensight" in caplog.records[1].message
+        )
     assert launcher.ansys_version() == "345"
     values[0][0] = 1
     returned.side_effect = values.copy()
