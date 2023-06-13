@@ -87,7 +87,7 @@ session.show("image", width=800, height=600)
 # .. image:: /_static/02_utils_3.png
 #
 # PyEnSight supports the generation of context managers for the PyEnSight modules.
-# This can simplify the workflow with the addition of the context manager features in Pyhon.
+# This can simplify the workflow with the addition of the context manager features in Python.
 # A query is so generated along a 1D part generated on the fly. The parent part is selected
 # using the parts module, with the "select_parts_by_dimension" module to select all the 3D parts.
 # A context is saved for later use. The rendering view should look like this:

@@ -26,7 +26,7 @@ def test_utils(tmpdir, pytestconfig: pytest.Config):
     query = session.ensight.utils.query
     init_state = session.capture_context()
     init_state.save(os.path.join(data_dir, "init_state.ctxz"))
-    views.set_view_direction(1,1,1, name="isometric")
+    views.set_view_direction(1, 1, 1, name="isometric")
     iso_state = session.capture_context()
     # Since no tags are supplied, all the parts are selected
     parts.select_parts_by_tag().set_attr("VISIBLE", False)
@@ -37,16 +37,12 @@ def test_utils(tmpdir, pytestconfig: pytest.Config):
         clip_default = core.DEFAULTPARTS[ensight.PART_CLIP_PLANE]
         clip = clip_default.createpart(name="XClip", sources=parts.select_parts_by_dimension(3))[0]
         attrs = []
-        attrs.append(['MESHPLANE', 2]) # Z axis
-        attrs.append(['TOOL', 9]) # XYZ Tool
-        attrs.append(['VALUE', 0.55]) # Z value
+        attrs.append(["MESHPLANE", 2])  # Z axis
+        attrs.append(["TOOL", 9])  # XYZ Tool
+        attrs.append(["VALUE", 0.55])  # Z value
         zclip = clip_default.createpart(name="ZClip", sources=clip)[0]
         query.create_distance(
-            "zlip_query", 
-            query.DISTANCE_PART1D, 
-            [zclip],
-            core.VARIABLES["p"][0],
-            new_plotter=True
+            "zlip_query", query.DISTANCE_PART1D, [zclip], core.VARIABLES["p"][0], new_plotter=True
         )
         zclip_state = session.capture_context()
     session.show("remote")
@@ -62,16 +58,15 @@ def test_utils(tmpdir, pytestconfig: pytest.Config):
     session.show("remote")
     session.restore_context(zclip_state)
     temp_query = query.create_temporal(
-        "temporal_query", 
-        query.TEMPORAL_XYZ, 
+        "temporal_query",
+        query.TEMPORAL_XYZ,
         parts.select_parts_by_dimension(3),
         "alpha1",
         xyz=views.compute_model_centroid(),
-        new_plotter = True
+        new_plotter=True,
     )
     print(temp_query.QUERY_DATA)
     session.show("remote")
     ctx = EnsContext()
     ctx.load(os.path.join(data_dir, "init_state.ctxz"))
     session.restore_context(ctx)
-
