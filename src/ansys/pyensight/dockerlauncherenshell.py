@@ -397,6 +397,11 @@ class DockerLauncherEnShell(pyensight.Launcher):
         wss_cmd += " --http_port " + str(self._service_host_port["http"][1])
         # vnc port
         wss_cmd += " --client_port 1999"
+
+        if self._enable_rest_api:
+            # grpc port
+            wss_cmd += " --grpc_port " + str(self._service_host_port["grpc_private"][1])
+
         # EnVision sessions
         wss_cmd += " --local_session envision 5"
         # websocket port
