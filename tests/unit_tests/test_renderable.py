@@ -2,9 +2,8 @@ import shutil
 from unittest import mock
 import webbrowser
 
+from ansys.pyensight.core import launcher, renderable
 import requests
-
-from ansys.ensight.core import launcher, renderable
 
 
 def test_generate_filename(mocked_session):

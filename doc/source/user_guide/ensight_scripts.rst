@@ -36,7 +36,7 @@ It is possible to run such scripts in PyEnSight using the ``Session.run_script()
 For example, if one has an EnSight Python script named ``"/home/ensight/example.py"``, then
 the following session can be used to run the script via the PyEnSight module::
 
-    from ansys.ensight.core import LocalLauncher
+    from ansys.pyensight.core import LocalLauncher
 
     session = LocalLauncher().start()
     _ = session.run_script("/home/ensight/example.py")
@@ -61,7 +61,7 @@ named ``example.py``::
 
 A launching script ``runme.py`` in the same directory might have this content::
 
-    from ansys.ensight.core import LocalLauncher
+    from ansys.pyensight.core import LocalLauncher
 
     session = LocalLauncher(batch=False).start()
     _ = session.run_script("./example.py")

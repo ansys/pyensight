@@ -1,8 +1,7 @@
 import time
 
+from ansys.pyensight.core import DockerLauncher, LocalLauncher
 import pytest
-
-from ansys.ensight.core import DockerLauncher, LocalLauncher
 
 
 def test_remote_execution(tmpdir, pytestconfig: pytest.Config):

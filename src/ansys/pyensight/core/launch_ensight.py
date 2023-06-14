@@ -6,7 +6,7 @@ EnSight session using PyPIM.  This leverages the DockerLauncherEnShell module.
 Examples:
     ::
 
-        from ansys.ensight.core import launch_ensight
+        from ansys.pyensight.core import launch_ensight
         session = launch_ensight()
         # do pyensight stuff with the session
         session.close()
@@ -14,8 +14,8 @@ Examples:
 
 from typing import Optional
 
-from ansys.ensight.core.locallauncher import LocalLauncher
-from ansys.ensight.core.session import Session
+from ansys.pyensight.core.locallauncher import LocalLauncher
+from ansys.pyensight.core.session import Session
 
 pim_is_available = False
 try:
@@ -28,7 +28,7 @@ except Exception:
 
 docker_is_available = False
 try:
-    from ansys.ensight.core.dockerlauncherenshell import DockerLauncherEnShell
+    from ansys.pyensight.core.dockerlauncherenshell import DockerLauncherEnShell
 
     docker_is_available = True
 except Exception:

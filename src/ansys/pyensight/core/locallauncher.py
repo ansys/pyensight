@@ -4,7 +4,7 @@ The local launcher module provides pyensight with the ability to launch an
 EnSight session using a local Ansys installation.
 
 Examples:
-    >>> from ansys.ensight.core import LocalLauncher
+    >>> from ansys.pyensight.core import LocalLauncher
     >>> session = LocalLauncher().start()
 """
 import glob
@@ -17,7 +17,7 @@ import time
 from typing import Optional
 import uuid
 
-from ansys.ensight.core import Launcher
+from ansys.pyensight.core import Launcher
 
 
 class LocalLauncher(Launcher):
@@ -49,7 +49,7 @@ class LocalLauncher(Launcher):
     Examples:
         ::
 
-            from ansys.ensight.core import LocalLauncher
+            from ansys.pyensight.core import LocalLauncher
             # Create one EnSight session
             session1 = LocalLauncher(ansys_installation='/ansys_inc/v232').start()
             # Create a second session (a new LocalLauncher instance is required)

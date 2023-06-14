@@ -1,9 +1,8 @@
 import glob
 import os
 
+from ansys.pyensight.core import DockerLauncher, LocalLauncher
 import pytest
-
-from ansys.ensight.core import DockerLauncher, LocalLauncher
 
 
 def test_renderables(tmpdir, pytestconfig: pytest.Config):

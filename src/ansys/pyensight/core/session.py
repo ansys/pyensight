@@ -4,10 +4,10 @@ The session module allows pyensight to control the EnSight session
 
 Examples:
 
-    >>> from ansys.ensight.core import LocalLauncher
+    >>> from ansys.pyensight.core import LocalLauncher
     >>> session = LocalLauncher().start()
     >>> type(session)
-    ansys.ensight.Session
+    ansys.pyensight.Session
 
 """
 import atexit
@@ -22,10 +22,9 @@ from typing import TYPE_CHECKING, Any, Callable, Dict, Optional, Tuple
 from urllib.parse import urlparse
 import webbrowser
 
-from ansys import pyensight
-from ansys.ensight.core.enscontext import EnsContext
-from ansys.ensight.core.listobj import ensobjlist
-from ansys.ensight.core.renderable import (
+from ansys.pyensight.core.enscontext import EnsContext
+from ansys.pyensight.core.listobj import ensobjlist
+from ansys.pyensight.core.renderable import (
     RenderableDeepPixel,
     RenderableEVSN,
     RenderableImage,
@@ -35,9 +34,11 @@ from ansys.ensight.core.renderable import (
     RenderableWebGL,
 )
 
+from ansys import pyensight
+
 if TYPE_CHECKING:
-    from ansys.ensight.core import enscontext, ensight_api, ensight_grpc, renderable
-    from ansys.ensight.core.ensobj import ENSOBJ
+    from ansys.pyensight.core import enscontext, ensight_api, ensight_grpc, renderable
+    from ansys.pyensight.core.ensobj import ENSOBJ
 
 
 class Session:
@@ -81,12 +82,12 @@ class Session:
     Examples:
         ::
 
-            from ansys.ensight.core import Session
+            from ansys.pyensight.core import Session
             session = Session(host="127.0.0.1", grpc_port=12345, http_port=8000, ws_port=8100)
 
         ::
 
-            from ansys.ensight.core import LocalLauncher
+            from ansys.pyensight.core import LocalLauncher
             session = LocalLauncher().start()
 
     """
@@ -133,7 +134,7 @@ class Session:
             self._jupyter_notebook = False
 
         # Connect to the EnSight instance
-        from ansys.ensight.core import (  # pylint: disable=import-outside-toplevel
+        from ansys.pyensight.core import (  # pylint: disable=import-outside-toplevel
             ensight_api,
             ensight_grpc,
         )
@@ -386,7 +387,7 @@ class Session:
         Examples:
             ::
 
-                from ansys.ensight.core import LocalLauncher
+                from ansys.pyensight.core import LocalLauncher
                 session = LocalLauncher().start()
                 options = dict()
                 options['Verbose mode'] = 'OFF'
@@ -694,7 +695,7 @@ class Session:
         Examples:
             ::
 
-                from ansys.ensight.core import LocalLauncher
+                from ansys.pyensight.core import LocalLauncher
                 session = LocalLauncher().start()
                 session.load_data(r'D:\data\CFX\example_data.res')
 
@@ -792,7 +793,7 @@ class Session:
         Example:
             ::
 
-                from ansys.ensight.core import LocalLauncher
+                from ansys.pyensight.core import LocalLauncher
                 session = LocalLauncher().start()
                 session.load_example("fluent_wing_example.ens")
                 remote = session.show("remote")
@@ -863,7 +864,7 @@ class Session:
             'Event: grpc://f6f74dae-f0ed-11ec-aa58-381428170733/partlist?enum=PARTS&uid=221'
             will be printed when the dataset is loaded and the partlist changes::
 
-                from ansys.ensight.core import LocalLauncher
+                from ansys.pyensight.core import LocalLauncher
                 s = LocalLauncher().start()
                 def cb(v: str):
                     print("Event:", v)
@@ -1134,9 +1135,9 @@ class Session:
                 ctx.save("session_context.ctxz")
 
         """
-        self.cmd("import ansys.ensight.core.enscontext", do_eval=False)
+        self.cmd("import ansys.pyensight.core.enscontext", do_eval=False)
         data_str = self.cmd(
-            f"ansys.ensight.enscontext._capture_context(ensight,{full_context})", do_eval=True
+            f"ansys.pyensight.enscontext._capture_context(ensight,{full_context})", do_eval=True
         )
         context = EnsContext()
         context._from_data(data_str)
@@ -1162,7 +1163,7 @@ class Session:
 
         """
         data_str = context._data(b64=True)
-        self.cmd("import ansys.ensight.core.enscontext", do_eval=False)
+        self.cmd("import ansys.pyensight.core.enscontext", do_eval=False)
         self.cmd(
-            f"ansys.ensight.enscontext._restore_context(ensight,'{data_str}')", do_eval=False
+            f"ansys.pyensight.enscontext._restore_context(ensight,'{data_str}')", do_eval=False
         )

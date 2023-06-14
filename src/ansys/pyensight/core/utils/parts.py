@@ -6,7 +6,7 @@ Example to select all the 3D parts:
 
 ::
     (PyEnSight)
-    from ansys.ensight.core import LocalLauncher
+    from ansys.pyensight.core import LocalLauncher
     session = LocalLauncher().start()
     parts = session.ensight.utils.parts
     parts.select_by_dimension(3)
@@ -23,14 +23,14 @@ try:
     import ensight
     from ensight.objs import ensobjlist  # type: ignore
 except ImportError:
-    from ansys.ensight.core.listobj import ensobjlist
+    from ansys.pyensight.core.listobj import ensobjlist
 
 if TYPE_CHECKING:
     try:
         from ensight.objs import ENS_PART  # type: ignore
     except ImportError:
-        from ansys.ensight.core import ensight_api
-        from ansys.ensight.core.ens_query import ENS_PART
+        from ansys.pyensight.core import ensight_api
+        from ansys.pyensight.core.ens_query import ENS_PART
 
 
 class Parts:

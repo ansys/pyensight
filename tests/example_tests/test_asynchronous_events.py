@@ -16,9 +16,8 @@ with different mechanisms for getting data values.
 
 from urllib.parse import parse_qs, urlparse
 
+from ansys.pyensight.core import DockerLauncher, LocalLauncher
 import pytest
-
-from ansys.ensight.core import DockerLauncher, LocalLauncher
 
 
 def test_async_events(tmpdir, pytestconfig: pytest.Config):

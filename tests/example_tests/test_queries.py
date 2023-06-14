@@ -2,10 +2,9 @@ import glob
 from operator import attrgetter
 import os
 
+from ansys.pyensight.core import DockerLauncher, LocalLauncher
 import numpy as np
 import pytest
-
-from ansys.ensight.core import DockerLauncher, LocalLauncher
 
 
 def test_queries(tmpdir, pytestconfig: pytest.Config):

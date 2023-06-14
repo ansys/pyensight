@@ -81,7 +81,7 @@ much of EnSight itself is written in Python running in this interpreter.
 
 The other interface is PyEnSight. This interface is implemented as a portable
 wheel and can be installed in most any Python interpreter. The interface provided
-by this component resides in the ``ansys.ensight`` module. It is a *remote* interface
+by this component resides in the ``ansys.pyensight`` module. It is a *remote* interface
 in that it actually starts an independent EnSight instance in another process and
 connects to it. Over this connection, the PyEnSight interface makes it possible
 to execute Python commands in the embedded interpreter and return results.

@@ -7,9 +7,8 @@ from collections.abc import Iterable
 import fnmatch
 from typing import Any, List, Optional, TypeVar, no_type_check, overload
 
+from ansys.pyensight.core.ensobj import ENSOBJ
 from typing_extensions import SupportsIndex
-
-from ansys.ensight.core.ensobj import ENSOBJ
 
 T = TypeVar("T")
 

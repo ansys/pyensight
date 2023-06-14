@@ -3,11 +3,10 @@ import platform
 from unittest import mock
 import webbrowser
 
+import ansys.pyensight.core
+from ansys.pyensight.core import Launcher
+import ansys.pyensight.core.renderable
 import pytest
-
-import ansys.ensight.core
-from ansys.ensight.core import Launcher
-import ansys.ensight.core.renderable
 
 
 def test_show(mocked_session, mocker):
@@ -23,7 +22,7 @@ def test_show(mocked_session, mocker):
     session.ensight.objs.core.VARIABLES = vars
     filename = f"{session._launcher.session_directory}/remote_filename"
     mocker.patch.object(
-        ansys.ensight.renderable.Renderable,
+        ansys.pyensight.renderable.Renderable,
         "_generate_filename",
         return_value=(f"{filename}", "remote_filename"),
     )

@@ -19,9 +19,8 @@ with different mechanisms for getting data values.
 from urllib.parse import parse_qs, urlparse
 
 from IPython.display import display
+from ansys.pyensight.core import LocalLauncher
 from ipywidgets import widgets
-
-from ansys.ensight.core import LocalLauncher
 
 session = LocalLauncher().start()
 
