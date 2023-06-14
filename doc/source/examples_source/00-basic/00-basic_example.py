@@ -15,7 +15,7 @@ from an EnSight install and generates a simplistic scene.
 # Start by launching and connecting to an instance of EnSight
 # In this case, we use a local installation of EnSight
 
-from ansys.pyensight.core import LocalLauncher
+from ansys.ensight.core import LocalLauncher
 
 session = LocalLauncher().start()
 core = session.ensight.objs.core

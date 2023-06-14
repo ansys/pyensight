@@ -6,7 +6,7 @@ EnSight session using a local Docker installation via EnShell.
 Examples:
     ::
 
-        from ansys.pyensight.core import DockerLauncherEnShell
+        from ansys.ensight.core import DockerLauncherEnShell
         launcher = DockerLauncherEnShell(data_directory="D:\\data")
         launcher.pull()
         session = launcher.start()
@@ -30,7 +30,7 @@ except Exception:
 from ansys import pyensight
 
 try:
-    from ansys.pyensight.core import enshell_grpc
+    from ansys.ensight.core import enshell_grpc
 except ModuleNotFoundError:
     raise RuntimeError("The enshell_grpc must be installed for DockerLauncherEnShell")
 except Exception:
@@ -67,7 +67,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
     Examples:
         ::
 
-            from ansys.pyensight.core import DockerLauncherEnShell
+            from ansys.ensight.core import DockerLauncherEnShell
             launcher = DockerLauncherEnShell(data_directory="D:\\data")
             launcher.pull()
             session = launcher.start()

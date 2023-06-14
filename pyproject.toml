@@ -93,7 +93,7 @@ Tracker = "https://github.com/ansys/pyensight/issues"
 Changelog =  "https://github.com/ansys/pyensight/blob/main/CHANGELOG.rst"
 
 [tool.flit.module]
-name = "ansys.pyensight.core"
+name = "ansys.ensight.core"
 
 [tool.black]
 line-length = 100

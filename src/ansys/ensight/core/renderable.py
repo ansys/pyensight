@@ -12,7 +12,7 @@ import webbrowser
 import requests
 
 if TYPE_CHECKING:
-    from ansys.pyensight.core import Session
+    from ansys.ensight.core import Session
 
 
 class Renderable:

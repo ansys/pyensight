@@ -14,10 +14,10 @@ shared with EnSight.
 ``ensight_api`` class
 ---------------------
 The ``ensight_api`` class should never be used directly. An instance is available via the ``ensight`` 
-property on the ``ansys.pyensight.Session`` class. Thus, an EnSight call like
+property on the ``ansys.ensight.Session`` class. Thus, an EnSight call like
 ``ensight.part.select_all()`` is available in PyEnSight as the ``session.ensight.part.select_all()``
 method. Generally, most scripts written for the embedded EnSight Python interpreter should work with 
-PyEnSight using the ``ansys.pyensight.Session.ensight`` interface.
+PyEnSight using the ``ansys.ensight.Session.ensight`` interface.
 
 
 .. toctree::

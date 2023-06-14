@@ -7,8 +7,8 @@ from unittest import mock
 
 import pytest
 
-import ansys.pyensight.core
-from ansys.pyensight.core import DockerLauncher, LocalLauncher, Session, ensight_grpc
+import ansys.ensight.core
+from ansys.ensight.core import DockerLauncher, LocalLauncher, Session, ensight_grpc
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
@@ -20,13 +20,13 @@ def pytest_addoption(parser: pytest.Parser) -> None:
     parser.addoption(
         "--install-path",
         action="store",
-        default=f"/ansys_inc/v{ansys.pyensight.__ansys_version__}/",
+        default=f"/ansys_inc/v{ansys.ensight.__ansys_version__}/",
     )
     parser.addoption("--use-local-launcher", default=False, action="store_true")
 
 
 @pytest.fixture
-def local_launcher_session(pytestconfig: pytest.Config) -> "ansys.pyensight.Session":
+def local_launcher_session(pytestconfig: pytest.Config) -> "ansys.ensight.Session":
     session = LocalLauncher(ansys_installation=pytestconfig.getoption("install_path")).start()
     yield session
     session.close()
@@ -50,7 +50,7 @@ def cleanup_docker(request) -> None:
 
 
 @pytest.fixture
-def docker_launcher_session() -> "ansys.pyensight.Session":
+def docker_launcher_session() -> "ansys.ensight.Session":
     cleanup_docker()
     launcher = DockerLauncher(data_directory=".", use_dev=True)
     launcher.pull()
@@ -60,7 +60,7 @@ def docker_launcher_session() -> "ansys.pyensight.Session":
 
 
 @pytest.fixture
-def mocked_session(mocker, tmpdir) -> "ansys.pyensight.Session":
+def mocked_session(mocker, tmpdir) -> "ansys.ensight.Session":
     cmd_mock = mock.MagicMock("cmd_mock")
     mock_dict = {"a": 1, "b": 2, "c": 3}
     cmd_mock.items = lambda: mock_dict.items()
@@ -69,7 +69,7 @@ def mocked_session(mocker, tmpdir) -> "ansys.pyensight.Session":
     mocked_grpc.is_connected = lambda: True
     mocked_grpc.connect = mock.MagicMock("execute_connection")
     mocker.patch.object(ensight_grpc, "EnSightGRPC", return_value=mocked_grpc)
-    mocker.patch.object(ansys.pyensight.Session, "cmd", return_value=cmd_mock)
+    mocker.patch.object(ansys.ensight.Session, "cmd", return_value=cmd_mock)
     session_dir = tmpdir.mkdir("test_dir")
     remote = session_dir.join("remote_filename")
     remote.write("test_html")

@@ -138,7 +138,7 @@ The simplest PyEnSight session may be started like this:
 
 .. code:: python
 
-   >>> from ansys.pyensight.core import LocalLauncher
+   >>> from ansys.ensight.core import LocalLauncher
    >>> session = LocalLauncher().start()
    >>> data = session.render(1920, 1080, aa=4)
    >>> with open("image.png", "wb") as f:
@@ -149,7 +149,7 @@ Optionally, PyEnSight can work with an EnSight Docker container like this:
 
 .. code:: python
 
-   >>> from ansys.pyensight.core import DockerLauncher
+   >>> from ansys.ensight.core import DockerLauncher
    >>> launcher = DockerLauncher(data_directory="d:/data", use_dev=True)
    >>> launcher.pull()
    >>> session = launcher.start()

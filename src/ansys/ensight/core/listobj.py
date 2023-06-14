@@ -9,7 +9,7 @@ from typing import Any, List, Optional, TypeVar, no_type_check, overload
 
 from typing_extensions import SupportsIndex
 
-from ansys.pyensight.core.ensobj import ENSOBJ
+from ansys.ensight.core.ensobj import ENSOBJ
 
 T = TypeVar("T")
 

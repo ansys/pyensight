@@ -96,7 +96,7 @@ def test(local: bool = False) -> None:
         pytest,
         "-rvx",
         "--setup-show",
-        "--cov=ansys.pyensight",
+        "--cov=ansys.ensight",
         "--cov-report",
         "html:coverage-html",
         "--cov-report",

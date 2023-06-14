@@ -26,7 +26,7 @@ like Numpy.
 
 import numpy as np
 
-from ansys.pyensight.core import LocalLauncher
+from ansys.ensight.core import LocalLauncher
 
 session = LocalLauncher().start()
 

@@ -3,7 +3,7 @@ from unittest import mock
 import pytest
 import requests
 
-from ansys.pyensight.core import Launcher
+from ansys.ensight.core import Launcher
 
 
 def test_find_unused_port(mocker):

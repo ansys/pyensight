@@ -6,7 +6,7 @@ The ensobj module provides the base class to all EnSight proxy objects
 from typing import TYPE_CHECKING, Any, List, Optional, no_type_check
 
 if TYPE_CHECKING:
-    from ansys.pyensight.core import Session
+    from ansys.ensight.core import Session
 
 
 class ENSOBJ(object):

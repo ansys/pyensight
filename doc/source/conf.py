@@ -9,10 +9,10 @@ from sphinx_gallery.sorting import FileNameSortKey
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src", "ansys"))
-from ansys.pyensight.core import __version__  # noqa
+from ansys.ensight.core import __version__  # noqa
 
 # Project information
-project = "ansys.pyensight"
+project = "ansys.ensight"
 copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "Ansys Inc."
 release = version = __version__

@@ -21,7 +21,7 @@ Enabling Access via PyEnSight
 
 The REST service can be started via the pyensight LocalLauncher::
 
-    from ansys.pyensight.core import LocalLauncher
+    from ansys.ensight.core import LocalLauncher
     s = LocalLauncher(enable_rest_api=True).start()
     s.load_data(f"{s.cei_home}/ensight{s.cei_suffix}/data/cube/cube.case")
     print(f"http://{s.hostname}:{s.html_port}/ensight/v1/{s.secret_key}/eval")

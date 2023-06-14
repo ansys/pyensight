@@ -18,7 +18,7 @@ from urllib.parse import parse_qs, urlparse
 
 import pytest
 
-from ansys.pyensight.core import DockerLauncher, LocalLauncher
+from ansys.ensight.core import DockerLauncher, LocalLauncher
 
 
 def test_async_events(tmpdir, pytestconfig: pytest.Config):

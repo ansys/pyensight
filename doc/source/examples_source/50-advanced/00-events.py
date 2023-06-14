@@ -21,7 +21,7 @@ from urllib.parse import parse_qs, urlparse
 from IPython.display import display
 from ipywidgets import widgets
 
-from ansys.pyensight.core import LocalLauncher
+from ansys.ensight.core import LocalLauncher
 
 session = LocalLauncher().start()
 

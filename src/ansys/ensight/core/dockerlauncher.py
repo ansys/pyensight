@@ -6,7 +6,7 @@ EnSight session using a local Docker installation.
 Examples:
     ::
 
-        from ansys.pyensight.core import DockerLauncher
+        from ansys.ensight.core import DockerLauncher
         launcher = DockerLauncher(data_directory="D:\\data")
         launcher.pull()
         session = launcher.start()
@@ -49,7 +49,7 @@ class DockerLauncher(pyensight.Launcher):
     Examples:
         ::
 
-            from ansys.pyensight.core import DockerLauncher
+            from ansys.ensight.core import DockerLauncher
             launcher = DockerLauncher(data_directory="D:\\data")
             launcher.pull()
             session = launcher.start()

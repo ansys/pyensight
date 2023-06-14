@@ -34,7 +34,7 @@ test:
 
 
 smoketest:
-	python -c "from ansys.pyensight.core import LocalLauncher, DockerLauncher"
+	python -c "from ansys.ensight.core import LocalLauncher, DockerLauncher"
 
 clean:
 	rm -rf dist build
