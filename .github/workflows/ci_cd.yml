@@ -17,6 +17,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+jobs:
   style:
     name: Code style
     runs-on: ubuntu-latest
