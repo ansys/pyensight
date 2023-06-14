@@ -37,15 +37,15 @@ def test_utils(tmpdir, pytestconfig: pytest.Config):
         clip_default = core.DEFAULTPARTS[ensight.PART_CLIP_PLANE]
         clip = clip_default.createpart(name="XClip", sources=parts.select_parts_by_dimension(3))[0]
         attrs = []
-        attrs.append(["MESHPLANE", 2])  # Z axis
-        attrs.append(["TOOL", 9])  # XYZ Tool
+        attrs.append(["MESHPLANE", ensight.objs.enums.MESH_SLICE_Z])  # Z axis
+        attrs.append(["TOOL", ensight.objs.enums.CT_XYZ])  # XYZ Tool
         attrs.append(["VALUE", 0.55])  # Z value
         zclip = clip_default.createpart(name="ZClip", sources=clip)[0]
         query.create_distance(
             "zlip_query", query.DISTANCE_PART1D, [zclip], core.VARIABLES["p"][0], new_plotter=True
         )
         zclip_state = session.capture_context()
-    session.show("remote")
+    session.show("remote").browser()
     # Change the view to test the view restoring
     session.ensight.view_transf.rotate(-66.5934067, 1.71428561, 0)
     session.ensight.view_transf.rotate(18.0219765, -31.6363659, 0)
