@@ -296,6 +296,9 @@ class DockerLauncher(pyensight.Launcher):
             cmd2 += " --http_port " + str(ports[2])
             # vnc port
             cmd2 += " --client_port " + str(ports[1])
+            if self._enable_rest_api:
+                # grpc port
+                cmd2 += " --grpc_port " + str(ports[0])
             # EnVision sessions
             cmd2 += " --local_session envision 5"
             # websocket port

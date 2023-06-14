@@ -174,6 +174,9 @@ class LocalLauncher(pyensight.Launcher):
             cmd.extend(["--http_port", str(self._ports[2])])
             # vnc port
             cmd.extend(["--client_port", str(self._ports[1])])
+            if self._enable_rest_api:
+                # grpc port
+                cmd.extend(["--grpc_port", str(self._ports[0])])
             # EnVision sessions
             cmd.extend(["--local_session", "envision", "5"])
             # websocket port
