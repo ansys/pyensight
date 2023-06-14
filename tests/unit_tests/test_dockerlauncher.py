@@ -5,7 +5,7 @@ from unittest import mock
 import docker
 import pytest
 
-import ansys.pyensight
+import ansys.pyensight.core
 from ansys.pyensight.core import DockerLauncher
 
 

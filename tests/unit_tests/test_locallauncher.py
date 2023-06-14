@@ -6,7 +6,7 @@ from unittest import mock
 
 import pytest
 
-import ansys.pyensight
+import ansys.pyensight.core
 from ansys.pyensight.core import LocalLauncher
 
 

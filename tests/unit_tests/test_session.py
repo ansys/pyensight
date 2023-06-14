@@ -3,11 +3,11 @@ import platform
 from unittest import mock
 import webbrowser
 
-import ansys.pyensight.renderable
 import pytest
 
-import ansys.pyensight
+import ansys.pyensight.core
 from ansys.pyensight.core import Launcher
+import ansys.pyensight.core.renderable
 
 
 def test_show(mocked_session, mocker):
