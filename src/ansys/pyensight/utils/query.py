@@ -404,8 +404,7 @@ class Query:
         if single:
             self._ensight.query_ent_var.part_id(part_list[0])
 
-    @staticmethod
-    def _get_variable(v: Any, default: Optional[str] = None) -> Optional[str]:
+    def _get_variable(self, v: Any, default: Optional[str] = None) -> Optional[str]:
         """Convert a generic argument into a variable name string
 
         Convert a generic object into a variable name. Valid inputs
@@ -422,6 +421,8 @@ class Query:
         if v is None:
             return default
         elif type(v) is str:
+            if v not in self._ensight.objs.core.VARIABLES.get_attr("DESCRIPTION"):
+                raise ValueError("The variable supplied does not exist.")
             return v
         else:
             return v.DESCRIPTION
