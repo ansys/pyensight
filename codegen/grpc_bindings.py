@@ -23,7 +23,7 @@ def generate_bindings(app: str = "ensight") -> None:
 
     # Get the default Ansys version number
     sys.path.append("../src")
-    from ansys.pyensight._version import (  # pylint: disable=import-outside-toplevel
+    from ansys.pyensight.core._version import (  # pylint: disable=import-outside-toplevel
         DEFAULT_ANSYS_VERSION,
         VERSION,
     )

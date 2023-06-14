@@ -8,7 +8,7 @@ from unittest import mock
 import pytest
 
 import ansys.pyensight
-from ansys.pyensight import DockerLauncher, LocalLauncher, Session, ensight_grpc
+from ansys.pyensight.core import DockerLauncher, LocalLauncher, Session, ensight_grpc
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:

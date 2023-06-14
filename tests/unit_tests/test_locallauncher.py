@@ -7,7 +7,7 @@ from unittest import mock
 import pytest
 
 import ansys.pyensight
-from ansys.pyensight import LocalLauncher
+from ansys.pyensight.core import LocalLauncher
 
 
 def test_start(mocker):

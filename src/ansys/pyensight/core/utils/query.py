@@ -5,8 +5,8 @@ if TYPE_CHECKING:
         import ensight
         from ensight.objs import ENS_QUERY  # type: ignore
     except ImportError:
-        from ansys.pyensight import ensight_api
-        from ansys.pyensight.ens_query import ENS_QUERY
+        from ansys.pyensight.core import ensight_api
+        from ansys.pyensight.core.ens_query import ENS_QUERY
 
 
 class Query:

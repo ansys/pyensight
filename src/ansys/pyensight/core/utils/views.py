@@ -6,7 +6,7 @@ Example to set an isometric view:
 
 ::
     (PyEnSight)
-    from ansys.pyensight import LocalLauncher
+    from ansys.pyensight.core import LocalLauncher
     session = LocalLauncher().start()
     views = session.ensight.utils.views
     views.set_view_direction(1,1,1)
@@ -25,7 +25,7 @@ if TYPE_CHECKING:
     try:
         import ensight
     except ImportError:
-        from ansys.pyensight import ensight_api
+        from ansys.pyensight.core import ensight_api
 
 
 class Views:

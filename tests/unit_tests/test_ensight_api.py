@@ -3,7 +3,7 @@ import os
 import re
 from typing import List
 
-from ansys.pyensight import ensight_api, ensobj
+from ansys.pyensight.core import ensight_api, ensobj
 
 
 def test_ensight_api(mocked_session, mocker):

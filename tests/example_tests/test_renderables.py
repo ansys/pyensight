@@ -3,7 +3,7 @@ import os
 
 import pytest
 
-from ansys.pyensight import DockerLauncher, LocalLauncher
+from ansys.pyensight.core import DockerLauncher, LocalLauncher
 
 
 def test_renderables(tmpdir, pytestconfig: pytest.Config):

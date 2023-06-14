@@ -4,7 +4,7 @@ import webbrowser
 
 import requests
 
-from ansys.pyensight import launcher, renderable
+from ansys.pyensight.core import launcher, renderable
 
 
 def test_generate_filename(mocked_session):

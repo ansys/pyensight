@@ -14,7 +14,7 @@ except ImportError:
     import enshell_pb2
     import enshell_pb2_grpc
 
-from ansys.pyensight._version import (  # pylint: disable=import-outside-toplevel
+from ansys.pyensight.core._version import (  # pylint: disable=import-outside-toplevel
     DEFAULT_ANSYS_VERSION,
 )
 

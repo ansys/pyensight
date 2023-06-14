@@ -6,7 +6,7 @@ instance.  Subclasses of the class implement specific launching paradighms.
 Examples:
     ::
 
-        from ansys.pyensight import LocalLauncher
+        from ansys.pyensight.core import LocalLauncher
         session = LocalLauncher().start()
 
 """
@@ -21,7 +21,7 @@ import requests
 from ansys import pyensight
 
 if TYPE_CHECKING:
-    from ansys.pyensight import Session
+    from ansys.pyensight.core import Session
 
 # Don't remove this line.  The idna encoding
 # is used by getaddrinfo when dealing with unicode hostnames,

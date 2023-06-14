@@ -6,7 +6,7 @@ import docker
 import pytest
 
 import ansys.pyensight
-from ansys.pyensight import DockerLauncher
+from ansys.pyensight.core import DockerLauncher
 
 
 def test_start(mocker, capsys, caplog):

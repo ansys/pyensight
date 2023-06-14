@@ -68,7 +68,7 @@ over Python code execution.
 
 import time
 
-from ansys.pyensight import LocalLauncher
+from ansys.pyensight.core import LocalLauncher
 
 session = LocalLauncher().start()
 session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/guard_rail/crash.case")

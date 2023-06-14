@@ -17,7 +17,7 @@ variety of available Renderables is explored.
 # Start by launching and connecting to an instance of EnSight
 # In this case, we use a local installation of EnSight
 
-from ansys.pyensight import LocalLauncher
+from ansys.pyensight.core import LocalLauncher
 
 session = LocalLauncher().start()
 
