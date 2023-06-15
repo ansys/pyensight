@@ -12,8 +12,8 @@ on the Ansys website.
 
 Installation
 ------------
-The ``ansys-ensight`` package supports Python 3.7 through
-Python 3.10 on Windows and Linux.
+The ``ansys-ensight`` package supports Python 3.8 through
+Python 3.11 on Windows and Linux.
 
 Install the latest package with this code:
 

@@ -141,7 +141,7 @@ recursive = true
 exclude = ["venv/*","src/ansys/api/*","src/ansys/pyensight/ensight_api.py","setup.py,tests/*","codegen/*"]
 
 [tool.mypy]
-python_version = 3.7
+python_version = 3.8
 strict = false
 namespace_packages = true
 explicit_package_bases = true
