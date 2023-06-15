@@ -38,6 +38,7 @@ jobs:
 
   smoketest:
     name: Smoke test
+    needs: [style]
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
@@ -66,6 +67,7 @@ jobs:
 
   build_and_test:
     name: Build & test
+    needs: [smoketest]
     runs-on: ubuntu-latest
 
     steps:
@@ -253,7 +255,7 @@ jobs:
   build-failure:
     name: Teams notify on failure
     if: failure() && (github.event_name == 'pull_request' || github.ref == 'refs/heads/main' || github.ref_type == 'tag')
-    needs: [style, smoketest, build_and_test ]
+    needs: [smoketest, build_and_test ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
