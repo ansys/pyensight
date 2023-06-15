@@ -11,8 +11,8 @@ that allows Javascript code to directly access the EnSight Python APIs.
 
 .. note::
 
-    **The information here is for informational purposes only.  The API has
-    been defined, but is not currently enabled in EnSight.   It will be
+    **The information here is for informational purposes only. The API has
+    been defined, but is not currently enabled in EnSight. It will be
     released in 2024 R1**
 
 

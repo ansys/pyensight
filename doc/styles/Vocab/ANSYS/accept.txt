@@ -13,3 +13,6 @@ Protobuf
 SciPy
 subpackage
 PyPI
+antialiasing
+journaling
+ensight

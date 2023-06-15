@@ -3,8 +3,8 @@
 EnSight Python Scripts: Running and Debugging
 =============================================
 
-EnSight supports the notion of a "Python script", a parallel construct to the command language
-journaling script, the ".enc" file.  This is a file of Python commands that can be directly
+EnSight supports the notion of a Python script, a parallel construct to the command language
+journaling script, the ".enc" file. This is a file of Python commands that can be directly
 run from the EnSight command line or via the Python script editor built into EnSight.
 Many EnSight Python scripts are written using the 'Python' tab script editor in the command
 dialog, often by translating EnSight command language into Python via the built-in tools.
@@ -22,7 +22,7 @@ An example of such a script might be::
 
 
 Which is effectively line by line translation from EnSight command language into the native
-Python bindings (:ref:`ref_cmdlang_native`).  Such scripts can be executed by the script
+Python bindings (:ref:`ref_cmdlang_native`). Such scripts can be executed by the script
 editor "Run script" or the "Import script as module" commands.
 As one might note, these scripts assume that the 'ensight' module has been imported, making
 it difficult to run them from inside of a PyEnSight session, where the ``ensight`` module is a
@@ -42,8 +42,8 @@ the following session can be used to run the script via the PyEnSight module::
     _ = session.run_script("/home/ensight/example.py")
 
 
-This will cause the file ``example.py`` to be imported into the interpreter.  This will result in
-an ``example`` module being imported.  The imported module will have the symbol ``ensight`` set to
+This will cause the file ``example.py`` to be imported into the interpreter. This will result in
+an ``example`` module being imported. The imported module will have the symbol ``ensight`` set to
 the current session ``ensight`` property and will use that interface to execute the script
 commands remotely.
 
@@ -52,7 +52,7 @@ Debugging EnSight Python Scripts
 --------------------------------
 
 A common request is to be able to write and debug EnSight Python scripts in integrated development
-environments (IDEs) like Visual Studio Code.  One example would include a file
+environments (IDEs) like Visual Studio Code. One example would include a file
 named ``example.py``::
 
     for vp in ensight.objs.core.VPORTS:
@@ -87,10 +87,10 @@ added to ``sys.path``, if it has not been already.
 Speed
 `````
 
-There is a significant difference in the speed with which the code can be executed.  This
-is because the ``ensight`` commands will be executed remotely and the results returned.  The
+There is a significant difference in the speed with which the code can be executed. This
+is because the ``ensight`` commands will be executed remotely and the results returned. The
 work-around for this is to use the Session.exec() method, but it requires that the code
-in the Python script must be re-written as a function.  In debugging situations, this may
+in the Python script must be re-written as a function. In debugging situations, this may
 not be a major issue.
 
 
@@ -98,9 +98,9 @@ not be a major issue.
 ````````````````
 
 Another difference is that the nature of the ``ensight`` object in the script is very different.
-When running in EnSight, it is a true Python module.   When running via ``run_script()``, the object
-is an instance of the ``ensight_api`` class.  In general, these both provide the same API, but
-it is not identical.  This, this approach includes the general API limitations
+When running in EnSight, it is a true Python module. When running via ``run_script()``, the object
+is an instance of the ``ensight_api`` class. In general, these both provide the same API, but
+it is not identical. This, this approach includes the general API limitations
 described here :ref:`api_differences`.
 
 

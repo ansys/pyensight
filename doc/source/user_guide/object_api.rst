@@ -78,7 +78,7 @@ There are a collection of methods for accessing attributes. Here is an example::
 
 Attribute names may be specified using string names or enums. There are multiple
 interfaces to get or set attributes. You can use the ``attrinfo()`` or ``attrtree()``
-method to access detailed information about an attribute.  Descriptions of attributes
+method to access detailed information about an attribute. Descriptions of attributes
 are available in multiple languages, which can be selected via the :samp:`session.language`
 property.
 
