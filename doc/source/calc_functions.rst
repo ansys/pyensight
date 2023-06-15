@@ -14,40 +14,40 @@ The native API function :meth:`pyensight.ensight_api.variables.evaluate` and the
 object API function :meth:`pyensight.ens_globals.ENS_GLOBALS.create_variable`
 can be used to create new EnSight variables that leverage these calculator functions.
 These function use a string representation of the function to create the
-new variable.  Note that most calculator functions take a partlist ('plist') as
-a parameter.  In the native API, the string 'plist' is used, to refer to the currently
-selected parts.  In the object API, one uses the same 'plist' text string, but the
+new variable. Note that most calculator functions take a partlist ('plist') as
+a parameter. In the native API, the string 'plist' is used, to refer to the currently
+selected parts. In the object API, one uses the same 'plist' text string, but the
 selection of parts to be used can be specified directly via the 'source' keyword.
 
 Examples::
 
     # Create a new variable named 'newvar1' using the :ref:`CmplxTransResp <CmplxTransResp>`
-    # calculator function and the input variable 'c_scalar'.  The variable will be defined on
+    # calculator function and the input variable 'c_scalar'. The variable will be defined on
     # all of the current parts.
     session.ensight.part.select_all()
     session.ensight.variables.evaluate("newvar1 = CmplxTransResp(plist,c_scalar,90.0)")
     # Create a new variable named 'newvar2' using the :ref:`EleSize <EleSize>`
-    # calculator function.  The variable will be defined on all of the current parts.
+    # calculator function. The variable will be defined on all of the current parts.
     varobj = session.ensight.objs.core.create_variable("newvar2", "EleSize(plist)",
                                                        sources=session.ensight.objs.core.PARTS)
 
 
 .. admonition::  Per-part Constants
 
-    Some calculator functions (for example :ref:`Area() <Area>`) return constant values.  EnSight
-    supports constant values that are per-case and per-part.  For example, if *Area()* is
+    Some calculator functions (for example :ref:`Area() <Area>`) return constant values. EnSight
+    supports constant values that are per-case and per-part. For example, if *Area()* is
     computed as a per-case constant, the value will be the sum of the area values computed
-    part by part.   If *Area()* is computed as a per-part constant, the individual values
+    part by part. If *Area()* is computed as a per-part constant, the individual values
     for each part will be stored on each part.
 
-    By default, all constant values are computed as per-case.  If per-part computation is
-    desired, an optional additional argument is added to the function.  For example, "Area(plist)"
-    results in a per-case constant by default.  "Area(plist,Compute_Per_case)" is also computed
-    as per-case, explicitly.  "Area(plist,Compute_Per_part)" will result in the variable being
+    By default, all constant values are computed as per-case. If per-part computation is
+    desired, an optional additional argument is added to the function. For example, "Area(plist)"
+    results in a per-case constant by default. "Area(plist,Compute_Per_case)" is also computed
+    as per-case, explicitly. "Area(plist,Compute_Per_part)" will result in the variable being
     computed as per-part.
 
-    Not all calculator functions support this.  For those that do, this will be noted by the
-    notion ``[,Compute_Per_part]`` in this documentation.  See: :ref:`Area() <Area>` for an
+    Not all calculator functions support this. For those that do, this will be noted by the
+    notion ``[,Compute_Per_part]`` in this documentation. See: :ref:`Area() <Area>` for an
     example.
 
 
@@ -974,12 +974,12 @@ The distance normal from the surface to where:
     See the following references for more detailed explanations.
 
     #. P.M. Gerhart, R.J. Gross, & J.I. Hochstein, Fundamentals
-       of Fluid Mechanics, 2nd Ed.,(Addison-Wesley: New York, 1992)
+       of Fluid Mechanics, second Ed.,(Addison-Wesley: New York, 1992)
 
     #. P. Spalart, A Reasonable Method to Compute Boundary-Layer
        Parameters from Navier-Stokes Results, (Unpublished: Boeing, 1992)
 
-    #. H. Schlichting & K. Gersten, Boundary Layer Theory, eigthth
+    #. H. Schlichting & K. Gersten, Boundary Layer Theory, eighth
        Ed., (Springer-Verlag: Berlin, 2003)
 
 
@@ -1990,9 +1990,9 @@ Nodes are designated by their node ids, so the part must have node ids.
     If you have a static geometry with visual displacement turned on then ``dis2nodes`` will
     not use the displacement in its calculations. You will need to enable server-side
     (computational) displacement. If you have changing
-    coordinate geometry, then ``dist2node`` works without adjustment.  If you have changing
+    coordinate geometry, then ``dist2node`` works without adjustment. If you have changing
     connectivity then ``dist2node`` should not be used as it may give nonsensical results
-    because connectivity is re-evaluated each timestep and node ids may be reassigned.
+    because connectivity is re-evaluated each time step and node ids may be reassigned.
 
     For transient results, to find the distance between two nodes on different parts, or
     between two nodes if one or both don't have ids, or the ids are not unique for the model
@@ -2313,7 +2313,7 @@ one of the following:
     * - 24
       - Aspect beta
       - tetra4
-      - Radius ratio of a positively-oriented tetrahedron.
+      - Radius ratio of a positively oriented tetrahedron.
 
     * - 25
       - Aspect gamma
@@ -2445,7 +2445,7 @@ EnSight Element types:
 
 
 The implementation is based on the BSD implementation of
-the **Sandia Verdict Library**.  For more detail on individual
+the **Sandia Verdict Library**. For more detail on individual
 metrics, see the following references:
 
     #. C. J. Stimpson, C. D. Ernst, P. Knupp, P. P. Pebay, & D.
@@ -3411,7 +3411,7 @@ IblankingValues()
 ``IblankingValues(Any iblanked structured parts)``
 
 
-Computes a scalar variable whose value is the iblanking
+Computes a scalar variable whose value is the Iblanking
 flag of selected parts. Returns undefined for unstructured parts.
 
 
@@ -3609,7 +3609,7 @@ where:
     :math:`Q={S}^{2}+{\Omega }^{2}`
 
     Next compute and sort the eigenvalues of :math:`Q`  (using Jacobi eigen analysis), and
-    assign the 2nd eigenvalue, or :math:`{\lambda }_{2}`, as the scalar value at the node.
+    assign the second eigenvalue, or :math:`{\lambda }_{2}`, as the scalar value at the node.
 
     :math:`{\lambda }_{1}<{\lambda }_{2}<{\lambda }_{3}`
 
@@ -3862,7 +3862,7 @@ MatSpecies()
 
 **MatSpecies**
 
-``MatSpecies(any model parts, any material(s), any specie(s), scalar per element).``
+``MatSpecies(any model parts, any materials, any species, scalar per element).``
 
 
 Computes a scalar per element variable whose value
@@ -3891,7 +3891,7 @@ where:
 
 
 This function only operates on model parts with
-pre-defined species. The specified material(s) can either be a list of materials
+pre-defined species. The specified materials can either be a list of materials
 or a single material value. The specified species can either be a list, a single
 specie, or no specie (that is a null species list which then computes an element
 value based on only material fraction contributions). The scalar per element
@@ -4304,10 +4304,10 @@ Computes a scalar (or vector) variable defined as the
 offset value into the field of that variable that exists in the normal direction
 from the boundary of the selected part. This assigns near surface values of a
 variable to the surface of the selected parts from the neighboring 3D field
-(which is found automatically using the selected parts surface(s).
+(which is found automatically using the selected parts surfaces.
 
 In other words, this function gets the value of a
-variable from surrounding field(s), a fixed distance from the surface of the
+variable from surrounding fields, a fixed distance from the surface of the
 selected parts and assigns it to the surface of the selected part. For
 example, you might use this function to get the value of the velocity in the
 flow field a slight distance above your vehicle surface and assign that value to
@@ -4315,7 +4315,7 @@ your vehicle surface.
 
 To use this function, select parts in the part list
 that you want to use, enter a variable and an offset. EnSight will auto detect
-the 3D field parts adjacent to your selected parts surface(s) and reach into
+the 3D field parts adjacent to your selected parts surfaces and reach into
 these fields by your offset in the normal direction to obtain the variable value
 and then assign it to the surface of your selected parts.
 
@@ -4349,7 +4349,7 @@ PartNumber()
 
 
 Computes a constant per part variable which is the GUI
-part number, if the part is a server-side part.  If computed as 'Compute_Per_case', the value
+part number, if the part is a server-side part. If computed as 'Compute_Per_case', the value
 will be the maximum part number.
 
 
@@ -5224,8 +5224,8 @@ where:
 
 
 
-To compute candidate shock surface(s), create an
-isosurface of the calculated variable, shockplot3d = 1.0. These shock region(s)
+To compute candidate shock surfaces, create an
+isosurface of the calculated variable, shockplot3d = 1.0. These shock regions
 can be verified by overlaying them with :math:`Mach\ge 1.0`
 
 Also consider comparing with the Shock Region/Surface
@@ -5576,7 +5576,7 @@ StatRegSpa()
 
 Performs classical multivariate linear regression,
 predicting y = f(x0,x1,x2,x3,x4). The regression is performed at the current
-timestep using all of the nodes/elements of the selected parts. At each
+time step using all of the nodes/elements of the selected parts. At each
 node/element, the input values y, x0, x1, x2, x3, x4 and weight are evaluated
 and added as an observation to the regression with the supplied weight (in the
 range [0.0-1.0]). If the model does not require 5 inputs, any of them can be
@@ -6077,7 +6077,7 @@ vector, or constant, timestep1, timestep2)``
 
 Computes a scalar, vector, or constant variable, depending on which
 type was selected, whose value is the mean value of the selected variable over
-the interval from timestep1 to timestep2. Therefore, the resultant variable is
+the interval from time step 1 to time step 2. Therefore, the resultant variable is
 independent of time. The temporal mean is the discrete integral of the variable
 over time (using the **Trapezoidal Rule**) divided by the total
 time interval. Because any derived parts may vary in size over time, this
@@ -6186,7 +6186,7 @@ variable will be needed. For example:
 
 If computing from 3 principals, three scalar variables
 representing sigma_1, sigma_2, and sigma_3 will be needed. Additionally, you
-must enter a -1 constant for the last three entries.  For example:
+must enter a -1 constant for the last three entries. For example:
 
 ``TensorDeterminant(plist, sigma_1, sigms_2, sigma_3, -1, -1, -1)``
 
@@ -6278,13 +6278,13 @@ function will require either 1 or 6 entries beyond the parts, as indicated
 below:
 
 If computing from a tensor variable, a single tensor
-variable will be needed.  For example:
+variable will be needed. For example:
 
 ``TensorTresca(plist, Stress)``
 
 If computing from 3 principals, three scalar variables
 representing sigma_1, sigma_2, and sigma_3 will be needed. Additionally, you
-must enter a -1 constant for the last three entries.  For example:
+must enter a -1 constant for the last three entries. For example:
 
 ``TensorTresca(plist, sigma_1, sigms_2, sigma_3, -1, -1, -1)``
 
@@ -6579,7 +6579,7 @@ where:
         vortex center approximation method "...a dimensionless scalar,
         with G1 bounded by 1. It can be shown that this bound is
         reached at the location of the vortex centre if the vortex is
-        axisymmetrical. Therefore, this scalar function provides a way
+        axis symmetrical. Therefore, this scalar function provides a way
         to quantify the streamline topology of the flow in the vicinity
         of P and the rotation sign of the vortex. ... Typically, near
         the vortex centre, G1 reaches values ranging from 0.9 to 1.0"
@@ -6589,7 +6589,7 @@ where:
         boundary approximation method resulting in a dimensionless
         scalar, "... a local function depending only on W and μ,
         where W is the rotation rate corresponding to the
-        antisymmetrical part of the velocity gradient at P and μ is
+        anti symmetrical part of the velocity gradient at P and μ is
         the eigenvalue of the symmetrical part of this tensor. (see Note
         below)" [ref.2, 1425]
     * - k
@@ -6682,7 +6682,7 @@ where:
 
 .. note::
 
-    Recall that ω is the rotation rate for the antisymmetrical part of
+    Recall that ω is the rotation rate for the anti symmetrical part of
     the velocity gradient and that μ is the eigenvalue of the symmetric part
     of the tensor. The local character of the flow may be classified for
     β2 in the following manner (based on figure 4 in [ref.2, 1425] which
