@@ -38,6 +38,7 @@ jobs:
 
   smoketest:
     name: Smoke test
+    needs: [style]
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
@@ -66,7 +67,7 @@ jobs:
 
   build_and_test:
     name: Build & test
-    needs: [ linter, smoketest ]
+    needs: [smoketest]
     runs-on: ubuntu-latest
 
     steps:
