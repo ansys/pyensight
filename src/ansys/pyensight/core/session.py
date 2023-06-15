@@ -645,12 +645,18 @@ class Session:
                     continue
                 _cap_name = _name[0].upper() + _name[1:]
                 # import the module
-                _module = __import__(_name)
-                # get the class from the module (query.py filename -> Query() object)
-                _the_class = getattr(_module, _cap_name)
-                # Create an instance, using ensight as the EnSight interface
-                # and place it in this module.
-                setattr(self._ensight.utils, _name, _the_class(self._ensight))
+                spec = importlib.util.spec_from_file_location(
+                    f"ansys.pyensight.utils.{_name}", _filename
+                )
+                if spec:
+                    _module = importlib.util.module_from_spec(spec)
+                    if spec.loader:
+                        spec.loader.exec_module(_module)
+                    # get the class from the module (query.py filename -> Query() object)
+                    _the_class = getattr(_module, _cap_name)
+                    # Create an instance, using ensight as the EnSight interface
+                    # and place it in this module.
+                    setattr(self._ensight.utils, _name, _the_class(self._ensight))
             except Exception as e:
                 # Warn on import errors
                 print(f"Error loading ensight.utils from: '{_filename}' : {e}")
