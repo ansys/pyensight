@@ -3008,7 +3008,7 @@ where:
     #. Use Gradient function on velocity to obtain Velocity Grad variable in the 3D parts of
        interest.
 
-    #. Create a clip part or extract the outer surface of the part using part extract
+    #. Create a part clip or extract the outer surface of the part using part extract
        (create a 2D part from the 3D parts used above) a surface on which you wish to see
        the fluid shear stress.
 
@@ -6622,7 +6622,7 @@ where:
     * - If k=2
       - VM = V(M) - V(P).
     * - n
-      - A unit vector normal to the 2D clip plane parent
+      - A unit vector normal to the 2D plane parent clip
         part.
     * - :math:`θ_M`
       - The angle between VM and PM. Since -1 < sin(QM) < 1
@@ -6644,7 +6644,7 @@ where:
     * - proximity radius
       - (greater than or equal to 0.0) Used to
         determine the proximity area around each base node or element P over
-        which the vorticity gamma is calculated on the 2D clip part.
+        which the vorticity gamma is calculated on the 2D part clip.
         The larger the proximity radius, the more
         nodes (or elements) that are used to calculate G and the slower the
         calculation. A proximity radius less than or equal to 0.0 will
