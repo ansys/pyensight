@@ -17,6 +17,7 @@ import time
 from typing import Optional
 import uuid
 
+import ansys.pyensight.core as pyensight
 from ansys.pyensight.core import Launcher
 
 

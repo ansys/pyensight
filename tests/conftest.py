@@ -5,6 +5,7 @@ import atexit
 import subprocess
 from unittest import mock
 
+import ansys.pyensight
 from ansys.pyensight.core import DockerLauncher, LocalLauncher, Session, ensight_grpc
 import pytest
 
