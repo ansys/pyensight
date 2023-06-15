@@ -1,0 +1,20 @@
+ANSYS
+Ansys
+ansys
+API
+api
+Direct API
+Fluent API
+Geometry
+geometry
+Geometry service
+Geometry models
+GitHub
+pygeometry
+PyGeometry
+Protobuf
+SciPy
+subpackage
+PyPI
+PyEnSight
+pyensight
