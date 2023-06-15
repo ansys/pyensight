@@ -136,7 +136,7 @@ filterwarnings = "ignore:.+:DeprecationWarning"
 
 
 [tool.codespell]
-ignore-words = "ignore_words.txt"
+ignore-words-list = "ro, te, pres"
 quiet-level = 3
 skip = "*.pyc,*.xml,*.gif,*.png,*.jpg,*.js,*.html,*.svg,tests/ensigth_api_test_assets.txt"
 
