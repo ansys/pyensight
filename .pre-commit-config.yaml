@@ -3,11 +3,6 @@ repos:
     rev: 23.3.0  # IF VERSION CHANGES --> MODIFY "blacken-docs" MANUALLY AS WELL!!
     hooks:
       - id: black
-        name: black
-        entry: black
-        language: system
-        types: [ python ]
-        require_serial: true
         args: [  # black ignores files in .gitignore by default
             --line-length, "100",
             --target-version, "py37",
@@ -18,11 +13,6 @@ repos:
     rev: 5.12.0
     hooks:
       - id: isort
-        name: isort
-        entry: isort
-        language: system
-        types: [ python ]
-        require_serial: true
         args: [
             --profile, black,
             --skip-gitignore,
@@ -37,19 +27,11 @@ repos:
     rev: 6.0.0
     hooks:
       - id: flake8
-        name: flake8
-        entry: flake8
-        language: system
-        types: [ python ]
-        require_serial: true
 
   - repo: https://github.com/codespell-project/codespell
     rev: v2.2.4
     hooks:
       - id: codespell
-        name: codespell
-        entry: codespell
-        language: system
         args: [
             --ignore-words, ignore_words.txt,
             --skip, "*.pyc,*.xml,*.gif,*.png,*.jpg,*.js,*.html,*.svg,tests/ensigth_api_test_assets.txt"
