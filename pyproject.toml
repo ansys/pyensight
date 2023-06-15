@@ -85,6 +85,27 @@ doc = [
     "sphinxcontrib-openapi==0.8.1"
 ]
 
+[tool.coverage.run]
+omit = "*/ansys/api/*"
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if selfdebug",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "@(abc.)?abstractmethod"]
+
+ignore_errors = true
+show_missing = true
+
+[tool.coverage.html]
+show_contexts = true
+
 [project.urls]
 Documentation = "https://ensight.docs.pyansys.com/"
 Homepage = "https://github.com/ansys/pyensight"
@@ -99,18 +120,12 @@ name = "ansys.pyensight.core"
 line-length = 100
 src_paths = ["src/ansys", "codegen", "doc"]
 
-[tool.coverage.run]
-source = ["ansys.sherlock"]
-
-[tool.coverage.report]
-show_missing = true
-
 [tool.pytest.ini_options]
 minversion = "7.1"
 testpaths = [
     "tests",
 ]
-addopts = "--capture=tee-sys --tb=native -p no:warnings"
+addopts = "--setup-show --cov=ansys.pyensight --cov-report html:coverage-html --cov-report term --cov-config=.coveragerc --capture=tee-sys --tb=native -p no:warnings"
 markers =[
     "integration:Run integration tests",
     "smoke:Run the smoke tests",
