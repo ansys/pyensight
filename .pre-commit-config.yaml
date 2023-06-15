@@ -3,26 +3,12 @@ repos:
     rev: 23.3.0  # IF VERSION CHANGES --> MODIFY "blacken-docs" MANUALLY AS WELL!!
     hooks:
       - id: black
-        args: [  # black ignores files in .gitignore by default
-            --line-length, "100",
-            --target-version, "py37",
-            src/ansys, codegen, doc
-        ]
 
   - repo: https://github.com/pycqa/isort
     rev: 5.12.0
     hooks:
       - id: isort
-        args: [
-            --profile, black,
-            --skip-gitignore,
-            --force-sort-within-sections,
-            --line-length, "100",
-            --section-default, THIRDPARTY,
-            --filter-files,
-            --project, ansys,
-            ansys, codegen, doc, tests
-        ]
+
   - repo: https://github.com/PyCQA/flake8
     rev: 6.0.0
     hooks:
@@ -32,26 +18,18 @@ repos:
     rev: v2.2.4
     hooks:
       - id: codespell
-        args: [
-            --ignore-words, ignore_words.txt,
-            --skip, "*.pyc,*.xml,*.gif,*.png,*.jpg,*.js,*.html,*.svg,tests/ensigth_api_test_assets.txt"
 
-        ]
   - repo: https://github.com/PyCQA/bandit
     rev: 1.7.5
     hooks:
       - id: bandit
-        name: bandit
-        entry: bandit
-        types: [ python ]
-        require_serial: true
+        # args not working with pyproject.toml
         args: [
             -lll,
             -n, "3",
             -r,
             -x, "venv/*,src/ansys/api/*,src/ansys/pyensight/ensight_api.py,setup.py,tests/*,codegen/*"
         ]
-
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
