@@ -61,7 +61,6 @@ repos:
       - id: bandit
         name: bandit
         entry: bandit
-        language: system
         types: [ python ]
         require_serial: true
         args: [
