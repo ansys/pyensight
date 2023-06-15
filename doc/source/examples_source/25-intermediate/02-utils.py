@@ -22,6 +22,7 @@ from ansys.pyensight.enscontext import EnsContext
 
 session = LocalLauncher().start()
 
+
 ###############################################################################
 # Load the data
 # -------------
@@ -34,9 +35,10 @@ session = LocalLauncher().start()
 session.load_example("waterbreak.ens")
 session.show("image", width=800, height=600)
 
+
 ###############################################################################
 # "Load" the utils modules
-# -------------
+# ------------------------
 #
 # The utils modules are available as instances of ensight.utils. In this example
 # to allow a more simple use, they are casted into new variables with the same names.
@@ -45,9 +47,10 @@ parts = session.ensight.utils.parts
 views = session.ensight.utils.views
 query = session.ensight.utils.query
 
+
 ###############################################################################
 # Capture a context of the current state
-# -------------
+# --------------------------------------
 #
 # With the capture_context() method a in-memory context is saved, to be retrieved
 # later in the code. The context is also saved to a file for being used also in future
@@ -56,13 +59,17 @@ query = session.ensight.utils.query
 init_state = session.capture_context()
 init_state.save("init_state.ctxz")
 
+
 ###############################################################################
 # Change view direction and restore a in-memory context
-# -------------
+# -----------------------------------------------------
 #
 # .. image:: /_static/02_utils_1.png
+#
 # .. image:: /_static/02_utils_2.png
+#
 # .. image:: /_static/02_utils_1.png
+#
 # An isometric view along the direction vector (1,1,1) is set, and a new in-memory
 # context is saved. The view is also saved with the name "isometric".
 # All the parts are selected via the select_parts_by_tag() method,
@@ -82,7 +89,7 @@ session.show("image", width=800, height=600)
 
 ###############################################################################
 # Create scoped name for easy use of the ensight submodules to generate a distance query
-# -------------
+# --------------------------------------------------------------------------------------
 #
 # .. image:: /_static/02_utils_3.png
 #
@@ -90,7 +97,7 @@ session.show("image", width=800, height=600)
 # This can simplify the workflow with the addition of the context manager features in Python.
 # A query is so generated along a 1D part generated on the fly. The parent part is selected
 # using the parts module, with the "select_parts_by_dimension" module to select all the 3D parts.
-# A context is saved for later use. The rendering view should look like this:
+# A context is saved for later use. The rendering view should look like this.
 
 
 sn = session.ensight.utils.support.scoped_name
@@ -109,9 +116,10 @@ with sn(session.ensight) as ensight, sn(session.ensight.objs.core) as core:
     zclip_state = session.capture_context()
 session.show("image", width=800, height=600)
 
+
 ###############################################################################
 # Restore a view
-# -------------
+# --------------
 #
 # .. image:: /_static/02_utils_4.png
 #
@@ -120,7 +128,7 @@ session.show("image", width=800, height=600)
 # restores the orientation and the position but not the zoom level. Also,
 # a context restore restored also the objects available at the time of the context save,
 # while the view can only store position and orientation data. The rendering view should
-# look like this:
+# look like this.
 
 session.ensight.view_transf.rotate(-66.5934067, 1.71428561, 0)
 session.ensight.view_transf.rotate(18.0219765, -31.6363659, 0)
@@ -135,7 +143,7 @@ session.show("image", width=800, height=600)
 
 ###############################################################################
 # Create a temporal query
-# -------------
+# -----------------------
 #
 # .. image:: /_static/02_utils_5.png
 #
@@ -157,14 +165,14 @@ print(temp_query.QUERY_DATA)
 
 ###############################################################################
 # Restore a context from disk
-# -------------
+# ---------------------------
 #
 # .. image:: /_static/02_utils_6.png
 #
 # The following code shows how to restore a context previously saved on disk.
 # By default the PyEnSight context files won't store the location of the dataset,
 # so the dataset will have to be loaded in advance before restoring the context.
-# The rendering view should look like this:
+# The rendering view should look like this.
 
 ctx = EnsContext()
 ctx.load("init_state.ctxz")

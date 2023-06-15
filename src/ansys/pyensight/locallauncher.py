@@ -124,6 +124,7 @@ class LocalLauncher(pyensight.Launcher):
             local_env["ENSIGHT_SECURITY_TOKEN"] = self._secret_key
             local_env["WEBSOCKETSERVER_SECURITY_TOKEN"] = self._secret_key
             local_env["ENSIGHT_SESSION_TEMPDIR"] = self.session_directory
+            local_env["ENSIGHT_ANSYS_LAUNCH"] = "pyensight"
 
             # build the EnSight command
             exe = os.path.join(self._install_path, "bin", self.application)
