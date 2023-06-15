@@ -47,7 +47,7 @@ Interface root: ``ensight.objs`` module
 
 The session ``ensight.objs`` module serves as the access point into the object interface.
 All other EnSight objects can be accessed from methods and objects in this
-module. Key modules and objects include ``ensight.objs.enums`` (enums used for
+module. Key modules and objects include ``ensight.objs.enums`` (enumerations used for
 attribute IDs and values) and all proxy object base classes (such as the
 ``ensight.objs.ENS_VAR`` class). There are also methods for searching for objects
 and manipulating object IDs.
@@ -76,7 +76,7 @@ There are a collection of methods for accessing attributes. Here is an example::
     p.setattrs(dict(DESCRIPTION="HELLO"))
 
 
-Attribute names may be specified using string names or enums. There are multiple
+Attribute names may be specified using string names or enumerations. There are multiple
 interfaces to get or set attributes. You can use the ``attrinfo()`` or ``attrtree()``
 method to access detailed information about an attribute. Descriptions of attributes
 are available in multiple languages, which can be selected via the :samp:`session.language`

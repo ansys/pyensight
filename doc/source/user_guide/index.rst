@@ -85,7 +85,7 @@ by this component resides in the ``ansys.pyensight`` module. It is a *remote* in
 in that it actually starts an independent EnSight instance in another process and
 connects to it. Over this connection, the PyEnSight interface makes it possible
 to execute Python commands in the embedded interpreter and return results.
-Because the PyEnSight interface has a nearly identical API to the embedded interfac,
+Because the PyEnSight interface has a nearly identical API to the embedded interface,
 code written for one interface basically works in the other interface, providing
 that the code is structured properly. For information on API differences, see
 :ref:`api_differences`.
@@ -95,7 +95,7 @@ History: Native and object APIs
 -------------------------------
 
 EnSight has always had a journaling language, often referred to
-as the *command language* or *cmdlang*. This hournaling language makes
+as the *command language* or *cmdlang*. This journaling language makes
 it possible to view and review every interaction in EnSight as a command
 stream. You can play back the journal streams to automate tasks.
 

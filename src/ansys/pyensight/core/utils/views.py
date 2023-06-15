@@ -77,7 +77,7 @@ class Views:
         The first and second rows are computed to be orthogonal to the view direction,
         to form an orthogonal matrix.
         This is because a rotation matrix to get a specific view direction has got
-        the third column to be the view direction itself (i.e. the view direction becomes the z
+        the third column to be the view direction itself (that is the view direction becomes the z
         axis after the rotation, while the transformed x and y axis are computed to be orthogonal to
         the z transformed axis). The rotation is defined as the matrix transpose of the
         defined rotation matrix since the aim is to have the view direction pointing towards the camera

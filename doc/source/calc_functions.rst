@@ -34,7 +34,7 @@ Examples::
 
 .. admonition::  Per-part Constants
 
-    Some calculator functions (e.g. :ref:`Area() <Area>`) return constant values.  EnSight
+    Some calculator functions (for example :ref:`Area() <Area>`) return constant values.  EnSight
     supports constant values that are per-case and per-part.  For example, if *Area()* is
     computed as a per-case constant, the value will be the sum of the area values computed
     part by part.   If *Area()* is computed as a per-part constant, the individual values
@@ -59,7 +59,7 @@ Area()
 
 **Area**
 
-``Area(any part(s) [, Compute_Per_part])``
+``Area(any part or parts [, Compute_Per_part])``
 
 Computes a constant or constant per part variable whose
 value is the area of the selected parts. If a part is composed of 3D elements,
@@ -75,10 +75,10 @@ BL_aGradOfVelMag()
 
 **Boundary Layer: A Gradient Of Velocity Magnitude**
 
-``BL_aGradOfVelMag(boundary part(s), velocity)``
+``BL_aGradOfVelMag(boundary part or parts, velocity)``
 
 Computes a vector variable which is the gradient of the
-magnitude of the specified velocity variable on the selected boundary part(s)
+magnitude of the specified velocity variable on the selected boundary part or parts
 defined as:
 
 :math:`GRA{D}_{BP}\left|V\right|={\nabla }_{BP}\left|V\right|=\frac{\partial V}{\partial x}\widehat{i}+\frac{\partial V}{\partial y}\widehat{j}+\frac{\partial V}{\partial z}\widehat{k}`
@@ -136,7 +136,7 @@ BL_CfEdge()
 
 **Boundary Layer: Edge Skin-Friction Coefficient**
 
-``BL_CfEdge(boundary part(s), velocity, density, viscosity, ymax, flow comp(0,1,or2), grad)``
+``BL_CfEdge(boundary part or parts, velocity, density, viscosity, ymax, flow comp(0,1,or2), grad)``
 
 
 Computes a scalar variable which is the edge skin-friction
@@ -240,7 +240,7 @@ BL_CfWall()
 
 **Boundary Layer: Wall Skin-Friction Coefficient**
 
-``BL_CfWall(boundary part(s), velocity, viscosity, free density, free velocity, grad)``
+``BL_CfWall(boundary parts, velocity, viscosity, free density, free velocity, grad)``
 
 
 Computes a scalar variable which is the skin-friction
@@ -308,7 +308,7 @@ BL_CfWallCmp()
 
 **Boundary Layer: Wall Skin-Friction Coefficient Components**
 
-``BL_CfWallCmp(boundary part(s), velocity, viscosity,
+``BL_CfWallCmp(boundary parts, velocity, viscosity,
 free-stream density, free-stream velocity-mag., ymax, flow comp(1or2),
 grad)``
 
@@ -398,7 +398,7 @@ BL_CfWallTau()
 
 **Boundary Layer: Wall Fluid Shear-Stress**
 
-``BL_CfWallTau(boundary part(s), velocity, viscosity, ymax, flow comp(0,1,or 2), grad)``
+``BL_CfWallTau(boundary parts, velocity, viscosity, ymax, flow comp(0,1,or 2), grad)``
 
 
 Computes a scalar variable which is the fluid's
@@ -481,7 +481,7 @@ BL_DispThick()
 
 **Boundary Layer: Displacement Thickness**
 
-``BL_DispThick(boundary part(s), velocity, density, ymax, flow comp(0,1,or 2), grad)``
+``BL_DispThick(boundary parts, velocity, density, ymax, flow comp(0,1,or 2), grad)``
 
 
 Computes a scalar variable which is the boundary-layer
@@ -584,7 +584,7 @@ BL_DistToValue()
 
 **Boundary Layer: Distance to Value from Wall**
 
-``BL_DistToValue(boundary part(s), scalar, scalar value)``
+``BL_DistToValue(boundary parts, scalar, scalar value)``
 
 
 Computes a scalar variable which is the distance
@@ -631,7 +631,7 @@ BL_MomeThick()
 
 **Boundary Layer: Momentum Thickness**
 
-``BL_MomeThick(boundary part(s), velocity, density, ymax, flow compi(0,1,or2), flow compj(0,1,or2), grad)``
+``BL_MomeThick(boundary parts, velocity, density, ymax, flow compi(0,1,or2), flow compj(0,1,or2), grad)``
 
 
 Computes a scalar variable which is the boundary-layer
@@ -751,7 +751,7 @@ BL_Scalar()
 
 **Boundary Layer: Scalar**
 
-``BL_Scalar(boundary part(s), velocity, scalar, ymax, grad)``
+``BL_Scalar(boundary parts, velocity, scalar, ymax, grad)``
 
 
 Computes a scalar variable which is the scalar value of
@@ -797,7 +797,7 @@ BL_RecoveryThick()
 
 **Boundary Layer: Recovery Thickness**
 
-``BL_RecoveryThick(boundary part(s), velocity, total pressure, ymax, grad)``
+``BL_RecoveryThick(boundary parts, velocity, total pressure, ymax, grad)``
 
 
 Computes a scalar variable which is the boundary-layer
@@ -894,7 +894,7 @@ point.
     has been observed for H = 2.6; therefore, separation is considered
     in some analytical methods to occur in turbulent boundary layers for H = 2.0.
 
-    In a Blasius Laminar layer (i.e. flat plate boundary
+    In a Blasius Laminar layer (that is flat plate boundary
     layer growth with zero pressure gradient), H = 2.605. Turbulent boundary layer,
     H ~= 1.4 to 1.5, with extreme variations ~= 1.2 to 2.5.
 
@@ -909,7 +909,7 @@ BL_Thick()
 
 **Boundary Layer: Thickness**
 
-``BL_Thick(boundary part(s), velocity, ymax, grad)``
+``BL_Thick(boundary parts, velocity, ymax, grad)``
 
 
 Computes a scalar variable which is the boundary-layer
@@ -963,7 +963,7 @@ The distance normal from the surface to where:
 .. admonition::  Algorithm: Boundary Layer Thickness
 
     The ymax argument allows the edge of the boundary layer to be approximated by two
-    different algorithms, i.e. the Baldwin-Lomax-Spalart and convergence algorithms.
+    different algorithms, that is the Baldwin-Lomax-Spalart and convergence algorithms.
     Both schemes profile velocity data normal to the boundary surface, or wall.
     Specifying ymax > 0 leverages results from both the Baldwin-Lomax and vorticity
     functions over the entire profile to produce a fading function that approximates the edge
@@ -979,7 +979,7 @@ The distance normal from the surface to where:
     #. P. Spalart, A Reasonable Method to Compute Boundary-Layer
        Parameters from Navier-Stokes Results, (Unpublished: Boeing, 1992)
 
-    #. H. Schlichting & K. Gersten, Boundary Layer Theory, 8th
+    #. H. Schlichting & K. Gersten, Boundary Layer Theory, eigthth
        Ed., (Springer-Verlag: Berlin, 2003)
 
 
@@ -993,7 +993,7 @@ BL_VelocityAtEdge()
 
 **Boundary Layer: Velocity at Edge**
 
-``BL_VelocityAtEdge(boundary part(s), velocity, ymax,comp(0,1,2),grad)``
+``BL_VelocityAtEdge(boundary parts, velocity, ymax,comp(0,1,2),grad)``
 
 Extracts a vector variable which is a velocity vector
 :math:`{V}_{e}`, :math:`{V}_{p}`, or :math:`{V}_{n}`  defined as:
@@ -1084,7 +1084,7 @@ BL_Y1Plus()
 
 **Boundary Layer: off Wall**
 
-``BL_Y1Plus(boundary part(s), density, viscosity, grad option, vector variable)``
+``BL_Y1Plus(boundary parts, density, viscosity, grad option, vector variable)``
 
 
 
@@ -1115,7 +1115,7 @@ where:
       - fluid velocity vector
 
 
-Normally :math:`{y}^{+}`  is used to estimate or confirm the required 1st grid spacing
+Normally :math:`{y}^{+}`  is used to estimate or confirm the required first grid spacing
 for proper capturing of viscous-layer properties. The values are dependent on
 various factors including, what variables at the wall are sought, the turbulent
 models used, and whether the law of the wall is used or not. Consult a
@@ -1142,10 +1142,10 @@ application.
 
         1 = Use field velocity = velocity vector
 
-        2 = Use gradient at boundary = Gradient variable on 2d boundary (wall or surface) part
+        2 = Use gradient at boundary = Gradient variable on 2 dimensional boundary (wall or surface) part
 
-        3 = Use gradient in field = Gradient variable defined in 3d field part; or
-        could be gradient calculated using Grad(velocity magnitude), i.e. :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
+        3 = Use gradient in field = Gradient variable defined in 3 dimensional field part; or
+        could be gradient calculated using Grad(velocity magnitude), that is :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
 
 .. note::
@@ -1161,7 +1161,7 @@ BL_Y1PlusDist()
 
 **Boundary Layer: Distance off Wall**
 
-``BL_Y1PlusDist(boundary part(s), velocity)``
+``BL_Y1PlusDist(boundary parts, velocity)``
 
 
 :math:`{y}_{1}`  Computes a scalar variable which is the off-the-wall distance,
@@ -1193,17 +1193,17 @@ CaseMap()
 
 **Case Map**
 
-``CaseMap(2D or 3D part(s), case to map from, scalar/vector/tensor, parts to map from, search option flag)``
+``CaseMap(2D or 3D parts, case to map from, scalar/vector/tensor, parts to map from, search option flag)``
 
 
-For all locations on the selected part(s) this function
+For all locations on the selected parts this function
 finds the specified variable value (scalar, vector, or tensor) from
 the *case to map from* using a variety of user-specified
 search options. If the variable in the *case to map from* is
 located at the nodes, then the casemapped variable will be defined on the nodes
-of the selected part(s), and if the variable is located at the elements, then
-the casemapped variable will be defined at the elements of the selected part(s).
-The idea is to map onto the selected part(s), a variable
+of the selected parts, and if the variable is located at the elements, then
+the casemapped variable will be defined at the elements of the selected parts.
+The idea is to map onto the selected parts, a variable
 from another case, usually for comparison purposes. It does this by taking the
 location of the nodes or centroid of the elements and looking at the other case
 to see if the variable in question is defined at that location in the field. If
@@ -1290,7 +1290,7 @@ CaseMapDiff()
 
 **Case Map Diff**
 
-``CaseMapDiff(2D or 3D part(s), case to map from, scalar/vector/tensor, 0/1 0=search only 1=if search fails find closest)``
+``CaseMapDiff(2D or 3D parts, case to map from, scalar/vector/tensor, 0/1 0=search only 1=if search fails find closest)``
 
 
 This function is equivalent to the expression:
@@ -1309,13 +1309,13 @@ CaseMapImage()
 
 **Case Map Image**
 
-``CaseMapImage(2D or 3D part(s), part to map from, scalar, viewport number, Undefined value limit)``
+``CaseMapImage(2D or 3D parts, part to map from, scalar, viewport number, Undefined value limit)``
 
 
 This function does a projection of
 a 2D part variable from a different case onto a 3D geometry taking into account
 the view orientation from the specified viewport number, similar to a texture
-mapping. The function in effect maps 2D results to a 3d geometry taking into
+mapping. The function in effect maps 2D results to a 3 dimensional geometry taking into
 account view orientation and surface visibility.
 
 .. list-table:: Function Arguments
@@ -1327,7 +1327,7 @@ account view orientation and surface visibility.
     * - scalar
       - scalar variable
     * - viewport number
-      - The viewport number showing part(s) the
+      - The viewport number showing parts the
         variable is being computed on, from the same camera view as part to
         map from
     * - Undefined value limit
@@ -1344,7 +1344,7 @@ Coeff()
 
 **Coefficient**
 
-``Coeff(any 1D or 2D part(s), scalar, component [, Compute_Per_part])``
+``Coeff(any 1D or 2D parts, scalar, component [, Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -1393,7 +1393,7 @@ Cmplx()
 
 **Complex**
 
-``Cmplx(any part(s), scalar/vector(real portion), scalar/vector(complex portion), [optional frequency(Degrees)])``
+``Cmplx(any parts, scalar/vector(real portion), scalar/vector(complex portion), [optional frequency(Degrees)])``
 
 
 Creates a complex scalar or vector from two scalar or
@@ -1422,7 +1422,7 @@ CmplxArg()
 
 **Complex Argument**
 
-``CmplxArg(any part(s), complex scalar or vector)``
+``CmplxArg(any parts, complex scalar or vector)``
 
 
 Computes the Argument of a complex scalar or vector. The
@@ -1441,7 +1441,7 @@ CmplxConj()
 
 **Complex Conjugate**
 
-``CmplxConj(any part(s), complex scalar or vector)``
+``CmplxConj(any parts, complex scalar or vector)``
 
 
 Computes the Conjugate of a complex scalar of vector.
@@ -1462,7 +1462,7 @@ CmplxImag()
 
 **Complex Imaginary**
 
-``CmplxImag(any part(s), complex scalar or vector)``
+``CmplxImag(any parts, complex scalar or vector)``
 
 
 Extracts imaginary portion of a complex scalar or vector
@@ -1480,7 +1480,7 @@ CmplxModu()
 
 **Complex Modulus**
 
-``CmplxModu(any part(s), complex scalar or vector)``
+``CmplxModu(any parts, complex scalar or vector)``
 
 
 Returns a real scalar/vector which is the modulus of the
@@ -1498,7 +1498,7 @@ CmplxReal()
 
 **Complex Real**
 
-``CmplxReal(any part(s), complex scalar or vector)``
+``CmplxReal(any parts, complex scalar or vector)``
 
 
 Extracts the real portion of a complex scalar or vector
@@ -1516,7 +1516,7 @@ CmplxTransResp()
 
 **Complex Transient Response**
 
-``CmplxTransResp(any part(s), complex scalar or vector, constant PHI(0.0-360.0 Degrees))``
+``CmplxTransResp(any parts, complex scalar or vector, constant PHI(0.0-360.0 Degrees))``
 
 
 Returns a real scalar or vector which is the real
@@ -1591,14 +1591,14 @@ ConstPerPart()
 
 **ConstPerPart**
 
-``ConstPerPart(any part(s), constant)``
+``ConstPerPart(any parts, constant)``
 
 
 This function is assigns a value to the selected
-part(s). The value can either be a floating point value entered into the field,
+parts. The value can either be a floating point value entered into the field,
 or it can be a case constant. This value does not change over time. At a later
-point, any other part(s) can be selected and this can be recalculated and these
-other part(s) will be assigned the new value and the existing part(s) that were
+point, any other parts can be selected and this can be recalculated and these
+other parts will be assigned the new value and the existing parts that were
 previously selected will retain their previously assigned value. In other words,
 each successive time that this is recalculated for an existing variable, values
 assigned to the most recently selected parts are updated without removing
@@ -1613,7 +1613,7 @@ Curl()
 
 **Curl**
 
-``Curl(any part(s), vector)``
+``Curl(any parts, vector)``
 
 
 Computes a vector variable which is the curl of the input vector
@@ -1647,7 +1647,7 @@ Defect_BulkVolume()
 
 **Defect Bulk Volume**
 
-``Defect_BulkVolume(2D or 3D part(s))``
+``Defect_BulkVolume(2D or 3D parts)``
 
 
 Returns a per element scalar which is the sum of the
@@ -1665,7 +1665,7 @@ Defect_Count()
 
 **Defect Count**
 
-``Defect_Count(2D or 3D part(s), Defect scalar per elem, min value, max value) [,Compute_Per_part])``
+``Defect_Count(2D or 3D parts, Defect scalar per elem, min value, max value) [,Compute_Per_part])``
 
 
 Returns a case constant which filters the count of the
@@ -1684,7 +1684,7 @@ Defect_LargestLinearExtent()
 
 **Defect Largest Linear Extent**
 
-``Defect_LargestLinearExtent(2D or 3D part(s))``
+``Defect_LargestLinearExtent(2D or 3D parts)``
 
 
 Returns a per element scalar that is the largest linear
@@ -1703,7 +1703,7 @@ Defect_NetVolume()
 
 **Defect NetVolume**
 
-``Defect_NetVolume(2D or 3D part(s), scalar per elem, scale factor)``
+``Defect_NetVolume(2D or 3D parts, scalar per elem, scale factor)``
 
 
 Returns a per element scalar that is the sum of the cell
@@ -1711,7 +1711,7 @@ volumes multiplied by the scalar per element variable multiplied by the scale
 factor, of all the cells comprising the defect, where each cell of the defect is
 assigned this value. The defect scalar per element variable is usually porosity,
 but the user is free to use any per element scalar variable. The scale factor
-adjusts the scalar per element variable values, i.e. if the porosity range is
+adjusts the scalar per element variable values, that is if the porosity range is
 from 0.0 to 100.0 then a scale factor of 0.01 can be used to normalize the
 porosity values to volume fraction values ranging from 0.0 to 1.0.
 
@@ -1726,7 +1726,7 @@ Defect_ShapeFactor()
 
 **Defect ShapeFactor**
 
-``Defect_ShapeFactor(2D or 3D part(s))``
+``Defect_ShapeFactor(2D or 3D parts)``
 
 
 Returns a per element scalar that is the *Largest Linear Extent* divided by the diameter of the
@@ -1744,7 +1744,7 @@ Defect_SurfaceArea()
 
 **Defect SurfaceArea**
 
-``Defect_SurfaceArea(2D or 3D part(s))``
+``Defect_SurfaceArea(2D or 3D parts)``
 
 
 Returns a per element scalar that is the surface area of
@@ -1761,7 +1761,7 @@ Density()
 
 **Density**
 
-``Density(any part(s), pressure, temperature, gas constant)``
+``Density(any parts, pressure, temperature, gas constant)``
 
 
 Computes a scalar variable which is the density :math:`\rho` , defined as:
@@ -1802,7 +1802,7 @@ DensityLogNorm()
 
 **Log of Normalized Density**
 
-``DensityLogNorm(any part(s), density, freestream density)``
+``DensityLogNorm(any parts, density, freestream density)``
 
 
 Computes a scalar variable which is the natural log of *Normalized Density* defined as:
@@ -1838,7 +1838,7 @@ DensityNorm()
 
 **Normalized Density**
 
-``DensityNorm(any part(s), density, freestream density)``
+``DensityNorm(any parts, density, freestream density)``
 
 
 Computes a scalar variable which is the *Normalized Density* :math:`{\rho }_{n}` defined as:
@@ -1876,7 +1876,7 @@ DensityNormStag()
 
 **Normalized Stagnation Density**
 
-``DensityNormStag(any part(s), density, total energy,
+``DensityNormStag(any parts, density, total energy,
 velocity, ratio of specific heats freestream density, freestream speed of sound,
 freestream velocity magnitude)``
 
@@ -1926,7 +1926,7 @@ DensityStag()
 
 **Stagnation Density**
 
-``DensityStag(any part(s), density, total energy, velocity, ratio of specific heats)``
+``DensityStag(any parts, density, total energy, velocity, ratio of specific heats)``
 
 
 Computes a scalar variable which is the Stagnation
@@ -1971,7 +1971,7 @@ Dist2Nodes()
 
 **Distance Between Nodes**
 
-``Dist2Nodes(any part(s), nodeID1, nodeID2)``
+``Dist2Nodes(any parts, nodeID1, nodeID2)``
 
 
 Computes a constant, positive variable that is the
@@ -2017,7 +2017,7 @@ Dist2Part()
 
 **Distance to Parts: Node to Nodes**
 
-``Dist2Part(origin part + field part(s), origin part, origin part normal)``
+``Dist2Part(origin part + field parts, origin part, origin part normal)``
 
 
 Computes a scalar variable on the origin part and field
@@ -2075,7 +2075,7 @@ Dist2PartElem()
 
 **Distance to Parts: Node to Elements**
 
-``Dist2PartElem(origin part + field part(s), origin part, origin part normal)``
+``Dist2PartElem(origin part + field parts, origin part, origin part normal)``
 
 
 Computes a scalar variable that is the minimum distance
@@ -2134,7 +2134,7 @@ Div()
 
 **Divergence**
 
-``Div(2D or 3D part(s), vector)``
+``Div(2D or 3D parts, vector)``
 
 
 Computes a scalar variable whose value is the divergence
@@ -2161,7 +2161,7 @@ EleMetric()
 
 **Element Metric**
 
-``EleMetric(any part(s), metric_function).``
+``EleMetric(any parts, metric_function).``
 
 
 Calculates an element mesh metric, at each element
@@ -2465,7 +2465,7 @@ EleSize()
 
 **Element Size**
 
-``EleSize(any part(s)).``
+``EleSize(any parts).``
 
 Calculates the Volume/Area/Length for 3D/2D/1D elements
 respectively, at each element creating a scalar, element-based variable.
@@ -2494,7 +2494,7 @@ ElemToNode()
 
 **Element to Node**
 
-``ElemToNode(any part(s), element-based scalar or vector).``
+``ElemToNode(any parts, element-based scalar or vector).``
 
 
 Averages an element based variable to produce a
@@ -2522,8 +2522,8 @@ where:
 
 
 By default, this uses all
-parts that share each node of the selected part(s). So, parts that are not
-selected whose elements are shared by nodes of the selected part(s) will have
+parts that share each node of the selected parts. So, parts that are not
+selected whose elements are shared by nodes of the selected parts will have
 their element values averaged in with those of the selected parts.
 
 
@@ -2537,7 +2537,7 @@ ElemToNodeWeighted()
 
 **Element to Node Weighted**
 
-``ElemToNodeWeighted(any part(s), element-based scalar or vector, element-based weighting scalar).``
+``ElemToNodeWeighted(any parts, element-based scalar or vector, element-based weighting scalar).``
 
 
 Same as :ref:`ElemToNode() <ElemToNode>`, except
@@ -2559,7 +2559,7 @@ EnergyT()
 
 **Energy: Total Energy**
 
-``EnergyT(any part(s), density, pressure, velocity, ratio of specific heats).``
+``EnergyT(any parts, density, pressure, velocity, ratio of specific heats).``
 
 
 Computes a scalar variable of total energy per unit volume.
@@ -2612,7 +2612,7 @@ KinEn()
 
 **Kinetic Energy**
 
-``KinEn(any part(s), velocity, density)``
+``KinEn(any parts, velocity, density)``
 
 
 Computes a scalar variable whose value is the kinetic
@@ -2649,7 +2649,7 @@ Enthalpy()
 
 **Enthalpy**
 
-``Enthalpy(any part(s), density, total energy, velocity, ratio of specific heats)``
+``Enthalpy(any parts, density, total energy, velocity, ratio of specific heats)``
 
 
 Computes a scalar variable which is Enthalpy
@@ -2695,7 +2695,7 @@ EnthalpyNorm()
 
 **Normalized Enthalpy**
 
-``EnthalpyNorm(any part(s), density, total energy, velocity, ratio of specific heats, freestream density, freestream speed of sound)``
+``EnthalpyNorm(any parts, density, total energy, velocity, ratio of specific heats, freestream density, freestream speed of sound)``
 
 
 Computes a scalar variable which is Normalized Enthalpy
@@ -2741,7 +2741,7 @@ EnthalpyStag()
 
 **Stagnation Enthalpy**
 
-``EnthalpyStag(any part(s), density, total energy, velocity, ratio of specific heats)``
+``EnthalpyStag(any parts, density, total energy, velocity, ratio of specific heats)``
 
 
 Computes a scalar variable which is *Stagnation Enthalpy* :math:`{h}_{o}`  defined as:
@@ -2781,7 +2781,7 @@ EnthalpyNormStag()
 
 **Normalized Stagnation Enthalpy**
 
-``EnthalpyNormStag(any part(s), density, total energy,
+``EnthalpyNormStag(any parts, density, total energy,
 velocity, ratio of specific heats, freestream density, freestream speed of
 sound, freestream velocity magnitude)``
 
@@ -2829,7 +2829,7 @@ Entropy()
 
 **Entropy**
 
-``Entropy(any part(s), density, total energy, velocity,
+``Entropy(any parts, density, total energy, velocity,
 ratio of specific heats, gas constant, freestream density, freestream speed of sound)``
 
 
@@ -2894,7 +2894,7 @@ Flow()
 
 **Flow**
 
-``Flow(any 1D or 2D part(s), velocity [,Compute_Per_part]).``
+``Flow(any 1D or 2D parts, velocity [,Compute_Per_part]).``
 
 
 Computes a constant or constant per part variable whose
@@ -2939,7 +2939,7 @@ FlowRate()
 
 **Flow Rate**
 
-``FlowRate(any 1D or 2D part(s), velocity).``
+``FlowRate(any 1D or 2D parts, velocity).``
 
 
 Computes a scalar :math:`{V}_{n}`  which is the component of velocity normal to the surface,
@@ -2982,7 +2982,7 @@ FluidShear()
 
 **Fluid Shear**
 
-``FluidShear(2D part(s), velocity magnitude gradient, viscosity)``
+``FluidShear(2D parts, velocity magnitude gradient, viscosity)``
 
 
 Computes a scalar variable tau whose value is defined as:
@@ -3005,11 +3005,11 @@ where:
 .. note::
     To compute fluid shear stress:
 
-    #. Use Gradient function on velocity to obtain Velocity Grad variable in the 3D part(s) of
+    #. Use Gradient function on velocity to obtain Velocity Grad variable in the 3D parts of
        interest.
 
     #. Create a clip part or extract the outer surface of the part using part extract
-       (create a 2D part from the 3D part(s) used above) a surface on which you wish to see
+       (create a 2D part from the 3D parts used above) a surface on which you wish to see
        the fluid shear stress.
 
     #. Compute Fluid Shear variable (on the 2D surface).
@@ -3034,7 +3034,7 @@ FluidShearMax()
 
 **Fluid Shear Stress Max**
 
-``FluidShearMax(2D or 3D part(s), velocity, density, turbulent kinetic energy, turbulent dissipation, laminar viscosity)``
+``FluidShearMax(2D or 3D parts, velocity, density, turbulent kinetic energy, turbulent dissipation, laminar viscosity)``
 
 
 Computes a scalar variable :math:`\sum` defined as:
@@ -3076,7 +3076,7 @@ where:
       - turbulent dissipation
 
 
-A measure of local strain :math:`E`  (i.e. local elongation in 3 directions) is given by
+A measure of local strain :math:`E`  (that is local elongation in 3 directions) is given by
 
 :math:`E=\sqrt{\left(2tr\left(D·D\right)\right)}`
 
@@ -3138,7 +3138,7 @@ Force()
 
 **Force**
 
-``Force(2D part(s), pressure)``
+``Force(2D parts, pressure)``
 
 
 Computes a vector variable whose value is the force
@@ -3178,7 +3178,7 @@ Force1D()
 
 **Force 1D**
 
-``Force1D(1D planar part(s), pressure, surface normal)``
+``Force1D(1D planar parts, pressure, surface normal)``
 
 
 Computes a vector variable whose value is the force :math:`F`  defined as:
@@ -3214,7 +3214,7 @@ Grad()
 
 **Gradient**
 
-``Grad(2D or 3D part(s), scalar or vector(Magnitude will be used))``
+``Grad(2D or 3D parts, scalar or vector(Magnitude will be used))``
 
 
 Computes a vector variable whose value is the gradient :math:`GRA{D}_{f}` defined as:
@@ -3258,7 +3258,7 @@ GradTensor()
 
 **Gradient Tensor**
 
-``GradTensor(2D or 3D part(s), vector)``
+``GradTensor(2D or 3D parts, vector)``
 
 
 Computes a tensor variable whose value is the gradient
@@ -3290,7 +3290,7 @@ HelicityDensity()
 
 **Helicity Density**
 
-``HelicityDensity(any part(s), velocity)``
+``HelicityDensity(any parts, velocity)``
 
 
 Computes a scalar variable :math:`{H}_{d}`  whose value is:
@@ -3326,7 +3326,7 @@ HelicityRelative()
 
 **Relative Helicity**
 
-``HelicityRelative(any part(s), velocity)``
+``HelicityRelative(any parts, velocity)``
 
 
 Computes a scalar variable :math:`{H}_{r}`  whose value is:
@@ -3366,7 +3366,7 @@ HelicityRelFilter()
 
 **Filtered Relative Helicity**
 
-``HelicityRelFilter(any part(s), velocity, freestream velocity magnitude).``
+``HelicityRelFilter(any parts, velocity, freestream velocity magnitude).``
 
 
 Computes a scalar variable :math:`{H}_{rf}`  whose value is:
@@ -3408,11 +3408,11 @@ IblankingValues()
 
 **Iblanking Values**
 
-``IblankingValues(Any iblanked structured part(s))``
+``IblankingValues(Any iblanked structured parts)``
 
 
 Computes a scalar variable whose value is the iblanking
-flag of selected parts. Returns undefined for unstructured part(s).
+flag of selected parts. Returns undefined for unstructured parts.
 
 
 .. _IJKValues:
@@ -3424,11 +3424,11 @@ IJKValues()
 
 **IJK Values**
 
-``IJKValues(Any structured part(s))``
+``IJKValues(Any structured parts)``
 
 
 Computes a vector variable whose value is the I/J/K
-values of the selected parts. Returns undefined for unstructured part(s).
+values of the selected parts. Returns undefined for unstructured parts.
 
 
 .. _IntegralLine:
@@ -3440,12 +3440,12 @@ IntegralLine()
 
 **Integrals: Line Integral**
 
-``IntegralLine(1D part(s), scalar or (vector, component) [,Compute_Per_part])``
+``IntegralLine(1D parts, scalar or (vector, component) [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
 value is the integral of the input variable over the length of the specified 1D
-part(s). Nodal variables are first converted to elemental variable using a
+parts. Nodal variables are first converted to elemental variable using a
 weighted average of the shape function.
 
 
@@ -3458,12 +3458,12 @@ IntegralSurface()
 
 **Integrals: Surface Integral**
 
-``IntegralSurface(2D part(s), scalar or (vector, component) [,Compute_Per_part])``
+``IntegralSurface(2D parts, scalar or (vector, component) [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
 value is the integral of the input variable over the surface of the specified 2D
-part(s). Nodal variables are first converted to elemental variable using a
+parts. Nodal variables are first converted to elemental variable using a
 weighted average of the shape function.
 
 
@@ -3476,12 +3476,12 @@ IntegralVolume()
 
 **Integrals: Volume Integral**
 
-``IntegralVolume(3D part(s), scalar or (vector, component) [,Compute_Per_part])``
+``IntegralVolume(3D parts, scalar or (vector, component) [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
 value is the integral of the input variable over the volume of the specified 3D
-part(s). Nodal variables are first converted to elemental variable using a
+parts. Nodal variables are first converted to elemental variable using a
 weighted average of the shape function.
 
 
@@ -3494,7 +3494,7 @@ Length()
 
 **Length**
 
-``Length(any 1D part(s) [,Compute_Per_part])``
+``Length(any 1D parts [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -3511,7 +3511,7 @@ LineVectors()
 
 **Line Vectors**
 
-``LineVectors(any 1D part(s))``
+``LineVectors(any 1D parts)``
 
 
 Computes a nodal, vector variable which is the
@@ -3540,7 +3540,7 @@ Lambda2()
 
 **Lambda2**
 
-``Lambda2(any part(s), Grad_Vel_x, Grad_Vel_y, Grad_Vel_z)``
+``Lambda2(any parts, Grad_Vel_x, Grad_Vel_y, Grad_Vel_z)``
 
 
 Computes a scalar variable which is the second eigenvalue, or :math:`{\lambda }_{2}`, of the second
@@ -3558,11 +3558,11 @@ Explicitly calculate the three components of Velocity
 
 and then
 
-    Grad_Vel_x = Grad(any part(s), Vel_x) = gradient of x component Velocity
+    Grad_Vel_x = Grad(any parts, Vel_x) = gradient of x component Velocity
 
-    Grad_Vel_y = Grad(any part(s), Vel_y) = gradient of y component Velocity
+    Grad_Vel_y = Grad(any parts, Vel_y) = gradient of y component Velocity
 
-    Grad_Vel_z = Grad(any part(s), Vel_z) = gradient of z component Velocity
+    Grad_Vel_z = Grad(any parts, Vel_z) = gradient of z component Velocity
 
 where:
 
@@ -3578,7 +3578,7 @@ where:
     the velocity without using the intermediate Vel_x, Vel_y, and Vel_z variables.
     For example this is wrong and will use only the velocity magnitude:
 
-    Grad_Vel_x = Grad(any part(s), Velocity[X])
+    Grad_Vel_x = Grad(any parts, Velocity[X])
 
     This is a **User-Defined Math Function (UDMF)** which may be modified and
     recompiled by the user.
@@ -3637,7 +3637,7 @@ Mach()
 
 **Mach Number**
 
-``Mach(any part(s), density, total energy, velocity, ratio of specific heats)``
+``Mach(any parts, density, total energy, velocity, ratio of specific heats)``
 
 
 Computes a scalar variable whose value is the Mach
@@ -3689,7 +3689,7 @@ MakeScalElem()
 
 **Make Scalar at Elements**
 
-``MakeScalElem(any part(s), constant number or constant or constant per part variable)``
+``MakeScalElem(any parts, constant number or constant or constant per part variable)``
 
 
 Assigns the specified constant value to each element,
@@ -3705,7 +3705,7 @@ MakeScalElemId()
 
 **Make Scalar from Element Ids**
 
-``MakeScalElemId(any part(s))``
+``MakeScalElemId(any parts)``
 
 
 Creates a scalar variable set to the element ids of the part. If the
@@ -3722,7 +3722,7 @@ MakeScalNode()
 
 **Make Scalar at Nodes**
 
-``MakeScalNode(any part(s), constant number or constant or constant per part variable)``
+``MakeScalNode(any parts, constant number or constant or constant per part variable)``
 
 
 Assigns the specified constant value to each node,
@@ -3738,7 +3738,7 @@ MakeScalNodeId()
 
 **Make Scalar from Node Ids**
 
-``MakeScalNodeId(any part(s))``
+``MakeScalNodeId(any parts)``
 
 
 Creates a scalar variable set to the node ids of the part.  If the node
@@ -3755,7 +3755,7 @@ MakeVect()
 
 **Make Vector**
 
-``MakeVect(any part(s), scalar or zero, scalar or zero, scalar or zero)``
+``MakeVect(any parts, scalar or zero, scalar or zero, scalar or zero)``
 
 
 Computes a vector variable formed from scalar variables.
@@ -3790,7 +3790,7 @@ MassedParticle()
 
 **Massed Particle Scalar**
 
-``MassedParticle(massed particle trace part(s))``
+``MassedParticle(massed particle trace parts)``
 
 
 This scalar creates a massed-particle per element scalar
@@ -3809,7 +3809,7 @@ MassFluxAvg()
 
 **Mass-Flux Average**
 
-``MassFluxAvg(any 1D or 2D part(s), scalar, velocity, density [,Compute_Per_part])``
+``MassFluxAvg(any 1D or 2D parts, scalar, velocity, density [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -3823,7 +3823,7 @@ where:
     :widths: 10 90
 
     * - :math:`b`
-      - any scalar variable, i.e. pressure, mach, a vector component,
+      - any scalar variable, that is pressure, mach, a vector component,
         etc.
 
     * - :math:`\rho`
@@ -3841,7 +3841,7 @@ where:
     :widths: 10 90
 
     * - scalar
-      - any scalar variable, i.e. pressure, mach, a
+      - any scalar variable, that is pressure, mach, a
         vector component, etc
 
     * - velocity
@@ -3862,7 +3862,7 @@ MatSpecies()
 
 **MatSpecies**
 
-``MatSpecies(any model part(s), any material(s), any specie(s), scalar per element).``
+``MatSpecies(any model parts, any material(s), any specie(s), scalar per element).``
 
 
 Computes a scalar per element variable whose value
@@ -3890,12 +3890,12 @@ where:
         * :math:`{\text{m}}_{\text{i}}`  if no species are specified
 
 
-This function only operates on model part(s) with
+This function only operates on model parts with
 pre-defined species. The specified material(s) can either be a list of materials
 or a single material value. The specified species can either be a list, a single
-specie, or no specie (i.e. a null species list which then computes an element
+specie, or no specie (that is a null species list which then computes an element
 value based on only material fraction contributions). The scalar per element
-value can either be an active variable, or a scalar value (i.e. the value 1
+value can either be an active variable, or a scalar value (that is the value 1
 would give pure material fraction and/or specie value extraction).
 
 Both material and specie names are selected from the
@@ -3912,11 +3912,11 @@ MatToScalar()
 
 **MatToScalar**
 
-``MatToScalar(any model part(s), a material)``
+``MatToScalar(any model parts, a material)``
 
 
 Computes a scalar per element variable whose value s is
-the specified material's value m of the element on the specified part(s).
+the specified material's value m of the element on the specified parts.
 s = m where:
 
 .. list-table::
@@ -3929,7 +3929,7 @@ s = m where:
 
 
 
-This function only operates on model part(s) with
+This function only operates on model parts with
 pre-defined materials that are given by sparse mixed material definitions. Only
 one material may be converted into one per element scalar variable at a time.
 The material cannot be the null material.
@@ -3947,7 +3947,7 @@ Max()
 
 **Max**
 
-``Max(any part(s), scalar or (vector, component) [,Compute_Per_part])``
+``Max(any parts, scalar or (vector, component) [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -3970,7 +3970,7 @@ Min()
 
 **Min**
 
-``Min(any part(s), scalar or (vector, component) [,Compute_Per_part])``
+``Min(any parts, scalar or (vector, component) [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -3994,7 +3994,7 @@ Moment()
 
 **Moment**
 
-``Moment(any part(s), vector, component [,Compute_Per_part])``
+``Moment(any parts, vector, component [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable (the
@@ -4041,7 +4041,7 @@ MomentVector()
 
 **MomentVector**
 
-``MomentVector(any part(s), force vector).``
+``MomentVector(any parts, force vector).``
 
 
 Computes a nodal vector variable (the moment is computed
@@ -4086,7 +4086,7 @@ Momentum()
 
 **Momentum**
 
-``Momentum(any part(s), velocity, density).``
+``Momentum(any parts, velocity, density).``
 
 
 Computes a vector variable :math:`m`, which is:
@@ -4124,11 +4124,11 @@ NodeCount()
 
 **Node Count**
 
-``NodeCount(any part(s) [,Compute_Per_part])``
+``NodeCount(any parts [,Compute_Per_part])``
 
 
 Produces a constant or constant per part variable
-containing the node count of the part(s) specified.
+containing the node count of the parts specified.
 
 
 .. _NodeToElem:
@@ -4140,7 +4140,7 @@ NodeToElem()
 
 **Node to Element**
 
-``NodeToElem(any part(s), node-based scalar or vector)``
+``NodeToElem(any parts, node-based scalar or vector)``
 
 
 Averages a node based variable to produce an element based variable.
@@ -4176,7 +4176,7 @@ Normal()
 
 **Normal**
 
-``Normal(2D part(s) or 1D planar part(s))``
+``Normal(2D parts or 1D planar parts)``
 
 
 Computes a vector variable which is the normal to the
@@ -4193,7 +4193,7 @@ NormC()
 
 **Normal Constraints**
 
-``NormC(2D or 3D part(s), pressure, velocity, viscosity [,Compute_Per_part])``
+``NormC(2D or 3D parts, pressure, velocity, viscosity [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -4239,7 +4239,7 @@ NormVect()
 
 **Normalize Vector**
 
-``NormVect(any part(s), vector)``
+``NormVect(any parts, vector)``
 
 
 Computes a vector variable whose value is a unit vector
@@ -4268,7 +4268,7 @@ OffsetField()
 
 **Normalize Vector**
 
-``OffsetField(2D or 3D part(s))``
+``OffsetField(2D or 3D parts)``
 
 
 Computes a scalar field of offset values. The values
@@ -4297,27 +4297,27 @@ OffsetVar()
 
 **Offset Variable**
 
-``OffsetVar(2D or 3D part(s), scalar or vector, constant offset value)``
+``OffsetVar(2D or 3D parts, scalar or vector, constant offset value)``
 
 
 Computes a scalar (or vector) variable defined as the
 offset value into the field of that variable that exists in the normal direction
 from the boundary of the selected part. This assigns near surface values of a
-variable to the surface of the selected part(s) from the neighboring 3D field
-(which is found automatically using the selected part(s) surface(s).
+variable to the surface of the selected parts from the neighboring 3D field
+(which is found automatically using the selected parts surface(s).
 
 In other words, this function gets the value of a
 variable from surrounding field(s), a fixed distance from the surface of the
-selected part(s) and assigns it to the surface of the selected part. For
+selected parts and assigns it to the surface of the selected part. For
 example, you might use this function to get the value of the velocity in the
 flow field a slight distance above your vehicle surface and assign that value to
 your vehicle surface.
 
-To use this function, select part(s) in the part list
+To use this function, select parts in the part list
 that you want to use, enter a variable and an offset. EnSight will auto detect
-the 3D field part(s) adjacent to your selected part(s) surface(s) and reach into
+the 3D field parts adjacent to your selected parts surface(s) and reach into
 these fields by your offset in the normal direction to obtain the variable value
-and then assign it to the surface of your selected part(s).
+and then assign it to the surface of your selected parts.
 
 .. list-table:: Function Arguments
     :widths: 20 80
@@ -4331,7 +4331,7 @@ and then assign it to the surface of your selected part(s).
     This calculator function is not supported for Server of Server (SOS)
     decomposition because SOS was designed to benefit from independent Servers
     computations in parallel. Recall that EnSight must find the field adjacent
-    to your selected part(s) surfaces. And since some of these fields might be
+    to your selected parts surfaces. And since some of these fields might be
     on other servers, it will create dependencies that preclude independent
     Servers, so this is disabled.
 
@@ -4345,7 +4345,7 @@ PartNumber()
 
 **Part Number**
 
-``PartNumber(any part(s) [,Compute_Per_part])``
+``PartNumber(any parts [,Compute_Per_part])``
 
 
 Computes a constant per part variable which is the GUI
@@ -4368,7 +4368,7 @@ Pres()
 
 **Pressure**
 
-``Pres(any part(s),density, total energy, velocity, ratio of specific heats)``
+``Pres(any parts,density, total energy, velocity, ratio of specific heats)``
 
 
 Computes a scalar variable whose value is the pressure
@@ -4414,7 +4414,7 @@ PresCoef()
 
 **Pressure Coefficient**
 
-``PresCoef(any part(s), density, total energy, velocity, ratio
+``PresCoef(any parts, density, total energy, velocity, ratio
 of specific heats, freestream density, freestream speed of sound, freestream
 velocity magnitude)``
 
@@ -4469,7 +4469,7 @@ PresDynam()
 
 **Dynamic Pressure**
 
-``PresDynam(any part(s), density, velocity)``
+``PresDynam(any parts, density, velocity)``
 
 
 Computes a scalar variable which is Dynamic Pressure :math:`q`  defined as:
@@ -4506,7 +4506,7 @@ PresNorm()
 
 **Normalized Pressure**
 
-``PresNorm(any part(s), density, velocity, ratio of specific
+``PresNorm(any parts, density, velocity, ratio of specific
 heats, freestream density, freestream speed of sound)``
 
 
@@ -4557,7 +4557,7 @@ PresLogNorm()
 
 **Log of Normalized Pressure**
 
-``PresLogNorm(any part(s), density, total energy, velocity,
+``PresLogNorm(any parts, density, total energy, velocity,
 ratio of specific heats, freestream density, freestream speed of sound)``
 
 
@@ -4609,7 +4609,7 @@ PresStag()
 
 **Stagnation Pressure**
 
-``PresStag(any part(s), density, total energy, velocity, ratio
+``PresStag(any parts, density, total energy, velocity, ratio
 of specific heats)``
 
 
@@ -4663,7 +4663,7 @@ PresNormStag()
 
 **Normalized Stagnation Pressure**
 
-``PresNormStag(any part(s), density, total energy, velocity,
+``PresNormStag(any parts, density, total energy, velocity,
 ratio of specific heats, freestream density, freestream speed of sound,
 freestream velocity magnitude)``
 
@@ -4720,7 +4720,7 @@ PresStagCoef()
 
 **Stagnation Pressure Coefficient**
 
-``PresStagCoef(any part(s), density, total energy, velocity,
+``PresStagCoef(any parts, density, total energy, velocity,
 ratio of specific heats, freestream density, freestream speed of sound,
 freestream velocity magnitude)``
 
@@ -4782,7 +4782,7 @@ PresPitot()
 
 **Pitot Pressure**
 
-``PresPitot(any part(s), density, total energy, velocity,
+``PresPitot(any parts, density, total energy, velocity,
 ratio of specific heats)``
 
 
@@ -4840,7 +4840,7 @@ PresPitotRatio()
 
 **Pitot Pressure Ratio**
 
-``PresPitotRatio(any part(s), density, total energy, velocity,
+``PresPitotRatio(any parts, density, total energy, velocity,
 ratio of specific heats, freestream density, freestream speed of sound)``
 
 
@@ -4898,7 +4898,7 @@ PresT()
 
 **Total Pressure**
 
-``PresT(any part(s), pressure, velocity, density)``
+``PresT(any parts, pressure, velocity, density)``
 
 
 Computes a scalar variable whose value is the total
@@ -4950,7 +4950,7 @@ Q_criteria()
 
 **Q_criteria**
 
-``Q_criteria(any part(s), Grad_Vel_x, Grad_Vel_y, Grad_Vel_z)``
+``Q_criteria(any parts, Grad_Vel_x, Grad_Vel_y, Grad_Vel_z)``
 
 
 Computes a scalar variable which is the second
@@ -4968,9 +4968,9 @@ Vel_z = Velocity[Z] = z-component of the velocity vector
 
 then calculate the gradient using the intermediate variable:
 
-Grad_Vel_x = Grad(any part(s), Vel_x) = gradient of x component Velocity
-Grad_Vel_y = Grad(any part(s), Vel_y) = gradient of y component Velocity
-Grad_Vel_z = Grad(any part(s), Vel_z) = gradient of z component Velocity
+Grad_Vel_x = Grad(any parts, Vel_x) = gradient of x component Velocity
+Grad_Vel_y = Grad(any parts, Vel_y) = gradient of y component Velocity
+Grad_Vel_z = Grad(any parts, Vel_z) = gradient of z component Velocity
 
 with
 
@@ -4982,7 +4982,7 @@ Velocity = velocity vector variable
     Vel_y, and Vel_z variables. For example this is wrong and will use only the
     velocity magnitude:
 
-    Grad_Vel_x = Grad(any part(s), Velocity[X])
+    Grad_Vel_x = Grad(any parts, Velocity[X])
 
     This is a User-Defined Math Function (UDMF) which may be modified
     and recompiled by the user. Please see the EnSight Interface Manual for
@@ -5047,11 +5047,11 @@ Radiograph_grid()
 
 **Radiograph_grid**
 
-``Radiograph_grid(1D or 2D part(s), dir X, dir Y, dir Z, num_points, variable, [component])``
+``Radiograph_grid(1D or 2D parts, dir X, dir Y, dir Z, num_points, variable, [component])``
 
 
 Computes a per element scalar variable on the designated
-1D or 2D part(s), that is a directional integration from these parts of a scalar
+1D or 2D parts, that is a directional integration from these parts of a scalar
 variable or vector component through the model. Think of rays being cast from
 the center of each element of the 1D or 2D parents in the direction specified
 (and long enough to extend through the model). Along each ray the desired
@@ -5099,11 +5099,11 @@ Radiograph_mesh()
 
 **Radiograph_mesh**
 
-``Radiograph_mesh(1D or 2D part(s), dir X, dir Y, dir Z, variable, [component])``
+``Radiograph_mesh(1D or 2D parts, dir X, dir Y, dir Z, variable, [component])``
 
 
 Computes a per element scalar variable on the designated
-1D or 2D part(s), that is a directional integration from these parts of a scalar
+1D or 2D parts, that is a directional integration from these parts of a scalar
 variable or vector component through the model. Think of rays being cast from
 the center of each element of the 1D or 2D parents in the direction specified
 (and long enough to extend through the model). Along each ray the desired
@@ -5146,7 +5146,7 @@ RectToCyl()
 
 **Rectangular To Cylindrical Vector**
 
-``RectToCyl(any part(s), vector)``
+``RectToCyl(any parts, vector)``
 
 
 Produces a vector variable with cylindrical components
@@ -5166,7 +5166,7 @@ ServerNumber()
 
 **Server Number**
 
-``ServerNumber(any part(s))``
+``ServerNumber(any parts)``
 
 
 Produces a per-element scalar variable that is the
@@ -5183,7 +5183,7 @@ ShockPlot3d()
 
 **Shock Plot3d**
 
-``ShockPlot3d(2D or 3D part(s), density, total energy,
+``ShockPlot3d(2D or 3D parts, density, total energy,
 velocity, ratio of specific heats)``
 
 
@@ -5241,7 +5241,7 @@ SmoothMesh()
 
 **Mesh Smoothing**
 
-``SmoothMesh(any 1D or 2D part(s), number of passes, weight)``
+``SmoothMesh(any 1D or 2D parts, number of passes, weight)``
 
 
 Performs a mesh "smoothing" operation. The function
@@ -5296,7 +5296,7 @@ SOSConstant()
 
 **SOS Constant**
 
-``SOSConstant(any part(s), variable, reduction operation (0-3))``
+``SOSConstant(any parts, variable, reduction operation (0-3))``
 
 
 .. note::
@@ -5337,7 +5337,7 @@ SpaMean()
 
 **Spatial Mean**
 
-``SpaMean(any part(s), scalar or (vector, component) [,Compute_Per_part])``
+``SpaMean(any parts, scalar or (vector, component) [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -5377,7 +5377,7 @@ SpaMeanWeighted()
 
 **Spatial Mean Weighted**
 
-``SpaMeanWeighted(any part(s), scalar or (vector, component), weight, component [,Compute_Per_part])``
+``SpaMeanWeighted(any parts, scalar or (vector, component), weight, component [,Compute_Per_part])``
 
 
 Weighted Computes a constant or constant per part
@@ -5424,7 +5424,7 @@ Speed()
 
 **Speed**
 
-``Speed(any part(s), velocity)``
+``Speed(any parts, velocity)``
 
 
 Computes a scalar variable whose value is the Speed
@@ -5453,7 +5453,7 @@ SonicSpeed()
 
 **Sonic Speed**
 
-``SonicSpeed(any part(s), density, total energy, velocity, ratio of specific heats).``
+``SonicSpeed(any parts, density, total energy, velocity, ratio of specific heats).``
 
 
 Computes a scalar variable :math:`c` , whose value is:
@@ -5489,7 +5489,7 @@ StatMoment()
 
 **Statistics Moments**
 
-``StatMoment(any part(s), v, function [,Compute_Per_part])``
+``StatMoment(any parts, v, function [,Compute_Per_part])``
 
 
 Computes a constant or constant per part by which is the
@@ -5571,7 +5571,7 @@ StatRegSpa()
 
 **Statistics Regression**
 
-``StatRegSpa(any part(s), y, x0, x1, x2, x3, x4, weight)``
+``StatRegSpa(any parts, y, x0, x1, x2, x3, x4, weight)``
 
 
 Performs classical multivariate linear regression,
@@ -5622,7 +5622,7 @@ StatRegVal1()
 
 **Statistics Regression Info**
 
-``StatRegVal1(any part(s), regression_variable, function)``
+``StatRegVal1(any parts, regression_variable, function)``
 
 
 This function returns basic statistical diagnostics for a regression computed
@@ -5656,7 +5656,7 @@ StatRegVal2()
 
 **Statistics Regression Info**
 
-``StatRegVal2(any part(s), regression_variable, function, selection)``
+``StatRegVal2(any parts, regression_variable, function, selection)``
 
 
 This function returns statistical diagnostics specific to individual input coefficients
@@ -5706,7 +5706,7 @@ value, where:
     :widths: 20 80
 
     * - plist
-      - any part(s)
+      - any parts
 
     * - scalar
       - a scalar variable
@@ -5734,7 +5734,7 @@ value where:
     :widths: 20 80
 
     * - plist
-      - any part(s)
+      - any parts
 
     * - ConstantPerPart
       - constant per part variable
@@ -5751,7 +5751,7 @@ Swirl()
 
 **Swirl**
 
-``Swirl(any part(s), density, velocity).``
+``Swirl(any parts, density, velocity).``
 
 
 Computes a scalar variable Swirl, whose value is:
@@ -5792,7 +5792,7 @@ Temperature()
 
 **Temperature**
 
-``Temperature(any part(s), density, total energy, velocity, ratio of specific heats, gas constant)``
+``Temperature(any parts, density, total energy, velocity, ratio of specific heats, gas constant)``
 
 
 Computes a scalar variable whose value is the
@@ -5852,7 +5852,7 @@ TemperNorm()
 
 **Normalized Temperature**
 
-``TemperNorm(any part(s), density, total energy, velocity,
+``TemperNorm(any parts, density, total energy, velocity,
 ratio of specific heats, freestream density, freestream speed of sound, gas
 constant)``
 
@@ -5905,7 +5905,7 @@ TemperLogNorm()
 
 **Log of Normalized Temperature**
 
-``TemperLogNorm(any part(s), density, total energy, velocity,
+``TemperLogNorm(any parts, density, total energy, velocity,
 ratio of specific heats, freestream density, freestream speed of sound, gas
 constant)``
 
@@ -5961,7 +5961,7 @@ TemperStag()
 
 **Stagnation Temperature**
 
-``TemperStag(any part(s), density, total energy, velocity,
+``TemperStag(any parts, density, total energy, velocity,
 ratio of specific heats, gas constant)``
 
 
@@ -6011,7 +6011,7 @@ TemperNormStag()
 
 **Normalized Stagnation Temperature**
 
-``TemperNormStag(any part(s), density, total energy, velocity,
+``TemperNormStag(any parts, density, total energy, velocity,
 ratio of specific heats, freestream density, freestream speed of sound,
 freestream velocity magnitude, gas constant)``
 
@@ -6071,7 +6071,7 @@ TempMean()
 
 **Temporal Mean**
 
-``TempMean(any model part(s), scalar,
+``TempMean(any model parts, scalar,
 vector, or constant, timestep1, timestep2)``
 
 
@@ -6104,7 +6104,7 @@ TempMinMaxField()
 
 **Temporal Minmax Field**
 
-``TempMinMaxField(any model part(s), scalar or vector,
+``TempMinMaxField(any model parts, scalar or vector,
 timestep1, timestep2, 0 or 1, 0 = compute minimum, 1 = compute maximum)``
 
 
@@ -6137,7 +6137,7 @@ TensorComponent()
 
 **Tensor Component**
 
-``TensorComponent(any part(s), tensor, tensor row(1-3), tensor
+``TensorComponent(any parts, tensor, tensor row(1-3), tensor
 col(1-3))``
 
 
@@ -6170,7 +6170,7 @@ TensorDeterminant()
 
 **Tensor Determinant**
 
-``TensorDeterminant(any part(s), Tensor or 3 Principals or 6
+``TensorDeterminant(any parts, Tensor or 3 Principals or 6
 Tensor Components)``
 
 
@@ -6206,7 +6206,7 @@ TensorEigenvalue()
 
 **Tensor Eigenvalue**
 
-``TensorEigenvalue(any part(s), tensor, which number(1-3))``
+``TensorEigenvalue(any parts, tensor, which number(1-3))``
 
 
 Computes the number (1-3) eigenvalue of the given
@@ -6223,7 +6223,7 @@ TensorEigenvector()
 
 **Tensor Eigenvector**
 
-``TensorEigenvector(any part(s), tensor, which number(1-3))``
+``TensorEigenvector(any parts, tensor, which number(1-3))``
 
 
 Computes the number (1-3) eigenvector of the given
@@ -6239,7 +6239,7 @@ TensorMake()
 
 **Tensor Make**
 
-``TensorMake(any part(s), T11, T22, T33, T12, T13, T23)``
+``TensorMake(any parts, T11, T22, T33, T12, T13, T23)``
 
 
 Create a tensor from six scalars.
@@ -6254,7 +6254,7 @@ TensorMakeAsym()
 
 **Tensor Make Asymmetric**
 
-``TensorMakeAsym(any part(s), T11,T12,T13, T21,T22,T23, T31,T32,T33)``
+``TensorMakeAsym(any parts, T11,T12,T13, T21,T22,T23, T31,T32,T33)``
 
 
 Create a tensor from 9 scalars.
@@ -6269,7 +6269,7 @@ TensorTresca()
 
 **Tensor Tresca**
 
-``TensorTresca(any part(s), Tensor or 3 Principals or 6 Tensor Components)``
+``TensorTresca(any parts, Tensor or 3 Principals or 6 Tensor Components)``
 
 
 Computes Tresca stress/strain from a tensor variable,
@@ -6323,7 +6323,7 @@ TensorVonMises()
 
 **Tensor Von Mises**
 
-``TensorVonMises(any part(s), Tensor or 3 Principals or 6 Tensor Components)``
+``TensorVonMises(any parts, Tensor or 3 Principals or 6 Tensor Components)``
 
 
 Computes Von Mises stress/strain from a tensor variable,
@@ -6391,7 +6391,7 @@ VectorCylProjection()
 
 **Vector Cyl Projection**
 
-``VectorCylProjection(any part(s), vector, frame, axis)``
+``VectorCylProjection(any parts, vector, frame, axis)``
 
 
 Computes a new vector variable by projecting a vector
@@ -6429,7 +6429,7 @@ VectorRectProjection()
 
 **Vector Rect Projection**
 
-``VectorRectProjection(any part(s), vector, frame, axis)``
+``VectorRectProjection(any parts, vector, frame, axis)``
 
 
 Computes a new vector variable by projecting a vector
@@ -6461,7 +6461,7 @@ Velo()
 
 **Velocity**
 
-``Velo(any part(s), momentum, density)``
+``Velo(any parts, momentum, density)``
 
 
 Computes a vector variable whose value is the velocity V
@@ -6500,7 +6500,7 @@ Vol()
 
 **Volume**
 
-``Vol(3D part(s) [,Compute_Per_part])``
+``Vol(3D parts [,Compute_Per_part])``
 
 
 Computes a constant or constant per part variable whose
@@ -6524,7 +6524,7 @@ Vort()
 
 **Vorticity**
 
-``Vort(any 2D or 3D part(s), velocity)``
+``Vort(any 2D or 3D parts, velocity)``
 
 
 Computes a vector variable that is the rotation of the
@@ -6559,7 +6559,7 @@ VortGamma()
 
 **Vorticity Gamma**
 
-``VortGamma(2D clip part(s), velocity, gamma function number, k (1 or 2), proximity radius, proximity option)``
+``VortGamma(2D clip parts, velocity, gamma function number, k (1 or 2), proximity radius, proximity option)``
 
 
 Computes a dimensionless scalar variable on a 2D clip

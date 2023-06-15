@@ -48,7 +48,7 @@ Version: |version|
 
 Introduction
 ------------
-Ansys EnSight is a full-featured postprocessor and general-purpose data
+Ansys EnSight is a full-featured post processor and general-purpose data
 visualization tool. It is capable of handling large simulation datasets
 from a variety of physics and engineering disciplines. It includes the
 ability to load data and analyze results from different data sources
