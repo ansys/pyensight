@@ -23,7 +23,7 @@ Returns:
 <description>
 Causes a delay between each command while playing commands from a command file.
 
-| If delay refresh is on, the graphics are not redrawn after each command. 
+| If delay refresh is on, the graphics are not redrawn after each command.
 | Playback of command files can be sped up toggling on delay_refresh at the beginning of the command file and then off towards the end (i.e. just before recording of an animation).
 | It is advantageous to use this technique for batch animations.
 
@@ -38,13 +38,13 @@ Examples:
     ::
 
         #
-        # Save time by not drawing the image after each command 
+        # Save time by not drawing the image after each command
         #
         ensight.command.delay_refresh(&quot;ON&quot;)
-        # 
-        # Other commands to set up the animation 
-        # 
-        # restore graphics updates 
+        #
+        # Other commands to set up the animation
+        #
+        # restore graphics updates
         #
         ensight.command.delay_refresh(&quot;OFF&quot;)
 

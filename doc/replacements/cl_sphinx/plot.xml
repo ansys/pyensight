@@ -529,7 +529,7 @@ Returns:
 <description>
   Selects the type of scale used for the x/y axis of the currently selected plot(s).
 
-|  The default scale is linear. 
+|  The default scale is linear.
 
 Args:
     p0:
@@ -554,7 +554,7 @@ Returns:
 <description>
   Selects the type of scale used for the x/y axis of the currently selected plot(s).
 
-|  The default scale is linear. 
+|  The default scale is linear.
 
 Args:
     p0:
@@ -1127,7 +1127,7 @@ Returns:
 <description>
 Controls the visibility of the legend for the currently selected plot(s).
 
-|  Plot legends are visible by default. 
+|  Plot legends are visible by default.
 
 Args:
     p0:
@@ -1158,7 +1158,7 @@ Returns:
 <description>
 Specifies the x/y coordinate of the origin of the selected plot in the graphics window.
 
-| The origin of the plot will be positioned at  this point (x,y) in the graphics window 
+| The origin of the plot will be positioned at  this point (x,y) in the graphics window
 
 Args:
     p0:
@@ -1179,7 +1179,7 @@ Returns:
 <description>
 Specifies the x/y coordinate of the origin of the selected plot in the graphics window.
 
-| The origin of the plot will be positioned at  this point (x,y) in the graphics window 
+| The origin of the plot will be positioned at  this point (x,y) in the graphics window
 
 Args:
     p0:
@@ -1230,7 +1230,7 @@ Returns:
 </override>
 <override namespace="ensight.plot.select_begin">
 <description>
-Selects one or more plots in the graphics window as the  target for future plot: commands 
+Selects one or more plots in the graphics window as the  target for future plot: commands
 
 Args:
     p0:
@@ -1248,7 +1248,7 @@ Returns:
 </override>
 <override namespace="ensight.plot.select_end">
 <description>
-Selects one or more plots in the graphics window as the  target for future plot: commands 
+Selects one or more plots in the graphics window as the  target for future plot: commands
 
 Args:
     p0:
@@ -1328,7 +1328,7 @@ Returns:
 <description>
 Controls the visibility of the time marker in the selected plot(s). For use with transient flipbook or keyframe animations.
 
-| The time marker is visible by default. 
+| The time marker is visible by default.
 
 Args:
     p0:
@@ -1355,7 +1355,7 @@ Returns:
 <description>
 Controls the color of the time marker in the selected plot(s). For use with transient flipbook or keyframe animations.
 
-| The time marker is white by default. 
+| The time marker is white by default.
 
 Args:
     p0:
@@ -1383,7 +1383,7 @@ Returns:
 <description>
 Controls the line style of the time marker in the selected plot(s). For use with transient flipbook or keyframe animations.
 
-| The time marker is solid by default. 
+| The time marker is solid by default.
 
 Args:
     p0:
@@ -1419,7 +1419,7 @@ Returns:
 <description>
 Controls the width of the time marker in the selected plot(s). For use with transient flipbook or keyframe animations.
 
-| The time marker is 2 pixels wide by default. 
+| The time marker is 2 pixels wide by default.
 
 Args:
     p0:
@@ -1485,11 +1485,11 @@ Returns:
 </override>
 <override namespace="ensight.plot.title_textsize">
 <description>
-Sets the size of title text in the currently selected plot. 
+Sets the size of title text in the currently selected plot.
 
 Args:
     p0:
-        &#x27;size&#x27; size of title text; any value from 1 to 100.0, with a value of one specifying the smallest text and 100 the largest 
+        &#x27;size&#x27; size of title text; any value from 1 to 100.0, with a value of one specifying the smallest text and 100 the largest
 
 Examples:
     ::
@@ -1505,7 +1505,7 @@ Returns:
 <description>
 Controls the visibility of the selected plot(s) in the graphics window.
 
-| Plots are visible by default. 
+| Plots are visible by default.
 
 Args:
     p0:
@@ -1526,7 +1526,7 @@ Returns:
 </override>
 <override namespace="ensight.plot.width">
 <description>
-Sets the width of the currently selected plot. 
+Sets the width of the currently selected plot.
 
 Args:
     p0:

@@ -6,7 +6,7 @@ info:
     and control it through a gRPC interface through Python.  The pyensight REST
     api provides a mechanism by which a Javascript application can leverage the
     pyensight API directly via REST.
-    
+
     The REST API requires a pyensight initiated ensight instance.  The API
     itself is implemented in the websocketserver instance associated with the
     pyensight instance.
@@ -69,7 +69,7 @@ paths:
           description: Python error encountered during execution
         '401':
           description: Invalid sessionid
-          
+
   /ensight/v1/{sessionid}/eval:
     put:
       summary: Eval a Python command
@@ -174,7 +174,7 @@ paths:
       requestBody:
         description: The string source code of a Python function.  The first parameter will always be
                      the namespace the function is defined in.  Subsequent args should be keyword args.
-                     The modules listed in the imports query will have been imported as well as 
+                     The modules listed in the imports query will have been imported as well as
                      SimpleNamespace. The function return value will be returned via json.dumps().
         content:
           application/json:
@@ -195,7 +195,7 @@ paths:
           description: Python error encountered during execution
         '401':
           description: Invalid sessionid
-  
+
   /ensight/v1/{sessionid}/call_func/{app}/{funcname}:
     put:
       summary: Call a remote function
@@ -245,7 +245,7 @@ paths:
                      In the example,
                      app.funcname(app, num_samples=4, source=ensight.objs.wrap_id(120)) will
                      be called.  The value returned by the function will be output using
-                     json.dumps().  
+                     json.dumps().
         content:
           application/json:
             schema:
@@ -266,7 +266,7 @@ paths:
           description: Python error encountered during execution
         '401':
           description: Invalid sessionid, app or funcname
-      
+
   /ensight/v1/{sessionid}/cmd/{nativecommandname}:
     put:
       summary: Run an EnSight native Python command
@@ -295,7 +295,7 @@ paths:
           application/json:
             schema:
               type: array
-              items: 
+              items:
                 type: object
             example:
               [
@@ -308,7 +308,7 @@ paths:
           description: Python error encountered during execution
         '401':
           description: Invalid sessionid
-          
+
   /ensight/v1/{sessionid}/ensobjs/{objectid}/{attributeid}:
     get:
       summary: ENSOBJ attributes
@@ -409,7 +409,7 @@ paths:
           description: Python error encountered during execution
         '401':
           description: Invalid sessionid
-          
+
   /ensight/v1/{sessionid}/ensobjs/setattrs:
     put:
       summary: Multi-ENSOBJ setattrs
@@ -440,7 +440,7 @@ paths:
             schema:
               type: object
               properties:
-                objects: 
+                objects:
                   type: array
                   items:
                     oneOf:
@@ -504,8 +504,8 @@ paths:
           application/json:
             schema:
               type: array
-              items: 
-                oneOf: 
+              items:
+                oneOf:
                 - type: string
                 - type: integer
               example:
@@ -527,7 +527,7 @@ paths:
           description: Python error encountered during execution
         '401':
           description: Invalid sessionid
-          
+
   /ensight/v1/{sessionid}/ensobjs/{objectid}/methods/{method}:
     put:
       summary: Run ENSOBJ method
@@ -583,9 +583,9 @@ paths:
             schema:
               type: object
               properties:
-                args: 
+                args:
                   type: array
-                  items: 
+                  items:
                     type: object
                 kwargs:
                   type: object

@@ -179,7 +179,7 @@ Returns:
 <description>
 Toggles global hidden line drawing.
 
-| Each part has a part attribute that determines whether or not it will be drawn with hidden lines if the global setting is on (See part: hidden_line).  
+| Each part has a part attribute that determines whether or not it will be drawn with hidden lines if the global setting is on (See part: hidden_line).
 | If the optional RGB values are specified, they must be values between 0.0 and 1.0. If none are specified, then 0.0, 0.0, 0.0 are used.
 
 Args:
@@ -304,7 +304,7 @@ Returns:
 <description>
 Sets what type of pick will be performed when the &#x27;p&#x27; key is pressed.
 
-| See the EnSight User&#x27;s Manual for instructions on how to operate each of these picks. 
+| See the EnSight User&#x27;s Manual for instructions on how to operate each of these picks.
 
 Args:
     p0:
@@ -313,7 +313,7 @@ Args:
         * center_of_transform
         * cursor
         * line
-        * look_at 
+        * look_at
         * part
         * plane
         * plane_2pt

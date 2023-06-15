@@ -94,7 +94,7 @@ Returns:
 <description>
 Creates a new frame.
 
-| The new frame will be created with the current default attributes. 
+| The new frame will be created with the current default attributes.
 
 Examples:
     ::
@@ -438,7 +438,7 @@ Returns:
 <description>
 Deselects all frames, such that subsequent frame attribute commands will modify default frame attributes.
 
-| When a new frame is created, it uses default attributes.  This command allows you to change the defaults. 
+| When a new frame is created, it uses default attributes.  This command allows you to change the defaults.
 
 Examples:
     ::
@@ -533,7 +533,7 @@ Returns:
 <description>
 Sets the name of the periodic matchfile for the computational symmetry.
 
-| Since modification of frame symmetry attributes typically need more than one attribute change before being able to properly perform the option, one typically should encase the attribute lines between frame: modify_begin and frame: modify_end commands. 
+| Since modification of frame symmetry attributes typically need more than one attribute change before being able to properly perform the option, one typically should encase the attribute lines between frame: modify_begin and frame: modify_end commands.
 | If no matchfile is used, the rotational angle and number of instances (for rotational symmetry) or the translational deltas and number of instances (for translational symmetry) must be set in the user interface.  Also, node hashing will be done in an attempt to eliminate duplicate nodes at the boundaries of instances. If a matchfile is used, the matchfile must follow the prescribed format, which contains the angle or delta, and the list of paired nodes that match at the instance boundaries.  The number of instances still comes from the user interface.
 
 Args:
@@ -863,7 +863,7 @@ Returns:
 <description>
 Sets whether a periodic matchfile will be used for specification of the rotational or translational symmetry.
 
-| Since modification of frame symmetry attributes typically need more than one attribute change before being able to properly perform the option, one typically should encase the attribute lines between frame: modify_begin and frame: modify_end commands. 
+| Since modification of frame symmetry attributes typically need more than one attribute change before being able to properly perform the option, one typically should encase the attribute lines between frame: modify_begin and frame: modify_end commands.
 | If no matchfile is used, the rotational angle and number of instances (for rotational symmetry) or the translational deltas and number of instances (for translational symmetry) must be set in the user interface.  Also, node hashing will be done in an attempt to eliminate duplicate nodes at the boundaries of instances. If a matchfile is used, the matchfile must follow the prescribed format, which contains the angle or delta, and the list of paired nodes that match at the instance boundaries.  The number of instances still comes from the user interface.
 
 Args:
@@ -918,7 +918,7 @@ Args:
     p0:
         &#x27;toggle&#x27;
 
-        * ON 
+        * ON
         * OFF
 
 Examples:

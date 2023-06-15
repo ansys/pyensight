@@ -36,7 +36,7 @@ test:
 smoketest:
 	python -c "from ansys.pyensight.core import LocalLauncher, DockerLauncher"
 
-clean: 
+clean:
 	rm -rf dist build
 	rm -rf src/ansys/api
 	rm -rf **/*.egg-info
@@ -47,4 +47,3 @@ clean:
 	rm -f src/ansys/pyensight/ens_*.py
 	rm -f src/ansys/pyensight/build_info.py
 	find . -name \*.pyc -delete
- 

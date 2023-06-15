@@ -3,7 +3,7 @@
 <description>
 Specify the option by which to color the animated traces on the selected part(s).
 
-| The color of the constant_color option is specified by the &quot;anim_traces: RGB&quot; command. 
+| The color of the constant_color option is specified by the &quot;anim_traces: RGB&quot; command.
 
 Args:
     p0:
@@ -14,21 +14,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select the particle trace part(s) to animate 
-        # 
+        #
+        # Select the particle trace part(s) to animate
+        #
         ensight.part.select_begin(2)
-        # 
-        # Toggle off the visibility of the selected particle trace part(s), and 
-        # animate them. 
-        # 
+        #
+        # Toggle off the visibility of the selected particle trace part(s), and
+        # animate them.
+        #
         ensight.part.modify_begin()
         ensight.part.visible(&quot;OFF&quot;)
         ensight.ptrace.animate(&quot;ON&quot;)
         ensight.part.modify_end()
-        # 
-        # Color by constant color of magenta 
-        # 
+        #
+        # Color by constant color of magenta
+        #
         ensight.anim_traces.color_by(&quot;constant_color&quot;)
         ensight.anim_traces.rgb(1.0000e+00,0.0000e+00,1.0000e+00)
 
@@ -40,7 +40,7 @@ Returns:
 <description>
 Specify how fast (the speed) the animated traces move for the selected particle trace part(s).
 
-| This parameter is not applicable when using &quot;anim_traces: sync_to_transient ON&quot;, and displaying transient data through flipbook or keyframe animation. 
+| This parameter is not applicable when using &quot;anim_traces: sync_to_transient ON&quot;, and displaying transient data through flipbook or keyframe animation.
 
 Args:
     p0:
@@ -49,21 +49,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select the particle trace part(s) to animate 
-        # 
+        #
+        # Select the particle trace part(s) to animate
+        #
         ensight.part.select_begin(2)
-        # 
-        # Toggle off the visibility of the selected particle trace part(s), and 
-        # animate them. 
-        # 
+        #
+        # Toggle off the visibility of the selected particle trace part(s), and
+        # animate them.
+        #
         ensight.part.modify_begin()
         ensight.part.visible(&quot;OFF&quot;)
         ensight.ptrace.animate(&quot;ON&quot;)
         ensight.part.modify_end()
-        # 
-        # Specify a delta time 
-        # 
+        #
+        # Specify a delta time
+        #
         ensight.anim_traces.delta_time(1.0000e-05)
 
 Returns:
@@ -83,21 +83,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select the particle trace part(s) to animate 
-        # 
+        #
+        # Select the particle trace part(s) to animate
+        #
         ensight.part.select_begin(2)
-        # 
-        # Toggle off the visibility of the selected particle trace part(s), and 
-        # animate them. 
-        # 
+        #
+        # Toggle off the visibility of the selected particle trace part(s), and
+        # animate them.
+        #
         ensight.part.modify_begin()
         ensight.part.visible(&quot;OFF&quot;)
         ensight.ptrace.animate(&quot;ON&quot;)
         ensight.part.modify_end()
-        # 
-        # Toggle animated trace segment head type to spheres 
-        # 
+        #
+        # Toggle animated trace segment head type to spheres
+        #
         ensight.anim_traces.head_type(&quot;sphere&quot;)
         ensight.anim_traces.head_detail(&quot;4.0000+e00&quot;)
 
@@ -114,26 +114,26 @@ Specify the scaling factor for the head size.
 
 Args:
     p0:
-        &#x27;scale_value&#x27; scale factor to apply to the head size. 
+        &#x27;scale_value&#x27; scale factor to apply to the head size.
 
 Examples:
     ::
 
-        # 
-        # Select the particle trace part(s) to animate 
-        # 
+        #
+        # Select the particle trace part(s) to animate
+        #
         ensight.part.select_begin(2)
-        # 
-        # Toggle off the visibility of the selected particle trace part(s), and 
-        # animate them. 
-        # 
+        #
+        # Toggle off the visibility of the selected particle trace part(s), and
+        # animate them.
+        #
         ensight.part.modify_begin()
         ensight.part.visible(&quot;OFF&quot;)
         ensight.ptrace.animate(&quot;ON&quot;)
         ensight.part.modify_end()
-        # 
-        # Toggle animated trace segment head type to spheres 
-        # 
+        #
+        # Toggle animated trace segment head type to spheres
+        #
         ensight.anim_traces.head_type(&quot;sphere&quot;)
         ensight.anim_traces.head_scale(1.0000e-01)
 
@@ -164,22 +164,22 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select the particle trace part(s) to animate 
-        # 
+        #
+        # Select the particle trace part(s) to animate
+        #
         ensight.part.select_begin(2)
-        # 
-        # Toggle off the visibility of the selected particle trace part(s), and 
-        # animate them. 
-        # 
+        #
+        # Toggle off the visibility of the selected particle trace part(s), and
+        # animate them.
+        #
         ensight.part.modify_begin()
         ensight.part.visible(&quot;OFF&quot;)
         ensight.ptrace.animate(&quot;ON&quot;)
         ensight.part.modify_end()
-        # 
-        # Toggle animated trace segment head type to spheres 
-        # and size by velocity magnitude 
-        # 
+        #
+        # Toggle animated trace segment head type to spheres
+        # and size by velocity magnitude
+        #
         ensight.anim_traces.head_type(&quot;sphere&quot;)
         ensight.anim_traces.head_size_by(&quot;vector_mag&quot;)
         ensight.anim_traces.head_variable(&quot;Velocity&quot;)
@@ -208,21 +208,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select the particle trace part(s) to animate 
-        # 
+        #
+        # Select the particle trace part(s) to animate
+        #
         ensight.part.select_begin(2)
-        # 
-        # Toggle off the visibility of the selected particle trace part(s), and 
-        # animate them. 
-        # 
+        #
+        # Toggle off the visibility of the selected particle trace part(s), and
+        # animate them.
+        #
         ensight.part.modify_begin()
         ensight.part.visible(&quot;OFF&quot;)
         ensight.ptrace.animate(&quot;ON&quot;)
         ensight.part.modify_end()
-        # 
-        # Toggle animated trace segment head type to spheres 
-        # 
+        #
+        # Toggle animated trace segment head type to spheres
+        #
         ensight.anim_traces.head_type(&quot;sphere&quot;)
 
 Returns:
@@ -242,22 +242,22 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select the particle trace part(s) to animate 
-        # 
+        #
+        # Select the particle trace part(s) to animate
+        #
         ensight.part.select_begin(2)
-        # 
-        # Toggle off the visibility of the selected particle trace part(s), and 
-        # animate them. 
-        # 
+        #
+        # Toggle off the visibility of the selected particle trace part(s), and
+        # animate them.
+        #
         ensight.part.modify_begin()
         ensight.part.visible(&quot;OFF&quot;)
         ensight.ptrace.animate(&quot;ON&quot;)
         ensight.part.modify_end()
-        # 
-        # Toggle animated trace segment head type to spheres 
-        # and size by velocity magnitude 
-        # 
+        #
+        # Toggle animated trace segment head type to spheres
+        # and size by velocity magnitude
+        #
         ensight.anim_traces.head_type(&quot;sphere&quot;)
         ensight.anim_traces.head_size_by(&quot;vector_mag&quot;)
         ensight.anim_traces.head_variable(&quot;Velocity&quot;)
@@ -277,21 +277,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select the particle trace part(s) to animate 
-        # 
+        #
+        # Select the particle trace part(s) to animate
+        #
         ensight.part.select_begin(2)
-        # 
-        # Toggle off the visibility of the selected particle trace part(s), and 
-        # animate them. 
-        # 
+        #
+        # Toggle off the visibility of the selected particle trace part(s), and
+        # animate them.
+        #
         ensight.part.modify_begin()
         ensight.part.visible(&quot;OFF&quot;)
         ensight.ptrace.animate(&quot;ON&quot;)
         ensight.part.modify_end()
-        # 
-        # Specify line width to be 3 
-        # 
+        #
+        # Specify line width to be 3
+        #
         ensight.anim_traces.line_width(3.0000e+01)
 
 Returns:
@@ -302,7 +302,7 @@ Returns:
 <description>
 Specify the maximum particle duration.
 
-| Used in conjunction with &quot;anim_traces: set_max_time ON&quot;. 
+| Used in conjunction with &quot;anim_traces: set_max_time ON&quot;.
 
 Args:
     p0:
@@ -311,21 +311,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select the particle trace part(s) to animate 
-        # 
+        #
+        # Select the particle trace part(s) to animate
+        #
         ensight.part.select_begin(2)
-        # 
-        # Toggle off the visibility of the selected particle trace part(s), and 
-        # animate them. 
-        # 
+        #
+        # Toggle off the visibility of the selected particle trace part(s), and
+        # animate them.
+        #
         ensight.part.modify_begin()
         ensight.part.visible(&quot;OFF&quot;)
         ensight.ptrace.animate(&quot;ON&quot;)
         ensight.part.modify_end()
-        # 
-        # End trace animation at .5 
-        # 
+        #
+        # End trace animation at .5
+        #
         ensight.anim_traces.set_max_time(&quot;ON&quot;)
         ensight.anim_traces.max_time(5.0000e-01)
 
@@ -350,21 +350,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select the particle trace part(s) to animate 
-        # 
+        #
+        # Select the particle trace part(s) to animate
+        #
         ensight.part.select_begin(2)
-        # 
-        # Toggle off the visibility of the selected particle trace part(s), and 
-        # animate them. 
-        # 
+        #
+        # Toggle off the visibility of the selected particle trace part(s), and
+        # animate them.
+        #
         ensight.part.modify_begin()
         ensight.part.visible(&quot;OFF&quot;)
         ensight.ptrace.animate(&quot;ON&quot;)
         ensight.part.modify_end()
-        # 
-        # Toggle on multiple animated trace pulses 
-        # 
+        #
+        # Toggle on multiple animated trace pulses
+        #
         ensight.anim_traces.multiple_pulses(&quot;ON&quot;)
         ensight.anim_traces.pulse_interval(1.0000e-03)
 
@@ -386,21 +386,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select the particle trace part(s) to animate 
-        # 
+        #
+        # Select the particle trace part(s) to animate
+        #
         ensight.part.select_begin(2)
-        # 
-        # Toggle off the visibility of the selected particle trace part(s), and 
-        # animate them. 
-        # 
+        #
+        # Toggle off the visibility of the selected particle trace part(s), and
+        # animate them.
+        #
         ensight.part.modify_begin()
         ensight.part.visible(&quot;OFF&quot;)
         ensight.ptrace.animate(&quot;ON&quot;)
         ensight.part.modify_end()
-        # 
-        # Specify a animated trace length 
-        # 
+        #
+        # Specify a animated trace length
+        #
         ensight.anim_traces.particle_time(1.0000e-04)
 
 Returns:
@@ -420,21 +420,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select the particle trace part(s) to animate 
-        # 
+        #
+        # Select the particle trace part(s) to animate
+        #
         ensight.part.select_begin(2)
-        # 
-        # Toggle off the visibility of the selected particle trace part(s), and 
-        # animate them. 
-        # 
+        #
+        # Toggle off the visibility of the selected particle trace part(s), and
+        # animate them.
+        #
         ensight.part.modify_begin()
         ensight.part.visible(&quot;OFF&quot;)
         ensight.ptrace.animate(&quot;ON&quot;)
         ensight.part.modify_end()
-        # 
-        # Toggle on multiple animated trace pulses 
-        # 
+        #
+        # Toggle on multiple animated trace pulses
+        #
         ensight.anim_traces.multiple_pulses(&quot;ON&quot;)
         ensight.anim_traces.pulse_interval(1.0000e-03)
 
@@ -459,21 +459,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select the particle trace part(s) to animate 
-        # 
+        #
+        # Select the particle trace part(s) to animate
+        #
         ensight.part.select_begin(2)
-        # 
-        # Toggle off the visibility of the selected particle trace part(s), and 
-        # animate them. 
-        # 
+        #
+        # Toggle off the visibility of the selected particle trace part(s), and
+        # animate them.
+        #
         ensight.part.modify_begin()
         ensight.part.visible(&quot;OFF&quot;)
         ensight.ptrace.animate(&quot;ON&quot;)
         ensight.part.modify_end()
-        # 
-        # Color by constant color of magenta 
-        # 
+        #
+        # Color by constant color of magenta
+        #
         ensight.anim_traces.color_by(&quot;constant&quot;)
         ensight.anim_traces.rgb(1.0000e+00,0.0000e+00,1.0000e+00)
 
@@ -497,21 +497,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select the particle trace part(s) to animate 
-        # 
+        #
+        # Select the particle trace part(s) to animate
+        #
         ensight.part.select_begin(2)
-        # 
-        # Toggle off the visibility of the selected particle trace part(s), and 
-        # animate them. 
-        # 
+        #
+        # Toggle off the visibility of the selected particle trace part(s), and
+        # animate them.
+        #
         ensight.part.modify_begin()
         ensight.part.visible(&quot;OFF&quot;)
         ensight.ptrace.animate(&quot;ON&quot;)
         ensight.part.modify_end()
-        # 
-        # End trace animation at simulation time .5 
-        # 
+        #
+        # End trace animation at simulation time .5
+        #
         ensight.anim_traces.set_max_time(&quot;ON&quot;)
         ensight.anim_traces.max_time(5.0000e-01)
 
@@ -530,21 +530,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select the particle trace part(s) to animate 
-        # 
+        #
+        # Select the particle trace part(s) to animate
+        #
         ensight.part.select_begin(2)
-        # 
-        # Toggle off the visibility of the selected particle trace part(s), and 
-        # animate them. 
-        # 
+        #
+        # Toggle off the visibility of the selected particle trace part(s), and
+        # animate them.
+        #
         ensight.part.modify_begin()
         ensight.part.visible(&quot;OFF&quot;)
         ensight.ptrace.animate(&quot;ON&quot;)
         ensight.part.modify_end()
-        # 
-        # Start animated traces at .1 rather than 0. 
-        # 
+        #
+        # Start animated traces at .1 rather than 0.
+        #
         ensight.anim_traces.start_time(1.0000e-01)
 
 Returns:
@@ -567,26 +567,26 @@ Args:
 Examples:
     ::
 
-        # 
-        # Set the 
-        # 
+        #
+        # Set the
+        #
         ensight.solution_time.current_step(4.0000e+01)
         ensight.solution_time.update_to_current()
-        # 
-        # Select the particle trace part(s) to animate 
-        # 
+        #
+        # Select the particle trace part(s) to animate
+        #
         ensight.part.select_begin(2)
-        # 
-        # Toggle off the visibility of the selected particle trace part(s), and 
-        # animate them. 
-        # 
+        #
+        # Toggle off the visibility of the selected particle trace part(s), and
+        # animate them.
+        #
         ensight.part.modify_begin()
         ensight.part.visible(&quot;OFF&quot;)
         ensight.ptrace.animate(&quot;ON&quot;)
         ensight.part.modify_end()
-        # 
-        # Toggle off synchronization with transient data 
-        # 
+        #
+        # Toggle off synchronization with transient data
+        #
         ensight.anim_traces.sync_to_transient(&quot;OFF&quot;)
 
 Returns:

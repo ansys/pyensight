@@ -42,7 +42,7 @@ Args:
     p0:
         &#x27;option&#x27;
 
-        * convergence_criteria 
+        * convergence_criteria
         * distance_from_surface
         * velocity_magnitude
 

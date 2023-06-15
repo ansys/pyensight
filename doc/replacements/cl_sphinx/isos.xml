@@ -52,9 +52,9 @@ Returns:
 The isosurface algorithm works only on scalar variables.  For a vector, this command specifies how a scalar will be created from the vector.
 
 | The scale factors apply only if the isosurface variable is a vector.
-| Usually used with a scale factor of 0 or 1. in order to use only a component of a vector. 
-| A special condition exists when x_scale = y_scale = z_scale = 0, in which case the vector magnitude is used. 
-| The default is x_scale = y_scale = z_scale = 0.  
+| Usually used with a scale factor of 0 or 1. in order to use only a component of a vector.
+| A special condition exists when x_scale = y_scale = z_scale = 0, in which case the vector magnitude is used.
+| The default is x_scale = y_scale = z_scale = 0.
 
 Args:
     p0:
@@ -83,7 +83,7 @@ Returns:
 <description>
 Set the bounding condition for an isovolume.
 
-| Is used only when &quot;isos: type&quot; is set to isovolume.  
+| Is used only when &quot;isos: type&quot; is set to isovolume.
 
 Args:
     p0:
@@ -113,7 +113,7 @@ Returns:
 <description>
 Create a isosurface part with the currently defined attributes using  the currently selected parts as parent parts.
 
-| The isosurface part is created using the currently selected parts as parents.  
+| The isosurface part is created using the currently selected parts as parents.
 | The isosurface part is created using the currently set isosurface attributes.
 
 Examples:
@@ -136,7 +136,7 @@ Returns:
 <description>
 Specify delta between isosurface instances.
 
-| Requires the use of the isos: number_to_create &lt;instances&gt; command in conjunction with this command.  
+| Requires the use of the isos: number_to_create &lt;instances&gt; command in conjunction with this command.
 
 Args:
     p0:
@@ -263,7 +263,7 @@ Returns:
 <description>
 Set the min/max constraint values for an isovolume.
 
-| Is used only when &quot;isos: type&quot; is set to isovolume.  
+| Is used only when &quot;isos: type&quot; is set to isovolume.
 
 Args:
     p0:
@@ -291,7 +291,7 @@ Returns:
 <description>
 Set the min/max constraint values for an isovolume.
 
-| Is used only when &quot;isos: type&quot; is set to isovolume.  
+| Is used only when &quot;isos: type&quot; is set to isovolume.
 
 Args:
     p0:
@@ -319,7 +319,7 @@ Returns:
 <description>
 Specify the number of instances of an isosurface to create.
 
-| Requires the use of the isos: create_delta &lt;delta&gt; command in conjunction with this command.  
+| Requires the use of the isos: create_delta &lt;delta&gt; command in conjunction with this command.
 
 Args:
     p0:
@@ -362,14 +362,14 @@ Returns:
 <description>
 Set the isosurface part to represent a surface or a volume.
 
-| The default is isosurface. 
+| The default is isosurface.
 
 Args:
     p0:
         &#x27;iso_type&#x27;
 
         * isosurface
-        * isovolume 
+        * isovolume
 
 Examples:
     ::
@@ -427,7 +427,7 @@ Returns:
 <description>
 Set the isosurface variable.
 
-| A variable must be active before it can be used for isosurfaces.  
+| A variable must be active before it can be used for isosurfaces.
 
 Args:
     p0:

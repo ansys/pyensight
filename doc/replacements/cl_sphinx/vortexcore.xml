@@ -9,7 +9,7 @@ Examples:
     ::
 
         #
-        # Specify the 3D parent part(s) 
+        # Specify the 3D parent part(s)
         # from which to create the vortex cores
         #
         ensight.part.select_begin(1)
@@ -20,7 +20,7 @@ Examples:
         ensight.vortexcore.end()
         ensight.vortexcore.create()
         #
-        # Now select the newly created vortex part 
+        # Now select the newly created vortex part
         # for subsequent operations
         #
         ensight.part.select_begin(5)
@@ -39,7 +39,7 @@ Examples:
     ::
 
         #
-        # Specify the 3D parent part(s) 
+        # Specify the 3D parent part(s)
         # from which to create the vortex cores
         #
         ensight.part.select_begin(1)
@@ -50,7 +50,7 @@ Examples:
         ensight.vortexcore.end()
         ensight.vortexcore.create()
         #
-        # Now select the newly created vortex part 
+        # Now select the newly created vortex part
         # for subsequent operations
         #
         ensight.part.select_begin(5)
@@ -67,7 +67,7 @@ Examples:
     ::
 
         #
-        # Specify the 3D parent part(s) 
+        # Specify the 3D parent part(s)
         # from which to create the vortex cores
         #
         ensight.part.select_begin(1)
@@ -78,7 +78,7 @@ Examples:
         ensight.vortexcore.end()
         ensight.vortexcore.create()
         #
-        # Now select the newly created vortex part 
+        # Now select the newly created vortex part
         # for subsequent operations
         #
         ensight.part.select_begin(5)
@@ -91,7 +91,7 @@ Returns:
 <description>
 Specify the density variable to use in creating/updating a vortex core part or the default attributes.
 
-| This variable is assigned automatically if the variable name &lt;Density&gt; exists. 
+| This variable is assigned automatically if the variable name &lt;Density&gt; exists.
 | Since the computation of separation and attachment lines depend on velocity, either the velocity variable must be defined or both the density and momentum variables must be defined to obtain the velocity variable.
 
 Args:
@@ -287,7 +287,7 @@ Returns:
 </override>
 <override namespace="ensight.vortexcore.threshold_value">
 <description>
-Specify the threshold value by which to filter the segments from the selected vortex cores part(s). 
+Specify the threshold value by which to filter the segments from the selected vortex cores part(s).
 
 | This value is automatically set to the minimum vortex core strength variable value of the vortex cores part.  This value must lie within the threshold variable interval [threshold_min,theshold_max].
 
@@ -311,7 +311,7 @@ Returns:
 <description>
 Specify the velocity variable to use in creating/updating a vortex core part or the default attributes.
 
-| This variable is automatically assigned if the variable name &lt;velocity&gt; exists. 
+| This variable is automatically assigned if the variable name &lt;velocity&gt; exists.
 | Since the computation of separation and attachment lines depend on velocity, either the velocity variable must be defined or both the density and momentum variables must be defined to obtain the velocity variable.
 
 Args:

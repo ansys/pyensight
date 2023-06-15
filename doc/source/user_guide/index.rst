@@ -1,4 +1,4 @@
-  
+
 .. |CAMERA|  replace:: :class:`ENS_CAMERA<pyensight.ens_camera.ENS_CAMERA>`
 .. |CASE|  replace:: :class:`ENS_CASE<pyensight.ens_case.ENS_CASE>`
 .. |GLOBALS|  replace:: :class:`ENS_GLOBALS<pyensight.ens_globals.ENS_GLOBALS>`
@@ -14,7 +14,7 @@
 .. |TOOL_LINE|  replace:: :class:`ENS_TOOL_LINE<pyensight.ens_tool_line.ENS_TOOL_LINE>`
 .. |TOOL_PLANE|  replace:: :class:`ENS_TOOL_PLANE<pyensight.ens_tool_plane.ENS_TOOL_PLANE>`
 .. |TOOL_REVOLUTION|  replace:: :class:`ENS_TOOL_REVOLUTION<pyensight.ens_tool_revolution.ENS_TOOL_REVOLUTION>`
-.. |VPORT|  replace:: :class:`ENS_VPORT<pyensight.ens_vport.ENS_VPORT>`				 
+.. |VPORT|  replace:: :class:`ENS_VPORT<pyensight.ens_vport.ENS_VPORT>`
 
 .. |ANNOT|  replace:: :class:`ENS_ANNOT<pyensight.ens_annot.ENS_ANNOT>`
 .. |ANNOT_ARROW|  replace:: :class:`ENS_ANNOT_ARROW<pyensight.ens_annot_arrow.ENS_ANNOT_ARROW>`
@@ -134,7 +134,7 @@ There are two types of objects in EnSight. The first set are parts of the code
 that are generally created automatically at startup.
 
 .. note::
-   The following sections briefly describe many of the core classes. However, 
+   The following sections briefly describe many of the core classes. However,
    they do not describe all core classes but only commonly used objects.
 
 There are two unique concepts in the EnSight architecture that are important in

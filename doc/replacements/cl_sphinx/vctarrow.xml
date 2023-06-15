@@ -3,8 +3,8 @@
 <description>
 Control the location of the arrows
 
-| Discrete particles can only use the &#x27;node&#x27; vector location. 
-| For linear elements &#x27;node&#x27; and &#x27;vertices&#x27; give the same result. 
+| Discrete particles can only use the &#x27;node&#x27; vector location.
+| For linear elements &#x27;node&#x27; and &#x27;vertices&#x27; give the same result.
 
 Args:
     p0:
@@ -55,7 +55,7 @@ Returns:
 <description>
 Delimit the modifications for vector arrow attributes
 
-| These commands are used to set the attributes for a vector arrow part creation. 
+| These commands are used to set the attributes for a vector arrow part creation.
 
 Examples:
     ::
@@ -73,7 +73,7 @@ Returns:
 <description>
 Delimit the modifications for vector arrow attributes
 
-| These commands are used to set the attributes for a vector arrow part creation. 
+| These commands are used to set the attributes for a vector arrow part creation.
 
 Examples:
     ::
@@ -91,16 +91,16 @@ Returns:
 <description>
 Specify a scaling factor for each component of the vector variable,  to be used in calculating both the magnitude and direction of the vector  arrow.
 
-| Specify 1 to use the full value of a component. Specify 0 to ignore the corresponding vector components (and thus confine all vector arrows to planes  perpendicular to that axis). 
-| Values may be negative to reverse the direction of the component.  
+| Specify 1 to use the full value of a component. Specify 0 to ignore the corresponding vector components (and thus confine all vector arrows to planes  perpendicular to that axis).
+| Values may be negative to reverse the direction of the component.
 
 Args:
     p0:
-        &#x27;x_scale&#x27; scaling for the x-component 
+        &#x27;x_scale&#x27; scaling for the x-component
     p1:
-        &#x27;y_scale&#x27; scaling for the y-component 
+        &#x27;y_scale&#x27; scaling for the y-component
     p2:
-        &#x27;z_scale&#x27; scaling for the z-component 
+        &#x27;z_scale&#x27; scaling for the z-component
 
 Examples:
     ::
@@ -122,7 +122,7 @@ Returns:
 <description>
 Create a new vector arrow part using the currently defined attributes and selected parent parts.
 
-| The vector variable must be set via the vctarrow: variable command before the part can be created. 
+| The vector variable must be set via the vctarrow: variable command before the part can be created.
 
 Examples:
     ::
@@ -142,7 +142,7 @@ Returns:
 <description>
 Control the fraction of the parent&#x27;s nodes which will display a vector.
 
-| A value of 0.0 results in no arrows, while a value of 1.0 results in an arrow at every node. Between these two values the arrows are randomly distributed at the specified density. 
+| A value of 0.0 results in no arrows, while a value of 1.0 results in an arrow at every node. Between these two values the arrows are randomly distributed at the specified density.
 
 Args:
     p0:
@@ -168,7 +168,7 @@ Returns:
 <description>
 Specify a visual offset for the vectors from the surface.
 
-| A positive offset moves the vector away from the surface in the direction of the normal. 
+| A positive offset moves the vector away from the surface in the direction of the normal.
 
 Args:
     p0:
@@ -194,7 +194,7 @@ Returns:
 <description>
 Apply a projection to the vectors prior to display
 
-| Vector components are scaled prior to computing the projections.  
+| Vector components are scaled prior to computing the projections.
 
 Args:
     p0:
@@ -226,7 +226,7 @@ Returns:
 <description>
 Control the length of the vector arrows
 
-| If the arrow type is &quot;Rectilinear&quot; this parameter is a scaling multiple to change the magnitude of the vectors. If the type is &quot;Rect_fixed&quot; the parameter specifies the absolute magnitude for each vector. If the type is &quot;Curved&quot; this parameter controls the integration time for the streamlines which make up the curved part of the arrow. 
+| If the arrow type is &quot;Rectilinear&quot; this parameter is a scaling multiple to change the magnitude of the vectors. If the type is &quot;Rect_fixed&quot; the parameter specifies the absolute magnitude for each vector. If the type is &quot;Curved&quot; this parameter controls the integration time for the streamlines which make up the curved part of the arrow.
 
 Args:
     p0:
@@ -336,7 +336,7 @@ Returns:
 <description>
 Apply a threshold filter to the selection of vectors for display.
 
-| Threshold filtering occurs after density filtering. When using both forms of filtering in combination the actual vector density may not be exactly as specified. 
+| Threshold filtering occurs after density filtering. When using both forms of filtering in combination the actual vector density may not be exactly as specified.
 
 Args:
     p0:
@@ -374,7 +374,7 @@ Returns:
 <description>
 Change the color of the arrow tips
 
-| The color of the tip is only used when the tip shape is &#x27;tipped&#x27; 
+| The color of the tip is only used when the tip shape is &#x27;tipped&#x27;
 
 Args:
     p0:
@@ -453,7 +453,7 @@ Returns:
 <description>
 Set the method for determining tip size
 
-| This parameter is only used for &#x27;triangle&#x27; or &#x27;normal&#x27; arrow tips. 
+| This parameter is only used for &#x27;triangle&#x27; or &#x27;normal&#x27; arrow tips.
 
 Args:
     p0:
@@ -488,7 +488,7 @@ Returns:
 <description>
 Specify the vector variable to be used for vector arrow creation.
 
-| The variable must be activated before it can be used in a vector arrow plot. 
+| The variable must be activated before it can be used in a vector arrow plot.
 
 Args:
     p0:

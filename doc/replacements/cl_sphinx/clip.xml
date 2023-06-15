@@ -255,7 +255,7 @@ Returns:
 </override>
 <override namespace="ensight.clip.create">
 <description>
-Create a clip part with the currently defined attributes using the currently selected parts as parents. 
+Create a clip part with the currently defined attributes using the currently selected parts as parents.
 
 | The clip part is created using the currently selected parts as parents.  The clip part is created using the currently set clip attributes.
 
@@ -354,7 +354,7 @@ Returns:
 <description>
 Specify the minimum/maximum range for the non-constant I/J/K extract.
 
-| For an I/J/K extract the user specifies that he wants to create a part of constant I, J, or K and an extract value.  These parameters specify the range for the non-constant plane.  
+| For an I/J/K extract the user specifies that he wants to create a part of constant I, J, or K and an extract value.  These parameters specify the range for the non-constant plane.
 
 Args:
     p0:
@@ -384,7 +384,7 @@ Returns:
 <description>
 Specify the minimum/maximum range for the non-constant I/J/K extract.
 
-| For an I/J/K extract the user specifies that he wants to create a part of constant I, J, or K and an extract value.  These parameters specify the range for the non-constant plane.  
+| For an I/J/K extract the user specifies that he wants to create a part of constant I, J, or K and an extract value.  These parameters specify the range for the non-constant plane.
 
 Args:
     p0:
@@ -414,7 +414,7 @@ Returns:
 <description>
 Specify the step increment for the non-constant I/J/K extract.
 
-| For an I/J/K extract the user specifies that he wants to create a part of constant I, J, or K and a extract value.  These parameters specify the step increment for the non-constant plane.  
+| For an I/J/K extract the user specifies that he wants to create a part of constant I, J, or K and a extract value.  These parameters specify the step increment for the non-constant plane.
 
 Args:
     p0:
@@ -445,7 +445,7 @@ Returns:
 <description>
 Specify the step increment for the non-constant I/J/K extract.
 
-| For an I/J/K extract the user specifies that he wants to create a part of constant I, J, or K and a extract value.  These parameters specify the step increment for the non-constant plane.  
+| For an I/J/K extract the user specifies that he wants to create a part of constant I, J, or K and a extract value.  These parameters specify the step increment for the non-constant plane.
 
 Args:
     p0:
@@ -477,7 +477,7 @@ Returns:
 Specify what type of clip will be created.
 
 | Intersect applies to all tools except XYZ Box.
-| Inside/outside/in_out apply to all tools except XYZ, IJK, and Line. 
+| Inside/outside/in_out apply to all tools except XYZ, IJK, and Line.
 | When domain is set to inside/outside/in_out the parent parts will be made invisible.
 | The default is intersect.
 
@@ -638,14 +638,14 @@ Args:
     p0:
         &#x27;toggle&#x27;
 
-        * ON  
+        * ON
         * OFF
 
 Examples:
     ::
 
         #
-        # Turn on an axis showing the 
+        # Turn on an axis showing the
         # IJK layout of an existing
         # clip part
         #
@@ -719,7 +719,7 @@ Returns:
 <description>
 Set an end point for a clip line.
 
-| Two end points are necessary to properly define the line location. 
+| Two end points are necessary to properly define the line location.
 
 Args:
     p0:
@@ -1165,7 +1165,7 @@ Returns:
 Clip by revolving a 1D part about an axis.
 
 | This command is functionally the same as &quot;clip: revolve_part&quot; except it takes a part name as the argument instead of a part id.
-| The end points for the 1D part are effectively extended to infinity during the clip. 
+| The end points for the 1D part are effectively extended to infinity during the clip.
 | The part is revolved around the defined origin and axis.
 
 Args:
@@ -1203,7 +1203,7 @@ Args:
     p0:
         &#x27;axis&#x27;
 
-        * X  
+        * X
         * Y
         * Z
 
@@ -1456,7 +1456,7 @@ Args:
         * cone
         * cylinder
         * general_quadric
-        * ijk  
+        * ijk
         * line
         * plane
         * revolution

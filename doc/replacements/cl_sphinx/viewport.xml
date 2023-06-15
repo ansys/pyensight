@@ -190,7 +190,7 @@ Args:
         &#x27;toggle&#x27;
 
         * ON
-        * OFF 
+        * OFF
 
 Examples:
     ::
@@ -417,7 +417,7 @@ Returns:
 <description>
 Defines the intensity of light source 2, which is always at the location of the viewer (camera).
 
-| None 
+| None
 
 Args:
     p0:
@@ -588,7 +588,7 @@ Set active viewport(s) selection construct for subsequent viewport modification.
 
 Args:
     p0:
-        &#x27;idn&#x27; list of viewport number(s) to be active for editing. 
+        &#x27;idn&#x27; list of viewport number(s) to be active for editing.
 
 Examples:
     ::
@@ -610,7 +610,7 @@ Set active viewport(s) selection construct for subsequent viewport modification.
 
 Args:
     p0:
-        &#x27;idn&#x27; list of viewport number(s) to be active for editing. 
+        &#x27;idn&#x27; list of viewport number(s) to be active for editing.
 
 Examples:
     ::
@@ -656,7 +656,7 @@ Args:
         * part_xmax
         * part_ymin
         * part_ymax
-        * part_zmin 
+        * part_zmin
         * part_zmax
         * node_number
 
@@ -793,7 +793,7 @@ Args:
         * two_horizontal
         * four_equal
         * four_withthreeleft
-        * four_withthreebottom 
+        * four_withthreebottom
 
 Examples:
     ::

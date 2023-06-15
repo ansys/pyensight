@@ -37,7 +37,7 @@ Returns:
 <description>
 If contouring by a vector specifies component or magnitude.
 
-| If not specified &quot;magnitude&quot; is used. 
+| If not specified &quot;magnitude&quot; is used.
 
 Args:
     p0:
@@ -148,7 +148,7 @@ Examples:
         ensight.contour.distribution(&quot;quadratic&quot;)
         ensight.contour.range(0.,4.5)
         ensight.contour.levels(8)
-        # 
+        #
         # turn on labels spaced every 2 units
         # using a floating point representation with 2 decimal places
         #
@@ -189,7 +189,7 @@ Examples:
         ensight.contour.distribution(&quot;quadratic&quot;)
         ensight.contour.range(0.,4.5)
         ensight.contour.levels(8)
-        # 
+        #
         # turn on labels spaced every 2 units
         # using a floating point representation with 2 decimal places
         #
@@ -232,7 +232,7 @@ Examples:
         ensight.contour.distribution(&quot;quadratic&quot;)
         ensight.contour.range(0.,4.5)
         ensight.contour.levels(8)
-        # 
+        #
         # turn on labels spaced every 2 units
         # using a floating point representation with 2 decimal places
         #
@@ -360,7 +360,7 @@ Examples:
         ensight.contour.distribution(&quot;quadratic&quot;)
         ensight.contour.range(0.,4.5)
         ensight.contour.levels(8)
-        # 
+        #
         # turn on labels spaced every 2 units
         # using a floating point representation with 2 decimal places
         #
@@ -404,7 +404,7 @@ Examples:
         ensight.contour.distribution(&quot;quadratic&quot;)
         ensight.contour.range(0.,4.5)
         ensight.contour.levels(8)
-        # 
+        #
         # turn on labels spaced every 2 units
         # using a floating point representation with 2 decimal places
         #
@@ -448,7 +448,7 @@ Examples:
         ensight.contour.distribution(&quot;quadratic&quot;)
         ensight.contour.range(0.,4.5)
         ensight.contour.levels(8)
-        # 
+        #
         # turn on labels spaced every 2 units
         # using a floating point representation with 2 decimal places
         #
@@ -495,7 +495,7 @@ Examples:
         ensight.contour.distribution(&quot;quadratic&quot;)
         ensight.contour.range(0.,4.5)
         ensight.contour.levels(8)
-        # 
+        #
         # turn off the visibility of the main contours and turn
         # subcontours on - make 2 subcontours between each of the 8 levels.
         #
@@ -538,7 +538,7 @@ Examples:
         ensight.contour.distribution(&quot;quadratic&quot;)
         ensight.contour.range(0.,4.5)
         ensight.contour.levels(8)
-        # 
+        #
         # turn off the visibility of the main contours and turn
         # subcontours on
         #
@@ -579,7 +579,7 @@ Examples:
         ensight.contour.distribution(&quot;quadratic&quot;)
         ensight.contour.range(0.,4.5)
         ensight.contour.levels(8)
-        # 
+        #
         # turn on labels spaced every 2 units
         # using a floating point representation with 2 decimal places
         #
@@ -598,7 +598,7 @@ Returns:
 <description>
 Use this variable for creating a contour part.
 
-| The variable must be active before the contour part can be created. 
+| The variable must be active before the contour part can be created.
 
 Args:
     p0:

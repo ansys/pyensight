@@ -22,6 +22,7 @@ from typing import TYPE_CHECKING, Any, Callable, Dict, Optional, Tuple
 from urllib.parse import urlparse
 import webbrowser
 
+from ansys import pyensight
 from ansys.pyensight.core.enscontext import EnsContext
 from ansys.pyensight.core.listobj import ensobjlist
 from ansys.pyensight.core.renderable import (
@@ -33,8 +34,6 @@ from ansys.pyensight.core.renderable import (
     RenderableVNC,
     RenderableWebGL,
 )
-
-from ansys import pyensight
 
 if TYPE_CHECKING:
     from ansys.pyensight.core import enscontext, ensight_api, ensight_grpc, renderable

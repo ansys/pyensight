@@ -126,7 +126,7 @@ Returns:
 <description>
 Load the specified (saved) curve file.
 
-| See the curve file formats under &quot;curve: save&quot;. 
+| See the curve file formats under &quot;curve: save&quot;.
 
 Args:
     p0:
@@ -278,10 +278,10 @@ Specify how to save the selected curve(s) data to a file.
 |  3.49605e+00   3.41879e-01   1.65334e+00   5.00623e-01   1.02349e+00
 |  4.66140e+00   5.29504e-01   2.81869e+00   5.00623e-01   1.02349e+00
 | Minimum value overall
-| At Point =  4.87984e-01  5.00623e-01  1.02349e+00, 
+| At Point =  4.87984e-01  5.00623e-01  1.02349e+00,
 | Dist. =  2.33070e+00, Value = 4.33805e-02
 | Maximum value overall
-| At Point = -1.84272e+00  5.00623e-01  1.02349e+00, 
+| At Point = -1.84272e+00  5.00623e-01  1.02349e+00,
 | Dist. =  0.00000e+00, Value = 5.56944e-01
 | xy_data   - curve data saved in the following (x,y) format for importing into a spreadsheets:
 | velocity vs. Distance for line tool

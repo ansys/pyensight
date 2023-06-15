@@ -44,16 +44,16 @@ Args:
 Examples:
     ::
 
-        # 
-        # Set the axis to x 
-        # and rotate about the x axis 15 degrees 
-        # 
+        #
+        # Set the axis to x
+        # and rotate about the x axis 15 degrees
+        #
         ensight.view_transf.axis(&quot;x&quot;)
         ensight.view_transf.rotate(15.000000,0.000000,0.000000)
-        # 
-        # Set the axis to be y 
-        # and translate one unit in the -negative y direction 
-        # 
+        #
+        # Set the axis to be y
+        # and translate one unit in the -negative y direction
+        #
         ensight.view_transf.axis(&quot;y&quot;)
         ensight.view_transf.translate(0.0000e+00,-1.0000e+00,0.0000e+00)
 
@@ -71,7 +71,7 @@ Returns:
 </override>
 <override namespace="ensight.view_transf.box_axis">
 <description>
-Specify the direction vectors for a box tool. 
+Specify the direction vectors for a box tool.
 
 | The direction vectors are in reference to the selected coordinate frame.
 
@@ -306,7 +306,7 @@ Returns:
 </override>
 <override namespace="ensight.view_transf.center_of_transform">
 <description>
-Set the point in space that will be the origin for transformations. 
+Set the point in space that will be the origin for transformations.
 
 | Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used.
 | Cannot be set during keyframe animation.
@@ -322,14 +322,14 @@ Args:
 Examples:
     ::
 
-        # 
-        # Selecting two viewports 
-        # 
+        #
+        # Selecting two viewports
+        #
         ensight.viewport.select_begin(2,3)
-        # 
-        # Setting the center of transformations to be 
-        # at (.5 .6 1) for each of these viewports 
-        # 
+        #
+        # Setting the center of transformations to be
+        # at (.5 .6 1) for each of these viewports
+        #
         ensight.view_transf.center_of_transform(5.0000e-01,6.0000e-01,1.0000e+00)
 
 Returns:
@@ -349,20 +349,20 @@ Args:
 Examples:
     ::
 
-        # 
-        # Turns the display of the quadric cone on 
-        # (only one quadric tool at a time can be on) 
-        # 
+        #
+        # Turns the display of the quadric cone on
+        # (only one quadric tool at a time can be on)
+        #
         ensight.tools.quadric(&quot;cone&quot;)
-        # 
-        # Sets the angle and other attributes of the cone tool 
-        # 
+        #
+        # Sets the angle and other attributes of the cone tool
+        #
         ensight.view_transf.cone_angle(25.000000)
         ensight.view_transf.cone_axis(1.000000,0.100000,0.000000)
         ensight.view_transf.cone_origin(-0.750000,0.700000,1.000000)
-        # 
-        # Turns off the display of the quadric tool 
-        # 
+        #
+        # Turns off the display of the quadric tool
+        #
         ensight.tools.quadric(&quot;none&quot;)
 
 Returns:
@@ -387,20 +387,20 @@ Args:
 Examples:
     ::
 
-        # 
-        # Turns display of the quadric cone on 
-        # (only one quadric tool at a time can be on) 
-        # 
+        #
+        # Turns display of the quadric cone on
+        # (only one quadric tool at a time can be on)
+        #
         ensight.tools.quadric(&quot;cone&quot;)
-        # 
-        # Sets the axis and other attributes of the cone tool 
-        # 
+        #
+        # Sets the axis and other attributes of the cone tool
+        #
         ensight.view_transf.cone_angle(25.000000)
         ensight.view_transf.cone_axis(1.000000,0.100000,0.000000)
         ensight.view_transf.cone_origin(-0.750000,0.700000,1.000000)
-        # 
-        # Turns off the display of the quadric tool 
-        # 
+        #
+        # Turns off the display of the quadric tool
+        #
         ensight.tools.quadric(&quot;none&quot;)
 
 Returns:
@@ -425,20 +425,20 @@ Args:
 Examples:
     ::
 
-        # 
-        # Turns display of the quadric cone on 
-        # (only one quadric tool at a time can be on) 
-        # 
+        #
+        # Turns display of the quadric cone on
+        # (only one quadric tool at a time can be on)
+        #
         ensight.tools.quadric(&quot;cone&quot;)
-        # 
-        # Sets the origin and other attributes of the cone tool 
-        # 
+        #
+        # Sets the origin and other attributes of the cone tool
+        #
         ensight.view_transf.cone_angle(25.000000)
         ensight.view_transf.cone_axis(1.000000,0.100000,0.000000)
         ensight.view_transf.cone_origin(-0.750000,0.700000,1.000000)
-        # 
-        # Turns off the display of the quadric tool 
-        # 
+        #
+        # Turns off the display of the quadric tool
+        #
         ensight.tools.quadric(&quot;none&quot;)
 
 Returns:
@@ -462,9 +462,9 @@ Args:
 Examples:
     ::
 
-        # 
-        # Sets the cursor to the point (.79563 1 .8554) 
-        # 
+        #
+        # Sets the cursor to the point (.79563 1 .8554)
+        #
         ensight.view_transf.cursor(0.795630,1.000000,0.855400)
 
 Returns:
@@ -505,20 +505,20 @@ Args:
 Examples:
     ::
 
-        # 
-        # Turns display of the quadric cylinder on 
-        # (only one quadric tool at a time can be on) 
-        # 
+        #
+        # Turns display of the quadric cylinder on
+        # (only one quadric tool at a time can be on)
+        #
         ensight.tools.quadric(&quot;cylinder&quot;)
-        # 
-        # Sets the axis and other attributes of the cylinder tool 
-        # 
+        #
+        # Sets the axis and other attributes of the cylinder tool
+        #
         ensight.view_transf.cylinder_axis(1.000000,0.100000,0.000000)
         ensight.view_transf.cylinder_origin(-0.750000,0.700000,1.000000)
         ensight.view_transf.cylinder_radius(1.500000)
-        # 
-        # Turns off the display of the quadric tool 
-        # 
+        #
+        # Turns off the display of the quadric tool
+        #
         ensight.tools.quadric(&quot;none&quot;)
 
 Returns:
@@ -534,29 +534,29 @@ Sets the origin point for one end of the cylinder tool.
 
 Args:
     p0:
-        &#x27;x_coord&#x27; x, y, z coordinates of the cylinder tool origin 
+        &#x27;x_coord&#x27; x, y, z coordinates of the cylinder tool origin
     p1:
-        &#x27;y_coord&#x27; x, y, z coordinates of the cylinder tool origin 
+        &#x27;y_coord&#x27; x, y, z coordinates of the cylinder tool origin
     p2:
-        &#x27;z_coord&#x27; x, y, z coordinates of the cylinder tool origin 
+        &#x27;z_coord&#x27; x, y, z coordinates of the cylinder tool origin
 
 Examples:
     ::
 
-        # 
-        # Turns display of the quadric cylinder on 
-        # (only one quadric tool at a time can be on) 
-        # 
+        #
+        # Turns display of the quadric cylinder on
+        # (only one quadric tool at a time can be on)
+        #
         ensight.tools.quadric(&quot;cylinder&quot;)
-        # 
-        # Sets the origin and other attributes of the cylinder tool 
-        # 
+        #
+        # Sets the origin and other attributes of the cylinder tool
+        #
         ensight.view_transf.cylinder_axis(1.000000,0.100000,0.000000)
         ensight.view_transf.cylinder_origin(-0.750000,0.700000,1.000000)
         ensight.view_transf.cylinder_radius(1.500000)
-        # 
-        # Turns off the display of the quadric tool 
-        # 
+        #
+        # Turns off the display of the quadric tool
+        #
         ensight.tools.quadric(&quot;none&quot;)
 
 Returns:
@@ -576,20 +576,20 @@ Args:
 Examples:
     ::
 
-        # 
-        # Turns the display of the quadric cylinder on 
-        # (only one quadric tool at a time can be on) 
-        # 
+        #
+        # Turns the display of the quadric cylinder on
+        # (only one quadric tool at a time can be on)
+        #
         ensight.tools.quadric(&quot;cylinder&quot;)
-        # 
-        # Sets the radius and other attributes of the cylinder tool 
-        # 
+        #
+        # Sets the radius and other attributes of the cylinder tool
+        #
         ensight.view_transf.cylinder_axis(1.000000,0.100000,0.000000)
         ensight.view_transf.cylinder_origin(-0.750000,0.700000,1.000000)
         ensight.view_transf.cylinder_radius(1.500000)
-        # 
-        # Turns off the display of the quadric tool 
-        # 
+        #
+        # Turns off the display of the quadric tool
+        #
         ensight.tools.quadric(&quot;none&quot;)
 
 Returns:
@@ -608,7 +608,7 @@ Returns:
 <description>
 Sets the distance from the look_from to the look_at point.
 
-| Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used. 
+| Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used.
 | This command causes the look_from point to move along the line between the look_from and the look_at point to the desired distance. The look_at point does not move.
 
 Args:
@@ -618,21 +618,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Selecting two viewports 
-        # 
+        #
+        # Selecting two viewports
+        #
         ensight.viewport.select_begin(1,3)
-        # 
-        # Setting the look_at and look_from points 
-        # for each of these viewports 
-        # 
+        #
+        # Setting the look_at and look_from points
+        # for each of these viewports
+        #
         ensight.view_transf.look_at(1.0000e+00,5.0000e-01,1.0000e+00)
         ensight.view_transf.look_from(5.0000e-01,5.0000e-01,2.0000e+01)
-        # 
-        # Changing the distance between the look_at and the look_from 
-        # points. The look_at point will not change, but the 
-        # look_from point will be moved appropriately 
-        # 
+        #
+        # Changing the distance between the look_at and the look_from
+        # points. The look_at point will not change, but the
+        # look_from point will be moved appropriately
+        #
         ensight.view_transf.distance(2.5000e+01)
 
 Returns:
@@ -685,38 +685,38 @@ Args:
 Examples:
     ::
 
-        # 
-        # Sets the function to cursor mode 
-        # and translates the cursor 
-        # 
+        #
+        # Sets the function to cursor mode
+        # and translates the cursor
+        #
         ensight.view_transf.function(&quot;cursor&quot;)
         ensight.view_transf.translate(0.295634,-0.014792,-0.144601)
-        # 
-        # Return to global transformation mode 
-        # 
+        #
+        # Return to global transformation mode
+        #
         ensight.view_transf.function(&quot;global&quot;)
-        # 
-        # Does some global transformations 
-        # 
+        #
+        # Does some global transformations
+        #
         ensight.view_transf.zoom(1.431051)
         ensight.view_transf.rotate(-1.071430,21.547768,0.000000)
         ensight.view_transf.translate(0.620558,0.000000,0.000000)
-        # 
-        # Sets Frame transform mode (local) 
-        # 
+        #
+        # Sets Frame transform mode (local)
+        #
         ensight.view_transf.function(&quot;local&quot;)
-        # 
-        # Selects the viewport and frame to use 
-        # 
+        #
+        # Selects the viewport and frame to use
+        #
         ensight.viewport.select_begin(3)
         ensight.frame.select_begin(1)
-        # 
-        # And translate the parts attached to frame 1 
-        # 
+        #
+        # And translate the parts attached to frame 1
+        #
         ensight.view_transf.translate(0.0000E+00,-4.0000e+00,0.0000e+00)
-        # 
-        # Return to global transformation mode 
-        # 
+        #
+        # Return to global transformation mode
+        #
         ensight.view_transf.function(&quot;global&quot;)
 
 Returns:
@@ -732,13 +732,13 @@ Resets transformations, look_at viewing parameters, and z clipping to the origin
 Examples:
     ::
 
-        # 
-        # Selecting two viewports 
-        # 
+        #
+        # Selecting two viewports
+        #
         ensight.viewport.select_begin(1,3)
-        # 
-        # Reinitializing these 2 viewports 
-        # 
+        #
+        # Reinitializing these 2 viewports
+        #
         ensight.view_transf.initialize_viewports()
 
 Returns:
@@ -749,7 +749,7 @@ Returns:
 <description>
 Sets value represented by the extreme ends of the transformation slider in the transformation dialog.
 
-| This is a control for the user interface. Moving the slider all the way to the right will apply this value once positively. Moving it all the way to the left will apply this value once negatively. The slider is self centering, so one can continue to apply these amounts to the selected transformations. 
+| This is a control for the user interface. Moving the slider all the way to the right will apply this value once positively. Moving it all the way to the left will apply this value once negatively. The slider is self centering, so one can continue to apply these amounts to the selected transformations.
 | Associated with this is the Increment, which is the value that is applied (positively or negatively) by clicking the stepper button once.
 
 Args:
@@ -787,9 +787,9 @@ Args:
 Examples:
     ::
 
-        # 
-        # Set the line tool endpoints 
-        # 
+        #
+        # Set the line tool endpoints
+        #
         ensight.view_transf.line(1,-0.723300,0.700000,1.000000)
         ensight.view_transf.line(2,1.723300,0.500000,1.000000)
 
@@ -818,15 +818,15 @@ Args:
 Examples:
     ::
 
-        # 
-        # Set the line tool endpoints 
-        # 
+        #
+        # Set the line tool endpoints
+        #
         ensight.view_transf.line(1,-0.723300,0.700000,1.000000)
         ensight.view_transf.line(2,1.723300,0.500000,1.000000)
-        # 
-        # Now make the tool 10 units long 
-        # (endpoint 2 will be moved) 
-        # 
+        #
+        # Now make the tool 10 units long
+        # (endpoint 2 will be moved)
+        #
         ensight.view_transf.line_length(10.000000)
 
 Returns:
@@ -851,21 +851,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Selecting two viewports 
-        # 
+        #
+        # Selecting two viewports
+        #
         ensight.viewport.select_begin(1,3)
-        # 
-        # Setting the look_at and look_from points 
-        # for each of these viewports 
-        # 
+        #
+        # Setting the look_at and look_from points
+        # for each of these viewports
+        #
         ensight.view_transf.look_at(1.0000e+00,5.0000e-01,1.0000e+00)
         ensight.view_transf.look_from(5.0000e-01,5.0000e-01,2.0000e+01)
-        # 
-        # Changing the distance between the look_at and the look_from 
-        # points. The look_at point will not change, but the 
-        # look_from point will be moved appropriately 
-        # 
+        #
+        # Changing the distance between the look_at and the look_from
+        # points. The look_at point will not change, but the
+        # look_from point will be moved appropriately
+        #
         ensight.view_transf.distance(2.5000e+01)
 
 Returns:
@@ -890,21 +890,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Selecting two viewports 
-        # 
+        #
+        # Selecting two viewports
+        #
         ensight.viewport.select_begin(1,3)
-        # 
-        # Setting the look_at and look_from points 
-        # for each of these viewports 
-        # 
+        #
+        # Setting the look_at and look_from points
+        # for each of these viewports
+        #
         ensight.view_transf.look_at(1.0000e+00,5.0000e-01,1.0000e+00)
         ensight.view_transf.look_from(5.0000e-01,5.0000e-01,2.0000e+01)
-        # 
-        # Changing the distance between the look_at and the look_from 
-        # points. The look_at point will not change, but the 
-        # look_from point will be moved appropriately 
-        # 
+        #
+        # Changing the distance between the look_at and the look_from
+        # points. The look_at point will not change, but the
+        # look_from point will be moved appropriately
+        #
         ensight.view_transf.distance(2.5000e+01)
 
 Returns:
@@ -931,7 +931,7 @@ Args:
         &#x27;corner_pt&#x27;
 
         * 1 - for the first corner of the plane tool
-        * 2 - for the second corner of the plane tool 
+        * 2 - for the second corner of the plane tool
         * 3 - for the third corner of the plane tool
     p1:
         &#x27;x_coord &#x27;
@@ -949,9 +949,9 @@ Args:
 Examples:
     ::
 
-        # 
-        # Set the plane tool corner points 
-        # 
+        #
+        # Set the plane tool corner points
+        #
         ensight.view_transf.plane(1,-0.750000,-0.750000,0.900000)
         ensight.view_transf.plane(2,1.750000,-0.750000,1.100000)
         ensight.view_transf.plane(3,1.750000,2.000000,1.000000)
@@ -987,9 +987,9 @@ Args:
 Examples:
     ::
 
-        # 
-        # Set the plane tool by the plane equation 
-        # 
+        #
+        # Set the plane tool by the plane equation
+        #
         ensight.view_transf.plane_equation(-1.000000,0.500000,12.499997,11.659089)
 
 Returns:
@@ -1115,25 +1115,25 @@ Initializes the current action transformation, thus removing the effect of that 
 Examples:
     ::
 
-        # 
-        # Set the action to rotate 
-        # and the axis to be x 
-        # 
+        #
+        # Set the action to rotate
+        # and the axis to be x
+        #
         ensight.view_transf.action(&quot;rotate&quot;)
         ensight.view_transf.axis(&quot;x&quot;)
-        # 
-        # Select the viewport(s) desired 
-        # 
+        #
+        # Select the viewport(s) desired
+        #
         ensight.viewport.select_begin(0,2)
-        # 
-        # perform a couple of rotates 
-        # 
+        #
+        # perform a couple of rotates
+        #
         ensight.view_transf.rotate(0.500000,0.000000,0.00000)
         ensight.view_transf.rotate(-30.00000,0.000000,0.00000)
-        # 
-        # Now remove both rotates using this command 
-        # because the action is rotate. 
-        # 
+        #
+        # Now remove both rotates using this command
+        # because the action is rotate.
+        #
         ensight.view_transf.reset_by_action()
 
 Returns:
@@ -1150,19 +1150,19 @@ Removes the rotation, translation, and scale transformations in the selected vie
 Examples:
     ::
 
-        # 
-        # Select the viewport(s) desired 
-        # 
+        #
+        # Select the viewport(s) desired
+        #
         ensight.viewport.select_begin(0,2)
-        # 
-        # perform some rotations, translations and/or scales 
-        # 
+        #
+        # perform some rotations, translations and/or scales
+        #
         ensight.view_transf.rotate(15.535719,-27.859741,0.000000)
         ensight.view_transf.translate(0.620558,0.000000,0.000000)
         ensight.view_transf.scale(1.2000e+00,1.2000e+00,1.2000e+00)
-        # 
-        # Now remove these transformations using this command 
-        # 
+        #
+        # Now remove these transformations using this command
+        #
         ensight.view_transf.reset_rot_trn_scl()
 
 Returns:
@@ -1171,7 +1171,7 @@ Returns:
 </override>
 <override namespace="ensight.view_transf.reset_tool_constrain">
 <description>
-Sets scope for the resetting of tool locations. The reset can cause the tool to be placed at its initial default location or at the center of the parts in the current viewport. 
+Sets scope for the resetting of tool locations. The reset can cause the tool to be placed at its initial default location or at the center of the parts in the current viewport.
 
 | The state set here applies to all future tool resets.
 
@@ -1179,24 +1179,24 @@ Args:
     p0:
         &#x27;option&#x27;
 
-        * by_global 
-        * by_viewport 
+        * by_global
+        * by_viewport
 
 Examples:
     ::
 
-        # 
-        # Set the tool reset state to be &quot;by viewport&quot; 
-        # 
+        #
+        # Set the tool reset state to be &quot;by viewport&quot;
+        #
         ensight.view_transf.reset_tool_constrain(&quot;by_viewport&quot;)
-        # 
-        # Select the viewport(s) desired 
-        # 
+        #
+        # Select the viewport(s) desired
+        #
         ensight.viewport.select_begin(0)
-        # 
-        # Reset the plane tool to the center of parts 
-        # parts in viewport 0 
-        # 
+        #
+        # Reset the plane tool to the center of parts
+        # parts in viewport 0
+        #
         ensight.view_transf.function(&quot;plane&quot;)
         ensight.view_transf.reset_rot_trn_scl()
 
@@ -1217,21 +1217,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select the viewport(s) desired 
-        # 
+        #
+        # Select the viewport(s) desired
+        #
         ensight.viewport.select_begin(0)
-        # 
-        # Save the current view state into the file 
-        # /usr/tmp/view1 
-        # 
+        #
+        # Save the current view state into the file
+        # /usr/tmp/view1
+        #
         ensight.view_transf.save_view(&quot;/usr/tmp/view1&quot;)
-        # 
-        # You could now do other transformations etc... 
-        # 
-        # And then when you want to restore to the view state 
-        # we saved, do the following 
-        # 
+        #
+        # You could now do other transformations etc...
+        #
+        # And then when you want to restore to the view state
+        # we saved, do the following
+        #
         ensight.view_transf.restore_view(&quot;/usr/tmp/view1&quot;)
 
 Returns:
@@ -1249,14 +1249,14 @@ Args:
 Examples:
     ::
 
-        # 
-        # Turns display of the quadric surface of revolution on 
-        # (only one quadric tool at a time can be on) 
-        # 
+        #
+        # Turns display of the quadric surface of revolution on
+        # (only one quadric tool at a time can be on)
+        #
         ensight.tools.quadric(&quot;revolution&quot;)
-        # 
-        # Sets the axis and other attributes of the revolution tool 
-        # 
+        #
+        # Sets the axis and other attributes of the revolution tool
+        #
         ensight.view_transf.revolution_origin(0.500000,0.700000,1.000000)
         ensight.view_transf.revolution_axis(0.995040,0.099504,0.000000)
         ensight.view_transf.revolution_number_of_points(7)
@@ -1267,9 +1267,9 @@ Examples:
         ensight.view_transf.revolution_point(5,0.319820,0.710000)
         ensight.view_transf.revolution_point(6,0.625000,0.500000)
         ensight.view_transf.revolution_point(7,1.250000,0.500000)
-        # 
-        # Turns off the display of the revolution tool 
-        # 
+        #
+        # Turns off the display of the revolution tool
+        #
         ensight.tools.quadric(&quot;none&quot;)
 
 Returns:
@@ -1293,14 +1293,14 @@ Args:
 Examples:
     ::
 
-        # 
-        # Turns display of the quadric surface of revolution on 
-        # (only one quadric tool at a time can be on) 
-        # 
+        #
+        # Turns display of the quadric surface of revolution on
+        # (only one quadric tool at a time can be on)
+        #
         ensight.tools.quadric(&quot;revolution&quot;)
-        # 
-        # Sets the axis and other attributes of the revolution tool 
-        # 
+        #
+        # Sets the axis and other attributes of the revolution tool
+        #
         ensight.view_transf.revolution_origin(0.500000,0.700000,1.000000)
         ensight.view_transf.revolution_axis(0.995040,0.099504,0.000000)
         ensight.view_transf.revolution_number_of_points(7)
@@ -1311,9 +1311,9 @@ Examples:
         ensight.view_transf.revolution_point(5,0.319820,0.710000)
         ensight.view_transf.revolution_point(6,0.625000,0.500000)
         ensight.view_transf.revolution_point(7,1.250000,0.500000)
-        # 
-        # Turns off the display of the revolution tool 
-        # 
+        #
+        # Turns off the display of the revolution tool
+        #
         ensight.tools.quadric(&quot;none&quot;)
 
 Returns:
@@ -1337,14 +1337,14 @@ Args:
 Examples:
     ::
 
-        # 
-        # Turns display of the quadric surface of revolution on 
-        # (only one quadric tool at a time can be on) 
-        # 
+        #
+        # Turns display of the quadric surface of revolution on
+        # (only one quadric tool at a time can be on)
+        #
         ensight.tools.quadric(&quot;revolution&quot;)
-        # 
-        # Sets the axis and other attributes of the revolution tool 
-        # 
+        #
+        # Sets the axis and other attributes of the revolution tool
+        #
         ensight.view_transf.revolution_origin(0.500000,0.700000,1.000000)
         ensight.view_transf.revolution_axis(0.995040,0.099504,0.000000)
         ensight.view_transf.revolution_number_of_points(7)
@@ -1355,9 +1355,9 @@ Examples:
         ensight.view_transf.revolution_point(5,0.319820,0.710000)
         ensight.view_transf.revolution_point(6,0.625000,0.500000)
         ensight.view_transf.revolution_point(7,1.250000,0.500000)
-        # 
-        # Turns off the display of the revolution tool 
-        # 
+        #
+        # Turns off the display of the revolution tool
+        #
         ensight.tools.quadric(&quot;none&quot;)
 
 Returns:
@@ -1379,14 +1379,14 @@ Args:
 Examples:
     ::
 
-        # 
-        # Turns display of the quadric surface of revolution on 
-        # (only one quadric tool at a time can be on) 
-        # 
+        #
+        # Turns display of the quadric surface of revolution on
+        # (only one quadric tool at a time can be on)
+        #
         ensight.tools.quadric(&quot;revolution&quot;)
-        # 
-        # Sets the axis and other attributes of the revolution tool 
-        # 
+        #
+        # Sets the axis and other attributes of the revolution tool
+        #
         ensight.view_transf.revolution_origin(0.500000,0.700000,1.000000)
         ensight.view_transf.revolution_axis(0.995040,0.099504,0.000000)
         ensight.view_transf.revolution_number_of_points(7)
@@ -1397,9 +1397,9 @@ Examples:
         ensight.view_transf.revolution_point(5,0.319820,0.710000)
         ensight.view_transf.revolution_point(6,0.625000,0.500000)
         ensight.view_transf.revolution_point(7,1.250000,0.500000)
-        # 
-        # Turns off the display of the revolution tool 
-        # 
+        #
+        # Turns off the display of the revolution tool
+        #
         ensight.tools.quadric(&quot;none&quot;)
 
 Returns:
@@ -1423,32 +1423,32 @@ Args:
 Examples:
     ::
 
-        # 
-        # Selecting viewport(s) 
-        # 
+        #
+        # Selecting viewport(s)
+        #
         ensight.viewport.select_begin(2)
-        # 
-        # Set the axis to x 
-        # and rotate about the x axis 15 degrees 
-        # 
+        #
+        # Set the axis to x
+        # and rotate about the x axis 15 degrees
+        #
         ensight.view_transf.axis(&quot;x&quot;)
         ensight.view_transf.rotate(15.000000,0.000000,0.000000)
-        # 
-        # Set the axis to be y 
-        # and translate one unit in the -negative y direction 
-        # 
+        #
+        # Set the axis to be y
+        # and translate one unit in the -negative y direction
+        #
         ensight.view_transf.axis(&quot;y&quot;)
         ensight.view_transf.translate(0.0000e+00,-1.0000e+00,0.0000e+00)
-        # 
-        # Now showing it with a plane tool rotation 
-        # 
+        #
+        # Now showing it with a plane tool rotation
+        #
         ensight.tools.plane(&quot;ON&quot;)
         ensight.view_transf.function(&quot;plane&quot;)
         ensight.view_transf.rotate(0.000000,-39.575481,0.000000)
         ensight.view_transf.function(&quot;global&quot;)
-        # 
-        # And now with a local transformation 
-        # 
+        #
+        # And now with a local transformation
+        #
         ensight.part.select_default()
         ensight.frame.create()
         ensight.frame.select_begin(1)
@@ -1473,21 +1473,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select the viewport(s) desired 
-        # 
+        #
+        # Select the viewport(s) desired
+        #
         ensight.viewport.select_begin(0)
-        # 
-        # Save the current view state into the file 
-        # /usr/tmp/view1 
-        # 
+        #
+        # Save the current view state into the file
+        # /usr/tmp/view1
+        #
         ensight.view_transf.save_view(&quot;/usr/tmp/view1&quot;)
-        # 
-        # You could now do other transformations etc... 
-        # 
-        # And then when you want to restore to the view state 
-        # we saved, do the following 
-        # 
+        #
+        # You could now do other transformations etc...
+        #
+        # And then when you want to restore to the view state
+        # we saved, do the following
+        #
         ensight.view_transf.restore_view(&quot;/usr/tmp/view1&quot;)
 
 Returns:
@@ -1511,19 +1511,19 @@ Args:
 Examples:
     ::
 
-        # 
-        # Selecting viewport(s) 
-        # 
+        #
+        # Selecting viewport(s)
+        #
         ensight.viewport.select_begin(2)
-        # 
-        # Applying a global scaling 
-        # (evenly in all directions) 
-        # 
+        #
+        # Applying a global scaling
+        # (evenly in all directions)
+        #
         ensight.view_transf.scale(1.2000e+00,1.2000e+00,1.2000e+00)
-        # 
-        # Now with a local transformation 
-        # (Scaling only in the z direction) 
-        # 
+        #
+        # Now with a local transformation
+        # (Scaling only in the z direction)
+        #
         ensight.frame.select_begin(1)
         ensight.view_transf.function(&quot;local&quot;)
         ensight.view_transf.scale(0.0000e+00,0.0000e+00,5.0000e+00)
@@ -1559,9 +1559,9 @@ Args:
 Examples:
     ::
 
-        # 
+        #
         # Set select tool location
-        # 
+        #
         ensight.tools.select_tool(&quot;ON&quot;)
         ensight.view_transf.select_tool(0.25,0.25,0.75,0.75)
 
@@ -1586,20 +1586,20 @@ Args:
 Examples:
     ::
 
-        # 
-        # Turns display of the quadric sphere tool on 
-        # (only one quadric tool at a time can be on) 
-        # 
+        #
+        # Turns display of the quadric sphere tool on
+        # (only one quadric tool at a time can be on)
+        #
         ensight.tools.quadric(&quot;sphere&quot;)
-        # 
-        # Sets the axis and other attributes of the sphere tool 
-        # 
+        #
+        # Sets the axis and other attributes of the sphere tool
+        #
         ensight.view_transf.sphere_radius(1.500000)
         ensight.view_transf.sphere_axis(1.000000,0.100000,0.000000)
         ensight.view_transf.sphere_origin(0.500000,0.700000,1.000000)
-        # 
-        # Turns off the display of the sphere tool 
-        # 
+        #
+        # Turns off the display of the sphere tool
+        #
         ensight.tools.quadric(&quot;none&quot;)
 
 Returns:
@@ -1623,20 +1623,20 @@ Args:
 Examples:
     ::
 
-        # 
-        # Turns display of the quadric sphere tool on 
-        # (only one quadric tool at a time can be on) 
-        # 
+        #
+        # Turns display of the quadric sphere tool on
+        # (only one quadric tool at a time can be on)
+        #
         ensight.tools.quadric(&quot;sphere&quot;)
-        # 
-        # Sets the origin and other attributes of the sphere tool 
-        # 
+        #
+        # Sets the origin and other attributes of the sphere tool
+        #
         ensight.view_transf.sphere_radius(1.500000)
         ensight.view_transf.sphere_axis(1.000000,0.100000,0.000000)
         ensight.view_transf.sphere_origin(0.500000,0.700000,1.000000)
-        # 
-        # Turns off the display of the sphere tool 
-        # 
+        #
+        # Turns off the display of the sphere tool
+        #
         ensight.tools.quadric(&quot;none&quot;)
 
 Returns:
@@ -1654,20 +1654,20 @@ Args:
 Examples:
     ::
 
-        # 
-        # Turns display of the quadric sphere tool on 
-        # (only one quadric tool at a time can be on) 
-        # 
+        #
+        # Turns display of the quadric sphere tool on
+        # (only one quadric tool at a time can be on)
+        #
         ensight.tools.quadric(&quot;sphere&quot;)
-        # 
-        # Sets the axis and other attributes of the sphere tool 
-        # 
+        #
+        # Sets the axis and other attributes of the sphere tool
+        #
         ensight.view_transf.sphere_radius(1.500000)
         ensight.view_transf.sphere_axis(1.000000,0.100000,0.000000)
         ensight.view_transf.sphere_origin(0.500000,0.700000,1.000000)
-        # 
-        # Turns off the display of the sphere tool 
-        # 
+        #
+        # Turns off the display of the sphere tool
+        #
         ensight.tools.quadric(&quot;none&quot;)
 
 Returns:
@@ -1693,18 +1693,18 @@ Args:
 Examples:
     ::
 
-        # 
-        # Selecting viewport(s) 
-        # 
+        #
+        # Selecting viewport(s)
+        #
         ensight.viewport.select_begin(2)
-        # 
-        # Spin only works with global rotations 
-        # 
+        #
+        # Spin only works with global rotations
+        #
         ensight.view_transf.function(&quot;global&quot;)
-        # 
-        # Apply the rotation specified 
+        #
+        # Apply the rotation specified
         # (In this case, 105 times)
-        # 
+        #
         ensight.view_transf.spin(105,0.602679,-10.175333,0.000000)
 
 Returns:
@@ -1944,39 +1944,39 @@ Args:
 Examples:
     ::
 
-        # 
-        # Sets the function to cursor mode 
-        # and translates the cursor 
-        # 
+        #
+        # Sets the function to cursor mode
+        # and translates the cursor
+        #
         ensight.view_transf.function(&quot;cursor&quot;)
         ensight.view_transf.translate(0.295634,-0.014792,-0.144601)
-        # 
-        # Return to global transformation mode 
-        # 
+        #
+        # Return to global transformation mode
+        #
         ensight.view_transf.function(&quot;global&quot;)
-        # 
-        # Does some global transformations 
-        # (one of which is a translate) 
-        # 
+        #
+        # Does some global transformations
+        # (one of which is a translate)
+        #
         ensight.view_transf.zoom(1.431051)
         ensight.view_transf.rotate(-1.071430,21.547768,0.000000)
         ensight.view_transf.translate(0.620558,0.000000,0.000000)
-        # 
-        # Sets Frame transform mode (local) 
-        # 
+        #
+        # Sets Frame transform mode (local)
+        #
         ensight.view_transf.function(&quot;local&quot;)
-        # 
-        # Selects the viewport and frame to use 
-        # 
+        #
+        # Selects the viewport and frame to use
+        #
         ensight.viewport.select_begin(3)
         ensight.frame.select_begin(1)
-        # 
-        # And translate the parts attached to frame 1 
-        # 
+        #
+        # And translate the parts attached to frame 1
+        #
         ensight.view_transf.translate(0.0000E+00,-4.0000e+00,0.0000e+00)
-        # 
-        # Return to global transformation mode 
-        # 
+        #
+        # Return to global transformation mode
+        #
         ensight.view_transf.function(&quot;global&quot;)
 
 Returns:
@@ -2023,16 +2023,16 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select viewport for which you wish 
-        # to modify the view 
-        # 
+        #
+        # Select viewport for which you wish
+        # to modify the view
+        #
         ensight.viewport.select_begin(1)
         ensight.view_transf.view_recall(&quot;F5&quot;)
-        # 
-        # Selecting a different viewport 
-        # to show another example 
-        # 
+        #
+        # Selecting a different viewport
+        # to show another example
+        #
         ensight.viewport.select_begin(2)
         ensight.view_transf.view_recall(&quot;+Y&quot;)
 
@@ -2044,7 +2044,7 @@ Returns:
 <description>
 Stores a current View state as a state attached to one of the four customizable function keys.
 
-| The F5, F6, F7 views have standard right, top, and front views for a default. These can be altered by the user using this command. The views stored here can be recalled using the &quot;view_transf: view_recall&quot; command. 
+| The F5, F6, F7 views have standard right, top, and front views for a default. These can be altered by the user using this command. The views stored here can be recalled using the &quot;view_transf: view_recall&quot; command.
 | Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used.
 
 Args:
@@ -2059,14 +2059,14 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select viewport that contains the 
-        # view that you wish to store. 
-        # 
+        #
+        # Select viewport that contains the
+        # view that you wish to store.
+        #
         ensight.viewport.select_begin(1)
-        # 
-        # Store it into the desired F key 
-        # 
+        #
+        # Store it into the desired F key
+        #
         ensight.view_transf.view_store(&quot;F5&quot;)
 
 Returns:
@@ -2097,9 +2097,9 @@ Args:
 Examples:
     ::
 
-        # 
-        # Selecting three viewports, and linking them 
-        # 
+        #
+        # Selecting three viewports, and linking them
+        #
         ensight.viewport.select_begin(0,1,2)
         ensight.view_transf.viewport_link(&quot;ON&quot;)
 
@@ -2114,16 +2114,16 @@ Save the transformation state of the currently selected viewport (for the purpos
 Examples:
     ::
 
-        # 
-        # Select viewport for which you wish 
-        # to save the transformation state 
-        # 
+        #
+        # Select viewport for which you wish
+        # to save the transformation state
+        #
         ensight.viewport.select_begin(1)
         ensight.view_transf.viewport_state_copy()
-        # 
-        # Select the viewport you wish to 
-        # apply this state to 
-        # 
+        #
+        # Select the viewport you wish to
+        # apply this state to
+        #
         ensight.viewport.select_begin(2)
         ensight.view_transf.viewport_state_paste()
 
@@ -2176,14 +2176,14 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select viewport 
-        # 
+        #
+        # Select viewport
+        #
         ensight.viewport.select_begin(1)
-        # 
-        # Set z-clip float OFF and set the location 
-        # the front and back clipping planes 
-        # 
+        #
+        # Set z-clip float OFF and set the location
+        # the front and back clipping planes
+        #
         ensight.view_transf.zclip_float(&quot;OFF&quot;)
         ensight.view_transf.zclip_front(7.2296e+00)
         ensight.view_transf.zclip_back(3.5459e+01)
@@ -2205,14 +2205,14 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select viewport 
-        # 
+        #
+        # Select viewport
+        #
         ensight.viewport.select_begin(1)
-        # 
-        # Set z-clip float OFF and set the location 
-        # the front and back clipping planes 
-        # 
+        #
+        # Set z-clip float OFF and set the location
+        # the front and back clipping planes
+        #
         ensight.view_transf.zclip_float(&quot;OFF&quot;)
         ensight.view_transf.zclip_front(7.2296e+00)
         ensight.view_transf.zclip_back(3.5459e+01)
@@ -2223,7 +2223,7 @@ Returns:
 </override>
 <override namespace="ensight.view_transf.zclip_float">
 <description>
-Sets the z-clipping state. The front and back z-clipping planes can &quot;float&quot; so that they are always outside the model - causing no z-clipping to occur, or they can be set once initially and are then subject to manual modification. 
+Sets the z-clipping state. The front and back z-clipping planes can &quot;float&quot; so that they are always outside the model - causing no z-clipping to occur, or they can be set once initially and are then subject to manual modification.
 
 | Since the z-buffer uses the resolution between the front and back clipping planes, it is desirable to have these planes &quot;near&quot; the model. However, unless you specifically want to perform z-clipping, these by default &quot;float&quot; as needed to avoid any z-clipping. If you want z-clipping control, you can turn this &quot;floating&quot; behavior off and set the front and back plane locations yourself.  During the float mode, near clipping will occur if it must be at the specified minimum z-clip location. A minimum is needed to avoid z reflection.Since transformations can be different per viewport, this can be set for each viewport, thus a viewport selection is needed if more than one viewport is being used.
 
@@ -2237,20 +2237,20 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select viewport 
-        # 
+        #
+        # Select viewport
+        #
         ensight.viewport.select_begin(1)
-        # 
-        # Set z-clip float OFF and set the location 
-        # of the front and back clipping planes 
-        # 
+        #
+        # Set z-clip float OFF and set the location
+        # of the front and back clipping planes
+        #
         ensight.view_transf.zclip_float(&quot;OFF&quot;)
         ensight.view_transf.zclip_front(7.2296e+00)
         ensight.view_transf.zclip_back(3.5459e+01)
-        # 
-        # To have them float instead 
-        # 
+        #
+        # To have them float instead
+        #
         ensight.view_transf.zclip_float(&quot;ON&quot;)
         ensight.view_transf.zclip_min(4.00000e-04)
 
@@ -2271,21 +2271,21 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select viewport 
-        # 
+        #
+        # Select viewport
+        #
         ensight.viewport.select_begin(1)
-        # 
-        # Set z-clip float OFF and set the location 
-        # of the front and back clipping planes 
-        # 
+        #
+        # Set z-clip float OFF and set the location
+        # of the front and back clipping planes
+        #
         ensight.view_transf.zclip_float(&quot;OFF&quot;)
         ensight.view_transf.zclip_front(7.2296e+00)
         ensight.view_transf.zclip_back(3.5459e+01)
-        # 
-        # To have them float instead 
-        # (note the minimum being set) 
-        # 
+        #
+        # To have them float instead
+        # (note the minimum being set)
+        #
         ensight.view_transf.zclip_float(&quot;ON&quot;)
         ensight.view_transf.zclip_min(4.00000e-04)
 
@@ -2306,13 +2306,13 @@ Args:
 Examples:
     ::
 
-        # 
-        # Selecting viewport(s) 
-        # 
+        #
+        # Selecting viewport(s)
+        #
         ensight.viewport.select_begin(2)
-        # 
-        # Applying a zoom factor 
-        # 
+        #
+        # Applying a zoom factor
+        #
         ensight.view_transf.zoom(1.431051)
 
 Returns:

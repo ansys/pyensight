@@ -14,7 +14,7 @@ Examples:
     ::
 
         #
-        # Specify a transient_data flipbook 
+        # Specify a transient_data flipbook
         #
         ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
         #
@@ -56,7 +56,7 @@ Examples:
     ::
 
         #
-        # Specify a transient_data flipbook 
+        # Specify a transient_data flipbook
         #
         ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
         #
@@ -149,7 +149,7 @@ Returns:
 </override>
 <override namespace="ensight.anim_flipbook.dynamic_line">
 <description>
-Specify dynamic flipbook animation of the selected 1d-clip line part. 
+Specify dynamic flipbook animation of the selected 1d-clip line part.
 
 | Only used for flipbook animations of interactive clip line parts.
 | Must be bracketed by &quot;anim_flipbook: interactive_part start&quot; and &quot;anim_flipbook: interactive_part end&quot;.
@@ -190,7 +190,7 @@ Examples:
         ensight.clip.create()
         ensight.part.select_begin(2)
         #
-        # Load and animate the clip-line part 
+        # Load and animate the clip-line part
         # between the 1st and 2nd dynamic_line positions.
         #
         ensight.anim_flipbook.interactive_part(&quot;start&quot;)
@@ -213,9 +213,9 @@ Returns:
 </override>
 <override namespace="ensight.anim_flipbook.dynamic_plane">
 <description>
-Specify dynamic flipbook animation of the selected 2d-clip plane part. 
+Specify dynamic flipbook animation of the selected 2d-clip plane part.
 
-| Used for flipbook animations of interactive isosurface, ijk-clip, and xyz-clip parts. Only applicable between commands: 
+| Used for flipbook animations of interactive isosurface, ijk-clip, and xyz-clip parts. Only applicable between commands:
 | 	      anim_flipbook: interactive_part start
 |       anim_flipbook: interactive_part stop
 
@@ -278,7 +278,7 @@ Examples:
         ensight.view_transf.function(&quot;global&quot;)
         ensight.view_transf.function(&quot;global&quot;)
         #
-        # Track the dynamic position of the four corners 
+        # Track the dynamic position of the four corners
         # of the clip plane tool.
         #
         ensight.anim_flipbook.dynamic_plane(2,1,-0.750000,-0.750000,1.000000,-0.750000,-0.750000,2.000000)
@@ -302,7 +302,7 @@ Returns:
 <description>
 Specify dynamic flipbook animation of the selected isosurface, xyz-clip, or ijk-clip part, within the appropriate specified dynamic ranges.
 
-| Used for flipbook animations of interactive isosurface, ijk-clip, and xyz-clip parts. Only applicable between commands: 
+| Used for flipbook animations of interactive isosurface, ijk-clip, and xyz-clip parts. Only applicable between commands:
 | 	      anim_flipbook: interactive_part start
 |       anim_flipbook: interactive_part stop
 
@@ -321,7 +321,7 @@ Examples:
         # (Note: A clip part has already been generated via the
         #        XYZ clip part feature and colored by a variable.)
         #
-        # Update the 2D clip part clip at 
+        # Update the 2D clip part clip at
         #
         ensight.part.select_begin(2)
         ensight.part.modify_begin()
@@ -362,7 +362,7 @@ Returns:
 <description>
 Specify an ending simulation time value to start the flipbook animation.
 
-| Not applicable if dataset is not transient. An ending simulation time must correspond to the simulation time of a time step. 
+| Not applicable if dataset is not transient. An ending simulation time must correspond to the simulation time of a time step.
 | Used only if &quot;anim_flipbook: specify_time_as step&quot; has been specified.
 
 Args:
@@ -373,7 +373,7 @@ Examples:
     ::
 
         #
-        # Specify a transient_data flipbook 
+        # Specify a transient_data flipbook
         #
         ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
         #
@@ -406,7 +406,7 @@ Returns:
 <description>
 Specify an ending time step value to start the flipbook animation.
 
-| Not applicable if dataset is not transient. 
+| Not applicable if dataset is not transient.
 | Used only if &quot;anim_flipbook: specify_time_as step&quot; has been specified.
 
 Args:
@@ -417,7 +417,7 @@ Examples:
     ::
 
         #
-        # Specify a transient_data flipbook 
+        # Specify a transient_data flipbook
         #
         ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
         #
@@ -451,7 +451,7 @@ Returns:
 </override>
 <override namespace="ensight.anim_flipbook.interactive_part">
 <description>
-Specify the start and stop of the recording of interactive movement of any specified isosurface or clip parts during a flipbook load. 
+Specify the start and stop of the recording of interactive movement of any specified isosurface or clip parts during a flipbook load.
 
 | Currently this operation only works for interactive manipulation of isosurface and 2D clip parts.  Used in conjunction with the following commands:
 |     part: select_begin
@@ -462,7 +462,7 @@ Specify the start and stop of the recording of interactive movement of any speci
 |     anim_flipbook: dynamic_line
 |     anim_flipbook: dynamic_plane
 |     anim_flipbook: dynamic_plane
-|     anim_flipbook: move_dynamic_plane 
+|     anim_flipbook: move_dynamic_plane
 
 Args:
     p0:
@@ -477,7 +477,7 @@ Examples:
         # (Note: A clip part has already been generated via the
         #        XYZ clip part feature and colored by a variable.)
         #
-        # Update the 2D clip part clip at 
+        # Update the 2D clip part clip at
         #
         ensight.part.select_begin(2)
         ensight.part.modify_begin()
@@ -523,7 +523,7 @@ Examples:
         #
         # Note: transient dataset w/83 time steps...
         #
-        # Specify a transient_data flipbook 
+        # Specify a transient_data flipbook
         #
         ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
         #
@@ -582,7 +582,7 @@ Args:
     p2:
         &#x27;option&#x27; create_data
     p3:
-        &#x27;option&#x27; linear_load 
+        &#x27;option&#x27; linear_load
 
 Examples:
     ::
@@ -592,7 +592,7 @@ Examples:
         #
         # Note: transient dataset w/83 time steps...
         #
-        # Specify a transient_data flipbook 
+        # Specify a transient_data flipbook
         #
         ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
         #
@@ -622,7 +622,7 @@ Examples:
         # (Note: A clip part has already been generated via the
         #        XYZ clip part feature and colored by a variable.)
         #
-        # Update the 2D clip part clip at 
+        # Update the 2D clip part clip at
         #
         ensight.part.select_begin(2)
         ensight.part.modify_begin()
@@ -659,9 +659,9 @@ Examples:
         #
         # Example of &lt;mode_shapes&gt;
         #
-        # Note:  Prior to animating modes shapes ... activate and 
+        # Note:  Prior to animating modes shapes ... activate and
         #        displace displacement vector variable on selected parts.
-        # 
+        #
         ensight.variables.activate(&quot;3D_Displacement&quot;)
         ensight.part.select_all()
         ensight.part.modify_begin()
@@ -754,7 +754,7 @@ Examples:
         ensight.view_transf.function(&quot;global&quot;)
         ensight.view_transf.function(&quot;global&quot;)
         #
-        # Track the dynamic position of the four corners 
+        # Track the dynamic position of the four corners
         # of the clip plane tool.
         #
         ensight.anim_flipbook.dynamic_plane(2,1,-0.750000,-0.750000,1.000000,-0.750000,-0.750000,2.000000)
@@ -792,7 +792,7 @@ Examples:
         # (Note: A clip part has already been generated via the
         #        XYZ clip part feature and colored by a variable.)
         #
-        # Update the 2D clip part clip at 
+        # Update the 2D clip part clip at
         #
         ensight.part.select_begin(2)
         ensight.part.modify_begin()
@@ -860,7 +860,7 @@ Examples:
         #
         # Note: transient dataset w/83 time steps...
         #
-        # Specify a transient_data flipbook 
+        # Specify a transient_data flipbook
         #
         ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
         #
@@ -896,7 +896,7 @@ Examples:
         #
         # Note: transient dataset w/83 time steps...
         #
-        # Specify a transient_data flipbook 
+        # Specify a transient_data flipbook
         #
         ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
         #
@@ -995,7 +995,7 @@ Examples:
         ensight.file.image_format(&quot;sgi_rgb&quot;)
         #
         # Record each page of the flipbook of main graphics window size
-        # into a file named &quot;demo_ipage.rgb&quot; where &quot;ipage&quot; is the page 
+        # into a file named &quot;demo_ipage.rgb&quot; where &quot;ipage&quot; is the page
         # number of the animation.
         #
         ensight.anim_flipbook.save_win_type(&quot;normal&quot;)
@@ -1057,7 +1057,7 @@ Examples:
         ensight.file.image_format(&quot;sgi_rgb&quot;)
         #
         # Record each page of the flipbook of main graphics window size
-        # into a file named &quot;demo_ipage.rgb&quot; where &quot;ipage&quot; is the page 
+        # into a file named &quot;demo_ipage.rgb&quot; where &quot;ipage&quot; is the page
         # number of the animation.
         #
         ensight.anim_flipbook.save_win_type(&quot;user_defined&quot;)
@@ -1096,7 +1096,7 @@ Examples:
         ensight.file.image_format(&quot;sgi_rgb&quot;)
         #
         # Record each page of the flipbook of main graphics window size
-        # into a file named &quot;demo_ipage.rgb&quot; where &quot;ipage&quot; is the page 
+        # into a file named &quot;demo_ipage.rgb&quot; where &quot;ipage&quot; is the page
         # number of the animation.
         #
         ensight.anim_flipbook.save_win_type(&quot;user_defined&quot;)
@@ -1229,7 +1229,7 @@ Examples:
         #
         # Note: transient dataset w/83 time steps...
         #
-        # Specify a transient_data flipbook 
+        # Specify a transient_data flipbook
         #
         ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
         #
@@ -1269,7 +1269,7 @@ Examples:
         #
         # Note: transient dataset w/83 time steps...
         #
-        # Specify a transient_data flipbook 
+        # Specify a transient_data flipbook
         #
         ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
         #
@@ -1301,7 +1301,7 @@ Returns:
 <description>
 Specify the time step increment by which to run the transient_data flipbook animation.
 
-| Not applicable if not transient data. Only pages contained in the valid time-step range will be generated. 
+| Not applicable if not transient data. Only pages contained in the valid time-step range will be generated.
 
 Args:
     p0:
@@ -1313,7 +1313,7 @@ Examples:
         #
         # Note: transient dataset w/83 time steps...
         #
-        # Specify a transient_data flipbook 
+        # Specify a transient_data flipbook
         #
         ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
         #
@@ -1340,7 +1340,7 @@ Returns:
 <description>
 Specify the simulation-time increment by which to run the transient_data flipbook animation.
 
-| Not applicable if not transient data. Only pages contained in the valid simulation-time range will be generated. 
+| Not applicable if not transient data. Only pages contained in the valid simulation-time range will be generated.
 
 Args:
     p0:
@@ -1383,7 +1383,7 @@ Examples:
         #
         # Note: transient dataset w/83 time steps...
         #
-        # Specify a transient_data flipbook 
+        # Specify a transient_data flipbook
         #
         ensight.anim_flipbook.load_type(&quot;transient_data&quot;)
         #

@@ -22,7 +22,7 @@ Examples:
         ensight.part.select_all()
         #
         # Grouping a bunch of tensor attribute commands
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.display_compression(&quot;ON&quot;)
@@ -71,7 +71,7 @@ Examples:
         ensight.part.select_all()
         #
         # Grouping a bunch of tensor attribute commands
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.display_compression(&quot;ON&quot;)
@@ -121,7 +121,7 @@ Examples:
         ensight.part.select_all()
         #
         # Grouping a bunch of tensor attribute commands
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.display_compression(&quot;ON&quot;)
@@ -182,7 +182,7 @@ Examples:
         # Grouping a bunch of tensor attribute commands
         # (included is the one to make compression
         #  lines 2 pixels wide)
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.display_compression(&quot;ON&quot;)
@@ -237,7 +237,7 @@ Examples:
         # Grouping a bunch of tensor attribute commands
         # (included is the one to make compression
         #  lines a particular color)
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.display_compression(&quot;ON&quot;)
@@ -282,7 +282,7 @@ Examples:
         ensight.part.select_all()
         #
         # Grouping a bunch of tensor attribute commands
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.display_compression(&quot;ON&quot;)
@@ -333,7 +333,7 @@ Examples:
         #
         # Grouping a bunch of tensor attribute commands
         # (One of which is to have the compression displayed)
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.display_compression(&quot;ON&quot;)
@@ -372,7 +372,7 @@ Returns:
 </override>
 <override namespace="ensight.tensor.display_major">
 <description>
-Specifies whether the major, middle, or minor eigenvectors of a tensor glyph will be displayed. 
+Specifies whether the major, middle, or minor eigenvectors of a tensor glyph will be displayed.
 
 Args:
     p0:
@@ -395,7 +395,7 @@ Examples:
         #
         # Grouping a bunch of tensor attribute commands
         # (Note that all eigenvectors are set to be displayed)
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.display_compression(&quot;ON&quot;)
@@ -433,7 +433,7 @@ Returns:
 </override>
 <override namespace="ensight.tensor.display_middle">
 <description>
-Specifies whether the major, middle, or minor eigenvectors of a tensor glyph will be displayed. 
+Specifies whether the major, middle, or minor eigenvectors of a tensor glyph will be displayed.
 
 Args:
     p0:
@@ -456,7 +456,7 @@ Examples:
         #
         # Grouping a bunch of tensor attribute commands
         # (Note that all eigenvectors are set to be displayed)
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.display_compression(&quot;ON&quot;)
@@ -494,7 +494,7 @@ Returns:
 </override>
 <override namespace="ensight.tensor.display_minor">
 <description>
-Specifies whether the major, middle, or minor eigenvectors of a tensor glyph will be displayed. 
+Specifies whether the major, middle, or minor eigenvectors of a tensor glyph will be displayed.
 
 Args:
     p0:
@@ -517,7 +517,7 @@ Examples:
         #
         # Grouping a bunch of tensor attribute commands
         # (Note that all eigenvectors are set to be displayed)
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.display_compression(&quot;ON&quot;)
@@ -578,7 +578,7 @@ Examples:
         #
         # Grouping a bunch of tensor attribute commands
         # (One of which is to have the tension displayed)
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.display_compression(&quot;ON&quot;)
@@ -640,7 +640,7 @@ Examples:
         #
         # Grouping a bunch of tensor attribute commands
         # (Note line width set by direction)
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.display_compression(&quot;ON&quot;)
@@ -700,7 +700,7 @@ Examples:
         #
         # Grouping a bunch of tensor attribute commands
         # (One of which is the scale factor)
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.scale_factor(1.6700e+00)
@@ -791,7 +791,7 @@ Examples:
         # Grouping a bunch of tensor attribute commands
         # (included is the one to make tension
         #  lines 4 pixels wide)
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.display_compression(&quot;ON&quot;)
@@ -846,7 +846,7 @@ Examples:
         # Grouping a bunch of tensor attribute commands
         # (included is the one to make tension
         #  lines a particular color)
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.display_compression(&quot;ON&quot;)
@@ -900,7 +900,7 @@ Examples:
         #
         # Grouping a bunch of tensor attribute commands
         # (included is the one to make triangle arrowhead tips)
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.display_compression(&quot;ON&quot;)
@@ -948,7 +948,7 @@ Examples:
         #
         # Grouping a bunch of tensor attribute commands
         # (included is the one to set tip size)
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.display_compression(&quot;ON&quot;)
@@ -996,7 +996,7 @@ Examples:
         #
         # Grouping a bunch of tensor attribute commands
         # (included the one that specifies the name)
-        # 
+        #
         ensight.tensor.begin()
         ensight.tensor.variable(&quot;uniaxial_tensor&quot;)
         ensight.tensor.display_compression(&quot;ON&quot;)

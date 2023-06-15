@@ -209,7 +209,7 @@ g.classGroup line {
     text-anchor: middle;
     font-size: 18px;
     fill: ${t.textColor};
-  }    
+  }
 `,eg=()=>"",Ac=t=>`.label {
     font-family: ${t.fontFamily};
     color: ${t.nodeTextColor||t.textColor};
@@ -608,7 +608,7 @@ g.classGroup line {
     stroke: ${t.requirementBorderColor};
     stroke-width: ${t.requirementBorderSize};
   }
-  
+
   .reqTitle, .reqLabel{
     fill:  ${t.requirementTextColor};
   }

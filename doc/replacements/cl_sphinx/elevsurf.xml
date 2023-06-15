@@ -189,7 +189,7 @@ Returns:
 <description>
 Specifies whether the elevated sidewalls will be created.
 
-| This command is used in conjunction with  &quot;elevsurf: surface&quot;, to achieve the combinations of surface and sidewall, surface only, or sidewalls only.  
+| This command is used in conjunction with  &quot;elevsurf: surface&quot;, to achieve the combinations of surface and sidewall, surface only, or sidewalls only.
 
 Args:
     p0:

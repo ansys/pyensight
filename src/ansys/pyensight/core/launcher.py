@@ -16,9 +16,8 @@ import socket
 from typing import TYPE_CHECKING, List, Optional
 import warnings
 
-import requests
-
 from ansys import pyensight
+import requests
 
 if TYPE_CHECKING:
     from ansys.pyensight.core import Session

@@ -240,7 +240,7 @@ Args:
     p0:
         &#x27;xres&#x27; window x resolution
     p1:
-        &#x27;yres&#x27; window y resolution 
+        &#x27;yres&#x27; window y resolution
 
 Examples:
     ::
@@ -293,7 +293,7 @@ Args:
     p0:
         &#x27;toggle&#x27;
 
-        * ON 
+        * ON
         * OFF
 
 Examples:
@@ -313,13 +313,13 @@ Returns:
 <description>
 Turn on/off encapsulation for postscript output
 
-| Encapsulation should only be used when the resulting image file will be used as part of another document.  Printers do not normally interpret encapsulated image files. 
+| Encapsulation should only be used when the resulting image file will be used as part of another document.  Printers do not normally interpret encapsulated image files.
 
 Args:
     p0:
         &#x27;toggle&#x27;
 
-        * ON 
+        * ON
         * OFF
 
 Examples:
@@ -346,8 +346,8 @@ Args:
     p0:
         &#x27;compression_type&#x27;
 
-        * rle 
-        * jpeg 
+        * rle
+        * jpeg
 
 Examples:
     ::
@@ -394,7 +394,7 @@ Specifies the file format to be used when an image is created.
 | png - .png							mpeg -.mpg
 | postscript -.ps							avi - .avi
 | encapsulated ps -.eps							POVRAY -.pov &amp; .inc  (requires gold license)
-| sgi -.rgb							
+| sgi -.rgb
 
 Args:
     p0:
@@ -525,7 +525,7 @@ Args:
         &#x27;toggle&#x27;
 
         * ON
-        * OFF 
+        * OFF
 
 Examples:
     ::
@@ -780,7 +780,7 @@ Create a multi-tile image suitable for display via EnVideo to a multi-tile (i.e.
 
 Args:
     p0:
-        &#x27;x_tiles&#x27; number of tiles in the x direction 
+        &#x27;x_tiles&#x27; number of tiles in the x direction
     p1:
         &#x27;y_tiles&#x27; number of tiles in the y direction
 
@@ -837,7 +837,7 @@ Args:
     p0:
         &#x27;toggle&#x27;
 
-        * ON  
+        * ON
         * OFF
 
 Examples:
@@ -862,7 +862,7 @@ Args:
     p0:
         &#x27;toggle&#x27;
 
-        * ON  
+        * ON
         * OFF
 
 Examples:
@@ -992,9 +992,9 @@ Returns:
 <description>
 Save a context file.
 
-| A context file provides a data independent way to apply a visualization to a new dataset. 
-| The context file consists, at minimum, of a file containing the commands to recreate the visuals on the screen that existed at the time the context was saved. 
-| The filename is used as a root name as multiple files are saved including the palette, view, and keyframe animation state. 
+| A context file provides a data independent way to apply a visualization to a new dataset.
+| The context file consists, at minimum, of a file containing the commands to recreate the visuals on the screen that existed at the time the context was saved.
+| The filename is used as a root name as multiple files are saved including the palette, view, and keyframe animation state.
 | Context files are not portable between big/little endian machines at this time.
 
 Args:
@@ -1012,7 +1012,7 @@ Returns:
 </override>
 <override namespace="ensight.file.save_context_type">
 <description>
-Can specify the desired case to use, or all cases, when saving a context file. 
+Can specify the desired case to use, or all cases, when saving a context file.
 
 Args:
     p0:
@@ -1034,7 +1034,7 @@ Returns:
 <description>
 Create an EnSight archive (restart) file.
 
-| Three files are actually written.  The file name specified contains the name of the other two files and is written on the EnSight client machine. Besides the file specified, one file is written on the EnSight client and server machines containing the archive information.  
+| Three files are actually written.  The file name specified contains the name of the other two files and is written on the EnSight client machine. Besides the file specified, one file is written on the EnSight client and server machines containing the archive information.
 | Archive files are usually not compatible between major EnSight releases and are usually not portable between machines.
 
 Args:
@@ -1140,7 +1140,7 @@ Returns:
 Creates an executable by name of &lt;pathname&gt; containing the CEI application Reveal along with the currently specified scenario file.  The executable is for the architecture specified by the &#x27;file: save_scenario_png_format&#x27; command.
 
 | Commands associated with this command are:
-| file: save_scenario_png_format and 
+| file: save_scenario_png_format and
 | file: save_scenario_fileslct.
 
 Args:
@@ -1156,7 +1156,7 @@ Returns:
 Specifies the architecture for the &#x27;file: save_scenario_png_format&#x27; command.  The architecture name depends upon which Reveal executables are installed on the computer running EnSight.  Architecture names match the subdirectory names found in $CEI_HOME/reveal21/machines/
 
 | Commands associated with this command are:
-| file: save_scenario_png_file and 
+| file: save_scenario_png_file and
 | file: save_scenario_fileslct.
 
 Args:
@@ -1171,9 +1171,9 @@ Returns:
 <description>
 Save a scenario project using all parts.
 
-| A scenario can be restored in EnLiten.  
-| A scenario file contains information to completely restore the current visuals in EnLiten.  
-| A scenario project contains a scenario file plus (a) a JPEG image file of what the project looks like, (b) a file containing the scenario description, and (c) an EnSight context file (can be multiple files). 
+| A scenario can be restored in EnLiten.
+| A scenario file contains information to completely restore the current visuals in EnLiten.
+| A scenario project contains a scenario file plus (a) a JPEG image file of what the project looks like, (b) a file containing the scenario description, and (c) an EnSight context file (can be multiple files).
 | The scenario file and associated project files will be named using the directory_name as the root filename.
 
 Args:
@@ -1188,9 +1188,9 @@ Returns:
 <description>
 Save a scenario project using selected parts only.
 
-| A scenario can be restored in EnLiten.  
-| A scenario file contains information to completely restore the current visuals in EnLiten.  
-| A scenario project contains a scenario file plus (a) a JPEG image file of what the project looks like, (b) a file containing the scenario description, and (c) an EnSight context file (can be multiple files). 
+| A scenario can be restored in EnLiten.
+| A scenario file contains information to completely restore the current visuals in EnLiten.
+| A scenario project contains a scenario file plus (a) a JPEG image file of what the project looks like, (b) a file containing the scenario description, and (c) an EnSight context file (can be multiple files).
 | The scenario file and associated project files will be named using the directory_name as the root filename.
 
 Args:

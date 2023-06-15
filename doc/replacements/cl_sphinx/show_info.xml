@@ -4,8 +4,8 @@
 Show corresponding part and values of all active variables at the specified x, y, z model location.
 
 | Used in conjunction with the following commands.
-| view_transf: function cursor 
-| view_transf: action translate 
+| view_transf: function cursor
+| view_transf: action translate
 | view_transf: cursor
 
 Args:
@@ -19,20 +19,20 @@ Args:
 Examples:
     ::
 
-        # 
-        # Toggle-on and position the cursor tool 
-        # 
+        #
+        # Toggle-on and position the cursor tool
+        #
         ensight.view_transf.function(&quot;cursor&quot;)
         ensight.tools.cursor(&quot;ON&quot;)
         ensight.view_transf.action(&quot;translate&quot;)
         ensight.view_transf.cursor(-1.0000e+00,0.500000,0.500000)
-        # 
-        # Revert back to global transformation mode 
-        # 
+        #
+        # Revert back to global transformation mode
+        #
         ensight.view_transf.function(&quot;global&quot;)
-        # 
-        # Show part and all active variable information at cursor location 
-        # 
+        #
+        # Show part and all active variable information at cursor location
+        #
         ensight.show_info.cursor(-1.0000e+00,0.0000e+00,0.0000e+00)
 
 Returns:
@@ -50,13 +50,13 @@ Args:
 Examples:
     ::
 
-        # 
-        # Specify which part 
-        # 
+        #
+        # Specify which part
+        #
         ensight.part.select_begin(1)
-        # 
-        # from which to show the corresponding element information. 
-        # 
+        #
+        # from which to show the corresponding element information.
+        #
         ensight.show_info.element(20)
 
 Returns:
@@ -80,13 +80,13 @@ Args:
 Examples:
     ::
 
-        # 
-        # Specify the part ... 
-        # 
+        #
+        # Specify the part ...
+        #
         ensight.part.select_begin(1)
-        # 
-        # and active variables ... 
-        # 
+        #
+        # and active variables ...
+        #
 
 Returns:
     zero on success, non-zero on error
@@ -113,7 +113,7 @@ Returns:
 </override>
 <override namespace="ensight.show_info.part">
 <description>
-Query/show the associated model information and extent values for the specified part id. 
+Query/show the associated model information and extent values for the specified part id.
 
 Args:
     p0:
@@ -122,13 +122,13 @@ Args:
 Examples:
     ::
 
-        # 
-        # First, select the part ... 
-        # 
+        #
+        # First, select the part ...
+        #
         ensight.part.select_begin(1)
-        # 
-        # Then, specify to show its corresponding information. 
-        # 
+        #
+        # Then, specify to show its corresponding information.
+        #
         ensight.show_info.part(1)
 
 Returns:

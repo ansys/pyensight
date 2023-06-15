@@ -103,7 +103,7 @@ Returns:
 </override>
 <override namespace="ensight.logo.new_logo">
 <description>
-Creates a new logo in the graphics window. 
+Creates a new logo in the graphics window.
 
 | The logo file can be any valid XPM file. The filename does not have to include an &quot;.xpm&quot; extension.
 
@@ -184,7 +184,7 @@ Returns:
 </override>
 <override namespace="ensight.logo.select_begin">
 <description>
-Selects one or more logos in the graphics window as the target for future logo: commands 
+Selects one or more logos in the graphics window as the target for future logo: commands
 
 | Using these commands is equivalent to selecting logos by clicking on them in the graphics window with the CTRL key held down.
 
@@ -205,7 +205,7 @@ Returns:
 </override>
 <override namespace="ensight.logo.select_end">
 <description>
-Selects one or more logos in the graphics window as the target for future logo: commands 
+Selects one or more logos in the graphics window as the target for future logo: commands
 
 | Using these commands is equivalent to selecting logos by clicking on them in the graphics window with the CTRL key held down.
 
@@ -245,7 +245,7 @@ Returns:
 </override>
 <override namespace="ensight.logo.visible">
 <description>
- Controls the visibility of the selected logo in the graphics window. 
+ Controls the visibility of the selected logo in the graphics window.
 
 |  Logos are visible by default.
 

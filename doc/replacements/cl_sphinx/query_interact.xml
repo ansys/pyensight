@@ -35,7 +35,7 @@ Creates a query using the current settings.
 
 Args:
     p0:
-        &#x27;&#x27; 
+        &#x27;&#x27;
     p1:
         &#x27;screen_x&#x27; xy normalized screen coordinates (0.0 to 1.0)
     p2:
@@ -99,7 +99,7 @@ Returns:
 </override>
 <override namespace="ensight.query_interact.display_expansion_factor">
 <description>
-This command has not yet been documented. 
+This command has not yet been documented.
 
 Returns:
     zero on success, non-zero on error
@@ -107,7 +107,7 @@ Returns:
 </override>
 <override namespace="ensight.query_interact.display_id">
 <description>
-Causes the node located for the query to be reported. 
+Causes the node located for the query to be reported.
 
 | This command is used with query_interact: search closest_node to get reporting of the actual node that was used for the query.
 
@@ -138,13 +138,13 @@ Returns:
 <description>
 Causes the label written beside the query marker in the graphics window to be rendered on top of any surface that would normally hide or obscure it.
 
-| This attribute is ON by default. 
+| This attribute is ON by default.
 
 Args:
     p0:
         &#x27;toggle&#x27;
 
-        * ON 
+        * ON
         * OFF
 
 Examples:
@@ -164,7 +164,7 @@ Returns:
 </override>
 <override namespace="ensight.query_interact.label_rgb">
 <description>
-Specifies the RGB color value of the label written next to the query marker in the graphics window.    
+Specifies the RGB color value of the label written next to the query marker in the graphics window.
 
 Args:
     p0:
@@ -267,7 +267,7 @@ Returns:
 <description>
 Sets the type of query to be performed.
 
-| The exact location of the query, as specified above, may be modified by the query_interact: search command; i.e. if an exact set of coordinates or a cursor position is specified, the actual query may be done at the closest node to this point if query_interact: search closest_node has been specified. 
+| The exact location of the query, as specified above, may be modified by the query_interact: search command; i.e. if an exact set of coordinates or a cursor position is specified, the actual query may be done at the closest node to this point if query_interact: search closest_node has been specified.
 
 Args:
     p0:
@@ -309,7 +309,7 @@ Args:
     p0:
         &#x27;method&#x27;
 
-        * may be any of the following values: 
+        * may be any of the following values:
         * continuous
         * pick
 
@@ -383,7 +383,7 @@ Returns:
 </override>
 <override namespace="ensight.query_interact.select_default">
 <description>
-Causes any following query_interact: commands to affect the default query settings.    
+Causes any following query_interact: commands to affect the default query settings.
 
 | All query_interact: commands following query_interact: select_default will affect default settings until a new variable is selected to query using
 | query_interact: select_varname_begin.

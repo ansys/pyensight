@@ -1,9 +1,8 @@
 import os
 
-import pytest
-
 from ansys.pyensight import DockerLauncher, LocalLauncher
 from ansys.pyensight.enscontext import EnsContext
+import pytest
 
 
 def test_utils(tmpdir, pytestconfig: pytest.Config):

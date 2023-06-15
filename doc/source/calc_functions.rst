@@ -246,7 +246,7 @@ BL_CfWall()
 Computes a scalar variable which is the skin-friction
 coefficient :math:`{C}_{f\left(\infty \right)}`, defined as:
 
-:math:`{C}_{f}{}_{\left(\infty \right)}=\frac{{\tau }_{w}}{0.5{\rho }_{\infty }{\left({U}_{\infty }\right)}^{2}}` 
+:math:`{C}_{f}{}_{\left(\infty \right)}=\frac{{\tau }_{w}}{0.5{\rho }_{\infty }{\left({U}_{\infty }\right)}^{2}}`
 
 where:
 
@@ -489,17 +489,17 @@ displacement thickness :math:`{\delta }^{*}` , :math:`{\delta }_{s}^{*}` , or :m
 Component: 0 = Total tangential-flow parallel to the
 wall
 
-:math:`{\delta }_{tot}^{*}={\displaystyle {\int }_{0}^{\delta }\left(1-\frac{\rho u}{{\rho }_{e}{U}_{e}}\right)}dn` 
+:math:`{\delta }_{tot}^{*}={\displaystyle {\int }_{0}^{\delta }\left(1-\frac{\rho u}{{\rho }_{e}{U}_{e}}\right)}dn`
 
 Component: 1 = Stream-wise flow component tangent (parallel)
 to the wall
 
-:math:`{\delta }_{s}^{*}={\displaystyle {\int }_{0}^{\delta }\left(1-\frac{\rho {u}_{s}}{{\rho }_{e}{U}_{e}}\right)}dn` 
+:math:`{\delta }_{s}^{*}={\displaystyle {\int }_{0}^{\delta }\left(1-\frac{\rho {u}_{s}}{{\rho }_{e}{U}_{e}}\right)}dn`
 
 Component: 2 = Cross-flow component tangent (parallel) to the
 wall
 
-:math:`{\delta }_{c}^{*}={\displaystyle {\int }_{0}^{\delta }\left(1-\frac{\rho {u}_{c}}{{\rho }_{e}{U}_{e}}\right)}dn` 
+:math:`{\delta }_{c}^{*}={\displaystyle {\int }_{0}^{\delta }\left(1-\frac{\rho {u}_{c}}{{\rho }_{e}{U}_{e}}\right)}dn`
 
 
 .. list-table::
@@ -590,7 +590,7 @@ BL_DistToValue()
 Computes a scalar variable which is the distance
 :math:`d`  from the wall to the specified value defined as:
 
-:math:`d={n|}_{f\left(\alpha \right)-c}` 
+:math:`d={n|}_{f\left(\alpha \right)-c}`
 
 
 .. list-table::
@@ -639,23 +639,23 @@ momentum thickness :math:`{\theta }_{tot}` , :math:`{\theta }_{ss}` , :math:`{\t
 Components: (0,0) = Total tangential-flow parallel to the
 wall
 
-:math:`{\theta }_{tot}=\frac{1}{{\rho }_{e}{U}_{e}^{2}}{\displaystyle {\int }_{0}^{\delta }\left({U}_{e}-u\right)}\rho udn` 
+:math:`{\theta }_{tot}=\frac{1}{{\rho }_{e}{U}_{e}^{2}}{\displaystyle {\int }_{0}^{\delta }\left({U}_{e}-u\right)}\rho udn`
 
 Components: (1,1) = stream-wise, stream-wise component
 
-:math:`{\theta }_{ss}=\frac{1}{{\rho }_{e}{U}_{e}^{2}}{\displaystyle {\int }_{0}^{\delta }\left({U}_{e}-{u}_{s}\right)}\rho {u}_{s}dn` 
+:math:`{\theta }_{ss}=\frac{1}{{\rho }_{e}{U}_{e}^{2}}{\displaystyle {\int }_{0}^{\delta }\left({U}_{e}-{u}_{s}\right)}\rho {u}_{s}dn`
 
 Components: (1,2) = Stream-wise, cross-flow component
 
-:math:`{\theta }_{sc}=\frac{1}{{\rho }_{e}{U}_{e}^{2}}{\displaystyle {\int }_{0}^{\delta }\left({U}_{e}-{u}_{s}\right)}\rho {u}_{c}dn` 
+:math:`{\theta }_{sc}=\frac{1}{{\rho }_{e}{U}_{e}^{2}}{\displaystyle {\int }_{0}^{\delta }\left({U}_{e}-{u}_{s}\right)}\rho {u}_{c}dn`
 
 Components: (2,1) = cross-flow, stream-wise component
 
-:math:`{\theta }_{cs}=\frac{-1}{{\rho }_{e}{U}_{e}^{2}}{\displaystyle {\int }_{0}^{\delta }\rho {u}_{c}{u}_{s}}dn` 
+:math:`{\theta }_{cs}=\frac{-1}{{\rho }_{e}{U}_{e}^{2}}{\displaystyle {\int }_{0}^{\delta }\rho {u}_{c}{u}_{s}}dn`
 
 Components: (2,2) = cross-flow, cross-flow component
 
-:math:`{\theta }_{cc}=\frac{-1}{{\rho }_{e}{U}_{e}^{2}}{\displaystyle {\int }_{0}^{\delta }\rho {u}_{{}_{c}}^{2}}dn` 
+:math:`{\theta }_{cc}=\frac{-1}{{\rho }_{e}{U}_{e}^{2}}{\displaystyle {\int }_{0}^{\delta }\rho {u}_{{}_{c}}^{2}}dn`
 
 where:
 
@@ -803,7 +803,7 @@ BL_RecoveryThick()
 Computes a scalar variable which is the boundary-layer
 recovery thickness :math:`{\delta }_{rec}`  defined as:
 
-:math:`{\delta }_{rec}={\displaystyle {\int }_{0}^{\delta }\left(1-\frac{{p}_{t}}{{p}_{te}}\right)}dn` 
+:math:`{\delta }_{rec}={\displaystyle {\int }_{0}^{\delta }\left(1-\frac{{p}_{t}}{{p}_{te}}\right)}dn`
 
 
 .. list-table::
@@ -872,7 +872,7 @@ BL_Shape()
 be computed as a scalar variable via the calculator by
 dividing a displacement thickness by a momentum thickness:``
 
-:math:`H=\frac{{\delta }^{*}}{\theta }` 
+:math:`H=\frac{{\delta }^{*}}{\theta }`
 
 
 .. list-table::
@@ -915,7 +915,7 @@ BL_Thick()
 Computes a scalar variable which is the boundary-layer
 thickness :math:`\delta` defined as:
 
-:math:`\delta ={n|}_{u/U=0.995}` 
+:math:`\delta ={n|}_{u/U=0.995}`
 
 The distance normal from the surface to where:
 :math:`u/U=0.995`.
@@ -1091,7 +1091,7 @@ BL_Y1Plus()
 :math:`{y}_{1}^{+}`  Computes a scalar variable which is the coefficient off the
 wall to the first field cell centroid, defined as:
 
-:math:`{y}_{1}^{+}=\frac{{y}_{1}{\rho }_{w}}{{\mu }_{w}}\sqrt{\frac{{\tau }_{w}}{{\rho }_{w}}}` 
+:math:`{y}_{1}^{+}=\frac{{y}_{1}{\rho }_{w}}{{\mu }_{w}}\sqrt{\frac{{\tau }_{w}}{{\rho }_{w}}}`
 
 where:
 
@@ -1766,7 +1766,7 @@ Density()
 
 Computes a scalar variable which is the density :math:`\rho` , defined as:
 
-:math:`\rho =\frac{p}{RT}` 
+:math:`\rho =\frac{p}{RT}`
 
 where:
 
@@ -1807,7 +1807,7 @@ DensityLogNorm()
 
 Computes a scalar variable which is the natural log of *Normalized Density* defined as:
 
-:math:`\mathrm{ln}{\rho }_{n}=\mathrm{ln}\left(\rho /{\rho }_{i}\right)` 
+:math:`\mathrm{ln}{\rho }_{n}=\mathrm{ln}\left(\rho /{\rho }_{i}\right)`
 
 where:
 
@@ -1843,7 +1843,7 @@ DensityNorm()
 
 Computes a scalar variable which is the *Normalized Density* :math:`{\rho }_{n}` defined as:
 
-:math:`{\rho }_{n}=\rho /{\rho }_{i}` 
+:math:`{\rho }_{n}=\rho /{\rho }_{i}`
 
 where:
 
@@ -1883,7 +1883,7 @@ freestream velocity magnitude)``
 
 Computes a scalar variable which is the *Normalized Stagnation Density* defined as:
 
-:math:`{\rho }_{on}={\rho }_{o}/{\rho }_{oi}` 
+:math:`{\rho }_{on}={\rho }_{o}/{\rho }_{oi}`
 
 where:
 
@@ -1932,7 +1932,7 @@ DensityStag()
 Computes a scalar variable which is the Stagnation
 Density :math:`{\rho }_{o}`  defined as:
 
-:math:`{\rho }_{o}=\rho {\left(1+\left(\frac{\gamma -I}{2}\right){M}^{2}\right)}^{\left(I/\left(\gamma -1\right)\right)}` 
+:math:`{\rho }_{o}=\rho {\left(1+\left(\frac{\gamma -I}{2}\right){M}^{2}\right)}^{\left(I/\left(\gamma -1\right)\right)}`
 
 where:
 
@@ -2030,7 +2030,7 @@ origin part will always be zero.
 The origin part normal vector must be a per node
 variable. If the origin part normal is calculated using the Normal calculator
 function, then it is a per element variable and must be moved to the nodes using
-the calculator 
+the calculator
 
 .. note::
     The origin part must be included in the field part list (although, as
@@ -2039,7 +2039,7 @@ the calculator
     number of nodes in the field parts times the number of nodes in the origin
     part. While the implementation is both SOS aware and threaded, the run time
     is dominated by the number of nodes in the computation.
-    
+
 
 This function is computed between the nodes of the
 origin and field parts. As a result, the accuracy of its approximation to the
@@ -2140,7 +2140,7 @@ Div()
 Computes a scalar variable whose value is the divergence
 defined as:
 
-:math:`Div=\frac{\partial u}{\partial x}+\frac{\partial v}{\partial y}+\frac{\partial w}{\partial z}` 
+:math:`Div=\frac{\partial u}{\partial x}+\frac{\partial v}{\partial y}+\frac{\partial w}{\partial z}`
 
 where:
 
@@ -2618,7 +2618,7 @@ KinEn()
 Computes a scalar variable whose value is the kinetic
 energy :math:`{E}_{k}` defined as:
 
-:math:`{E}_{k}=\frac{1}{2}\rho {V}^{2}` 
+:math:`{E}_{k}=\frac{1}{2}\rho {V}^{2}`
 
 where:
 
@@ -2655,7 +2655,7 @@ Enthalpy()
 Computes a scalar variable which is Enthalpy
 :math:`h`  defined as:
 
-:math:`h=\gamma \left(\frac{E}{\rho }-\frac{{V}^{2}}{2}\right)` 
+:math:`h=\gamma \left(\frac{E}{\rho }-\frac{{V}^{2}}{2}\right)`
 
 
 .. list-table::
@@ -2701,7 +2701,7 @@ EnthalpyNorm()
 Computes a scalar variable which is Normalized Enthalpy
 :math:`{h}_{n}`  defined as:
 
-:math:`{h}_{n}=h/{h}_{i}` 
+:math:`{h}_{n}=h/{h}_{i}`
 
 
 .. list-table::
@@ -2746,7 +2746,7 @@ EnthalpyStag()
 
 Computes a scalar variable which is *Stagnation Enthalpy* :math:`{h}_{o}`  defined as:
 
-:math:`{h}_{o}=h+\frac{{V}^{2}}{2}` 
+:math:`{h}_{o}=h+\frac{{V}^{2}}{2}`
 
 
 .. list-table::
@@ -2788,7 +2788,7 @@ sound, freestream velocity magnitude)``
 
 Computes a scalar variable which is *Normalized Stagnation Enthalpy* :math:`{h}_{on}` defined as:
 
-:math:`{h}_{on}={h}_{o}/{h}_{oi}` 
+:math:`{h}_{on}={h}_{o}/{h}_{oi}`
 
 
 .. list-table::
@@ -2853,10 +2853,10 @@ where:
       - freestream density
 
 
-where pressure, :math:`p`  is calculated from the total energy, :math:`e` , and velocity :math:`V` 
+where pressure, :math:`p`  is calculated from the total energy, :math:`e` , and velocity :math:`V`
 
 
-:math:`p=\left(\gamma -1\right)\left[e-\rho \frac{{V}^{2}}{2}\right]` 
+:math:`p=\left(\gamma -1\right)\left[e-\rho \frac{{V}^{2}}{2}\right]`
 
 
 with freestream pressure,
@@ -2900,7 +2900,7 @@ Flow()
 Computes a constant or constant per part variable whose
 value is the volume flow rate :math:`{Q}_{c}` defined as:
 
-:math:`{Q}_{c}={\displaystyle \underset{S}{\int }\left(V·\widehat{n}\right)}dS` 
+:math:`{Q}_{c}={\displaystyle \underset{S}{\int }\left(V·\widehat{n}\right)}dS`
 
 where:
 
@@ -2945,7 +2945,7 @@ FlowRate()
 Computes a scalar :math:`{V}_{n}`  which is the component of velocity normal to the surface,
 defined as:
 
-:math:`{V}_{n}=V·\widehat{n}` 
+:math:`{V}_{n}=V·\widehat{n}`
 
 where:
 
@@ -2987,7 +2987,7 @@ FluidShear()
 
 Computes a scalar variable tau whose value is defined as:
 
-:math:`\tau =\mu \frac{\partial V}{\partial n}` 
+:math:`\tau =\mu \frac{\partial V}{\partial n}`
 
 where:
 
@@ -3061,7 +3061,7 @@ where:
 
 The turbulent viscosity :math:`{\mu }_{t}`  is defined as:
 
-:math:`{\mu }_{t}=\frac{\rho 0.09{k}^{2}}{\epsilon }` 
+:math:`{\mu }_{t}=\frac{\rho 0.09{k}^{2}}{\epsilon }`
 
 where:
 
@@ -3078,11 +3078,11 @@ where:
 
 A measure of local strain :math:`E`  (i.e. local elongation in 3 directions) is given by
 
-:math:`E=\sqrt{\left(2tr\left(D·D\right)\right)}` 
+:math:`E=\sqrt{\left(2tr\left(D·D\right)\right)}`
 
 where:
 
-:math:`\left(2tr\left(D·D\right)\right)=2\left({d}_{11}^{2}+{d}_{22}^{2}+{d}_{33}^{2}\right)+\left({d}_{12}^{2}+{d}_{13}^{2}+{d}_{23}^{2}\right)` 
+:math:`\left(2tr\left(D·D\right)\right)=2\left({d}_{11}^{2}+{d}_{22}^{2}+{d}_{33}^{2}\right)+\left({d}_{12}^{2}+{d}_{13}^{2}+{d}_{23}^{2}\right)`
 
 given the **Euclidean norm** defined by
 
@@ -3111,7 +3111,7 @@ with:
       - :math:`={}_{}{}^{1}v/{}_{}{}^{1}z+{}_{}{}^{1}w/y={d}_{32}`
 
 
-given the strain tensor :math:`{e}_{ij}`  defined by :math:`{e}_{ij}=\frac{1}{2}{d}_{ij}` 
+given the strain tensor :math:`{e}_{ij}`  defined by :math:`{e}_{ij}=\frac{1}{2}{d}_{ij}`
 
 
 .. list-table:: Function Arguments
@@ -3144,7 +3144,7 @@ Force()
 Computes a vector variable whose value is the force
 :math:`F`  defined as:
 
-:math:`F=pA` 
+:math:`F=pA`
 
 where:
 
@@ -3219,7 +3219,7 @@ Grad()
 
 Computes a vector variable whose value is the gradient :math:`GRA{D}_{f}` defined as:
 
-:math:`GRA{D}_{f}=\frac{\partial f}{\partial x}\widehat{i}+\frac{\partial f}{\partial y}\widehat{j}+\frac{\partial f}{\partial z}\widehat{k}` 
+:math:`GRA{D}_{f}=\frac{\partial f}{\partial x}\widehat{i}+\frac{\partial f}{\partial y}\widehat{j}+\frac{\partial f}{\partial z}\widehat{k}`
 
 where:
 
@@ -3264,7 +3264,7 @@ GradTensor()
 Computes a tensor variable whose value is the gradient
 :math:`GRA{D}_{F}`  defined as:
 
-:math:`GRA{D}_{F}=\frac{\partial F}{\partial x}\widehat{i}+\frac{\partial F}{\partial y}\widehat{j}+\frac{\partial F}{\partial z}\widehat{k}` 
+:math:`GRA{D}_{F}=\frac{\partial F}{\partial x}\widehat{i}+\frac{\partial F}{\partial y}\widehat{j}+\frac{\partial F}{\partial z}\widehat{k}`
 
 where:
 
@@ -3295,7 +3295,7 @@ HelicityDensity()
 
 Computes a scalar variable :math:`{H}_{d}`  whose value is:
 
-:math:`{H}_{d}=V·\Omega` 
+:math:`{H}_{d}=V·\Omega`
 
 where:
 
@@ -3331,7 +3331,7 @@ HelicityRelative()
 
 Computes a scalar variable :math:`{H}_{r}`  whose value is:
 
-:math:`{H}_{r}=\mathrm{cos}\varphi =\frac{V·\Omega }{\left|V\right|\left|\Omega \right|}` 
+:math:`{H}_{r}=\mathrm{cos}\varphi =\frac{V·\Omega }{\left|V\right|\left|\Omega \right|}`
 
 where:
 
@@ -3371,7 +3371,7 @@ HelicityRelFilter()
 
 Computes a scalar variable :math:`{H}_{rf}`  whose value is:
 
-:math:`{H}_{rf}={H}_{r}` , if :math:`\left|{H}_{d}\right|\ge filter`  or :math:`{H}_{rf}=0` , if :math:`\left|{H}_{d}\right|<filter` 
+:math:`{H}_{rf}={H}_{r}` , if :math:`\left|{H}_{d}\right|\ge filter`  or :math:`{H}_{rf}=0` , if :math:`\left|{H}_{d}\right|<filter`
 
 where:
 
@@ -3516,7 +3516,7 @@ LineVectors()
 
 Computes a nodal, vector variable which is the
 
-:math:`Ve{c}_{i}=\left[\left(P{x}_{i+1}-P{x}_{i}\right)\left(P{y}_{i+1}-P{y}_{i}\right)\left(P{z}_{i+1}-P{z}_{i}\right)\right]` 
+:math:`Ve{c}_{i}=\left[\left(P{x}_{i+1}-P{x}_{i}\right)\left(P{y}_{i+1}-P{y}_{i}\right)\left(P{z}_{i+1}-P{z}_{i}\right)\right]`
 
 
 .. list-table::
@@ -3643,7 +3643,7 @@ Mach()
 Computes a scalar variable whose value is the Mach
 number :math:`M`  defined as:
 
-:math:`M=\frac{u}{\sqrt{\frac{\gamma p}{\rho }}}=\frac{u}{c}` 
+:math:`M=\frac{u}{\sqrt{\frac{\gamma p}{\rho }}}=\frac{u}{c}`
 
 where:
 
@@ -3764,7 +3764,7 @@ component, and the third scalar becomes the Z component. A zero can be specified
 for some of the scalars, creating a 2D or 1D vector field.
 
 .. note::
-    
+
     A quick way to make a vector, is to select the parts that you wish to use
     and then select three scalars, *scalar_x*, *scalar_y*, and *scalar_z* in the
     variable list and then right click and choose *Make Vector* in the pull-down
@@ -3776,8 +3776,8 @@ for some of the scalars, creating a 2D or 1D vector field.
     If the order of the variables or the name of the vector cannot be
     definitively determined, then a GUI will pop up with the proposed components
     in a pull-down and a proposed name for the created vector variable.
-    
-    
+
+
 
 
 
@@ -3815,7 +3815,7 @@ MassFluxAvg()
 Computes a constant or constant per part variable whose
 value is the mass flux average :math:`{b}_{avg}`  defined as:
 
-:math:`{b}_{avg}=\frac{{\displaystyle \underset{A}{\int }\rho b\left(V·N\right)}dA}{{\displaystyle \underset{A}{\int }\rho \left(V·N\right)}dA}=\frac{\text{Mass Flux of Scalar}}{\text{Mass Flux}}=\frac{Flow(plist,b\rho V)}{Flow(plist,\rho V)}` 
+:math:`{b}_{avg}=\frac{{\displaystyle \underset{A}{\int }\rho b\left(V·N\right)}dA}{{\displaystyle \underset{A}{\int }\rho \left(V·N\right)}dA}=\frac{\text{Mass Flux of Scalar}}{\text{Mass Flux}}=\frac{Flow(plist,b\rho V)}{Flow(plist,\rho V)}`
 
 where:
 
@@ -3870,7 +3870,7 @@ Computes a scalar per element variable whose value
 multiplied by the specified element variable on specified 'model' parts with
 defined material species.
 
-:math:`\sigma ={e}_{s}\Sigma m{s}_{ij}` 
+:math:`\sigma ={e}_{s}\Sigma m{s}_{ij}`
 
 where:
 
@@ -4001,13 +4001,13 @@ Computes a constant or constant per part variable (the
 moment about the cursor tool location) whose value is the **x**, **y**, or **z** component of
 Moment :math:`M` .
 
-:math:`{M}_{x}=\Sigma \left({F}_{y}{d}_{z}-{F}_{z}{d}_{y}\right)` 
+:math:`{M}_{x}=\Sigma \left({F}_{y}{d}_{z}-{F}_{z}{d}_{y}\right)`
 
 
-:math:`{M}_{y}=\Sigma \left({F}_{z}{d}_{x}-{F}_{x}{d}_{z}\right)` 
+:math:`{M}_{y}=\Sigma \left({F}_{z}{d}_{x}-{F}_{x}{d}_{z}\right)`
 
 
-:math:`{M}_{z}=\Sigma \left({F}_{x}{d}_{y}-{F}_{y}{d}_{x}\right)` 
+:math:`{M}_{z}=\Sigma \left({F}_{x}{d}_{y}-{F}_{y}{d}_{x}\right)`
 
 where:
 
@@ -4048,13 +4048,13 @@ Computes a nodal vector variable (the moment is computed
 about each point of the selected parts) whose value is the **x**, **y**, or **z**
 component of Moment :math:`M`.
 
-:math:`{M}_{x}=\Sigma \left({F}_{y}{d}_{z}-{F}_{z}{d}_{y}\right)` 
+:math:`{M}_{x}=\Sigma \left({F}_{y}{d}_{z}-{F}_{z}{d}_{y}\right)`
 
 
-:math:`{M}_{y}=\Sigma \left({F}_{z}{d}_{x}-{F}_{x}{d}_{z}\right)` 
+:math:`{M}_{y}=\Sigma \left({F}_{z}{d}_{x}-{F}_{x}{d}_{z}\right)`
 
 
-:math:`{M}_{z}=\Sigma \left({F}_{x}{d}_{y}-{F}_{y}{d}_{x}\right)` 
+:math:`{M}_{z}=\Sigma \left({F}_{x}{d}_{y}-{F}_{y}{d}_{x}\right)`
 
 where:
 
@@ -4091,7 +4091,7 @@ Momentum()
 
 Computes a vector variable :math:`m`, which is:
 
-:math:`m=\rho V` 
+:math:`m=\rho V`
 
 where:
 
@@ -4199,7 +4199,7 @@ NormC()
 Computes a constant or constant per part variable whose
 value is the Normal Constraints :math:`NC`  defined as:
 
-:math:`NC={\displaystyle \underset{S}{\int }\left(-p+\mu \frac{\partial V}{\partial n}\widehat{n}\right)}dS` 
+:math:`NC={\displaystyle \underset{S}{\int }\left(-p+\mu \frac{\partial V}{\partial n}\widehat{n}\right)}dS`
 
 where:
 
@@ -4245,7 +4245,7 @@ NormVect()
 Computes a vector variable whose value is a unit vector
 :math:`U`  of the given vector :math:`V` .
 
-:math:`U=\frac{V\left({V}_{x},{V}_{y},{V}_{z}\right)}{\Vert V\Vert }` 
+:math:`U=\frac{V\left({V}_{x},{V}_{y},{V}_{z}\right)}{\Vert V\Vert }`
 
 
 .. list-table::
@@ -4272,7 +4272,7 @@ OffsetField()
 
 
 Computes a scalar field of offset values. The values
-will be in model distance units perpendicular to the boundary of the part. 
+will be in model distance units perpendicular to the boundary of the part.
 
 .. note::
     An isosurface created in this field would mimic the part boundary, but at the offset
@@ -4317,7 +4317,7 @@ To use this function, select part(s) in the part list
 that you want to use, enter a variable and an offset. EnSight will auto detect
 the 3D field part(s) adjacent to your selected part(s) surface(s) and reach into
 these fields by your offset in the normal direction to obtain the variable value
-and then assign it to the surface of your selected part(s). 
+and then assign it to the surface of your selected part(s).
 
 .. list-table:: Function Arguments
     :widths: 20 80
@@ -4374,7 +4374,7 @@ Pres()
 Computes a scalar variable whose value is the pressure
 :math:`p`  defined as:
 
-:math:`p=\left(\gamma -1\right)\rho \left(\frac{E}{\rho }-\frac{1}{2}{V}^{2}\right)` 
+:math:`p=\left(\gamma -1\right)\rho \left(\frac{E}{\rho }-\frac{1}{2}{V}^{2}\right)`
 
 
 .. list-table::
@@ -4422,7 +4422,7 @@ velocity magnitude)``
 Computes a scalar variable which is Pressure Coefficient
 :math:`{C}_{p}`  defined as:
 
-:math:`{C}_{p}=\frac{p-{p}_{i}}{\frac{{\rho }_{i}{V}_{i}^{2}}{2}}` 
+:math:`{C}_{p}=\frac{p-{p}_{i}}{\frac{{\rho }_{i}{V}_{i}^{2}}{2}}`
 
 
 .. list-table::
@@ -4474,7 +4474,7 @@ PresDynam()
 
 Computes a scalar variable which is Dynamic Pressure :math:`q`  defined as:
 
-:math:`q=\frac{\rho {V}^{2}}{2}` 
+:math:`q=\frac{\rho {V}^{2}}{2}`
 
 
 .. list-table::
@@ -4512,7 +4512,7 @@ heats, freestream density, freestream speed of sound)``
 
 Computes a scalar variable which is Normalized Pressure :math:`{p}_{n}` defined as:
 
-:math:`{p}_{n}=p/{p}_{i}` 
+:math:`{p}_{n}=p/{p}_{i}`
 
 where:
 
@@ -4564,7 +4564,7 @@ ratio of specific heats, freestream density, freestream speed of sound)``
 Computes a scalar variable which is the natural log of
 Normalized Pressure defined as:
 
-:math:`\mathrm{ln}{p}_{n}=\mathrm{ln}\left(p/{p}_{i}\right)` 
+:math:`\mathrm{ln}{p}_{n}=\mathrm{ln}\left(p/{p}_{i}\right)`
 
 
 .. list-table::
@@ -4616,7 +4616,7 @@ of specific heats)``
 Computes a scalar variable which is the Stagnation
 Pressure :math:`{p}_{o}` defined as:
 
-:math:`{p}_{o}=p{\left(1+\left(\frac{\gamma -1}{2}\right){M}^{2}\right)}^{\left(\gamma /\left(\gamma -1\right)\right)}` 
+:math:`{p}_{o}=p{\left(1+\left(\frac{\gamma -1}{2}\right){M}^{2}\right)}^{\left(\gamma /\left(\gamma -1\right)\right)}`
 
 
 .. list-table::
@@ -4669,11 +4669,11 @@ freestream velocity magnitude)``
 
 
 Computes a scalar variable which is Normalized
-Stagnation Pressure :math:`{p}_{on}` 
+Stagnation Pressure :math:`{p}_{on}`
 
 defined as:
 
-:math:`{p}_{on}=\left({p}_{o}/{p}_{oi}\right)` 
+:math:`{p}_{on}=\left({p}_{o}/{p}_{oi}\right)`
 
 where:
 
@@ -4726,9 +4726,9 @@ freestream velocity magnitude)``
 
 
 Computes a scalar variable which is Stagnation Pressure
-Coefficient :math:`{C}_{{p}_{o}}` 
+Coefficient :math:`{C}_{{p}_{o}}`
 
-defined as: :math:`{C}_{{p}_{o}}=\left({p}_{o}-{p}_{i}\right)/\left(\frac{{\rho }_{i}{V}^{2}}{2}\right)` 
+defined as: :math:`{C}_{{p}_{o}}=\left({p}_{o}-{p}_{i}\right)/\left(\frac{{\rho }_{i}{V}^{2}}{2}\right)`
 
 where:
 
@@ -4789,7 +4789,7 @@ ratio of specific heats)``
 Computes a scalar variable which is Pitot Pressure
 :math:`{p}_{p}`  defined as:
 
-:math:`\begin{array}{ll}{p}_{p}\hfill & =sp\hfill \\ s\hfill & =\frac{{\left(\left(\frac{\gamma +1}{2}\right)\left(\frac{{V}^{2}}{\gamma \left(\gamma -1\right)\left(\frac{E}{\rho }-\frac{{V}^{2}}{2}\right)}\right)\right)}^{\left(\gamma /\left(\gamma -1\right)\right)}}{{\left(\left(\frac{2\gamma }{\gamma +1}\right)\left(\frac{{V}^{2}}{\gamma \left(\gamma -1\right)\left(\frac{E}{\rho }-\frac{{V}^{2}}{2}\right)}\right)-\left(\frac{\gamma -1}{\gamma +1}\right)\right)}^{\left(\gamma /\left(\gamma -1\right)\right)}}\hfill \end{array}` 
+:math:`\begin{array}{ll}{p}_{p}\hfill & =sp\hfill \\ s\hfill & =\frac{{\left(\left(\frac{\gamma +1}{2}\right)\left(\frac{{V}^{2}}{\gamma \left(\gamma -1\right)\left(\frac{E}{\rho }-\frac{{V}^{2}}{2}\right)}\right)\right)}^{\left(\gamma /\left(\gamma -1\right)\right)}}{{\left(\left(\frac{2\gamma }{\gamma +1}\right)\left(\frac{{V}^{2}}{\gamma \left(\gamma -1\right)\left(\frac{E}{\rho }-\frac{{V}^{2}}{2}\right)}\right)-\left(\frac{\gamma -1}{\gamma +1}\right)\right)}^{\left(\gamma /\left(\gamma -1\right)\right)}}\hfill \end{array}`
 
 where:
 
@@ -4847,7 +4847,7 @@ ratio of specific heats, freestream density, freestream speed of sound)``
 Computes a scalar variable which is Pitot Pressure Ratio
 :math:`{p}_{pr}`  defined as:
 
-:math:`{p}_{pr}=s\left(\gamma -1\right)\left(E-\frac{\rho {V}^{2}}{2}\right)` 
+:math:`{p}_{pr}=s\left(\gamma -1\right)\left(E-\frac{\rho {V}^{2}}{2}\right)`
 
 where:
 
@@ -4904,7 +4904,7 @@ PresT()
 Computes a scalar variable whose value is the total
 pressure :math:`{p}_{t}`  defined as:
 
-:math:`{p}_{t}=p+\rho \frac{{V}^{2}}{2}` 
+:math:`{p}_{t}=p+\rho \frac{{V}^{2}}{2}`
 
 where:
 
@@ -4926,7 +4926,7 @@ where:
     EnSight has chosen to define Total Pressure using the incompressible flow
     equation (above), and Stagnation Pressure using the compressible flow
     equation (see Stagnation Pressure above).
-    
+
 
 .. list-table:: Function Arguments
     :widths: 30 70
@@ -5190,7 +5190,7 @@ velocity, ratio of specific heats)``
 Computes a scalar variable ShockPlot3d, whose value
 is:
 
-:math:`ShockPlot3d=\frac{V}{c}·\frac{grad(p)}{\left|grad(p)\right|}` 
+:math:`ShockPlot3d=\frac{V}{c}·\frac{grad(p)}{\left|grad(p)\right|}`
 
 where:
 
@@ -5226,7 +5226,7 @@ where:
 
 To compute candidate shock surface(s), create an
 isosurface of the calculated variable, shockplot3d = 1.0. These shock region(s)
-can be verified by overlaying them with :math:`Mach\ge 1.0` 
+can be verified by overlaying them with :math:`Mach\ge 1.0`
 
 Also consider comparing with the Shock Region/Surface
 feature visualization.
@@ -5264,7 +5264,7 @@ to be smoothed. The algorithm is fully threaded.
 
 For each pass, the following formula is applied:
 
-:math:`{x}_{i+1}={x}_{i}+w{\displaystyle \sum _{j=0}^{n}\left({x}_{j}-{x}_{i}\right)}` 
+:math:`{x}_{i+1}={x}_{i}+w{\displaystyle \sum _{j=0}^{n}\left({x}_{j}-{x}_{i}\right)}`
 
 where
 
@@ -5352,7 +5352,7 @@ variables are interpolated at each cell centroid using cell shape blending or
 metric functions), for each element over the entire part. The final sum is then
 divided by the total volume (or area) of the part.
 
-:math:`\text{Spatial Mean}=\frac{{\displaystyle \sum {s}_{i}vo{l}_{i}}}{{\displaystyle \sum vo{l}_{i}}}` 
+:math:`\text{Spatial Mean}=\frac{{\displaystyle \sum {s}_{i}vo{l}_{i}}}{{\displaystyle \sum vo{l}_{i}}}`
 
 where:
 
@@ -5397,7 +5397,7 @@ part. The final sum is then divided by the total scalar/vector weighted (again
 if nodal weighting variable is similarly evaluated at the element centroid)
 volume (or area, or length) of the part as follows.
 
-:math:`\text{Spatial Mean Weighted}=\frac{{\displaystyle \sum {w}_{i}{s}_{i}vo{l}_{i}}}{{\displaystyle \sum {w}_{i}vo{l}_{i}}}` 
+:math:`\text{Spatial Mean Weighted}=\frac{{\displaystyle \sum {w}_{i}{s}_{i}vo{l}_{i}}}{{\displaystyle \sum {w}_{i}vo{l}_{i}}}`
 
 where: :math:`{s}_{i}`  = Scalar or vector component taken at centroid of element
 i
@@ -5430,7 +5430,7 @@ Speed()
 Computes a scalar variable whose value is the Speed
 defined as:
 
-:math:`speed=\sqrt{{u}^{2}+{v}^{2}+{w}^{2}}` 
+:math:`speed=\sqrt{{u}^{2}+{v}^{2}+{w}^{2}}`
 
 where:
 
@@ -5458,7 +5458,7 @@ SonicSpeed()
 
 Computes a scalar variable :math:`c` , whose value is:
 
-:math:`c=\sqrt{\frac{\gamma p}{\rho }}` 
+:math:`c=\sqrt{\frac{\gamma p}{\rho }}`
 
 where :math:`\gamma`  = ratio of specific heats
 
@@ -5497,19 +5497,19 @@ sum, mean, variance, skew, or kurtosis by applying a selected statistical
 function over all of the nodes or elements of the selected parts, given the
 selected scalar or constant variable. Five functions are defined as:
 
-:math:`sum={\displaystyle \sum _{i=1}^{N}{\nu }_{i}}` 
+:math:`sum={\displaystyle \sum _{i=1}^{N}{\nu }_{i}}`
 
 
-:math:`mean=\frac{1}{N}{\displaystyle \sum _{i=1}^{N}{\nu }_{i}}` 
+:math:`mean=\frac{1}{N}{\displaystyle \sum _{i=1}^{N}{\nu }_{i}}`
 
 
-:math:`\mathrm{var}=\frac{1}{N-1}{\displaystyle \sum _{i=1}^{N}{\left({\nu }_{i}-mean\right)}^{2}}` 
+:math:`\mathrm{var}=\frac{1}{N-1}{\displaystyle \sum _{i=1}^{N}{\left({\nu }_{i}-mean\right)}^{2}}`
 
 
-:math:`skew=\frac{1}{N}{\displaystyle \sum _{i=1}^{N}{\left(\frac{{\nu }_{i}-mean}{\sqrt{\mathrm{var}}}\right)}^{3}}` 
+:math:`skew=\frac{1}{N}{\displaystyle \sum _{i=1}^{N}{\left(\frac{{\nu }_{i}-mean}{\sqrt{\mathrm{var}}}\right)}^{3}}`
 
 
-:math:`kurt=\left\{\frac{1}{N}{\displaystyle \sum _{i=1}^{N}{\left(\frac{{\nu }_{i}-mean}{\sqrt{\mathrm{var}}}\right)}^{4}}\right\}-3` 
+:math:`kurt=\left\{\frac{1}{N}{\displaystyle \sum _{i=1}^{N}{\left(\frac{{\nu }_{i}-mean}{\sqrt{\mathrm{var}}}\right)}^{4}}\right\}-3`
 
 The mean is the simple average (unweighted, arithmetic
 mean) of the all of the samples. The var is the variance, which is an indication
@@ -5540,7 +5540,7 @@ variable must be pre-weighted.
     calculated using just one server. Elemental variables do not suffer from
     this issue as ghost elements are handled properly and elements are not
     shared among servers. The function parameters are defined as:
-    
+
 
 .. list-table:: Function Arguments
     :widths: 20 80
@@ -5756,7 +5756,7 @@ Swirl()
 
 Computes a scalar variable Swirl, whose value is:
 
-:math:`swirl=\frac{\Omega ·V}{\rho {V}^{2}}` 
+:math:`swirl=\frac{\Omega ·V}{\rho {V}^{2}}`
 
 where:
 
@@ -5798,7 +5798,7 @@ Temperature()
 Computes a scalar variable whose value is the
 temperature **T** defined as:
 
-:math:`T=\frac{\left(\gamma -1\right)}{R}\left(\frac{E}{\rho }-\frac{1}{2}{V}^{2}\right)` 
+:math:`T=\frac{\left(\gamma -1\right)}{R}\left(\frac{E}{\rho }-\frac{1}{2}{V}^{2}\right)`
 
 where:
 
@@ -5859,7 +5859,7 @@ constant)``
 
 Computes a scalar variable which is Normalized Temperature :math:`{T}_{n}`  defined as:
 
-:math:`{T}_{n}=\frac{T}{{T}_{i}}` 
+:math:`{T}_{n}=\frac{T}{{T}_{i}}`
 
 
 .. list-table::
@@ -6298,7 +6298,7 @@ The basic equation is shown below. If needed, the
 principal stresses/strains are first computed from the tensor or its
 components.
 
-:math:`{\sigma }_{yp}=\left|{\sigma }_{1}-{\sigma }_{3}\right|` 
+:math:`{\sigma }_{yp}=\left|{\sigma }_{1}-{\sigma }_{3}\right|`
 
 
 .. list-table::
@@ -6352,7 +6352,7 @@ The basic equation is shown below. If needed, the
 principal stresses/strains are first computed from the tensor or its
 components.
 
-:math:`{\sigma }_{yp}=\sqrt{\frac{1}{2}\left({\left({\sigma }_{1}-{\sigma }_{2}\right)}^{2}+{\left({\sigma }_{2}-{\sigma }_{3}\right)}^{2}+{\left({\sigma }_{3}-{\sigma }_{1}\right)}^{2}\right)}` 
+:math:`{\sigma }_{yp}=\sqrt{\frac{1}{2}\left({\left({\sigma }_{1}-{\sigma }_{2}\right)}^{2}+{\left({\sigma }_{2}-{\sigma }_{3}\right)}^{2}+{\left({\sigma }_{3}-{\sigma }_{1}\right)}^{2}\right)}`
 
 
 .. list-table::
@@ -6467,7 +6467,7 @@ Velo()
 Computes a vector variable whose value is the velocity V
 defined as:
 
-:math:`V=\frac{m}{\rho }` 
+:math:`V=\frac{m}{\rho }`
 
 where:
 
@@ -6530,7 +6530,7 @@ Vort()
 Computes a vector variable that is the rotation of the
 flow in units of radians per second with components :math:`{\zeta }_{x},{\zeta }_{y},{\zeta }_{z}`  defined as:
 
-:math:`\begin{array}{ccc}{\zeta }_{x}=\frac{\partial w}{\partial x}-\frac{\partial v}{\partial z}& {\zeta }_{y}=\frac{\partial u}{\partial z}-\frac{\partial w}{\partial x}& {\zeta }_{z}=\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}\end{array}` 
+:math:`\begin{array}{ccc}{\zeta }_{x}=\frac{\partial w}{\partial x}-\frac{\partial v}{\partial z}& {\zeta }_{y}=\frac{\partial u}{\partial z}-\frac{\partial w}{\partial x}& {\zeta }_{z}=\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}\end{array}`
 
 where:
 
@@ -6567,7 +6567,7 @@ part, whose value is the vorticity-gamma
 function :math:`{\Gamma }_{k}\left(P\right)`, defined at each node
 (or element centroid for cell centered data), P as follows:
 
-:math:`{\Gamma }_{k}\left(P\right)=\frac{1}{S}{\displaystyle \int \mathrm{sin}\left({\Theta }_{M}\right)dS}=\frac{1}{S}{\displaystyle \underset{\left(M\in S\right)}{\int }\left(\frac{\left(\stackrel{\rightharpoonup }{PM}\times {\stackrel{\rightharpoonup }{V}}_{M}\right)·\widehat{n}}{\Vert \stackrel{\rightharpoonup }{PM}\Vert ·\Vert {\stackrel{\rightharpoonup }{V}}_{M}\Vert }\right)dS}` 
+:math:`{\Gamma }_{k}\left(P\right)=\frac{1}{S}{\displaystyle \int \mathrm{sin}\left({\Theta }_{M}\right)dS}=\frac{1}{S}{\displaystyle \underset{\left(M\in S\right)}{\int }\left(\frac{\left(\stackrel{\rightharpoonup }{PM}\times {\stackrel{\rightharpoonup }{V}}_{M}\right)·\widehat{n}}{\Vert \stackrel{\rightharpoonup }{PM}\Vert ·\Vert {\stackrel{\rightharpoonup }{V}}_{M}\Vert }\right)dS}`
 
 where:
 
@@ -6681,7 +6681,7 @@ where:
 
 
 .. note::
-    
+
     Recall that ω is the rotation rate for the antisymmetrical part of
     the velocity gradient and that μ is the eigenvalue of the symmetric part
     of the tensor. The local character of the flow may be classified for
@@ -6695,7 +6695,7 @@ where:
     ω/μ > 1: flow locally dominated by rotation, β2 > 2/π
 
     **References**
-    
+
     #. Jeong, J. and Hussain, F., "On the identification
        of a vortex," Journal of Fluid Mechanics, 1995, vol. 285,
        pp. 69-94.

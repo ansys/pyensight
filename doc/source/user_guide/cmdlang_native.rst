@@ -167,4 +167,3 @@ The previous examples are transformed as follows:
     session.ensight.annotation._3d_label_size(10.0)
     session.ensight.command.print("hello")
     session.ensight.viewport._raise()
-    
