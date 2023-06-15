@@ -148,8 +148,9 @@ explicit_package_bases = true
 exclude = ["codegen/", "tests/", "^src/ansys/api", "^doc"]
 no_site_packages = true
 follow_imports = "skip"
+install_types = true
 
-[tool.mypy.overrides]
+[[tool.mypy.overrides]]
 module = ["grpc",
  "grpc_health",
  "grpc_bindings",
