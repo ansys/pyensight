@@ -6559,7 +6559,7 @@ VortGamma()
 
 **Vorticity Gamma**
 
-``VortGamma(2D clip parts, velocity, gamma function number, k (1 or 2), proximity radius, proximity option)``
+``VortGamma(2D part clips , velocity, gamma function number, k (1 or 2), proximity radius, proximity option)``
 
 
 Computes a dimensionless scalar variable on a 2D clip
