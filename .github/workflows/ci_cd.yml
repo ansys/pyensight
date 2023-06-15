@@ -15,6 +15,8 @@ env:
   MAIN_PYTHON_VERSION: '3.10'
   PACKAGE_NAME: 'ansys-pyensight-core'
   PACKAGE_NAMESPACE: 'ansys.pyensight.core'
+  ENSIGHT_IMAGE: 'ghcr.io/ansys-internal/ensight_dev'
+
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -68,26 +70,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Python
-        uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
       - name: Install build requirements
         run: pip install .[test]
-
-      - name: Create wheel
-        run: make build
-
-      - name: Validate wheel
-        run: twine check dist/*
-
-      - name: Install pyensight
-        run: make install
-
-      - name: Install test requirements
-        run: pip install -r requirements/test.txt
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
@@ -97,7 +88,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: docker
-        run: make pull-docker
+        run: docker pull ${{ ENSIGHT_IMAGE }}
 
       - name: Unit testing
         run: |
