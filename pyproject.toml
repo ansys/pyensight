@@ -139,3 +139,29 @@ level = "HIGH"
 number = "3"
 recursive = true
 exclude = ["venv/*","src/ansys/api/*","src/ansys/pyensight/ensight_api.py","setup.py,tests/*","codegen/*"]
+
+[tool.mypy]
+python_version = 3.7
+strict = false
+namespace_packages = true
+explicit_package_bases = true
+exclude = ["codegen/", "tests/", "^src/ansys/api", "^doc"]
+no_site_packages = true
+follow_imports = "skip"
+
+[tool.mypy.overrides]
+module = ["grpc",
+ "grpc_health",
+ "grpc_bindings",
+ "requests",
+ "ansys",
+ "ansys.*",
+ "docker",
+ "dill",
+ "IPython.display",
+ "enve",
+ "urllib3",
+ "ensight",
+ "numpy"
+]
+ignore_missing_imports = true
