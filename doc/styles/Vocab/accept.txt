@@ -1,9 +1,0 @@
-Ansys
-ansys
-API
-api
-APIs
-apis
-Javascript
-PyEnSight
-pyensight
