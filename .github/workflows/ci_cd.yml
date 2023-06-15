@@ -76,7 +76,7 @@ jobs:
           python-version: '3.9'
 
       - name: Install build requirements
-        run: pip install -r requirements/build.txt
+        run: pip install .[test]
 
       - name: Create wheel
         run: make build
@@ -253,7 +253,7 @@ jobs:
   build-failure:
     name: Teams notify on failure
     if: failure() && (github.event_name == 'pull_request' || github.ref == 'refs/heads/main' || github.ref_type == 'tag')
-    needs: [ linter, smoketest, build_and_test ]
+    needs: [style, smoketest, build_and_test ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
