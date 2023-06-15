@@ -16,6 +16,7 @@ PyPI
 antialiasing
 journaling
 ensight
+EnSight
 Ensight
 breakpoint
 enums

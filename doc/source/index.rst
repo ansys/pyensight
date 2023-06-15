@@ -56,7 +56,7 @@ simultaneously.
 
 Key features include:
 
-- Large data-tuned postprocessing
+- Large data-tuned post processing
 - Time-varying visualization and analysis
 - Complete palette of visualization algorithms, including clips, isocontours,
   vectors, particle traces, and vortex cores

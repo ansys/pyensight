@@ -6,4 +6,4 @@ Examples
 ========
 
 These examples show how the PyEnSight interfaces work and
-demonstrate postprocessing workflows leveraging these interfaces.
+demonstrate post processing workflows leveraging these interfaces.
