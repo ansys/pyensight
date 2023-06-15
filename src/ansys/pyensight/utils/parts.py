@@ -44,10 +44,11 @@ class Parts:
         the parts found.
 
         Args:
-            dimension (int): the dimension to use for finding parts.
+            dimension:
+                The dimension to use for finding parts.
 
         Return:
-            found (ensobjlist): the list of parts found and selected.
+            The list of parts found and selected.
         """
         parts = self.ensight.objs.core.PARTS
         parts.set_attr("SELECTED", False)
@@ -60,7 +61,7 @@ class Parts:
         selected ones.
 
         Return:
-            found (ensobjlist): the updated list of parts selected.
+            The updated list of parts selected.
         """
         self.ensight.part.select_invert()
         parts = self.ensight.objs.core.PARTS
@@ -76,14 +77,17 @@ class Parts:
         the parts found.
 
         Args:
-            tag (str): the tag to be used to find the parts.
-            value (str): the value to be used to find the parts.
-            tagdict (dict): a dictionary containing keys and values to be used in pair
-                for finding the parts. Only the parts that have all the keys and the corresponding
-                values will be returned. If a tagdict is supplied, this takes precedence
+            tag:
+                The tag to be used to find the parts.
+            value:
+                The value to be used to find the parts.
+            tagdict:
+                A dictionary containing keys and values to be used in pair for finding
+                the parts. Only the parts that have all the keys and the corresponding
+                values will be returned. If tagdict is supplied, this takes precedence
                 with respect to the other arguments.
         Return:
-            found (ensobjlist): the list of parts found and selected. If no arguments are given, all the
+            The list of parts found and selected. If no arguments are given, all the
             parts are returned.
         """
         parts = self.ensight.objs.core.PARTS
