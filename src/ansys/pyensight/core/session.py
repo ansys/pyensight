@@ -59,35 +59,34 @@ class Session:
     enable the show() method and require an instance of websocketserver to be running
     as well.
 
-    Args:
-        host:
-            Name of the host on which the EnSight gRPC service is running.
-        install_path:
-            Pathname to the 'CEI' directory from which EnSight was launched.
-        secret_key:
-            Shared session secret used to validate gRPC communication.
-        grpc_port:
-            Port number of the EnSight gRPC service.
-        html_port:
-            Port number of the websocketserver HTTP server.
-        ws_port:
-            Port number of the websocketserver WS server.
-        session_directory:
-            The directory used for local data storage on the server.
-        timeout:
-            The number of seconds to retry a gRPC connection before giving up.
-            The default is 120.
+    Parameters
+    ----------
+    host :
+        Name of the host on which the EnSight gRPC service is running.
+    install_path :
+        Pathname to the 'CEI' directory from which EnSight was launched.
+    secret_key :
+        Shared session secret used to validate gRPC communication.
+    grpc_port :
+        Port number of the EnSight gRPC service.
+    html_port :
+        Port number of the websocketserver HTTP server.
+    ws_port :
+        Port number of the websocketserver WS server.
+    session_directory :
+        The directory used for local data storage on the server.
+    timeout :
+        The number of seconds to retry a gRPC connection before giving up.
+        The default is 120.
 
-    Examples:
-        ::
+    Examples
+    --------
 
-            from ansys.pyensight.core import Session
-            session = Session(host="127.0.0.1", grpc_port=12345, http_port=8000, ws_port=8100)
+        >>> from ansys.pyensight.core import Session
+        >>> session = Session(host="127.0.0.1", grpc_port=12345, http_port=8000, ws_port=8100)
 
-        ::
-
-            from ansys.pyensight.core import LocalLauncher
-            session = LocalLauncher().start()
+        >>> from ansys.pyensight.core import LocalLauncher
+        >>> session = LocalLauncher().start()
 
     """
 
@@ -176,9 +175,10 @@ class Session:
     def _establish_connection(self, validate: bool = False) -> None:
         """Establish a gRPC connection to the EnSight instance.
 
-        Args:
-            validate:
-                If true, actually try to communicate with EnSight
+        Parameters
+        ----------
+        validate : bool
+            If true, actually try to communicate with EnSight. By default false.
         """
         time_start = time.time()
         while time.time() - time_start < self._timeout:
@@ -195,18 +195,17 @@ class Session:
 
     @property
     def language(self) -> str:
-        """
-        The current language specification for the EnSight session.  Various
+        """The current language specification for the EnSight session.  Various
         information calls will return their information in the target language
         if possible. The default is: 'en'.
 
-        Examples:
-            ::
+        Examples
+        --------
 
-                session.language = "en"
-                session.ensight.objs.core.attrinfo(session.ensight.objs.enums.PREDEFINEDPALETTES)
-                session.language = "zh"
-                session.ensight.objs.core.attrinfo(session.ensight.objs.enums.PREDEFINEDPALETTES)
+        >>> session.language = "en"
+        >>> session.ensight.objs.core.attrinfo(session.ensight.objs.enums.PREDEFINEDPALETTES)
+        >>> session.language = "zh"
+        >>> session.ensight.objs.core.attrinfo(session.ensight.objs.enums.PREDEFINEDPALETTES)
 
         """
         return self._language
@@ -218,8 +217,7 @@ class Session:
 
     @property
     def halt_ensight_on_close(self) -> bool:
-        """
-        If True and this session was created via a launcher, then when the session
+        """If True and this session was created via a launcher, then when the session
         is closed, the EnSight instance will be stopped.  Note: while this flag prevents
         close() from shutting down EnSight, depending on how the host Python interpreter
         is configured, the EnSight session may still be halted (e.g. Jupyter Lab).
@@ -232,9 +230,7 @@ class Session:
 
     @property
     def timeout(self) -> float:
-        """
-        The amount of time in seconds before a gRPC call is considered to have failed.
-        """
+        """The amount of time in seconds before a gRPC call is considered to have failed."""
         return self._timeout
 
     @timeout.setter
@@ -243,23 +239,19 @@ class Session:
 
     @property
     def cei_home(self) -> str:
-        """
-        The value of CEI_HOME for the connected EnSight session.
-        """
+        """The value of CEI_HOME for the connected EnSight session."""
         return self._cei_home
 
     @property
     def cei_suffix(self) -> str:
-        """
-        The suffix string, 222 for example, of the connected EnSight session.
-        """
+        """The suffix string, 222 for example, of the connected EnSight session."""
         return self._cei_suffix
 
     @property
     def jupyter_notebook(self) -> bool:
-        """
-        True if the session is running in a jupyter notebook and should use
+        """True if the session is running in a jupyter notebook and should use
         display features of that interface.
+
         """
         return self._jupyter_notebook
 
@@ -269,51 +261,37 @@ class Session:
 
     @property
     def ensight(self) -> "ensight_api.ensight":
-        """
-        Core EnSight API wrapper
-        """
+        """Core EnSight API wrapper"""
         return self._ensight
 
     @property
     def grpc(self) -> "ensight_grpc.EnSightGRPC":
-        """
-        The gRPC wrapper instance used by this session to access EnSight
-        """
+        """The gRPC wrapper instance used by this session to access EnSight"""
         return self._grpc
 
     @property
     def secret_key(self) -> str:
-        """
-        The secret key used for communication validation in the gRPC instance
-        """
+        """The secret key used for communication validation in the gRPC instance"""
         return self._secret_key
 
     @property
     def html_port(self) -> Optional[int]:
-        """
-        The port supporting HTML interaction with EnSight
-        """
+        """The port supporting HTML interaction with EnSight"""
         return self._html_port
 
     @property
     def ws_port(self) -> Optional[int]:
-        """
-        The port supporting WS interaction with EnSight
-        """
+        """The port supporting WS interaction with EnSight"""
         return self._ws_port
 
     @property
     def hostname(self) -> str:
-        """
-        The hostname of the system hosting the EnSight instance
-        """
+        """The hostname of the system hosting the EnSight instance"""
         return self._hostname
 
     @property
     def launcher(self) -> "pyensight.Launcher":
-        """
-        If a launcher was used to instantiate this session, a reference to the launcher instance.
-        """
+        """If a launcher was used to instantiate this session, a reference to the launcher instance."""
         return self._launcher
 
     @launcher.setter
@@ -338,12 +316,16 @@ class Session:
 
         Note: the script filename must end with '.py' since it will be imported as a module.
 
-        Args:
-            filename:
-                The filename of the Python script to be run (loaded as a module by pyensight).
+        Parameters
+        ----------
+        filename : str
+            The filename of the Python script to be run (loaded as a module by pyensight).
 
-        Returns:
+        Returns
+        -------
+        types.ModuleType
             The imported module.
+
         """
         dirname = os.path.dirname(filename)
         if not dirname:
@@ -383,45 +365,42 @@ class Session:
         serializable and the PyEnSight Python interpreter version must match the version in
         EnSight.
 
-        Examples:
-            ::
+        Examples
+        --------
+        >>> from ansys.pyensight.core import LocalLauncher
+        >>> session = LocalLauncher().start()
+        >>> options = dict()
+        >>> options['Verbose mode'] = 'OFF'
+        >>> options['Use ghost elements'] = 'OFF'
+        >>> options['Long names'] = 'OFF'
+        >>> options['Compatibility mode'] = 'ON'
+        >>> options['Move Transient Parts'] = 'ON'
+        >>> options['Element type'] = 'Tri 3'
+        >>> options['Boundary ghosts'] = 'None'
+        >>> options['Spread out parts'] = 'Legacy'
+        >>> options['Number of spheres'] = 100
+        >>> options['Number of cubes'] = 100
+        >>> options['Number of planes'] = 0
+        >>> options['Number of elements start'] = 1000
+        >>> options['Number of elements end'] = 1000
+        >>> options['Number of timesteps'] = 1
+        >>> options['Part scaling factor'] = 1.000000e+00
+        >>> options['Random number seed'] = 0
+        >>> options['Number of scalars'] = 3
+        >>> options['Number of vectors'] = 3
+        >>> options['Number of constants'] = 3
+        >>> session.load_data("dummy", file_format="Synthetic", reader_options=options)
 
-                from ansys.pyensight.core import LocalLauncher
-                session = LocalLauncher().start()
-                options = dict()
-                options['Verbose mode'] = 'OFF'
-                options['Use ghost elements'] = 'OFF'
-                options['Long names'] = 'OFF'
-                options['Compatibility mode'] = 'ON'
-                options['Move Transient Parts'] = 'ON'
-                options['Element type'] = 'Tri 3'
-                options['Boundary ghosts'] = 'None'
-                options['Spread out parts'] = 'Legacy'
-                options['Number of spheres'] = 100
-                options['Number of cubes'] = 100
-                options['Number of planes'] = 0
-                options['Number of elements start'] = 1000
-                options['Number of elements end'] = 1000
-                options['Number of timesteps'] = 1
-                options['Part scaling factor'] = 1.000000e+00
-                options['Random number seed'] = 0
-                options['Number of scalars'] = 3
-                options['Number of vectors'] = 3
-                options['Number of constants'] = 3
-                session.load_data("dummy", file_format="Synthetic", reader_options=options)
-
-                def count(ensight, attr, value):
-                    import time
-                    start = time.time()
-                    count = 0
-                    for p in ensight.objs.core.PARTS:
-                        if p.getattr(attr) == value:
-                            count += 1
-                    return count, time.time() - start
-
-                print(count(session.ensight, "VISIBLE", True))
-                print(session.exec(count, "VISIBLE", True))
-                print(session.exec(count, "VISIBLE", True, remote=True))
+        >>> def count(ensight, attr, value):
+        >>>     import time
+        >>>     start = time.time()
+        >>>     count = 0
+        >>>     for p in ensight.objs.core.PARTS:
+        >>>         if p.getattr(attr) == value:
+        >>>             count += 1
+        >>> print(count(session.ensight, "VISIBLE", True))
+        >>> print(session.exec(count, "VISIBLE", True))
+        >>> print(session.exec(count, "VISIBLE", True, remote=True))
 
         """
         if remote:
@@ -460,8 +439,7 @@ class Session:
         fps: float = 30.0,
         num_frames: Optional[int] = None,
     ) -> "renderable.Renderable":
-        """
-        Cause the current EnSight scene to be captured or otherwise made available for
+        """Cause the current EnSight scene to be captured or otherwise made available for
         display in a web browser.  The appropriate visuals are generated and the renderable
         object for viewing is returned.  If the session is in a Jupyter notebook, the cell
         in which the show() command is issued will be updated with the renderable display.
@@ -476,37 +454,42 @@ class Session:
         * 'remote' remote rendering based interactive EnSight viewer
         * 'remote_scene' remote rendering based interactive EnSight viewer
 
-        Args:
-            what:
-                The type of scene display to generate.
-            width:
-                The width of the rendered entity
-            height:
-                The height of the rendered entity
-            temporal:
-                If True, include all timesteps in 'webgl' views
-            aa:
-                The number of antialiasing passes to use when rendering images
-            fps:
-                For animation playback, the number of frames per second to use
-            num_frames:
-                For animation playback, number of frames of static timestep to record
+        Parameters
+        ----------
+        what :
+            The type of scene display to generate.
+        width :
+            The width of the rendered entity
+        height :
+            The height of the rendered entity
+        temporal :
+            If True, include all timesteps in 'webgl' views
+        aa :
+            The number of antialiasing passes to use when rendering images
+        fps :
+            For animation playback, the number of frames per second to use
+        num_frames :
+            For animation playback, number of frames of static timestep to record
 
-        Returns:
+        Returns
+        -------
+        renderable.Renderable
             The Renderable object instance
 
-        Raises:
-            RuntimeError:
-                if it is not possible to generate the content
+        Raises
+        ------
+        RuntimeError
+            if it is not possible to generate the content
 
-        Examples:
-            Render an image and display it in a browser.  Rotate the scene and update the display::
+        Examples
+        --------
+        Render an image and display it in a browser.  Rotate the scene and update the display
 
-                image = session.show('image', width=800, height=600)
-                image.browser()
-                session.ensight.view_transf.rotate(30, 30, 0)
-                image.update()
-                image.browser()
+        >>> image = session.show('image', width=800, height=600)
+        >>> image.browser()
+        >>> session.ensight.view_transf.rotate(30, 30, 0)
+        >>> image.update()
+        >>> image.browser()
 
         """
         self._establish_connection()
@@ -551,18 +534,27 @@ class Session:
     def cmd(self, value: str, do_eval: bool = True) -> Any:
         """Run a command in EnSight and return the results
 
-        Args:
-            value:
-                String of the command to run
-            do_eval:
-                If True, a return value will be computed and returned
-        Returns:
+        Parameters
+        ----------
+        value :
+            String of the command to run
+        do_eval :
+
+        value: str :
+
+        do_eval: bool :
+             (Default value = True)
+
+        Returns
+        -------
+
             result of the string being executed as Python inside EnSight
 
-        Examples:
-            >>> print(session.cmd("10+4"))
-            14
+        Examples
+        --------
 
+        >>> print(session.cmd("10+4"))
+            14
         """
         self._establish_connection()
         ret = self._grpc.command(value, do_eval=do_eval)
@@ -574,18 +566,21 @@ class Session:
     def geometry(self, what: str = "glb") -> bytes:
         """Return the current EnSight scene as a geometry file
 
-        Args:
-            what: the file format to return (as a bytes object)
+        Parameters
+        ----------
+        what : str
+            the file format to return
 
-        Returns:
+        Returns
+        -------
+        type
             the generated geometry file as a bytes object
 
-        Examples:
-            ::
-
-                data = session.geometry()
-                with open("file.glb", "wb") as fp:
-                    fp.write(data)
+        Examples
+        --------
+        >>> data = session.geometry()
+        >>> with open("file.glb", "wb") as fp:
+        >>> fp.write(data)
 
         """
         self._establish_connection()
@@ -594,27 +589,31 @@ class Session:
     def render(self, width: int, height: int, aa: int = 1) -> bytes:
         """Render the current EnSight scene and return a PNG image
 
-        Args:
-            width: width of the rendered image in pixels
-            height: height of the rendered image in pixels
-            aa: number of antialiasing passes to use
+        Parameters
+        ----------
+        width : int
+            width of the rendered image in pixels
+        height : int
+            height of the rendered image in pixels
+        aa : int
+            number of antialiasing passes to use
 
-        Returns:
-            a bytes object that is a PNG image stream
+        Returns
+        -------
+            PNG image
 
-        Examples:
-            ::
-
-                data = session.render(1920, 1080, aa=4)
-                with open("file.png", "wb") as fp:
-                    fp.write(data)
+        Examples
+        --------
+        >>> data = session.render(1920, 1080, aa=4)
+        >>> with open("file.png", "wb") as fp:
+        >>> fp.write(data)
 
         """
         self._establish_connection()
         return self._grpc.render(width=width, height=height, aa=aa)
 
     def close(self) -> None:
-        """Close this session
+        """Close this session.
 
         Terminate the current session and its gRPC connection.
         """
@@ -626,7 +625,7 @@ class Session:
         self._launcher = None
 
     def _build_utils_interface(self) -> None:
-        """Build the ensight.utils interface
+        """Build the ensight.utils interface.
 
         Walk the .py files in the utils directory.  Create instances
         of the classes in those files and place them in the
@@ -674,35 +673,37 @@ class Session:
         Given the name of a file, load the data from that file into EnSight.  The new data will
         replace any currently loaded data in the session.
 
-        Args:
-            data_file:
-                Filename to load.
-            result_file:
-                For dual-file datasets, the second data file.
-            file_format:
-                The name of the EnSight reader to be used to read.  If None, ask
-                EnSight to select a reader.
-            reader_options:
-                Dictionary of reader specific option/value pairs which can be used
-                to customize the reader behavior.
-            new_case:
-                If True, the dataset will be loaded into another case.  If False, the
-                dataset will replace the one (if any) loaded in the existing current case.
-            representation:
-                The representation for parts loaded by default.  The default value is
-                "3D_feature_2D_full".
+        Parameters
+        ----------
+        data_file : str
+            Filename to load.
+        result_file :
+            For dual-file datasets, the second data file.
+        file_format : str
+            The name of the EnSight reader to be used to read.  If None, ask
+            EnSight to select a reader.
+        reader_options : dict
+            Dictionary of reader specific option/value pairs which can be used
+            to customize the reader behavior.
+        new_case : bool
+            If True, the dataset will be loaded into another case.  If False, the
+            dataset will replace the one (if any) loaded in the existing current case.
+        representation : str
+            The representation for parts loaded by default.  The default value is
+            "3D_feature_2D_full".
 
-        Raises:
-            RuntimeError:
-                if EnSight cannot guess the file format or an error occurs while the
-                data is being read.
+        Raises
+        ------
+        RuntimeError
+            if EnSight cannot guess the file format or an error occurs while the
+            data is being read.
 
-        Examples:
-            ::
+        Examples
+        -------
 
-                from ansys.pyensight.core import LocalLauncher
-                session = LocalLauncher().start()
-                session.load_data(r'D:\data\CFX\example_data.res')
+        >>> from ansys.pyensight.core import LocalLauncher
+        >>> session = LocalLauncher().start()
+        >>> session.load_data(r'D:\data\CFX\example_data.res')
 
         """
         self._establish_connection()
@@ -785,24 +786,27 @@ class Session:
         combining the example_name with a root url.  The default based url is
         provided by Ansys, but can be overridden with the root argument.
 
-        Args:
-            example_name:
-                The name of the EnSight session file (.ens) to download and load.
-            uncompress:
-                If True, unzip the downloaded file into the returned directory name.
-            root:
-                The base url for the download.
-        Return:
+        Parameters
+        ----------
+        example_name:
+            The name of the EnSight session file (.ens) to download and load.
+        uncompress:
+            If True, unzip the downloaded file into the returned directory name.
+        root:
+            The base url for the download.
+
+        Returns
+        -------
+        type
             The pathname to the downloaded file in the EnSight session.
 
-        Example:
-            ::
-
-                from ansys.pyensight.core import LocalLauncher
-                session = LocalLauncher().start()
-                session.load_example("fluent_wing_example.ens")
-                remote = session.show("remote")
-                remote.browser()
+        Examples
+        --------
+        >>> from ansys.pyensight.core import LocalLauncher
+        >>> session = LocalLauncher().start()
+        >>> session.load_example("fluent_wing_example.ens")
+        >>> remote = session.show("remote")
+        >>> remote.browser()
 
         """
         base_uri = "https://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
@@ -844,53 +848,41 @@ class Session:
         in a URL of the form: grpc://{sessionguid}/{tag}?enum={attribute}&uid={objectid}
         Only one callback with the noted tag can be used in the session.
 
-        Args:
-            target:
-                The name of the target object or the name of a class as a string to
-                match all objects of that class.  Note: a proxy class reference is
-                also allowed (e.g. session.ensight.objs.core).
-            tag:
-                The unique name for the callback. A tag can end with macros of
-                the form {{attrname}} to return the value of an attribute of the
-                target object.  The macros should take the form of URI queries to
-                simplify parsing.
-            attr_list:
-                The list of attributes of "target" that will result in the callback
-                being called if it changes.
-            method:
-                A callable that is called with the returned URL.
-            compress:
-                By default, if as a result of an action, a repeated event is
-                generated, only the last event will be called back.  If compress
-                is False, every event will result in a callback.
+        Parameters
+        ----------
+        target:
+            The name of the target object or the name of a class as a string to
+            match all objects of that class.  Note: a proxy class reference is
+            also allowed (e.g. session.ensight.objs.core).
+        tag:
+            The unique name for the callback. A tag can end with macros of
+            the form {{attrname}} to return the value of an attribute of the
+            target object.  The macros should take the form of URI queries to
+            simplify parsing.
+        attr_list:
+            The list of attributes of "target" that will result in the callback
+            being called if it changes.
+        method:
+            A callable that is called with the returned URL.
+        compress:
+            By default, if as a result of an action, a repeated event is
+            generated, only the last event will be called back.  If compress
+            is False, every event will result in a callback.
 
-        Examples:
-            A string like this:
-            'Event: grpc://f6f74dae-f0ed-11ec-aa58-381428170733/partlist?enum=PARTS&uid=221'
-            will be printed when the dataset is loaded and the partlist changes::
+        Examples
+        --------
+        A string like this :
 
-                from ansys.pyensight.core import LocalLauncher
-                s = LocalLauncher().start()
-                def cb(v: str):
-                    print("Event:", v)
+        'Event :
+            grpc://f6f74dae-f0ed-11ec-aa58-381428170733/partlist?enum=PARTS&uid=221'
+        will be printed when the dataset is loaded and the partlist changes.
 
-                s.add_callback("ensight.objs.core", "partlist", ["PARTS"], cb)
-                s.load_data(r"D:\ANSYSDev\data\CFX\HeatingCoil_001.res")
-
-
-            ::
-
-                from urllib.parse import urlparse, parse_qsl
-                def vp_callback(uri):
-                    p = urlparse(uri)
-                    q = parse_qsl(p.query)
-                    print("Viewport:", q)
-
-                tag = "vport?w={{WIDTH}}&h={{HEIGHT}}&x={{ORIGINX}}&y={{ORIGINY}}"
-                session.add_callback("'ENS_VPORT'", tag, [session.ensight.objs.enums.ORIGINX,
-                        session.ensight.objs.enums.ORIGINY, session.ensight.objs.enums.WIDTH,
-                        session.ensight.objs.enums.HEIGHT], vp_callback)
-
+            >>> from ansys.pyensight.core import LocalLauncher
+            >>> s = LocalLauncher().start()
+            >>> def cb(v: str):
+            >>> print("Event:", v)
+            >>>     s.add_callback("ensight.objs.core", "partlist", ["PARTS"], cb)
+            >>> s.load_data(r"D:\ANSYSDev\data\CFX\HeatingCoil_001.res")
         """
         self._establish_connection()
         # shorten the tag up to the query block.  Macros only legal in the query block
@@ -923,13 +915,16 @@ class Session:
         Given a tag used to register a previous callback (add_callback), remove
         that callback from the EnSight callback system.
 
-        Args:
-            tag:
-                The callback string tag
+        Parameters
+        ----------
+        tag : str
+            The callback string tag
 
-        Raises:
-            RuntimeError:
-                If an invalid tag is supplied
+        Raises
+        ------
+        RuntimeError
+            If an invalid tag is supplied
+
         """
         if tag not in self._callbacks:
             raise RuntimeError(f"A callback for tag '{tag}' does not exist")
@@ -942,10 +937,12 @@ class Session:
         """Pass the URL back to the registered callback
         Match the cmd URL with the registered callback and make the callback.
 
-        Args:
-            cmd:
-                The URL callback from the gRPC event stream.  The URL has the
-                form:  grpc://{sessionguid}/{tag}?enum={attribute}&uid={objectid}
+        Parameters
+        ----------
+        cmd : str
+            The URL callback from the gRPC event stream.  The URL has the
+            form:  grpc://{sessionguid}/{tag}?enum={attribute}&uid={objectid}
+
         """
         # EnSight will always tack on '?enum='.  If our tag uses ?macro={{attr}},
         # you will get too many '?' in the URL, making it difficult to parse.
@@ -967,7 +964,18 @@ class Session:
     # Object API helper functions
     @staticmethod
     def remote_obj(ensobjid: int) -> str:
-        """Generate a string that, for a given ENSOBJ ID, returns a proxy object instance"""
+        """Generate a string that, for a given ENSOBJ ID, returns a proxy object instance
+
+        Parameters
+        ----------
+        ensobjid: int
+            ID if ENSOBJ
+
+        Returns
+        -------
+        str
+            string with the proxy instance
+        """
         return f"ensight.objs.wrap_id({ensobjid})"
 
     def _prune_hash(self) -> None:
@@ -976,11 +984,24 @@ class Session:
             self._ensobj_hash = {}
 
     def add_ensobj_instance(self, obj: "ENSOBJ") -> None:
-        """Add a new ENSOBJ instance to the hash table"""
+        """Add a new ENSOBJ instance to the hash table
+
+        Parameters
+        ----------
+        obj: "ENSOBJ"
+
+        """
         self._ensobj_hash[obj.__OBJID__] = obj
 
     def obj_instance(self, ensobjid: int) -> Optional["ENSOBJ"]:
-        """Get any existing proxy object associated with a given ID"""
+        """Get any existing proxy object associated with a given ID
+
+        Parameters
+        ----------
+        ensobjid: int
+            ID if ENSOBJ
+
+        """
         return self._ensobj_hash.get(ensobjid, None)
 
     def _obj_attr_subtype(self, classname: str) -> Tuple[Optional[int], Optional[dict]]:
@@ -989,13 +1010,17 @@ class Session:
         class supports subclasses, the attribute id number of the differentiating
         attribute.
 
-        Args:
-            classname:
-                The root classname to lookup
+        Parameters
+        ----------
+        classname : str
+            The root classname to lookup
 
-        Return:
+        Returns
+        -------
+        Tuple[Optional[int], Optional[dict]]
             (attr_id, subclassnamedict): the attribute used to differentiate between classes
-                and a dictionary of the classnames for each value of the attribute.
+            and a dictionary of the classnames for each value of the attribute.
+
         """
         if classname == "ENS_PART":
             part_lookup_dict = dict()
@@ -1069,6 +1094,12 @@ class Session:
             session.obj_instance(221)
 
         If a proxy object for the id already exists.
+
+        Parameters
+        ----------
+        s: str :
+            string to convert.
+
         """
         self._prune_hash()
         while True:
@@ -1125,19 +1156,19 @@ class Session:
         Cause the EnSight instance to save a context and return an EnsContext object
         representing that saved state.
 
-        Args:
-            full_context:
-                If True, the saved context will include all aspects of the EnSight
-                instance, including data references, units, etc.   The default is False.
-        Returns:
-            A new EnsContext instance.
+        Parameters
+        ----------
+        full_context : bool
+            If True, the saved context will include all aspects of the EnSight
 
-        Example:
+        Returns
+        -------
+        enscontext.EnsContext
 
-            ::
-
-                ctx = session.capture_context()
-                ctx.save("session_context.ctxz")
+        Examples
+        --------
+        >>> ctx = session.capture_context()
+        >>> ctx.save("session_context.ctxz")
 
         """
         self.cmd("import ansys.pyensight.core.enscontext", do_eval=False)
@@ -1154,18 +1185,16 @@ class Session:
         Restore EnSight to the state stored in an EnsContext object that was either
         read from disk or returned by the capture_context() method.
 
-        Args:
-            context:
-                The context to set the current EnSight instance to.
+        Parameters
+        ----------
+        context :
+            The context to set the current EnSight instance to.
 
-        Example:
-
-            ::
-
-                tmp_ctx = session.capture_context()
-                session.restore_context(EnsContext("session_context.ctxz"))
-                session.restore_context(tmp_ctx)
-
+        Example
+        -------
+        >>> tmp_ctx = session.capture_context()
+        >>> session.restore_context(EnsContext("session_context.ctxz"))
+        >>> session.restore_context(tmp_ctx)
         """
         data_str = context._data(b64=True)
         self.cmd("import ansys.pyensight.core.enscontext", do_eval=False)

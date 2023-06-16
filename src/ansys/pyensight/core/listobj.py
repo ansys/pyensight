@@ -215,9 +215,6 @@ class ensobjlist(List[T]):  # noqa: N801
         cycle: bool :
             cycle flag.
 
-        Returns
-        -------
-
         """
         name = self.__class__.__name__
         if cycle:
