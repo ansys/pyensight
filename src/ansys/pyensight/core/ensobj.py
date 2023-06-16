@@ -16,21 +16,22 @@ class ENSOBJ(object):
     Note: this interface is internal and applications should not attempt to
     create ENSOBJ instances directly.
 
-    Args:
-        session:
-            The session object associated with this object instance.
+    Parameters
+    ----------
+    session :
+        The session object associated with this object instance.
+    objid :
+        The EnSight CvfObjID of the object instance that this instance will
+        serve as the proxy for.
+    attr_id :
+        For subclasses that differentiate classes by an attribute value,
+        this is the attribute ID to use as the differentiator.  Example
+        classes are ENS_TOOL, ENS_PART and ENS_ANNOT.
+    attr_value :
+        The attribute value associated with any specified attr_id.
 
-        objid:
-            The EnSight CvfObjID of the object instance that this instance will
-            serve as the proxy for.
-
-        attr_id:
-            For subclasses that differentiate classes by an attribute value,
-            this is the attribute ID to use as the differentiator.  Example
-            classes are ENS_TOOL, ENS_PART and ENS_ANNOT.
-
-        attr_value:
-            The attribute value associated with any specified attr_id.
+    Returns
+    -------
 
     """
 
@@ -67,20 +68,23 @@ class ENSOBJ(object):
     def getattr(self, attrid: Any) -> Any:
         """Query the value of the specified attribute
 
-        Args:
-            attrid:
-                The attribute to query.  This can be an integer (enum) or string.
+        Parameters
+        ----------
+        attrid: Any
+            The attribute to query
 
-        Return:
+        Returns
+        -------
+        Any
             The current value of the attribute.
 
-        Examples:
-            These commands are equivalent::
+        Example
+        -------
+        These commands are equivalent
 
-                v = part.VISIBLE
-                v = part.getattr("VISIBLE")
-                v = part.getattr(session.ensight.objs.enums.VISIBLE)
-
+        >>> v = part.VISIBLE
+        >>> v = part.getattr("VISIBLE")
+        >>> v = part.getattr(session.ensight.objs.enums.VISIBLE)
         """
         return self._session.cmd(f"{self._remote_obj()}.getattr({attrid.__repr__()})")
 
@@ -90,25 +94,28 @@ class ENSOBJ(object):
         This method queries a collection of attributes in a single call and
         returns the attribute values in a dictionary keyed by the attribute ids.
 
-        Args:
-            attrid:
-                If this value is a list (of attribute ids as strings or enum values),
-                then the returned dictionary will only include values for the specified
-                attributes.  Otherwise, the returned dictionary will include values for
-                all attributes of the target object.
+        Parameters
+        ----------
+        attrid : Optional[list]
+            If this value is a list (of attribute ids as strings or enum values),
+            then the returned dictionary will only include values for the specified
+            attributes.  Otherwise, the returned dictionary will include values for
+            all attributes of the target object.
+        text : int
+            By default, the returned dictionary keys are the attribute ID enum
+            values.  If text is set to 1, the dictionary keys will be strings.
+            Return:
 
-            text:
-                By default, the returned dictionary keys are the attribute ID enum
-                values.  If text is set to 1, the dictionary keys will be strings.
+        Example
+        -------
+        To copy some attributes from one part to another.
 
-        Return:
-            A dictionary of the queried attributes.
+        >>> tmp = part0.getattrs(["VISIBLE", session.ensight.objs.enums.OPAQUENESS])
+        >>> part1.setattrs(tmp)
 
-        Examples:
-            To copy some attributes from one part to another::
-
-                tmp = part0.getattrs(["VISIBLE", session.ensight.objs.enums.OPAQUENESS])
-                part1.setattrs(tmp)
+        Returns
+        -------
+            Session CMD.
 
         """
         if attrid is None:
@@ -120,20 +127,23 @@ class ENSOBJ(object):
     def setattr(self, attrid: Any, value: Any) -> None:
         """Set the value of the specified attribute
 
-        Args:
-            attrid:
-                The attribute to set.  This can be an integer (enum) or string.
+        Parameters
+        ----------
+        attrid : Any
+            The attribute to set.  This can be an integer (enum) or string.
+        value : Any
+            The value to set the attribute to.
 
-            value:
-                The value to set the attribute to.
+        Examples
+        --------
+        These commands are equivalent
 
-        Examples:
-            These commands are equivalent::
+        >>> part.setattr("VISIBLE", True)
+        >>> part.getattr(session.ensight.objs.enums.VISIBLE, True)
 
-                part.VISIBLE = True
-                part.setattr("VISIBLE", True)
-                part.getattr(session.ensight.objs.enums.VISIBLE, True)
-
+        Returns
+        -------
+            Session CMD.
         """
         return self._session.cmd(
             f"{self._remote_obj()}.setattr({attrid.__repr__()}, {value.__repr__()})"
@@ -142,21 +152,21 @@ class ENSOBJ(object):
     def setattrs(self, values: dict, all_errors: int = 0) -> None:
         """Set the values of a collection of attributes
 
-        Args:
+        Parameters
+        ----------
+        values : Dict
+            The values to set.  The keys are the attribute IDs.
+        all_errors : int
+            If non-zero, raise a RuntimeError exception if any attribute set
+            operation fails. By default, 0.
 
-            values:
-                The values to set.  The keys are the attribute IDs.
+        Examples
+        --------
+        These commands are equivalent
 
-            all_errors:
-                If non-zero, raise a RuntimeError exception if any attribute set
-                operation fails.
-
-        Examples:
-            These commands are equivalent::
-
-                part.VISIBLE = True
-                part.setattrs(dict(VISIBLE=True))
-                part.setattrs({session.ensight.objs.enums.VISIBLE: True})
+        >>> part.VISIBLE = True
+        >>> part.setattrs(dict(VISIBLE=True))
+        >>> part.setattrs({session.ensight.objs.enums.VISIBLE: True})
 
         """
         cmd = f"{self._remote_obj()}.setattrs({values.__repr__()}, all_errors={all_errors})"
@@ -166,43 +176,45 @@ class ENSOBJ(object):
         """For a given attribute id, return type information
 
         The dictionary returned by will always have the following keys:
-            - ‘type’ the high-level type. This can include any of the values noted in the next
+            - `type` the high-level type. This can include any of the values noted in the next
               section
 
-            - ‘basetype’ the low-level type. Only types starting with ‘CVF’ are allowed.
+            - `basetype` the low-level type. Only types starting with `CVF` are allowed.
 
-            - ‘numvals’ the number of values of the ‘basetype’.
+            - `numvals` the number of values of the `basetype`.
 
-            - ‘desc’ string description for the attr
+            - `desc` string description for the attr
 
-            - ‘name’ the python legal name for the attr
+            - `name` the python legal name for the attr
 
-            - ‘flags’ this integer is formed by or-ing values from the table below
+            - `flags` this integer is formed by or-ing values from the table below
 
         Optional keys:
-            - ‘range’ if selected in the flags, this key will be a list of two floats or
-              ints: [min,max]. see ‘flags’ below
+            - `range` if selected in the flags, this key will be a list of two floats or
+              ints: [min,max]. see `flags` below
 
-            - ‘enums’ if selected in the flags, this key will be list of lists. Each list has
+            - `enums` if selected in the flags, this key will be list of lists. Each list has
               three values: [int_value, description, python_name]. The integer value is the number
-              for the enum (see ‘flags’ below), while the other two values are human and Python
+              for the enum (see `flags` below), while the other two values are human and Python
               strings. The python_name will also be available as an integer in the
               ensight.objs.enums module.
 
-            - ‘dependencies’ if present, this key is a list of dictionaries that describe the
+            - `dependencies` if present, this key is a list of dictionaries that describe the
               fact that this attr is dependent on another attr. The dictionary is described below.
 
-        Args:
-            attrid:
-                The attribute to query.  This can be an integer (enum) or string.
+        Parameters
+        ----------
+        attrid : Optional[Any]
+            The attribute to query
 
-        Return:
+        Returns
+        -------
+        dict
             A dictionary that describes type information for the attribute.
 
-        Examples:
-             ::
-
-                part.attrinfo(session.ensight.objs.enums.VISIBLE)
+        Examples
+        --------
+        >>> part.attrinfo(session.ensight.objs.enums.VISIBLE)
 
         """
         if not attrid:
@@ -210,6 +222,13 @@ class ENSOBJ(object):
         return self._session.cmd(f"{self._remote_obj()}.attrinfo({attrid.__repr__()})")
 
     def populate_attr_list(self) -> List[str]:
+        """populates a list with attributes.
+
+        Returns
+        -------
+        List[str]
+            The list with the attributes.
+        """
         return [k for k, _ in self.attrinfo().items()]
 
     def attrissensitive(self, attrid: Any) -> bool:
@@ -219,11 +238,14 @@ class ENSOBJ(object):
         allow the specified attribute to change.   Return False if the object is currently
         ignoring the value of a given attribute due to the state of other attributes.
 
-        Args:
-            attrid:
-                The attribute to query.  This can be an integer (enum) or string.
+        Parameters
+        ----------
+        attrid : Any
+            The attribute to query
 
-        Return:
+        Returns
+        -------
+        bool
             True or False
 
         """
@@ -246,70 +268,63 @@ class ENSOBJ(object):
         dynamically generate labels and hierarchy for a "property sheet" editor.
 
         The method returns an object tree that describes the way attribute should be laid out.
-        Each object has three attributes: ‘attr’, 'hasdeps' and ‘name’. All objects will have names
+        Each object has three attributes: `attr`, 'hasdeps' and `name`. All objects will have names
         and group objects will have an attr of -1. All objects can also be iterated for children
-        objects of the same type. Only objects with an ‘attr’ of -1 will have children. len() can
+        objects of the same type. Only objects with an `attr` of -1 will have children. len() can
         be used to get the number of child objects. The top level object always has the name
-        ‘root’. The 'hasdeps' attribute is the number of attributes in this attrtree() that have
+        `root`. The 'hasdeps' attribute is the number of attributes in this attrtree() that have
         a dependency on this attr.  This can be used to decide if a new sensitivity check is needed
         if a given attribute changes.
 
-        Args:
-            all:
-                If set to 1 will include all attrs for the object, even if they are not in the group
-                tables.
+        Parameters
+        ----------
+        all : int
+            If set to 1 will include all attrs for the object, even if they are not in the group
+            tables.
+        filter : Optional[list]
+            Should be set to an optional list of EnSight objects. The output will be filtered
+            to include only the attributes in common between all of the objects (they do not
+            need to be of the same type).
+        include : Optional[list]
+            Should be set to a list of attribute enums. Only the enums in the list will be
+            included in the output object tree. Note: passing an empty list via this keyword,
+            all the enums will be initially excluded.  This is useful with the
+            group_include= keyword.
+        exclude : Optional[list]
+            Should be set to a list of attribute enums. Any enums in the list will be
+            removed from the output object tree.
+        group_exclude : Optional[list]
+            Should be set to a list of attribute enums. For any enum in this list, exclude
+            the enum and all the other enums in the same groups as the passed enums.  Think
+            of this as a shortcut for exclude= that requires you to only pass a single enum
+            in the group you want to suppress.
+        group_include : Optional[list]
+            Should be set to a list of attribute enums. For any enum in this list, include
+            the enum and all the other enums in the same groups as the passed enums.  Think
+            of this as a shortcut for include= that requires you to only pass a single enum
+            in the group you want to include. Note: it may be necessary to pass include=[]
+            (the empty list) to start with an empty list of enums.
+        insensitive : int
+            If this keyword is set to 0, attrtree() will call foo.issensitive() on each
+            filtered attr and if the attr is not currently sensitive, it will remove it
+            from the output.  The default value for this keyword is 1 which disables all
+            sensitivity filtering.
 
-            filter:
-                Should be set to an optional list of EnSight objects. The output will be filtered
-                to include only the attributes in common between all of the objects (they do not
-                need to be of the same type).
+        Example
+        -------
 
-            include:
-                Should be set to a list of attribute enums. Only the enums in the list will be
-                included in the output object tree. Note: passing an empty list via this keyword,
-                all the enums will be initially excluded.  This is useful with the
-                group_include= keyword.
-
-            exclude:
-                Should be set to a list of attribute enums. Any enums in the list will be
-                removed from the output object tree.
-
-            group_exclude:
-                Should be set to a list of attribute enums. For any enum in this list, exclude
-                the enum and all the other enums in the same groups as the passed enums.  Think
-                of this as a shortcut for exclude= that requires you to only pass a single enum
-                in the group you want to suppress.
-
-            group_include:
-                Should be set to a list of attribute enums. For any enum in this list, include
-                the enum and all the other enums in the same groups as the passed enums.  Think
-                of this as a shortcut for include= that requires you to only pass a single enum
-                in the group you want to include. Note: it may be necessary to pass include=[]
-                (the empty list) to start with an empty list of enums.
-
-            insensitive:
-                If this keyword is set to 0, attrtree() will call foo.issensitive() on each
-                filtered attr and if the attr is not currently sensitive, it will remove it
-                from the output.  The default value for this keyword is 1 which disables all
-                sensitivity filtering.
-
-        Example:
-            ::
-
-                def walk_tree(part,obj,s):
-                    a = obj.attr
-                    if (a == -1):
-                        print("{}Group={}".format(s, obj.name)))
-                    else:
-                        info = part.attrinfo(a)
-                        t = enum_to_name(a)
-                        d = info['desc']
-                        print("{}Attr={} - '{}' ({:d} deps)".format(s, t, d, obj.hasdeps))
-                    for i in obj:
-                        walk_tree(part,i,s+"  ")
-
-                walk_tree(session.ensight.core.PARTS[0],session.ensight.core.PARTS[0].attrtree(),"")
-
+            >>> def walk_tree(part,obj,s):
+            >>>     a = obj.attr
+            >>>     if (a == -1):
+            >>>         print("{}Group={}".format(s, obj.name)))
+            >>>     else:
+            >>>         = part.attrinfo(a)
+            >>>         t = enum_to_name(a)
+            >>>         d = info['desc']
+            >>>         print("{}Attr={} - '{}' ({:d} deps)".format(s, t, d, obj.hasdeps))
+            >>>     for i in obj:
+            >>>         walk_tree(part,i,s+"  ")
+            >>> walk_tree(session.ensight.core.PARTS[0],session.ensight.core.PARTS[0].attrtree(),"")
         """
         obj = f"{self._remote_obj()}"
         options = f"all={all}"
@@ -349,7 +364,7 @@ class ENSOBJ(object):
         return self._session.cmd(f"{self._remote_obj()}.setattr_end()")
 
     def setattr_status(self) -> int:
-        """Return the number of active setattr_begin() calls"""
+        """ """
         return self._session.cmd(f"{self._remote_obj()}.setattr_status()")
 
     def setmetatag(self, tag: str, value: Optional[Any]) -> None:
@@ -358,18 +373,17 @@ class ENSOBJ(object):
         All ENSOBJ subclasses have a METADATA read only attribute that is viewed as a Python
         dictionary.  A value can be set in that dictionary using this call:
 
-        Args:
-            tag:
-                The string name of the METADATA tag to add/change.
+        Parameters
+        ----------
+        tag : str
+            The string name of the METADATA tag to add/change.
+        value : Any, optional
+            The value to change to tag to.  Note: this can be a string, int or float.
 
-            value:
-                The value to change to tag to.  Note: this can be a string, int or float.
-
-        Example:
-            ::
-
-                session.ensight.objs.core.PARTS[0].setmetatag("FOO", "HELLO")
-                print(session.ensight.objs.core.PARTS[0].METADATA)
+        Example
+        -------
+            >>> session.ensight.objs.core.PARTS[0].setmetatag("FOO", "HELLO")
+            >>> print(session.ensight.objs.core.PARTS[0].METADATA)
 
         """
         if value is None:
@@ -381,11 +395,14 @@ class ENSOBJ(object):
     def hasmetatag(self, tag: str) -> bool:
         """Check to see if a tag exists in the METADATA attribute
 
-        Args:
-            tag:
-                The string name of the METADATA tag to check.
+        Parameters
+        ----------
+        tag : str
+            The string name of the METADATA tag to check
 
-        Return:
+        Returns
+        -------
+        bool
             True if the named tag exists in the METADATA attribute.
 
         """
@@ -394,18 +411,21 @@ class ENSOBJ(object):
     def getmetatag(self, tag: str) -> Any:
         """Get the value of a tag in the METADATA attribute
 
-        Args:
-            tag:
-                The string name of the METADATA tag to get.
+        Parameters
+        ----------
+        tag : str
 
-        Return:
+        The string name of the METADATA tag to get
+
+        Returns
+        -------
+        Any
             The value assigned to the tag in the METADATA attribute.
 
-        Example:
-            ::
-
-                session.ensight.objs.core.PARTS[0].setmetatag("FOO", "HELLO")
-                print(session.ensight.objs.core.PARTS[0].getmetatag("FOO"))
+        Example
+        -------
+        >>> session.ensight.objs.core.PARTS[0].setmetatag("FOO", "HELLO")
+        >>> print(session.ensight.objs.core.PARTS[0].getmetatag("FOO"))
 
         """
         return self._session.cmd(f"{self._remote_obj()}.getmetatag({tag.__repr__()})")
@@ -429,7 +449,7 @@ class ENSOBJ(object):
         return f"Class: {self.__class__.__name__}{desc}, CvfObjID: {self._objid}, cached:no"
 
     def __repr__(self) -> str:
-        """Custom __repr__ method used by the stub API
+        """Custom __repr__ method used by the stub API.
 
         In some cases, we need to specify the object representation in the EnSight
         instance.  For ENSOBJ instances, this means using the wrap_id() mechanism
@@ -439,5 +459,15 @@ class ENSOBJ(object):
 
     @no_type_check
     def _repr_pretty_(self, p: "pretty", cycle: bool) -> None:
-        """Support the pretty module for better IPython support"""
+        """Support the pretty module for better IPython support.
+
+        Parameters
+        ----------
+        p: str
+            pretty flag.
+
+        cycle: bool :
+            cycle flag.
+
+        """
         p.text(self.__str__())
