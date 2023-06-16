@@ -38,24 +38,24 @@ class Launcher:
     """EnSight Launcher base class
 
     A Launcher instance is used to start/end an EnSight session.  Specific subclasses
-    handle different types of launching semantics.
+    handle different types of launching semantics. A launcher can create only a
+    single EnSight instance. If one needs more than one EnSight instance,
+    a new launcher instance will be required.
 
-    Args:
-        timeout:
-            In some cases where the EnSight session can take a significant amount of
-            timme to start up, this is the number of seconds to wait before failing
-            the connection.  The default is 120.0.
-        use_egl:
-            If True, EGL hardware accelerated graphics will be used. The platform
-            must be able to support it.
-        use_sos:
-            If None, don't use SOS. Otherwise, it's the number of EnSight Servers to use (int).
-        enable_rest_api:
-            If True, try to enable the EnSight REST API.  Note: initial support is in 2024 R1
+    Parameters
+    ----------
+    timeout :
+        In some cases where the EnSight session can take a significant amount of
+        timme to start up, this is the number of seconds to wait before failing
+        the connection.  The default is 120.0.
+    use_egl :
+        If True, EGL hardware accelerated graphics will be used. The platform
+        must be able to support it.
+    use_sos :
+        If None, don't use SOS. Otherwise, it's the number of EnSight Servers to use (int).
+    enable_rest_api :
+        If True, try to enable the EnSight REST API. initial support is in 2024 R1
 
-    Note:
-        A launcher can create only a single EnSight instance.  If one needs more than
-        one EnSight instance, a new launcher instance will be required.
     """
 
     def __init__(
@@ -98,9 +98,16 @@ class Launcher:
 
         Close all the associated sessions and then stop the launched EnSight instance.
 
-        Raises:
-            RuntimeError:
-                if the session was not launched by this launcher.
+        Parameters
+        ----------
+        session: "pyensight.Session"
+            session to close.
+
+        Raises
+        ------
+        RuntimeError
+            if the session was not launched by this launcher.
+
         """
         if session not in self._sessions:
             raise RuntimeError("Session not associated with this Launcher")
@@ -129,10 +136,11 @@ class Launcher:
         a Session object.  If called a second time, return the
         result of the first call.
 
-        Returns:
-            If start() has been called previously, return that session
-            and emit a warning.   If start() has not been called,
-            return None
+        Returns
+        -------
+        If start() has been called previously, return that session
+        and emit a warning.   If start() has not been called, return None.
+
         """
         if len(self._sessions):
             msg = "The launcher start() method may only be called once. "
@@ -144,7 +152,8 @@ class Launcher:
     def stop(self) -> None:
         """Base method for stopping a session initiated by start()
 
-        Notes:
+        Notes
+        -----
             The session object is responsible for making the EnSight 'Exit' and websocketserver
             calls.  This method can be used to clean up any additional resources being used
             by the launching method.
@@ -160,14 +169,17 @@ class Launcher:
         in the 'avoid' list.  Stop once the desired number of ports have been
         found.  If an insufficient number of ports were found, return None.
 
-        Args:
-            count:
-                Number of unused ports to find
-            avoid:
-                An optional list of ports not to check
+        Parameters
+        ----------
+        count: int :
+            Number of unused ports to find
+        avoid: Optional[List[int]] :
+            An optional list of ports not to check
 
-        Returns:
+        Returns
+        -------
             The detected ports or None on failure
+
         """
         if avoid is None:
             avoid = []
@@ -209,8 +221,11 @@ class Launcher:
     def _use_egl(self) -> bool:
         """Return True if the system supports the EGL and if EGL was desired.
 
-        Returns:
+        Returns
+        -------
+        bool
             A bool value that is True if we should use EGL.
+
         """
         if self._is_egl_capable is None:
             # if we haven't checked with the subclasss if the system can do EGL
@@ -230,15 +245,21 @@ class Launcher:
     def _is_system_egl_capable(self) -> bool:
         """Return True if the system supports the EGL launch.
 
-        Returns:
+        Returns
+        -------
+        bool
             A bool value that is True if the system supports the EGL launch.
+
         """
         raise RuntimeError("Unsupported method for this configuration")
 
     def _is_windows(self) -> bool:
         """Return True if it is Windows
 
-        Returns:
+        Returns
+        -------
+        bool
             a bool that is True if the platform is Windows
+
         """
         return platform.system() == "Windows"
