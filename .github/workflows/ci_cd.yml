@@ -88,7 +88,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: docker
-        run: docker pull ${{ ENSIGHT_IMAGE }}
+        run: docker pull ${{ env.ENSIGHT_IMAGE }}
 
       - name: Unit testing
         run: |
