@@ -25,21 +25,23 @@ class ensobjlist(List[T]):  # noqa: N801
     interface supports strings and lists of strings.  In that situation,
     the object acts as if the find() method is called.
 
-        These are equivalent::
+    These are equivalent
 
-            a = objlist["Hello"]
-            a = objlist.find("Hello", attr="DESCRIPTION")
+    >>> a = objlist["Hello"]
+    >>> a = objlist.find("Hello", attr="DESCRIPTION")
 
-        These are as well::
+    These are as well
 
-            a = objlist[("Hello", "Goodbye")]
-            a = objlist.find(("Hello", "Goodbye"), attr="DESCRIPTION")
+    >>> a = objlist[("Hello", "Goodbye")]
+    >>> a = objlist.find(("Hello", "Goodbye"), attr="DESCRIPTION")
 
-    Args:
-        \*args:
-            Superclass (list) arguments
-        \**kwargs:
-            Superclass (list) keyword arguments
+    Parameters
+    ----------
+    \*args :
+        Superclass (list) arguments
+    \**kwargs :
+        Superclass (list) keyword arguments
+
 
     """
 
@@ -48,34 +50,45 @@ class ensobjlist(List[T]):  # noqa: N801
 
     @staticmethod
     def _is_iterable(arg: Any) -> bool:
-        """Check if the arg is iterable, but not a string"""
+        """Check if the arg is iterable, but not a string.
+
+        Parameters
+        ----------
+        arg: Any
+            Argument to check.
+
+        """
         return isinstance(arg, Iterable) and not isinstance(arg, str)
 
     def find(
         self, value: Any, attr: Any = "DESCRIPTION", group: int = 0, wildcard: int = 0
     ) -> "ensobjlist[T]":
-        """Find objects in the list using the ENSOBJ interface
+        """Find objects in the list using the ENSOBJ interface.
 
         This method will scan the ENSOBJ subclass objects in the list and return
         an ensobjlist of those matching the search criteria.
 
-        Args:
-            value:
-                A single object or a tuple of objects that will be compared to the value of
-                an attribute accessed via the getattr() ENSOBJ interface.
-            attr:
-                The specific attribute (id or string) to look up using getattr().
-            group:
-                Currently unimplemented.
-            wildcard:
-                Instead of the comparison being done via the equals test, it will be done using
-                fnmatch between the string representation of the item and the value.  This allows
-                values to be specified using glob wildcard specifications.  If wildcard is set
-                to 1, this is a case-sensitive wildcard operation.  If set to 2, the comparison
-                is case-insensitive.  The default is not to use wildcard comparisons (0).
+        Parameters
+        ----------
+        value: Any
+            A single object or a tuple of objects that will be compared to the value of
+            an attribute accessed via the getattr() ENSOBJ interface.
+        attr: Any
+            The specific attribute (id or string) to look up using getattr().
+        group: int
+            Currently unimplemented.
+        wildcard: int
+            Instead of the comparison being done via the equals test, it will be done using
+            fnmatch between the string representation of the item and the value.  This allows
+            values to be specified using glob wildcard specifications.  If wildcard is set
+            to 1, this is a case-sensitive wildcard operation.  If set to 2, the comparison
+            is case-insensitive.  The default is not to use wildcard comparisons (0).
 
-        Return:
+        Returns
+        -------
+        ensobjlist[T]
             An ensobjlist of the items that matched the search criteria.
+
         """
         value_list = value
         if not self._is_iterable(value):
@@ -110,19 +123,21 @@ class ensobjlist(List[T]):  # noqa: N801
         the specified attribute id to the specified value.  Count the number of times
         that operation was successful and return that number.
 
-        Args:
-            attr:
-                The specific attribute (id or string) to change using setattr().
-            value:
-                The value to attempt to set the specified attribute to.
+        Parameters
+        ----------
+        attr: Any
+            The specific attribute (id or string) to change using setattr().
+        value: Any
+            The value to attempt to set the specified attribute to.
 
-        Return:
+        Returns
+        -------
+        int
             The number of successful set operations.
 
-        Examples:
-            ::
-
-                session.ensight.objs.core.PARTS.set_attr("VISIBLE", True)
+        Examples
+        --------
+        >>> session.ensight.objs.core.PARTS.set_attr("VISIBLE", True)
 
         """
         count: int = 0
@@ -142,20 +157,22 @@ class ensobjlist(List[T]):  # noqa: N801
         the passed attribute id.  If the item is not an ENSOBJ subclass or the attribute
         query fails, the returned list will have the specified default value for that item.
 
-        Args:
-            attr:
-                The specific attribute (id or string) to look up using getattr().
-            default:
-                The value to return for objects that are not ENSOBJ subclasses or do not
-                support the specified attribute.
+        Parameters
+        ----------
+        attr: Any
+            The specific attribute (id or string) to look up using getattr().
+        default: Any, optional
+            The value to return for objects that are not ENSOBJ subclasses or do not
+            support the specified attribute.
 
-        Return:
-             A list of the attribute values for each item in this object
+        Returns
+        -------
+        List
+            A list of the attribute values for each item in this object
 
-        Examples:
-            ::
-
-                state = session.ensight.core.PARTS.get_attr(session.ensight.objs.enums.VISIBLE)
+        Examples
+        --------
+        >>> state = session.ensight.core.PARTS.get_attr(session.ensight.objs.enums.VISIBLE)
 
         """
         out_list = []
@@ -189,7 +206,19 @@ class ensobjlist(List[T]):  # noqa: N801
 
     @no_type_check
     def _repr_pretty_(self, p: "pretty", cycle: bool) -> None:
-        """Support the pretty module for better IPython support"""
+        """Support the pretty module for better IPython support
+
+        Parameters
+        ----------
+        p: "pretty" :
+            pretty flag.
+        cycle: bool :
+            cycle flag.
+
+        Returns
+        -------
+
+        """
         name = self.__class__.__name__
         if cycle:
             p.text(f"{name}(...)")

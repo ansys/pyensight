@@ -3,13 +3,12 @@
 The launch_ensight module provides pyensight with the ability to launch an
 EnSight session using PyPIM.  This leverages the DockerLauncherEnShell module.
 
-Examples:
-    ::
-
-        from ansys.pyensight.core import launch_ensight
-        session = launch_ensight()
-        # do pyensight stuff with the session
-        session.close()
+Examples
+--------
+    >>> from ansys.pyensight.core import launch_ensight
+    >>> session = launch_ensight()
+    >>> # do pyensight stuff with the session
+    >>> session.close()
 """
 
 from typing import Optional
