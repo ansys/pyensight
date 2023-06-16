@@ -5,3 +5,14 @@ updates:
     schedule:
       interval: "daily"
     versioning-strategy: "lockfile-only"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "maintenance"
+    assignees:
+      - "pyansys-ci-bot"
+    commit-message:
+      prefix: "MAINT"
