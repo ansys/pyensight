@@ -20,11 +20,16 @@ class Support:
     case.  As a result, the methods can be accessed as: ``ensight.utils.support.*``
     in EnSight Python or ``session.ensight.utils.support.*`` within PyEnSight.
 
-    Args:
-        interface:
-            An entity that provides the 'ensight' namespace.  In the case
-            of PyEnSight, ``Session.ensight`` is passed and in the case of
-            EnSight Python, the ``ensight`` module is passed.
+    Parameters
+    ----------
+    interface :
+        An entity that provides the 'ensight' namespace.  In the case
+        of PyEnSight, ``Session.ensight`` is passed and in the case of
+        EnSight Python, the ``ensight`` module is passed.
+
+    Returns
+    -------
+
     """
 
     def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
@@ -38,22 +43,14 @@ class Support:
         This class makes it possible to shorten APIs for modules, classes,
         namespaces, etc.
 
-        Examples:
-
-            ::
-
-                sn = s.ensight.utils.support.scoped_name
-                with sn(s.ensight.objs.core) as core, sn(s.ensight.objs.enums) as enums:
-                    print(core.PARTS.find(True, enums.VISIBLE))
-
-
-            ::
-
-                sn = ensight.utils.support.scoped_name
-                with sn(ensight.objs.core) as core, sn(ensight.objs.enums) as enums:
-                    print(core.PARTS.find(True, enums.VISIBLE))
-
-
+        Examples
+        --------
+        >>> sn = s.ensight.utils.support.scoped_name
+        >>> with sn(s.ensight.objs.core) as core, sn(s.ensight.objs.enums) as enums:
+        >>>     print(core.PARTS.find(True, enums.VISIBLE))
+        >>> sn = ensight.utils.support.scoped_name
+        >>> with sn(ensight.objs.core) as core, sn(ensight.objs.enums) as enums:
+        >>>     print(core.PARTS.find(True, enums.VISIBLE))
         """
         return ScopedName(obj)
 
@@ -64,7 +61,6 @@ class ScopedName:
     In the ensight and pyensight APIs, the interfaces can become lengthy.
     This class makes it possible to shorten APIs for modules, classes,
     namespaces, etc.
-
     """
 
     def __init__(self, obj: Any):

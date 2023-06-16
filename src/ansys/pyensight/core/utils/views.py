@@ -40,11 +40,15 @@ class Views:
     def _normalize_vector(direction: List[float]) -> List[float]:
         """Return the normalized input (3D) vector.
 
-        Args:
-            direction: a list representing the vector to normalize
+        Parameters
+        ----------
+        direction : List[float]
+            a list representing the vector to normalize.
 
-        Returns:
-            (list): a list representing the normalized vector
+        Returns
+        -------
+        List[float]
+            A list representing the normalized vector.
 
         """
         magnitude = math.sqrt(sum(v**2 for v in direction))
@@ -56,12 +60,18 @@ class Views:
     def _cross_product(vec1: List[float], vec2: List[float]) -> List[float]:
         """Return the cross product of the two input vector.
 
-        Args:
-            vec1: a list representing the first vector
-            vec2: a list representing the second vector
+        Parameters
+        ----------
+        vec1 : List[float]
+            a list representing the first vector.
+        vec2 : List[float]
+            a list representing the second vector.
 
-        Returns:
-            (list): a list representing the cross product of the two input vectors
+        Returns
+        -------
+        List[float]
+            A list representing the cross product of the two input vectors.
+
         """
         return [
             vec1[1] * vec2[2] - vec1[2] * vec2[1],
@@ -83,12 +93,18 @@ class Views:
         defined rotation matrix since the aim is to have the view direction pointing towards the camera
         and not the contrary.
 
-        Args:
-            direction (list): a list describing the desired direction view
-            up_axis (tuple): a tuple describing the up_direction. The Y axis is assumed by default
+        Parameters
+        ----------
+        direction : list
+            a list describing the desired direction view
+        up_axis : tuple
+            a tuple describing the up_direction. The Y axis is assumed by default
 
-        Returns:
-            (tuple) a tuple containing the three rows of the rotation matrix
+        Returns
+        -------
+        tuple
+            A tuple containing the three rows of the rotation matrix
+
         """
         direction = self._normalize_vector(direction)
         xaxis = self._normalize_vector(self._cross_product(list(up_axis), direction))
@@ -100,12 +116,18 @@ class Views:
     ) -> Tuple[float, float, float, float]:
         """Convert the input direction vector into a list of quaternions.
 
-        Args:
-            direction (list): a list describing the desired direction view
-            up_axis (tuple): a tuple describing the up_direction. The Y axis is assumed by default
+        Parameters
+        ----------
+        direction : list
+            a list describing the desired direction view
+        up_axis : tuple
+            a tuple describing the up_direction. The Y axis is assumed by default
 
-        Returns:
-            (tuple) a tuple containing the 4 quaternions describing the required rotation
+        Returns
+        -------
+        tuple
+            a tuple containing the 4 quaternions describing the required rotation
+
         """
         row0, row1, row2 = self._convert_view_direction_to_rotation_matrix(
             direction=direction,
@@ -118,13 +140,20 @@ class Views:
     ) -> Tuple[float, float, float, float]:
         """Convert a rotation matrix to quaternions
 
-        Args:
-            row0: the first row of the matrix
-            row1: the second row of the matrix
-            row2: the third row of the matrix
+        Parameters
+        ----------
+        row0 : List[float]
+            the first row of the matrix
+        row1 : List[float]
+            the second row of the matrix
+        row2 : List[float]
+            the third row of the matrix
 
-        Returns:
-            (tuple): the four quaternions describing the rotation
+        Returns
+        -------
+        tuple
+            the four quaternions describing the rotation
+
         """
         trace = row0[0] + row1[1] + row2[2]
         if trace > 0:
@@ -166,8 +195,10 @@ class Views:
     def views_dict(self) -> Dict[str, Tuple[int, List[float]]]:
         """Getter for the views_dict dictionary holding the stored views
 
-        Returns:
-            (dict): A dictionary containing the stored views
+        Returns
+        -------
+        dict
+            A dictionary containing the stored views
 
         """
         return self._views_dict
@@ -176,21 +207,31 @@ class Views:
     def set_center_of_transform(self, xc: float, yc: float, zc: float) -> None:
         """Change the center of transform of the current session.
 
-        Args:
-            xc (float): x coordinate of the new center of transform
-            yc (float): y coordinate of the new center of transform
-            zc (float): z coordinate of the new center of transform
+        Parameters
+        ----------
+        xc : float
+            x coordinate of the new center of transform
+        yc : float
+            y coordinate of the new center of transform
+        zc : float
+            z coordinate of the new center of transform
+
         """
         self.ensight.view_transf.center_of_transform(xc, yc, zc)
 
     def compute_model_centroid(self, vportindex: int = 0) -> List[float]:
         """Computes the model centroid using the model BOUNDS.
 
-        Args:
-            vport (int): the viewport to compute the centroid for
+        Parameters
+        ----------
+        vportindex : int
+            the viewport to compute the centroid for
 
-        Returns:
-            (list): the coordinates of the model centroid
+        Returns
+        -------
+        list
+            the coordinates of the model centroid
+
         """
         vport = self.ensight.objs.core.VPORTS[vportindex]
         try:
@@ -239,14 +280,22 @@ class Views:
         a default incremental name will be given otherwise.
         The perspective can be enabled or disabled, by default it will be disabled.
 
-        Args:
-            xdir (float): the x component of the view direction
-            ydir (float): the y component of the view direction
-            zdir (float): the z component of the view direction
-            name (str): the name to give to the new direction
-            perspective (bool): Enable the perspective view if True
-            up_axis (list): the up direction for the view direction
-            vportindex (int): the viewport to set the view direction for
+        Parameters
+        ----------
+        xdir : float
+            the x component of the view direction
+        ydir : float
+            the y component of the view direction
+        zdir : float
+            the z component of the view direction
+        name : str
+            the name to give to the new direction
+        perspective : bool
+            Enable the perspective view if True
+        up_axis : list
+            the up direction for the view direction
+        vportindex : int
+            the viewport to set the view direction for
         """
         self.ensight.view.perspective("OFF")
         direction = [xdir, ydir, zdir]
@@ -266,9 +315,16 @@ class Views:
         """Save the current view with an optional name.
         If not provided, a default incremental name will be given otherwise
 
-        Args:
-            name (str): the name to give to the new direction
-            vportindex (int): the viewport to set the view direction for
+        Parameters
+        ----------
+        name : str
+            the name to give to the new direction
+        vportindex : int
+            the viewport to set the view direction for
+        name: Optional[str] :
+             (Default value = None)
+        vportindex: int :
+             (Default value = 0)
         """
         vport = self.ensight.objs.core.VPORTS[vportindex]
         coretransform = vport.CORETRANSFORM
@@ -286,8 +342,11 @@ class Views:
     def restore_view(self, name: str) -> None:
         """Restore a stored view by its name.
 
-        Args:
-            name (str): the name of the view to restore
+        Parameters
+        ----------
+        name : str
+            the name of the view to restore-
+
         """
         if not self.views_dict.get(name):
             raise KeyError("ERROR: view set not available")

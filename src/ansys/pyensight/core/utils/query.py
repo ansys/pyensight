@@ -21,11 +21,12 @@ class Query:
     case.  As a result, the methods can be accessed as: ``ensight.utils.query.create_distance()``
     in EnSight Python or ``session.ensight.utils.query.create_distance()`` within PyEnSight.
 
-    Args:
-        interface:
-            An entity that provides the 'ensight' namespace.  In the case
-            of PyEnSight, ``Session.ensight`` is passed and in the case of
-            EnSight Python, the ``ensight`` module is passed.
+    Parameters
+    ----------
+    interface :
+        An entity that provides the 'ensight' namespace.  In the case
+        of PyEnSight, ``Session.ensight`` is passed and in the case of
+        EnSight Python, the ``ensight`` module is passed.
     """
 
     def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
@@ -67,84 +68,87 @@ class Query:
         Create a new EnSight distance query using the passed parameters.  Return
         the newly generated ENS_QUERY object.
 
-        Args:
-            name:
-                The name for the query
-            query_type:
-                The type of query.
+        Parameters
+        ----------
+        name:
+            The name for the query
+        query_type:
+            The type of query.
 
-                ================== ========================================
-                Name               Query type
-                ================== ========================================
-                DISTANCE_PART1D    Samples along the points of a 1D part
-                DISTANCE_LINE      Samples along the length of a line
-                DISTANCE_SPLINE    Samples along the length of a spline
-                ================== ========================================
-
-
-            part_list:
-                A list of parts to use as the source for the query.  Part numbers, part names
-                and part objects are supported.
-            num_samples:
-                For spline and line queries, the number of samples to use along
-                the length of the spline/line.   Default: 20.
-            point1:
-                For the line query, the x,y,z location of the start of the line.
-            point2:
-                For the line query, the x,y,z location of the end of the line.
-            variable1:
-                The variable to sample as the "y" value.
-            variable2:
-                The variable to sample as the "x" value.  If unspecified, the "x" value
-                will be the distance along the sampling domain.
-            distance_type:
-                For queries over distance (no second variable), how is the
-                distance value computed:
-
-                =================== =========================================
-                Name                Query type
-                =================== =========================================
-                DIST_TYPE_LENGTH    Length along path
-                DIST_TYPE_LENGTH_X  X component along path
-                DIST_TYPE_LENGTH_Y  Y component along path
-                DIST_TYPE_LENGTH_Z  Z component along path
-                DIST_TYPE_ORIGIN    Distance from the origin
-                DIST_TYPE_ORIGIN_X  X component of distance from the origin
-                DIST_TYPE_ORIGIN_Y  Y component of distance from the origin
-                DIST_TYPE_ORIGIN_Z  Z component of distance from the origin
-                =================== =========================================
+            ================== ========================================
+            Name               Query type
+            ================== ========================================
+            DISTANCE_PART1D    Samples along the points of a 1D part
+            DISTANCE_LINE      Samples along the length of a line
+            DISTANCE_SPLINE    Samples along the length of a spline
+            ================== ========================================
 
 
-            segments_by:
-                For a 1D part query, how should "distance" be computed for the
-                segments of the 1D part.
+        part_list:
+            A list of parts to use as the source for the query.  Part numbers, part names
+            and part objects are supported.
+        num_samples:
+            For spline and line queries, the number of samples to use along
+            the length of the spline/line.   Default: 20.
+        point1:
+            For the line query, the x,y,z location of the start of the line.
+        point2:
+            For the line query, the x,y,z location of the end of the line.
+        variable1:
+            The variable to sample as the "y" value.
+        variable2:
+            The variable to sample as the "x" value.  If unspecified, the "x" value
+            will be the distance along the sampling domain.
+        distance_type:
+            For queries over distance (no second variable), how is the
+            distance value computed:
 
-                ====================== ==========================================
-                Name                   Segment handling
-                ====================== ==========================================
-                DIST_SEG_ACCUMULATION  Accumulate distance over segments
-                DIST_SEG_RESET_EACH    Reset the distance value for each segment
-                ====================== ==========================================
+            =================== =========================================
+            Name                Query type
+            =================== =========================================
+            DIST_TYPE_LENGTH    Length along path
+            DIST_TYPE_LENGTH_X  X component along path
+            DIST_TYPE_LENGTH_Y  Y component along path
+            DIST_TYPE_LENGTH_Z  Z component along path
+            DIST_TYPE_ORIGIN    Distance from the origin
+            DIST_TYPE_ORIGIN_X  X component of distance from the origin
+            DIST_TYPE_ORIGIN_Y  Y component of distance from the origin
+            DIST_TYPE_ORIGIN_Z  Z component of distance from the origin
+            =================== =========================================
 
 
-            spline_name:
-                If a spline query is selected, this is the name of the spline to sample
-                along.
-            new_plotter:
-                If True, the query will be added to a newly created plotter.
-        Returns:
+        segments_by:
+            For a 1D part query, how should "distance" be computed for the
+            segments of the 1D part.
+
+            ====================== ==========================================
+            Name                   Segment handling
+            ====================== ==========================================
+            DIST_SEG_ACCUMULATION  Accumulate distance over segments
+            DIST_SEG_RESET_EACH    Reset the distance value for each segment
+            ====================== ==========================================
+
+
+        spline_name:
+            If a spline query is selected, this is the name of the spline to sample
+            along.
+        new_plotter:
+            If True, the query will be added to a newly created plotter.
+
+        Returns
+        -------
             The ENS_QUERY instance on success or raises an exception on error.
-        Example:
-            ::
 
-                s = LocalLauncher().start()
-                s.load_data(f"{s.cei_home}/ensight{s.cei_suffix}/data/cube/cube.case")
-                parts = s.ensight.objs.core.PARTS["Computational mesh"]
-                pnt1 = [-1.0, 0.5, 1.0]
-                pnt2 = [2.0, 0.5, 1.0]
-                query = s.ensight.utils.query.create_distance("Temperature vs Distance",
-                              s.ensight.utils.query.DISTANCE_LINE, parts, "temperature",
-                              point1=pnt1, point2=pnt2, new_plotter=True)
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> s.load_data(f"{s.cei_home}/ensight{s.cei_suffix}/data/cube/cube.case")
+        >>> parts = s.ensight.objs.core.PARTS["Computational mesh"]
+        >>> pnt1 = [-1.0, 0.5, 1.0]
+        >>> pnt2 = [2.0, 0.5, 1.0]
+        >>> query = s.ensight.utils.query.create_distance("Temperature vs Distance",
+        >>>             s.ensight.utils.query.DISTANCE_LINE, parts, "temperature",
+        >>>             point1=pnt1, point2=pnt2, new_plotter=True)
 
         """
         if query_type not in [self.DISTANCE_PART1D, self.DISTANCE_LINE, self.DISTANCE_SPLINE]:
@@ -211,62 +215,66 @@ class Query:
     ) -> "ENS_QUERY":
         """Create an EnSight query over time.
 
-        Args:
-            name:
-                The name for the query
-            query_type:
-                The type of query.
+        Parameters
+        ----------
+        name:
+            The name for the query
+        query_type:
+            The type of query.
 
-                ================= =========================================================
-                Name              Query type
-                ================= =========================================================
-                TEMPORAL_NODE     At a node number over time
-                TEMPORAL_ELEMENT  At an element number over time
-                TEMPORAL_IJK      At an ijk element over time
-                TEMPORAL_XYZ      At some x,y,z location over time
-                TEMPORAL_MINIMUM  Minimum value on the selected parts at each point in time
-                TEMPORAL_MAXIMUM  Maximum value on the selected parts at each point in time
-                ================= =========================================================
+            ================= =========================================================
+            Name              Query type
+            ================= =========================================================
+            TEMPORAL_NODE     At a node number over time
+            TEMPORAL_ELEMENT  At an element number over time
+            TEMPORAL_IJK      At an ijk element over time
+            TEMPORAL_XYZ      At some x,y,z location over time
+            TEMPORAL_MINIMUM  Minimum value on the selected parts at each point in time
+            TEMPORAL_MAXIMUM  Maximum value on the selected parts at each point in time
+            ================= =========================================================
 
 
-            part_list:
-                A list of parts to use as the source for the query.
-            start_time:
-                The simulation time to start sampling at.  Default: the first timestep,
-                ENS_GLOBALS.SOLUTIONTIME_LIMITS[0]
-            end_time:
-                The simulation time to end sampling at.  Default: the last timestep,
-                ENS_GLOBALS.SOLUTIONTIME_LIMITS[1]
-            num_samples:
-                The number of samples to take along the selected timestep range.
-                Default: the number of defined timesteps,
-                ENS_GLOBALS.TIMESTEP_LIMITS[1] - ENS_GLOBALS.TIMESTEP_LIMITS[0] + 1
-            variable1:
-                The variable to sample as the "y" value.
-            variable2:
-                The variable to sample as the "x" value.  If unspecified, the "x" value
-                will be the distance along the sampling domain.
-            node_id:
-                For a TEMPORAL_NODE query, the id number of the node to query.
-            element_id:
-                For a TEMPORAL_ELEMENT query, the id number of the element to query.
-            xyz:
-                For a TEMPORRAL_XYZ query, the [x,y,z] location in data space to query.
-            ijk:
-                For a TEMPORAL_IJK query, the [i,j,k] value for the structured mesh node
-                to query.
-            new_plotter:
-                If True, the query will be added to a newly created plotter.
-        Returns:
+        part_list:
+            A list of parts to use as the source for the query.
+        start_time:
+            The simulation time to start sampling at.  Default: the first timestep,
+            ENS_GLOBALS.SOLUTIONTIME_LIMITS[0]
+        end_time:
+            The simulation time to end sampling at.  Default: the last timestep,
+            ENS_GLOBALS.SOLUTIONTIME_LIMITS[1]
+        num_samples:
+            The number of samples to take along the selected timestep range.
+            Default: the number of defined timesteps,
+            ENS_GLOBALS.TIMESTEP_LIMITS[1] - ENS_GLOBALS.TIMESTEP_LIMITS[0] + 1
+        variable1:
+            The variable to sample as the "y" value.
+        variable2:
+            The variable to sample as the "x" value.  If unspecified, the "x" value
+            will be the distance along the sampling domain.
+        node_id:
+            For a TEMPORAL_NODE query, the id number of the node to query.
+        element_id:
+            For a TEMPORAL_ELEMENT query, the id number of the element to query.
+        xyz:
+            For a TEMPORRAL_XYZ query, the [x,y,z] location in data space to query.
+        ijk:
+            For a TEMPORAL_IJK query, the [i,j,k] value for the structured mesh node
+            to query.
+        new_plotter:
+            If True, the query will be added to a newly created plotter.
+
+        Returns
+        -------
             The ENS_QUERY instance on success or raises an exception on error.
-        Example:
-            ::
 
-                s = LocalLauncher().start()
-                s.load_data(f"{s.cei_home}/ensight{s.cei_suffix}/data/guard_rail/crash.case")
-                parts = s.ensight.objs.core.PARTS
-                s.ensight.utils.query.create_temporal("Maximum plastic",
-                       s.ensight.utils.query.TEMPORAL_MAXIMUM, parts, "plastic", new_plotter=True)
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> s.load_data(f"{s.cei_home}/ensight{s.cei_suffix}/data/guard_rail/crash.case")
+        >>> parts = s.ensight.objs.core.PARTS
+        >>> s.ensight.utils.query.create_temporal("Maximum plastic",
+        >>> s.ensight.utils.query.TEMPORAL_MAXIMUM, parts, "plastic", new_plotter=True)
 
         """
         if query_type not in [
@@ -348,13 +356,16 @@ class Query:
         return query
 
     def _create_query_core_end(self) -> "ENS_QUERY":
-        """Complete a query operation
+        """Complete a query operation.
 
         Execute the "end()" and "query()" calls to finalize the query.  Return the latest
         ENS_QUERY object.
 
-        Returns:
+        Returns
+        -------
+        "ENS_QUERY"
             The last created ENS_QUERY object or raise an exception if query creation fails.
+
         """
         nextid = self._ensight.objs.next_id()
         self._ensight.query_ent_var.end()
@@ -377,14 +388,16 @@ class Query:
         Make the common calls for all queries.  Select the appropriate source parts, set the
         query name and "generated" type.
 
-        Args:
-            name:
-                The name for the query.
-            parts:
-                The list of source parts for the query.
-            single:
-                If true, then this is a 1D part query and emit the appropriate output.  Otherwise,
-                ensure that the proper parts are selected.
+        Parameters
+        ----------
+        name : str
+            The name for the query.
+        parts : List
+            The list of source parts for the query.
+        single : bool
+            If true, then this is a 1D part query and emit the appropriate output.  Otherwise,
+            ensure that the proper parts are selected. (Default value = False)
+
         """
         part_list = []
         if parts:
@@ -410,13 +423,17 @@ class Query:
         Convert a generic object into a variable name. Valid inputs
         include a string or an ENS_VARIABLE object.
 
-        Arg:
-            v:
-                The object to be converted into a variable name.
-            default:
-                The value to return if the input variable is None.
-        Returns:
+        Parameters
+        ----------
+        v: Any
+            The object to be converted into a variable name.
+        default: str, optional
+            The value to return if the input variable is None.
+
+        Returns
+        -------
             The string name of the variable or None.
+
         """
         if v is None:
             return default
