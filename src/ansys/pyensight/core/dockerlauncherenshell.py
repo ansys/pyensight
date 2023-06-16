@@ -3,14 +3,13 @@
 The docker launcher enshell module provides pyensight with the ability to launch an
 EnSight session using a local Docker installation via EnShell.
 
-Examples:
-    ::
-
-        from ansys.pyensight.core import DockerLauncherEnShell
-        launcher = DockerLauncherEnShell(data_directory="D:\\data")
-        launcher.pull()
-        session = launcher.start()
-        session.close()
+Examples
+--------
+    >>> from ansys.pyensight.core import DockerLauncherEnShell
+    >>> launcher = DockerLauncherEnShell(data_directory="D:\\data")
+    >>> launcher.pull()
+    >>> session = launcher.start()
+    >>> session.close()
 
 """
 import logging
@@ -38,40 +37,40 @@ except Exception:
 
 
 class DockerLauncherEnShell(pyensight.Launcher):
-    """Create a Session instance by launching a local Docker copy of EnSight via EnShell
+    """Create a Session instance by launching a local Docker copy of EnSight via EnShell.
 
     Launch a Docker copy of EnSight locally via EnShell that supports the gRPC interface.  Create and
     bind a Session instance to the created gRPC session from EnSight (not EnShell).  Return that session.
 
-    Args:
-        data_directory:
-            Host directory to make into the container at /data
-        docker_image_name:
-            Optional Docker Image name to use
-        use_dev:
-            Option to use the latest ensight_dev Docker Image; overridden by docker_image_name if specified.
-        timeout:
-            In some cases where the EnSight session can take a significant amount of
-            timme to start up, this is the number of seconds to wait before failing
-            the connection.  The default is 120.0.
-        use_egl:
-            If True, EGL hardware accelerated graphics will be used. The platform
-            must be able to support it.
-        use_sos:
-            If None, don't use SOS. Otherwise, it's the number of EnSight Servers to use (int).
-        channel:
-            Existing gRPC channel to a running EnShell instance such as provided by PIM
-        pim_instance:
-            The PyPIM instance if using PIM (internal)
+    Parameters
+    ----------
+    data_directory :
+        Host directory to make into the container at /data
+    docker_image_name :
+        Optional Docker Image name to use
+    use_dev :
+        Option to use the latest ensight_dev Docker Image; overridden by docker_image_name if specified.
+    timeout :
+        In some cases where the EnSight session can take a significant amount of
+        timme to start up, this is the number of seconds to wait before failing
+        the connection.  The default is 120.0.
+    use_egl :
+        If True, EGL hardware accelerated graphics will be used. The platform
+        must be able to support it.
+    use_sos :
+        If None, don't use SOS. Otherwise, it's the number of EnSight Servers to use (int).
+    channel :
+        Existing gRPC channel to a running EnShell instance such as provided by PIM
+    pim_instance :
+        The PyPIM instance if using PIM (internal)
 
-    Examples:
-        ::
-
-            from ansys.pyensight.core import DockerLauncherEnShell
-            launcher = DockerLauncherEnShell(data_directory="D:\\data")
-            launcher.pull()
-            session = launcher.start()
-            session.close()
+    Examples
+    --------
+    >>> from ansys.pyensight.core import DockerLauncherEnShell
+    >>> launcher = DockerLauncherEnShell(data_directory="D:\\data")
+    >>> launcher.pull()
+    >>> session = launcher.start()
+    >>> session.close()
 
     """
 
@@ -84,6 +83,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         pim_instance: Optional[Any] = None,
         **kwargs,
     ) -> None:
+        """Initialize DockerLauncherEnShell."""
         super().__init__(**kwargs)
 
         self._data_directory = data_directory
@@ -159,7 +159,9 @@ class DockerLauncherEnShell(pyensight.Launcher):
     def ansys_version(self) -> Optional[str]:
         """Returns the Ansys version as a 3 digit number string as found in the Docker container.
 
-        Returns:
+        Returns
+        -------
+        str:
             Ansys 3-digit version as a string, or None if not found or not start()'ed
 
         """
@@ -168,12 +170,11 @@ class DockerLauncherEnShell(pyensight.Launcher):
     def pull(self) -> None:
         """Pulls the Docker image.
 
-        Returns:
-            None
+        Raises
+        ------
+        RuntimeError
+            if Docker couldn't pull the image.
 
-        Raises:
-            RuntimeError:
-                if Docker couldn't pull the image.
         """
         try:
             if self._docker_client:
@@ -188,14 +189,18 @@ class DockerLauncherEnShell(pyensight.Launcher):
         Create and bind a Session instance to the created EnSight gRPC connection.
         Return the Session.
 
-        Args:
-
-        Returns:
+        Returns
+        -------
+        pyensight.Session
             pyensight Session object instance
 
-        Raises:
-            RuntimeError:
-                variety of error conditions.
+        Raises
+        ------
+        RuntimeError
+
+        variety
+            of error conditions
+
         """
         tmp_session = super().start()
         if tmp_session:
@@ -321,14 +326,16 @@ class DockerLauncherEnShell(pyensight.Launcher):
         """Internal method. Create and bind a Session instance to the created gRPC EnSight
            session as started by EnShell.  Return that session.
 
-        Args:
-
-        Returns:
+        Returns
+        -------
+        pyensight.Session
             pyensight Session object instance
 
-        Raises:
-            RuntimeError:
-                variety of error conditions.
+        Raises
+        ------
+        RuntimeError
+            variety of error conditions.
+
         """
         #
         #
@@ -462,10 +469,29 @@ class DockerLauncherEnShell(pyensight.Launcher):
         super().stop()
 
     def _get_host_port(self, uri: str) -> tuple:
+        """Get the host and port of the service.
+
+        Parameters
+        ----------
+        uri : str
+            URI of the service.
+
+        Returns
+        -------
+        tuple
+            Host and port.
+        """
         parse_results = urllib3.util.parse_url(uri)
         return (parse_results.host, parse_results.port)
 
     def _is_system_egl_capable(self) -> bool:
+        """Check if the system is EGL capable.
+
+        Returns
+        -------
+        bool
+            True if capable.
+        """
         if self._is_windows():
             return False
 

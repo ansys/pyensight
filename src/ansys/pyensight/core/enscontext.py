@@ -24,10 +24,12 @@ class EnsContext:
     or a "data-less context" representation.  The object can
     save() and load() the context to/from disk.
 
-    Args:
-        filename:
-            If specified, "load()" the named context file after
-            creating the object instance.
+    Parameters
+    ----------
+    filename : str, optional
+        If specified, "load()" the named context file after
+        creating the object instance.
+
     """
 
     _UNKNOWN: int = 0
@@ -35,6 +37,7 @@ class EnsContext:
     _SIMPLE_CONTEXT: int = 2
 
     def __init__(self, filename: Optional[str] = None) -> None:
+        """Initialized EnsContext."""
         self._type: int = self._UNKNOWN
         self._buffer: io.BytesIO = io.BytesIO()
         if filename is not None:
@@ -46,9 +49,11 @@ class EnsContext:
         Look though the file files stored in the zip file.  Look for the special
         embedded "type" files and set the object type accordingly.
 
-        Args:
-            names:
-                A list of filenames in the zip file.
+        Parameters
+        ----------
+        names: list
+            A list of filenames in the zip file.
+
         """
         self._type = self._UNKNOWN
         if "fullcontext.txt" in names:
@@ -62,9 +67,11 @@ class EnsContext:
         Given the name of a context file, read it into memory and make it available
         for use by the PyEnSight Session methods.
 
-        Args:
-            filename:
-                The name of the file to read.
+        Parameters
+        ----------
+        filename: str
+            The name of the file to read.
+
         """
         if not zipfile.is_zipfile(filename):
             raise RuntimeError(f"'{filename}' is not a saved context file.")
@@ -79,10 +86,12 @@ class EnsContext:
         the same bytes object encoded into a string using base64
         encoding.
 
-        Args:
-            data:
-                A bytes or string object of the contents of a
-                context zip file.
+        Parameters
+        ----------
+        data: Union[bytes, str]
+            A bytes or string object of the contents of a
+            context zip file.
+
         """
         if type(data) != bytes:
             data = base64.b64decode(data)
@@ -95,9 +104,11 @@ class EnsContext:
 
         Save the current context to disk.
 
-        Args:
-            filename:
-                Name of the file to save.
+        Parameters
+        ----------
+        filename: str
+            Name of the file to save.
+
         """
         data = self._buffer.getvalue()
         if len(data) < 1:
@@ -111,12 +122,17 @@ class EnsContext:
         Either a bytes object or a string (base64 encoded bytes object)
         representation of the current context file is returned.
 
-        Args:
-            b64:
-                If True, return the bytes representation encoded into a string
-                object using base64 encoding.
-        Returns:
+        Parameters
+        ----------
+        b64: bool
+            If True, return the bytes representation encoded into a string
+            object using base64 encoding. By default, false.
+
+        Returns
+        -------
+        Union[bytes, str]
             A bytes object or a string object.
+
         """
         data = self._buffer.getvalue()
         if b64:
@@ -132,10 +148,11 @@ class EnsContext:
         obtained using the data() method, following a from_directory
         call.
 
-        Args:
-            pathname:
-                The directory of filenames to be placed in the context
-                file.
+        Parameters
+        ----------
+        pathname: str
+            The directory of filenames to be placed in the context
+            file.
         """
         self._buffer = io.BytesIO()
         the_file = zipfile.ZipFile(self._buffer, "w", compression=zipfile.ZIP_DEFLATED)
@@ -154,9 +171,10 @@ class EnsContext:
         that puts information that cannot be recalled independently of other
         cases in the .ctx file.  Remove that information and rewrite the file.
 
-        Args:
-            ctx_file:
-                The name of the context file to process.
+        Parameters
+        ----------
+        ctx_file: str
+            The name of the context file to process.
         """
         try:
             with open(ctx_file, "rb") as f:
@@ -210,9 +228,11 @@ class EnsContext:
         Unpack the zip contents to disk (temporary directory) and perform a context restore on
         the contents.
 
-        Args:
-            ensight:
-                The EnSight interface to use to make the actual native API commands.
+        Parameters
+        ----------
+        ensight : Any
+            The EnSight interface to use to make the actual native API commands.
+
         """
         with tempfile.TemporaryDirectory() as tempdirname:
             the_file = zipfile.ZipFile(self._buffer, "r")
@@ -230,14 +250,16 @@ class EnsContext:
         Zip up the directory contents (along with a "type" marking file) into the
         zip object inside of this state instance.
 
-        Args:
-            ensight:
-                The EnSight interface to use to make the actual native API commands.
-            context:
-                The type of context to save.
-            all_cases:
-                By default, save all cases.  If all_cases is set to False, only
-                the current case will be saved.
+        Parameters
+        ----------
+        ensight : Any
+            The EnSight interface to use to make the actual native API commands.
+        context : int, optional
+            The type of context to save. By default, _SIMPLE_CONTEXT.
+        all_cases : bool, optional
+            By default, save all cases.  If all_cases is set to False, only
+            the current case will be saved. By default, True.
+
         """
         with tempfile.TemporaryDirectory() as tempdirname:
             # Save a context
@@ -262,13 +284,17 @@ def _capture_context(ensight: Any, full: bool) -> Any:
 
     API that makes it simpler to capture a context from a PyEnSight session.
 
-    Args:
-        ensight:
-            EnSight session interface
-        full:
-            True if a "full context" should be saved.
-    Returns:
+    Parameters
+    ----------
+    ensight: Any
+        EnSight session interface
+    full: bool
+        True if a "full context" should be saved.
+    Returns
+    -------
+    Any
         A base64 representation of the context.
+
     """
     tmp = EnsContext()
     mode = EnsContext._SIMPLE_CONTEXT
@@ -283,11 +309,12 @@ def _restore_context(ensight: Any, data: str) -> None:
 
     API that makes it simpler to restore a context from a PyEnSight session.
 
-    Args:
-        ensight:
-            EnSight session interface
-        data:
-            A base64 representation of the context.
+    Parameters
+    ----------
+    ensight: Any
+        EnSight session interface
+    data: str
+        A base64 representation of the context.
     """
     tmp = EnsContext()
     tmp._from_data(data)

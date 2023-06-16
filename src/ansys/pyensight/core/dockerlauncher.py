@@ -24,36 +24,36 @@ from ansys import pyensight
 
 
 class DockerLauncher(pyensight.Launcher):
-    """Create a Session instance by launching a local Docker copy of EnSight
+    """Create a Session instance by launching a local Docker copy of EnSight.
 
     Launch a Docker copy of EnSight locally that supports the gRPC interface.  Create and
     bind a Session instance to the created gRPC session.  Return that session.
 
-    Args:
-        data_directory:
-            Host directory to make into the container at /data
-        docker_image_name:
-            Optional Docker Image name to use
-        use_dev:
-            Option to use the latest ensight_dev Docker Image; overridden by docker_image_name if specified.
-        timeout:
-            In some cases where the EnSight session can take a significant amount of
-            timme to start up, this is the number of seconds to wait before failing
-            the connection.  The default is 120.0.
-        use_egl:
-            If True, EGL hardware accelerated graphics will be used. The platform
-            must be able to support it.
-        use_sos:
-            If None, don't use SOS. Otherwise, it's the number of EnSight Servers to use (int).
+    Parameters
+    ----------
+    data_directory :
+        Host directory to make into the container at /data
+    docker_image_name :
+        Optional Docker Image name to use
+    use_dev :
+        Option to use the latest ensight_dev Docker Image; overridden by docker_image_name if specified.
+    timeout :
+        In some cases where the EnSight session can take a significant amount of
+        timme to start up, this is the number of seconds to wait before failing
+        the connection.  The default is 120.0.
+    use_egl :
+        If True, EGL hardware accelerated graphics will be used. The platform
+        must be able to support it.
+    use_sos :
+        If None, don't use SOS. Otherwise, it's the number of EnSight Servers to use (int).
 
-    Examples:
-        ::
-
-            from ansys.pyensight.core import DockerLauncher
-            launcher = DockerLauncher(data_directory="D:\\data")
-            launcher.pull()
-            session = launcher.start()
-            session.close()
+    Examples
+    --------
+        >>> from ansys.pyensight.core import DockerLauncher
+        >>> launcher = DockerLauncher(data_directory="D:\\data")
+        >>> launcher.pull()
+        >>> session = launcher.start()
+        >>> session.close()
 
     """
 
@@ -64,6 +64,7 @@ class DockerLauncher(pyensight.Launcher):
         use_dev: bool = False,
         **kwargs,
     ) -> None:
+        """Initialize DockerLauncher."""
         super().__init__(**kwargs)
 
         self._data_directory: str = data_directory
@@ -102,7 +103,9 @@ class DockerLauncher(pyensight.Launcher):
     def ansys_version(self) -> Optional[str]:
         """Returns the Ansys version as a 3 digit number string as found in the Docker container.
 
-        Returns:
+        Returns
+        -------
+        str
             Ansys 3-digit version as a string, or None if not found or not start()'ed
 
         """
@@ -111,12 +114,11 @@ class DockerLauncher(pyensight.Launcher):
     def pull(self) -> None:
         """Pulls the Docker image.
 
-        Returns:
-            None
+        Raises
+        ------
+        RuntimeError
+            if Docker couldn't pull the image.
 
-        Raises:
-            RuntimeError:
-                if Docker couldn't pull the image.
         """
         try:
             self._docker_client.images.pull(self._image_name)
@@ -128,16 +130,21 @@ class DockerLauncher(pyensight.Launcher):
         Launch a copy of EnSight in the container that supports the gRPC interface.  Create and
         bind a Session instance to the created gRPC session.  Return that session.
 
-        Args:
-            host:
-                Optional hostname on which the EnSight gRPC service is running
+        Parameters
+        ----------
+        host: str :
+            Optional hostname on which the EnSight gRPC service is running
+            by default, "127.0.0.1".
 
-        Returns:
+        Returns
+        -------
             pyensight Session object instance
 
-        Raises:
-            RuntimeError:
-                variety of error conditions.
+        Raises
+        ------
+        RuntimeError
+            variety of error conditions.
+
         """
         tmp_session = super().start()
         if tmp_session:
@@ -332,6 +339,13 @@ class DockerLauncher(pyensight.Launcher):
         super().stop()
 
     def _is_system_egl_capable(self) -> bool:
+        """Check if the system is EGL capable.
+
+        Returns
+        -------
+        bool
+            True if capable.
+        """
         if self._is_windows():
             return False
         try:
