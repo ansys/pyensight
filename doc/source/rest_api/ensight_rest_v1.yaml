@@ -187,10 +187,6 @@ paths:
       responses:
         '200':
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
         '400':
           description: Python error encountered during execution
         '401':
@@ -258,10 +254,6 @@ paths:
       responses:
         '200':
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
         '400':
           description: Python error encountered during execution
         '401':
@@ -356,10 +348,6 @@ paths:
       responses:
         '200':
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
         '400':
           description: Python error encountered during execution
         '401':
@@ -600,10 +588,6 @@ paths:
       responses:
         '200':
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: object
         '400':
           description: Python error encountered during execution
         '401':
