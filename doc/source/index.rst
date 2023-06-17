@@ -40,7 +40,6 @@ Version: |version|
    getting_started/index
    user_guide/index
    class_documentation
-   rest_api/rest_api
    _examples/index
    contributing
 

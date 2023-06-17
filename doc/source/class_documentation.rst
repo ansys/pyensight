@@ -25,6 +25,7 @@ PyEnSight using the ``ansys.pyensight.Session.ensight`` interface.
    :maxdepth: 4
 
    calc_functions
+   rest_api/rest_api
 
 
 .. autosummary::
