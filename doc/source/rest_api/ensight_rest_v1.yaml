@@ -88,7 +88,7 @@ paths:
           example: "ab32cefa055411eeb8a654435d7ef902"
         - name: returns
           in: query
-          description: A list of attributes to return when an ENSOBJ object is returned. __OBJID__ is the default.
+          description: A comma separated list of attribute names to return when an ENSOBJ object is returned. ENSOBJ is the default which returns @ENSOBJ=123@.
           required: false
           schema:
             type: string
@@ -225,7 +225,7 @@ paths:
           example: "funcname"
         - name: returns
           in: query
-          description: A list of attributes to return when an ENSOBJ object is returned. __OBJID__ is the default.
+          description: A comma separated list of attribute names to return when an ENSOBJ object is returned. ENSOBJ is the default which returns @ENSOBJ=123@.
           required: false
           schema:
             type: string
@@ -336,7 +336,7 @@ paths:
           example: "VISIBLE"
         - name: returns
           in: query
-          description: A list of attributes to return when an ENSOBJ object is returned. __OBJID__ is the default.
+          description: A comma separated list of attribute names to return when an ENSOBJ object is returned. ENSOBJ is the default which returns @ENSOBJ=123@.
           required: false
           schema:
             type: string
@@ -439,7 +439,7 @@ paths:
               example:
                 {
                   "objects": ["ensight.objs.core", 1234],
-                  "value": {
+                  "values": {
                     "VISIBLE": true,
                     "DESCRIPTION": "example"
                   }
@@ -469,7 +469,7 @@ paths:
           example: "ab32cefa055411eeb8a654435d7ef902"
         - name: returns
           in: query
-          description: A list of attributes to return when an ENSOBJ object is returned. __OBJID__ is the default.
+          description: A comma separated list of attribute names to return when an ENSOBJ object is returned. ENSOBJ is the default which returns @ENSOBJ=123@.
           required: false
           schema:
             type: string
@@ -516,7 +516,7 @@ paths:
         '401':
           description: Invalid sessionid
           
-  /ensight/v1/{sessionid}/ensobjs/{objectid}/methods/{method}:
+  /ensight/v1/{sessionid}/ensobjs/{objectid}/method/{method}:
     put:
       summary: Run ENSOBJ method
       description: Execute an ENSOBJ method and return the result.
@@ -551,7 +551,7 @@ paths:
           example: "createvariable"
         - name: returns
           in: query
-          description: A list of attributes to return when an ENSOBJ object is returned. __OBJID__ is the default.
+          description: A comma separated list of attribute names to return when an ENSOBJ object is returned. ENSOBJ is the default which returns @ENSOBJ=123@.
           required: false
           schema:
             type: string
