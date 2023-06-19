@@ -9,6 +9,8 @@ uri
 URI
 Javascript
 JavaScript
+Numpy
+numpy
 ctor
 PyEnSight
 pyensight
