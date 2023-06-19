@@ -5,11 +5,11 @@ EnSight session using a local Docker installation via EnShell.
 
 Examples
 --------
-    >>> from ansys.pyensight.core import DockerLauncherEnShell
-    >>> launcher = DockerLauncherEnShell(data_directory="D:\\data")
-    >>> launcher.pull()
-    >>> session = launcher.start()
-    >>> session.close()
+>>> from ansys.pyensight.core import DockerLauncherEnShell
+>>> launcher = DockerLauncherEnShell(data_directory="D:\\data")
+>>> launcher.pull()
+>>> session = launcher.start()
+>>> session.close()
 
 """
 import logging
@@ -161,7 +161,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
 
         Returns
         -------
-        str:
+        str
             Ansys 3-digit version as a string, or None if not found or not start()'ed
 
         """

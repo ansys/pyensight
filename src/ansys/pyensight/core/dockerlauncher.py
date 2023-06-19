@@ -49,11 +49,11 @@ class DockerLauncher(pyensight.Launcher):
 
     Examples
     --------
-        >>> from ansys.pyensight.core import DockerLauncher
-        >>> launcher = DockerLauncher(data_directory="D:\\data")
-        >>> launcher.pull()
-        >>> session = launcher.start()
-        >>> session.close()
+    >>> from ansys.pyensight.core import DockerLauncher
+    >>> launcher = DockerLauncher(data_directory="D:\\data")
+    >>> launcher.pull()
+    >>> session = launcher.start()
+    >>> session.close()
 
     """
 

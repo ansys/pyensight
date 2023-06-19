@@ -313,18 +313,18 @@ class ENSOBJ(object):
         Example
         -------
 
-            >>> def walk_tree(part,obj,s):
-            >>>     a = obj.attr
-            >>>     if (a == -1):
-            >>>         print("{}Group={}".format(s, obj.name)))
-            >>>     else:
-            >>>         = part.attrinfo(a)
-            >>>         t = enum_to_name(a)
-            >>>         d = info['desc']
-            >>>         print("{}Attr={} - '{}' ({:d} deps)".format(s, t, d, obj.hasdeps))
-            >>>     for i in obj:
-            >>>         walk_tree(part,i,s+"  ")
-            >>> walk_tree(session.ensight.core.PARTS[0],session.ensight.core.PARTS[0].attrtree(),"")
+        >>> def walk_tree(part,obj,s):
+        >>>     a = obj.attr
+        >>>     if (a == -1):
+        >>>         print("{}Group={}".format(s, obj.name)))
+        >>>     else:
+        >>>         = part.attrinfo(a)
+        >>>         t = enum_to_name(a)
+        >>>         d = info['desc']
+        >>>         print("{}Attr={} - '{}' ({:d} deps)".format(s, t, d, obj.hasdeps))
+        >>>     for i in obj:
+        >>>         walk_tree(part,i,s+"  ")
+        >>> walk_tree(session.ensight.core.PARTS[0],session.ensight.core.PARTS[0].attrtree(),"")
         """
         obj = f"{self._remote_obj()}"
         options = f"all={all}"
@@ -382,8 +382,8 @@ class ENSOBJ(object):
 
         Example
         -------
-            >>> session.ensight.objs.core.PARTS[0].setmetatag("FOO", "HELLO")
-            >>> print(session.ensight.objs.core.PARTS[0].METADATA)
+        >>> session.ensight.objs.core.PARTS[0].setmetatag("FOO", "HELLO")
+        >>> print(session.ensight.objs.core.PARTS[0].METADATA)
 
         """
         if value is None:

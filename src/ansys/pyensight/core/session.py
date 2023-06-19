@@ -4,10 +4,10 @@ The session module allows pyensight to control the EnSight session
 
 Examples:
 
-    >>> from ansys.pyensight.core import LocalLauncher
-    >>> session = LocalLauncher().start()
-    >>> type(session)
-    ansys.pyensight.Session
+>>> from ansys.pyensight.core import LocalLauncher
+>>> session = LocalLauncher().start()
+>>> type(session)
+ansys.pyensight.Session
 
 """
 import atexit
@@ -82,11 +82,11 @@ class Session:
     Examples
     --------
 
-        >>> from ansys.pyensight.core import Session
-        >>> session = Session(host="127.0.0.1", grpc_port=12345, http_port=8000, ws_port=8100)
+    >>> from ansys.pyensight.core import Session
+    >>> session = Session(host="127.0.0.1", grpc_port=12345, http_port=8000, ws_port=8100)
 
-        >>> from ansys.pyensight.core import LocalLauncher
-        >>> session = LocalLauncher().start()
+    >>> from ansys.pyensight.core import LocalLauncher
+    >>> session = LocalLauncher().start()
 
     """
 
@@ -547,7 +547,6 @@ class Session:
 
         Returns
         -------
-
             result of the string being executed as Python inside EnSight
 
         Examples
@@ -877,12 +876,12 @@ class Session:
             grpc://f6f74dae-f0ed-11ec-aa58-381428170733/partlist?enum=PARTS&uid=221'
         will be printed when the dataset is loaded and the partlist changes.
 
-            >>> from ansys.pyensight.core import LocalLauncher
-            >>> s = LocalLauncher().start()
-            >>> def cb(v: str):
-            >>> print("Event:", v)
-            >>>     s.add_callback("ensight.objs.core", "partlist", ["PARTS"], cb)
-            >>> s.load_data(r"D:\ANSYSDev\data\CFX\HeatingCoil_001.res")
+        >>> from ansys.pyensight.core import LocalLauncher
+        >>> s = LocalLauncher().start()
+        >>> def cb(v: str):
+        >>> print("Event:", v)
+        >>>     s.add_callback("ensight.objs.core", "partlist", ["PARTS"], cb)
+        >>> s.load_data(r"D:\ANSYSDev\data\CFX\HeatingCoil_001.res")
         """
         self._establish_connection()
         # shorten the tag up to the query block.  Macros only legal in the query block

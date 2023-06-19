@@ -5,10 +5,10 @@ EnSight session using PyPIM.  This leverages the DockerLauncherEnShell module.
 
 Examples
 --------
-    >>> from ansys.pyensight.core import launch_ensight
-    >>> session = launch_ensight()
-    >>> # do pyensight stuff with the session
-    >>> session.close()
+>>> from ansys.pyensight.core import launch_ensight
+>>> session = launch_ensight()
+>>> # do pyensight stuff with the session
+>>> session.close()
 """
 
 from typing import Optional

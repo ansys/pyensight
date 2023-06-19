@@ -26,10 +26,6 @@ class Support:
         An entity that provides the 'ensight' namespace.  In the case
         of PyEnSight, ``Session.ensight`` is passed and in the case of
         EnSight Python, the ``ensight`` module is passed.
-
-    Returns
-    -------
-
     """
 
     def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
