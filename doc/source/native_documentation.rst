@@ -6,10 +6,10 @@ Native API reference
 
 The :ref:`"Native"<ref_cmdlang_native>` API is the result of direct conversion from
 EnSight command language into
-Python syntax.  In EnSight, one can select a block of command language from the
-command dialog and copy it to the clipboard in this format.  There are many limitations
-to this interface.  For example, there is no mechanism to query values and the scripts
-are highly order dependent.   For new development, consider the :ref:`"Object"<ref_object_api>`
+Python syntax. In EnSight, one can select a block of command language from the
+command dialog and copy it to the clipboard in this format. There are many limitations
+to this interface. For example, there is no mechanism to query values and the scripts
+are highly order dependent. For new development, consider the :ref:`"Object"<ref_object_api>`
 API where possible.
 
 

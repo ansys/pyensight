@@ -6,7 +6,7 @@ Object API reference
 
 The :ref:`"Object"<ref_object_api>` API is a direct interface to the EnSight object structures.
 It includes the ability to set/query attributes as well as connect callback
-function that execute when attribute values change, etc.  While it is a more
+function that execute when attribute values change, etc. While it is a more
 advanced interface than the :ref:`"Native"<ref_cmdlang_native>`  API, there are some
 operations that can only be performed via that interface.
 

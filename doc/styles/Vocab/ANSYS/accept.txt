@@ -5,7 +5,11 @@ API
 api
 APIs
 apis
+uri
+URI
 Javascript
+JavaScript
+ctor
 PyEnSight
 pyensight
 GitHub
