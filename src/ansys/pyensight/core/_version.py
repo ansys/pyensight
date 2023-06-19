@@ -1,2 +1,4 @@
+import importlib.metadata as importlib_metadata
+
 DEFAULT_ANSYS_VERSION = "241"
-VERSION = "0.4.dev0"
+VERSION = importlib_metadata.version(__name__.replace(".", "-"))
