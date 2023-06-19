@@ -26,13 +26,14 @@ class EnSightGRPC(object):
     application. The default is to make a connection to an EnSight
     gRPC server on port 12345 on the loopback host.
 
-    Args:
-        host:
-            Hostname where there EnSight gRPC server is running.
-        port:
-            Port to make the gRPC connection to
-        secret_key:
-            Connection secret key
+    Parameters
+    ----------
+    host: str, optional
+        Hostname where there EnSight gRPC server is running.
+    port: int, optional
+        Port to make the gRPC connection to
+    secret_key: str, optional
+        Connection secret key
     """
 
     def __init__(self, host: str = "127.0.0.1", port: int = 12345, secret_key: str = ""):
@@ -81,11 +82,12 @@ class EnSightGRPC(object):
         Disconnect all connections to the gRPC server.  If stop_ensight is True, send the
         'Exit' command to the EnSight gRPC server.
 
-        Args:
-            stop_ensight:
-                if True, send an 'Exit' command to the gRPC server.
-            force:
-                if stop_ensight and force are true, stop EnSight aggressively
+        Parameters
+        ----------
+        stop_ensight: bool, optional
+            if True, send an 'Exit' command to the gRPC server.
+        force: bool, optional
+            if stop_ensight and force are true, stop EnSight aggressively
         """
         if self.is_connected():
             # if requested, send 'Exit'
@@ -111,7 +113,8 @@ class EnSightGRPC(object):
     def is_connected(self) -> bool:
         """Check to see if the gRPC connection is live
 
-        Returns:
+        Returns
+        -------
              True if the connection is active.
         """
         return self._channel is not None
@@ -123,9 +126,10 @@ class EnSightGRPC(object):
         established by the constructor.  Note on failure, this function just
         returns, but is_connected() will return False.
 
-        Args:
-            timeout:
-                how long to wait for the connection to timeout
+        Parameters
+        ----------
+        timeout: float
+            how long to wait for the connection to timeout
         """
         if self.is_connected():
             return
@@ -173,23 +177,27 @@ class EnSightGRPC(object):
         Render the current scene at a specific size and using a specific number of anti-aliasing
         passes.  The return value can be a byte array (width*height*3) bytes or a PNG image.
 
-        Args:
-            width:
-                width of the image to render
-            height:
-                height of the image to render
-            aa:
-                number of antialiasing passes to use in generating the image
-            png:
-                if True, the return value is a PNG image bytestream.  Otherwise, it is a simple
-                bytes object with width*height*3 values.
-            highlighting:
-                if True, selection highlighting will be included in the image.
+        Parameters
+        ----------
+        width: int, optional
+            width of the image to render
+        height: int, optional
+            height of the image to render
+        aa: int, optional
+            number of antialiasing passes to use in generating the image
+        png: bool, optional
+            if True, the return value is a PNG image bytestream.  Otherwise, it is a simple
+            bytes object with width*height*3 values.
+        highlighting: bool, optional
+            if True, selection highlighting will be included in the image.
 
-        Returns:
+        Returns
+        -------
+        bytes
             bytes object representation of the rendered image
 
-        Raises:
+        Raises
+        ------
             IOError if the operation fails
         """
         self.connect()
@@ -222,10 +230,12 @@ class EnSightGRPC(object):
 
         Note: currently there is a limitation of glTF files to 2GB
 
-        Returns:
+        Returns
+        -------
             bytes object representation of the glTF file
 
-        Raises:
+        Raises
+        ------
             IOError if the operation fails
         """
         self.connect()
@@ -249,19 +259,23 @@ class EnSightGRPC(object):
         otherwise it will be the returned string (eval() will not be performed).  If json is True,
         the return value will be a JSON representation of the report execution result.
 
-        Args:
-            command_string:
-                The string to execute
-            do_eval:
-                If True, a return value will be computed and returned
-            json:
-                If True and do_eval is True, the return value will be a JSON representation of
-                the evaluated value.
+        Parameters
+        ----------
+        command_string: str
+            The string to execute
+        do_eval: bool, optional
+            If True, a return value will be computed and returned
+        json: bool, optional
+            If True and do_eval is True, the return value will be a JSON representation of
+            the evaluated value.
 
-        Returns:
+        Returns
+        -------
+        Any
              None, a string ready for Python eval() or a JSON string.
 
-        Raises:
+        Raises
+        ------
             RuntimeError if the operation fails.
             IOError if the communication fails.
         """
@@ -290,13 +304,15 @@ class EnSightGRPC(object):
         return response.value
 
     def prefix(self) -> str:
-        """Return the unique prefix for this instance
+        """Return the unique prefix for this instance.
 
         Some EnSight gRPC APIs require a unique prefix so that EnSight can handle
         multiple, simultaneous remote connections.  This method will generate a GUID-based
         prefix.
 
-        Returns:
+        Returns
+        -------
+        str
             A unique (for this session) prefix string of the form: grpc://{uuid}/
         """
         # prefix URIs will have the format:  "grpc://{uuid}/{callbackname}?enum={}&uid={}"
@@ -332,7 +348,8 @@ class EnSightGRPC(object):
         If an event stream has been successfully established via
         event_stream_enable(), then this function returns True.
 
-        Returns:
+        Returns
+        -------
               True if a ensightservice::EventReply steam is active
         """
         return self._event_stream is not None
@@ -344,7 +361,8 @@ class EnSightGRPC(object):
         event records and store them in this instance in an ordered fashion.  This method
         retrieves the oldest ensightservice::EventReply string in the queue.
 
-        Returns:
+        Returns
+        -------
             None or the oldest event string in the queue.
         """
         try:
