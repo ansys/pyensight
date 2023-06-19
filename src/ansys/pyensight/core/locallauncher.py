@@ -125,7 +125,12 @@ class LocalLauncher(Launcher):
             local_env["ENSIGHT_SECURITY_TOKEN"] = self._secret_key
             local_env["WEBSOCKETSERVER_SECURITY_TOKEN"] = self._secret_key
             local_env["ENSIGHT_SESSION_TEMPDIR"] = self.session_directory
-            local_env["ENSIGHT_ANSYS_LAUNCH"] = "pyensight"
+            # If for some reason, the ENSIGHT_ANSYS_LAUNCH is set previously,
+            # honor that value, otherwise set it to "pyensight".  This allows
+            # for an environmental setup to set the value to something else
+            # (e.g. their "app").
+            if "ENSIGHT_ANSYS_LAUNCH" not in local_env:
+                local_env["ENSIGHT_ANSYS_LAUNCH"] = "pyensight"
 
             # build the EnSight command
             exe = os.path.join(self._install_path, "bin", self.application)
