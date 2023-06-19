@@ -2,9 +2,16 @@ version: 2
 updates:
   - package-ecosystem: "pip"
     directory: "/"
+    insecure-external-code-execution: allow
     schedule:
       interval: "daily"
     versioning-strategy: "lockfile-only"
+    labels:
+      - "maintenance"
+      - "dependencies"
+    ignore:
+      - dependency-name: "vtk"
+      - dependency-name: "grpcio"
 
   - package-ecosystem: "github-actions"
     directory: "/"
