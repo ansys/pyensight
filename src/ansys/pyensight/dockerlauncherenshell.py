@@ -223,7 +223,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
             "WEBSOCKETSERVER_SECURITY_TOKEN": self._secret_key,
             "ENSIGHT_SESSION_TEMPDIR": self._session_directory,
             "ANSYSLMD_LICENSE_FILE": os.environ["ANSYSLMD_LICENSE_FILE"],
-            "ENSIGHT_ANSYS_LAUNCH": local_env["ENSIGHT_ANSYS_LAUNCH"]
+            "ENSIGHT_ANSYS_LAUNCH": local_env["ENSIGHT_ANSYS_LAUNCH"],
         }
         if "ENSIGHT_ANSYS_APIP_CONFIG" in local_env:
             container_env["ENSIGHT_ANSYS_APIP_CONFIG"] = local_env["ENSIGHT_ANSYS_APIP_CONFIG"]
