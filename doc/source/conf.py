@@ -4,12 +4,12 @@ import json
 import os
 import sys
 
+from ansys.pyensight.core import __version__
 from ansys_sphinx_theme import ansys_favicon, get_version_match, pyansys_logo_black
 from sphinx_gallery.sorting import FileNameSortKey
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src", "ansys"))
-from ansys.pyensight.core import __version__  # noqa
 
 # Project information
 project = "ansys.pyensight"
