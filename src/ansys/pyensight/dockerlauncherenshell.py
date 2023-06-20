@@ -37,6 +37,14 @@ except Exception:
     raise RuntimeError("Cannot initialize grpc")
 
 
+try:
+    from simple_upload_server.client import Client
+
+    simple_upload_server_is_available = True
+except Exception:
+    simple_upload_server_is_available = False
+
+
 class DockerLauncherEnShell(pyensight.Launcher):
     """Create a Session instance by launching a local Docker copy of EnSight via EnShell
 
@@ -469,6 +477,21 @@ class DockerLauncherEnShell(pyensight.Launcher):
             self._pim_instance.delete()
             self._pim_instance = None
         super().stop()
+
+    def file_service(self) -> Optional[Client]:
+        file_service = None
+        if simple_upload_server_is_available is False:
+            return file_service
+        if self._pim_instance is None:
+            return file_service
+
+        if "http-simple-upload-server" in self._pim_instance.services:
+            file_service = Client(
+                token="token",
+                url=self._pim_instance.services["http-simple-upload-server"].uri,
+                headers=self._pim_instance.services["http-simple-upload-server"].headers,
+            )
+        return file_service
 
     def _get_host_port(self, uri: str) -> tuple:
         parse_results = urllib3.util.parse_url(uri)
