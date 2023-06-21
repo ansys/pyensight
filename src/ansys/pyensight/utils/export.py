@@ -35,6 +35,8 @@ class Export:
     def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
         self._ensight = interface
 
+    TIFFTAG_IMAGEDESCRIPTION: int = 0x010E
+
     def image(
         self,
         filename: str,
@@ -83,8 +85,7 @@ class Export:
 
         pil_image = self._dict_to_pil(raw_image)
         if enhanced:
-            TIFFTAG_IMAGEDESCRIPTION: int = 0x010E
-            tiffinfo_dir = {TIFFTAG_IMAGEDESCRIPTION: raw_image["metadata"]}
+            tiffinfo_dir = {self.TIFFTAG_IMAGEDESCRIPTION: raw_image["metadata"]}
             pil_image[0].save(
                 filename,
                 save_all=True,
