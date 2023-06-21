@@ -327,7 +327,6 @@ class Export:
 
         with tempfile.TemporaryDirectory() as tmpdirname:
             tmpfilename = os.path.join(tmpdirname, str(uuid.uuid1()) + ".mp4")
-            print(f"Generating: {tmpfilename}", width, height, fps, start, frames, passes, options)
             self._ensight.file.animation_rend_offscreen("ON")
             self._ensight.file.animation_screen_tiling(1, 1)
             self._ensight.file.animation_format("mpeg4")
