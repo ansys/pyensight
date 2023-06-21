@@ -284,7 +284,7 @@ class Export:
         else:
             cmd = f"ensight.utils.export._animation_remote({width}, {height}, {passes}, "
             cmd += f"{anim_type}, {starting_frame}, {num_frames}, "
-            cmd += f"{frames_per_second}, {format_options})"
+            cmd += f"{frames_per_second}, '{format_options}')"
             raw_mpeg4 = self._ensight._session.cmd(cmd)
 
         with open(filename, "wb") as fp:
