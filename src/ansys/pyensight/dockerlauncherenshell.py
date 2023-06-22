@@ -260,7 +260,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         # Start the container in detached mode with EnShell as a
         # gRPC server as the command
         #
-        enshell_cmd = "-app -grpc_server " + str(grpc_port)
+        enshell_cmd = "-app -v 3 -grpc_server " + str(grpc_port)
 
         try:
             import docker
@@ -366,19 +366,31 @@ class DockerLauncherEnShell(pyensight.Launcher):
             self.stop()
             raise RuntimeError("Can't connect to EnShell over gRPC.")
 
-        """
-        log_cmd = "open_log " + log_file
-        ret = self._enshell.run_command(log_cmd)
-        logging.debug(f"enshell cmd: {log_cmd} ret: {ret}\n")
+        cmd = "set_no_reroute_log"
+        ret = self._enshell.run_command(cmd)
+        logging.debug(f"enshell cmd: {cmd} ret: {ret}\n")
+        if ret[0] != 0:
+            self.stop()
+            raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
 
-        log_cmd = "set_no_reroute_log"
-        ret = self._enshell.run_command(log_cmd)
-        logging.debug(f"enshell cmd: {log_cmd} ret: {ret}\n")
+        cmd = "set_debug_log " + log_file
+        ret = self._enshell.run_command(cmd)
+        logging.debug(f"enshell cmd: {cmd} ret: {ret}\n")
         """
+        if ret[0] != 0:
+            self.stop()
+            raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
+        """
+
+        cmd = "verbose 3"
+        ret = self._enshell.run_command(cmd)
+        logging.debug(f"enshell cmd: {cmd} ret: {ret}\n")
+        if ret[0] != 0:
+            self.stop()
+            raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
 
         logging.debug("Connected to EnShell.  Getting CEI_HOME and Ansys version...\n")
         logging.debug(f"  _enshell: {self._enshell}\n\n")
-
         # Build up the command to run ensight via the EnShell gRPC interface
 
         self._cei_home = self._enshell.cei_home()
