@@ -16,17 +16,11 @@ import subprocess
 import sys
 from typing import Optional
 
+from ansys.api.pyensight.v0 import enshell_pb2, enshell_pb2_grpc
 from ansys.pyensight.core._version import (  # pylint: disable=import-outside-toplevel
     DEFAULT_ANSYS_VERSION,
 )
 import grpc
-
-# these modules are the result of running protoc on the .proto file
-try:
-    from ansys.api.enshell.v0 import enshell_pb2, enshell_pb2_grpc
-except ImportError:
-    import enshell_pb2
-    import enshell_pb2_grpc
 
 
 class EnShellGRPC(object):
