@@ -9,7 +9,7 @@ import os
 REQUIREMENTS = [
     "protobuf>=3.9.1",
     "grpcio>=1.23.0",
-    "numpy>=1.22.0",
+    "numpy>=1.20.0",
     "Pillow>=9.3.0",
     "requests>=2.20.1",
     "urllib3>=1.25.4",
