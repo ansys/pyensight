@@ -215,6 +215,12 @@ class DockerLauncherEnShell(pyensight.Launcher):
         local_env["ENSIGHT_SECURITY_TOKEN"] = self._secret_key
         local_env["WEBSOCKETSERVER_SECURITY_TOKEN"] = self._secret_key
         # local_env["ENSIGHT_SESSION_TEMPDIR"] = self._session_directory
+        # If for some reason, the ENSIGHT_ANSYS_LAUNCH is set previously,
+        # honor that value, otherwise set it to "pyensight".  This allows
+        # for an environmental setup to set the value to something else
+        # (e.g. their "app").
+        if "ENSIGHT_ANSYS_LAUNCH" not in local_env:
+            local_env["ENSIGHT_ANSYS_LAUNCH"] = "container"
 
         # Environment to pass into the container
         container_env = {
@@ -222,7 +228,10 @@ class DockerLauncherEnShell(pyensight.Launcher):
             "WEBSOCKETSERVER_SECURITY_TOKEN": self._secret_key,
             "ENSIGHT_SESSION_TEMPDIR": self._session_directory,
             "ANSYSLMD_LICENSE_FILE": os.environ["ANSYSLMD_LICENSE_FILE"],
+            "ENSIGHT_ANSYS_LAUNCH": local_env["ENSIGHT_ANSYS_LAUNCH"],
         }
+        if "ENSIGHT_ANSYS_APIP_CONFIG" in local_env:
+            container_env["ENSIGHT_ANSYS_APIP_CONFIG"] = local_env["ENSIGHT_ANSYS_APIP_CONFIG"]
 
         # Ports to map between the host and the container
         # If we're here in the code, then we're not using PIM

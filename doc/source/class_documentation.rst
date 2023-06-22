@@ -24,22 +24,23 @@ PyEnSight using the ``ansys.pyensight.Session.ensight`` interface.
    :hidden:
    :maxdepth: 4
 
-   calc_functions
-   rest_api/rest_api
    native_documentation
    object_documentation
+   calc_functions
+   rest_api/rest_api
 
 
 .. autosummary::
    :toctree: _autosummary/
 
+   pyensight.enscontext.EnsContext
    pyensight.Launcher
    pyensight.LocalLauncher
    pyensight.DockerLauncher
-   pyensight.Session
    pyensight.renderable.Renderable
-   pyensight.enscontext.EnsContext
-   pyensight.utils.views.Views
-   pyensight.utils.query.Query
+   pyensight.Session
+   pyensight.utils.parts.Export
    pyensight.utils.parts.Parts
+   pyensight.utils.query.Query
    pyensight.utils.support.Support
+   pyensight.utils.views.Views
