@@ -350,9 +350,11 @@ class DockerLauncherEnShell(pyensight.Launcher):
         #
         #
         # Start up the EnShell gRPC interface
+        log_file = "/data/enshell.log"
         if self._enshell_grpc_channel:
             self._enshell = enshell_grpc.EnShellGRPC()
             self._enshell.connect_existing_channel(self._enshell_grpc_channel)
+            log_file = "/work/enshell.log"
         else:
             logging.debug(
                 f"Connecting to EnShell over gRPC port: {self._service_host_port['grpc'][1]}...\n"
@@ -363,6 +365,16 @@ class DockerLauncherEnShell(pyensight.Launcher):
         if not self._enshell.is_connected():
             self.stop()
             raise RuntimeError("Can't connect to EnShell over gRPC.")
+
+        """
+        log_cmd = "open_log " + log_file
+        ret = self._enshell.run_command(log_cmd)
+        logging.debug(f"enshell cmd: {log_cmd} ret: {ret}\n")
+
+        log_cmd = "set_no_reroute_log"
+        ret = self._enshell.run_command(log_cmd)
+        logging.debug(f"enshell cmd: {log_cmd} ret: {ret}\n")
+        """
 
         logging.debug("Connected to EnShell.  Getting CEI_HOME and Ansys version...\n")
         logging.debug(f"  _enshell: {self._enshell}\n\n")
@@ -478,7 +490,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
             self._pim_instance = None
         super().stop()
 
-    def file_service(self) -> Optional[Client]:
+    def file_service(self) -> Optional[Any]:
         file_service = None
         if simple_upload_server_is_available is False:
             return file_service
