@@ -86,7 +86,9 @@ jobs:
           python-version: '3.9'
 
       - name: Install build requirements
-        run: pip install .[test]
+        run: |
+          pip install .[test]
+          pip install git+https://github.com/ansys/ansys-api-pyensight
 
       - name: docker
         run: docker pull ${{ env.ENSIGHT_IMAGE }}

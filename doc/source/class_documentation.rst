@@ -38,8 +38,8 @@ PyEnSight using the ``ansys.pyensight.core.Session.ensight`` interface.
    ansys.pyensight.core.DockerLauncher
    ansys.pyensight.core.renderable.Renderable
    ansys.pyensight.core.Session
-   ansys.pyensight.utils.export.Export
-   ansys.pyensight.utils.parts.Parts
-   ansys.pyensight.utils.query.Query
-   ansys.pyensight.utils.support.Support
-   ansys.pyensight.utils.views.Views
+   ansys.pyensight.core.utils.export.Export
+   ansys.pyensight.core.utils.parts.Parts
+   ansys.pyensight.core.utils.query.Query
+   ansys.pyensight.core.utils.support.Support
+   ansys.pyensight.core.utils.views.Views
