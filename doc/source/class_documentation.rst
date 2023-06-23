@@ -14,10 +14,10 @@ shared with EnSight.
 ``ensight_api`` class
 ---------------------
 The ``ensight_api`` class should never be used directly. An instance is available via the ``ensight``
-property on the ``ansys.pyensight.Session`` class. Thus, an EnSight call like
+property on the ``ansys.pyensight.core.Session`` class. Thus, an EnSight call like
 ``ensight.part.select_all()`` is available in PyEnSight as the ``session.ensight.part.select_all()``
 method. Generally, most scripts written for the embedded EnSight Python interpreter should work with
-PyEnSight using the ``ansys.pyensight.Session.ensight`` interface.
+PyEnSight using the ``ansys.pyensight.core.Session.ensight`` interface.
 
 
 .. toctree::
@@ -33,13 +33,13 @@ PyEnSight using the ``ansys.pyensight.Session.ensight`` interface.
 .. autosummary::
    :toctree: _autosummary/
 
-   ansys.pyensight.enscontext.EnsContext
-   ansys.pyensight.LocalLauncher
-   ansys.pyensight.DockerLauncher
-   ansys.pyensight.renderable.Renderable
-   ansys.pyensight.Session
-   ansys.pyensight.utils.export.Export
-   ansys.pyensight.utils.parts.Parts
-   ansys.pyensight.utils.query.Query
-   ansys.pyensight.utils.support.Support
-   ansys.pyensight.utils.views.Views
+   ansys.pyensight.core.enscontext.EnsContext
+   ansys.pyensight.core.LocalLauncher
+   ansys.pyensight.core.DockerLauncher
+   ansys.pyensight.core.renderable.Renderable
+   ansys.pyensight.core.Session
+   ansys.pyensight.core.utils.export.Export
+   ansys.pyensight.core.utils.parts.Parts
+   ansys.pyensight.core.utils.query.Query
+   ansys.pyensight.core.utils.support.Support
+   ansys.pyensight.core.utils.views.Views
