@@ -2,8 +2,8 @@ import inspect
 import re
 from typing import List
 
-from ansys.api.pyensight import ensight_api_test_assests
-from ansys.pyensight.core import ensight_api, ensobj
+from ansys.api.pyensight import ensight_api, ensight_api_test_assests
+from ansys.pyensight.core import ensobj
 
 
 def test_ensight_api(mocked_session, mocker):

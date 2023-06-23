@@ -5,7 +5,7 @@ import atexit
 import subprocess
 from unittest import mock
 
-import ansys.pyensight
+import ansys.pyensight.core
 from ansys.pyensight.core import DockerLauncher, LocalLauncher, Session, ensight_grpc
 import pytest
 
@@ -19,7 +19,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
     parser.addoption(
         "--install-path",
         action="store",
-        default=f"/ansys_inc/v{ansys.pyensight.__ansys_version__}/",
+        default=f"/ansys_inc/v{ansys.pyensight.core.__ansys_version__}/",
     )
     parser.addoption("--use-local-launcher", default=False, action="store_true")
 

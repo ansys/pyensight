@@ -26,7 +26,8 @@ except ModuleNotFoundError:
 except Exception:
     raise RuntimeError("Cannot initialize grpc")
 
-from ansys import pyensight
+from ansys.pyensight.core.launcher import Launcher
+from ansys.pyensight.core.session import Session
 
 try:
     from ansys.pyensight.core import enshell_grpc
@@ -36,7 +37,7 @@ except Exception:
     raise RuntimeError("Cannot initialize grpc")
 
 
-class DockerLauncherEnShell(pyensight.core.launcher):
+class DockerLauncherEnShell(Launcher):
     """Create a Session instance by launching a local Docker copy of EnSight via EnShell.
 
     Launch a Docker copy of EnSight locally via EnShell that supports the gRPC interface.  Create and
@@ -182,7 +183,7 @@ class DockerLauncherEnShell(pyensight.core.launcher):
         except Exception:
             raise RuntimeError(f"Can't pull Docker image: {self._image_name}")
 
-    def start(self) -> "pyensight.Session":
+    def start(self) -> "Session":
         """Start EnShell by running a local Docker EnSight Image.
         Then, connect to the EnShell in the Container over gRPC.  Once connected,
         have EnShell launch a copy of EnSight and WSS in the Container.

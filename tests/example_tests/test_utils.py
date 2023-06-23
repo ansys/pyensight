@@ -1,7 +1,8 @@
 import os
 
-from ansys.pyensight import DockerLauncher, LocalLauncher
-from ansys.pyensight.enscontext import EnsContext
+from ansys.pyensight.core.dockerlauncher import DockerLauncher
+from ansys.pyensight.core.enscontext import EnsContext
+from ansys.pyensight.core.locallauncher import LocalLauncher
 import pytest
 
 

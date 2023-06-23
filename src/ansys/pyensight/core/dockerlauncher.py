@@ -20,7 +20,8 @@ import subprocess
 from typing import Optional
 import uuid
 
-from ansys.pyensight.core import Launcher, Session
+from ansys.pyensight.core.launcher import Launcher
+from ansys.pyensight.core.session import Session
 
 
 class DockerLauncher(Launcher):
