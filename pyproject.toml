@@ -35,7 +35,8 @@ dependencies = [
     "typing>=3.7.4.3",
     "typing-extensions>=4.5.0",
     "numpy>=1.22.0",
-    "Pillow>=9.3.0"
+    "Pillow>=9.3.0",
+    "toml>=0.10.2"
 ]
 
 [project.optional-dependencies]
