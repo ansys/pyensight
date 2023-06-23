@@ -20,10 +20,10 @@ import subprocess
 from typing import Optional
 import uuid
 
-from ansys import pyensight
+import ansys.pyensight.core as pyensight
 
 
-class DockerLauncher(pyensight.core.Launcher):
+class DockerLauncher(pyensight.Launcher):
     """Create a Session instance by launching a local Docker copy of EnSight.
 
     Launch a Docker copy of EnSight locally that supports the gRPC interface.  Create and
