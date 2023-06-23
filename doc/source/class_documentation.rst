@@ -33,14 +33,13 @@ PyEnSight using the ``ansys.pyensight.Session.ensight`` interface.
 .. autosummary::
    :toctree: _autosummary/
 
-   pyensight.enscontext.EnsContext
-   pyensight.Launcher
-   pyensight.LocalLauncher
-   pyensight.DockerLauncher
-   pyensight.renderable.Renderable
-   pyensight.Session
-   pyensight.utils.export.Export
-   pyensight.utils.parts.Parts
-   pyensight.utils.query.Query
-   pyensight.utils.support.Support
-   pyensight.utils.views.Views
+   ansys.pyensight.enscontext.EnsContext
+   ansys.pyensight.LocalLauncher
+   ansys.pyensight.DockerLauncher
+   ansys.pyensight.renderable.Renderable
+   ansys.pyensight.Session
+   ansys.pyensight.utils.export.Export
+   ansys.pyensight.utils.parts.Parts
+   ansys.pyensight.utils.query.Query
+   ansys.pyensight.utils.support.Support
+   ansys.pyensight.utils.views.Views
