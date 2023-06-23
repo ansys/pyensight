@@ -6,7 +6,10 @@ import subprocess
 from unittest import mock
 
 import ansys.pyensight.core
-from ansys.pyensight.core import DockerLauncher, LocalLauncher, Session, ensight_grpc
+from ansys.pyensight.core import ensight_grpc
+from ansys.pyensight.core.dockerlauncher import DockerLauncher
+from ansys.pyensight.core.locallauncher import LocalLauncher
+from ansys.pyensight.core.session import Session
 import pytest
 
 
@@ -49,7 +52,7 @@ def cleanup_docker(request) -> None:
 
 
 @pytest.fixture
-def docker_launcher_session() -> "ansys.pyensight.Session":
+def docker_launcher_session() -> "Session":
     cleanup_docker()
     launcher = DockerLauncher(data_directory=".", use_dev=True)
     launcher.pull()
@@ -59,7 +62,7 @@ def docker_launcher_session() -> "ansys.pyensight.Session":
 
 
 @pytest.fixture
-def mocked_session(mocker, tmpdir) -> "ansys.pyensight.Session":
+def mocked_session(mocker, tmpdir) -> "Session":
     cmd_mock = mock.MagicMock("cmd_mock")
     mock_dict = {"a": 1, "b": 2, "c": 3}
     cmd_mock.items = lambda: mock_dict.items()

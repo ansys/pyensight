@@ -2,7 +2,8 @@ import glob
 from operator import attrgetter
 import os
 
-from ansys.pyensight.core import DockerLauncher, LocalLauncher
+from ansys.pyensight.core.dockerlauncher import DockerLauncher
+from ansys.pyensight.core.locallauncher import LocalLauncher
 import numpy as np
 import pytest
 

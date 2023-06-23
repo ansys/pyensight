@@ -1,6 +1,6 @@
 from unittest import mock
 
-from ansys.pyensight.core import Launcher
+from ansys.pyensight.core.launcher import Launcher
 import pytest
 import requests
 

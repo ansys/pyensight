@@ -5,7 +5,7 @@ import subprocess
 from unittest import mock
 
 import ansys.pyensight.core
-from ansys.pyensight.core import LocalLauncher
+from ansys.pyensight.core.locallauncher import LocalLauncher
 import pytest
 
 

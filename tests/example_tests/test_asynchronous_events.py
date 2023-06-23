@@ -16,7 +16,8 @@ with different mechanisms for getting data values.
 
 from urllib.parse import parse_qs, urlparse
 
-from ansys.pyensight.core import DockerLauncher, LocalLauncher
+from ansys.pyensight.core.dockerlauncher import DockerLauncher
+from ansys.pyensight.core.locallauncher import LocalLauncher
 import pytest
 
 
