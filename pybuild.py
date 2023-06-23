@@ -106,6 +106,9 @@ def test(local: bool = False) -> None:
     ]
     if local:
         cmd.append("--use-local-launcher")
+        cmd.append(os.path.join(os.path.dirname(__file__), "tests"))
+    if "PYENSIGHT_ANSYS_INSTALLATION" in os.environ:
+        cmd.append(f"--install-path={os.environ['PYENSIGHT_ANSYS_INSTALLATION']}")
     result = subprocess.run(cmd)
     # Attempt check of the return code
     if result.returncode == 0:
