@@ -23,7 +23,7 @@ import uuid
 from ansys import pyensight
 
 
-class DockerLauncher(pyensight.Launcher):
+class DockerLauncher(pyensight.core.Launcher):
     """Create a Session instance by launching a local Docker copy of EnSight.
 
     Launch a Docker copy of EnSight locally that supports the gRPC interface.  Create and

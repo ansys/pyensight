@@ -119,7 +119,7 @@ class Session:
         # if the caller passed a session directory we will assume they are
         # creating effectively a proxy Session and create a (stub) launcher
         if session_directory is not None:
-            self._launcher = pyensight.Launcher()
+            self._launcher = pyensight.core.launcher()
             self._launcher.session_directory = session_directory
             # The stub will not know about us
             self._halt_ensight_on_close = False
@@ -290,12 +290,12 @@ class Session:
         return self._hostname
 
     @property
-    def launcher(self) -> "pyensight.Launcher":
+    def launcher(self) -> "pyensight.core.launcher":
         """If a launcher was used to instantiate this session, a reference to the launcher instance."""
         return self._launcher
 
     @launcher.setter
-    def launcher(self, value: "pyensight.Launcher"):
+    def launcher(self, value: "pyensight.core.launcher"):
         self._launcher = value
 
     @staticmethod

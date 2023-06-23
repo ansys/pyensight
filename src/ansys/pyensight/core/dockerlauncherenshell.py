@@ -36,7 +36,7 @@ except Exception:
     raise RuntimeError("Cannot initialize grpc")
 
 
-class DockerLauncherEnShell(pyensight.Launcher):
+class DockerLauncherEnShell(pyensight.core.launcher):
     """Create a Session instance by launching a local Docker copy of EnSight via EnShell.
 
     Launch a Docker copy of EnSight locally via EnShell that supports the gRPC interface.  Create and
