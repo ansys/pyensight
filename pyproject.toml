@@ -74,7 +74,9 @@ doc = [
 ]
 
 [tool.coverage.run]
-omit = "*/ansys/api/*"
+omit = [
+    "*/ansys/api/*"
+    ]
 branch = true
 
 [tool.coverage.report]
