@@ -20,10 +20,10 @@ import subprocess
 from typing import Optional
 import uuid
 
-import ansys.pyensight.core as pyensight
+from ansys.pyensight.core import Launcher, Session
 
 
-class DockerLauncher(pyensight.Launcher):
+class DockerLauncher(Launcher):
     """Create a Session instance by launching a local Docker copy of EnSight.
 
     Launch a Docker copy of EnSight locally that supports the gRPC interface.  Create and
@@ -125,7 +125,7 @@ class DockerLauncher(pyensight.Launcher):
         except Exception:
             raise RuntimeError(f"Can't pull Docker image: {self._image_name}")
 
-    def start(self, host: str = "127.0.0.1") -> "pyensight.Session":
+    def start(self, host: str = "127.0.0.1") -> "Session":
         """Start an EnSight session using the local Docker ensight image
         Launch a copy of EnSight in the container that supports the gRPC interface.  Create and
         bind a Session instance to the created gRPC session.  Return that session.
@@ -326,7 +326,7 @@ class DockerLauncher(pyensight.Launcher):
         self._container.exec_run(cmd, user="ensight", detach=True)  # type: ignore
 
         # build the session instance
-        session = pyensight.Session(
+        session = Session(
             host=host,
             grpc_port=ports[0],
             html_port=ports[2],

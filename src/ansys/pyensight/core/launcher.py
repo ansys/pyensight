@@ -16,7 +16,6 @@ import socket
 from typing import TYPE_CHECKING, List, Optional
 import warnings
 
-from ansys import pyensight
 import requests
 
 if TYPE_CHECKING:
@@ -93,7 +92,7 @@ class Launcher:
     def session_directory(self, value: str):
         self._session_directory = value
 
-    def close(self, session: "pyensight.Session") -> None:
+    def close(self, session: "Session") -> None:
         """Shutdown the launched EnSight session
 
         Close all the associated sessions and then stop the launched EnSight instance.
@@ -129,7 +128,7 @@ class Launcher:
         # Stop the launcher instance
         self.stop()
 
-    def start(self) -> Optional["pyensight.Session"]:
+    def start(self) -> Optional["Session"]:
         """Start a session using the current launcher
 
         The start() method will only allocate a single instance of
