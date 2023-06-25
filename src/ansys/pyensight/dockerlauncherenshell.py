@@ -37,6 +37,14 @@ except Exception:
     raise RuntimeError("Cannot initialize grpc")
 
 
+try:
+    from simple_upload_server.client import Client
+
+    simple_upload_server_is_available = True
+except Exception:
+    simple_upload_server_is_available = False
+
+
 class DockerLauncherEnShell(pyensight.Launcher):
     """Create a Session instance by launching a local Docker copy of EnSight via EnShell
 
@@ -252,7 +260,7 @@ class DockerLauncherEnShell(pyensight.Launcher):
         # Start the container in detached mode with EnShell as a
         # gRPC server as the command
         #
-        enshell_cmd = "-app -grpc_server " + str(grpc_port)
+        enshell_cmd = "-app -v 3 -grpc_server " + str(grpc_port)
 
         try:
             import docker
@@ -342,9 +350,11 @@ class DockerLauncherEnShell(pyensight.Launcher):
         #
         #
         # Start up the EnShell gRPC interface
+        log_file = "/data/enshell.log"
         if self._enshell_grpc_channel:
             self._enshell = enshell_grpc.EnShellGRPC()
             self._enshell.connect_existing_channel(self._enshell_grpc_channel)
+            log_file = "/work/enshell.log"
         else:
             logging.debug(
                 f"Connecting to EnShell over gRPC port: {self._service_host_port['grpc'][1]}...\n"
@@ -356,9 +366,31 @@ class DockerLauncherEnShell(pyensight.Launcher):
             self.stop()
             raise RuntimeError("Can't connect to EnShell over gRPC.")
 
+        cmd = "set_no_reroute_log"
+        ret = self._enshell.run_command(cmd)
+        logging.debug(f"enshell cmd: {cmd} ret: {ret}\n")
+        if ret[0] != 0:
+            self.stop()
+            raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
+
+        cmd = "set_debug_log " + log_file
+        ret = self._enshell.run_command(cmd)
+        logging.debug(f"enshell cmd: {cmd} ret: {ret}\n")
+        """
+        if ret[0] != 0:
+            self.stop()
+            raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
+        """
+
+        cmd = "verbose 3"
+        ret = self._enshell.run_command(cmd)
+        logging.debug(f"enshell cmd: {cmd} ret: {ret}\n")
+        if ret[0] != 0:
+            self.stop()
+            raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
+
         logging.debug("Connected to EnShell.  Getting CEI_HOME and Ansys version...\n")
         logging.debug(f"  _enshell: {self._enshell}\n\n")
-
         # Build up the command to run ensight via the EnShell gRPC interface
 
         self._cei_home = self._enshell.cei_home()
@@ -469,6 +501,21 @@ class DockerLauncherEnShell(pyensight.Launcher):
             self._pim_instance.delete()
             self._pim_instance = None
         super().stop()
+
+    def file_service(self) -> Optional[Any]:
+        file_service = None
+        if simple_upload_server_is_available is False:
+            return file_service
+        if self._pim_instance is None:
+            return file_service
+
+        if "http-simple-upload-server" in self._pim_instance.services:
+            file_service = Client(
+                token="token",
+                url=self._pim_instance.services["http-simple-upload-server"].uri,
+                headers=self._pim_instance.services["http-simple-upload-server"].headers,
+            )
+        return file_service
 
     def _get_host_port(self, uri: str) -> tuple:
         parse_results = urllib3.util.parse_url(uri)
