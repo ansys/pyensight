@@ -421,14 +421,13 @@ Returns:
 </override>
 
 <override namespace="ensight.query_points">
+<signature>(points: List[List[float]], parts: Any = None, variables: List[int] = None,
+    time: float = -1e9) -> List[Any]</signature>
+<paramnames>['points', 'parts=', 'variables=', 'time=']</paramnames>
 <description>
-This function is a basic variable and mesh query mechanism::
-
-    ensight.query_points(points: List[List[float, float, float],
-                         parts: Any = None,
-                         variables: List[int] = None,
-                         time: float = -1e9) -> List[Any]
-
+Query a collection of Cartesian points against a collection of parts.  By default, the
+closest node and element ids are returned.  If a list of variables are passed, the
+variables will be sampled at each point in each mesh and the values returned.
 
 Args:
     points:
@@ -468,6 +467,159 @@ Return:
 
         [ [pressure_value], [velocity_x, velocity_y, velocity_z] ]
 
+
+</description>
+</override>
+
+<override namespace="ensight.query">
+<signature>(option: int) -> Any</signature>
+<paramnames>['option']</paramnames>
+<description>
+There are a large number of types of queries that this method supports.  A complete list
+can be found in the EnSight Interface Manual, section 8.1.  Here, only options
+that do not have better interfaces are documented.  For example, EnSight Splines and Textures are
+better accessed via: ``ensight.objs.core.POLYLINES`` or ``ensight.objs.core.TEXTURES`` object
+interfaces than the ``ensight.query`` options.
+
+Args:
+    option:
+        There are a large number of supported options, including:
+
+          * ensight.VIEW_MODE
+          * ensight.WINDOW_SIZE
+          * ensight.WINDOW_DEPTH_VALUES
+          * ensight.WINDOW_RGBA_VALUES
+          * ensight.TEXTURE_COUNT
+          * ensight.TEXTURE_IMAGE
+          * ensight.TEXTURE_BORDER_COLOR
+          * ensight.TOOL_PARAMS
+          * ensight.VARIABLE_PALETTE
+          * ensight.VARIABLE_HISTOGRAM
+          * ensight.QUERY_DATA
+          * ensight.QUERY_PROBE_DATA
+          * ensight.DATASET
+          * ensight.TIMEVALS
+          * ensight.GLCONFIG
+          * ensight.SYSINFO
+          * ensight.FULLSCREEN
+          * ensight.BUILDINFO
+          * ensight.PREFERENCESPATH
+          * ensight.SENDMESG_RECORD
+          * ensight.SENDMESG_RAISE
+          * ensight.SENDMESG_NOEXEC
+          * ensight.SENDMESG_DISPLAY
+          * ensight.SENDMESG_FEEDBACK
+          * ensight.UNIQUE_ID
+          * ensight.SCALAR_VARIABLE_PICK
+          * ensight.CMDLANG_VERSION
+          * ensight.CMDLANG_VERSION_FLT
+          * ensight.PARTS_WITH_SCALARVALUE
+          * ensight.SPLINE_COUNT
+          * ensight.SPLINE_DATA
+          * ensight.FSI_TRACE_LIMIT
+          * ensight.DISPLAY_MATERIALS_INFO
+          * ensight.DIALOG_INFO_IMAGESAVE
+          * ensight.DIALOG_INFO_ANIMSAVE
+
+Returns:
+    As noted previously, only options that do not have better APIs are listed here:
+
+    .. list-table:: Function Arguments
+        :widths: 30 70
+
+        * - ensight.CMDLANG_VERSION
+          - Returns the current EnSight command language version number being used. The
+            value is returned as a string.
+
+        * - ensight.PREFERENCESPATH
+          - This query returns a string that is the directory name where EnSight is
+            reading and writing preference data to.
+
+        * - ensight.DATASET
+          - Returns information about the current dataset. The output may be None if the
+            current case is not loaded, otherwise a list of the
+            form: ``[[filedata], coord_sys, coord_type, full_flag, [[minx ,miny, minz], [maxx, maxy, maxz]], total_nodes, total_elements, [elementlist]]``
+
+            The FILEDATA list describes the various files opened (as specified by the
+            actual reader). The information includes the filename, its size, its date and
+            any number of description strings. The list has the
+            form: ``[[filename, file_size, file_date, ["desc1", "desc2", ...]]``
+
+            COORD_SYS specifies the coordinate system and can be: Cylindrical,
+            Rectangular, Spherical or Unknown. COORD_TYPE specifies the temporal scheme
+            and can be: Static, Changing Connectivity or Changing Coordinate.
+
+            The FULL_FLAG is 1 if the min/max arrays are for the entire dataset. Otherwise, the
+            numbers are just for the loaded parts. The subsequent arrays specify the coordinate
+            min/max values for x, y and z.
+
+            TOTAL_NODES and TOTAL_ELEMENTS specify the total number of nodes and elements in
+            the dataset respectively.
+
+            The ELEMENTLIST list describes the number of elements in the dataset of each
+            element type. The list has the form: ``[["type1", num_elements1], ["type2", num_elements2],...]``
+
+
+        * - ensight.GLCONFIG
+          - This query returns a dictionary of OpenGL related information. The dictionary keys
+            include (on most platforms):
+
+            **"vendor"** - the OpenGL vendor string
+
+            **"renderer"** - the OpenGL renderer string
+
+            **"version"** - the OpenGL version string
+
+            **"stencilbuffer"** - a non-zero integer if a stencil buffer is being used
+
+            **"doublebuffer"** - a non-zero integer if depth buffering is being used
+
+            **"occlusiontest"** - True if the OpenGL occlusion test is being used
+
+            **"wirefamemode"** - True if wireframe mode is done with lines (instead of polygons)
+
+            **"displaylist"** - True if OpenGL display lists are being used
+
+            **"normpervertex"** - True if EnSight is generating a normal per vertex
+
+            **"vertexcount"** - the number of vertices in a geometry block
+
+            **"palettemode"** - "Textures" or "RGB"
+
+            **"extensions"** - the OpenGL extension string
+
+            **"freevideoram"** - Amount of available GPU memory, in MB (If 0, then graphics card or
+            software driver does not allow a query of memory).
+
+        * - ensight.SYSINFO
+          - This query returns a dictionary of system resource related information. The
+            dictionary keys include (on most platforms):
+
+            **"numprocs"** - number of processor (cores) in the system
+
+            **"totalmem"** - amount of physical RAM in the system (in kilobytes)
+
+            **"freemem"** - amount of free RAM in the system (in kilobytes)
+
+            **"memuse"** - the amount of RAM being used by the EnSight process (in kilobytes)
+
+            **"pointersize"** - the size of a pointer in bits on the platform (32 or 64)
+
+        * - ensight.BUILDINFO
+          - This query returns a dictionary of build information for the current EnSight
+            instance.  The dictionary keys include:
+
+            **"sequence"** - An identifier for the branch.
+
+            **"branch"** - The branch that the executable was built from.
+
+            **"year"** - The year number that the executable was generated on.
+
+            **"month"** - The month number that the executable was generated on.
+
+            **"day"** - The day number that the executable was generated on.
+
+            **"debug"** - 1 if the build is debug, 0 if release.
 
 </description>
 </override>
