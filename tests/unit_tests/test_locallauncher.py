@@ -4,8 +4,8 @@ import platform
 import subprocess
 from unittest import mock
 
-import ansys.pyensight.core
 from ansys.pyensight.core.locallauncher import LocalLauncher
+import ansys.pyensight.core.session
 import pytest
 
 
@@ -21,7 +21,7 @@ def test_start(mocker):
     glob_mock = mock.MagicMock("superGlob")
     glob_mock.side_effect = ["/path/to/awp/CEI/nexus345/websocketserver.py"]
     mocker.patch.object(glob, "glob", glob_mock)
-    mocker.patch.object(ansys.pyensight, "Session")
+    mocker.patch.object(ansys.pyensight.core.session, "Session")
     launcher.start()
     glob_mock.side_effect = ["/path/to/awp/CEI/nexus345/websocketserver.py"]
     launcher = LocalLauncher("/path/to/awp/", batch=False)
@@ -49,7 +49,7 @@ def test_get_cei_install_directory(mocker):
     assert method(path) == os.path.join(path, "CEI")
     assert method(None) == os.path.join(second_path)
     del os.environ["PYENSIGHT_ANSYS_INSTALLATION"]
-    version = ansys.pyensight.__ansys_version__
+    version = ansys.pyensight.core.__ansys_version__
     # In case tests are launched locally and the environment variable is
     # set, the launcher would manage to find an install. This trick
     # cleans it, to check all the paths

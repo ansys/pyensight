@@ -17,8 +17,8 @@ how they can be used to perform easily specific operations.
 # Start by launching and connecting to an instance of EnSight.
 # In this case, we use a local installation of EnSight.
 
-from ansys.pyensight import LocalLauncher
-from ansys.pyensight.enscontext import EnsContext
+from ansys.pyensight.core import LocalLauncher
+from ansys.pyensight.core.enscontext import EnsContext
 
 session = LocalLauncher().start()
 

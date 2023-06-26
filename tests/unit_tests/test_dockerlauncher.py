@@ -2,8 +2,8 @@ import logging
 import os
 from unittest import mock
 
-import ansys.pyensight.core
 from ansys.pyensight.core import DockerLauncher
+import ansys.pyensight.core.session
 import docker
 import pytest
 
@@ -28,7 +28,7 @@ def test_start(mocker, capsys, caplog):
     launcher = DockerLauncher(data_directory=".")
     launcher = DockerLauncher(data_directory=".", use_dev=True, docker_image_name="super_ensight")
     mocked_session = mock.MagicMock("MockedSession")
-    mocker.patch.object(ansys.pyensight, "Session", return_value=mocked_session)
+    mocker.patch.object(ansys.pyensight.core.session, "Session", return_value=mocked_session)
     with caplog.at_level(logging.DEBUG):
         assert launcher.start() == mocked_session
         out, err = capsys.readouterr()
