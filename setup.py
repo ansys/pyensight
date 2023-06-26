@@ -14,7 +14,7 @@ REQUIREMENTS = [
     "requests>=2.20.1",
     "urllib3>=1.25.4",
     "dill>=0.3.5.1",
-    "typing-extensions>=4.5.0"
+    "typing-extensions>=4.5.0",
 ]
 
 curr_dir = os.path.abspath(os.path.dirname(__file__))
