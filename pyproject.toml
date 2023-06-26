@@ -35,7 +35,8 @@ dependencies = [
     "typing>=3.7.4.3",
     "typing-extensions>=4.5.0",
     "numpy>=1.22.0",
-    "Pillow>=9.3.0"
+    "Pillow>=9.3.0",
+    "typing-extensions>=4.5.0"
 ]
 
 [project.optional-dependencies]
@@ -161,7 +162,8 @@ module = ["grpc",
  "urllib3",
  "ensight",
  "numpy",
- "PIL"
+ "PIL",
+ "simple_upload_server.*"
 ]
 ignore_missing_imports = true
 
