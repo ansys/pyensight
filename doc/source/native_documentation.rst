@@ -21,7 +21,7 @@ API where possible.
 .. autosummary::
    :toctree: _autosummary/
 
-   ansys.ansys.pyensight.core.core.ensight_api
+   ansys.pyensight.core.ensight_api
    ansys.pyensight.core.ensight_api.anim
    ansys.pyensight.core.ensight_api.anim_flipbook
    ansys.pyensight.core.ensight_api.anim_keyframe
