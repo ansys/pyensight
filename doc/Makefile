@@ -25,3 +25,8 @@ clean:
 	rm -rf build
 	rm -rf $(SOURCEDIR)/_autosummary
 	rm -rf $(SOURCEDIR)/_examples
+
+# Build HTML files
+html:
+	@$(SPHINXBUILD) -M linkcheck "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	@$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
