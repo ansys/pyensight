@@ -258,8 +258,8 @@ class DockerLauncher(pyensight.Launcher):
             #   self._cei_home)
             raise RuntimeError("Can't find version from cei_home in the Docker container.")
         self._ansys_version = m.group(1)
-        print("CEI_HOME=", self._cei_home)
-        print("Ansys Version=", self._ansys_version)
+        # print("CEI_HOME=", self._cei_home)
+        # print("Ansys Version=", self._ansys_version)
 
         # Run EnSight
         cmd = ["bash", "--login", "-c"]
