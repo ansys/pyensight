@@ -93,10 +93,6 @@ class LocalLauncher(pyensight.Launcher):
         Launch a copy of EnSight locally that supports the gRPC interface.  Create and
         bind a Session instance to the created gRPC session.  Return that session.
 
-        Args:
-            host:
-                Optional hostname on which the EnSight gRPC service is running
-
         Returns:
             pyensight Session object instance
 
@@ -268,7 +264,12 @@ class LocalLauncher(pyensight.Launcher):
         else:
             # Environmental variable
             if "PYENSIGHT_ANSYS_INSTALLATION" in os.environ:
-                dirs_to_check.append(os.environ["PYENSIGHT_ANSYS_INSTALLATION"])
+                env_inst = os.environ["PYENSIGHT_ANSYS_INSTALLATION"]
+                dirs_to_check.append(env_inst)
+                # Note: PYENSIGHT_ANSYS_INSTALLATION is designed for devel builds
+                # where there is no CEI directory, but for folks using it in other
+                # ways, we'll add that one too, just in case.
+                dirs_to_check.append(os.path.join(env_inst, "CEI"))
             # 'enve' home directory (running in local distro)
             try:
                 import enve
