@@ -8,6 +8,7 @@ Examples:
     >>> session = LocalLauncher().start()
 """
 import glob
+import logging
 import os.path
 import platform
 import shutil
@@ -153,6 +154,7 @@ class LocalLauncher(pyensight.Launcher):
                 cmd.append("-nservers")
                 cmd.append(str(int(self._use_sos)))
             # cmd.append("-minimize_console")
+            logging.debug(f"Starting EnSight with : {cmd}\n")
             self._ensight_pid = subprocess.Popen(
                 cmd,
                 stdout=subprocess.DEVNULL,
@@ -163,13 +165,29 @@ class LocalLauncher(pyensight.Launcher):
             ).pid
 
             # Launch websocketserver
+
             # find websocketserver script
             found_scripts = glob.glob(
                 os.path.join(self._install_path, "nexus*", "nexus_launcher", "websocketserver.py")
             )
             if not found_scripts:
                 raise RuntimeError("Unable to find websocketserver script")
-            websocket_script = found_scripts[0]
+            # If we found more than one nexus directory, find the one that corresponds
+            # to the version we should be.  Otherwise, just take the first one found.
+            # Typically, this probably will only happen for developer installations
+            # or build areas.
+            idx = 0
+            try:
+                found_scripts_len = len(found_scripts)
+                if found_scripts_len > 1:
+                    version_str = str(pyensight.__ansys_version__)
+                    for i in range(found_scripts_len):
+                        if version_str in found_scripts[i]:
+                            idx = i
+                            break
+            except Exception:
+                pass
+            websocket_script = found_scripts[idx]
 
             # build the commandline
             cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
@@ -187,6 +205,7 @@ class LocalLauncher(pyensight.Launcher):
             cmd.extend(["--local_session", "envision", "5"])
             # websocket port
             cmd.append(str(self._ports[3]))
+            logging.debug(f"Starting WSS: {cmd}\n")
             if is_windows:
                 startupinfo = subprocess.STARTUPINFO()
                 startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
@@ -209,6 +228,11 @@ class LocalLauncher(pyensight.Launcher):
                 ).pid
 
         # build the session instance
+        logging.debug(
+            f"Creating session with ports for grpc:{self._ports[0]}\n"
+            + f"html:{self._ports[2]} ws:{self._ports[3]}\n"
+            + f"key:{self._secret_key}\n"
+        )
         session = pyensight.Session(
             host="127.0.0.1",
             grpc_port=self._ports[0],
