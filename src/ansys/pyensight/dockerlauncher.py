@@ -288,7 +288,6 @@ class DockerLauncher(pyensight.Launcher):
 
         # Run websocketserver
         cmd = ["bash", "--login", "-c"]
-        # cmd2 = "cpython /home/ensight/websocketserver.py"
         cmd2 = ""
         if self._ansys_version:
             cmd2 = (
