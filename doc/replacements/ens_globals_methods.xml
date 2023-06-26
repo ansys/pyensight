@@ -72,7 +72,7 @@ Example:
 Generate a string that represents the appropriate label for a given object.
 
 
-This method will look at the specified :class:`ENS_VAR &lt;pyensight.ensobj.ENS_VAR&gt;` object
+This method will look at the specified :class:`ENS_VAR &lt;ansys.pyensight.core.ensobj.ENS_VAR&gt;` object
 and get any unit information specified by the UNIT schema.  The API can generate labels from DIMS
 and SYSTEM values if no explicit label string has been specified for the variable object.
 It will then return a string with the specified prefix and suffix strings added before
