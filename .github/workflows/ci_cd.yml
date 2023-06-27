@@ -87,8 +87,7 @@ jobs:
 
       - name: Install build requirements
         run: |
-          pip install .[test]
-          pip install git+https://github.com/ansys/ansys-api-pyensight
+          pip install .[tests, doc]
 
       - name: docker
         run: docker pull ${{ env.ENSIGHT_IMAGE }}
@@ -130,10 +129,6 @@ jobs:
 
       - name: Docker pull
         run: docker pull ${{ env.ENSIGHT_IMAGE }}
-
-      - name: Install build requirements
-        run: |
-          pip install .[doc]
 
       - name: Run Ansys documentation building action
         uses: ansys/actions/doc-build@v4
