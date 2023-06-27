@@ -351,13 +351,15 @@ class Session:
             The list of filenames and sizes that were copied.
         """
 
-        remote_functions = textwrap.dedent("""\
+        remote_functions = textwrap.dedent(
+            """\
                 import os
                 def copy_write_function__(filename: str, data: bytes) -> None:
                     os.makedirs(os.path.dirname(filename), exist_ok=True)
                     with open(filename, "wb") as fp:
                         fp.write(data)
-                 """)
+            """
+        )
 
         self.cmd(remote_functions, do_eval=False)
         out = []
@@ -415,7 +417,8 @@ class Session:
             The list of files that were copied.
         """
 
-        remote_functions = textwrap.dedent("""\
+        remote_functions = textwrap.dedent(
+            """\
                 import os
                 def copy_walk_function__(remotedir: str, filelist: list) -> None:
                     out = []
@@ -435,12 +438,13 @@ class Session:
                         except Exception:
                             pass
                     return out
-                
+                # (needed for flake8)
                 def copy_read_function__(filename: str) -> bytes:
                     with open(filename, "rb") as fp:
                         data = fp.read()
                     return data
-                """)
+            """
+        )
 
         self.cmd(remote_functions, do_eval=False)
         names = self.cmd(f"copy_walk_function__(r'{remotedir}', {filelist})", do_eval=True)
