@@ -14,8 +14,11 @@ def test_ensight_api(mocked_session, mocker):
     file_contents_lines = file_contents.split("\n")
     for line in file_contents_lines:
         split = re.search(r"(.*?,)(.*?,)(.*?,)(.*)", line)
-        split = [x.replace(",", "").strip() for x in split.groups()[:-1]] + [split.group(4).strip()]
-        assets.append((split[0], split[1], split[2], split[3]))
+        if split is not None:
+            split = [x.replace(",", "").strip() for x in split.groups()[:-1]] + [
+                split.group(4).strip()
+            ]
+            assets.append((split[0], split[1], split[2], split[3]))
     for asset in assets:
         class_name = asset[0]
         method_name = asset[1]
