@@ -35,6 +35,28 @@ class Export:
     def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
         self._ensight = interface
 
+    def _remote_support_check(self):
+        """Check to see if ensight.utils.export exists on the remote system
+
+        Check if the module is available in the EnSight instance before trying
+        to use it.
+
+        Raises:
+            RuntimeError if the module is not present.
+        """
+        # if a module, then we are inside EnSight
+        if isinstance(self._ensight, ModuleType):
+            return
+        try:
+            _ = self._ensight._session.cmd("dir(ensight.utils.export)")
+        except RuntimeError:
+            import ansys.pyensight
+
+            raise RuntimeError(
+                f"Remote EnSight session must have at least pyensight \
+            version {ansys.pyensight.__version__} installed to use this API."
+            )
+
     TIFFTAG_IMAGEDESCRIPTION: int = 0x010E
 
     def image(
@@ -71,6 +93,8 @@ class Export:
                 s.ensight.utils.export.image("example.png")
 
         """
+        self._remote_support_check()
+
         win_size = self._ensight.objs.core.WINDOWSIZE
         if width is None:
             width = win_size[0]
@@ -239,6 +263,8 @@ class Export:
 
 
         """
+        self._remote_support_check()
+
         win_size = self._ensight.objs.core.WINDOWSIZE
         if width is None:
             width = win_size[0]

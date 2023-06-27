@@ -39,8 +39,7 @@ if pim_is_available:
 
     def _launch_ensight_with_pim(
         product_version: Optional[str] = None,
-        use_egl: bool = False,
-        use_sos: Optional[int] = None,
+        **kwargs,
     ) -> "Session":
         """Internal function.
         Start via PyPIM the EnSight Docker container with EnShell as the ENTRYPOINT.
@@ -79,8 +78,6 @@ if pim_is_available:
         )
 
         launcher = DockerLauncherEnShell(
-            use_egl=use_egl,
-            use_sos=use_sos,
             channel=channel,
             pim_instance=instance,
         )
@@ -98,9 +95,7 @@ def launch_ensight(
     ansys_installation: Optional[str] = None,
     application: str = "ensight",
     batch: bool = True,
-    use_egl: bool = False,
-    use_sos: Optional[int] = None,
-    timeout: float = 120.0,
+    **kwargs,
 ) -> "Session":
     """Start an EnSight session via EnShell using the Docker EnSight Image.
     Return that session.
@@ -158,9 +153,7 @@ def launch_ensight(
     # print(f"pim_is_available: {pim_is_available}  use_pim: {use_pim}\n")
     if pim_is_available and use_pim:
         if pypim.is_configured():
-            return _launch_ensight_with_pim(
-                product_version=product_version, use_egl=use_egl, use_sos=use_sos
-            )
+            return _launch_ensight_with_pim(product_version=product_version, **kwargs)
 
     # not using PIM, but use Docker
     # print(f"docker_is_available: {docker_is_available}  use_docker: {use_docker}\n")
@@ -169,9 +162,7 @@ def launch_ensight(
             data_directory=data_directory,
             docker_image_name=docker_image_name,
             use_dev=use_dev,
-            timeout=timeout,
-            use_egl=use_egl,
-            use_sos=use_sos,
+            **kwargs,
         )
         return launcher.start()
 
@@ -180,8 +171,6 @@ def launch_ensight(
         ansys_installation=ansys_installation,
         application=application,
         batch=batch,
-        timeout=timeout,
-        use_egl=use_egl,
-        use_sos=use_sos,
+        **kwargs,
     )
     return launcher.start()

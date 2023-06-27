@@ -8,6 +8,7 @@ Examples:
 >>> session = LocalLauncher().start()
 """
 import glob
+import logging
 import os.path
 import platform
 import shutil
@@ -94,10 +95,6 @@ class LocalLauncher(Launcher):
         Launch a copy of EnSight locally that supports the gRPC interface.  Create and
         bind a Session instance to the created gRPC session.  Return that session.
 
-        Args:
-            host:
-                Optional hostname on which the EnSight gRPC service is running
-
         Returns:
             pyensight Session object instance
 
@@ -154,6 +151,7 @@ class LocalLauncher(Launcher):
                 cmd.append("-nservers")
                 cmd.append(str(int(self._use_sos)))
             # cmd.append("-minimize_console")
+            logging.debug(f"Starting EnSight with : {cmd}\n")
             self._ensight_pid = subprocess.Popen(
                 cmd,
                 stdout=subprocess.DEVNULL,
@@ -164,13 +162,29 @@ class LocalLauncher(Launcher):
             ).pid
 
             # Launch websocketserver
+
             # find websocketserver script
             found_scripts = glob.glob(
                 os.path.join(self._install_path, "nexus*", "nexus_launcher", "websocketserver.py")
             )
             if not found_scripts:
                 raise RuntimeError("Unable to find websocketserver script")
-            websocket_script = found_scripts[0]
+            # If we found more than one nexus directory, find the one that corresponds
+            # to the version we should be.  Otherwise, just take the first one found.
+            # Typically, this probably will only happen for developer installations
+            # or build areas.
+            idx = 0
+            try:
+                found_scripts_len = len(found_scripts)
+                if found_scripts_len > 1:
+                    version_str = str(pyensight.__ansys_version__)
+                    for i in range(found_scripts_len):
+                        if version_str in found_scripts[i]:
+                            idx = i
+                            break
+            except Exception:
+                pass
+            websocket_script = found_scripts[idx]
 
             # build the commandline
             cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
@@ -188,6 +202,7 @@ class LocalLauncher(Launcher):
             cmd.extend(["--local_session", "envision", "5"])
             # websocket port
             cmd.append(str(self._ports[3]))
+            logging.debug(f"Starting WSS: {cmd}\n")
             if is_windows:
                 startupinfo = subprocess.STARTUPINFO()
                 startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
@@ -210,6 +225,11 @@ class LocalLauncher(Launcher):
                 ).pid
 
         # build the session instance
+        logging.debug(
+            f"Creating session with ports for grpc:{self._ports[0]}\n"
+            + f"html:{self._ports[2]} ws:{self._ports[3]}\n"
+            + f"key:{self._secret_key}\n"
+        )
         session = pyensight.Session(
             host="127.0.0.1",
             grpc_port=self._ports[0],
@@ -269,7 +289,12 @@ class LocalLauncher(Launcher):
         else:
             # Environmental variable
             if "PYENSIGHT_ANSYS_INSTALLATION" in os.environ:
-                dirs_to_check.append(os.environ["PYENSIGHT_ANSYS_INSTALLATION"])
+                env_inst = os.environ["PYENSIGHT_ANSYS_INSTALLATION"]
+                dirs_to_check.append(env_inst)
+                # Note: PYENSIGHT_ANSYS_INSTALLATION is designed for devel builds
+                # where there is no CEI directory, but for folks using it in other
+                # ways, we'll add that one too, just in case.
+                dirs_to_check.append(os.path.join(env_inst, "CEI"))
             # 'enve' home directory (running in local distro)
             try:
                 import enve
