@@ -1,18 +1,16 @@
 import pytest
 import requests
 
-from ansys.pyensight import DockerLauncher, LocalLauncher  # noqa: F401
+from ansys.pyensight import DockerLauncher, LocalLauncher
 
 
 def test_rest_apis(tmpdir, pytestconfig: pytest.Config):
-    data_dir = tmpdir.mkdir("datadir")  # noqa: F841
+    data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
     if use_local:
         launcher = LocalLauncher(enable_rest_api=True)
     else:
-        # TODO: Enable this when the docker image is corrected.
-        # launcher = DockerLauncher(data_directory=data_dir, use_dev=True, enable_rest_api=True)
-        return
+        launcher = DockerLauncher(data_directory=data_dir, use_dev=True, enable_rest_api=True)
 
     s = launcher.start()
     s.load_data(f"{s.cei_home}/ensight{s.cei_suffix}/data/cube/cube.case")
