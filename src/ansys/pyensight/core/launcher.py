@@ -83,8 +83,9 @@ class Launcher:
 
     @property
     def session_directory(self) -> str:
-        """The root directory for HTML files
-        This directory contents can be accessed as http://hostname:port/...
+        """The root directory for HTML files.
+
+        This directory contents can be accessed at hostname:port.
         """
         return self._session_directory
 
