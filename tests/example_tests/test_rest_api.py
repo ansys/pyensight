@@ -24,7 +24,7 @@ def test_rest_apis(tmpdir, pytestconfig: pytest.Config):
     while time.time() - start < 10.0:
         try:
             ret = requests.put(f"{uri_base}/exec", json="enscl.rest_test = 30*20")
-        except ConnectionResetError:
+        except Exception:
             pass
         time.sleep(0.5)
     assert ret.status_code == 200
