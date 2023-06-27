@@ -21,7 +21,7 @@ def test_rest_apis(tmpdir, pytestconfig: pytest.Config):
     # Simple attempt to do some math, store it and get the value back
     start = time.time()
     ret = None
-    while time.time() - start < 10.:
+    while time.time() - start < 10.0:
         try:
             ret = requests.put(f"{uri_base}/exec", json="enscl.rest_test = 30*20")
         except ConnectionResetError:
