@@ -16,6 +16,7 @@ import importlib.util
 import os.path
 import platform
 import sys
+import textwrap
 import time
 import types
 from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Tuple
@@ -349,13 +350,15 @@ class Session:
         Returns:
             The list of filenames and sizes that were copied.
         """
-        remote_functions = """
-import os
-def copy_write_function__(filename: str, data: bytes) -> None:
-    os.makedirs(os.path.dirname(filename), exist_ok=True)
-    with open(filename, "wb") as fp:
-        fp.write(data)
-                 """
+
+        remote_functions = textwrap.dedent("""\
+                import os
+                def copy_write_function__(filename: str, data: bytes) -> None:
+                    os.makedirs(os.path.dirname(filename), exist_ok=True)
+                    with open(filename, "wb") as fp:
+                        fp.write(data)
+                 """)
+
         self.cmd(remote_functions, do_eval=False)
         out = []
         dirlen = 0
@@ -411,32 +414,34 @@ def copy_write_function__(filename: str, data: bytes) -> None:
         Returns:
             The list of files that were copied.
         """
-        remote_functions = """
-import os
-def copy_walk_function__(remotedir: str, filelist: list) -> None:
-    out = []
-    dirlen = 0
-    if remotedir:
-        dirlen = len(remotedir) + 1
-    for item in filelist:
-        try:
-            name = os.path.join(remotedir, item)
-            if os.path.isfile(name):
-                out.append((name[dirlen:], os.stat(name).st_size))
-            else:
-                for root, _, files in os.walk(name):
-                    for filename in files:
-                        fullname = os.path.join(root, filename)
-                        out.append((fullname[dirlen:], os.stat(fullname).st_size))
-        except Exception:
-            pass
-    return out
 
-def copy_read_function__(filename: str) -> bytes:
-    with open(filename, "rb") as fp:
-        data = fp.read()
-    return data
-                """
+        remote_functions = textwrap.dedent("""\
+                import os
+                def copy_walk_function__(remotedir: str, filelist: list) -> None:
+                    out = []
+                    dirlen = 0
+                    if remotedir:
+                        dirlen = len(remotedir) + 1
+                    for item in filelist:
+                        try:
+                            name = os.path.join(remotedir, item)
+                            if os.path.isfile(name):
+                                out.append((name[dirlen:], os.stat(name).st_size))
+                            else:
+                                for root, _, files in os.walk(name):
+                                    for filename in files:
+                                        fullname = os.path.join(root, filename)
+                                        out.append((fullname[dirlen:], os.stat(fullname).st_size))
+                        except Exception:
+                            pass
+                    return out
+                
+                def copy_read_function__(filename: str) -> bytes:
+                    with open(filename, "rb") as fp:
+                        data = fp.read()
+                    return data
+                """)
+
         self.cmd(remote_functions, do_eval=False)
         names = self.cmd(f"copy_walk_function__(r'{remotedir}', {filelist})", do_eval=True)
         if progress:
