@@ -1,7 +1,7 @@
 """launch_ensight module
 
 The launch_ensight module provides pyensight with the ability to launch an
-EnSight session using PyPIM.  This leverages the DockerLauncherEnShell module.
+EnSight session using PyPIM.  This leverages the DockerLauncher module.
 
 Examples:
     ::
@@ -28,7 +28,7 @@ except Exception:
 
 docker_is_available = False
 try:
-    from ansys.pyensight.dockerlauncherenshell import DockerLauncherEnShell
+    from ansys.pyensight.dockerlauncher import DockerLauncher
 
     docker_is_available = True
 except Exception:
@@ -74,7 +74,7 @@ if pim_is_available:
             ]
         )
 
-        launcher = DockerLauncherEnShell(
+        launcher = DockerLauncher(
             channel=channel,
             pim_instance=instance,
         )
@@ -105,7 +105,7 @@ def launch_ensight(
       use_pim : bool, optional
         If True, then PyPIM is used to launch EnSight.
       use_docker : bool, optional
-        If True, use DockerLaucherEnShell. If use_pim is True, this option is ignored.
+        If True, use DockerLaucher. If use_pim is True, this option is ignored.
       data_directory:
         Host directory to make into the Docker container at /data
         Only used if use_docker is True.
@@ -150,7 +150,7 @@ def launch_ensight(
     # not using PIM, but use Docker
     # print(f"docker_is_available: {docker_is_available}  use_docker: {use_docker}\n")
     if docker_is_available and use_docker:
-        launcher = DockerLauncherEnShell(
+        launcher = DockerLauncher(
             data_directory=data_directory,
             docker_image_name=docker_image_name,
             use_dev=use_dev,

@@ -16,9 +16,4 @@ try:
 except Exception:
     pass
 
-try:
-    from ansys.pyensight.dockerlauncherenshell import DockerLauncherEnShell
-except Exception:
-    pass
-
 from ansys.pyensight.launch_ensight import launch_ensight

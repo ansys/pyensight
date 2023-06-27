@@ -618,11 +618,9 @@ class Session:
 
         Terminate the current session and its gRPC connection.
         """
+        self._grpc.shutdown(stop_ensight=False)
         if self._launcher and self._halt_ensight_on_close:
             self._launcher.close(self)
-        else:
-            # lightweight shutdown, just close the gRPC connection
-            self._grpc.shutdown(stop_ensight=False)
         self._launcher = None
 
     def _build_utils_interface(self) -> None:
