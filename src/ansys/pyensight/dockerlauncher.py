@@ -16,6 +16,7 @@ Examples:
 import logging
 import os.path
 import subprocess
+import time
 from typing import Any, Dict, Optional
 import uuid
 
@@ -358,7 +359,14 @@ class DockerLauncher(pyensight.Launcher):
                 f"Connecting to EnShell over gRPC port: {self._service_host_port['grpc'][1]}...\n"
             )
             self._enshell = enshell_grpc.EnShellGRPC(port=self._service_host_port["grpc"][1])
-            self._enshell.connect(self._timeout)
+            time_start = time.time()
+            while time.time() - time_start < self._timeout:
+                if self._enshell.is_connected():
+                    break
+                try:
+                    self._enshell.connect(timeout=self._timeout)
+                except OSError:
+                    pass
 
         if not self._enshell.is_connected():
             self.stop()
