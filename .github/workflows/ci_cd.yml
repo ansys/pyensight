@@ -131,6 +131,9 @@ jobs:
       - name: Docker pull
         run: docker pull ${{ env.ENSIGHT_IMAGE }}
 
+      - name: Install build requirements
+        run: |
+          pip install .[doc]
 
       - name: Run Ansys documentation building action
         uses: ansys/actions/doc-build@v4
