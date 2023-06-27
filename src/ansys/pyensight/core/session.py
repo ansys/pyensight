@@ -22,8 +22,8 @@ from typing import TYPE_CHECKING, Any, Callable, Dict, Optional, Tuple
 from urllib.parse import urlparse
 import webbrowser
 
-from ansys import pyensight
 from ansys.pyensight.core.enscontext import EnsContext
+from ansys.pyensight.core.launcher import Launcher
 from ansys.pyensight.core.listobj import ensobjlist
 from ansys.pyensight.core.renderable import (
     RenderableDeepPixel,
@@ -119,7 +119,7 @@ class Session:
         # if the caller passed a session directory we will assume they are
         # creating effectively a proxy Session and create a (stub) launcher
         if session_directory is not None:
-            self._launcher = pyensight.core.launcher()
+            self._launcher = Launcher()
             self._launcher.session_directory = session_directory
             # The stub will not know about us
             self._halt_ensight_on_close = False
@@ -132,10 +132,8 @@ class Session:
             self._jupyter_notebook = False
 
         # Connect to the EnSight instance
-        from ansys.pyensight.core import (  # pylint: disable=import-outside-toplevel
-            ensight_api,
-            ensight_grpc,
-        )
+        from ansys.api.pyensight import ensight_api  # pylint: disable=import-outside-toplevel
+        from ansys.pyensight.core import ensight_grpc  # pylint: disable=import-outside-toplevel
 
         self._ensight = ensight_api.ensight(self)
         self._build_utils_interface()
@@ -290,12 +288,12 @@ class Session:
         return self._hostname
 
     @property
-    def launcher(self) -> "pyensight.core.launcher":
+    def launcher(self) -> "Launcher":
         """If a launcher was used to instantiate this session, a reference to the launcher instance."""
         return self._launcher
 
     @launcher.setter
-    def launcher(self, value: "pyensight.core.launcher"):
+    def launcher(self, value: "Launcher"):
         self._launcher = value
 
     @staticmethod
