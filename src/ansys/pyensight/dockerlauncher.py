@@ -116,6 +116,11 @@ class DockerLauncher(pyensight.Launcher):
         # to be reassigned later
         self._ansys_version: Optional[str] = None
 
+        print(
+            f"DockerLauncher data_dir={self._data_directory}\n"
+            + f"  image_name={self._image_name}\n"
+            + f"  use_dev={use_dev}\n"
+        )
         if self._enshell_grpc_channel and self._pim_instance:
             if not set(("grpc_private", "http", "ws")).issubset(self._pim_instance.services):
                 raise RuntimeError(
