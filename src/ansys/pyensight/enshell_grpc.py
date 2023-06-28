@@ -288,10 +288,13 @@ class EnShellGRPC(object):
             return
 
         self.connect()
+        command_string = "run_cmd printenv"
+        ret = self.run_command(command_string)
+        print(f"{command_string} :: ret = {ret}\n")
+
         command_string = "run_cmd printenv CEI_HOME"
         ret = self.run_command(command_string)
-        print(f"ret = {ret}\n")
-
+        print(f"{command_string} :: ret = {ret}\n")
         if ret[0] != 0:
             self._cei_home = None
             raise RuntimeError("Error getting CEI_HOME from EnShell")
