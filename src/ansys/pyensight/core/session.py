@@ -11,8 +11,8 @@ ansys.pyensight.Session
 
 """
 import atexit
-import glob
 import importlib.util
+from os import listdir
 import os.path
 import platform
 import sys
@@ -770,7 +770,9 @@ class Session:
         _utils_dir = os.path.join(os.path.dirname(__file__), "utils")
         if _utils_dir not in sys.path:
             sys.path.insert(0, _utils_dir)
-        for _filename in glob.glob(os.path.join(_utils_dir, "*.py")):
+        onlyfiles = [f for f in listdir(_utils_dir) if os.path.isfile(os.path.join(_utils_dir, f))]
+        for _filename in onlyfiles:
+            _filename = os.path.join(_utils_dir, _filename)
             try:
                 # get the module and class names
                 _name = os.path.splitext(os.path.basename(_filename))[0]
