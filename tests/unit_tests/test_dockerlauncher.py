@@ -8,6 +8,7 @@ import pytest
 import ansys.pyensight
 from ansys.pyensight import DockerLauncher, enshell_grpc
 
+
 @pytest.fixture
 def enshell_mock(mocker):
     mocked_grpc = mock.MagicMock("GRPC")
@@ -20,14 +21,15 @@ def enshell_mock(mocker):
         [0, "verbose 3"],
     ]
     mocked_grpc.run_command = mock.MagicMock("enshell run command")
-    mocked_grpc.run_command.side_effect=values_run_command.copy()
+    mocked_grpc.run_command.side_effect = values_run_command.copy()
     path = "/ansys_inc/v345/CEI/bin/ensight"
     cei_home = path.encode("utf-8")
     mocked_grpc.cei_home = lambda: cei_home
     mocked_grpc.ansys_version = lambda: "345"
-    mocked_grpc.start_ensight = lambda cmd,env : [0, cmd]
-    mocked_grpc.start_other = lambda cmd : [0, cmd]
+    mocked_grpc.start_ensight = lambda cmd, env: [0, cmd]
+    mocked_grpc.start_other = lambda cmd: [0, cmd]
     return mocked_grpc, values_run_command
+
 
 def test_start(mocker, capsys, caplog, enshell_mock):
     values_run_command = enshell_mock[1].copy()
@@ -51,15 +53,16 @@ def test_start(mocker, capsys, caplog, enshell_mock):
             "Running container super_ensight with cmd -app -v 3 -grpc_server"
             in caplog.records[1].message
         )
-        assert (
-            "Starting EnSight with args: -batch -v 3 -grpc_server" in caplog.records[12].message
-        )
+        assert "Starting EnSight with args: -batch -v 3 -grpc_server" in caplog.records[12].message
     assert launcher.ansys_version() == "345"
     values_run_command[0] = [1, "cannot set no reroute"]
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     with pytest.raises(RuntimeError) as exec_info:
         launcher.start()
-    assert "Error sending EnShell command: set_no_reroute_log ret: [1, \'cannot set no reroute\']" in str(exec_info)
+    assert (
+        "Error sending EnShell command: set_no_reroute_log ret: [1, 'cannot set no reroute']"
+        in str(exec_info)
+    )
     values_run_command[0] = [0, "set_no_reroute_log"]
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     dock = mocker.patch.object(docker, "from_env", return_value=docker_client)
