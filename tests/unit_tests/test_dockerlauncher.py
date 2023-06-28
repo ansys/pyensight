@@ -9,28 +9,6 @@ import ansys.pyensight
 from ansys.pyensight import DockerLauncher, enshell_grpc
 
 
-@pytest.fixture
-def enshell_mock(mocker):
-    mocked_grpc = mock.MagicMock("GRPC")
-    mocked_grpc.command = mock.MagicMock("command")
-    mocked_grpc.is_connected = lambda: True
-    mocked_grpc.connect = mock.MagicMock("execute_connection")
-    values_run_command = [
-        [0, "set_no_reroute_log"],  # first run, to find the ensight version
-        [0, "set_debug_log"],  # second run
-        [0, "verbose 3"],
-    ]
-    mocked_grpc.run_command = mock.MagicMock("enshell run command")
-    mocked_grpc.run_command.side_effect = values_run_command.copy()
-    path = "/ansys_inc/v345/CEI/bin/ensight"
-    cei_home = path.encode("utf-8")
-    mocked_grpc.cei_home = lambda: cei_home
-    mocked_grpc.ansys_version = lambda: "345"
-    mocked_grpc.start_ensight = lambda cmd, env: [0, cmd]
-    mocked_grpc.start_other = lambda cmd: [0, cmd]
-    return mocked_grpc, values_run_command
-
-
 def test_start(mocker, capsys, caplog, enshell_mock):
     values_run_command = enshell_mock[1].copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
