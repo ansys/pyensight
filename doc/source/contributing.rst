@@ -11,7 +11,7 @@ this guide before attempting to contribute to PyEnSight.
 
 Post issues
 -----------
-Use the `PyEnSight Issues <https://github.com/pyansys/pyensight/issues>`_ page to
+Use the `PyEnSight Issues <https://github.com/ansys/pyensight/issues>`_ page to
 submit questions, report bugs, and request new features.
 
 

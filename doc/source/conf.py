@@ -80,6 +80,13 @@ intersphinx_mapping = {
 numpydoc_show_class_members = False
 numpydoc_xref_param_type = True
 
+linkcheck_ignore = [
+    r"http://localhost:\d+/",
+    r"https://cubit.sandia.gov/public/verdict.html",
+    r"https://github.com/ansys/pyensight/issues",
+]
+
+
 # Consider enabling numpydoc validation. See:
 # https://numpydoc.readthedocs.io/en/latest/validation.html#
 numpydoc_validate = True
