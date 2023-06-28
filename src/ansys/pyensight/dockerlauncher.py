@@ -121,7 +121,6 @@ class DockerLauncher(pyensight.Launcher):
             + f"  image_name={self._image_name}\n"
             + f"  use_dev={use_dev}\n"
         )
-        logging.basicConfig(format="pyensight: %(message)s", level=logging.DEBUG)
 
         if self._enshell_grpc_channel and self._pim_instance:
             if not set(("grpc_private", "http", "ws")).issubset(self._pim_instance.services):
@@ -281,6 +280,7 @@ class DockerLauncher(pyensight.Launcher):
         use_egl = self._use_egl()
 
         logging.debug("Starting Container...\n")
+        print("Starting Container...\n")
         if data_volume:
             if use_egl:
                 if self._docker_client:
@@ -299,6 +299,8 @@ class DockerLauncher(pyensight.Launcher):
             else:
                 logging.debug(f"Running container {self._image_name} with cmd {enshell_cmd}\n")
                 logging.debug(f"ports to map: {ports_to_map}\n")
+                print(f"Running container {self._image_name} with cmd {enshell_cmd}\n")
+                print(f"ports to map: {ports_to_map}\n")
                 if self._docker_client:
                     self._container = self._docker_client.containers.run(
                         self._image_name,
@@ -310,6 +312,7 @@ class DockerLauncher(pyensight.Launcher):
                         detach=True,
                     )
                 logging.debug(f"_container = {str(self._container)}\n")
+                print(f"_container = {str(self._container)}\n")
         else:
             if use_egl:
                 if self._docker_client:
@@ -327,6 +330,8 @@ class DockerLauncher(pyensight.Launcher):
             else:
                 logging.debug(f"Running container {self._image_name} with cmd {enshell_cmd}\n")
                 logging.debug(f"ports to map: {ports_to_map}\n")
+                print(f"Running container {self._image_name} with cmd {enshell_cmd}\n")
+                print(f"ports to map: {ports_to_map}\n")
                 if self._docker_client:
                     self._container = self._docker_client.containers.run(
                         self._image_name,
@@ -338,6 +343,7 @@ class DockerLauncher(pyensight.Launcher):
                     )
                 # logging.debug(f"_container = {str(self._container)}\n")
         logging.debug("Container started.\n")
+        print("Container started.\n")
         return self.connect()
 
     def connect(self):
@@ -365,6 +371,9 @@ class DockerLauncher(pyensight.Launcher):
             logging.debug(
                 f"Connecting to EnShell over gRPC port: {self._service_host_port['grpc'][1]}...\n"
             )
+            print(
+                f"Connecting to EnShell over gRPC port: {self._service_host_port['grpc'][1]}...\n"
+            )
             self._enshell = enshell_grpc.EnShellGRPC(port=self._service_host_port["grpc"][1])
             time_start = time.time()
             while time.time() - time_start < self._timeout:
@@ -382,6 +391,7 @@ class DockerLauncher(pyensight.Launcher):
         cmd = "set_no_reroute_log"
         ret = self._enshell.run_command(cmd)
         logging.debug(f"enshell cmd: {cmd} ret: {ret}\n")
+        print(f"enshell cmd: {cmd} ret: {ret}\n")
         if ret[0] != 0:
             self.stop()
             raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
@@ -389,6 +399,7 @@ class DockerLauncher(pyensight.Launcher):
         cmd = "set_debug_log " + log_file
         ret = self._enshell.run_command(cmd)
         logging.debug(f"enshell cmd: {cmd} ret: {ret}\n")
+        print(f"enshell cmd: {cmd} ret: {ret}\n")
         """
         if ret[0] != 0:
             self.stop()
@@ -398,12 +409,15 @@ class DockerLauncher(pyensight.Launcher):
         cmd = "verbose 3"
         ret = self._enshell.run_command(cmd)
         logging.debug(f"enshell cmd: {cmd} ret: {ret}\n")
+        print(f"enshell cmd: {cmd} ret: {ret}\n")
         if ret[0] != 0:
             self.stop()
             raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
 
         logging.debug("Connected to EnShell.  Getting CEI_HOME and Ansys version...\n")
         logging.debug(f"  _enshell: {self._enshell}\n\n")
+        print("Connected to EnShell.  Getting CEI_HOME and Ansys version...\n")
+        print(f"  _enshell: {self._enshell}\n\n")
         # Build up the command to run ensight via the EnShell gRPC interface
 
         self._cei_home = self._enshell.cei_home()
@@ -412,6 +426,7 @@ class DockerLauncher(pyensight.Launcher):
         print("Ansys Version=", self._ansys_version)
 
         logging.debug("Got them.  Starting EnSight...\n")
+        print("Got them.  Starting EnSight...\n")
 
         use_egl = self._use_egl()
 
@@ -436,12 +451,14 @@ class DockerLauncher(pyensight.Launcher):
         ensight_args += " -vnc " + vnc_url
 
         logging.debug(f"Starting EnSight with args: {ensight_args}\n")
+        print(f"Starting EnSight with args: {ensight_args}\n")
         ret = self._enshell.start_ensight(ensight_args, ensight_env)
         if ret[0] != 0:
             self.stop()
             raise RuntimeError(f"Error starting EnSight with args: {ensight_args}")
 
         logging.debug("EnSight started.  Starting wss...\n")
+        print("EnSight started.  Starting wss...\n")
 
         # Run websocketserver
         wss_cmd = "cpython /ansys_inc/v" + self._ansys_version + "/CEI/nexus"
@@ -462,12 +479,14 @@ class DockerLauncher(pyensight.Launcher):
         wss_cmd += " " + str(self._service_host_port["ws"][1])
 
         logging.debug(f"Starting WSS: {wss_cmd}\n")
+        print(f"Starting WSS: {wss_cmd}\n")
         ret = self._enshell.start_other(wss_cmd)
         if ret[0] != 0:
             self.stop()
             raise RuntimeError(f"Error starting WSS: {wss_cmd}\n")
 
         logging.debug("wss started.  Making session...\n")
+        print("wss started.  Making session...\n")
 
         # build the session instance
         # WARNING: assuming the host is the same for grpc_private, http, and ws
@@ -486,6 +505,7 @@ class DockerLauncher(pyensight.Launcher):
         self._sessions.append(session)
 
         logging.debug("Return session.\n")
+        print("Return session.\n")
 
         return session
 
