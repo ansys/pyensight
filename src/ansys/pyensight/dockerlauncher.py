@@ -121,6 +121,8 @@ class DockerLauncher(pyensight.Launcher):
             + f"  image_name={self._image_name}\n"
             + f"  use_dev={use_dev}\n"
         )
+        logging.basicConfig(format="pyensight: %(message)s", level=logging.DEBUG)
+
         if self._enshell_grpc_channel and self._pim_instance:
             if not set(("grpc_private", "http", "ws")).issubset(self._pim_instance.services):
                 raise RuntimeError(
