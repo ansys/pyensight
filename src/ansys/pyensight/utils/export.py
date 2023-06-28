@@ -66,6 +66,7 @@ class Export:
         height: Optional[int] = None,
         passes: int = 4,
         enhanced: bool = False,
+        raytrace: bool = False,
     ) -> None:
         """Render an image
 
@@ -85,6 +86,8 @@ class Export:
                 If this option is selected and filename is specified, the saved image will
                 be in tiff format and will include additional channels for per-pixel
                 object and variable information.
+            raytrace:
+                If this option is True, the image will be generated using the raytracer.
         Example:
             ::
 
@@ -102,9 +105,10 @@ class Export:
             height = win_size[1]
 
         if isinstance(self._ensight, ModuleType):
-            raw_image = self._image_remote(width, height, passes, enhanced)
+            raw_image = self._image_remote(width, height, passes, enhanced, raytrace)
         else:
-            cmd = f"ensight.utils.export._image_remote({width}, {height}, {passes}, {enhanced})"
+            cmd = f"ensight.utils.export._image_remote({width}, {height}, {passes}, "
+            cmd += f"{enhanced}, {raytrace})"
             raw_image = self._ensight._session.cmd(cmd)
 
         pil_image = self._dict_to_pil(raw_image)
@@ -174,7 +178,9 @@ class Export:
             return None
         return numpy.frombuffer(obj["data"], dtype=obj["dtype"]).reshape(obj["shape"])
 
-    def _image_remote(self, width: int, height: int, passes: int, enhanced: bool) -> dict:
+    def _image_remote(
+        self, width: int, height: int, passes: int, enhanced: bool, raytrace: bool
+    ) -> dict:
         """ensight-side implementation
 
         Args:
@@ -186,11 +192,33 @@ class Export:
                 The number of antialiasing passes.
             enhanced:
                 If True, the returned image will be a "deep pixel" TIFF image
+            raytrace:
+                If True, render with the raytracing engine.
 
         Returns:
             A dictionary of the various channels
         """
-        img = ensight.render(x=width, y=height, num_samples=passes, enhanced=enhanced)
+        if not raytrace:
+            img = ensight.render(x=width, y=height, num_samples=passes, enhanced=enhanced)
+        else:
+            import enve
+
+            with tempfile.TemporaryDirectory() as tmpdirname:
+                tmpfilename = os.path.join(tmpdirname, str(uuid.uuid1()))
+                ensight.file.image_format("png")
+                ensight.file.image_file(tmpfilename)
+                ensight.file.image_window_size("user_defined")
+                ensight.file.image_window_xy(width, height)
+                ensight.file.image_rend_offscreen("ON")
+                ensight.file.image_numpasses(passes)
+                ensight.file.image_stereo("current")
+                ensight.file.image_screen_tiling(1, 1)
+                ensight.file.raytracer_options("fgoverlay 1 imagedenoise 1 quality 5")
+                ensight.file.image_raytrace_it("ON")
+                ensight.file.save_image()
+                img = enve.image()
+                img.load(f"{tmpfilename}.png")
+        # get the channels from the enve.image instance
         output = dict(width=width, height=height, metadata=img.metadata)
         # extract the channels from the image
         output["pixeldata"] = self._numpy_to_dict(img.pixeldata)
@@ -214,6 +242,7 @@ class Export:
         starting_frame: int = 0,
         frames_per_second: float = 60.0,
         format_options: Optional[str] = "",
+        raytrace: bool = False,
     ) -> None:
         """Render an animation
 
@@ -252,6 +281,8 @@ class Export:
                 Default: 60.
             format_options:
                 A string describing more specific option for the MPEG4 encoder.
+            raytrace:
+                It True, use the raytracing engine.
         Example:
             ::
 
@@ -306,11 +337,12 @@ class Export:
                 num_frames,
                 frames_per_second,
                 format_options,
+                raytrace,
             )
         else:
             cmd = f"ensight.utils.export._animation_remote({width}, {height}, {passes}, "
             cmd += f"{anim_type}, {starting_frame}, {num_frames}, "
-            cmd += f"{frames_per_second}, '{format_options}')"
+            cmd += f"{frames_per_second}, '{format_options}', {raytrace})"
             raw_mpeg4 = self._ensight._session.cmd(cmd)
 
         with open(filename, "wb") as fp:
@@ -326,6 +358,7 @@ class Export:
         frames: int,
         fps: float,
         options: str,
+        raytrace: bool,
     ) -> bytes:
         """ensight-side implementation
 
@@ -346,6 +379,8 @@ class Export:
                 The output framerate.
             options:
                 The MPEG4 configuration options.
+            raytrace:
+                If True, raytrace the scene
 
         Returns:
             The MPEG4 stream in bytes.
@@ -369,7 +404,10 @@ class Export:
             self._ensight.file.animation_frames(frames)
             self._ensight.file.animation_start_number(start)
             self._ensight.file.animation_multiple_images("OFF")
-            self._ensight.file.animation_raytrace_it("OFF")
+            if raytrace:
+                self._ensight.file.animation_raytrace_it("ON")
+            else:
+                self._ensight.file.animation_raytrace_it("OFF")
             self._ensight.file.animation_raytrace_ext("OFF")
 
             self._ensight.file.animation_play_time("OFF")

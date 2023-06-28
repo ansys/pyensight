@@ -1,3 +1,5 @@
+import time
+
 from ansys.pyensight.core.dockerlauncher import DockerLauncher
 from ansys.pyensight.core.locallauncher import LocalLauncher
 import pytest
@@ -17,8 +19,16 @@ def test_rest_apis(tmpdir, pytestconfig: pytest.Config):
     uri_base = f"http://{s.hostname}:{s.html_port}/ensight/v1/{s.secret_key}"
 
     # Simple attempt to do some math, store it and get the value back
-    ret = requests.put(f"{uri_base}/exec", json="enscl.rest_test = 30*20")
+    start = time.time()
+    ret = None
+    while time.time() - start < 10.0:
+        try:
+            ret = requests.put(f"{uri_base}/exec", json="enscl.rest_test = 30*20")
+        except Exception:
+            pass
+        time.sleep(0.5)
     assert ret.status_code == 200
+
     value = requests.put(f"{uri_base}/eval", json="enscl.rest_test").json()
     assert value == 600, "Unable to check computed value"
 

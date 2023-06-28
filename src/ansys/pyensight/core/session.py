@@ -16,9 +16,10 @@ import importlib.util
 import os.path
 import platform
 import sys
+import textwrap
 import time
 import types
-from typing import TYPE_CHECKING, Any, Callable, Dict, Optional, Tuple
+from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Tuple
 from urllib.parse import urlparse
 import webbrowser
 
@@ -301,6 +302,143 @@ class Session:
         """Open the help pages for the pyansys project in a webbrowser"""
         url = "https://ensight.docs.pyansys.com/"
         webbrowser.open(url)
+
+    def copy_to_session(
+        self, localdir: str, filelist: List[str], remotedir: str, progress: bool = False
+    ) -> list:
+        """Copy a collection of files into the EnSight session
+
+        Copy files from the local filesystem into the filesystem that is hosting
+        the EnSight instance.  Note: for LocalLauncher, these are the same filesystems.
+
+        Args:
+            localdir:
+                The directory on the local filesystem, the source of the files.
+            filelist:
+                The list of files to copy.  Note: these files will be sourced
+                relative to ``localdir`` and written relative to ``remotedir``.
+            remotedir:
+                The directory on the remote (EnSight) filesystem, the destination
+                for the files.
+            progress:
+                If True and the tqdm module is available, it will be used to
+                present a progress bar.
+        Returns:
+            The list of filenames and sizes that were copied.
+        """
+
+        remote_functions = textwrap.dedent(
+            """\
+                import os
+                def copy_write_function__(filename: str, data: bytes) -> None:
+                    os.makedirs(os.path.dirname(filename), exist_ok=True)
+                    with open(filename, "wb") as fp:
+                        fp.write(data)
+            """
+        )
+
+        self.cmd(remote_functions, do_eval=False)
+        out = []
+        dirlen = 0
+        if localdir:
+            dirlen = len(localdir) + 1
+        for item in filelist:
+            try:
+                name = os.path.join(localdir, item)
+                if os.path.isfile(name):
+                    out.append((name[dirlen:], os.stat(name).st_size))
+                else:
+                    for root, _, files in os.walk(name):
+                        for filename in files:
+                            fullname = os.path.join(root, filename)
+                            out.append((fullname[dirlen:], os.stat(fullname).st_size))
+            except Exception:
+                pass
+        if progress:
+            try:
+                from tqdm.auto import tqdm
+            except ImportError:
+                tqdm = list
+        else:
+            tqdm = list
+        for item in tqdm(out):
+            filename = os.path.join(localdir, item[0])
+            with open(filename, "rb") as fp:
+                data = fp.read()
+            name = os.path.join(remotedir, item[0]).replace("\\", "/")
+            self.cmd(f"copy_write_function__(r'{name}', {data!r})", do_eval=False)
+        return out
+
+    def copy_from_session(
+        self, remotedir: str, filelist: List[str], localdir: str, progress: bool = False
+    ) -> list:
+        """Copy a collection of files out of the EnSight session
+
+        Copy files from the remote, EnSight instance,  filesystem to the local, pyensight
+        filesystem.  Note: for LocalLauncher, these are the same filesystems.
+
+        Args:
+            remotedir:
+                The directory on the remote (EnSight) filesystem, the source
+                of the files.
+            filelist:
+                The list of files to copy.  Note: these files will be sourced
+                relative to ``remotedir`` and written relative to ``localdir``.
+            localdir:
+                The directory on the local filesystem, the destination of the files.
+            progress:
+                If True and the tqdm module is available, it will be used to
+                present a progress bar.
+        Returns:
+            The list of files that were copied.
+        """
+
+        remote_functions = textwrap.dedent(
+            """\
+                import os
+                def copy_walk_function__(remotedir: str, filelist: list) -> None:
+                    out = []
+                    dirlen = 0
+                    if remotedir:
+                        dirlen = len(remotedir) + 1
+                    for item in filelist:
+                        try:
+                            name = os.path.join(remotedir, item)
+                            if os.path.isfile(name):
+                                out.append((name[dirlen:], os.stat(name).st_size))
+                            else:
+                                for root, _, files in os.walk(name):
+                                    for filename in files:
+                                        fullname = os.path.join(root, filename)
+                                        out.append((fullname[dirlen:], os.stat(fullname).st_size))
+                        except Exception:
+                            pass
+                    return out
+                # (needed for flake8)
+                def copy_read_function__(filename: str) -> bytes:
+                    with open(filename, "rb") as fp:
+                        data = fp.read()
+                    return data
+            """
+        )
+
+        self.cmd(remote_functions, do_eval=False)
+        names = self.cmd(f"copy_walk_function__(r'{remotedir}', {filelist})", do_eval=True)
+        if progress:
+            try:
+                from tqdm.auto import tqdm
+            except ImportError:
+                tqdm = list
+        else:
+            tqdm = list
+        for item in tqdm(names):
+            name = os.path.join(remotedir, item[0].replace("\\", "/"))
+            data = self.cmd(f"copy_read_function__(r'{name}')", do_eval=True)
+            full_name = os.path.join(localdir, item[0])
+            os.makedirs(os.path.dirname(full_name), exist_ok=True)
+            with open(full_name, "wb") as fp:
+                fp.write(data)
+        return names
 
     def run_script(self, filename: str) -> Optional[types.ModuleType]:
         """Execute an EnSight Python 'script' file
@@ -825,7 +963,6 @@ class Session:
             script += "outpath_dir = os.path.splitext(outpath)[0]\n"
             script += "os.mkdir(outpath_dir)\n"
             script += "shutil.unpack_archive(outpath, outpath_dir, 'zip')\n"
-            print(script)
             # return the directory name
             pathname = pathname_dir
         else:
