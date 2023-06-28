@@ -187,7 +187,7 @@ class DockerLauncher(pyensight.Launcher):
                 if Docker couldn't pull the image.
         """
         try:
-            if self._docker_client:
+            if self._docker_client is not None:
                 self._docker_client.images.pull(self._image_name)
         except Exception:
             raise RuntimeError(f"Can't pull Docker image: {self._image_name}")

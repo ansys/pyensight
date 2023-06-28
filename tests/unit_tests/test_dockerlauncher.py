@@ -6,22 +6,35 @@ import docker
 import pytest
 
 import ansys.pyensight
-from ansys.pyensight import DockerLauncher
+from ansys.pyensight import DockerLauncher, enshell_grpc
 
+@pytest.fixture
+def enshell_mock(mocker):
+    mocked_grpc = mock.MagicMock("GRPC")
+    mocked_grpc.command = mock.MagicMock("command")
+    mocked_grpc.is_connected = lambda: True
+    mocked_grpc.connect = mock.MagicMock("execute_connection")
+    values_run_command = [
+        [0, "set_no_reroute_log"],  # first run, to find the ensight version
+        [0, "set_debug_log"],  # second run
+        [0, "verbose 3"],
+    ]
+    mocked_grpc.run_command = mock.MagicMock("enshell run command")
+    mocked_grpc.run_command.side_effect=values_run_command.copy()
+    path = "/ansys_inc/v345/CEI/bin/ensight"
+    cei_home = path.encode("utf-8")
+    mocked_grpc.cei_home = lambda: cei_home
+    mocked_grpc.ansys_version = lambda: "345"
+    mocked_grpc.start_ensight = lambda cmd,env : [0, cmd]
+    mocked_grpc.start_other = lambda cmd : [0, cmd]
+    return mocked_grpc, values_run_command
 
-def test_start(mocker, capsys, caplog):
+def test_start(mocker, capsys, caplog, enshell_mock):
+    values_run_command = enshell_mock[1].copy()
+    mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
     os.environ["ANSYSLMD_LICENSE_FILE"] = "1055@mockedserver.com"
     docker_client = mock.MagicMock("Docker")
     run = mock.MagicMock("MockedRun")
-    run.exec_run = mock.MagicMock("MockedExec")
-    path = "/ansys_inc/v345/CEI/bin/ensight"
-    cei_home = path.encode("utf-8")
-    values = [
-        [0, cei_home],  # first run, to find the ensight version
-        [0, "ensight_run"],  # second run
-        [0, "websocket_run"],
-    ]
-    returned = mocker.patch.object(run, "exec_run", side_effect=values.copy())
     docker_client.containers = mock.MagicMock("MockedContainers")
     docker_client.containers.run = mock.MagicMock("MockedContainer")
     mocker.patch.object(docker_client.containers, "run", return_value=run)
@@ -35,26 +48,20 @@ def test_start(mocker, capsys, caplog):
         out, err = capsys.readouterr()
         assert "Ansys Version= 345" in out
         assert (
-            "Running command: ['bash', '--login', '-c', ' ensight -batch -v 3"
-            in caplog.records[0].message
+            "Running container super_ensight with cmd -app -v 3 -grpc_server"
+            in caplog.records[1].message
         )
         assert (
-            "Running command: ['bash', '--login', '-c', "
-            "'cpython /ansys_inc/v345/CEI/nexus345/nexus_launcher/websocketserver.py "
-            "--http_directory /home/ensight" in caplog.records[1].message
+            "Starting EnSight with args: -batch -v 3 -grpc_server" in caplog.records[12].message
         )
     assert launcher.ansys_version() == "345"
-    values[0][0] = 1
-    returned.side_effect = values.copy()
+    values_run_command[0] = [1, "cannot set no reroute"]
+    enshell_mock[0].run_command.side_effect = values_run_command.copy()
     with pytest.raises(RuntimeError) as exec_info:
         launcher.start()
-    assert "find /ansys_inc/vNNN/CEI/bin/ensight in the Docker container." in str(exec_info)
-    values[0][0] = 0
-    values[0][1] = "/path/to/darkness".encode("utf-8")
-    returned.side_effect = values.copy()
-    with pytest.raises(RuntimeError) as exec_info:
-        launcher.start()
-    assert "find version from cei_home in the Docker container." in str(exec_info)
+    assert "Error sending EnShell command: set_no_reroute_log ret: [1, \'cannot set no reroute\']" in str(exec_info)
+    values_run_command[0] = [0, "set_no_reroute_log"]
+    enshell_mock[0].run_command.side_effect = values_run_command.copy()
     dock = mocker.patch.object(docker, "from_env", return_value=docker_client)
     dock.side_effect = ModuleNotFoundError
     with pytest.raises(RuntimeError) as exec_info:
