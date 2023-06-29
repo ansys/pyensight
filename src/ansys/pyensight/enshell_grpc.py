@@ -1,4 +1,5 @@
-﻿import os
+﻿import logging
+import os
 import random
 import re
 import subprocess
@@ -134,7 +135,7 @@ class EnShellGRPC(object):
             # DETACHED_PROCESS = 0x00000008
             # self._pid = subprocess.Popen(cmd, creationflags=f, close_fds=True, env=my_env).pid
             # self._pid = subprocess.Popen(cmd, startupinfo=si, close_fds=True, env=my_env).pid
-            print(f"command: {cmd}\n\n")
+            logging.debug(f"command: {cmd}\n\n")
             self._pid = subprocess.Popen(cmd, close_fds=True, env=my_env).pid
         else:
             self._pid = subprocess.Popen(cmd, close_fds=True, env=my_env).pid
@@ -179,7 +180,11 @@ class EnShellGRPC(object):
             return
         self._channel = grpc.insecure_channel(
             "{}:{}".format(self._host, self._port),
-            options=[("grpc.max_receive_message_length", -1)],
+            options=[
+                ("grpc.max_receive_message_length", -1),
+                ("grpc.max_send_message_length", -1),
+                ("grpc.testing.fixed_reconnect_backoff_ms", 1100),
+            ],
         )
         try:
             grpc.channel_ready_future(self._channel).result(timeout=timeout)
@@ -284,18 +289,27 @@ class EnShellGRPC(object):
             return
 
         self.connect()
-        command_string = "run_cmd printenv CEI_HOME"
+        command_string = "run_cmd /usr/bin/printenv"
         ret = self.run_command(command_string)
-        print(f"ret = {ret}\n")
-
+        # logging.debug(f"{command_string} :: ret = {ret}\n")
         if ret[0] != 0:
             self._cei_home = None
-            raise RuntimeError("Error getting CEI_HOME from EnShell")
-        self._cei_home = ret[1].strip()
+            raise RuntimeError("Error getting printenv from EnShell")
+
+        # split the newline delimited string into a list of strings
+        env_vars = ret[1].strip().split("\n")
+        # find the string containing CEI_HOME
+        cei_home_line = [x for x in env_vars if "CEI_HOME" in x][0]
+        if cei_home_line is None:
+            raise RuntimeError("Error getting CEI_HOME env var from the Docker container.\n{ret}\n")
+
+        # CEI_HOME is everything after the equal sign
+        equal_sign_loc = cei_home_line.find("=")
+        if equal_sign_loc < 0:
+            raise RuntimeError("Error getting CEI_HOME env var from the Docker container.\n{ret}\n")
+        self._cei_home = cei_home_line[equal_sign_loc + 1 :]
         m = re.search("/v(\d\d\d)/", self._cei_home)
         if not m:
             self.stop_server()
-            # raise RuntimeError(f"Error getting version from {} in the Docker container.",
-            #   self._cei_home)
-            raise RuntimeError("Can't find version from cei_home in the Docker container.")
+            raise RuntimeError("Can't find version from cei_home in the Docker container.\n{ret}\n")
         self._ansys_version = m.group(1)
