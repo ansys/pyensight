@@ -1,9 +1,0 @@
-build>=0.8.0
-grpcio_tools>=1.23.0
-requests>=2.20.1
-twine>=4.0.1
-pyansys-docker>=5.0.4
-junitparser>=2.8.0
-urllib3>=1.26.10
-typing>=3.7.4.3
-typing-extensions>=4.5.0
