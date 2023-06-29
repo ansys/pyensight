@@ -26,7 +26,6 @@ classifiers = [
 dependencies = [
     "ansys-api-pyensight@git+https://github.com/ansys/ansys-api-pyensight",
     "build>=0.8.0",
-    "grpcio_tools>=1.23.0",
     "requests>=2.28.2",
     "twine>=4.0.1",
     "pyansys-docker>=5.0.4",
