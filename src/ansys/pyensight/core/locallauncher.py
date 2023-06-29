@@ -20,6 +20,7 @@ import uuid
 
 import ansys.pyensight.core as pyensight
 from ansys.pyensight.core.launcher import Launcher
+import ansys.pyensight.core.session
 
 
 class LocalLauncher(Launcher):
@@ -230,7 +231,7 @@ class LocalLauncher(Launcher):
             + f"html:{self._ports[2]} ws:{self._ports[3]}\n"
             + f"key:{self._secret_key}\n"
         )
-        session = pyensight.Session(
+        session = ansys.pyensight.core.session.Session(
             host="127.0.0.1",
             grpc_port=self._ports[0],
             html_port=self._ports[2],
