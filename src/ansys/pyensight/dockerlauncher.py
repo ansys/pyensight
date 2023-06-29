@@ -115,8 +115,12 @@ class DockerLauncher(pyensight.Launcher):
         # the Ansys / EnSight version we found in the container
         # to be reassigned later
         self._ansys_version: Optional[str] = None
+        # EnShell's log file
+        self._enshell_log_file = None
+        # pointer to the file service object if available
+        self._pim_file_service = None
 
-        print(
+        logging.debug(
             f"DockerLauncher data_dir={self._data_directory}\n"
             + f"  image_name={self._image_name}\n"
             + f"  use_dev={use_dev}\n"
@@ -142,6 +146,8 @@ class DockerLauncher(pyensight.Launcher):
             # for parity, add 'grpc' as a placeholder even though pim use sets up the grpc channel.
             # this isn't used in this situation.
             self._service_host_port["grpc"] = ("127.0.0.1", -1)
+            # attach to the file service if available
+            self._get_file_service()
             return
 
         # EnShell gRPC port, EnSight gRPC port, HTTP port, WSS port
@@ -280,7 +286,6 @@ class DockerLauncher(pyensight.Launcher):
         use_egl = self._use_egl()
 
         logging.debug("Starting Container...\n")
-        print("Starting Container...\n")
         if data_volume:
             if use_egl:
                 if self._docker_client:
@@ -295,12 +300,12 @@ class DockerLauncher(pyensight.Launcher):
                         ports=ports_to_map,
                         tty=True,
                         detach=True,
+                        auto_remove=True,
+                        remove=True,
                     )
             else:
                 logging.debug(f"Running container {self._image_name} with cmd {enshell_cmd}\n")
                 logging.debug(f"ports to map: {ports_to_map}\n")
-                print(f"Running container {self._image_name} with cmd {enshell_cmd}\n")
-                print(f"ports to map: {ports_to_map}\n")
                 if self._docker_client:
                     self._container = self._docker_client.containers.run(
                         self._image_name,
@@ -310,9 +315,10 @@ class DockerLauncher(pyensight.Launcher):
                         ports=ports_to_map,
                         tty=True,
                         detach=True,
+                        auto_remove=True,
+                        remove=True,
                     )
                 logging.debug(f"_container = {str(self._container)}\n")
-                print(f"_container = {str(self._container)}\n")
         else:
             if use_egl:
                 if self._docker_client:
@@ -326,12 +332,12 @@ class DockerLauncher(pyensight.Launcher):
                         ports=ports_to_map,
                         tty=True,
                         detach=True,
+                        auto_remove=True,
+                        remove=True,
                     )
             else:
                 logging.debug(f"Running container {self._image_name} with cmd {enshell_cmd}\n")
                 logging.debug(f"ports to map: {ports_to_map}\n")
-                print(f"Running container {self._image_name} with cmd {enshell_cmd}\n")
-                print(f"ports to map: {ports_to_map}\n")
                 if self._docker_client:
                     self._container = self._docker_client.containers.run(
                         self._image_name,
@@ -340,10 +346,11 @@ class DockerLauncher(pyensight.Launcher):
                         ports=ports_to_map,
                         tty=True,
                         detach=True,
+                        auto_remove=True,
+                        remove=True,
                     )
                 # logging.debug(f"_container = {str(self._container)}\n")
         logging.debug("Container started.\n")
-        print("Container started.\n")
         return self.connect()
 
     def connect(self):
@@ -371,9 +378,6 @@ class DockerLauncher(pyensight.Launcher):
             logging.debug(
                 f"Connecting to EnShell over gRPC port: {self._service_host_port['grpc'][1]}...\n"
             )
-            print(
-                f"Connecting to EnShell over gRPC port: {self._service_host_port['grpc'][1]}...\n"
-            )
             self._enshell = enshell_grpc.EnShellGRPC(port=self._service_host_port["grpc"][1])
             time_start = time.time()
             while time.time() - time_start < self._timeout:
@@ -391,36 +395,32 @@ class DockerLauncher(pyensight.Launcher):
         cmd = "set_no_reroute_log"
         ret = self._enshell.run_command(cmd)
         logging.debug(f"enshell cmd: {cmd} ret: {ret}\n")
-        print(f"enshell cmd: {cmd} ret: {ret}\n")
         if ret[0] != 0:
             self.stop()
             raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
 
-        cmd = "set_debug_log " + log_dir + "/enshell.log"
-        ret = self._enshell.run_command(cmd)
-        logging.debug(f"enshell cmd: {cmd} ret: {ret}\n")
-        print(f"enshell cmd: {cmd} ret: {ret}\n")
-        if ret[0] != 0:
-            # self.stop()
-            # raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
-            # instead of stopping, get a long directory listing, print it, and continue
-            cmd = "run_cmd /bin/ls -al " + log_dir
+        files_to_try = [log_dir + "/enshell.log", "/home/ensight/enshell.log"]
+        for f in files_to_try:
+            cmd = "set_debug_log " + f
             ret = self._enshell.run_command(cmd)
-            logging.debug(f"enshell cmd: {cmd} ret: {ret}\n")
-            print(f"enshell cmd: {cmd} ret: {ret}\n")
+            if ret[0] == 0:
+                self._enshell_log_file = f
+                break
+            else:
+                logging.debug(f"enshell error; cmd: {cmd} ret: {ret}\n")
+
+        if self._enshell_log_file is not None:
+            logging.debug(f"enshell log file {self._enshell_log_file}\n")
 
         cmd = "verbose 3"
         ret = self._enshell.run_command(cmd)
         logging.debug(f"enshell cmd: {cmd} ret: {ret}\n")
-        print(f"enshell cmd: {cmd} ret: {ret}\n")
         if ret[0] != 0:
             self.stop()
             raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
 
         logging.debug("Connected to EnShell.  Getting CEI_HOME and Ansys version...\n")
         logging.debug(f"  _enshell: {self._enshell}\n\n")
-        print("Connected to EnShell.  Getting CEI_HOME and Ansys version...\n")
-        print(f"  _enshell: {self._enshell}\n\n")
         # Build up the command to run ensight via the EnShell gRPC interface
 
         self._cei_home = self._enshell.cei_home()
@@ -429,7 +429,6 @@ class DockerLauncher(pyensight.Launcher):
         print("Ansys Version=", self._ansys_version)
 
         logging.debug("Got them.  Starting EnSight...\n")
-        print("Got them.  Starting EnSight...\n")
 
         use_egl = self._use_egl()
 
@@ -454,14 +453,12 @@ class DockerLauncher(pyensight.Launcher):
         ensight_args += " -vnc " + vnc_url
 
         logging.debug(f"Starting EnSight with args: {ensight_args}\n")
-        print(f"Starting EnSight with args: {ensight_args}\n")
         ret = self._enshell.start_ensight(ensight_args, ensight_env)
         if ret[0] != 0:
             self.stop()
             raise RuntimeError(f"Error starting EnSight with args: {ensight_args}")
 
         logging.debug("EnSight started.  Starting wss...\n")
-        print("EnSight started.  Starting wss...\n")
 
         # Run websocketserver
         wss_cmd = "cpython /ansys_inc/v" + self._ansys_version + "/CEI/nexus"
@@ -482,14 +479,12 @@ class DockerLauncher(pyensight.Launcher):
         wss_cmd += " " + str(self._service_host_port["ws"][1])
 
         logging.debug(f"Starting WSS: {wss_cmd}\n")
-        print(f"Starting WSS: {wss_cmd}\n")
         ret = self._enshell.start_other(wss_cmd)
         if ret[0] != 0:
             self.stop()
             raise RuntimeError(f"Error starting WSS: {wss_cmd}\n")
 
         logging.debug("wss started.  Making session...\n")
-        print("wss started.  Making session...\n")
 
         # build the session instance
         # WARNING: assuming the host is the same for grpc_private, http, and ws
@@ -508,7 +503,6 @@ class DockerLauncher(pyensight.Launcher):
         self._sessions.append(session)
 
         logging.debug("Return session.\n")
-        print("Return session.\n")
 
         return session
 
@@ -542,20 +536,22 @@ class DockerLauncher(pyensight.Launcher):
             self._pim_instance = None
         super().stop()
 
-    def file_service(self) -> Optional[Any]:
-        file_service = None
+    def _get_file_service(self) -> None:
         if simple_upload_server_is_available is False:
-            return file_service
+            return
         if self._pim_instance is None:
-            return file_service
+            return
 
         if "http-simple-upload-server" in self._pim_instance.services:
-            file_service = Client(
+            self._pim_file_service = Client(
                 token="token",
                 url=self._pim_instance.services["http-simple-upload-server"].uri,
                 headers=self._pim_instance.services["http-simple-upload-server"].headers,
             )
-        return file_service
+
+    def file_service(self) -> Optional[Any]:
+        """Return PIM file service object if available"""
+        return self._pim_file_service
 
     def _get_host_port(self, uri: str) -> tuple:
         parse_results = urllib3.util.parse_url(uri)
@@ -575,3 +571,47 @@ class DockerLauncher(pyensight.Launcher):
             return True
         except (subprocess.CalledProcessError, FileNotFoundError):
             return False
+
+    def copy_out_enshell_log_file(self) -> Optional[str]:
+        """Return the contents of the EnShell log if possible.
+
+        Returns:
+            string or None
+        """
+        if self._enshell_log_file is None:
+            return None
+
+        if self._container is not None:
+            try:
+                # docker containers allow copying from a container to the host
+                # a file, files, or a directory.  it arrives as a tar file.
+                # we're grabbing just the log file, but we still need to
+                # extract it from the tar file and then put the contents
+                # in the string we're returning
+                from io import BytesIO
+                import tarfile
+
+                bits, stat = self._container.get_archive(self._enshell_log_file)
+                file_obj = BytesIO()
+                for chunk in bits:
+                    file_obj.write(chunk)
+                file_obj.seek(0)
+                tar = tarfile.open(mode="r", fileobj=file_obj)
+                member = tar.getmembers()
+                text = tar.extractfile(member[0])
+                s = text.read().decode("utf-8")
+                text.close()
+                return s
+            except Exception:
+                return None
+
+        fs = self.file_service()
+        if fs is not None:
+            try:
+                fs.download_file("enshell.log", ".")
+                f = open("enshell.log")
+                s = f.read()
+                f.close()
+                return s
+            except Exception:
+                return None

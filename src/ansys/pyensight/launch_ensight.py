@@ -12,6 +12,7 @@ Examples:
         session.close()
 """
 
+import logging
 from typing import Optional
 
 from ansys.pyensight.locallauncher import LocalLauncher
@@ -24,7 +25,7 @@ try:
     pim_is_available = True
 except Exception:
     pass
-# print(f"pim_is_available: {pim_is_available}\n")
+logging.debug(f"pim_is_available: {pim_is_available}\n")
 
 docker_is_available = False
 try:
@@ -33,7 +34,7 @@ try:
     docker_is_available = True
 except Exception:
     pass
-# print(f"docker_is_available: {docker_is_available}\n")
+logging.debug(f"docker_is_available: {docker_is_available}\n")
 
 
 if pim_is_available:
@@ -78,7 +79,6 @@ if pim_is_available:
             channel=channel,
             pim_instance=instance,
         )
-        print(f"launcher: {launcher}\n\n")
         return launcher.connect()
 
 
@@ -142,13 +142,13 @@ def launch_ensight(
           variety of error conditions.
     """
 
-    # print(f"pim_is_available: {pim_is_available}  use_pim: {use_pim}\n")
+    logging.debug(f"pim_is_available: {pim_is_available}  use_pim: {use_pim}\n")
     if pim_is_available and use_pim:
         if pypim.is_configured():
             return _launch_ensight_with_pim(product_version=product_version, **kwargs)
 
     # not using PIM, but use Docker
-    # print(f"docker_is_available: {docker_is_available}  use_docker: {use_docker}\n")
+    logging.debug(f"docker_is_available: {docker_is_available}  use_docker: {use_docker}\n")
     if docker_is_available and use_docker:
         launcher = DockerLauncher(
             data_directory=data_directory,

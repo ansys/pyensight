@@ -1,4 +1,5 @@
-﻿import os
+﻿import logging
+import os
 import random
 import re
 import subprocess
@@ -134,7 +135,7 @@ class EnShellGRPC(object):
             # DETACHED_PROCESS = 0x00000008
             # self._pid = subprocess.Popen(cmd, creationflags=f, close_fds=True, env=my_env).pid
             # self._pid = subprocess.Popen(cmd, startupinfo=si, close_fds=True, env=my_env).pid
-            print(f"command: {cmd}\n\n")
+            logging.debug(f"command: {cmd}\n\n")
             self._pid = subprocess.Popen(cmd, close_fds=True, env=my_env).pid
         else:
             self._pid = subprocess.Popen(cmd, close_fds=True, env=my_env).pid
@@ -290,7 +291,7 @@ class EnShellGRPC(object):
         self.connect()
         command_string = "run_cmd /usr/bin/printenv"
         ret = self.run_command(command_string)
-        # print(f"{command_string} :: ret = {ret}\n")
+        # logging.debug(f"{command_string} :: ret = {ret}\n")
         if ret[0] != 0:
             self._cei_home = None
             raise RuntimeError("Error getting printenv from EnShell")
