@@ -290,19 +290,25 @@ class EnShellGRPC(object):
         self.connect()
         command_string = "run_cmd /usr/bin/printenv"
         ret = self.run_command(command_string)
-        print(f"{command_string} :: ret = {ret}\n")
-
-        command_string = "run_cmd /usr/bin/printenv CEI_HOME"
-        ret = self.run_command(command_string)
-        print(f"{command_string} :: ret = {ret}\n")
+        # print(f"{command_string} :: ret = {ret}\n")
         if ret[0] != 0:
             self._cei_home = None
-            raise RuntimeError("Error getting CEI_HOME from EnShell")
-        self._cei_home = ret[1].strip()
+            raise RuntimeError("Error getting printenv from EnShell")
+
+        # split the newline delimited string into a list of strings
+        env_vars = ret[1].strip().split("\n")
+        # find the string containing CEI_HOME
+        cei_home_line = [x for x in env_vars if "CEI_HOME" in x][0]
+        if cei_home_line is None:
+            raise RuntimeError("Error getting CEI_HOME env var from the Docker container.\n{ret}\n")
+
+        # CEI_HOME is everything after the equal sign
+        equal_sign_loc = cei_home_line.find("=")
+        if equal_sign_loc < 0:
+            raise RuntimeError("Error getting CEI_HOME env var from the Docker container.\n{ret}\n")
+        self._cei_home = cei_home_line[equal_sign_loc + 1 :]
         m = re.search("/v(\d\d\d)/", self._cei_home)
         if not m:
             self.stop_server()
-            # raise RuntimeError(f"Error getting version from {} in the Docker container.",
-            #   self._cei_home)
-            raise RuntimeError("Can't find version from cei_home in the Docker container.")
+            raise RuntimeError("Can't find version from cei_home in the Docker container.\n{ret}\n")
         self._ansys_version = m.group(1)

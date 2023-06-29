@@ -362,11 +362,11 @@ class DockerLauncher(pyensight.Launcher):
         #
         #
         # Start up the EnShell gRPC interface
-        log_file = "/data/enshell.log"
+        log_dir = "/data"
         if self._enshell_grpc_channel:
             self._enshell = enshell_grpc.EnShellGRPC()
             self._enshell.connect_existing_channel(self._enshell_grpc_channel)
-            log_file = "/work/enshell.log"
+            log_dir = "/work"
         else:
             logging.debug(
                 f"Connecting to EnShell over gRPC port: {self._service_host_port['grpc'][1]}...\n"
@@ -396,15 +396,18 @@ class DockerLauncher(pyensight.Launcher):
             self.stop()
             raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
 
-        cmd = "set_debug_log " + log_file
+        cmd = "set_debug_log " + log_dir + "/enshell.log"
         ret = self._enshell.run_command(cmd)
         logging.debug(f"enshell cmd: {cmd} ret: {ret}\n")
         print(f"enshell cmd: {cmd} ret: {ret}\n")
-        """
         if ret[0] != 0:
-            self.stop()
-            raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
-        """
+            # self.stop()
+            # raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
+            # instead of stopping, get a long directory listing, print it, and continue
+            cmd = "run_cmd /bin/ls -al " + log_dir
+            ret = self._enshell.run_command(cmd)
+            logging.debug(f"enshell cmd: {cmd} ret: {ret}\n")
+            print(f"enshell cmd: {cmd} ret: {ret}\n")
 
         cmd = "verbose 3"
         ret = self._enshell.run_command(cmd)
