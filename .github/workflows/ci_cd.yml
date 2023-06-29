@@ -105,15 +105,6 @@ jobs:
       - uses: codecov/codecov-action@v3
         name: 'Upload coverage to CodeCov'
 
-      - name: Upload wheel
-        if: ${{ !env.ACT }}
-        uses: actions/upload-artifact@v3
-        with:
-          name: ansys-pyensight-wheel
-          path: dist/
-          retention-days: 7
-          if-no-files-found: error
-
   docs:
     name: Build docs
     runs-on: ubuntu-latest
