@@ -1334,7 +1334,7 @@ class Session:
         >>> session.restore_context(tmp_ctx)
         """
         data_str = context._data(b64=True)
-        self.cmd("import ansys.pyensight.core.enscontext", do_eval=False)
+        self.cmd("import ansys.pyensight.enscontext", do_eval=False)
         self.cmd(
             f"ansys.pyensight.enscontext._restore_context(ensight,'{data_str}')", do_eval=False
         )
