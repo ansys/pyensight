@@ -21,6 +21,7 @@ from typing import Optional
 import uuid
 
 from ansys.pyensight.core.launcher import Launcher
+import ansys.pyensight.core.session
 from ansys.pyensight.core.session import Session
 
 
@@ -326,7 +327,7 @@ class DockerLauncher(Launcher):
         self._container.exec_run(cmd, user="ensight", detach=True)  # type: ignore
 
         # build the session instance
-        session = Session(
+        session = ansys.pyensight.core.session.Session(
             host=host,
             grpc_port=ports[0],
             html_port=ports[2],
