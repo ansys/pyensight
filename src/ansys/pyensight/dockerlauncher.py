@@ -572,7 +572,7 @@ class DockerLauncher(pyensight.Launcher):
         except (subprocess.CalledProcessError, FileNotFoundError):
             return False
 
-    def copy_out_enshell_log_file(self) -> Optional[str]:
+    def enshell_log_contents(self) -> Optional[str]:
         """Return the contents of the EnShell log if possible.
 
         Returns:
