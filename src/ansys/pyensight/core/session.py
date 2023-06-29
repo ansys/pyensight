@@ -1307,9 +1307,9 @@ class Session:
         >>> ctx.save("session_context.ctxz")
 
         """
-        self.cmd("import ansys.pyensight.core.enscontext", do_eval=False)
+        self.cmd("import ansys.pyensight.enscontext", do_eval=False)
         data_str = self.cmd(
-            f"ansys.pyensight.core.enscontext._capture_context(ensight,{full_context})",
+            f"ansys.pyensight.enscontext._capture_context(ensight,{full_context})",
             do_eval=True,
         )
         context = EnsContext()
