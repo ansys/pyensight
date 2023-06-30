@@ -6,7 +6,7 @@ import subprocess
 from unittest import mock
 
 import ansys.pyensight.core
-from ansys.pyensight.core import ensight_grpc
+from ansys.pyensight.core import enshell_grpc, ensight_grpc
 from ansys.pyensight.core.dockerlauncher import DockerLauncher
 from ansys.pyensight.core.locallauncher import LocalLauncher
 from ansys.pyensight.core.session import Session
