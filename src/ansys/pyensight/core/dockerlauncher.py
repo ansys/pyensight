@@ -443,6 +443,13 @@ class DockerLauncher(Launcher):
 
         use_egl = self._use_egl()
 
+        # Run EnSight
+        ensight_env = None
+        if use_egl:
+            ensight_env = (
+                "export LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1 ;"
+            )
+
         ensight_args = "-batch -v 3"
 
         if use_egl:
@@ -457,7 +464,7 @@ class DockerLauncher(Launcher):
         ensight_args += " -vnc " + vnc_url
 
         logging.debug(f"Starting EnSight with args: {ensight_args}\n")
-        ret = self._enshell.start_ensight(ensight_args)
+        ret = self._enshell.start_ensight(ensight_args, ensight_env)
         if ret[0] != 0:
             self.stop()
             raise RuntimeError(f"Error starting EnSight with args: {ensight_args}")
