@@ -4,7 +4,7 @@ import json
 import os
 import sys
 
-from ansys.pyensight.core._version import VERSION as __version__
+from ansys.pyensight.core import VERSION as __version__
 from ansys_sphinx_theme import ansys_favicon, get_version_match, pyansys_logo_black
 from sphinx_gallery.sorting import FileNameSortKey
 

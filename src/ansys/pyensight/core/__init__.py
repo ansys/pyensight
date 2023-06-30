@@ -1,6 +1,11 @@
-from ._version import DEFAULT_ANSYS_VERSION, VERSION
+try:
+    import importlib.metadata as importlib_metadata  # type: ignore
+except ModuleNotFoundError:  # pragma: no cover
+    import importlib_metadata  # type: ignore
+__version__ = importlib_metadata.version(__name__.replace(".", "-"))
 
-__version__ = VERSION
+VERSION = __version__
+DEFAULT_ANSYS_VERSION = "241"
 
 # Ansys version number that this release is associated with
 __ansys_version__ = DEFAULT_ANSYS_VERSION

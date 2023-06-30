@@ -17,9 +17,7 @@ import sys
 from typing import Optional
 
 from ansys.api.pyensight.v0 import enshell_pb2, enshell_pb2_grpc
-from ansys.pyensight.core._version import (  # pylint: disable=import-outside-toplevel
-    DEFAULT_ANSYS_VERSION,
-)
+from ansys.pyensight.core import DEFAULT_ANSYS_VERSION  # pylint: disable=import-outside-toplevel
 import grpc
 
 
