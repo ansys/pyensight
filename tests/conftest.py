@@ -62,7 +62,29 @@ def docker_launcher_session() -> "Session":
 
 
 @pytest.fixture
-def mocked_session(mocker, tmpdir) -> "Session":
+def enshell_mock():
+    mocked_grpc = mock.MagicMock("GRPC")
+    mocked_grpc.command = mock.MagicMock("command")
+    mocked_grpc.is_connected = lambda: True
+    mocked_grpc.connect = mock.MagicMock("execute_connection")
+    values_run_command = [
+        [0, "set_no_reroute_log"],  # first run, to find the ensight version
+        [0, "set_debug_log"],  # second run
+        [0, "verbose 3"],
+    ]
+    mocked_grpc.run_command = mock.MagicMock("enshell run command")
+    mocked_grpc.run_command.side_effect = values_run_command.copy()
+    path = "/ansys_inc/v345/CEI/bin/ensight"
+    cei_home = path.encode("utf-8")
+    mocked_grpc.cei_home = lambda: cei_home
+    mocked_grpc.ansys_version = lambda: "345"
+    mocked_grpc.start_ensight = lambda cmd, env: [0, cmd]
+    mocked_grpc.start_other = lambda cmd: [0, cmd]
+    return mocked_grpc, values_run_command
+
+
+@pytest.fixture
+def mocked_session(mocker, tmpdir, enshell_mock) -> "ansys.pyensight.Session":
     cmd_mock = mock.MagicMock("cmd_mock")
     mock_dict = {"a": 1, "b": 2, "c": 3}
     cmd_mock.items = lambda: mock_dict.items()
@@ -71,7 +93,8 @@ def mocked_session(mocker, tmpdir) -> "Session":
     mocked_grpc.is_connected = lambda: True
     mocked_grpc.connect = mock.MagicMock("execute_connection")
     mocker.patch.object(ensight_grpc, "EnSightGRPC", return_value=mocked_grpc)
-    mocker.patch.object(Session, "cmd", return_value=cmd_mock)
+    mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
+    mocker.patch.object(ansys.pyensight.Session, "cmd", return_value=cmd_mock)
     session_dir = tmpdir.mkdir("test_dir")
     remote = session_dir.join("remote_filename")
     remote.write("test_html")

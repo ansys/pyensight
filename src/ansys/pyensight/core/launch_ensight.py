@@ -1,7 +1,7 @@
 """launch_ensight module
 
 The launch_ensight module provides pyensight with the ability to launch an
-EnSight session using PyPIM.  This leverages the DockerLauncherEnShell module.
+EnSight session using PyPIM.  This leverages the DockerLauncher module.
 
 Examples
 --------
@@ -11,6 +11,7 @@ Examples
 >>> session.close()
 """
 
+import logging
 from typing import Optional
 
 from ansys.pyensight.core.locallauncher import LocalLauncher
@@ -23,16 +24,16 @@ try:
     pim_is_available = True
 except Exception:
     pass
-# print(f"pim_is_available: {pim_is_available}\n")
+logging.debug(f"pim_is_available: {pim_is_available}\n")
 
 docker_is_available = False
 try:
-    from ansys.pyensight.core.dockerlauncherenshell import DockerLauncherEnShell
+    from ansys.pyensight.core.dockerlauncher import DockerLauncher
 
     docker_is_available = True
 except Exception:
     pass
-# print(f"docker_is_available: {docker_is_available}\n")
+logging.debug(f"docker_is_available: {docker_is_available}\n")
 
 
 if pim_is_available:
@@ -77,11 +78,10 @@ if pim_is_available:
             ]
         )
 
-        launcher = DockerLauncherEnShell(
+        launcher = DockerLauncher(
             channel=channel,
             pim_instance=instance,
         )
-        print(f"launcher: {launcher}\n\n")
         return launcher.connect()
 
 
@@ -109,7 +109,7 @@ def launch_ensight(
     use_pim : bool, optional
         If True, then PyPIM is used to launch EnSight.
     use_docker : bool, optional
-        If True, use DockerLaucherEnShell. If use_pim is True, this option is ignored.
+        If True, use DockerLaucher. If use_pim is True, this option is ignored.
     data_directory: str, optional
         Host directory to make into the Docker container at /data
         Only used if use_docker is True.
@@ -150,15 +150,15 @@ def launch_ensight(
 
     """
 
-    # print(f"pim_is_available: {pim_is_available}  use_pim: {use_pim}\n")
+    logging.debug(f"pim_is_available: {pim_is_available}  use_pim: {use_pim}\n")
     if pim_is_available and use_pim:
         if pypim.is_configured():
             return _launch_ensight_with_pim(product_version=product_version, **kwargs)
 
     # not using PIM, but use Docker
-    # print(f"docker_is_available: {docker_is_available}  use_docker: {use_docker}\n")
+    logging.debug(f"docker_is_available: {docker_is_available}  use_docker: {use_docker}\n")
     if docker_is_available and use_docker:
-        launcher = DockerLauncherEnShell(
+        launcher = DockerLauncher(
             data_directory=data_directory,
             docker_image_name=docker_image_name,
             use_dev=use_dev,
