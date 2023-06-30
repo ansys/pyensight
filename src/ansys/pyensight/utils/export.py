@@ -10,7 +10,7 @@ import numpy
 try:
     import ensight
 except ImportError:
-    from ansys.pyensight.core import ensight_api
+    from ansys.api.pyensight import ensight_api
 
 
 class Export:
