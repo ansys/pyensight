@@ -34,7 +34,7 @@ import ansys.pyensight.core.session
 from ansys.pyensight.core.session import Session
 
 try:
-    from ansys.pyensight import enshell_grpc
+    from ansys.pyensight.core import enshell_grpc
 except ModuleNotFoundError:
     raise RuntimeError("The enshell_grpc must be installed for DockerLauncher")
 except Exception:

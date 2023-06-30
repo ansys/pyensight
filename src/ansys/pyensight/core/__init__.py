@@ -18,8 +18,3 @@ from ansys.pyensight.core.launcher import Launcher
 from ansys.pyensight.core.listobj import ensobjlist
 from ansys.pyensight.core.locallauncher import LocalLauncher
 from ansys.pyensight.core.session import Session
-
-try:
-    from ansys.pyensight.core.dockerlauncherenshell import DockerLauncherEnShell
-except Exception:
-    pass
