@@ -24,7 +24,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "ansys-api-pyensight==0.1.2",
+    "ansys-api-pyensight>=0.1.2",
     "requests>=2.28.2",
     "pyansys-docker>=5.0.4",
     "urllib3<2",
