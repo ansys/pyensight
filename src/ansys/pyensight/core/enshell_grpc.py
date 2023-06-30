@@ -9,7 +9,6 @@ Python binding for the EnShell gRPC API
 This class provides an asynchronous interface to the EnShell
 core gRPC interface.
 """
-import logging
 import os
 import random
 import re
@@ -291,7 +290,7 @@ class EnShellGRPC(object):
 
         return (response.ret, response.response)
 
-    def start_ensight(self, ensight_args: Optional[str] = None):
+    def start_ensight(self, ensight_args: Optional[str] = None, ensight_env: Optional[str] = None):
         """Tell EnShell to start EnSight.
 
         The string will be sent to EnShell via the EnShellService::run_command()
