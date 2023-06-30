@@ -94,7 +94,7 @@ def mocked_session(mocker, tmpdir, enshell_mock) -> "ansys.pyensight.Session":
     mocked_grpc.connect = mock.MagicMock("execute_connection")
     mocker.patch.object(ensight_grpc, "EnSightGRPC", return_value=mocked_grpc)
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
-    mocker.patch.object(ansys.pyensight.Session, "cmd", return_value=cmd_mock)
+    mocker.patch.object(ansys.pyensight.core.Session, "cmd", return_value=cmd_mock)
     session_dir = tmpdir.mkdir("test_dir")
     remote = session_dir.join("remote_filename")
     remote.write("test_html")

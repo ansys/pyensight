@@ -3,7 +3,7 @@ import os
 from unittest import mock
 
 import ansys
-from ansys.pyensight.core import DockerLauncher
+from ansys.pyensight.core import DockerLauncher, enshell_grpc
 import docker
 import pytest
 
