@@ -5,21 +5,8 @@ updates:
     insecure-external-code-execution: allow
     schedule:
       interval: "daily"
-    versioning-strategy: "lockfile-only"
-    labels:
-      - "maintenance"
-      - "dependencies"
-    ignore:
-      - dependency-name: "vtk"
-      - dependency-name: "grpcio"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
-    labels:
-      - "maintenance"
-    assignees:
-      - "pyansys-ci-bot"
-    commit-message:
-      prefix: "MAINT"
