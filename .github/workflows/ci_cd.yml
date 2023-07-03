@@ -86,7 +86,6 @@ jobs:
           ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          checkout: false
           requires-xvfb: true
 
       - uses: codecov/codecov-action@v3
