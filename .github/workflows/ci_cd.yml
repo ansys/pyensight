@@ -87,7 +87,6 @@ jobs:
 
       - name: Install build requirements
         run: |
-          pip install .[tests]
           pip install .[doc]
 
       - name: docker
