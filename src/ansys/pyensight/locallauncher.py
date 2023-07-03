@@ -229,6 +229,9 @@ class LocalLauncher(pyensight.Launcher):
             + f"html:{self._ports[2]} ws:{self._ports[3]}\n"
             + f"key:{self._secret_key}\n"
         )
+        use_sos = False
+        if self._use_sos:
+            use_sos = True
         session = pyensight.Session(
             host="127.0.0.1",
             grpc_port=self._ports[0],
@@ -237,6 +240,8 @@ class LocalLauncher(pyensight.Launcher):
             install_path=self._install_path,
             secret_key=self._secret_key,
             timeout=self._timeout,
+            sos=use_sos,
+            rest_api=self._enable_rest_api,
         )
         session.launcher = self
         self._sessions.append(session)

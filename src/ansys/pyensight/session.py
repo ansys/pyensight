@@ -23,6 +23,8 @@ from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Tuple
 from urllib.parse import urlparse
 import webbrowser
 
+import requests
+
 from ansys import pyensight
 from ansys.pyensight.enscontext import EnsContext
 from ansys.pyensight.listobj import ensobjlist
@@ -78,6 +80,10 @@ class Session:
         timeout:
             The number of seconds to retry a gRPC connection before giving up.
             The default is 120.
+        rest_api:
+            If True, the EnSight REST API is enabled for the remote EnSight instance.
+        sos:
+            If True, the remote EnSight is using the server of servers feature.
 
     Examples:
         ::
@@ -102,10 +108,14 @@ class Session:
         ws_port: Optional[int] = None,
         session_directory: Optional[str] = None,
         timeout: float = 120.0,
+        rest_api: bool = False,
+        sos: bool = False,
     ) -> None:
         # when objects come into play, we can reuse them, so hash ID to instance here
         self._ensobj_hash: Dict[int, "ENSOBJ"] = {}
         self._language = "en"
+        self._rest_api_enabled = rest_api
+        self._sos_enabled = sos
         self._timeout = timeout
         self._cei_home = ""
         self._cei_suffix = ""
@@ -170,7 +180,8 @@ class Session:
 
     def __repr__(self):
         s = f"Session(host='{self.hostname}', secret_key='{self.secret_key}', "
-        s += f"html_port={self.html_port}, grpc_port={self._grpc_port},"
+        s += f"sos={self.sos}, rest_api={self.rest_api}, "
+        s += f"html_port={self.html_port}, grpc_port={self._grpc_port}, "
         s += f"ws_port={self.ws_port}, session_directory=r'{self.launcher.session_directory}')"
         return s
 
@@ -188,11 +199,36 @@ class Session:
                     if validate:
                         self._cei_home = self.cmd("ensight.version('CEI_HOME')")
                         self._cei_suffix = self.cmd("ensight.version('suffix')")
+                    self._check_rest_connection()
                     return
                 except OSError:
                     pass
             self._grpc.connect(timeout=self._timeout)
         raise RuntimeError("Unable to establish a gRPC connection to EnSight.")
+
+    def _check_rest_connection(self) -> None:
+        """Validate the REST API connection works
+
+        Use requests to see if the REST API is up and running (it takes time
+        for websocketserver to make a gRPC connection as well).
+
+        """
+        if not self.rest_api:
+            return
+        url = f"http://{self.hostname}:{self.html_port}/ensight/v1/session/exec"
+        time_start = time.time()
+        while time.time() - time_start < self._timeout:
+            try:
+                _ = requests.put(
+                    url,
+                    json="enscl.rest_test = 30*20",
+                    headers=dict(Authorization=f"Bearer {self.secret_key}"),
+                )
+                return
+            except Exception:
+                pass
+            time.sleep(0.5)
+        raise RuntimeError("Unable to establish a REST connection to EnSight.")
 
     @property
     def language(self) -> str:
@@ -320,6 +356,20 @@ class Session:
     @launcher.setter
     def launcher(self, value: "pyensight.Launcher"):
         self._launcher = value
+
+    @property
+    def sos(self) -> bool:
+        """
+        True if the remote EnSight session is running in Server of Server mode
+        """
+        return self._sos_enabled
+
+    @property
+    def rest_api(self) -> bool:
+        """
+        True if the remote EnSight session supports the REST API.
+        """
+        return self._rest_api_enabled
 
     @staticmethod
     def help():
