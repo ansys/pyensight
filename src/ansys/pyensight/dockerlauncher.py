@@ -488,6 +488,9 @@ class DockerLauncher(pyensight.Launcher):
         # WARNING: assuming the host is the same for grpc_private, http, and ws
         # This may not be true in the future if using PIM.
         # revise Session to handle three different hosts if necessary.
+        use_sos = False
+        if self._use_sos:
+            use_sos = True
         session = pyensight.Session(
             host=self._service_host_port["grpc_private"][0],
             grpc_port=self._service_host_port["grpc_private"][1],
@@ -496,6 +499,8 @@ class DockerLauncher(pyensight.Launcher):
             install_path=None,
             secret_key=self._secret_key,
             timeout=self._timeout,
+            sos=use_sos,
+            rest_api=self._enable_rest_api,
         )
         session.launcher = self
         self._sessions.append(session)
