@@ -85,10 +85,6 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: Install build requirements
-        run: |
-          pip install .[doc]
-
       - name: docker
         run: docker pull ${{ env.ENSIGHT_IMAGE }}
 
