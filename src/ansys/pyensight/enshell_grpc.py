@@ -320,7 +320,7 @@ class EnShellGRPC(object):
             return
 
         self.connect()
-        command_string = "run_cmd /usr/bin/printenv"
+        command_string = "show_ceihome"
         ret = self.run_command(command_string)
         # logging.debug(f"{command_string} :: ret = {ret}\n")
         if ret[0] != 0:
