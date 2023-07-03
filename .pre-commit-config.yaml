@@ -29,14 +29,14 @@ repos:
             -lll,
             -n, "3",
             -r,
-            -x, "venv/*,src/ansys/api/*,src/ansys/pyensight/ensight_api.py,setup.py,tests/*,codegen/*"
+            -x, "venv/*, tests/*"
         ]
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.3.0
     hooks:
     -   id: mypy
         # Exclude only works here, not in config files
-        exclude: "codegen/|tests/|src/ansys/api|doc/"
+        exclude: "tests/|doc/"
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0

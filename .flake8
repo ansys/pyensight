@@ -1,5 +1,5 @@
 [flake8]
-exclude = venv, __init__.py, doc/_build, src/ansys/api/*
+exclude = venv, __init__.py, doc/_build
 select = B,B9,C,D,DAR,E,F,N,RST,S,W
 count = True
 max-complexity = 10
