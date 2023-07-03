@@ -433,11 +433,9 @@ class DockerLauncher(pyensight.Launcher):
         use_egl = self._use_egl()
 
         # Run EnSight
-        ensight_env = None
+        ensight_env_vars = None
         if use_egl:
-            ensight_env = (
-                "export LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1 ;"
-            )
+            ensight_env_vars = "LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1"
 
         ensight_args = "-batch -v 3"
 
@@ -453,7 +451,7 @@ class DockerLauncher(pyensight.Launcher):
         ensight_args += " -vnc " + vnc_url
 
         logging.debug(f"Starting EnSight with args: {ensight_args}\n")
-        ret = self._enshell.start_ensight(ensight_args, ensight_env)
+        ret = self._enshell.start_ensight(ensight_args, ensight_env_vars)
         if ret[0] != 0:
             self.stop()
             raise RuntimeError(f"Error starting EnSight with args: {ensight_args}")
@@ -607,7 +605,8 @@ class DockerLauncher(pyensight.Launcher):
                 s = text.read().decode("utf-8")
                 text.close()
                 return s
-            except Exception:
+            except Exception as e:
+                logging.debug(f"Error getting EnShell log: {e}\n")
                 return None
 
         fs = self.file_service()
