@@ -468,7 +468,7 @@ class Session:
             name = out_dir + f"/{item[0]}"
             name = name.replace("\\", "/")
             # Walk the file in chunk size blocks
-            chunk_size = 1024*1024
+            chunk_size = 1024 * 1024
             with open(filename, "rb") as fp:
                 while True:
                     data = fp.read(chunk_size)
@@ -576,8 +576,9 @@ class Session:
                 offset = 0
                 chunk_size = 1024 * 1024
                 while True:
-                    data = self.cmd(f"copy_read_function__(r'{name}', {offset}, {chunk_size})",
-                                    do_eval=True)
+                    data = self.cmd(
+                        f"copy_read_function__(r'{name}', {offset}, {chunk_size})", do_eval=True
+                    )
                     if len(data) == 0:
                         break
                     fp.write(data)
