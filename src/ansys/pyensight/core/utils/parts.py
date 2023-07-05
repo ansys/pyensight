@@ -29,8 +29,8 @@ if TYPE_CHECKING:
     try:
         from ensight.objs import ENS_PART  # type: ignore
     except ImportError:
-        from ansys.pyensight.core import ensight_api
-        from ansys.pyensight.core.ens_query import ENS_PART
+        from ansys.api.pyensight import ensight_api
+        from ansys.api.pyensight.ens_part import ENS_PART
 
 
 class Parts:

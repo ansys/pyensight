@@ -39,7 +39,8 @@ from ansys.pyensight.core.renderable import (
 import requests
 
 if TYPE_CHECKING:
-    from ansys.pyensight.core import enscontext, ensight_api, ensight_grpc, renderable
+    from ansys.pyensight.core import enscontext, ensight_grpc, renderable
+    from ansys.api.pyensight import ensight_api
     from ansys.pyensight.core.ensobj import ENSOBJ
 
 
