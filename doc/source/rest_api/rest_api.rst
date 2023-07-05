@@ -127,12 +127,12 @@ Shared Token Security
 ---------------------
 
 This API leverages shared secrets to control access to the EnSight instance.  Every pyensight
-launched instance has a shared secret that must be provided in all REST calls.  This shared
+launched instance has a shared secret that must be provided in all REST calls. This shared
 secret token can be accessed via the ``Session.secret_key`` pyensight API.  All REST APIs will
-expect that the token be specified in one of two ways.  First, the token can be passed as part of
+expect that the token be specified in one of two ways. First, the token can be passed as part of
 the URL path in the form: ``{LOCATION}/ensight/v1/{TOKEN}/{OPERATION}``.  Second, the token may be
-passed in an ``Authorization: Bearer TOKEN`` header.  When the header approach is used, any value
-can be passed in the URL path.  If tokens are supplied using both methods, the token in the
+passed in an ``Authorization: Bearer TOKEN`` header. When the header approach is used, any value
+can be passed in the URL path. If tokens are supplied using both methods, the token in the
 header is used.
 
 

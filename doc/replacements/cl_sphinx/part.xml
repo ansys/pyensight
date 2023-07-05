@@ -959,7 +959,7 @@ Returns:
 </override>
 <override namespace="ensight.part.modify_begin">
 <description>
-These commands are used to demarcate part attribute changing commands.  The attributes within them will be changed when the modify_end is reached.
+These commands are used to demarcate part attribute changing commands. The attributes within them will be changed when the modify_end is reached.
 
 Examples:
     ::
@@ -977,7 +977,7 @@ Returns:
 </override>
 <override namespace="ensight.part.modify_end">
 <description>
-These commands are used to demarcate part attribute changing commands.  The attributes within them will be changed when the modify_end is reached.
+These commands are used to demarcate part attribute changing commands. The attributes within them will be changed when the modify_end is reached.
 
 Examples:
     ::
@@ -2014,7 +2014,7 @@ Returns:
 </override>
 <override namespace="ensight.part.texture_origin">
 <description>
-Sets the texture origin offset in model space.  This describes the &quot;lower left&quot; corner of the texture in world coordinates.  This is an offset amount if the Projection offset is relative to a node ID.  If not, it is an offset from the world coordinate origin, i.e., it becomes an absolute origin.
+Sets the texture origin offset in model space.  This describes the &quot;lower left&quot; corner of the texture in world coordinates. This is an offset amount if the Projection offset is relative to a node ID.  If not, it is an offset from the world coordinate origin, i.e., it becomes an absolute origin.
 
 | Only used if texture_coord_type is set to projection
 

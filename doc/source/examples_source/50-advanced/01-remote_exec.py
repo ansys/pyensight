@@ -44,7 +44,7 @@ over Python code execution.
 # -------------------------
 #
 # PyEnSight supports two forms of asynchronous operation.  The first is for
-# event callbacks.  The EnSight Python interpreter will only dispatch callbacks
+# event callbacks. The EnSight Python interpreter will only dispatch callbacks
 # when the interpreter becomes "idle" (unless a flush is forced).  Thus, if
 # running a function in PyEnSight that causes event callbacks to be executed,
 # these may be executed between lines inside the function.  Second, it is
@@ -54,7 +54,7 @@ over Python code execution.
 #
 # A feature of remote execution is that the entire function will complete as
 # an "atomic" operation.  This avoids multi-session multiplexing of commands
-# and defers callbacks until the function completes.  This has the helpful
+# and defers callbacks until the function completes. This has the helpful
 # side effect of allowing for event compression as well, avoiding redundant
 # event callbacks.
 #

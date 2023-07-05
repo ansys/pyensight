@@ -57,7 +57,7 @@ image = session.show("image", width=800, height=600, aa=4)
 # Renderable.update()
 # ^^^^^^^^^^^^^^^^^^^
 #
-# Renderables include several useful methods.  The first is 'update()'.  Update
+# Renderables include several useful methods. The first is 'update()'.  Update
 # will re-generate the renderable.  Adjust the scene rotation and update the
 # scene to update the display.
 
@@ -154,7 +154,7 @@ remote = session.show("remote")
 # .. image:: /_static/01_renderable_5.png
 #
 # This renderable is basically a wrapper around an EnSight scenario file.
-# The current scene is exported and includes all active parts/variables.  The
+# The current scene is exported and includes all active parts/variables. The
 # viewer is the EnVision application accessed through the same remote rendering
 # system as the "remote" renderable.  It shares many of the same benefits as
 # the remote renderable, without the overhead of an EnSight server process.

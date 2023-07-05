@@ -295,12 +295,12 @@ class ENSOBJ(object):
             removed from the output object tree.
         group_exclude : Optional[list]
             Should be set to a list of attribute enums. For any enum in this list, exclude
-            the enum and all the other enums in the same groups as the passed enums.  Think
+            the enum and all the other enums in the same groups as the passed enums. Think
             of this as a shortcut for exclude= that requires you to only pass a single enum
             in the group you want to suppress.
         group_include : Optional[list]
             Should be set to a list of attribute enums. For any enum in this list, include
-            the enum and all the other enums in the same groups as the passed enums.  Think
+            the enum and all the other enums in the same groups as the passed enums. Think
             of this as a shortcut for include= that requires you to only pass a single enum
             in the group you want to include. Note: it may be necessary to pass include=[]
             (the empty list) to start with an empty list of enums.

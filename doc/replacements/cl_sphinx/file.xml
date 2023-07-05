@@ -599,7 +599,7 @@ Returns:
 <description>
 For postscript format move-draw images turns on/off the subdivision of polygons for better shading.
 
-| The postscript format supports only a single color per polygon. Lighting and false color mapping will look poor unless the polygon is subdivided into smaller (single color) regions.  The default is ON.
+| The postscript format supports only a single color per polygon. Lighting and false color mapping will look poor unless the polygon is subdivided into smaller (single color) regions. The default is ON.
 
 Args:
     p0:
@@ -943,7 +943,7 @@ Restore a context file.
 
 | If a context file is restored before data is read the data used to create the context file is also restored together with the parts that existed at the time the context file was saved.
 | If a context file is restored after data is read but before parts are created the same parts that existed in the context file will be restored.
-| If a context file is restored after data and parts have been loaded, the context content is applied towards the loaded parts.  In this case the part names must match.  If part names do not match the user must manually match up the parts via a pop-up dialog.
+| If a context file is restored after data and parts have been loaded, the context content is applied towards the loaded parts.  In this case the part names must match. If part names do not match the user must manually match up the parts via a pop-up dialog.
 
 Args:
     p0:

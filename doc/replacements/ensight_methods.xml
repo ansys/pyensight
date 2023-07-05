@@ -26,7 +26,7 @@ Returns:
 Return the Python proxy object for a specific EnSight object id
 
 
-The EnSight Python object interface uses proxy objects.  This method creates
+The EnSight Python object interface uses proxy objects. This method creates
 a proxy object associated with a given object id.  If the specified id does
 not exist, a RuntimeError exception is raised.
 
@@ -97,7 +97,7 @@ Example:
 Set up a Python callback that will be executed when the selected conditions are met.
 
 
-Note: this method should only be used in EnSight Python scripts.  For
+Note: this method should only be used in EnSight Python scripts. For
 PyEnSight scripts, use:  :meth:`pyensight.Session.add_callback`
 instead.
 
@@ -112,7 +112,7 @@ A Python function of the form::
             return 0
 
 
-will be called whenever an attribute of the target object/class changes.  The object whose
+will be called whenever an attribute of the target object/class changes. The object whose
 attribute changed will be passed to the callback as ``target``.
 The actual attribute that changed is passed to the callback as the ``attribute`` parameter.
 By default, the callback is made for all attributes, but a restricted list of attributes
@@ -158,7 +158,7 @@ Returns:
 <description>
 Remove a callback that was registered using ensight.objs.addcallback()
 
-Note: this method should only be used in EnSight Python scripts.  For
+Note: this method should only be used in EnSight Python scripts. For
 PyEnSight scripts, use:  :meth:`pyensight.Session.remove_callback`
 instead.
 
@@ -383,7 +383,7 @@ Args:
 
 Returns:
     A list of objects that would be intersected by passing rays from the viewer though the
-    selected pixel or block of pixels.  The return value may or may not include the x,y,z
+    selected pixel or block of pixels. The return value may or may not include the x,y,z
     coordinates (in data space) of the intersection.
 
 </description>

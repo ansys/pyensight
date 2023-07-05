@@ -385,7 +385,7 @@ Returns:
 <description>
 Sets the first/last keyframe to use for playback.
 
-| When creating an animation with many keyframes, it is often helpful to play back a smaller range of keyframes instead of the entire animation. The value must be between 1 and the number of keyframes.  The &quot;run_from&quot; frame must be less than or equal to the &quot;run_to&#x27; frame.
+| When creating an animation with many keyframes, it is often helpful to play back a smaller range of keyframes instead of the entire animation. The value must be between 1 and the number of keyframes. The &quot;run_from&quot; frame must be less than or equal to the &quot;run_to&#x27; frame.
 
 Args:
     p0:
@@ -406,7 +406,7 @@ Returns:
 <description>
 Sets the first/last keyframe to use for playback.
 
-| When creating an animation with many keyframes, it is often helpful to play back a smaller range of keyframes instead of the entire animation. The value must be between 1 and the number of keyframes.  The &quot;run_from&quot; frame must be less than or equal to the &quot;run_to&#x27; frame.
+| When creating an animation with many keyframes, it is often helpful to play back a smaller range of keyframes instead of the entire animation. The value must be between 1 and the number of keyframes. The &quot;run_from&quot; frame must be less than or equal to the &quot;run_to&#x27; frame.
 
 Args:
     p0:

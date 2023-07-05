@@ -375,7 +375,7 @@ class Session:
                 appended to the session.launcher.session_directory.
             remote_prefix:
                 The directory on the remote (EnSight) filesystem, the destination
-                for the files.  This prefix is appended to
+                for the files. This prefix is appended to
                 session.launcher.session_directory.
             progress:
                 If True and the tqdm module is available, it will be used to
@@ -466,7 +466,7 @@ class Session:
 
         Args:
             local_prefix:
-                The URL prefix of the location to save the files.  The only
+                The URL prefix of the location to save the files. The only
                 protocol currently supported is 'file://', the local filesystem.
             filelist:
                 The list of files to copy.  Note: these files will be prefixed
@@ -474,7 +474,7 @@ class Session:
                 relative to ``local_prefix``.
             remote_prefix:
                 The directory on the remote (EnSight) filesystem, the source
-                for the files.  This prefix is appended to
+                for the files. This prefix is appended to
                 session.launcher.session_directory.
             progress:
                 If True and the tqdm module is available, it will be used to
@@ -617,7 +617,7 @@ class Session:
 
         There are a number of constraints on this capability.
         The function may only use arguments passed to the exec method and can only return a
-        single value.  It cannot modify the input arguments.  The input arguments must be
+        single value.  It cannot modify the input arguments. The input arguments must be
         serializable and the PyEnSight Python interpreter version must match the version in
         EnSight.
 

@@ -6,7 +6,7 @@ Design Point Comparison
 
 A common operation is to load two different datasets, usually design points,
 into the same EnSight session using separate cases.  In this example, two Fluent
-design points are loaded and displayed in different viewports.  The difference
+design points are loaded and displayed in different viewports. The difference
 between the temperature fields is computed and displayed in a third viewport.
 
 """
@@ -124,7 +124,7 @@ session.show("image", width=800, height=600)
 # .. image:: /_static/00_compare_3.png
 #
 # Use the "CaseMapDiff" calculator function to compute the different between the
-# "Static_Temperature" fields between the two design points.  This defines a new
+# "Static_Temperature" fields between the two design points. This defines a new
 # field "Temperature_Difference" on the "fluid0_diff" part.  Color that part
 # by the resulting variable.
 

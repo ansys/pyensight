@@ -78,7 +78,7 @@ Returns:
 <description>
 Create a profile part with the currently defined attributes using the currently selected parts as parents.
 
-| The profile part is created using the currently selected parts as parents.  The profile part is creates using  the currently set profile attributes.
+| The profile part is created using the currently selected parts as parents. The profile part is creates using  the currently set profile attributes.
 
 Examples:
     ::
@@ -179,7 +179,7 @@ Returns:
 <description>
 Sets the current profile to none, so that subsequent commands will modify the default profile attributes.
 
-| When profiles are created, the default attributes are used (unless overridden by attribute commands between &quot;profile: begin / end&quot; commands.  This command allows for changing of defaults.
+| When profiles are created, the default attributes are used (unless overridden by attribute commands between &quot;profile: begin / end&quot; commands. This command allows for changing of defaults.
 
 Examples:
     ::

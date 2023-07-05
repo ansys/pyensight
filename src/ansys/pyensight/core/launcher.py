@@ -155,7 +155,7 @@ class Launcher:
         Notes
         -----
             The session object is responsible for making the EnSight 'Exit' and websocketserver
-            calls.  This method can be used to clean up any additional resources being used
+            calls. This method can be used to clean up any additional resources being used
             by the launching method.
         """
         return

@@ -17,7 +17,7 @@ Args:
         variable names (string) or variable ids (integers) is allowed.
 
 Returns:
-    If ``variables`` is not specified, the return value is a list of lists.  There
+    If ``variables`` is not specified, the return value is a list of lists. There
     is one list for each trace.   Each point withing the trace list is represented
     as a list of four floats representing the x,y,z,t values for the point::
 
@@ -95,7 +95,7 @@ Args:
         must separate these into two calls. Select your part in the
         part list and query the part.  The resulting dialog will
         tell you if you have ids and the ranges of the node and/or
-        element ids.  This feature can also be used to "batch" the
+        element ids. This feature can also be used to "batch" the
         operation.
     use_nan:
         EnSight uses a specific value for the 'Undefined' value
@@ -109,7 +109,7 @@ Args:
 Returns:
     The returned value is a dictionary.  The keys to the dictionary
     are the objects passed in ``variables`` and the values are
-    NumPy Float arrays.  For constants the value is a one dimensional
+    NumPy Float arrays. For constants the value is a one dimensional
     array with a single value.  For other scalar variables, the value
     will be a 1D array of values (complex values are returned as
     NumPy complex types). For vector, tensor and Coordinate variables,

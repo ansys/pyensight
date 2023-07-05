@@ -170,7 +170,7 @@ class EnSightGRPC(object):
         """Generate a rendering of the current EnSight scene
 
         Render the current scene at a specific size and using a specific number of anti-aliasing
-        passes.  The return value can be a byte array (width*height*3) bytes or a PNG image.
+        passes. The return value can be a byte array (width*height*3) bytes or a PNG image.
 
         Parameters
         ----------
@@ -302,7 +302,7 @@ class EnSightGRPC(object):
         """Return the unique prefix for this instance.
 
         Some EnSight gRPC APIs require a unique prefix so that EnSight can handle
-        multiple, simultaneous remote connections.  This method will generate a GUID-based
+        multiple, simultaneous remote connections. This method will generate a GUID-based
         prefix.
 
         Returns

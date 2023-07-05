@@ -69,7 +69,7 @@ session.show("image", width=800, height=600)
 # ----------------------------------
 #
 # Create a Pressure vs Distance query by sampling a line segment
-# using the 'line_loc()' method to set the endpoints.  This is a
+# using the 'line_loc()' method to set the endpoints. This is a
 # 'generated' query that samples the selected variable on the
 # selected part at 20 points over the length of the line segment.
 
@@ -90,7 +90,7 @@ session.ensight.query_ent_var.query()
 # This is an interesting trick.  The above code uses the
 # 'native' command bindings.  We would like to be able to
 # use the query object.  EnSight object 'values' are monotonically
-# increasing numbers.  Thus, the 'max()' operation on a list
+# increasing numbers. Thus, the 'max()' operation on a list
 # of EnSight objects will return the most recently created one.
 line_query = max(session.ensight.objs.core.QUERIES)
 print(line_query, line_query.QUERY_DATA["xydata"])
@@ -104,7 +104,7 @@ print(line_query, line_query.QUERY_DATA["xydata"])
 #
 # Queries can be displayed on a "plotter".  The plotter defines a set of axes
 # and various display features.  Here, a new plotter is created and the query
-# is added to the plotter.  We then override many of the plotter visual features.
+# is added to the plotter. We then override many of the plotter visual features.
 # We set the axes scaling explicitly, create a background grid and tweak the
 # display of axis text.
 

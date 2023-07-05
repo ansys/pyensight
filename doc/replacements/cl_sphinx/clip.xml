@@ -257,7 +257,7 @@ Returns:
 <description>
 Create a clip part with the currently defined attributes using the currently selected parts as parents.
 
-| The clip part is created using the currently selected parts as parents.  The clip part is created using the currently set clip attributes.
+| The clip part is created using the currently selected parts as parents. The clip part is created using the currently set clip attributes.
 
 Examples:
     ::
