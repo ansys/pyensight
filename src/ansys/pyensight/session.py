@@ -21,6 +21,7 @@ import time
 import types
 from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Tuple
 from urllib.parse import urlparse
+from urllib.request import url2pathname
 import webbrowser
 
 import requests
@@ -378,7 +379,11 @@ class Session:
         webbrowser.open(url)
 
     def copy_to_session(
-        self, localdir: str, filelist: List[str], remotedir: str, progress: bool = False
+        self,
+        local_prefix: str,
+        filelist: List[str],
+        remote_prefix: Optional[str] = None,
+        progress: bool = False,
     ) -> list:
         """Copy a collection of files into the EnSight session
 
@@ -386,36 +391,56 @@ class Session:
         the EnSight instance.  Note: for LocalLauncher, these are the same filesystems.
 
         Args:
-            localdir:
-                The directory on the local filesystem, the source of the files.
+            local_prefix:
+                The URL prefix to use for all the files in filelist.  The only
+                protocol currently supported is 'file://'.
             filelist:
-                The list of files to copy.  Note: these files will be sourced
-                relative to ``localdir`` and written relative to ``remotedir``.
-            remotedir:
+                The list of files to copy.  Note: these files will be prefixed
+                with ``local_prefix`` and written relative to the ``remote_prefix``
+                appended to the session.launcher.session_directory.
+            remote_prefix:
                 The directory on the remote (EnSight) filesystem, the destination
-                for the files.
+                for the files.  This prefix is appended to
+                session.launcher.session_directory.
             progress:
                 If True and the tqdm module is available, it will be used to
                 present a progress bar.
         Returns:
             The list of filenames and sizes that were copied.
+
+        Examples:
+            ::
+
+                the_files = ["fluent_data_dir", "ensight_script.py"]
+                session.copy_to_session("file:///D:/data", the_files, progress=True)
+
+            ::
+
+                the_files = ["fluent_data_dir", "ensight_script.py"]
+                session.copy_to_session("file:///scratch/data", the_files, remote_prefix="data")
+
         """
+        uri = urlparse(local_prefix)
+        if uri.scheme != "file":
+            raise RuntimeError("Only the file:// protocol is supported for the local_prefix")
+        localdir = url2pathname(uri.path)
 
         remote_functions = textwrap.dedent(
             """\
                 import os
                 def copy_write_function__(filename: str, data: bytes) -> None:
                     os.makedirs(os.path.dirname(filename), exist_ok=True)
-                    with open(filename, "wb") as fp:
+                    with open(filename, "ab") as fp:
                         fp.write(data)
             """
         )
 
         self.cmd(remote_functions, do_eval=False)
+
         out = []
         dirlen = 0
         if localdir:
-            dirlen = len(localdir) + 1
+            dirlen = len(localdir)
         for item in filelist:
             try:
                 name = os.path.join(localdir, item)
@@ -437,14 +462,27 @@ class Session:
             tqdm = list
         for item in tqdm(out):
             filename = os.path.join(localdir, item[0])
+            out_dir = self.launcher.session_directory.replace("\\", "/")
+            if remote_prefix:
+                out_dir += f"/{remote_prefix}"
+            name = out_dir + f"/{item[0]}"
+            name = name.replace("\\", "/")
+            # Walk the file in chunk size blocks
+            chunk_size = 1024 * 1024
             with open(filename, "rb") as fp:
-                data = fp.read()
-            name = os.path.join(remotedir, item[0]).replace("\\", "/")
-            self.cmd(f"copy_write_function__(r'{name}', {data!r})", do_eval=False)
+                while True:
+                    data = fp.read(chunk_size)
+                    if data == b"":
+                        break
+                    self.cmd(f"copy_write_function__(r'{name}', {data!r})", do_eval=False)
         return out
 
     def copy_from_session(
-        self, remotedir: str, filelist: List[str], localdir: str, progress: bool = False
+        self,
+        local_prefix: str,
+        filelist: List[str],
+        remote_prefix: Optional[str] = None,
+        progress: bool = False,
     ) -> list:
         """Copy a collection of files out of the EnSight session
 
@@ -452,20 +490,39 @@ class Session:
         filesystem.  Note: for LocalLauncher, these are the same filesystems.
 
         Args:
-            remotedir:
-                The directory on the remote (EnSight) filesystem, the source
-                of the files.
+            local_prefix:
+                The URL prefix of the location to save the files.  The only
+                protocol currently supported is 'file://', the local filesystem.
             filelist:
-                The list of files to copy.  Note: these files will be sourced
-                relative to ``remotedir`` and written relative to ``localdir``.
-            localdir:
-                The directory on the local filesystem, the destination of the files.
+                The list of files to copy.  Note: these files will be prefixed
+                with session.launcher.session_directory/remote_prefix and written
+                relative to ``local_prefix``.
+            remote_prefix:
+                The directory on the remote (EnSight) filesystem, the source
+                for the files.  This prefix is appended to
+                session.launcher.session_directory.
             progress:
                 If True and the tqdm module is available, it will be used to
                 present a progress bar.
         Returns:
             The list of files that were copied.
+        Examples:
+            ::
+
+                the_files = ["fluent_data_dir", "ensight_script.py"]
+                session.copy_from_session("file:///D:/restored_data", the_files, progress=True)
+
+            ::
+
+                the_files = ["fluent_data_dir", "ensight_script.py"]
+                session.copy_from_session("file:///scratch/restored_data", the_files,
+                                          remote_prefix="data")
         """
+
+        uri = urlparse(local_prefix)
+        if uri.scheme != "file":
+            raise RuntimeError("Only the file:// protocol is supported for the local_prefix")
+        localdir = url2pathname(uri.path)
 
         remote_functions = textwrap.dedent(
             """\
@@ -489,15 +546,21 @@ class Session:
                             pass
                     return out
                 # (needed for flake8)
-                def copy_read_function__(filename: str) -> bytes:
+                def copy_read_function__(filename: str, offset: int, numbytes: int) -> bytes:
                     with open(filename, "rb") as fp:
-                        data = fp.read()
+                        fp.seek(offset)
+                        data = fp.read(numbytes)
                     return data
             """
         )
 
         self.cmd(remote_functions, do_eval=False)
-        names = self.cmd(f"copy_walk_function__(r'{remotedir}', {filelist})", do_eval=True)
+
+        remote_directory = self.launcher.session_directory
+        if remote_prefix:
+            remote_directory = f"{remote_directory}/{remote_prefix}"
+        remote_directory = remote_directory.replace("\\", "/")
+        names = self.cmd(f"copy_walk_function__(r'{remote_directory}', {filelist})", do_eval=True)
         if progress:
             try:
                 from tqdm.auto import tqdm
@@ -506,12 +569,20 @@ class Session:
         else:
             tqdm = list
         for item in tqdm(names):
-            name = os.path.join(remotedir, item[0].replace("\\", "/"))
-            data = self.cmd(f"copy_read_function__(r'{name}')", do_eval=True)
+            name = f"{remote_directory}/{item[0]}".replace("\\", "/")
             full_name = os.path.join(localdir, item[0])
             os.makedirs(os.path.dirname(full_name), exist_ok=True)
             with open(full_name, "wb") as fp:
-                fp.write(data)
+                offset = 0
+                chunk_size = 1024 * 1024
+                while True:
+                    data = self.cmd(
+                        f"copy_read_function__(r'{name}', {offset}, {chunk_size})", do_eval=True
+                    )
+                    if len(data) == 0:
+                        break
+                    fp.write(data)
+                    offset += chunk_size
         return names
 
     def run_script(self, filename: str) -> Optional[types.ModuleType]:
