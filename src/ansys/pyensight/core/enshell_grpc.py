@@ -188,10 +188,6 @@ class EnShellGRPC(object):
             return False
         return self._channel is not None
 
-    # @brief
-    #
-
-    # @param
     def connect(self, timeout: Optional[float] = 15.0):
         """Establish a connection to an EnShell gRPC server.
 
@@ -221,10 +217,6 @@ class EnShellGRPC(object):
             return
         self._stub = enshell_pb2_grpc.EnShellServiceStub(self._channel)
 
-    # @brief
-    #
-
-    # @param
     def connect_existing_channel(self, channel: grpc.Channel):
         """Establish a connection to an EnShell gRPC server.
 
@@ -246,9 +238,6 @@ class EnShellGRPC(object):
         self._channel = channel
         self._stub = enshell_pb2_grpc.EnShellServiceStub(self._channel)
 
-    # @brief
-    #
-    # @private
     def metadata(self):
         """Compute internal gRPC stream metadata."""
         ret = list()
@@ -290,6 +279,52 @@ class EnShellGRPC(object):
 
         return (response.ret, response.response)
 
+    def run_command_with_env(self, command_string: str, env_string: str):
+        """send an EnShell command string and env var string to be executed in EnShell
+
+        The string will be sent to EnShell via the EnShellService::run_command()
+        gRPC call.  An IOError exception may be thrown
+        if there's a gRPC communication problem.  The response
+        is the tuple of the EnShell return code and return string.
+        Parameters
+        ----------
+        command_string : str
+            the EnShell string to be executed.
+        env_string : str
+            String of the environment.
+
+        Returns
+        -------
+        Tuple
+            A tuple of (int, string) for (returnCode, returnString)
+        """
+        self.connect()
+        if not self._stub:
+            return (0, "")
+        try:
+            response = self._stub.run_command_with_env(
+                enshell_pb2.EnShellCommandWithEnvLine(
+                    command_line=command_string, env_line=env_string
+                ),
+                metadata=self.metadata(),
+            )
+        except Exception:
+            raise IOError("gRPC connection dropped")
+
+        return (response.ret, response.response)
+
+    # @brief Tell EnShell to start EnSight
+    #
+    # The string will be sent to EnShell via the EnShellService::run_command()
+    # gRPC call.  An IOError exception may be thrown
+    # if there's a gRPC communication problem.  The response
+    # is the tuple of the EnShell return code and return string.
+    # If ensight_env is used, the format is a single string of
+    # environment variable name=value pairs with multiple pairs
+    # separated by '\n' characters.
+    # @param ensight_args arguments for the ensight command line
+    # @param ensight_env optional environment variables to set before running EnSight
+    # @return A tuple of (int, string) for (returnCode, returnString)
     def start_ensight(self, ensight_args: Optional[str] = None, ensight_env: Optional[str] = None):
         """Tell EnShell to start EnSight.
 
@@ -314,7 +349,10 @@ class EnShellGRPC(object):
         if ensight_args and (ensight_args != ""):
             command_string += " " + ensight_args
 
-        return self.run_command(command_string)
+        if ensight_env is None or ensight_env == "":
+            return self.run_command(command_string)
+        else:
+            return self.run_command_with_env(command_string, ensight_env)
 
     # @brief
     #
@@ -359,7 +397,7 @@ class EnShellGRPC(object):
             return
 
         self.connect()
-        command_string = "run_cmd /usr/bin/printenv"
+        command_string = "show_ceihome"
         ret = self.run_command(command_string)
         # logging.debug(f"{command_string} :: ret = {ret}\n")
         if ret[0] != 0:

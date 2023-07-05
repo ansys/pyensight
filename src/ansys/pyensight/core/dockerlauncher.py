@@ -444,11 +444,9 @@ class DockerLauncher(Launcher):
         use_egl = self._use_egl()
 
         # Run EnSight
-        ensight_env = None
+        ensight_env_vars = None
         if use_egl:
-            ensight_env = (
-                "export LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1 ;"
-            )
+            ensight_env_vars = "LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1"
 
         ensight_args = "-batch -v 3"
 
@@ -464,7 +462,7 @@ class DockerLauncher(Launcher):
         ensight_args += " -vnc " + vnc_url
 
         logging.debug(f"Starting EnSight with args: {ensight_args}\n")
-        ret = self._enshell.start_ensight(ensight_args, ensight_env)
+        ret = self._enshell.start_ensight(ensight_args, ensight_env_vars)
         if ret[0] != 0:
             self.stop()
             raise RuntimeError(f"Error starting EnSight with args: {ensight_args}")
@@ -501,6 +499,9 @@ class DockerLauncher(Launcher):
         # WARNING: assuming the host is the same for grpc_private, http, and ws
         # This may not be true in the future if using PIM.
         # revise Session to handle three different hosts if necessary.
+        use_sos = False
+        if self._use_sos:
+            use_sos = True
         session = ansys.pyensight.core.session.Session(
             host=self._service_host_port["grpc_private"][0],
             grpc_port=self._service_host_port["grpc_private"][1],
@@ -509,6 +510,8 @@ class DockerLauncher(Launcher):
             install_path=None,
             secret_key=self._secret_key,
             timeout=self._timeout,
+            sos=use_sos,
+            rest_api=self._enable_rest_api,
         )
         session.launcher = self
         self._sessions.append(session)
@@ -620,7 +623,8 @@ class DockerLauncher(Launcher):
                 s = text.read().decode("utf-8")
                 text.close()
                 return s
-            except Exception:
+            except Exception as e:
+                logging.debug(f"Error getting EnShell log: {e}\n")
                 return None
 
         fs = self.file_service()

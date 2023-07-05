@@ -231,6 +231,9 @@ class LocalLauncher(Launcher):
             + f"html:{self._ports[2]} ws:{self._ports[3]}\n"
             + f"key:{self._secret_key}\n"
         )
+        use_sos = False
+        if self._use_sos:
+            use_sos = True
 
         # need to use Session like this so we can mock test this class
         session = ansys.pyensight.core.session.Session(
@@ -241,6 +244,8 @@ class LocalLauncher(Launcher):
             install_path=self._install_path,
             secret_key=self._secret_key,
             timeout=self._timeout,
+            sos=use_sos,
+            rest_api=self._enable_rest_api,
         )
         session.launcher = self
         self._sessions.append(session)
