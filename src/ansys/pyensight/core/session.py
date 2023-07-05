@@ -901,7 +901,7 @@ class Session:
                 _cap_name = _name[0].upper() + _name[1:]
                 # import the module
                 spec = importlib.util.spec_from_file_location(
-                    f"ansys.pyensight.utils.{_name}", _filename
+                    f"ansys.pyensight.core.utils.{_name}", _filename
                 )
                 if spec:
                     _module = importlib.util.module_from_spec(spec)
