@@ -12,7 +12,6 @@ __ansys_version__ = DEFAULT_ANSYS_VERSION
 __ansys_version_str__ = f"{2000+(int(__ansys_version__) // 10)} R{int(__ansys_version__) % 10}"
 
 from ansys.pyensight.core.dockerlauncher import DockerLauncher
-from ansys.pyensight.core.dockerlauncherenshell import DockerLauncherEnShell
 from ansys.pyensight.core.launch_ensight import launch_ensight
 from ansys.pyensight.core.launcher import Launcher
 from ansys.pyensight.core.listobj import ensobjlist
