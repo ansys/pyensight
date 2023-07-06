@@ -142,7 +142,7 @@ Returns:
 <description>
 Allows specification of fraction of nodes to display in fast display-point representation. The default is 1 (indicating all nodes), 2 (would be every other node), 3 (every third node), etc.
 
-| May help performance. 
+| May help performance.
 
 Args:
     p0:
@@ -625,7 +625,7 @@ Args:
         &#x27;rotate_mode&#x27;
 
         * must be one of:
-        * mixed_mode 
+        * mixed_mode
         * direct_mode
 
 Examples:

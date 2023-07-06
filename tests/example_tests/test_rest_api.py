@@ -1,7 +1,7 @@
+from ansys.pyensight.core.dockerlauncher import DockerLauncher
+from ansys.pyensight.core.locallauncher import LocalLauncher
 import pytest
 import requests
-
-from ansys.pyensight import DockerLauncher, LocalLauncher
 
 
 def test_rest_apis(tmpdir, pytestconfig: pytest.Config):

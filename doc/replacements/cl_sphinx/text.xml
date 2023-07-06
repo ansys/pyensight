@@ -1,7 +1,7 @@
 <docstrings>
 <override namespace="ensight.text.change_text">
 <description>
-Replaces the currently selected annotation text. 
+Replaces the currently selected annotation text.
 
 Args:
     p0:
@@ -19,7 +19,7 @@ Returns:
 </override>
 <override namespace="ensight.text.delete">
 <description>
-Deletes the currently selected text in the graphics window. 
+Deletes the currently selected text in the graphics window.
 
 Examples:
     ::
@@ -165,7 +165,7 @@ Returns:
 </override>
 <override namespace="ensight.text.new_text">
 <description>
-Creates new text in the graphics window. 
+Creates new text in the graphics window.
 
 Args:
     p0:
@@ -287,7 +287,7 @@ Returns:
 </override>
 <override namespace="ensight.text.select_begin">
 <description>
-Selects one or more text strings in the graphics window as the target for future text: commands 
+Selects one or more text strings in the graphics window as the target for future text: commands
 
 Args:
     p0:
@@ -305,7 +305,7 @@ Returns:
 </override>
 <override namespace="ensight.text.select_end">
 <description>
-Selects one or more text strings in the graphics window as the target for future text: commands 
+Selects one or more text strings in the graphics window as the target for future text: commands
 
 Args:
     p0:
@@ -325,7 +325,7 @@ Returns:
 <description>
 Causes any following text commands to affect the default settings, rather than a particular text object.
 
-| All text commands following text: select_default will affect default settings until a new text object is selected using text: select_begin/select_end. 
+| All text commands following text: select_default will affect default settings until a new text object is selected using text: select_begin/select_end.
 
 Examples:
     ::
@@ -344,7 +344,7 @@ Returns:
 Specifies the size of the selected text in the graphics window.
 
 | Text size is specified in arbitrary units, with 0 being the smallest possible text and 100 the largest.
-| The text scales with the size of the graphics window.     
+| The text scales with the size of the graphics window.
 
 Args:
     p0:
@@ -362,9 +362,9 @@ Returns:
 </override>
 <override namespace="ensight.text.visible">
 <description>
-Controls the visibility of the selected text in the graphics window. 
+Controls the visibility of the selected text in the graphics window.
 
-| Text is visible by default. 
+| Text is visible by default.
 
 Args:
     p0:

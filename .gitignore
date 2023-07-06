@@ -36,18 +36,6 @@ dist/
 _autosummary
 _examples
 
-# build interrmediate products
-codegen/ensight.proto
-codegen/ensight_api.xml
-codegen/enshell.proto
-src/ansys/api/ensight/v*/ensight_pb2*.py
-src/ansys/api/ensight/v*/ensight.proto
-src/ansys/api/enshell/v*/enshell_pb2*.py
-src/ansys/api/enshell/v*/enshell.proto
-src/ansys/pyensight/ensight_api.py
-src/ansys/pyensight/ens_*.py
-src/ansys/pyensight/build_info.py
-
 # Testing
 .coverage
 *,cover

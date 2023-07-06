@@ -56,7 +56,7 @@ Examples:
 
         #
         # Add emitters to a currently defined particle trace part 3
-        # 
+        #
         #
         ensight.part.select_begin(3)
         ensight.ptrace.add_file(&quot;/tmp/emitter.file&quot;)
@@ -236,8 +236,8 @@ Returns:
 <description>
 Add emitters (and thus more traces) to the current particle trace part(s) from the grid of a screen box pick.
 
-| The &quot;ptrace: surface_restricted&quot; command must be ON prior to this command. 
-| Any existing particle trace parts can have emitters added to them. These trace parts must be selected before the addition. 
+| The &quot;ptrace: surface_restricted&quot; command must be ON prior to this command.
+| Any existing particle trace parts can have emitters added to them. These trace parts must be selected before the addition.
 | The number of additional emitter points will be the product of num_in_x * num_in_y.
 
 Args:
@@ -246,7 +246,7 @@ Args:
     p1:
         &#x27;num_in_y&#x27; number of equally spaced points in the y direction of the plane tool
     p2:
-        &#x27;x1&#x27; screen x coordinate of the first point on the diagonal of the box (0.0 to 1.0) 
+        &#x27;x1&#x27; screen x coordinate of the first point on the diagonal of the box (0.0 to 1.0)
     p3:
         &#x27;y1&#x27; screen y coordinate of the first point on the diagonal of the box (0.0 to 1.0)
     p4:
@@ -404,7 +404,7 @@ Returns:
 </override>
 <override namespace="ensight.ptrace.animate">
 <description>
-Toggles particle trace animation on or off for selected traces.  
+Toggles particle trace animation on or off for selected traces.
 
 Args:
     p0:
@@ -632,8 +632,8 @@ Returns:
 <description>
 Create particle traces from the plane tool.
 
-| The default attributes and/or any &quot;ptrace:&quot; attribute commands between &quot;ptrace: begin&quot; and &quot;ptrace: end&quot; commands are used for the trace creation. 
-| A parent part or parts (containing the flow field) must be selected prior to this command. You need the plane tool to be at the desired location.  
+| The default attributes and/or any &quot;ptrace:&quot; attribute commands between &quot;ptrace: begin&quot; and &quot;ptrace: end&quot; commands are used for the trace creation.
+| A parent part or parts (containing the flow field) must be selected prior to this command. You need the plane tool to be at the desired location.
 | The number of emitter points will be the product of num_in_x * num_in_y.
 
 Args:
@@ -708,7 +708,7 @@ Examples:
         ensight.ptrace.emit_density(1.0000e+00)
         ensight.ptrace.end()
         #
-        # Creating traces from all the nodes of the part 
+        # Creating traces from all the nodes of the part
         # entitled &quot;(CASE:Case 1)Clip_line&quot;
         #
         ensight.ptrace.create_bypartname(&quot;(CASE:Case&quot;,&quot;1)Clip_line&quot;,&quot;100&quot;)
@@ -808,7 +808,7 @@ Returns:
 <description>
 Create surface restricted particle traces from a screen box pick.
 
-| The &quot;ptrace: surface_restricted&quot; command must be ON prior to this command. 
+| The &quot;ptrace: surface_restricted&quot; command must be ON prior to this command.
 | The default attributes and/or any &quot;ptrace:&quot; attribute commands between &quot;ptrace: begin&quot; and &quot;ptrace: end&quot; commands are used for the trace creation. A parent part or parts (containing the flow field) must be selected prior to this command. The number of emitter points will be the product of num_in_x * num_in_y.
 
 Args:
@@ -854,7 +854,7 @@ Returns:
 <description>
 Create a surface restricted particle trace from a screen point pick location.
 
-| The &quot;ptrace: surface_restricted&quot; command must be ON prior to this command. 
+| The &quot;ptrace: surface_restricted&quot; command must be ON prior to this command.
 | The default attributes and/or any &quot;ptrace:&quot; attribute commands between &quot;ptrace: begin&quot; and &quot;ptrace: end&quot; commands are used for the trace creation. A parent part or parts (containing the flow field) must be selected prior to this command.
 
 Args:
@@ -895,7 +895,7 @@ Returns:
 <description>
 Create surface restricted particle traces from a screen pick rake location.
 
-| The &quot;ptrace: surface_restricted&quot; command must be ON prior to this command. 
+| The &quot;ptrace: surface_restricted&quot; command must be ON prior to this command.
 | The default attributes and/or any &quot;ptrace:&quot; attribute commands between &quot;ptrace: begin&quot; and &quot;ptrace: end&quot; commands are used for the trace creation. A parent part or parts (containing the flow field) must be selected prior to this command.
 
 Args:
@@ -1119,7 +1119,7 @@ Returns:
 </override>
 <override namespace="ensight.ptrace.display_offset">
 <description>
-Sets the distance normal to the surface at which the surface restricted trace will be displayed. This can be used to avoid z-buffer display problems that arise because the trace lies in the same plane as the surface. 
+Sets the distance normal to the surface at which the surface restricted trace will be displayed. This can be used to avoid z-buffer display problems that arise because the trace lies in the same plane as the surface.
 
 | A positive number moves the trace in the direction of the positive surface normal, while a negative number moves in the opposite direction.
 
@@ -1332,8 +1332,8 @@ Returns:
 <description>
 Specify the name of the drag coefficient function table to be used in the drag force term of the massed-particle calculation.
 
-| The default setting is &quot;none&quot;.  The &quot;ptrace: massed_particles&quot; command does not have to be ON in order to specify this command.  This parameter is only used when the drag force term &quot;ptrace: massed_drag&quot; is toggled ON. 
-| Also the three options &quot;DragCoefPoly&quot;, &quot;DragCoefPower&quot;, and &quot;DragCoefTable1&quot;, are EnSight User-Defined Math Functions.  These math functions are typically located under $CEI_HOME/ensight92/src/math_functions, and are compiled as libraries by the user, and then dynamically liked via the _UDMF environment variable.
+| The default setting is &quot;none&quot;.  The &quot;ptrace: massed_particles&quot; command does not have to be ON in order to specify this command.  This parameter is only used when the drag force term &quot;ptrace: massed_drag&quot; is toggled ON.
+| Also the three options &quot;DragCoefPoly&quot;, &quot;DragCoefPower&quot;, and &quot;DragCoefTable1&quot;, are EnSight User-Defined Math Functions. These math functions are typically located under $CEI_HOME/ensight92/src/math_functions, and are compiled as libraries by the user, and then dynamically liked via the _UDMF environment variable.
 
 Args:
     p0:
@@ -1526,7 +1526,7 @@ Returns:
 <description>
 Specify the name of the gravity vector used in the pressure force term of the massed-particle calculation.
 
-| The default setting is &lt;0., -9.81, 0.&gt;.  The &quot;ptrace: massed_particles&quot; command does not have to be ON in order to specify this command.  
+| The default setting is &lt;0., -9.81, 0.&gt;.  The &quot;ptrace: massed_particles&quot; command does not have to be ON in order to specify this command.
 
 Args:
     p0:
@@ -2140,10 +2140,10 @@ Examples:
 
         #
         # Select an existing particle trace part 3
-        # 
+        #
         #
         ensight.part.select_begin(3)
-        # 
+        #
         # Change the emitter name for emitter 0
         #
         ensight.ptrace.modify_fileemit_name(&quot;0 /tmp/new_emitter.file&quot;)
@@ -2292,7 +2292,7 @@ Returns:
 </override>
 <override namespace="ensight.ptrace.rot_angle">
 <description>
-Sets the angle between successive particle trace line segments that will trigger a halving of the integration step.  
+Sets the angle between successive particle trace line segments that will trigger a halving of the integration step.
 
 | When a particle begins experiencing rotational effects, the integration step typically needs to be decreased. This attribute is one of the controls for such adaptation.
 
@@ -2440,7 +2440,7 @@ Returns:
 </override>
 <override namespace="ensight.ptrace.surface_restricted">
 <description>
-Toggles trace creation to be surface restricted or not. 
+Toggles trace creation to be surface restricted or not.
 
 Args:
     p0:
@@ -2530,7 +2530,7 @@ Returns:
 <description>
 Sets the integration direction for a particle trace - forward in time, backward in time, or both.
 
-| By setting this option appropriately, one can see where a particle will go if released from the emitter location (the + direction), or one can see the path that a particle took to get to the emitter location (the - direction). 
+| By setting this option appropriately, one can see where a particle will go if released from the emitter location (the + direction), or one can see the path that a particle took to get to the emitter location (the - direction).
 
 Args:
     p0:
@@ -2689,8 +2689,8 @@ Returns:
 <description>
 Specify the number of evenly spaced points to sample either along the line tool or over the specified range of time steps.
 
-| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.  
-| If you specify more or fewer sample points than the number of time steps, EnSight linearly interpolates between the adjoining time steps. 
+| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.
+| If you specify more or fewer sample points than the number of time steps, EnSight linearly interpolates between the adjoining time steps.
 | If the query is an FFT sampling, the number of frequencies output will be (a power of two) less than or equal to the number of sample points.
 
 Args:
@@ -2700,9 +2700,9 @@ Args:
 Examples:
     ::
 
-        # 
-        # Creation example... 
-        # 
+        #
+        # Creation example...
+        #
         ensight.part.select_begin(1)
         ensight.query_ent_var.begin()
         ensight.query_ent_var.description(&quot;&quot;)
@@ -2717,9 +2717,9 @@ Examples:
         ensight.query_ent_var.end()
         ensight.query_ent_var.query()
         ensight.curve.select_begin(0)
-        # 
-        # Modification example... 
-        # 
+        #
+        # Modification example...
+        #
         ensight.query_ent_var.modify_begin()
         # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
         ensight.query_ent_var.type(&quot;distance&quot;)
@@ -2735,7 +2735,7 @@ Returns:
 <description>
 Specifies to check for existing plotters with the same abscissa when auto plotting query information.
 
-| Only applicable with the &quot;query_ent_var: auto_plot_queries ON&quot; command. 
+| Only applicable with the &quot;query_ent_var: auto_plot_queries ON&quot; command.
 
 Args:
     p0:
@@ -2757,7 +2757,7 @@ Returns:
 <description>
 Specify that any created query to be plotted automatically.
 
-| See also the &quot;query_ent_var: auto_plot_checkexisting&quot; command. 
+| See also the &quot;query_ent_var: auto_plot_checkexisting&quot; command.
 
 Args:
     p0:
@@ -2835,7 +2835,7 @@ Returns:
 <description>
 Specify the beginning simuation time to start the query over time.
 
-| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.  
+| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.
 | Only applicable with the &quot;query_ent_var: type time&quot; command.
 
 Args:
@@ -2845,13 +2845,13 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select part 
-        # 
+        #
+        # Select part
+        #
         ensight.part.select_begin(2)
-        # 
-        # Query over time 
-        # 
+        #
+        # Query over time
+        #
         ensight.query_ent_var.begin()
         ensight.query_ent_var.description(&quot;&quot;)
         # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
@@ -2866,9 +2866,9 @@ Examples:
         ensight.query_ent_var.variable(&quot;temp&quot;)
         ensight.query_ent_var.end()
         ensight.query_ent_var.query()
-        # 
-        # Select resulting plot curve 
-        # 
+        #
+        # Select resulting plot curve
+        #
         ensight.curve.select_begin(0)
 
 Returns:
@@ -2901,9 +2901,9 @@ Args:
 Examples:
     ::
 
-        # 
-        # Modification change: 
-        # 
+        #
+        # Modification change:
+        #
         ensight.query_ent_var.modify_begin()
         # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
         ensight.query_ent_var.type(&quot;distance&quot;)
@@ -2933,9 +2933,9 @@ Args:
 Examples:
     ::
 
-        # 
-        # Specify part on which to perform query 
-        # 
+        #
+        # Specify part on which to perform query
+        #
         ensight.part.select_begin(2)
         ensight.query_ent_var.begin()
         ensight.query_ent_var.description(&quot;&quot;)
@@ -2951,9 +2951,9 @@ Examples:
         ensight.query_ent_var.variable(&quot;temp&quot;)
         ensight.query_ent_var.end()
         ensight.query_ent_var.query()
-        # 
-        # Specify new curve to be current 
-        # 
+        #
+        # Specify new curve to be current
+        #
 
 Returns:
     zero on success, non-zero on error
@@ -3016,9 +3016,9 @@ Args:
 Examples:
     ::
 
-        # 
-        # Modify to parameterize using only the x-component of the arc length 
-        # 
+        #
+        # Modify to parameterize using only the x-component of the arc length
+        #
         ensight.query_ent_var.modify_begin()
         # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
         ensight.query_ent_var.type(&quot;distance&quot;)
@@ -3034,9 +3034,9 @@ Returns:
 <description>
 Specify the element id used to perform the specified element constrained query.
 
-| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair. 
-| Only applicable with the &quot;query_ent_var: type time&quot; and &quot;query_ent_var: constrain element&quot; commands. 
-| Only applicable on element-based variables. 
+| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.
+| Only applicable with the &quot;query_ent_var: type time&quot; and &quot;query_ent_var: constrain element&quot; commands.
+| Only applicable on element-based variables.
 | Only applicable with the &quot;query_ent_var: constrain element&quot; and &quot;query_ent_var: type time&quot; commands.
 
 Args:
@@ -3071,7 +3071,7 @@ Returns:
 <description>
 Specify the ending simulation time used to stop the query over time.
 
-| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair. 
+| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.
 | Only applicable with the &quot;query_ent_var: type time&quot; command.
 
 Args:
@@ -3081,13 +3081,13 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select part 
-        # 
+        #
+        # Select part
+        #
         ensight.part.select_begin(2)
-        # 
-        # Query over time 
-        # 
+        #
+        # Query over time
+        #
         ensight.query_ent_var.begin()
         ensight.query_ent_var.description(&quot;&quot;)
         # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
@@ -3102,9 +3102,9 @@ Examples:
         ensight.query_ent_var.variable(&quot;temp&quot;)
         ensight.query_ent_var.end()
         ensight.query_ent_var.query()
-        # 
-        # Select resulting plot curve 
-        # 
+        #
+        # Select resulting plot curve
+        #
         ensight.curve.select_begin(0)
 
 Returns:
@@ -3151,7 +3151,7 @@ Returns:
 <description>
 Specify the ijk location used to perform the specified ijk constrained query.
 
-| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair. 
+| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.
 | Only applicable with the &quot;query_ent_var: constrain ijk&quot; and &quot;query_ent_var: type time&quot; commands.
 
 Args:
@@ -3188,7 +3188,7 @@ Returns:
 </override>
 <override namespace="ensight.query_ent_var.line_loc">
 <description>
-Specify the location of the line used for distance queries when the constraint is set to line_tool. 
+Specify the location of the line used for distance queries when the constraint is set to line_tool.
 
 | This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.
 
@@ -3284,7 +3284,7 @@ Returns:
 <description>
 The begin/end construct in which to modify query entity attributes.
 
-| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair. 
+| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.
 | If the query type is distance, then the marker is placed at the location of the origin (starting endpoint).
 
 Args:
@@ -3312,14 +3312,14 @@ Returns:
 <description>
 Delimit the modifications for query entity attributes.
 
-| These commands are used to set the attributes for a query entity. 
+| These commands are used to set the attributes for a query entity.
 
 Examples:
     ::
 
-        # 
-        # Modification change: 
-        # 
+        #
+        # Modification change:
+        #
         ensight.query_ent_var.modify_begin()
         # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
         ensight.query_ent_var.type(&quot;distance&quot;)
@@ -3335,14 +3335,14 @@ Returns:
 <description>
 Delimit the modifications for query entity attributes.
 
-| These commands are used to set the attributes for a query entity. 
+| These commands are used to set the attributes for a query entity.
 
 Examples:
     ::
 
-        # 
-        # Modification change: 
-        # 
+        #
+        # Modification change:
+        #
         ensight.query_ent_var.modify_begin()
         # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
         ensight.query_ent_var.type(&quot;distance&quot;)
@@ -3358,7 +3358,7 @@ Returns:
 <description>
 Treat multiple line segments of a distance query as multiple queries, (i.e., reset the distance to 0. for each segment) or as a continuous line.
 
-| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair. 
+| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.
 | Only applicable with the &quot;query_ent_var: type distance&quot; command.
 
 Args:
@@ -3386,7 +3386,7 @@ Returns:
 <description>
 Specify the node id in which to perform the specified node constrained query.
 
-| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair. 
+| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.
 | Only applicable with the &quot;query_ent_var: constrain node&quot; command. Only applicable on node-based variables.
 
 Args:
@@ -3396,13 +3396,13 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select part 
-        # 
+        #
+        # Select part
+        #
         ensight.part.select_begin(2)
-        # 
-        # Query over time 
-        # 
+        #
+        # Query over time
+        #
         ensight.query_ent_var.begin()
         ensight.query_ent_var.description(&quot;&quot;)
         # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
@@ -3432,7 +3432,7 @@ Returns:
 </override>
 <override namespace="ensight.query_ent_var.operation_factor1">
 <description>
-Specify the scale factor to apply to the one or two existing queries of an operation query. 
+Specify the scale factor to apply to the one or two existing queries of an operation query.
 
 | This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.
 
@@ -3459,7 +3459,7 @@ Returns:
 </override>
 <override namespace="ensight.query_ent_var.operation_factor2">
 <description>
-Specify the scale factor to apply to the one or two existing queries of an operation query. 
+Specify the scale factor to apply to the one or two existing queries of an operation query.
 
 | This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.
 
@@ -3486,7 +3486,7 @@ Returns:
 </override>
 <override namespace="ensight.query_ent_var.operation_query1byname">
 <description>
-Specify the name of the one or two existing queries of an operation query. 
+Specify the name of the one or two existing queries of an operation query.
 
 | This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.
 
@@ -3513,7 +3513,7 @@ Returns:
 </override>
 <override namespace="ensight.query_ent_var.operation_query2byname">
 <description>
-Specify the name of the one or two existing queries of an operation query. 
+Specify the name of the one or two existing queries of an operation query.
 
 | This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.
 
@@ -3542,7 +3542,7 @@ Returns:
 <description>
 Specify a location which will be used to select the origin of a distance plot when performing the query on a 1D part.
 
-| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair. 
+| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.
 | Only applicable with the &quot;querey_ent_var: type distance&quot; and &quot;query_ent_var: constrain 1d_part&quot; commands.
 | The end point closest to the origin specified will be used as the &quot;origin&quot; of the query, i.e., where distance = 0.
 | If the ID part is a closed loop (i.e., there are no end points), the closest point on the loop is used as the &quot;origin&quot;.
@@ -3699,7 +3699,7 @@ Returns:
 <description>
 Specify how to report values queried over time.
 
-| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair. 
+| This command must lie between either a &quot;query_ent_var: begin&quot; and &quot;query_ent_var: end&quot; pair, or a &quot;query_ent_var: modify_begin&quot; and &quot;query_ent_var: modify_end&quot; pair.
 | Only applicable with the &quot;query_ent_var: type time&quot; command.
 
 Args:
@@ -3712,13 +3712,13 @@ Args:
 Examples:
     ::
 
-        # 
-        # Select part 
-        # 
+        #
+        # Select part
+        #
         ensight.part.select_begin(2)
-        # 
-        # Query over time 
-        # 
+        #
+        # Query over time
+        #
         ensight.query_ent_var.begin()
         ensight.query_ent_var.description(&quot;&quot;)
         # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
@@ -3733,13 +3733,13 @@ Examples:
         ensight.query_ent_var.variable(&quot;temp&quot;)
         ensight.query_ent_var.end()
         ensight.query_ent_var.query()
-        # 
-        # Select resulting plot curve 
-        # 
+        #
+        # Select resulting plot curve
+        #
         ensight.curve.select_begin(0)
-        # 
-        # Modified to sample by FFT 
-        # 
+        #
+        # Modified to sample by FFT
+        #
         ensight.query_ent_var.modify_begin()
         # WARNING: following line includes OBSOLETE call (ensight.query_ent_var.type).
         ensight.query_ent_var.type(&quot;time&quot;)

@@ -8,14 +8,14 @@ REST API
 An EnSight session started using PyEnSight may enable the direct REST API.
 This API allows Javascript code to directly access the EnSight Python APIs.
 The API is only available in versions of EnSight from the 2024 R1 release
-and beyond.  The API is enabled using the ``enable_rest_api=True`` keyword
+and beyond. The API is enabled using the ``enable_rest_api=True`` keyword
 to the Launcher() subclass ctor.
 
 
 .. note::
 
-    **The information here is for informational purposes only.  The API has
-    been defined, but is not currently enabled in EnSight.   It will be
+    **The information here is for informational purposes only. The API has
+    been defined, but is not currently enabled in EnSight. It will be
     released in 2024 R1**
 
 
@@ -24,7 +24,7 @@ Enabling the API via PyEnSight
 
 The REST API service can be started via the pyensight LocalLauncher::
 
-    >>> from ansys.pyensight import LocalLauncher
+    >>> from ansys.pyensight.core import LocalLauncher
     >>> s = LocalLauncher(enable_rest_api=True).start()
     >>> s.load_data(f"{s.cei_home}/ensight{s.cei_suffix}/data/cube/cube.case")
     >>> uri_base = f"http://{s.hostname}:{s.html_port}/ensight/v1/{s.secret_key}"
@@ -47,16 +47,16 @@ The string from the previous example can be used via Python ``requests`` to exec
 
 
 Will use the REST API to run the command: ``ensight.objs.core.PARTS`` and output
-something like: ``['@ENSOBJ=1022@']``, a reference to object 1022.  When the query
-option ``returns`` is used to return the DESCRIPTION and VISIBLE attributes.  In that
+something like: ``['@ENSOBJ=1022@']``, a reference to object 1022. When the query
+option ``returns`` is used to return the DESCRIPTION and VISIBLE attributes. In that
 case, the output for the second PUT is: ``[['Computational mesh', True]]``.
 
 .. note::
 
     Examples here leverage Python requests to execute REST calls, but any mechanism can be
-    used: curl, swagger, etc.  The intended use of the API is via JavaScript using fetch() from
+    used: curl, swagger, etc. The intended use of the API is via JavaScript using fetch() from
     within a web page, making it possible to control and interact with a PyEnSight launched
-    EnSight instance directly from the browser.  Moreover, both PyEnSight and REST calls can
+    EnSight instance directly from the browser. Moreover, both PyEnSight and REST calls can
     be used to talk to the same EnSight session, making it possible to communicate between
     browser JavaScript and PyEnSight Python scripts, using the EnSight instance as
     a common communication hub.
@@ -66,7 +66,7 @@ Remote Python functions
 -----------------------
 
 Continuing the example, the REST api can be used to define a Python function in the
-remote EnSight session.  First we define the function::
+remote EnSight session. First we define the function::
 
     >>> foo_src = "def foo(n:int = 1):\n return list(numpy.random.rand(n))\n"
     >>> requests.put(uri_base+"/def_func/myapp/foo", json=foo_src, params=dict(imports="numpy"))
@@ -74,11 +74,11 @@ remote EnSight session.  First we define the function::
 
 
 This will use the provided function source code to define a function named ``foo`` in the ``myapp``
-namespace.  The function being defined should use keywords only, no positional arguments.
-Note: if the namespace does not exist, it will be created.   Also, the function
-makes use of the ``numpy`` module.  A function must either import the module inside of the
+namespace. The function being defined should use keywords only, no positional arguments.
+Note: if the namespace does not exist, it will be created. Also, the function
+makes use of the ``numpy`` module. A function must either import the module inside of the
 function or include the names of the modules in the ``imports`` query options as a comma
-separated list of module names.  Numpy arrays do not directly support serialization to JSON,
+separated list of module names. Numpy arrays do not directly support serialization to JSON,
 hence the use of list() for the returned value.
 
 Once the function has been defined, it may be called like this::
@@ -99,7 +99,7 @@ The native API can be called directly using the REST API::
     0
 
 
-The EnSight view will rotate accordingly.  The object API can be called directly as well.
+The EnSight view will rotate accordingly. The object API can be called directly as well.
 Object attributes can be get/set in various forms on single objects or lists of objects::
 
     >>> requests.get(uri_base+"/ensobjs/ensight.objs.core/PARTS").json()
@@ -126,13 +126,13 @@ for complex operations.
 Shared Token Security
 ---------------------
 
-This API leverages shared secrets to control access to the EnSight instance.  Every pyensight
-launched instance has a shared secret that must be provided in all REST calls.  This shared
+This API leverages shared secrets to control access to the EnSight instance. Every pyensight
+launched instance has a shared secret that must be provided in all REST calls. This shared
 secret token can be accessed via the ``Session.secret_key`` pyensight API.  All REST APIs will
-expect that the token be specified in one of two ways.  First, the token can be passed as part of
+expect that the token be specified in one of two ways. First, the token can be passed as part of
 the URL path in the form: ``{LOCATION}/ensight/v1/{TOKEN}/{OPERATION}``.  Second, the token may be
-passed in an ``Authorization: Bearer TOKEN`` header.  When the header approach is used, any value
-can be passed in the URL path.  If tokens are supplied using both methods, the token in the
+passed in an ``Authorization: Bearer TOKEN`` header. When the header approach is used, any value
+can be passed in the URL path. If tokens are supplied using both methods, the token in the
 header is used.
 
 

@@ -1,19 +1,24 @@
 import inspect
-import os
 import re
 from typing import List
 
-from ansys.pyensight import ensight_api, ensobj
+from ansys.api.pyensight import ensight_api, ensight_api_test_assests
+from ansys.pyensight.core import ensobj
 
 
 def test_ensight_api(mocked_session, mocker):
     assets = []
     # The assets file contains the objects to be checked during the test.
     # This is generated when the API itself is generated
-    for line in open(os.path.join(os.path.dirname(__file__), "ensight_api_test_assets.txt")):
+    file_contents = ensight_api_test_assests()
+    file_contents_lines = file_contents.split("\n")
+    for line in file_contents_lines:
         split = re.search(r"(.*?,)(.*?,)(.*?,)(.*)", line)
-        split = [x.replace(",", "").strip() for x in split.groups()[:-1]] + [split.group(4).strip()]
-        assets.append((split[0], split[1], split[2], split[3]))
+        if split is not None:
+            split = [x.replace(",", "").strip() for x in split.groups()[:-1]] + [
+                split.group(4).strip()
+            ]
+            assets.append((split[0], split[1], split[2], split[3]))
     for asset in assets:
         class_name = asset[0]
         method_name = asset[1]

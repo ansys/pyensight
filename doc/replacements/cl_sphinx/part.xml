@@ -129,11 +129,11 @@ Returns:
 </override>
 <override namespace="ensight.part.colorby_palette">
 <description>
-Colors the currently selected part(s) based on the value of the specified variable at each node or element (depending on whether data is node or element based) 
+Colors the currently selected part(s) based on the value of the specified variable at each node or element (depending on whether data is node or element based)
 
 Args:
     p0:
-        &#x27;varname&#x27; the name of an existing variable (or the word &quot;none&quot;) 
+        &#x27;varname&#x27; the name of an existing variable (or the word &quot;none&quot;)
 
 Examples:
     ::
@@ -273,7 +273,7 @@ Returns:
 <description>
 Specifies the displacement factor to be applied to the source variable to calculate displacement for the currently selected part(s).
 
-| The displacement factor can be changed before or after the part: displace_by command is issued.  
+| The displacement factor can be changed before or after the part: displace_by command is issued.
 
 Args:
     p0:
@@ -450,7 +450,7 @@ Specifies the values for the operations for element failure.
 
 Args:
     p0:
-        &#x27; value&#x27; the values 
+        &#x27; value&#x27; the values
 
 Examples:
     ::
@@ -480,7 +480,7 @@ Specifies the values for the operations for element failure.
 
 Args:
     p0:
-        &#x27; value&#x27; the values 
+        &#x27; value&#x27; the values
 
 Examples:
     ::
@@ -782,7 +782,7 @@ Returns:
 <description>
 Causes the currently selected part(s) to be drawn with shaded surfaces.
 
-| View: hidden_surface ON must be issued in order for part: hidden_surface ON to take effect. 
+| View: hidden_surface ON must be issued in order for part: hidden_surface ON to take effect.
 
 Args:
     p0:
@@ -934,7 +934,7 @@ Returns:
 <description>
 Turns visibility of the non-mirrored currently selected parts on or off.
 
-| This command is normally used to remove the original image of parts which have been mirrored in one or more dimensions 
+| This command is normally used to remove the original image of parts which have been mirrored in one or more dimensions
 
 Args:
     p0:
@@ -959,7 +959,7 @@ Returns:
 </override>
 <override namespace="ensight.part.modify_begin">
 <description>
-These commands are used to demarcate part attribute changing commands.  The attributes within them will be changed when the modify_end is reached.
+These commands are used to demarcate part attribute changing commands. The attributes within them will be changed when the modify_end is reached.
 
 Examples:
     ::
@@ -977,7 +977,7 @@ Returns:
 </override>
 <override namespace="ensight.part.modify_end">
 <description>
-These commands are used to demarcate part attribute changing commands.  The attributes within them will be changed when the modify_end is reached.
+These commands are used to demarcate part attribute changing commands. The attributes within them will be changed when the modify_end is reached.
 
 Examples:
     ::
@@ -997,7 +997,7 @@ Returns:
 <description>
 Sets the detail level for drawing spherical nodes in the currently selected part(s).
 
-| Higher values of level result in more polygons being used to draw the spheres. 
+| Higher values of level result in more polygons being used to draw the spheres.
 
 Args:
     p0:
@@ -1262,7 +1262,7 @@ Returns:
 <description>
 Causes any following part editing commands to affect the default settings for all parts of any type.
 
-| All part: commands following part: select_all_default will affect default settings until a new part is selected using part: select_begin/end. 
+| All part: commands following part: select_all_default will affect default settings until a new part is selected using part: select_begin/end.
 
 Examples:
     ::
@@ -1279,7 +1279,7 @@ Returns:
 </override>
 <override namespace="ensight.part.select_begin">
 <description>
-Selects one or more parts as the target for future part: commands 
+Selects one or more parts as the target for future part: commands
 
 Args:
     p0:
@@ -1299,7 +1299,7 @@ Returns:
 </override>
 <override namespace="ensight.part.select_end">
 <description>
-Selects one or more parts as the target for future part: commands 
+Selects one or more parts as the target for future part: commands
 
 Args:
     p0:
@@ -2014,7 +2014,7 @@ Returns:
 </override>
 <override namespace="ensight.part.texture_origin">
 <description>
-Sets the texture origin offset in model space.  This describes the &quot;lower left&quot; corner of the texture in world coordinates.  This is an offset amount if the Projection offset is relative to a node ID.  If not, it is an offset from the world coordinate origin, i.e., it becomes an absolute origin.
+Sets the texture origin offset in model space.  This describes the &quot;lower left&quot; corner of the texture in world coordinates. This is an offset amount if the Projection offset is relative to a node ID.  If not, it is an offset from the world coordinate origin, i.e., it becomes an absolute origin.
 
 | Only used if texture_coord_type is set to projection
 

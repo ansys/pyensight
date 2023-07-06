@@ -20,7 +20,7 @@ Examples:
         ensight.sepattach.end()
         ensight.sepattach.create()
         #
-        # Now select the newly created separation and 
+        # Now select the newly created separation and
         # attachment line parts for subsequent operations
         #
         ensight.part.select_begin(6,7)
@@ -50,7 +50,7 @@ Examples:
         ensight.sepattach.end()
         ensight.sepattach.create()
         #
-        # Now select the newly created separation and 
+        # Now select the newly created separation and
         # attachment line parts for subsequent operations
         #
         ensight.part.select_begin(6,7)
@@ -80,7 +80,7 @@ Examples:
         ensight.sepattach.end()
         ensight.sepattach.create()
         #
-        # Now select the newly created separation and 
+        # Now select the newly created separation and
         # attachment line parts for subsequent operations
         #
         ensight.part.select_begin(6,7)
@@ -269,7 +269,7 @@ Returns:
 <description>
 Specify the maximum/minimum threshold limit under which to filter the threshold value of the selected separation and attachment line part(s).
 
-| This max must be greater than the min value, and be a valid threshold variable value.  
+| This max must be greater than the min value, and be a valid threshold variable value.
 
 Args:
     p0:
@@ -291,7 +291,7 @@ Returns:
 <description>
 Specify the maximum/minimum threshold limit under which to filter the threshold value of the selected separation and attachment line part(s).
 
-| This max must be greater than the min value, and be a valid threshold variable value.  
+| This max must be greater than the min value, and be a valid threshold variable value.
 
 Args:
     p0:

@@ -49,7 +49,7 @@ Returns:
 <description>
 Set the height of the legend bar
 
-| The height is in terms of screen coordinates, which are 0.0 to 1.0 in both x and y directions. 
+| The height is in terms of screen coordinates, which are 0.0 to 1.0 in both x and y directions.
 
 Args:
     p0:
@@ -437,7 +437,7 @@ Returns:
 <description>
 Set the width of the legend bar.
 
-| The width is in terms of screen coordinates, which are 0.0 to 1.0 in both x and y directions. 
+| The width is in terms of screen coordinates, which are 0.0 to 1.0 in both x and y directions.
 
 Args:
     p0:

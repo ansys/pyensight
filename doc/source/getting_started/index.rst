@@ -12,8 +12,8 @@ on the Ansys website.
 
 Installation
 ------------
-The ``ansys-ensight`` package supports Python 3.7 through
-Python 3.10 on Windows and Linux.
+The ``ansys-ensight`` package supports Python 3.8 through
+Python 3.11 on Windows and Linux.
 
 Install the latest package with this code:
 
@@ -60,7 +60,7 @@ The simplest way of starting an EnSight session is to use this code:
 
 .. code:: python
 
-   from ansys.pyensight import LocalLauncher
+   from ansys.pyensight.core import LocalLauncher
    session = LocalLauncher().start()
 
 
@@ -71,7 +71,7 @@ Optionally, you can start an EnSight Docker container by using code like this:
 
 .. code:: python
 
-   from ansys.pyensight import DockerLauncher
+   from ansys.pyensight.core import DockerLauncher
    launcher = DockerLauncher(data_directory=r"d:\data", use_dev=True)
    launcher.pull()
    session = launcher.start()

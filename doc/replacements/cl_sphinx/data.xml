@@ -86,7 +86,7 @@ Args:
     p0:
         &#x27;format_type&#x27;
 
-        * The format type which must be one of the following (or the name of a user defined reader): 
+        * The format type which must be one of the following (or the name of a user defined reader):
         * ensight
         * plot3d
         * fidap
@@ -131,7 +131,7 @@ Args:
     p0:
         &#x27;format_type&#x27;
 
-        * The format type which must be one of the following (or the name of a user defined reader): 
+        * The format type which must be one of the following (or the name of a user defined reader):
         * ensight
         * plot3d
         * fidap
@@ -201,7 +201,7 @@ Returns:
 Specify the name for the measured particle file.
 
 | The filename is concatenated with the path defined via the &quot;data: path&quot; command.
-| It is not possible to read a measured file without also specifying a geometry file, or having specified a geometry file previously. 
+| It is not possible to read a measured file without also specifying a geometry file, or having specified a geometry file previously.
 | When specified, the part containing the measured particle data will be generated upon a &quot;data: read&quot; command, i.e., this part type will not be shown in the various part loaders.
 
 Args:
@@ -312,7 +312,7 @@ Returns:
 <description>
 When the format is plot3d, specifies the dimensionality of the data.
 
-| EnSight attempts to determine the dimensionality of plot3d data, if this command is not given. 
+| EnSight attempts to determine the dimensionality of plot3d data, if this command is not given.
 | It must be specified before a &quot;data: read&quot; command is given.
 
 Args:
@@ -401,14 +401,14 @@ Returns:
 <description>
 When the format is plot3d, specifies that the file is single or multi zone.
 
-| EnSight will attempt to determine if the file is single or multi-zone if this command is not specified. 
+| EnSight will attempt to determine if the file is single or multi-zone if this command is not specified.
 | Must be specified before a &quot;data: read&quot; command is given.
 
 Args:
     p0:
         &#x27;toggle&#x27;
 
-        * ON 
+        * ON
         * OFF
 
 Examples:
@@ -445,8 +445,8 @@ Returns:
 <description>
 When the format is plot3d, specifies how the file is formatted.
 
-| If the user does not specify, EnSight will attempt to determine the binary nature of the data files. 
-| It must be specified before a &quot;data: read&quot; command is given. 
+| If the user does not specify, EnSight will attempt to determine the binary nature of the data files.
+| It must be specified before a &quot;data: read&quot; command is given.
 | All files (geometry, result, and measured) must be of the same binary nature.
 
 Args:
@@ -588,7 +588,7 @@ Returns:
 Set the name for the file containing result information.
 
 | The usage of a result file depends on the data format.  For some formats the result file is not necessary, while for others the result file either directly contains result information or may be another file containing information pointing to the various files that may exist.
-| The filename is concatenated with the path defined via the &quot;data: path&quot; command. 
+| The filename is concatenated with the path defined via the &quot;data: path&quot; command.
 | It is not possible to read a result file without also specifying a geometry file, or having specified a geometry file previously.
 
 Args:

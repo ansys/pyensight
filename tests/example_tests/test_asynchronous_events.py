@@ -16,9 +16,9 @@ with different mechanisms for getting data values.
 
 from urllib.parse import parse_qs, urlparse
 
+from ansys.pyensight.core.dockerlauncher import DockerLauncher
+from ansys.pyensight.core.locallauncher import LocalLauncher
 import pytest
-
-from ansys.pyensight import DockerLauncher, LocalLauncher
 
 
 def test_async_events(tmpdir, pytestconfig: pytest.Config):
@@ -114,7 +114,7 @@ def test_async_events(tmpdir, pytestconfig: pytest.Config):
     # The name string includes a mechanism for including target object values directly
     # in the returned URI.  This mechanism avoids the need to make PyEnSight calls
     # from within a callback function.  This can avoid reentrancy and performance
-    # issues.  This approach is more efficient than the previous example.
+    # issues. This approach is more efficient than the previous example.
     #
     # Extending the previous example to capture both visibility and RGB color
     # values using the macro mechanism.

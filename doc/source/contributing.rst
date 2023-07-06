@@ -7,11 +7,11 @@ Overall guidance on contributing to a PyAnsys library appears in the
 `Contributing <https://dev.docs.pyansys.com/how-to/contributing.html>`_ topic
 in the *PyAnsys Developer's Guide*. Ensure that you are thoroughly familiar with
 this guide before attempting to contribute to PyEnSight.
- 
+
 
 Post issues
 -----------
-Use the `PyEnSight Issues <https://github.com/pyansys/pyensight/issues>`_ page to
+Use the `PyEnSight Issues <https://github.com/ansys/pyensight/issues>`_ page to
 submit questions, report bugs, and request new features.
 
 

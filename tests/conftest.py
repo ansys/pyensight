@@ -5,10 +5,12 @@ import atexit
 import subprocess
 from unittest import mock
 
+import ansys.pyensight.core
+from ansys.pyensight.core import enshell_grpc, ensight_grpc
+from ansys.pyensight.core.dockerlauncher import DockerLauncher
+from ansys.pyensight.core.locallauncher import LocalLauncher
+from ansys.pyensight.core.session import Session
 import pytest
-
-import ansys.pyensight
-from ansys.pyensight import DockerLauncher, LocalLauncher, Session, enshell_grpc, ensight_grpc
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
@@ -20,7 +22,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
     parser.addoption(
         "--install-path",
         action="store",
-        default=f"/ansys_inc/v{ansys.pyensight.__ansys_version__}/",
+        default=f"/ansys_inc/v{ansys.pyensight.core.__ansys_version__}/",
     )
     parser.addoption("--use-local-launcher", default=False, action="store_true")
 
@@ -50,7 +52,7 @@ def cleanup_docker(request) -> None:
 
 
 @pytest.fixture
-def docker_launcher_session() -> "ansys.pyensight.Session":
+def docker_launcher_session() -> "Session":
     cleanup_docker()
     launcher = DockerLauncher(data_directory=".", use_dev=True)
     launcher.pull()
@@ -92,7 +94,7 @@ def mocked_session(mocker, tmpdir, enshell_mock) -> "ansys.pyensight.Session":
     mocked_grpc.connect = mock.MagicMock("execute_connection")
     mocker.patch.object(ensight_grpc, "EnSightGRPC", return_value=mocked_grpc)
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
-    mocker.patch.object(ansys.pyensight.Session, "cmd", return_value=cmd_mock)
+    mocker.patch.object(ansys.pyensight.core.Session, "cmd", return_value=cmd_mock)
     session_dir = tmpdir.mkdir("test_dir")
     remote = session_dir.join("remote_filename")
     remote.write("test_html")

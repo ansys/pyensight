@@ -189,7 +189,7 @@ Returns:
 </override>
 <override namespace="ensight.subset.select_default">
 <description>
-Sets to default subset part, so subsequent attribute changes will apply to the defaults. 
+Sets to default subset part, so subsequent attribute changes will apply to the defaults.
 
 Examples:
     ::

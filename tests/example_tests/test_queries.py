@@ -2,10 +2,10 @@ import glob
 from operator import attrgetter
 import os
 
+from ansys.pyensight.core.dockerlauncher import DockerLauncher
+from ansys.pyensight.core.locallauncher import LocalLauncher
 import numpy as np
 import pytest
-
-from ansys.pyensight import DockerLauncher, LocalLauncher
 
 
 def test_queries(tmpdir, pytestconfig: pytest.Config):
@@ -59,7 +59,7 @@ def test_queries(tmpdir, pytestconfig: pytest.Config):
     # This is an interesting trick.  The above code uses the
     # 'native' command bindings.  We would like to be able to
     # use the query object.  EnSight object 'values' are monotonically
-    # increasing numbers.  Thus, the 'max()' operation on a list
+    # increasing numbers. Thus, the 'max()' operation on a list
     # of EnSight objects will return the most recently created one.
     line_query = max(session.ensight.objs.core.QUERIES, key=attrgetter("__OBJID__"))
     print(line_query, line_query.QUERY_DATA["xydata"])

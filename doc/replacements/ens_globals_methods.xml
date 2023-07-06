@@ -72,7 +72,7 @@ Example:
 Generate a string that represents the appropriate label for a given object.
 
 
-This method will look at the specified :class:`ENS_VAR &lt;pyensight.ensobj.ENS_VAR&gt;` object
+This method will look at the specified :class:`ENS_VAR &lt;ansys.pyensight.core.ensobj.ENS_VAR&gt;` object
 and get any unit information specified by the UNIT schema.  The API can generate labels from DIMS
 and SYSTEM values if no explicit label string has been specified for the variable object.
 It will then return a string with the specified prefix and suffix strings added before
@@ -260,7 +260,7 @@ This method will return the M and B linear equation parameters for the equation:
 :samp:`y = Mx + b` that can be used to convert an entity of the dimensionality specified by
 dimension_string (e.g. L/TT) from the first unit system to the second (e.g. "SI" to "BIN").
 If the conversion fails, this function will raise an exception.  Otherwise,  it returns a
-tuple of two floats.  The list of valid unit systems can be obtained using:
+tuple of two floats. The list of valid unit systems can be obtained using:
 :samp:`ensight.objs.core.unit_system()`.
 
 
@@ -357,7 +357,7 @@ Args:
         A list of objects or an ENS_GROUP instance.
     filter:
         A dictionary created by ENSOBJ attributes as key and example attribute values as the
-        dictionary values.  For example, :samp:`filter=dict(VISIBLE=True)` will select only objects
+        dictionary values. For example, :samp:`filter=dict(VISIBLE=True)` will select only objects
         that have a VISIBLE attribute with the value True.  If no dictionary is provided, the
         filter check is not applied.
     group:

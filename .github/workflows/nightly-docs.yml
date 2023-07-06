@@ -19,49 +19,23 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
-
-      - name: Install build requirements
-        run: pip install -r requirements/build.txt
-
-      - name: Create wheel
-        run: make build-nightly
-
-      - name: Install pyensight
-        run: make install
-
-      - name: Install test requirements
-        run: pip install -r requirements/test.txt
-
-      - name: Login to GitHub Container Registry
+      - name: Login in Github Container registry
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
-          username: ${{ github.repository_owner }}
+          username: ansys-bot
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: docker
-        run: make pull-docker
+      - name: Docker pull
+        run: docker pull ${{ env.ENSIGHT_IMAGE }}
 
-      - name: Install doc build requirements
-        run: |
-          pip install -r requirements/docs.txt
 
-      - name: Full Documentation Build
-        run: |
-          make -C doc html
+      - name: Run Ansys documentation building action
+        uses: ansys/actions/doc-build@v4
         env:
           ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
-
-      - name: Upload documentation HTML artifact
-        uses: actions/upload-artifact@v3
         with:
-          name: documentation-html
-          path: doc/build/html
-          retention-days: 7
+          sphinxopts: '-j auto'
 
   docs_upload:
     needs: docs_build
@@ -69,8 +43,8 @@ jobs:
     steps:
 
       - name: Deploy development documentation
-        uses: ansys/actions/doc-deploy-dev@v3
+        uses: ansys/actions/doc-deploy-dev@v4
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          
+

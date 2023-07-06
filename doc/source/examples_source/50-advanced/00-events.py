@@ -19,9 +19,8 @@ with different mechanisms for getting data values.
 from urllib.parse import parse_qs, urlparse
 
 from IPython.display import display
+from ansys.pyensight.core import LocalLauncher
 from ipywidgets import widgets
-
-from ansys.pyensight import LocalLauncher
 
 session = LocalLauncher().start()
 
@@ -117,7 +116,7 @@ session.ensight.objs.core.parts["windshields"].set_attr(session.ensight.objs.enu
 # The name string includes a mechanism for including target object values directly
 # in the returned URI.  This mechanism avoids the need to make PyEnSight calls
 # from within a callback function.  This can avoid reentrancy and performance
-# issues.  This approach is more efficient than the previous example.
+# issues. This approach is more efficient than the previous example.
 #
 # Extending the previous example to capture both visibility and RGB color
 # values using the macro mechanism.

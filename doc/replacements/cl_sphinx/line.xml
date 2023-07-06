@@ -296,8 +296,8 @@ Args:
     p0:
         &#x27;toggle&#x27;
 
-        * ON 
-        * OFF 
+        * ON
+        * OFF
 
 Examples:
     ::

@@ -49,9 +49,9 @@ get a widget to embed in an external application.
 
 Installation
 ------------
-Include installation directions.  Note that this README will be
+Include installation directions. Note that this README will be
 included in your PyPI package, so be sure to include ``pip``
-directions along with developer installation directions.  For example.
+directions along with developer installation directions. For example.
 
 Install ansys-ensight with:
 
@@ -138,7 +138,7 @@ The simplest PyEnSight session may be started like this:
 
 .. code:: python
 
-   >>> from ansys.pyensight import LocalLauncher
+   >>> from ansys.pyensight.core import LocalLauncher
    >>> session = LocalLauncher().start()
    >>> data = session.render(1920, 1080, aa=4)
    >>> with open("image.png", "wb") as f:
@@ -149,7 +149,7 @@ Optionally, PyEnSight can work with an EnSight Docker container like this:
 
 .. code:: python
 
-   >>> from ansys.pyensight import DockerLauncher
+   >>> from ansys.pyensight.core import DockerLauncher
    >>> launcher = DockerLauncher(data_directory="d:/data", use_dev=True)
    >>> launcher.pull()
    >>> session = launcher.start()
@@ -159,7 +159,7 @@ Optionally, PyEnSight can work with an EnSight Docker container like this:
 
 The ``data_directory`` specifies the host directory to map into the container at the mount point /data within
 the container. This provides a method for EnSight running in the container to access the host's file system
-to read or write data.  The optional argument ``use_dev=True`` specifies that the latest development version
+to read or write data. The optional argument ``use_dev=True`` specifies that the latest development version
 of EnSight should be used.
 
 
@@ -175,7 +175,7 @@ Please see the latest release `documentation <https://ensight.docs.pyansys.com/>
 page for more details.
 
 Please feel free to post issues and other questions at `PyEnSight Issues
-<https://github.com/ansys/pyensight/issues>`_.  This is the best place
+<https://github.com/ansys/pyensight/issues>`_. This is the best place
 to post questions and code.
 
 
@@ -186,7 +186,7 @@ License
 This module, ``ansys-ensight`` makes no commercial claim over Ansys whatsoever.
 This tool extends the functionality of ``EnSight`` by adding a remote Python interface
 to EnSight without changing the core behavior or license of the original
-software.  The use of interactive EnSight control by ``PyEnSight`` requires a
+software. The use of interactive EnSight control by ``PyEnSight`` requires a
 legally licensed local copy of Ansys.
 
 To get a copy of Ansys, please visit `Ansys <https://www.ansys.com/>`_.

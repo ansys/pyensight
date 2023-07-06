@@ -4,12 +4,12 @@ import json
 import os
 import sys
 
+from ansys.pyensight.core import VERSION as __version__
 from ansys_sphinx_theme import ansys_favicon, get_version_match, pyansys_logo_black
 from sphinx_gallery.sorting import FileNameSortKey
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src", "ansys"))
-from ansys.pyensight import __version__  # noqa
 
 # Project information
 project = "ansys.pyensight"
@@ -79,6 +79,13 @@ intersphinx_mapping = {
 # numpydoc configuration
 numpydoc_show_class_members = False
 numpydoc_xref_param_type = True
+
+linkcheck_ignore = [
+    r"http://localhost:\d+/",
+    r"https://cubit.sandia.gov/public/verdict.html",
+    r"https://github.com/ansys/pyensight/issues",
+]
+
 
 # Consider enabling numpydoc validation. See:
 # https://numpydoc.readthedocs.io/en/latest/validation.html#

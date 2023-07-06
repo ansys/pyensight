@@ -1000,7 +1000,7 @@ Args:
 Examples:
     ::
 
-        # 
+        #
         # turn on bounds display and make the bounds for
         # viewport 0 2D
         #

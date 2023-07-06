@@ -29,8 +29,8 @@ Examples:
         ensight.anim_quick.accelerate_first(&quot;ON&quot;)
         ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
         #
-        # create a total of 125 frames 
-        # 
+        # create a total of 125 frames
+        #
         ensight.anim_quick.total_frames(125)
         ensight.anim_quick.create_keyframes()
 
@@ -68,8 +68,8 @@ Examples:
         ensight.anim_quick.accelerate_first(&quot;ON&quot;)
         ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
         #
-        # create a total of 125 frames 
-        # 
+        # create a total of 125 frames
+        #
         ensight.anim_quick.total_frames(125)
         ensight.anim_quick.create_keyframes()
 
@@ -108,8 +108,8 @@ Examples:
         ensight.anim_quick.accelerate_first(&quot;ON&quot;)
         ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
         #
-        # create a total of 125 frames 
-        # 
+        # create a total of 125 frames
+        #
         ensight.anim_quick.total_frames(125)
         ensight.anim_quick.create_keyframes()
 
@@ -158,8 +158,8 @@ Examples:
         ensight.anim_quick.accelerate_first(&quot;ON&quot;)
         ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
         #
-        # create a total of 125 frames 
-        # 
+        # create a total of 125 frames
+        #
         ensight.anim_quick.total_frames(125)
         ensight.anim_quick.create_keyframes()
 
@@ -202,8 +202,8 @@ Examples:
         ensight.anim_quick.accelerate_first(&quot;ON&quot;)
         ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
         #
-        # create a total of 125 frames 
-        # 
+        # create a total of 125 frames
+        #
         ensight.anim_quick.total_frames(125)
         ensight.anim_quick.create_keyframes()
 
@@ -250,8 +250,8 @@ Examples:
         ensight.anim_quick.accelerate_first(&quot;ON&quot;)
         ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
         #
-        # create a total of 125 frames 
-        # 
+        # create a total of 125 frames
+        #
         ensight.anim_quick.total_frames(125)
         ensight.anim_quick.create_keyframes()
 
@@ -300,8 +300,8 @@ Examples:
         ensight.anim_quick.accelerate_first(&quot;ON&quot;)
         ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
         #
-        # create a total of 125 frames 
-        # 
+        # create a total of 125 frames
+        #
         ensight.anim_quick.total_frames(125)
         ensight.anim_quick.create_keyframes()
 
@@ -342,8 +342,8 @@ Examples:
         ensight.anim_quick.accelerate_first(&quot;ON&quot;)
         ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
         #
-        # create a total of 125 frames 
-        # 
+        # create a total of 125 frames
+        #
         ensight.anim_quick.total_frames(125)
         ensight.anim_quick.create_keyframes()
 
@@ -383,8 +383,8 @@ Examples:
         ensight.anim_quick.accelerate_first(&quot;ON&quot;)
         ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
         #
-        # create a total of 125 frames 
-        # 
+        # create a total of 125 frames
+        #
         ensight.anim_quick.total_frames(125)
         ensight.anim_quick.create_keyframes()
 
@@ -419,8 +419,8 @@ Examples:
         ensight.anim_quick.accelerate_first(&quot;ON&quot;)
         ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
         #
-        # create a total of 125 frames 
-        # 
+        # create a total of 125 frames
+        #
         ensight.anim_quick.total_frames(125)
         ensight.anim_quick.create_keyframes()
 
@@ -470,8 +470,8 @@ Examples:
         ensight.anim_quick.accelerate_first(&quot;ON&quot;)
         ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
         #
-        # create a total of 125 frames 
-        # 
+        # create a total of 125 frames
+        #
         ensight.anim_quick.total_frames(125)
         ensight.anim_quick.create_keyframes()
 
@@ -518,8 +518,8 @@ Examples:
         ensight.anim_quick.accelerate_first(&quot;ON&quot;)
         ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
         #
-        # create a total of 125 frames 
-        # 
+        # create a total of 125 frames
+        #
         ensight.anim_quick.total_frames(125)
         ensight.anim_quick.create_keyframes()
 
@@ -560,8 +560,8 @@ Examples:
         ensight.anim_quick.accelerate_first(&quot;ON&quot;)
         ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
         #
-        # create a total of 125 frames 
-        # 
+        # create a total of 125 frames
+        #
         ensight.anim_quick.total_frames(125)
         ensight.anim_quick.create_keyframes()
 
@@ -596,8 +596,8 @@ Examples:
         ensight.anim_quick.accelerate_first(&quot;ON&quot;)
         ensight.anim_quick.accelerate_last(&quot;OFF&quot;)
         #
-        # create a total of 125 frames 
-        # 
+        # create a total of 125 frames
+        #
         ensight.anim_quick.total_frames(125)
         ensight.anim_quick.create_keyframes()
 

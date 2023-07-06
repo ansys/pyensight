@@ -1,9 +1,8 @@
 import glob
 import os
 
+from ansys.pyensight.core import DockerLauncher, LocalLauncher
 import pytest
-
-from ansys.pyensight import DockerLauncher, LocalLauncher
 
 
 def test_basic_usage(tmpdir, pytestconfig: pytest.Config):

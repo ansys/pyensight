@@ -197,7 +197,7 @@ Returns:
 </override>
 <override namespace="ensight.function.limit_fringes">
 <description>
-Selects how shaded elements above or below the min and max palette levels will be displayed. 
+Selects how shaded elements above or below the min and max palette levels will be displayed.
 
 Args:
     p0:
@@ -205,7 +205,7 @@ Args:
 
         * One of the following:
         * No
-        * by_part_color 
+        * by_part_color
         * by_invisible
 
 Examples:
@@ -293,7 +293,7 @@ Args:
     p0:
         &#x27;toggle&#x27;
 
-        * ON 
+        * ON
         * OFF
     p1:
         &#x27;beg_step&#x27; The beginning time step to consider for the time range.
