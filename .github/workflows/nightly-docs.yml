@@ -7,6 +7,7 @@ on:
 
 env:
   DOCUMENTATION_CNAME: 'ensight.docs.pyansys.com'
+  ENSIGHT_IMAGE: 'ghcr.io/ansys-internal/ensight_dev'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -28,7 +29,6 @@ jobs:
 
       - name: Docker pull
         run: docker pull ${{ env.ENSIGHT_IMAGE }}
-
 
       - name: Run Ansys documentation building action
         uses: ansys/actions/doc-build@v4
