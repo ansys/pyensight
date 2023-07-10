@@ -5,9 +5,14 @@ on:
     - cron:  '0 3 * * *'
   workflow_dispatch:
 
+env:
+  MAIN_PYTHON_VERSION: '3.10'
+  PACKAGE_NAME: 'ansys-pyensight-core'
+  ENSIGHT_IMAGE: 'ghcr.io/ansys-internal/ensight_dev'
+
 jobs:
-  nightly:
-    name: Nightly build
+  nightly_test:
+    name: Nightly tests
     runs-on: ubuntu-latest
     steps:
       - name: Login to GitHub Container Registry
@@ -17,17 +22,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-
-      - name: Install build requirements
-        run: pip install .[test]
-
-      - name: docker
+      - name: Pull Docker image
         run: docker pull ${{ env.ENSIGHT_IMAGE }}
 
       - name: Run pytest
@@ -36,11 +31,21 @@ jobs:
           ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          checkout: false
           requires-xvfb: true
 
       - uses: codecov/codecov-action@v3
         name: 'Upload coverage to CodeCov'
+
+  nightly_build:
+    name: Nightly build
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Build library source and wheel artifacts
+        uses: ansys/actions/build-library@v4
+        with:
+          library-name: ${{ env.PACKAGE_NAME }}
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
       - name: Upload wheel
         if: ${{ !env.ACT }}
@@ -62,7 +67,7 @@ jobs:
   build-failure:
     name: Teams notify on failure
     if: failure()
-    needs: [ nightly ]
+    needs: [ nightly_test, nightly_build ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
