@@ -1,11 +1,11 @@
-import glob
 import os
+import warnings
 
 from ansys.pyensight.core.dockerlauncher import DockerLauncher
 from ansys.pyensight.core.enscontext import EnsContext
 from ansys.pyensight.core.locallauncher import LocalLauncher
 import pytest
-import warnings
+
 warnings.filterwarnings("ignore")
 
 
