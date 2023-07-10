@@ -50,11 +50,11 @@ class Export:
         try:
             _ = self._ensight._session.cmd("dir(ensight.utils.export)")
         except RuntimeError:
-            import ansys.pyensight
+            import ansys.pyensight.core
 
             raise RuntimeError(
                 f"Remote EnSight session must have at least pyensight \
-            version {ansys.pyensight.__version__} installed to use this API."
+            version {ansys.pyensight.core.DEFAULT_ANSYS_VERSION} installed to use this API."
             )
 
     TIFFTAG_IMAGEDESCRIPTION: int = 0x010E

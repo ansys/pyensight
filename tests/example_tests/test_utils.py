@@ -1,9 +1,12 @@
+import glob
 import os
 
 from ansys.pyensight.core.dockerlauncher import DockerLauncher
 from ansys.pyensight.core.enscontext import EnsContext
 from ansys.pyensight.core.locallauncher import LocalLauncher
 import pytest
+import warnings
+warnings.filterwarnings("ignore")
 
 
 def test_utils(tmpdir, pytestconfig: pytest.Config):
@@ -45,7 +48,7 @@ def test_utils(tmpdir, pytestconfig: pytest.Config):
             "zlip_query", query.DISTANCE_PART1D, [zclip], core.VARIABLES["p"][0], new_plotter=True
         )
         zclip_state = session.capture_context()
-    session.show("remote").browser()
+    session.show("remote")
     # Change the view to test the view restoring
     session.ensight.view_transf.rotate(-66.5934067, 1.71428561, 0)
     session.ensight.view_transf.rotate(18.0219765, -31.6363659, 0)
