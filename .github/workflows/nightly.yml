@@ -40,13 +40,13 @@ jobs:
     name: Nightly build
     runs-on: ubuntu-latest
     steps:
-    
+
       - name: Build library source and wheel artifacts
         uses: ansys/actions/build-library@v4
         with:
           library-name: ${{ env.PACKAGE_NAME }}
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          
+
       - name: Upload wheel
         if: ${{ !env.ACT }}
         uses: actions/upload-artifact@v3
