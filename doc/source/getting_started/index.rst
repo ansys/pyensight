@@ -7,15 +7,15 @@ Getting started
 To use PyEnSight, you must have a locally installed and licensed copy of Ansys EnSight
 2022 R2 or later.
 
-To obtain a copy, see the `Ansys EnSight page <https://www.ansys.com/products/fluids/ansys-ensight>`_
-on the Ansys website.
+To obtain a copy, see the `Ansys EnSight <https://www.ansys.com/products/fluids/ansys-ensight>`_
+page on the Ansys website.
 
 Installation
 ------------
 The ``ansys-ensight`` package supports Python 3.8 through
 Python 3.11 on Windows and Linux.
 
-Install the latest package with this code:
+Install the latest package with this command:
 
 .. code::
 
@@ -23,7 +23,7 @@ Install the latest package with this code:
 
 
 If you plan on doing local *development* of PyEnSight on Linux,
-install the latest package with this code:
+install the latest package with these commands:
 
 .. code::
 
@@ -51,7 +51,7 @@ build the wheel using a ``pybuild.py`` script like this one:
    .\venv\Scripts\python.exe pybuild.py build
 
 
-Now you can start developing PyEnSight.
+You can then start developing PyEnSight.
 
 
 Start the EnSight session
@@ -77,15 +77,17 @@ Optionally, you can start an EnSight Docker container by using code like this:
    session = launcher.start()
 
 
-The ``data_directory`` keyword specifies the host directory to map into the container at the mount
-point /data within the container. This provides a method for EnSight running in the container
-to access the host's file system to read or write data. The optional argument ``use_dev=True``
+In the preceding code, the ``data_directory`` argument specifies the host directory
+to map into the container at the mount point, providing access to the data within
+the container. This provides a method for EnSight running in the container to access
+the host's file system to read or write data. The optional ``use_dev=True`` argument
 specifies that the latest development version of EnSight should be used.
 
 Run commands
 ------------
 Once an EnSight instance is running, you can use the session interface to interact with it.
-The ``cmd()`` method can execute any Python string in the EnSight Python interpreter.
+The :func:`cmd<ansys.pyensight.core.Session.cmd>` method can execute any Python string
+in the EnSight Python interpreter.
 
 For example, this code returns the value 25.0:
 
@@ -94,8 +96,8 @@ For example, this code returns the value 25.0:
     value = session.cmd("10.*2.5")
 
 
-This code uses the ``load_data()`` method to load a dataset and
-render the current scene into a PNG-formatted stream:
+The following code uses the :func:`load_data<ansys.pyensight.core.Session.load_data>`
+method to load a dataset and render the current scene into a PNG-formatted stream.
 
 .. code:: python
 
@@ -107,9 +109,9 @@ render the current scene into a PNG-formatted stream:
 
 The resulting image, which is rendered using 4x antialiasing, is 1920x1080 pixels.
 
-You can use the ``show()`` method to view or interact with the current EnSight session
-via the web. This method supports creating various graphical representations and returns URLs
-for viewing or interacting with these representations.
+You can use the :func:`show<ansys.pyensight.core.Session.show>` method to view or interact
+with the current EnSight session via the web. This method supports creating various graphical
+representations and returns URLs for viewing or interacting with these representations.
 
 .. code:: python
 

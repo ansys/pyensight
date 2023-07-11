@@ -74,7 +74,7 @@ EnSight and PyEnSight Interfaces
 --------------------------------
 
 There is a Python interpreter embedded in the EnSight desktop app. In
-general, this interpreter is referred to as EnSight or the *embedded* interpreter.
+general, this interpreter is referred to as EnSight or the *embedded interpreter*.
 This interface is based on a built-in ``ensight`` module that cannot be imported
 into any other interpreter. It is the fastest Python interface to EnSight, and
 much of EnSight itself is written in Python running in this interpreter.
@@ -138,16 +138,16 @@ that are generally created automatically at startup.
    they do not describe all core classes but only commonly used objects.
 
 There are two unique concepts in the EnSight architecture that are important in
-helping explain core EnSight behavior. The first is the idea of hierarchical
+helping to explain core EnSight behavior. The first is the idea of hierarchical
 property filtering. The second is the concept of default objects.
 
 Hierarchical property filters
 `````````````````````````````
 
-A number of properties have *global* versions as well as per-object versions.
+A number of properties have *global* versions as well as *per-object* versions.
 Often a specific visual property must be enabled globally before the
 object-specific value can be applied. This can happen at different levels in
-the visible object tree. Consider the hidden line property: ``HIDDENLINE``.
+the visible object tree. Consider the ``HIDDENLINE`` property.
 This property can be set on these levels: ``ENS_PART``, ``ENS_VPORT``, and
 ``ENS_GLOBAL``. Here is an example in the object API::
 
@@ -155,17 +155,17 @@ This property can be set on these levels: ``ENS_PART``, ``ENS_VPORT``, and
     print(ensight.objs.core.VPORTS[0].HIDDENLINE)
     print(ensight.objs.core.PARTS[0].HIDDENLINE)
 
-If the property is ``False`` at the ``ENS_PART`` level, hidden lines are never
-displayed on that part. If the property is ``False`` at the ``ENS_VPORT`` level,
-no hidden lines are displayed on any parts that might be viable (and have ``HIDDENLINE``
-set to ``True``) in the specific ``ENS_VPORT`` level. If the property is ``False``
-at the ``ENS_GLOBAL`` level (``ensight.objs.core``), then no hidden lines
-are displayed on any parts in any viewports.
+- If the ``HIDDENLINE`` property is set to ``False`` at the ``ENS_PART`` level, hidden
+  lines are never shown on that part.
+- If the ``HIDDENLINE`` property is set to ``False`` at the ``ENS_VPORT`` level, no
+  hidden lines are shown on any parts that might be viable (and have the ``HIDDENLINE``
+  property set to ``True``) in the specific ``ENS_VPORT`` level.
+- If the ``HIDDENLINE`` property is set to ``False`` at the ``ENS_GLOBAL`` level
+  (``ensight.objs.core``), no hidden lines are shown on any parts in any viewports.
 
 
 Default objects
 ```````````````
-
 The default object is a key concept for EnSight. To create a new object in EnSight,
 you often set up the properties on a fake *default* object and then make a *create*
 call to realize a new object of this type. The new object has the same properties
@@ -175,7 +175,6 @@ and :ref:`ref_cmdlang_native`.
 
 Common static objects
 `````````````````````
-
 There are a fixed number of each of the common static objects that are all allocated
 statically at startup. The Python API allows you to modify the attributes on these objects
 and query their statuses. The key object is ``ENS_GLOBAL``, which is accessed via
@@ -260,10 +259,10 @@ Class            Description
                  |ANNOT_DIAL|    Display of a constant variable as a dial.
                  |ANNOT_GAUGE|   Display of a constant variable as a linear gauge.
                  |ANNOT_LGND|    Legend representation of a variable palette.
-                                 Note: These are only created by ``ENS_VAR`` objects.
+                                  that these are only created by ``ENS_VAR`` objects.
                  |ANNOT_LINE|    Single line.
                  |ANNOT_LOGO|    Image annotation.
-                 |ANNOT_SHAPE|   Generic 2D shapes, such as a box, circle, and 2D arrow.
+                 |ANNOT_SHAPE|   Generic 2D shapes, such as boxes, circles, and 2D arrows.
                  |ANNOT_TEXT|    Block of 2D overlay text.
                  =============== ===============================================
 
@@ -295,8 +294,8 @@ Class            Description
                  ========================== ======================================================
                  |PART_AUX_GEOM|            An auxiliary geometry part allows for scripted creation
                                             of objects like boxes that can be used in other
-                                            calculations or to enhance visualizations. An example
-                                            is a backdrop.
+                                            calculations or to enhance visualizations. A backdrop
+                                            is an example.
                  |PART_BUILT_UP|            This part is more commonly known as a *subset* part. It
                                             allows for collections of elements and nodes to be selected
                                             from a set of input parts. These are merged into this
@@ -349,7 +348,7 @@ Class            Description
                  objects. It includes axes, titles, backgrounds, borders, and legends.
 |POLYLINE|       In EnSight, ``POLYLINE`` objects are called splines. They can be used to set up
                  things like camera paths.
-|QUERY|          A ``QUERY``object represents ``y = f(x)`` data. This data can come directly from a
+|QUERY|          A ``QUERY`` object represents ``y = f(x)`` data. This data can come directly from a
                  dataset, created when the ``ENS_CASE`` object loads a dataset. Or, queries can be
                  created using loaded or computed data. For example, you could query the values of
                  pressure along a line segment through a ``PART`` object of volumetric elements.

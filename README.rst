@@ -34,36 +34,53 @@ PyEnSight
 
 Overview
 --------
-This repository contains the pythonic API to EnSight_, the Ansys simulation Post
-Processor. This API allows the user to:
+PyEnSight is a Python wrapper for EnSight_, the Ansys simulation
+postprocessor. It supports Pythonic access to EnSight so that you
+communicate directly with itEnSight from Python. With PyEnSight,
+you can perform these essential actions:
 
-* Start an EnSight session, or connect to an existing one.
-* Read simulation data (from any of the supported solver output formats) into the session.
-* Generate complex post-processing results in a pythonic fashion.
+* Start a new EnSight session or connect to an existing one.
+* Read simulation data from any supported solver output format into the session.
+* Generate complex postprocessing results in a Pythonic fashion.
+* Visualize the processed data, extract it, or get a widget to embed it in an external app.
 
-The user can then choose to visualize the processed data, extract it, or
-get a widget to embed in an external application.
+Documentation and Issues
+------------------------
+For comprehensive information on PyEnSight, see the latest release
+`documentation <https://ensight.docs.pyansys.com/>`_.
 
-|title|
-
+On the `PyEnSight Issues <https://github.com/ansys/pyensight/issues>`_
+page, you can create issues to submit questions, report bugs, and
+request new features. This is the best place to post questions and code.
 
 Installation
 ------------
-Include installation directions. Note that this README will be
-included in your PyPI package, so be sure to include ``pip``
-directions along with developer installation directions. For example.
+To use PyEnSight, you must have a locally installed and licensed copy of
+Ansys EnSight 2022 R2 or later. The ``ansys-pyensight-core`` package supports
+Python 3.8 through Python 3.11 on Windows and Linux.
 
-Install ansys-ensight with:
+Two modes of installation are available:
+
+- User installation
+- Developer installation
+
+User installation
+~~~~~~~~~~~~~~~~~
+Install the latest release from `PyPI <https://pypi.org/project/ansys-optislang-core/>`_
+with this command:
 
 .. code::
 
-   pip install ansys-ensight
+   pip install ansys-ensight-core
 
 
-Development
------------
+Developer installation
+~~~~~~~~~~~~~~~~~~~~~~
+If you plan on doing local *development* of PyEnSight with GitHub, consider
+using a `virtual environment <https://docs.python.org/3/library/venv.html>`_.
 
-To clone and install in development mode:
+To clone PyEnSight and then install it in a virtual environment, run these
+commands:
 
 .. code::
 
@@ -75,9 +92,11 @@ To clone and install in development mode:
    pip install -r requirements/dev.txt  # install dependencies
    make install-dev  # install pyensight in editable mode
 
-Now you can start developing pyensight.
+A developer installation allows you to edit ``ansys-pyensight`` files locally.
+Any changes that you make are reflected in your setup after restarting the
+Python kernel.
 
-To build and install pyensight:
+To build and install PyEnSight, run these commands:
 
 .. code::
 
@@ -89,52 +108,57 @@ To build and install pyensight:
    make smoketest  # test import
 
 
-Pre-commit setup:
+Pre-commit setup
+----------------
 
 ``pre-commit`` is a multi-language package manager for pre-commit hooks.
 
 
-To install pre-commit into your git hooks, run:
+To install pre-commit into your git hooks, run this command:
 
 .. code::
 
    pre-commit install
 
-pre-commit will now run on every commit. Every time you clone a project using pre-commit, this should always be the first thing you do.
+``pre-commit`` then runs on every commit. Each time you clone a project,
+installing ``pre-commit`` should always be the first action that you take.
 
-If you want to manually run all pre-commit hooks on a repository, run:
+If you want to manually run all pre-commit hooks on a repository, run this
+command:
 
 .. code::
 
    pre-commit run --all-files
 
-This will run a bunch of formatters on your source files.
+This runs a bunch of formatters on your source files.
 
-To run individual hooks, use:
+To run individual hooks, use this command, where ``<hook_id>`` is obtained from
+from the ``.pre-commit-config.yaml`` file:
 
 .. code::
 
    pre-commit run <hook_id>
 
-``<hook_id>`` can be obtained from ``.pre-commit-config.yaml``.
-The first time pre-commit runs on a file, it will automatically download, install, and run the hook.
+The first time pre-commit runs on a file, it automatically downloads, installs,
+and runs the hook.
 
 
-Local GitHub actions:
-
-To simulate GitHub Actions on your local desktop (recommended), install `act <https://github.com/nektos/act#readme>`_.
-To run a job, for example - ``docs`` from ``ci_cd.yml``, use:
+Local GitHub actions
+--------------------
+Simulating GitHub Actions on your local desktop is recommended. After installing the
+`act <https://github.com/nektos/act#readme>`_ package, you can run a job. For
+example, this command runs the ``docs`` job defined in the ``ci_cd.yml`` file:
 
 .. code::
 
    act -j docs
 
-Deploy and upload steps **must always** be ignored. If not, please add ``if: ${{ !env.ACT }}`` to the workflow step (and commit if required) before running.
-
+Deploy and upload steps **must always** be ignored. If they are not ignored, before
+running a job, add ``if: ${{ !env.ACT }}`` to the workflow step (and commit if required).
 
 Usage
 -----
-The simplest PyEnSight session may be started like this:
+You can use this code to start the simplest PyEnSight session:
 
 .. code:: python
 
@@ -145,7 +169,7 @@ The simplest PyEnSight session may be started like this:
    ...    f.write(data)
 
 
-Optionally, PyEnSight can work with an EnSight Docker container like this:
+Optionally, EnSight can work with an EnSight Docker container using code like this:
 
 .. code:: python
 
@@ -157,36 +181,20 @@ Optionally, PyEnSight can work with an EnSight Docker container like this:
    >>> with open("image.png", "wb") as f:
    ...    f.write(data)
 
-The ``data_directory`` specifies the host directory to map into the container at the mount point /data within
-the container. This provides a method for EnSight running in the container to access the host's file system
-to read or write data. The optional argument ``use_dev=True`` specifies that the latest development version
-of EnSight should be used.
-
-
-Dependencies
-------------
-You will need a locally installed and licensed copy of Ansys to run EnSight, with the
-first supported version being Ansys 2022 R2.
-
-
-Documentation and Issues
-------------------------
-Please see the latest release `documentation <https://ensight.docs.pyansys.com/>`_
-page for more details.
-
-Please feel free to post issues and other questions at `PyEnSight Issues
-<https://github.com/ansys/pyensight/issues>`_. This is the best place
-to post questions and code.
-
+In the preceding code, the ``data_directory`` argument specifies the host directory
+to map into the container at the mount point, providing access to the data within
+the container. This provides a method for EnSight running in the container to access
+the host's file system to read or write data. The optional ``use_dev=True`` argument
+specifies that the latest development version of EnSight should be used.
 
 License
 -------
-``PyEnSight`` is licensed under the MIT license.
+PyEnSight is licensed under the MIT license.
 
-This module, ``ansys-ensight`` makes no commercial claim over Ansys whatsoever.
-This tool extends the functionality of ``EnSight`` by adding a remote Python interface
-to EnSight without changing the core behavior or license of the original
-software. The use of interactive EnSight control by ``PyEnSight`` requires a
+PyEnsight makes no commercial claim over Ansys whatsoever. This library extends the functionality
+of Ansys EnSight by adding a remote Python interface to EnSight without changing the core behavior
+or license of the original software. The use of interactive control of PyEnSight requires a
 legally licensed local copy of Ansys.
 
-To get a copy of Ansys, please visit `Ansys <https://www.ansys.com/>`_.
+For more information on EnSight, see the `Ansys Ensight <https://www.ansys.com/products/fluids/ansys-ensight>`_
+page on the Ansys website.

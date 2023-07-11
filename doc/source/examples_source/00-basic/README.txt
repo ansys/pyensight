@@ -1,6 +1,6 @@
 .. _basic-gallery:
 
-Basic Examples
+Basic examples
 ==============
 
-Introductory examples using the PyEnSight APIs to produce simple scenes.
+These basic examples use the PyEnSight APIs to produce simple scenes.

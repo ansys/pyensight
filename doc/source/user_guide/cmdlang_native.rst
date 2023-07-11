@@ -7,8 +7,8 @@ Since its inception, EnSight has had a journaling language, commonly referred to
 the *command language*. Every operation in EnSight can be captured in command language.
 Scripts can be generated using this language and played back in the GUI or in batch mode.
 Furthermore, features like context files (that capture a session state) do so using
-a command language variant. Command language is not documented but it roughly follows
-the :ref:`EnSight Architecture <ensight_architecture>`. The "Native" Python API
+a command language variant. Command language is not documented, but it roughly follows
+the :ref:`EnSight architecture <ensight_architecture>`. The *native* Python API
 is a binding to this command language interface.
 
 Command language overview
@@ -38,15 +38,15 @@ line width and part color::
 
 .. note::
    While most of the command language follows these two command forms, there are a
-   number of commands that do not follow this scheme.
+   number of commands that do not follow this form.
 
 As noted previously, EnSight maintains a *default* object of every type. Commands
-can be used to modify attributes (not all) on the default object. A *create*
-command is can then be used to create a new object instance. For example, the
+can be used to modify most attributes on the default object. A *create*
+command can then be used to create a new object instance. For example, the
 following code creates a clip by selecting the default clip object and then setting
 up the type and clip position value on the default clip. It then changes the current
 part selection to what parts should become the parent of the clip and calls
-:samp:`clip: create` to create the clip.::
+:samp:`clip: create` to create the clip::
 
     clip: select_default
     clip: begin
@@ -61,7 +61,7 @@ part selection to what parts should become the parent of the clip and calls
     clip: create
 
 
-PyEnsight command language binding
+PyEnSight command language binding
 ----------------------------------
 
 The *native* Python API binding is a simple syntax conversion from command language
@@ -83,7 +83,7 @@ as Python parameters or a list. The previous example becomes this Python script:
 
 
 Lists of objects can be used where multiple values are specified
-as parameters. So this syntax is also valid:
+as parameters, which means that this syntax is also valid:
 
 .. code-block:: python
 
@@ -116,7 +116,7 @@ This code prints this error:
 GUI conversion
 --------------
 There is a built-in mechanism to convert code in command language into Python. To do this,
-you first paste the command language into the Python editor. In EnSight's **Execution** tab,
+you first paste the command language into the Python editor. On EnSight's **Execution** tab,
 you can use the right-mouse button menu to select and copy lines of command language.
 
 Next, select the text in the editor and use the **Edit** menu to select either
@@ -143,13 +143,13 @@ Python names. A few examples include::
     command: print "hello"
     viewport: raise
 
-Some reasons a name might be invalid include:
+Here are some reasons that a name might be invalid:
 
 * Name contains an invalid character (such as ``#``).
 
 * Name begins with a digit (such as ``1``).
 
-* Name is a Python reserved word (such as ``raise``).
+* Name is a Python-reserved word (such as ``raise``).
 
 Invalid names are transformed using these rules:
 
@@ -157,7 +157,7 @@ Invalid names are transformed using these rules:
 
 * Names that start with a digit are prefixed with an underscore (_).
 
-* Names that are the same as a Python reserved word are prefixed with an underscore (_).
+* Names that are the same as a Python-reserved word are prefixed with an underscore (_).
 
 The previous examples are transformed as follows:
 

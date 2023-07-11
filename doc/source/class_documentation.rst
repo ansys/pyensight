@@ -15,7 +15,8 @@ shared with EnSight.
 ---------------------
 The ``ensight_api`` class should never be used directly. An instance is available via the ``ensight``
 property on the ``ansys.pyensight.core.Session`` class. Thus, an EnSight call like
-``ensight.part.select_all()`` is available in PyEnSight as the ``session.ensight.part.select_all()``
+``ensight.part.select_all()`` is available in PyEnSight as the
+`:func:`select_all<ansys.api.pyensight.ensight_api.part.select_all>`
 method. Generally, most scripts written for the embedded EnSight Python interpreter should work with
 PyEnSight using the ``ansys.pyensight.core.Session.ensight`` interface.
 
