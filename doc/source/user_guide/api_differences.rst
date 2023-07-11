@@ -1,6 +1,6 @@
 .. _api_differences:
 
-Python API differences in Ensight versus PyEnSight
+Python API differences in EnSight versus PyEnSight
 ==================================================
 
 There are a few differences between the EnSight Python API and the
