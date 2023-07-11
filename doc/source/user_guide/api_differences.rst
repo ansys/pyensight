@@ -24,7 +24,7 @@ Object class specialization
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In EnSight, ``ENS_PART`` proxy objects are used for all part types. Model,
-Clip and Iso-contours are all of the ``ENS_PART`` class. In PyEnSight,
+Clip, and Iso-contours are all of the ``ENS_PART`` class. In PyEnSight,
 model parts are of the ``ENS_PART_MODEL`` class, and clips are of the
 ``ENS_PART_CLIP`` class. These are both subclasses of PyEnSight's ``ENS_PART``
 class. This mechanism applies to ``ENS_PART``, ``ENS_ANNOT``, and ``ENS_TOOL``

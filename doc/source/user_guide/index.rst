@@ -70,7 +70,7 @@ interfaces and the EnSight core.
    api_differences
 
 
-EnSight and PyEnSight Interfaces
+EnSight and PyEnSight interfaces
 --------------------------------
 
 There is a Python interpreter embedded in the EnSight desktop app. In

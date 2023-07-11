@@ -19,7 +19,7 @@ Adhere to code style
 --------------------
 PyEnSight is compliant with the `Coding style <https://dev.docs.pyansys.com/coding-style/index.html>`_
 documented in the *PyAnsys Developer's Guide*. It uses a build target
-to check the code style. You can verify the code style with this command:
+to verify the code style. You can use this command to verify the code style:
 
 .. code:: bash
 

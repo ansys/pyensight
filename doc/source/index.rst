@@ -62,7 +62,7 @@ License
 -------
 PyEnSight is licensed under the MIT license.
 
-PyEnsight makes no commercial claim over Ansys whatsoever. This library extends
+PyEnSight makes no commercial claim over Ansys whatsoever. This library extends
 the functionality of Ansys EnSight by adding a remote Python interface to EnSight
 without changing the core behavior or license of the original software. The use
 of interactive Ansys EnSight control by PyEnSight requires a legally licensed

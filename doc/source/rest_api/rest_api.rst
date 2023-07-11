@@ -15,8 +15,8 @@ to the Launcher() subclass ctor.
 .. note::
 
     **The information here is for informational purposes only. The API has
-    been defined, but is not currently enabled in EnSight. It will be
-    released in 2024 R1**
+    been defined, but it is not currently enabled in EnSight. It is to be
+    released in 2024 R1.**
 
 
 Enabling the API via PyEnSight
@@ -30,7 +30,7 @@ The REST API service can be started via the pyensight LocalLauncher::
     >>> uri_base = f"http://{s.hostname}:{s.html_port}/ensight/v1/{s.secret_key}"
 
 
-The base uri will look something like this (the port and GUID will vary):
+The base URI looks something like this (the port and GUID varies):
 ``http://127.0.0.1:36474/ensight/v1/b7c04700-0a27-11ee-be68-381428170733``.
 
 
@@ -46,8 +46,8 @@ The string from the previous example can be used via Python ``requests`` to exec
     [['Computational mesh', True]]
 
 
-Will use the REST API to run the command: ``ensight.objs.core.PARTS`` and output
-something like: ``['@ENSOBJ=1022@']``, a reference to object 1022. When the query
+The calls use the REST API to run the ``ensight.objs.core.PARTS`` command and output
+something like ``['@ENSOBJ=1022@']``, a reference to object 1022. When the query
 option ``returns`` is used to return the DESCRIPTION and VISIBLE attributes. In that
 case, the output for the second PUT is: ``[['Computational mesh', True]]``.
 
@@ -65,17 +65,17 @@ case, the output for the second PUT is: ``[['Computational mesh', True]]``.
 Remote Python functions
 -----------------------
 
-Continuing the example, the REST api can be used to define a Python function in the
-remote EnSight session. First we define the function::
+Continuing the example, the REST API can be used to define a Python function in the
+remote EnSight session. First define the function::
 
     >>> foo_src = "def foo(n:int = 1):\n return list(numpy.random.rand(n))\n"
     >>> requests.put(uri_base+"/def_func/myapp/foo", json=foo_src, params=dict(imports="numpy"))
     <Response [200]>
 
 
-This will use the provided function source code to define a function named ``foo`` in the ``myapp``
+This uses the provided function source code to define a function named ``foo`` in the ``myapp``
 namespace. The function being defined should use keywords only, no positional arguments.
-Note: if the namespace does not exist, it will be created. Also, the function
+Note: If the namespace does not exist, it is created. Also, the function
 makes use of the ``numpy`` module. A function must either import the module inside of the
 function or include the names of the modules in the ``imports`` query options as a comma
 separated list of module names. Numpy arrays do not directly support serialization to JSON,
@@ -99,7 +99,7 @@ The native API can be called directly using the REST API::
     0
 
 
-The EnSight view will rotate accordingly. The object API can be called directly as well.
+The EnSight view rotates accordingly. The object API can be called directly as well.
 Object attributes can be get/set in various forms on single objects or lists of objects::
 
     >>> requests.get(uri_base+"/ensobjs/ensight.objs.core/PARTS").json()
@@ -123,12 +123,12 @@ of the objects can be returned in a single call, reducing the number of REST cal
 for complex operations.
 
 
-Shared Token Security
+Shared token security
 ---------------------
 
 This API leverages shared secrets to control access to the EnSight instance. Every pyensight
 launched instance has a shared secret that must be provided in all REST calls. This shared
-secret token can be accessed via the ``Session.secret_key`` pyensight API.  All REST APIs will
+secret token can be accessed via the ``Session.secret_key`` pyensight API. All REST APIs
 expect that the token be specified in one of two ways. First, the token can be passed as part of
 the URL path in the form: ``{LOCATION}/ensight/v1/{TOKEN}/{OPERATION}``.  Second, the token may be
 passed in an ``Authorization: Bearer TOKEN`` header. When the header approach is used, any value
@@ -136,7 +136,7 @@ can be passed in the URL path. If tokens are supplied using both methods, the to
 header is used.
 
 
-REST API Reference
+REST API reference
 ------------------
 
 The REST API display here is a bit simplistic, but the OpenAPI yaml description of the
