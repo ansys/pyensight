@@ -489,6 +489,23 @@ class RenderableVNC(Renderable):
         super().update()
 
 
+class RenderableVNCAngular(Renderable):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self._rendertype = "remote"
+        self.update()
+
+    def update(self):
+        """Update the remote rendering widget and display it.
+        If the renderable is part of a Jupyter cell, that cell is updated as an IFrame reference.
+        """
+        url = f"http://{self._session.hostname}:{self._session.html_port}"
+        url += "/ansys/nexus/test/viewer_angular_test.html"
+        url += f"?autoconnect=true&host={self._session.hostname}&port={self._session.ws_port}&secretKey={self._session.secret_key}"
+        self._url = url
+        super().update()
+
+
 class RenderableEVSN(Renderable):
     """Remote rendering scene capture (VNC) renderable.
 
