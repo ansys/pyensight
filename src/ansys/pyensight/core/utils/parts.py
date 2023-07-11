@@ -1,9 +1,8 @@
-"""parts module
+"""Parts module.
 
-The parts module allows pyensight to control the parts in the EnSight session
+This module allows PyEnSight to control the parts in the EnSight session.
 
-Example to select all the 3D parts:
-
+Example for selecting all 3D parts:
 
 (PyEnSight)
 >>> from ansys.pyensight.core import LocalLauncher
@@ -34,24 +33,23 @@ if TYPE_CHECKING:
 
 
 class Parts:
-    """A class to handle the parts in the current EnSight session."""
+    """Controls the parts in the current EnSight session."""
 
     def __init__(self, ensight: Union["ensight_api.ensight", "ensight"]):
         self.ensight = ensight
 
     def select_parts_by_dimension(self, dimension: int) -> ensobjlist["ENS_PART"]:
-        """Select parts by the input dimension and return
-        the parts found.
+        """Select parts by the input dimension and return the parts found.
 
         Parameters
         ----------
-        dimension: int
-                The dimension to use for finding parts.
+        dimension : int
+            Dimension for selecting parts.
 
         Returns
         -------
         ensobjlist["ENS_PART"]
-            found (ensobjlist): the list of parts found and selected.
+            found (ensobjlist): List of parts found.
 
         """
         parts = self.ensight.objs.core.PARTS
@@ -61,13 +59,12 @@ class Parts:
         return found
 
     def select_parts_invert(self) -> ensobjlist["ENS_PART"]:
-        """Select the parts currently not selected and deselect the currently
-        selected ones.
+        """Select parts currently not selected, deselecting the previously selected ones.
 
         Returns
         -------
         ensobjlist["ENS_PART"]
-            found (ensobjlist): the updated list of parts selected.
+            found (ensobjlist): Updated list of parts selected.
 
         """
         self.ensight.part.select_invert()
@@ -80,25 +77,24 @@ class Parts:
         value: Optional[str] = None,
         tagdict: Optional[Dict[str, str]] = None,
     ) -> ensobjlist["ENS_PART"]:
-        """Select parts by the input dimension and return
-        the parts found.
+        """Select parts by the input dimension and return the parts found.
 
         Parameters
         ----------
-        tag: str, optional
-            The tag to be used to find the parts.
-        value: str, optional
-            The value to be used to find the parts.
-        tagdict: dict, optional
-            A dictionary containing keys and values to be used in pair for finding
-            the parts. Only the parts that have all the keys and the corresponding
-            values will be returned. If tagdict is supplied, this takes precedence
-            with respect to the other arguments.
+        tag : str, optional
+            Tag for finding the parts.
+        value : str, optional
+            Value for finding the parts.
+        tagdict : dict, optional
+            Dictionary containing the key and value pairs for finding
+            the parts. Only the parts that have all the keys and corresponding
+            values are returned. If a value for this parameter is supplied, it
+            takes precedence over the other parameter values.
+
         Returns
         -------
         ensobjlist["ENS_PART"]
-            The list of parts found and selected. If no arguments are given, all the
-            parts are returned.
+            List of parts found. If no arguments are given, all parts are returned.
 
         """
         parts = self.ensight.objs.core.PARTS
