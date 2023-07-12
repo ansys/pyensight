@@ -14,7 +14,7 @@ You can use the native API function :meth:`pyensight.ensight_api.variables.evalu
 and the object API function :meth:`pyensight.ens_globals.ENS_GLOBALS.create_variable`
 to create new EnSight variables that leverage these calculator functions.
 These function use a string representation of the function to create the
-new variable. Mmost calculator functions take a partlist (``plist``) as
+new variable. Most calculator functions take a partlist (``plist``) as
 a parameter. In the native API, you use the ``plist`` string to refer to the currently
 selected parts. In the object API, you use the same ``plist`` text string, but you
 can specify the selection of parts to be used directly via the ``source`` keyword.
@@ -1318,7 +1318,7 @@ CaseMapImage()
 
 This function does a projection of a 2D part variable from a different case onto a
 3D geometry taking into account the view orientation from the specified viewport number,
-similar to a texture mapping. The function in effect maps 2D results to a 3D geometrym taking into
+similar to a texture mapping. The function in effect maps 2D results to a 3D geometry taking into
 account view orientation and surface visibility.
 
 .. list-table:: **Function arguments**
@@ -1575,7 +1575,7 @@ where:
 
     e^(i phi) = Cos(phi) + i Sin(phi)
 
-    The real portion, Re(Vt), is as designated above.
+    The real portion, Re(Vt), is as designated in the preceding equation.
 
     This function is only good for harmonic variations, thus fields with a
     defined frequency.
@@ -1983,8 +1983,8 @@ Dist2Nodes()
 
 
 Computes a constant, positive variable that is the
-distance between any two nodes. This function searches down the part list until it finds *nodeID1*, then
-searches until it finds *nodeID2*. Itreturns ``Undefined`` if *nodeID1* or *nodeID2* cannot be found.
+distance between any two nodes. This function searches down the part list until it finds *nodeID1* and
+then searches until it finds *nodeID2*. It returns ``Undefined`` if *nodeID1* or *nodeID2* cannot be found.
 Nodes are designated by their node IDs, so the part must have node IDs.
 
 .. note::
@@ -2177,7 +2177,7 @@ creating a scalar, element-based variable depending upon the selected metric
 function. The various metrics are valid for specific element types. If the
 element is not of the type supported by the metric function, the value at the
 element is the EnSight undefined value. Metrics exist for the following
-element types: **tri**, **quad**, **tet**, and **hex**. A metric can be any
+element types: ``tri``, ``quad``, ``tet``, and ``hex``. A metric can be any
 one of the following:
 
 .. list-table::
@@ -4808,8 +4808,8 @@ PresPitot()
 ratio of specific heats)``
 
 
-Computes a scalar variable that is Pitot Pressure
-:math:`{p}_{p}`. This function is  defined as:
+Computes a scalar variable that is the pitot pressure,
+:math:`{p}_{p}`. This function is defined as:
 
 :math:`\begin{array}{ll}{p}_{p}\hfill & =sp\hfill \\ s\hfill & =\frac{{\left(\left(\frac{\gamma +1}{2}\right)\left(\frac{{V}^{2}}{\gamma \left(\gamma -1\right)\left(\frac{E}{\rho }-\frac{{V}^{2}}{2}\right)}\right)\right)}^{\left(\gamma /\left(\gamma -1\right)\right)}}{{\left(\left(\frac{2\gamma }{\gamma +1}\right)\left(\frac{{V}^{2}}{\gamma \left(\gamma -1\right)\left(\frac{E}{\rho }-\frac{{V}^{2}}{2}\right)}\right)-\left(\frac{\gamma -1}{\gamma +1}\right)\right)}^{\left(\gamma /\left(\gamma -1\right)\right)}}\hfill \end{array}`
 
@@ -4846,7 +4846,7 @@ where:
 
 
 .. note::
-    For mach numbers less than 1.0, the pitot Pressure is the same as the
+    For mach numbers less than 1.0, the pitot pressure is the same as the
     stagnation pressure. For mach numbers greater than or equal to 1.0, the
     pitot pressure is equivalent to the stagnation pressure behind a normal
     shock.
@@ -4866,7 +4866,7 @@ PresPitotRatio()
 ratio of specific heats, freestream density, freestream speed of sound)``
 
 
-Computes a scalar variable that is Pitot Pressure Ratio
+Computes a scalar variable that is the pitot pressure ratio,
 :math:`{p}_{pr}`. This function is defined as:
 
 :math:`{p}_{pr}=s\left(\gamma -1\right)\left(E-\frac{\rho {V}^{2}}{2}\right)`
@@ -6396,7 +6396,7 @@ variable is needed.
 
 If computing from three principals, three scalar variables
 representing ``sigma_1``, ``sigma_2``, and ``sigma_3`` are needed. Additionally, you
-must enter a ``-1``c onstant for the last three entries.
+must enter a ``-1``constant for the last three entries.
 
 ``TensorVonMises(plist, sigma_1, sigms_2, sigma_3, -1, -1, -1)``
 
@@ -6741,7 +6741,7 @@ where:
 
         Consider using option 0 as the radius gets small
         relative to element size and using option 1 as the radius is enlarged.
-        At a minimum, the proximity area alwayss include elements that
+        At a minimum, the proximity area always include elements that
         contain P.
 
 

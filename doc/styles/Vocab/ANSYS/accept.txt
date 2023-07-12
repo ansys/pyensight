@@ -20,6 +20,7 @@ compi
 compj
 Compute_Per_case
 ctor
+Curl
 cURL
 Delcayre
 Distene
@@ -74,6 +75,7 @@ peakness
 Pebay
 pfield
 Pitot
+pitot
 plist
 Protobuf
 PyPI

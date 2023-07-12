@@ -15,7 +15,7 @@ using the ``enable_rest_api=True`` keyword to the ``Launcher()`` subclass ctor.
 
    The information here is for informational purposes only. The API has
    been defined, but it is not currently enabled in EnSight. It is scheduled
-   for release in Ensight 2024 R1.
+   for release in EnSight 2024 R1.
 
 
 Enabling the API via PyEnSight
@@ -53,7 +53,7 @@ case, the output for the second PUT is: ``[['Computational mesh', True]]``.
 .. note::
 
     Examples here leverage Python requests to execute REST calls, but tools like
-    Curl and Swagger can also be leveraged. The intended use of the API is via JavaScript
+    cURL and Swagger can also be leveraged. The intended use of the API is via JavaScript
     using ``fetch()`` from within a web page, making it possible to control and interact
     with a PyEnSight-launched EnSight instance directly from the browser. Moreover, both
     PyEnSight and REST calls can be used to talk to the same EnSight session, making it
