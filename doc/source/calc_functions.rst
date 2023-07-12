@@ -1,3 +1,5 @@
+.. vale off
+
 .. _caculator_functions:
 
 ====================
@@ -6773,3 +6775,5 @@ For more information, see these references:
   flows", Institute Of Physics Publishing Ltd in UK,
   Measurement Science & Technology, 12 (2001), pp. 1422-1429.
 - PSA via Distene (personal communication).
+
+.. vale on

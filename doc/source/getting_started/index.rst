@@ -58,6 +58,8 @@ Start the EnSight session
 -------------------------
 The simplest way of starting an EnSight session is to use this code:
 
+.. vale off
+
 .. code:: python
 
    from ansys.pyensight.core import LocalLauncher
@@ -76,6 +78,7 @@ Optionally, you can start an EnSight Docker container by using code like this:
    launcher.pull()
    session = launcher.start()
 
+.. vale on
 
 In the preceding code, the ``data_directory`` argument specifies the host directory
 to map into the container at the mount point, providing access to the data within
