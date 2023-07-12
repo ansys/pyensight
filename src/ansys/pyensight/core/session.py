@@ -1,6 +1,6 @@
-"""session module
+"""Session module.
 
-The session module allows pyensight to control the EnSight session
+The ``session`` module allows PyEnSight to control the EnSight session.
 
 Examples:
 
@@ -45,7 +45,7 @@ if TYPE_CHECKING:
 
 
 class Session:
-    """Class to access an EnSight instance
+    """Provides for accessing an EnSight instance.
 
     The Session object wraps the various connections to an EnSight instance.  It includes
     the location of the installation, the gRPC, HTML and WS ports used to talk to the

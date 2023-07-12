@@ -1,54 +1,53 @@
 .. _caculator_functions:
 
 ====================
-Calculator Functions
+Calculator functions
 ====================
 
 EnSight supports a large number of calculator functions.
 An :class:`ENS_VAR<pyensight.ens_var.ENS_VAR>` object can represent
 either fields read from disk or the use of a calculator function
-to compute a new variable from an input collection of parts, variables and
-user specified parameters.
+to compute a new variable from an input collection of parts, variables, and
+user-specified parameters.
 
-The native API function :meth:`pyensight.ensight_api.variables.evaluate` and the
-object API function :meth:`pyensight.ens_globals.ENS_GLOBALS.create_variable`
-can be used to create new EnSight variables that leverage these calculator functions.
+You can use the native API function :meth:`pyensight.ensight_api.variables.evaluate`
+and the object API function :meth:`pyensight.ens_globals.ENS_GLOBALS.create_variable`
+to create new EnSight variables that leverage these calculator functions.
 These function use a string representation of the function to create the
-new variable. Note that most calculator functions take a partlist ('plist') as
-a parameter. In the native API, the string 'plist' is used, to refer to the currently
-selected parts. In the object API, one uses the same 'plist' text string, but the
-selection of parts to be used can be specified directly via the 'source' keyword.
+new variable. Mmost calculator functions take a partlist (``plist``) as
+a parameter. In the native API, you use the ``plist`` string to refer to the currently
+selected parts. In the object API, you use the same ``plist`` text string, but you
+can specify the selection of parts to be used directly via the ``source`` keyword.
 
-Examples::
+This code provides some examples::
 
-    # Create a new variable named 'newvar1' using the :ref:`CmplxTransResp <CmplxTransResp>`
-    # calculator function and the input variable 'c_scalar'. The variable will be defined on
+    # Create a variable named 'newvar1' using the :ref:`CmplxTransResp <CmplxTransResp>`
+    # calculator function and the input variable 'c_scalar'. The variable is to be defined on
     # all of the current parts.
     session.ensight.part.select_all()
     session.ensight.variables.evaluate("newvar1 = CmplxTransResp(plist,c_scalar,90.0)")
-    # Create a new variable named 'newvar2' using the :ref:`EleSize <EleSize>`
-    # calculator function. The variable will be defined on all of the current parts.
+    # Create a variable named 'newvar2' using the :ref:`EleSize <EleSize>`
+    # calculator function. The variable is to be defined on all of the current parts.
     varobj = session.ensight.objs.core.create_variable("newvar2", "EleSize(plist)",
                                                        sources=session.ensight.objs.core.PARTS)
 
 
-.. admonition::  Per-part Constants
+.. admonition::  Per-part constants
 
-    Some calculator functions (for example :ref:`Area() <Area>`) return constant values. EnSight
-    supports constant values that are per-case and per-part. For example, if *Area()* is
-    computed as a per-case constant, the value will be the sum of the area values computed
-    part by part. If *Area()* is computed as a per-part constant, the individual values
-    for each part will be stored on each part.
+    Some calculator functions (such as :ref:`Area() <Area>`) return constant values. EnSight
+    supports constant values that are per-case and per-part. For example, if  the ``Area()``
+    function is computed as a per-case constant, the value is the sum of the area values computed
+    part by part. If the ``Area()`` function is computed as a per-part constant, the individual
+    values for each part are stored on each part.
 
-    By default, all constant values are computed as per-case. If per-part computation is
-    desired, an optional additional argument is added to the function. For example, "Area(plist)"
-    results in a per-case constant by default. "Area(plist,Compute_Per_case)" is also computed
-    as per-case, explicitly. "Area(plist,Compute_Per_part)" will result in the variable being
+    By default, all constant values are computed as per-case. For per-part computation, you
+    must add an optional additional argument to the function. For example, ``Area(plist)``
+    results in a per-case constant by default. ``Area(plist,Compute_Per_case)`` is also computed
+    as per-case, explicitly. ``Area(plist,Compute_Per_part)`` results in the variable being
     computed as per-part.
 
-    Not all calculator functions support this. For those that do, this will be noted by the
-    notion ``[,Compute_Per_part]`` in this documentation. See: :ref:`Area() <Area>` for an
-    example.
+    Not all calculator functions support this. For those that do, the notion ``[,Compute_Per_part]``
+    appears in this documentation. For an example, see: :ref:`Area() <Area>`.
 
 
 .. _Area:
@@ -77,9 +76,9 @@ BL_aGradOfVelMag()
 
 ``BL_aGradOfVelMag(boundary part or parts, velocity)``
 
-Computes a vector variable which is the gradient of the
-magnitude of the specified velocity variable on the selected boundary part or parts
-defined as:
+Computes a vector variable that is the gradient of the
+magnitude of the specified velocity variable on the selected boundary part
+or parts. The vector variable is defined as:
 
 :math:`GRA{D}_{BP}\left|V\right|={\nabla }_{BP}\left|V\right|=\frac{\partial V}{\partial x}\widehat{i}+\frac{\partial V}{\partial y}\widehat{j}+\frac{\partial V}{\partial z}\widehat{k}`
 
@@ -102,23 +101,23 @@ where:
 
 
 .. note::
-    For each boundary part, this function finds it corresponding field part
-    (*pfield*), computes the gradient of the velocity
-    magnitude on the field part (*Grad(pfield,velocity*), and
+    For each boundary part, this function finds its corresponding field part
+    (``pfield``), computes the gradient of the velocity
+    magnitude on the field part (``Grad(pfield,velocity``), and
     then maps these computed values onto the boundary part.
 
-    Node or element ids are used if they exist. Otherwise the coordinate
+    Node or element IDs are used if they exist. Otherwise, the coordinate
     values between the field part and boundary part are mapped and resolved via
     a floating-point hashing scheme.
 
     This velocity-magnitude gradient variable can be used as an argument for
     the following boundary-layer functions that require this variable.
 
-    The *Boundary Layer Calculator* functions are not supported for Server of
-    Server (SoS) decomposition.
+    Boundary layer (``BL_*``) calculator functions are not supported for
+    Server of Server (SoS) decomposition.
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - *Boundary part*
@@ -139,9 +138,10 @@ BL_CfEdge()
 ``BL_CfEdge(boundary part or parts, velocity, density, viscosity, ymax, flow comp(0,1,or2), grad)``
 
 
-Computes a scalar variable which is the edge skin-friction
+Computes a scalar variable that is the edge skin-friction
 coefficient :math:`{C}_{f\left(e\right)}`  (that is, using the density :math:`{\rho }_{e}` and velocity :math:`{U}_{e}` values at the edge of the boundary layer - not
-the free-stream density :math:`{\rho }_{\infty }`  and velocity :math:`{U}_{\infty }`  values) defined as:
+the free-stream density :math:`{\rho }_{\infty }`  and velocity :math:`{U}_{\infty }`  values).
+This scalar variable is defined as:
 
 Component: 0 = Total tangential-flow (parallel) to wall:
 
@@ -183,7 +183,7 @@ where:
       - velocity at the edge of the boundary layer
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - boundary part
@@ -199,7 +199,7 @@ where:
 
         > 0 = Baldwin-Lomax-Spalart algorithm
 
-        0 = convergence algorithm (See Algorithm Note under Boundary Layer Thickness)
+        0 = convergence algorithm (See the algorithm note under Boundary Layer Thickness.)
 
     * - flow comp
       - constant number
@@ -216,19 +216,20 @@ where:
         vector variable = Grad(velocity magnitude)
 
 
-Provides a measure of the skin-friction coefficient in the
-tangent (parallel to surface) direction, and in its tangent's respective
+This scalar variable provides a measure of the skin-friction coefficient in the
+tangent (parallel-to-surface) direction and in its tangent's respective
 stream-wise and cross-flow directions, respective to the decomposed velocity
 parallel to the surface at the edge of the boundary layer.
 
 This is a non-dimensional measure of the fluid shear
 stress at the surface based on the local density and velocity at the edge of the
 boundary layer. The following figure illustrates the derivations of the computed
-'edge' related velocity values :math:`{U}_{e}`, :math:`{u}_{s}`, :math:`{u}_{c}` & :math:`{c}_{}`.
+*edge*-related velocity values: :math:`{U}_{e}`, :math:`{u}_{s}`, :math:`{u}_{c}`,
+and :math:`{c}_{}`.
 
 .. note::
-    The *Boundary Layer Calculator* functions (BL_*) are not supported for
-    Server of Server (SoS) decomposition
+    Boundary layer (``BL_*``) calculator functions are not supported for
+    Server of Server (SoS) decomposition.
 
 
 .. _BL_CfWall:
@@ -243,8 +244,9 @@ BL_CfWall()
 ``BL_CfWall(boundary parts, velocity, viscosity, free density, free velocity, grad)``
 
 
-Computes a scalar variable which is the skin-friction
-coefficient :math:`{C}_{f\left(\infty \right)}`, defined as:
+Computes a scalar variable that is the skin-friction
+coefficient :math:`{C}_{f\left(\infty \right)}`. This scalar variable
+is defined as:
 
 :math:`{C}_{f}{}_{\left(\infty \right)}=\frac{{\tau }_{w}}{0.5{\rho }_{\infty }{\left({U}_{\infty }\right)}^{2}}`
 
@@ -273,10 +275,10 @@ where:
 
 
 This is a non-dimensional measure of the fluid shear
-stress at the surface. An important aspect of the Skin Friction Coefficient
-is that :math:`{C}_{f\left(\infty \right)}=0`, indicates boundary layer separation.
+stress at the surface. An important aspect of the skin friction coefficient
+is that :math:`{C}_{f\left(\infty \right)}=0`, which indicates boundary layer separation.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - boundary part
@@ -296,7 +298,7 @@ is that :math:`{C}_{f\left(\infty \right)}=0`, indicates boundary layer separati
 
 
 .. note::
-    The *Boundary Layer Calculator* functions (BL_*) are not supported for
+    Boundary layer (``BL_*``) calculator functions are not supported for
     Server of Server (SoS) decomposition.
 
 
@@ -313,8 +315,8 @@ free-stream density, free-stream velocity-mag., ymax, flow comp(1or2),
 grad)``
 
 
-Computes a scalar variable which is a component of the
-skin-friction coefficient Cf :math:`{C}_{f}`  tangent (or parallel) to the wall, either in the
+Computes a scalar variable that is a component of the
+skin friction coefficient Cf :math:`{C}_{f}`  tangent (or parallel) to the wall, either in the
 stream-wise :math:`{C}_{fs(·)}`  or in the cross-flow Cfc(.) :math:`{C}_{fc(·)}`  direction
 defined as:
 
@@ -349,7 +351,7 @@ where:
       - velocity at the edge of the boundary layer
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - boundary part
@@ -370,7 +372,7 @@ where:
 
         0 = convergence algorithm
 
-        See Algorithm Note under :ref:`Boundary Layer Thickness <BL_Thick>`.
+        See the algorithm Note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - flow comp
       - constant number
@@ -386,7 +388,7 @@ where:
 
 
 .. note::
-    The *Boundary Layer Calculator* functions (BL_*) are not supported for
+    Boundary layer (``BL_*``) calculator functions are not supported for
     Server of Server (SoS) decomposition.
 
 
@@ -401,8 +403,9 @@ BL_CfWallTau()
 ``BL_CfWallTau(boundary parts, velocity, viscosity, ymax, flow comp(0,1,or 2), grad)``
 
 
-Computes a scalar variable which is the fluid's
+Computes a scalar variable that is the fluid's
 shear-stress at the wall :math:`{\tau }_{w}`  or in its stream-wise :math:`{\tau }_{ws}` , or cross-flow :math:`{\tau }_{cs}`  component direction defined as:
+
 Component 0 = Total fluid shear-stress magnitude at the wall:
 
 :math:`{\tau }_{w}=\mu {\left(\frac{\partial u}{\partial n}\right)}_{n=0}=\sqrt{\left({\tau }_{ws}^{2}+{\tau }_{wc}^{2}\right)}`
@@ -436,7 +439,7 @@ where:
         the normal direction at the wall
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - boundary part
@@ -469,7 +472,7 @@ where:
 
 
 .. note::
-    The *Boundary Layer Calculator* functions (BL_*) are not supported for
+    Boundary layer (``BL_*``) calculator functions are not supported for
     Server of Server (SoS) decomposition.
 
 
@@ -484,8 +487,9 @@ BL_DispThick()
 ``BL_DispThick(boundary parts, velocity, density, ymax, flow comp(0,1,or 2), grad)``
 
 
-Computes a scalar variable which is the boundary-layer
-displacement thickness :math:`{\delta }^{*}` , :math:`{\delta }_{s}^{*}` , or :math:`{\delta }_{c}^{*}`  defined as:
+Computes a scalar variable that is the boundary layer
+displacement thickness :math:`{\delta }^{*}` , :math:`{\delta }_{s}^{*}` , or :math:`{\delta }_{c}^{*}` defined as:
+
 Component: 0 = Total tangential-flow parallel to the
 wall
 
@@ -532,11 +536,11 @@ wall
       - flag for gradient of velocity magnitude
 
 
-Provides a measure for the effect of the boundary layer
+This scalar variable provides a measure for the effect of the boundary layer
 on the **outside** flow. The boundary layer causes a
 displacement of the streamlines around the body.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - boundary part
@@ -572,9 +576,8 @@ displacement of the streamlines around the body.
 
 
 .. note::
-    The *Boundary Layer Calculator* functions (BL_*) are not supported for
+    Boundary layer (``BL_*``) calculator functions are not supported for
     Server of Server (SoS) decomposition.
-
 
 .. _BL_DistToValue:
 
@@ -587,8 +590,8 @@ BL_DistToValue()
 ``BL_DistToValue(boundary parts, scalar, scalar value)``
 
 
-Computes a scalar variable which is the distance
-:math:`d`  from the wall to the specified value defined as:
+Computes a scalar variable that is the distance
+:math:`d`  from the wall to the specified value. This function is defined as:
 
 :math:`d={n|}_{f\left(\alpha \right)-c}`
 
@@ -606,7 +609,7 @@ Computes a scalar variable which is the distance
       - scalar value at which to assign d
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - boundary part
@@ -618,7 +621,7 @@ Computes a scalar variable which is the distance
 
 
 .. note::
-    The *Boundary Layer Calculator* functions (BL_*) are not supported for
+    Boundary layer (``BL_*``) calculator functions are not supported for
     Server of Server (SoS) decomposition.
 
 
@@ -634,8 +637,9 @@ BL_MomeThick()
 ``BL_MomeThick(boundary parts, velocity, density, ymax, flow compi(0,1,or2), flow compj(0,1,or2), grad)``
 
 
-Computes a scalar variable which is the boundary-layer
-momentum thickness :math:`{\theta }_{tot}` , :math:`{\theta }_{ss}` , :math:`{\theta }_{sc}` , :math:`{\theta }_{cs}` , or :math:`{\theta }_{cc}`  defined as:
+Computes a scalar variable that is the boundary-layer
+momentum thickness :math:`{\theta }_{tot}` , :math:`{\theta }_{ss}` , :math:`{\theta }_{sc}` , :math:`{\theta }_{cs}` , or :math:`{\theta }_{cc}` defined as:
+
 Components: (0,0) = Total tangential-flow parallel to the
 wall
 
@@ -692,9 +696,9 @@ where:
       - flag for gradient of velocity magnitude
 
 
-Relates to the momentum loss in the boundary layer.
+This scalar variable relates to the momentum loss in the boundary layer.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - boundary part
@@ -709,7 +713,7 @@ Relates to the momentum loss in the boundary layer.
 
         0 = convergence algorithm
 
-        See Algorithm Note under :ref:`Boundary Layer Thickness <BL_Thick>`.
+        See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - compi
       - constant number
@@ -738,7 +742,7 @@ Relates to the momentum loss in the boundary layer.
 
 
 .. note::
-    The *Boundary Layer Calculator* functions (BL_*) are not supported for
+    Boundary layer (``BL_*``) calculator functions are not supported for
     Server of Server (SoS) decomposition.
 
 
@@ -754,12 +758,12 @@ BL_Scalar()
 ``BL_Scalar(boundary parts, velocity, scalar, ymax, grad)``
 
 
-Computes a scalar variable which is the scalar value of
+Computes a scalar variable that is the scalar value of
 the corresponding scalar field at the edge of the boundary layer. The function
 extracts the scalar value while computing the boundary-layer
-thickness (see :ref:`Boundary Layer: Thickness<BL_Thick>`).
+thickness. (See :ref:`Boundary Layer: Thickness<BL_Thick>`.)
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - boundary part
@@ -774,7 +778,7 @@ thickness (see :ref:`Boundary Layer: Thickness<BL_Thick>`).
 
         0 = convergence algorithm
 
-        See Algorithm Note under :ref:`Boundary Layer Thickness <BL_Thick>`.
+        See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - grad
       - -1 = flags the computing of the
@@ -784,7 +788,7 @@ thickness (see :ref:`Boundary Layer: Thickness<BL_Thick>`).
 
 
 .. note::
-    The *Boundary Layer Calculator* functions (BL_*) are not supported for
+    Boundary layer (``BL_*``) calculator functions are not supported for
     Server of Server (SoS) decomposition.
 
 
@@ -800,8 +804,8 @@ BL_RecoveryThick()
 ``BL_RecoveryThick(boundary parts, velocity, total pressure, ymax, grad)``
 
 
-Computes a scalar variable which is the boundary-layer
-recovery thickness :math:`{\delta }_{rec}`  defined as:
+Computes a scalar variable that is the boundary-layer
+recovery thickness :math:`{\delta }_{rec}`. This function is defined as:
 
 :math:`{\delta }_{rec}={\displaystyle {\int }_{0}^{\delta }\left(1-\frac{{p}_{t}}{{p}_{te}}\right)}dn`
 
@@ -828,7 +832,7 @@ recovery thickness :math:`{\delta }_{rec}`  defined as:
 This quantity does not appear in any physical
 conservation equations, but is sometimes used in the evaluation of inlet flows.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - boundary part
@@ -843,7 +847,7 @@ conservation equations, but is sometimes used in the evaluation of inlet flows.
 
         0 = convergence algorithm
 
-        See Algorithm Note under :ref:`Boundary Layer Thickness <BL_Thick>`.
+        See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - grad
       - -1 = flags the computing of the
@@ -855,7 +859,7 @@ conservation equations, but is sometimes used in the evaluation of inlet flows.
 
 
 .. note::
-    The *Boundary Layer Calculator* functions (BL_*) are not supported for
+    Boundary layer (``BL_*``) calculator functions are not supported for
     Server of Server (SoS) decomposition.
 
 
@@ -868,7 +872,7 @@ BL_Shape()
 
 **Boundary Layer: Shape Parameter**
 
-``BL_Shape is not explicitly listed in the general function list, but can
+``BL_Shape()`` is not explicitly listed in the general function list, but it can
 be computed as a scalar variable via the calculator by
 dividing a displacement thickness by a momentum thickness:``
 
@@ -884,19 +888,19 @@ dividing a displacement thickness by a momentum thickness:``
       - boundary-layer momentum thickness
 
 
-It is used to characterize boundary-layer flows, especially to
+This scalar vairable is used to characterize boundary-layer flows, especially to
 indicate potential for separation. This parameter increases as a
-separation point is approached, and varies rapidly near a separation
+separation point is approached, and it varies rapidly near a separation
 point.
 
 .. note::
-    Separation has not been observed for H < 1.8, and definitely
-    has been observed for H = 2.6; therefore, separation is considered
+    Separation has not been observed for H < 1.8, but it definitely
+    has been observed for H = 2.6. Thus, separation is considered
     in some analytical methods to occur in turbulent boundary layers for H = 2.0.
 
     In a Blasius Laminar layer (that is flat plate boundary
-    layer growth with zero pressure gradient), H = 2.605. Turbulent boundary layer,
-    H ~= 1.4 to 1.5, with extreme variations ~= 1.2 to 2.5.
+    layer growth with zero pressure gradient), H = 2.605. In a turbulent boundary layer,
+    H ~= 1.4 to 1.5, and with extreme variations, H ~= 1.2 to 2.5.
 
 
 
@@ -912,8 +916,8 @@ BL_Thick()
 ``BL_Thick(boundary parts, velocity, ymax, grad)``
 
 
-Computes a scalar variable which is the boundary-layer
-thickness :math:`\delta` defined as:
+Computes a scalar variable that is the boundary-layer
+thickness :math:`\delta`. This function is defined as:
 
 :math:`\delta ={n|}_{u/U=0.995}`
 
@@ -931,7 +935,7 @@ The distance normal from the surface to where:
       - magnitude of the velocity just outside the boundary layer
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - boundary part
@@ -944,7 +948,7 @@ The distance normal from the surface to where:
 
         0 = convergence algorithm
 
-        (See **Algorithm Note** below)
+        (See the algorithm note that follows.)
 
     * - grad
       - -1 = flags the computing of the
@@ -956,31 +960,31 @@ The distance normal from the surface to where:
 
 
 .. note::
-    The *Boundary Layer Calculator* functions (BL_*) are not supported for
+    Boundary layer (``BL_*``) calculator functions are not supported for
     Server of Server (SoS) decomposition.
 
 
 .. admonition::  Algorithm: Boundary Layer Thickness
 
-    The ymax argument allows the edge of the boundary layer to be approximated by two
-    different algorithms, that is the Baldwin-Lomax-Spalart and convergence algorithms.
-    Both schemes profile velocity data normal to the boundary surface, or wall.
-    Specifying ymax > 0 leverages results from both the Baldwin-Lomax and vorticity
+    The ``ymax`` argument allows the edge of the boundary layer to be approximated by two
+    different algorithms: the Baldwin-Lomax-Spalart agorithm and the convergence algorithm.
+    Both algorithms profile velocity data normal to the boundary surface, or wall.
+    Specifying ``ymax > 0`` leverages results from both the Baldwin-Lomax and vorticity
     functions over the entire profile to produce a fading function that approximates the edge
-    of the boundary layer. Whereas, specifying ymax = 0 uses velocity and
+    of the boundary layer, whereas specifying ``ymax = 0`` uses velocity and
     velocity gradient differences to converge to the edge of the boundary
     layer.
 
-    See the following references for more detailed explanations.
+**References**
 
-    #. P.M. Gerhart, R.J. Gross, & J.I. Hochstein, Fundamentals
-       of Fluid Mechanics, second Ed.,(Addison-Wesley: New York, 1992)
+For more information, see these references:
 
-    #. P. Spalart, A Reasonable Method to Compute Boundary-Layer
-       Parameters from Navier-Stokes Results, (Unpublished: Boeing, 1992)
-
-    #. H. Schlichting & K. Gersten, Boundary Layer Theory, eighth
-       Ed., (Springer-Verlag: Berlin, 2003)
+- P.M. Gerhart, R.J. Gross, & J.I. Hochstein, Fundamentals
+  of Fluid Mechanics, second Ed.,(Addison-Wesley: New York, 1992)
+- P. Spalart, A Reasonable Method to Compute Boundary-Layer
+  Parameters from Navier-Stokes Results, (Unpublished: Boeing, 1992)
+- H. Schlichting & K. Gersten, Boundary Layer Theory, eighth
+  Ed., (Springer-Verlag: Berlin, 2003)
 
 
 
@@ -995,8 +999,8 @@ BL_VelocityAtEdge()
 
 ``BL_VelocityAtEdge(boundary parts, velocity, ymax,comp(0,1,2),grad)``
 
-Extracts a vector variable which is a velocity vector
-:math:`{V}_{e}`, :math:`{V}_{p}`, or :math:`{V}_{n}`  defined as:
+Extracts a vector variable that is a velocity vector
+:math:`{V}_{e}`, :math:`{V}_{p}`, or :math:`{V}_{n}`. It is  defined as:
 
 .. list-table::
     :widths:  30 70
@@ -1015,8 +1019,8 @@ Extracts a vector variable which is a velocity vector
         vector parallel to the wall at the edge of the boundary layer :math:`\delta`
 
 
-Computes a scalar variable which is the boundary-layer thickness
-:math:`\delta`  defined as:
+This vector variable computes a scalar variable that is the boundary-layer thickness
+:math:`\delta`. It is  defined as:
 
 .. list-table::
     :widths:  30 70
@@ -1032,10 +1036,10 @@ Computes a scalar variable which is the boundary-layer thickness
         vector parallel to the wall at the edge of the boundary layer :math:`\delta`
 
 
-Computes a scalar variable which is the boundary-layer
-thickness :math:`\delta`  defined as:
+This scalar variable computes another scalar variable that is the boundary-layer
+thickness :math:`\delta`. It is  defined as:
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - boundary part
@@ -1051,7 +1055,7 @@ thickness :math:`\delta`  defined as:
 
         0 = convergence algorithm
 
-        See Algorithm Note under :ref:`Boundary Layer Thickness <BL_Thick>`.
+        See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - comp
       - constant number
@@ -1071,7 +1075,7 @@ thickness :math:`\delta`  defined as:
 
 
 .. note::
-    The *Boundary Layer Calculator* functions (BL_*) are not supported for
+    Boundary layer (``BL_*``) calculator functions are not supported for
     Server of Server (SoS) decomposition.
 
 
@@ -1087,9 +1091,8 @@ BL_Y1Plus()
 ``BL_Y1Plus(boundary parts, density, viscosity, grad option, vector variable)``
 
 
-
-:math:`{y}_{1}^{+}`  Computes a scalar variable which is the coefficient off the
-wall to the first field cell centroid, defined as:
+:math:`{y}_{1}^{+}` computes a scalar variable that is the coefficient off the
+wall to the first field cell centroid. This function is defined as:
 
 :math:`{y}_{1}^{+}=\frac{{y}_{1}{\rho }_{w}}{{\mu }_{w}}\sqrt{\frac{{\tau }_{w}}{{\rho }_{w}}}`
 
@@ -1102,10 +1105,10 @@ where:
       - distance profiled normal to the wall
     * - :math:`{\tau }_{w}`
       - :math:`={\mu }_{w}{\left(\frac{\partial u}{\partial n}\right)}_{n=0}`
-        = fluid shear stress at wall
+        = fluid shear stress at the wall
     * - :math:`{\mu }_{w}`
-      - dynamic viscosity of fluid at wall
-        May be spatially and/or temporally varying quantity (usually a constant)
+      - dynamic viscosity of fluid at the wall (may be a
+        spatially and/or temporally varying quantity and is usually a constant)
     * - :math:`{\rho }_{w}`
       - density at the wall
     * - :math:`{y}_{1}`
@@ -1117,12 +1120,11 @@ where:
 
 Normally :math:`{y}^{+}`  is used to estimate or confirm the required first grid spacing
 for proper capturing of viscous-layer properties. The values are dependent on
-various factors including, what variables at the wall are sought, the turbulent
-models used, and whether the law of the wall is used or not. Consult a
-boundary-layer text for correct interpolation of the values for your
-application.
+various factors,including what variables at the wall are sought, the turbulent
+models used, and whether the law of the wall is used. For correct interpolation of
+the values for your application, consult a boundary-layer text.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - boundary part
@@ -1132,24 +1134,24 @@ application.
     * - viscosity
       - scalar variable, constant variable, or constant number
     * - gradient option
-      - 1 = Use field velocity (will be used to calculate wall gradient)
+      - 1 = Use field velocity (used to calculate wall gradient)
 
         2 = Use gradient at boundary part (wall or surface)
 
         3 = Use gradient in corresponding field part
     * - vector variable
-      - Will be one of three depending on gradient option:
+      - One of three values depending on the gradient option:
 
         1 = Use field velocity = velocity vector
 
-        2 = Use gradient at boundary = Gradient variable on 2 dimensional boundary (wall or surface) part
+        2 = Use gradient at boundary = Gradient variable on 2D boundary (wall or surface) part
 
-        3 = Use gradient in field = Gradient variable defined in 3 dimensional field part; or
+        3 = Use gradient in field = Gradient variable defined in 3D field part; or
         could be gradient calculated using Grad(velocity magnitude), that is :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
 
 .. note::
-    The *Boundary Layer Calculator* functions (BL_*) are not supported for
+    Boundary layer (``BL_*``) calculator functions are not supported for
     Server of Server (SoS) decomposition.
 
 
@@ -1164,13 +1166,13 @@ BL_Y1PlusDist()
 ``BL_Y1PlusDist(boundary parts, velocity)``
 
 
-:math:`{y}_{1}`  Computes a scalar variable which is the off-the-wall distance,
-:math:`{y}_{1}` , which is the distance off the wall to the first field cell
+:math:`{y}_{1}`  Computes a scalar variable that is the off-the-wall distance,
+:math:`{y}_{1}`, which is the distance off the wall to the first field cell
 centroid. The velocity variable is only used to determine whether the variable
-is nodal or elemental to maintain consistency with the :math:`{y}_{1}^{+}`
-calculation above.
+is nodal or elemental to maintain consistency with the previous :math:`{y}_{1}^{+}`
+calculation.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - boundary part
@@ -1180,7 +1182,7 @@ calculation above.
 
 
 .. note::
-    The *Boundary Layer Calculator* functions (BL_*) are not supported for
+    Boundary layer (``BL_*``) calculator functions are not supported for
     Server of Server (SoS) decomposition.
 
 
@@ -1196,22 +1198,25 @@ CaseMap()
 ``CaseMap(2D or 3D parts, case to map from, scalar/vector/tensor, parts to map from, search option flag)``
 
 
-For all locations on the selected parts this function
+For all locations on the selected parts, this function
 finds the specified variable value (scalar, vector, or tensor) from
 the *case to map from* using a variety of user-specified
-search options. If the variable in the *case to map from* is
-located at the nodes, then the casemapped variable will be defined on the nodes
-of the selected parts, and if the variable is located at the elements, then
-the casemapped variable will be defined at the elements of the selected parts.
-The idea is to map onto the selected parts, a variable
-from another case, usually for comparison purposes. It does this by taking the
+search options.
+
+- If the variable in the *case to map from* is located at the nodes, the
+  casemapped variable is defined on the nodes of the selected parts.
+- If the variable is located at the elements, the casemapped variable is
+  defined at the elements of the selected parts.
+
+The idea is to map onto the selected parts a variable from another case,
+usually for comparison purposes. It does this by taking the
 location of the nodes or centroid of the elements and looking at the other case
 to see if the variable in question is defined at that location in the field. If
 so, the value is mapped to the parts nodes or element value. The algorithm can
 be fairly expensive, so there are options to inform the search that finds a
 matching variable location.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - case to map from
@@ -1225,21 +1230,21 @@ matching variable location.
         following occurs:
 
         If search option is set to *search only* (0), an undefined value
-        will be assigned.
+        is assigned.
 
         If search option is set to *nearest value* (1), the defined variable
-        value at the closest node or element will be assigned (no undefined values).
-        This option will take time to search the 'from case' according to
-        the 'parts to map from' selection outlined below.
+        value at the closest node or element is assigned (no undefined values).
+        This option takes time to search the 'from case' according to
+        the following 'parts to map from' selection.
 
     * - parts to map from
       - The values for a location must be found by
         searching the geometry in the 'case to map from'. By setting this
-        option you can hint to EnSight where in the geometry it should
+        option, you can hint to EnSight where in the geometry it should
         search, which can vastly improve performance.
 
-        *Global search* (0) - This is the legacy scheme
-        which will perform a methodical, but uninformed search of the 3D,
+        *Global search* (0) - This is the legacy scheme. It
+        performs a methodical but uninformed search of the 3D,
         then 2D, then 1D, then even 0D (point) elements to find the first
         defined variable value. This works well for mapping onto a 3D or 2D
         that is completely enclosed in a 3D *from* volume. It works poorly
@@ -1249,12 +1254,12 @@ matching variable location.
 
         *Dimensionality match* (1) - Only parts of the same
         dimension in the from and to are searched. For example, only 3D
-        *from* parts will be used to map onto a 3D
-        selected part. This is the option that the user should use most
+        *from* parts are used to map onto a 3D
+        selected part. This is the option that the you should use most
         often.
 
         *Part number match* (2) - The order of the parts is
-        used, that is if you are computing the case map on the third part
+        used, that is if you are computing the case map on the third part,
         then the third part is used in the 'case to map from'. This is best
         used if you have exactly the same dataset in terms of the part list
         ordering, but perhaps calculated differently so only the variable
@@ -1262,19 +1267,18 @@ matching variable location.
 
         *Parts selected for case to map from* (3) - Select
         parts in the Case *From* as well as the Case *To*. Only selected parts
-        will be used in the two cases.
+        are used in the two cases.
 
 
 .. note::
     This function uses EnSight's search capability to do the mapping. It is
-    critical that the nodes of the parts being mapped onto, lie within the
+    critical that the nodes of the parts being mapped onto lie within the
     geometry of all of the parts of the case being mapped from. Mapping from a
-    2D surface to a 2D surface will only work reliably if the surfaces are the
+    2D surface to a 2D surface only works reliably if the surfaces are the
     same (or extremely close, and the flag=1 option is chosen).
 
-    Mapping nodal
-    variables is faster than mapping elemental variables. This function is
-    threaded so an Enterprise (formerly gold or hpc) license key may improve
+    Mapping nodal variables is faster than mapping elemental variables. This function is
+    threaded so an Enterprise (formerly Gold or HPS) license key may improve
     performance.
 
     Select only the parts that you require, and use search option 0 if at all possible.
@@ -1297,7 +1301,7 @@ This function is equivalent to the expression:
 
 ``Variable - CaseMap[Variable]``
 
-See  :ref:`CaseMap <CaseMap>` function for details on how that function works.
+See the :ref:`CaseMap <CaseMap>` function for information on how that function works.
 
 
 
@@ -1312,13 +1316,12 @@ CaseMapImage()
 ``CaseMapImage(2D or 3D parts, part to map from, scalar, viewport number, Undefined value limit)``
 
 
-This function does a projection of
-a 2D part variable from a different case onto a 3D geometry taking into account
-the view orientation from the specified viewport number, similar to a texture
-mapping. The function in effect maps 2D results to a 3 dimensional geometry taking into
+This function does a projection of a 2D part variable from a different case onto a
+3D geometry taking into account the view orientation from the specified viewport number,
+similar to a texture mapping. The function in effect maps 2D results to a 3D geometrym taking into
 account view orientation and surface visibility.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - part to map from
@@ -1352,6 +1355,7 @@ value is a coefficient :math:`{C}_{x}` , :math:`{C}_{y}` , or :math:`{C}_{z}`
 such that :math:`{C}_{x}={\displaystyle {\int }_{S}f{n}_{x}dS}`,
 :math:`{C}_{y}={\displaystyle {\int }_{S}f{n}_{y}dS}`,
 :math:`{C}_{z}={\displaystyle {\int }_{S}f{n}_{z}dS}`
+
 where:
 
 
@@ -1370,7 +1374,7 @@ where:
       - z component of normal
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - variable
@@ -1382,7 +1386,7 @@ where:
 Specify [X], [Y], or [Z] to get the corresponding coefficient.
 
 .. note::
-    Normal for a 1D part will be parallel to the plane of the plane tool.
+    Normal for a 1D part is parallel to the plane of the plane tool.
 
 
 .. _Cmplx:
@@ -1403,7 +1407,7 @@ reference.
 
 Z = A + Bi
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - real portion
@@ -1425,8 +1429,8 @@ CmplxArg()
 ``CmplxArg(any parts, complex scalar or vector)``
 
 
-Computes the Argument of a complex scalar or vector. The
-resulting scalar is given in degrees and will be in the range -180 and 180
+Computes the argument of a complex scalar or vector. The
+resulting scalar is given in a range between -180 and 180
 degrees.
 
 :math:`\text{Arg = atan(Vi/Vr)}`
@@ -1444,8 +1448,10 @@ CmplxConj()
 ``CmplxConj(any parts, complex scalar or vector)``
 
 
-Computes the Conjugate of a complex scalar of vector.
-Returns a complex scalar or vector where:
+Computes the conjugate of a complex scalar of vector.
+Returns a complex scalar or vector,
+
+where:
 
 :math:`\text{Nr = Vr}`
 
@@ -1465,8 +1471,8 @@ CmplxImag()
 ``CmplxImag(any parts, complex scalar or vector)``
 
 
-Extracts imaginary portion of a complex scalar or vector
-into a real scalar or vector.
+Extracts the imaginary portion of a complex scalar or vector
+into a real scalar or vector:
 
 :math:`\text{N = Vi}`
 
@@ -1483,8 +1489,8 @@ CmplxModu()
 ``CmplxModu(any parts, complex scalar or vector)``
 
 
-Returns a real scalar/vector which is the modulus of the
-given scalar/vector
+Returns a real scalar or vector that is the modulus of the
+given scalar or vector:
 
 :math:`\text{N = SQRT(Vr*Vr + Vi*Vi)}`
 
@@ -1502,7 +1508,7 @@ CmplxReal()
 
 
 Extracts the real portion of a complex scalar or vector
-into a real scalar or vector.
+into a real scalar or vector:
 
 :math:`\text{N = Vr}`
 
@@ -1519,7 +1525,7 @@ CmplxTransResp()
 ``CmplxTransResp(any parts, complex scalar or vector, constant PHI(0.0-360.0 Degrees))``
 
 
-Returns a real scalar or vector which is the real
+Returns a real scalar or vector that is the real
 transient response:
 
 :math:`\text{Re(Vt) = Re(Vc)Cos(phi) - Im(Vc)Sin(phi)}`
@@ -1550,17 +1556,17 @@ where:
     :widths:  30 70
 
     * - Vc
-      - the complex variable field
+      - complex variable field
     * - Re(Vc)
-      - the Real portion of Vc
+      - real portion of Vc
     * - Im(Vc)
-      - the imaginary portion of Vc
+      - imaginary portion of Vc
     * - i
       - Sqrt(-1)
 
 
 .. note::
-    The transient complex function, was a composition of Vc and Euler's
+    The transient complex function was a composition of Vc and Euler's
     relation, namely:
 
     Vt = Vt(x,y,z,t) = Re(Vt) + i Im(Vt) = Vc * e^(i phi)
@@ -1569,13 +1575,13 @@ where:
 
     e^(i phi) = Cos(phi) + i Sin(phi)
 
-    The real portion Re(Vt), is as designated above.
+    The real portion, Re(Vt), is as designated above.
 
     This function is only good for harmonic variations, thus fields with a
     defined frequency.
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - phi angle
@@ -1594,15 +1600,14 @@ ConstPerPart()
 ``ConstPerPart(any parts, constant)``
 
 
-This function is assigns a value to the selected
-parts. The value can either be a floating point value entered into the field,
-or it can be a case constant. This value does not change over time. At a later
-point, any other parts can be selected and this can be recalculated and these
-other parts will be assigned the new value and the existing parts that were
-previously selected will retain their previously assigned value. In other words,
-each successive time that this is recalculated for an existing variable, values
-assigned to the most recently selected parts are updated without removing
-previously assigned values.
+This function assigns a value to the selected parts. The value can be either a
+floating point value entered into the field or a case constant. This value
+does not change over time. At a later point, other parts can be selected
+and this value can be recalculated. These other parts are then assigned the new value.
+The existing parts that were previously selected retain their previously assigned
+value. In other words, each successive time that this value is recalculated for an
+existing variable, values assigned to the most recently selected parts are updated
+without removing previously assigned values.
 
 
 .. _Curl:
@@ -1616,7 +1621,7 @@ Curl()
 ``Curl(any parts, vector)``
 
 
-Computes a vector variable which is the curl of the input vector
+Computes a vector variable that is the cURL of the input vector:
 
 :math:`Cur{l}_{f}=\overline{\nabla }\times \dot{f}=\left(\frac{\partial {f}_{3}}{\partial y}-\frac{\partial {f}_{2}}{\partial z}\right)\widehat{i}+\left(\frac{\partial {f}_{1}}{\partial z}-\frac{\partial {f}_{3}}{\partial x}\right)\widehat{j}+\left(\frac{\partial {f}_{2}}{\partial x}-\frac{\partial {f}_{1}}{\partial y}\right)\widehat{k}`
 
@@ -1625,18 +1630,18 @@ Computes a vector variable which is the curl of the input vector
 .. _Defect_Functions:
 
 ---------------------------------------------
-Porosity Characterization Functions (Defects)
+Porosity characterization functions (defects)
 ---------------------------------------------
 
 Consider a mesh with a scalar per element variable representing the micro porosity of each
 cell, where 0 means no porosity (the cell is completely full) and 100 means the cell is
-fully porous (the cell is empty). Cells with a non zero porosity are considered to have
+fully porous (the cell is empty). Cells with a non-zero porosity are considered to have
 defects. Defects that span multiple cells may indicate an unacceptable defect.
 
-Six Defect functions are provided to help calculate factors of interest in characterizing
-these defects that occur over multiple cells. To use the Defect_* functions, you would
-create an isovolume of your porosity variable between desired ranges (perhaps 5 to 100)
-and select this isovolume part then use these functions below.
+Six ``Defect_*`` functions are provided to help calculate factors of interest in characterizing
+the defects that occur over multiple cells. To use the following ``Defect_*`` functions, you would
+create an isovolume of your porosity variable between the desired ranges (perhaps 5 to 100) and
+select this isovolume part.
 
 
 .. _Defect_BulkVolume:
@@ -1650,11 +1655,11 @@ Defect_BulkVolume()
 ``Defect_BulkVolume(2D or 3D parts)``
 
 
-Returns a per element scalar which is the sum of the
-volume of all the cells comprising the defect, and then each cell with the
-defect is assigned this value.
+Returns a per element scalar that is the sum of the
+volume of all the cells comprising the defect. Each cell with the
+defect is then assigned this value.
 
-See :ref:`Defect Functions <Defect_Functions>` for further input specifications.
+For input specifications, see :ref:`Defect Functions <Defect_Functions>`.
 
 
 .. _Defect_Count:
@@ -1668,12 +1673,12 @@ Defect_Count()
 ``Defect_Count(2D or 3D parts, Defect scalar per elem, min value, max value) [,Compute_Per_part])``
 
 
-Returns a case constant which filters the count of the
-number of defects that exist between the min value and the max value using a
-Defect scalar per element variable that has been previously calculated by any of
-the other five :ref:`Defect Functions <Defect_Functions>`.
+Returns a case constant that filters the count of the
+number of defects existing between the minimum value and the maximum value. This
+function uses a defect scalar per element variable that has been previously calculated by any of
+the other five :ref:`Defect functions <Defect_Functions>`.
 
-See :ref:`Defect Functions <Defect_Functions>` for further input specifications.
+For input specifications, see :ref:`Defect Functions <Defect_Functions>`.
 
 
 .. _Defect_LargestLinearExtent:
@@ -1692,7 +1697,7 @@ extent of all the cells comprising the defect, where each cell of the defect is
 assigned this value. The largest linear extent is the root-mean-squared
 distance.
 
-See :ref:`Defect Functions <Defect_Functions>` for further input specifications.
+For input specifications, see :ref:`Defect Functions <Defect_Functions>`.
 
 
 .. _Defect_NetVolume:
@@ -1710,12 +1715,12 @@ Returns a per element scalar that is the sum of the cell
 volumes multiplied by the scalar per element variable multiplied by the scale
 factor, of all the cells comprising the defect, where each cell of the defect is
 assigned this value. The defect scalar per element variable is usually porosity,
-but the user is free to use any per element scalar variable. The scale factor
+but you can use any per element scalar variable. The scale factor
 adjusts the scalar per element variable values, that is if the porosity range is
-from 0.0 to 100.0 then a scale factor of 0.01 can be used to normalize the
+from 0.0 to 100.0, then a scale factor of 0.01 can be used to normalize the
 porosity values to volume fraction values ranging from 0.0 to 1.0.
 
-See :ref:`Defect Functions <Defect_Functions>` for further input specifications.
+For input specifications, see :ref:`Defect Functions <Defect_Functions>`.
 
 
 .. _Defect_ShapeFactor:
@@ -1729,11 +1734,11 @@ Defect_ShapeFactor()
 ``Defect_ShapeFactor(2D or 3D parts)``
 
 
-Returns a per element scalar that is the *Largest Linear Extent* divided by the diameter of the
-sphere with a volume equal to the *Bulk Volume* of the defect, where each cell of the defect
+Returns a per element scalar that is the *largest linear extent* divided by the diameter of the
+sphere with a volume equal to the *bulk volume* of the defect, where each cell of the defect
 is assigned this value.
 
-See :ref:`Defect Functions <Defect_Functions>` for further input specifications.
+For input specifications, see :ref:`Defect Functions <Defect_Functions>`.
 
 
 .. _Defect_SurfaceArea:
@@ -1750,7 +1755,7 @@ Defect_SurfaceArea()
 Returns a per element scalar that is the surface area of
 the defect, where each cell of the defect is assigned this value.
 
-See :ref:`Defect Functions <Defect_Functions>` for further input specifications.
+For input specifications, see :ref:`Defect Functions <Defect_Functions>`.
 
 
 .. _Density:
@@ -1764,7 +1769,7 @@ Density()
 ``Density(any parts, pressure, temperature, gas constant)``
 
 
-Computes a scalar variable which is the density :math:`\rho` , defined as:
+Computes a scalar variable that is the density :math:`\rho`. This function is defined as:
 
 :math:`\rho =\frac{p}{RT}`
 
@@ -1781,7 +1786,7 @@ where:
       - gas constant
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - pressure
@@ -1805,7 +1810,8 @@ DensityLogNorm()
 ``DensityLogNorm(any parts, density, freestream density)``
 
 
-Computes a scalar variable which is the natural log of *Normalized Density* defined as:
+Computes a scalar variable that is the natural log of *normalized density*. This
+function is defined as:
 
 :math:`\mathrm{ln}{\rho }_{n}=\mathrm{ln}\left(\rho /{\rho }_{i}\right)`
 
@@ -1820,7 +1826,7 @@ where:
       - freestream density
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - density
@@ -1841,7 +1847,8 @@ DensityNorm()
 ``DensityNorm(any parts, density, freestream density)``
 
 
-Computes a scalar variable which is the *Normalized Density* :math:`{\rho }_{n}` defined as:
+Computes a scalar variable that is the *normalized density* :math:`{\rho }_{n}`.
+This function is defined as:
 
 :math:`{\rho }_{n}=\rho /{\rho }_{i}`
 
@@ -1856,7 +1863,7 @@ where:
       - freestream density
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - density
@@ -1881,7 +1888,8 @@ velocity, ratio of specific heats freestream density, freestream speed of sound,
 freestream velocity magnitude)``
 
 
-Computes a scalar variable which is the *Normalized Stagnation Density* defined as:
+Computes a scalar variable that is the *normalized stagnation density*.
+This function is defined as:
 
 :math:`{\rho }_{on}={\rho }_{o}/{\rho }_{oi}`
 
@@ -1898,7 +1906,7 @@ where:
 
 where:
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - density
@@ -1929,8 +1937,8 @@ DensityStag()
 ``DensityStag(any parts, density, total energy, velocity, ratio of specific heats)``
 
 
-Computes a scalar variable which is the Stagnation
-Density :math:`{\rho }_{o}`  defined as:
+Computes a scalar variable that is the *stagnation
+density* :math:`{\rho }_{o}`. This funciton is defined as:
 
 :math:`{\rho }_{o}=\rho {\left(1+\left(\frac{\gamma -I}{2}\right){M}^{2}\right)}^{\left(I/\left(\gamma -1\right)\right)}`
 
@@ -1948,7 +1956,7 @@ where:
 
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - density
@@ -1975,31 +1983,31 @@ Dist2Nodes()
 
 
 Computes a constant, positive variable that is the
-distance between any two nodes. Searches down the part list until it finds *nodeID1*, then
-searches until it finds *nodeID2* and returns ``Undefined`` if *nodeID1* or *nodeID2* cannot be found.
-Nodes are designated by their node ids, so the part must have node ids.
+distance between any two nodes. This function searches down the part list until it finds *nodeID1*, then
+searches until it finds *nodeID2*. Itreturns ``Undefined`` if *nodeID1* or *nodeID2* cannot be found.
+Nodes are designated by their node IDs, so the part must have node IDs.
 
 .. note::
-    Most created parts do not have node ids.
+    Most created parts do not have node IDs.
 
     The geometry type is important for using this function. There are three geometry types:
     static, changing coordinate, and changing connectivity. You can find out your geometry
     type by doing a **Query→Dataset** and looking in the **General Geometric section** of the
-    pop up window.
+    popup window.
 
-    If you have a static geometry with visual displacement turned on then ``dis2nodes`` will
-    not use the displacement in its calculations. You will need to enable server-side
-    (computational) displacement. If you have changing
-    coordinate geometry, then ``dist2node`` works without adjustment. If you have changing
-    connectivity then ``dist2node`` should not be used as it may give nonsensical results
-    because connectivity is re-evaluated each time step and node ids may be reassigned.
+    If you have a static geometry with visual displacement turned on, the ``Dis2Nodes`` 
+    function does not use the displacement in its calculations. You must enable server-side
+    (computational) displacement. If you have changing coordinate geometry, the ``Dist2Nnodes``
+    function works without adjustment. If you have changing connectivity, the ``Dist2nNodes``
+    function should not be used as it can give nonsensical results because connectivity is
+    reevaluated each time step and node IDs may be reassigned.
 
     For transient results, to find the distance between two nodes on different parts, or
-    between two nodes if one or both don't have ids, or the ids are not unique for the model
-    (namely, more than one part has the same node id) use the line tool.
+    between two nodes if one or both nodes don't have IDs, or the IDs are not unique for the model
+    (namely, more than one part has the same node ID), use the line tool.
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - nodeID1
@@ -2023,21 +2031,21 @@ Dist2Part()
 Computes a scalar variable on the origin part and field
 parts that is the minimum distance at each node of the origin and field parts to
 any node in the origin part. This distance is unsigned by default. The origin
-part is the origin of a Euclidean distance field. So, by definition the scalar
-variable will always be zero at the origin part because the distance to the
-origin part will always be zero.
+part is the origin of a Euclidean distance field. So, by definition, the scalar
+variable is always zero at the origin part because the distance to the
+origin part is always zero.
 
 The origin part normal vector must be a per node
-variable. If the origin part normal is calculated using the Normal calculator
-function, then it is a per element variable and must be moved to the nodes using
-the calculator
+variable. If the origin part normal is calculated using the ``Normal`` calculator
+function, it is a per element variable and must be moved to the nodes using
+the calculator.
 
 .. note::
     The origin part must be included in the field part list (although, as
-    discussed earlier, the scalar variable will be zero for all nodes on the
+    mentioned earlier, the scalar variable is zero for all nodes on the
     origin part). This algorithm has an execution time on the order of the
     number of nodes in the field parts times the number of nodes in the origin
-    part. While the implementation is both SOS aware and threaded, the run time
+    part. While the implementation is both SOS-aware and threaded, the run time
     is dominated by the number of nodes in the computation.
 
 
@@ -2045,17 +2053,18 @@ This function is computed between the nodes of the
 origin and field parts. As a result, the accuracy of its approximation to the
 distance field is limited to the density of nodes (effectively the size of the
 elements) in the origin part. If a more accurate approximation is required, use
-the :ref:`Dist2PartElem() <Dist2PartElem>` function. It is slower, but is
-less dependent on the nodal distribution in the origin part because it uses the
+the :ref:`Dist2PartElem() <Dist2PartElem>` function. While this function is slower,
+it is less dependent on the nodal distribution in the origin part because it uses the
 nodes plus the element faces to calculate the minimum distance.
 
-Usage: A typical usage would be to use an arbitrary 2D
-part to create a clip in a 3D field. Use the 2D part as your origin part, and
-select the origin part as well as your 3D field parts. No need to have normal
-vectors. Create your scalar variable, called say **distTo2Dpart**, then create
-an isosurface=0 in your field using the **distTo2Dpart** as your variable.
+**Usage**
+You would typically use an arbitrary 2D part to create a clip in a 3D field. You
+would then use the 2D part as your origin part and select the origin part as well
+as your 3D field parts. There is no need to have normal vectors. After creating your
+scalar variable, which you might call ``distTo2Dpart``, you would create
+an ``isosurface=0`` in your field using ``distTo2Dpart`` as your variable.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - origin part
@@ -2080,20 +2089,19 @@ Dist2PartElem()
 
 Computes a scalar variable that is the minimum distance
 at each node of the origin part and field parts and the closest point on any
-element in origin part. This distance is unsigned (if the origin part normal
-vector is not supplied).
+element in the origin part.
 
-If the origin part normal vector is supplied, then the
-distance is signed.
+- If the origin part normal vector is not supplied, this distance is unsigned.
+- If the origin part normal vector is supplied, the distance is signed.
 
 .. note::
     The origin part normal vector must be a per node variable. If the origin part
-    normal is calculated using the :ref:`Normal() <Normal>` calculator function, then
-    it is a per element variable and must be moved to the nodes using the calculator
-    :ref:`ElemToNode() <ElemToNode>` function. If this per node, origin part normal
-    vector variable defined at the origin part is supplied, the direction of the normal
-    is used to return a signed distance function with distances in the direction of the
-    normal being positive.
+    normal is calculated using the :ref:`Normal() <Normal>` calculator function,
+    it is a per element variable and must be moved to the nodes using the
+    :ref:`ElemToNode() <ElemToNode>` calculator function. If it per node,
+    origin part normal vector variable defined at the origin part is supplied,
+    the direction of the normal is used to return a signed distance function
+    with distances in the direction of the normal being positive.
 
 
 Once the closest point in the origin part has been found
@@ -2102,20 +2110,20 @@ vector between the two nodes is used to select the sign of the result.
 
 .. note::
     The origin part must be included in the field part list (although the
-    output will be zero for all nodes of the origin part because it is the
+    output is zero for all nodes of the origin part because it is the
     origin of the Euclidean distance). This algorithm has an execution time on
-    the order of the number of nodes in the field parts times the number of
-    elements in the origin part. While the implementation is both SOS aware and
+    the order of the number of nodes in the field parts multiplied by the number of
+    elements in the origin part. While the implementation is both SOS-aware and
     threaded, the run time is dominated by the number of nodes in the
-    computation
+    computation.
 
 
-This function is a more accurate estimation of the distance field than :ref:`Dist2Part() <Dist2Part>`
-because it allows for distances between nodes and element surfaces on the origin part. This
-improved accuracy results in increased computational complexity and as a result this function
-can be several times slower than :ref:`Dist2Part() <Dist2Part>`.
+This function is a more accurate estimation of the distance field than the :ref:`Dist2Part() <Dist2Part>`
+function because it allows for distances between nodes and element surfaces on the origin part. This
+improved accuracy results in increased computational complexity. As a result, the ``Dist2PartElem`` function
+can be several times slower than the :ref:`Dist2Part() <Dist2Part>` function.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - origin part
@@ -2137,7 +2145,7 @@ Div()
 ``Div(2D or 3D parts, vector)``
 
 
-Computes a scalar variable whose value is the divergence
+Computes a scalar variable whose value is the divergence. This function is
 defined as:
 
 :math:`Div=\frac{\partial u}{\partial x}+\frac{\partial v}{\partial y}+\frac{\partial w}{\partial z}`
@@ -2164,12 +2172,12 @@ EleMetric()
 ``EleMetric(any parts, metric_function).``
 
 
-Calculates an element mesh metric, at each element
+Calculates an element mesh metric at each element,
 creating a scalar, element-based variable depending upon the selected metric
 function. The various metrics are valid for specific element types. If the
 element is not of the type supported by the metric function, the value at the
-element will be the EnSight undefined value. Metrics exist for the following
-element types: **tri**,**quad**,**tet**, and**hex**. A metric can be any
+element is the EnSight undefined value. Metrics exist for the following
+element types: **tri**, **quad**, **tet**, and **hex**. A metric can be any
 one of the following:
 
 .. list-table::
@@ -2183,7 +2191,7 @@ one of the following:
     * - 0
       - Element type
       - All
-      - EnSight element type number. See the table  below this one.
+      - EnSight element type number. See the table that follows this one.
     * - 1
       - Condition
       - hexa8, tetra4, quad4, tria3
@@ -2201,7 +2209,7 @@ one of the following:
     * - 4
       - Distortion
       - hexa8, tetra4, quad4, tria3
-      - Distortion is a measure of how well-behaved the
+      - Distortion is a measure of how well behaved the
         mapping from parameter space to world coordinates is.
 
     * - 5
@@ -2337,14 +2345,14 @@ one of the following:
       - Centroid
       - All
       - Returns each element centroid as a vector value
-        at that element
+        at that element.
 
     * - 29
       - Volume Test
       - 3D elements
       - Returns 0.0 for non-3D elements.
         Each 3D element is decomposed into Tet04 elements
-        and this option returns a scalar equal to 0.0, 1.0 or 2.0. It
+        and. This option returns a scalar equal to 0.0, 1.0, or 2.0. It
         returns 0.0 if none of the Tet04 element volumes is negative, 1.0 if
         all of the Tet04 element volumes are negative, and 2.0 if some of
         the Tet04 element volumes are negative.
@@ -2353,23 +2361,23 @@ one of the following:
       - Signed Volume
       - 3D elements
       - Returns 0.0 for non-3D elements. Returns a scalar
-        which is the sum of the signed volumes of the Tet4 decomposition for
+        that is the sum of the signed volumes of the Tet4 decomposition for
         3D elements.
 
     * - 31
       - Part Number
       - All
-      - Returns a scalar at each element which is the
+      - Returns a scalar at each element that is the
         EnSight part ID number of that element.
 
     * - 32
       - Face Count
       - All
-      - Returns a scalar which is the number of faces in
+      - Returns a scalar that is the number of faces in
         that element.
 
 
-EnSight Element types:
+**EnSight element types**
 
 .. list-table::
     :widths: 10 90
@@ -2445,14 +2453,16 @@ EnSight Element types:
 
 
 The implementation is based on the BSD implementation of
-the **Sandia Verdict Library**. For more detail on individual
-metrics, see the following references:
+the **Sandia Verdict Library**.
 
-    #. C. J. Stimpson, C. D. Ernst, P. Knupp, P. P. Pebay, & D.
-       Thompson, The Verdict Library Reference Manual, May 8,
-       2007.
-    #. `Verdict Mesh Verification Library <https://cubit.sandia.gov/public/verdict.html>`_
-    #. `Verdict Manual <http://www.vtk.org/Wiki/images/6/6b/VerdictManual-revA.pdf>`_
+**References**
+
+For more information on individual metrics, see these references:
+
+- C. J. Stimpson, C. D. Ernst, P. Knupp, P. P. Pebay, & D.
+  Thompson, The Verdict Library Reference Manual, May 8, 2007.
+- `Verdict Mesh Verification Library <https://cubit.sandia.gov/public/verdict.html>`_
+- `Verdict Manual <http://www.vtk.org/Wiki/images/6/6b/VerdictManual-revA.pdf>`_
 
 
 
@@ -2471,15 +2481,15 @@ Calculates the Volume/Area/Length for 3D/2D/1D elements
 respectively, at each element creating a scalar, element-based variable.
 
 .. note::
-    This will use the coordinates of the element to calculate the volume of each
-    element. If you wish to use displacement in the calculation of the volume, then
-    you must turn on computational (server-side) displacement, rather than visual only
-    (client side) displacement so that the displacement values will be applied to the
+    This function uses the coordinates of the element to calculate the volume of each
+    element. If you want to use displacement in the calculation of the volume, you must
+    turn on computational (server-side) displacement, rather than visual only
+    (client side) displacement, so that the displacement values are applied to the
     coordinates on the server prior to calculating the element size.
 
     If you calculate the element size of a part and then use that part to create a
-    child part, the child part will inherit the values of the **EleSize** calculation which
-    are the size of the parent elements not the size of the child elements. If you want the
+    child part, the child part inherits the values of the **EleSize** calculation, which
+    are the size of the parent elements and not the size of the child elements. If you want the
     **EleSize** of the child part, then you must select the child part and recalculate a new
     variable.
 
@@ -2497,7 +2507,7 @@ ElemToNode()
 ``ElemToNode(any parts, element-based scalar or vector).``
 
 
-Averages an element based variable to produce a
+Averages an element-based variable to produce a
 node-based variable.
 
 For each **node[i]** → :math:`\text{val += (elem[j]->val * elem[j]->wt) | node[i]}`
@@ -2521,9 +2531,9 @@ where:
       - indicates node that is associated with elem[j]
 
 
-By default, this uses all
-parts that share each node of the selected parts. So, parts that are not
-selected whose elements are shared by nodes of the selected parts will have
+By default, this function uses all
+parts that share each node of the one or more selected parts. So, parts that are not
+selected whose elements are shared by nodes of the selected parts have
 their element values averaged in with those of the selected parts.
 
 
@@ -2540,10 +2550,10 @@ ElemToNodeWeighted()
 ``ElemToNodeWeighted(any parts, element-based scalar or vector, element-based weighting scalar).``
 
 
-Same as :ref:`ElemToNode() <ElemToNode>`, except
+This function is the same as the :ref:`ElemToNode() <ElemToNode>` function, except
 that the value of the variable at the element is weighted by an element scalar.
 That is, elem[j] → wt is the value of the weighting scalar in the **ElemToNode** algorithm
-description above.
+described previously.
 
 One use of this function might be to use the element
 size as a weighting factor so that larger elements contribute more to the nodal
@@ -2590,7 +2600,7 @@ Or based on gamma, pressure and velocity:
 :math:`e=\frac{p}{\left(\gamma -1\right)}+\rho \frac{{V}^{2}}{2}`
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - density
@@ -2616,7 +2626,7 @@ KinEn()
 
 
 Computes a scalar variable whose value is the kinetic
-energy :math:`{E}_{k}` defined as:
+energy :math:`{E}_{k}`. This function is defined as:
 
 :math:`{E}_{k}=\frac{1}{2}\rho {V}^{2}`
 
@@ -2631,7 +2641,7 @@ where:
       - velocity variable
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - velocity
@@ -2652,8 +2662,8 @@ Enthalpy()
 ``Enthalpy(any parts, density, total energy, velocity, ratio of specific heats)``
 
 
-Computes a scalar variable which is Enthalpy
-:math:`h`  defined as:
+Computes a scalar variable that is enthalpy,
+:math:`h`. This function is defined as:
 
 :math:`h=\gamma \left(\frac{E}{\rho }-\frac{{V}^{2}}{2}\right)`
 
@@ -2672,7 +2682,7 @@ Computes a scalar variable which is Enthalpy
 
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - density
@@ -2698,8 +2708,8 @@ EnthalpyNorm()
 ``EnthalpyNorm(any parts, density, total energy, velocity, ratio of specific heats, freestream density, freestream speed of sound)``
 
 
-Computes a scalar variable which is Normalized Enthalpy
-:math:`{h}_{n}`  defined as:
+Computes a scalar variable that is the normalized enthalpy,
+:math:`{h}_{n}`. This function is defined as:
 
 :math:`{h}_{n}=h/{h}_{i}`
 
@@ -2713,7 +2723,7 @@ Computes a scalar variable which is Normalized Enthalpy
       - freestream enthalpy
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - density
@@ -2744,7 +2754,8 @@ EnthalpyStag()
 ``EnthalpyStag(any parts, density, total energy, velocity, ratio of specific heats)``
 
 
-Computes a scalar variable which is *Stagnation Enthalpy* :math:`{h}_{o}`  defined as:
+Computes a scalar variable that is the stagnation tnthalpy, :math:`{h}_{o}`. This
+function is defined as:
 
 :math:`{h}_{o}=h+\frac{{V}^{2}}{2}`
 
@@ -2758,7 +2769,7 @@ Computes a scalar variable which is *Stagnation Enthalpy* :math:`{h}_{o}`  defin
       - velocity magnitude
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - density
@@ -2786,7 +2797,8 @@ velocity, ratio of specific heats, freestream density, freestream speed of
 sound, freestream velocity magnitude)``
 
 
-Computes a scalar variable which is *Normalized Stagnation Enthalpy* :math:`{h}_{on}` defined as:
+Computes a scalar variable that is the normalized stagnation enthalpy, :math:`{h}_{on}`.
+This function is defined as:
 
 :math:`{h}_{on}={h}_{o}/{h}_{oi}`
 
@@ -2800,7 +2812,7 @@ Computes a scalar variable which is *Normalized Stagnation Enthalpy* :math:`{h}_
       - freestream stagnation enthalpy
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - density
@@ -2832,8 +2844,7 @@ Entropy()
 ``Entropy(any parts, density, total energy, velocity,
 ratio of specific heats, gas constant, freestream density, freestream speed of sound)``
 
-
-Computes a scalar variable which is *Entropy* :math:`s` defined as:
+Computes a scalar variable that is the entropy, :math:`s`. This function is defined as:
 
 :math:`s=\mathrm{ln}\left(\frac{\frac{p}{{p}_{\infty }}}{{\left(\frac{\rho }{{\rho }_{\infty }}\right)}^{\gamma }}\right)\left(\frac{R}{\gamma -1}\right)`
 where:
@@ -2853,19 +2864,19 @@ where:
       - freestream density
 
 
-where pressure, :math:`p`  is calculated from the total energy, :math:`e` , and velocity :math:`V`
+where pressure, :math:`p`,  is calculated from the total energy, :math:`e` , and velocity, :math:`V`:
 
 
 :math:`p=\left(\gamma -1\right)\left[e-\rho \frac{{V}^{2}}{2}\right]`
 
 
-with freestream pressure,
+with freestream pressure:
 
 
 :math:`{p}_{\infty }=\frac{{\rho }_{\infty }{a}_{\infty }^{2}}{\gamma }`
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths:  30 70
 
     * - density
@@ -2898,7 +2909,7 @@ Flow()
 
 
 Computes a constant or constant per part variable whose
-value is the volume flow rate :math:`{Q}_{c}` defined as:
+value is the volume flow rate, :math:`{Q}_{c}`. This function is defined as:
 
 :math:`{Q}_{c}={\displaystyle \underset{S}{\int }\left(V·\widehat{n}\right)}dS`
 
@@ -2915,7 +2926,7 @@ where:
       - 1D or 2D domain
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - velocity
@@ -2924,10 +2935,10 @@ where:
 
 .. note::
     The normal for each 2D element is calculated using the right hand rule of
-    the 2D element connectivity and must be consistent over the part or your
-    results will be incorrect. *Velocity vector* by the *Density scalar*
-    and then substitute this vector value in for the velocity
-    vector in the above equation.
+    the 2D element connectivity and must be consistent over the part. Otherwise,
+    results are incorrect. *Velocity vector* by the *Density scalar*
+    and then substitute this vector value for the velocity
+    vector in the previous equation.
 
 
 .. _FlowRate:
@@ -2942,8 +2953,8 @@ FlowRate()
 ``FlowRate(any 1D or 2D parts, velocity).``
 
 
-Computes a scalar :math:`{V}_{n}`  which is the component of velocity normal to the surface,
-defined as:
+Computes a scalar :math:`{V}_{n}`, which is the component of velocity normal to the surface.
+This function is defined as:
 
 :math:`{V}_{n}=V·\widehat{n}`
 
@@ -2960,7 +2971,7 @@ where:
       - 1D or 2D
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - velocity
@@ -2969,7 +2980,7 @@ where:
 
 .. note::
    This function is equivalent to calculating the dot product of the velocity
-   vector and the surface normal (using the :ref:`Normal() <Normal>` function).
+   vector and the surface normal using the :ref:`Normal() <Normal>` function.
 
 
 
@@ -2985,7 +2996,7 @@ FluidShear()
 ``FluidShear(2D parts, velocity magnitude gradient, viscosity)``
 
 
-Computes a scalar variable tau whose value is defined as:
+Computes a scalar variable :math:`\tau` whose value is defined as:
 
 :math:`\tau =\mu \frac{\partial V}{\partial n}`
 
@@ -3009,13 +3020,13 @@ where:
        interest.
 
     #. Create a part clip or extract the outer surface of the part using part extract
-       (create a 2D part from the 3D parts used above) a surface on which you wish to see
+       (create a 2D part from the 3D parts used in the previous step) a surface on which you want to see
        the fluid shear stress.
 
-    #. Compute Fluid Shear variable (on the 2D surface).
+    #. Compute the Fluid Shear variable (on the 2D surface).
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - velocity gradient
@@ -3037,7 +3048,7 @@ FluidShearMax()
 ``FluidShearMax(2D or 3D parts, velocity, density, turbulent kinetic energy, turbulent dissipation, laminar viscosity)``
 
 
-Computes a scalar variable :math:`\sum` defined as:
+Computes a scalar variable :math:`\sum`. This function is defined as:
 
 :math:`\sum =F/A=\left({\mu }_{t}+{\mu }_{l}\right)E`
 
@@ -3059,7 +3070,7 @@ where:
       - local strain
 
 
-The turbulent viscosity :math:`{\mu }_{t}`  is defined as:
+The turbulent viscosity :math:`{\mu }_{t}` is defined as:
 
 :math:`{\mu }_{t}=\frac{\rho 0.09{k}^{2}}{\epsilon }`
 
@@ -3076,7 +3087,8 @@ where:
       - turbulent dissipation
 
 
-A measure of local strain :math:`E`  (that is local elongation in 3 directions) is given by
+A measure of local strain :math:`E` (that is the local elongation in three directions)
+is given by:
 
 :math:`E=\sqrt{\left(2tr\left(D·D\right)\right)}`
 
@@ -3084,11 +3096,11 @@ where:
 
 :math:`\left(2tr\left(D·D\right)\right)=2\left({d}_{11}^{2}+{d}_{22}^{2}+{d}_{33}^{2}\right)+\left({d}_{12}^{2}+{d}_{13}^{2}+{d}_{23}^{2}\right)`
 
-given the **Euclidean norm** defined by
+The **Euclidean norm** is defined by:
 
 :math:`tr\left(D·D\right)={d}_{11}^{2}+{d}_{22}^{2}+{d}_{33}^{2}+\frac{1}{2}\left({d}_{12}^{2}+{d}_{13}^{2}+{d}_{23}^{2}\right)`
 
-and the rate of deformation tensor :math:`{d}_{ij}`  defined by
+The rate of deformation tensor :math:`{d}_{ij}` is defined by:
 
 :math:`D=\left[{d}_{ij}\right]=\frac{1}{2}\left[\begin{array}{ccc}2{d}_{11}& {d}_{12}& {d}_{13}\\ {d}_{21}& 2{d}_{22}& {d}_{23}\\ {d}_{13}& {d}_{23}& 2{d}_{33}\end{array}\right]`
 
@@ -3111,10 +3123,10 @@ with:
       - :math:`={}_{}{}^{1}v/{}_{}{}^{1}z+{}_{}{}^{1}w/y={d}_{32}`
 
 
-given the strain tensor :math:`{e}_{ij}`  defined by :math:`{e}_{ij}=\frac{1}{2}{d}_{ij}`
+The strain tensor :math:`{e}_{ij}` is defined by :math:`{e}_{ij}=\frac{1}{2}{d}_{ij}`.
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - velocity
@@ -3142,7 +3154,7 @@ Force()
 
 
 Computes a vector variable whose value is the force
-:math:`F`  defined as:
+:math:`F`. This function is defined as:
 
 :math:`F=pA`
 
@@ -3161,7 +3173,7 @@ where:
     The force acts in the surface normal direction.
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - pressure
@@ -3181,7 +3193,8 @@ Force1D()
 ``Force1D(1D planar parts, pressure, surface normal)``
 
 
-Computes a vector variable whose value is the force :math:`F`  defined as:
+Computes a vector variable whose value is the force :math:`F`. This function
+is defined as:
 
 :math:`F=pL`
 
@@ -3196,7 +3209,7 @@ where:
       - unit length normal vector
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - pressure
@@ -3214,10 +3227,11 @@ Grad()
 
 **Gradient**
 
-``Grad(2D or 3D parts, scalar or vector(Magnitude will be used))``
+``Grad(2D or 3D parts, scalar or vector(Magnitude is used))``
 
 
-Computes a vector variable whose value is the gradient :math:`GRA{D}_{f}` defined as:
+Computes a vector variable whose value is the gradient :math:`GRA{D}_{f}`.
+This function is defined as:
 
 :math:`GRA{D}_{f}=\frac{\partial f}{\partial x}\widehat{i}+\frac{\partial f}{\partial y}\widehat{j}+\frac{\partial f}{\partial z}\widehat{k}`
 
@@ -3237,9 +3251,9 @@ where:
 .. admonition::  Algorithm: Gradient
 
     If the variable is at the element, then it is moved to
-    the nodes. Then each element is mapped to a normalized element and the Jacobian
-    is calculated for the transformation from the element to the normalized element;
-    and then, its inverse Jacobian is calculated for this transformation and used to
+    the nodes. Each element is then mapped to a normalized element and the Jacobian
+    is calculated for the transformation from the element to the normalized element.
+    Next, the inverse Jacobian is calculated for this transformation and used to
     compute the Jacobian for the scalar variable. Therefore, the chain rule is used
     with the inverse Jacobian of the transformation and the Jacobian of the scalar
     variable to calculate the gradient for each node of each element. The
@@ -3262,7 +3276,7 @@ GradTensor()
 
 
 Computes a tensor variable whose value is the gradient
-:math:`GRA{D}_{F}`  defined as:
+:math:`GRA{D}_{F}`. This function is defined as:
 
 :math:`GRA{D}_{F}=\frac{\partial F}{\partial x}\widehat{i}+\frac{\partial F}{\partial y}\widehat{j}+\frac{\partial F}{\partial z}\widehat{k}`
 
@@ -3309,7 +3323,7 @@ where:
 
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - velocity
@@ -3339,7 +3353,7 @@ where:
     :widths: 20 80
 
     * - :math:`\varphi`
-      - the angle between the velocity vector and the vorticity
+      - angle between the velocity vector and the vorticity
         vector
 
     * - V
@@ -3349,7 +3363,7 @@ where:
 
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - velocity
@@ -3379,14 +3393,14 @@ where:
     :widths: 20 80
 
     * - :math:`{H}_{r}`
-      - relative helicity (as described above)
+      - relative helicity (as described earlier)
     * - :math:`{H}_{d}`
-      - helicity density (as described above)
+      - helicity density (as described earlier)
     * - filter
       - :math:`0.1{\left({V}_{\infty }\right)}^{2}`
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - velocity
@@ -3412,7 +3426,8 @@ IblankingValues()
 
 
 Computes a scalar variable whose value is the Iblanking
-flag of selected parts. Returns undefined for unstructured parts.
+flag of the selected parts. This function returns ``undefined``
+for unstructured parts.
 
 
 .. _IJKValues:
@@ -3428,7 +3443,8 @@ IJKValues()
 
 
 Computes a vector variable whose value is the I/J/K
-values of the selected parts. Returns undefined for unstructured parts.
+values of the selected parts. This function returns ``undefined``
+for unstructured parts.
 
 
 .. _IntegralLine:
@@ -3498,8 +3514,8 @@ Length()
 
 
 Computes a constant or constant per part variable whose
-value is the length of selected parts. While any part can be specified, it will
-only return a nonzero length if the part has 1D elements.
+value is the length of the selected parts. While any part can be specified, this
+function only returns a non-zero length if the part has 1D elements.
 
 
 .. _LineVectors:
@@ -3514,7 +3530,7 @@ LineVectors()
 ``LineVectors(any 1D parts)``
 
 
-Computes a nodal, vector variable which is the
+Computes a nodal, vector variable which is defined by:
 
 :math:`Ve{c}_{i}=\left[\left(P{x}_{i+1}-P{x}_{i}\right)\left(P{y}_{i+1}-P{y}_{i}\right)\left(P{z}_{i+1}-P{z}_{i}\right)\right]`
 
@@ -3525,9 +3541,9 @@ Computes a nodal, vector variable which is the
     * - :math:`Ve{c}_{i}`
       - Vector with origin at point i, with i from 1 to n-1.
     * - :math:`\left(P{x}_{i},P{y}_{i},P{z}_{i}\right)`
-      - Coordinates of Point i of 1D part
+      - coordinates of point i of 1D part
     * - :math:`n`
-      - Number of points in the 1D part
+      - number of points in the 1D part
 
 
 
@@ -3543,26 +3559,26 @@ Lambda2()
 ``Lambda2(any parts, Grad_Vel_x, Grad_Vel_y, Grad_Vel_z)``
 
 
-Computes a scalar variable which is the second eigenvalue, or :math:`{\lambda }_{2}`, of the second
-invariant (or Q-criterion) of the velocity gradient tensor. Vortex shells may
-then be visualized as an iso-surface of :math:`{\lambda }_{2}` = 0. The following describes the
-calculation of the inputs to this function:
+Computes a scalar variable that is the second eigenvalue (or :math:`{\lambda }_{2}`) of the second
+invariant (or Q-criterion) of the velocity gradient tensor. Vortex shells can
+then be visualized as an iso-surface of :math:`{\lambda }_{2}` = 0. Here is how the inputs
+to this function are calulated:
 
-Explicitly calculate the three components of Velocity
+First calculate the three components of velocity:
 
-    Vel_x = Velocity[X] = x-component of the velocity vector
+Vel_x = Velocity[X] = x-component of the velocity vector
 
-    Vel_y = Velocity[Y] = y-component of the velocity vector
+Vel_y = Velocity[Y] = y-component of the velocity vector
 
-    Vel_z = Velocity[Z] = z-component of the velocity vector
+Vel_z = Velocity[Z] = z-component of the velocity vector
 
-and then
+Then calculate the gradients using the intermediate variable:
 
-    Grad_Vel_x = Grad(any parts, Vel_x) = gradient of x component Velocity
+Grad_Vel_x = Grad(any parts, Vel_x) = gradient of x component Velocity
 
-    Grad_Vel_y = Grad(any parts, Vel_y) = gradient of y component Velocity
+Grad_Vel_y = Grad(any parts, Vel_y) = gradient of y component Velocity
 
-    Grad_Vel_z = Grad(any parts, Vel_z) = gradient of z component Velocity
+Grad_Vel_z = Grad(any parts, Vel_z) = gradient of z component Velocity
 
 where:
 
@@ -3574,22 +3590,22 @@ where:
 
 
 .. note::
-    A common mistake is to try to calculate the Gradient from the component of
-    the velocity without using the intermediate Vel_x, Vel_y, and Vel_z variables.
-    For example this is wrong and will use only the velocity magnitude:
+    A common mistake is to try to calculate the gradient from the component of
+    the velocity without using the intermediate ``Vel_x``, ``Vel_y``, and ``Vel_z``
+    variables. For example, the following calculation is wrong. It uses only the velocity magnitude.
 
     Grad_Vel_x = Grad(any parts, Velocity[X])
 
-    This is a **User-Defined Math Function (UDMF)** which may be modified and
-    recompiled by the user.
+    This is a **User-Defined Math Function (UDMF)**, which you may modify and
+    recompile.  For more information, see the *EnSight Interface Manual*.
 
 
 .. admonition::  Algorithm: Lambda2
 
     The three gradient vectors of the components of the
-    velocity vector constitute the velocity gradient tensor. Using the 9 components
-    of this (anti-symmetric) velocity gradient tensor, Lv, construct both the
-    symmetric, S, and the anti-symmetric, :math:`\Omega`, parts of the velocity gradient tensor,
+    velocity vector constitute the velocity gradient tensor. Using the nine components
+    of this (antisymmetric) velocity gradient tensor, ``Lv``, construct both the
+    symmetric, ``S``, and antisymmetric, :math:`\Omega` , parts of the velocity gradient tensor:
 
     :math:`\nabla \nu =S+\Omega`
 
@@ -3604,28 +3620,29 @@ where:
           - :math:`\frac{1}{2}\left[\nabla \nu -{\left(\nabla \nu \right)}^{T}\right]`
 
 
-    then combine to compute the symmetric tensor
+    Combine to compute the symmetric tensor:
 
     :math:`Q={S}^{2}+{\Omega }^{2}`
 
-    Next compute and sort the eigenvalues of :math:`Q`  (using Jacobi eigen analysis), and
-    assign the second eigenvalue, or :math:`{\lambda }_{2}`, as the scalar value at the node.
+    Compute and sort the eigenvalues of :math:`Q`  (using Jacobi eigen analysis). Then,
+    assign the second eigenvalue, or :math:`{\lambda }_{2}`, as the scalar value at the node:
 
     :math:`{\lambda }_{1}<{\lambda }_{2}<{\lambda }_{3}`
 
-    The vortex is to be visualized as an iso-surface with
+    Visualize the vortex as an iso-surface with:
 
     :math:`{\lambda }_{2}=0`
 
-    See also the :ref:`Q_criteria() <Q_criteria>` calculator function.
+See also the :ref:`Q_criteria() <Q_criteria>` calculator function.
 
-    **References**
+**References**
 
-    #. Haller, G., "An objective definition of a vortex," Journal of
-       Fluid Mechanics, 2005, vol. 525, pp. 1-26.
+For more information, see these references:
 
-    #. Jeong, J. and Hussain, F., "On the identification of a
-       vortex," Journal of Fluid Mechanics, 1995, vol. 285, pp. 69-94.
+- Haller, G., "An objective definition of a vortex," Journal of
+  Fluid Mechanics, 2005, vol. 525, pp. 1-26.
+- Jeong, J. and Hussain, F., "On the identification of a
+  vortex," Journal of Fluid Mechanics, 1995, vol. 285, pp. 69-94.
 
 
 .. _Mach:
@@ -3641,7 +3658,7 @@ Mach()
 
 
 Computes a scalar variable whose value is the Mach
-number :math:`M`  defined as:
+number :math:`M`. This function is defined as:
 
 :math:`M=\frac{u}{\sqrt{\frac{\gamma p}{\rho }}}=\frac{u}{c}`
 
@@ -3666,7 +3683,7 @@ where:
 
 See for a description.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 50 50
 
     * - density
@@ -3703,14 +3720,13 @@ MakeScalElemId()
 ----------------
 
 
-**Make Scalar from Element Ids**
+**Make Scalar from Element ID**
 
 ``MakeScalElemId(any parts)``
 
 
-Creates a scalar variable set to the element ids of the part. If the
-element id does not exist or is undefined the scalar value is set to the
-Undefined value.
+Creates a scalar variable set to the element ID of the part. If the
+element ID does not exist or is undefined, the scalar value is set to ``undefined``.
 
 
 .. _MakeScalNode:
@@ -3736,14 +3752,13 @@ MakeScalNodeId()
 ----------------
 
 
-**Make Scalar from Node Ids**
+**Make Scalar from Node ID**
 
 ``MakeScalNodeId(any parts)``
 
 
-Creates a scalar variable set to the node ids of the part.  If the node
-id does not exist or is undefined the scalar value is set to the Undefined
-value.
+Creates a scalar variable set to the node ID of the part. If the node
+ID does not exist or is undefined, the scalar value is set to ``undefined``.
 
 
 .. _MakeVect:
@@ -3759,26 +3774,24 @@ MakeVect()
 
 
 Computes a vector variable formed from scalar variables.
-First scalar becomes the X component of the vector, second scalar becomes the Y
-component, and the third scalar becomes the Z component. A zero can be specified
-for some of the scalars, creating a 2D or 1D vector field.
+
+- The first scalar becomes the X component of the vector.
+- The second scalar becomes the Y component of the vector.
+- The third scalar becomes the Z component of the vector.
+
+A zero can be specified for some of the scalars, creating a 2D or 1D vector field.
 
 .. note::
 
-    A quick way to make a vector, is to select the parts that you wish to use
-    and then select three scalars, *scalar_x*, *scalar_y*, and *scalar_z* in the
-    variable list and then right click and choose *Make Vector* in the pull-down
-    and in the side choose whether to use
-    all (or all available, if you have measured) parts or your currently
-    selected parts (if you have parts selected) to calculate the vector. A
-    vector variable will be calculated and named hopefully adequately using the
-    scalar names.
-    If the order of the variables or the name of the vector cannot be
-    definitively determined, then a GUI will pop up with the proposed components
-    in a pull-down and a proposed name for the created vector variable.
-
-
-
+    To quickly make a vector, you can select the parts that you want to use,
+    select three scalars, *scalar_x*, *scalar_y*, and *scalar_z*, in the
+    variable list, and right-click and choose ***Make Vector** in the pull-down.
+    In the side, choose whether to use all (or all available, if you have measured)
+    parts or your currently selected parts (if you have parts selected) to calculate
+    the vector. A vector variable is calculated and named using the
+    scalar names (which should beadequate). If the order of the variables or the
+    name of the vector cannot be definitively determined, then a GUI pops up with the
+    proposed components in a pull-down and a proposed name for the created vector variable.
 
 
 .. _MassedParticle:
@@ -3795,7 +3808,7 @@ MassedParticle()
 
 This scalar creates a massed-particle per element scalar
 variable for each of the parent parts of the massed-particle traces. This per
-element variable is the mass of the particle times the sum of the number of
+element variable is the mass of the particle multiplied by the sum of the number of
 times each element is exited by a mass-particle trace. See Particle-Mass Scalar
 on Boundaries.
 
@@ -3813,7 +3826,8 @@ MassFluxAvg()
 
 
 Computes a constant or constant per part variable whose
-value is the mass flux average :math:`{b}_{avg}`  defined as:
+value is the mass flux average :math:`{b}_{avg}`. This function is
+defined as:
 
 :math:`{b}_{avg}=\frac{{\displaystyle \underset{A}{\int }\rho b\left(V·N\right)}dA}{{\displaystyle \underset{A}{\int }\rho \left(V·N\right)}dA}=\frac{\text{Mass Flux of Scalar}}{\text{Mass Flux}}=\frac{Flow(plist,b\rho V)}{Flow(plist,\rho V)}`
 
@@ -3823,8 +3837,8 @@ where:
     :widths: 10 90
 
     * - :math:`b`
-      - any scalar variable, that is pressure, mach, a vector component,
-        etc.
+      - any scalar variable, such as pressure, mach, or a
+        vector component
 
     * - :math:`\rho`
       - density (constant or scalar) variable
@@ -3837,15 +3851,15 @@ where:
 
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 10 90
 
     * - scalar
-      - any scalar variable, that is pressure, mach, a
+      - any scalar variable, such as pressure, mach, or a 
         vector component, etc
 
     * - velocity
-      - a vector variable
+      - vector variable
     * - density
       - scalar, constant, or constant per part
         variable, or constant number
@@ -3867,8 +3881,8 @@ MatSpecies()
 
 Computes a scalar per element variable whose value
 :math:`\sigma`  is the sum of all specified material and species combinations
-multiplied by the specified element variable on specified 'model' parts with
-defined material species.
+multiplied by the specified element variable on specified *model* parts with
+defined material species. This function is defined as:
 
 :math:`\sigma ={e}_{s}\Sigma m{s}_{ij}`
 
@@ -3883,7 +3897,7 @@ where:
 
       - * :math:`{\text{m}}_{\text{i}}{\text{ * s}}_{\text{j}}`
 
-        * The product of the material fraction :math:`{\text{m}}_{\text{i}}` and its corresponding specie value :math:`{\text{s}}_{\text{j}}`
+        * Product of the material fraction :math:`{\text{m}}_{\text{i}}` and its corresponding specie value :math:`{\text{s}}_{\text{j}}`
 
         * 0, if specie :math:`{\text{s}}_{\text{j}}` S does not exist for material :math:`{\text{m}}_{\text{i}}`
 
@@ -3893,14 +3907,14 @@ where:
 This function only operates on model parts with
 pre-defined species. The specified materials can either be a list of materials
 or a single material value. The specified species can either be a list, a single
-specie, or no specie (that is a null species list which then computes an element
+specie, or no specie (that is a null species list that then computes an element
 value based on only material fraction contributions). The scalar per element
-value can either be an active variable, or a scalar value (that is the value 1
+value can either be an active variable or a scalar value (that is the value 1
 would give pure material fraction and/or specie value extraction).
 
 Both material and specie names are selected from the
-context sensitive Active Variables list which changes to a Materials list and
-then a Species List for their respective prompts.
+context-sensitive **Active Variables** list, which changes to the **Materials** list and
+**Species** list for their respective prompts.
 
 
 .. _MatToScalar:
@@ -3915,24 +3929,29 @@ MatToScalar()
 ``MatToScalar(any model parts, a material)``
 
 
-Computes a scalar per element variable whose value s is
-the specified material's value m of the element on the specified parts.
-s = m where:
+Computes a scalar per element variable whose value ``s`` is
+the specified material's value ``m`` of the element on the specified parts.
+The function is defind as:
+
+``s = m``
+
+where:
 
 .. list-table::
     :widths: 10 90
 
-    * - s
+    * - ``s``
       - scalar per element variable value of each element
-    * - m
-      - the corresponding material fraction value of each element
+    * - ``m``
+      - corresponding material fraction value of each element
 
 
 
 This function only operates on model parts with
 pre-defined materials that are given by sparse mixed material definitions. Only
-one material may be converted into one per element scalar variable at a time.
+one material can be converted into one per element scalar variable at a time.
 The material cannot be the null material.
+
 For more information on Materials,(see Material Interface Parts), and both
 MATERIAL Sections under EnSight Gold Case File Format, and Example Material
 Dataset in.
@@ -3958,7 +3977,7 @@ selected. The component is not requested if a scalar is selected.
     :widths: 10 90
 
     * - [component]
-      - if vector variable, magnitude is the default, or specify [x], [y], or [z]
+      - if vector variable, magnitude is the default., otherwise specify [x], [y], or [z]
 
 
 .. _Min:
@@ -3981,7 +4000,7 @@ selected.
     :widths: 10 90
 
     * - [component]
-      - if vector variable, magnitude is the default, or specify [x], [y], or [z]
+      - if vector variable, magnitude is the default, otherwise specify [x], [y], or [z]
 
 
 
@@ -3998,7 +4017,7 @@ Moment()
 
 
 Computes a constant or constant per part variable (the
-moment about the cursor tool location) whose value is the **x**, **y**, or **z** component of
+moment about the cursor tool location) whose value is the x, y, or z component of
 Moment :math:`M` .
 
 :math:`{M}_{x}=\Sigma \left({F}_{y}{d}_{z}-{F}_{z}{d}_{y}\right)`
@@ -4019,7 +4038,7 @@ where:
         vector :math:`F\left(x,y,z\right)=\left(\text{Fx,Fy,Fz}\right)`
     * - :math:`{d}_{i}`
       - signed moment arm (the perpendicular distance from the line of action of the vector
-        component :math:`{F}_{i}`  to the moment axis (which is the current cursor tool position)).
+        component :math:`{F}_{i}`  to the moment axis, which is the current cursor tool position).
 
 
 .. list-table::
@@ -4045,7 +4064,7 @@ MomentVector()
 
 
 Computes a nodal vector variable (the moment is computed
-about each point of the selected parts) whose value is the **x**, **y**, or **z**
+about each point of the selected parts) whose value is the x, y, or z
 component of Moment :math:`M`.
 
 :math:`{M}_{x}=\Sigma \left({F}_{y}{d}_{z}-{F}_{z}{d}_{y}\right)`
@@ -4062,14 +4081,14 @@ where:
     :widths: 20 80
 
     * - :math:`{F}_{i}`
-      - force vector component in direction ** i**of vector :math:`F\left(x,y,z\right)=\left(\text{Fx,Fy,Fz}\right)`
+      - force vector component in direction *i* of vector :math:`F\left(x,y,z\right)=\left(\text{Fx,Fy,Fz}\right)`
     * - :math:`{d}_{i}`
       - signed moment arm (the perpendicular distance from the line
-        of action of the vector component :math:`{F}_{i}`  to the moment axis (model point position)).
+        of action of the vector component :math:`{F}_{i}` to the moment axis (model point position)).
 
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - force vector
@@ -4089,7 +4108,7 @@ Momentum()
 ``Momentum(any parts, velocity, density).``
 
 
-Computes a vector variable :math:`m`, which is:
+Computes a vector variable :math:`m`. This function is defined as:
 
 :math:`m=\rho V`
 
@@ -4105,7 +4124,7 @@ where:
 
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - velocity
@@ -4143,7 +4162,7 @@ NodeToElem()
 ``NodeToElem(any parts, node-based scalar or vector)``
 
 
-Averages a node based variable to produce an element based variable.
+Averages a node-based variable to produce an element-based variable.
 
 For each: elem[j]->val += node[i]->val | elem[j]
 
@@ -4157,13 +4176,13 @@ where:
     * - j
       - iterator on all part elements
     * - i
-      - iterator on all part nodes.
+      - iterator on all part nodes
 
         elem[j] indicates element that is associated with node[i]
 
 
 .. note::
-    elem[j] must contain node[i] to contribute
+    elem[j] must contain node[i] to contribute.
 
 
 
@@ -4179,8 +4198,8 @@ Normal()
 ``Normal(2D parts or 1D planar parts)``
 
 
-Computes a vector variable which is the normal to the
-surface at each element for 2D parts, or for 1D planar parts - lies normal to
+Computes a vector variable that is the normal to the
+surface at each element for 2D parts, or for 1D planar parts, lies normal to
 the 1D elements in the plane of the part.
 
 
@@ -4197,7 +4216,7 @@ NormC()
 
 
 Computes a constant or constant per part variable whose
-value is the Normal Constraints :math:`NC`  defined as:
+value is the Normal Constraints :math:`NC`. This function is defined as:
 
 :math:`NC={\displaystyle \underset{S}{\int }\left(-p+\mu \frac{\partial V}{\partial n}\widehat{n}\right)}dS`
 
@@ -4218,7 +4237,7 @@ where:
       - border of a 2D or 3D domain
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - pressure
@@ -4272,7 +4291,7 @@ OffsetField()
 
 
 Computes a scalar field of offset values. The values
-will be in model distance units perpendicular to the boundary of the part.
+are in model distance units perpendicular to the boundary of the part.
 
 .. note::
     An isosurface created in this field would mimic the part boundary, but at the offset
@@ -4282,9 +4301,9 @@ will be in model distance units perpendicular to the boundary of the part.
     decomposition because SOS was designed to benefit from independent
     Servers computations in parallel. The inter-dependent computational
     mapping of the field results from the fluid part onto the boundary part
-    violates this assumption. In other words you cannot be sure that you
-    will have all of the fluid information on one server for the mapping, so
-    this is disabled.
+    violates this assumption. In other words, because you cannot be sure that you
+    have all of the fluid information on one server for the mapping, this
+    function is disabled.
 
 
 
@@ -4303,23 +4322,23 @@ OffsetVar()
 Computes a scalar (or vector) variable defined as the
 offset value into the field of that variable that exists in the normal direction
 from the boundary of the selected part. This assigns near surface values of a
-variable to the surface of the selected parts from the neighboring 3D field
-(which is found automatically using the selected parts surfaces.
+variable to the surface of the selected parts from the neighboring 3D field,
+which is found automatically using the selected parts surfaces.
 
 In other words, this function gets the value of a
 variable from surrounding fields, a fixed distance from the surface of the
-selected parts and assigns it to the surface of the selected part. For
+selected parts, and assigns it to the surface of the selected part. For
 example, you might use this function to get the value of the velocity in the
 flow field a slight distance above your vehicle surface and assign that value to
 your vehicle surface.
 
-To use this function, select parts in the part list
-that you want to use, enter a variable and an offset. EnSight will auto detect
-the 3D field parts adjacent to your selected parts surfaces and reach into
-these fields by your offset in the normal direction to obtain the variable value
+To use this function, select the parts in the part list
+that you want to use and enter both a variable and an offset. EnSight automatically
+detects the 3D field parts adjacent to the surfaces of your selected parts and reaches
+into these fields by your offset in the normal direction to obtain the variable value
 and then assign it to the surface of your selected parts.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - constant offset value
@@ -4331,9 +4350,9 @@ and then assign it to the surface of your selected parts.
     This calculator function is not supported for Server of Server (SOS)
     decomposition because SOS was designed to benefit from independent Servers
     computations in parallel. Recall that EnSight must find the field adjacent
-    to your selected parts surfaces. And since some of these fields might be
-    on other servers, it will create dependencies that preclude independent
-    Servers, so this is disabled.
+    to the surfaces of your selected parts. Because some of these fields might be
+    on other servers, creating dependencies that preclude independent
+    Servers, this function is disabled.
 
 
 .. _PartNumber:
@@ -4348,14 +4367,14 @@ PartNumber()
 ``PartNumber(any parts [,Compute_Per_part])``
 
 
-Computes a constant per part variable which is the GUI
-part number, if the part is a server-side part. If computed as 'Compute_Per_case', the value
-will be the maximum part number.
+Computes a constant per part variable that is the GUI
+part number if the part is a server-side part. If computed as ``Compute_Per_case``,
+the value is the maximum part number.
 
 
 .. note::
-    Any client-side part (for example, vector arrows, particle traces, profiles, etc.)
-    are assigned the undefined value. Model parts are always server-side parts.
+    Any client-side part (for example, a vector arrow, particle trace, or profile)
+    is assigned the undefined value. Model parts are always server-side parts.
 
 
 
@@ -4372,7 +4391,7 @@ Pres()
 
 
 Computes a scalar variable whose value is the pressure
-:math:`p`  defined as:
+:math:`p`. This function is defined as:
 
 :math:`p=\left(\gamma -1\right)\rho \left(\frac{E}{\rho }-\frac{1}{2}{V}^{2}\right)`
 
@@ -4392,7 +4411,7 @@ Computes a scalar variable whose value is the pressure
       - ratio of specific heats (1.4 for air)
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - density
@@ -4419,8 +4438,8 @@ of specific heats, freestream density, freestream speed of sound, freestream
 velocity magnitude)``
 
 
-Computes a scalar variable which is Pressure Coefficient
-:math:`{C}_{p}`  defined as:
+Computes a scalar variable this is Pressure Coefficient
+:math:`{C}_{p}`. This function is defined as:
 
 :math:`{C}_{p}=\frac{p-{p}_{i}}{\frac{{\rho }_{i}{V}_{i}^{2}}{2}}`
 
@@ -4439,7 +4458,7 @@ Computes a scalar variable which is Pressure Coefficient
 
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - density
@@ -4472,7 +4491,8 @@ PresDynam()
 ``PresDynam(any parts, density, velocity)``
 
 
-Computes a scalar variable which is Dynamic Pressure :math:`q`  defined as:
+Computes a scalar variable that is Dynamic Pressure :math:`q`. This
+function is defined as:
 
 :math:`q=\frac{\rho {V}^{2}}{2}`
 
@@ -4488,7 +4508,7 @@ Computes a scalar variable which is Dynamic Pressure :math:`q`  defined as:
 
 See :ref:`KinEn() <KinEn>`.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - density
@@ -4510,7 +4530,8 @@ PresNorm()
 heats, freestream density, freestream speed of sound)``
 
 
-Computes a scalar variable which is Normalized Pressure :math:`{p}_{n}` defined as:
+Computes a scalar variable that is Normalized Pressure :math:`{p}_{n}`.
+This function is defined as:
 
 :math:`{p}_{n}=p/{p}_{i}`
 
@@ -4527,7 +4548,7 @@ where:
       - pressure
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - density
@@ -4561,8 +4582,9 @@ PresLogNorm()
 ratio of specific heats, freestream density, freestream speed of sound)``
 
 
-Computes a scalar variable which is the natural log of
-Normalized Pressure defined as:
+Computes a scalar variable that is the natural log of
+Normalized Pressure :math:`\mathrm{ln}{p}_{n}`. This function is
+defined as:
 
 :math:`\mathrm{ln}{p}_{n}=\mathrm{ln}\left(p/{p}_{i}\right)`
 
@@ -4579,7 +4601,7 @@ Normalized Pressure defined as:
 
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - density
@@ -4614,7 +4636,7 @@ of specific heats)``
 
 
 Computes a scalar variable which is the Stagnation
-Pressure :math:`{p}_{o}` defined as:
+Pressure :math:`{p}_{o}`. This function is defined as:
 
 :math:`{p}_{o}=p{\left(1+\left(\frac{\gamma -1}{2}\right){M}^{2}\right)}^{\left(\gamma /\left(\gamma -1\right)\right)}`
 
@@ -4632,13 +4654,13 @@ Pressure :math:`{p}_{o}` defined as:
 
 .. note::
     In literature, stagnation pressure is used interchangeably with total pressure.
-    The stagnation pressure (or total pressure) use two different equations depending
+    The stagnation pressure (or total pressure) uses two different equations, depending
     upon the flow regime: compressible or incompressible. EnSight has chosen to define
-    Stagnation Pressure using the compressible flow equation (above), and Total Pressure
-    using the incompressible flow equation (see Total Pressure below).
+    stagnation pressure using the compressible flow equation (above) and total pressure
+    using the incompressible flow equation (see :ref:`PressT() <PresT>`).
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - density
@@ -4668,10 +4690,9 @@ ratio of specific heats, freestream density, freestream speed of sound,
 freestream velocity magnitude)``
 
 
-Computes a scalar variable which is Normalized
-Stagnation Pressure :math:`{p}_{on}`
-
-defined as:
+Computes a scalar variable that is Normalized
+Stagnation Pressure :math:`{p}_{on}`. This function
+is defined as:
 
 :math:`{p}_{on}=\left({p}_{o}/{p}_{oi}\right)`
 
@@ -4686,7 +4707,7 @@ where:
       - freestream stagnation pressure
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - density
@@ -4725,10 +4746,11 @@ ratio of specific heats, freestream density, freestream speed of sound,
 freestream velocity magnitude)``
 
 
-Computes a scalar variable which is Stagnation Pressure
-Coefficient :math:`{C}_{{p}_{o}}`
+Computes a scalar variable that is Stagnation Pressure
+Coefficient :math:`{C}_{{p}_{o}}`. This function is
+defined as:
 
-defined as: :math:`{C}_{{p}_{o}}=\left({p}_{o}-{p}_{i}\right)/\left(\frac{{\rho }_{i}{V}^{2}}{2}\right)`
+:math:`{C}_{{p}_{o}}=\left({p}_{o}-{p}_{i}\right)/\left(\frac{{\rho }_{i}{V}^{2}}{2}\right)`
 
 where:
 
@@ -4748,7 +4770,7 @@ where:
 
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - density
@@ -4786,8 +4808,8 @@ PresPitot()
 ratio of specific heats)``
 
 
-Computes a scalar variable which is Pitot Pressure
-:math:`{p}_{p}`  defined as:
+Computes a scalar variable that is Pitot Pressure
+:math:`{p}_{p}`. This function is  defined as:
 
 :math:`\begin{array}{ll}{p}_{p}\hfill & =sp\hfill \\ s\hfill & =\frac{{\left(\left(\frac{\gamma +1}{2}\right)\left(\frac{{V}^{2}}{\gamma \left(\gamma -1\right)\left(\frac{E}{\rho }-\frac{{V}^{2}}{2}\right)}\right)\right)}^{\left(\gamma /\left(\gamma -1\right)\right)}}{{\left(\left(\frac{2\gamma }{\gamma +1}\right)\left(\frac{{V}^{2}}{\gamma \left(\gamma -1\right)\left(\frac{E}{\rho }-\frac{{V}^{2}}{2}\right)}\right)-\left(\frac{\gamma -1}{\gamma +1}\right)\right)}^{\left(\gamma /\left(\gamma -1\right)\right)}}\hfill \end{array}`
 
@@ -4808,7 +4830,7 @@ where:
       - pressure
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - density
@@ -4824,9 +4846,9 @@ where:
 
 
 .. note::
-    For mach numbers less than 1.0, the Pitot Pressure is the same as the
-    Stagnation Pressure. For mach numbers greater than or equal to 1.0, the
-    Pitot Pressure is equivalent to the Stagnation Pressure behind a normal
+    For mach numbers less than 1.0, the pitot Pressure is the same as the
+    stagnation pressure. For mach numbers greater than or equal to 1.0, the
+    pitot pressure is equivalent to the stagnation pressure behind a normal
     shock.
 
 
@@ -4844,8 +4866,8 @@ PresPitotRatio()
 ratio of specific heats, freestream density, freestream speed of sound)``
 
 
-Computes a scalar variable which is Pitot Pressure Ratio
-:math:`{p}_{pr}`  defined as:
+Computes a scalar variable that is Pitot Pressure Ratio
+:math:`{p}_{pr}`. This function is defined as:
 
 :math:`{p}_{pr}=s\left(\gamma -1\right)\left(E-\frac{\rho {V}^{2}}{2}\right)`
 
@@ -4855,7 +4877,7 @@ where:
     :widths: 20 80
 
     * - :math:`s`
-      - (defined above in :ref:`PresPitot() <PresPitot>`)
+      - (defined in :ref:`PresPitot() <PresPitot>`)
     * - :math:`\gamma`
       - ratio of specific heats
     * - :math:`E`
@@ -4867,7 +4889,7 @@ where:
 
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - density
@@ -4902,7 +4924,7 @@ PresT()
 
 
 Computes a scalar variable whose value is the total
-pressure :math:`{p}_{t}`  defined as:
+pressure :math:`{p}_{t}`. This function is defined as:
 
 :math:`{p}_{t}=p+\rho \frac{{V}^{2}}{2}`
 
@@ -4922,13 +4944,13 @@ where:
 .. note::
     In literature, total pressure is used interchangeably with stagnation
     pressure. The total pressure (or stagnation pressure) use two different
-    equations depending upon the flow regime: incompressible or compressible.
-    EnSight has chosen to define Total Pressure using the incompressible flow
-    equation (above), and Stagnation Pressure using the compressible flow
-    equation (see Stagnation Pressure above).
+    equations, depending upon the flow regime: incompressible or compressible.
+    EnSight has chosen to define total pressure using the incompressible flow
+    equation (above), and stagnation pressure using the compressible flow
+    equation. (See :ref:`PreStag() <PresStag>`).
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - pressure
@@ -4953,12 +4975,12 @@ Q_criteria()
 ``Q_criteria(any parts, Grad_Vel_x, Grad_Vel_y, Grad_Vel_z)``
 
 
-Computes a scalar variable which is the second
+Computes a scalar variable that is the second
 invariant, or Q-criterion, of the velocity gradient tensor. Vortex shells may
-then be visualized as an iso-surface of Q-criterion > 0. The following
-describes the calculation of the inputs to this function:
+then be visualized as an iso-surface of Q-criterion > 0. Here is how the inputs
+to this function are calulated:
 
-First you must calculate the intermediate variable:
+First calculate the three components of velocity:
 
 Vel_x = Velocity[X] = x-component of the velocity vector
 
@@ -4966,36 +4988,37 @@ Vel_y = Velocity[Y] = y-component of the velocity vector
 
 Vel_z = Velocity[Z] = z-component of the velocity vector
 
-then calculate the gradient using the intermediate variable:
+Then calculate the gradients using the intermediate variable:
 
 Grad_Vel_x = Grad(any parts, Vel_x) = gradient of x component Velocity
+
 Grad_Vel_y = Grad(any parts, Vel_y) = gradient of y component Velocity
+
 Grad_Vel_z = Grad(any parts, Vel_z) = gradient of z component Velocity
 
-with
+with:
 
 Velocity = velocity vector variable
 
 .. note::
-    A common mistake is to try to calculate the Gradient
-    from the component of the velocity without using the intermediate Vel_x,
-    Vel_y, and Vel_z variables. For example this is wrong and will use only the
-    velocity magnitude:
+    A common mistake is to try to calculate the gradient
+    from the component of the velocity without using the intermediate ``Vel_x``,
+    ``Vel_y``, and ``Vel_z`` variables. For example, the following calculation is wrong.
+    It uses only the velocity magnitude.
 
     Grad_Vel_x = Grad(any parts, Velocity[X])
 
-    This is a User-Defined Math Function (UDMF) which may be modified
-    and recompiled by the user. Please see the EnSight Interface Manual for
-    more details.
+    This is a **User-Defined Math Function (UDMF)**, which you may modify and
+    recompile. For more information, see the *EnSight Interface Manual*.
 
 
 .. admonition::  Algorithm: Q_criteria
 
     The three gradient vectors of the components of the
-    velocity vector constitute the velocity gradient tensor. Using the 9 components
-    of this (anti-symmetric) velocity gradient tensor, Lv, construct both the
-    symmetric, :math:`S` , and the anti-symmetric, :math:`\Omega` , parts of the
-    velocity gradient tensor, the :math:`Q`  criteria is established as follows.
+    velocity vector constitute the velocity gradient tensor. Using the nine components
+    of this (antisymmetric) velocity gradient tensor, ``Lv``, construct both the
+    symmetric, :math:`S` , and antisymmetric, :math:`\Omega`, parts of the
+    velocity gradient tensor, the :math:`Q` criteria is established as follows.
 
     :math:`\nabla \nu =S+\Omega`
 
@@ -5010,7 +5033,7 @@ Velocity = velocity vector variable
 
     :math:`Q=\frac{1}{2}\left[{\left|\Omega \right|}^{2}-{\left|S\right|}^{2}\right]`
 
-    which (in terms of our EnSight variables) literally reduces to:
+    which (in terms of EnSight variables) reduces to:
 
     .. code-block::
 
@@ -5025,17 +5048,17 @@ Velocity = velocity vector variable
 
     See also the :ref:`Lambda2() <Lambda2>` calculator function.
 
-    **References**
+**References**
 
-    #. Dubief, Y and Delcayre, F., "On coherent-vortex
-       identification in turbulence", Journal of Turbulence, (jot.iop.org) 1
-       (2000) 11, pp.1-22.
+For more information, see these references:
 
-    #. Haller, G., "An objective definition of a vortex," Journal of
-       Fluid Mechanics, 2005, vol. 525, pp. 1-26.
-
-    #. Jeong, J. and Hussain, F., "On the identification of a
-       vortex," Journal of Fluid Mechanics, 1995, vol. 285, pp. 69-94.
+- Dubief, Y and Delcayre, F., "On coherent-vortex
+  identification in turbulence", Journal of Turbulence, (jot.iop.org) 1
+  (2000) 11, pp.1-22.
+- Haller, G., "An objective definition of a vortex," Journal of
+  Fluid Mechanics, 2005, vol. 525, pp. 1-26.
+- Jeong, J. and Hussain, F., "On the identification of a
+  vortex," Journal of Fluid Mechanics, 1995, vol. 285, pp. 69-94.
 
 
 .. _Radiograph_grid:
@@ -5052,21 +5075,25 @@ Radiograph_grid()
 
 Computes a per element scalar variable on the designated
 1D or 2D parts, that is a directional integration from these parts of a scalar
-variable or vector component through the model. Think of rays being cast from
-the center of each element of the 1D or 2D parents in the direction specified
-(and long enough to extend through the model). Along each ray the desired
-variable is integrated and the integral value is assigned to the element from
-which the ray was cast. This function integrates the ray in a constant delta,
-grid-like fashion. You control the delta by the number of points that is
-specified in the integration direction. (Please note that while this function is
-not generally as time consuming as the Radiograph_mesh function (and you have
-some resolution control with the num_points argument), it still may take some
-computation time. You may want to set the Abort server operations performance
-preference to avoid being stuck in a computation loop that exceeds your
-patience.)
+variable or vector component through the model.
+
+Think of rays being cast from the center of each element of the 1D or 2D parents
+in the direction specified (and long enough to extend through the model). Along
+each ray, the desired variable is integrated and the integral value is assigned
+to the element from which the ray was cast. This function integrates the ray in
+a constant delta, grid-like fashion. You control the delta by the number of points that is
+specified in the integration direction.
+
+.. note::
+   While this function is not generally as time-consuming as the
+   :ref:`Radiograph_mesh() <Radiograph_mesh>` function (and you have
+   some resolution control with the ``num_points`` argument), it
+   may still take some computation time. You might want to set the Abort server
+   operations performance preference to avoid being stuck in a computation
+   loop that exceeds your patience.
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - dir X
@@ -5076,17 +5103,18 @@ patience.)
     * - dir Z
       - constant number: Integration direction vector z component
     * - num_points
-      - constant number: Number of points along ray in the integration direction.
-        (integration delta will be ray length divided by num_points)
+      - constant number: Number of points along ray in the integration direction
+        (The integration delta is the ray length divided by the number of
+        points.)
     * - variable
-      - Variable that is integrated along the ray.
+      - Variable that is integrated along the ray
     * - component
       - If the variable is a vector [X], [Y], [Z], or [] for magnitude
 
 
 .. note::
-     This function will not work properly for Server of Servers (SOS). Each portion will only
-     give its local value.
+     This function does not work properly for Server of Servers (SOS). Each portion only
+     gives its local value.
 
 
 
@@ -5111,13 +5139,14 @@ variable is integrated and the integral value is assigned to the element from
 which the ray was cast. This function integrates the ray at each domain element
 face intersection.
 
-Please note that this can be a very time consuming process.
-You may want to set the Abort server operations performance preference to avoid
-being stuck in a computation loop that exceeds your patience. The
-Radiograph_grid function will generally be considerably quicker.
+.. note::
+   Running this function can be a very time-consuming process.
+   You might want to set the Abort server operations performance preference
+   to avoid being stuck in a computation loop that exceeds your patience.
+   The :ref:`Radiograph_grid() <Radiograph_grid>` function is generally much quicker.
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - dir X
@@ -5133,8 +5162,8 @@ Radiograph_grid function will generally be considerably quicker.
 
 
 .. note::
-     This function will not work properly for Server of Servers (SOS). Each portion will only
-     give its local value.
+     This function does not work properly for Server of Servers (SOS). Each portion only
+     gives its local value.
 
 
 .. _RectToCyl:
@@ -5170,8 +5199,8 @@ ServerNumber()
 
 
 Produces a per-element scalar variable that is the
-server number which contains the element. Useful for decomposed models using
-Server-of-Servers, so the distribution can be visualized.
+server number containing the element. This function is useful for decomposed models using
+Server of Servers (SOS) so that the distribution can be visualized.
 
 
 .. _ShockPlot3d:
@@ -5187,8 +5216,7 @@ ShockPlot3d()
 velocity, ratio of specific heats)``
 
 
-Computes a scalar variable ShockPlot3d, whose value
-is:
+Computes a scalar variable ShockPlot3d whose value is:
 
 :math:`ShockPlot3d=\frac{V}{c}·\frac{grad(p)}{\left|grad(p)\right|}`
 
@@ -5208,7 +5236,7 @@ where:
 
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - density
@@ -5225,10 +5253,10 @@ where:
 
 
 To compute candidate shock surfaces, create an
-isosurface of the calculated variable, shockplot3d = 1.0. These shock regions
-can be verified by overlaying them with :math:`Mach\ge 1.0`
+isosurface of the calculated variable, ``shockplot3d = 1.0``.
+These shock regions can be verified by overlaying them with :math:`Mach\ge 1.0`
 
-Also consider comparing with the Shock Region/Surface
+Also consider comparing with the shock region/surface
 feature visualization.
 
 
@@ -5244,16 +5272,18 @@ SmoothMesh()
 ``SmoothMesh(any 1D or 2D parts, number of passes, weight)``
 
 
-Performs a mesh "smoothing" operation. The function
+Performs a mesh "smoothing" operation. This function
 returns a vector variable which, when applied to the mesh as a displacement,
-will result in a "smoother" mesh representation. The function computes new node
-locations resulting from a "normalization" of the mesh elements. As a tendency
-it results in a mesh with equal sized elements. The algorithm applies a form of
-convolution to the mesh edges repeatedly (number of passes) using a weighting
-factor to control how much change in position is allowed in each pass. In most
-cases, the weight is supplied as a constant, but the weight can be specified as
-a nodal scalar array. This allows for local control over the region of the mesh
-to be smoothed. The algorithm is fully threaded.
+results in a "smoother" mesh representation. The function computes new node
+locations resulting from a "normalization" of the mesh elements.
+
+The result of this function tends to be a mesh with equal sized elements.
+The algorithm applies a form of convolution to the mesh edges repeatedly
+(number of passes) using a weighting factor to control how much change
+in position is allowed in each pass. In most cases, the weight is supplied
+as a constant, but the weight can be specified as a nodal scalar array.
+This allows for local control over the region of the mesh to be smoothed.
+The algorithm is fully threaded.
 
 
 .. note::
@@ -5274,11 +5304,11 @@ where
 
 :math:`n`  = edge connected nodes
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - number of passes
-      - the number of smoothing passes to be applied:
+      - number of smoothing passes to be applied:
         constant
 
     * - weight
@@ -5300,22 +5330,27 @@ SOSConstant()
 
 
 .. note::
-    Generally this function should not be necessary. The SOSConstant functionality
-    has been pulled into the server/SOS infrastructure. It remains for backward compatibility.
+    Generally this function should not be necessary. The :ref:`SOSConstant() <SOSConstant>`
+    function has been pulled into the server/SOS infrastructure. However, this function
+    remains for backward compatibility.
 
 Computes a constant variable whose value is the result of applying a reduction operation
 on that constant variable over the values on each of the servers. If there is no SOS involved
 or only a single server, the result is the same as the constant variable value on the single
-server. The selected part is used to select the case from which the constant variable is
-used. The constant variable itself is specified (this can be from the dataset or a computed
-value. The actual operation to be performed is selected as an integer from 0 to 3. The operation
-can be a simple summation of the values from each of the servers, an average of the values from
-the servers (note that the weight given to each server in the average is the same, so this is
-essentially the sum operation divided by the number of servers) or the minimum/maximum of the
-values on each of the servers.
+server.
+
+The selected part is used to select the case from which the constant variable is
+used. The constant variable itself is specified (from the dataset or a computed
+value). The operation to perform is selected as an integer from ``0`` to ``3``:
+
+- ``0``: A simple summation of the values from each of the servers.
+- ``1``: An average of the values from the servers. (The weight given to each server
+  in the average is the same, so this is essentially the sum operation divided by the number of servers.)
+- ``2``: The minimum of the values on each of the servers.
+- ``3``: The maximum of the values on each of the servers.
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - variable
@@ -5346,10 +5381,10 @@ vector component) at the current time. This value can change with time. The
 component is not requested if a scalar variable is used.
 
 The spatial mean is computed by summing the product of
-the volume (3D, or area 2D, or length 1D) of each element by the value of the
+the volume (3D, area 2D, or length 1D) of each element by the value of the
 scalar (or vector component) taken at the centroid of the element (nodal
 variables are interpolated at each cell centroid using cell shape blending or
-metric functions), for each element over the entire part. The final sum is then
+metric functions) for each element over the entire part. The final sum is then
 divided by the total volume (or area) of the part.
 
 :math:`\text{Spatial Mean}=\frac{{\displaystyle \sum {s}_{i}vo{l}_{i}}}{{\displaystyle \sum vo{l}_{i}}}`
@@ -5360,7 +5395,7 @@ where:
 
 :math:`vo{l}_{i}` = Volume (or Area, or Length) of element i
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - [component]
@@ -5380,33 +5415,36 @@ SpaMeanWeighted()
 ``SpaMeanWeighted(any parts, scalar or (vector, component), weight, component [,Compute_Per_part])``
 
 
-Weighted Computes a constant or constant per part
-variable whose value is weighted both by the volume (or area or length) AND a
-weighting variable. This value can change with time. For both the variable
+Computes a constant or constant per part variable whose value is
+weighted both by the volume (or area or length) and a weighting variable.
+This value can change with time. For both the variable
 itself and the weighting variable, the component is not requested if a scalar
 variable is used.
 
-The weighted, spatial mean is computed by summing the
-product of the volume (3D, or area 2D, or length if 1D) of each element by the
+The weighted spatial mean is computed by summing the
+product of the volume (3D, area 2D, or length if 1D) of each element by the
 value of the scalar (or vector component) taken at the centroid of the element
 (nodal variables are interpolated at each cell centroid using cell shape
 blending or metric functions) with the product of the weighting scalar/vector
 component taken at the centroid of the element (again, if a nodal variable,
 similarly evaluated at the element centroid) for each element over the entire
 part. The final sum is then divided by the total scalar/vector weighted (again
-if nodal weighting variable is similarly evaluated at the element centroid)
-volume (or area, or length) of the part as follows.
+if a nodal weighting variable is similarly evaluated at the element centroid)
+volume (or area or length) of the part as follows:
 
 :math:`\text{Spatial Mean Weighted}=\frac{{\displaystyle \sum {w}_{i}{s}_{i}vo{l}_{i}}}{{\displaystyle \sum {w}_{i}vo{l}_{i}}}`
 
-where: :math:`{s}_{i}`  = Scalar or vector component taken at centroid of element
-i
-where: :math:`{w}_{i}`  = Scalar or vector component taken at centroid of element
-i
+where:
+
+:math:`{s}_{i}`  = Scalar or vector component taken at centroid of element i
+
+where:
+
+:math:`{w}_{i}`  = Scalar or vector component taken at centroid of element i
 
 :math:`vo{l}_{i}`  = Volume (or Area, or Length) of element i
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - [component]
@@ -5427,8 +5465,8 @@ Speed()
 ``Speed(any parts, velocity)``
 
 
-Computes a scalar variable whose value is the Speed
-defined as:
+Computes a scalar variable whose value is the speed. This function
+is defined as:
 
 :math:`speed=\sqrt{{u}^{2}+{v}^{2}+{w}^{2}}`
 
@@ -5436,7 +5474,7 @@ where:
 
 :math:`u,v,w`  = velocity components in the :math:`x,y,z`  directions.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - velocity
@@ -5456,17 +5494,19 @@ SonicSpeed()
 ``SonicSpeed(any parts, density, total energy, velocity, ratio of specific heats).``
 
 
-Computes a scalar variable :math:`c` , whose value is:
+Computes a scalar variable :math:`c` whose value is:
 
 :math:`c=\sqrt{\frac{\gamma p}{\rho }}`
 
-where :math:`\gamma`  = ratio of specific heats
+where:
+
+:math:`\gamma`  = ratio of specific heats
 
 :math:`\rho`  = density
 
 :math:`p`  = pressure
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - density
@@ -5492,10 +5532,10 @@ StatMoment()
 ``StatMoment(any parts, v, function [,Compute_Per_part])``
 
 
-Computes a constant or constant per part by which is the
+Computes a constant or constant per part which is the
 sum, mean, variance, skew, or kurtosis by applying a selected statistical
 function over all of the nodes or elements of the selected parts, given the
-selected scalar or constant variable. Five functions are defined as:
+selected scalar or constant variable. Five functions are defined:
 
 :math:`sum={\displaystyle \sum _{i=1}^{N}{\nu }_{i}}`
 
@@ -5511,38 +5551,42 @@ selected scalar or constant variable. Five functions are defined as:
 
 :math:`kurt=\left\{\frac{1}{N}{\displaystyle \sum _{i=1}^{N}{\left(\frac{{\nu }_{i}-mean}{\sqrt{\mathrm{var}}}\right)}^{4}}\right\}-3`
 
-The mean is the simple average (unweighted, arithmetic
-mean) of the all of the samples. The var is the variance, which is an indication
-of the spread of a sample of numbers out from the mean, and is the square of the
-standard deviation. The skew is an indication of the degree of asymmetry about
-the mean. A positive skew indicates an asymmetric tail toward more positive
-values, and a negative skew indicates an asymmetric tail toward more negative
-values. The kurt is the kurtosis, which is an indication of the peakness or
-flatness of the distribution compared to a normal distribution. A more positive
-kurtosis indicates more peakness, and a negative kurtosis indicates a more flat
-distribution.
+- The ``mean`` is the simple average (unweighted, arithmetic mean) of all the
+  samples.
+- The ``var`` is the variance, which is an indication of the spread of a
+  sample of numbers out from the mean. It is the square of the standard
+  deviation.
+- The ``skew`` is an indication of the degree of asymmetry about the mean. A
+  positive skew indicates an asymmetric tail toward more positive values.
+  A negative skew indicates an asymmetric tail toward more negative values.
+- The ``kurt`` is the kurtosis, which is an indication of the peakness or
+  flatness of the distribution compared to a normal distribution. A positive
+  kurtosis indicates more peakness. A negative kurtosis indicates a more flat
+  distribution.
 
-If the variable (v) is a constant, the operation will be
-computed as if the variable were a nodal variable with the given value at all
-nodes. If the computation is over an element variable, the size of the element
-is not used in the computation. If volume or area weighting is desired, the
+If the variable (``v``) is a constant, the operation is computed as if the
+variable was a nodal variable with the given value at all nodes. If the
+computation is over an element variable, the size of the element is not
+used in the computation. If volume or area weighting is desired, the
 variable must be pre-weighted.
 
 .. note::
 
     ``StatMoment(plist,scalar,0)`` should be used in place of the
-    example user-defined math function, ``udmf_sum`` because ``StatMoment`` is threaded and
-    properly handles ghost cells.
-    However, for parallel (SOS) computation, since nodes at the interface are
-    shared among servers, the values at the interface nodes are used in
-    computations multiple times. Therefore the``StatMoment``value
-    computed using a nodal variable using SOS will deviate from the true value
-    calculated using just one server. Elemental variables do not suffer from
+    example user-defined math function, ``udmf_sum``, because the
+    :ref:`StatMoment() <StatMoment>` is threaded and properly handles
+    ghost cells. However, for parallel (SOS) computation, because nodes
+    at the interface are shared among servers, the values at the interface
+    nodes are used in computations multiple times. Therefore, the``StatMoment`
+    value computed using a nodal variable using SOS deviates from the true value
+    calculated using only one server. Elemental variables do not suffer from
     this issue as ghost elements are handled properly and elements are not
-    shared among servers. The function parameters are defined as:
+    shared among servers.
 
 
-.. list-table:: Function Arguments
+ The function parameters are defined as:
+
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - v
@@ -5554,11 +5598,11 @@ variable must be pre-weighted.
         (0=sum, 1=mean, 2=variance, 3=skewness, 4=kurtosis)
 
 
+**References**
 
-.. note::
-    **References**
+For more information, see these references:
 
-    #. Numerical Recipes, Press et. al. Cambridge Univ. Press, 1997, pp. 454-459.
+- Numerical Recipes, Press et. al. Cambridge Univ. Press, 1997, pp. 454-459.
 
 
 
@@ -5575,23 +5619,25 @@ StatRegSpa()
 
 
 Performs classical multivariate linear regression,
-predicting y = f(x0,x1,x2,x3,x4). The regression is performed at the current
+predicting ``y = f(x0,x1,x2,x3,x4)``. The regression is performed at the current
 time step using all of the nodes/elements of the selected parts. At each
-node/element, the input values y, x0, x1, x2, x3, x4 and weight are evaluated
+node/element, the input values y, x0, x1, x2, x3, and x4 and the weight are evaluated
 and added as an observation to the regression with the supplied weight (in the
-range [0.0-1.0]). If the model does not require 5 inputs, any of them can be
-specified as the constant number 0.0 to drop it out. If the constant 1.0 is
-supplied as an input, an intercept will be computed. One is cautioned to avoid
-co-linearity in the inputs (especially easy when supplying constants as
-regressors). An example, to model simple linearity: y = Ax0 + B, the function
-parameters would be: ``StatRegSpa(plist, yvar, xvar, 1., 0., 0., 0., 1.)``. The example specifies that all observations be weighted the
-same. If weighting by element volume were desired, compute a field variable of
-element volume, normalized by the largest individual element volume and pass
+range [0.0-1.0]). If the model does not require five inputs, any of them can be
+specified as the constant number 0.0 to remove it. If the constant 1.0 is
+supplied as an input, an intercept is computed. You should avoid
+co-linearity in the inputs (which is especially easy when supplying constants as
+regressors). For example, to model simple linearity (``y = Ax0 + B``, the function
+parameters would be ``StatRegSpa(plist, yvar, xvar, 1., 0., 0., 0., 1.)``. This
+example specifies that all observations are to be weighted the same.
+If weighting by element volume is desired, compute a field variable of
+element volume, normalized by the largest individual element volume, and pass
 that variable as the weight. The function returns a scalar constant whose value
 is the R-squared value for the regression.
+
 The function parameters are defined as:
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - y
@@ -5608,7 +5654,7 @@ The function parameters are defined as:
 
 
 A full set of estimated values and statistical
-diagnostic output are available, see: :ref:`StatRegVal1() <StatRegVal1>` and
+diagnostic output are available. See: :ref:`StatRegVal1() <StatRegVal1>` and
 :ref:`StatRegVal2() <StatRegVal2>`.
 
 
@@ -5633,7 +5679,7 @@ as well as the R-squared value.
 
 The function parameters are defined as:
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - regression_variable
@@ -5644,7 +5690,8 @@ The function parameters are defined as:
         squares error, 1=sum of squares total, 2=sum of squares model, 3=R-squared)
 
 
-See also: :ref:`StatRegSpa() <StatRegSpa>` and :ref:`StatRegVal2() <StatRegVal2>`.
+See also the :ref:`StatRegSpa() <StatRegSpa>` and :ref:`StatRegVal2() <StatRegVal2>`
+functions.
 
 
 .. _StatRegVal2:
@@ -5660,31 +5707,32 @@ StatRegVal2()
 
 
 This function returns statistical diagnostics specific to individual input coefficients
-for a regression computed using ``StatRegSpa()``. The function is passed the output variable
-of a previously computed ``StatRegSpa()``, the function number of the specific statistical
-quantity to return and the coefficient selected. The values include the sum of squares and
-partial sum of squares for the individual coefficients as well as the estimated coefficient
-itself and its standard error.
+for a regression computed using :ref:`StatRegSpa() StatRegSpa()>`. The funtion is passed
+the output variable previously computed by the :ref:`StatRegSpa() StatRegSpa()>` function,
+the function number of the specific statistical quantity to return, and the coefficient
+selected. The values include the sum of squares and partial sum of squares for the individual
+coefficients as well as the estimated coefficient itself and its standard error.
 
 The function parameters are defined as:
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 45 55
 
     * - regression_variable
-      - a scalar variable which is the output of an earlier ``StatRegSpa()`` function
+      - scalar variable that is the output of an earlier :ref:`StatRegSpa() StatRegSpa()>`
+        function
 
     * - function
-      - the statistical quantity to return (0=the estimated coefficient, 1=sum of squares for the variable, 2=partial
-        sum of squares for the variable, 3=standard error for the coefficient)
+      - statistical quantity to return (0=estimated coefficient, 1=sum of squares for the variable, 2=partial
+        sum of squares for the variable, and 3=standard error for the coefficient)
 
     * - selection
       - constant or constant per part variable or
-        constant number which selects the specific coefficient for which to
+        constant number that selects the specific coefficient for which to
         retrieve the statistical quantity (0=x0, 1=x1, 2=x2, 3=x3, 4=x4)
 
 
-See also: :ref:`StatRegSpa() <StatRegSpa>` and :ref:`StatRegVal1() <StatRegVal1>`.
+See also the :ref:`StatRegSpa() <StatRegSpa>` and :ref:`StatRegVal1() <StatRegVal1>` functions.
 
 
 .. _sumPerPart:
@@ -5700,16 +5748,18 @@ sumPerPart()
 
 
 Sums scalar values of each part as a constant per part or a constant per case
-value, where:
+value
 
-.. list-table:: Function Arguments
+where:
+
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - plist
       - any parts
 
     * - scalar
-      - a scalar variable
+      - scalar variable
 
     * - result_type
       - "Per case" or "Per part"
@@ -5728,9 +5778,11 @@ sumPerPartArg()
 
 
 Sums the constant per part value of each part into a case constant
-value where:
+value
 
-.. list-table:: Function Arguments
+where:
+
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - plist
@@ -5754,7 +5806,7 @@ Swirl()
 ``Swirl(any parts, density, velocity).``
 
 
-Computes a scalar variable Swirl, whose value is:
+Computes a scalar variable ``swirl`` whose value is:
 
 :math:`swirl=\frac{\Omega ·V}{\rho {V}^{2}}`
 
@@ -5773,7 +5825,7 @@ where:
       - velocity
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 20 80
 
     * - density
@@ -5796,7 +5848,7 @@ Temperature()
 
 
 Computes a scalar variable whose value is the
-temperature **T** defined as:
+temperature **T**. The function is defined as:
 
 :math:`T=\frac{\left(\gamma -1\right)}{R}\left(\frac{E}{\rho }-\frac{1}{2}{V}^{2}\right)`
 
@@ -5824,7 +5876,7 @@ where:
       - gas constant
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - density
@@ -5857,10 +5909,12 @@ ratio of specific heats, freestream density, freestream speed of sound, gas
 constant)``
 
 
-Computes a scalar variable which is Normalized Temperature :math:`{T}_{n}`  defined as:
+Computes a scalar variable that is the normalized temperature, :math:`{T}_{n}`.
+This function is defined as:
 
 :math:`{T}_{n}=\frac{T}{{T}_{i}}`
 
+where:
 
 .. list-table::
     :widths: 30 70
@@ -5871,7 +5925,7 @@ Computes a scalar variable which is Normalized Temperature :math:`{T}_{n}`  defi
       - freestream temperature
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - density
@@ -5910,11 +5964,13 @@ ratio of specific heats, freestream density, freestream speed of sound, gas
 constant)``
 
 
-Computes a scalar variable which is the natural log of
-Normalized Temperature defined as:
+Computes a scalar variable that is the natural log of
+the normalized temperature, :math:`\mathrm{ln}{T}_{n}`.
+This function is defined as:
 
 :math:`\mathrm{ln}{T}_{n}=\mathrm{ln}\left(T/{T}_{i}\right)`
 
+where:
 
 .. list-table::
     :widths: 30 70
@@ -5925,8 +5981,7 @@ Normalized Temperature defined as:
       - freestream temperature
 
 
-
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments*
     :widths: 30 70
 
     * - density
@@ -5965,11 +6020,12 @@ TemperStag()
 ratio of specific heats, gas constant)``
 
 
-Computes a scalar variable which is the Stagnation
-Temperature :math:`{T}_{o}` defined as:
+Computes a scalar variable that is the stagnation
+temperature, :math:`{T}_{o}`. This function is defined as:
 
 :math:`{T}_{o}=T\left(1+\left(\frac{\gamma -1}{2}\right){M}^{2}\right)`
 
+where:
 
 .. list-table::
     :widths: 30 70
@@ -5982,7 +6038,7 @@ Temperature :math:`{T}_{o}` defined as:
       - mach number
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - density
@@ -6016,11 +6072,13 @@ ratio of specific heats, freestream density, freestream speed of sound,
 freestream velocity magnitude, gas constant)``
 
 
-Computes a scalar variable which is Normalized
-Stagnation Temperature :math:`{T}_{on}` defined as:
+Computes a scalar variable that is the normalized
+stagnation temperature, :math:`{T}_{on}`. This function
+is defined as:
 
 :math:`{T}_{on}={T}_{o}/{T}_{oi}`
 
+where:
 
 .. list-table::
     :widths: 30 70
@@ -6032,7 +6090,7 @@ Stagnation Temperature :math:`{T}_{on}` defined as:
 
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - density
@@ -6077,14 +6135,14 @@ vector, or constant, timestep1, timestep2)``
 
 Computes a scalar, vector, or constant variable, depending on which
 type was selected, whose value is the mean value of the selected variable over
-the interval from time step 1 to time step 2. Therefore, the resultant variable is
+the interval from timestep 1 to timestep 2. Therefore, the resultant variable is
 independent of time. The temporal mean is the discrete integral of the variable
 over time (using the **Trapezoidal Rule**) divided by the total
 time interval. Because any derived parts may vary in size over time, this
 function is only allowed on model parts. Model parts with changing connectivity
 are also not allowed.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - timestep1
@@ -6112,12 +6170,12 @@ Computes a scalar or vector variable, depending on which
 type was selected, whose value is the minimum or maximum at each location (node
 or element) of a scalar or vector variable over the interval from timestep1 to
 timestep2. Therefore, the resultant scalar or vector is independent of time. If
-input variable is a vector then the max or min is the max or min of each
-component of the vector. Because any derived parts may vary in size over time,
+the input variable is a vector, the maximum or minimum is the maximum or minimum
+of each component of the vector. Because any derived parts may vary in size over time,
 this function is only allowed on model parts. Model parts with changing
 connectivity are also not allowed.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - timestep1
@@ -6141,7 +6199,7 @@ TensorComponent()
 col(1-3))``
 
 
-Creates a scalar variable which is the specified row and
+Creates a scalar variable that is the specified row and
 column of a tensor variable.
 
 S = Tij
@@ -6150,7 +6208,7 @@ i = given row (1 to 3)
 
 j = given column (1 to 3)
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - tensor row
@@ -6175,24 +6233,24 @@ Tensor Components)``
 
 
 Computes the determinant of a tensor variable, three
-principal scalar variables, or six tensor component scalar variables. The
-function will require either 1 or 6 entries beyond the parts, as indicated
-below:
+principal scalar variables, or six tensor component scalar variables. This
+function requires either one or six entries beyond the parts, as indicated
+in the following examples.
 
 If computing from a tensor variable, a single tensor
-variable will be needed. For example:
+variable is needed.
 
 ``TensorDeterminant(plist, Stress)``
 
-If computing from 3 principals, three scalar variables
-representing sigma_1, sigma_2, and sigma_3 will be needed. Additionally, you
-must enter a -1 constant for the last three entries. For example:
+If computing from three principals, three scalar variables
+representing ``sigma_1``, ``sigma_2``, and ``sigma_3`` are needed. Additionally, you
+must enter a ``-1`` constant for the last three entries.
 
 ``TensorDeterminant(plist, sigma_1, sigms_2, sigma_3, -1, -1, -1)``
 
-If computing from 6 tensor components, six scalar
-variables will be needed. They must be the following (and must be in the order
-shown): T11, T22, T33, T12, T13, T23. For example:
+If computing from six tensor components, six scalar
+variables are needed. They must be the following variables in the
+order shown: ``T11``, ``T22``, ``T33``, ``T12``, ``T13``, and ``T23``
 
 ``TensorDeterminant(plist, t_11, t_22, t_33, t_12, t_13, t_23)``
 
@@ -6209,8 +6267,8 @@ TensorEigenvalue()
 ``TensorEigenvalue(any parts, tensor, which number(1-3))``
 
 
-Computes the number (1-3) eigenvalue of the given
-tensor. The first eigenvalue is always the largest, while the third eigenvalue
+Computes the eigenvalue of a tensor based on the number given (1-3).
+The first eigenvalue is always the largest, while the third eigenvalue
 is always the smallest.
 
 
@@ -6226,8 +6284,7 @@ TensorEigenvector()
 ``TensorEigenvector(any parts, tensor, which number(1-3))``
 
 
-Computes the number (1-3) eigenvector of the given
-tensor.
+Computes the eigenvector of a tensor based on the number given (1-3).
 
 
 .. _TensorMake:
@@ -6242,7 +6299,7 @@ TensorMake()
 ``TensorMake(any parts, T11, T22, T33, T12, T13, T23)``
 
 
-Create a tensor from six scalars.
+Creates a tensor from six scalars.
 
 
 .. _TensorMakeAsym:
@@ -6257,7 +6314,7 @@ TensorMakeAsym()
 ``TensorMakeAsym(any parts, T11,T12,T13, T21,T22,T23, T31,T32,T33)``
 
 
-Create a tensor from 9 scalars.
+Creates a tensor from nine scalars.
 
 
 .. _TensorTresca:
@@ -6273,33 +6330,34 @@ TensorTresca()
 
 
 Computes Tresca stress/strain from a tensor variable,
-three principal scalar variables, or six tensor component scalar variables. The
-function will require either 1 or 6 entries beyond the parts, as indicated
-below:
+three principal scalar variables, or six tensor component scalar variables. This
+function requires either one or six entries beyond the parts, as indicated
+in the following examples.
 
 If computing from a tensor variable, a single tensor
-variable will be needed. For example:
+variable is needed.
 
 ``TensorTresca(plist, Stress)``
 
-If computing from 3 principals, three scalar variables
-representing sigma_1, sigma_2, and sigma_3 will be needed. Additionally, you
-must enter a -1 constant for the last three entries. For example:
+If computing from three principals, three scalar variables
+representing ``sigma_1``, ``sigma_2``, and ``sigma_3`` are needed. Additionally, you
+must enter a ``-``1`` constant for the last three entries.
 
 ``TensorTresca(plist, sigma_1, sigms_2, sigma_3, -1, -1, -1)``
 
-If computing from 6 tensor components, six scalar
-variables will be needed. They must be the following (and must be in the order
-shown): T11, T22, T33, T12, T13, T23. For example:
+If computing from six tensor components, six scalar variables
+are needed. They must be the following variables in the order shown:
+``T11``, ``T22``, ``T33``, ``T12``, ``T13``, and ``T23``.
 
 ``TensorTresca(plist, t_11, t_22, t_33, t_12, t_13, t_23)``
 
-The basic equation is shown below. If needed, the
+The basic equation follows. If needed, the
 principal stresses/strains are first computed from the tensor or its
 components.
 
 :math:`{\sigma }_{yp}=\left|{\sigma }_{1}-{\sigma }_{3}\right|`
 
+where:
 
 .. list-table::
     :widths: 30 70
@@ -6327,33 +6385,34 @@ TensorVonMises()
 
 
 Computes Von Mises stress/strain from a tensor variable,
-three principal scalar variables, or six tensor component scalar variables. The
-function will require either 1 or 6 entries beyond the parts, as indicated
-below:
+three principal scalar variables, or six tensor component scalar variables. This
+function requires either one or six entries beyond the parts, as indicated
+in the following examples.
 
 If computing from a tensor variable, a single tensor
-variable will be needed. For example:
+variable is needed.
 
 ``TensorVonMises(plist, Stress)``
 
-If computing from 3 principals, three scalar variables
-representing sigma_1, sigma_2, and sigma_3 will be needed. Additionally, you
-must enter a -1 constant for the last three entries. For example:
+If computing from three principals, three scalar variables
+representing ``sigma_1``, ``sigma_2``, and ``sigma_3`` are needed. Additionally, you
+must enter a ``-1``c onstant for the last three entries.
 
 ``TensorVonMises(plist, sigma_1, sigms_2, sigma_3, -1, -1, -1)``
 
-If computing from 6 tensor components, six scalar
-variables will be needed. They must be the following (and must be in the order
-shown): T11, T22, T33, T12, T13, T23. For example:
+If computing from six tensor components, six scalar
+variables are needed. They must be the following variables in the order
+shown: ``T11``, ``T22``, ``T33``, ``T12``, ``T13``, and ``T23``.
 
 ``TensorVonMises(plist, t_11, t_22, t_33, t_12, t_13, t_23)``
 
-The basic equation is shown below. If needed, the
+The basic equation follows. If needed, the
 principal stresses/strains are first computed from the tensor or its
 components.
 
 :math:`{\sigma }_{yp}=\sqrt{\frac{1}{2}\left({\left({\sigma }_{1}-{\sigma }_{2}\right)}^{2}+{\left({\sigma }_{2}-{\sigma }_{3}\right)}^{2}+{\left({\sigma }_{3}-{\sigma }_{1}\right)}^{2}\right)}`
 
+where:
 
 .. list-table::
     :widths: 30 70
@@ -6377,8 +6436,8 @@ udmf_sum()
 **udmf_sum**
 
 .. note::
-    This function has been replaced by :ref:`StatMoment() <StatMoment>`.
-    ``StatMoment(plist,scalar,0)`` should be used instead.
+    The :ref:`StatMoment() <StatMoment>` function has replaced this
+    function. Use ``StatMoment(plist,scalar,0)`` instead.
 
 
 
@@ -6400,13 +6459,13 @@ for the system and can be frame 0 (the center for the global coordinate system)
 or any other defined frame in any arbitrary orientation.
 
 The axial direction is defined to be the
-frame's Z axis and the Radial direction is a vector from the Z axis to the
+frame's Z axis and the radial direction is a vector from the Z axis to the
 position being computed. The Theta direction is then Cross(Z,R). The resulting
-new vector variable will be in the direction of the chosen axis (Z, R, or Theta)
+new vector variable is in the direction of the chosen axis (Z, R, or Theta)
 with a magnitude computed by the dot product of the vector variable against the
 direction vector.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - vector
@@ -6435,11 +6494,11 @@ VectorRectProjection()
 Computes a new vector variable by projecting a vector
 onto a rectangular coordinate system. A coordinate frame is used for the new
 rectangular system and can be frame 0 (the center for the global coordinate
-system) or any other defined frame in any arbitrary orientation. The resulting new vector variable will be in
-the direction of the chosen axis (X, Y, or Z) with a magnitude computed by the
-dot product of the vector variable against the direction vector.
+system) or any other defined frame in any arbitrary orientation. The resulting new
+vector variable is in the direction of the chosen axis (X, Y, or Z) with a magnitude
+computed by the dot product of the vector variable against the direction vector.
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - vector
@@ -6464,8 +6523,8 @@ Velo()
 ``Velo(any parts, momentum, density)``
 
 
-Computes a vector variable whose value is the velocity V
-defined as:
+Computes a vector variable whose value is the velocity ``V``.
+This function is defined as:
 
 :math:`V=\frac{m}{\rho }`
 
@@ -6480,7 +6539,7 @@ where:
       - momentum
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - momentum
@@ -6507,11 +6566,11 @@ Computes a constant or constant per part variable whose
 value is the volume of 3D parts.
 
 .. note::
-    This will use the coordinates of the element to calculate the volume of
-    each element. If you wish to use displacement in the calculation of the
-    volume, then you must turn on computational (server-side) displacement, rather
-    than visual only (client side) displacement so that the displacement values
-    will be applied to the coordinates on the server prior to calculating each
+    This function uses the coordinates of the element to calculate the volume of
+    each element. If you want to use displacement in the calculation of the
+    volume, you must turn on computational (server-side) displacement, rather
+    than visual only (client-side) displacement so that the displacement values
+    are applied to the coordinates on the server prior to calculating each
     element size that is used to sum up the volume of the part.
 
 
@@ -6528,7 +6587,8 @@ Vort()
 
 
 Computes a vector variable that is the rotation of the
-flow in units of radians per second with components :math:`{\zeta }_{x},{\zeta }_{y},{\zeta }_{z}`  defined as:
+flow in units of radians per second with components :math:`{\zeta }_{x},{\zeta }_{y},{\zeta }_{z}`.
+This function is defined as:
 
 :math:`\begin{array}{ccc}{\zeta }_{x}=\frac{\partial w}{\partial x}-\frac{\partial v}{\partial z}& {\zeta }_{y}=\frac{\partial u}{\partial z}-\frac{\partial w}{\partial x}& {\zeta }_{z}=\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}\end{array}`
 
@@ -6542,7 +6602,7 @@ where:
         directions
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - velocity
@@ -6564,8 +6624,9 @@ VortGamma()
 
 Computes a dimensionless scalar variable on a 2D clip
 part, whose value is the vorticity-gamma
-function :math:`{\Gamma }_{k}\left(P\right)`, defined at each node
-(or element centroid for cell centered data), P as follows:
+function, :math:`{\Gamma }_{k}\left(P\right)`, defined at each node
+(or element centroid for cell centered data), ``P``. This function
+is defined as follows:
 
 :math:`{\Gamma }_{k}\left(P\right)=\frac{1}{S}{\displaystyle \int \mathrm{sin}\left({\Theta }_{M}\right)dS}=\frac{1}{S}{\displaystyle \underset{\left(M\in S\right)}{\int }\left(\frac{\left(\stackrel{\rightharpoonup }{PM}\times {\stackrel{\rightharpoonup }{V}}_{M}\right)·\widehat{n}}{\Vert \stackrel{\rightharpoonup }{PM}\Vert ·\Vert {\stackrel{\rightharpoonup }{V}}_{M}\Vert }\right)dS}`
 
@@ -6582,18 +6643,18 @@ where:
         axis symmetrical. Therefore, this scalar function provides a way
         to quantify the streamline topology of the flow in the vicinity
         of P and the rotation sign of the vortex. ... Typically, near
-        the vortex centre, G1 reaches values ranging from 0.9 to 1.0"
-        [ref.2, 1424-5]
+        the vortex centre, G1 reaches values ranging from 0.9 to 1.0."
+        [ref.2, pp. 1424-1425]
     * - :math:`{\Gamma }_{2}`
-      - (gamma function number k=2) a (Galilean invariant) vortex
+      - (gamma function number k=2) is a (Galilean invariant) vortex
         boundary approximation method resulting in a dimensionless
         scalar, "... a local function depending only on W and μ,
-        where W is the rotation rate corresponding to the
-        anti symmetrical part of the velocity gradient at P and μ is
-        the eigenvalue of the symmetrical part of this tensor. (see Note
-        below)" [ref.2, 1425]
+        where W is the rotation rate corresponding to the antisymmetrical
+        part of the velocity gradient at P and μ is the eigenvalue of the
+        symmetrical part of this tensor. [ref.2, 1425]. (See the
+        note following the function arguments.) 
     * - k
-      - Gamma function number, 1 or 2 used to determine VM.
+      - Gamma function number, 1 or 2, used to determine VM.
     * - P
       - Base node (or element centroid for per-element data) around
         which the proximity area (or zone of influence) is being
@@ -6602,43 +6663,47 @@ where:
       - Proximity area (or zone of influence) surrounding P,
         determined by a proximity radius measured from the base P and
         the proximity option. The proximity option is used to determine
-        which set of elements to include in S as follows. If the
-        proximity option is 0, then S includes all elements with any
-        nodes within the proximity radius. If the proximity option is 1,
-        then S includes only elements with every node within the
-        proximity radius. Both options also include all elements which
-        contain P.
+        which set of elements to include in S as follows.
+
+        - If the proximity option is 0, S includes all elements
+          with any nodes within the proximity radius.
+        - If the proximity option is 1, S includes only elements with
+          every node within the proximity radius. Both options also
+          include all elements that contain P.
+
     * - M
       - A node (or element center) within S.
     * - PM
-      - The vector from the base node P to M.
+      - vector from the base node P to M.
     * - V(P)
-      - Velocity vector at P.
+      - velocity vector at P.
     * - V(M)
-      - Velocity vector at each M.
+      - velocity vector at each M.
     * - :math:`V_M`
-      - If the gamma function number k = 1, then VM = V(M).
-        If the gamma function number k = 2, then VM = V(M) - V(P).
+
+      - If the gamma function number k = 1, VM = V(M).
+      - If the gamma function number k = 2, VM = V(M) - V(P).
+
     * - If k=2
       - VM = V(M) - V(P).
     * - n
-      - A unit vector normal to the 2D plane parent clip
+      - unit vector normal to the 2D plane parent clip
         part.
     * - :math:`θ_M`
-      - The angle between VM and PM. Since -1 < sin(QM) < 1
+      - angle between VM and PM. Because -1 < sin(QM) < 1
         (and n is a unit vector),
-        then -1 < :math:`{\Gamma }_{k}\left(P\right)` < 1.
+        -1 < :math:`{\Gamma }_{k}\left(P\right)` < 1.
 
 
-.. list-table:: Function Arguments
+.. list-table:: **Function arguments**
     :widths: 30 70
 
     * - velocity
       - vector variable
     * - gamma function number
-      - single integer (k=1 or k= 2) which determines
+      - single integer (k=1 or k= 2) that determines
         which value of VM to use. A value of 1 is useful for finding vortex
-        cores (centers) and a value of 2 is useful for finding vortex
+        cores (centers). A value of 2 is useful for finding vortex
         boundaries.
 
     * - proximity radius
@@ -6647,9 +6712,9 @@ where:
         which the vorticity gamma is calculated on the 2D part clip.
         The larger the proximity radius, the more
         nodes (or elements) that are used to calculate G and the slower the
-        calculation. A proximity radius less than or equal to 0.0 will
-        always use a proximity area of only elements that contain P and is
-        the lower bound of this parameter resulting in the smallest
+        calculation. A proximity radius less than or equal to 0.0
+        always uses a proximity area of only elements that contain P and is
+        the lower bound of this parameter, resulting in the smallest
         proximity area around P (and the fastest calculation). A radius of
         0.0 is a good value for the first run.
 
@@ -6660,14 +6725,14 @@ where:
         rather than wristwatch time.
 
         The radius should be large enough to sample
-        sufficient elements for a meaningful average, but a small enough so
-        the vortex result remains a local calculation reported at each
-        element. Again, a radius of 0.0 is a good value for the first run,
-        and a radius with a small scaling of the element size is a good
+        sufficient elements for a meaningful average, but small enough so
+        that the vortex result remains a local calculation reported at each
+        element. Again, a radius of 0.0 is a good value for the first run.
+        A radius with a small scaling of the element size is a good
         second run.
 
     * - proximity option
-      - 0 to include all cells with any nodes in the proximity area
+      - 0 to include all cells with any nodes in the proximity area.
 
         1 to include only cells entirely located in the
         proximity area. Use this option along with the radius to control the
@@ -6675,8 +6740,8 @@ where:
         (or element) P.
 
         Consider using option 0 as the radius gets small
-        relative to element size, and 1 as the radius is enlarged. At a
-        minimum, the proximity area will always include elements that
+        relative to element size and using optoin 1 as the radius is enlarged.
+        At a minimum, the proximity area alwayss include elements that
         contain P.
 
 
@@ -6685,7 +6750,7 @@ where:
     Recall that ω is the rotation rate for the anti symmetrical part of
     the velocity gradient and that μ is the eigenvalue of the symmetric part
     of the tensor. The local character of the flow may be classified for
-    β2 in the following manner (based on figure 4 in [ref.2, 1425] which
+    β2 in the following manner (based on figure 4 in [ref.2, 1425], which
     plots β2 as a function of the ratio of ω /μ):
 
     ω/μ < 1: flow locally dominated by strain, β2 < 2/π
@@ -6694,18 +6759,17 @@ where:
 
     ω/μ > 1: flow locally dominated by rotation, β2 > 2/π
 
-    **References**
+    
+**References**
 
-    #. Jeong, J. and Hussain, F., "On the identification
-       of a vortex," Journal of Fluid Mechanics, 1995, vol. 285,
-       pp. 69-94.
+For more information, see these references:
 
-    #. Laurent Graftieaux, Marc Michard, & Nathalie
-       Grosjean "Combining PIV, POD and vortex identification
-       algorithms for the study of unsteady turbulent swirling
-       flows", Institute Of Physics Publishing Ltd in UK,
-       Measurement Science & Technology, 12 (2001)
-       1422-1429.
-
-    #. PSA via Distene (personal communication).
-
+- Jeong, J. and Hussain, F., "On the identification
+  of a vortex," Journal of Fluid Mechanics, 1995, vol. 285,
+  pp. 69-94.
+- Laurent Graftieaux, Marc Michard, & Nathalie
+  Grosjean "Combining PIV, POD and vortex identification
+  algorithms for the study of unsteady turbulent swirling
+  flows", Institute Of Physics Publishing Ltd in UK,
+  Measurement Science & Technology, 12 (2001), pp. 1422-1429.
+- PSA via Distene (personal communication).

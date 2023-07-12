@@ -20,6 +20,7 @@ compi
 compj
 Compute_Per_case
 ctor
+cURL
 Delcayre
 Distene
 dn
