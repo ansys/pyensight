@@ -888,7 +888,7 @@ dividing a displacement thickness by a momentum thickness:``
       - boundary-layer momentum thickness
 
 
-This scalar vairable is used to characterize boundary-layer flows, especially to
+This scalar variable is used to characterize boundary-layer flows, especially to
 indicate potential for separation. This parameter increases as a
 separation point is approached, and it varies rapidly near a separation
 point.
@@ -967,7 +967,7 @@ The distance normal from the surface to where:
 .. admonition::  Algorithm: Boundary Layer Thickness
 
     The ``ymax`` argument allows the edge of the boundary layer to be approximated by two
-    different algorithms: the Baldwin-Lomax-Spalart agorithm and the convergence algorithm.
+    different algorithms: the Baldwin-Lomax-Spalart algorithm and the convergence algorithm.
     Both algorithms profile velocity data normal to the boundary surface, or wall.
     Specifying ``ymax > 0`` leverages results from both the Baldwin-Lomax and vorticity
     functions over the entire profile to produce a fading function that approximates the edge
@@ -1938,7 +1938,7 @@ DensityStag()
 
 
 Computes a scalar variable that is the *stagnation
-density* :math:`{\rho }_{o}`. This funciton is defined as:
+density* :math:`{\rho }_{o}`. This function is defined as:
 
 :math:`{\rho }_{o}=\rho {\left(1+\left(\frac{\gamma -I}{2}\right){M}^{2}\right)}^{\left(I/\left(\gamma -1\right)\right)}`
 
@@ -1995,7 +1995,7 @@ Nodes are designated by their node IDs, so the part must have node IDs.
     type by doing a **Query→Dataset** and looking in the **General Geometric section** of the
     popup window.
 
-    If you have a static geometry with visual displacement turned on, the ``Dis2Nodes`` 
+    If you have a static geometry with visual displacement turned on, the ``Dis2Nodes``
     function does not use the displacement in its calculations. You must enable server-side
     (computational) displacement. If you have changing coordinate geometry, the ``Dist2Nnodes``
     function works without adjustment. If you have changing connectivity, the ``Dist2nNodes``
@@ -3562,7 +3562,7 @@ Lambda2()
 Computes a scalar variable that is the second eigenvalue (or :math:`{\lambda }_{2}`) of the second
 invariant (or Q-criterion) of the velocity gradient tensor. Vortex shells can
 then be visualized as an iso-surface of :math:`{\lambda }_{2}` = 0. Here is how the inputs
-to this function are calulated:
+to this function are calculated:
 
 First calculate the three components of velocity:
 
@@ -3855,7 +3855,7 @@ where:
     :widths: 10 90
 
     * - scalar
-      - any scalar variable, such as pressure, mach, or a 
+      - any scalar variable, such as pressure, mach, or a
         vector component, etc
 
     * - velocity
@@ -3931,7 +3931,7 @@ MatToScalar()
 
 Computes a scalar per element variable whose value ``s`` is
 the specified material's value ``m`` of the element on the specified parts.
-The function is defind as:
+The function is defined as:
 
 ``s = m``
 
@@ -4978,7 +4978,7 @@ Q_criteria()
 Computes a scalar variable that is the second
 invariant, or Q-criterion, of the velocity gradient tensor. Vortex shells may
 then be visualized as an iso-surface of Q-criterion > 0. Here is how the inputs
-to this function are calulated:
+to this function are calculated:
 
 First calculate the three components of velocity:
 
@@ -5707,7 +5707,7 @@ StatRegVal2()
 
 
 This function returns statistical diagnostics specific to individual input coefficients
-for a regression computed using :ref:`StatRegSpa() StatRegSpa()>`. The funtion is passed
+for a regression computed using :ref:`StatRegSpa() StatRegSpa()>`. The function is passed
 the output variable previously computed by the :ref:`StatRegSpa() StatRegSpa()>` function,
 the function number of the specific statistical quantity to return, and the coefficient
 selected. The values include the sum of squares and partial sum of squares for the individual
@@ -6652,7 +6652,7 @@ where:
         where W is the rotation rate corresponding to the antisymmetrical
         part of the velocity gradient at P and μ is the eigenvalue of the
         symmetrical part of this tensor. [ref.2, 1425]. (See the
-        note following the function arguments.) 
+        note following the function arguments.)
     * - k
       - Gamma function number, 1 or 2, used to determine VM.
     * - P
@@ -6740,7 +6740,7 @@ where:
         (or element) P.
 
         Consider using option 0 as the radius gets small
-        relative to element size and using optoin 1 as the radius is enlarged.
+        relative to element size and using option 1 as the radius is enlarged.
         At a minimum, the proximity area alwayss include elements that
         contain P.
 
@@ -6759,7 +6759,7 @@ where:
 
     ω/μ > 1: flow locally dominated by rotation, β2 > 2/π
 
-    
+
 **References**
 
 For more information, see these references:

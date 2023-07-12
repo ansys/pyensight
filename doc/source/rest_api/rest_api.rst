@@ -78,7 +78,7 @@ positional arguments.
 
 .. note::
    If the namespace does not exist, it is created.
-   
+
 The function also makes use of the ``numpy`` module. A function must either import
 the module inside of the function or include the names of the modules in the ``imports``
 query options as a comma-separated list of module names. Because Numpy arrays do not
@@ -138,7 +138,7 @@ All REST APIs expect that the token be specified in one of two ways:
   ``{LOCATION}/ensight/v1/{TOKEN}/{OPERATION}``.
 - Second, the token can be passed in an ``Authorization: Bearer TOKEN`` header. When you use
   this approach, you can pass any value in the URL path.
-  
+
 If you supply tokens using both methods, the token in the header is used.
 
 REST API reference
