@@ -84,7 +84,7 @@ def enshell_mock():
 
 
 @pytest.fixture
-def mocked_session(mocker, tmpdir, enshell_mock) -> "ansys.pyensight.Session":
+def mocked_session(mocker, tmpdir, enshell_mock) -> "Session":
     cmd_mock = mock.MagicMock("cmd_mock")
     mock_dict = {"a": 1, "b": 2, "c": 3}
     cmd_mock.items = lambda: mock_dict.items()
