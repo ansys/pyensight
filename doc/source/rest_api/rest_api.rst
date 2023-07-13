@@ -6,9 +6,9 @@ REST API
 ********
 
 An EnSight session started using PyEnSight may enable the direct REST API.
-This API allows JavaScript code to directly access the EnSight Python APIs.
-The API is only available in EnSight 2024 R1 and later. The API is enabled
-using the ``enable_rest_api=True`` keyword to the ``Launcher()`` subclass ctor.
+The REST API allows JavaScript code to directly access the EnSight Python APIs.
+It is only available in EnSight 2024 R1 and later. To enable the REST API,
+set the ``enable_rest_api`` keyword to ``True`` for the Launcher` subclass ctor.
 
 
 .. note::

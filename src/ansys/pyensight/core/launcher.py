@@ -1,7 +1,7 @@
-"""Launcher module
+"""Launcher module.
 
 The Launcher module provides a base class responsible for managing an EnSight
-instance.  Subclasses of the class implement specific launching paradighms.
+instance. Subclasses of the class implement specific launching paradighms.
 
 Examples:
     ::
@@ -34,26 +34,27 @@ if TYPE_CHECKING:
 
 
 class Launcher:
-    """EnSight Launcher base class
+    """Provides the EnSight ``Launcher`` base class.
 
-    A Launcher instance is used to start/end an EnSight session.  Specific subclasses
-    handle different types of launching semantics. A launcher can create only a
-    single EnSight instance. If one needs more than one EnSight instance,
-    a new launcher instance will be required.
+    A ``Launcher`` instance is used to start and end an EnSight session.
+    Specific subclasses handle different types of launching semantics.
+    A launcher can create only a single EnSight instance. If you  need to
+    have more than one EnSight instance, a new launcher instance is required.
 
     Parameters
     ----------
     timeout :
-        In some cases where the EnSight session can take a significant amount of
-        timme to start up, this is the number of seconds to wait before failing
-        the connection.  The default is 120.0.
-    use_egl :
-        If True, EGL hardware accelerated graphics will be used. The platform
-        must be able to support it.
-    use_sos :
-        If None, don't use SOS. Otherwise, it's the number of EnSight Servers to use (int).
-    enable_rest_api :
-        If True, try to enable the EnSight REST API. initial support is in 2024 R1
+        Number of seconds to try a gRPC connection before giving up.
+        The default is ``120``.
+    use_egl : bool, optional
+        Whether to use EGL hardware for accelerated graphics. The platform
+        must be able to support this hardware. The default is ``False``.
+    use_sos : int, optional
+        Number of EnSight servers to use for SOS (Server of Server) mode.
+        The default is ``None``, in which case SOS mode is not used.
+    enable_rest_api : bool, optional
+        Whether to enable the EnSight REST API. The default is ``False``.
+        This parameter is supported in EnSight 2024 R1 and later.
 
     """
 
@@ -83,9 +84,9 @@ class Launcher:
 
     @property
     def session_directory(self) -> str:
-        """The root directory for HTML files.
+        """Root directory for HTML files.
 
-        This directory contents can be accessed at hostname:port.
+        The contents of this directory can be accessed at ``hostname:port``.
         """
         return self._session_directory
 
@@ -94,19 +95,20 @@ class Launcher:
         self._session_directory = value
 
     def close(self, session: "Session") -> None:
-        """Shutdown the launched EnSight session
+        """Shut down the launched EnSight session.
 
-        Close all the associated sessions and then stop the launched EnSight instance.
+        This method closes all associated sessions and then stops the
+        launched EnSight instance.
 
         Parameters
         ----------
-        session: "pyensight.Session"
-            session to close.
+        session : "pyensight.Session"
+            Session to close.
 
         Raises
         ------
         RuntimeError
-            if the session was not launched by this launcher.
+            If the session was not launched by this launcher.
 
         """
         if session not in self._sessions:

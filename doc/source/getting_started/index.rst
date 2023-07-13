@@ -35,48 +35,54 @@ install the latest package with these commands:
    pip install .[dev]   # install development dependencies
 
 
-
 You can then start developing PyEnSight.
 
-To build and install pyensight:
+To build and install PyEnSight run these commands:
 
 .. code::
 
    python -m build   # build
-   # this will replace the editable install done previously. If you don't want to replace,
+   # this replaces the editable install done previously. If you don't want to replace,
    # switch your virtual environments to test the new install separately.
    pip install .[tests]   # install test dependencies
    pytest  # Run the tests
 
-Pre-commit setup:
 
+Pre-commit setup
+----------------
 ``pre-commit`` is a multi-language package manager for pre-commit hooks.
 
 
-To install pre-commit into your git hooks, run:
+To install pre-commit into your git hooks, run this command:
 
 .. code::
 
    pre-commit install
 
-pre-commit will now run on every commit. Every time you clone a project using pre-commit, this should always be the first thing you do.
+``pre-commit`` now runs on every commit. Every time you clone a project
+using ``pre-commit``, running the preceding command is always the first
+thing that you should do.
 
-If you want to manually run all pre-commit hooks on a repository, run:
+If you want to manually run all pre-commit hooks on a repository, run
+this command:
 
 .. code::
 
    pre-commit run --all-files
 
-This will run a bunch of formatters on your source files.
 
-To run individual hooks, use:
+A bunch of formatters run on your source files.
+
+To run individual hooks, use this command:
 
 .. code::
 
    pre-commit run <hook_id>
 
-``<hook_id>`` can be obtained from ``.pre-commit-config.yaml``.
-The first time pre-commit runs on a file, it will automatically download, install, and run the hook.
+
+The ``<hook_id>`` can be obtained from the ``.pre-commit-config.yaml`` file.
+The first time ``pre-commit`` runs on a file, it automatically downloads,
+installs, and runs the hook.
 
 
 Start the EnSight session

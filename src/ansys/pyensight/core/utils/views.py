@@ -29,7 +29,7 @@ if TYPE_CHECKING:
 
 
 class Views:
-    """Controls the view in the current EnSight session."""
+    """Controls the view in the current EnSight ``Session`` instance."""
 
     def __init__(self, ensight: Union["ensight_api.ensight", "ensight"]):
         self.ensight = ensight

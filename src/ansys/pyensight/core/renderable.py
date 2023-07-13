@@ -1,7 +1,7 @@
-"""Renderable module
+"""Renderable module.
 
-Interface to create objects in the EnSight session that can be displayed
-via HTML over the websocketserver interface.
+This module provides the interface for creating objects in the EnSight session
+that can be displayed via HTML over the websocket server interface.
 """
 import os
 import shutil
@@ -16,18 +16,37 @@ if TYPE_CHECKING:
 
 
 class Renderable:
-    """Generate HTML pages for renderable entities
+    """Generates HTML pages for renderable entities.
 
     This class provides the underlying HTML remote webpage generation for
-    the Session 'show()' method.  The approach is to generate the renderable
-    in the EnSight session and make the artifacts available via the websocketserver.
-    The artifacts are then wrapped with simple HTML pages (also served up by
-    websocket server) which can be used to populate iframes, etc.
+    the :func:`show<ansys.pyensight.core.Session.show>` method. The approach
+    is to generate the renderable in the EnSight session and make the
+    artifacts available via the websocket server. The artifacts are then
+    wrapped with simple HTML pages (also served up by the websocket server).
+    These HTML pages can then be used to populate iframes.
 
     Parameters
     ----------
     session :
-        The pyensight session to generate the renderables for
+        PyEnSight session to generate renderables for.
+    cell_handle :
+        The default is ``None``.
+    width : int, optional
+        The default is ``None``.
+    height : int, optional
+        The default is ``None``.
+    temporal : bool, optional
+        Whether to include all timesteps in an interactive WebGL
+        -based browser viewer. The default is ``False``.
+    aa : int, optional
+        Number of antialiasing passes to use when rendering images.
+        The default is ``1``.
+    fps : float, optional
+        Number of frames per second to use for animation playback. The
+        default is ``30.0``.
+    num_frames : int, optional
+        Number of frames of static timestep to record for animation playback.
+        The default is ``None``.
 
     """
 
@@ -68,36 +87,36 @@ class Renderable:
 
     @no_type_check
     def _repr_pretty_(self, p: "pretty", cycle: bool) -> None:
-        """Support the pretty module for better IPython support
+        """Support the pretty module for better IPython support.
 
         Parameters
         ----------
-        p: "pretty" :
-            pretty flag.
-        cycle: bool :
-            cycle flag.
+        p : text, optional
+            Pretty flag. The default is ``"pretty"``.
+        cycle : bool, optional
+            Cycle flag. The default is ``None``.
 
         """
         name = self.__class__.__name__
         p.text(f"{name}( url='{self._url}' )")
 
     def _generate_filename(self, suffix: str) -> Tuple[str, str]:
-        """Create new session specific files and urls
+        """Create new session-specific files and URLs.
 
         Every time this method is called, a new filename (on the EnSight host)
-        and the associated URL for that file are generated.  The caller
+        and the associated URL for that file are generated. The caller
         provides the suffix for the names.
 
         Parameters
         ----------
         suffix: str
-            Suffix of the file
+            Suffix of the file.
 
         Returns
         -------
         Tuple[str, str]
-            the filename to use on the host system and the URL that accesses the
-            file via REST calls to websocketserver
+            Filename to use on the host system and the URL that accesses the
+            file via REST calls to the websocket server.
 
         """
         filename = f"{self._session.secret_key}_{self._guid}_{self._filename_index}{suffix}"
@@ -108,14 +127,14 @@ class Renderable:
         return pathname, filename
 
     def _generate_url(self) -> None:
-        """Build the remote HTML filename and associated URL
+        """Build the remote HTML filename and associated URL.
 
-        On the remote system the pathname to the HTML file will be:
+        On the remote system the, pathname to the HTML file is:
             {session_directory}/{session}_{guid}_{index}_{type}.html
-        The URL to the file (through the session HTTP server):
+        The URL to the file (through the session HTTP server) is:
             http://{system}:{websocketserverhtmlport}/{session}_{guid}_{index}_{type}.html
 
-        After this call, the _url and _url_remote_pathname will reflect those names.
+        After this call, ``_url`` and ``_url_remote_pathname`` reflect those names.
 
         """
         suffix = f"_{self._rendertype}.html"
@@ -127,16 +146,17 @@ class Renderable:
         self._url_remote_pathname = remote_pathname
 
     def _save_remote_html_page(self, html: str) -> None:
-        """Create an HTML webpage on the remote host
+        """Create an HTML webpage on the remote host.
 
-        Given a snippet of HTML, create a new file on the remote server with the
-        name generated by _generate_url().
-        The most common use is to generate an "iframe" wrapper around some html.
+        Given a snippet of HTML, create a file on the remote server with the
+        name generated by the ``_generate_url()`` method.
+        The most common use is to generate an "iframe" wrapper around some HTML
+        snippet.
 
         Parameters
         ----------
         html : str
-            The HTML snippet to be wrapped remotely
+            HTML snippet to wrap remotely.
 
         """
         # save "html" into a file on the remote server with filename .html
@@ -144,33 +164,33 @@ class Renderable:
         self._session.grpc.command(cmd, do_eval=False)
 
     def browser(self) -> None:
-        """Open a webbrowser page to display the renderable content"""
+        """Open a webbrowser page to display the renderable content."""
         if self._url:
             webbrowser.open(self._url)
 
     @property
     def url(self) -> Optional[str]:
-        """The URL to the renderable content"""
+        """URL to the renderable content."""
         return self._url
 
     def _default_size(self, width: int, height: int) -> Tuple[int, int]:
-        """Propose and return a size for a rectangle
+        """Propose and return a size for a rectangle.
 
         The renderable may have been constructed with user-supplied width and height
-        information.  If so, that information is returned.  If not, the width and
+        information. If so, that information is returned. If not, the width and
         height values passed to this method are returned.
 
         Parameters
         ----------
         width : int
-            The width value to be returned if the renderable does not have a width
+            Width value to return if the renderable does not have a width.
         height : int
-            The height value to be returned if the renderable does not have a height
+            Height value to return if the renderable does not have a height.
 
         Returns
         -------
         Tuple[int, int]
-            A tuple (width, height) of the size values to be used.
+            Tuple (width, height) of the size values to use.
 
         """
         out_w = self._width
@@ -182,11 +202,11 @@ class Renderable:
         return out_w, out_h
 
     def update(self) -> None:
-        """Update the visualization and display it
+        """Update the visualization and display it.
 
-        When this method is called, the graphics content will be updated to the
-        current EnSight instance state (e.g. an image might be re-captured).  The
-        URL of the content stays the same, but the content that URL displays is
+        When this method is called, the graphics content is updated to the
+        current EnSight instance state. For example, an image might be re-captured.
+        The URL of the content stays the same, but the content that the URL displays is
         updated.
 
         If the renderable was created in the context of a Jupyter notebook cell,
@@ -200,41 +220,44 @@ class Renderable:
             self._cell_handle.update(IFrame(src=self._url, width=width, height=height))
 
     def delete(self) -> None:
-        """Delete all the server resources for this renderable
+        """Delete all server resources for the renderable.
 
-        A renderable occupies resources in the EnSight session instance.  This
-        method will release those resources.  Once it is called, the renderable can
-        no longer be displayed.
+        A renderable occupies resources in the EnSight ``Session`` instance. This
+        method releases those resources. Once this method is called, the renderable
+        can no longer be displayed.
 
         Note
         ----
-        this method has not yet been implemented.
+        This method has not yet been implemented.
 
         """
         pass
 
     def download(self, dirname: str) -> List[str]:
-        """Download the content files for this renderable
+        """Download the content files for the renderable.
 
-        A renderable saves files (image, mpeg, geometry, etc) in the EnSight instance.
-        Normally, these files are accessed via the web page specified in the url property.
-        This method allows for those files to be downloaded to a local directory so they
-        can be used for other purposes. Note: any previously existing files with the
-        same name will be overwritten.
+        A renderable saves files (such as images, mpegs, and geometry) in the EnSight instance.
+        Normally, these files are accessed via the webpage specified in the URL property.
+        This method allows for those files to be downloaded to a local directory so that they
+        can be used for other purposes.
+
+        .. note::
+           Any previously existing files with the same name are overwritten.
 
         Parameters
         ----------
         dirname : str
-            The name of the existing directory to save the files into.
+            Name of the existing directory to save the files to.
 
 
         Returns
         -------
-            Download names.
+        list
+            List of names for the downloaded files.
 
         Examples
         --------
-        Download the png file generated by the image renderable
+        Download the PNG file generated by the image renderable.
 
         >>> img = session.show('image", width=640, height=480, aa=4)
         >>> names = img.download("/tmp")
@@ -251,12 +274,7 @@ class Renderable:
 
 
 class RenderableImage(Renderable):
-    """Image renderable.
-
-    Render an image on the EnSight host system and make it available via
-    a webpage.
-
-    """
+    """Renders an image on the EnSight host system and makes it available via a webpage."""
 
     def __init__(self, *args, **kwargs) -> None:
         """Initialize RenderableImage."""
@@ -274,14 +292,15 @@ class RenderableImage(Renderable):
     def update(self):
         """Update the image and display it.
 
-        If the renderable is part of a Jupyter cell, that cell is updated as an IFrame reference.
+        If the renderable is part of a Jupyter notebook cell, that cell is updated
+        as an iframe reference.
 
         """
         # save the image file on the remote host
         w, h = self._default_size(1920, 1080)
         cmd = f'ensight.render({w},{h},num_samples={self._aa}).save(r"""{self._png_pathname}""")'
         self._session.cmd(cmd)
-        # generate HTML page with file references local to the websocketserver root
+        # generate HTML page with file references local to the websocket server root
         html = '<body style="margin:0px;padding:0px;">\n'
         html += f'<img src="/{self._png_filename}">\n'
         html += "</body>\n"
@@ -291,11 +310,7 @@ class RenderableImage(Renderable):
 
 
 class RenderableDeepPixel(Renderable):
-    """Deep Image renderable.
-
-    Render a deep pixel image on the EnSight host system and make it available via
-    a webpage.
-    """
+    """Renders a deep pixel image on the EnSight host system and makes it available via a webpage."""
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -309,9 +324,10 @@ class RenderableDeepPixel(Renderable):
         self.update()
 
     def update(self):
-        """Update the deep image and display it.
+        """Update the deep pixel image and display it.
 
-        If the renderable is part of a Jupyter cell, that cell is updated as an IFrame reference.
+        If the renderable is part of a Jupyter notebook cell, that cell is updated as
+        an iframe reference.
         """
         # save the (deep) image file
         w, h = self._default_size(1920, 1080)
@@ -341,10 +357,7 @@ class RenderableDeepPixel(Renderable):
 
 
 class RenderableMP4(Renderable):
-    """Animation renderable.
-
-    Render the timesteps of the current dataset into an mp4 file and view the results.
-    """
+    """Renders the timesteps of the current dataset into an MP4 file and displays the results."""
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -361,7 +374,8 @@ class RenderableMP4(Renderable):
     def update(self):
         """Update the animation and display it.
 
-        If the renderable is part of a Jupyter cell, that cell is updated as an IFrame reference.
+        If the renderable is part of a Jupyter notebook cell, that cell is updated as an
+        iframe reference.
 
         """
         # save the image file on the remote host
@@ -408,7 +422,7 @@ class RenderableMP4(Renderable):
         self._session.ensight.file.animation_reset_keyframe("OFF")
         self._session.ensight.file.save_animation()
 
-        # generate HTML page with file references local to the websocketserver root
+        # generate HTML page with file references local to the websocket server root
         html = '<body style="margin:0px;padding:0px;">\n'
         html += f'<video width="{w}" height="{h}" controls>\n'
         html += f'    <source src="/{self._mp4_filename}" type="video/mp4" />\n'
@@ -421,9 +435,7 @@ class RenderableMP4(Renderable):
 
 
 class RenderableWebGL(Renderable):
-    """WebGL renderable.
-
-    Render an AVZ file on the EnSight host system and make it available via
+    """Renders an AVZ file (WebGL renderable) on the EnSight host system and makes it available via
     a webpage.
     """
 
@@ -439,9 +451,10 @@ class RenderableWebGL(Renderable):
         self.update()
 
     def update(self):
-        """Update the webgl geometry and display it.
+        """Update the WebGL geometry and display it.
 
-        If the renderable is part of a Jupyter cell, that cell is updated as an IFrame reference.
+        If the renderable is part of a Jupyter notebook cell, that cell is updated as
+        an iframe reference.
         """
         # save the .avz file
         self._session.ensight.part.select_all()
@@ -457,7 +470,7 @@ class RenderableWebGL(Renderable):
         self._session.ensight.savegeom.step_by(1)
         # Save the file
         self._session.ensight.savegeom.save_geometric_entities(self._avz_pathname)
-        # generate HTML page with file references local to the websocketserver root
+        # generate HTML page with file references local to the websocket server root
         html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
         html += f"<ansys-nexus-viewer src='/{self._avz_filename}'></ansys-nexus-viewer>\n"
         # refresh the remote HTML
@@ -466,10 +479,7 @@ class RenderableWebGL(Renderable):
 
 
 class RenderableVNC(Renderable):
-    """Remote rendering (VNC) renderable.
-
-    Generate a URL that can be used to connect to the EnSight VNC remote image renderer.
-    """
+    """Generates a URL that can be used to connect to the EnSight VNC remote image renderer."""
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -479,7 +489,8 @@ class RenderableVNC(Renderable):
     def update(self):
         """Update the remote rendering widget and display it.
 
-        If the renderable is part of a Jupyter cell, that cell is updated as an IFrame reference.
+        If the renderable is part of a Jupyter notebook cell, that cell is updated as an
+        iframe reference.
 
         """
         url = f"http://{self._session.hostname}:{self._session.html_port}"
@@ -490,11 +501,7 @@ class RenderableVNC(Renderable):
 
 
 class RenderableEVSN(Renderable):
-    """Remote rendering scene capture (VNC) renderable.
-
-    Generate a URL that can be used to connect to the EnVision VNC remote image renderer.
-
-    """
+    """Generates a URL that can be used to connect to the EnVision VNC remote image renderer."""
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -513,7 +520,8 @@ class RenderableEVSN(Renderable):
     def update(self):
         """Update the remote rendering widget and display it.
 
-        If the renderable is part of a Jupyter cell, that cell is updated as an IFrame reference.
+        If the renderable is part of a Jupyter notebook cell, that cell is updated as an
+        iframe reference.
 
         """
         # Save the proxy image
@@ -554,12 +562,7 @@ class RenderableEVSN(Renderable):
 
 
 class RenderableSGEO(Renderable):
-    """Incremental scene graph renderable.
-
-    A webGL-based renderable that leverages the sgeo format/viewer interface
-    for progressive geometry transport.
-
-    """
+    """Generates a WebGL-based renderable that leverages the SGEO format/viewer interface for progressive geometry transport."""
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -583,10 +586,11 @@ class RenderableSGEO(Renderable):
     def update(self):
         """Generate a SGEO geometry file.
 
-        Cause the EnSight session to generate an updated geometry.sgeo file and content and
-        cause any attached webGL viewer to (eventually) display the results.
+        This method causes the EnSight session to generate an updated geometry SGEO
+        file and content and then display the results in any attached WebGL viewer.
 
-        If the renderable is part of a Jupyter cell, that cell is updated as an IFrame reference.
+        If the renderable is part of a Jupyter notebook cell, that cell is updated as an
+        iframe reference.
 
         """
         # Ask for an update to be generated
@@ -625,7 +629,7 @@ class RenderableSGEO(Renderable):
         self._revision += 1
 
     def _update_proxy(self):
-        """Replace the current proxy image with the current view"""
+        """Replace the current proxy image with the current view."""
         # save a proxy image
         w, h = self._default_size(1920, 1080)
         remote_filename = f"{self._sgeo_base_pathname}/proxy.png"
