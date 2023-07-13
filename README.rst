@@ -57,7 +57,7 @@ Install ansys-ensight with:
 
 .. code::
 
-   pip install ansys-ensight
+   pip install ansys-ensight-core
 
 
 Development
@@ -72,8 +72,7 @@ To clone and install in development mode:
    pip install virtualenv
    virtualenv venv  # create virtual environment
    source venv/bin/activate  # (.\venv\Scripts\activate for Windows shell)
-   pip install -r requirements/dev.txt  # install dependencies
-   make install-dev  # install pyensight in editable mode
+   pip install .[dev]   # install development dependencies
 
 Now you can start developing pyensight.
 
@@ -81,13 +80,11 @@ To build and install pyensight:
 
 .. code::
 
-   make clean  # clean
-   make build   # build
+   python -m build   # build
    # this will replace the editable install done previously. If you don't want to replace,
    # switch your virtual environments to test the new install separately.
-   make install
-   make smoketest  # test import
-
+   pip install .[tests]   # install test dependencies
+   pytest  # Run the tests
 
 Pre-commit setup:
 

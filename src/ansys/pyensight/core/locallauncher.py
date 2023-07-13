@@ -143,6 +143,21 @@ class LocalLauncher(Launcher):
 
             use_egl = self._use_egl()
 
+            # to aid in debugging PYENSIGHT_DEBUG can be set to a non-zero integer
+            popen_common = dict(
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                cwd=self.session_directory,
+                env=local_env,
+            )
+            if "PYENSIGHT_DEBUG" in os.environ:
+                try:
+                    if int(os.environ["PYENSIGHT_DEBUG"]) > 0:
+                        del popen_common["stdout"]
+                        del popen_common["stderr"]
+                except ValueError:
+                    pass
+
             if is_windows:
                 cmd[0] += ".bat"
             if use_egl:
@@ -153,14 +168,7 @@ class LocalLauncher(Launcher):
                 cmd.append(str(int(self._use_sos)))
             # cmd.append("-minimize_console")
             logging.debug(f"Starting EnSight with : {cmd}\n")
-            self._ensight_pid = subprocess.Popen(
-                cmd,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-                close_fds=True,
-                cwd=self._session_directory,
-                env=local_env,
-            ).pid
+            self._ensight_pid = subprocess.Popen(cmd, **popen_common).pid
 
             # Launch websocketserver
 
@@ -207,23 +215,8 @@ class LocalLauncher(Launcher):
             if is_windows:
                 startupinfo = subprocess.STARTUPINFO()
                 startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-                self._websocketserver_pid = subprocess.Popen(
-                    cmd,
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                    cwd=self.session_directory,
-                    env=local_env,
-                    startupinfo=startupinfo,
-                ).pid
-            else:
-                self._websocketserver_pid = subprocess.Popen(
-                    cmd,
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                    cwd=self.session_directory,
-                    close_fds=True,
-                    env=local_env,
-                ).pid
+                popen_common["startupinfo"] = startupinfo
+            self._websocketserver_pid = subprocess.Popen(cmd, **popen_common).pid
 
         # build the session instance
         logging.debug(

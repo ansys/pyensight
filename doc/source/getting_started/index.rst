@@ -12,14 +12,14 @@ on the Ansys website.
 
 Installation
 ------------
-The ``ansys-ensight`` package supports Python 3.8 through
+The ``ansys-ensight-core`` package supports Python 3.8 through
 Python 3.11 on Windows and Linux.
 
 Install the latest package with this code:
 
 .. code::
 
-   pip install ansys-ensight
+   pip install ansys-ensight-core
 
 
 If you plan on doing local *development* of PyEnSight on Linux,
@@ -31,27 +31,52 @@ install the latest package with this code:
    cd pyensight
    pip install virtualenv
    virtualenv venv  # create virtual environment
-   source venv/bin/activate
-   pip install -r requirements/dev.txt  # install dependencies
-   make install-dev  # install pyensight in editable mode
+   source venv/bin/activate  # (.\venv\Scripts\activate for Windows shell)
+   pip install .[dev]   # install development dependencies
 
-
-If you plan on doing local *development* of PyEnSight on Windows,
-build the wheel using a ``pybuild.py`` script like this one:
-
-.. code::
-
-   git clone https://github.com/ansys/pyensight
-   cd pyensight
-   C:\Python310\python.exe -m pip install virtualenv
-   C:\Python310\Scripts\virtualenv.exe venv
-   .\venv\Scripts\activate
-   .\venv\Scripts\pip.exe install -r .\requirements\dev.txt
-   .\venv\Scripts\python.exe pybuild.py clean
-   .\venv\Scripts\python.exe pybuild.py build
 
 
 Now you can start developing PyEnSight.
+
+To build and install pyensight:
+
+.. code::
+
+   python -m build   # build
+   # this will replace the editable install done previously. If you don't want to replace,
+   # switch your virtual environments to test the new install separately.
+   pip install .[tests]   # install test dependencies
+   pytest  # Run the tests
+
+Pre-commit setup:
+
+``pre-commit`` is a multi-language package manager for pre-commit hooks.
+
+
+To install pre-commit into your git hooks, run:
+
+.. code::
+
+   pre-commit install
+
+pre-commit will now run on every commit. Every time you clone a project using pre-commit, this should always be the first thing you do.
+
+If you want to manually run all pre-commit hooks on a repository, run:
+
+.. code::
+
+   pre-commit run --all-files
+
+This will run a bunch of formatters on your source files.
+
+To run individual hooks, use:
+
+.. code::
+
+   pre-commit run <hook_id>
+
+``<hook_id>`` can be obtained from ``.pre-commit-config.yaml``.
+The first time pre-commit runs on a file, it will automatically download, install, and run the hook.
 
 
 Start the EnSight session
@@ -99,7 +124,7 @@ render the current scene into a PNG-formatted stream:
 
 .. code:: python
 
-    session.load_data(r'D:\data\CFX\example_data.res')
+    session.load_data('D:/data/CFX/example_data.res')
     image_data = session.render(1920, 1080, aa=4)
     with open("image.png", "wb") as f:
         f.write(image_data)

@@ -178,10 +178,14 @@ class Session:
         atexit.register(self.close)
 
     def __repr__(self):
+        # if this is called from in the ctor, self.launcher might be None.
+        session_dir = ""
+        if self.launcher:
+            session_dir = self.launcher.session_directory
         s = f"Session(host='{self.hostname}', secret_key='{self.secret_key}', "
         s += f"sos={self.sos}, rest_api={self.rest_api}, "
         s += f"html_port={self.html_port}, grpc_port={self._grpc_port}, "
-        s += f"ws_port={self.ws_port}, session_directory=r'{self.launcher.session_directory}')"
+        s += f"ws_port={self.ws_port}, session_directory=r'{session_dir}')"
         return s
 
     def _establish_connection(self, validate: bool = False) -> None:
