@@ -12,14 +12,14 @@ on the Ansys website.
 
 Installation
 ------------
-The ``ansys-ensight-core`` package supports Python 3.8 through
+The ``ansys-pyensight-core`` package supports Python 3.8 through
 Python 3.11 on Windows and Linux.
 
 Install the latest package with this code:
 
 .. code::
 
-   pip install ansys-ensight-core
+   pip install ansys-pyensight-core
 
 
 If you plan on doing local *development* of PyEnSight on Linux,
