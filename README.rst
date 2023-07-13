@@ -89,8 +89,7 @@ commands:
    pip install virtualenv
    virtualenv venv  # create virtual environment
    source venv/bin/activate  # (.\venv\Scripts\activate for Windows shell)
-   pip install -r requirements/dev.txt  # install dependencies
-   make install-dev  # install pyensight in editable mode
+   pip install .[dev]   # install development dependencies
 
 A developer installation allows you to edit ``ansys-pyensight`` files locally.
 Any changes that you make are reflected in your setup after restarting the
@@ -100,13 +99,11 @@ To build and install PyEnSight, run these commands:
 
 .. code::
 
-   make clean  # clean
-   make build   # build
+   python -m build   # build
    # this will replace the editable install done previously. If you don't want to replace,
    # switch your virtual environments to test the new install separately.
-   make install
-   make smoketest  # test import
-
+   pip install .[tests]   # install test dependencies
+   pytest  # Run the tests
 
 Pre-commit setup
 ----------------
