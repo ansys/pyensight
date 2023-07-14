@@ -18,8 +18,8 @@ set the ``enable_rest_api`` keyword to ``True`` for the Launcher` subclass ctor.
    for release in EnSight 2024 R1.
 
 
-REST API enablment via PyEnSight
---------------------------------
+REST API enablement via PyEnSight
+---------------------------------
 
 You can start the REST API service via the PyEnSight local launcher::
 
