@@ -101,7 +101,7 @@ class Renderable:
         p.text(f"{name}( url='{self._url}' )")
 
     def _generate_filename(self, suffix: str) -> Tuple[str, str]:
-        """Create new session-specific files and URLs.
+        """Create session-specific files and URLs.
 
         Every time this method is called, a new filename (on the EnSight host)
         and the associated URL for that file are generated. The caller
