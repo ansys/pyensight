@@ -3,4 +3,4 @@
 Basic examples
 ==============
 
-These basic examples use the PyEnSight APIs to produce simple scenes.
+These basic examples use the PyEnSight API to produce simple scenes.

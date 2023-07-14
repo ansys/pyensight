@@ -1,21 +1,21 @@
 """
 .. _ref_design_points:
 
-Design Point Comparison
+Design point comparison
 =======================
 
 A common operation is to load two different datasets, usually design points,
-into the same EnSight session using separate cases.  In this example, two Fluent
-design points are loaded and displayed in different viewports. The difference
-between the temperature fields is computed and displayed in a third viewport.
+into the same EnSight session using separate cases. This example loads two Fluent
+design points and displays them in different viewports. It then computes the difference
+between the temperature fields and displays the result in a third viewport.
 
 """
 
 ###############################################################################
 # Start an EnSight session
 # ------------------------
-# Start by launching and connecting to an instance of EnSight.
-# In this case, we use a local installation of EnSight.
+# Launch and connect to an instance of EnSight.
+# This example uses a local EnSight installation.
 
 from ansys.pyensight.core import LocalLauncher
 
@@ -25,30 +25,25 @@ session = LocalLauncher().start()
 ###############################################################################
 # Load the data
 # -------------
-#
-# .. image:: /_static/00_compare_0.png
-#
-# Here we use a remote session to load the two datasets into different
-# cases.  Note the names of the parts that are loaded, but the parts are
-# displayed over the top of each other.  This step can take a minute or more
-# to download the data.
+# Use a remote session to load the two datasets into different cases.
+# Downloading the data can take a minute or more. Note the names of the parts
+# that are loaded. The parts are shown on top of each other.
 
 session.load_example("elbow_dp0_dp1.ens")
 session.show("image", width=800, height=600)
 print([p.PATHNAME for p in session.ensight.objs.core.PARTS])
 
 
+# .. image:: /_static/00_compare_0.png
+
 ###############################################################################
 # Create a trio of viewports
 # --------------------------
-#
-# .. image:: /_static/00_compare_1.png
-#
-# We will construct a pair of viewports at the top for case 0 and case 1.
-# A third viewport, filling the lower half of the window is created for the
-# display of the difference field.
+# This code constructs a pair of viewports at the top for case 0 and case 1.
+# It then creates a third viewport, which fill the lower half of the window,
+# for the difference field.
 
-# Create two more viewports (there is always one viewport)
+# Create two more viewports. (There is always one viewport.)
 session.ensight.objs.core.DEFAULTVPORT[0].createviewport()
 session.ensight.objs.core.DEFAULTVPORT[0].createviewport()
 # Make these viewports visible and grab references to the viewport objects.
@@ -56,7 +51,7 @@ session.ensight.objs.core.VPORTS.set_attr(session.ensight.objs.enums.VISIBLE, Tr
 vp0 = session.ensight.objs.core.VPORTS[0]
 vp1 = session.ensight.objs.core.VPORTS[1]
 vp2 = session.ensight.objs.core.VPORTS[2]
-# Position the viewports by setting their WIDTH, HEIGHT, ORIGINX and ORIGINY attributes.
+# Position the viewports by setting their WIDTH, HEIGHT, ORIGINX, and ORIGINY attributes.
 vp0.WIDTH = 0.5
 vp1.WIDTH = 0.5
 vp2.WIDTH = 1.0
@@ -68,7 +63,7 @@ vp1.ORIGINX = 0.5
 vp1.ORIGINY = 0.5
 vp2.ORIGINX = 0.0
 vp2.ORIGINY = 0.0
-# Link the transforms of all the viewports to each other
+# Link the transforms of all the viewports to each other.
 session.ensight.objs.core.VPORTS.set_attr(session.ensight.objs.enums.LINKED, True)
 # Hide all but the "fluid" parts
 session.ensight.objs.core.PARTS.set_attr(session.ensight.objs.enums.VISIBLE, False)
@@ -79,27 +74,26 @@ session.ensight.objs.core.PARTS["fluid"].set_attr(
 session.show("image", width=800, height=600)
 
 
+# .. image:: /_static/00_compare_1.png
+
 ###############################################################################
 # Color and assign parts to specific viewports
 # --------------------------------------------
+# This code colors the "fluid" parts using the ``Static_Temperature`` variable
+# and assigns specific parts to specific viewports. It then loads the
+# dataset-created fluid parts for both loaded cases.
 #
-# .. image:: /_static/00_compare_2.png
-#
-# We color the "fluid" parts using the "Static_Temperature" variable and
-# assign specific parts to specific viewports.
-#
-# Loading the datasets created fluid parts for both of the loaded cases.
-# We need another part to display the temperature difference variable
-# in the lower pane. For this purpose, we use the "LPART" (part loader part)
-# to create a second instance of the first case "fluid" part.  We will
-# compute the difference field on this part to make it easier to display
-# all three at the same time.
+# Because another part is needed to display the temperature difference variable
+# in the lower pane, the code uses the ``LPART`` (part loader part) to create a
+# second instance of the fluid part in the first case. The code then computes
+# the difference field on this part to make it easier to display all three
+# at the same time.
 
 fluid0 = session.ensight.objs.core.PARTS["fluid"][0]
 fluid1 = session.ensight.objs.core.PARTS["fluid"][1]
 
-# Using an LPART: we find the ENS_LPART instance in the first case
-# for the part named "fluid".  If we load() this object, we get a
+# Using ``LPART``, find the ``ENS_LPART`` instance in the first case
+# for the part named "fluid".  Load this object to get a
 # new instance of the case 0 "fluid" mesh.
 fluid0_diff = session.ensight.objs.core.CASES[0].LPARTS.find("fluid")[0].load()
 fluid0_diff.ELTREPRESENTATION = session.ensight.objs.enums.BORD_FULL
@@ -116,16 +110,17 @@ fluid1.VIEWPORTVIS = session.ensight.objs.enums.VIEWPORT01
 fluid0_diff.VIEWPORTVIS = session.ensight.objs.enums.VIEWPORT02
 session.show("image", width=800, height=600)
 
+# .. image:: /_static/00_compare_2.png
 
 ###############################################################################
-# Compute the difference field
-# ----------------------------
+# Compute difference field
+# ------------------------
 #
 # .. image:: /_static/00_compare_3.png
 #
-# Use the "CaseMapDiff" calculator function to compute the different between the
-# "Static_Temperature" fields between the two design points. This defines a new
-# field "Temperature_Difference" on the "fluid0_diff" part.  Color that part
+# Use the "CaseMapDiff" calculator function to compute the difference between the
+# ``Static_Temperature`` fields between the two design points. This defines a new
+# field, ``Temperature_Difference``, on the ``fluid0_diff`` part. Color that part
 # by the resulting variable.
 
 temperature_diff = session.ensight.objs.core.create_variable(
@@ -139,23 +134,21 @@ session.show("image", width=800, height=600)
 
 
 ###############################################################################
-# Adjust palette range
-# --------------------
-#
-# .. image:: /_static/00_compare_4.png
-#
+# Adjust palette limits
+# ---------------------
 # To make the visualization a bit easier to interpret, adjust the palette limits
-# to the nearest factor of five.  Further adjustments to rotation, palette location,
-# etc can be made to improve visual appeal of the imagery.
+# to the nearest factor of five. To improve visual appeal of the imagery, you could
+# make also make adjustments to rotation, palette location, and more.
 
 limits = [(round(v / 5.0) * 5) for v in temperature_diff.MINMAX]
 temperature_diff.PALETTE[0].MINMAX = limits
 remote = session.show("remote")
 
+# .. image:: /_static/00_compare_4.png
 
 ###############################################################################
 # Close the session
 # -----------------
-# Close the connection and shut down the EnSight instance
+# Close the connection and shut down the EnSight instance.
 
 session.close()

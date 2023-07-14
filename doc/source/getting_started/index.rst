@@ -10,8 +10,8 @@ To use PyEnSight, you must have a locally installed and licensed copy of Ansys E
 To obtain a copy, see the `Ansys EnSight <https://www.ansys.com/products/fluids/ansys-ensight>`_
 page on the Ansys website.
 
-Installation
-------------
+Install the package
+-------------------
 The ``ansys-pyensight-core`` package supports Python 3.8 through
 Python 3.11 on Windows and Linux.
 
@@ -37,19 +37,19 @@ install the latest package with these commands:
 
 You can then start developing PyEnSight.
 
-To build and install PyEnSight run these commands:
+To build and install PyEnSight, run these commands:
 
 .. code::
 
    python -m build   # build
-   # this replaces the editable install done previously. If you don't want to replace,
-   # switch your virtual environments to test the new install separately.
+   # this replaces the editable installation done previously. If you don't want
+   # to replace, switch your virtual environments to test the new install separately.
    pip install .[tests]   # install test dependencies
    pytest  # Run the tests
 
 
-Pre-commit setup
-----------------
+Set up ``pre-commit``
+---------------------
 ``pre-commit`` is a multi-language package manager for pre-commit hooks.
 
 
@@ -59,8 +59,8 @@ To install pre-commit into your git hooks, run this command:
 
    pre-commit install
 
-``pre-commit`` now runs on every commit. Every time you clone a project
-using ``pre-commit``, running the preceding command is always the first
+``pre-commit`` now runs on every commit. Each time that you clone a repository,
+running the preceding command to install ``pre-commit`` is always the first
 thing that you should do.
 
 If you want to manually run all pre-commit hooks on a repository, run

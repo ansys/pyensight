@@ -66,7 +66,7 @@ Mises
 namespace
 Nathalie
 num_points
-Numpy
+NumPy
 numpy
 Oddy
 Q_criteria

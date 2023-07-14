@@ -1,28 +1,28 @@
 """
 .. _ref_queries_example:
 
-Basic EnSight Queries
-=====================
+Queries
+=======
 
-A query is basically a collection of x,y values.  In addition to the raw
-values, each point potentially a location in 3D space and a notion of
-"gaps" between values.  In most cases a query is drawn as a line on
-an EnSight plotter object.  It can also be a drawn as points and,
-using the "gaps", a collection of independent line groups.
+A query is basically a collection of x,y values. In addition to the raw
+values, each point is potentially a location in 3D space and a notion of
+"gaps" between values. In most cases, a query is drawn as a line on
+an EnSight plotter object. It can also be drawn as points and,
+using the "gaps", as a collection of independent line groups.
 
 The X and Y values can be sampled variable values and the 'X' value
-can be Time or a Distance along the line tool or a 1D part.  In this
-example, time and line tool queries are made.  The queries are displayed
-on plotter objects and the query values can be manipulated with tools
-like Numpy.
+can be time or a distance along the line tool or a 1D part.  This example
+makes time and line tool queries, and results are displayed
+on plotter objects. The query values can be manipulated with tools
+like NumPy.
 
 """
 
 ###############################################################################
 # Start an EnSight session
 # ------------------------
-# Start by launching and connecting to an instance of EnSight.
-# In this case, we use a local installation of EnSight.
+# Launch and connect to an instance of EnSight.
+# This example uses a local EnSight installation.
 
 from ansys.pyensight.core import LocalLauncher
 import numpy as np
@@ -33,12 +33,9 @@ session = LocalLauncher().start()
 ###############################################################################
 # Load the data
 # -------------
-#
-# .. image:: /_static/01_queries_0.png
-#
-# Here we use a remote session to load a simple time-varying dataset of
-# waterflow over a break.  Load the data and display the 'p' variable
-# as well as element lines on the 3D part.
+# This code uses a remote session to load a simple time-varying dataset of
+# waterflow over a break. It loads the data and displays the ``p`` variable
+# and element lines on the 3D part.
 
 session.load_example("waterbreak.ens")
 # Get the core part and variable objects
@@ -64,14 +61,17 @@ session.ensight.view_transf.rotate(4.83516455, 3.42857122, 0)
 # Display it
 session.show("image", width=800, height=600)
 
+
+# .. image:: /_static/01_queries_0.png
+
 ###############################################################################
 # Create a query using the line tool
 # ----------------------------------
-#
-# Create a Pressure vs Distance query by sampling a line segment
-# using the 'line_loc()' method to set the endpoints. This is a
-# 'generated' query that samples the selected variable on the
-# selected part at 20 points over the length of the line segment.
+# Create a "Pressure vs Distance" query by sampling a line segment using
+# the :func:`line_loc<ansys.api.pyensight.ensight_api.query_ent_var.line_loc>`
+# method to set the endpoints. This is a "generated" query that samples the
+# selected variable on the selected part at 20 points over the length of the
+# line segment.
 
 session.ensight.part.select_begin(part.PARTNUMBER)
 session.ensight.query_ent_var.begin()
@@ -99,14 +99,11 @@ print(line_query, line_query.QUERY_DATA["xydata"])
 ###############################################################################
 # Display the query on a plotter
 # ------------------------------
-#
-# .. image:: /_static/01_queries_1.png
-#
-# Queries can be displayed on a "plotter".  The plotter defines a set of axes
-# and various display features.  Here, a new plotter is created and the query
-# is added to the plotter. We then override many of the plotter visual features.
-# We set the axes scaling explicitly, create a background grid and tweak the
-# display of axis text.
+# Queries can be shown on a "plotter". The plotter defines a set of axes
+# and various display features. This code creates a plotter is adds the query
+# to this plotter. It then override many of the plotter visual features.
+# For example, it sets the axes scaling explicitly, creates a background grid,
+# and adjusts the display of the axis text.
 
 line_plot = session.ensight.objs.core.defaultplot[0].createplotter()
 line_query.addtoplot(line_plot)
@@ -127,30 +124,30 @@ line_plot.AXISYMIN = -200.0
 line_plot.AXISYMAX = 2200.0
 session.show("image", width=800, height=600)
 
+# .. image:: /_static/01_queries_1.png
 
 ###############################################################################
 # Query element values over time
 # ------------------------------
-#
-# EnSight can query specific points, nodes and elements over all timesteps.
-# The result is a query with Time as the X axis.  We select 3 elements at
-# start of break and generate first 3 probes (so the specific sampling points
-# can be seen).  We then generate three queries.  Note that the probes are
-# not strictly needed, they just help make the location of the query more
-# obvious.
+# EnSight can query specific points, nodes, and elements over all timesteps.
+# The result is a query with ``time`` as the X axis. This code select three elements
+# at the start of the break and then generates three probes (so the specific
+# sampling points can be seen). While these probes are not strictly needed,
+# they help make the location of the query more obvious. Lastly, the code
+# generate three queries.
 
 elem_ids = [134, 398, 662]
 session.ensight.part.select_begin(part.PARTNUMBER)
 session.ensight.query_interact.search("exact")
 session.ensight.query_interact.query("element")
 session.ensight.query_interact.number_displayed(3)
-# Create 3 element probes using pre-selected element numbers
+# Create three element probes using preselected element numbers
 for id in elem_ids:
     session.ensight.query_interact.create(id)
 # Make the probe locations a bit more visible
 session.ensight.objs.core.PROBES[0].LABELALWAYSONTOP = True
 
-# Make three queries.  Again, a generated query but with
+# Make three queries. Again, a generated query but with
 # "time" as "variable 2" and specific simulation start and
 # end times specified
 session.ensight.part.select_begin(part.PARTNUMBER)
@@ -179,11 +176,8 @@ print(elem_queries)
 ###############################################################################
 # Plot the element queries
 # ------------------------
-#
-# .. image:: /_static/01_queries_2.png
-#
-# Like before, we create another plotter and then add each query to
-# the new plotter.  Playback the result as an mpeg 4 animation.
+# This code creates another plotter and adds each query to this new plotter.
+# It then plays back the result as an MPEG4 animation.
 
 elem_plot = session.ensight.objs.core.defaultplot[0].createplotter(
     xtitle="Time", ytitle=var.DESCRIPTION
@@ -198,17 +192,16 @@ elem_plot.AXISYGRIDTYPE = 1
 session.show("animation", width=800, height=600, fps=5)
 
 
+# .. image:: /_static/01_queries_2.png
+
 ###############################################################################
-# Manipulate a query using Numpy
+# Manipulate a query using NumPy
 # ------------------------------
-#
-# .. image:: /_static/01_queries_3.png
-#
-# The QUERY_DATA attribute provides access to the raw query data.  We use
-# it to access the raw data and use the Numpy polynomial curve fitting
-# functions to approximate the data.  Finally, we create a 'data' query
-# (not generated) that we fill in with the newly created query.  As before,
-# we get the query object and add it to the existing plot
+# The ``QUERY_DATA`` attribute provides access to the raw query data. This code
+# accesses the raw data and uses the NumPy polynomial curve-fitting
+# functions to approximate the data. It then creates a "data" query
+# (not generated) that is filled in with the newly created query. Lastly, it
+# gets the query object and adds it to the existing plot.
 
 session.ensight.objs.core.SOLUTIONTIME = 0.7
 data = np.array(line_query.QUERY_DATA["xydata"])
@@ -221,9 +214,11 @@ fit_query.addtoplot(line_plot)
 session.show("remote")
 
 
+# .. image:: /_static/01_queries_3.png
+
 ###############################################################################
 # Close the session
 # -----------------
-# Close the connection and shut down the EnSight instance
+# Close the connection and shut down the EnSight instance.
 
 session.close()

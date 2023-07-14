@@ -32,7 +32,7 @@ EnSight provides these key features:
 - High-quality rendering
 - Embedded Python scripting
 
-image:: /_static/pyensight_title.png
+image:: https://s3.amazonaws.com/www3.ensight.com/build/media/pyensight_title.png
 
 What is PyEnSight?
 ------------------
