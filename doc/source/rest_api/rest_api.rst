@@ -18,10 +18,10 @@ set the ``enable_rest_api`` keyword to ``True`` for the Launcher` subclass ctor.
    for release in EnSight 2024 R1.
 
 
-Enabling the API via PyEnSight
-------------------------------
+REST API enablment via PyEnSight
+--------------------------------
 
-The REST API service can be started via the PyEnSight local launcher::
+You can start the REST API service via the PyEnSight local launcher::
 
     >>> from ansys.pyensight.core import LocalLauncher
     >>> s = LocalLauncher(enable_rest_api=True).start()
@@ -48,7 +48,7 @@ The string from the previous example can be used via Python ``requests`` to exec
 The REST calls use the REST API to run the ``ensight.objs.core.PARTS`` command and output
 something like ``['@ENSOBJ=1022@']``, a reference to object 1022. What the query
 option returns is then used to return the ``DESCRIPTION`` and ``VISIBLE`` attributes. In this
-case, the output for the second PUT is: ``[['Computational mesh', True]]``.
+case, the output for the second ``PUT`` is ``[['Computational mesh', True]]``.
 
 .. note::
 
@@ -81,7 +81,7 @@ positional arguments.
 
 The function also makes use of the ``numpy`` module. A function must either import
 the module inside of the function or include the names of the modules in the ``imports``
-query options as a comma-separated list of module names. Because Numpy arrays do not
+query options as a comma-separated list of module names. Because numpy arrays do not
 directly support serialization to JSON, a list is used for the returned value.
 
 Once the function has been defined, it can be called like this::
@@ -144,10 +144,9 @@ If you supply tokens using both methods, the token in the header is used.
 REST API reference
 ------------------
 
-The REST API shown here is a bit simplistic, but the OpenAPI YAML description of the
-API (appropriate for use with `Swagger <https://editor.swagger.io/>`_), can be
-downloaded from `here <https://ensight.docs.pyansys.com/dev/_static/ensight_rest_v1.yaml>`_.
-
+The REST API shown here is a bit simplistic, but you can access the
+`OpenAPI YAML file <https://ensight.docs.pyansys.com/dev/_static/ensight_rest_v1.yaml>`_
+for the API, which is appropriate for use with `Swagger <https://editor.swagger.io/>`_).
 
 .. openapi:: ensight_rest_v1.yaml
     :examples:
