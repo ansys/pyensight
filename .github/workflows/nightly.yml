@@ -56,9 +56,13 @@ jobs:
           retention-days: 7
           if-no-files-found: error
 
+      # Upload a renamed wheel to the private Azure PyPi for nightly consumption
+      # in EnSight
       - name: Upload to Ansys Azure PyPi
         if: ${{ !env.ACT }}
-        run: twine upload --verbose dist/*
+        run: |
+          python rename_nightly_wheel.py
+          twine upload --verbose dist/*.whl
         env:
           TWINE_USERNAME: PAT
           TWINE_PASSWORD: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
