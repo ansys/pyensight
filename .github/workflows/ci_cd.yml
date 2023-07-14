@@ -150,9 +150,8 @@ jobs:
         uses: ansys/actions/release-pypi-private@v4
         with:
           library-name: ${{ env.PACKAGE_NAME }}
-          twine-username: "__token__"
           twine-token: ${{ secrets.PYPI_TOKEN }}
-    
+
       - name: Release to the public PyPI repository
         uses: ansys/actions/release-pypi-public@v4
         with:
