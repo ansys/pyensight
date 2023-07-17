@@ -36,8 +36,8 @@ Overview
 --------
 PyEnSight is a Python wrapper for EnSight_, the Ansys simulation
 postprocessor. It supports Pythonic access to EnSight so that you
-communicate directly with itEnSight from Python. With PyEnSight,
-you can perform these essential actions:
+communicate directly with it from Python. With PyEnSight, you can
+perform these essential actions:
 
 * Start a new EnSight session or connect to an existing one.
 * Read simulation data from any supported solver output format into the session.
@@ -71,7 +71,7 @@ with this command:
 
 .. code::
 
-   pip install ansys-ensight-core
+   pip install ansys-pyensight-core
 
 
 Developer installation
@@ -127,7 +127,7 @@ command:
 
    pre-commit run --all-files
 
-This runs a bunch of formatters on your source files.
+A bunch of formatters run on your source files.
 
 To run individual hooks, use this command, where ``<hook_id>`` is obtained from
 from the ``.pre-commit-config.yaml`` file:

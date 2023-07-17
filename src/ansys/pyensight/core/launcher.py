@@ -1,7 +1,7 @@
 """Launcher module.
 
 The Launcher module provides a base class responsible for managing an EnSight
-instance. Subclasses of the class implement specific launching paradighms.
+instance. Subclasses of the class implement specific launching paradigms.
 
 Examples:
     ::
@@ -25,7 +25,7 @@ if TYPE_CHECKING:
 # is used by getaddrinfo when dealing with unicode hostnames,
 # and in some cases, there appears to be a race condition
 # where threads will get a LookupError on getaddrinfo() saying
-# that the encoding doesn't exist.  Using the idna encoding before
+# that the encoding doesn't exist. Using the idna encoding before
 # running any CLI code (and any threads it may create) ensures that
 # the encodings.idna is imported and registered in the codecs registry,
 # which will stop the LookupErrors from happening.

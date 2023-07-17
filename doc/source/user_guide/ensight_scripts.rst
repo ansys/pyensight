@@ -4,10 +4,11 @@ EnSight Python scripts: Running and debugging
 =============================================
 
 EnSight supports the notion of a Python script, a parallel construct to the command language
-journaling script, the ``.enc`` file. This is a file of Python commands that can be directly
+journaling script (``.enc`` file). This script is a file of Python commands that can be directly
 run from the EnSight command line or via the Python script editor built into EnSight.
 Many EnSight Python scripts are written using the **Python** tab script editor in the command
 dialog, often by translating EnSight command language into Python via the built-in tools.
+
 Here is an example of such a script::
 
     ensight.legend.select_palette_begin("Coordinates")
@@ -24,7 +25,7 @@ Here is an example of such a script::
 The preceding script is effectively a line-by-line translation from the EnSight command
 language into the native Python bindings (:ref:`ref_cmdlang_native`). Such scripts can be
 executed by the script editor's **Run script** or **Import script as module** commands.
-As you might note, these scripts assume that the ``ensight`` module has been imported, making
+These scripts assume that the ``ensight`` module has been imported, making
 it difficult to run them from inside of a PyEnSight session, where the ``ensight`` module is a
 property of the :class:`Session<pyensight.Session>` object instance.
 
@@ -32,7 +33,7 @@ property of the :class:`Session<pyensight.Session>` object instance.
 Running EnSight Python scripts
 ------------------------------
 
-You can run scripts like the one in the preceding example in PyEnSight using the
+To run scripts like the one in the preceding example in PyEnSight, you use the
 :func:`run_script<ansys.pyensight.core.Session.run_script>` method. For example,
 assume that you have an EnSight Python script named ``"/home/ensight/example.py"``.
 You can use this code to run this script via the PyEnSight module::
@@ -60,7 +61,7 @@ named ``example.py``::
         print(vp.DESCRIPTION)
 
 
-In the same directory, assume that you have a launching script, ``runme.py``, with this content::
+In the same directory, assume that you have a launching script, ``runme.py``::
 
     from ansys.pyensight.core import LocalLauncher
 
@@ -81,17 +82,17 @@ Limitations
 It is important to note that there are some important differences between an EnSight Python
 script run in EnSight versus in an IDE via the PyEnSight interface.
 
-Using this method causes the directory containing the EnSight Python script to be
-added to ``sys.path``, if it has not been already.
+Using the :func:`run_script<ansys.pyensight.core.Session.run_script>` method causes the directory
+containing the EnSight Python script to be added to ``sys.path``, if it is not already added.
 
 
 Speed
 `````
 
 There is a significant difference in the speed with which the code can be executed. This
-is because the ``ensight`` commands are executed remotely and the results returned. The
+is because the ``ensight`` commands are executed remotely and the results are returned. The
 workaround for this is to use the :func:`exec<ansys.pyensight.core.Session.exec>`
-method, but it requires that the code in the Python script must be re-written as a function.
+method, but it requires that the code in the Python script be rewritten as a function.
 In debugging situations, this may not be a major issue.
 
 

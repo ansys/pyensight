@@ -29,15 +29,15 @@ class Renderable:
     ----------
     session :
         PyEnSight session to generate renderables for.
-    cell_handle :
+    cell_handle : Jupyter notebook cell handle (if any).
         The default is ``None``.
     width : int, optional
-        The default is ``None``.
+        Width of the renderable. The default is ``None``.
     height : int, optional
-        The default is ``None``.
+        Height of the renderable. The default is ``None``.
     temporal : bool, optional
-        Whether to include all timesteps in an interactive WebGL
-        -based browser viewer. The default is ``False``.
+        Whether to show data for all timesteps in an interactive
+        WebGL-based browser viewer. The default is ``False``.
     aa : int, optional
         Number of antialiasing passes to use when rendering images.
         The default is ``1``.
@@ -129,12 +129,12 @@ class Renderable:
     def _generate_url(self) -> None:
         """Build the remote HTML filename and associated URL.
 
-        On the remote system the, pathname to the HTML file is:
-            {session_directory}/{session}_{guid}_{index}_{type}.html
-        The URL to the file (through the session HTTP server) is:
-            http://{system}:{websocketserverhtmlport}/{session}_{guid}_{index}_{type}.html
+        On the remote system the, pathname to the HTML file is
+        ``{session_directory}/{session}_{guid}_{index}_{type}.html``.
+        The URL to the file (through the session HTTP server) is
+        ``http://{system}:{websocketserverhtmlport}/{session}_{guid}_{index}_{type}.html``.
 
-        After this call, ``_url`` and ``_url_remote_pathname`` reflect those names.
+        After this call, ``_url`` and ``_url_remote_pathname`` reflect these names.
 
         """
         suffix = f"_{self._rendertype}.html"

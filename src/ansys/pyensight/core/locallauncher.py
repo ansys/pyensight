@@ -24,7 +24,7 @@ import ansys.pyensight.core.session
 
 
 class LocalLauncher(Launcher):
-    """Create a ``Session`` instance by launching a local copy of EnSight.
+    """Creates a ``Session`` instance by launching a local copy of EnSight.
 
     This class allows you to launch locally a copy of EnSight that supports the
     gRPC interface.  It creates and binds a ``Session`` instance to the created
@@ -42,15 +42,20 @@ class LocalLauncher(Launcher):
     batch : bool, optional
         Whether to run the EnSight (or EnVision) in batch mode. The default
         is ``True``, in which case the full GUI is not presented.
+    **kwargs : obj
+        Keyword arguments.
     timeout : float, optional
         Number of seconds to try a gRPC connection before giving up.
-        The default is ``120``.
+        The default is ``120``. This parameter is defined on the parent
+        ``Launcher`` class.
     use_egl : bool
         Whether to use EGL hardware for accelerated graphics. The platform
-        must be able to support this hardware.
+        must be able to support this hardware. This parameter is defined on
+        the parent ``Launcher`` class.
     use_sos : int, optional
         Number of EnSight servers to use for SOS (Server of Server) mode.
         The default is ``None``, in which case SOS mode is not used.
+        This parameter is defined on the parent ``Launcher`` class.
 
     Examples
     --------

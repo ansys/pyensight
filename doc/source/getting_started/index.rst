@@ -53,7 +53,7 @@ Set up ``pre-commit``
 ``pre-commit`` is a multi-language package manager for pre-commit hooks.
 
 
-To install pre-commit into your git hooks, run this command:
+To install ``pre-commit`` into your git hooks, run this command:
 
 .. code::
 
@@ -80,14 +80,16 @@ To run individual hooks, use this command:
    pre-commit run <hook_id>
 
 
-The ``<hook_id>`` can be obtained from the ``.pre-commit-config.yaml`` file.
+You can obtain the ``<hook_id>`` from the ``.pre-commit-config.yaml`` file.
 The first time ``pre-commit`` runs on a file, it automatically downloads,
 installs, and runs the hook.
 
 
 Start the EnSight session
 -------------------------
-The simplest way of starting an EnSight session is to use this code:
+The simplest way of starting an EnSight session is to use the following code,
+which looks for a local Ansys software installation to use to launch an
+EnSight instance on the local system.
 
 .. vale off
 
@@ -96,9 +98,6 @@ The simplest way of starting an EnSight session is to use this code:
    from ansys.pyensight.core import LocalLauncher
    session = LocalLauncher().start()
 
-
-The preceding code looks for a local Ansys software installation to use to launch an
-EnSight instance on the local system.
 
 Optionally, you can start an EnSight Docker container by using code like this:
 

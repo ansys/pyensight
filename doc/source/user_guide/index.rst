@@ -99,7 +99,7 @@ as the *command language* or *cmdlang*. This journaling language makes
 it possible to view and review every interaction in EnSight as a command
 stream. You can play back the journal streams to automate tasks.
 
-In an EnSight 9.x release, an embedded Python interpreter was introduced into the
+The EnSight 9.x release introduced an embedded Python interpreter into the
 EnSight core. The initial language binding to EnSight was via the *native API*. The
 native API is derived from the EnSight journaling language. It is basically a direct
 Python mapping with object-specific conversion operations to simplify the interface.
@@ -116,7 +116,7 @@ queries and event handling. For more information, see :ref:`ref_object_api`.
 This API does not yet cover everything the native API does, but it
 allows for using more interactive and reactive component interfaces.
 Because of this, a significant portion of the EnSight GUI is written using
-this API.
+the Ensight object API.
 
 .. _ensight_architecture:
 
@@ -134,12 +134,15 @@ There are two types of objects in EnSight. The first set are parts of the code
 that are generally created automatically at startup.
 
 .. note::
-   The following sections briefly describe many of the core classes. However,
-   they do not describe all core classes but only commonly used objects.
+   The following sections briefly describe many of the core classes. They do
+   not describe all core classes but rather only commonly used objects.
 
-There are two unique concepts in the EnSight architecture that are important in
-helping to explain core EnSight behavior. The first is the idea of hierarchical
-property filtering. The second is the concept of default objects.
+There are two unique concepts in the EnSight architecture that are important
+to explaining core EnSight behavior.
+
+- The first is the idea of hierarchical property filtering.
+- The second is the concept of default objects.
+
 
 Hierarchical property filters
 `````````````````````````````
@@ -149,14 +152,16 @@ Often a specific visual property must be enabled globally before the
 object-specific value can be applied. This can happen at different levels in
 the visible object tree. Consider the ``HIDDENLINE`` property.
 This property can be set on these levels: ``ENS_PART``, ``ENS_VPORT``, and
-``ENS_GLOBAL``. Here is an example in the object API::
+``ENS_GLOBAL``.
+
+Here is an example in the object API::
 
     print(ensight.objs.core.HIDDENLINE)
     print(ensight.objs.core.VPORTS[0].HIDDENLINE)
     print(ensight.objs.core.PARTS[0].HIDDENLINE)
 
 - If the ``HIDDENLINE`` property is set to ``False`` at the ``ENS_PART`` level, hidden
-  lines are never shown on that part.
+  lines are never shown on this part.
 - If the ``HIDDENLINE`` property is set to ``False`` at the ``ENS_VPORT`` level, no
   hidden lines are shown on any parts that might be viable (and have the ``HIDDENLINE``
   property set to ``True``) in the specific ``ENS_VPORT`` level.
@@ -166,7 +171,7 @@ This property can be set on these levels: ``ENS_PART``, ``ENS_VPORT``, and
 
 Default objects
 ```````````````
-The default object is a key concept for EnSight. To create a new object in EnSight,
+The default object is a key concept for EnSight. To create an object in EnSight,
 you often set up the properties on a fake *default* object and then make a *create*
 call to realize a new object of this type. The new object has the same properties
 as the current default object properties. For examples, see :ref:`ref_object_api`
@@ -189,8 +194,8 @@ Class            Description
                  scene. They can be associated with viewports and attached to
                  polylines, nodes, and other graphics entities.
 |CASE|           ``CASE`` objects are used to read a dataset. There are a
-                 fixed number of case objects that can be active.
-                 Each case can load a dataset in a different format.
+                 fixed number of ``CASE`` objects that can be active.
+                 Each ``CASE`` object can load a dataset in a different format.
 |GLOBALS|        The ``GLOBALS`` object provides an interface to the
                  core EnSight state. All objects can be accessed via
                  the properties on the ``GLOBALS`` object.
@@ -258,8 +263,8 @@ Class            Description
                  |ANNOT_ARROW|   3D arrow pointing at a location in data space.
                  |ANNOT_DIAL|    Display of a constant variable as a dial.
                  |ANNOT_GAUGE|   Display of a constant variable as a linear gauge.
-                 |ANNOT_LGND|    Legend representation of a variable palette.
-                                  that these are only created by ``ENS_VAR`` objects.
+                 |ANNOT_LGND|    Legend representation of a variable palette that
+                                 are only created by ``ENS_VAR`` objects.
                  |ANNOT_LINE|    Single line.
                  |ANNOT_LOGO|    Image annotation.
                  |ANNOT_SHAPE|   Generic 2D shapes, such as boxes, circles, and 2D arrows.
@@ -298,8 +303,8 @@ Class            Description
                                             is an example.
                  |PART_BUILT_UP|            This part is more commonly known as a *subset* part. It
                                             allows for collections of elements and nodes to be selected
-                                            from a set of input parts. These are merged into this
-                                            part.
+                                            from a set of input parts. This collection is merged into
+                                            this subset part.
                  |PART_CLIP|                This part is created by clipping a parent set of parts.
                  |PART_CONTOUR|             The part is a result of contouring a parent set of parts.
                  |PART_DEVELOPED_SURFACE|   A developed surface is generated by treating any
@@ -333,7 +338,7 @@ Class            Description
                                             parent parts.
                  |PART_POINT|               This part can be created via the API or from a file. It is
                                             a list of points. Commonly, the point tool is used to
-                                            generate these parts.
+                                            generate the list of points for the part.
                  |PART_PROFILE|             Profile parts are created by combining a 1D entity
                                             (such as a line clip, contour, or particle trace) with a
                                             surface part. The profile of a specific variable, sampled

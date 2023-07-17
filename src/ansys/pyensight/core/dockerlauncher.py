@@ -51,9 +51,9 @@ except Exception:
 
 
 class DockerLauncher(Launcher):
-    """Create a ``Session`` instance using a copy of EnSight hosted in a Docker container.
+    """Creates a ``Session`` instance using a copy of EnSight hosted in a Docker container.
 
-    This class allows you to either attach to a `PIM <https://github.com/ansys/pypim`_-launched
+    This class allows you to either attach to a `PIM <https://github.com/ansys/pypim>`_-launched
     Docker container hosting EnSight or launch a local Docker container hosting EnSight.
     gRPC connections to EnShell and EnSight are established. A PyEnSight ``Session`` instance
     is returned upon successful launch and connection.
@@ -73,15 +73,20 @@ class DockerLauncher(Launcher):
         Existing gRPC channel to a running ``EnShell`` instance provided by PIM.
     pim_instance :
         PyPIM instance if using PIM (internal). The default is ``None``.
+    **kwargs : obj
+        Keyword arguments.
     timeout : float, optional
         Number of seconds to try a gRPC connection before giving up.
-        The default is ``120``.
+        The default is ``120``. This parameter is defined on the parent
+        ``Launcher`` class.
     use_egl : bool
         Whether to use EGL hardware for accelerated graphics. The platform
-        must be able to support this hardware.
+        must be able to support this hardware. This parameter is defined on
+        the parent ``Launcher`` class.
     use_sos : int, optional
         Number of EnSight servers to use for SOS (Server of Server) mode.
         The default is ``None``, in which case SOS mode is not used.
+        This parameter is defined on the parent ``Launcher`` class.
 
     Examples
     --------
@@ -220,12 +225,6 @@ class DockerLauncher(Launcher):
         in the Docker container. Once connected, EnShell launches a copy of EnSight
         and WSS in the container. It then creates and binds a ``Session`` instance
         to the created EnSight gRPC connection and returns this instance.
-
-        Parameters
-        ----------
-        host: str, optional
-            Hostname that the EnSight gRPC service is running on. The default
-             is "127.0.0.1".
 
         Returns
         -------
