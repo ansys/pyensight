@@ -116,7 +116,7 @@ queries and event handling. For more information, see :ref:`ref_object_api`.
 This API does not yet cover everything the native API does, but it
 allows for using more interactive and reactive component interfaces.
 Because of this, a significant portion of the EnSight GUI is written using
-the Ensight object API.
+the EnSight object API.
 
 .. _ensight_architecture:
 
