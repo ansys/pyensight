@@ -199,17 +199,20 @@ where:
     * - ymax
       - constant number
 
-        - > 0 = Baldwin-Lomax-Spalart algorithm
-        -  0 = convergence algorithm
+        > 0 = Baldwin-Lomax-Spalart algorithm
+
+        0 = convergence algorithm
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - flow comp
       - constant number
 
-        - 0 = tangent flow parallel to surface
-        - 1 = stream-wise component tangent (parallel) to wall
-        - 2 = cross-flow component tangent (parallel) to wall
+        0 = tangent flow parallel to surface
+
+        1 = stream-wise component tangent (parallel) to wall
+
+        2 = cross-flow component tangent (parallel) to wall
 
     * - grad
       - -1 = flags the computing of the velocity-magnitude gradient via 3-point interpolation.
@@ -370,16 +373,18 @@ where:
     * - ymax
       - constant number
 
-        - > 0 = Baldwin-Lomax-Spalart algorithm
-        - 0 = convergence algorithm
+        > 0 = Baldwin-Lomax-Spalart algorithm
+
+        0 = convergence algorithm
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - flow comp
       - constant number
 
-        - 1 = stream-wise component tangent (parallel) to wall
-        - 2 = cross-flow component tangent (parallel) to wall
+        1 = stream-wise component tangent (parallel) to wall
+
+        2 = cross-flow component tangent (parallel) to wall
 
     * - grad
       - -1 flags the computing of the
@@ -453,17 +458,20 @@ where:
     * - ymax
       - constant number
 
-        - > 0 = Baldwin-Lomax-Spalart algorithm
-        - 0 = convergence algorithm
+        > 0 = Baldwin-Lomax-Spalart algorithm
+
+        0 = convergence algorithm
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - flow comp
       - constant number
 
-        - 0 = RMS of the stream-wise and cross-flow components
-        - 1 = stream-wise component at the wall
-        - 2 = cross-flow component at the wall
+        0 = RMS of the stream-wise and cross-flow components
+
+        1 = stream-wise component at the wall
+
+        2 = cross-flow component at the wall
 
     * - grad
       - -1 flags the computing of the velocity-magnitude gradient via three-point interpolation
@@ -530,7 +538,7 @@ wall
       - u at the edge of the boundary layer
     * - :math:`{y}_{max}`
       - distance from wall to freestream
-    * - comp
+    * - compconstant number
       - flow direction option
     * - grad
       - flag for gradient of velocity magnitude
@@ -552,17 +560,20 @@ displacement of the streamlines around the body.
     * - :math:`{y}_{max}`
       - constant number
 
-        - > 0 = Baldwin-Lomax-Spalart algorithm
-        - 0 = convergence algorithm
+        > 0 = Baldwin-Lomax-Spalart algorithm
+
+        0 = convergence algorithm
 
         See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - flow comp
       - constant number:
 
-        - 0 = total tangential flow direction parallel to wall
-        - 1 = stream-wise flow component direction parallel to wall
-        - 2 = cross-flow component direction parallel to wall
+        0 = total tangential flow direction parallel to wall
+
+        1 = stream-wise flow component direction parallel to wall
+
+        2 = cross-flow component direction parallel to wall
 
     * - grad
       - -1 flags the computing of the velocity-magnitude
@@ -708,24 +719,29 @@ This scalar variable relates to the momentum loss in the boundary layer.
     * - ymax
       - constant number
 
-        - > 0 = Baldwin-Lomax-Spalart algorithm
-        - 0 = convergence algorithm
+        > 0 = Baldwin-Lomax-Spalart algorithm
+
+        0 = convergence algorithm
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - compi
       - constant number
 
-        - 0 = total tangential flow direction parallel to wall
-        - 1 = stream-wise flow component direction parallel to wall
-        - 2 = cross-flow component direction parallel to wall
+        0 = total tangential flow direction parallel to wall
+
+        1 = stream-wise flow component direction parallel to wall
+
+        2 = cross-flow component direction parallel to wall
 
     * - compj
       - constant number
 
-        - 0 = total tangential flow direction parallel to wall
-        - 1 = stream-wise flow component direction parallel to wall
-        - 2 = cross-flow component direction parallel to wall
+        0 = total tangential flow direction parallel to wall
+
+        1 = stream-wise flow component direction parallel to wall
+
+        2 = cross-flow component direction parallel to wall
 
     * - grad
       - -1 flags the computing of the
@@ -770,8 +786,9 @@ thickness. (See :ref:`Boundary Layer: Thickness<BL_Thick>`.)
     * - ymax
       - constant number
 
-        - > 0 = Baldwin-Lomax-Spalart algorithm
-        - 0 = convergence algorithm
+        > 0 = Baldwin-Lomax-Spalart algorithm
+
+        0 = convergence algorithm
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
@@ -839,8 +856,9 @@ conservation equations, but is sometimes used in the evaluation of inlet flows.
     * - ymax
       - constant number
 
-        - > 0 = Baldwin-Lomax-Spalart algorithm
-        - 0 = convergence algorithm
+        > 0 = Baldwin-Lomax-Spalart algorithm
+
+        0 = convergence algorithm
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
@@ -939,8 +957,9 @@ The distance normal from the surface to where :math:`u/U=0.995`.
     * - ymax
       - constant number
 
-        - 0 = Baldwin-Lomax-Spalart algorithm
-        - 0 = convergence algorithm
+        > 0 = Baldwin-Lomax-Spalart algorithm
+
+        0 = convergence algorithm
 
       See the algorithm note that follows.
 
@@ -1046,17 +1065,20 @@ thickness :math:`\delta`. It is defined as:
     * - ymax
       - constant number
 
-        - > 0 = Baldwin-Lomax-Spalart algorithm
-        - 0 = convergence algorithm
+        > 0 = Baldwin-Lomax-Spalart algorithm
+
+        0 = convergence algorithm
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - comp
       - constant number
 
-        - 0 = velocity vector at edge of boundary layer
-        - 1 = decomposed velocity vector parallel to wall tangent to surface
-        - 2 = decomposed velocity vector normal to wall
+        0 = velocity vector at edge of boundary layer
+
+        1 = decomposed velocity vector parallel to wall tangent to surface
+
+        2 = decomposed velocity vector normal to wall
 
     * - grad
       - -1 flags the computing of the
@@ -1129,17 +1151,21 @@ the values for your application, consult a boundary-layer text.
     * - gradient option
       - One of three values:
 
-        - 1 = Use field velocity (used to calculate wall gradient)
-        - 2 = Use gradient at boundary part (wall or surface)
-        - 3 = Use gradient in corresponding field part
+        1 = Use field velocity (used to calculate wall gradient)
+
+        2 = Use gradient at boundary part (wall or surface)
+
+        3 = Use gradient in corresponding field part
 
     * - vector variable
       - One of three values depending on the gradient option:
 
-        - 1 = Use field velocity = velocity vector
-        - 2 = Use gradient at boundary = gradient variable on 2D boundary (wall or surface) part
-        - 3 = Use gradient in field = gradient variable defined in 3D field part; or it
-          could be the gradient calculated using Grad(velocity magnitude), that is :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
+        1 = Use field velocity = velocity vector
+
+        2 = Use gradient at boundary = gradient variable on 2D boundary (wall or surface) part
+
+        3 = Use gradient in field = gradient variable defined in 3D field part; or it
+        could be the gradient calculated using Grad(velocity magnitude), that is :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
 
 .. note::

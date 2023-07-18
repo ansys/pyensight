@@ -123,7 +123,6 @@ session.show("image", width=800, height=600)
 # field, ``Temperature_Difference``, on the ``fluid0_diff`` part. Color that part
 # by the resulting variable.
 
-
 temperature_diff = session.ensight.objs.core.create_variable(
     "Temperature_Difference",
     value="CaseMapDiff(plist, 2, Static_Temperature, 0, 1)",

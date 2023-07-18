@@ -30,14 +30,13 @@ session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/cube/cub
 session.ensight.view_transf.rotate(30, 30, 0)
 session.show("image", width=800, height=600)
 
-
+###############################################################################
 # .. image:: /_static/00_basic_0.png
-
+#
 ###############################################################################
 # Create a clip plane
 # -------------------
 # Create a clip through the volumetric parts.
-# .. image:: /_static/00_basic_1.png
 
 clip_default = core.DEFAULTPARTS[session.ensight.PART_CLIP_PLANE]
 parent_parts = core.PARTS
@@ -46,6 +45,8 @@ session.show("image", width=800, height=600)
 print("Parts:", core.PARTS)
 
 ###############################################################################
+# .. image:: /_static/00_basic_1.png
+#
 # .. note::
 #    There is an issue with the version of PyEnSight that ships with EnSight
 #    2023 R1. The ``core.DEFAULTPARTS`` attribute may fail with an error
@@ -60,13 +61,15 @@ clip_default = session.cmd("ensight.objs.core.DEFAULTPARTS[ensight.PART_CLIP_PLA
 # Color the clip plane
 # --------------------
 # Color the clip plane using the temperature variable.
-# .. image:: /_static/00_basic_2.png
 
 clip.COLORBYPALETTE = core.VARIABLES["temperature"][0]
 session.show("image", width=800, height=600)
 print("Variables:", core.VARIABLES)
 
 
+###############################################################################
+# .. image:: /_static/00_basic_2.png
+#
 ###############################################################################
 # Change the visual representation
 # --------------------------------
@@ -75,7 +78,7 @@ print("Variables:", core.VARIABLES)
 # #. Display the volume part in border mode instead of feature mode.
 # #. Make the volume part transparent so the clip is still visible.
 # #. Enable element edge display, outlining elements in black lines.
-# .. image:: /_static/00_basic_3.pn
+#
 
 core.PARTS.set_attr("ELTREPRESENTATION", session.ensight.objs.enums.BORD_FULL)
 core.PARTS[0].OPAQUENESS = 0.1
@@ -85,17 +88,21 @@ session.show("image", width=800, height=600)
 
 
 ###############################################################################
+# .. image:: /_static/00_basic_3.pn
+#
+###############################################################################
 # Create an annotation
 # --------------------
 # Create a text annotation and place it near the top of the viewport in the
 # center.
-#
-# .. image:: /_static/00_basic_4.png
 
 text = core.DEFAULTANNOTS[session.ensight.ANNOT_TEXT].createannot("Temperature Clip")
 text.setattrs(dict(LOCATIONX=0.5, LOCATIONY=0.95))
 session.show("image", width=800, height=600)
 
+###############################################################################
+# .. image:: /_static/00_basic_4.png
+#
 ###############################################################################
 # Export content
 # --------------
