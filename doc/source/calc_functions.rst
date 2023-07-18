@@ -197,25 +197,15 @@ where:
     * - viscosity
       - scalar variable, constant variable, or constant number
     * - ymax
-      - constant number
-
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
+      - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - flow comp
-      - constant number
-
-        0 = tangent flow parallel to surface
-
-        1 = stream-wise component tangent (parallel) to wall
-
-        2 = cross-flow component tangent (parallel) to wall
-
+      - constant number (0 = tangent flow parallel to surface, 1 = stream-wise component
+        tangent (parallel) to wall, 2 = cross-flow component tangent (parallel) to wall
     * - grad
-      - -1 = flags the computing of the velocity-magnitude gradient via 3-point interpolation.
+      - -1 = flags the computing of the velocity-magnitude gradient via three-point interpolation
 
         vector variable = Grad(velocity magnitude)
 
@@ -371,20 +361,13 @@ where:
     * - velocity mag
       - constant variable or constant number
     * - ymax
-      - constant number
-
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
+      - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - flow comp
-      - constant number
-
-        1 = stream-wise component tangent (parallel) to wall
-
-        2 = cross-flow component tangent (parallel) to wall
+      - constant number (1 = stream-wise component tangent (parallel) to wall, 2 = cross-flow
+        component tangent (parallel) to wall
 
     * - grad
       - -1 flags the computing of the
@@ -456,23 +439,13 @@ where:
     * - viscosity
       - scalar variable, constant variable, or constant number
     * - ymax
-      - constant number
-
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
+      - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - flow comp
-      - constant number
-
-        0 = RMS of the stream-wise and cross-flow components
-
-        1 = stream-wise component at the wall
-
-        2 = cross-flow component at the wall
-
+      - constant number (0 = RMS of the stream-wise and cross-flow components,
+        1 = stream-wise component at the wall, 2 = cross-flow component at the wall)
     * - grad
       - -1 flags the computing of the velocity-magnitude gradient via three-point interpolation
 
@@ -538,7 +511,7 @@ wall
       - u at the edge of the boundary layer
     * - :math:`{y}_{max}`
       - distance from wall to freestream
-    * - compconstant number
+    * - comp
       - flow direction option
     * - grad
       - flag for gradient of velocity magnitude
@@ -558,22 +531,14 @@ displacement of the streamlines around the body.
     * - density
       - scalar variable (compressible flow), constant number (incompressible flow)
     * - :math:`{y}_{max}`
-      - constant number
-
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
+      - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
         See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - flow comp
-      - constant number:
-
-        0 = total tangential flow direction parallel to wall
-
-        1 = stream-wise flow component direction parallel to wall
-
-        2 = cross-flow component direction parallel to wall
+      - constant number (0 = total tangential flow direction parallel to wall,
+        1 = stream-wise flow component direction parallel to wall, 2 = cross-flow
+        component direction parallel to wall
 
     * - grad
       - -1 flags the computing of the velocity-magnitude
@@ -717,32 +682,18 @@ This scalar variable relates to the momentum loss in the boundary layer.
     * - density
       - scalar variable (compressible flow), constant number (incompressible flow)
     * - ymax
-      - constant number
-
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
+      - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - compi
-      - constant number
-
-        0 = total tangential flow direction parallel to wall
-
-        1 = stream-wise flow component direction parallel to wall
-
-        2 = cross-flow component direction parallel to wall
-
+      - constant number (0 = total tangential flow direction parallel to wall,
+        1 = stream-wise flow component direction parallel to wall, 2 = cross-flow
+        component direction parallel to wall)
     * - compj
-      - constant number
-
-        0 = total tangential flow direction parallel to wall
-
-        1 = stream-wise flow component direction parallel to wall
-
-        2 = cross-flow component direction parallel to wall
-
+      - constant number (0 = total tangential flow direction parallel to wall,
+        1 = stream-wise flow component direction parallel to wall, 2 = cross-flow
+        component direction parallel to wall
     * - grad
       - -1 flags the computing of the
         velocity-magnitude gradient via four-point interpolation
@@ -784,11 +735,7 @@ thickness. (See :ref:`Boundary Layer: Thickness<BL_Thick>`.)
     * - scalar
       - scalar variable
     * - ymax
-      - constant number
-
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
+      - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
@@ -854,11 +801,7 @@ conservation equations, but is sometimes used in the evaluation of inlet flows.
     * - total pressure
       - scalar variable
     * - ymax
-      - constant number
-
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
+      - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
@@ -942,7 +885,6 @@ The distance normal from the surface to where :math:`u/U=0.995`.
     * - :math:`u`
       - magnitude of the velocity component parallel
         to the wall at a given location in the boundary layer
-
     * - :math:`U`
       - magnitude of the velocity just outside the boundary layer
 
@@ -955,11 +897,7 @@ The distance normal from the surface to where :math:`u/U=0.995`.
     * - velocity
       - vector variable
     * - ymax
-      - constant number
-
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
+      - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
       See the algorithm note that follows.
 
@@ -969,7 +907,7 @@ The distance normal from the surface to where :math:`u/U=0.995`.
 
         vector variable = Grad(velocity magnitude)
 
-        See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
+    See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
 
 .. note::
@@ -1061,32 +999,22 @@ thickness :math:`\delta`. It is defined as:
       - vector variable
     * - density
       - scalar variable (compressible flow), constant number (incompressible flow)
-
     * - ymax
-      - constant number
+      - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
-
-      See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
+    See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - comp
-      - constant number
-
-        0 = velocity vector at edge of boundary layer
-
-        1 = decomposed velocity vector parallel to wall tangent to surface
-
-        2 = decomposed velocity vector normal to wall
-
+      - constant number (0 = velocity vector at edge of boundary layer, 1 = decomposed
+        velocity vector parallel to wall tangent to surface, 2 = decomposed velocity
+        vector normal to wall)
     * - grad
       - -1 flags the computing of the
         velocity-magnitude gradient via four-point interpolation
 
         vector variable = Grad(velocity magnitude),
 
-        See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
+    See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
 
 .. note::
@@ -1149,24 +1077,15 @@ the values for your application, consult a boundary-layer text.
     * - viscosity
       - scalar variable, constant variable, or constant number
     * - gradient option
-      - One of three values:
-
-        1 = Use field velocity (used to calculate wall gradient)
-
-        2 = Use gradient at boundary part (wall or surface)
-
-        3 = Use gradient in corresponding field part
-
+      - One of three values (1 = Use field velocity (used to calculate wall gradient),
+        2 = Use gradient at boundary part (wall or surface), 3 = Use gradient in
+        corresponding field part)
     * - vector variable
-      - One of three values depending on the gradient option:
-
-        1 = Use field velocity = velocity vector
-
-        2 = Use gradient at boundary = gradient variable on 2D boundary (wall or surface) part
-
-        3 = Use gradient in field = gradient variable defined in 3D field part; or it
-        could be the gradient calculated using Grad(velocity magnitude), that is :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
-
+      - One of three values depending on the gradient option (1 = Use field velocity = velocity vector,
+        2 = Use gradient at boundary = gradient variable on 2D boundary (wall or surface) part, 3 =
+        Use gradient in field = gradient variable defined in 3D field part; or it
+        could be the gradient calculated using Grad(velocity magnitude), that is
+        :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
 .. note::
     Boundary layer (``BL_*``) functions are not supported for
@@ -1849,7 +1768,6 @@ where:
 
     * - density
       - scalar variable, constant variable,  or constant number
-
     * - freestream density
       - constant or constant per part variable or constant number
 
@@ -1886,7 +1804,6 @@ where:
 
     * - density
       - scalar variable, constant variable, or constant number
-
     * - freestream density
       - constant or constant per part variable or constant number
 
@@ -3881,8 +3798,7 @@ where:
 
     * - scalar
       - any scalar variable, such as pressure, mach, or a
-        vector component, etc
-
+        vector component
     * - velocity
       - vector variable
     * - density
@@ -5621,7 +5537,6 @@ variable must be pre-weighted.
     * - v
       - scalar variable, constant or constant per part variable,
         or constant number
-
     * - function
       - constant number selecting the moment to compute
         (0=sum, 1=mean, 2=variance, 3=skewness, 4=kurtosis)
@@ -5760,13 +5675,8 @@ coefficients as well as the estimated coefficient itself and its standard error.
     * - selection
       - constant or constant per part variable or
         constant number that selects the specific coefficient for which to
-        retrieve the statistical quantity
-
-        - 0 = x0
-        - 1 = x1
-        - 2 = x2
-        - 3 = x3
-        - 4 = x4
+        retrieve the statistical quantity (0 = x0, 1 = x1, 2 = x2, 3 = x3,
+        4 = x4)
 
 See also the :ref:`StatRegSpa() <StatRegSpa>` and :ref:`StatRegVal1() <StatRegVal1>`
 functions.

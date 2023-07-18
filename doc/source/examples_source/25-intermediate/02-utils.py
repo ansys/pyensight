@@ -26,11 +26,12 @@ session = LocalLauncher().start()
 # -------------
 # Use a remote session to load a simple time-varying dataset of
 # waterflow over a break.
+#
+# .. image:: /_static/02_utils_0.png
 
 session.load_example("waterbreak.ens")
 session.show("image", width=800, height=600)
 
-# .. image:: /_static/02_utils_0.png
 
 ###############################################################################
 # Load the ``utils`` modules
@@ -64,27 +65,33 @@ init_state.save("init_state.ctxz")
 # :func:`select_parts_by_tag<ansys.pyensight.core.utils.parts.Parts.select_parts_by_tag>`
 # method to select all parts. (All parts are returned because no tags have been supplied
 # and because the dataset has no metadata for the parts).
+#
+# When no tags are supplied, all parts are selected.
+#
+# .. image:: /_static/02_utils_1.png
+#
+# All parts are hidden.
+#
+# .. image:: /_static/02_utils_2.png
+#
+# Restore the state, showing the isometric view once again.
+#
+# .. image:: /_static/02_utils_1.png
 
 views.set_view_direction(1, 1, 1, name="isometric")
 iso_state = session.capture_context()
 session.show("image", width=800, height=600)
 # Because no tags are supplied, all parts are selected
 
-# .. image:: /_static/02_utils_1.png
-#
 # Hide the parts.
-
 parts.select_parts_by_tag().set_attr("VISIBLE", False)
 
-# .. image:: /_static/02_utils_2.png
-#
-# Now restore the state, showing the isometric view once again.
+# Restore the state, showing the isometric view once again.
 
 session.show("image", width=800, height=600)
 session.restore_context(iso_state)
 session.show("image", width=800, height=600)
 
-# .. image:: /_static/02_utils_1.png
 
 ###############################################################################
 # Create scoped name
@@ -94,10 +101,14 @@ session.show("image", width=800, height=600)
 # the PyEnSight modules. Its context manager features, along with the context
 # manager features in Python, can simplify the workflow.
 #
-# This code generates a query along a 1D part on the fly. It uses the ``Parts``class to
+# This code generates a query along a 1D part on the fly. It uses the ``Parts`` class to
 # select the parent part and the
 # :func:`select_parts_by_dimension<ansys.pyensight.core.utils.parts.Parts.select_parts_by_dimension>`
 # method to select all 3D parts. Lastly, it saves a context for later use.
+#
+# The rendering view should look like this:
+#
+# .. image:: /_static/02_utils_3.png
 
 sn = session.ensight.utils.support.scoped_name
 zclip_state = None
@@ -115,9 +126,6 @@ with sn(session.ensight) as ensight, sn(session.ensight.objs.core) as core:
     zclip_state = session.capture_context()
 session.show("image", width=800, height=600)
 
-# The rendering view should look like this:
-#
-# .. image:: /_static/02_utils_3.png
 
 ###############################################################################
 # Restore a view
@@ -127,6 +135,10 @@ session.show("image", width=800, height=600)
 # position, zoom level, and the objects available at the time that the context
 # was saved, restoring a view only restores the orientation and
 # position.
+#
+# The rendering view should look like this:
+#
+# .. image:: /_static/02_utils_4.png
 
 session.ensight.view_transf.rotate(-66.5934067, 1.71428561, 0)
 session.ensight.view_transf.rotate(18.0219765, -31.6363659, 0)
@@ -138,9 +150,6 @@ session.ensight.view_transf.rotate(4.83516455, 3.42857122, 0)
 views.restore_view("isometric")
 session.show("image", width=800, height=600)
 
-# The rendering view should look like this:
-#
-# .. image:: /_static/02_utils_4.png
 
 ###############################################################################
 # Create a temporal query
@@ -148,7 +157,11 @@ session.show("image", width=800, height=600)
 # This code restores the distance query context and then generates a temporal
 # query. This query is applied to a specific XYZ point, querying the
 # ``"alpha1"`` variable. The XYZ point is set to the model centroid and computed
-# via the ``Views`` class. The data generated is then printed:
+# via the ``Views`` class. The data generated is then printed.
+#
+# The value returned should look like this:
+#
+# .. image:: /_static/02_utils_5.png
 
 session.restore_context(zclip_state)
 temp_query = query.create_temporal(
@@ -160,9 +173,6 @@ temp_query = query.create_temporal(
 )
 print(temp_query.QUERY_DATA)
 
-# The value returned should look like this:
-#
-# .. image:: /_static/02_utils_5.png
 
 ###############################################################################
 # Restore a context from disk
@@ -170,12 +180,12 @@ print(temp_query.QUERY_DATA)
 # This code shows how to restore a context previously saved on disk.
 # Because PyEnSight context files do not store the location of the dataset by
 # default, you must load the dataset before restoring the context.
+#
+# The rendering view should look like this.
+#
+# .. image:: /_static/02_utils_6.png
 
 ctx = EnsContext()
 ctx.load("init_state.ctxz")
 session.restore_context(ctx)
 session.show("image", width=800, height=600)
-
-# The rendering view should look like this.
-#
-# .. image:: /_static/02_utils_6.png

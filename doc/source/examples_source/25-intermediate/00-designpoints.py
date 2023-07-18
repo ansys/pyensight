@@ -28,20 +28,22 @@ session = LocalLauncher().start()
 # Use a remote session to load the two datasets into different cases.
 # Downloading the data can take a minute or more. Note the names of the parts
 # that are loaded. The parts are shown on top of each other.
+#
+# .. image:: /_static/00_compare_0.png
 
 session.load_example("elbow_dp0_dp1.ens")
 session.show("image", width=800, height=600)
 print([p.PATHNAME for p in session.ensight.objs.core.PARTS])
 
-###############################################################################
-# .. image:: /_static/00_compare_0.png
-#
+
 ###############################################################################
 # Create a trio of viewports
 # --------------------------
 # This code constructs a pair of viewports at the top for case 0 and case 1.
 # It then creates a third viewport, which fill the lower half of the window,
 # for the difference field.
+#
+# .. image:: /_static/00_compare_1.png
 
 # Create two more viewports. (There is always one viewport.)
 session.ensight.objs.core.DEFAULTVPORT[0].createviewport()
@@ -75,9 +77,6 @@ session.show("image", width=800, height=600)
 
 
 ###############################################################################
-# .. image:: /_static/00_compare_1.png
-#
-###############################################################################
 # Color and assign parts to specific viewports
 # --------------------------------------------
 # This code colors the "fluid" parts using the ``Static_Temperature`` variable
@@ -89,6 +88,8 @@ session.show("image", width=800, height=600)
 # second instance of the fluid part in the first case. The code then computes
 # the difference field on this part to make it easier to display all three
 # at the same time.
+#
+# .. image:: /_static/00_compare_2.png
 
 fluid0 = session.ensight.objs.core.PARTS["fluid"][0]
 fluid1 = session.ensight.objs.core.PARTS["fluid"][1]
@@ -113,15 +114,14 @@ session.show("image", width=800, height=600)
 
 
 ###############################################################################
-# .. image:: /_static/00_compare_2.png
-#
-###############################################################################
 # Compute difference field
 # ------------------------
 # Use the ``CaseMapDiff`` calculator function to compute the difference between the
 # ``Static_Temperature`` fields between the two design points. This defines a new
 # field, ``Temperature_Difference``, on the ``fluid0_diff`` part. Color that part
 # by the resulting variable.
+#
+# .. image:: /_static/00_compare_3.png
 
 temperature_diff = session.ensight.objs.core.create_variable(
     "Temperature_Difference",
@@ -134,22 +134,19 @@ session.show("image", width=800, height=600)
 
 
 ###############################################################################
-# .. image:: /_static/00_compare_3.png
-#
-###############################################################################
 # Adjust palette limits
 # ---------------------
 # To make the visualization a bit easier to interpret, adjust the palette limits
 # to the nearest factor of five. To improve visual appeal of the imagery, you could
 # make also make adjustments to rotation, palette location, and more.
+#
+# .. image:: /_static/00_compare_4.png
 
 limits = [(round(v / 5.0) * 5) for v in temperature_diff.MINMAX]
 temperature_diff.PALETTE[0].MINMAX = limits
 remote = session.show("remote")
 
-################################################################################
-# .. image:: /_static/00_compare_4.png
-#
+
 ###############################################################################
 # Close the session
 # -----------------
