@@ -231,6 +231,8 @@ boundary layer. The following figure illustrates the derivations of the computed
 *edge*-related velocity values: :math:`{U}_{e}`, :math:`{u}_{s}`, :math:`{u}_{c}`,
 and :math:`{c}_{}`.
 
+.. image:: /_static/UM-C7-12.png
+
 .. note::
     Boundary layer (``BL_*``) functions are not supported for
     Server of Server (SoS) decomposition.
@@ -2950,11 +2952,11 @@ where:
 
 
 .. note::
-    The normal for each 2D element is calculated using the right hand rule of
+    The normal for each 2D element is calculated using the right-hand rule of
     the 2D element connectivity and must be consistent over the part. Otherwise,
-    results are incorrect. *Velocity vector* by the *Density scalar*
-    and then substitute this vector value for the velocity
-    vector in the previous equation.
+    your results are incorrect. To calculate the mass flow rate, multiply the
+    velocity vector by the density scalar and then substitute this vector value
+    for the velocity vector in the previous equation.
 
 
 .. _FlowRate:
@@ -3032,14 +3034,14 @@ where:
 .. note::
     To compute fluid shear stress:
 
-    #. Use the Gradient function on velocity to obtain the velocity gradient variable in the
-       3D parts of interest.
+    #. Use the :func:`Grad()` function on the velocity to obtain the velocity gradient
+       variable in the 3D parts of interest.
 
-    #. Create a part clip or extract the outer surface of the part using part extract
-       (create a 2D part from the 3D parts used in the previous step) a surface on which you want to see
-       the fluid shear stress.
+    #. Create a part clip or extract the outer surface of the part using part extract,
+       creating a 2D part from the 3D parts used in the previous step on the surface
+       where you want to see the fluid shear stress.
 
-    #. Compute the fluid shear variable (on the 2D surface).
+    #. Compute the ``Fluid Shear`` variable on the 2D surface.
 
 
 .. list-table:: **Function arguments**
@@ -3698,7 +3700,7 @@ where:
       - speed of sound
 
 
-See for a description.
+For a description, see :ref:`Energy: Total Energy <EnergyT>`.
 
 .. list-table:: **Function arguments**
     :widths: 50 50
@@ -3827,8 +3829,11 @@ MassedParticle()
 This scalar creates a massed-particle per element scalar
 variable for each of the parent parts of the massed-particle traces. This per
 element variable is the mass of the particle multiplied by the sum of the number of
-times each element is exited by a mass-particle trace. See Particle-Mass Scalar
-on Boundaries.
+times each element is exited by a mass-particle trace. For more information, see
+`Particle-Mass Scalar on Boundaries
+<https://ansysproducthelpqa.win.ansys.com/account/secured?returnurl=/Views/Secured/corp/v232/en/ensight_um/UM-C5xmlid72630.html%23UM-C5xmlidParticle-MassScalaronBoundaries>`_
+in the *Ansys EnSight User Manual*.
+.
 
 
 .. _MassFluxAvg:
@@ -3970,9 +3975,13 @@ predefined materials that are given by sparse mixed material definitions. Only
 one material can be converted into one per element scalar variable at a time.
 The material cannot be the null material.
 
-For more information on Materials,(see Material Interface Parts), and both
-MATERIAL Sections under EnSight Gold Case File Format, and Example Material
-Dataset in.
+For more information on materials, see these topics in the *Ansys EnSight User Manual*:
+
+- `Material Interface Parts
+  <https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/v232/en/ensight_um/UM-C5xmlid72630.html%23UM-C5xmlid35688>`_
+- `Utility Programs <https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/v232/en/ensight_um/UM-C11.html>`_,
+  which supplies information on the EnSight Case Gold Writer. See both "MATERIALS"
+  sections for file formats and the example material dataset.
 
 
 .. _Max:
@@ -4182,9 +4191,9 @@ NodeToElem()
 
 Averages a node-based variable to produce an element-based variable.
 
-For each: elem[j]->val += node[i]->val | elem[j]
+For each: ``elem[j]->val += node[i]->val | elem[j]``
 
-Results: elem[j]->val /= elem[j]->num_cell_nodes
+Results: ``elem[j]->val /= elem[j]->num_cell_nodes``
 
 where:
 
@@ -5161,8 +5170,8 @@ face intersection.
 
 .. note::
    Running this function can be a very time-consuming process.
-   You might want to set the Abort server operations performance preference
-   to avoid being stuck in a computation loop that exceeds your patience.
+   You might want to set the **Abort server operations** performance preference
+   in EnSight to avoid being stuck in a computation loop that exceeds your patience.
    The :ref:`Radiograph_grid() <Radiograph_grid>` function is generally much quicker.
 
 
@@ -6664,7 +6673,8 @@ where:
     :widths: 30 70
 
     * - :math:`{\Gamma }_{1}`
-      - (gamma function number k=1) is a (non-Galilean invariant)
+
+      - Gamma function number k=1 is a (non-Galilean invariant)
         vortex center approximation method "...a dimensionless scalar,
         with G1 bounded by 1. It can be shown that this bound is
         reached at the location of the vortex centre if the vortex is
@@ -6672,21 +6682,26 @@ where:
         to quantify the streamline topology of the flow in the vicinity
         of P and the rotation sign of the vortex. ... Typically, near
         the vortex centre, G1 reaches values ranging from 0.9 to 1.0."
-        [ref.2, pp. 1424-1425]
+        [ref.2, pp. 1424-1425].
+
     * - :math:`{\Gamma }_{2}`
-      - (gamma function number k=2) is a (Galilean invariant) vortex
+
+      - Gamma function number k=2 is a (Galilean invariant) vortex
         boundary approximation method resulting in a dimensionless
         scalar, "... a local function depending only on W and μ,
         where W is the rotation rate corresponding to the antisymmetrical
         part of the velocity gradient at P and μ is the eigenvalue of the
-        symmetrical part of this tensor. [ref.2, 1425]. (See the
+        symmetrical part of this tensor [ref.2, 1425]. (See the
         note following the function arguments.)
+
     * - k
-      - Gamma function number, 1 or 2, used to determine VM.
+      - Gamma function number 1 or 2 used to determine VM.
+
     * - P
       - Base node (or element centroid for per-element data) around
         which the proximity area (or zone of influence) is being
         considered.
+
     * - S
       - Proximity area (or zone of influence) surrounding P,
         determined by a proximity radius measured from the base P and
@@ -6699,27 +6714,35 @@ where:
           every node within the proximity radius. Both options also
           include all elements that contain P.
 
+
     * - M
-      - A node (or element center) within S.
+      - Node (or element center) within S.
+
     * - PM
-      - vector from the base node P to M.
+      - Vector from the base node P to M.
+
     * - V(P)
-      - velocity vector at P.
+      - Velocity vector at P.
+
     * - V(M)
-      - velocity vector at each M.
+      - Velocity vector at each M.
+
     * - :math:`V_M`
 
       - If the gamma function number k = 1, VM = V(M).
       - If the gamma function number k = 2, VM = V(M) - V(P).
 
+
     * - If k=2
       - VM = V(M) - V(P).
+
     * - n
-      - unit vector normal to the 2D plane parent clip
+      - Unit vector normal to the 2D plane parent clip
         part.
+
     * - :math:`θ_M`
-      - angle between VM and PM. Because -1 < sin(QM) < 1
-        (and n is a unit vector),
+      - Angle between VM and PM. Because -1 < sin(QM) < 1
+        (and n is a unit vector), then
         -1 < :math:`{\Gamma }_{k}\left(P\right)` < 1.
 
 

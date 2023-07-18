@@ -1,8 +1,8 @@
 """Docker Launcher module.
 
-The Docker Launcher module provides PyEnSight with the ability to launch an
-EnSight session using a local Docker installation or a
-`PIM <https://github.com/ansys/pypim`_-launched Docker installation.
+The Docker Launcher module provides PyEnSight with the ability to launch a
+:class:`Session<ansys.pyensight.core.Session>` instance using a local Docker
+installation or a `PIM <https://github.com/ansys/pypim`_-launched Docker installation.
 
 Examples:
     ::
@@ -64,29 +64,28 @@ class DockerLauncher(Launcher):
         Host directory to make into the container at ``/data``.
         The default is ``None``.
     docker_image_name : str, optional
-        Docker image name to use. The default is ``None``.
+        Name of the Docker image to use. The default is ``None``.
     use_dev : bool, optional
         Whether to use the latest ``ensight_dev`` Docker image. The
         default is ``False``. However, this value is overridden if the
-        ``docker_image_name`` parameter supplies an image name.
+        name of a Docker image is specified for the ``docker_image_name``
+        parameter.
     channel :
         Existing gRPC channel to a running ``EnShell`` instance provided by PIM.
     pim_instance :
         PyPIM instance if using PIM (internal). The default is ``None``.
-    **kwargs : obj
-        Keyword arguments.
     timeout : float, optional
         Number of seconds to try a gRPC connection before giving up.
-        The default is ``120``. This parameter is defined on the parent
-        ``Launcher`` class.
-    use_egl : bool
+        This parameter is defined on the parent ``Launcher`` class,
+        where the default is ``120``.
+    use_egl : bool, optional
         Whether to use EGL hardware for accelerated graphics. The platform
         must be able to support this hardware. This parameter is defined on
-        the parent ``Launcher`` class.
+        the parent ``Launcher`` class, where the default is ``False``.
     use_sos : int, optional
         Number of EnSight servers to use for SOS (Server of Server) mode.
-        The default is ``None``, in which case SOS mode is not used.
-        This parameter is defined on the parent ``Launcher`` class.
+        This parameter is defined on the parent ``Launcher`` class, where
+        the default is ``None``, in which case SOS mode is not used.
 
     Examples
     --------
@@ -209,7 +208,7 @@ class DockerLauncher(Launcher):
         Raises
         ------
         RuntimeError
-            If Docker couldn't pull the image.
+            If the Docker image couldn't be pulled.
 
         """
         try:
@@ -223,8 +222,9 @@ class DockerLauncher(Launcher):
 
         Once this method starts EnShell, it connects over gRPC to EnShell running
         in the Docker container. Once connected, EnShell launches a copy of EnSight
-        and WSS in the container. It then creates and binds a ``Session`` instance
-        to the created EnSight gRPC connection and returns this instance.
+        and WSS in the container. It then creates and binds a
+        :class:`Session<ansys.pyensight.core.Session>` instance to the created
+        EnSight gRPC connection and returns this instance.
 
         Returns
         -------
@@ -371,19 +371,20 @@ class DockerLauncher(Launcher):
         return self.connect()
 
     def connect(self):
-        """Create and bind a ``Session`` instance to the created EnSight gRPC connection
-        started by EnShell.
+        """Create and bind a :class:`Session<ansys.pyensight.core.Session>` instance
+        to the created EnSight gRPC connection started by EnShell.
 
         This method is an internal method.
 
-        Args:
+        Returns
+        -------
+        obj
+            :class:`Session<ansys.pyensight.core.Session>` instance
 
-        Returns:
-            pyensight Session object instance
-
-        Raises:
-            RuntimeError:
-                Variety of error conditions.
+        Raises
+        ------
+        RuntimeError:
+            Variety of error conditions.
         """
         #
         #

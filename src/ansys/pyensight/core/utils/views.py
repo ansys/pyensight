@@ -196,7 +196,7 @@ class Views:
 
     @property
     def views_dict(self) -> Dict[str, Tuple[int, List[float]]]:
-        """Get the ``views_dict``, which is the dictionary holding the stored views.
+        """Dictionary holding the stored views.
 
         Returns
         -------
@@ -223,12 +223,12 @@ class Views:
         self.ensight.view_transf.center_of_transform(xc, yc, zc)
 
     def compute_model_centroid(self, vportindex: int = 0) -> List[float]:
-        """Compute the model centroid using the model BOUNDS.
+        """Compute the model centroid using the model bounds.
 
         Parameters
         ----------
         vportindex : int, optional
-            Viewport to compute the centroid for. The defaultis ``0``.
+            Viewport to compute the centroid for. The default is ``0``.
 
         Returns
         -------
@@ -296,7 +296,7 @@ class Views:
         up_axis : tuple[float, float, float], optional
             Up direction for the view direction. The default is ``(0.0, 1.0, 0.0)``.
         vportindex : int, optional
-            Viewport to set the view direction for. THe default is ``0``.
+            Viewport to set the view direction for. The default is ``0``.
         """
         self.ensight.view.perspective("OFF")
         direction = [xdir, ydir, zdir]

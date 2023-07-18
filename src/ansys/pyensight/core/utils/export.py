@@ -279,17 +279,18 @@ class Export:
         passes : int, optional
             Number of antialiasing passes. The default  is ``4``.
         anim_type : int, optional
-            Type of the animation to render. The default is ``0``. Descriptions of
-            options follow.
+            Type of the animation to render. The default is ``0``, in which case
+            ``"ANIM_TYPE_SOLUTIONTIME"`` is used. This table provides descriptions
+            by each option number and name:
 
-            ======================== ========================================
-            Name                     Animation type
-            ======================== ========================================
-            ANIM_TYPE_SOLUTIONTIME   Animation over all solution times
-            ANIM_TYPE_ANIMATEDTRACES Records animated rotations and traces
-            ANIM_TYPE_FLIPBOOK       Records current flipbook animation
-            ANIM_TYPE_KEYFRAME       Records current kKeyframe animation
-            ======================== ========================================
+            ========================== ========================================
+            Name                       Animation type
+            ========================== ========================================
+            0: ANIM_TYPE_SOLUTIONTIME   Animation over all solution times
+            1: ANIM_TYPE_ANIMATEDTRACES Records animated rotations and traces
+            2: ANIM_TYPE_FLIPBOOK       Records current flipbook animation
+            3: ANIM_TYPE_KEYFRAME       Records current kKeyframe animation
+            ========================== ========================================
 
         frames : int, optional
             Number of frames to save. The default is ``None``. The default for
@@ -303,7 +304,7 @@ class Export:
             Number of frames per second for playback in the saved animation.
             The default is ``60.0``.
         format_options : str, optional
-            More specific options for the MPEG4 encoder. The default is ``None``.
+            More specific options for the MPEG4 encoder. The default is ``""``.
         raytrace : bool, optional
             Whether to render the image with the raytracing engine. The default is ``False``.
 

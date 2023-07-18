@@ -33,9 +33,9 @@ session.load_example("elbow_dp0_dp1.ens")
 session.show("image", width=800, height=600)
 print([p.PATHNAME for p in session.ensight.objs.core.PARTS])
 
-
+###############################################################################
 # .. image:: /_static/00_compare_0.png
-
+#
 ###############################################################################
 # Create a trio of viewports
 # --------------------------
@@ -74,8 +74,9 @@ session.ensight.objs.core.PARTS["fluid"].set_attr(
 session.show("image", width=800, height=600)
 
 
+###############################################################################
 # .. image:: /_static/00_compare_1.png
-
+#
 ###############################################################################
 # Color and assign parts to specific viewports
 # --------------------------------------------
@@ -110,18 +111,18 @@ fluid1.VIEWPORTVIS = session.ensight.objs.enums.VIEWPORT01
 fluid0_diff.VIEWPORTVIS = session.ensight.objs.enums.VIEWPORT02
 session.show("image", width=800, height=600)
 
-# .. image:: /_static/00_compare_2.png
 
+###############################################################################
+# .. image:: /_static/00_compare_2.png
+#
 ###############################################################################
 # Compute difference field
 # ------------------------
-#
-# .. image:: /_static/00_compare_3.png
-#
-# Use the "CaseMapDiff" calculator function to compute the difference between the
+# Use the ``CaseMapDiff`` calculator function to compute the difference between the
 # ``Static_Temperature`` fields between the two design points. This defines a new
 # field, ``Temperature_Difference``, on the ``fluid0_diff`` part. Color that part
 # by the resulting variable.
+
 
 temperature_diff = session.ensight.objs.core.create_variable(
     "Temperature_Difference",
@@ -134,6 +135,9 @@ session.show("image", width=800, height=600)
 
 
 ###############################################################################
+# .. image:: /_static/00_compare_3.png
+#
+###############################################################################
 # Adjust palette limits
 # ---------------------
 # To make the visualization a bit easier to interpret, adjust the palette limits
@@ -144,8 +148,9 @@ limits = [(round(v / 5.0) * 5) for v in temperature_diff.MINMAX]
 temperature_diff.PALETTE[0].MINMAX = limits
 remote = session.show("remote")
 
+################################################################################
 # .. image:: /_static/00_compare_4.png
-
+#
 ###############################################################################
 # Close the session
 # -----------------

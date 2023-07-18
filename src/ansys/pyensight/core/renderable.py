@@ -22,15 +22,15 @@ class Renderable:
     the :func:`show<ansys.pyensight.core.Session.show>` method. The approach
     is to generate the renderable in the EnSight session and make the
     artifacts available via the websocket server. The artifacts are then
-    wrapped with simple HTML pages (also served up by the websocket server).
-    These HTML pages can then be used to populate iframes.
+    wrapped with simple HTML pages, which are also served up by the websocket
+    server. These HTML pages can then be used to populate iframes.
 
     Parameters
     ----------
     session :
         PyEnSight session to generate renderables for.
-    cell_handle : Jupyter notebook cell handle (if any).
-        The default is ``None``.
+    cell_handle :
+        Jupyter notebook cell handle (if any). The default is ``None``.
     width : int, optional
         Width of the renderable. The default is ``None``.
     height : int, optional
@@ -164,7 +164,7 @@ class Renderable:
         self._session.grpc.command(cmd, do_eval=False)
 
     def browser(self) -> None:
-        """Open a webbrowser page to display the renderable content."""
+        """Open a web browser page to display the renderable content."""
         if self._url:
             webbrowser.open(self._url)
 
@@ -222,12 +222,12 @@ class Renderable:
     def delete(self) -> None:
         """Delete all server resources for the renderable.
 
-        A renderable occupies resources in the EnSight ``Session`` instance. This
-        method releases those resources. Once this method is called, the renderable
+        A renderable occupies resources in the EnSight :class:`Session<ansys.pyensight.core.Session>`
+        instance. This method releases those resources. Once this method is called, the renderable
         can no longer be displayed.
 
-        Note
-        ----
+        Notes
+        -----
         This method has not yet been implemented.
 
         """

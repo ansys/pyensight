@@ -59,12 +59,12 @@ class Parts:
         return found
 
     def select_parts_invert(self) -> ensobjlist["ENS_PART"]:
-        """Select parts currently not selected, deselecting the previously selected ones.
+        """Select parts currently not selected, deselecting the previously selected parts.
 
         Returns
         -------
         ensobjlist["ENS_PART"]
-            found (ensobjlist): Updated list of parts selected.
+            Updated list of parts selected.
 
         """
         self.ensight.part.select_invert()
@@ -89,7 +89,8 @@ class Parts:
             Dictionary containing the key and value pairs for finding
             the parts. Only the parts that have all the keys and corresponding
             values are returned. If a value for this parameter is supplied, it
-            takes precedence over the other parameter values.
+            takes precedence over the valeus supplied for the ``tag`` and
+            ``value`` parameters.
 
         Returns
         -------

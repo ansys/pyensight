@@ -5,15 +5,14 @@
 REST API
 ********
 
-An EnSight session started using PyEnSight may enable the direct REST API.
-The REST API allows JavaScript code to directly access the EnSight Python APIs.
-It is only available in EnSight 2024 R1 and later. To enable the REST API,
-set the ``enable_rest_api`` keyword to ``True`` for the Launcher` subclass ctor.
-
+An EnSight session that is started using PyEnSight may enable the direct REST API.
+The REST API, which allows JavaScript code to directly access the EnSight Python
+APIs, is only available in EnSight 2024 R1 and later. To enable the REST API,
+you set the ``enable_rest_api`` keyword to ``True`` for the Launcher subclass ctor.
 
 .. note::
 
-   The information here is for informational purposes only. The API has
+   The information here is for informational purposes only. The REST API has
    been defined, but it is not currently enabled in EnSight. It is scheduled
    for release in EnSight 2024 R1.
 
@@ -29,14 +28,15 @@ You can start the REST API service via the PyEnSight local launcher::
     >>> uri_base = f"http://{s.hostname}:{s.html_port}/ensight/v1/{s.secret_key}"
 
 
-The base URI looks something like this (but the port and GUID varies):
+The base URI looks something like this, but the port and GUID can vary:
 ``http://127.0.0.1:36474/ensight/v1/b7c04700-0a27-11ee-be68-381428170733``.
 
 
 Basic REST API
 --------------
 
-The string from the previous example can be used via Python ``requests`` to execute REST calls::
+You can use the string from the previous example to execute REST calls via
+Python ``requests``::
 
     >>> import requests
     >>> requests.put(uri_base+"/eval", json="ensight.objs.core.PARTS").json()
@@ -53,8 +53,8 @@ case, the output for the second ``PUT`` is ``[['Computational mesh', True]]``.
 .. note::
 
     Examples here leverage Python requests to execute REST calls, but tools like
-    cURL and Swagger can also be leveraged. The intended use of the API is via JavaScript
-    using ``fetch()`` from within a web page, making it possible to control and interact
+    cURL and Swagger can also be leveraged. The intended use of the REST API is via
+    JavaScript to use ``fetch()`` from within a web page, making it possible to control and interact
     with a PyEnSight-launched EnSight instance directly from the browser. Moreover, both
     PyEnSight and REST calls can be used to talk to the same EnSight session, making it
     possible to communicate between browser JavaScript and PyEnSight Python scripts using
@@ -102,8 +102,8 @@ The native API can be called directly using the REST API::
     0
 
 
-The EnSight view rotates accordingly. The ``object`` API can also be called directly.
-Object attributes can be get/set in various forms on single objects or lists of objects::
+The EnSight view rotates accordingly. The object API can also be called directly.
+You can get or set object attributes in various forms on single objects or lists of objects::
 
     >>> requests.get(uri_base+"/ensobjs/ensight.objs.core/PARTS").json()
     ['@ENSOBJ=1022@']
@@ -131,12 +131,12 @@ Shared token security
 
 The REST API leverages shared secrets to control access to the EnSight instance. Every
 PyEnSight-launched instance has a shared secret token that must be provided in all REST calls.
-This shared secret token can be accessed using the PyEnSight ``Session.secret_key`` API.
-All REST APIs expect that the token be specified in one of two ways:
+This shared secret token can be accessed using the PyEnSight :attr:`secret_key<ansys.pyensight.core.Session.secret_key>`
+attribute. All REST APIs expect that the token be specified in one of two ways:
 
-- First, the token can be passed as part of the URL path in this form:
+- The token can be passed as part of the URL path in this form:
   ``{LOCATION}/ensight/v1/{TOKEN}/{OPERATION}``.
-- Second, the token can be passed in an ``Authorization: Bearer TOKEN`` header. When you use
+- The token can be passed in an ``Authorization: Bearer TOKEN`` header. When you use
   this approach, you can pass any value in the URL path.
 
 If you supply tokens using both methods, the token in the header is used.
@@ -146,7 +146,7 @@ REST API reference
 
 The REST API shown here is a bit simplistic, but you can access the
 `OpenAPI YAML file <https://ensight.docs.pyansys.com/dev/_static/ensight_rest_v1.yaml>`_
-for the API, which is appropriate for use with `Swagger <https://editor.swagger.io/>`_).
+for the API, which is appropriate for use with `Swagger <https://editor.swagger.io/>`_.
 
 .. openapi:: ensight_rest_v1.yaml
     :examples:

@@ -1,7 +1,8 @@
 """Local Launcher module.
 
 The Local Launcher module provides PyEnSight with the ability to launch an
-EnSight session using a local Ansys installation.
+EnSight :class:`Session<ansys.pyensight.core.Session>` instance using a
+local Ansys installation.
 
 Examples:
 >>> from ansys.pyensight.core import LocalLauncher
@@ -27,35 +28,34 @@ class LocalLauncher(Launcher):
     """Creates a ``Session`` instance by launching a local copy of EnSight.
 
     This class allows you to launch locally a copy of EnSight that supports the
-    gRPC interface.  It creates and binds a ``Session`` instance to the created
-    gRPC session and returns that instance.
+    gRPC interface.  It creates and binds a :class:`Session<ansys.pyensight.core.Session>`
+    instance to the created gRPC session and returns that instance.
 
     Parameters
     ----------
     ansys_installation : str, optional
-        Path to the Ansys installation, including the version
+        Path to the local Ansys installation, including the version
         directory. The default is ``None``, in which case common locations
-        are scanned to detect the latest installation.
+        are scanned to detect the latest local Ansys installation. The
+        ``PYENSIGHT_ANSYS_INSTALLATION`` environmental variable is checked first.
     application : str, optional
-        App to launched. The default is ``ensight``, but ``envision`` is
-        also available.
+        App to launch. The default is ``ensight``, but ``envision`` is
+        also an option.
     batch : bool, optional
-        Whether to run the EnSight (or EnVision) in batch mode. The default
+        Whether to run EnSight (or EnVision) in batch mode. The default
         is ``True``, in which case the full GUI is not presented.
-    **kwargs : obj
-        Keyword arguments.
     timeout : float, optional
         Number of seconds to try a gRPC connection before giving up.
-        The default is ``120``. This parameter is defined on the parent
-        ``Launcher`` class.
-    use_egl : bool
+        This parameter is defined on the parent ``Launcher`` class,
+        where the default is ``120``.
+    use_egl : bool, optional
         Whether to use EGL hardware for accelerated graphics. The platform
         must be able to support this hardware. This parameter is defined on
-        the parent ``Launcher`` class.
+        the parent ``Launcher`` class, where the default is ``False``.
     use_sos : int, optional
         Number of EnSight servers to use for SOS (Server of Server) mode.
-        The default is ``None``, in which case SOS mode is not used.
-        This parameter is defined on the parent ``Launcher`` class.
+        This parameter is defined on the parent ``Launcher`` class, where
+        the default is ``None``, in which case SOS mode is not used.
 
     Examples
     --------
@@ -94,7 +94,7 @@ class LocalLauncher(Launcher):
 
     @property
     def application(self):
-        """Type of app to launch. The app can be ``ensight`` or ``envision``."""
+        """Type of app to launch. Options are ``ensight`` and ``envision``."""
         return self._application
 
     def start(self) -> "pyensight.Session":
@@ -107,7 +107,7 @@ class LocalLauncher(Launcher):
         Returns
         -------
         obj
-            PyEnSight ``Session`` object instance
+            PyEnSight ``Session`` object instance.
 
         Raises
         ------
@@ -272,13 +272,14 @@ class LocalLauncher(Launcher):
 
     @staticmethod
     def get_cei_install_directory(ansys_installation: Optional[str]) -> str:
-        """Compute the Ansys distribution CEI directory to use.
+        """Get the Ansys distribution CEI directory to use.
 
         Parameters
         ----------
         ansys_installation : str, optional
-            Path for the Ansys installation to use. The default is ``None``, in which
-            case common locations are scanned for a viable distribution. The
+            Path to the local Ansys installation, including the version
+            directory. The default is ``None``, in which case common locations
+            are scanned to detect the latest local Ansys installation. The
             ``PYENSIGHT_ANSYS_INSTALLATION`` environmental variable is checked first.
 
         Returns

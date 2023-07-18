@@ -36,6 +36,8 @@ session = LocalLauncher().start()
 # This code uses a remote session to load a simple time-varying dataset of
 # waterflow over a break. It loads the data and displays the ``p`` variable
 # and element lines on the 3D part.
+#
+# .. image:: /_static/01_queries_0.png
 
 session.load_example("waterbreak.ens")
 # Get the core part and variable objects
@@ -61,8 +63,6 @@ session.ensight.view_transf.rotate(4.83516455, 3.42857122, 0)
 # Display it
 session.show("image", width=800, height=600)
 
-
-# .. image:: /_static/01_queries_0.png
 
 ###############################################################################
 # Create a query using the line tool
@@ -104,6 +104,8 @@ print(line_query, line_query.QUERY_DATA["xydata"])
 # to this plotter. It then override many of the plotter visual features.
 # For example, it sets the axes scaling explicitly, creates a background grid,
 # and adjusts the display of the axis text.
+#
+# .. image:: /_static/01_queries_1.png
 
 line_plot = session.ensight.objs.core.defaultplot[0].createplotter()
 line_query.addtoplot(line_plot)
@@ -124,7 +126,6 @@ line_plot.AXISYMIN = -200.0
 line_plot.AXISYMAX = 2200.0
 session.show("image", width=800, height=600)
 
-# .. image:: /_static/01_queries_1.png
 
 ###############################################################################
 # Query element values over time
@@ -178,6 +179,8 @@ print(elem_queries)
 # ------------------------
 # This code creates another plotter and adds each query to this new plotter.
 # It then plays back the result as an MPEG4 animation.
+#
+# .. image:: /_static/01_queries_2.png
 
 elem_plot = session.ensight.objs.core.defaultplot[0].createplotter(
     xtitle="Time", ytitle=var.DESCRIPTION
@@ -192,8 +195,6 @@ elem_plot.AXISYGRIDTYPE = 1
 session.show("animation", width=800, height=600, fps=5)
 
 
-# .. image:: /_static/01_queries_2.png
-
 ###############################################################################
 # Manipulate a query using NumPy
 # ------------------------------
@@ -202,6 +203,8 @@ session.show("animation", width=800, height=600, fps=5)
 # functions to approximate the data. It then creates a "data" query
 # (not generated) that is filled in with the newly created query. Lastly, it
 # gets the query object and adds it to the existing plot.
+#
+# .. image:: /_static/01_queries_3.png
 
 session.ensight.objs.core.SOLUTIONTIME = 0.7
 data = np.array(line_query.QUERY_DATA["xydata"])
@@ -213,8 +216,6 @@ fit_query = max(session.ensight.objs.core.QUERIES)
 fit_query.addtoplot(line_plot)
 session.show("remote")
 
-
-# .. image:: /_static/01_queries_3.png
 
 ###############################################################################
 # Close the session

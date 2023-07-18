@@ -1,7 +1,8 @@
 """Launcher module.
 
 The Launcher module provides a base class responsible for managing an EnSight
-instance. Subclasses of the class implement specific launching paradigms.
+:class:`Session<ansys.pyensight.core.Session>` instance. Subclasses of the
+class implement specific launching paradigms.
 
 Examples:
     ::
@@ -43,7 +44,7 @@ class Launcher:
 
     Parameters
     ----------
-    timeout :
+    timeout : float, optional
         Number of seconds to try a gRPC connection before giving up.
         The default is ``120``.
     use_egl : bool, optional
@@ -102,7 +103,7 @@ class Launcher:
 
         Parameters
         ----------
-        session : "pyensight.Session"
+        session : ``pyensight.Session``
             Session to close.
 
         Raises

@@ -3,6 +3,6 @@
 Intermediate examples
 =====================
 
-These intermediate examples show how the PyEnSight API can be used for more
-complex workflows that use calculator functions, queries, viewports,
+These intermediate examples use the PyEnSight API for more
+complex workflows that employ calculator functions, queries, viewports,
 and annotations.

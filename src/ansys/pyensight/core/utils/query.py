@@ -17,7 +17,7 @@ class Query:
 
     This class is instantiated as ``ensight.utils.query`` in EnSight Python
     and as ``Session.ensight.utils.query`` in PyEnSight. The constructor is
-    passed the interface, which serves as the "ensight" module for either
+    passed the interface, which serves as the ``ensight`` module for either
     case. As a result, the methods can be accessed as ``ensight.utils.query.create_distance()``
     in EnSight Python or ``session.ensight.utils.query.create_distance()`` in PyEnSight.
 
@@ -66,14 +66,14 @@ class Query:
         """Create an EnSight query over a distance object.
 
         Create an EnSight distance query using the passed parameters. Return
-        the newly generated ENS_QUERY object.
+        the newly generated ``ENS_QUERY`` object.
 
         Parameters
         ----------
         name : str
             Name for the query.
         query_type : str
-            Type of the query. Descriptions of options follow.
+            Type of the query. This table describes the options:
 
             ================== ========================================
             Name               Query type
@@ -94,18 +94,19 @@ class Query:
             in which case the "x" value is the distance along the sampling
             domain.
         num_samples : int, optional
-            For spline and line queries, the number of samples to use along
+            For a spline or line query, the number of samples to use along
             the length of the spline or line. The default is ``20``.
         point1 : list[float], optional
             For a line query, the ``x,y,z`` location of the start of the line.
             The default is ``None``.
         point2: : list[float], optional
-            For the line query, the x,y,z location of the end of the line.
+            For a line query, the x,y,z location of the end of the line.
             The default is ``None``.
         distance_type : str, optional
-            For queries over distance (no second variable), how to compute
-            distance. The default is ``"arc_length"``. Descriptions of options
-            follow.
+            For a query over a distance (no second variable), how to compute
+            distance. The default is ``"arc_length"``, in which case
+            ``DIST-TYPE_LENGTH_X`` is used. This table describes
+            the options:
 
             =================== =========================================
             Name                Query type
@@ -123,8 +124,9 @@ class Query:
 
         segments_by : str, optional
             For a 1D part query, how to compute distance for the
-            segments of the 1D part. The default is ``"accumulation"``.
-            Descriptions of options follow.
+            segments of the 1D part. The default is ``"accumulation"``,
+            in which case ``DIST_SEG_ACCUMULATION`` is used.
+            This table describes the options:
 
             ====================== ==========================================
             Name                   Segment handling
@@ -135,8 +137,8 @@ class Query:
 
 
         spline_name : str, optional
-            If a spline query is selected, the name of the spline to sample
-            along. The default is ``None``.
+            For a spline query, the name of the spline to sample along. The
+            default is ``None``.
         new_plotter : bool, optional
             Whether to add the query to a newly created plotter. The default is
             ``False``.

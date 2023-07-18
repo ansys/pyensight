@@ -16,7 +16,7 @@ class Support:
 
     This class is instantiated as ``ensight.utils.support`` in EnSight Python
     and as ``Session.ensight.utils.support`` in PyEnSight. The constructor is
-    passed the interface, which serves as the "ensight" module for either
+    passed the interface, which serves as the ``ensight`` module for either
     case. As a result, the methods can be accessed as ``ensight.utils.support.*``
     in EnSight Python or ``session.ensight.utils.support.*`` in PyEnSight.
 

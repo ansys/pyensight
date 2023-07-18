@@ -50,6 +50,8 @@ session.add_callback(session.ensight.objs.core, "partlist_name", ["PARTS"], part
 # This code loads some data included in the EnSight installation and brings up
 # an interactive viewer for the scene.
 #
+# .. image:: /_static/00_events_0.png
+#
 # The callback string is ``grpc://.../partlist_name?enum=PARTS&uid=220``.
 # The callback is in the form of a URI, where "partlist_name" is the string from the
 # call to the :func:`add_callback<ansys.pyensight.core.Session.add_callback>` method.
@@ -59,7 +61,6 @@ session.add_callback(session.ensight.objs.core, "partlist_name", ["PARTS"], part
 session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/guard_rail/crash.case")
 render = session.show("remote")
 
-# .. image:: /_static/00_events_0.png
 
 ###############################################################################
 # Register an event callback on a class
@@ -67,6 +68,8 @@ render = session.show("remote")
 # Events can be associated with classes as well. This code associates a callback
 # with all part objects, listening to both the ``VISIBLE`` and ``COLORBYRGB``
 # attributes. The ``urllib`` module is used to parse out the returned value.
+#
+# .. image:: /_static/00_events_1.png
 #
 # After running this code, the cell value calls out the change in the
 # color of the windshield.
@@ -88,17 +91,17 @@ session.add_callback("'ENS_PART'", "partattr", attribs, part_event)
 
 session.ensight.objs.core.PARTS["hood"][0].COLORBYRGB = [1.0, 0.0, 0.0]
 
-# .. image:: /_static/00_events_1.png
 
 ###############################################################################
 # Trigger with the ``VISIBLE`` attribute
 # --------------------------------------
 # This code triggers the same callback when changes are madee to the
 # ``VISIBLE`` attribute.
+#
+# .. image:: /_static/00_events_2.png
 
 session.ensight.objs.core.parts["windshields"].set_attr(session.ensight.objs.enums.VISIBLE, True)
 
-# .. image:: /_static/00_events_2.png
 
 ###############################################################################
 # Trigger with a callback macro
@@ -109,6 +112,8 @@ session.ensight.objs.core.parts["windshields"].set_attr(session.ensight.objs.enu
 # avoids the need to make PyEnSight calls from within a callback function. This
 # can avoid reentrancy and performance issues. This approach is more efficient
 # than the approach used in the previous example.
+#
+# .. image:: /_static/00_events_3.png
 
 macro_disp = widgets.HTML()
 display(macro_disp)
@@ -129,7 +134,6 @@ session.add_callback("'ENS_PART'", name, attribs, macro_event)
 session.ensight.objs.core.PARTS["hood"][0].COLORBYRGB = [0.0, 1.0, 0.0]
 
 
-# .. image:: /_static/00_events_3.png
 ###############################################################################
 # Close the session
 # -----------------
