@@ -199,20 +199,17 @@ where:
     * - ymax
       - constant number
 
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
+        - > 0 = Baldwin-Lomax-Spalart algorithm
+        -  0 = convergence algorithm
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - flow comp
       - constant number
 
-        0 = tangent flow parallel to surface
-
-        1 = stream-wise component tangent (parallel) to wall
-
-        2 = cross-flow component tangent (parallel) to wall
+        - 0 = tangent flow parallel to surface
+        - 1 = stream-wise component tangent (parallel) to wall
+        - 2 = cross-flow component tangent (parallel) to wall
 
     * - grad
       - -1 = flags the computing of the velocity-magnitude gradient via 3-point interpolation.
@@ -373,18 +370,16 @@ where:
     * - ymax
       - constant number
 
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
+        - > 0 = Baldwin-Lomax-Spalart algorithm
+        - 0 = convergence algorithm
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - flow comp
       - constant number
 
-        1 = stream-wise component tangent (parallel) to wall
-
-        2 = cross-flow component tangent (parallel) to wall
+        - 1 = stream-wise component tangent (parallel) to wall
+        - 2 = cross-flow component tangent (parallel) to wall
 
     * - grad
       - -1 flags the computing of the
@@ -458,20 +453,17 @@ where:
     * - ymax
       - constant number
 
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
+        - > 0 = Baldwin-Lomax-Spalart algorithm
+        - 0 = convergence algorithm
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - flow comp
       - constant number
 
-        0 = RMS of the stream-wise and cross-flow components
-
-        1 = stream-wise component at the wall
-
-        2 = cross-flow component at the wall
+        - 0 = RMS of the stream-wise and cross-flow components
+        - 1 = stream-wise component at the wall
+        - 2 = cross-flow component at the wall
 
     * - grad
       - -1 flags the computing of the velocity-magnitude gradient via three-point interpolation
@@ -560,20 +552,17 @@ displacement of the streamlines around the body.
     * - :math:`{y}_{max}`
       - constant number
 
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
+        - > 0 = Baldwin-Lomax-Spalart algorithm
+        - 0 = convergence algorithm
 
         See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - flow comp
       - constant number:
 
-        0 = total tangential flow direction parallel to wall
-
-        1 = stream-wise flow component direction parallel to wall
-
-        2 = cross-flow component direction parallel to wall
+        - 0 = total tangential flow direction parallel to wall
+        - 1 = stream-wise flow component direction parallel to wall
+        - 2 = cross-flow component direction parallel to wall
 
     * - grad
       - -1 flags the computing of the velocity-magnitude
@@ -719,29 +708,24 @@ This scalar variable relates to the momentum loss in the boundary layer.
     * - ymax
       - constant number
 
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
+        - > 0 = Baldwin-Lomax-Spalart algorithm
+        - 0 = convergence algorithm
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - compi
       - constant number
 
-        0 = total tangential flow direction parallel to wall
-
-        1 = stream-wise flow component direction parallel to wall
-
-        2 = cross-flow component direction parallel to wall
+        - 0 = total tangential flow direction parallel to wall
+        - 1 = stream-wise flow component direction parallel to wall
+        - 2 = cross-flow component direction parallel to wall
 
     * - compj
       - constant number
 
-        0 = total tangential flow direction parallel to wall
-
-        1 = stream-wise flow component direction parallel to wall
-
-        2 = cross-flow component direction parallel to wall
+        - 0 = total tangential flow direction parallel to wall
+        - 1 = stream-wise flow component direction parallel to wall
+        - 2 = cross-flow component direction parallel to wall
 
     * - grad
       - -1 flags the computing of the
@@ -786,9 +770,8 @@ thickness. (See :ref:`Boundary Layer: Thickness<BL_Thick>`.)
     * - ymax
       - constant number
 
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
+        - > 0 = Baldwin-Lomax-Spalart algorithm
+        - 0 = convergence algorithm
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
@@ -856,9 +839,8 @@ conservation equations, but is sometimes used in the evaluation of inlet flows.
     * - ymax
       - constant number
 
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
+        - > 0 = Baldwin-Lomax-Spalart algorithm
+        - 0 = convergence algorithm
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
@@ -957,9 +939,8 @@ The distance normal from the surface to where :math:`u/U=0.995`.
     * - ymax
       - constant number
 
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
+        - 0 = Baldwin-Lomax-Spalart algorithm
+        - 0 = convergence algorithm
 
       See the algorithm note that follows.
 
@@ -1065,20 +1046,17 @@ thickness :math:`\delta`. It is defined as:
     * - ymax
       - constant number
 
-        > 0 = Baldwin-Lomax-Spalart algorithm
-
-        0 = convergence algorithm
+        - > 0 = Baldwin-Lomax-Spalart algorithm
+        - 0 = convergence algorithm
 
       See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - comp
       - constant number
 
-        0 = velocity vector at edge of boundary layer
-
-        1 = decomposed velocity vector parallel to wall tangent to surface
-
-        2 = decomposed velocity vector normal to wall
+        - 0 = velocity vector at edge of boundary layer
+        - 1 = decomposed velocity vector parallel to wall tangent to surface
+        - 2 = decomposed velocity vector normal to wall
 
     * - grad
       - -1 flags the computing of the
@@ -1149,20 +1127,19 @@ the values for your application, consult a boundary-layer text.
     * - viscosity
       - scalar variable, constant variable, or constant number
     * - gradient option
-      - 1 = Use field velocity (used to calculate wall gradient)
+      - One of three values:
 
-        2 = Use gradient at boundary part (wall or surface)
+        - 1 = Use field velocity (used to calculate wall gradient)
+        - 2 = Use gradient at boundary part (wall or surface)
+        - 3 = Use gradient in corresponding field part
 
-        3 = Use gradient in corresponding field part
     * - vector variable
       - One of three values depending on the gradient option:
 
-        1 = Use field velocity = velocity vector
-
-        2 = Use gradient at boundary = gradient variable on 2D boundary (wall or surface) part
-
-        3 = Use gradient in field = gradient variable defined in 3D field part; or it
-        could be the gradient calculated using Grad(velocity magnitude), that is :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
+        - 1 = Use field velocity = velocity vector
+        - 2 = Use gradient at boundary = gradient variable on 2D boundary (wall or surface) part
+        - 3 = Use gradient in field = gradient variable defined in 3D field part; or it
+          could be the gradient calculated using Grad(velocity magnitude), that is :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
 
 .. note::
@@ -2477,8 +2454,7 @@ For more information on individual metrics, see these references:
 
 1. C. J. Stimpson, C. D. Ernst, P. Knupp, P. P. Pebay, & D.
    Thompson, The Verdict Library Reference Manual, May 8, 2007.
-2. `Verdict Mesh Verification Library <https://cubit.sandia.gov/public/verdict.html>`_
-3. `Verdict Manual <http://www.vtk.org/Wiki/images/6/6b/VerdictManual-revA.pdf>`_
+2. `The Verdict Library Refernence Manual <http://www.vtk.org/Wiki/images/6/6b/VerdictManual-revA.pdf>`_
 
 
 
@@ -3034,7 +3010,7 @@ where:
 .. note::
     To compute fluid shear stress:
 
-    #. Use the :func:`Grad()` function on the velocity to obtain the velocity gradient
+    #. Use the :func:`Grad()` function on the velocity to obtain the ``Velocity Grad``
        variable in the 3D parts of interest.
 
     #. Create a part clip or extract the outer surface of the part using part extract,
@@ -5760,12 +5736,11 @@ coefficients as well as the estimated coefficient itself and its standard error.
         constant number that selects the specific coefficient for which to
         retrieve the statistical quantity
 
-        0 = x0
-        1 = x1
-        2 = x2
-        3 = x3
-        4 = x4
-
+        - 0 = x0
+        - 1 = x1
+        - 2 = x2
+        - 3 = x3
+        - 4 = x4
 
 See also the :ref:`StatRegSpa() <StatRegSpa>` and :ref:`StatRegVal1() <StatRegVal1>`
 functions.
@@ -6433,7 +6408,7 @@ variable is needed.
 
 If computing from three principals, three scalar variables
 representing ``sigma_1``, ``sigma_2``, and ``sigma_3`` are needed. Additionally, you
-must enter a ``-1``constant for the last three entries.
+must enter a ``-1`` constant for the last three entries.
 
 ``TensorVonMises(plist, sigma_1, sigms_2, sigma_3, -1, -1, -1)``
 
@@ -6729,8 +6704,8 @@ where:
 
     * - :math:`V_M`
 
-      - If the gamma function number k = 1, VM = V(M).
-      - If the gamma function number k = 2, VM = V(M) - V(P).
+        - If the gamma function number k = 1, VM = V(M).
+        - If the gamma function number k = 2, VM = V(M) - V(P).
 
 
     * - If k=2
