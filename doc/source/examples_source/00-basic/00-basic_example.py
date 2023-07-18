@@ -78,7 +78,7 @@ print("Variables:", core.VARIABLES)
 # #. Make the volume part transparent so the clip is still visible.
 # #. Enable element edge display, outlining elements in black lines.
 #
-# .. image:: /_static/00_basic_3.pn
+# .. image:: /_static/00_basic_3.png
 
 core.PARTS.set_attr("ELTREPRESENTATION", session.ensight.objs.enums.BORD_FULL)
 core.PARTS[0].OPAQUENESS = 0.1
