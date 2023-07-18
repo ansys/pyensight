@@ -1011,7 +1011,7 @@ thickness :math:`\delta`. It is defined as:
       - -1 flags the computing of the
         velocity-magnitude gradient via four-point interpolation
 
-        vector variable = Grad(velocity magnitude),
+        vector variable = Grad(velocity magnitude)
 
     See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
