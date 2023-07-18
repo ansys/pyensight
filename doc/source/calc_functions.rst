@@ -199,7 +199,7 @@ where:
     * - ymax
       - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
-      See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
+        See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - flow comp
       - constant number (0 = tangent flow parallel to surface, 1 = stream-wise component
@@ -363,12 +363,11 @@ where:
     * - ymax
       - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
-      See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
+        See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - flow comp
       - constant number (1 = stream-wise component tangent (parallel) to wall, 2 = cross-flow
         component tangent (parallel) to wall
-
     * - grad
       - -1 flags the computing of the
         velocity-magnitude gradient via three-point interpolation
@@ -441,7 +440,7 @@ where:
     * - ymax
       - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
-      See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
+        See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - flow comp
       - constant number (0 = RMS of the stream-wise and cross-flow components,
@@ -684,7 +683,7 @@ This scalar variable relates to the momentum loss in the boundary layer.
     * - ymax
       - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
-      See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
+        See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - compi
       - constant number (0 = total tangential flow direction parallel to wall,
@@ -737,7 +736,7 @@ thickness. (See :ref:`Boundary Layer: Thickness<BL_Thick>`.)
     * - ymax
       - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
-      See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
+        See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - grad
       - -1 flags the computing of the
@@ -803,7 +802,7 @@ conservation equations, but is sometimes used in the evaluation of inlet flows.
     * - ymax
       - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
-      See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
+        See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - grad
       - -1 flags the computing of the
@@ -899,7 +898,7 @@ The distance normal from the surface to where :math:`u/U=0.995`.
     * - ymax
       - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
-      See the algorithm note that follows.
+        See the algorithm note that follows.
 
     * - grad
       - -1 = flags the computing of the
@@ -1002,7 +1001,7 @@ thickness :math:`\delta`. It is defined as:
     * - ymax
       - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
-    See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
+        See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - comp
       - constant number (0 = velocity vector at edge of boundary layer, 1 = decomposed
@@ -6584,7 +6583,6 @@ where:
     :widths: 30 70
 
     * - :math:`{\Gamma }_{1}`
-
       - Gamma function number k=1 is a (non-Galilean invariant)
         vortex center approximation method "...a dimensionless scalar,
         with G1 bounded by 1. It can be shown that this bound is
@@ -6596,7 +6594,6 @@ where:
         [ref.2, pp. 1424-1425].
 
     * - :math:`{\Gamma }_{2}`
-
       - Gamma function number k=2 is a (Galilean invariant) vortex
         boundary approximation method resulting in a dimensionless
         scalar, "... a local function depending only on W and μ,
@@ -6619,12 +6616,12 @@ where:
         the proximity option. The proximity option is used to determine
         which set of elements to include in S as follows.
 
-        - If the proximity option is 0, S includes all elements
-          with any nodes within the proximity radius.
-        - If the proximity option is 1, S includes only elements with
-          every node within the proximity radius. Both options also
-          include all elements that contain P.
+        If the proximity option is 0, S includes all elements
+        with any nodes within the proximity radius.
 
+        If the proximity option is 1, S includes only elements with
+        every node within the proximity radius. Both options also
+        include all elements that contain P.
 
     * - M
       - Node (or element center) within S.
@@ -6640,8 +6637,8 @@ where:
 
     * - :math:`V_M`
 
-        - If the gamma function number k = 1, VM = V(M).
-        - If the gamma function number k = 2, VM = V(M) - V(P).
+        - If the gamma function number k = 1, VM = V(M). If the gamma function
+          number k = 2, VM = V(M) - V(P).
 
 
     * - If k=2
@@ -6664,14 +6661,17 @@ where:
       - vector variable
     * - gamma function number
       - single integer (k=1 or k= 2) that determines
-        which value of VM to use. A value of 1 is useful for finding vortex
-        cores (centers). A value of 2 is useful for finding vortex
-        boundaries.
+        which value of VM to use.
+
+        A value of 1 is useful for finding vortex cores (centers).
+
+        A value of 2 is useful for finding vortex boundaries.
 
     * - proximity radius
       - Float value greater than or equal to 0.0 that is used to
         determine the proximity area around each base node or element P over
         which the vorticity gamma is calculated on the 2D part clip.
+
         The larger the proximity radius, the more
         nodes (or elements) that are used to calculate G and the slower the
         calculation. A proximity radius less than or equal to 0.0
@@ -6696,8 +6696,9 @@ where:
     * - proximity option
       - 0 to include all cells with any nodes in the proximity area.
 
-        1 to include only cells entirely located in the
-        proximity area. Use this option along with the radius to control the
+        1 to include only cells entirely located in the proximity area.
+
+        Use this option along with the radius to control the
         number of nodes (or elements) used in the calculation for each node
         (or element) P.
 
