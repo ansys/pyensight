@@ -164,7 +164,7 @@ Also, PyEnSight may be launched as other PyAnsys products with the ``launch_ensi
 .. code:: python
 
    >>> from ansys.pyensight.core import launch_ensight
-   >>> session = session = launch_ensight(use_sos=3)
+   >>> session = launch_ensight(use_sos=3)
    >>> data = session.render(1920, 1080, aa=4)
    >>> with open("image.png", "wb") as f:
    ...    f.write(data)
