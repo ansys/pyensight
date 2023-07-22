@@ -175,8 +175,8 @@ The previous examples are transformed as follows:
 Selection and the object API
 ----------------------------
 
-As noted, the native API maintains a notion of a "current selection", with a collection
-of commands to manipulate it, for example ``ensight.part.select_begin()``. The object APIs
+The native API maintains a notion of a "current selection" with a collection
+of commands to manipulate it, for example ``ensight.part.select_begin()``. The object API
 reflects the EnSight GUI via SELECTED attributes and selection ENS_GROUP objects.
 Due to the implicit nature of the native API, until it is used, the native selection
 is not reflected in ensight objects. When using both APIs in a single script, it can
