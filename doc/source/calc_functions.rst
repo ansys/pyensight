@@ -898,15 +898,13 @@ The distance normal from the surface to where :math:`u/U=0.995`.
     * - ymax
       - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
-        See the algorithm note that follows.
+      See the algorithm note that follows.
 
     * - grad
       - -1 = flags the computing of the
         velocity-magnitude gradient via three-point interpolation
 
-        vector variable = Grad(velocity magnitude)
-
-    See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
+      vector variable = Grad(velocity magnitude) See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
 
 .. note::
@@ -1001,7 +999,7 @@ thickness :math:`\delta`. It is defined as:
     * - ymax
       - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
-        See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
+      See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - comp
       - constant number (0 = velocity vector at edge of boundary layer, 1 = decomposed
@@ -1011,9 +1009,7 @@ thickness :math:`\delta`. It is defined as:
       - -1 flags the computing of the
         velocity-magnitude gradient via four-point interpolation
 
-        vector variable = Grad(velocity magnitude)
-
-    See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
+      vector variable = Grad(velocity magnitude) See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
 
 .. note::
@@ -3749,7 +3745,7 @@ variable for each of the parent parts of the massed-particle traces. This per
 element variable is the mass of the particle multiplied by the sum of the number of
 times each element is exited by a mass-particle trace. For more information, see
 `Particle-Mass Scalar on Boundaries
-<https://ansysproducthelpqa.win.ansys.com/account/secured?returnurl=/Views/Secured/corp/v232/en/ensight_um/UM-C5xmlid72630.html%23UM-C5xmlidParticle-MassScalaronBoundaries>`_
+<https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/v232/en/ensight_um/UM-C7xmlidSection43VariableCreation.html?q=Particle-Mass%20Scalar%20on%20Boundaries>`_
 in the *Ansys EnSight User Manual*.
 .
 
@@ -6637,8 +6633,8 @@ where:
 
     * - :math:`V_M`
 
-        - If the gamma function number k = 1, VM = V(M). If the gamma function
-          number k = 2, VM = V(M) - V(P).
+      - If the gamma function number k = 1, VM = V(M). If the gamma function
+        number k = 2, VM = V(M) - V(P).
 
 
     * - If k=2

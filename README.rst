@@ -34,10 +34,9 @@ PyEnSight
 
 Overview
 --------
-PyEnSight is a Python wrapper for EnSight_, the Ansys simulation
-postprocessor. It supports Pythonic access to EnSight so that you
-communicate directly with it from Python. With PyEnSight, you can
-perform these essential actions:
+PyEnSight is a Python wrapper for EnSight_, the Ansys simulation postprocessor.
+It supports Pythonic access to EnSight so that you communicate directly with it
+from Python. With PyEnSight, you can perform these essential actions:
 
 * Start a new EnSight session or connect to an existing one.
 * Read simulation data from any supported solver output format into the session.
