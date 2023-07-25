@@ -889,7 +889,7 @@ The distance normal from the surface to where :math:`u/U=0.995`.
 
 
 .. list-table:: **Function arguments**
-    :widths:  30 70
+    :widths:  30 70 70
 
     * - boundary part
       - 2D part
