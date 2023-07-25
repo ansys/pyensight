@@ -7,7 +7,7 @@ Calculator functions
 ====================
 
 EnSight supports a large number of calculator functions.
-An :class:`ENS_VAR<pyensight.ens_var.ENS_VAR>` object can represent
+An :class:`ENS_VAR<ansys.api.pyensight.ens_var.ENS_VAR>` object can represent
 either fields read from disk or the use of a calculator function
 to compute a new variable from an input collection of parts, variables, and
 user-specified parameters.
