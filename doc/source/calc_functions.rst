@@ -889,23 +889,18 @@ The distance normal from the surface to where :math:`u/U=0.995`.
 
 
 .. list-table:: **Function arguments**
-    :widths:  30 70 70
+    :widths:  30 70
 
     * - boundary part
       - 2D part
     * - velocity
       - vector variable
     * - ymax
-      - constant number (``> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm``)
-
-       See the algorithm note that follows.
-
+      - ``constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)``
+        See the algorithm note that follows.
     * - grad
       - ``-1 = flags the computing of the velocity-magnitude gradient via three-point interpolation``
-
-        vector variable = Grad(velocity magnitude)
-
-    See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
+        vector variable = Grad(velocity magnitude). See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
 
 .. note::
@@ -999,19 +994,14 @@ thickness :math:`\delta`. It is defined as:
       - scalar variable (compressible flow), constant number (incompressible flow)
     * - ymax
       - constant number (``> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm``)
-
-      See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
-
+        See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
     * - comp
       - constant number (0 = velocity vector at edge of boundary layer, 1 = decomposed
         velocity vector parallel to wall tangent to surface, 2 = decomposed velocity
         vector normal to wall)
     * - grad
       - ``-1 flags the computing of the velocity-magnitude gradient via four-point interpolation``
-
-        vector variable = Grad(velocity magnitude)
-
-    See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
+        vector variable = Grad(velocity magnitude). See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
 
 .. note::
