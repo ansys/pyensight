@@ -3736,8 +3736,8 @@ This scalar creates a massed-particle per element scalar
 variable for each of the parent parts of the massed-particle traces. This per
 element variable is the mass of the particle multiplied by the sum of the number of
 times each element is exited by a mass-particle trace. For more information, see
-`Particle-Mass Scalar on Boundaries
-<https://ansysproducthelpqa.win.ansys.com/account/secured?returnurl=/Views/Secured/corp/v232/en/ensight_um/UM-C5xmlid72630.html%23UM-C5xmlidParticle-MassScalaronBoundaries>`_
+Particle-Mass Scalar on Boundaries
+https://ansysproducthelpqa.win.ansys.com/account/secured?returnurl=/Views/Secured/corp/v232/en/ensight_um/UM-C5xmlid72630.html%23UM-C5xmlidParticle-MassScalaronBoundaries
 in the *Ansys EnSight User Manual*.
 .
 
