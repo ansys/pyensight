@@ -36,6 +36,7 @@ line width and part color::
     part: colorby_rgb 1.0 0.0 0.0
     part: modify_end
 
+
 .. note::
    While most of the command language follows these two command forms, there are a
    number of commands that do not follow this scheme.
@@ -167,3 +168,31 @@ The previous examples are transformed as follows:
     session.ensight.annotation._3d_label_size(10.0)
     session.ensight.command.print("hello")
     session.ensight.viewport._raise()
+
+
+.. _selection_transfer:
+
+Selection and the object API
+----------------------------
+
+The native API maintains a notion of a "current selection" with a collection
+of commands to manipulate it, for example ``ensight.part.select_begin()``. The object API
+reflects the EnSight GUI via SELECTED attributes and selection ENS_GROUP objects.
+Due to the implicit nature of the native API, until it is used, the native selection
+is not reflected in ensight objects. When using both APIs in a single script, it can
+become necessary to synchronize the two notions of selection. This is done with the
+the ``ensight.part.get_mainpartlist_select()`` command. This command sets the
+native selection to match the object selection. It can be used like this:
+
+.. code-block:: python
+
+    p = session.ensight.objs.core.PARTS["rear body"][0]
+    session.ensight.objs.core.selection().addchild(p, replace=1)
+    session.ensight.part.get_mainpartlist_select()
+    session.ensight.part.modify_begin()
+    session.ensight.part.colorby_rgb(0.0,1.0,0.0)
+    session.ensight.part.modify_end()
+
+
+Which allows the object selection mechanisms to be used to set up the part selection
+for subsequent native commands.
