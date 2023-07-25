@@ -3745,9 +3745,8 @@ variable for each of the parent parts of the massed-particle traces. This per
 element variable is the mass of the particle multiplied by the sum of the number of
 times each element is exited by a mass-particle trace. For more information, see
 `Particle-Mass Scalar on Boundaries
-<https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/v232/en/ensight_um/UM-C7xmlidSection43VariableCreation.html?q=Particle-Mass%20Scalar%20on%20Boundaries>`_
+<https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/v232/en/ensight_um/UM-C5xmlid72630.html%23UM-C5xmlidParticle-MassScalaronBoundaries>`_
 in the *Ansys EnSight User Manual*.
-.
 
 
 .. _MassFluxAvg:
@@ -4122,7 +4121,7 @@ where:
 
 
 .. note::
-    elem[j] must contain node[i] to contribute.
+    ``elem[j]`` must contain ``node[i]`` to contribute.
 
 
 
