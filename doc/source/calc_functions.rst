@@ -900,8 +900,6 @@ The distance normal from the surface to where :math:`u/U=0.995`.
     * - grad
       - ``-1 = flags the computing of the velocity-magnitude gradient via three-point interpolation``
 
-        vector variable = Grad(velocity magnitude)
-
     See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
 
@@ -1000,8 +998,6 @@ thickness :math:`\delta`. It is defined as:
       - constant number (0 = velocity vector at edge of boundary layer, 1 = decomposedvelocity vector parallel to wall tangent to surface, 2 = decomposed velocity vector normal to wall)
     * - grad
       - ``-1 flags the computing of the velocity-magnitude gradient via four-point interpolation``
-
-        vector variable = Grad(velocity magnitude)
 
     See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
