@@ -896,12 +896,9 @@ The distance normal from the surface to where :math:`u/U=0.995`.
     * - velocity
       - vector variable
     * - ymax
-      - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
-
-       See the algorithm note that follows.
-
+      - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm). See the algorithm note that follows.
     * - grad
-      - ``-1`` = flags the computing of the ``velocity-magnitude`` gradient via ``three-point`` interpolation
+      - \-1 = flags the computing of the velocity\-magnitude gradient via three\-point interpolation
 
         vector variable = Grad(velocity magnitude)
 
@@ -998,16 +995,11 @@ thickness :math:`\delta`. It is defined as:
     * - density
       - scalar variable (compressible flow), constant number (incompressible flow)
     * - ymax
-      - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
-
-      See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
-
+      - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm). See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
     * - comp
-      - constant number (0 = velocity vector at edge of boundary layer, 1 = decomposed
-        velocity vector parallel to wall tangent to surface, 2 = decomposed velocity
-        vector normal to wall)
+      - constant number (0 = velocity vector at edge of boundary layer, 1 = decomposedvelocity vector parallel to wall tangent to surface, 2 = decomposed velocity vector normal to wall)
     * - grad
-      - ``-1`` flags the computing of the ``velocity-magnitude`` gradient via ``four-point`` interpolation
+      - \-1 flags the computing of the velocity\-magnitude gradient via four\-point interpolation
 
         vector variable = Grad(velocity magnitude)
 
