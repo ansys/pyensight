@@ -4,14 +4,14 @@ EnSight object API
 ==================
 
 The object interface directly exposes core EnSight objects using *proxy* Python objects
-that hold references to the underlying C++ objects. These proxy objects ca be used to
+that hold references to the underlying C++ objects. These proxy objects can be used to
 get or set attributes on the C++ objects as well as call methods on them. The object
 interface has a number of advantages over the native interface.
 
 - Attributes support the event callback mechanism. This makes it possible to
   register callbacks in Python that are executed when a specific set of attributes
-  change on a single or a class of objects.
-- The interface supports the specification of objects via name, ID or object. This helps
+  change on a single object or a class of objects.
+- The interface supports the specification of objects via name, ID, or object. This helps
   remove ambiguity and adds flexibility when passing things like parts.
 - In general, the object API does not necessitate the use of stored state, meaning
   the command language's *currently selected parts* notion. The API provides access
@@ -22,11 +22,11 @@ Proxy objects: ``ENSOBJ`` class
 -------------------------------
 
 The object interface revolves around proxy object classes. The base class for these
-objects is the :class:`ENSOBJ<pyensight.ensobj.ENSOBJ>` class. The object is a wrapper around an EnSight
+objects is the ``ENSOBJ`` class. The object is a wrapper around an EnSight
 object ID. An EnSight object ID is a monotonically increasing 64-bit integer, unique for a
 given EnSight session. The proxy object stores the object ID in the :samp:`objid` object and
 can make method and attribute calls directly on the C++ core objects via that ID. The
-``ENSOBJ`` interface supports attribute introspection including attribute names, types, and
+``ENSOBJ`` interface supports attribute introspection, including attribute names, types, and
 general organization. In most cases where an attribute takes an object, the API supports
 objects, descriptions, and IDs, making transition between the various APIs fairly seamless.
 For example, the Python bindings search the variable list for names and IDs if
@@ -53,8 +53,8 @@ attribute IDs and values) and all proxy object base classes (such as the
 and manipulating object IDs.
 
 
-Global state: ``ensight.objs.core``
------------------------------------
+Global state: ``ensight.objs.core`` object
+------------------------------------------
 
 Access to the global state of the EnSight session is stored in an ``ENS_GLOBALS`` singleton object
 accessed by the :samp:`session.ensight.objs.core` object. All other object instances can be
@@ -77,7 +77,8 @@ There are a collection of methods for accessing attributes. Here is an example::
 
 
 Attribute names may be specified using string names or enumerations. There are multiple
-interfaces to get or set attributes. You can use the ``attrinfo()`` or ``attrtree()``
+interfaces to get or set attributes. You can use the :func:`attrinfo<ansys.api.pyensight.ens_annot.ENS_ANNOT.attrinfo>`
+method or the  :func:`attrtree<ansys.api.pyensight.ens_annot.ENS_ANNOT.attrtree>`
 method to access detailed information about an attribute. Descriptions of attributes
 are available in multiple languages, which can be selected via the :samp:`session.language`
 property.
@@ -86,15 +87,14 @@ One nuance to the attribute interface is that all object attributes are lists. T
 while an attribute like :samp:`COLORBYPALETTE` is a single variable object, it is always
 returned as a list.
 
-Finally, objects are always returned as :class:`ensobjlist<pyensight.ensobjlist>`
-instances. This is a subclass of a Python list object that includes extra methods
-for searching via ``'[]'`` indexing and a ``find()`` method as well as calls to get
-or set attribute values in bulk on all the objects in the container.
+Finally, objects are always returned as ``ensobjlist`` instances. This is a subclass
+of a Python list object that includes extra methods for searching via ``'[]'``
+indexing and the :func:`find<ansys.pyensight.core.ensobjlist.find>` method as well as
+calls to get or set attribute values in bulk on all the objects in the container.
 
 It is also possible to create user-defined attributes. These may hold simple
 values, string, integers, or floats. They are stored in the ``METADATA`` attribute,
 but they behave the same as intrinsic attributes.
-
 
 Events
 ------
@@ -103,8 +103,8 @@ Whenever an attribute changes its value, an event is generated. Callback functio
 can be attached to these events. Thus, a PyEnSight app can respond to changes
 in state caused by Python calls or intrinsic changes in the EnSight core state (such
 as a time-varying animation playback). Here is a simple example that connects the
-function ``part_event()`` to any changes in the ``VISIBLE`` or ``COLORBYRGB`` properties
-on any ``ENS_PART`` subclass object.::
+``part_event()`` function to any changes in the ``VISIBLE`` or ``COLORBYRGB`` properties
+on any ``ENS_PART`` subclass object::
 
     def part_event(uri: str):
         p = urlparse(uri)

@@ -10,23 +10,23 @@ if TYPE_CHECKING:
 
 
 class Query:
-    """The ensight.utils.query interface
+    """Provides the ``ensight.utils.query`` interface.
 
-    The methods here implement simplified interfaces to common query
-    orientated operations, e.g. creating a new temporal or temporal query.
+    The methods in this class implement simplified interfaces to common
+    query-orientated operations, such as creating a temporal or temporal query.
 
-    This class is instantiated as ``ensight.utils.query`` within EnSight Python
-    and as ``Session.ensight.utils.query`` in PyEnSight.  The constructor is
-    passed the interface which serves as the "ensight" module for either
-    case.  As a result, the methods can be accessed as: ``ensight.utils.query.create_distance()``
-    in EnSight Python or ``session.ensight.utils.query.create_distance()`` within PyEnSight.
+    This class is instantiated as ``ensight.utils.query`` in EnSight Python
+    and as ``Session.ensight.utils.query`` in PyEnSight. The constructor is
+    passed the interface, which serves as the ``ensight`` module for either
+    case. As a result, the methods can be accessed as ``ensight.utils.query.create_distance()``
+    in EnSight Python or ``session.ensight.utils.query.create_distance()`` in PyEnSight.
 
     Parameters
     ----------
     interface :
-        An entity that provides the 'ensight' namespace.  In the case
-        of PyEnSight, ``Session.ensight`` is passed and in the case of
-        EnSight Python, the ``ensight`` module is passed.
+        Entity that provides the ``ensight`` namespace. In the case of
+        EnSight Python, the ``ensight`` module is passed. In the case
+        of PyEnSight, ``Session.ensight`` is passed.
     """
 
     def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
@@ -63,17 +63,17 @@ class Query:
         spline_name: Optional[str] = None,
         new_plotter: bool = False,
     ) -> "ENS_QUERY":
-        """Create an EnSight query over distance object.
+        """Create an EnSight query over a distance object.
 
-        Create a new EnSight distance query using the passed parameters.  Return
-        the newly generated ENS_QUERY object.
+        Create an EnSight distance query using the passed parameters. Return
+        the newly generated ``ENS_QUERY`` object.
 
         Parameters
         ----------
-        name:
-            The name for the query
-        query_type:
-            The type of query.
+        name : str
+            Name for the query.
+        query_type : str
+            Type of the query. This table describes the options:
 
             ================== ========================================
             Name               Query type
@@ -84,24 +84,29 @@ class Query:
             ================== ========================================
 
 
-        part_list:
-            A list of parts to use as the source for the query.  Part numbers, part names
-            and part objects are supported.
-        num_samples:
-            For spline and line queries, the number of samples to use along
-            the length of the spline/line.   Default: 20.
-        point1:
-            For the line query, the x,y,z location of the start of the line.
-        point2:
-            For the line query, the x,y,z location of the end of the line.
-        variable1:
-            The variable to sample as the "y" value.
-        variable2:
-            The variable to sample as the "x" value.  If unspecified, the "x" value
-            will be the distance along the sampling domain.
-        distance_type:
-            For queries over distance (no second variable), how is the
-            distance value computed:
+        part_list: list
+            List of parts to use as the source for the query. Part numbers,
+            part names, and part objects are supported.
+        variable1 :
+            Variable to sample as the "y" value.
+        variable2 : optional
+            Variable to sample as the "x" value. The default is ``None``,
+            in which case the "x" value is the distance along the sampling
+            domain.
+        num_samples : int, optional
+            For a spline or line query, the number of samples to use along
+            the length of the spline or line. The default is ``20``.
+        point1 : list[float], optional
+            For a line query, the ``x,y,z`` location of the start of the line.
+            The default is ``None``.
+        point2: : list[float], optional
+            For a line query, the x,y,z location of the end of the line.
+            The default is ``None``.
+        distance_type : str, optional
+            For a query over a distance (no second variable), how to compute
+            distance. The default is ``"arc_length"``, in which case
+            ``DIST-TYPE_LENGTH_X`` is used. This table describes
+            the options:
 
             =================== =========================================
             Name                Query type
@@ -117,9 +122,11 @@ class Query:
             =================== =========================================
 
 
-        segments_by:
-            For a 1D part query, how should "distance" be computed for the
-            segments of the 1D part.
+        segments_by : str, optional
+            For a 1D part query, how to compute distance for the
+            segments of the 1D part. The default is ``"accumulation"``,
+            in which case ``DIST_SEG_ACCUMULATION`` is used.
+            This table describes the options:
 
             ====================== ==========================================
             Name                   Segment handling
@@ -129,15 +136,17 @@ class Query:
             ====================== ==========================================
 
 
-        spline_name:
-            If a spline query is selected, this is the name of the spline to sample
-            along.
-        new_plotter:
-            If True, the query will be added to a newly created plotter.
+        spline_name : str, optional
+            For a spline query, the name of the spline to sample along. The
+            default is ``None``.
+        new_plotter : bool, optional
+            Whether to add the query to a newly created plotter. The default is
+            ``False``.
 
         Returns
         -------
-            The ENS_QUERY instance on success or raises an exception on error.
+        ENS_QUERY
+            ``ENS_QUERY`` instance on success or raises an exception on error.
 
         Examples
         --------
@@ -217,10 +226,10 @@ class Query:
 
         Parameters
         ----------
-        name:
-            The name for the query
+        name : str
+            Name for the query.
         query_type:
-            The type of query.
+            Type of the query. Descriptions of options follow.
 
             ================= =========================================================
             Name              Query type
@@ -234,39 +243,44 @@ class Query:
             ================= =========================================================
 
 
-        part_list:
-            A list of parts to use as the source for the query.
-        start_time:
-            The simulation time to start sampling at.  Default: the first timestep,
-            ENS_GLOBALS.SOLUTIONTIME_LIMITS[0]
-        end_time:
-            The simulation time to end sampling at.  Default: the last timestep,
-            ENS_GLOBALS.SOLUTIONTIME_LIMITS[1]
-        num_samples:
-            The number of samples to take along the selected timestep range.
-            Default: the number of defined timesteps,
-            ENS_GLOBALS.TIMESTEP_LIMITS[1] - ENS_GLOBALS.TIMESTEP_LIMITS[0] + 1
-        variable1:
-            The variable to sample as the "y" value.
-        variable2:
-            The variable to sample as the "x" value.  If unspecified, the "x" value
-            will be the distance along the sampling domain.
-        node_id:
-            For a TEMPORAL_NODE query, the id number of the node to query.
-        element_id:
-            For a TEMPORAL_ELEMENT query, the id number of the element to query.
-        xyz:
-            For a TEMPORRAL_XYZ query, the [x,y,z] location in data space to query.
-        ijk:
-            For a TEMPORAL_IJK query, the [i,j,k] value for the structured mesh node
-            to query.
-        new_plotter:
-            If True, the query will be added to a newly created plotter.
+        part_list : list
+            List of parts to use as the source for the query.
+        variable1 :
+            Variable to sample as the "y" value.
+        variable2 : optional
+            Variable to sample as the "x" value. The default is ``None``, in which
+            case the "x" value is the distance along the sampling domain.
+        start_time : float, optional
+            Simulation time to start sampling at. The default is ``None``, in which
+            case the first timestep, ``ENS_GLOBALS.SOLUTIONTIME_LIMITS[0]``, is used.
+        end_time : float, optional
+            The simulation time to end sampling at. The default is ``None``, in which
+            case the last timestep, ``ENS_GLOBALS.SOLUTIONTIME_LIMITS[1]``, is used.
+        num_samples : int, optional
+            Number of samples to take along the selected timestep range. The default
+            is ``None``, in which case the number of defined timesteps,
+            ``ENS_GLOBALS.TIMESTEP_LIMITS[1] - ENS_GLOBALS.TIMESTEP_LIMITS[0] + 1``,
+            is used.
+        node_id : int, optional
+            For a ``TEMPORAL_NODE`` query, the ID of the node to query. The default is
+            ``None``.
+        element_id : int, optional
+            For a ``TEMPORAL_ELEMENT`` query, the ID of the element to query. The
+            default is ``None``.
+        xyz : list[float], optional
+            For a ``TEMPORRAL_XYZ`` query, the ``[x,y,z]`` location in data space
+            to query. The default is ``None``.
+        ijk : list[int], optional
+            For a ``TEMPORAL_IJK`` query, the ``[i,j,k]`` value for the structured
+            mesh node to query.  The default is ``None``.
+        new_plotter : bool, optional
+            Whether to add the query to a newly created plotter. The default is
+            ``False``.
 
         Returns
         -------
-            The ENS_QUERY instance on success or raises an exception on error.
-
+        ENS_QUERY
+            ````ENS_QUERY`` instance on success or raises an exception on error.
 
         Examples
         --------

@@ -1,8 +1,8 @@
 .. _advanced-gallery:
 
-Advanced Examples
+Advanced examples
 =================
 
-These PyEnSight examples include discussions of more advanced features of the
-interface including events, parallelism, direct data access and techniques that
-improve performance.
+These advanced examples use more sophisticated features of the
+PyEnSight API, including events, parallelism, direct data access, and techniques
+that improve performance.

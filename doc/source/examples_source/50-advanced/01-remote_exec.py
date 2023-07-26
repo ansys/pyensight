@@ -27,8 +27,9 @@ over Python code execution.
 # the EnSight Python Object API) exposes these attributes as Python properties.
 # Every attempt to set or get an attribute results in a network call.  These
 # can be subtle.  For example, ``print(session.ensight.objs.core.PARTS[0])``
-# results in ``Class: ENS_PART_MODEL, desc: 'engine', CvfObjID: 1038, cached:no``
-# being output.  The proxy id number is 1038.  Importantly, the string
+# results in this output:
+# ``Class: ENS_PART_MODEL, desc: 'engine', CvfObjID: 1038, cached:no``.
+# The proxy id number is 1038.  Importantly, the string
 # 'engine' is the value of the DESCRIPTION attribute.  When the string is
 # printed, a complete network round trip is performed.  Similar situations
 # exist when processing objects in ensobjlist objs.
@@ -78,8 +79,8 @@ session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/guard_ra
 # Source level remote execution
 # -----------------------------
 #
-# Perhaps the simplest approach is to use ``session.cmd()`` and the text
-# representation of the function.  Here the function simply collects the
+# Perhaps the simplest approach is to use the :func:`cmd<ansys.pyensight.core.Session.cmd>`
+# and the text representation of the function. Here the function simply collects the
 # names of all the parts.  We define the function and then call it in two calls.
 # The code in the function is executed entirely in the EnSight Python interpreter
 # and the result can be returned when invoking the function.
