@@ -128,7 +128,7 @@ Unlike the native API, the object API does not require a "current selection" as
 the target of all operations is explicit. The object API supports SELECTED attributes
 and selection group objects. These directly represent the state of the EnSight GUI.
 In cases where one would like to use both APIs in a single script, it can become
-necessary to synchronize these two selections. See: `selection_transfer`_ for details
+necessary to synchronize these two selections. See: :ref:`selection_transfer` for details
 on how this can be done.
 
 
