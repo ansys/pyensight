@@ -35,7 +35,7 @@ html_theme_options = {
     "github_url": "https://github.com/ansys/pyensight",
     "show_prev_next": False,
     "show_breadcrumbs": True,
-    "sidebarwidth": 250
+    "sidebarwidth": 250,
 }
 
 # Sphinx extensions
