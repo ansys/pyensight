@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src", "ansys"))
 
 # Project information
-project = "ansys.pyensight"
+project = "ansys.pyensight.core"
 copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "Ansys Inc."
 release = version = __version__
@@ -35,6 +35,7 @@ html_theme_options = {
     "github_url": "https://github.com/ansys/pyensight",
     "show_prev_next": False,
     "show_breadcrumbs": True,
+    "sidebarwidth": 250
 }
 
 # Sphinx extensions
@@ -130,6 +131,7 @@ sphinx_gallery_conf = {
     "plot_gallery": False,
 }
 
+add_module_names = False
 # static path
 html_static_path = ["_static"]
 

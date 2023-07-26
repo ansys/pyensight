@@ -170,6 +170,3 @@ ignore_missing_imports = true
 
 [pydocstyle]
 convention = "numpy"
-
-[tool.sphinx]
-add_module_names=false
