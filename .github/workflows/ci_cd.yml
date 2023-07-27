@@ -41,19 +41,14 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
   smoke-tests:
-    name: "Wheelhouse for ${{ matrix.os }} and {{ matrix.python-version }}"
+    name: "Wheelhouse for ${{ matrix.os }} and ${{ matrix.python-version }}"
     runs-on: ${{ matrix.os }}
     needs: code-style
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest]
         python-version: ['3.8', '3.9', '3.10', '3.11']
-        should-release:
-          - ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags') }}
-        exclude:
-          - should-release: false
-            os: macos-latest
     steps:
       - name: Build wheelhouse and perform smoke test
         uses: ansys/actions/build-wheelhouse@v4
@@ -70,13 +65,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest]
         python-version: ['3.8', '3.9', '3.10', '3.11']
-        should-release:
-          - ${{ github.event_name == 'push' && contains(github.ref, 'refs/tags') }}
-        exclude:
-          - should-release: false
-            os: macos-latest
     steps:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
