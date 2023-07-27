@@ -36,6 +36,8 @@ html_theme_options = {
     "show_prev_next": False,
     "show_breadcrumbs": True,
     "sidebarwidth": 250,
+    "navigation_depth": -1,
+    "collapse_navigation": True,
 }
 
 # Sphinx extensions
