@@ -7,7 +7,7 @@ Calculator functions
 ====================
 
 EnSight supports a large number of calculator functions.
-An :class:`ENS_VAR<pyensight.ens_var.ENS_VAR>` object can represent
+An :class:`ENS_VAR<ansys.api.pyensight.ens_var.ENS_VAR>` object can represent
 either fields read from disk or the use of a calculator function
 to compute a new variable from an input collection of parts, variables, and
 user-specified parameters.
@@ -896,11 +896,15 @@ The distance normal from the surface to where :math:`u/U=0.995`.
     * - velocity
       - vector variable
     * - ymax
-      - ``constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)``
+      - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
+
         See the algorithm note that follows.
+
     * - grad
-      - ``-1 = flags the computing of the velocity-magnitude gradient via three-point interpolation``
-        vector variable = Grad(velocity magnitude). See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
+      - -1 = flags the computing of the
+        velocity-magnitude gradient via three-point interpolation
+
+        vector variable = Grad(velocity magnitude) See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
 
 .. note::
@@ -993,15 +997,19 @@ thickness :math:`\delta`. It is defined as:
     * - density
       - scalar variable (compressible flow), constant number (incompressible flow)
     * - ymax
-      - constant number (``> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm``)
+      - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
+
         See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
+
     * - comp
       - constant number (0 = velocity vector at edge of boundary layer, 1 = decomposed
         velocity vector parallel to wall tangent to surface, 2 = decomposed velocity
         vector normal to wall)
     * - grad
-      - ``-1 flags the computing of the velocity-magnitude gradient via four-point interpolation``
-        vector variable = Grad(velocity magnitude). See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
+      - -1 flags the computing of the
+        velocity-magnitude gradient via four-point interpolation
+
+        vector variable = Grad(velocity magnitude) See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
 
 .. note::
@@ -3736,9 +3744,9 @@ This scalar creates a massed-particle per element scalar
 variable for each of the parent parts of the massed-particle traces. This per
 element variable is the mass of the particle multiplied by the sum of the number of
 times each element is exited by a mass-particle trace. For more information, see
-Particle-Mass Scalar on Boundaries
+`Particle-Mass Scalar on Boundaries
+<https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/v232/en/ensight_um/UM-C5xmlid72630.html%23UM-C5xmlidParticle-MassScalaronBoundaries>`_
 in the *Ansys EnSight User Manual*.
-.
 
 
 .. _MassFluxAvg:
@@ -4113,7 +4121,7 @@ where:
 
 
 .. note::
-    elem[j] must contain node[i] to contribute.
+    ``elem[j]`` must contain ``node[i]`` to contribute.
 
 
 
@@ -6623,8 +6631,9 @@ where:
       - Velocity vector at each M.
 
     * - :math:`V_M`
+
       - If the gamma function number k = 1, VM = V(M). If the gamma function
-          number k = 2, VM = V(M) - V(P).
+        number k = 2, VM = V(M) - V(P).
 
 
     * - If k=2
@@ -6635,7 +6644,9 @@ where:
         part.
 
     * - :math:`θ_M`
-      - Angle between VM and PM. Because -1 < sin(QM) < 1 (and n is a unit vector), then -1 < :math:`{\Gamma }_{k}\left(P\right)` < 1.
+      - Angle between VM and PM. Because -1 < sin(QM) < 1
+        (and n is a unit vector), then
+        -1 < :math:`{\Gamma }_{k}\left(P\right)` < 1.
 
 
 .. list-table:: **Function arguments**

@@ -34,10 +34,9 @@ PyEnSight
 
 Overview
 --------
-PyEnSight is a Python wrapper for EnSight_, the Ansys simulation
-postprocessor. It supports Pythonic access to EnSight so that you
-communicate directly with it from Python. With PyEnSight, you can
-perform these essential actions:
+PyEnSight is a Python wrapper for EnSight_, the Ansys simulation postprocessor.
+It supports Pythonic access to EnSight so that you communicate directly with it
+from Python. With PyEnSight, you can perform these essential actions:
 
 * Start a new EnSight session or connect to an existing one.
 * Read simulation data from any supported solver output format into the session.
@@ -178,11 +177,38 @@ Optionally, EnSight can work with an EnSight Docker container using code like th
    >>> with open("image.png", "wb") as f:
    ...    f.write(data)
 
+
 In the preceding code, the ``data_directory`` argument specifies the host directory
 to map into the container at the mount point, providing access to the data within
 the container. This provides a method for EnSight running in the container to access
 the host's file system to read or write data. The optional ``use_dev=True`` argument
 specifies that the latest development version of EnSight should be used.
+
+Also, PyEnSight can be launched as other PyAnsys products with the ``launch_ensight`` method:
+
+.. code:: python
+
+   >>> from ansys.pyensight.core import launch_ensight
+   >>> session = launch_ensight(use_sos=3)
+   >>> data = session.render(1920, 1080, aa=4)
+   >>> with open("image.png", "wb") as f:
+   ...    f.write(data)
+
+
+Dependencies
+------------
+You will need a locally installed and licensed copy of Ansys to run EnSight, with the
+first supported version being Ansys 2022 R2.
+
+
+Documentation and Issues
+------------------------
+Please see the latest release `documentation <https://ensight.docs.pyansys.com/>`_
+page for more details.
+
+Please feel free to post issues and other questions at `PyEnSight Issues
+<https://github.com/ansys/pyensight/issues>`_. This is the best place
+to post questions and code.
 
 License
 -------
