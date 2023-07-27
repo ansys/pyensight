@@ -45,7 +45,6 @@ dev = [
     "dill>=0.3.5.1",
     "pre-commit>=3.3.3",
 ]
-
 tests = [
     "pytest==7.1.2",
     "pytest-cov==3.0.0",
@@ -55,7 +54,6 @@ tests = [
     "requests>=2.28.2",
     "pyansys-docker>=5.0.4",
 ]
-
 doc = [
     "Sphinx==7.0.1",
     "numpydoc==1.5.0",
@@ -70,6 +68,16 @@ doc = [
     "coverage-badge==1.1.0",
     "sphinxcontrib-openapi==0.8.1"
 ]
+
+[project.urls]
+Documentation = "https://ensight.docs.pyansys.com/"
+Homepage = "https://github.com/ansys/pyensight"
+Source = "https://github.com/ansys/pyensight"
+Tracker = "https://github.com/ansys/pyensight/issues"
+Changelog =  "https://github.com/ansys/pyensight/blob/main/CHANGELOG.rst"
+
+[tool.flit.module]
+name = "ansys.pyensight.core"
 
 [tool.coverage.run]
 branch = true
@@ -90,16 +98,6 @@ show_missing = true
 
 [tool.coverage.html]
 show_contexts = true
-
-[project.urls]
-Documentation = "https://ensight.docs.pyansys.com/"
-Homepage = "https://github.com/ansys/pyensight"
-Source = "https://github.com/ansys/pyensight"
-Tracker = "https://github.com/ansys/pyensight/issues"
-Changelog =  "https://github.com/ansys/pyensight/blob/main/CHANGELOG.rst"
-
-[tool.flit.module]
-name = "ansys.pyensight.core"
 
 [tool.black]
 line-length = 100
