@@ -5,7 +5,7 @@ requires = [
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "ansys-ensight-core"
+name = "ansys-pyensight-core"
 version = "0.6.0.dev0"
 description = "A python wrapper for Ansys EnSight"
 readme = "README.rst"

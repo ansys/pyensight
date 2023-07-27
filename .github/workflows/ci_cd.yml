@@ -93,7 +93,7 @@ jobs:
         env:
           ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
         with:
-          python-version: ${{ matrix.os }}
+          python-version: ${{ matrix.python-version }}
           requires-xvfb: true
 
       - uses: codecov/codecov-action@v3
