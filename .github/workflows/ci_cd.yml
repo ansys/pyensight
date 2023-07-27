@@ -180,7 +180,7 @@ jobs:
     needs: tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Microsoft Teams Notification
         uses: jdcargile/ms-teams-notification@v1.3
         with:
