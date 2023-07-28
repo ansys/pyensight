@@ -1,6 +1,0 @@
-legend\_origin\_y
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.legend_origin_y

@@ -1,6 +1,0 @@
-select\_partname\_begin
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.select_partname_begin

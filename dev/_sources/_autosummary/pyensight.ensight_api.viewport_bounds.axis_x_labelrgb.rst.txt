@@ -1,6 +1,0 @@
-axis\_x\_labelrgb
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_bounds.axis_x_labelrgb

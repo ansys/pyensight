@@ -1,6 +1,0 @@
-rendering\_reflection\_id
-=========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.rendering_reflection_id

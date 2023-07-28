@@ -1,6 +1,0 @@
-label\_size
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_axis.label_size

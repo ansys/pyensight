@@ -1,6 +1,0 @@
-splinepoint\_edit
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.splinepoint_edit

@@ -1,6 +1,0 @@
-sync\_to\_palette
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: contour.sync_to_palette

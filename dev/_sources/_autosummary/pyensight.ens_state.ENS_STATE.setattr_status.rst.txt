@@ -1,6 +1,0 @@
-setattr\_status
-===============
-
-.. currentmodule:: pyensight.ens_state
-
-.. automethod:: ENS_STATE.setattr_status

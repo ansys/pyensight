@@ -1,6 +1,0 @@
-title
-=====
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: legend.title

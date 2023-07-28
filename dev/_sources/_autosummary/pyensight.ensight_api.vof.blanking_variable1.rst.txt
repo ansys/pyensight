@@ -1,6 +1,0 @@
-blanking\_variable1
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vof.blanking_variable1

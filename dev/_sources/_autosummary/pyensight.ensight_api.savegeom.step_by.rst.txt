@@ -1,6 +1,0 @@
-step\_by
-========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: savegeom.step_by

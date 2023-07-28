@@ -1,6 +1,0 @@
-orient\_z
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: arrow.orient_z

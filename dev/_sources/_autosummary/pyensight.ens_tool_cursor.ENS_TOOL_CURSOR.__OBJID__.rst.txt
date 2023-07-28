@@ -1,6 +1,0 @@
-\_\_OBJID\_\_
-=============
-
-.. currentmodule:: pyensight.ens_tool_cursor
-
-.. autoproperty:: ENS_TOOL_CURSOR.__OBJID__

@@ -1,6 +1,0 @@
-default\_palette
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.default_palette

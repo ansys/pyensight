@@ -1,6 +1,0 @@
-detached\_background\_rgb
-=========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.detached_background_rgb

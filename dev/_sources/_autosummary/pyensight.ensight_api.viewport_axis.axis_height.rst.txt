@@ -1,6 +1,0 @@
-axis\_height
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_axis.axis_height

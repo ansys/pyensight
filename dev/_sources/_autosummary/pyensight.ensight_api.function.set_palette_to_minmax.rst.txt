@@ -1,6 +1,0 @@
-set\_palette\_to\_minmax
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.set_palette_to_minmax

@@ -1,6 +1,0 @@
-populate\_attr\_list
-====================
-
-.. currentmodule:: pyensight.ensobj
-
-.. automethod:: ENSOBJ.populate_attr_list

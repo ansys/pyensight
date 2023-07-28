@@ -1,6 +1,0 @@
-revolve\_part
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.revolve_part

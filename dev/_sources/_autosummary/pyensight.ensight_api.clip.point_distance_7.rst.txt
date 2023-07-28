@@ -1,6 +1,0 @@
-point\_distance\_7
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.point_distance_7

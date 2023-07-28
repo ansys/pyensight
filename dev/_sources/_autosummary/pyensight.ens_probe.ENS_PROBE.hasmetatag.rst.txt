@@ -1,6 +1,0 @@
-hasmetatag
-==========
-
-.. currentmodule:: pyensight.ens_probe
-
-.. automethod:: ENS_PROBE.hasmetatag

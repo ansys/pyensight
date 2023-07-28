@@ -1,6 +1,0 @@
-label\_spacing
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: contour.label_spacing

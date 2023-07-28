@@ -1,6 +1,0 @@
-save\_image
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.save_image

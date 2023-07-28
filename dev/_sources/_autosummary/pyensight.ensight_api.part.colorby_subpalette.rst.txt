@@ -1,6 +1,0 @@
-colorby\_subpalette
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.colorby_subpalette

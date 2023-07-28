@@ -1,6 +1,0 @@
-axis\_2\_titlesize
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.axis_2_titlesize

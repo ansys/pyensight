@@ -1,6 +1,0 @@
-band\_color
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.band_color

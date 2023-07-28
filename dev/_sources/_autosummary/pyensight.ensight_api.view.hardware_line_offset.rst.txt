@@ -1,6 +1,0 @@
-hardware\_line\_offset
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view.hardware_line_offset

@@ -1,6 +1,0 @@
-PROJECT\_MASK
-=============
-
-.. currentmodule:: pyensight.ens_probe
-
-.. autoproperty:: ENS_PROBE.PROJECT_MASK

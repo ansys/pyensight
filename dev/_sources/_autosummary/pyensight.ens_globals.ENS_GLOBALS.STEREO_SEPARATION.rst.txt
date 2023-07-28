@@ -1,6 +1,0 @@
-STEREO\_SEPARATION
-==================
-
-.. currentmodule:: pyensight.ens_globals
-
-.. autoproperty:: ENS_GLOBALS.STEREO_SEPARATION

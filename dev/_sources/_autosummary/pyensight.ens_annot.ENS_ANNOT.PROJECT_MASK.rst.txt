@@ -1,6 +1,0 @@
-PROJECT\_MASK
-=============
-
-.. currentmodule:: pyensight.ens_annot
-
-.. autoproperty:: ENS_ANNOT.PROJECT_MASK

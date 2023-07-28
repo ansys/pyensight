@@ -1,6 +1,0 @@
-len\_y
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: frame.len_y

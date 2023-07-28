@@ -1,6 +1,0 @@
-ENS\_UNITS\_LABEL
-=================
-
-.. currentmodule:: pyensight.ens_part_discrete_particle
-
-.. autoproperty:: ENS_PART_DISCRETE_PARTICLE.ENS_UNITS_LABEL

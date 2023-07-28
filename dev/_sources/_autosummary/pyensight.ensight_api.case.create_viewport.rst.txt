@@ -1,6 +1,0 @@
-create\_viewport
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: case.create_viewport

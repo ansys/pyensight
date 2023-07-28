@@ -1,6 +1,0 @@
-axis\_x\_max
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_bounds.axis_x_max

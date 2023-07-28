@@ -1,6 +1,0 @@
-url
-===
-
-.. currentmodule:: pyensight.renderable
-
-.. autoproperty:: Renderable.url

@@ -1,6 +1,0 @@
-reverse\_normal
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.reverse_normal

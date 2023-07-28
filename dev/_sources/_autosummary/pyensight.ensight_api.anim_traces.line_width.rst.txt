@@ -1,6 +1,0 @@
-line\_width
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_traces.line_width

@@ -1,6 +1,0 @@
-origin\_x
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.origin_x

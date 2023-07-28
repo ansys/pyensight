@@ -1,6 +1,0 @@
-extents
-=======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.extents

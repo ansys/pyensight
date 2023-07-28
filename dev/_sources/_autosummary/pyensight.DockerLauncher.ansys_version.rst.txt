@@ -1,6 +1,0 @@
-ansys\_version
-==============
-
-.. currentmodule:: pyensight
-
-.. automethod:: DockerLauncher.ansys_version

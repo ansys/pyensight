@@ -1,6 +1,0 @@
-new\_or\_mod\_logo
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: nvc.new_or_mod_logo

@@ -1,6 +1,0 @@
-zoom\_to\_selectregion
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.zoom_to_selectregion

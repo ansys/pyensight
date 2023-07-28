@@ -1,6 +1,0 @@
-scale\_factor
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: tensor.scale_factor

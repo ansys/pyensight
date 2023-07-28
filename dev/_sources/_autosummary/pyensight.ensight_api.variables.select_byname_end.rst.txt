@@ -1,6 +1,0 @@
-select\_byname\_end
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: variables.select_byname_end

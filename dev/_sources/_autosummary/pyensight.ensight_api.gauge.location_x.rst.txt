@@ -1,6 +1,0 @@
-location\_x
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: gauge.location_x

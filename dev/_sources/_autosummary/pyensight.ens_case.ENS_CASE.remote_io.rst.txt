@@ -1,6 +1,0 @@
-remote\_io
-==========
-
-.. currentmodule:: pyensight.ens_case
-
-.. automethod:: ENS_CASE.remote_io

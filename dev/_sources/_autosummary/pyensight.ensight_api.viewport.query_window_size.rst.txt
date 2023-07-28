@@ -1,6 +1,0 @@
-query\_window\_size
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport.query_window_size

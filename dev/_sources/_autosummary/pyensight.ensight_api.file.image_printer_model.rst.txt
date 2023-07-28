@@ -1,6 +1,0 @@
-image\_printer\_model
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.image_printer_model

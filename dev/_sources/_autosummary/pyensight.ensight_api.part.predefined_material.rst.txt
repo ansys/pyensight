@@ -1,6 +1,0 @@
-predefined\_material
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.predefined_material

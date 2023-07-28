@@ -1,6 +1,0 @@
-jupyter\_notebook
-=================
-
-.. currentmodule:: pyensight
-
-.. autoproperty:: Session.jupyter_notebook

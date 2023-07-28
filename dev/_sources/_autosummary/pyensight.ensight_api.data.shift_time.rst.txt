@@ -1,6 +1,0 @@
-shift\_time
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: data.shift_time

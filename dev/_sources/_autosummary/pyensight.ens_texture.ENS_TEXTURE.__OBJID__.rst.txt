@@ -1,6 +1,0 @@
-\_\_OBJID\_\_
-=============
-
-.. currentmodule:: pyensight.ens_texture
-
-.. autoproperty:: ENS_TEXTURE.__OBJID__

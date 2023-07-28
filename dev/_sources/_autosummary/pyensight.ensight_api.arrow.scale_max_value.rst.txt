@@ -1,6 +1,0 @@
-scale\_max\_value
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: arrow.scale_max_value

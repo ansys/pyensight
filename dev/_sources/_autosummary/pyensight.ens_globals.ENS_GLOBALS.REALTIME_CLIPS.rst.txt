@@ -1,6 +1,0 @@
-REALTIME\_CLIPS
-===============
-
-.. currentmodule:: pyensight.ens_globals
-
-.. autoproperty:: ENS_GLOBALS.REALTIME_CLIPS

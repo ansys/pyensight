@@ -1,6 +1,0 @@
-login\_id
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: connect.login_id

@@ -1,6 +1,0 @@
-sft\_step
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: case.sft_step

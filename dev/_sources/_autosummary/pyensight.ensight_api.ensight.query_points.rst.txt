@@ -1,6 +1,0 @@
-query\_points
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ensight.query_points

@@ -1,6 +1,0 @@
-image\_file
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.image_file

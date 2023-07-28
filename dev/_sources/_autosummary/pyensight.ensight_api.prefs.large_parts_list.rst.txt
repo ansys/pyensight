@@ -1,6 +1,0 @@
-large\_parts\_list
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.large_parts_list

@@ -1,6 +1,0 @@
-DTA\_BLOCK
-==========
-
-.. currentmodule:: pyensight.ens_part_fx_shock
-
-.. autoproperty:: ENS_PART_FX_SHOCK.DTA_BLOCK

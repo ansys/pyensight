@@ -1,6 +1,0 @@
-attrinfo
-========
-
-.. currentmodule:: pyensight.ens_spec
-
-.. automethod:: ENS_SPEC.attrinfo

@@ -1,6 +1,0 @@
-ensxml\_context\_list\_writer
-=============================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: objs.ensxml_context_list_writer

@@ -1,6 +1,0 @@
-label\_offset
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: arrow.label_offset

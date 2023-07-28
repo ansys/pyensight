@@ -1,6 +1,0 @@
-sos\_decompose\_type
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: data.sos_decompose_type

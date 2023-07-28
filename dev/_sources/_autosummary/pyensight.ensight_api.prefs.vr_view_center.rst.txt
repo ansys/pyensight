@@ -1,6 +1,0 @@
-vr\_view\_center
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.vr_view_center

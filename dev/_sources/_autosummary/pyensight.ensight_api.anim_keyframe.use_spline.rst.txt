@@ -1,6 +1,0 @@
-use\_spline
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_keyframe.use_spline

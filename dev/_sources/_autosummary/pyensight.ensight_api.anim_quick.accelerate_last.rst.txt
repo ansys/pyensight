@@ -1,6 +1,0 @@
-accelerate\_last
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_quick.accelerate_last

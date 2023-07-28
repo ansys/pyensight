@@ -1,6 +1,0 @@
-cmdlang\_rec\_info
-==================
-
-.. currentmodule:: pyensight.ens_part_filter
-
-.. automethod:: ENS_PART_FILTER.cmdlang_rec_info

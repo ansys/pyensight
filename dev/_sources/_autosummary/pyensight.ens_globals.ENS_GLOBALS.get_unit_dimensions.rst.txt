@@ -1,6 +1,0 @@
-get\_unit\_dimensions
-=====================
-
-.. currentmodule:: pyensight.ens_globals
-
-.. automethod:: ENS_GLOBALS.get_unit_dimensions

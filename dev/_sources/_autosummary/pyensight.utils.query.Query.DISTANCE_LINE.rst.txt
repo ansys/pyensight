@@ -1,6 +1,0 @@
-DISTANCE\_LINE
-==============
-
-.. currentmodule:: pyensight.utils.query
-
-.. autoattribute:: Query.DISTANCE_LINE

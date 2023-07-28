@@ -1,6 +1,0 @@
-origin\_frame
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: line.origin_frame

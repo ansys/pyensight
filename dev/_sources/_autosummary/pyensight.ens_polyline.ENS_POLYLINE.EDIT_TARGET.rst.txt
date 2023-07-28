@@ -1,6 +1,0 @@
-EDIT\_TARGET
-============
-
-.. currentmodule:: pyensight.ens_polyline
-
-.. autoproperty:: ENS_POLYLINE.EDIT_TARGET

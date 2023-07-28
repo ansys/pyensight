@@ -1,6 +1,0 @@
-part\_selection\_by
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: command.part_selection_by

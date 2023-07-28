@@ -1,6 +1,0 @@
-copy\_noframecreate
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.copy_noframecreate

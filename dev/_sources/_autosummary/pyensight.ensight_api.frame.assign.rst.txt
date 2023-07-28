@@ -1,6 +1,0 @@
-assign
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: frame.assign

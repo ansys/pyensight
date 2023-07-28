@@ -1,6 +1,0 @@
-query\_objects\_atwindowxy
-==========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: curve.query_objects_atwindowxy

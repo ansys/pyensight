@@ -1,6 +1,0 @@
-replace\_case
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ensight.replace_case

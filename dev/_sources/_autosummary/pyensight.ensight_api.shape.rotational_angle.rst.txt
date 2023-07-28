@@ -1,6 +1,0 @@
-rotational\_angle
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: shape.rotational_angle

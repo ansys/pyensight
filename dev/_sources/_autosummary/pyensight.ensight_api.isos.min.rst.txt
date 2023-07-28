@@ -1,6 +1,0 @@
-min
-===
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: isos.min

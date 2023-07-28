@@ -1,6 +1,0 @@
-detail\_mode
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view.detail_mode

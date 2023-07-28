@@ -1,6 +1,0 @@
-part\_panel
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.part_panel

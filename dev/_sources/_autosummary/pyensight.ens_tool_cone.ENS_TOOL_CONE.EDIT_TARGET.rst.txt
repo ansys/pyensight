@@ -1,6 +1,0 @@
-EDIT\_TARGET
-============
-
-.. currentmodule:: pyensight.ens_tool_cone
-
-.. autoproperty:: ENS_TOOL_CONE.EDIT_TARGET

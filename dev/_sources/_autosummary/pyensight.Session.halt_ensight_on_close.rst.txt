@@ -1,6 +1,0 @@
-halt\_ensight\_on\_close
-========================
-
-.. currentmodule:: pyensight
-
-.. autoproperty:: Session.halt_ensight_on_close

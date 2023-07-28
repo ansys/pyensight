@@ -1,6 +1,0 @@
-dynamic\_value
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_flipbook.dynamic_value

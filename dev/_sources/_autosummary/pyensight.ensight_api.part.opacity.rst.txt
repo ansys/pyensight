@@ -1,6 +1,0 @@
-opacity
-=======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.opacity

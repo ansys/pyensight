@@ -1,6 +1,0 @@
-HAS1DELEMENTS
-=============
-
-.. currentmodule:: pyensight.ens_part_discrete_particle
-
-.. autoproperty:: ENS_PART_DISCRETE_PARTICLE.HAS1DELEMENTS

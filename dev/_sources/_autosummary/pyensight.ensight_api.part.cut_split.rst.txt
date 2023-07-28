@@ -1,6 +1,0 @@
-cut\_split
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.cut_split

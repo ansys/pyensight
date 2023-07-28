@@ -1,6 +1,0 @@
-EDIT\_TARGET
-============
-
-.. currentmodule:: pyensight.ens_annot_marker
-
-.. autoproperty:: ENS_ANNOT_MARKER.EDIT_TARGET

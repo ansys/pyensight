@@ -1,6 +1,0 @@
-FRAME\_DURATION
-===============
-
-.. currentmodule:: pyensight.ens_globals
-
-.. autoproperty:: ENS_GLOBALS.FRAME_DURATION

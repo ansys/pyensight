@@ -1,6 +1,0 @@
-spot\_angle
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: lightsource.spot_angle

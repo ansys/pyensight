@@ -1,6 +1,0 @@
-start
-=====
-
-.. currentmodule:: pyensight
-
-.. automethod:: Launcher.start

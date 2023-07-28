@@ -1,6 +1,0 @@
-label\_decimal\_places
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: query_interact.label_decimal_places

@@ -1,6 +1,0 @@
-camera\_origin\_spline
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.camera_origin_spline

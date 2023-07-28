@@ -1,6 +1,0 @@
-views\_dict
-===========
-
-.. currentmodule:: pyensight.utils.views
-
-.. autoproperty:: Views.views_dict

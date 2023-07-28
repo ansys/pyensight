@@ -1,6 +1,0 @@
-select\_default
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: set_tdata.select_default

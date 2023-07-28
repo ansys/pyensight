@@ -1,6 +1,0 @@
-line\_style
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.line_style

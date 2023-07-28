@@ -1,6 +1,0 @@
-ELTFILTER3VARCOMP
-=================
-
-.. currentmodule:: pyensight.ens_part_isosurface
-
-.. autoproperty:: ENS_PART_ISOSURFACE.ELTFILTER3VARCOMP

@@ -1,6 +1,0 @@
-populate\_attr\_list
-====================
-
-.. currentmodule:: pyensight.ens_part_contour
-
-.. automethod:: ENS_PART_CONTOUR.populate_attr_list

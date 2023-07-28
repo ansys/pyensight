@@ -1,6 +1,0 @@
-attrgroupinfo
-=============
-
-.. currentmodule:: pyensight.ens_tool_cursor
-
-.. automethod:: ENS_TOOL_CURSOR.attrgroupinfo

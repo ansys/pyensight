@@ -1,6 +1,0 @@
-massed\_gravity\_vector
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.massed_gravity_vector

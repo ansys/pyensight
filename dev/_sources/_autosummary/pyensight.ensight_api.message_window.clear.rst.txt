@@ -1,6 +1,0 @@
-clear
-=====
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: message_window.clear

@@ -1,6 +1,0 @@
-label\_size\_2d
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_bounds.label_size_2d

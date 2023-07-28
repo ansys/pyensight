@@ -1,6 +1,0 @@
-surface\_pick
-=============
-
-.. currentmodule:: pyensight.ens_probe
-
-.. automethod:: ENS_PROBE.surface_pick

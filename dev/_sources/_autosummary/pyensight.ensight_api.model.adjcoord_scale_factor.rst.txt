@@ -1,6 +1,0 @@
-adjcoord\_scale\_factor
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: model.adjcoord_scale_factor

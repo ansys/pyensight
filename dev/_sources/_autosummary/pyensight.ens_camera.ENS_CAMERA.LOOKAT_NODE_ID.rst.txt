@@ -1,6 +1,0 @@
-LOOKAT\_NODE\_ID
-================
-
-.. currentmodule:: pyensight.ens_camera
-
-.. autoproperty:: ENS_CAMERA.LOOKAT_NODE_ID

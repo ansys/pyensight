@@ -1,6 +1,0 @@
-CMDLANG\_REFERENCE
-==================
-
-.. currentmodule:: pyensight.ens_source
-
-.. autoproperty:: ENS_SOURCE.CMDLANG_REFERENCE

@@ -1,6 +1,0 @@
-embed\_cmd
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: command.embed_cmd

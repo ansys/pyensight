@@ -1,6 +1,0 @@
-setattr\_status
-===============
-
-.. currentmodule:: pyensight.ens_part_mat_interface
-
-.. automethod:: ENS_PART_MAT_INTERFACE.setattr_status

@@ -1,6 +1,0 @@
-full\_screen
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view.full_screen

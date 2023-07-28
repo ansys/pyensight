@@ -1,6 +1,0 @@
-replaceelt\_rake
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace_emitr.replaceelt_rake

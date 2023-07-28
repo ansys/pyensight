@@ -1,6 +1,0 @@
-CLICKNGO\_HANDLE\_VISIBILITY
-============================
-
-.. currentmodule:: pyensight.ens_globals
-
-.. autoproperty:: ENS_GLOBALS.CLICKNGO_HANDLE_VISIBILITY

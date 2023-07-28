@@ -1,6 +1,0 @@
-new\_dial
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: dial.new_dial

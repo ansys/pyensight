@@ -1,6 +1,0 @@
-axis\_y\_origin
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.axis_y_origin

@@ -1,6 +1,0 @@
-ensight
-=======
-
-.. currentmodule:: pyensight
-
-.. autoproperty:: Session.ensight

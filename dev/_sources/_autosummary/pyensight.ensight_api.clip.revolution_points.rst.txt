@@ -1,6 +1,0 @@
-revolution\_points
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.revolution_points

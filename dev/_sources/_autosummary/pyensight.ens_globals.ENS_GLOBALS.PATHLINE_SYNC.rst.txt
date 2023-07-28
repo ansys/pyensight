@@ -1,6 +1,0 @@
-PATHLINE\_SYNC
-==============
-
-.. currentmodule:: pyensight.ens_globals
-
-.. autoproperty:: ENS_GLOBALS.PATHLINE_SYNC

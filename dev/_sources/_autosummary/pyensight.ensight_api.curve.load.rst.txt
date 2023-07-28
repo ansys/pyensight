@@ -1,6 +1,0 @@
-load
-====
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: curve.load

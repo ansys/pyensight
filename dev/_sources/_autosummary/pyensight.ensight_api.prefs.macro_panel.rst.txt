@@ -1,6 +1,0 @@
-macro\_panel
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.macro_panel

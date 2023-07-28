@@ -1,6 +1,0 @@
-justification
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: text.justification

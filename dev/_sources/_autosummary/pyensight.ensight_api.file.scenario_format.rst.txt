@@ -1,6 +1,0 @@
-scenario\_format
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.scenario_format

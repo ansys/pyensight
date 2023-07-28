@@ -1,6 +1,0 @@
-part\_id
-========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: query_ent_var.part_id

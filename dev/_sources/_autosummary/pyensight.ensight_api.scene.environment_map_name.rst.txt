@@ -1,6 +1,0 @@
-environment\_map\_name
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: scene.environment_map_name

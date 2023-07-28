@@ -1,6 +1,0 @@
-apply
-=====
-
-.. currentmodule:: pyensight.ens_state
-
-.. automethod:: ENS_STATE.apply

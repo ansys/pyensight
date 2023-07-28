@@ -1,6 +1,0 @@
-DTA\_BLOCK
-==========
-
-.. currentmodule:: pyensight.ens_part
-
-.. autoproperty:: ENS_PART.DTA_BLOCK

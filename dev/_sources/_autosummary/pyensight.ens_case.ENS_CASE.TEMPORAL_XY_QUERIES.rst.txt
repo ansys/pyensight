@@ -1,6 +1,0 @@
-TEMPORAL\_XY\_QUERIES
-=====================
-
-.. currentmodule:: pyensight.ens_case
-
-.. autoproperty:: ENS_CASE.TEMPORAL_XY_QUERIES

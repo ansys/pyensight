@@ -1,6 +1,0 @@
-reload\_data
-============
-
-.. currentmodule:: pyensight.ens_case
-
-.. automethod:: ENS_CASE.reload_data

@@ -1,6 +1,0 @@
-mesh\_resolution
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: auxgeom.mesh_resolution

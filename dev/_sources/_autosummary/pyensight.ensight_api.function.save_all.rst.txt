@@ -1,6 +1,0 @@
-save\_all
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.save_all

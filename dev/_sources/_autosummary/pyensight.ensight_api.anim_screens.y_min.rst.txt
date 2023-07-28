@@ -1,6 +1,0 @@
-y\_min
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_screens.y_min

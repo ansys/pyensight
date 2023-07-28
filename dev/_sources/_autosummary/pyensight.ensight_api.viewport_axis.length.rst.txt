@@ -1,6 +1,0 @@
-length
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_axis.length

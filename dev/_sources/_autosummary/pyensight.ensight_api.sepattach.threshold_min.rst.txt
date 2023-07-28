@@ -1,6 +1,0 @@
-threshold\_min
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: sepattach.threshold_min

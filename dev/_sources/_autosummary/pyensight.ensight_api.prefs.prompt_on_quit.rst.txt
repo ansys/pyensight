@@ -1,6 +1,0 @@
-prompt\_on\_quit
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.prompt_on_quit

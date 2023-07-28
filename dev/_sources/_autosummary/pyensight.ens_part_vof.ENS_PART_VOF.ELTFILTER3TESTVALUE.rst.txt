@@ -1,6 +1,0 @@
-ELTFILTER3TESTVALUE
-===================
-
-.. currentmodule:: pyensight.ens_part_vof
-
-.. autoproperty:: ENS_PART_VOF.ELTFILTER3TESTVALUE

@@ -1,6 +1,0 @@
-new\_static\_done
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: data.new_static_done

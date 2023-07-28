@@ -1,6 +1,0 @@
-value\_rgb
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: gauge.value_rgb

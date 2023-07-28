@@ -1,6 +1,0 @@
-ENS\_DETAILS
-============
-
-.. currentmodule:: pyensight.ens_lpart
-
-.. autoproperty:: ENS_LPART.ENS_DETAILS

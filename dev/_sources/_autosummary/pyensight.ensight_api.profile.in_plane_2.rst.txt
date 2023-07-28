@@ -1,6 +1,0 @@
-in\_plane\_2
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: profile.in_plane_2

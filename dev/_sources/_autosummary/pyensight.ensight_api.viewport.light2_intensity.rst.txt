@@ -1,6 +1,0 @@
-light2\_intensity
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport.light2_intensity

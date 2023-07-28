@@ -1,6 +1,0 @@
-axis\_swap\_minmax
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.axis_swap_minmax

@@ -1,6 +1,0 @@
-ALPHA\_VOLUME\_SCALE
-====================
-
-.. currentmodule:: pyensight.ens_palette
-
-.. autoproperty:: ENS_PALETTE.ALPHA_VOLUME_SCALE

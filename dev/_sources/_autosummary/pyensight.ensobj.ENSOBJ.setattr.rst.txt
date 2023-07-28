@@ -1,6 +1,0 @@
-setattr
-=======
-
-.. currentmodule:: pyensight.ensobj
-
-.. automethod:: ENSOBJ.setattr

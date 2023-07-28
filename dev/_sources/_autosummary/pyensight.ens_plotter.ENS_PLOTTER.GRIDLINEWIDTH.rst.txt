@@ -1,6 +1,0 @@
-GRIDLINEWIDTH
-=============
-
-.. currentmodule:: pyensight.ens_plotter
-
-.. autoproperty:: ENS_PLOTTER.GRIDLINEWIDTH

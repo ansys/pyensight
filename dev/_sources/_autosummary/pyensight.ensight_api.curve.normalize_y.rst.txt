@@ -1,6 +1,0 @@
-normalize\_y
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: curve.normalize_y

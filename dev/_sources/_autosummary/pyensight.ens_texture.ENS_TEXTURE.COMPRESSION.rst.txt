@@ -1,6 +1,0 @@
-COMPRESSION
-===========
-
-.. currentmodule:: pyensight.ens_texture
-
-.. autoproperty:: ENS_TEXTURE.COMPRESSION

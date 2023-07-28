@@ -1,6 +1,0 @@
-remove\_callback
-================
-
-.. currentmodule:: pyensight
-
-.. automethod:: Session.remove_callback

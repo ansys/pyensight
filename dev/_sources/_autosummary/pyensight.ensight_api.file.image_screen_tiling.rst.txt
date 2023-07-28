@@ -1,6 +1,0 @@
-image\_screen\_tiling
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.image_screen_tiling

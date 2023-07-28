@@ -1,6 +1,0 @@
-createpolyline
-==============
-
-.. currentmodule:: pyensight.ens_polyline
-
-.. automethod:: ENS_POLYLINE.createpolyline

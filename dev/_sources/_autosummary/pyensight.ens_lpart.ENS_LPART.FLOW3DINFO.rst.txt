@@ -1,6 +1,0 @@
-FLOW3DINFO
-==========
-
-.. currentmodule:: pyensight.ens_lpart
-
-.. autoproperty:: ENS_LPART.FLOW3DINFO

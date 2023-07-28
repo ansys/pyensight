@@ -1,6 +1,0 @@
-getmetatag
-==========
-
-.. currentmodule:: pyensight.ensobj
-
-.. automethod:: ENSOBJ.getmetatag

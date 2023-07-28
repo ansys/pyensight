@@ -1,6 +1,0 @@
-create\_distance
-================
-
-.. currentmodule:: pyensight.utils.query
-
-.. automethod:: Query.create_distance

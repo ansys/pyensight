@@ -1,6 +1,0 @@
-offset\_vector
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: elevsurf.offset_vector

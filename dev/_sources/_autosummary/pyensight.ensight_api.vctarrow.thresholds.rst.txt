@@ -1,6 +1,0 @@
-thresholds
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vctarrow.thresholds

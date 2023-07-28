@@ -1,6 +1,0 @@
-DESCRIPTION
-===========
-
-.. currentmodule:: pyensight.ens_polyline
-
-.. autoproperty:: ENS_POLYLINE.DESCRIPTION

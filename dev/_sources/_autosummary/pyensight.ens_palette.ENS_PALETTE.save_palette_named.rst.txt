@@ -1,6 +1,0 @@
-save\_palette\_named
-====================
-
-.. currentmodule:: pyensight.ens_palette
-
-.. automethod:: ENS_PALETTE.save_palette_named

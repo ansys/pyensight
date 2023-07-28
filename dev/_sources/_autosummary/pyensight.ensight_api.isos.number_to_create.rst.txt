@@ -1,6 +1,0 @@
-number\_to\_create
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: isos.number_to_create

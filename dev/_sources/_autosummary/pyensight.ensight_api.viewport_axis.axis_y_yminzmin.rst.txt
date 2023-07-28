@@ -1,6 +1,0 @@
-axis\_y\_yminzmin
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_axis.axis_y_yminzmin

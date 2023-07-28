@@ -1,6 +1,0 @@
-auto\_legend\_replace
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.auto_legend_replace

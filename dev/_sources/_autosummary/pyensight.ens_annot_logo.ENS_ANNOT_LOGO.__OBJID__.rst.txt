@@ -1,6 +1,0 @@
-\_\_OBJID\_\_
-=============
-
-.. currentmodule:: pyensight.ens_annot_logo
-
-.. autoproperty:: ENS_ANNOT_LOGO.__OBJID__

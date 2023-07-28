@@ -1,6 +1,0 @@
-ELTFILTER1VARCOMP
-=================
-
-.. currentmodule:: pyensight.ens_part
-
-.. autoproperty:: ENS_PART.ELTFILTER1VARCOMP

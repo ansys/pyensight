@@ -1,6 +1,0 @@
-use\_doublesided\_walls
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: auxgeom.use_doublesided_walls

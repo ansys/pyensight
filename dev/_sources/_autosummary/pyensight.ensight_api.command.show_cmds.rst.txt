@@ -1,6 +1,0 @@
-show\_cmds
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: command.show_cmds

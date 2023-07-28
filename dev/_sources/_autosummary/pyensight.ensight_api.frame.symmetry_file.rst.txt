@@ -1,6 +1,0 @@
-symmetry\_file
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: frame.symmetry_file

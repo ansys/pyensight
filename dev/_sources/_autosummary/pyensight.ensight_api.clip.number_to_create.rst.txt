@@ -1,6 +1,0 @@
-number\_to\_create
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.number_to_create

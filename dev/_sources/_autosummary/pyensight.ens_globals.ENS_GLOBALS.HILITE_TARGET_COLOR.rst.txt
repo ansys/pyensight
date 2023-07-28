@@ -1,6 +1,0 @@
-HILITE\_TARGET\_COLOR
-=====================
-
-.. currentmodule:: pyensight.ens_globals
-
-.. autoproperty:: ENS_GLOBALS.HILITE_TARGET_COLOR

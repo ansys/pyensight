@@ -1,6 +1,0 @@
-reader\_option
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: data.reader_option

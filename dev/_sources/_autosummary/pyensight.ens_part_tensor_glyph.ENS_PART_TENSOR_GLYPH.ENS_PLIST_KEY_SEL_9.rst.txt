@@ -1,6 +1,0 @@
-ENS\_PLIST\_KEY\_SEL\_9
-=======================
-
-.. currentmodule:: pyensight.ens_part_tensor_glyph
-
-.. autoproperty:: ENS_PART_TENSOR_GLYPH.ENS_PLIST_KEY_SEL_9

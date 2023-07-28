@@ -1,6 +1,0 @@
-delay\_guirefresh
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: command.delay_guirefresh

@@ -1,6 +1,0 @@
-attrtree
-========
-
-.. currentmodule:: pyensight.ensobj
-
-.. automethod:: ENSOBJ.attrtree

@@ -1,6 +1,0 @@
-REV1DAXISVECT
-=============
-
-.. currentmodule:: pyensight.ens_part_clip
-
-.. autoproperty:: ENS_PART_CLIP.REV1DAXISVECT

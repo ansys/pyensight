@@ -1,6 +1,0 @@
-adjcoord\_varscale\_factor
-==========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: model.adjcoord_varscale_factor

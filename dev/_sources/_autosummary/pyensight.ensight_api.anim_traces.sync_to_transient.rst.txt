@@ -1,6 +1,0 @@
-sync\_to\_transient
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_traces.sync_to_transient

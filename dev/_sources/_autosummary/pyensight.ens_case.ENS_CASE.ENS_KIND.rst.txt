@@ -1,6 +1,0 @@
-ENS\_KIND
-=========
-
-.. currentmodule:: pyensight.ens_case
-
-.. autoproperty:: ENS_CASE.ENS_KIND

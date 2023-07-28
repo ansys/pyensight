@@ -1,6 +1,0 @@
-ENS\_TURBO\_STAGE
-=================
-
-.. currentmodule:: pyensight.ens_part_built_up
-
-.. autoproperty:: ENS_PART_BUILT_UP.ENS_TURBO_STAGE

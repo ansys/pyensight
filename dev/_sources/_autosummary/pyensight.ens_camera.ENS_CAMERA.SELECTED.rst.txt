@@ -1,6 +1,0 @@
-SELECTED
-========
-
-.. currentmodule:: pyensight.ens_camera
-
-.. autoproperty:: ENS_CAMERA.SELECTED

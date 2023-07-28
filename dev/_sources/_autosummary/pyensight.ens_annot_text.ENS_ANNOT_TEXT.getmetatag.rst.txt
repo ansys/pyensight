@@ -1,6 +1,0 @@
-getmetatag
-==========
-
-.. currentmodule:: pyensight.ens_annot_text
-
-.. automethod:: ENS_ANNOT_TEXT.getmetatag

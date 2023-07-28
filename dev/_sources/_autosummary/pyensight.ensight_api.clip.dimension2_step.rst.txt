@@ -1,6 +1,0 @@
-dimension2\_step
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.dimension2_step

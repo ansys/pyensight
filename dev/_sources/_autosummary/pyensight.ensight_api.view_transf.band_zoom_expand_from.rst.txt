@@ -1,6 +1,0 @@
-band\_zoom\_expand\_from
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.band_zoom_expand_from

@@ -1,6 +1,0 @@
-constant\_color
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: annot_backgr.constant_color

@@ -1,6 +1,0 @@
-select\_invert
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.select_invert

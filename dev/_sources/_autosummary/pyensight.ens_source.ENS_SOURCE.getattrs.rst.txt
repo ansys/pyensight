@@ -1,6 +1,0 @@
-getattrs
-========
-
-.. currentmodule:: pyensight.ens_source
-
-.. automethod:: ENS_SOURCE.getattrs

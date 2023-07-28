@@ -1,6 +1,0 @@
-generate\_over
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: query_ent_var.generate_over

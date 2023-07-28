@@ -1,6 +1,0 @@
-HANDLES\_ENABLED
-================
-
-.. currentmodule:: pyensight.ens_tool_cursor
-
-.. autoproperty:: ENS_TOOL_CURSOR.HANDLES_ENABLED

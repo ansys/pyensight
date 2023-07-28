@@ -1,6 +1,0 @@
-setattr\_status
-===============
-
-.. currentmodule:: pyensight.ens_vport
-
-.. automethod:: ENS_VPORT.setattr_status

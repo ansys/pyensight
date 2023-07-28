@@ -1,6 +1,0 @@
-new\_or\_mod\_shape
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: shape.new_or_mod_shape

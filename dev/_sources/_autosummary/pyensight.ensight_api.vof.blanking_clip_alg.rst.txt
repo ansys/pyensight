@@ -1,6 +1,0 @@
-blanking\_clip\_alg
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vof.blanking_clip_alg

@@ -1,6 +1,0 @@
-not\_used
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport.not_used

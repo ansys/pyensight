@@ -1,6 +1,0 @@
-show\_raytraced\_image
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim.show_raytraced_image

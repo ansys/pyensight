@@ -1,6 +1,0 @@
-attrgroupinfo
-=============
-
-.. currentmodule:: pyensight.ens_annot
-
-.. automethod:: ENS_ANNOT.attrgroupinfo

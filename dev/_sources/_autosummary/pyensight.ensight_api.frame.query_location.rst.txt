@@ -1,6 +1,0 @@
-query\_location
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: frame.query_location

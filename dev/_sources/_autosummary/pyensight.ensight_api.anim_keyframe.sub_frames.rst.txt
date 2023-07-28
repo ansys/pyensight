@@ -1,6 +1,0 @@
-sub\_frames
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_keyframe.sub_frames

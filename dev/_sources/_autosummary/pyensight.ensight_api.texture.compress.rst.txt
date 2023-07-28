@@ -1,6 +1,0 @@
-compress
-========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: texture.compress

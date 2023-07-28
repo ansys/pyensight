@@ -1,6 +1,0 @@
-INDEX
-=====
-
-.. currentmodule:: pyensight.ens_lpart
-
-.. autoproperty:: ENS_LPART.INDEX

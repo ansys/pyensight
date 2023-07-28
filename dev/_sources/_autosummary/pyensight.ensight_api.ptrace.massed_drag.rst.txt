@@ -1,6 +1,0 @@
-massed\_drag
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.massed_drag

@@ -1,6 +1,0 @@
-revolution\_point
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.revolution_point

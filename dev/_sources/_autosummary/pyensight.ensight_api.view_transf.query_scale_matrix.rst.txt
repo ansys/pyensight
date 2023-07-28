@@ -1,6 +1,0 @@
-query\_scale\_matrix
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.query_scale_matrix

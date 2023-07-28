@@ -1,6 +1,0 @@
-VIEWPORT\_USE
-=============
-
-.. currentmodule:: pyensight.ens_camera
-
-.. autoproperty:: ENS_CAMERA.VIEWPORT_USE

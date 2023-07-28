@@ -1,6 +1,0 @@
-legend\_colorby
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.legend_colorby

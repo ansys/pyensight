@@ -1,6 +1,0 @@
-point\_radii
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.point_radii

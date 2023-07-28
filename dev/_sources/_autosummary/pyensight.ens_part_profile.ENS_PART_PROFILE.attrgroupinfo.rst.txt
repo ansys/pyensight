@@ -1,6 +1,0 @@
-attrgroupinfo
-=============
-
-.. currentmodule:: pyensight.ens_part_profile
-
-.. automethod:: ENS_PART_PROFILE.attrgroupinfo

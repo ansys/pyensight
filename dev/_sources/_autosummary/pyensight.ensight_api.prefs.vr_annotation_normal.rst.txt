@@ -1,6 +1,0 @@
-vr\_annotation\_normal
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.vr_annotation_normal

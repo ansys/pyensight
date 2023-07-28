@@ -1,6 +1,0 @@
-getattrs
-========
-
-.. currentmodule:: pyensight.ens_frame
-
-.. automethod:: ENS_FRAME.getattrs

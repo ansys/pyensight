@@ -1,6 +1,0 @@
-feature\_qia
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view.feature_qia

@@ -1,6 +1,0 @@
-select\_forces\_begin
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: arrow.select_forces_begin

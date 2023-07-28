@@ -1,6 +1,0 @@
-linked
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: case.linked

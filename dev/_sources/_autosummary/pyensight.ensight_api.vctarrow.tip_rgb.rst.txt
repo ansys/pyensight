@@ -1,6 +1,0 @@
-tip\_rgb
-========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vctarrow.tip_rgb

@@ -1,6 +1,0 @@
-TEMPORAL\_IJK
-=============
-
-.. currentmodule:: pyensight.utils.query
-
-.. autoattribute:: Query.TEMPORAL_IJK

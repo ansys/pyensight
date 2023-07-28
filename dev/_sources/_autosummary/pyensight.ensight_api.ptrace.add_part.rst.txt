@@ -1,6 +1,0 @@
-add\_part
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.add_part

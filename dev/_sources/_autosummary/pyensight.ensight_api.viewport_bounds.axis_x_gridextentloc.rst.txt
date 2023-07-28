@@ -1,6 +1,0 @@
-axis\_x\_gridextentloc
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_bounds.axis_x_gridextentloc

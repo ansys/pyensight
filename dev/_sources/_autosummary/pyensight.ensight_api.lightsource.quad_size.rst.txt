@@ -1,6 +1,0 @@
-quad\_size
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: lightsource.quad_size

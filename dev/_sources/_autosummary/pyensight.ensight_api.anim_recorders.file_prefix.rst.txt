@@ -1,6 +1,0 @@
-file\_prefix
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_recorders.file_prefix

@@ -1,6 +1,0 @@
-query\_objects
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: variables.query_objects

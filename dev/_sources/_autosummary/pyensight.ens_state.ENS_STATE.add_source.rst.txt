@@ -1,6 +1,0 @@
-add\_source
-===========
-
-.. currentmodule:: pyensight.ens_state
-
-.. automethod:: ENS_STATE.add_source

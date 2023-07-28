@@ -1,6 +1,0 @@
-select\_byname\_begin
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: material.select_byname_begin

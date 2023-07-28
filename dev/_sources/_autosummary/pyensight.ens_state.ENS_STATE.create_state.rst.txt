@@ -1,6 +1,0 @@
-create\_state
-=============
-
-.. currentmodule:: pyensight.ens_state
-
-.. automethod:: ENS_STATE.create_state

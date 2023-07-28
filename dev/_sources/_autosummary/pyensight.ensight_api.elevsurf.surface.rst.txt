@@ -1,6 +1,0 @@
-surface
-=======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: elevsurf.surface

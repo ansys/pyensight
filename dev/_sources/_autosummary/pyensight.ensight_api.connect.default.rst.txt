@@ -1,6 +1,0 @@
-default
-=======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: connect.default

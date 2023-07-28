@@ -1,6 +1,0 @@
-image\_encapsulated
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.image_encapsulated

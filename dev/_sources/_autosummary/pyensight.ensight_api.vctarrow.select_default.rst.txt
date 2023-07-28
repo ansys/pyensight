@@ -1,6 +1,0 @@
-select\_default
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vctarrow.select_default

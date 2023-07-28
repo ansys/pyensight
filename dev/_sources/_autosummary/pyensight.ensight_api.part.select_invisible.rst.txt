@@ -1,6 +1,0 @@
-select\_invisible
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.select_invisible

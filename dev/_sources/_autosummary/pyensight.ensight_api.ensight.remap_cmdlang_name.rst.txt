@@ -1,6 +1,0 @@
-remap\_cmdlang\_name
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ensight.remap_cmdlang_name

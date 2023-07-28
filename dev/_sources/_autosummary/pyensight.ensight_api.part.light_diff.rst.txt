@@ -1,6 +1,0 @@
-light\_diff
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.light_diff

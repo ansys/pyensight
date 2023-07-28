@@ -1,6 +1,0 @@
-populate\_attr\_list
-====================
-
-.. currentmodule:: pyensight.ens_part_clip
-
-.. automethod:: ENS_PART_CLIP.populate_attr_list

@@ -1,6 +1,0 @@
-VARIABLE1
-=========
-
-.. currentmodule:: pyensight.ens_query
-
-.. autoproperty:: ENS_QUERY.VARIABLE1

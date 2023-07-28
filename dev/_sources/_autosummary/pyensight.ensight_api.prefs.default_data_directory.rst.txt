@@ -1,6 +1,0 @@
-default\_data\_directory
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.default_data_directory

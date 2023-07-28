@@ -1,6 +1,0 @@
-view\_store
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.view_store

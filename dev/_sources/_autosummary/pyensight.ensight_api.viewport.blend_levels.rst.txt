@@ -1,6 +1,0 @@
-blend\_levels
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport.blend_levels

@@ -1,6 +1,0 @@
-up\_origin
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: scene.up_origin

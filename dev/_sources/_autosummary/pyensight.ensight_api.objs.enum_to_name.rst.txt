@@ -1,6 +1,0 @@
-enum\_to\_name
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: objs.enum_to_name

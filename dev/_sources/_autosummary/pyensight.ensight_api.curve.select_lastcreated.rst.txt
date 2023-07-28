@@ -1,6 +1,0 @@
-select\_lastcreated
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: curve.select_lastcreated

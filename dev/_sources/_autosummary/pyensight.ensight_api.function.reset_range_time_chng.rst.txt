@@ -1,6 +1,0 @@
-reset\_range\_time\_chng
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.reset_range_time_chng

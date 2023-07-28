@@ -1,6 +1,0 @@
-value\_size
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: dial.value_size

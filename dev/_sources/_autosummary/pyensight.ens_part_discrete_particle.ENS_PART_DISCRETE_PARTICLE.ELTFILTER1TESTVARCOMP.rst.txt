@@ -1,6 +1,0 @@
-ELTFILTER1TESTVARCOMP
-=====================
-
-.. currentmodule:: pyensight.ens_part_discrete_particle
-
-.. autoproperty:: ENS_PART_DISCRETE_PARTICLE.ELTFILTER1TESTVARCOMP

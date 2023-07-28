@@ -1,6 +1,0 @@
-reflect\_model\_in
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: case.reflect_model_in

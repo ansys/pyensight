@@ -1,6 +1,0 @@
-freestream\_speed\_sound
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: varextcfd.freestream_speed_sound

@@ -1,6 +1,0 @@
-region\_tool
-============
-
-.. currentmodule:: pyensight.ens_globals
-
-.. automethod:: ENS_GLOBALS.region_tool

@@ -1,6 +1,0 @@
-get\_histogram
-==============
-
-.. currentmodule:: pyensight.ens_palette
-
-.. automethod:: ENS_PALETTE.get_histogram

@@ -1,6 +1,0 @@
-vector\_report\_by\_mag
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: query_interact.vector_report_by_mag

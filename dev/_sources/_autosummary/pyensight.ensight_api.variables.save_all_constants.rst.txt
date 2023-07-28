@@ -1,6 +1,0 @@
-save\_all\_constants
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: variables.save_all_constants

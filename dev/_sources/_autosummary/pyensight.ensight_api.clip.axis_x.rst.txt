@@ -1,6 +1,0 @@
-axis\_x
-=======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.axis_x

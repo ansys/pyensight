@@ -1,6 +1,0 @@
-classify\_file
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: objs.classify_file

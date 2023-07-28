@@ -1,6 +1,0 @@
-representation
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.representation

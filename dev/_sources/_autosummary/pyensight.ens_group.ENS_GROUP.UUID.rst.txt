@@ -1,6 +1,0 @@
-UUID
-====
-
-.. currentmodule:: pyensight.ens_group
-
-.. autoproperty:: ENS_GROUP.UUID

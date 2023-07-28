@@ -1,6 +1,0 @@
-PROJECT\_MASK
-=============
-
-.. currentmodule:: pyensight.ens_tool_cone
-
-.. autoproperty:: ENS_TOOL_CONE.PROJECT_MASK

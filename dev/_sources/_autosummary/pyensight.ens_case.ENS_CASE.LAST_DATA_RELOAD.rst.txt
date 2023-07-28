@@ -1,6 +1,0 @@
-LAST\_DATA\_RELOAD
-==================
-
-.. currentmodule:: pyensight.ens_case
-
-.. autoproperty:: ENS_CASE.LAST_DATA_RELOAD

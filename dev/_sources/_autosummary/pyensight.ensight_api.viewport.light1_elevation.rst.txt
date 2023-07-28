@@ -1,6 +1,0 @@
-light1\_elevation
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport.light1_elevation

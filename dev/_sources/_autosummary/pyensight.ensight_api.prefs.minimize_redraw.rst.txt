@@ -1,6 +1,0 @@
-minimize\_redraw
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.minimize_redraw

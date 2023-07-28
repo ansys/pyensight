@@ -1,6 +1,0 @@
-end\_simtime
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: query_ent_var.end_simtime

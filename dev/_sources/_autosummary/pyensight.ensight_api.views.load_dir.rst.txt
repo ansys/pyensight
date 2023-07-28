@@ -1,6 +1,0 @@
-load\_dir
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: views.load_dir

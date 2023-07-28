@@ -1,6 +1,0 @@
-ELTFILTER6LOGICALOP
-===================
-
-.. currentmodule:: pyensight.ens_part_frame
-
-.. autoproperty:: ENS_PART_FRAME.ELTFILTER6LOGICALOP

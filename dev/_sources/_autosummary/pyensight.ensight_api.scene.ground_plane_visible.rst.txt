@@ -1,6 +1,0 @@
-ground\_plane\_visible
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: scene.ground_plane_visible

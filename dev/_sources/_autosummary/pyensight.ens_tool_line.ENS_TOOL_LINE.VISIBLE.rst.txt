@@ -1,6 +1,0 @@
-VISIBLE
-=======
-
-.. currentmodule:: pyensight.ens_tool_line
-
-.. autoproperty:: ENS_TOOL_LINE.VISIBLE

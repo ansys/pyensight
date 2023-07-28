@@ -1,6 +1,0 @@
-animate\_curves
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.animate_curves

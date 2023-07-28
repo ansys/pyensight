@@ -1,6 +1,0 @@
-subtick\_scale\_factor
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_axis.subtick_scale_factor

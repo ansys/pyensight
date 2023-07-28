@@ -1,6 +1,0 @@
-query\_selected\_objects
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: define.query_selected_objects

@@ -1,6 +1,0 @@
-ADJCOORDVARSCALEFACTOR
-======================
-
-.. currentmodule:: pyensight.ens_part_model
-
-.. autoproperty:: ENS_PART_MODEL.ADJCOORDVARSCALEFACTOR

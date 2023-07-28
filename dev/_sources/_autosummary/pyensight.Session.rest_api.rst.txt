@@ -1,6 +1,0 @@
-rest\_api
-=========
-
-.. currentmodule:: pyensight
-
-.. autoproperty:: Session.rest_api

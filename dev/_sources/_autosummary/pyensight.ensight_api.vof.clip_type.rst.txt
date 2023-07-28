@@ -1,6 +1,0 @@
-clip\_type
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vof.clip_type

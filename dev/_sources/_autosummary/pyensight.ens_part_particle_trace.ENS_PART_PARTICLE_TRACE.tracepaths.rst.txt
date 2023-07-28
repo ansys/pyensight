@@ -1,6 +1,0 @@
-tracepaths
-==========
-
-.. currentmodule:: pyensight.ens_part_particle_trace
-
-.. automethod:: ENS_PART_PARTICLE_TRACE.tracepaths

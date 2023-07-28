@@ -1,6 +1,0 @@
-node\_id
-========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.node_id

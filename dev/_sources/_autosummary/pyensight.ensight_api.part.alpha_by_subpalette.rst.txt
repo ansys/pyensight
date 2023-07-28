@@ -1,6 +1,0 @@
-alpha\_by\_subpalette
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.alpha_by_subpalette

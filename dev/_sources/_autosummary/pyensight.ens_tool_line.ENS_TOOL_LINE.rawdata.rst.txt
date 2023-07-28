@@ -1,6 +1,0 @@
-rawdata
-=======
-
-.. currentmodule:: pyensight.ens_tool_line
-
-.. automethod:: ENS_TOOL_LINE.rawdata

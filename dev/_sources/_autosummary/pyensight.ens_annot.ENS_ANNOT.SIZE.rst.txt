@@ -1,6 +1,0 @@
-SIZE
-====
-
-.. currentmodule:: pyensight.ens_annot
-
-.. autoproperty:: ENS_ANNOT.SIZE

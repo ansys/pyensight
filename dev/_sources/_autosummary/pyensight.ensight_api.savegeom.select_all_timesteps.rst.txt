@@ -1,6 +1,0 @@
-select\_all\_timesteps
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: savegeom.select_all_timesteps

@@ -1,6 +1,0 @@
-little\_hand\_rgb
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: dial.little_hand_rgb

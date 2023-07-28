@@ -1,6 +1,0 @@
-undo\_restored\_palette
-=======================
-
-.. currentmodule:: pyensight.ens_palette
-
-.. automethod:: ENS_PALETTE.undo_restored_palette

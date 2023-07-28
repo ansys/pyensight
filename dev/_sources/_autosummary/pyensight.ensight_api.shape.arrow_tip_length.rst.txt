@@ -1,6 +1,0 @@
-arrow\_tip\_length
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: shape.arrow_tip_length

@@ -1,6 +1,0 @@
-query\_object\_atwindowxy
-=========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport.query_object_atwindowxy

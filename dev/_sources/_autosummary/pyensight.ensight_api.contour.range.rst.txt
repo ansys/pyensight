@@ -1,6 +1,0 @@
-range
-=====
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: contour.range

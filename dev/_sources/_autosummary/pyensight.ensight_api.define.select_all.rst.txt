@@ -1,6 +1,0 @@
-select\_all
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: define.select_all

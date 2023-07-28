@@ -1,6 +1,0 @@
-disconnect\_enshell
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ensight.disconnect_enshell

@@ -1,6 +1,0 @@
-setchildattr
-============
-
-.. currentmodule:: pyensight.ens_group
-
-.. automethod:: ENS_GROUP.setchildattr

@@ -1,6 +1,0 @@
-normalized\_width
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: logo.normalized_width

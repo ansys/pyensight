@@ -1,6 +1,0 @@
-TEMPORAL\_MAXIMUM
-=================
-
-.. currentmodule:: pyensight.utils.query
-
-.. autoattribute:: Query.TEMPORAL_MAXIMUM

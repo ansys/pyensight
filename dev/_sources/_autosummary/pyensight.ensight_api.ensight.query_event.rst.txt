@@ -1,6 +1,0 @@
-query\_event
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ensight.query_event

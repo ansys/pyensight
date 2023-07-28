@@ -1,6 +1,0 @@
-band\_number\_items
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.band_number_items

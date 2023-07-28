@@ -1,6 +1,0 @@
-ensxml\_restore\_element
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: objs.ensxml_restore_element

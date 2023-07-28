@@ -1,6 +1,0 @@
-ijk\_scale
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.ijk_scale

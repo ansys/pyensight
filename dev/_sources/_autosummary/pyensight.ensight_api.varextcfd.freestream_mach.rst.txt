@@ -1,6 +1,0 @@
-freestream\_mach
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: varextcfd.freestream_mach

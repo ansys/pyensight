@@ -1,6 +1,0 @@
-display\_offset
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: contour.display_offset

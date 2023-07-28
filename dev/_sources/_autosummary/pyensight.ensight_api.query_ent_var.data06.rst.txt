@@ -1,6 +1,0 @@
-data06
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: query_ent_var.data06

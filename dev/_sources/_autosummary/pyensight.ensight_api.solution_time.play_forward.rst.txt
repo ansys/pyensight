@@ -1,6 +1,0 @@
-play\_forward
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: solution_time.play_forward

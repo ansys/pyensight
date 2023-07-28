@@ -1,6 +1,0 @@
-variable\_offset
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.variable_offset

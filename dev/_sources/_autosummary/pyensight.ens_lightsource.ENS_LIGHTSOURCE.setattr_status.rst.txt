@@ -1,6 +1,0 @@
-setattr\_status
-===============
-
-.. currentmodule:: pyensight.ens_lightsource
-
-.. automethod:: ENS_LIGHTSOURCE.setattr_status

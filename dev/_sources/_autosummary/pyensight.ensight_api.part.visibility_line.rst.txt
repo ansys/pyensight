@@ -1,6 +1,0 @@
-visibility\_line
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.visibility_line

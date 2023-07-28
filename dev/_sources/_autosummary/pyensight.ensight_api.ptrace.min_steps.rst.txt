@@ -1,6 +1,0 @@
-min\_steps
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.min_steps

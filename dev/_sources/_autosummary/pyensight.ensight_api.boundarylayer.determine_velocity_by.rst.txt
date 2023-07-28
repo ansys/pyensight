@@ -1,6 +1,0 @@
-determine\_velocity\_by
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: boundarylayer.determine_velocity_by

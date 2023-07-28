@@ -1,6 +1,0 @@
-query\_display\_attributes
-==========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: gauge.query_display_attributes

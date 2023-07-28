@@ -1,6 +1,0 @@
-symmetry\_instances
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: frame.symmetry_instances

@@ -1,6 +1,0 @@
-origin\_y
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport.origin_y

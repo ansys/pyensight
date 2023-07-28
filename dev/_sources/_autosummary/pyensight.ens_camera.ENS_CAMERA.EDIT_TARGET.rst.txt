@@ -1,6 +1,0 @@
-EDIT\_TARGET
-============
-
-.. currentmodule:: pyensight.ens_camera
-
-.. autoproperty:: ENS_CAMERA.EDIT_TARGET

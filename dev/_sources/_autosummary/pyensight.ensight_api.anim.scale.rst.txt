@@ -1,6 +1,0 @@
-scale
-=====
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim.scale

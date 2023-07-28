@@ -1,6 +1,0 @@
-setattr\_end
-============
-
-.. currentmodule:: pyensight.ens_part_point
-
-.. automethod:: ENS_PART_POINT.setattr_end

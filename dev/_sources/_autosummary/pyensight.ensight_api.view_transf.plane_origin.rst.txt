@@ -1,6 +1,0 @@
-plane\_origin
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.plane_origin

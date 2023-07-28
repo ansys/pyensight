@@ -1,6 +1,0 @@
-change\_text
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: text.change_text

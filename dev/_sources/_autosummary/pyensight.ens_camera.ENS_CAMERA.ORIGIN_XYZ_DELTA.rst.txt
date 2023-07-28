@@ -1,6 +1,0 @@
-ORIGIN\_XYZ\_DELTA
-==================
-
-.. currentmodule:: pyensight.ens_camera
-
-.. autoproperty:: ENS_CAMERA.ORIGIN_XYZ_DELTA

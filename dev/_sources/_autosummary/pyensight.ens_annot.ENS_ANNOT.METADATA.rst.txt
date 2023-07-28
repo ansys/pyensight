@@ -1,6 +1,0 @@
-METADATA
-========
-
-.. currentmodule:: pyensight.ens_annot
-
-.. autoproperty:: ENS_ANNOT.METADATA

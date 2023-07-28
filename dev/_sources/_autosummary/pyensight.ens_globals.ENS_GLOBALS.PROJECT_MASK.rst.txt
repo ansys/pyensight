@@ -1,6 +1,0 @@
-PROJECT\_MASK
-=============
-
-.. currentmodule:: pyensight.ens_globals
-
-.. autoproperty:: ENS_GLOBALS.PROJECT_MASK

@@ -1,6 +1,0 @@
-time\_marker\_value
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.time_marker_value

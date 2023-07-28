@@ -1,6 +1,0 @@
-allow\_default\_editing
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.allow_default_editing

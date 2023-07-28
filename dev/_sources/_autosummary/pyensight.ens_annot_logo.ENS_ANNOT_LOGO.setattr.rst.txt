@@ -1,6 +1,0 @@
-setattr
-=======
-
-.. currentmodule:: pyensight.ens_annot_logo
-
-.. automethod:: ENS_ANNOT_LOGO.setattr

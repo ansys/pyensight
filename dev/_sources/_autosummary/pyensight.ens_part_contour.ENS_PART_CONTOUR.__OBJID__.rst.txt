@@ -1,6 +1,0 @@
-\_\_OBJID\_\_
-=============
-
-.. currentmodule:: pyensight.ens_part_contour
-
-.. autoproperty:: ENS_PART_CONTOUR.__OBJID__

@@ -1,6 +1,0 @@
-end\_subsetdesc
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: subset.end_subsetdesc

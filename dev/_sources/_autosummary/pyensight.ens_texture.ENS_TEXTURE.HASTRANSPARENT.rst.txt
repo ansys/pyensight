@@ -1,6 +1,0 @@
-HASTRANSPARENT
-==============
-
-.. currentmodule:: pyensight.ens_texture
-
-.. autoproperty:: ENS_TEXTURE.HASTRANSPARENT

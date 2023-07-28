@@ -1,6 +1,0 @@
-\_\_OBJID\_\_
-=============
-
-.. currentmodule:: pyensight.ens_polyline
-
-.. autoproperty:: ENS_POLYLINE.__OBJID__

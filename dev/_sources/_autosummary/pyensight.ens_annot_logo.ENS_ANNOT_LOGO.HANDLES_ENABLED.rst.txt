@@ -1,6 +1,0 @@
-HANDLES\_ENABLED
-================
-
-.. currentmodule:: pyensight.ens_annot_logo
-
-.. autoproperty:: ENS_ANNOT_LOGO.HANDLES_ENABLED

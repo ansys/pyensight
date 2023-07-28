@@ -1,6 +1,0 @@
-clearall\_blanked\_elts
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.clearall_blanked_elts

@@ -1,6 +1,0 @@
-text\_display
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: annotation.text_display

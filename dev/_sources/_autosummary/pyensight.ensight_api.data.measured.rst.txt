@@ -1,6 +1,0 @@
-measured
-========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: data.measured

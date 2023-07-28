@@ -1,6 +1,0 @@
-fly\_revolutions
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_quick.fly_revolutions

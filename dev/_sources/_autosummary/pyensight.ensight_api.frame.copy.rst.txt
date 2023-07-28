@@ -1,6 +1,0 @@
-copy
-====
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: frame.copy

@@ -1,6 +1,0 @@
-mix\_rgb
-========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: text.mix_rgb

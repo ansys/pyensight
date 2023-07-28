@@ -1,6 +1,0 @@
-plot3dread\_as
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: data.plot3dread_as

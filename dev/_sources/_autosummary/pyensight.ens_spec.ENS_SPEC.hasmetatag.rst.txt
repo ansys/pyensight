@@ -1,6 +1,0 @@
-hasmetatag
-==========
-
-.. currentmodule:: pyensight.ens_spec
-
-.. automethod:: ENS_SPEC.hasmetatag

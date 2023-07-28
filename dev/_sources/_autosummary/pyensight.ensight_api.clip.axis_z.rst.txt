@@ -1,6 +1,0 @@
-axis\_z
-=======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.axis_z

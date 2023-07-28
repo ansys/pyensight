@@ -1,6 +1,0 @@
-general\_equation
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.general_equation

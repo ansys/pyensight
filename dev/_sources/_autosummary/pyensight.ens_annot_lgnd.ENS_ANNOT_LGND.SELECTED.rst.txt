@@ -1,6 +1,0 @@
-SELECTED
-========
-
-.. currentmodule:: pyensight.ens_annot_lgnd
-
-.. autoproperty:: ENS_ANNOT_LGND.SELECTED

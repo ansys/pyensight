@@ -1,6 +1,0 @@
-LOGO\_DATA
-==========
-
-.. currentmodule:: pyensight.ens_state
-
-.. autoproperty:: ENS_STATE.LOGO_DATA

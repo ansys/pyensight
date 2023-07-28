@@ -1,6 +1,0 @@
-ID
-==
-
-.. currentmodule:: pyensight.ens_polyline
-
-.. autoproperty:: ENS_POLYLINE.ID

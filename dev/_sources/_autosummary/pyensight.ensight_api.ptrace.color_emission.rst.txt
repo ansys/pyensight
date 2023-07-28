@@ -1,6 +1,0 @@
-color\_emission
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.color_emission

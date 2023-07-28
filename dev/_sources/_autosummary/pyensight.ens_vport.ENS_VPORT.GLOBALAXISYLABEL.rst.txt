@@ -1,6 +1,0 @@
-GLOBALAXISYLABEL
-================
-
-.. currentmodule:: pyensight.ens_vport
-
-.. autoproperty:: ENS_VPORT.GLOBALAXISYLABEL

@@ -1,6 +1,0 @@
-merge
-=====
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.merge

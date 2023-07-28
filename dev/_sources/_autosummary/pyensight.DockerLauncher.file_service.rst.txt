@@ -1,6 +1,0 @@
-file\_service
-=============
-
-.. currentmodule:: pyensight
-
-.. automethod:: DockerLauncher.file_service

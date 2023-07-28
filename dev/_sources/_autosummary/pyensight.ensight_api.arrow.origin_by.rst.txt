@@ -1,6 +1,0 @@
-origin\_by
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: arrow.origin_by

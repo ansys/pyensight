@@ -1,6 +1,0 @@
-axis\_y\_titlesize
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_bounds.axis_y_titlesize

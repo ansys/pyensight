@@ -1,6 +1,0 @@
-save\_current\_case
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.save_current_case

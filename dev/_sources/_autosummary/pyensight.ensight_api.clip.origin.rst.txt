@@ -1,6 +1,0 @@
-origin
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.origin

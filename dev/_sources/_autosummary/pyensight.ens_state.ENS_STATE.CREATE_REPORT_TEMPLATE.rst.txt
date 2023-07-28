@@ -1,6 +1,0 @@
-CREATE\_REPORT\_TEMPLATE
-========================
-
-.. currentmodule:: pyensight.ens_state
-
-.. autoproperty:: ENS_STATE.CREATE_REPORT_TEMPLATE

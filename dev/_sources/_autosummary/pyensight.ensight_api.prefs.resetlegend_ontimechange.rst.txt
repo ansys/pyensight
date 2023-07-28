@@ -1,6 +1,0 @@
-resetlegend\_ontimechange
-=========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.resetlegend_ontimechange

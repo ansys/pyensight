@@ -1,6 +1,0 @@
-C4\_POINTS
-==========
-
-.. currentmodule:: pyensight.ens_palette
-
-.. autoproperty:: ENS_PALETTE.C4_POINTS

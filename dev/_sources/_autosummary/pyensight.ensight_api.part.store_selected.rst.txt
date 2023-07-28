@@ -1,6 +1,0 @@
-store\_selected
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.store_selected

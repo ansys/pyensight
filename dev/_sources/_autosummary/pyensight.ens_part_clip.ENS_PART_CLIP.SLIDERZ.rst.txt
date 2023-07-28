@@ -1,6 +1,0 @@
-SLIDERZ
-=======
-
-.. currentmodule:: pyensight.ens_part_clip
-
-.. autoproperty:: ENS_PART_CLIP.SLIDERZ

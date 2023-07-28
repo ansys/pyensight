@@ -1,6 +1,0 @@
-SCALE\_METHOD
-=============
-
-.. currentmodule:: pyensight.ens_palette
-
-.. autoproperty:: ENS_PALETTE.SCALE_METHOD

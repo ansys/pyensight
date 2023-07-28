@@ -1,6 +1,0 @@
-select\_lastcreatedpart
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.select_lastcreatedpart

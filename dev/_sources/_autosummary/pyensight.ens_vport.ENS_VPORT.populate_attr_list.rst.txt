@@ -1,6 +1,0 @@
-populate\_attr\_list
-====================
-
-.. currentmodule:: pyensight.ens_vport
-
-.. automethod:: ENS_VPORT.populate_attr_list

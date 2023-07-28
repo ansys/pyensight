@@ -1,6 +1,0 @@
-light\_h\_int
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.light_h_int

@@ -1,6 +1,0 @@
-orientation\_x
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: frame.orientation_x

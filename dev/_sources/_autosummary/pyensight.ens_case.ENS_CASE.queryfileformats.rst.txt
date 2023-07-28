@@ -1,6 +1,0 @@
-queryfileformats
-================
-
-.. currentmodule:: pyensight.ens_case
-
-.. automethod:: ENS_CASE.queryfileformats

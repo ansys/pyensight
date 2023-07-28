@@ -1,6 +1,0 @@
-visibility\_elt
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.visibility_elt

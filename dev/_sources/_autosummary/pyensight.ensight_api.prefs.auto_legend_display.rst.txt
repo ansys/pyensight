@@ -1,6 +1,0 @@
-auto\_legend\_display
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.auto_legend_display

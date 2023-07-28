@@ -1,6 +1,0 @@
-SYMMETRYTYPE
-============
-
-.. currentmodule:: pyensight.ens_part_filter
-
-.. autoproperty:: ENS_PART_FILTER.SYMMETRYTYPE

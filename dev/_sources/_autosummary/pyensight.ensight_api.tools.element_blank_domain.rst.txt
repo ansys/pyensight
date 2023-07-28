@@ -1,6 +1,0 @@
-element\_blank\_domain
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: tools.element_blank_domain

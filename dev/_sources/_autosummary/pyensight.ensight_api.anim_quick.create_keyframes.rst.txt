@@ -1,6 +1,0 @@
-create\_keyframes
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_quick.create_keyframes

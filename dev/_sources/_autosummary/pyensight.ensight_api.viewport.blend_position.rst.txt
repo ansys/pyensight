@@ -1,6 +1,0 @@
-blend\_position
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport.blend_position

@@ -1,6 +1,0 @@
-number\_of\_colors
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.number_of_colors

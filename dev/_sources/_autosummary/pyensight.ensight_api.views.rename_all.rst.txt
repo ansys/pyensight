@@ -1,6 +1,0 @@
-rename\_all
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: views.rename_all

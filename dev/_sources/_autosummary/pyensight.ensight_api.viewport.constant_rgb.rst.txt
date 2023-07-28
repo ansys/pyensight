@@ -1,6 +1,0 @@
-constant\_rgb
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport.constant_rgb

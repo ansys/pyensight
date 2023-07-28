@@ -1,6 +1,0 @@
-VOLUME\_NUM\_PASSES
-===================
-
-.. currentmodule:: pyensight.ens_globals
-
-.. autoproperty:: ENS_GLOBALS.VOLUME_NUM_PASSES

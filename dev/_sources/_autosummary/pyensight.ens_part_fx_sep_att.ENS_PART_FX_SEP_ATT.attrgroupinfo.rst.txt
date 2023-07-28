@@ -1,6 +1,0 @@
-attrgroupinfo
-=============
-
-.. currentmodule:: pyensight.ens_part_fx_sep_att
-
-.. automethod:: ENS_PART_FX_SEP_ATT.attrgroupinfo

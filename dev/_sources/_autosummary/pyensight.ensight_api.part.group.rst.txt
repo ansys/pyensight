@@ -1,6 +1,0 @@
-group
-=====
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.group

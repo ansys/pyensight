@@ -1,6 +1,0 @@
-line
-====
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.line

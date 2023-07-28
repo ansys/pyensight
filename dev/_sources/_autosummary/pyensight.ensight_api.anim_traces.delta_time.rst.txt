@@ -1,6 +1,0 @@
-delta\_time
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_traces.delta_time

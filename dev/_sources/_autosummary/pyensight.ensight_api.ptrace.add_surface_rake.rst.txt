@@ -1,6 +1,0 @@
-add\_surface\_rake
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.add_surface_rake

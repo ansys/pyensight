@@ -1,6 +1,0 @@
-value\_location
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: dial.value_location

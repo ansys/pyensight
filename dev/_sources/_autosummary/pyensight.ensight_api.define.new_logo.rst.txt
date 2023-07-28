@@ -1,6 +1,0 @@
-new\_logo
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: define.new_logo

@@ -1,6 +1,0 @@
-node\_thresholds
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: annot_entlbl.node_thresholds

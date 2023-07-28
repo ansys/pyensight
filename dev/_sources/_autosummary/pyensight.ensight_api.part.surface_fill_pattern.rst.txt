@@ -1,6 +1,0 @@
-surface\_fill\_pattern
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.surface_fill_pattern

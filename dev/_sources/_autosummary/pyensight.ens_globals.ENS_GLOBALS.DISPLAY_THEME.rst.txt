@@ -1,6 +1,0 @@
-DISPLAY\_THEME
-==============
-
-.. currentmodule:: pyensight.ens_globals
-
-.. autoproperty:: ENS_GLOBALS.DISPLAY_THEME

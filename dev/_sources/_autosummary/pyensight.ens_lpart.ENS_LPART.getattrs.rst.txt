@@ -1,6 +1,0 @@
-getattrs
-========
-
-.. currentmodule:: pyensight.ens_lpart
-
-.. automethod:: ENS_LPART.getattrs

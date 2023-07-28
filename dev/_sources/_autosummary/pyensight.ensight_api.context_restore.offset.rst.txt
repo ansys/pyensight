@@ -1,6 +1,0 @@
-offset
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: context_restore.offset

@@ -1,6 +1,0 @@
-save\_view
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.save_view

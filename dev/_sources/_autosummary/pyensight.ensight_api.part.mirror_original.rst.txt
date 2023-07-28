@@ -1,6 +1,0 @@
-mirror\_original
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.mirror_original

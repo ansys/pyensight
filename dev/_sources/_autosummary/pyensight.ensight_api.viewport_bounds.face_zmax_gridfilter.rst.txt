@@ -1,6 +1,0 @@
-face\_zmax\_gridfilter
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_bounds.face_zmax_gridfilter

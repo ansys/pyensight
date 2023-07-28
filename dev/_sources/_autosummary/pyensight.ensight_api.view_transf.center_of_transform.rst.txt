@@ -1,6 +1,0 @@
-center\_of\_transform
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.center_of_transform

@@ -1,6 +1,0 @@
-fit\_to\_selected
-=================
-
-.. currentmodule:: pyensight.ens_tool_plane
-
-.. automethod:: ENS_TOOL_PLANE.fit_to_selected

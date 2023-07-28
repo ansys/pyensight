@@ -1,6 +1,0 @@
-format
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: legend.format

@@ -1,6 +1,0 @@
-marker\_size\_normalized
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: query_interact.marker_size_normalized

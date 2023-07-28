@@ -1,6 +1,0 @@
-iblank\_type
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: data_partbuild.iblank_type

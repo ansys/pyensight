@@ -1,6 +1,0 @@
-ANIM\_TYPE\_KEYFRAME
-====================
-
-.. currentmodule:: pyensight.utils.export
-
-.. autoattribute:: Export.ANIM_TYPE_KEYFRAME

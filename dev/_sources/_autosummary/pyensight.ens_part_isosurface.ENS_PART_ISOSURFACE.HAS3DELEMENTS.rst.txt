@@ -1,6 +1,0 @@
-HAS3DELEMENTS
-=============
-
-.. currentmodule:: pyensight.ens_part_isosurface
-
-.. autoproperty:: ENS_PART_ISOSURFACE.HAS3DELEMENTS

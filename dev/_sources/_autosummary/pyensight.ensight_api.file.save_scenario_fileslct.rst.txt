@@ -1,6 +1,0 @@
-save\_scenario\_fileslct
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.save_scenario_fileslct

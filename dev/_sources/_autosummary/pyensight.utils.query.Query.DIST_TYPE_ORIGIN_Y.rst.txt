@@ -1,6 +1,0 @@
-DIST\_TYPE\_ORIGIN\_Y
-=====================
-
-.. currentmodule:: pyensight.utils.query
-
-.. autoattribute:: Query.DIST_TYPE_ORIGIN_Y

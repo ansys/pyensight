@@ -1,6 +1,0 @@
-result
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: data.result

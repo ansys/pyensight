@@ -1,6 +1,0 @@
-line\_type
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: curve.line_type

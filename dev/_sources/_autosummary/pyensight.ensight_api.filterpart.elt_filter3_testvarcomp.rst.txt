@@ -1,6 +1,0 @@
-elt\_filter3\_testvarcomp
-=========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: filterpart.elt_filter3_testvarcomp

@@ -1,6 +1,0 @@
-use\_custom\_timeline
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: solution_time.use_custom_timeline

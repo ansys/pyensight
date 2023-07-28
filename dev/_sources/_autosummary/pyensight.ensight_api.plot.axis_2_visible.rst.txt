@@ -1,6 +1,0 @@
-axis\_2\_visible
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.axis_2_visible

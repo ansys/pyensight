@@ -1,6 +1,0 @@
-axis\_titles
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.axis_titles

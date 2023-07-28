@@ -1,6 +1,0 @@
-nodedelta
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: data_partbuild.nodedelta

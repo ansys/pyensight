@@ -1,6 +1,0 @@
-grid\_linewidth
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.grid_linewidth

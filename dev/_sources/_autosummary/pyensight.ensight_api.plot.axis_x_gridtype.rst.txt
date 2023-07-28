@@ -1,6 +1,0 @@
-axis\_x\_gridtype
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.axis_x_gridtype

@@ -1,6 +1,0 @@
-spot\_falloff
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: lightsource.spot_falloff

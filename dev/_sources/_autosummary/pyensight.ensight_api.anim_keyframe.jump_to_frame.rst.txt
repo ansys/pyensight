@@ -1,6 +1,0 @@
-jump\_to\_frame
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_keyframe.jump_to_frame

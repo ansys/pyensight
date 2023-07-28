@@ -1,6 +1,0 @@
-size
-====
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: text.size

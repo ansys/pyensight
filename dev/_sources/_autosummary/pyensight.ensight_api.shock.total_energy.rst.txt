@@ -1,6 +1,0 @@
-total\_energy
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: shock.total_energy

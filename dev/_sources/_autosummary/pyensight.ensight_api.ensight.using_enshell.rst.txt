@@ -1,6 +1,0 @@
-using\_enshell
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ensight.using_enshell

@@ -1,6 +1,0 @@
-DIST\_TYPE\_LENGTH\_X
-=====================
-
-.. currentmodule:: pyensight.utils.query
-
-.. autoattribute:: Query.DIST_TYPE_LENGTH_X

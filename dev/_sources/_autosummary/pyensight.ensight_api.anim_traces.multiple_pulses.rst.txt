@@ -1,6 +1,0 @@
-multiple\_pulses
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_traces.multiple_pulses

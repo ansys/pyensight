@@ -1,6 +1,0 @@
-bounds
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view.bounds

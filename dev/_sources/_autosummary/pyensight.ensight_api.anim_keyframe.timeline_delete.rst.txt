@@ -1,6 +1,0 @@
-timeline\_delete
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_keyframe.timeline_delete

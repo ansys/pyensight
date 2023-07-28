@@ -1,6 +1,0 @@
-relative\_viewport\_1
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: line.relative_viewport_1

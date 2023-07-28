@@ -1,6 +1,0 @@
-select\_lastonecreated
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.select_lastonecreated

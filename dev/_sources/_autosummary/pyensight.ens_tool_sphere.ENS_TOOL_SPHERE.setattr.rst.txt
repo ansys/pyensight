@@ -1,6 +1,0 @@
-setattr
-=======
-
-.. currentmodule:: pyensight.ens_tool_sphere
-
-.. automethod:: ENS_TOOL_SPHERE.setattr

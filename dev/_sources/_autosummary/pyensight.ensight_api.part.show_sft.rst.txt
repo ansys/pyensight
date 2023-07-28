@@ -1,6 +1,0 @@
-show\_sft
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.show_sft

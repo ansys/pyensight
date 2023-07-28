@@ -1,6 +1,0 @@
-query\_rotate\_matrix
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.query_rotate_matrix

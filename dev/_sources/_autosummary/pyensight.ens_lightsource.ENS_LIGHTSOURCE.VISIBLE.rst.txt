@@ -1,6 +1,0 @@
-VISIBLE
-=======
-
-.. currentmodule:: pyensight.ens_lightsource
-
-.. autoproperty:: ENS_LIGHTSOURCE.VISIBLE

@@ -1,6 +1,0 @@
-from\_point
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: profile.from_point

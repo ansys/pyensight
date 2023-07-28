@@ -1,6 +1,0 @@
-select\_partexpr\_end
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.select_partexpr_end

@@ -1,6 +1,0 @@
-axis\_local
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: annotation.axis_local

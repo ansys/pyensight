@@ -1,6 +1,0 @@
-static\_fast\_display
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.static_fast_display

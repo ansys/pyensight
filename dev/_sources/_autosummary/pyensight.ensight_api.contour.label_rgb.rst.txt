@@ -1,6 +1,0 @@
-label\_rgb
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: contour.label_rgb

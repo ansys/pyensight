@@ -1,6 +1,0 @@
-PAGE\_DETAILS
-=============
-
-.. currentmodule:: pyensight.ens_flipbook
-
-.. autoproperty:: ENS_FLIPBOOK.PAGE_DETAILS

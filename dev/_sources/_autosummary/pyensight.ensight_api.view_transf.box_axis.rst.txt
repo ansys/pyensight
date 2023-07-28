@@ -1,6 +1,0 @@
-box\_axis
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.box_axis

@@ -1,6 +1,0 @@
-new\_or\_mod\_gauge
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: gauge.new_or_mod_gauge

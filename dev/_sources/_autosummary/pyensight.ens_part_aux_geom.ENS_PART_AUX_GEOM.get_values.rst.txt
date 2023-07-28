@@ -1,6 +1,0 @@
-get\_values
-===========
-
-.. currentmodule:: pyensight.ens_part_aux_geom
-
-.. automethod:: ENS_PART_AUX_GEOM.get_values

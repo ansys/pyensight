@@ -1,6 +1,0 @@
-location\_x\_2
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: line.location_x_2

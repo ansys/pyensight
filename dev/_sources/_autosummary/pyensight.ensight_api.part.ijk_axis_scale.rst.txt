@@ -1,6 +1,0 @@
-ijk\_axis\_scale
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.ijk_axis_scale

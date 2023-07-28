@@ -1,6 +1,0 @@
-cmdlang\_rec\_info
-==================
-
-.. currentmodule:: pyensight.ens_part_fx_vortex_core
-
-.. automethod:: ENS_PART_FX_VORTEX_CORE.cmdlang_rec_info

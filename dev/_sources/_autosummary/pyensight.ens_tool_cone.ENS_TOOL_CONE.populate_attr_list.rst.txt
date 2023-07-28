@@ -1,6 +1,0 @@
-populate\_attr\_list
-====================
-
-.. currentmodule:: pyensight.ens_tool_cone
-
-.. automethod:: ENS_TOOL_CONE.populate_attr_list

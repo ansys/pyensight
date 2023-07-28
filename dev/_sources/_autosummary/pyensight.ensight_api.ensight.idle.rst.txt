@@ -1,6 +1,0 @@
-idle
-====
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ensight.idle

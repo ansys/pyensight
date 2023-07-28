@@ -1,6 +1,0 @@
-LEVELS\_LOCK
-============
-
-.. currentmodule:: pyensight.ens_palette
-
-.. autoproperty:: ENS_PALETTE.LEVELS_LOCK

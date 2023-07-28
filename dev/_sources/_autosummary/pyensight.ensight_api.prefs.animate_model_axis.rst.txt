@@ -1,6 +1,0 @@
-animate\_model\_axis
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.animate_model_axis

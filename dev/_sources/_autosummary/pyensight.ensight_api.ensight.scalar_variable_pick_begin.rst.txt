@@ -1,6 +1,0 @@
-scalar\_variable\_pick\_begin
-=============================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ensight.scalar_variable_pick_begin

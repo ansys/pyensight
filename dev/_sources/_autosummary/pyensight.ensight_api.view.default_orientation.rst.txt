@@ -1,6 +1,0 @@
-default\_orientation
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view.default_orientation

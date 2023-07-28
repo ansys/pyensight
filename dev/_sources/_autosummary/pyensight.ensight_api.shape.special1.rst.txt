@@ -1,6 +1,0 @@
-special1
-========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: shape.special1

@@ -1,6 +1,0 @@
-plane\_2
-========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.plane_2

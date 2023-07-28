@@ -1,6 +1,0 @@
-WHICH\_HISTOGRAM
-================
-
-.. currentmodule:: pyensight.ens_var
-
-.. autoproperty:: ENS_VAR.WHICH_HISTOGRAM

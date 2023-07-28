@@ -1,6 +1,0 @@
-symmetry\_axis
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.symmetry_axis

@@ -1,6 +1,0 @@
-active
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: scene.active

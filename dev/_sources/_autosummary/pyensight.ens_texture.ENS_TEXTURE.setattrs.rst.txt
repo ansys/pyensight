@@ -1,6 +1,0 @@
-setattrs
-========
-
-.. currentmodule:: pyensight.ens_texture
-
-.. automethod:: ENS_TEXTURE.setattrs

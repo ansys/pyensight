@@ -1,6 +1,0 @@
-save\_current\_view
-===================
-
-.. currentmodule:: pyensight.utils.views
-
-.. automethod:: Views.save_current_view

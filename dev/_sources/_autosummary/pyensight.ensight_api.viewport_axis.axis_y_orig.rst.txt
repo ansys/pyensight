@@ -1,6 +1,0 @@
-axis\_y\_orig
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_axis.axis_y_orig

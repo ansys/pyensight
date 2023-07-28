@@ -1,6 +1,0 @@
-grpc\_server
-============
-
-.. currentmodule:: pyensight.ens_globals
-
-.. automethod:: ENS_GLOBALS.grpc_server

@@ -1,6 +1,0 @@
-set\_point
-==========
-
-.. currentmodule:: pyensight.ens_palette
-
-.. automethod:: ENS_PALETTE.set_point

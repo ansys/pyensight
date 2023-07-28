@@ -1,6 +1,0 @@
-width
-=====
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.width

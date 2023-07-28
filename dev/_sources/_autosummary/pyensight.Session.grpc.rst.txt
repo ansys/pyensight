@@ -1,6 +1,0 @@
-grpc
-====
-
-.. currentmodule:: pyensight
-
-.. autoproperty:: Session.grpc

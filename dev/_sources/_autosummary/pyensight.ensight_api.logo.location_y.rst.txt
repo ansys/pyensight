@@ -1,6 +1,0 @@
-location\_y
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: logo.location_y

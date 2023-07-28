@@ -1,6 +1,0 @@
-axis\_visible
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: scene.axis_visible

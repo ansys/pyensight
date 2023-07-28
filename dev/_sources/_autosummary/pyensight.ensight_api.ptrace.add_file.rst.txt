@@ -1,6 +1,0 @@
-add\_file
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.add_file

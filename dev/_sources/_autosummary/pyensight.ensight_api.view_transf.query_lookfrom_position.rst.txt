@@ -1,6 +1,0 @@
-query\_lookfrom\_position
-=========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.query_lookfrom_position

@@ -1,6 +1,0 @@
-time\_step\_begin
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: query_ent_var.time_step_begin

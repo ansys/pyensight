@@ -1,6 +1,0 @@
-ENS\_PLIST\_KEY\_SEL\_7
-=======================
-
-.. currentmodule:: pyensight.ens_part_mat_interface
-
-.. autoproperty:: ENS_PART_MAT_INTERFACE.ENS_PLIST_KEY_SEL_7

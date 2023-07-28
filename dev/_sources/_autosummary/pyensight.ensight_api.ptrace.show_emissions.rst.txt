@@ -1,6 +1,0 @@
-show\_emissions
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.show_emissions

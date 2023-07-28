@@ -1,6 +1,0 @@
-limit\_fringes
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.limit_fringes

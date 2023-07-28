@@ -1,6 +1,0 @@
-threshold\_filter
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: shock.threshold_filter

@@ -1,6 +1,0 @@
-multiple\_case\_read
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: data.multiple_case_read

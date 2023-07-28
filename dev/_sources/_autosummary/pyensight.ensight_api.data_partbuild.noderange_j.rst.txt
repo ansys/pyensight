@@ -1,6 +1,0 @@
-noderange\_j
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: data_partbuild.noderange_j

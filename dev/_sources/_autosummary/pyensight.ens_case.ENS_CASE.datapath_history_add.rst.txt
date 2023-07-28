@@ -1,6 +1,0 @@
-datapath\_history\_add
-======================
-
-.. currentmodule:: pyensight.ens_case
-
-.. automethod:: ENS_CASE.datapath_history_add

@@ -1,6 +1,0 @@
-number\_of\_peels
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.number_of_peels

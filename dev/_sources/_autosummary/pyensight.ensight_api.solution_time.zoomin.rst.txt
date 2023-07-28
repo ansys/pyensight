@@ -1,6 +1,0 @@
-zoomin
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: solution_time.zoomin

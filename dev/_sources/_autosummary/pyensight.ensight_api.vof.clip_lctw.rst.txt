@@ -1,6 +1,0 @@
-clip\_lctw
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vof.clip_lctw

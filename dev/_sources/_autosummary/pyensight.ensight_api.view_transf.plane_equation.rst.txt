@@ -1,6 +1,0 @@
-plane\_equation
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.plane_equation

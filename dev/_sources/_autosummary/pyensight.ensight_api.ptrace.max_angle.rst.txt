@@ -1,6 +1,0 @@
-max\_angle
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.max_angle

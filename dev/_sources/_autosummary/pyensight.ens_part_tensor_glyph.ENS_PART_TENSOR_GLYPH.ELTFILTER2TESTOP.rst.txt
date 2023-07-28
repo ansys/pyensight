@@ -1,6 +1,0 @@
-ELTFILTER2TESTOP
-================
-
-.. currentmodule:: pyensight.ens_part_tensor_glyph
-
-.. autoproperty:: ENS_PART_TENSOR_GLYPH.ELTFILTER2TESTOP

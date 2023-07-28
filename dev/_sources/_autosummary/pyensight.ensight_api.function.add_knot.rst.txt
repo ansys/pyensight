@@ -1,6 +1,0 @@
-add\_knot
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.add_knot

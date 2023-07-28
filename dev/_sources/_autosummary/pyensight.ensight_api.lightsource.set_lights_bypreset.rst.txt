@@ -1,6 +1,0 @@
-set\_lights\_bypreset
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: lightsource.set_lights_bypreset

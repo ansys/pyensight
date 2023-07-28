@@ -1,6 +1,0 @@
-select\_visible
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.select_visible

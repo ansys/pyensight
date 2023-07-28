@@ -1,6 +1,0 @@
-display\_undefined
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.display_undefined

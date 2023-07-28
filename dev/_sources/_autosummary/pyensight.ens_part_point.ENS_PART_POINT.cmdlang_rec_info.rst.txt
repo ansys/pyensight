@@ -1,6 +1,0 @@
-cmdlang\_rec\_info
-==================
-
-.. currentmodule:: pyensight.ens_part_point
-
-.. automethod:: ENS_PART_POINT.cmdlang_rec_info

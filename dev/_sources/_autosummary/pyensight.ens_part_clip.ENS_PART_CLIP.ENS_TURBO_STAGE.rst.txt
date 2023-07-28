@@ -1,6 +1,0 @@
-ENS\_TURBO\_STAGE
-=================
-
-.. currentmodule:: pyensight.ens_part_clip
-
-.. autoproperty:: ENS_PART_CLIP.ENS_TURBO_STAGE

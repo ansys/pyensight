@@ -1,6 +1,0 @@
-sos
-===
-
-.. currentmodule:: pyensight
-
-.. autoproperty:: Session.sos

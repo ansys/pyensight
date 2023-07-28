@@ -1,6 +1,0 @@
-freestream\_density
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: varextcfd.freestream_density

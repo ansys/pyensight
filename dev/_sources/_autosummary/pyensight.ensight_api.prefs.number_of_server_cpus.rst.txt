@@ -1,6 +1,0 @@
-number\_of\_server\_cpus
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.number_of_server_cpus

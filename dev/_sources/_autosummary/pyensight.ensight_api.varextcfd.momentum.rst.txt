@@ -1,6 +1,0 @@
-momentum
-========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: varextcfd.momentum

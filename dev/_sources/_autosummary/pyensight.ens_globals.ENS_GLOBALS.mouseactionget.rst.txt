@@ -1,6 +1,0 @@
-mouseactionget
-==============
-
-.. currentmodule:: pyensight.ens_globals
-
-.. automethod:: ENS_GLOBALS.mouseactionget

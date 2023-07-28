@@ -1,6 +1,0 @@
-partlist\_displayattr
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.partlist_displayattr

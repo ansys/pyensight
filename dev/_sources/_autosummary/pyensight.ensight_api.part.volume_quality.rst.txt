@@ -1,6 +1,0 @@
-volume\_quality
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.volume_quality

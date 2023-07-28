@@ -1,6 +1,0 @@
-ELTFILTER4TESTVARIABLE
-======================
-
-.. currentmodule:: pyensight.ens_part
-
-.. autoproperty:: ENS_PART.ELTFILTER4TESTVARIABLE

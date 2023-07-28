@@ -1,6 +1,0 @@
-rtz\_axis
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.rtz_axis

@@ -1,6 +1,0 @@
-setattr\_status
-===============
-
-.. currentmodule:: pyensight.ens_annot_gauge
-
-.. automethod:: ENS_ANNOT_GAUGE.setattr_status

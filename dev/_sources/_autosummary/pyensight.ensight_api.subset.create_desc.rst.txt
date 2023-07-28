@@ -1,6 +1,0 @@
-create\_desc
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: subset.create_desc

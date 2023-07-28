@@ -1,6 +1,0 @@
-objid
-=====
-
-.. currentmodule:: pyensight.ens_mat
-
-.. autoproperty:: ENS_MAT.objid

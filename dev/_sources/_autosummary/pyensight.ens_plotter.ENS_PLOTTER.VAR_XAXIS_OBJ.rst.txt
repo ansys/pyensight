@@ -1,6 +1,0 @@
-VAR\_XAXIS\_OBJ
-===============
-
-.. currentmodule:: pyensight.ens_plotter
-
-.. autoproperty:: ENS_PLOTTER.VAR_XAXIS_OBJ

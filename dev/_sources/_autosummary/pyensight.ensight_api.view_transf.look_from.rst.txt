@@ -1,6 +1,0 @@
-look\_from
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.look_from

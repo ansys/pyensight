@@ -1,6 +1,0 @@
-resolution
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: savegeom.resolution

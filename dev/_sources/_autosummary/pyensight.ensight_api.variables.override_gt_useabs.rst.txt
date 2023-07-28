@@ -1,6 +1,0 @@
-override\_gt\_useabs
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: variables.override_gt_useabs

@@ -1,6 +1,0 @@
-massed\_pressure
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.massed_pressure

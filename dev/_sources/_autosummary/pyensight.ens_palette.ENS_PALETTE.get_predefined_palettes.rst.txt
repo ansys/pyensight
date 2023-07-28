@@ -1,6 +1,0 @@
-get\_predefined\_palettes
-=========================
-
-.. currentmodule:: pyensight.ens_palette
-
-.. automethod:: ENS_PALETTE.get_predefined_palettes

@@ -1,6 +1,0 @@
-interactive\_rangemax
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: isos.interactive_rangemax

@@ -1,6 +1,0 @@
-HANDLES\_ENABLED
-================
-
-.. currentmodule:: pyensight.ens_camera
-
-.. autoproperty:: ENS_CAMERA.HANDLES_ENABLED

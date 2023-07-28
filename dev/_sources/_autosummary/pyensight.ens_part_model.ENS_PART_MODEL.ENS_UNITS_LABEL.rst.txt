@@ -1,6 +1,0 @@
-ENS\_UNITS\_LABEL
-=================
-
-.. currentmodule:: pyensight.ens_part_model
-
-.. autoproperty:: ENS_PART_MODEL.ENS_UNITS_LABEL

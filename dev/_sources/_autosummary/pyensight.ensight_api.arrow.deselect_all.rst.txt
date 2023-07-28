@@ -1,6 +1,0 @@
-deselect\_all
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: arrow.deselect_all

@@ -1,6 +1,0 @@
-MAX\_MARKERS
-============
-
-.. currentmodule:: pyensight.ens_palette
-
-.. autoproperty:: ENS_PALETTE.MAX_MARKERS

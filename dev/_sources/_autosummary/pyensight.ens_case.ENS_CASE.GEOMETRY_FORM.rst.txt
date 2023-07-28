@@ -1,6 +1,0 @@
-GEOMETRY\_FORM
-==============
-
-.. currentmodule:: pyensight.ens_case
-
-.. autoproperty:: ENS_CASE.GEOMETRY_FORM

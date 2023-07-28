@@ -1,6 +1,0 @@
-arrow\_attach
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vctarrow.arrow_attach

@@ -1,6 +1,0 @@
-realtime\_update
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: isos.realtime_update

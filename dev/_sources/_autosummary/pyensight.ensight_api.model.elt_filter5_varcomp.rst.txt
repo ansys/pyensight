@@ -1,6 +1,0 @@
-elt\_filter5\_varcomp
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: model.elt_filter5_varcomp

@@ -1,6 +1,0 @@
-line\_restricttosurface
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: tools.line_restricttosurface

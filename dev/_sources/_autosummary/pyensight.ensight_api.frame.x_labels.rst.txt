@@ -1,6 +1,0 @@
-x\_labels
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: frame.x_labels

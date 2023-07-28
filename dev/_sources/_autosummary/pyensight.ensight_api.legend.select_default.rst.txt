@@ -1,6 +1,0 @@
-select\_default
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: legend.select_default

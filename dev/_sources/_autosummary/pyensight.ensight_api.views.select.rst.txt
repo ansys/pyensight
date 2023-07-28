@@ -1,6 +1,0 @@
-select
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: views.select

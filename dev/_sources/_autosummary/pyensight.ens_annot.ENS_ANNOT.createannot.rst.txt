@@ -1,6 +1,0 @@
-createannot
-===========
-
-.. currentmodule:: pyensight.ens_annot
-
-.. automethod:: ENS_ANNOT.createannot

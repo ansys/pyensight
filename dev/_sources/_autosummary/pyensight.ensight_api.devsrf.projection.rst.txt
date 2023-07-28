@@ -1,6 +1,0 @@
-projection
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: devsrf.projection

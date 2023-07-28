@@ -1,6 +1,0 @@
-add\_state
-==========
-
-.. currentmodule:: pyensight.ens_state
-
-.. automethod:: ENS_STATE.add_state

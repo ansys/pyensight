@@ -1,6 +1,0 @@
-label\_always\_on\_top
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: query_interact.label_always_on_top

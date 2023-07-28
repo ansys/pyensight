@@ -1,6 +1,0 @@
-auto\_contrast\_foreground
-==========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.auto_contrast_foreground

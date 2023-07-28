@@ -1,6 +1,0 @@
-insert
-======
-
-.. currentmodule:: pyensight
-
-.. automethod:: ensobjlist.insert

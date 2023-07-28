@@ -1,6 +1,0 @@
-LIGHT\_TYPE
-===========
-
-.. currentmodule:: pyensight.ens_lightsource
-
-.. autoproperty:: ENS_LIGHTSOURCE.LIGHT_TYPE

@@ -1,6 +1,0 @@
-update\_with\_newtimesteps
-==========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: query_ent_var.update_with_newtimesteps

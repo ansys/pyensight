@@ -1,6 +1,0 @@
-edit\_point
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: pointpart.edit_point

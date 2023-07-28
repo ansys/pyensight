@@ -1,6 +1,0 @@
-objid
-=====
-
-.. currentmodule:: pyensight.ens_spec
-
-.. autoproperty:: ENS_SPEC.objid

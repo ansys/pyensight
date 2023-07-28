@@ -1,6 +1,0 @@
-SYMMETRYMIRRORXZ
-================
-
-.. currentmodule:: pyensight.ens_part_point
-
-.. autoproperty:: ENS_PART_POINT.SYMMETRYMIRRORXZ

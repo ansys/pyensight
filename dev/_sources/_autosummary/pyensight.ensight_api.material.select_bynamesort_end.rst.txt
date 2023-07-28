@@ -1,6 +1,0 @@
-select\_bynamesort\_end
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: material.select_bynamesort_end

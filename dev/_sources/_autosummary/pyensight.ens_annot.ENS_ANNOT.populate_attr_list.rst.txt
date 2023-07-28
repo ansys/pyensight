@@ -1,6 +1,0 @@
-populate\_attr\_list
-====================
-
-.. currentmodule:: pyensight.ens_annot
-
-.. automethod:: ENS_ANNOT.populate_attr_list

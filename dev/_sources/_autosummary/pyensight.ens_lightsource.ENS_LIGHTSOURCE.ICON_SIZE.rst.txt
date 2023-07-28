@@ -1,6 +1,0 @@
-ICON\_SIZE
-==========
-
-.. currentmodule:: pyensight.ens_lightsource
-
-.. autoproperty:: ENS_LIGHTSOURCE.ICON_SIZE

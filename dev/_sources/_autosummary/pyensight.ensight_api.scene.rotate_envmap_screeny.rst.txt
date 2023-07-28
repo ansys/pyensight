@@ -1,6 +1,0 @@
-rotate\_envmap\_screeny
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: scene.rotate_envmap_screeny

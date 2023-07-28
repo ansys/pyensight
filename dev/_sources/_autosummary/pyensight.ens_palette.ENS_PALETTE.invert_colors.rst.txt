@@ -1,6 +1,0 @@
-invert\_colors
-==============
-
-.. currentmodule:: pyensight.ens_palette
-
-.. automethod:: ENS_PALETTE.invert_colors

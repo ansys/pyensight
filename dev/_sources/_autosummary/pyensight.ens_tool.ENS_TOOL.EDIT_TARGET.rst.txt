@@ -1,6 +1,0 @@
-EDIT\_TARGET
-============
-
-.. currentmodule:: pyensight.ens_tool
-
-.. autoproperty:: ENS_TOOL.EDIT_TARGET

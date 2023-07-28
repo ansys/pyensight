@@ -1,6 +1,0 @@
-orientation
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: legend.orientation

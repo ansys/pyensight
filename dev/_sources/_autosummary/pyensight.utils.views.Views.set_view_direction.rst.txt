@@ -1,6 +1,0 @@
-set\_view\_direction
-====================
-
-.. currentmodule:: pyensight.utils.views
-
-.. automethod:: Views.set_view_direction

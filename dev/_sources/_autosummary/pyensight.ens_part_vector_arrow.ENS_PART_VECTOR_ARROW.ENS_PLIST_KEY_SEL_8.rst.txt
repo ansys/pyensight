@@ -1,6 +1,0 @@
-ENS\_PLIST\_KEY\_SEL\_8
-=======================
-
-.. currentmodule:: pyensight.ens_part_vector_arrow
-
-.. autoproperty:: ENS_PART_VECTOR_ARROW.ENS_PLIST_KEY_SEL_8

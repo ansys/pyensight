@@ -1,6 +1,0 @@
-velocity\_magnitude
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: boundarylayer.velocity_magnitude

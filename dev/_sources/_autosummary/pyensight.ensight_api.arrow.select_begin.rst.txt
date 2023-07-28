@@ -1,6 +1,0 @@
-select\_begin
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: arrow.select_begin

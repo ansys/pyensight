@@ -1,6 +1,0 @@
-PROJECT\_MASK
-=============
-
-.. currentmodule:: pyensight.ens_tool_sphere
-
-.. autoproperty:: ENS_TOOL_SPHERE.PROJECT_MASK

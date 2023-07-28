@@ -1,6 +1,0 @@
-EDIT\_TARGET
-============
-
-.. currentmodule:: pyensight.ens_texture
-
-.. autoproperty:: ENS_TEXTURE.EDIT_TARGET

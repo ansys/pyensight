@@ -1,6 +1,0 @@
-html\_port
-==========
-
-.. currentmodule:: pyensight
-
-.. autoproperty:: Session.html_port

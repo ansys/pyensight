@@ -1,6 +1,0 @@
-scale\_factor\_u
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: devsrf.scale_factor_u

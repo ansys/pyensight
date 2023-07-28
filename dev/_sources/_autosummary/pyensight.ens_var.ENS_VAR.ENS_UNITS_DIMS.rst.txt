@@ -1,6 +1,0 @@
-ENS\_UNITS\_DIMS
-================
-
-.. currentmodule:: pyensight.ens_var
-
-.. autoproperty:: ENS_VAR.ENS_UNITS_DIMS

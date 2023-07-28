@@ -1,6 +1,0 @@
-auto\_centering
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport.auto_centering

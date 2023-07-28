@@ -1,6 +1,0 @@
-TEMPORAL\_MINIMUM
-=================
-
-.. currentmodule:: pyensight.utils.query
-
-.. autoattribute:: Query.TEMPORAL_MINIMUM

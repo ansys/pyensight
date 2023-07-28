@@ -1,6 +1,0 @@
-UUID
-====
-
-.. currentmodule:: pyensight.ens_annot_marker
-
-.. autoproperty:: ENS_ANNOT_MARKER.UUID

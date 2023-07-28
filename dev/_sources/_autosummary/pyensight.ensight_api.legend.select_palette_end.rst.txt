@@ -1,6 +1,0 @@
-select\_palette\_end
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: legend.select_palette_end

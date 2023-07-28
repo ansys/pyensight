@@ -1,6 +1,0 @@
-use\_normalized\_width
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim.use_normalized_width

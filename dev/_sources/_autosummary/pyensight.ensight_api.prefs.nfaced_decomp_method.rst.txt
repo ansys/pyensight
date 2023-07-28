@@ -1,6 +1,0 @@
-nfaced\_decomp\_method
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.nfaced_decomp_method

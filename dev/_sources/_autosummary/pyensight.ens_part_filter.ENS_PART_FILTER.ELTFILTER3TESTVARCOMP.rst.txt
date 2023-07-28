@@ -1,6 +1,0 @@
-ELTFILTER3TESTVARCOMP
-=====================
-
-.. currentmodule:: pyensight.ens_part_filter
-
-.. autoproperty:: ENS_PART_FILTER.ELTFILTER3TESTVARCOMP

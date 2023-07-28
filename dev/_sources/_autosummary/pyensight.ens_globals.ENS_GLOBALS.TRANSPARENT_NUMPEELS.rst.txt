@@ -1,6 +1,0 @@
-TRANSPARENT\_NUMPEELS
-=====================
-
-.. currentmodule:: pyensight.ens_globals
-
-.. autoproperty:: ENS_GLOBALS.TRANSPARENT_NUMPEELS

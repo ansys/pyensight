@@ -1,6 +1,0 @@
-TRANSFORMATION\_DELTA
-=====================
-
-.. currentmodule:: pyensight.ens_vport
-
-.. autoproperty:: ENS_VPORT.TRANSFORMATION_DELTA

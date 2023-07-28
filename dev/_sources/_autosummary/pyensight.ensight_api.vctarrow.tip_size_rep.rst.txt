@@ -1,6 +1,0 @@
-tip\_size\_rep
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vctarrow.tip_size_rep

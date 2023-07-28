@@ -1,6 +1,0 @@
-axis\_2\_titlergb
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.axis_2_titlergb

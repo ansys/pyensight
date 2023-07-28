@@ -1,6 +1,0 @@
-set\_beg\_to\_min
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: solution_time.set_beg_to_min

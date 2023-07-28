@@ -1,6 +1,0 @@
-parts\_showing
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ensight.parts_showing

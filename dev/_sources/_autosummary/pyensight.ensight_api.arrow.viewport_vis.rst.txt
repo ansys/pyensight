@@ -1,6 +1,0 @@
-viewport\_vis
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: arrow.viewport_vis

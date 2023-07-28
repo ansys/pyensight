@@ -1,6 +1,0 @@
-timeline\_sync
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: case.timeline_sync

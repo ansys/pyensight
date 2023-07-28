@@ -1,6 +1,0 @@
-display\_id
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: query_interact.display_id

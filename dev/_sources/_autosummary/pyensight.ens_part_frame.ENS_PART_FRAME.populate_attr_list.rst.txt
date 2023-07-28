@@ -1,6 +1,0 @@
-populate\_attr\_list
-====================
-
-.. currentmodule:: pyensight.ens_part_frame
-
-.. automethod:: ENS_PART_FRAME.populate_attr_list

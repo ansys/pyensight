@@ -1,6 +1,0 @@
-ELTFILTER1TESTVALUE
-===================
-
-.. currentmodule:: pyensight.ens_part_tensor_glyph
-
-.. autoproperty:: ENS_PART_TENSOR_GLYPH.ELTFILTER1TESTVALUE

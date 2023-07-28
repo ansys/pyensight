@@ -1,6 +1,0 @@
-updtparts
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.updtparts

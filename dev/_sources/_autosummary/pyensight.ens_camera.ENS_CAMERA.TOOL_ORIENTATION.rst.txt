@@ -1,6 +1,0 @@
-TOOL\_ORIENTATION
-=================
-
-.. currentmodule:: pyensight.ens_camera
-
-.. autoproperty:: ENS_CAMERA.TOOL_ORIENTATION

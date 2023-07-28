@@ -1,6 +1,0 @@
-select\_all\_timesteps
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: solution_time.select_all_timesteps

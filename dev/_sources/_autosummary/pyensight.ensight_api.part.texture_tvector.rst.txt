@@ -1,6 +1,0 @@
-texture\_tvector
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.texture_tvector

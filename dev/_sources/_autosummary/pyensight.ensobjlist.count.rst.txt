@@ -1,6 +1,0 @@
-count
-=====
-
-.. currentmodule:: pyensight
-
-.. automethod:: ensobjlist.count

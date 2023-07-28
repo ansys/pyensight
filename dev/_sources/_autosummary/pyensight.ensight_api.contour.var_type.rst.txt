@@ -1,6 +1,0 @@
-var\_type
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: contour.var_type

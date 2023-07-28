@@ -1,6 +1,0 @@
-AXIS2LABELSIZE
-==============
-
-.. currentmodule:: pyensight.ens_plotter
-
-.. autoproperty:: ENS_PLOTTER.AXIS2LABELSIZE

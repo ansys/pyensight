@@ -1,6 +1,0 @@
-get\_attr
-=========
-
-.. currentmodule:: pyensight
-
-.. automethod:: ensobjlist.get_attr

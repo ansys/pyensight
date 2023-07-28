@@ -1,6 +1,0 @@
-query\_eltid\_atwindowxy
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.query_eltid_atwindowxy

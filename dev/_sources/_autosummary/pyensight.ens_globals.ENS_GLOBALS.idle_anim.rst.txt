@@ -1,6 +1,0 @@
-idle\_anim
-==========
-
-.. currentmodule:: pyensight.ens_globals
-
-.. automethod:: ENS_GLOBALS.idle_anim

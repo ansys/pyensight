@@ -1,6 +1,0 @@
-pick\_points
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ensight.pick_points

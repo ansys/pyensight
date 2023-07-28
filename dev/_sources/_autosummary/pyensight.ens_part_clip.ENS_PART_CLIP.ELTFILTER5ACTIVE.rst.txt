@@ -1,6 +1,0 @@
-ELTFILTER5ACTIVE
-================
-
-.. currentmodule:: pyensight.ens_part_clip
-
-.. autoproperty:: ENS_PART_CLIP.ELTFILTER5ACTIVE

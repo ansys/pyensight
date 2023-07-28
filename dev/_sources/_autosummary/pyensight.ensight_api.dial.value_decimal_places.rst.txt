@@ -1,6 +1,0 @@
-value\_decimal\_places
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: dial.value_decimal_places

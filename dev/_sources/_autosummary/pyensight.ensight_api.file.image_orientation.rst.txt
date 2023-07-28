@@ -1,6 +1,0 @@
-image\_orientation
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.image_orientation

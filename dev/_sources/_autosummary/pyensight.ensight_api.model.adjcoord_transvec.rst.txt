@@ -1,6 +1,0 @@
-adjcoord\_transvec
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: model.adjcoord_transvec

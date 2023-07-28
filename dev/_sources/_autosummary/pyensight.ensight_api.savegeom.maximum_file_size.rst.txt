@@ -1,6 +1,0 @@
-maximum\_file\_size
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: savegeom.maximum_file_size

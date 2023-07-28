@@ -1,6 +1,0 @@
-visible
-=======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: lightsource.visible

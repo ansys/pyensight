@@ -1,6 +1,0 @@
-FACEYMAXGRIDFILTER
-==================
-
-.. currentmodule:: pyensight.ens_vport
-
-.. autoproperty:: ENS_VPORT.FACEYMAXGRIDFILTER

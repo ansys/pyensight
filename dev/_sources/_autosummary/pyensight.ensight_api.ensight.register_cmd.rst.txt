@@ -1,6 +1,0 @@
-register\_cmd
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ensight.register_cmd

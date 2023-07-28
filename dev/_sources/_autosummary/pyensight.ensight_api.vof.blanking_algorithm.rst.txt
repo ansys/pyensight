@@ -1,6 +1,0 @@
-blanking\_algorithm
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vof.blanking_algorithm

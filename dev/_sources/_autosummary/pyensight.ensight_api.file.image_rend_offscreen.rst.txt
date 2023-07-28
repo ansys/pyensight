@@ -1,6 +1,0 @@
-image\_rend\_offscreen
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.image_rend_offscreen

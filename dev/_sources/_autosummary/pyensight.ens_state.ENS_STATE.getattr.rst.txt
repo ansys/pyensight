@@ -1,6 +1,0 @@
-getattr
-=======
-
-.. currentmodule:: pyensight.ens_state
-
-.. automethod:: ENS_STATE.getattr

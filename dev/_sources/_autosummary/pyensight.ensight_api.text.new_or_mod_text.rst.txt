@@ -1,6 +1,0 @@
-new\_or\_mod\_text
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: text.new_or_mod_text

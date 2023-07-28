@@ -1,6 +1,0 @@
-timeline\_start\_step
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_keyframe.timeline_start_step

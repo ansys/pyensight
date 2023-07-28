@@ -1,6 +1,0 @@
-dsg\_close\_stream
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ensight.dsg_close_stream

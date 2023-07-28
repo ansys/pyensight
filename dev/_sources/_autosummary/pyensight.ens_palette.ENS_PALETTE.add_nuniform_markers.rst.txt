@@ -1,6 +1,0 @@
-add\_nuniform\_markers
-======================
-
-.. currentmodule:: pyensight.ens_palette
-
-.. automethod:: ENS_PALETTE.add_nuniform_markers

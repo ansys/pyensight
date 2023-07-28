@@ -1,6 +1,0 @@
-extend
-======
-
-.. currentmodule:: pyensight
-
-.. automethod:: ensobjlist.extend

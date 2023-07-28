@@ -1,6 +1,0 @@
-dimension2
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.dimension2

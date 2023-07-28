@@ -1,6 +1,0 @@
-node\_size\_by
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.node_size_by

@@ -1,6 +1,0 @@
-face\_ymin\_gridfilter
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_axis.face_ymin_gridfilter

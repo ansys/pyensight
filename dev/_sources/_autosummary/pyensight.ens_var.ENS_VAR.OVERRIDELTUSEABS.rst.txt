@@ -1,6 +1,0 @@
-OVERRIDELTUSEABS
-================
-
-.. currentmodule:: pyensight.ens_var
-
-.. autoproperty:: ENS_VAR.OVERRIDELTUSEABS

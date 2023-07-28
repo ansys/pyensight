@@ -1,6 +1,0 @@
-massed\_fluid\_viscosity
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.massed_fluid_viscosity

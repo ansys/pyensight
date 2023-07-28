@@ -1,6 +1,0 @@
-reinitialize\_view
-==================
-
-.. currentmodule:: pyensight.utils.views
-
-.. automethod:: Views.reinitialize_view

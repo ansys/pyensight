@@ -1,6 +1,0 @@
-axis\_2\_variable
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.axis_2_variable

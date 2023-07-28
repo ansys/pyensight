@@ -1,6 +1,0 @@
-degree
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.degree

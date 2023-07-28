@@ -1,6 +1,0 @@
-FILENAME
-========
-
-.. currentmodule:: pyensight.ens_texture
-
-.. autoproperty:: ENS_TEXTURE.FILENAME

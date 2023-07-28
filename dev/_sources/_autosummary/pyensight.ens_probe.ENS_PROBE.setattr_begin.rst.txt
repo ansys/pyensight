@@ -1,6 +1,0 @@
-setattr\_begin
-==============
-
-.. currentmodule:: pyensight.ens_probe
-
-.. automethod:: ENS_PROBE.setattr_begin

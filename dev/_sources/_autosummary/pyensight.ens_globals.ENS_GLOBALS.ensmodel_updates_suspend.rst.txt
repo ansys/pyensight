@@ -1,6 +1,0 @@
-ensmodel\_updates\_suspend
-==========================
-
-.. currentmodule:: pyensight.ens_globals
-
-.. automethod:: ENS_GLOBALS.ensmodel_updates_suspend

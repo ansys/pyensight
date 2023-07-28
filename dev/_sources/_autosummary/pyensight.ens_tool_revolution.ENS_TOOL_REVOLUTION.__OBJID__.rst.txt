@@ -1,6 +1,0 @@
-\_\_OBJID\_\_
-=============
-
-.. currentmodule:: pyensight.ens_tool_revolution
-
-.. autoproperty:: ENS_TOOL_REVOLUTION.__OBJID__

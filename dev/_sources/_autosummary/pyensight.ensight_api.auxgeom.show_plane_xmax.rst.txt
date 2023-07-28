@@ -1,6 +1,0 @@
-show\_plane\_xmax
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: auxgeom.show_plane_xmax

@@ -1,6 +1,0 @@
-cursor\_by\_partnameijk
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.cursor_by_partnameijk

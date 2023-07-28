@@ -1,6 +1,0 @@
-face\_zmax\_subgrid
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_bounds.face_zmax_subgrid

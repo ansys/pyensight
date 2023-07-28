@@ -1,6 +1,0 @@
-band\_clear\_last
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.band_clear_last

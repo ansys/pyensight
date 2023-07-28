@@ -1,6 +1,0 @@
-ELTFILTER4LOGICALOP
-===================
-
-.. currentmodule:: pyensight.ens_part_isosurface
-
-.. autoproperty:: ENS_PART_ISOSURFACE.ELTFILTER4LOGICALOP

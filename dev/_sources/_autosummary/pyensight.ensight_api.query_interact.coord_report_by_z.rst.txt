@@ -1,6 +1,0 @@
-coord\_report\_by\_z
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: query_interact.coord_report_by_z

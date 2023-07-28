@@ -1,6 +1,0 @@
-boundary\_flag\_ymax
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vof.boundary_flag_ymax

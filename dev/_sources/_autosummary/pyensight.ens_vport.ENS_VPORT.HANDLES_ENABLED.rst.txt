@@ -1,6 +1,0 @@
-HANDLES\_ENABLED
-================
-
-.. currentmodule:: pyensight.ens_vport
-
-.. autoproperty:: ENS_VPORT.HANDLES_ENABLED

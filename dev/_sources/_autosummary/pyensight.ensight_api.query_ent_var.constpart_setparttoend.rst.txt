@@ -1,6 +1,0 @@
-constpart\_setparttoend
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: query_ent_var.constpart_setparttoend

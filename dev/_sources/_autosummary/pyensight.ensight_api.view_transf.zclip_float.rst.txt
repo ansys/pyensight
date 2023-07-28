@@ -1,6 +1,0 @@
-zclip\_float
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.zclip_float

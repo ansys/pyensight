@@ -1,6 +1,0 @@
-fly\_direction
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_quick.fly_direction

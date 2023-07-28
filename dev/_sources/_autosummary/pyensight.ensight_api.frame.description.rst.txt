@@ -1,6 +1,0 @@
-description
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: frame.description

@@ -1,6 +1,0 @@
-image\_envideo\_type
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.image_envideo_type

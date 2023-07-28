@@ -1,6 +1,0 @@
-max
-===
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: isos.max

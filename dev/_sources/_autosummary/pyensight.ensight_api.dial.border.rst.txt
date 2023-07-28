@@ -1,6 +1,0 @@
-border
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: dial.border

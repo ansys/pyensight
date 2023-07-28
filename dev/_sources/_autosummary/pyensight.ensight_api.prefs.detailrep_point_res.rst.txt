@@ -1,6 +1,0 @@
-detailrep\_point\_res
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.detailrep_point_res

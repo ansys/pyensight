@@ -1,6 +1,0 @@
-populate\_attr\_list
-====================
-
-.. currentmodule:: pyensight.ens_tool_cylinder
-
-.. automethod:: ENS_TOOL_CYLINDER.populate_attr_list

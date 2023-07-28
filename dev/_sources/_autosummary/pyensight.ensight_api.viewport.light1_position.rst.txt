@@ -1,6 +1,0 @@
-light1\_position
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport.light1_position

@@ -1,6 +1,0 @@
-reverse
-=======
-
-.. currentmodule:: pyensight
-
-.. automethod:: ensobjlist.reverse

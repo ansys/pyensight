@@ -1,6 +1,0 @@
-axis\_x\_subtick
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_axis.axis_x_subtick

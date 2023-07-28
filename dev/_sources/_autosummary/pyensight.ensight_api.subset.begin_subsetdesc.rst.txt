@@ -1,6 +1,0 @@
-begin\_subsetdesc
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: subset.begin_subsetdesc

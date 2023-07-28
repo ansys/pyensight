@@ -1,6 +1,0 @@
-DIST\_SEG\_RESET\_EACH
-======================
-
-.. currentmodule:: pyensight.utils.query
-
-.. autoattribute:: Query.DIST_SEG_RESET_EACH

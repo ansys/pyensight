@@ -1,6 +1,0 @@
-CHILDREN
-========
-
-.. currentmodule:: pyensight.ens_state
-
-.. autoproperty:: ENS_STATE.CHILDREN

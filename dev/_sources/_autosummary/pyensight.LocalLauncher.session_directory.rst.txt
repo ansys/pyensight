@@ -1,6 +1,0 @@
-session\_directory
-==================
-
-.. currentmodule:: pyensight
-
-.. autoproperty:: LocalLauncher.session_directory

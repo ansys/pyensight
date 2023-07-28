@@ -1,6 +1,0 @@
-delete\_all\_pages
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_flipbook.delete_all_pages

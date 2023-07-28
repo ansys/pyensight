@@ -1,6 +1,0 @@
-dummy\_chng\_slot
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.dummy_chng_slot

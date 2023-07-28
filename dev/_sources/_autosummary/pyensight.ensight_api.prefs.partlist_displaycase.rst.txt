@@ -1,6 +1,0 @@
-partlist\_displaycase
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.partlist_displaycase

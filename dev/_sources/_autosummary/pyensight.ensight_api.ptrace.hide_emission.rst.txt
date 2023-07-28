@@ -1,6 +1,0 @@
-hide\_emission
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.hide_emission

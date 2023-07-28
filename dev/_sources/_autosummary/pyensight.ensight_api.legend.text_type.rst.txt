@@ -1,6 +1,0 @@
-text\_type
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: legend.text_type

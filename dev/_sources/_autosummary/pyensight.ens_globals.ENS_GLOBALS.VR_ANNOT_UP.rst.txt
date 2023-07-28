@@ -1,6 +1,0 @@
-VR\_ANNOT\_UP
-=============
-
-.. currentmodule:: pyensight.ens_globals
-
-.. autoproperty:: ENS_GLOBALS.VR_ANNOT_UP

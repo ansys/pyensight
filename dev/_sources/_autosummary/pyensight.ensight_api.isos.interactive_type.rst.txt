@@ -1,6 +1,0 @@
-interactive\_type
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: isos.interactive_type

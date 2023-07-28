@@ -1,6 +1,0 @@
-vr\_annotation\_center
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.vr_annotation_center

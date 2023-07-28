@@ -1,6 +1,0 @@
-image\_gamma
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.image_gamma

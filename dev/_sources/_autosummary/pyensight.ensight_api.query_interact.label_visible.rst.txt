@@ -1,6 +1,0 @@
-label\_visible
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: query_interact.label_visible

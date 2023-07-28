@@ -1,6 +1,0 @@
-query\_mouse\_info
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport.query_mouse_info

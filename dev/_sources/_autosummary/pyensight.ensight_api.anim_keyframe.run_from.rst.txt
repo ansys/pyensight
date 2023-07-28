@@ -1,6 +1,0 @@
-run\_from
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_keyframe.run_from

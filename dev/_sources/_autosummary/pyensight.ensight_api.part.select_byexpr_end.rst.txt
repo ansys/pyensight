@@ -1,6 +1,0 @@
-select\_byexpr\_end
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.select_byexpr_end

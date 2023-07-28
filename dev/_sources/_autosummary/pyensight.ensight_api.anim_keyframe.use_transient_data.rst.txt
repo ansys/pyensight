@@ -1,6 +1,0 @@
-use\_transient\_data
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_keyframe.use_transient_data

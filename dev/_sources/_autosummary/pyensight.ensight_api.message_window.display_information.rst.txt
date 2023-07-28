@@ -1,6 +1,0 @@
-display\_information
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: message_window.display_information

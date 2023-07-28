@@ -1,6 +1,0 @@
-query\_location
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport.query_location

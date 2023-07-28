@@ -1,6 +1,0 @@
-axis\_model
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: annotation.axis_model

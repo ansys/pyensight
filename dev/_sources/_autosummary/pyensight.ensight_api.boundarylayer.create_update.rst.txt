@@ -1,6 +1,0 @@
-create\_update
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: boundarylayer.create_update

@@ -1,6 +1,0 @@
-\_\_OBJID\_\_
-=============
-
-.. currentmodule:: pyensight.ens_plotter
-
-.. autoproperty:: ENS_PLOTTER.__OBJID__

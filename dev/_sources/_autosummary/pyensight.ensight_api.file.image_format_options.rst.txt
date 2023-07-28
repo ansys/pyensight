@@ -1,6 +1,0 @@
-image\_format\_options
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.image_format_options

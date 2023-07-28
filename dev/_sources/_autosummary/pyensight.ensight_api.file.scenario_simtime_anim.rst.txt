@@ -1,6 +1,0 @@
-scenario\_simtime\_anim
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.scenario_simtime_anim

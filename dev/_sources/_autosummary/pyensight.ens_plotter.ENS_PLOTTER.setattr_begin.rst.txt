@@ -1,6 +1,0 @@
-setattr\_begin
-==============
-
-.. currentmodule:: pyensight.ens_plotter
-
-.. automethod:: ENS_PLOTTER.setattr_begin

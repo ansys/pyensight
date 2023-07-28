@@ -1,6 +1,0 @@
-recompute\_cancel
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.recompute_cancel

@@ -1,6 +1,0 @@
-getattrs
-========
-
-.. currentmodule:: pyensight.ens_camera
-
-.. automethod:: ENS_CAMERA.getattrs

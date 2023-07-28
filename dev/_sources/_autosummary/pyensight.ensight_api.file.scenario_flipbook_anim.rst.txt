@@ -1,6 +1,0 @@
-scenario\_flipbook\_anim
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.scenario_flipbook_anim

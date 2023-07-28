@@ -1,6 +1,0 @@
-createpart
-==========
-
-.. currentmodule:: pyensight.ens_part_vector_arrow
-
-.. automethod:: ENS_PART_VECTOR_ARROW.createpart

@@ -1,6 +1,0 @@
-LABELSIZE3D
-===========
-
-.. currentmodule:: pyensight.ens_vport
-
-.. autoproperty:: ENS_VPORT.LABELSIZE3D

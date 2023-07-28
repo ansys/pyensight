@@ -1,6 +1,0 @@
-language
-========
-
-.. currentmodule:: pyensight
-
-.. autoproperty:: Session.language

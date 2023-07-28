@@ -1,6 +1,0 @@
-emit\_at\_current\_time
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.emit_at_current_time

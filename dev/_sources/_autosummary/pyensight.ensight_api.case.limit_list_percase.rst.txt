@@ -1,6 +1,0 @@
-limit\_list\_percase
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: case.limit_list_percase

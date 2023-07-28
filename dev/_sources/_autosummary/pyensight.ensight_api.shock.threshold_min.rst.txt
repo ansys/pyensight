@@ -1,6 +1,0 @@
-threshold\_min
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: shock.threshold_min

@@ -1,6 +1,0 @@
-plot\_title
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.plot_title

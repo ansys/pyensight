@@ -1,6 +1,0 @@
-axis\_y\_labelsize
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.axis_y_labelsize

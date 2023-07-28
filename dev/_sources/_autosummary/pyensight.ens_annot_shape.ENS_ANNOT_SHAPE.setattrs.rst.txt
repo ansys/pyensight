@@ -1,6 +1,0 @@
-setattrs
-========
-
-.. currentmodule:: pyensight.ens_annot_shape
-
-.. automethod:: ENS_ANNOT_SHAPE.setattrs

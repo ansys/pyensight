@@ -1,6 +1,0 @@
-newviewport\_on\_add
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: data.newviewport_on_add

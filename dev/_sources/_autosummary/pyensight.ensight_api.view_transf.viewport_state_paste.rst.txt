@@ -1,6 +1,0 @@
-viewport\_state\_paste
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.viewport_state_paste

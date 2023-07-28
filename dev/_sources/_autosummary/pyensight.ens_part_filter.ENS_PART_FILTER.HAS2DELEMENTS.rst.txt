@@ -1,6 +1,0 @@
-HAS2DELEMENTS
-=============
-
-.. currentmodule:: pyensight.ens_part_filter
-
-.. autoproperty:: ENS_PART_FILTER.HAS2DELEMENTS

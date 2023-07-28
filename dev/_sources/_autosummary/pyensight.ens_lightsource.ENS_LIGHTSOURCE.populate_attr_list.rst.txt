@@ -1,6 +1,0 @@
-populate\_attr\_list
-====================
-
-.. currentmodule:: pyensight.ens_lightsource
-
-.. automethod:: ENS_LIGHTSOURCE.populate_attr_list

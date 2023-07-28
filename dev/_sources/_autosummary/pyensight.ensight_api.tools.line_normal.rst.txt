@@ -1,6 +1,0 @@
-line\_normal
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: tools.line_normal

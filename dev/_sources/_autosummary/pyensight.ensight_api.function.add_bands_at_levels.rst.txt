@@ -1,6 +1,0 @@
-add\_bands\_at\_levels
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.add_bands_at_levels

@@ -1,6 +1,0 @@
-delete\_custom\_label
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: contour.delete_custom_label

@@ -1,6 +1,0 @@
-binary\_files\_are
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: data.binary_files_are

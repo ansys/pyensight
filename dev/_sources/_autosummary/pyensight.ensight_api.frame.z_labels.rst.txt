@@ -1,6 +1,0 @@
-z\_labels
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: frame.z_labels

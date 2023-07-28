@@ -1,6 +1,0 @@
-gas\_constant
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: varextcfd.gas_constant

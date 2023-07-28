@@ -1,6 +1,0 @@
-show
-====
-
-.. currentmodule:: pyensight
-
-.. automethod:: Session.show

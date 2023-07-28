@@ -1,6 +1,0 @@
-objid
-=====
-
-.. currentmodule:: pyensight.ens_lpart
-
-.. autoproperty:: ENS_LPART.objid

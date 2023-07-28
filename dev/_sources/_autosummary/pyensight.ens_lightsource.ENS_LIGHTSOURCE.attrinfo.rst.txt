@@ -1,6 +1,0 @@
-attrinfo
-========
-
-.. currentmodule:: pyensight.ens_lightsource
-
-.. automethod:: ENS_LIGHTSOURCE.attrinfo

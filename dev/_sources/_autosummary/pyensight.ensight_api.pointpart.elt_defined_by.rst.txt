@@ -1,6 +1,0 @@
-elt\_defined\_by
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: pointpart.elt_defined_by

@@ -1,6 +1,0 @@
-transparency\_resort
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.transparency_resort

@@ -1,6 +1,0 @@
-override\_dialog\_show
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: variables.override_dialog_show

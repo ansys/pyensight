@@ -1,6 +1,0 @@
-get\_server\_userdata
-=====================
-
-.. currentmodule:: pyensight.ens_case
-
-.. automethod:: ENS_CASE.get_server_userdata

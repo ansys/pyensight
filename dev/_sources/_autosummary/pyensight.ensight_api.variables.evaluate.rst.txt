@@ -1,6 +1,0 @@
-evaluate
-========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: variables.evaluate

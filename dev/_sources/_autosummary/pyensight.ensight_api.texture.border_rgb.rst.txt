@@ -1,6 +1,0 @@
-border\_rgb
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: texture.border_rgb

@@ -1,6 +1,0 @@
-hidden\_line
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.hidden_line

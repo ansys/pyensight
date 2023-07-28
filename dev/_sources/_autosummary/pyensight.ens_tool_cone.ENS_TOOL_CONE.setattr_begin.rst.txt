@@ -1,6 +1,0 @@
-setattr\_begin
-==============
-
-.. currentmodule:: pyensight.ens_tool_cone
-
-.. automethod:: ENS_TOOL_CONE.setattr_begin

@@ -1,6 +1,0 @@
-elt\_part
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace_emitr.elt_part

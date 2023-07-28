@@ -1,6 +1,0 @@
-update\_to\_last
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: solution_time.update_to_last

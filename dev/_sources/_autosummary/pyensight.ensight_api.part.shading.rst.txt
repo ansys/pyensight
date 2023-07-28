@@ -1,6 +1,0 @@
-shading
-=======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.shading

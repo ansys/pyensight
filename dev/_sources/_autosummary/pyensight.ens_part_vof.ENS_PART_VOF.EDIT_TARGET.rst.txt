@@ -1,6 +1,0 @@
-EDIT\_TARGET
-============
-
-.. currentmodule:: pyensight.ens_part_vof
-
-.. autoproperty:: ENS_PART_VOF.EDIT_TARGET

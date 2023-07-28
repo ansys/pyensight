@@ -1,6 +1,0 @@
-delete\_back\_to
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_keyframe.delete_back_to

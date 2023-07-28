@@ -1,6 +1,0 @@
-REDUCEPOLYGONS
-==============
-
-.. currentmodule:: pyensight.ens_part
-
-.. autoproperty:: ENS_PART.REDUCEPOLYGONS

@@ -1,6 +1,0 @@
-setmetatag
-==========
-
-.. currentmodule:: pyensight.ens_part_axisymmetric
-
-.. automethod:: ENS_PART_AXISYMMETRIC.setmetatag

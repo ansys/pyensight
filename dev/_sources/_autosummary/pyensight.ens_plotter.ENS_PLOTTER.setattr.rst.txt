@@ -1,6 +1,0 @@
-setattr
-=======
-
-.. currentmodule:: pyensight.ens_plotter
-
-.. automethod:: ENS_PLOTTER.setattr

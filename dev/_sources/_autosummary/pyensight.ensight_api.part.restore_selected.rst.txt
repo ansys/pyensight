@@ -1,6 +1,0 @@
-restore\_selected
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.restore_selected

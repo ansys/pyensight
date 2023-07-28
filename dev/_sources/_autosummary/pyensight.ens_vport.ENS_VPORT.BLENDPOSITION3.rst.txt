@@ -1,6 +1,0 @@
-BLENDPOSITION3
-==============
-
-.. currentmodule:: pyensight.ens_vport
-
-.. autoproperty:: ENS_VPORT.BLENDPOSITION3

@@ -1,6 +1,0 @@
-pick\_mode
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view.pick_mode

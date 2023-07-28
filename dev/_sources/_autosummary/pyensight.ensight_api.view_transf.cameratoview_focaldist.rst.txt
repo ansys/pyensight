@@ -1,6 +1,0 @@
-cameratoview\_focaldist
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.cameratoview_focaldist

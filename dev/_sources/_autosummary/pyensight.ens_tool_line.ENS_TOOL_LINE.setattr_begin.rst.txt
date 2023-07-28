@@ -1,6 +1,0 @@
-setattr\_begin
-==============
-
-.. currentmodule:: pyensight.ens_tool_line
-
-.. automethod:: ENS_TOOL_LINE.setattr_begin

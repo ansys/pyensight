@@ -1,6 +1,0 @@
-alpha\_volume\_scale
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.alpha_volume_scale

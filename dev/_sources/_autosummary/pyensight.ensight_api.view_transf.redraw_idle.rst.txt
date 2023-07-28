@@ -1,6 +1,0 @@
-redraw\_idle
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.redraw_idle

@@ -1,6 +1,0 @@
-image\_window\_size
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.image_window_size

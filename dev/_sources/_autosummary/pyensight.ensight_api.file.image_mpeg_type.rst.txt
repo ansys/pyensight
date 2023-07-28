@@ -1,6 +1,0 @@
-image\_mpeg\_type
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.image_mpeg_type

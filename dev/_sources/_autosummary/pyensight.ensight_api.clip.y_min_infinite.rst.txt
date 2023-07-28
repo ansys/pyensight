@@ -1,6 +1,0 @@
-y\_min\_infinite
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.y_min_infinite

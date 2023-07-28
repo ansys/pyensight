@@ -1,6 +1,0 @@
-set\_working
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: variables.set_working

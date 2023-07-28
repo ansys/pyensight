@@ -1,6 +1,0 @@
-ENS\_SYMMETRY\_COUNT
-====================
-
-.. currentmodule:: pyensight.ens_part_discrete_particle
-
-.. autoproperty:: ENS_PART_DISCRETE_PARTICLE.ENS_SYMMETRY_COUNT

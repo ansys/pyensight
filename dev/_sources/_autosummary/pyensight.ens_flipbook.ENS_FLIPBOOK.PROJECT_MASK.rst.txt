@@ -1,6 +1,0 @@
-PROJECT\_MASK
-=============
-
-.. currentmodule:: pyensight.ens_flipbook
-
-.. autoproperty:: ENS_FLIPBOOK.PROJECT_MASK

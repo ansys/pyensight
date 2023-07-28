@@ -1,6 +1,0 @@
-interactive\_zmax
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vof.interactive_zmax

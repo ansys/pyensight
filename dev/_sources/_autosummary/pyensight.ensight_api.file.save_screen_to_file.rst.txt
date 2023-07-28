@@ -1,6 +1,0 @@
-save\_screen\_to\_file
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.save_screen_to_file

@@ -1,6 +1,0 @@
-get\_natural\_texture\_size
-===========================
-
-.. currentmodule:: pyensight.ens_palette
-
-.. automethod:: ENS_PALETTE.get_natural_texture_size

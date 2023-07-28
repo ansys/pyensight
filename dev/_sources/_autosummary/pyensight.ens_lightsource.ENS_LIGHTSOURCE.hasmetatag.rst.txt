@@ -1,6 +1,0 @@
-hasmetatag
-==========
-
-.. currentmodule:: pyensight.ens_lightsource
-
-.. automethod:: ENS_LIGHTSOURCE.hasmetatag

@@ -1,6 +1,0 @@
-DESCRIPTION
-===========
-
-.. currentmodule:: pyensight.ens_source
-
-.. autoproperty:: ENS_SOURCE.DESCRIPTION

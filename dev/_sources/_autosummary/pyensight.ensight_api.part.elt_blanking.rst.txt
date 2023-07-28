@@ -1,6 +1,0 @@
-elt\_blanking
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.elt_blanking

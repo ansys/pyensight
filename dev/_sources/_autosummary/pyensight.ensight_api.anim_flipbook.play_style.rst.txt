@@ -1,6 +1,0 @@
-play\_style
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_flipbook.play_style

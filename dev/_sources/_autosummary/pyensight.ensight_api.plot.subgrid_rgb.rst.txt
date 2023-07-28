@@ -1,6 +1,0 @@
-subgrid\_rgb
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.subgrid_rgb

@@ -1,6 +1,0 @@
-color\_by\_projection
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vctarrow.color_by_projection

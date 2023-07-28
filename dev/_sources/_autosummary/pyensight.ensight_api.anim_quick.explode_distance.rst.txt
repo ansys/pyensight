@@ -1,6 +1,0 @@
-explode\_distance
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_quick.explode_distance

@@ -1,6 +1,0 @@
-compute\_model\_centroid
-========================
-
-.. currentmodule:: pyensight.utils.views
-
-.. automethod:: Views.compute_model_centroid

@@ -1,6 +1,0 @@
-browser
-=======
-
-.. currentmodule:: pyensight.renderable
-
-.. automethod:: Renderable.browser

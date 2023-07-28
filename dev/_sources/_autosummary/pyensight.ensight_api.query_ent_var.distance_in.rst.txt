@@ -1,6 +1,0 @@
-distance\_in
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: query_ent_var.distance_in

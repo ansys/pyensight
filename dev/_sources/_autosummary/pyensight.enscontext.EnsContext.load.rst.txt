@@ -1,6 +1,0 @@
-load
-====
-
-.. currentmodule:: pyensight.enscontext
-
-.. automethod:: EnsContext.load

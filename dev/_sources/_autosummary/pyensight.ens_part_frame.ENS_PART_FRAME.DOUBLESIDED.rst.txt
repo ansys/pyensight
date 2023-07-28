@@ -1,6 +1,0 @@
-DOUBLESIDED
-===========
-
-.. currentmodule:: pyensight.ens_part_frame
-
-.. autoproperty:: ENS_PART_FRAME.DOUBLESIDED

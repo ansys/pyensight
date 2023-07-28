@@ -1,6 +1,0 @@
-offset\_from\_part
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: set_visenv.offset_from_part

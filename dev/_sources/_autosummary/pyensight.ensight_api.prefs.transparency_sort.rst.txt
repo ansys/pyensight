@@ -1,6 +1,0 @@
-transparency\_sort
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.transparency_sort

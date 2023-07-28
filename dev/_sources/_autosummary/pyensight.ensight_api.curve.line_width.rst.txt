@@ -1,6 +1,0 @@
-line\_width
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: curve.line_width

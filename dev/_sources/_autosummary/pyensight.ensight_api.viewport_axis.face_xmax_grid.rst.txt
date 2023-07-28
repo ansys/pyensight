@@ -1,6 +1,0 @@
-face\_xmax\_grid
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_axis.face_xmax_grid

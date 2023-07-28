@@ -1,6 +1,0 @@
-face\_xmin\_gridfilter
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_bounds.face_xmin_gridfilter

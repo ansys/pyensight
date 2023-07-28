@@ -1,6 +1,0 @@
-setattr\_status
-===============
-
-.. currentmodule:: pyensight.ens_part_fx_vortex_core
-
-.. automethod:: ENS_PART_FX_VORTEX_CORE.setattr_status

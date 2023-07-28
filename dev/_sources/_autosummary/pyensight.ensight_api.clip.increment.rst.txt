@@ -1,6 +1,0 @@
-increment
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.increment

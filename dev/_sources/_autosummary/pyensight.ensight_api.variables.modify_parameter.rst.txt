@@ -1,6 +1,0 @@
-modify\_parameter
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: variables.modify_parameter

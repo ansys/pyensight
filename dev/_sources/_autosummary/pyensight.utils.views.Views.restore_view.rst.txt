@@ -1,6 +1,0 @@
-restore\_view
-=============
-
-.. currentmodule:: pyensight.utils.views
-
-.. automethod:: Views.restore_view

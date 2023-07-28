@@ -1,6 +1,0 @@
-custom\_timeline\_readapply
-===========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: solution_time.custom_timeline_readapply

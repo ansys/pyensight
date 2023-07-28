@@ -1,6 +1,0 @@
-select\_all\_case
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.select_all_case

@@ -1,6 +1,0 @@
-label\_custom\_visible
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: contour.label_custom_visible

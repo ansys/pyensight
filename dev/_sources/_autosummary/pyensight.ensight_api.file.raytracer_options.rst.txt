@@ -1,6 +1,0 @@
-raytracer\_options
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.raytracer_options

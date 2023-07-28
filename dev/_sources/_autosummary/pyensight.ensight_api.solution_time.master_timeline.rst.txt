@@ -1,6 +1,0 @@
-master\_timeline
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: solution_time.master_timeline

@@ -1,6 +1,0 @@
-cei\_home
-=========
-
-.. currentmodule:: pyensight
-
-.. autoproperty:: Session.cei_home

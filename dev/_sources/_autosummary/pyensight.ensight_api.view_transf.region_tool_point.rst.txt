@@ -1,6 +1,0 @@
-region\_tool\_point
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.region_tool_point

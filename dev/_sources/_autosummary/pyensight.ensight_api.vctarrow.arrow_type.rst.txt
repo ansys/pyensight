@@ -1,6 +1,0 @@
-arrow\_type
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vctarrow.arrow_type

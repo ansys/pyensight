@@ -1,6 +1,0 @@
-ELTFILTER1ACTIVE
-================
-
-.. currentmodule:: pyensight.ens_part
-
-.. autoproperty:: ENS_PART.ELTFILTER1ACTIVE

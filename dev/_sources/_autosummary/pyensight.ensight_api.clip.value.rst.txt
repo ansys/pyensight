@@ -1,6 +1,0 @@
-value
-=====
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.value

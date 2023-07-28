@@ -1,6 +1,0 @@
-line\_by\_nodeids
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.line_by_nodeids

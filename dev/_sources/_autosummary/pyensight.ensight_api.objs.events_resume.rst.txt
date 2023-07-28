@@ -1,6 +1,0 @@
-events\_resume
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: objs.events_resume

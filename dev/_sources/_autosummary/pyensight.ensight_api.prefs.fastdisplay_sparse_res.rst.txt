@@ -1,6 +1,0 @@
-fastdisplay\_sparse\_res
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.fastdisplay_sparse_res

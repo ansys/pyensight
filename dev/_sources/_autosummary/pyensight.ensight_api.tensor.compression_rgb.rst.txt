@@ -1,6 +1,0 @@
-compression\_rgb
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: tensor.compression_rgb

@@ -1,6 +1,0 @@
-DTA\_BLOCK
-==========
-
-.. currentmodule:: pyensight.ens_part_fx_vortex_core
-
-.. autoproperty:: ENS_PART_FX_VORTEX_CORE.DTA_BLOCK

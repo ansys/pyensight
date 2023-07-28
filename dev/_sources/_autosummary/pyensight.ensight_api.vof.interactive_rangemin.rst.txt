@@ -1,6 +1,0 @@
-interactive\_rangemin
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vof.interactive_rangemin

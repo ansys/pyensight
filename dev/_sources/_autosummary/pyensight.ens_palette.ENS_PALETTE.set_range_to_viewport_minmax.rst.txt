@@ -1,6 +1,0 @@
-set\_range\_to\_viewport\_minmax
-================================
-
-.. currentmodule:: pyensight.ens_palette
-
-.. automethod:: ENS_PALETTE.set_range_to_viewport_minmax

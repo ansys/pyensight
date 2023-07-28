@@ -1,6 +1,0 @@
-replaceelt\_net
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace_emitr.replaceelt_net

@@ -1,6 +1,0 @@
-ENS\_PARENT\_PART
-=================
-
-.. currentmodule:: pyensight.ens_part_vof
-
-.. autoproperty:: ENS_PART_VOF.ENS_PARENT_PART

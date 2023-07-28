@@ -1,6 +1,0 @@
-axis\_swap
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.axis_swap

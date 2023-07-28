@@ -1,6 +1,0 @@
-getattr
-=======
-
-.. currentmodule:: pyensight.ens_palette
-
-.. automethod:: ENS_PALETTE.getattr

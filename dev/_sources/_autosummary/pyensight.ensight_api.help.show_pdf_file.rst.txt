@@ -1,6 +1,0 @@
-show\_pdf\_file
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: help.show_pdf_file

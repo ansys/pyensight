@@ -1,6 +1,0 @@
-HANDLES\_ENABLED
-================
-
-.. currentmodule:: pyensight.ens_tool_sphere
-
-.. autoproperty:: ENS_TOOL_SPHERE.HANDLES_ENABLED

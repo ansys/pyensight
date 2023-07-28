@@ -1,6 +1,0 @@
-VR\_CAVE\_SCALE
-===============
-
-.. currentmodule:: pyensight.ens_globals
-
-.. autoproperty:: ENS_GLOBALS.VR_CAVE_SCALE

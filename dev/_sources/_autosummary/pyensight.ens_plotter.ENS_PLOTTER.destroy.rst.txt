@@ -1,6 +1,0 @@
-destroy
-=======
-
-.. currentmodule:: pyensight.ens_plotter
-
-.. automethod:: ENS_PLOTTER.destroy

@@ -1,6 +1,0 @@
-SFTNORMLENGTH
-=============
-
-.. currentmodule:: pyensight.ens_case
-
-.. autoproperty:: ENS_CASE.SFTNORMLENGTH

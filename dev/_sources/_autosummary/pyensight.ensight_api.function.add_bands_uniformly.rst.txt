@@ -1,6 +1,0 @@
-add\_bands\_uniformly
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.add_bands_uniformly

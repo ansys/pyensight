@@ -1,6 +1,0 @@
-show\_from\_page
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_flipbook.show_from_page

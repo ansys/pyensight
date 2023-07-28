@@ -1,6 +1,0 @@
-marker\_scale
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: curve.marker_scale

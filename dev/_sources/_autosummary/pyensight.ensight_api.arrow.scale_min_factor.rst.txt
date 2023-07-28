@@ -1,6 +1,0 @@
-scale\_min\_factor
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: arrow.scale_min_factor

@@ -1,6 +1,0 @@
-override\_lt\_active
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: variables.override_lt_active

@@ -1,6 +1,0 @@
-use\_stored\_image
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: views.use_stored_image

@@ -1,6 +1,0 @@
-backend
-=======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: connect.backend

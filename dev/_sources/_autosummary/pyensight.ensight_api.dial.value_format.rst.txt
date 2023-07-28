@@ -1,6 +1,0 @@
-value\_format
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: dial.value_format

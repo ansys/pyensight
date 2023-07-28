@@ -1,6 +1,0 @@
-data02
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: extrude.data02

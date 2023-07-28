@@ -1,6 +1,0 @@
-setattr\_end
-============
-
-.. currentmodule:: pyensight.ens_polyline
-
-.. automethod:: ENS_POLYLINE.setattr_end

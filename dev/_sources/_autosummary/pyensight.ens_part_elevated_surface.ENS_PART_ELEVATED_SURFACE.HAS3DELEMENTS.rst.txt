@@ -1,6 +1,0 @@
-HAS3DELEMENTS
-=============
-
-.. currentmodule:: pyensight.ens_part_elevated_surface
-
-.. autoproperty:: ENS_PART_ELEVATED_SURFACE.HAS3DELEMENTS

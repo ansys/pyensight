@@ -1,6 +1,0 @@
-TAGS
-====
-
-.. currentmodule:: pyensight.ens_source
-
-.. autoproperty:: ENS_SOURCE.TAGS

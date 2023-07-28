@@ -1,6 +1,0 @@
-detached\_window
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.detached_window

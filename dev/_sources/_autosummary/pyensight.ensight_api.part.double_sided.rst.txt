@@ -1,6 +1,0 @@
-double\_sided
-=============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.double_sided

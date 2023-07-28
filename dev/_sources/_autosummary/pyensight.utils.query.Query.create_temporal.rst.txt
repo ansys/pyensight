@@ -1,6 +1,0 @@
-create\_temporal
-================
-
-.. currentmodule:: pyensight.utils.query
-
-.. automethod:: Query.create_temporal

@@ -1,6 +1,0 @@
-shadow\_offset
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: text.shadow_offset

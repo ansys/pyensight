@@ -1,6 +1,0 @@
-save\_command\_file
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ensight.save_command_file

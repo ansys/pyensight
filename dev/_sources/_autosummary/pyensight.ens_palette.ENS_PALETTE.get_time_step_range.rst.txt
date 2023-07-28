@@ -1,6 +1,0 @@
-get\_time\_step\_range
-======================
-
-.. currentmodule:: pyensight.ens_palette
-
-.. automethod:: ENS_PALETTE.get_time_step_range

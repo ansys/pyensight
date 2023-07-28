@@ -1,6 +1,0 @@
-ratio\_of\_spec\_heat
-=====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vortexcore.ratio_of_spec_heat

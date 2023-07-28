@@ -1,6 +1,0 @@
-subgrid\_linetype
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.subgrid_linetype

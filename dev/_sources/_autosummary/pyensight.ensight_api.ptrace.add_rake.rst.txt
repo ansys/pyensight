@@ -1,6 +1,0 @@
-add\_rake
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.add_rake

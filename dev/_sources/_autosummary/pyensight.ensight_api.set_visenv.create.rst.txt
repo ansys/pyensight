@@ -1,6 +1,0 @@
-create
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: set_visenv.create

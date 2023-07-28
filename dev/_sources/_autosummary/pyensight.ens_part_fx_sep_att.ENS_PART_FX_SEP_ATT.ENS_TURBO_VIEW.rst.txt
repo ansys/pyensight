@@ -1,6 +1,0 @@
-ENS\_TURBO\_VIEW
-================
-
-.. currentmodule:: pyensight.ens_part_fx_sep_att
-
-.. autoproperty:: ENS_PART_FX_SEP_ATT.ENS_TURBO_VIEW

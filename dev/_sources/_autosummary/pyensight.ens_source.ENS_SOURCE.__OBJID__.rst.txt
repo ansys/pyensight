@@ -1,6 +1,0 @@
-\_\_OBJID\_\_
-=============
-
-.. currentmodule:: pyensight.ens_source
-
-.. autoproperty:: ENS_SOURCE.__OBJID__

@@ -1,6 +1,0 @@
-undo\_redo\_history\_count
-==========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.undo_redo_history_count

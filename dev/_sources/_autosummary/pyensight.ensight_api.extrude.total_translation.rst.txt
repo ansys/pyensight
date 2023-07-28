@@ -1,6 +1,0 @@
-total\_translation
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: extrude.total_translation

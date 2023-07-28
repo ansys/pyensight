@@ -1,6 +1,0 @@
-setattr\_end
-============
-
-.. currentmodule:: pyensight.ens_spec
-
-.. automethod:: ENS_SPEC.setattr_end

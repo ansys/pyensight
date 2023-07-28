@@ -1,6 +1,0 @@
-symmetry\_mirror\_z
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.symmetry_mirror_z

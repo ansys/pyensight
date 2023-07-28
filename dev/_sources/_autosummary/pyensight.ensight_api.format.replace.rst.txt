@@ -1,6 +1,0 @@
-replace
-=======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: format.replace

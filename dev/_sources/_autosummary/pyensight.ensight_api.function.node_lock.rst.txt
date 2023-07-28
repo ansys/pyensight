@@ -1,6 +1,0 @@
-node\_lock
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.node_lock

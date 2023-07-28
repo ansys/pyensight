@@ -1,6 +1,0 @@
-OVERRIDELTRGB
-=============
-
-.. currentmodule:: pyensight.ens_var
-
-.. autoproperty:: ENS_VAR.OVERRIDELTRGB

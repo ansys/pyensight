@@ -1,6 +1,0 @@
-query\_count
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport.query_count

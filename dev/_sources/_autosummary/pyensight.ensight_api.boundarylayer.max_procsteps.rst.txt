@@ -1,6 +1,0 @@
-max\_procsteps
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: boundarylayer.max_procsteps

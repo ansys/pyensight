@@ -1,6 +1,0 @@
-background\_type
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport.background_type

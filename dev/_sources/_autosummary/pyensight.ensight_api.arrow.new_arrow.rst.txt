@@ -1,6 +1,0 @@
-new\_arrow
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: arrow.new_arrow

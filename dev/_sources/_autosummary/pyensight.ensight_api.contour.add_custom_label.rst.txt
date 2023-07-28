@@ -1,6 +1,0 @@
-add\_custom\_label
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: contour.add_custom_label

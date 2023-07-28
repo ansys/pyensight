@@ -1,6 +1,0 @@
-getmetatag
-==========
-
-.. currentmodule:: pyensight.ens_tool_cone
-
-.. automethod:: ENS_TOOL_CONE.getmetatag

@@ -1,6 +1,0 @@
-hasmetatag
-==========
-
-.. currentmodule:: pyensight.ensobj
-
-.. automethod:: ENSOBJ.hasmetatag

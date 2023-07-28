@@ -1,6 +1,0 @@
-auto\_size
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_bounds.auto_size

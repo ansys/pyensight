@@ -1,6 +1,0 @@
-border\_visible
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.border_visible

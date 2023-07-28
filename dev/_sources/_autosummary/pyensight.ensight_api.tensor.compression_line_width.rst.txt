@@ -1,6 +1,0 @@
-compression\_line\_width
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: tensor.compression_line_width

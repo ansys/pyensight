@@ -1,6 +1,0 @@
-starting\_time\_step
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.starting_time_step

@@ -1,6 +1,0 @@
-frame\_mode\_allowed
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.frame_mode_allowed

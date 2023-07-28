@@ -1,6 +1,0 @@
-getattr
-=======
-
-.. currentmodule:: pyensight.ens_vport
-
-.. automethod:: ENS_VPORT.getattr

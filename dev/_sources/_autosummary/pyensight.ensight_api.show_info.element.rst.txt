@@ -1,6 +1,0 @@
-element
-=======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: show_info.element

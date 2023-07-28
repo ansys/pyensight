@@ -1,6 +1,0 @@
-auto\_plot\_checkexisting
-=========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: query_ent_var.auto_plot_checkexisting

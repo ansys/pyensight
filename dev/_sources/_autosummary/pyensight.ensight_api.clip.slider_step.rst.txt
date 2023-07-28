@@ -1,6 +1,0 @@
-slider\_step
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.slider_step

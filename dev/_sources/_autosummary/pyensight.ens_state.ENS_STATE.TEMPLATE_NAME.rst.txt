@@ -1,6 +1,0 @@
-TEMPLATE\_NAME
-==============
-
-.. currentmodule:: pyensight.ens_state
-
-.. autoproperty:: ENS_STATE.TEMPLATE_NAME

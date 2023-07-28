@@ -1,6 +1,0 @@
-show\_plane\_ymin
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: auxgeom.show_plane_ymin

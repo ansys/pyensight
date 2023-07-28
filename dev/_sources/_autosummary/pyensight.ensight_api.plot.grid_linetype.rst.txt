@@ -1,6 +1,0 @@
-grid\_linetype
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.grid_linetype

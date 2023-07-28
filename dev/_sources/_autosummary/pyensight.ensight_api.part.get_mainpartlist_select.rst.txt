@@ -1,6 +1,0 @@
-get\_mainpartlist\_select
-=========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.get_mainpartlist_select

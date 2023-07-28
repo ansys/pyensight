@@ -1,6 +1,0 @@
-show\_background
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: legend.show_background

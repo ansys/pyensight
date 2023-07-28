@@ -1,6 +1,0 @@
-interactive\_auto\_delta
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: isos.interactive_auto_delta

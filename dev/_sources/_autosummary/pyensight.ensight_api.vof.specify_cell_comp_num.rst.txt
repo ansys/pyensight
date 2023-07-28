@@ -1,6 +1,0 @@
-specify\_cell\_comp\_num
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vof.specify_cell_comp_num

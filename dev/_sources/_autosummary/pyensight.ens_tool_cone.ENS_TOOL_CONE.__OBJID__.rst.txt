@@ -1,6 +1,0 @@
-\_\_OBJID\_\_
-=============
-
-.. currentmodule:: pyensight.ens_tool_cone
-
-.. autoproperty:: ENS_TOOL_CONE.__OBJID__

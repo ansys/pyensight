@@ -1,6 +1,0 @@
-UUID
-====
-
-.. currentmodule:: pyensight.ens_lightsource
-
-.. autoproperty:: ENS_LIGHTSOURCE.UUID

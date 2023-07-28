@@ -1,6 +1,0 @@
-PREF\_DATAFORMAT
-================
-
-.. currentmodule:: pyensight.ens_globals
-
-.. autoproperty:: ENS_GLOBALS.PREF_DATAFORMAT

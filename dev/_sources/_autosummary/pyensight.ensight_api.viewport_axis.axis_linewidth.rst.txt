@@ -1,6 +1,0 @@
-axis\_linewidth
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_axis.axis_linewidth

@@ -1,6 +1,0 @@
-query\_selected\_objects
-========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: logo.query_selected_objects

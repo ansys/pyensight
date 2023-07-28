@@ -1,6 +1,0 @@
-select\_all\_visible
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: logo.select_all_visible

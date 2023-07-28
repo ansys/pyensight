@@ -1,6 +1,0 @@
-cameraselect\_byname\_end
-=========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.cameraselect_byname_end

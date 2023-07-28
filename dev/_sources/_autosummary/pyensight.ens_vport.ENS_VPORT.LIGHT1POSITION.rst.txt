@@ -1,6 +1,0 @@
-LIGHT1POSITION
-==============
-
-.. currentmodule:: pyensight.ens_vport
-
-.. autoproperty:: ENS_VPORT.LIGHT1POSITION

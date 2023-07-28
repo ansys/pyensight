@@ -1,6 +1,0 @@
-delete\_knot
-============
-
-.. currentmodule:: pyensight.ens_palette
-
-.. automethod:: ENS_PALETTE.delete_knot

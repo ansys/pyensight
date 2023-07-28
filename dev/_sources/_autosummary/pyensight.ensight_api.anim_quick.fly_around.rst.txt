@@ -1,6 +1,0 @@
-fly\_around
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_quick.fly_around

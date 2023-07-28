@@ -1,6 +1,0 @@
-file\_number
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_recorders.file_number

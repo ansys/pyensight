@@ -1,6 +1,0 @@
-INDEX
-=====
-
-.. currentmodule:: pyensight.ens_tool_cylinder
-
-.. autoproperty:: ENS_TOOL_CYLINDER.INDEX

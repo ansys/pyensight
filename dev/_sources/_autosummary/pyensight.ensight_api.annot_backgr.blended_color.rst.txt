@@ -1,6 +1,0 @@
-blended\_color
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: annot_backgr.blended_color

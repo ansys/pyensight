@@ -1,6 +1,0 @@
-arrow\_size
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.arrow_size

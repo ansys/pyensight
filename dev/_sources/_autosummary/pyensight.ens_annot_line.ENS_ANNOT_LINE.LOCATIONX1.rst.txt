@@ -1,6 +1,0 @@
-LOCATIONX1
-==========
-
-.. currentmodule:: pyensight.ens_annot_line
-
-.. autoproperty:: ENS_ANNOT_LINE.LOCATIONX1

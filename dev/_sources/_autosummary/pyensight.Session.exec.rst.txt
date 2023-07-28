@@ -1,6 +1,0 @@
-exec
-====
-
-.. currentmodule:: pyensight
-
-.. automethod:: Session.exec

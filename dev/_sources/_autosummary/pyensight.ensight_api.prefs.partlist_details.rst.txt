@@ -1,6 +1,0 @@
-partlist\_details
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: prefs.partlist_details

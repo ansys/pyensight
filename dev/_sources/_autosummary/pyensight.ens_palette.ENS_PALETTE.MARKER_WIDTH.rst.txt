@@ -1,6 +1,0 @@
-MARKER\_WIDTH
-=============
-
-.. currentmodule:: pyensight.ens_palette
-
-.. autoproperty:: ENS_PALETTE.MARKER_WIDTH

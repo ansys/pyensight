@@ -1,6 +1,0 @@
-HANDLE\_UNDEFINED\_VALUE
-========================
-
-.. currentmodule:: pyensight.ens_palette
-
-.. autoproperty:: ENS_PALETTE.HANDLE_UNDEFINED_VALUE

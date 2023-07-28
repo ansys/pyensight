@@ -1,6 +1,0 @@
-select\_case\_begin
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: data.select_case_begin

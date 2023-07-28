@@ -1,6 +1,0 @@
-create\_iblank
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: data_partbuild.create_iblank

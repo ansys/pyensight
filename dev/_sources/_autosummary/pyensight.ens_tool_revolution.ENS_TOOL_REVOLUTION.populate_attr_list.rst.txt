@@ -1,6 +1,0 @@
-populate\_attr\_list
-====================
-
-.. currentmodule:: pyensight.ens_tool_revolution
-
-.. automethod:: ENS_TOOL_REVOLUTION.populate_attr_list

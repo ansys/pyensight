@@ -1,6 +1,0 @@
-ELTFILTER5TESTVARIABLE
-======================
-
-.. currentmodule:: pyensight.ens_part_vof
-
-.. autoproperty:: ENS_PART_VOF.ELTFILTER5TESTVARIABLE

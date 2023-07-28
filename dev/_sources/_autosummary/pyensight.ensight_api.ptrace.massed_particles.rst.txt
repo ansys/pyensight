@@ -1,6 +1,0 @@
-massed\_particles
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.massed_particles

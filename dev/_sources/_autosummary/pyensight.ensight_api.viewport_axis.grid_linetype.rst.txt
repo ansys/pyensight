@@ -1,6 +1,0 @@
-grid\_linetype
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_axis.grid_linetype

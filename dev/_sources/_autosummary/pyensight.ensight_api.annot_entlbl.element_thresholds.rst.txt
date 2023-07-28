@@ -1,6 +1,0 @@
-element\_thresholds
-===================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: annot_entlbl.element_thresholds

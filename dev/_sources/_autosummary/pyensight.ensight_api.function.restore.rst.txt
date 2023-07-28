@@ -1,6 +1,0 @@
-restore
-=======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.restore

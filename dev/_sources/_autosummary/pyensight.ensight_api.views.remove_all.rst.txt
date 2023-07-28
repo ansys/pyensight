@@ -1,6 +1,0 @@
-remove\_all
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: views.remove_all

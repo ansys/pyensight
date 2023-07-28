@@ -1,6 +1,0 @@
-dynamic\_plane
-==============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_flipbook.dynamic_plane

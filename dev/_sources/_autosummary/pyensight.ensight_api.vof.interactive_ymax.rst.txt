@@ -1,6 +1,0 @@
-interactive\_ymax
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vof.interactive_ymax

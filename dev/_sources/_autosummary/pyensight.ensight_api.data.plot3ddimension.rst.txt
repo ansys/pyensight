@@ -1,6 +1,0 @@
-plot3ddimension
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: data.plot3ddimension

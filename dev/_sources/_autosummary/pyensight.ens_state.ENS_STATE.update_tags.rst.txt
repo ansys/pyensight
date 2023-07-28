@@ -1,6 +1,0 @@
-update\_tags
-============
-
-.. currentmodule:: pyensight.ens_state
-
-.. automethod:: ENS_STATE.update_tags

@@ -1,6 +1,0 @@
-copy
-====
-
-.. currentmodule:: pyensight
-
-.. automethod:: ensobjlist.copy

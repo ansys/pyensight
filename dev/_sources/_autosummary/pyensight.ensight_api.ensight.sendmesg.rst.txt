@@ -1,6 +1,0 @@
-sendmesg
-========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ensight.sendmesg

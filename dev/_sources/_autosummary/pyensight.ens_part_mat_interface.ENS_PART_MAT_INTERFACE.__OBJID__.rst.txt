@@ -1,6 +1,0 @@
-\_\_OBJID\_\_
-=============
-
-.. currentmodule:: pyensight.ens_part_mat_interface
-
-.. autoproperty:: ENS_PART_MAT_INTERFACE.__OBJID__

@@ -1,6 +1,0 @@
-delete\_gpucache
-================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_flipbook.delete_gpucache

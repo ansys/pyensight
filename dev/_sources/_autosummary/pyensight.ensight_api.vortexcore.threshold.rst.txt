@@ -1,6 +1,0 @@
-threshold
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vortexcore.threshold

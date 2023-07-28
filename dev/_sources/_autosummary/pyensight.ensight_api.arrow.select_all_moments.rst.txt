@@ -1,6 +1,0 @@
-select\_all\_moments
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: arrow.select_all_moments

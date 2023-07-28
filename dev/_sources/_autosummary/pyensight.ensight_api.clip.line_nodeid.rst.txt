@@ -1,6 +1,0 @@
-line\_nodeid
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.line_nodeid

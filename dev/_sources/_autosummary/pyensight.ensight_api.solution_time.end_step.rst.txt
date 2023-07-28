@@ -1,6 +1,0 @@
-end\_step
-=========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: solution_time.end_step

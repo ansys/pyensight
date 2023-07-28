@@ -1,6 +1,0 @@
-override\_range\_rgb
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: variables.override_range_rgb

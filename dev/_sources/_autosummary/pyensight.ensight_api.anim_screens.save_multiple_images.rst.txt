@@ -1,6 +1,0 @@
-save\_multiple\_images
-======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_screens.save_multiple_images

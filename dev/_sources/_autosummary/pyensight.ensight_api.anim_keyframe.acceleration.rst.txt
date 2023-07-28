@@ -1,6 +1,0 @@
-acceleration
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_keyframe.acceleration

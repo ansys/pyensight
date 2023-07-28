@@ -1,6 +1,0 @@
-zoom\_style
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.zoom_style

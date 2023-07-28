@@ -1,6 +1,0 @@
-interactive\_zmin
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: vof.interactive_zmin

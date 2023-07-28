@@ -1,6 +1,0 @@
-direction\_normal
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: lightsource.direction_normal

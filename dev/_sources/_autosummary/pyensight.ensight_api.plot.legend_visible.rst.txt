@@ -1,6 +1,0 @@
-legend\_visible
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: plot.legend_visible

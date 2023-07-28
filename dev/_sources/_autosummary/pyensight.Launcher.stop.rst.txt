@@ -1,6 +1,0 @@
-stop
-====
-
-.. currentmodule:: pyensight
-
-.. automethod:: Launcher.stop

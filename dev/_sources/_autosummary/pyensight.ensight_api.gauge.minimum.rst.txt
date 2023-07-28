@@ -1,6 +1,0 @@
-minimum
-=======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: gauge.minimum

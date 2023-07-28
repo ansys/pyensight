@@ -1,6 +1,0 @@
-create
-======
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: auxgeom.create

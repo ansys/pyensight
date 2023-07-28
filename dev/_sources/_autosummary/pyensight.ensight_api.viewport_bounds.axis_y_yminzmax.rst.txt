@@ -1,6 +1,0 @@
-axis\_y\_yminzmax
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: viewport_bounds.axis_y_yminzmax

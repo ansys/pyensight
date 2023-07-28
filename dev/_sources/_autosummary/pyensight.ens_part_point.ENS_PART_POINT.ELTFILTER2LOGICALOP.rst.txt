@@ -1,6 +1,0 @@
-ELTFILTER2LOGICALOP
-===================
-
-.. currentmodule:: pyensight.ens_part_point
-
-.. autoproperty:: ENS_PART_POINT.ELTFILTER2LOGICALOP

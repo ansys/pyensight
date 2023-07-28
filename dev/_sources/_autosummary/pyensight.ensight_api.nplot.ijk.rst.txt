@@ -1,6 +1,0 @@
-ijk
-===
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: nplot.ijk

@@ -1,6 +1,0 @@
-display\_offset
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.display_offset

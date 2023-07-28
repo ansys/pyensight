@@ -1,6 +1,0 @@
-query\_zclip
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: view_transf.query_zclip

@@ -1,6 +1,0 @@
-cut\_remove
-===========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.cut_remove

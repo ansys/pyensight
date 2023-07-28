@@ -1,6 +1,0 @@
-LIGHT\_ENV\_TEXNUM
-==================
-
-.. currentmodule:: pyensight.ens_lightsource
-
-.. autoproperty:: ENS_LIGHTSOURCE.LIGHT_ENV_TEXNUM

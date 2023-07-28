@@ -1,6 +1,0 @@
-attrissensitive
-===============
-
-.. currentmodule:: pyensight.ens_group
-
-.. automethod:: ENS_GROUP.attrissensitive

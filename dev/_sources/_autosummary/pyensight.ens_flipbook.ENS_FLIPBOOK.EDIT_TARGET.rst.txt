@@ -1,6 +1,0 @@
-EDIT\_TARGET
-============
-
-.. currentmodule:: pyensight.ens_flipbook
-
-.. autoproperty:: ENS_FLIPBOOK.EDIT_TARGET

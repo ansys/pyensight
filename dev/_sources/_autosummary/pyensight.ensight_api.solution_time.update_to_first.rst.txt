@@ -1,6 +1,0 @@
-update\_to\_first
-=================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: solution_time.update_to_first

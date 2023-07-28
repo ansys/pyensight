@@ -1,6 +1,0 @@
-attrissensitive
-===============
-
-.. currentmodule:: pyensight.ensobj
-
-.. automethod:: ENSOBJ.attrissensitive

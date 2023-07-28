@@ -1,6 +1,0 @@
-image\_frame\_rate
-==================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.image_frame_rate

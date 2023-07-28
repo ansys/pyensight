@@ -1,6 +1,0 @@
-rgb
-===
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace_emitr.rgb

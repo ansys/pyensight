@@ -1,6 +1,0 @@
-ELTFILTER2ACTIVE
-================
-
-.. currentmodule:: pyensight.ens_part_developed_surface
-
-.. autoproperty:: ENS_PART_DEVELOPED_SURFACE.ELTFILTER2ACTIVE

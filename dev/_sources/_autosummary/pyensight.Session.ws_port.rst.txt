@@ -1,6 +1,0 @@
-ws\_port
-========
-
-.. currentmodule:: pyensight
-
-.. autoproperty:: Session.ws_port

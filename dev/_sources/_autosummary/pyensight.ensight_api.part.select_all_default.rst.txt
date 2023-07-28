@@ -1,6 +1,0 @@
-select\_all\_default
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.select_all_default

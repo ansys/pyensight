@@ -1,6 +1,0 @@
-image\_printer\_command
-=======================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: file.image_printer_command

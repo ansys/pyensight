@@ -1,6 +1,0 @@
-specify\_symmetry\_origin
-=========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: part.specify_symmetry_origin

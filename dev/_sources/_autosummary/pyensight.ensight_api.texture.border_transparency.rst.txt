@@ -1,6 +1,0 @@
-border\_transparency
-====================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: texture.border_transparency

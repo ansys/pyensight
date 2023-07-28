@@ -1,6 +1,0 @@
-ELTFILTER4LOGICALOP
-===================
-
-.. currentmodule:: pyensight.ens_part_clip
-
-.. autoproperty:: ENS_PART_CLIP.ELTFILTER4LOGICALOP

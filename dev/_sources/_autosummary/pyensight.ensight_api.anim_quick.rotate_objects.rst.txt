@@ -1,6 +1,0 @@
-rotate\_objects
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: anim_quick.rotate_objects

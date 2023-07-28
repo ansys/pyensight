@@ -1,6 +1,0 @@
-OPERATIONQUERY2BYNAME
-=====================
-
-.. currentmodule:: pyensight.ens_query
-
-.. autoproperty:: ENS_QUERY.OPERATIONQUERY2BYNAME

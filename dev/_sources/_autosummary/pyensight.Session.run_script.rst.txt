@@ -1,6 +1,0 @@
-run\_script
-===========
-
-.. currentmodule:: pyensight
-
-.. automethod:: Session.run_script

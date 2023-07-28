@@ -1,6 +1,0 @@
-reinitialize\_to\_extents
-=========================
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: scene.reinitialize_to_extents

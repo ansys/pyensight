@@ -1,6 +1,0 @@
-new\_shape
-==========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: shape.new_shape

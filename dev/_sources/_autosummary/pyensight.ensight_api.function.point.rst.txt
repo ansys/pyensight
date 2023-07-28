@@ -1,6 +1,0 @@
-point
-=====
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: function.point

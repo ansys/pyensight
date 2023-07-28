@@ -1,6 +1,0 @@
-relative\_to
-============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: text.relative_to

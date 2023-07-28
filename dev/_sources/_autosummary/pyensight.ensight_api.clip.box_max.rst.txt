@@ -1,6 +1,0 @@
-box\_max
-========
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: clip.box_max

@@ -1,6 +1,0 @@
-elt\_partbyname
-===============
-
-.. currentmodule:: pyensight.ensight_api
-
-.. automethod:: ptrace.elt_partbyname
