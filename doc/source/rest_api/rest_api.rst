@@ -145,7 +145,7 @@ REST API reference
 ------------------
 
 The REST API shown here is a bit simplistic, but you can access the
-`OpenAPI YAML file <https://ensight.docs.pyansys.com/dev/_static/ensight_rest_v1.yaml>`_
+`OpenAPI YAML file <https://ensight.docs.pyansys.com/version/dev/_static/ensight_rest_v1.yaml>`_
 for the API, which is appropriate for use with `Swagger <https://editor.swagger.io/>`_.
 
 .. openapi:: ensight_rest_v1.yaml

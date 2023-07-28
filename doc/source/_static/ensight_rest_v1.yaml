@@ -1,0 +1,594 @@
+openapi: 3.0.0
+info:
+  title: pyensight - OpenAPI 3.0
+  description: |-
+    The pyensight module provides a mechanism for launching an EnSight instance
+    and control it through a gRPC interface through Python.  The pyensight REST
+    api provides a mechanism by which a Javascript application can leverage the
+    pyensight API directly via REST.
+    
+    The REST API requires a pyensight initiated ensight instance.  The API
+    itself is implemented in the websocketserver instance associated with the
+    pyensight instance.
+  version: 1.0.0
+
+tags:
+  - name: Basic API
+    description: Generic Python interface.
+    externalDocs:
+      description: pyensight.Session
+      url: https://ensight.docs.pyansys.com/dev/_autosummary/pyensight.Session.html
+
+  - name: Native API
+    description: Interface to the EnSight "native" Python API.  Created by converting command
+                 language into Python.
+    externalDocs:
+      description: EnSight native command language API
+      url: https://ensight.docs.pyansys.com/dev/user_guide/cmdlang_native.html
+
+  - name: Object API
+    description: Interface to the EnSight Python object API
+    externalDocs:
+      description: EnSight Python Object API
+      url: https://ensight.docs.pyansys.com/dev/user_guide/index.html
+
+paths:
+
+  /ensight/v1/{sessionid}/exec:
+    put:
+      summary: Exec Python command(s)
+      description: Run one or more strings as Python commands in the remote EnSight session.
+      operationId: execPython
+      tags:
+        - Basic API
+      parameters:
+        - name: sessionid
+          in: path
+          description: The PyEnSight session secret key.
+          required: true
+          schema:
+            type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+            example:
+              [
+                "ensight.part.modify_begin()",
+                "ensight.part.elt_representation('3D_feature_2D_full')",
+                "ensight.part.modify_end()"
+              ]
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Python error encountered during execution
+        '401':
+          description: Invalid sessionid
+          
+  /ensight/v1/{sessionid}/eval:
+    put:
+      summary: Eval a Python command
+      description: Execute one string as a Python command in the remote EnSight session and return
+                   the result.
+      operationId: evalPython
+      tags:
+        - Basic API
+      parameters:
+        - name: sessionid
+          in: path
+          description: The PyEnSight session secret key.
+          required: true
+          schema:
+            type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
+        - name: returns
+          in: query
+          description: A comma separated list of attribute names to return when an ENSOBJ object is returned. ENSOBJ is the default which returns @ENSOBJ=123@.
+          required: false
+          schema:
+            type: string
+          examples:
+            Object ID:
+              value: "__OBJID__"
+            Description and visibility:
+              value: "VISIBLE,DESCRIPTION"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+            example: "ensight.objs.core.unit_system()"
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                [
+                  "SI",
+                  "Metric SI",
+                  true,
+                  {
+                    "M": "kg",
+                    "L": "m",
+                    "T": "s",
+                    "K": "K",
+                    "Q": "A",
+                    "D": "rad",
+                    "I": "cd",
+                    "A": "mol"
+                  }
+                ]
+        '400':
+          description: Python error encountered during execution
+        '401':
+          description: Invalid sessionid
+
+  /ensight/v1/{sessionid}/def_func/{app}/{funcname}:
+    put:
+      summary: Define a remote function
+      description: Create a function in the remote EnSight instance that can be called
+                   directly via the REST API.
+      operationId: newRemoteFunc
+      tags:
+        - Basic API
+      parameters:
+        - name: sessionid
+          in: path
+          description: The PyEnSight session secret key.
+          required: true
+          schema:
+            type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
+        - name: app
+          in: path
+          description: A namespace to place the new function in.  Generally used to avoid
+                       name collisions and to provide a place to store session data. It
+                       must be a valid Python variable name.
+          required: true
+          schema:
+            type: string
+          example: "myapp"
+        - name: funcname
+          in: path
+          description: The name of the function to be defined
+          required: true
+          schema:
+            type: string
+          example: "funcname"
+        - name: imports
+          in: query
+          description: A list of modules that should be import before the function is defined.
+          required: false
+          schema:
+            type: string
+            example:
+              "time,math,numpy,typing"
+      requestBody:
+        description: The string source code of a Python function.  The first parameter will always be
+                     the namespace the function is defined in.  Subsequent args should be keyword args.
+                     The modules listed in the imports query will have been imported as well as 
+                     SimpleNamespace. The function return value will be returned via json.dumps().
+        content:
+          application/json:
+            schema:
+              type: string
+            example: |-
+              def funcname(app: SimpleNamespace, o: typing.Optional['ENSOBJ'] = None, s : str = 'VISIBLE') -> dict:
+                  v = o.getattr(s)
+                  return dict(s=v)
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Python error encountered during execution
+        '401':
+          description: Invalid sessionid
+  
+  /ensight/v1/{sessionid}/call_func/{app}/{funcname}:
+    put:
+      summary: Call a remote function
+      description: Call a previously defined remote function.
+      operationId: callRemoteFunc
+      tags:
+        - Basic API
+      parameters:
+        - name: sessionid
+          in: path
+          description: The PyEnSight session secret key.
+          required: true
+          schema:
+            type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
+        - name: app
+          in: path
+          description: A namespace to place the new function in.  Generally used to avoid
+                       name collisions and to provide a place to store session data.  It
+                       must be a valid Python variable name.
+          required: true
+          schema:
+            type: string
+          example: "myapp"
+        - name: funcname
+          in: path
+          description: The name of the function to be called.
+          required: true
+          schema:
+            type: string
+          example: "funcname"
+        - name: returns
+          in: query
+          description: A comma separated list of attribute names to return when an ENSOBJ object is returned. ENSOBJ is the default which returns @ENSOBJ=123@.
+          required: false
+          schema:
+            type: string
+          examples:
+            Object ID:
+              value: "__OBJID__"
+            Description and visibility:
+              value: "VISIBLE,DESCRIPTION"
+      requestBody:
+        description: The keyword parameters for the Python call.
+                     An input string of the form '@ENSOBJ=v@' will be converted into
+                     ensight.objs.wrap_id(v).
+                     In the example,
+                     app.funcname(app, num_samples=4, source=ensight.objs.wrap_id(120)) will
+                     be called.  The value returned by the function will be output using
+                     json.dumps().  
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                {
+                    "num_samples": 4,
+                    "source": "@ENSOBJ=120@"
+                }
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Python error encountered during execution
+        '401':
+          description: Invalid sessionid, app or funcname
+      
+  /ensight/v1/{sessionid}/cmd/{nativecommandname}:
+    put:
+      summary: Run an EnSight native Python command
+      description: Execute the named EnSight native Python command with the parameters passed in
+                   the list of object in the request body.
+      operationId: nativeCmd
+      tags:
+        - Native API
+      parameters:
+        - name: sessionid
+          in: path
+          description: The PyEnSight session secret key.
+          required: true
+          schema:
+            type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
+        - name: nativecommandname
+          in: path
+          description: The native python binding for a command language command.
+          required: true
+          schema:
+            type: string
+          example: "ensight.view_transf.rotate"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items: 
+                type: object
+            example:
+              [
+                33.7, -0.402, 0.0
+              ]
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Python error encountered during execution
+        '401':
+          description: Invalid sessionid
+          
+  /ensight/v1/{sessionid}/ensobjs/{objectid}/{attributeid}:
+    get:
+      summary: ENSOBJ attributes
+      description: Get an ENSOBJ attribute value
+      operationId: getobjAttr
+      tags:
+        - Object API
+      parameters:
+        - name: sessionid
+          in: path
+          description: The PyEnSight session secret key.
+          required: true
+          schema:
+            type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
+        - name: objectid
+          in: path
+          description: The name of an EnSight object or an object id
+          required: true
+          schema:
+            type: string
+          examples:
+            Object reference:
+              value: "ensight.objs.core"
+            Object ID:
+              value: 1234
+        - name: attributeid
+          in: path
+          description: An ENSOBJ attribute name like VISIBLE.
+          required: true
+          schema:
+            type: string
+          example: "VISIBLE"
+        - name: returns
+          in: query
+          description: A comma separated list of attribute names to return when an ENSOBJ object is returned. ENSOBJ is the default which returns @ENSOBJ=123@.
+          required: false
+          schema:
+            type: string
+          examples:
+            Object ID:
+              value: "__OBJID__"
+            Description and visibility:
+              value: "VISIBLE,DESCRIPTION"
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Python error encountered during execution
+        '401':
+          description: Invalid sessionid
+
+    put:
+      summary: ENSOBJ attributes
+      description: Set an ENSOBJ attribute value
+      operationId: setobjAttr
+      tags:
+        - Object API
+      parameters:
+        - name: sessionid
+          in: path
+          description: The PyEnSight session secret key.
+          required: true
+          schema:
+            type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
+        - name: objectid
+          in: path
+          description: The name of an EnSight object or an object id
+          required: true
+          schema:
+            type: string
+          examples:
+            Object reference:
+              value: "ensight.objs.core"
+            Object ID:
+              value: 1234
+        - name: attributeid
+          in: path
+          description: The native python binding for a command language command.
+          required: true
+          schema:
+            type: string
+          example: "VISIBLE"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Python error encountered during execution
+        '401':
+          description: Invalid sessionid
+          
+  /ensight/v1/{sessionid}/ensobjs/setattrs:
+    put:
+      summary: Multi-ENSOBJ setattrs
+      description: Set a collection of attributes on a collection of ENSOBJ objects.
+      operationId: setobjsAttr
+      tags:
+        - Object API
+      parameters:
+        - name: sessionid
+          in: path
+          description: The PyEnSight session secret key.
+          required: true
+          schema:
+            type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
+        - name: suppress_errors
+          in: query
+          description: If this is true and there is an error during the set operation, do not
+                       return an error/stop processing the entire list.
+          required: false
+          schema:
+            type: boolean
+      requestBody:
+        description: The object contains a list of the objects to have the set operation
+                     applied to and a value object keyed by the attribute names to set.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                objects: 
+                  type: array
+                  items:
+                    oneOf:
+                    - type: string
+                    - type: integer
+                value:
+                  type: object
+              example:
+                {
+                  "objects": ["ensight.objs.core", 1234],
+                  "values": {
+                    "VISIBLE": true,
+                    "DESCRIPTION": "example"
+                  }
+                }
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Python error encountered during execution
+        '401':
+          description: Invalid sessionid
+
+  /ensight/v1/{sessionid}/ensobjs/getattrs:
+    put:
+      summary: Multi-ENSOBJ getattrs
+      description: Get a collection of attributes on a collection of ENSOBJ objects.
+      operationId: getobjsAttr
+      tags:
+        - Object API
+      parameters:
+        - name: sessionid
+          in: path
+          description: The PyEnSight session secret key.
+          required: true
+          schema:
+            type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
+        - name: returns
+          in: query
+          description: A comma separated list of attribute names to return when an ENSOBJ object is returned. ENSOBJ is the default which returns @ENSOBJ=123@.
+          required: false
+          schema:
+            type: string
+          examples:
+            Object ID:
+              value: "__OBJID__"
+            Description and visibility:
+              value: "VISIBLE,DESCRIPTION"
+        - name: suppress_errors
+          in: query
+          description: If this is true and there is an error during the set operation, do not
+                       return an error/stop processing the entire list. Also, no key will appear in
+                       the output object for objects which returned an error.
+          required: false
+          schema:
+            type: boolean
+      requestBody:
+        description: A list of object names and ids to query the attributes listed by the returns= query
+        content:
+          application/json:
+            schema:
+              type: array
+              items: 
+                oneOf: 
+                - type: string
+                - type: integer
+              example:
+                ["ensight.objs.core", 1234]
+      responses:
+        '200':
+          description: Successful operation.  The object has keys for each value in the input array
+                       and the value will be an array of the output attribute values.
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                {
+                  "ensight.objs.core": [false, "global object"],
+                  "1234": [true, "wheels"]
+                }
+        '400':
+          description: Python error encountered during execution
+        '401':
+          description: Invalid sessionid
+          
+  /ensight/v1/{sessionid}/ensobjs/{objectid}/method/{method}:
+    put:
+      summary: Run ENSOBJ method
+      description: Execute an ENSOBJ method and return the result.
+      operationId: objMethod
+      tags:
+        - Object API
+      parameters:
+        - name: sessionid
+          in: path
+          description: The PyEnSight session secret key.
+          required: true
+          schema:
+            type: string
+          example: "ab32cefa055411eeb8a654435d7ef902"
+        - name: objectid
+          in: path
+          description: The name of an EnSight object or an object id.
+          required: true
+          schema:
+            type: string
+          examples:
+            Object reference:
+              value: "ensight.objs.core"
+            Object ID:
+              value: 1234
+        - name: method
+          in: path
+          description: The name of a method on the selected object.
+          required: true
+          schema:
+            type: string
+          example: "createvariable"
+        - name: returns
+          in: query
+          description: A comma separated list of attribute names to return when an ENSOBJ object is returned. ENSOBJ is the default which returns @ENSOBJ=123@.
+          required: false
+          schema:
+            type: string
+          examples:
+            Object ID:
+              value: "__OBJID__"
+            Description and visibility:
+              value: "VISIBLE,DESCRIPTION"
+      requestBody:
+        description: The positional and keyword parameters for the Python call.
+                     An input string starting with '@ENSOBJ=v@' will be converted into
+                     ensight.objs.wrap_id(v).
+                     In the example,
+                     foo("param1", 1.0, num_samples=4, source=ensight.objs.wrap_id(120))
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                args: 
+                  type: array
+                  items: 
+                    type: object
+                kwargs:
+                  type: object
+              example:
+                {
+                  "args": ["param1", 1.0],
+                  "kwargs": {
+                    "num_samples": 4,
+                    "source": "@ENSOBJ=120@"
+                  }
+                }
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Python error encountered during execution
+        '401':
+          description: Invalid sessionid
