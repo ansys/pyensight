@@ -1,0 +1,39 @@
+﻿anim\_recorders
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: anim_recorders
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      anim_recorders.file_number
+      
+      
+      anim_recorders.file_prefix
+      
+      
+      anim_recorders.hold
+      
+      
+      anim_recorders.record
+      
+      
+      anim_recorders.render_offscreen
+      
+      
+      anim_recorders.type
+      
+   
+   
+
+   
+   
+   

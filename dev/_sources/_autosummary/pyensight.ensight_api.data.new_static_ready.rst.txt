@@ -1,0 +1,6 @@
+new\_static\_ready
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: data.new_static_ready

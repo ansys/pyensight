@@ -1,0 +1,6 @@
+tracking\_partbyname
+====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: viewport.tracking_partbyname

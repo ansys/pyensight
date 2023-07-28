@@ -1,0 +1,6 @@
+image\_postscript\_cull
+=======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.image_postscript_cull

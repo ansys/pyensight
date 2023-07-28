@@ -1,0 +1,6 @@
+attrgroupinfo
+=============
+
+.. currentmodule:: pyensight.ens_annot_dial
+
+.. automethod:: ENS_ANNOT_DIAL.attrgroupinfo

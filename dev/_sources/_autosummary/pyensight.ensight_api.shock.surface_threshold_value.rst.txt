@@ -1,0 +1,6 @@
+surface\_threshold\_value
+=========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: shock.surface_threshold_value

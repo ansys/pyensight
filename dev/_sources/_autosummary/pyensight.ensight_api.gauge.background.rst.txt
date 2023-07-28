@@ -1,0 +1,6 @@
+background
+==========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: gauge.background

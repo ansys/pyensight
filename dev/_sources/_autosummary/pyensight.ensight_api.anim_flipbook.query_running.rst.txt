@@ -1,0 +1,6 @@
+query\_running
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_flipbook.query_running

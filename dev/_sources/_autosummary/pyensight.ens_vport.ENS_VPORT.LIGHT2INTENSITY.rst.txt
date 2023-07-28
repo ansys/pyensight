@@ -1,0 +1,6 @@
+LIGHT2INTENSITY
+===============
+
+.. currentmodule:: pyensight.ens_vport
+
+.. autoproperty:: ENS_VPORT.LIGHT2INTENSITY

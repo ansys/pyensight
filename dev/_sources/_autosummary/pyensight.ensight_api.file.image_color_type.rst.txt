@@ -1,0 +1,6 @@
+image\_color\_type
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.image_color_type

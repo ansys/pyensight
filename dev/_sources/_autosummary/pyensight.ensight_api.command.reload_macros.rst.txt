@@ -1,0 +1,6 @@
+reload\_macros
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: command.reload_macros

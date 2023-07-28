@@ -1,0 +1,6 @@
+new\_line
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: line.new_line

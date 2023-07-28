@@ -1,0 +1,6 @@
+remote\_obj
+===========
+
+.. currentmodule:: pyensight
+
+.. automethod:: Session.remote_obj

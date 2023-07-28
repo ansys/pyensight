@@ -1,0 +1,6 @@
+splinepoint\_offset
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.splinepoint_offset

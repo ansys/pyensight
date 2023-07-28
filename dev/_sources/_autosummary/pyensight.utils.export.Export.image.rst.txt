@@ -1,0 +1,6 @@
+image
+=====
+
+.. currentmodule:: pyensight.utils.export
+
+.. automethod:: Export.image

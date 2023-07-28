@@ -1,0 +1,6 @@
+select\_begin
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: shape.select_begin

@@ -1,0 +1,6 @@
+hidden\_surface
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view.hidden_surface

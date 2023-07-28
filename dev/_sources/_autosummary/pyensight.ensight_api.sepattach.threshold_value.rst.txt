@@ -1,0 +1,6 @@
+threshold\_value
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: sepattach.threshold_value

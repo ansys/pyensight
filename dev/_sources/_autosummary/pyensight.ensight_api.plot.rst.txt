@@ -1,0 +1,378 @@
+﻿plot
+====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: plot
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      plot.animate_curves
+      
+      
+      plot.auto_scale
+      
+      
+      plot.axis_2_autoscale
+      
+      
+      plot.axis_2_labelformat
+      
+      
+      plot.axis_2_labelrgb
+      
+      
+      plot.axis_2_labelsize
+      
+      
+      plot.axis_2_labeltype
+      
+      
+      plot.axis_2_max
+      
+      
+      plot.axis_2_min
+      
+      
+      plot.axis_2_title
+      
+      
+      plot.axis_2_titlergb
+      
+      
+      plot.axis_2_titlesize
+      
+      
+      plot.axis_2_variable
+      
+      
+      plot.axis_2_visible
+      
+      
+      plot.axis_auto_layout
+      
+      
+      plot.axis_auto_update
+      
+      
+      plot.axis_linewidth
+      
+      
+      plot.axis_rgb
+      
+      
+      plot.axis_swap
+      
+      
+      plot.axis_swap_minmax
+      
+      
+      plot.axis_title
+      
+      
+      plot.axis_titles
+      
+      
+      plot.axis_x_autoscale
+      
+      
+      plot.axis_x_gridtype
+      
+      
+      plot.axis_x_labelformat
+      
+      
+      plot.axis_x_labelrgb
+      
+      
+      plot.axis_x_labelsize
+      
+      
+      plot.axis_x_labeltype
+      
+      
+      plot.axis_x_max
+      
+      
+      plot.axis_x_min
+      
+      
+      plot.axis_x_numgrid
+      
+      
+      plot.axis_x_numsubgrid
+      
+      
+      plot.axis_x_origin
+      
+      
+      plot.axis_x_scale
+      
+      
+      plot.axis_x_sgridtype
+      
+      
+      plot.axis_x_size
+      
+      
+      plot.axis_x_title
+      
+      
+      plot.axis_x_titlergb
+      
+      
+      plot.axis_x_titlesize
+      
+      
+      plot.axis_x_visible
+      
+      
+      plot.axis_y_autoscale
+      
+      
+      plot.axis_y_gridtype
+      
+      
+      plot.axis_y_labelformat
+      
+      
+      plot.axis_y_labelrgb
+      
+      
+      plot.axis_y_labelsize
+      
+      
+      plot.axis_y_labeltype
+      
+      
+      plot.axis_y_max
+      
+      
+      plot.axis_y_min
+      
+      
+      plot.axis_y_numgrid
+      
+      
+      plot.axis_y_numsubgrid
+      
+      
+      plot.axis_y_origin
+      
+      
+      plot.axis_y_scale
+      
+      
+      plot.axis_y_sgridtype
+      
+      
+      plot.axis_y_size
+      
+      
+      plot.axis_y_title
+      
+      
+      plot.axis_y_titlergb
+      
+      
+      plot.axis_y_titlesize
+      
+      
+      plot.axis_y_variable
+      
+      
+      plot.axis_y_visible
+      
+      
+      plot.background_rgb
+      
+      
+      plot.background_transparency
+      
+      
+      plot.background_type
+      
+      
+      plot.border_rgb
+      
+      
+      plot.border_visible
+      
+      
+      plot.curve_title
+      
+      
+      plot.delete
+      
+      
+      plot.delete_plot
+      
+      
+      plot.detached_background_rgb
+      
+      
+      plot.detached_window
+      
+      
+      plot.entity_select_begin
+      
+      
+      plot.entity_select_end
+      
+      
+      plot.graph_title
+      
+      
+      plot.graph_titles
+      
+      
+      plot.grid_linetype
+      
+      
+      plot.grid_linewidth
+      
+      
+      plot.grid_rgb
+      
+      
+      plot.group
+      
+      
+      plot.height
+      
+      
+      plot.legend_color_by
+      
+      
+      plot.legend_minmax_origin_x
+      
+      
+      plot.legend_minmax_origin_y
+      
+      
+      plot.legend_minmax_textsize
+      
+      
+      plot.legend_minmax_visible
+      
+      
+      plot.legend_origin_x
+      
+      
+      plot.legend_origin_y
+      
+      
+      plot.legend_rgb
+      
+      
+      plot.legend_textsize
+      
+      
+      plot.legend_visible
+      
+      
+      plot.new_plot
+      
+      
+      plot.new_plot_ifnotexist
+      
+      
+      plot.origin_x
+      
+      
+      plot.origin_y
+      
+      
+      plot.plot_activate
+      
+      
+      plot.plot_desc
+      
+      
+      plot.plot_title
+      
+      
+      plot.query_count
+      
+      
+      plot.query_display_attributes
+      
+      
+      plot.query_object_atwindowxy
+      
+      
+      plot.query_objects_atwindowxy
+      
+      
+      plot.rescale
+      
+      
+      plot.restore
+      
+      
+      plot.save
+      
+      
+      plot.select_all
+      
+      
+      plot.select_axis
+      
+      
+      plot.select_begin
+      
+      
+      plot.select_default
+      
+      
+      plot.subgrid_linetype
+      
+      
+      plot.subgrid_linewidth
+      
+      
+      plot.subgrid_rgb
+      
+      
+      plot.time_marker
+      
+      
+      plot.time_marker_rgb
+      
+      
+      plot.time_marker_style
+      
+      
+      plot.time_marker_value
+      
+      
+      plot.time_marker_width
+      
+      
+      plot.title_rgb
+      
+      
+      plot.title_textsize
+      
+      
+      plot.unplot_deactivate
+      
+      
+      plot.visible
+      
+      
+      plot.width
+      
+   
+   
+
+   
+   
+   

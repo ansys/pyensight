@@ -1,0 +1,6 @@
+label\_rgb
+==========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: query_interact.label_rgb

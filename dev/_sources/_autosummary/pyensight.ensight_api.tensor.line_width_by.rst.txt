@@ -1,0 +1,6 @@
+line\_width\_by
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: tensor.line_width_by

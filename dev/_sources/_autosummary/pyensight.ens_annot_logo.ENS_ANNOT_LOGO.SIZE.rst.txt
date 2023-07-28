@@ -1,0 +1,6 @@
+SIZE
+====
+
+.. currentmodule:: pyensight.ens_annot_logo
+
+.. autoproperty:: ENS_ANNOT_LOGO.SIZE

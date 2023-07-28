@@ -1,0 +1,534 @@
+﻿part
+====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: part
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      part.active
+      
+      
+      part.allow_default_editing
+      
+      
+      part.alpha_by
+      
+      
+      part.alpha_by_palette
+      
+      
+      part.alpha_by_subpalette
+      
+      
+      part.begin
+      
+      
+      part.blank_elts
+      
+      
+      part.bounding_rep
+      
+      
+      part.clear_blanked_elts
+      
+      
+      part.clearall_blanked_elts
+      
+      
+      part.clip
+      
+      
+      part.clone
+      
+      
+      part.clone_byname
+      
+      
+      part.collect
+      
+      
+      part.colorby_palette
+      
+      
+      part.colorby_rgb
+      
+      
+      part.colorby_selected_var
+      
+      
+      part.colorby_subpalette
+      
+      
+      part.copy
+      
+      
+      part.copy_noframecreate
+      
+      
+      part.create_assign_viewport
+      
+      
+      part.create_assign_viewports
+      
+      
+      part.cull_elements
+      
+      
+      part.cut_remove
+      
+      
+      part.cut_split
+      
+      
+      part.delete
+      
+      
+      part.description
+      
+      
+      part.displace_by
+      
+      
+      part.displace_factor
+      
+      
+      part.double_sided
+      
+      
+      part.elt_blanking
+      
+      
+      part.elt_failure_logicalop
+      
+      
+      part.elt_failure_op1
+      
+      
+      part.elt_failure_op1value
+      
+      
+      part.elt_failure_op2
+      
+      
+      part.elt_failure_op2value
+      
+      
+      part.elt_failure_variable
+      
+      
+      part.elt_feature_angle
+      
+      
+      part.elt_rep_pointsnormals
+      
+      
+      part.elt_representation
+      
+      
+      part.elt_shrink_factor
+      
+      
+      part.end
+      
+      
+      part.entity_label_elt
+      
+      
+      part.entity_label_node
+      
+      
+      part.entity_label_part
+      
+      
+      part.extract
+      
+      
+      part.fill_pattern
+      
+      
+      part.get_mainpartlist_select
+      
+      
+      part.get_mouseclick_select
+      
+      
+      part.group
+      
+      
+      part.hidden_line
+      
+      
+      part.hidden_surface
+      
+      
+      part.ijk_axis
+      
+      
+      part.ijk_axis_scale
+      
+      
+      part.light_ambient
+      
+      
+      part.light_diff
+      
+      
+      part.light_diffuse
+      
+      
+      part.light_emissive
+      
+      
+      part.light_h_int
+      
+      
+      part.light_refraction
+      
+      
+      part.light_shin
+      
+      
+      part.light_specular_intensity
+      
+      
+      part.light_specular_reflection
+      
+      
+      part.light_specular_shine
+      
+      
+      part.light_specular_tint
+      
+      
+      part.line_hidden_line
+      
+      
+      part.line_style
+      
+      
+      part.line_width
+      
+      
+      part.material_base_type
+      
+      
+      part.merge
+      
+      
+      part.mirror_original
+      
+      
+      part.mirror_x
+      
+      
+      part.mirror_xy
+      
+      
+      part.mirror_xyz
+      
+      
+      part.mirror_xz
+      
+      
+      part.mirror_y
+      
+      
+      part.mirror_yz
+      
+      
+      part.mirror_z
+      
+      
+      part.modify_begin
+      
+      
+      part.modify_end
+      
+      
+      part.node_detail
+      
+      
+      part.node_scale
+      
+      
+      part.node_size_by
+      
+      
+      part.node_type
+      
+      
+      part.node_variable
+      
+      
+      part.opacity
+      
+      
+      part.opaqueness
+      
+      
+      part.periodic_sections
+      
+      
+      part.predefined_material
+      
+      
+      part.query_display_attributes
+      
+      
+      part.query_eltid_atwindowxy
+      
+      
+      part.query_eltid_atxyz
+      
+      
+      part.query_nodeid_atwindowxy
+      
+      
+      part.query_nodeid_atxyz
+      
+      
+      part.query_object_atwindowxy
+      
+      
+      part.query_objects
+      
+      
+      part.query_selected_objects
+      
+      
+      part.recompute_cancel
+      
+      
+      part.recompute_pending
+      
+      
+      part.record_selected
+      
+      
+      part.record_selected_ifchanged
+      
+      
+      part.reduce_polygons
+      
+      
+      part.reduce_polygons_factor
+      
+      
+      part.ref_frame
+      
+      
+      part.rendering_reflection_id
+      
+      
+      part.restore_selected
+      
+      
+      part.reverse_normal
+      
+      
+      part.select_all
+      
+      
+      part.select_all_case
+      
+      
+      part.select_all_default
+      
+      
+      part.select_begin
+      
+      
+      part.select_byexpr_begin
+      
+      
+      part.select_byexpr_end
+      
+      
+      part.select_byname_begin
+      
+      
+      part.select_byname_end
+      
+      
+      part.select_default
+      
+      
+      part.select_invert
+      
+      
+      part.select_invisible
+      
+      
+      part.select_lastcreatedpart
+      
+      
+      part.select_lastonecreated
+      
+      
+      part.select_mainpartlist_all
+      
+      
+      part.select_partexpr_begin
+      
+      
+      part.select_partexpr_end
+      
+      
+      part.select_partname_begin
+      
+      
+      part.select_partname_end
+      
+      
+      part.select_showing
+      
+      
+      part.select_visible
+      
+      
+      part.shading
+      
+      
+      part.show_selection_inmainlist
+      
+      
+      part.show_sft
+      
+      
+      part.specify_symmetry_origin
+      
+      
+      part.store_selected
+      
+      
+      part.surface_fill_pattern
+      
+      
+      part.surface_hidden_surface
+      
+      
+      part.surface_type
+      
+      
+      part.symmetry_angle
+      
+      
+      part.symmetry_axis
+      
+      
+      part.symmetry_delta
+      
+      
+      part.symmetry_mirror_x
+      
+      
+      part.symmetry_mirror_xy
+      
+      
+      part.symmetry_mirror_xyz
+      
+      
+      part.symmetry_mirror_xz
+      
+      
+      part.symmetry_mirror_y
+      
+      
+      part.symmetry_mirror_yz
+      
+      
+      part.symmetry_mirror_z
+      
+      
+      part.symmetry_origin
+      
+      
+      part.symmetry_rinstances
+      
+      
+      part.symmetry_type
+      
+      
+      part.texture_coord_type
+      
+      
+      part.texture_interpolation
+      
+      
+      part.texture_mode
+      
+      
+      part.texture_object
+      
+      
+      part.texture_origin
+      
+      
+      part.texture_origin_nodeid
+      
+      
+      part.texture_origin_use
+      
+      
+      part.texture_repeat_mode
+      
+      
+      part.texture_sorigin_nodeid
+      
+      
+      part.texture_svariable
+      
+      
+      part.texture_svector
+      
+      
+      part.texture_torigin_nodeid
+      
+      
+      part.texture_tvariable
+      
+      
+      part.texture_tvector
+      
+      
+      part.transparency
+      
+      
+      part.ungroup
+      
+      
+      part.updtparts
+      
+      
+      part.viewport_vis
+      
+      
+      part.visibility_elt
+      
+      
+      part.visibility_line
+      
+      
+      part.visibility_node
+      
+      
+      part.visible
+      
+      
+      part.volume_quality
+      
+   
+   
+
+   
+   
+   

@@ -1,0 +1,6 @@
+y\_labels
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: frame.y_labels

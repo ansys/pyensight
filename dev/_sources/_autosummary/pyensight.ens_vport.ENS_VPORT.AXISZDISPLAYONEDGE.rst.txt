@@ -1,0 +1,6 @@
+AXISZDISPLAYONEDGE
+==================
+
+.. currentmodule:: pyensight.ens_vport
+
+.. autoproperty:: ENS_VPORT.AXISZDISPLAYONEDGE

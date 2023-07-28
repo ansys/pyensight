@@ -1,0 +1,6 @@
+session\_directory
+==================
+
+.. currentmodule:: pyensight
+
+.. autoproperty:: DockerLauncher.session_directory

@@ -1,0 +1,6 @@
+calculator\_function\_units\_info
+=================================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. automethod:: ENS_GLOBALS.calculator_function_units_info

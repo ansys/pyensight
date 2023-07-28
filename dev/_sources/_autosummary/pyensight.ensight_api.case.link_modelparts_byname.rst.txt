@@ -1,0 +1,6 @@
+link\_modelparts\_byname
+========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: case.link_modelparts_byname

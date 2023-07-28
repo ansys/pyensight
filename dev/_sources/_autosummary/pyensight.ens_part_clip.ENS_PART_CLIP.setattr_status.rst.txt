@@ -1,0 +1,6 @@
+setattr\_status
+===============
+
+.. currentmodule:: pyensight.ens_part_clip
+
+.. automethod:: ENS_PART_CLIP.setattr_status

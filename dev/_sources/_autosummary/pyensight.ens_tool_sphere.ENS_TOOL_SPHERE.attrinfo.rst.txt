@@ -1,0 +1,6 @@
+attrinfo
+========
+
+.. currentmodule:: pyensight.ens_tool_sphere
+
+.. automethod:: ENS_TOOL_SPHERE.attrinfo

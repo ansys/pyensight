@@ -1,0 +1,6 @@
+POINTVISIBLE
+============
+
+.. currentmodule:: pyensight.ens_polyline
+
+.. autoproperty:: ENS_POLYLINE.POINTVISIBLE

@@ -1,0 +1,6 @@
+query\_nodeid\_atwindowxy
+=========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.query_nodeid_atwindowxy

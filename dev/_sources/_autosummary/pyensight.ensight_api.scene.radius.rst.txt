@@ -1,0 +1,6 @@
+radius
+======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: scene.radius

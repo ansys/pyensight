@@ -1,0 +1,159 @@
+﻿filterpart
+==========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: filterpart
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      filterpart.begin
+      
+      
+      filterpart.create
+      
+      
+      filterpart.elt_filter1_active
+      
+      
+      filterpart.elt_filter1_testop
+      
+      
+      filterpart.elt_filter1_testvalue
+      
+      
+      filterpart.elt_filter1_testvarcomp
+      
+      
+      filterpart.elt_filter1_testvariable
+      
+      
+      filterpart.elt_filter1_varcomp
+      
+      
+      filterpart.elt_filter1_variable
+      
+      
+      filterpart.elt_filter2_active
+      
+      
+      filterpart.elt_filter2_testop
+      
+      
+      filterpart.elt_filter2_testvalue
+      
+      
+      filterpart.elt_filter2_testvarcomp
+      
+      
+      filterpart.elt_filter2_testvariable
+      
+      
+      filterpart.elt_filter2_varcomp
+      
+      
+      filterpart.elt_filter2_variable
+      
+      
+      filterpart.elt_filter3_active
+      
+      
+      filterpart.elt_filter3_testop
+      
+      
+      filterpart.elt_filter3_testvalue
+      
+      
+      filterpart.elt_filter3_testvarcomp
+      
+      
+      filterpart.elt_filter3_testvariable
+      
+      
+      filterpart.elt_filter3_varcomp
+      
+      
+      filterpart.elt_filter3_variable
+      
+      
+      filterpart.elt_filter4_active
+      
+      
+      filterpart.elt_filter4_testop
+      
+      
+      filterpart.elt_filter4_testvalue
+      
+      
+      filterpart.elt_filter4_testvarcomp
+      
+      
+      filterpart.elt_filter4_testvariable
+      
+      
+      filterpart.elt_filter4_varcomp
+      
+      
+      filterpart.elt_filter4_variable
+      
+      
+      filterpart.elt_filter5_active
+      
+      
+      filterpart.elt_filter5_testop
+      
+      
+      filterpart.elt_filter5_testvalue
+      
+      
+      filterpart.elt_filter5_testvarcomp
+      
+      
+      filterpart.elt_filter5_testvariable
+      
+      
+      filterpart.elt_filter5_varcomp
+      
+      
+      filterpart.elt_filter5_variable
+      
+      
+      filterpart.elt_filter6_active
+      
+      
+      filterpart.elt_filter6_testop
+      
+      
+      filterpart.elt_filter6_testvalue
+      
+      
+      filterpart.elt_filter6_testvarcomp
+      
+      
+      filterpart.elt_filter6_testvariable
+      
+      
+      filterpart.elt_filter6_varcomp
+      
+      
+      filterpart.elt_filter6_variable
+      
+      
+      filterpart.end
+      
+      
+      filterpart.select_default
+      
+   
+   
+
+   
+   
+   

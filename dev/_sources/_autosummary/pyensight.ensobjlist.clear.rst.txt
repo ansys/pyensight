@@ -1,0 +1,6 @@
+clear
+=====
+
+.. currentmodule:: pyensight
+
+.. automethod:: ensobjlist.clear

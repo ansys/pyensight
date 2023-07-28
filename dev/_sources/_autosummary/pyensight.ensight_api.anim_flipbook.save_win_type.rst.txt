@@ -1,0 +1,6 @@
+save\_win\_type
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_flipbook.save_win_type

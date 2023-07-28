@@ -1,0 +1,6 @@
+use\_continuous\_all
+====================
+
+.. currentmodule:: pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.use_continuous_all

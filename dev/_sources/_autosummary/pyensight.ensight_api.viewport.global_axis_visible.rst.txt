@@ -1,0 +1,6 @@
+global\_axis\_visible
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: viewport.global_axis_visible

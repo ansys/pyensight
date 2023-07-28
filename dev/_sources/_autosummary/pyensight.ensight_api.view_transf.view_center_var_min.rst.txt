@@ -1,0 +1,6 @@
+view\_center\_var\_min
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.view_center_var_min

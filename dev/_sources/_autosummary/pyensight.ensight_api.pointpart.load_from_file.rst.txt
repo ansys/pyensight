@@ -1,0 +1,6 @@
+load\_from\_file
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: pointpart.load_from_file

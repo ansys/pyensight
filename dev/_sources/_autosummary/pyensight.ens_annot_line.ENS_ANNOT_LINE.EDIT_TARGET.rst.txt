@@ -1,0 +1,6 @@
+EDIT\_TARGET
+============
+
+.. currentmodule:: pyensight.ens_annot_line
+
+.. autoproperty:: ENS_ANNOT_LINE.EDIT_TARGET

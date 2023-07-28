@@ -1,0 +1,6 @@
+request\_method
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: query_interact.request_method

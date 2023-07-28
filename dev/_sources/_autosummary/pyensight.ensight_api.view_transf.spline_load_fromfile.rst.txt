@@ -1,0 +1,6 @@
+spline\_load\_fromfile
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.spline_load_fromfile

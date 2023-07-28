@@ -1,0 +1,6 @@
+massed\_rebound\_fraction
+=========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.massed_rebound_fraction

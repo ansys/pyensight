@@ -1,0 +1,6 @@
+DISTANCE\_PART1D
+================
+
+.. currentmodule:: pyensight.utils.query
+
+.. autoattribute:: Query.DISTANCE_PART1D

@@ -1,0 +1,6 @@
+fill\_pattern
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.fill_pattern

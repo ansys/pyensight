@@ -1,0 +1,6 @@
+activate\_all
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: variables.activate_all

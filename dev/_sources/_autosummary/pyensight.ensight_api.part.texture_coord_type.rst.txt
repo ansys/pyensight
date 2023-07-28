@@ -1,0 +1,6 @@
+texture\_coord\_type
+====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.texture_coord_type

@@ -1,0 +1,6 @@
+update\_probe
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: query_interact.update_probe

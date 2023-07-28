@@ -1,0 +1,6 @@
+orient\_envmap\_to
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: scene.orient_envmap_to

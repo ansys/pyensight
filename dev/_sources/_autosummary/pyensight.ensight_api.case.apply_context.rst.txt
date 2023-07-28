@@ -1,0 +1,6 @@
+apply\_context
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: case.apply_context

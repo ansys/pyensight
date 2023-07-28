@@ -1,0 +1,6 @@
+create\_variable
+================
+
+.. currentmodule:: pyensight.ens_globals
+
+.. automethod:: ENS_GLOBALS.create_variable

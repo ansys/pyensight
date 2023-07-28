@@ -1,0 +1,6 @@
+add\_callback
+=============
+
+.. currentmodule:: pyensight
+
+.. automethod:: Session.add_callback

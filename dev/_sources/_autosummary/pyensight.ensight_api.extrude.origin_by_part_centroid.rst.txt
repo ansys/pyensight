@@ -1,0 +1,6 @@
+origin\_by\_part\_centroid
+==========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: extrude.origin_by_part_centroid

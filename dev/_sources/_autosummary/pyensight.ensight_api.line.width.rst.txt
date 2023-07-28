@@ -1,0 +1,6 @@
+width
+=====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: line.width

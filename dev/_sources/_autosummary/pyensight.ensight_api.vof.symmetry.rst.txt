@@ -1,0 +1,6 @@
+symmetry
+========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: vof.symmetry

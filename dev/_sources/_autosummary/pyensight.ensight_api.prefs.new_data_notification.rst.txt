@@ -1,0 +1,6 @@
+new\_data\_notification
+=======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: prefs.new_data_notification

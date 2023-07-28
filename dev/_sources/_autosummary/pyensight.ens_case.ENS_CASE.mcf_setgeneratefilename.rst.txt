@@ -1,0 +1,6 @@
+mcf\_setgeneratefilename
+========================
+
+.. currentmodule:: pyensight.ens_case
+
+.. automethod:: ENS_CASE.mcf_setgeneratefilename

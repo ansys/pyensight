@@ -1,0 +1,6 @@
+native\_binary
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: data.native_binary

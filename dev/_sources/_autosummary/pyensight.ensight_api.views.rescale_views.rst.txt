@@ -1,0 +1,6 @@
+rescale\_views
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: views.rescale_views

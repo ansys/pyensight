@@ -1,0 +1,6 @@
+number\_displayed
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: query_interact.number_displayed

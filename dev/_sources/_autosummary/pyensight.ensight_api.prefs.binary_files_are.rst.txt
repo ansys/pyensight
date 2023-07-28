@@ -1,0 +1,6 @@
+binary\_files\_are
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: prefs.binary_files_are

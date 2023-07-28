@@ -1,0 +1,6 @@
+create\_iblank
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data_partbuild.create_iblank

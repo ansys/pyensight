@@ -1,0 +1,6 @@
+EDIT\_TARGET
+============
+
+.. currentmodule:: pyensight.ens_query
+
+.. autoproperty:: ENS_QUERY.EDIT_TARGET

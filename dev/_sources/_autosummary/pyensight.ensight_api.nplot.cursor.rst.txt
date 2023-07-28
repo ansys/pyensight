@@ -1,0 +1,6 @@
+cursor
+======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: nplot.cursor

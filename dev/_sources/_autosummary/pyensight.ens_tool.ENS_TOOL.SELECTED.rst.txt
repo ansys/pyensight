@@ -1,0 +1,6 @@
+SELECTED
+========
+
+.. currentmodule:: pyensight.ens_tool
+
+.. autoproperty:: ENS_TOOL.SELECTED

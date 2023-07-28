@@ -1,0 +1,6 @@
+BACKGROUND
+==========
+
+.. currentmodule:: pyensight.ens_annot_dial
+
+.. autoproperty:: ENS_ANNOT_DIAL.BACKGROUND

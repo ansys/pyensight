@@ -1,0 +1,6 @@
+DESCRIPTION
+===========
+
+.. currentmodule:: pyensight.ens_tool_cursor
+
+.. autoproperty:: ENS_TOOL_CURSOR.DESCRIPTION

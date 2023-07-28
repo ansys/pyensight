@@ -1,0 +1,6 @@
+plot3dmulti\_zone
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: data.plot3dmulti_zone

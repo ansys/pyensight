@@ -1,0 +1,6 @@
+partlist\_displaytree
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: prefs.partlist_displaytree

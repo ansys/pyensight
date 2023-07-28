@@ -1,0 +1,6 @@
+PROJECT\_MASK
+=============
+
+.. currentmodule:: pyensight.ens_lightsource
+
+.. autoproperty:: ENS_LIGHTSOURCE.PROJECT_MASK

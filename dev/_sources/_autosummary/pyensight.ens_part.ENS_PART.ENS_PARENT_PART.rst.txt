@@ -1,0 +1,6 @@
+ENS\_PARENT\_PART
+=================
+
+.. currentmodule:: pyensight.ens_part
+
+.. autoproperty:: ENS_PART.ENS_PARENT_PART

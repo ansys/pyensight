@@ -1,0 +1,6 @@
+colorby\_selected\_var
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.colorby_selected_var

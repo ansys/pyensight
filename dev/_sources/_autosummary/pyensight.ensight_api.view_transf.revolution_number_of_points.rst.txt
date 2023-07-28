@@ -1,0 +1,6 @@
+revolution\_number\_of\_points
+==============================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.revolution_number_of_points

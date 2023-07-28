@@ -1,0 +1,6 @@
+EDIT\_TARGET
+============
+
+.. currentmodule:: pyensight.ens_part_fx_shock
+
+.. autoproperty:: ENS_PART_FX_SHOCK.EDIT_TARGET

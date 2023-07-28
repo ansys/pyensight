@@ -1,0 +1,6 @@
+ANIM\_TYPE\_SOLUTIONTIME
+========================
+
+.. currentmodule:: pyensight.utils.export
+
+.. autoattribute:: Export.ANIM_TYPE_SOLUTIONTIME

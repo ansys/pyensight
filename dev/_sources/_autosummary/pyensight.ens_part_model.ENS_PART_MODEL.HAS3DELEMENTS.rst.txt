@@ -1,0 +1,6 @@
+HAS3DELEMENTS
+=============
+
+.. currentmodule:: pyensight.ens_part_model
+
+.. autoproperty:: ENS_PART_MODEL.HAS3DELEMENTS

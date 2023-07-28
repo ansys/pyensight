@@ -1,0 +1,6 @@
+restore\_context
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.restore_context

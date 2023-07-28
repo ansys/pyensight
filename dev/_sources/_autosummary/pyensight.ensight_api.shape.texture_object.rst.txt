@@ -1,0 +1,6 @@
+texture\_object
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: shape.texture_object

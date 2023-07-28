@@ -1,0 +1,6 @@
+save\_all
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace_emitr.save_all

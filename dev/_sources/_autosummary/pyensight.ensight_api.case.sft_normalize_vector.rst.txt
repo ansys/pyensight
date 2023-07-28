@@ -1,0 +1,6 @@
+sft\_normalize\_vector
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: case.sft_normalize_vector

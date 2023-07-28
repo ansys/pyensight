@@ -1,0 +1,6 @@
+blank\_elts
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.blank_elts

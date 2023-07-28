@@ -1,0 +1,6 @@
+ENS\_PLIST\_KEY\_SEL\_5
+=======================
+
+.. currentmodule:: pyensight.ens_part_frame
+
+.. autoproperty:: ENS_PART_FRAME.ENS_PLIST_KEY_SEL_5

@@ -1,0 +1,6 @@
+ENS\_PLIST\_KEY\_SEL\_3
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_discrete_particle
+
+.. autoproperty:: ENS_PART_DISCRETE_PARTICLE.ENS_PLIST_KEY_SEL_3

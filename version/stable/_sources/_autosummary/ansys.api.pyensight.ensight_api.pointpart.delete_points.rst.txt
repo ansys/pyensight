@@ -1,0 +1,6 @@
+delete\_points
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: pointpart.delete_points

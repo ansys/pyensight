@@ -1,0 +1,6 @@
+modify\_emit\_totoolloc
+=======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.modify_emit_totoolloc

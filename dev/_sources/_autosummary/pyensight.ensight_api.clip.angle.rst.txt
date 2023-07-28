@@ -1,0 +1,6 @@
+angle
+=====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: clip.angle

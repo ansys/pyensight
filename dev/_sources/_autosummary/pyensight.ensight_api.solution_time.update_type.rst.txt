@@ -1,0 +1,6 @@
+update\_type
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: solution_time.update_type

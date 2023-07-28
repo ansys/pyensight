@@ -1,0 +1,6 @@
+connect\_enshell
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ensight.connect_enshell

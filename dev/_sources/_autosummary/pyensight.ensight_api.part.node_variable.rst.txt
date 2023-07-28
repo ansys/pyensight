@@ -1,0 +1,6 @@
+node\_variable
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.node_variable

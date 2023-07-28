@@ -1,0 +1,6 @@
+set\_palette\_to\_partminmax
+============================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: function.set_palette_to_partminmax

@@ -1,0 +1,6 @@
+populate\_attr\_list
+====================
+
+.. currentmodule:: pyensight.ens_annot_lgnd
+
+.. automethod:: ENS_ANNOT_LGND.populate_attr_list

@@ -1,0 +1,6 @@
+plot3ddomain
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: data_partbuild.plot3ddomain

@@ -1,0 +1,6 @@
+destroy
+=======
+
+.. currentmodule:: pyensight.ens_part
+
+.. automethod:: ENS_PART.destroy

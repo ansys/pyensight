@@ -1,0 +1,6 @@
+legend\_rgb
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: plot.legend_rgb

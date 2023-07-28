@@ -1,0 +1,6 @@
+setattr\_status
+===============
+
+.. currentmodule:: pyensight.ens_tool_cylinder
+
+.. automethod:: ENS_TOOL_CYLINDER.setattr_status

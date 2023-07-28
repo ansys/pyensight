@@ -1,0 +1,6 @@
+command\_enshell
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ensight.command_enshell

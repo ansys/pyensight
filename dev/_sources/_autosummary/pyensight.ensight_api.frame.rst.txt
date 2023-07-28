@@ -1,0 +1,183 @@
+﻿frame
+=====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: frame
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      frame.assign
+      
+      
+      frame.begin
+      
+      
+      frame.copy
+      
+      
+      frame.create
+      
+      
+      frame.delete
+      
+      
+      frame.description
+      
+      
+      frame.end
+      
+      
+      frame.len_x
+      
+      
+      frame.len_y
+      
+      
+      frame.len_z
+      
+      
+      frame.line_width
+      
+      
+      frame.mirror_x
+      
+      
+      frame.mirror_xy
+      
+      
+      frame.mirror_xyz
+      
+      
+      frame.mirror_xz
+      
+      
+      frame.mirror_y
+      
+      
+      frame.mirror_yz
+      
+      
+      frame.mirror_z
+      
+      
+      frame.modify_begin
+      
+      
+      frame.modify_end
+      
+      
+      frame.number_of_labels_x
+      
+      
+      frame.number_of_labels_y
+      
+      
+      frame.number_of_labels_z
+      
+      
+      frame.orientation_x
+      
+      
+      frame.orientation_y
+      
+      
+      frame.orientation_z
+      
+      
+      frame.origin
+      
+      
+      frame.query_count
+      
+      
+      frame.query_location
+      
+      
+      frame.rgb
+      
+      
+      frame.select_all
+      
+      
+      frame.select_begin
+      
+      
+      frame.select_default
+      
+      
+      frame.symmetry_angle
+      
+      
+      frame.symmetry_axis
+      
+      
+      frame.symmetry_delta
+      
+      
+      frame.symmetry_file
+      
+      
+      frame.symmetry_instances
+      
+      
+      frame.symmetry_mirror_x
+      
+      
+      frame.symmetry_mirror_xy
+      
+      
+      frame.symmetry_mirror_xyz
+      
+      
+      frame.symmetry_mirror_xz
+      
+      
+      frame.symmetry_mirror_y
+      
+      
+      frame.symmetry_mirror_yz
+      
+      
+      frame.symmetry_mirror_z
+      
+      
+      frame.symmetry_rinstances
+      
+      
+      frame.symmetry_tinstances
+      
+      
+      frame.symmetry_type
+      
+      
+      frame.symmetry_use_file
+      
+      
+      frame.type
+      
+      
+      frame.visible
+      
+      
+      frame.x_labels
+      
+      
+      frame.y_labels
+      
+      
+      frame.z_labels
+      
+   
+   
+
+   
+   
+   

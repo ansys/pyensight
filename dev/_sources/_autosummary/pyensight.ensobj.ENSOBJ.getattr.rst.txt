@@ -1,0 +1,6 @@
+getattr
+=======
+
+.. currentmodule:: pyensight.ensobj
+
+.. automethod:: ENSOBJ.getattr

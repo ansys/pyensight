@@ -1,0 +1,6 @@
+CASTS\_SHADOWS
+==============
+
+.. currentmodule:: pyensight.ens_lightsource
+
+.. autoproperty:: ENS_LIGHTSOURCE.CASTS_SHADOWS

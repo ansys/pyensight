@@ -1,0 +1,6 @@
+visibility\_node
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.visibility_node

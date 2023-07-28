@@ -1,0 +1,6 @@
+getattrs
+========
+
+.. currentmodule:: pyensight.ens_plotter
+
+.. automethod:: ENS_PLOTTER.getattrs

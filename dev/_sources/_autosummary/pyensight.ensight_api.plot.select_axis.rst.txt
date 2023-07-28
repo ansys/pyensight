@@ -1,0 +1,6 @@
+select\_axis
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: plot.select_axis

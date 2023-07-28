@@ -1,0 +1,6 @@
+text\_size
+==========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: legend.text_size

@@ -1,0 +1,6 @@
+COLOR\_SPACE
+============
+
+.. currentmodule:: pyensight.ens_palette
+
+.. autoproperty:: ENS_PALETTE.COLOR_SPACE

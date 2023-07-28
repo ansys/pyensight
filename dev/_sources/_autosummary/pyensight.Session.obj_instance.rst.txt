@@ -1,0 +1,6 @@
+obj\_instance
+=============
+
+.. currentmodule:: pyensight
+
+.. automethod:: Session.obj_instance

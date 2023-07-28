@@ -1,0 +1,6 @@
+ENS\_SYMMETRY\_AXIS
+===================
+
+.. currentmodule:: pyensight.ens_part_tensor_glyph
+
+.. autoproperty:: ENS_PART_TENSOR_GLYPH.ENS_SYMMETRY_AXIS

@@ -1,0 +1,6 @@
+alpha\_by\_palette
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.alpha_by_palette

@@ -1,0 +1,6 @@
+cursor\_by\_partijk
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.cursor_by_partijk

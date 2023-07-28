@@ -1,0 +1,1504 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>ENS_PART_BUILT_UP &#8212; PyEnSight</title>
+    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys_sphinx_theme.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/breadcrumbs.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    
+        <link href="../_static/css/breadcrumbs.css" rel="stylesheet">
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/table.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_autosummary/pyensight.ens_part_built_up.ENS_PART_BUILT_UP';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/release/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        </script>
+    <script src="../_static/js/mermaid.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <link rel="shortcut icon" href="../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="attrgroupinfo" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.attrgroupinfo.html" />
+    <link rel="prev" title="objid" href="pyensight.ens_part_developed_surface.ENS_PART_DEVELOPED_SURFACE.objid.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container"><!-- Debugging: html_theme_options =  -->
+
+  <!-- If there is no MiliSearch enabled, use the PyData search -->
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pyansys-logo-black-cropped.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/pyansys-logo-black-cropped.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../getting_started/index.html">
+                        Getting started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../user_guide/index.html">
+                        User guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../class_documentation.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_examples/index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../contributing.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      dev  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+
+    
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(text => document.getElementById("announcement_msg").innerHTML = text)
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+    
+
+    
+    <div class="container-xl">
+    <div class="row">
+        <div class="col-12 col-md-3" id="breadcrumbs-spacer"></div>
+        <div class="col-12 col-md-11 col-xl-9" id="breadcrumbs">
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+    
+    
+        <li class="nav-item nav-item-0"><a href="../index.html">PyEnSight</a> » </li>
+    
+
+          <li class="nav-item nav-item-1"><a href="../class_documentation.html" >API reference</a> » </li>
+          <li class="nav-item nav-item-2"><a href="../object_documentation.html" accesskey="U">Object API reference</a> » </li>
+        <li class="nav-item nav-item-this"><a href="">ENS_PART_BUILT_UP</a></li> 
+      </ul>
+    </div>
+        </div>
+  </div>
+</div>
+    
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../getting_started/index.html">
+                        Getting started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../user_guide/index.html">
+                        User guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../class_documentation.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_examples/index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../contributing.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      dev  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../native_documentation.html">Native API reference</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../object_documentation.html">Object API reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ensobj.ENSOBJ.html">ENSOBJ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ensobjlist.html">ensobjlist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_annot.ENS_ANNOT.html">ENS_ANNOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_annot_text.ENS_ANNOT_TEXT.html">ENS_ANNOT_TEXT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_annot_line.ENS_ANNOT_LINE.html">ENS_ANNOT_LINE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_annot_logo.ENS_ANNOT_LOGO.html">ENS_ANNOT_LOGO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_annot_lgnd.ENS_ANNOT_LGND.html">ENS_ANNOT_LGND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_annot_marker.ENS_ANNOT_MARKER.html">ENS_ANNOT_MARKER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_annot_arrow.ENS_ANNOT_ARROW.html">ENS_ANNOT_ARROW</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_annot_dial.ENS_ANNOT_DIAL.html">ENS_ANNOT_DIAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_annot_gauge.ENS_ANNOT_GAUGE.html">ENS_ANNOT_GAUGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_annot_shape.ENS_ANNOT_SHAPE.html">ENS_ANNOT_SHAPE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_camera.ENS_CAMERA.html">ENS_CAMERA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_case.ENS_CASE.html">ENS_CASE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_flipbook.ENS_FLIPBOOK.html">ENS_FLIPBOOK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_frame.ENS_FRAME.html">ENS_FRAME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_globals.ENS_GLOBALS.html">ENS_GLOBALS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_group.ENS_GROUP.html">ENS_GROUP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_lightsource.ENS_LIGHTSOURCE.html">ENS_LIGHTSOURCE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_lpart.ENS_LPART.html">ENS_LPART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_mat.ENS_MAT.html">ENS_MAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_palette.ENS_PALETTE.html">ENS_PALETTE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part.ENS_PART.html">ENS_PART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_model.ENS_PART_MODEL.html">ENS_PART_MODEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_clip.ENS_PART_CLIP.html">ENS_PART_CLIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_contour.ENS_PART_CONTOUR.html">ENS_PART_CONTOUR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_discrete_particle.ENS_PART_DISCRETE_PARTICLE.html">ENS_PART_DISCRETE_PARTICLE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_frame.ENS_PART_FRAME.html">ENS_PART_FRAME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_isosurface.ENS_PART_ISOSURFACE.html">ENS_PART_ISOSURFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE.html">ENS_PART_PARTICLE_TRACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_profile.ENS_PART_PROFILE.html">ENS_PART_PROFILE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_vector_arrow.ENS_PART_VECTOR_ARROW.html">ENS_PART_VECTOR_ARROW</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_elevated_surface.ENS_PART_ELEVATED_SURFACE.html">ENS_PART_ELEVATED_SURFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_developed_surface.ENS_PART_DEVELOPED_SURFACE.html">ENS_PART_DEVELOPED_SURFACE</a></li>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">ENS_PART_BUILT_UP</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.attrgroupinfo.html">attrgroupinfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.attrinfo.html">attrinfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.attrissensitive.html">attrissensitive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.attrtree.html">attrtree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.cmdlang_rec_info.html">cmdlang_rec_info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.createpart.html">createpart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.destroy.html">destroy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.get_values.html">get_values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.getattr.html">getattr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.getattrs.html">getattrs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.getmetatag.html">getmetatag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.hasmetatag.html">hasmetatag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.populate_attr_list.html">populate_attr_list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.realtimemode.html">realtimemode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattr.html">setattr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattr_begin.html">setattr_begin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattr_end.html">setattr_end</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattr_status.html">setattr_status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattrs.html">setattrs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setmetatag.html">setmetatag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.tracepaths.html">tracepaths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ACTIVE.html">ACTIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDSCALEFACTOR.html">ADJCOORDSCALEFACTOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDTRANSVEC.html">ADJCOORDTRANSVEC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDVARSCALEFACTOR.html">ADJCOORDVARSCALEFACTOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDXVARIABLE.html">ADJCOORDXVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDYVARIABLE.html">ADJCOORDYVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDZVARIABLE.html">ADJCOORDZVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ALPHABY.html">ALPHABY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ALPHABYPALETTE.html">ALPHABYPALETTE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.BOUNDINGREP.html">BOUNDINGREP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.CASENUMBER.html">CASENUMBER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.CLIP.html">CLIP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.COLORBYPALETTE.html">COLORBYPALETTE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.COLORBYRGB.html">COLORBYRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.CULLELEMENTS.html">CULLELEMENTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DESCRIPTION.html">DESCRIPTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DISPLACEBY.html">DISPLACEBY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DISPLACEFACTOR.html">DISPLACEFACTOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DOUBLESIDED.html">DOUBLESIDED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DTA_BLOCK.html">DTA_BLOCK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.EDIT_TARGET.html">EDIT_TARGET</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTBLANKING.html">ELTBLANKING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTDEFINEDBY.html">ELTDEFINEDBY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFEATUREANGLE.html">ELTFEATUREANGLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1ACTIVE.html">ELTFILTER1ACTIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1TESTOP.html">ELTFILTER1TESTOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1TESTVALUE.html">ELTFILTER1TESTVALUE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1TESTVARCOMP.html">ELTFILTER1TESTVARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1TESTVARIABLE.html">ELTFILTER1TESTVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1VARCOMP.html">ELTFILTER1VARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1VARIABLE.html">ELTFILTER1VARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2ACTIVE.html">ELTFILTER2ACTIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2LOGICALOP.html">ELTFILTER2LOGICALOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2TESTOP.html">ELTFILTER2TESTOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2TESTVALUE.html">ELTFILTER2TESTVALUE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2TESTVARCOMP.html">ELTFILTER2TESTVARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2TESTVARIABLE.html">ELTFILTER2TESTVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2VARCOMP.html">ELTFILTER2VARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2VARIABLE.html">ELTFILTER2VARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3ACTIVE.html">ELTFILTER3ACTIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3LOGICALOP.html">ELTFILTER3LOGICALOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3TESTOP.html">ELTFILTER3TESTOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3TESTVALUE.html">ELTFILTER3TESTVALUE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3TESTVARCOMP.html">ELTFILTER3TESTVARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3TESTVARIABLE.html">ELTFILTER3TESTVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3VARCOMP.html">ELTFILTER3VARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3VARIABLE.html">ELTFILTER3VARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4ACTIVE.html">ELTFILTER4ACTIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4LOGICALOP.html">ELTFILTER4LOGICALOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4TESTOP.html">ELTFILTER4TESTOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4TESTVALUE.html">ELTFILTER4TESTVALUE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4TESTVARCOMP.html">ELTFILTER4TESTVARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4TESTVARIABLE.html">ELTFILTER4TESTVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4VARCOMP.html">ELTFILTER4VARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4VARIABLE.html">ELTFILTER4VARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5ACTIVE.html">ELTFILTER5ACTIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5LOGICALOP.html">ELTFILTER5LOGICALOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5TESTOP.html">ELTFILTER5TESTOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5TESTVALUE.html">ELTFILTER5TESTVALUE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5TESTVARCOMP.html">ELTFILTER5TESTVARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5TESTVARIABLE.html">ELTFILTER5TESTVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5VARCOMP.html">ELTFILTER5VARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5VARIABLE.html">ELTFILTER5VARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6ACTIVE.html">ELTFILTER6ACTIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6LOGICALOP.html">ELTFILTER6LOGICALOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6TESTOP.html">ELTFILTER6TESTOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6TESTVALUE.html">ELTFILTER6TESTVALUE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6TESTVARCOMP.html">ELTFILTER6TESTVARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6TESTVARIABLE.html">ELTFILTER6TESTVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6VARCOMP.html">ELTFILTER6VARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6VARIABLE.html">ELTFILTER6VARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTREPPOINTSNORMALS.html">ELTREPPOINTSNORMALS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTREPRESENTATION.html">ELTREPRESENTATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTSHRINKFACTOR.html">ELTSHRINKFACTOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_DETAILS.html">ENS_DETAILS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_KIND.html">ENS_KIND</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_MATERIAL.html">ENS_MATERIAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PARENT_PART.html">ENS_PARENT_PART</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_0.html">ENS_PLIST_KEY_SEL_0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_1.html">ENS_PLIST_KEY_SEL_1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_2.html">ENS_PLIST_KEY_SEL_2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_3.html">ENS_PLIST_KEY_SEL_3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_4.html">ENS_PLIST_KEY_SEL_4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_5.html">ENS_PLIST_KEY_SEL_5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_6.html">ENS_PLIST_KEY_SEL_6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_7.html">ENS_PLIST_KEY_SEL_7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_8.html">ENS_PLIST_KEY_SEL_8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_9.html">ENS_PLIST_KEY_SEL_9</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_SYMMETRY_AXIS.html">ENS_SYMMETRY_AXIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_SYMMETRY_COUNT.html">ENS_SYMMETRY_COUNT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_TURBO_STAGE.html">ENS_TURBO_STAGE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_TURBO_VDIM.html">ENS_TURBO_VDIM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_TURBO_VIEW.html">ENS_TURBO_VIEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_UNITS_LABEL.html">ENS_UNITS_LABEL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENTITYLABELELT.html">ENTITYLABELELT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENTITYLABELNODE.html">ENTITYLABELNODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.FILLPATTERN.html">FILLPATTERN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HANDLES_ENABLED.html">HANDLES_ENABLED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HAS0DELEMENTS.html">HAS0DELEMENTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HAS1DELEMENTS.html">HAS1DELEMENTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HAS2DELEMENTS.html">HAS2DELEMENTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HAS3DELEMENTS.html">HAS3DELEMENTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HIDDENLINE.html">HIDDENLINE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HIDDENSURFACE.html">HIDDENSURFACE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.IJKAXIS.html">IJKAXIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.IJKAXISSCALE.html">IJKAXISSCALE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ISGROUP.html">ISGROUP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTAMBIENT.html">LIGHTAMBIENT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTDIFFUSE.html">LIGHTDIFFUSE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTEMISSIVE.html">LIGHTEMISSIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTREFRACTION.html">LIGHTREFRACTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTSPECULARINTENSITY.html">LIGHTSPECULARINTENSITY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTSPECULARREFLECTION.html">LIGHTSPECULARREFLECTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTSPECULARSHINE.html">LIGHTSPECULARSHINE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTSPECULARTINT.html">LIGHTSPECULARTINT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LINESTYLE.html">LINESTYLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LINEWIDTH.html">LINEWIDTH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LPARTPARENT.html">LPARTPARENT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.MATERIALBASETYPE.html">MATERIALBASETYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.MATERIALDESCRIPTION.html">MATERIALDESCRIPTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.MESHTYPE.html">MESHTYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.METADATA.html">METADATA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.MIRRORORIGINAL.html">MIRRORORIGINAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODEDETAIL.html">NODEDETAIL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODERANGESTEPI.html">NODERANGESTEPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODERANGESTEPJ.html">NODERANGESTEPJ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODERANGESTEPK.html">NODERANGESTEPK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODESCALE.html">NODESCALE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODESIZEBY.html">NODESIZEBY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODETYPE.html">NODETYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODEVARIABLE.html">NODEVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.OPAQUENESS.html">OPAQUENESS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARENT.html">PARENT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTNUMBER.html">PARTNUMBER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTNUMELE.html">PARTNUMELE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTNUMELECLIENT.html">PARTNUMELECLIENT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTTYPE.html">PARTTYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTTYPEENUM.html">PARTTYPEENUM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PATHNAME.html">PATHNAME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PERIODICSECTIONS.html">PERIODICSECTIONS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PREDEFINEDMATERIAL.html">PREDEFINEDMATERIAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PROJECT_MASK.html">PROJECT_MASK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.REDUCEPOLYGONS.html">REDUCEPOLYGONS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.REDUCEPOLYGONSFACTOR.html">REDUCEPOLYGONSFACTOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.REFFRAME.html">REFFRAME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.RENDERINGREFLECTIONID.html">RENDERINGREFLECTIONID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.REVERSENORMAL.html">REVERSENORMAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SELECTED.html">SELECTED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SHADING.html">SHADING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SHOWSFT.html">SHOWSFT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SOURCES.html">SOURCES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SPECIFYSYMMETRYORIGIN.html">SPECIFYSYMMETRYORIGIN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYANGLE.html">SYMMETRYANGLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYAXIS.html">SYMMETRYAXIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYDELTA.html">SYMMETRYDELTA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORX.html">SYMMETRYMIRRORX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORXY.html">SYMMETRYMIRRORXY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORXYZ.html">SYMMETRYMIRRORXYZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORXZ.html">SYMMETRYMIRRORXZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORY.html">SYMMETRYMIRRORY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORYZ.html">SYMMETRYMIRRORYZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORZ.html">SYMMETRYMIRRORZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYORIGIN.html">SYMMETRYORIGIN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYRINSTANCES.html">SYMMETRYRINSTANCES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYTYPE.html">SYMMETRYTYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURECOORDTYPE.html">TEXTURECOORDTYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREINTERPOLATION.html">TEXTUREINTERPOLATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREMODE.html">TEXTUREMODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREOBJECT.html">TEXTUREOBJECT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREORIGIN.html">TEXTUREORIGIN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREORIGINNODEID.html">TEXTUREORIGINNODEID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREORIGINUSE.html">TEXTUREORIGINUSE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREREPEATMODE.html">TEXTUREREPEATMODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURESORIGINNODEID.html">TEXTURESORIGINNODEID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURESVARIABLE.html">TEXTURESVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURESVECTOR.html">TEXTURESVECTOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURETORIGINNODEID.html">TEXTURETORIGINNODEID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURETVARIABLE.html">TEXTURETVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURETVECTOR.html">TEXTURETVECTOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.UUID.html">UUID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VIEWPORTVIS.html">VIEWPORTVIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VISIBILITYELT.html">VISIBILITYELT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VISIBILITYLINE.html">VISIBILITYLINE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VISIBILITYNODE.html">VISIBILITYNODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VISIBLE.html">VISIBLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VOLUMEQUALITY.html">VOLUMEQUALITY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VOLUMERENDERINGTYPE.html">VOLUMERENDERINGTYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.__OBJID__.html">__OBJID__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.objid.html">objid</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_tensor_glyph.ENS_PART_TENSOR_GLYPH.html">ENS_PART_TENSOR_GLYPH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_fx_vortex_core.ENS_PART_FX_VORTEX_CORE.html">ENS_PART_FX_VORTEX_CORE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_fx_shock.ENS_PART_FX_SHOCK.html">ENS_PART_FX_SHOCK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_fx_sep_att.ENS_PART_FX_SEP_ATT.html">ENS_PART_FX_SEP_ATT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_mat_interface.ENS_PART_MAT_INTERFACE.html">ENS_PART_MAT_INTERFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_point.ENS_PART_POINT.html">ENS_PART_POINT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_axisymmetric.ENS_PART_AXISYMMETRIC.html">ENS_PART_AXISYMMETRIC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_vof.ENS_PART_VOF.html">ENS_PART_VOF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_aux_geom.ENS_PART_AUX_GEOM.html">ENS_PART_AUX_GEOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_part_filter.ENS_PART_FILTER.html">ENS_PART_FILTER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_plotter.ENS_PLOTTER.html">ENS_PLOTTER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_polyline.ENS_POLYLINE.html">ENS_POLYLINE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_probe.ENS_PROBE.html">ENS_PROBE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_query.ENS_QUERY.html">ENS_QUERY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_source.ENS_SOURCE.html">ENS_SOURCE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_spec.ENS_SPEC.html">ENS_SPEC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_state.ENS_STATE.html">ENS_STATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_texture.ENS_TEXTURE.html">ENS_TEXTURE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_tool.ENS_TOOL.html">ENS_TOOL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_tool_cursor.ENS_TOOL_CURSOR.html">ENS_TOOL_CURSOR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_tool_line.ENS_TOOL_LINE.html">ENS_TOOL_LINE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_tool_plane.ENS_TOOL_PLANE.html">ENS_TOOL_PLANE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_tool_box.ENS_TOOL_BOX.html">ENS_TOOL_BOX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_tool_cylinder.ENS_TOOL_CYLINDER.html">ENS_TOOL_CYLINDER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_tool_cone.ENS_TOOL_CONE.html">ENS_TOOL_CONE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_tool_sphere.ENS_TOOL_SPHERE.html">ENS_TOOL_SPHERE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_tool_revolution.ENS_TOOL_REVOLUTION.html">ENS_TOOL_REVOLUTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_var.ENS_VAR.html">ENS_VAR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyensight.ens_vport.ENS_VPORT.html">ENS_VPORT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../calc_functions.html">Calculator Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest_api/rest_api.html">REST API</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pyensight.enscontext.EnsContext.html">EnsContext</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyensight.Launcher.html">Launcher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyensight.LocalLauncher.html">LocalLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyensight.DockerLauncher.html">DockerLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyensight.renderable.Renderable.html">Renderable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyensight.Session.html">Session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyensight.utils.export.Export.html">Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyensight.utils.parts.Parts.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyensight.utils.query.Query.html">Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyensight.utils.support.Support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyensight.utils.views.Views.html">Views</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="ens-part-built-up">
+<h1>ENS_PART_BUILT_UP<a class="headerlink" href="#ens-part-built-up" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyensight.ens_part_built_up.ENS_PART_BUILT_UP">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyensight.ens_part_built_up.</span></span><span class="sig-name descname"><span class="pre">ENS_PART_BUILT_UP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyensight.ens_part_built_up.ENS_PART_BUILT_UP" title="Permalink to this definition">#</a></dt>
+<dd><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>*args:</dt><dd><p>Superclass (ENS_PART) arguments</p>
+</dd>
+<dt>**kwargs:</dt><dd><p>Superclass (ENS_PART) keyword arguments</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.attrgroupinfo.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.attrgroupinfo" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.attrgroupinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.attrgroupinfo</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Get information about GUI groups for this part's attributes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.attrinfo.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.attrinfo" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.attrinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.attrinfo</span></code></a>([attrid])</p></td>
+<td><p>For a given attribute id, return type information</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.attrissensitive.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.attrissensitive" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.attrissensitive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.attrissensitive</span></code></a>(attrid)</p></td>
+<td><p>Check to see if a given attribute is 'sensitive'</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.attrtree.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.attrtree" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.attrtree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.attrtree</span></code></a>([all, filter, ...])</p></td>
+<td><p>Get detailed GUI information for attributes of this object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.cmdlang_rec_info.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.cmdlang_rec_info" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.cmdlang_rec_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.cmdlang_rec_info</span></code></a>(*args, ...)</p></td>
+<td><p>Return command language bits for part selection</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.createpart.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.createpart" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.createpart"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.createpart</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Create a new dependent part</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.destroy.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.destroy" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.destroy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.destroy</span></code></a>()</p></td>
+<td><p>Destroy the EnSight object associated with this proxy object</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.get_values.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.get_values" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.get_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.get_values</span></code></a>(variables[, ...])</p></td>
+<td><p>This method returns nodal or element values for specified variables on the part.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.getattr.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.getattr" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.getattr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.getattr</span></code></a>(attrid)</p></td>
+<td><p>Query the value of the specified attribute</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.getattrs.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.getattrs" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.getattrs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.getattrs</span></code></a>([attrid, text])</p></td>
+<td><p>Query the value of a collection of attributes</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.getmetatag.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.getmetatag" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.getmetatag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.getmetatag</span></code></a>(tag)</p></td>
+<td><p>Get the value of a tag in the METADATA attribute</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.hasmetatag.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.hasmetatag" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.hasmetatag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.hasmetatag</span></code></a>(tag)</p></td>
+<td><p>Check to see if a tag exists in the METADATA attribute</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.populate_attr_list.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.populate_attr_list" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.populate_attr_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.populate_attr_list</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.realtimemode.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.realtimemode" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.realtimemode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.realtimemode</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Change the realtime mode</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattr.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattr" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.setattr</span></code></a>(attrid, value)</p></td>
+<td><p>Set the value of the specified attribute</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattr_begin.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattr_begin" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattr_begin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.setattr_begin</span></code></a>()</p></td>
+<td><p>Signal bulk attribute update begin</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattr_end.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattr_end" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattr_end"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.setattr_end</span></code></a>()</p></td>
+<td><p>Signal bulk attribute update end</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattr_status.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattr_status" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattr_status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.setattr_status</span></code></a>()</p></td>
+<td><p>Return the number of active setattr_begin() calls</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattrs.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattrs" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setattrs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.setattrs</span></code></a>(values[, all_errors])</p></td>
+<td><p>Set the values of a collection of attributes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setmetatag.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setmetatag" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.setmetatag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.setmetatag</span></code></a>(tag, value)</p></td>
+<td><p>Change a value in the METADATA attribute</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.tracepaths.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.tracepaths" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.tracepaths"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.tracepaths</span></code></a>([variables])</p></td>
+<td><p>This method returns the point and time values of particle traces.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ACTIVE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ACTIVE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ACTIVE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ACTIVE</span></code></a></p></td>
+<td><p>ACTIVE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDSCALEFACTOR.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDSCALEFACTOR" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDSCALEFACTOR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ADJCOORDSCALEFACTOR</span></code></a></p></td>
+<td><p>ADJCOORDSCALEFACTOR property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDTRANSVEC.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDTRANSVEC" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDTRANSVEC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ADJCOORDTRANSVEC</span></code></a></p></td>
+<td><p>ADJCOORDTRANSVEC property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDVARSCALEFACTOR.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDVARSCALEFACTOR" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDVARSCALEFACTOR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ADJCOORDVARSCALEFACTOR</span></code></a></p></td>
+<td><p>ADJCOORDVARSCALEFACTOR property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDXVARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDXVARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDXVARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ADJCOORDXVARIABLE</span></code></a></p></td>
+<td><p>ADJCOORDXVARIABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDYVARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDYVARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDYVARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ADJCOORDYVARIABLE</span></code></a></p></td>
+<td><p>ADJCOORDYVARIABLE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDZVARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDZVARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ADJCOORDZVARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ADJCOORDZVARIABLE</span></code></a></p></td>
+<td><p>ADJCOORDZVARIABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ALPHABY.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ALPHABY" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ALPHABY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ALPHABY</span></code></a></p></td>
+<td><p>ALPHABY property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ALPHABYPALETTE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ALPHABYPALETTE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ALPHABYPALETTE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ALPHABYPALETTE</span></code></a></p></td>
+<td><p>ALPHABYPALETTE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.BOUNDINGREP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.BOUNDINGREP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.BOUNDINGREP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.BOUNDINGREP</span></code></a></p></td>
+<td><p>BOUNDINGREP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.CASENUMBER.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.CASENUMBER" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.CASENUMBER"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.CASENUMBER</span></code></a></p></td>
+<td><p>CASENUMBER property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.CLIP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.CLIP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.CLIP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.CLIP</span></code></a></p></td>
+<td><p>CLIP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.COLORBYPALETTE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.COLORBYPALETTE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.COLORBYPALETTE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.COLORBYPALETTE</span></code></a></p></td>
+<td><p>COLORBYPALETTE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.COLORBYRGB.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.COLORBYRGB" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.COLORBYRGB"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.COLORBYRGB</span></code></a></p></td>
+<td><p>COLORBYRGB property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.CULLELEMENTS.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.CULLELEMENTS" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.CULLELEMENTS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.CULLELEMENTS</span></code></a></p></td>
+<td><p>CULLELEMENTS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DESCRIPTION.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DESCRIPTION" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DESCRIPTION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.DESCRIPTION</span></code></a></p></td>
+<td><p>DESCRIPTION property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DISPLACEBY.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DISPLACEBY" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DISPLACEBY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.DISPLACEBY</span></code></a></p></td>
+<td><p>DISPLACEBY property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DISPLACEFACTOR.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DISPLACEFACTOR" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DISPLACEFACTOR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.DISPLACEFACTOR</span></code></a></p></td>
+<td><p>DISPLACEFACTOR property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DOUBLESIDED.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DOUBLESIDED" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DOUBLESIDED"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.DOUBLESIDED</span></code></a></p></td>
+<td><p>DOUBLESIDED property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DTA_BLOCK.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DTA_BLOCK" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.DTA_BLOCK"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.DTA_BLOCK</span></code></a></p></td>
+<td><p>DTA_BLOCK property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.EDIT_TARGET.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.EDIT_TARGET" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.EDIT_TARGET"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.EDIT_TARGET</span></code></a></p></td>
+<td><p>EDIT_TARGET property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTBLANKING.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTBLANKING" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTBLANKING"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTBLANKING</span></code></a></p></td>
+<td><p>ELTBLANKING property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTDEFINEDBY.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTDEFINEDBY" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTDEFINEDBY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTDEFINEDBY</span></code></a></p></td>
+<td><p>ELTDEFINEDBY property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFEATUREANGLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFEATUREANGLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFEATUREANGLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFEATUREANGLE</span></code></a></p></td>
+<td><p>ELTFEATUREANGLE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1ACTIVE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1ACTIVE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1ACTIVE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER1ACTIVE</span></code></a></p></td>
+<td><p>ELTFILTER1ACTIVE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1TESTOP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1TESTOP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1TESTOP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER1TESTOP</span></code></a></p></td>
+<td><p>ELTFILTER1TESTOP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1TESTVALUE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1TESTVALUE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1TESTVALUE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER1TESTVALUE</span></code></a></p></td>
+<td><p>ELTFILTER1TESTVALUE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1TESTVARCOMP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1TESTVARCOMP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1TESTVARCOMP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER1TESTVARCOMP</span></code></a></p></td>
+<td><p>ELTFILTER1TESTVARCOMP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1TESTVARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1TESTVARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1TESTVARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER1TESTVARIABLE</span></code></a></p></td>
+<td><p>ELTFILTER1TESTVARIABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1VARCOMP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1VARCOMP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1VARCOMP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER1VARCOMP</span></code></a></p></td>
+<td><p>ELTFILTER1VARCOMP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1VARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1VARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER1VARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER1VARIABLE</span></code></a></p></td>
+<td><p>ELTFILTER1VARIABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2ACTIVE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2ACTIVE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2ACTIVE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER2ACTIVE</span></code></a></p></td>
+<td><p>ELTFILTER2ACTIVE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2LOGICALOP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2LOGICALOP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2LOGICALOP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER2LOGICALOP</span></code></a></p></td>
+<td><p>ELTFILTER2LOGICALOP property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2TESTOP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2TESTOP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2TESTOP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER2TESTOP</span></code></a></p></td>
+<td><p>ELTFILTER2TESTOP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2TESTVALUE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2TESTVALUE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2TESTVALUE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER2TESTVALUE</span></code></a></p></td>
+<td><p>ELTFILTER2TESTVALUE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2TESTVARCOMP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2TESTVARCOMP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2TESTVARCOMP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER2TESTVARCOMP</span></code></a></p></td>
+<td><p>ELTFILTER2TESTVARCOMP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2TESTVARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2TESTVARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2TESTVARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER2TESTVARIABLE</span></code></a></p></td>
+<td><p>ELTFILTER2TESTVARIABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2VARCOMP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2VARCOMP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2VARCOMP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER2VARCOMP</span></code></a></p></td>
+<td><p>ELTFILTER2VARCOMP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2VARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2VARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER2VARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER2VARIABLE</span></code></a></p></td>
+<td><p>ELTFILTER2VARIABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3ACTIVE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3ACTIVE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3ACTIVE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER3ACTIVE</span></code></a></p></td>
+<td><p>ELTFILTER3ACTIVE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3LOGICALOP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3LOGICALOP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3LOGICALOP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER3LOGICALOP</span></code></a></p></td>
+<td><p>ELTFILTER3LOGICALOP property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3TESTOP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3TESTOP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3TESTOP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER3TESTOP</span></code></a></p></td>
+<td><p>ELTFILTER3TESTOP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3TESTVALUE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3TESTVALUE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3TESTVALUE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER3TESTVALUE</span></code></a></p></td>
+<td><p>ELTFILTER3TESTVALUE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3TESTVARCOMP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3TESTVARCOMP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3TESTVARCOMP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER3TESTVARCOMP</span></code></a></p></td>
+<td><p>ELTFILTER3TESTVARCOMP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3TESTVARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3TESTVARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3TESTVARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER3TESTVARIABLE</span></code></a></p></td>
+<td><p>ELTFILTER3TESTVARIABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3VARCOMP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3VARCOMP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3VARCOMP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER3VARCOMP</span></code></a></p></td>
+<td><p>ELTFILTER3VARCOMP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3VARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3VARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER3VARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER3VARIABLE</span></code></a></p></td>
+<td><p>ELTFILTER3VARIABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4ACTIVE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4ACTIVE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4ACTIVE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER4ACTIVE</span></code></a></p></td>
+<td><p>ELTFILTER4ACTIVE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4LOGICALOP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4LOGICALOP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4LOGICALOP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER4LOGICALOP</span></code></a></p></td>
+<td><p>ELTFILTER4LOGICALOP property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4TESTOP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4TESTOP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4TESTOP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER4TESTOP</span></code></a></p></td>
+<td><p>ELTFILTER4TESTOP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4TESTVALUE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4TESTVALUE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4TESTVALUE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER4TESTVALUE</span></code></a></p></td>
+<td><p>ELTFILTER4TESTVALUE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4TESTVARCOMP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4TESTVARCOMP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4TESTVARCOMP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER4TESTVARCOMP</span></code></a></p></td>
+<td><p>ELTFILTER4TESTVARCOMP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4TESTVARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4TESTVARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4TESTVARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER4TESTVARIABLE</span></code></a></p></td>
+<td><p>ELTFILTER4TESTVARIABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4VARCOMP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4VARCOMP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4VARCOMP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER4VARCOMP</span></code></a></p></td>
+<td><p>ELTFILTER4VARCOMP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4VARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4VARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER4VARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER4VARIABLE</span></code></a></p></td>
+<td><p>ELTFILTER4VARIABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5ACTIVE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5ACTIVE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5ACTIVE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER5ACTIVE</span></code></a></p></td>
+<td><p>ELTFILTER5ACTIVE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5LOGICALOP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5LOGICALOP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5LOGICALOP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER5LOGICALOP</span></code></a></p></td>
+<td><p>ELTFILTER5LOGICALOP property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5TESTOP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5TESTOP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5TESTOP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER5TESTOP</span></code></a></p></td>
+<td><p>ELTFILTER5TESTOP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5TESTVALUE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5TESTVALUE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5TESTVALUE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER5TESTVALUE</span></code></a></p></td>
+<td><p>ELTFILTER5TESTVALUE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5TESTVARCOMP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5TESTVARCOMP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5TESTVARCOMP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER5TESTVARCOMP</span></code></a></p></td>
+<td><p>ELTFILTER5TESTVARCOMP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5TESTVARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5TESTVARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5TESTVARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER5TESTVARIABLE</span></code></a></p></td>
+<td><p>ELTFILTER5TESTVARIABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5VARCOMP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5VARCOMP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5VARCOMP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER5VARCOMP</span></code></a></p></td>
+<td><p>ELTFILTER5VARCOMP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5VARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5VARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER5VARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER5VARIABLE</span></code></a></p></td>
+<td><p>ELTFILTER5VARIABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6ACTIVE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6ACTIVE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6ACTIVE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER6ACTIVE</span></code></a></p></td>
+<td><p>ELTFILTER6ACTIVE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6LOGICALOP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6LOGICALOP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6LOGICALOP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER6LOGICALOP</span></code></a></p></td>
+<td><p>ELTFILTER6LOGICALOP property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6TESTOP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6TESTOP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6TESTOP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER6TESTOP</span></code></a></p></td>
+<td><p>ELTFILTER6TESTOP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6TESTVALUE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6TESTVALUE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6TESTVALUE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER6TESTVALUE</span></code></a></p></td>
+<td><p>ELTFILTER6TESTVALUE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6TESTVARCOMP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6TESTVARCOMP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6TESTVARCOMP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER6TESTVARCOMP</span></code></a></p></td>
+<td><p>ELTFILTER6TESTVARCOMP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6TESTVARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6TESTVARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6TESTVARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER6TESTVARIABLE</span></code></a></p></td>
+<td><p>ELTFILTER6TESTVARIABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6VARCOMP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6VARCOMP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6VARCOMP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER6VARCOMP</span></code></a></p></td>
+<td><p>ELTFILTER6VARCOMP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6VARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6VARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTFILTER6VARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTFILTER6VARIABLE</span></code></a></p></td>
+<td><p>ELTFILTER6VARIABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTREPPOINTSNORMALS.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTREPPOINTSNORMALS" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTREPPOINTSNORMALS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTREPPOINTSNORMALS</span></code></a></p></td>
+<td><p>ELTREPPOINTSNORMALS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTREPRESENTATION.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTREPRESENTATION" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTREPRESENTATION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTREPRESENTATION</span></code></a></p></td>
+<td><p>ELTREPRESENTATION property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTSHRINKFACTOR.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTSHRINKFACTOR" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ELTSHRINKFACTOR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ELTSHRINKFACTOR</span></code></a></p></td>
+<td><p>ELTSHRINKFACTOR property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_DETAILS.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_DETAILS" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_DETAILS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_DETAILS</span></code></a></p></td>
+<td><p>ENS_DETAILS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_KIND.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_KIND" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_KIND"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_KIND</span></code></a></p></td>
+<td><p>ENS_KIND property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_MATERIAL.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_MATERIAL" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_MATERIAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_MATERIAL</span></code></a></p></td>
+<td><p>ENS_MATERIAL property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PARENT_PART.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PARENT_PART" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PARENT_PART"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_PARENT_PART</span></code></a></p></td>
+<td><p>ENS_PARENT_PART property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_0.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_0" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_0</span></code></a></p></td>
+<td><p>ENS_PLIST_KEY_SEL_0 property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_1.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_1" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_1</span></code></a></p></td>
+<td><p>ENS_PLIST_KEY_SEL_1 property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_2.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_2" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_2</span></code></a></p></td>
+<td><p>ENS_PLIST_KEY_SEL_2 property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_3.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_3" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_3</span></code></a></p></td>
+<td><p>ENS_PLIST_KEY_SEL_3 property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_4.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_4" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_4"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_4</span></code></a></p></td>
+<td><p>ENS_PLIST_KEY_SEL_4 property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_5.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_5" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_5"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_5</span></code></a></p></td>
+<td><p>ENS_PLIST_KEY_SEL_5 property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_6.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_6" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_6"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_6</span></code></a></p></td>
+<td><p>ENS_PLIST_KEY_SEL_6 property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_7.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_7" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_7"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_7</span></code></a></p></td>
+<td><p>ENS_PLIST_KEY_SEL_7 property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_8.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_8" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_8"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_8</span></code></a></p></td>
+<td><p>ENS_PLIST_KEY_SEL_8 property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_9.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_9" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_9"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_PLIST_KEY_SEL_9</span></code></a></p></td>
+<td><p>ENS_PLIST_KEY_SEL_9 property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_SYMMETRY_AXIS.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_SYMMETRY_AXIS" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_SYMMETRY_AXIS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_SYMMETRY_AXIS</span></code></a></p></td>
+<td><p>ENS_SYMMETRY_AXIS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_SYMMETRY_COUNT.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_SYMMETRY_COUNT" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_SYMMETRY_COUNT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_SYMMETRY_COUNT</span></code></a></p></td>
+<td><p>ENS_SYMMETRY_COUNT property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_TURBO_STAGE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_TURBO_STAGE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_TURBO_STAGE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_TURBO_STAGE</span></code></a></p></td>
+<td><p>ENS_TURBO_STAGE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_TURBO_VDIM.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_TURBO_VDIM" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_TURBO_VDIM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_TURBO_VDIM</span></code></a></p></td>
+<td><p>ENS_TURBO_VDIM property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_TURBO_VIEW.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_TURBO_VIEW" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_TURBO_VIEW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_TURBO_VIEW</span></code></a></p></td>
+<td><p>ENS_TURBO_VIEW property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_UNITS_LABEL.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_UNITS_LABEL" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENS_UNITS_LABEL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENS_UNITS_LABEL</span></code></a></p></td>
+<td><p>ENS_UNITS_LABEL property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENTITYLABELELT.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENTITYLABELELT" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENTITYLABELELT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENTITYLABELELT</span></code></a></p></td>
+<td><p>ENTITYLABELELT property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENTITYLABELNODE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENTITYLABELNODE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ENTITYLABELNODE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ENTITYLABELNODE</span></code></a></p></td>
+<td><p>ENTITYLABELNODE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.FILLPATTERN.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.FILLPATTERN" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.FILLPATTERN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.FILLPATTERN</span></code></a></p></td>
+<td><p>FILLPATTERN property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HANDLES_ENABLED.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HANDLES_ENABLED" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HANDLES_ENABLED"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.HANDLES_ENABLED</span></code></a></p></td>
+<td><p>Control the display and use of EnSight click and go handles for an object</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HAS0DELEMENTS.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HAS0DELEMENTS" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HAS0DELEMENTS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.HAS0DELEMENTS</span></code></a></p></td>
+<td><p>HAS0DELEMENTS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HAS1DELEMENTS.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HAS1DELEMENTS" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HAS1DELEMENTS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.HAS1DELEMENTS</span></code></a></p></td>
+<td><p>HAS1DELEMENTS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HAS2DELEMENTS.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HAS2DELEMENTS" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HAS2DELEMENTS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.HAS2DELEMENTS</span></code></a></p></td>
+<td><p>HAS2DELEMENTS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HAS3DELEMENTS.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HAS3DELEMENTS" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HAS3DELEMENTS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.HAS3DELEMENTS</span></code></a></p></td>
+<td><p>HAS3DELEMENTS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HIDDENLINE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HIDDENLINE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HIDDENLINE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.HIDDENLINE</span></code></a></p></td>
+<td><p>HIDDENLINE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HIDDENSURFACE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HIDDENSURFACE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.HIDDENSURFACE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.HIDDENSURFACE</span></code></a></p></td>
+<td><p>HIDDENSURFACE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.IJKAXIS.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.IJKAXIS" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.IJKAXIS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.IJKAXIS</span></code></a></p></td>
+<td><p>IJKAXIS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.IJKAXISSCALE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.IJKAXISSCALE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.IJKAXISSCALE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.IJKAXISSCALE</span></code></a></p></td>
+<td><p>IJKAXISSCALE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ISGROUP.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ISGROUP" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.ISGROUP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.ISGROUP</span></code></a></p></td>
+<td><p>ISGROUP property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTAMBIENT.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTAMBIENT" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTAMBIENT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.LIGHTAMBIENT</span></code></a></p></td>
+<td><p>LIGHTAMBIENT property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTDIFFUSE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTDIFFUSE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTDIFFUSE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.LIGHTDIFFUSE</span></code></a></p></td>
+<td><p>LIGHTDIFFUSE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTEMISSIVE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTEMISSIVE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTEMISSIVE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.LIGHTEMISSIVE</span></code></a></p></td>
+<td><p>LIGHTEMISSIVE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTREFRACTION.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTREFRACTION" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTREFRACTION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.LIGHTREFRACTION</span></code></a></p></td>
+<td><p>LIGHTREFRACTION property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTSPECULARINTENSITY.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTSPECULARINTENSITY" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTSPECULARINTENSITY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.LIGHTSPECULARINTENSITY</span></code></a></p></td>
+<td><p>LIGHTSPECULARINTENSITY property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTSPECULARREFLECTION.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTSPECULARREFLECTION" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTSPECULARREFLECTION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.LIGHTSPECULARREFLECTION</span></code></a></p></td>
+<td><p>LIGHTSPECULARREFLECTION property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTSPECULARSHINE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTSPECULARSHINE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTSPECULARSHINE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.LIGHTSPECULARSHINE</span></code></a></p></td>
+<td><p>LIGHTSPECULARSHINE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTSPECULARTINT.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTSPECULARTINT" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LIGHTSPECULARTINT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.LIGHTSPECULARTINT</span></code></a></p></td>
+<td><p>LIGHTSPECULARTINT property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LINESTYLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LINESTYLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LINESTYLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.LINESTYLE</span></code></a></p></td>
+<td><p>LINESTYLE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LINEWIDTH.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LINEWIDTH" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LINEWIDTH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.LINEWIDTH</span></code></a></p></td>
+<td><p>LINEWIDTH property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LPARTPARENT.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LPARTPARENT" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.LPARTPARENT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.LPARTPARENT</span></code></a></p></td>
+<td><p>LPARTPARENT property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.MATERIALBASETYPE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.MATERIALBASETYPE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.MATERIALBASETYPE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.MATERIALBASETYPE</span></code></a></p></td>
+<td><p>MATERIALBASETYPE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.MATERIALDESCRIPTION.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.MATERIALDESCRIPTION" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.MATERIALDESCRIPTION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.MATERIALDESCRIPTION</span></code></a></p></td>
+<td><p>MATERIALDESCRIPTION property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.MESHTYPE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.MESHTYPE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.MESHTYPE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.MESHTYPE</span></code></a></p></td>
+<td><p>MESHTYPE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.METADATA.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.METADATA" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.METADATA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.METADATA</span></code></a></p></td>
+<td><p>METADATA property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.MIRRORORIGINAL.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.MIRRORORIGINAL" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.MIRRORORIGINAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.MIRRORORIGINAL</span></code></a></p></td>
+<td><p>MIRRORORIGINAL property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODEDETAIL.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODEDETAIL" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODEDETAIL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.NODEDETAIL</span></code></a></p></td>
+<td><p>NODEDETAIL property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODERANGESTEPI.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODERANGESTEPI" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODERANGESTEPI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.NODERANGESTEPI</span></code></a></p></td>
+<td><p>NODERANGESTEPI property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODERANGESTEPJ.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODERANGESTEPJ" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODERANGESTEPJ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.NODERANGESTEPJ</span></code></a></p></td>
+<td><p>NODERANGESTEPJ property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODERANGESTEPK.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODERANGESTEPK" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODERANGESTEPK"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.NODERANGESTEPK</span></code></a></p></td>
+<td><p>NODERANGESTEPK property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODESCALE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODESCALE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODESCALE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.NODESCALE</span></code></a></p></td>
+<td><p>NODESCALE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODESIZEBY.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODESIZEBY" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODESIZEBY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.NODESIZEBY</span></code></a></p></td>
+<td><p>NODESIZEBY property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODETYPE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODETYPE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODETYPE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.NODETYPE</span></code></a></p></td>
+<td><p>NODETYPE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODEVARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODEVARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.NODEVARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.NODEVARIABLE</span></code></a></p></td>
+<td><p>NODEVARIABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.OPAQUENESS.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.OPAQUENESS" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.OPAQUENESS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.OPAQUENESS</span></code></a></p></td>
+<td><p>OPAQUENESS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARENT.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARENT" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARENT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.PARENT</span></code></a></p></td>
+<td><p>PARENT property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTNUMBER.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTNUMBER" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTNUMBER"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.PARTNUMBER</span></code></a></p></td>
+<td><p>PARTNUMBER property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTNUMELE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTNUMELE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTNUMELE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.PARTNUMELE</span></code></a></p></td>
+<td><p>PARTNUMELE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTNUMELECLIENT.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTNUMELECLIENT" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTNUMELECLIENT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.PARTNUMELECLIENT</span></code></a></p></td>
+<td><p>PARTNUMELECLIENT property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTTYPE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTTYPE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTTYPE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.PARTTYPE</span></code></a></p></td>
+<td><p>PARTTYPE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTTYPEENUM.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTTYPEENUM" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PARTTYPEENUM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.PARTTYPEENUM</span></code></a></p></td>
+<td><p>PARTTYPEENUM property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PATHNAME.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PATHNAME" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PATHNAME"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.PATHNAME</span></code></a></p></td>
+<td><p>PATHNAME property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PERIODICSECTIONS.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PERIODICSECTIONS" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PERIODICSECTIONS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.PERIODICSECTIONS</span></code></a></p></td>
+<td><p>PERIODICSECTIONS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PREDEFINEDMATERIAL.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PREDEFINEDMATERIAL" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PREDEFINEDMATERIAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.PREDEFINEDMATERIAL</span></code></a></p></td>
+<td><p>PREDEFINEDMATERIAL property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PROJECT_MASK.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PROJECT_MASK" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.PROJECT_MASK"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.PROJECT_MASK</span></code></a></p></td>
+<td><p>PROJECT_MASK property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.REDUCEPOLYGONS.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.REDUCEPOLYGONS" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.REDUCEPOLYGONS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.REDUCEPOLYGONS</span></code></a></p></td>
+<td><p>REDUCEPOLYGONS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.REDUCEPOLYGONSFACTOR.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.REDUCEPOLYGONSFACTOR" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.REDUCEPOLYGONSFACTOR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.REDUCEPOLYGONSFACTOR</span></code></a></p></td>
+<td><p>REDUCEPOLYGONSFACTOR property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.REFFRAME.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.REFFRAME" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.REFFRAME"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.REFFRAME</span></code></a></p></td>
+<td><p>REFFRAME property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.RENDERINGREFLECTIONID.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.RENDERINGREFLECTIONID" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.RENDERINGREFLECTIONID"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.RENDERINGREFLECTIONID</span></code></a></p></td>
+<td><p>RENDERINGREFLECTIONID property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.REVERSENORMAL.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.REVERSENORMAL" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.REVERSENORMAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.REVERSENORMAL</span></code></a></p></td>
+<td><p>REVERSENORMAL property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SELECTED.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SELECTED" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SELECTED"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SELECTED</span></code></a></p></td>
+<td><p>SELECTED property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SHADING.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SHADING" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SHADING"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SHADING</span></code></a></p></td>
+<td><p>SHADING property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SHOWSFT.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SHOWSFT" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SHOWSFT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SHOWSFT</span></code></a></p></td>
+<td><p>SHOWSFT property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SOURCES.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SOURCES" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SOURCES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SOURCES</span></code></a></p></td>
+<td><p>SOURCES property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SPECIFYSYMMETRYORIGIN.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SPECIFYSYMMETRYORIGIN" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SPECIFYSYMMETRYORIGIN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SPECIFYSYMMETRYORIGIN</span></code></a></p></td>
+<td><p>SPECIFYSYMMETRYORIGIN property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYANGLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYANGLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYANGLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SYMMETRYANGLE</span></code></a></p></td>
+<td><p>SYMMETRYANGLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYAXIS.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYAXIS" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYAXIS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SYMMETRYAXIS</span></code></a></p></td>
+<td><p>SYMMETRYAXIS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYDELTA.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYDELTA" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYDELTA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SYMMETRYDELTA</span></code></a></p></td>
+<td><p>SYMMETRYDELTA property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORX.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORX" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORX"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SYMMETRYMIRRORX</span></code></a></p></td>
+<td><p>SYMMETRYMIRRORX property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORXY.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORXY" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORXY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SYMMETRYMIRRORXY</span></code></a></p></td>
+<td><p>SYMMETRYMIRRORXY property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORXYZ.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORXYZ" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORXYZ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SYMMETRYMIRRORXYZ</span></code></a></p></td>
+<td><p>SYMMETRYMIRRORXYZ property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORXZ.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORXZ" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORXZ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SYMMETRYMIRRORXZ</span></code></a></p></td>
+<td><p>SYMMETRYMIRRORXZ property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORY.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORY" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SYMMETRYMIRRORY</span></code></a></p></td>
+<td><p>SYMMETRYMIRRORY property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORYZ.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORYZ" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORYZ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SYMMETRYMIRRORYZ</span></code></a></p></td>
+<td><p>SYMMETRYMIRRORYZ property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORZ.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORZ" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYMIRRORZ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SYMMETRYMIRRORZ</span></code></a></p></td>
+<td><p>SYMMETRYMIRRORZ property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYORIGIN.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYORIGIN" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYORIGIN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SYMMETRYORIGIN</span></code></a></p></td>
+<td><p>SYMMETRYORIGIN property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYRINSTANCES.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYRINSTANCES" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYRINSTANCES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SYMMETRYRINSTANCES</span></code></a></p></td>
+<td><p>SYMMETRYRINSTANCES property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYTYPE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYTYPE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.SYMMETRYTYPE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.SYMMETRYTYPE</span></code></a></p></td>
+<td><p>SYMMETRYTYPE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURECOORDTYPE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURECOORDTYPE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURECOORDTYPE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.TEXTURECOORDTYPE</span></code></a></p></td>
+<td><p>TEXTURECOORDTYPE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREINTERPOLATION.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREINTERPOLATION" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREINTERPOLATION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.TEXTUREINTERPOLATION</span></code></a></p></td>
+<td><p>TEXTUREINTERPOLATION property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREMODE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREMODE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREMODE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.TEXTUREMODE</span></code></a></p></td>
+<td><p>TEXTUREMODE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREOBJECT.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREOBJECT" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREOBJECT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.TEXTUREOBJECT</span></code></a></p></td>
+<td><p>TEXTUREOBJECT property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREORIGIN.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREORIGIN" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREORIGIN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.TEXTUREORIGIN</span></code></a></p></td>
+<td><p>TEXTUREORIGIN property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREORIGINNODEID.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREORIGINNODEID" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREORIGINNODEID"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.TEXTUREORIGINNODEID</span></code></a></p></td>
+<td><p>TEXTUREORIGINNODEID property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREORIGINUSE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREORIGINUSE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREORIGINUSE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.TEXTUREORIGINUSE</span></code></a></p></td>
+<td><p>TEXTUREORIGINUSE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREREPEATMODE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREREPEATMODE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTUREREPEATMODE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.TEXTUREREPEATMODE</span></code></a></p></td>
+<td><p>TEXTUREREPEATMODE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURESORIGINNODEID.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURESORIGINNODEID" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURESORIGINNODEID"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.TEXTURESORIGINNODEID</span></code></a></p></td>
+<td><p>TEXTURESORIGINNODEID property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURESVARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURESVARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURESVARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.TEXTURESVARIABLE</span></code></a></p></td>
+<td><p>TEXTURESVARIABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURESVECTOR.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURESVECTOR" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURESVECTOR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.TEXTURESVECTOR</span></code></a></p></td>
+<td><p>TEXTURESVECTOR property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURETORIGINNODEID.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURETORIGINNODEID" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURETORIGINNODEID"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.TEXTURETORIGINNODEID</span></code></a></p></td>
+<td><p>TEXTURETORIGINNODEID property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURETVARIABLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURETVARIABLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURETVARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.TEXTURETVARIABLE</span></code></a></p></td>
+<td><p>TEXTURETVARIABLE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURETVECTOR.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURETVECTOR" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.TEXTURETVECTOR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.TEXTURETVECTOR</span></code></a></p></td>
+<td><p>TEXTURETVECTOR property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.UUID.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.UUID" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.UUID"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.UUID</span></code></a></p></td>
+<td><p>UUID property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VIEWPORTVIS.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VIEWPORTVIS" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VIEWPORTVIS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.VIEWPORTVIS</span></code></a></p></td>
+<td><p>VIEWPORTVIS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VISIBILITYELT.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VISIBILITYELT" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VISIBILITYELT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.VISIBILITYELT</span></code></a></p></td>
+<td><p>VISIBILITYELT property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VISIBILITYLINE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VISIBILITYLINE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VISIBILITYLINE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.VISIBILITYLINE</span></code></a></p></td>
+<td><p>VISIBILITYLINE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VISIBILITYNODE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VISIBILITYNODE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VISIBILITYNODE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.VISIBILITYNODE</span></code></a></p></td>
+<td><p>VISIBILITYNODE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VISIBLE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VISIBLE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VISIBLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.VISIBLE</span></code></a></p></td>
+<td><p>VISIBLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VOLUMEQUALITY.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VOLUMEQUALITY" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VOLUMEQUALITY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.VOLUMEQUALITY</span></code></a></p></td>
+<td><p>VOLUMEQUALITY property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VOLUMERENDERINGTYPE.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VOLUMERENDERINGTYPE" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.VOLUMERENDERINGTYPE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.VOLUMERENDERINGTYPE</span></code></a></p></td>
+<td><p>VOLUMERENDERINGTYPE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.__OBJID__.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.__OBJID__" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.__OBJID__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.__OBJID__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.objid.html#pyensight.ens_part_built_up.ENS_PART_BUILT_UP.objid" title="pyensight.ens_part_built_up.ENS_PART_BUILT_UP.objid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP.objid</span></code></a></p></td>
+<td><p>Return the EnSight object proxy ID (__OBJID__).</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyensight.ens_part_built_up.ENS_PART_BUILT_UP"><code class="docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../_sources/_autosummary/pyensight.ens_part_built_up.ENS_PART_BUILT_UP.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright (c) 2023 ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

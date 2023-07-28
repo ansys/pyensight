@@ -1,0 +1,6 @@
+animation\_gamma
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.animation_gamma

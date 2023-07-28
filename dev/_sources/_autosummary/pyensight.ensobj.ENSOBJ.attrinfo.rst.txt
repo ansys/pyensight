@@ -1,0 +1,6 @@
+attrinfo
+========
+
+.. currentmodule:: pyensight.ensobj
+
+.. automethod:: ENSOBJ.attrinfo

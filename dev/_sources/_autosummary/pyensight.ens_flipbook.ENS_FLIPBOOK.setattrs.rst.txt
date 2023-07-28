@@ -1,0 +1,6 @@
+setattrs
+========
+
+.. currentmodule:: pyensight.ens_flipbook
+
+.. automethod:: ENS_FLIPBOOK.setattrs

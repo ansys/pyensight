@@ -1,0 +1,6 @@
+texture\_interpolation
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.texture_interpolation

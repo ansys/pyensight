@@ -1,0 +1,6 @@
+view\_from\_triad\_axis
+=======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.view_from_triad_axis

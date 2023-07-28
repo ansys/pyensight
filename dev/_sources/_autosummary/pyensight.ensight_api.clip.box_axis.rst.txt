@@ -1,0 +1,6 @@
+box\_axis
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: clip.box_axis

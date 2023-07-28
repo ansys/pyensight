@@ -1,0 +1,6 @@
+ENS\_PLIST\_KEY\_SEL\_3
+=======================
+
+.. currentmodule:: pyensight.ens_part_clip
+
+.. autoproperty:: ENS_PART_CLIP.ENS_PLIST_KEY_SEL_3

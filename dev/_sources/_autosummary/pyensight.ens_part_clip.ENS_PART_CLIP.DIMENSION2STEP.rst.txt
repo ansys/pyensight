@@ -1,0 +1,6 @@
+DIMENSION2STEP
+==============
+
+.. currentmodule:: pyensight.ens_part_clip
+
+.. autoproperty:: ENS_PART_CLIP.DIMENSION2STEP

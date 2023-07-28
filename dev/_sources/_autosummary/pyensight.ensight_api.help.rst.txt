@@ -1,0 +1,27 @@
+﻿help
+====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: help
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      help.document
+      
+      
+      help.show_pdf_file
+      
+   
+   
+
+   
+   
+   

@@ -1,0 +1,6 @@
+minimum
+=======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: dial.minimum

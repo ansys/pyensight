@@ -1,0 +1,6 @@
+timeline\_start\_time
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_keyframe.timeline_start_time

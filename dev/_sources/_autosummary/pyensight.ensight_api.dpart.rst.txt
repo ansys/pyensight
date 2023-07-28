@@ -1,0 +1,30 @@
+﻿dpart
+=====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: dpart
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      dpart.begin
+      
+      
+      dpart.end
+      
+      
+      dpart.select_default
+      
+   
+   
+
+   
+   
+   

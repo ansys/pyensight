@@ -1,0 +1,6 @@
+query\_count
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: legend.query_count

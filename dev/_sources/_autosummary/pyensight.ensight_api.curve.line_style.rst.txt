@@ -1,0 +1,6 @@
+line\_style
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: curve.line_style

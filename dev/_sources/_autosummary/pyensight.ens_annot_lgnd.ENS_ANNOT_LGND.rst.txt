@@ -1,0 +1,125 @@
+﻿ENS\_ANNOT\_LGND
+================
+
+.. currentmodule:: pyensight.ens_annot_lgnd
+
+.. autoclass:: ENS_ANNOT_LGND
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_ANNOT_LGND.attrgroupinfo
+      
+      
+      ENS_ANNOT_LGND.attrinfo
+      
+      
+      ENS_ANNOT_LGND.attrissensitive
+      
+      
+      ENS_ANNOT_LGND.attrtree
+      
+      
+      ENS_ANNOT_LGND.createannot
+      
+      
+      ENS_ANNOT_LGND.destroy
+      
+      
+      ENS_ANNOT_LGND.getattr
+      
+      
+      ENS_ANNOT_LGND.getattrs
+      
+      
+      ENS_ANNOT_LGND.getmetatag
+      
+      
+      ENS_ANNOT_LGND.hasmetatag
+      
+      
+      ENS_ANNOT_LGND.populate_attr_list
+      
+      
+      ENS_ANNOT_LGND.setattr
+      
+      
+      ENS_ANNOT_LGND.setattr_begin
+      
+      
+      ENS_ANNOT_LGND.setattr_end
+      
+      
+      ENS_ANNOT_LGND.setattr_status
+      
+      
+      ENS_ANNOT_LGND.setattrs
+      
+      
+      ENS_ANNOT_LGND.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_ANNOT_LGND.ANNOTINDEX
+      ENS_ANNOT_LGND.ANNOTTYPE
+      ENS_ANNOT_LGND.DESCRIPTION
+      ENS_ANNOT_LGND.DISPLAYUNDEFINED
+      ENS_ANNOT_LGND.EDIT_TARGET
+      ENS_ANNOT_LGND.FORMAT
+      ENS_ANNOT_LGND.HANDLES_ENABLED
+      ENS_ANNOT_LGND.HEIGHT
+      ENS_ANNOT_LGND.JUSTIFICATION
+      ENS_ANNOT_LGND.LABELCOUNT
+      ENS_ANNOT_LGND.LEGENDTYPE
+      ENS_ANNOT_LGND.LIMITFRINGES
+      ENS_ANNOT_LGND.LOCATIONX
+      ENS_ANNOT_LGND.LOCATIONY
+      ENS_ANNOT_LGND.METADATA
+      ENS_ANNOT_LGND.NUMOFLEVELS
+      ENS_ANNOT_LGND.ORIENTATION
+      ENS_ANNOT_LGND.ORIGIN
+      ENS_ANNOT_LGND.ORIGINBY
+      ENS_ANNOT_LGND.ORIGINFRAME
+      ENS_ANNOT_LGND.PROJECT_MASK
+      ENS_ANNOT_LGND.RANGE
+      ENS_ANNOT_LGND.RELATIVETO
+      ENS_ANNOT_LGND.RELATIVEVIEWPORT
+      ENS_ANNOT_LGND.RGB
+      ENS_ANNOT_LGND.ROTATIONALANGLE
+      ENS_ANNOT_LGND.SCALE
+      ENS_ANNOT_LGND.SELECTED
+      ENS_ANNOT_LGND.SHADOWINTENSITY
+      ENS_ANNOT_LGND.SHADOWOFFSET
+      ENS_ANNOT_LGND.SHOWBACKGROUND
+      ENS_ANNOT_LGND.SHOWMINMAXMARKER
+      ENS_ANNOT_LGND.SIZE
+      ENS_ANNOT_LGND.SPECIFYLABELCOUNT
+      ENS_ANNOT_LGND.TEXTPOSITION
+      ENS_ANNOT_LGND.TEXTRGB
+      ENS_ANNOT_LGND.TEXTSIZE
+      ENS_ANNOT_LGND.TEXTTYPE
+      ENS_ANNOT_LGND.TITLELOCATION
+      ENS_ANNOT_LGND.TYPE
+      ENS_ANNOT_LGND.UNDEFINEDCOLOR
+      ENS_ANNOT_LGND.UUID
+      ENS_ANNOT_LGND.VARCOMP
+      ENS_ANNOT_LGND.VISIBLE
+      ENS_ANNOT_LGND.WIDTH
+      ENS_ANNOT_LGND.__OBJID__
+      ENS_ANNOT_LGND.objid
+   
+   

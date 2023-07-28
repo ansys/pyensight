@@ -1,0 +1,6 @@
+ROTATIONALANGLE
+===============
+
+.. currentmodule:: pyensight.ens_annot
+
+.. autoproperty:: ENS_ANNOT.ROTATIONALANGLE

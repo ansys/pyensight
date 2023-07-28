@@ -1,0 +1,6 @@
+surface\_type
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.surface_type

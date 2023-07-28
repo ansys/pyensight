@@ -1,0 +1,6 @@
+ELTREPRESENTATION
+=================
+
+.. currentmodule:: pyensight.ens_part_tensor_glyph
+
+.. autoproperty:: ENS_PART_TENSOR_GLYPH.ELTREPRESENTATION

@@ -1,0 +1,6 @@
+LIGHTSHIN
+=========
+
+.. currentmodule:: pyensight.ens_annot_arrow
+
+.. autoproperty:: ENS_ANNOT_ARROW.LIGHTSHIN

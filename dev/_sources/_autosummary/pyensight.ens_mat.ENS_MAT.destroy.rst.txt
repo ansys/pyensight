@@ -1,0 +1,6 @@
+destroy
+=======
+
+.. currentmodule:: pyensight.ens_mat
+
+.. automethod:: ENS_MAT.destroy

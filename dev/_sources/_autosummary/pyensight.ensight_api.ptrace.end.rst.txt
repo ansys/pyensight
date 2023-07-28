@@ -1,0 +1,6 @@
+end
+===
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.end

@@ -1,0 +1,6 @@
+background\_image
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: viewport.background_image

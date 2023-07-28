@@ -1,0 +1,6 @@
+HAS1DELEMENTS
+=============
+
+.. currentmodule:: pyensight.ens_part_vof
+
+.. autoproperty:: ENS_PART_VOF.HAS1DELEMENTS

@@ -1,0 +1,6 @@
+objid
+=====
+
+.. currentmodule:: pyensight.ens_camera
+
+.. autoproperty:: ENS_CAMERA.objid

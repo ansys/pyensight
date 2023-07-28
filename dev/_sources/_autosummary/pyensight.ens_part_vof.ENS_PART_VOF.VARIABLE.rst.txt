@@ -1,0 +1,6 @@
+VARIABLE
+========
+
+.. currentmodule:: pyensight.ens_part_vof
+
+.. autoproperty:: ENS_PART_VOF.VARIABLE

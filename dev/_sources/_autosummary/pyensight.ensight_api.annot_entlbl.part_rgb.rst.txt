@@ -1,0 +1,6 @@
+part\_rgb
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: annot_entlbl.part_rgb

@@ -1,0 +1,6 @@
+ELTFILTER4VARCOMP
+=================
+
+.. currentmodule:: pyensight.ens_part_vof
+
+.. autoproperty:: ENS_PART_VOF.ELTFILTER4VARCOMP

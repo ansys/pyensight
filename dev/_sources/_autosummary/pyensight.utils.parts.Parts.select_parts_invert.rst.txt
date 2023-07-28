@@ -1,0 +1,6 @@
+select\_parts\_invert
+=====================
+
+.. currentmodule:: pyensight.utils.parts
+
+.. automethod:: Parts.select_parts_invert

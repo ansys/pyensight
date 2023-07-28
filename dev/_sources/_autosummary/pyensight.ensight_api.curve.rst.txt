@@ -1,0 +1,99 @@
+﻿curve
+=====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: curve
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      curve.assign
+      
+      
+      curve.assign_to_y_axis
+      
+      
+      curve.delete
+      
+      
+      curve.desc
+      
+      
+      curve.legend_title
+      
+      
+      curve.line_style
+      
+      
+      curve.line_type
+      
+      
+      curve.line_width
+      
+      
+      curve.load
+      
+      
+      curve.marker
+      
+      
+      curve.marker_scale
+      
+      
+      curve.normalize_x
+      
+      
+      curve.normalize_y
+      
+      
+      curve.offset
+      
+      
+      curve.query_count
+      
+      
+      curve.query_display_attributes
+      
+      
+      curve.query_objects_atwindowxy
+      
+      
+      curve.rgb
+      
+      
+      curve.save
+      
+      
+      curve.scale
+      
+      
+      curve.select_all
+      
+      
+      curve.select_begin
+      
+      
+      curve.select_default
+      
+      
+      curve.select_lastcreated
+      
+      
+      curve.smooth_subpoints
+      
+      
+      curve.visible
+      
+   
+   
+
+   
+   
+   

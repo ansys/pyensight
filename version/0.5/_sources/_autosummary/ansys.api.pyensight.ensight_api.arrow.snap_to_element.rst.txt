@@ -1,0 +1,6 @@
+snap\_to\_element
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: arrow.snap_to_element

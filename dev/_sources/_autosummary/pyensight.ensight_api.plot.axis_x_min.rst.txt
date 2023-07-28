@@ -1,0 +1,6 @@
+axis\_x\_min
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: plot.axis_x_min

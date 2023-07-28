@@ -1,0 +1,6 @@
+save\_scenario\_projslct
+========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.save_scenario_projslct

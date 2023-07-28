@@ -1,0 +1,6 @@
+ELTFILTER6TESTVARIABLE
+======================
+
+.. currentmodule:: pyensight.ens_part_vof
+
+.. autoproperty:: ENS_PART_VOF.ELTFILTER6TESTVARIABLE

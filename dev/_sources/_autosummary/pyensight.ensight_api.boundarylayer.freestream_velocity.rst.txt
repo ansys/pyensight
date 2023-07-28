@@ -1,0 +1,6 @@
+freestream\_velocity
+====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: boundarylayer.freestream_velocity

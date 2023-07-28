@@ -1,0 +1,6 @@
+massed\_coef\_restitution
+=========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.massed_coef_restitution

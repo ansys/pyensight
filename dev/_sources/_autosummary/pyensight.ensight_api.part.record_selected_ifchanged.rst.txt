@@ -1,0 +1,6 @@
+record\_selected\_ifchanged
+===========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.record_selected_ifchanged

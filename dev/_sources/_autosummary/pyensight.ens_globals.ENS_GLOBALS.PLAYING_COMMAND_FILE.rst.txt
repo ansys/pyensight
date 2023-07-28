@@ -1,0 +1,6 @@
+PLAYING\_COMMAND\_FILE
+======================
+
+.. currentmodule:: pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.PLAYING_COMMAND_FILE

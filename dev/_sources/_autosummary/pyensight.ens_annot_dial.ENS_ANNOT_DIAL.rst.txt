@@ -1,0 +1,119 @@
+﻿ENS\_ANNOT\_DIAL
+================
+
+.. currentmodule:: pyensight.ens_annot_dial
+
+.. autoclass:: ENS_ANNOT_DIAL
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_ANNOT_DIAL.attrgroupinfo
+      
+      
+      ENS_ANNOT_DIAL.attrinfo
+      
+      
+      ENS_ANNOT_DIAL.attrissensitive
+      
+      
+      ENS_ANNOT_DIAL.attrtree
+      
+      
+      ENS_ANNOT_DIAL.createannot
+      
+      
+      ENS_ANNOT_DIAL.destroy
+      
+      
+      ENS_ANNOT_DIAL.getattr
+      
+      
+      ENS_ANNOT_DIAL.getattrs
+      
+      
+      ENS_ANNOT_DIAL.getmetatag
+      
+      
+      ENS_ANNOT_DIAL.hasmetatag
+      
+      
+      ENS_ANNOT_DIAL.populate_attr_list
+      
+      
+      ENS_ANNOT_DIAL.setattr
+      
+      
+      ENS_ANNOT_DIAL.setattr_begin
+      
+      
+      ENS_ANNOT_DIAL.setattr_end
+      
+      
+      ENS_ANNOT_DIAL.setattr_status
+      
+      
+      ENS_ANNOT_DIAL.setattrs
+      
+      
+      ENS_ANNOT_DIAL.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_ANNOT_DIAL.ANNOTINDEX
+      ENS_ANNOT_DIAL.ANNOTTYPE
+      ENS_ANNOT_DIAL.BACKGROUND
+      ENS_ANNOT_DIAL.BACKGROUNDRGB
+      ENS_ANNOT_DIAL.BIGHANDRANGE
+      ENS_ANNOT_DIAL.BIGHANDRGB
+      ENS_ANNOT_DIAL.BORDER
+      ENS_ANNOT_DIAL.DESCRIPTION
+      ENS_ANNOT_DIAL.EDIT_TARGET
+      ENS_ANNOT_DIAL.HANDLES_ENABLED
+      ENS_ANNOT_DIAL.JUSTIFICATION
+      ENS_ANNOT_DIAL.LITTLEHAND
+      ENS_ANNOT_DIAL.LITTLEHANDRANGE
+      ENS_ANNOT_DIAL.LITTLEHANDRGB
+      ENS_ANNOT_DIAL.LOCATIONX
+      ENS_ANNOT_DIAL.LOCATIONY
+      ENS_ANNOT_DIAL.METADATA
+      ENS_ANNOT_DIAL.MINIMUM
+      ENS_ANNOT_DIAL.ORIGIN
+      ENS_ANNOT_DIAL.ORIGINBY
+      ENS_ANNOT_DIAL.ORIGINFRAME
+      ENS_ANNOT_DIAL.PROJECT_MASK
+      ENS_ANNOT_DIAL.RADIUS
+      ENS_ANNOT_DIAL.RELATIVETO
+      ENS_ANNOT_DIAL.RELATIVEVIEWPORT
+      ENS_ANNOT_DIAL.RGB
+      ENS_ANNOT_DIAL.ROTATIONALANGLE
+      ENS_ANNOT_DIAL.SELECTED
+      ENS_ANNOT_DIAL.SHADOWINTENSITY
+      ENS_ANNOT_DIAL.SHADOWOFFSET
+      ENS_ANNOT_DIAL.SHOWAS
+      ENS_ANNOT_DIAL.SIZE
+      ENS_ANNOT_DIAL.TICKMARKS
+      ENS_ANNOT_DIAL.UUID
+      ENS_ANNOT_DIAL.VALUE
+      ENS_ANNOT_DIAL.VALUERGB
+      ENS_ANNOT_DIAL.VALUESIZE
+      ENS_ANNOT_DIAL.VARIABLE
+      ENS_ANNOT_DIAL.VISIBLE
+      ENS_ANNOT_DIAL.__OBJID__
+      ENS_ANNOT_DIAL.objid
+   
+   

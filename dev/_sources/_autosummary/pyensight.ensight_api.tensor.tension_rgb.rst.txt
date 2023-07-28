@@ -1,0 +1,6 @@
+tension\_rgb
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: tensor.tension_rgb

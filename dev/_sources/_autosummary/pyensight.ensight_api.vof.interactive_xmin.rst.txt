@@ -1,0 +1,6 @@
+interactive\_xmin
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: vof.interactive_xmin

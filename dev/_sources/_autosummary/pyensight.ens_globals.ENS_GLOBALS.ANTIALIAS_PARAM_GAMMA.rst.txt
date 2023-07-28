@@ -1,0 +1,6 @@
+ANTIALIAS\_PARAM\_GAMMA
+=======================
+
+.. currentmodule:: pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.ANTIALIAS_PARAM_GAMMA

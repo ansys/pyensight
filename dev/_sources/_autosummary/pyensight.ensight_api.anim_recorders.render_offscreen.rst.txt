@@ -1,0 +1,6 @@
+render\_offscreen
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_recorders.render_offscreen

@@ -1,0 +1,6 @@
+add\_band\_at\_value
+====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: function.add_band_at_value

@@ -1,0 +1,6 @@
+delete
+======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.delete

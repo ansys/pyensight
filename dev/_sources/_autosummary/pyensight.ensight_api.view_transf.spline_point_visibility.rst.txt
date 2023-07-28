@@ -1,0 +1,6 @@
+spline\_point\_visibility
+=========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.spline_point_visibility

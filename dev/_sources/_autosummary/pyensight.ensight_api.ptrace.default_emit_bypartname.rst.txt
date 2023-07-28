@@ -1,0 +1,6 @@
+default\_emit\_bypartname
+=========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.default_emit_bypartname

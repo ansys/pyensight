@@ -1,0 +1,6 @@
+DISTANCE\_SCALE
+===============
+
+.. currentmodule:: pyensight.ens_camera
+
+.. autoproperty:: ENS_CAMERA.DISTANCE_SCALE

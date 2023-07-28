@@ -1,0 +1,6 @@
+add\_case
+=========
+
+.. currentmodule:: pyensight.ens_globals
+
+.. automethod:: ENS_GLOBALS.add_case

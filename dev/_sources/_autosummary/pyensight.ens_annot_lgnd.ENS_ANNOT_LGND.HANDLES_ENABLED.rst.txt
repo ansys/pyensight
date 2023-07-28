@@ -1,0 +1,6 @@
+HANDLES\_ENABLED
+================
+
+.. currentmodule:: pyensight.ens_annot_lgnd
+
+.. autoproperty:: ENS_ANNOT_LGND.HANDLES_ENABLED

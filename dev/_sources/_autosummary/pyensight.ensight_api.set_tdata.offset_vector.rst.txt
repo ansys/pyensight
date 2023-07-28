@@ -1,0 +1,6 @@
+offset\_vector
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: set_tdata.offset_vector

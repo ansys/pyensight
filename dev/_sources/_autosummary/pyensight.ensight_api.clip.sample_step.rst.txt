@@ -1,0 +1,6 @@
+sample\_step
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: clip.sample_step

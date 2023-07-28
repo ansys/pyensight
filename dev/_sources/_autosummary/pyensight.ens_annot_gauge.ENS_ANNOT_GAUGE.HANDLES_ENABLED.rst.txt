@@ -1,0 +1,6 @@
+HANDLES\_ENABLED
+================
+
+.. currentmodule:: pyensight.ens_annot_gauge
+
+.. autoproperty:: ENS_ANNOT_GAUGE.HANDLES_ENABLED

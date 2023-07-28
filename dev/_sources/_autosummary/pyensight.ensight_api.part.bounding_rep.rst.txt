@@ -1,0 +1,6 @@
+bounding\_rep
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.bounding_rep

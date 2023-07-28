@@ -1,0 +1,6 @@
+pick\_surface\_oncreatecmd
+==========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.pick_surface_oncreatecmd

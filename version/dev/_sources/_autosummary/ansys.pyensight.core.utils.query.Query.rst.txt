@@ -1,0 +1,52 @@
+﻿Query
+=====
+
+.. currentmodule:: ansys.pyensight.core.utils.query
+
+.. autoclass:: Query
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Query.create_distance
+      
+      
+      Query.create_temporal
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      Query.DISTANCE_LINE
+      Query.DISTANCE_PART1D
+      Query.DISTANCE_SPLINE
+      Query.DIST_SEG_ACCUMULATION
+      Query.DIST_SEG_RESET_EACH
+      Query.DIST_TYPE_LENGTH
+      Query.DIST_TYPE_LENGTH_X
+      Query.DIST_TYPE_LENGTH_Y
+      Query.DIST_TYPE_LENGTH_Z
+      Query.DIST_TYPE_ORIGIN
+      Query.DIST_TYPE_ORIGIN_X
+      Query.DIST_TYPE_ORIGIN_Y
+      Query.DIST_TYPE_ORIGIN_Z
+      Query.TEMPORAL_ELEMENT
+      Query.TEMPORAL_IJK
+      Query.TEMPORAL_MAXIMUM
+      Query.TEMPORAL_MINIMUM
+      Query.TEMPORAL_NODE
+      Query.TEMPORAL_XYZ
+   
+   

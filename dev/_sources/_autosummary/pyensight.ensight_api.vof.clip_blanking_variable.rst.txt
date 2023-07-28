@@ -1,0 +1,6 @@
+clip\_blanking\_variable
+========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: vof.clip_blanking_variable

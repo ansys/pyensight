@@ -1,0 +1,6 @@
+timeline\_arrive\_type
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_keyframe.timeline_arrive_type

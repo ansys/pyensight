@@ -1,0 +1,6 @@
+elt\_filter6\_logicalop
+=======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: model.elt_filter6_logicalop

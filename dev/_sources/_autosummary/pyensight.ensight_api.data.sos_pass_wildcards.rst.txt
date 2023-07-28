@@ -1,0 +1,6 @@
+sos\_pass\_wildcards
+====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: data.sos_pass_wildcards

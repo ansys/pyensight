@@ -1,0 +1,6 @@
+head\_detail
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_traces.head_detail

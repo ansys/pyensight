@@ -1,0 +1,6 @@
+normal\_distance
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: boundarylayer.normal_distance

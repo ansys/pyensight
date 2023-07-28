@@ -1,0 +1,6 @@
+rotate\_envmap\_screenx
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: scene.rotate_envmap_screenx

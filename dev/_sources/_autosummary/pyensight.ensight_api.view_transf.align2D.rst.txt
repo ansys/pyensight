@@ -1,0 +1,6 @@
+align2D
+=======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.align2D

@@ -1,0 +1,6 @@
+help
+====
+
+.. currentmodule:: pyensight
+
+.. automethod:: Session.help

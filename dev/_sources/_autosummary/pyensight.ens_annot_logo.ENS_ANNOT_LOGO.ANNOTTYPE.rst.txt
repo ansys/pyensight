@@ -1,0 +1,6 @@
+ANNOTTYPE
+=========
+
+.. currentmodule:: pyensight.ens_annot_logo
+
+.. autoproperty:: ENS_ANNOT_LOGO.ANNOTTYPE

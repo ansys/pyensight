@@ -1,0 +1,6 @@
+select\_all\_timesteps
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_keyframe.select_all_timesteps

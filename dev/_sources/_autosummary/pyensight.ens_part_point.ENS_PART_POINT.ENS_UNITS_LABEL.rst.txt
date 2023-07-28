@@ -1,0 +1,6 @@
+ENS\_UNITS\_LABEL
+=================
+
+.. currentmodule:: pyensight.ens_part_point
+
+.. autoproperty:: ENS_PART_POINT.ENS_UNITS_LABEL

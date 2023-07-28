@@ -1,0 +1,6 @@
+select\_default
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim.select_default

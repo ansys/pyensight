@@ -1,0 +1,6 @@
+color\_space
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: function.color_space

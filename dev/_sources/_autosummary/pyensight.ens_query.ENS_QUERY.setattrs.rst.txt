@@ -1,0 +1,6 @@
+setattrs
+========
+
+.. currentmodule:: pyensight.ens_query
+
+.. automethod:: ENS_QUERY.setattrs

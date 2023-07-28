@@ -1,0 +1,6 @@
+interactive\_part
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_flipbook.interactive_part

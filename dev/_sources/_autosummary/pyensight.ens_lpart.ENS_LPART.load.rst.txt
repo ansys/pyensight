@@ -1,0 +1,6 @@
+load
+====
+
+.. currentmodule:: pyensight.ens_lpart
+
+.. automethod:: ENS_LPART.load

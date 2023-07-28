@@ -1,0 +1,6 @@
+display\_minor
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: tensor.display_minor

@@ -1,0 +1,6 @@
+query\_parts
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ensight.query_parts

@@ -1,0 +1,6 @@
+bounding\_mode
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view.bounding_mode

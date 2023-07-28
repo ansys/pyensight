@@ -1,0 +1,6 @@
+del\_knot
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: function.del_knot

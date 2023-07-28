@@ -1,0 +1,6 @@
+slider\_range\_ijk
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: clip.slider_range_ijk

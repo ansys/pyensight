@@ -1,0 +1,6 @@
+geometric\_type
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: vof.geometric_type

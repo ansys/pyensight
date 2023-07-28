@@ -1,0 +1,6 @@
+allocextattr
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: objs.allocextattr

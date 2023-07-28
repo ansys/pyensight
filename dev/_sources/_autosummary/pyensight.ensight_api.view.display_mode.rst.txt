@@ -1,0 +1,6 @@
+display\_mode
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view.display_mode

@@ -1,0 +1,45 @@
+﻿subset
+======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: subset
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      subset.begin
+      
+      
+      subset.begin_subsetdesc
+      
+      
+      subset.create
+      
+      
+      subset.create_desc
+      
+      
+      subset.dummy_chng_slot
+      
+      
+      subset.end
+      
+      
+      subset.end_subsetdesc
+      
+      
+      subset.select_default
+      
+   
+   
+
+   
+   
+   

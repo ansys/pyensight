@@ -1,0 +1,6 @@
+save\_scenario\_which\_parts
+============================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.save_scenario_which_parts

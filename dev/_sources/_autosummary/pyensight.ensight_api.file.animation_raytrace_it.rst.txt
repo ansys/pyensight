@@ -1,0 +1,6 @@
+animation\_raytrace\_it
+=======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.animation_raytrace_it

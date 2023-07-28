@@ -1,0 +1,6 @@
+use\_continuous\_perelem
+========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: prefs.use_continuous_perelem

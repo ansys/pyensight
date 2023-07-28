@@ -1,0 +1,6 @@
+EDIT\_TARGET
+============
+
+.. currentmodule:: pyensight.ens_annot_dial
+
+.. autoproperty:: ENS_ANNOT_DIAL.EDIT_TARGET

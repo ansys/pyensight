@@ -1,0 +1,6 @@
+dimension3
+==========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: clip.dimension3

@@ -1,0 +1,6 @@
+ENTITYLABELNODE
+===============
+
+.. currentmodule:: pyensight.ens_part
+
+.. autoproperty:: ENS_PART.ENTITYLABELNODE

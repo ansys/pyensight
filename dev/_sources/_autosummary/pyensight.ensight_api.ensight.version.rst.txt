@@ -1,0 +1,6 @@
+version
+=======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ensight.version

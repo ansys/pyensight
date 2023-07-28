@@ -1,0 +1,6 @@
+ELTFILTER3ACTIVE
+================
+
+.. currentmodule:: pyensight.ens_part_built_up
+
+.. autoproperty:: ENS_PART_BUILT_UP.ELTFILTER3ACTIVE

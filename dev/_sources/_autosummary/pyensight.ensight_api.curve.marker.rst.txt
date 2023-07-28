@@ -1,0 +1,6 @@
+marker
+======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: curve.marker

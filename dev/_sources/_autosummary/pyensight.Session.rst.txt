@@ -1,0 +1,99 @@
+﻿Session
+=======
+
+.. currentmodule:: pyensight
+
+.. autoclass:: Session
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Session.add_callback
+      
+      
+      Session.add_ensobj_instance
+      
+      
+      Session.capture_context
+      
+      
+      Session.close
+      
+      
+      Session.cmd
+      
+      
+      Session.copy_from_session
+      
+      
+      Session.copy_to_session
+      
+      
+      Session.exec
+      
+      
+      Session.geometry
+      
+      
+      Session.help
+      
+      
+      Session.load_data
+      
+      
+      Session.load_example
+      
+      
+      Session.obj_instance
+      
+      
+      Session.remote_obj
+      
+      
+      Session.remove_callback
+      
+      
+      Session.render
+      
+      
+      Session.restore_context
+      
+      
+      Session.run_script
+      
+      
+      Session.show
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      Session.cei_home
+      Session.cei_suffix
+      Session.ensight
+      Session.grpc
+      Session.halt_ensight_on_close
+      Session.hostname
+      Session.html_port
+      Session.jupyter_notebook
+      Session.language
+      Session.launcher
+      Session.rest_api
+      Session.secret_key
+      Session.sos
+      Session.timeout
+      Session.ws_port
+   
+   

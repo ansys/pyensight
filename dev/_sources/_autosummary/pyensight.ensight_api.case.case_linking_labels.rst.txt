@@ -1,0 +1,6 @@
+case\_linking\_labels
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: case.case_linking_labels

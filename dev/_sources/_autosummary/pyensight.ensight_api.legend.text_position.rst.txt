@@ -1,0 +1,6 @@
+text\_position
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: legend.text_position

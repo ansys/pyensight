@@ -1,0 +1,6 @@
+get\_end\_point\_colors
+=======================
+
+.. currentmodule:: pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.get_end_point_colors

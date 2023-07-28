@@ -1,0 +1,6 @@
+time\_marker\_width
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: plot.time_marker_width

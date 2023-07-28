@@ -1,0 +1,6 @@
+image\_scale\_factor
+====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.image_scale_factor

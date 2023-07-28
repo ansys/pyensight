@@ -1,0 +1,6 @@
+executable
+==========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: connect.executable

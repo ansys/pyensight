@@ -1,0 +1,6 @@
+wall\_thickness
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: auxgeom.wall_thickness

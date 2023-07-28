@@ -1,0 +1,96 @@
+﻿lightsource
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: lightsource
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      lightsource.active
+      
+      
+      lightsource.casts_shadows
+      
+      
+      lightsource.centroid
+      
+      
+      lightsource.direction_intersect
+      
+      
+      lightsource.direction_lock
+      
+      
+      lightsource.direction_normal
+      
+      
+      lightsource.environment_map_name
+      
+      
+      lightsource.get_quad_fromplanetool
+      
+      
+      lightsource.glyph_size
+      
+      
+      lightsource.intensity
+      
+      
+      lightsource.location
+      
+      
+      lightsource.modify_begin
+      
+      
+      lightsource.modify_end
+      
+      
+      lightsource.quad_size
+      
+      
+      lightsource.quad_xdir
+      
+      
+      lightsource.rgb
+      
+      
+      lightsource.select_all
+      
+      
+      lightsource.select_begin
+      
+      
+      lightsource.set_lights_bypreset
+      
+      
+      lightsource.set_planetool_fromquad
+      
+      
+      lightsource.spot_angle
+      
+      
+      lightsource.spot_falloff
+      
+      
+      lightsource.transform_with_model
+      
+      
+      lightsource.type
+      
+      
+      lightsource.visible
+      
+   
+   
+
+   
+   
+   

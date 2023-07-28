@@ -1,0 +1,6 @@
+select\_default
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: query_interact.select_default

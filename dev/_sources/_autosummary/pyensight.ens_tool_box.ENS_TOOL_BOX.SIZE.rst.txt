@@ -1,0 +1,6 @@
+SIZE
+====
+
+.. currentmodule:: pyensight.ens_tool_box
+
+.. autoproperty:: ENS_TOOL_BOX.SIZE

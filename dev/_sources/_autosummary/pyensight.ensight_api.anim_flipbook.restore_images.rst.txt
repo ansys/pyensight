@@ -1,0 +1,6 @@
+restore\_images
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_flipbook.restore_images

@@ -1,0 +1,1063 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>clip &#8212; PyEnSight</title>
+    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys_sphinx_theme.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/breadcrumbs.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    
+        <link href="../_static/css/breadcrumbs.css" rel="stylesheet">
+    
+    <script integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" src="../_static/jquery.js"></script>
+    <script integrity="sha384-lSZeSIVKp9myfKbDQ3GkN/KHjUc+mzg17VKDN4Y2kUeBSJioB9QSM639vM9fuY//" src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/table.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_autosummary/ansys.api.pyensight.ensight_api.clip';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        </script>
+    <script src="../_static/js/mermaid.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <link rel="icon" href="../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="angle" href="ansys.api.pyensight.ensight_api.clip.angle.html" />
+    <link rel="prev" title="viewports" href="ansys.api.pyensight.ensight_api.case.viewports.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container"><!-- Debugging: html_theme_options =  -->
+
+  <!-- If there is no MiliSearch enabled, use the PyData search -->
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+</div>
+  </div>
+  
+    
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pyansys-logo-black-cropped.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/pyansys-logo-black-cropped.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../getting_started/index.html">
+                        Getting started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../user_guide/index.html">
+                        User guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../class_documentation.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_examples/index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../contributing.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      dev  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+
+    
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(text => document.getElementById("announcement_msg").innerHTML = text)
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+    
+
+    
+    <div class="container-xl">
+    <div class="row">
+        <div class="col-12 col-md-3" id="breadcrumbs-spacer"></div>
+        <div class="col-12 col-md-11 col-xl-9" id="breadcrumbs">
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+    
+    
+        <li class="nav-item nav-item-0"><a href="../index.html">PyEnSight</a> » </li>
+    
+
+          <li class="nav-item nav-item-1"><a href="../class_documentation.html" >API reference</a> » </li>
+          <li class="nav-item nav-item-2"><a href="../native_documentation.html" accesskey="U">Native API reference</a> » </li>
+        <li class="nav-item nav-item-this"><a href="">clip</a></li> 
+      </ul>
+    </div>
+        </div>
+  </div>
+</div>
+    
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../getting_started/index.html">
+                        Getting started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../user_guide/index.html">
+                        User guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../class_documentation.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_examples/index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../contributing.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      dev  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../native_documentation.html">Native API reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.html">ansys.api.pyensight.ensight_api</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim.html">anim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_flipbook.html">anim_flipbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_keyframe.html">anim_keyframe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_quick.html">anim_quick</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_recorders.html">anim_recorders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_screens.html">anim_screens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_traces.html">anim_traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annot_backgr.html">annot_backgr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annot_entlbl.html">annot_entlbl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annotation.html">annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.arrow.html">arrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.auxgeom.html">auxgeom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.boundarylayer.html">boundarylayer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.case.html">case</a></li>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">clip</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.angle.html">angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.axis.html">axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.axis_point_1.html">axis_point_1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.axis_point_2.html">axis_point_2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.axis_x.html">axis_x</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.axis_y.html">axis_y</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.axis_z.html">axis_z</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.begin.html">begin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.box_axis.html">box_axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.box_length.html">box_length</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.box_max.html">box_max</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.box_min.html">box_min</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.box_origin.html">box_origin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.create.html">create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.create_delta.html">create_delta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.delta.html">delta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.dimension2.html">dimension2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.dimension2_step.html">dimension2_step</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.dimension3.html">dimension3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.dimension3_step.html">dimension3_step</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.domain.html">domain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.end.html">end</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.end_point.html">end_point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.extents.html">extents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.general_equation.html">general_equation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.grid_pts.html">grid_pts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.ijk_axis.html">ijk_axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.ijk_scale.html">ijk_scale</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.increment.html">increment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.length.html">length</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.line.html">line</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.line_1.html">line_1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.line_2.html">line_2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.line_nodeid.html">line_nodeid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.mesh_plane.html">mesh_plane</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.number_to_create.html">number_to_create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.origin.html">origin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.plane.html">plane</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.plane_1.html">plane_1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.plane_2.html">plane_2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.plane_3.html">plane_3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.plane_nodeid.html">plane_nodeid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.plane_showsplineqia.html">plane_showsplineqia</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point.html">point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance.html">point_distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_1.html">point_distance_1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_10.html">point_distance_10</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_2.html">point_distance_2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_3.html">point_distance_3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_4.html">point_distance_4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_5.html">point_distance_5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_6.html">point_distance_6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_7.html">point_distance_7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_8.html">point_distance_8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_9.html">point_distance_9</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii.html">point_radii</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_1.html">point_radii_1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_10.html">point_radii_10</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_2.html">point_radii_2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_3.html">point_radii_3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_4.html">point_radii_4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_5.html">point_radii_5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_6.html">point_radii_6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_7.html">point_radii_7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_8.html">point_radii_8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_9.html">point_radii_9</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.points.html">points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.pts_on_line.html">pts_on_line</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.pts_on_spline.html">pts_on_spline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.radius.html">radius</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.revolution_points.html">revolution_points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.revolve_part.html">revolve_part</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.revolve_partbyname.html">revolve_partbyname</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.rtz_axis.html">rtz_axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.sample.html">sample</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.sample_step.html">sample_step</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.select_default.html">select_default</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.slider_range_ijk.html">slider_range_ijk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.slider_step.html">slider_step</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.slider_step_ijk.html">slider_step_ijk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.slider_x.html">slider_x</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.slider_y.html">slider_y</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.slider_z.html">slider_z</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.spline_id.html">spline_id</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.spline_location.html">spline_location</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.spline_name.html">spline_name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.tool.html">tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.type.html">type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.update_to_newtoollocation.html">update_to_newtoollocation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.value.html">value</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.x_max_infinite.html">x_max_infinite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.x_min_infinite.html">x_min_infinite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.y_max_infinite.html">y_max_infinite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.y_min_infinite.html">y_min_infinite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.z_max_infinite.html">z_max_infinite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.z_min_infinite.html">z_min_infinite</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.collab.html">collab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.command.html">command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.connect.html">connect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.context_restore.html">context_restore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.contour.html">contour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.curve.html">curve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.data.html">data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.data_partbuild.html">data_partbuild</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.define.html">define</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.devsrf.html">devsrf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.dial.html">dial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.dpart.html">dpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.elevsurf.html">elevsurf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.html">ensight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.extrude.html">extrude</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.html">file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.filterpart.html">filterpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.format.html">format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.frame.html">frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.function.html">function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.html">gauge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.help.html">help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.isos.html">isos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.legend.html">legend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.lightsource.html">lightsource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.line.html">line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.logo.html">logo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.material.html">material</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.message_window.html">message_window</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.model.html">model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.nplot.html">nplot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.nvc.html">nvc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.objs.html">objs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.html">part</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.plot.html">plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.pointpart.html">pointpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.prefs.html">prefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.profile.html">profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ptrace.html">ptrace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ptrace_emitr.html">ptrace_emitr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.query_ent_var.html">query_ent_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.query_interact.html">query_interact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.savegeom.html">savegeom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.scene.html">scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.sepattach.html">sepattach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.set_tdata.html">set_tdata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.set_visenv.html">set_visenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shape.html">shape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shell.html">shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shock.html">shock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.show_info.html">show_info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.solution_time.html">solution_time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.species.html">species</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.subset.html">subset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.tensor.html">tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.text.html">text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.texture.html">texture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.tools.html">tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.user.html">user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.varextcfd.html">varextcfd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.variables.html">variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vctarrow.html">vctarrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.view.html">view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.view_transf.html">view_transf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport.html">viewport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport_axis.html">viewport_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport_bounds.html">viewport_bounds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.views.html">views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vof.html">vof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vortexcore.html">vortexcore</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../object_documentation.html">Object API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calc_functions.html">Calculator functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest_api/rest_api.html">REST API</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.enscontext.EnsContext.html">EnsContext</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.LocalLauncher.html">LocalLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.DockerLauncher.html">DockerLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.renderable.Renderable.html">Renderable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.Session.html">Session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.export.Export.html">Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.parts.Parts.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.query.Query.html">Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.support.Support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.views.Views.html">Views</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="clip">
+<h1>clip<a class="headerlink" href="#clip" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="ansys.api.pyensight.ensight_api.clip">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ansys.api.pyensight.ensight_api.</span></span><span class="sig-name descname"><span class="pre">clip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ansys.pyensight.core.Session.html#ansys.pyensight.core.Session" title="ansys.pyensight.core.session.Session"><span class="pre">Session</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ansys.api.pyensight.ensight_api.clip" title="Permalink to this definition">#</a></dt>
+<dd><p>Class wrapper for EnSight clip module</p>
+<p>This class acts as a proxy for the EnSight Python module ensight.clip</p>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.angle.html#ansys.api.pyensight.ensight_api.clip.angle" title="ansys.api.pyensight.ensight_api.clip.angle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.angle</span></code></a>(p0)</p></td>
+<td><p>Set the angle for a cone clip.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.axis.html#ansys.api.pyensight.ensight_api.clip.axis" title="ansys.api.pyensight.ensight_api.clip.axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.axis</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Set the direction vector for quadric and revolution clips.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.axis_point_1.html#ansys.api.pyensight.ensight_api.clip.axis_point_1" title="ansys.api.pyensight.ensight_api.clip.axis_point_1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.axis_point_1</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Clip: axis_point 1</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.axis_point_2.html#ansys.api.pyensight.ensight_api.clip.axis_point_2" title="ansys.api.pyensight.ensight_api.clip.axis_point_2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.axis_point_2</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Clip: axis_point 2</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.axis_x.html#ansys.api.pyensight.ensight_api.clip.axis_x" title="ansys.api.pyensight.ensight_api.clip.axis_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.axis_x</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Clip: axis x</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.axis_y.html#ansys.api.pyensight.ensight_api.clip.axis_y" title="ansys.api.pyensight.ensight_api.clip.axis_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.axis_y</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Clip: axis y</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.axis_z.html#ansys.api.pyensight.ensight_api.clip.axis_z" title="ansys.api.pyensight.ensight_api.clip.axis_z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.axis_z</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Clip: axis z</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.begin.html#ansys.api.pyensight.ensight_api.clip.begin" title="ansys.api.pyensight.ensight_api.clip.begin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.begin</span></code></a>()</p></td>
+<td><p>Delimit the modifications for clip attributes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.box_axis.html#ansys.api.pyensight.ensight_api.clip.box_axis" title="ansys.api.pyensight.ensight_api.clip.box_axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.box_axis</span></code></a>(p0, p1, p2, p3)</p></td>
+<td><p>Specify the direction vectors for a box clip.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.box_length.html#ansys.api.pyensight.ensight_api.clip.box_length" title="ansys.api.pyensight.ensight_api.clip.box_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.box_length</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Specify the size of the box clip in the x, y, and z directions</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.box_max.html#ansys.api.pyensight.ensight_api.clip.box_max" title="ansys.api.pyensight.ensight_api.clip.box_max"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.box_max</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Clip: box_max</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.box_min.html#ansys.api.pyensight.ensight_api.clip.box_min" title="ansys.api.pyensight.ensight_api.clip.box_min"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.box_min</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Clip: box_min</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.box_origin.html#ansys.api.pyensight.ensight_api.clip.box_origin" title="ansys.api.pyensight.ensight_api.clip.box_origin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.box_origin</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Specify the origin of the box clip in reference to the parent part frame</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.create.html#ansys.api.pyensight.ensight_api.clip.create" title="ansys.api.pyensight.ensight_api.clip.create"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.create</span></code></a>()</p></td>
+<td><p>Create a clip part with the currently defined attributes using the currently selected parts as parents.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.create_delta.html#ansys.api.pyensight.ensight_api.clip.create_delta" title="ansys.api.pyensight.ensight_api.clip.create_delta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.create_delta</span></code></a>(p0)</p></td>
+<td><p>Specify the delta offset when multiple clip instances will be created.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.delta.html#ansys.api.pyensight.ensight_api.clip.delta" title="ansys.api.pyensight.ensight_api.clip.delta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.delta</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Set a delta transform for use with the keyframe animator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.dimension2.html#ansys.api.pyensight.ensight_api.clip.dimension2" title="ansys.api.pyensight.ensight_api.clip.dimension2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.dimension2</span></code></a>(p0, p1)</p></td>
+<td><p>Specify the minimum/maximum range for the non-constant I/J/K extract.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.dimension2_step.html#ansys.api.pyensight.ensight_api.clip.dimension2_step" title="ansys.api.pyensight.ensight_api.clip.dimension2_step"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.dimension2_step</span></code></a>(p0)</p></td>
+<td><p>Specify the step increment for the non-constant I/J/K extract.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.dimension3.html#ansys.api.pyensight.ensight_api.clip.dimension3" title="ansys.api.pyensight.ensight_api.clip.dimension3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.dimension3</span></code></a>(p0, p1)</p></td>
+<td><p>Specify the minimum/maximum range for the non-constant I/J/K extract.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.dimension3_step.html#ansys.api.pyensight.ensight_api.clip.dimension3_step" title="ansys.api.pyensight.ensight_api.clip.dimension3_step"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.dimension3_step</span></code></a>(p0)</p></td>
+<td><p>Specify the step increment for the non-constant I/J/K extract.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.domain.html#ansys.api.pyensight.ensight_api.clip.domain" title="ansys.api.pyensight.ensight_api.clip.domain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.domain</span></code></a>(p0)</p></td>
+<td><p>Specify what type of clip will be created.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.end.html#ansys.api.pyensight.ensight_api.clip.end" title="ansys.api.pyensight.ensight_api.clip.end"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.end</span></code></a>()</p></td>
+<td><p>Delimit the modifications for clip attributes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.end_point.html#ansys.api.pyensight.ensight_api.clip.end_point" title="ansys.api.pyensight.ensight_api.clip.end_point"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.end_point</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Clip: end_point</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.extents.html#ansys.api.pyensight.ensight_api.clip.extents" title="ansys.api.pyensight.ensight_api.clip.extents"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.extents</span></code></a>(p0)</p></td>
+<td><p>Set the clip extents to infinite or finite.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.general_equation.html#ansys.api.pyensight.ensight_api.clip.general_equation" title="ansys.api.pyensight.ensight_api.clip.general_equation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.general_equation</span></code></a>(p0, p1, p2, p3, p4, ...)</p></td>
+<td><p>Clip to a specified quadric equation of the form</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.grid_pts.html#ansys.api.pyensight.ensight_api.clip.grid_pts" title="ansys.api.pyensight.ensight_api.clip.grid_pts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.grid_pts</span></code></a>(p0, p1)</p></td>
+<td><p>Set the number of sample points for a planar grid clip.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.ijk_axis.html#ansys.api.pyensight.ensight_api.clip.ijk_axis" title="ansys.api.pyensight.ensight_api.clip.ijk_axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.ijk_axis</span></code></a>(p0)</p></td>
+<td><p>Display an axis system for a IJK extract.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.ijk_scale.html#ansys.api.pyensight.ensight_api.clip.ijk_scale" title="ansys.api.pyensight.ensight_api.clip.ijk_scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.ijk_scale</span></code></a>(p0)</p></td>
+<td><p>Specify the length of the IJK axis for IJK extracts.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.increment.html#ansys.api.pyensight.ensight_api.clip.increment" title="ansys.api.pyensight.ensight_api.clip.increment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.increment</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.length.html#ansys.api.pyensight.ensight_api.clip.length" title="ansys.api.pyensight.ensight_api.clip.length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.length</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Clip: length</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.line.html#ansys.api.pyensight.ensight_api.clip.line" title="ansys.api.pyensight.ensight_api.clip.line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.line</span></code></a>(p0, p1, p2, p3)</p></td>
+<td><p>Set an end point for a clip line.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.line_1.html#ansys.api.pyensight.ensight_api.clip.line_1" title="ansys.api.pyensight.ensight_api.clip.line_1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.line_1</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Clip: line 1</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.line_2.html#ansys.api.pyensight.ensight_api.clip.line_2" title="ansys.api.pyensight.ensight_api.clip.line_2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.line_2</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Clip: line 2</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.line_nodeid.html#ansys.api.pyensight.ensight_api.clip.line_nodeid" title="ansys.api.pyensight.ensight_api.clip.line_nodeid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.line_nodeid</span></code></a>(p0, p1)</p></td>
+<td><p>Create a clip line defined by the two node ids given.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.mesh_plane.html#ansys.api.pyensight.ensight_api.clip.mesh_plane" title="ansys.api.pyensight.ensight_api.clip.mesh_plane"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.mesh_plane</span></code></a>(p0)</p></td>
+<td><p>Set the plane for XYZ or IJK clips</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.number_to_create.html#ansys.api.pyensight.ensight_api.clip.number_to_create" title="ansys.api.pyensight.ensight_api.clip.number_to_create"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.number_to_create</span></code></a>(p0)</p></td>
+<td><p>Specify the number of clips, at the specified delta, to create.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.origin.html#ansys.api.pyensight.ensight_api.clip.origin" title="ansys.api.pyensight.ensight_api.clip.origin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.origin</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Set origin for quadric and revolution clips.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.plane.html#ansys.api.pyensight.ensight_api.clip.plane" title="ansys.api.pyensight.ensight_api.clip.plane"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.plane</span></code></a>(p0, p1, p2, p3)</p></td>
+<td><p>Set a corner for a clip plane.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.plane_1.html#ansys.api.pyensight.ensight_api.clip.plane_1" title="ansys.api.pyensight.ensight_api.clip.plane_1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.plane_1</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Clip: plane 1</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.plane_2.html#ansys.api.pyensight.ensight_api.clip.plane_2" title="ansys.api.pyensight.ensight_api.clip.plane_2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.plane_2</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Clip: plane 2</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.plane_3.html#ansys.api.pyensight.ensight_api.clip.plane_3" title="ansys.api.pyensight.ensight_api.clip.plane_3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.plane_3</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Clip: plane 3</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.plane_nodeid.html#ansys.api.pyensight.ensight_api.clip.plane_nodeid" title="ansys.api.pyensight.ensight_api.clip.plane_nodeid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.plane_nodeid</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Create a clip plane defined by the three node ids given.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.plane_showsplineqia.html#ansys.api.pyensight.ensight_api.clip.plane_showsplineqia" title="ansys.api.pyensight.ensight_api.clip.plane_showsplineqia"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.plane_showsplineqia</span></code></a>(p0)</p></td>
+<td><p>Clip: plane_showsplineqia</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point.html#ansys.api.pyensight.ensight_api.clip.point" title="ansys.api.pyensight.ensight_api.clip.point"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Defines points for the surface of revolution.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance.html#ansys.api.pyensight.ensight_api.clip.point_distance" title="ansys.api.pyensight.ensight_api.clip.point_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_distance</span></code></a>(p0, p1)</p></td>
+<td><p>Clip: point_distance</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_1.html#ansys.api.pyensight.ensight_api.clip.point_distance_1" title="ansys.api.pyensight.ensight_api.clip.point_distance_1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_distance_1</span></code></a>(p0)</p></td>
+<td><p>Clip: point_distance 1</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_10.html#ansys.api.pyensight.ensight_api.clip.point_distance_10" title="ansys.api.pyensight.ensight_api.clip.point_distance_10"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_distance_10</span></code></a>(p0)</p></td>
+<td><p>Clip: point_distance 10</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_2.html#ansys.api.pyensight.ensight_api.clip.point_distance_2" title="ansys.api.pyensight.ensight_api.clip.point_distance_2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_distance_2</span></code></a>(p0)</p></td>
+<td><p>Clip: point_distance 2</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_3.html#ansys.api.pyensight.ensight_api.clip.point_distance_3" title="ansys.api.pyensight.ensight_api.clip.point_distance_3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_distance_3</span></code></a>(p0)</p></td>
+<td><p>Clip: point_distance 3</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_4.html#ansys.api.pyensight.ensight_api.clip.point_distance_4" title="ansys.api.pyensight.ensight_api.clip.point_distance_4"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_distance_4</span></code></a>(p0)</p></td>
+<td><p>Clip: point_distance 4</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_5.html#ansys.api.pyensight.ensight_api.clip.point_distance_5" title="ansys.api.pyensight.ensight_api.clip.point_distance_5"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_distance_5</span></code></a>(p0)</p></td>
+<td><p>Clip: point_distance 5</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_6.html#ansys.api.pyensight.ensight_api.clip.point_distance_6" title="ansys.api.pyensight.ensight_api.clip.point_distance_6"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_distance_6</span></code></a>(p0)</p></td>
+<td><p>Clip: point_distance 6</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_7.html#ansys.api.pyensight.ensight_api.clip.point_distance_7" title="ansys.api.pyensight.ensight_api.clip.point_distance_7"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_distance_7</span></code></a>(p0)</p></td>
+<td><p>Clip: point_distance 7</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_8.html#ansys.api.pyensight.ensight_api.clip.point_distance_8" title="ansys.api.pyensight.ensight_api.clip.point_distance_8"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_distance_8</span></code></a>(p0)</p></td>
+<td><p>Clip: point_distance 8</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_distance_9.html#ansys.api.pyensight.ensight_api.clip.point_distance_9" title="ansys.api.pyensight.ensight_api.clip.point_distance_9"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_distance_9</span></code></a>(p0)</p></td>
+<td><p>Clip: point_distance 9</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii.html#ansys.api.pyensight.ensight_api.clip.point_radii" title="ansys.api.pyensight.ensight_api.clip.point_radii"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_radii</span></code></a>(p0, p1)</p></td>
+<td><p>Clip: point_radii</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_1.html#ansys.api.pyensight.ensight_api.clip.point_radii_1" title="ansys.api.pyensight.ensight_api.clip.point_radii_1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_radii_1</span></code></a>(p0)</p></td>
+<td><p>Clip: point_radii 1</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_10.html#ansys.api.pyensight.ensight_api.clip.point_radii_10" title="ansys.api.pyensight.ensight_api.clip.point_radii_10"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_radii_10</span></code></a>(p0)</p></td>
+<td><p>Clip: point_radii 10</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_2.html#ansys.api.pyensight.ensight_api.clip.point_radii_2" title="ansys.api.pyensight.ensight_api.clip.point_radii_2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_radii_2</span></code></a>(p0)</p></td>
+<td><p>Clip: point_radii 2</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_3.html#ansys.api.pyensight.ensight_api.clip.point_radii_3" title="ansys.api.pyensight.ensight_api.clip.point_radii_3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_radii_3</span></code></a>(p0)</p></td>
+<td><p>Clip: point_radii 3</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_4.html#ansys.api.pyensight.ensight_api.clip.point_radii_4" title="ansys.api.pyensight.ensight_api.clip.point_radii_4"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_radii_4</span></code></a>(p0)</p></td>
+<td><p>Clip: point_radii 4</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_5.html#ansys.api.pyensight.ensight_api.clip.point_radii_5" title="ansys.api.pyensight.ensight_api.clip.point_radii_5"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_radii_5</span></code></a>(p0)</p></td>
+<td><p>Clip: point_radii 5</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_6.html#ansys.api.pyensight.ensight_api.clip.point_radii_6" title="ansys.api.pyensight.ensight_api.clip.point_radii_6"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_radii_6</span></code></a>(p0)</p></td>
+<td><p>Clip: point_radii 6</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_7.html#ansys.api.pyensight.ensight_api.clip.point_radii_7" title="ansys.api.pyensight.ensight_api.clip.point_radii_7"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_radii_7</span></code></a>(p0)</p></td>
+<td><p>Clip: point_radii 7</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_8.html#ansys.api.pyensight.ensight_api.clip.point_radii_8" title="ansys.api.pyensight.ensight_api.clip.point_radii_8"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_radii_8</span></code></a>(p0)</p></td>
+<td><p>Clip: point_radii 8</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.point_radii_9.html#ansys.api.pyensight.ensight_api.clip.point_radii_9" title="ansys.api.pyensight.ensight_api.clip.point_radii_9"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.point_radii_9</span></code></a>(p0)</p></td>
+<td><p>Clip: point_radii 9</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.points.html#ansys.api.pyensight.ensight_api.clip.points" title="ansys.api.pyensight.ensight_api.clip.points"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.points</span></code></a>(p0)</p></td>
+<td><p>Clip: points</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.pts_on_line.html#ansys.api.pyensight.ensight_api.clip.pts_on_line" title="ansys.api.pyensight.ensight_api.clip.pts_on_line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.pts_on_line</span></code></a>(p0)</p></td>
+<td><p>Set the number of sample points for a line clip.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.pts_on_spline.html#ansys.api.pyensight.ensight_api.clip.pts_on_spline" title="ansys.api.pyensight.ensight_api.clip.pts_on_spline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.pts_on_spline</span></code></a>(p0)</p></td>
+<td><p>Clip: pts_on_spline</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.radius.html#ansys.api.pyensight.ensight_api.clip.radius" title="ansys.api.pyensight.ensight_api.clip.radius"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.radius</span></code></a>(p0)</p></td>
+<td><p>Set the radius for a sphere or cylinder clip.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.revolution_points.html#ansys.api.pyensight.ensight_api.clip.revolution_points" title="ansys.api.pyensight.ensight_api.clip.revolution_points"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.revolution_points</span></code></a>(p0)</p></td>
+<td><p>Set the number of points used in the tool of revolution for clipping.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.revolve_part.html#ansys.api.pyensight.ensight_api.clip.revolve_part" title="ansys.api.pyensight.ensight_api.clip.revolve_part"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.revolve_part</span></code></a>(p0)</p></td>
+<td><p>Clip by revolving a 1D part about an axis.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.revolve_partbyname.html#ansys.api.pyensight.ensight_api.clip.revolve_partbyname" title="ansys.api.pyensight.ensight_api.clip.revolve_partbyname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.revolve_partbyname</span></code></a>(p0)</p></td>
+<td><p>Clip by revolving a 1D part about an axis.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.rtz_axis.html#ansys.api.pyensight.ensight_api.clip.rtz_axis" title="ansys.api.pyensight.ensight_api.clip.rtz_axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.rtz_axis</span></code></a>(p0)</p></td>
+<td><p>Specify the axis to be used for RTZ clips.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.sample.html#ansys.api.pyensight.ensight_api.clip.sample" title="ansys.api.pyensight.ensight_api.clip.sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.sample</span></code></a>(p0)</p></td>
+<td><p>Clip: sample</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.sample_step.html#ansys.api.pyensight.ensight_api.clip.sample_step" title="ansys.api.pyensight.ensight_api.clip.sample_step"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.sample_step</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Clip: sample_step</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.select_default.html#ansys.api.pyensight.ensight_api.clip.select_default" title="ansys.api.pyensight.ensight_api.clip.select_default"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.select_default</span></code></a>()</p></td>
+<td><p>Sets the target to the default settings for subsequent attribute modifications.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.slider_range_ijk.html#ansys.api.pyensight.ensight_api.clip.slider_range_ijk" title="ansys.api.pyensight.ensight_api.clip.slider_range_ijk"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.slider_range_ijk</span></code></a>(p0, p1)</p></td>
+<td><p>Set the I, J, or K range through which an IJK clip part will be modified when in interactive mode, whether using the slider in Manual mode or in Auto or Auto Cycle mode.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.slider_step.html#ansys.api.pyensight.ensight_api.clip.slider_step" title="ansys.api.pyensight.ensight_api.clip.slider_step"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.slider_step</span></code></a>(p0)</p></td>
+<td><p>Set the value that a X/Y/Z clip part is modified when in interactive mode and the user interface less/greater buttons are selected.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.slider_step_ijk.html#ansys.api.pyensight.ensight_api.clip.slider_step_ijk" title="ansys.api.pyensight.ensight_api.clip.slider_step_ijk"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.slider_step_ijk</span></code></a>(p0)</p></td>
+<td><p>Set the value that an IJK clip part is modified when in interactive mode and the user interface less/greater buttons are selected.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.slider_x.html#ansys.api.pyensight.ensight_api.clip.slider_x" title="ansys.api.pyensight.ensight_api.clip.slider_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.slider_x</span></code></a>(p0, p1)</p></td>
+<td><p>Set the min/max X/Y/Z extents in the user interface for a clip of constant X/Y/Z.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.slider_y.html#ansys.api.pyensight.ensight_api.clip.slider_y" title="ansys.api.pyensight.ensight_api.clip.slider_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.slider_y</span></code></a>(p0, p1)</p></td>
+<td><p>Set the min/max X/Y/Z extents in the user interface for a clip of constant X/Y/Z.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.slider_z.html#ansys.api.pyensight.ensight_api.clip.slider_z" title="ansys.api.pyensight.ensight_api.clip.slider_z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.slider_z</span></code></a>(p0, p1)</p></td>
+<td><p>Set the min/max X/Y/Z extents in the user interface for a clip of constant X/Y/Z.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.spline_id.html#ansys.api.pyensight.ensight_api.clip.spline_id" title="ansys.api.pyensight.ensight_api.clip.spline_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.spline_id</span></code></a>(p0)</p></td>
+<td><p>Clip: spline_id</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.spline_location.html#ansys.api.pyensight.ensight_api.clip.spline_location" title="ansys.api.pyensight.ensight_api.clip.spline_location"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.spline_location</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.spline_name.html#ansys.api.pyensight.ensight_api.clip.spline_name" title="ansys.api.pyensight.ensight_api.clip.spline_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.spline_name</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.tool.html#ansys.api.pyensight.ensight_api.clip.tool" title="ansys.api.pyensight.ensight_api.clip.tool"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.tool</span></code></a>(p0)</p></td>
+<td><p>Set the clipping tool.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.type.html#ansys.api.pyensight.ensight_api.clip.type" title="ansys.api.pyensight.ensight_api.clip.type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.type</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.update_to_newtoollocation.html#ansys.api.pyensight.ensight_api.clip.update_to_newtoollocation" title="ansys.api.pyensight.ensight_api.clip.update_to_newtoollocation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.update_to_newtoollocation</span></code></a>()</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.value.html#ansys.api.pyensight.ensight_api.clip.value" title="ansys.api.pyensight.ensight_api.clip.value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.value</span></code></a>(p0)</p></td>
+<td><p>Specify the constant plane value for XYZ or IJK clips.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.x_max_infinite.html#ansys.api.pyensight.ensight_api.clip.x_max_infinite" title="ansys.api.pyensight.ensight_api.clip.x_max_infinite"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.x_max_infinite</span></code></a>(p0)</p></td>
+<td><p>Clip: x_max_infinite</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.x_min_infinite.html#ansys.api.pyensight.ensight_api.clip.x_min_infinite" title="ansys.api.pyensight.ensight_api.clip.x_min_infinite"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.x_min_infinite</span></code></a>(p0)</p></td>
+<td><p>Clip: x_min_infinite</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.y_max_infinite.html#ansys.api.pyensight.ensight_api.clip.y_max_infinite" title="ansys.api.pyensight.ensight_api.clip.y_max_infinite"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.y_max_infinite</span></code></a>(p0)</p></td>
+<td><p>Clip: y_max_infinite</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.y_min_infinite.html#ansys.api.pyensight.ensight_api.clip.y_min_infinite" title="ansys.api.pyensight.ensight_api.clip.y_min_infinite"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.y_min_infinite</span></code></a>(p0)</p></td>
+<td><p>Clip: y_min_infinite</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.z_max_infinite.html#ansys.api.pyensight.ensight_api.clip.z_max_infinite" title="ansys.api.pyensight.ensight_api.clip.z_max_infinite"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.z_max_infinite</span></code></a>(p0)</p></td>
+<td><p>Clip: z_max_infinite</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.z_min_infinite.html#ansys.api.pyensight.ensight_api.clip.z_min_infinite" title="ansys.api.pyensight.ensight_api.clip.z_min_infinite"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip.z_min_infinite</span></code></a>(p0)</p></td>
+<td><p>Clip: z_min_infinite</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ansys.api.pyensight.ensight_api.clip"><code class="docutils literal notranslate"><span class="pre">clip</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../_sources/_autosummary/ansys.api.pyensight.ensight_api.clip.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright (c) 2023 ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+    Built with the <a href="https://sphinxdocs.ansys.com/version/stable/index.html">Ansys Sphinx Theme</a> 0.9.9.
+    <br>Last updated on <span id="date"></span></br>
+</p>
+<script>
+  var options = { day: 'numeric', month: 'long', year: 'numeric' };
+  var lastModifiedDate = new Date(document.lastModified);
+  var date = lastModifiedDate.toLocaleDateString('en-US', options);
+  document.getElementById("date").innerHTML = date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

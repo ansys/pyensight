@@ -1,0 +1,6 @@
+connect
+=======
+
+.. currentmodule:: pyensight
+
+.. automethod:: DockerLauncher.connect

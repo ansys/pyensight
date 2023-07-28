@@ -1,0 +1,6 @@
+CLIP
+====
+
+.. currentmodule:: pyensight.ens_part_isosurface
+
+.. autoproperty:: ENS_PART_ISOSURFACE.CLIP

@@ -1,0 +1,6 @@
+node
+====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: show_info.node

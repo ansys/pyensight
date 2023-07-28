@@ -1,0 +1,6 @@
+axis\_auto\_update
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: plot.axis_auto_update

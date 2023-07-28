@@ -1,0 +1,6 @@
+show\_raytraced\_image
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: nvc.show_raytraced_image

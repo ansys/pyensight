@@ -1,0 +1,6 @@
+GENERATION\_PENDING
+===================
+
+.. currentmodule:: pyensight.ens_source
+
+.. autoproperty:: ENS_SOURCE.GENERATION_PENDING

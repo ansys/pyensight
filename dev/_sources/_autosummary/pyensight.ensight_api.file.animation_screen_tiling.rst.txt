@@ -1,0 +1,6 @@
+animation\_screen\_tiling
+=========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.animation_screen_tiling

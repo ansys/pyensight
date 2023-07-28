@@ -1,0 +1,6 @@
+use\_interactive\_parts
+=======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_keyframe.use_interactive_parts

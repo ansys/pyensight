@@ -1,0 +1,6 @@
+ENS\_TURBO\_VIEW
+================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_fx_vortex_core
+
+.. autoproperty:: ENS_PART_FX_VORTEX_CORE.ENS_TURBO_VIEW

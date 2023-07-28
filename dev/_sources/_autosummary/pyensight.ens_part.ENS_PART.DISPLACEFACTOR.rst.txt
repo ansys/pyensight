@@ -1,0 +1,6 @@
+DISPLACEFACTOR
+==============
+
+.. currentmodule:: pyensight.ens_part
+
+.. autoproperty:: ENS_PART.DISPLACEFACTOR

@@ -1,0 +1,6 @@
+TEMPORAL\_ELEMENT
+=================
+
+.. currentmodule:: pyensight.utils.query
+
+.. autoattribute:: Query.TEMPORAL_ELEMENT

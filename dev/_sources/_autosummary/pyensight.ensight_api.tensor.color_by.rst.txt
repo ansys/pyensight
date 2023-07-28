@@ -1,0 +1,6 @@
+color\_by
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: tensor.color_by

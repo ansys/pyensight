@@ -1,0 +1,6 @@
+tool\_tips
+==========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: prefs.tool_tips

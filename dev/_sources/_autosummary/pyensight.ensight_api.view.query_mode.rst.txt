@@ -1,0 +1,6 @@
+query\_mode
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view.query_mode

@@ -1,0 +1,6 @@
+cursor\_loc
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: query_ent_var.cursor_loc

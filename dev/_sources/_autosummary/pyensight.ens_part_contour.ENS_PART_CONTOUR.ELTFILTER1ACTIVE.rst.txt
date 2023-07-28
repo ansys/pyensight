@@ -1,0 +1,6 @@
+ELTFILTER1ACTIVE
+================
+
+.. currentmodule:: pyensight.ens_part_contour
+
+.. autoproperty:: ENS_PART_CONTOUR.ELTFILTER1ACTIVE

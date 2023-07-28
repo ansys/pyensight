@@ -1,0 +1,6 @@
+total\_time
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.total_time

@@ -1,0 +1,6 @@
+fastdisplay\_point\_res
+=======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: prefs.fastdisplay_point_res

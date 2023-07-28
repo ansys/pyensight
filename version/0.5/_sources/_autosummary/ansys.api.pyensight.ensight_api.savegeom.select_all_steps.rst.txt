@@ -1,0 +1,6 @@
+select\_all\_steps
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: savegeom.select_all_steps

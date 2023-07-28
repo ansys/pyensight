@@ -1,0 +1,6 @@
+ENS\_PLIST\_KEY\_SEL\_1
+=======================
+
+.. currentmodule:: pyensight.ens_part_aux_geom
+
+.. autoproperty:: ENS_PART_AUX_GEOM.ENS_PLIST_KEY_SEL_1

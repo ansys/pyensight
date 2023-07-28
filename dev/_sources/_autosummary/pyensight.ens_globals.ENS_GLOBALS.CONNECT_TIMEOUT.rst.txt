@@ -1,0 +1,6 @@
+CONNECT\_TIMEOUT
+================
+
+.. currentmodule:: pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.CONNECT_TIMEOUT

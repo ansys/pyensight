@@ -1,0 +1,6 @@
+populate\_attr\_list
+====================
+
+.. currentmodule:: pyensight.ens_polyline
+
+.. automethod:: ENS_POLYLINE.populate_attr_list

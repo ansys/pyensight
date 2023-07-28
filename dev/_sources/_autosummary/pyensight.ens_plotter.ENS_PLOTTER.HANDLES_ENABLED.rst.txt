@@ -1,0 +1,6 @@
+HANDLES\_ENABLED
+================
+
+.. currentmodule:: pyensight.ens_plotter
+
+.. autoproperty:: ENS_PLOTTER.HANDLES_ENABLED

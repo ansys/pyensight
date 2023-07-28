@@ -1,0 +1,6 @@
+cmdlang\_rec\_info
+==================
+
+.. currentmodule:: pyensight.ens_part_discrete_particle
+
+.. automethod:: ENS_PART_DISCRETE_PARTICLE.cmdlang_rec_info

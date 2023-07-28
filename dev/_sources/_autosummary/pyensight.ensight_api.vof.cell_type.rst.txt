@@ -1,0 +1,6 @@
+cell\_type
+==========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: vof.cell_type

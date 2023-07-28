@@ -1,0 +1,48 @@
+﻿annot\_entlbl
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: annot_entlbl
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      annot_entlbl.element_rgb
+      
+      
+      annot_entlbl.element_threshold_high
+      
+      
+      annot_entlbl.element_threshold_low
+      
+      
+      annot_entlbl.element_thresholds
+      
+      
+      annot_entlbl.node_rgb
+      
+      
+      annot_entlbl.node_threshold_high
+      
+      
+      annot_entlbl.node_threshold_low
+      
+      
+      annot_entlbl.node_thresholds
+      
+      
+      annot_entlbl.part_rgb
+      
+   
+   
+
+   
+   
+   

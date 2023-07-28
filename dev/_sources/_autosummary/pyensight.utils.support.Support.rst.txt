@@ -1,0 +1,24 @@
+﻿Support
+=======
+
+.. currentmodule:: pyensight.utils.support
+
+.. autoclass:: Support
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Support.scoped_name
+      
+   
+   
+
+   
+   
+   

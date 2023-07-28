@@ -1,0 +1,6 @@
+temperature
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: shock.temperature

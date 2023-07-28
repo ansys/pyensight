@@ -1,0 +1,6 @@
+BLENDRGB2
+=========
+
+.. currentmodule:: pyensight.ens_vport
+
+.. autoproperty:: ENS_VPORT.BLENDRGB2

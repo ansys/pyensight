@@ -1,0 +1,6 @@
+animation
+=========
+
+.. currentmodule:: pyensight.utils.export
+
+.. automethod:: Export.animation

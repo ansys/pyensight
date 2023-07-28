@@ -1,0 +1,6 @@
+ground\_plane\_upvector
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: scene.ground_plane_upvector

@@ -1,0 +1,6 @@
+attrissensitive
+===============
+
+.. currentmodule:: pyensight.ens_var
+
+.. automethod:: ENS_VAR.attrissensitive

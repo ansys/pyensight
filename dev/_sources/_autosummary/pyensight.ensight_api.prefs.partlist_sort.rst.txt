@@ -1,0 +1,6 @@
+partlist\_sort
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: prefs.partlist_sort

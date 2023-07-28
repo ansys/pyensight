@@ -1,0 +1,6 @@
+attrtree
+========
+
+.. currentmodule:: pyensight.ens_part_fx_shock
+
+.. automethod:: ENS_PART_FX_SHOCK.attrtree

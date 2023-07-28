@@ -1,0 +1,6 @@
+SUBTICKSCALEFACTOR
+==================
+
+.. currentmodule:: pyensight.ens_vport
+
+.. autoproperty:: ENS_VPORT.SUBTICKSCALEFACTOR

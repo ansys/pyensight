@@ -1,0 +1,6 @@
+ADJCOORDZVARIABLE
+=================
+
+.. currentmodule:: pyensight.ens_part_fx_shock
+
+.. autoproperty:: ENS_PART_FX_SHOCK.ADJCOORDZVARIABLE

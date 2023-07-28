@@ -1,0 +1,6 @@
+axis\_z\_numsubgrid
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: viewport_bounds.axis_z_numsubgrid

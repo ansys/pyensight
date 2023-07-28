@@ -1,0 +1,6 @@
+y\_max\_infinite
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: clip.y_max_infinite

@@ -1,0 +1,6 @@
+entity\_label\_node
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.entity_label_node

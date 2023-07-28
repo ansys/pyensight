@@ -1,0 +1,6 @@
+CASELINKING
+===========
+
+.. currentmodule:: pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.CASELINKING

@@ -1,0 +1,30 @@
+﻿Parts
+=====
+
+.. currentmodule:: pyensight.utils.parts
+
+.. autoclass:: Parts
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Parts.select_parts_by_dimension
+      
+      
+      Parts.select_parts_by_tag
+      
+      
+      Parts.select_parts_invert
+      
+   
+   
+
+   
+   
+   

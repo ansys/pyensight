@@ -1,0 +1,6 @@
+save\_images
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_flipbook.save_images

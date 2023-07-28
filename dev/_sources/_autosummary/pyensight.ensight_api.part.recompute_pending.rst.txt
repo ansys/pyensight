@@ -1,0 +1,6 @@
+recompute\_pending
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.recompute_pending

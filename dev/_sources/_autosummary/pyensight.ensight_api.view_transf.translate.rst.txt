@@ -1,0 +1,6 @@
+translate
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.translate

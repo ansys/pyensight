@@ -1,0 +1,6 @@
+reset\_range\_on\_time\_change\_all
+===================================
+
+.. currentmodule:: pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.reset_range_on_time_change_all

@@ -1,0 +1,6 @@
+hostname
+========
+
+.. currentmodule:: pyensight
+
+.. autoproperty:: Session.hostname

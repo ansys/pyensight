@@ -1,0 +1,6 @@
+ORIGIN\_SPLINE\_ID
+==================
+
+.. currentmodule:: pyensight.ens_camera
+
+.. autoproperty:: ENS_CAMERA.ORIGIN_SPLINE_ID

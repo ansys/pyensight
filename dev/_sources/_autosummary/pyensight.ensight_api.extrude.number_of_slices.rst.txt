@@ -1,0 +1,6 @@
+number\_of\_slices
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: extrude.number_of_slices

@@ -1,0 +1,6 @@
+entity\_select\_begin
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: plot.entity_select_begin

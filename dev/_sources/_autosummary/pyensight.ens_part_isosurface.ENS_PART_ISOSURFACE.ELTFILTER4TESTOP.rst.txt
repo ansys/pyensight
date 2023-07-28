@@ -1,0 +1,6 @@
+ELTFILTER4TESTOP
+================
+
+.. currentmodule:: pyensight.ens_part_isosurface
+
+.. autoproperty:: ENS_PART_ISOSURFACE.ELTFILTER4TESTOP

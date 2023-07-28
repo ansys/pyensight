@@ -1,0 +1,6 @@
+use\_surface\_normals
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: set_visenv.use_surface_normals

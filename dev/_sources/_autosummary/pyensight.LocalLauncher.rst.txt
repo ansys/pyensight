@@ -1,0 +1,41 @@
+﻿LocalLauncher
+=============
+
+.. currentmodule:: pyensight
+
+.. autoclass:: LocalLauncher
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      LocalLauncher.close
+      
+      
+      LocalLauncher.get_cei_install_directory
+      
+      
+      LocalLauncher.start
+      
+      
+      LocalLauncher.stop
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      LocalLauncher.application
+      LocalLauncher.session_directory
+   
+   

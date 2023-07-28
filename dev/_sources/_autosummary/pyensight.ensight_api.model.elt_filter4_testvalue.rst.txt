@@ -1,0 +1,6 @@
+elt\_filter4\_testvalue
+=======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: model.elt_filter4_testvalue

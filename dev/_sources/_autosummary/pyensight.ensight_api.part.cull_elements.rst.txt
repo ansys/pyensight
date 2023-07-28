@@ -1,0 +1,6 @@
+cull\_elements
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.cull_elements

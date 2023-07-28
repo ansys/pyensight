@@ -1,0 +1,6 @@
+ALPHABYPALETTE
+==============
+
+.. currentmodule:: pyensight.ens_part_vector_arrow
+
+.. autoproperty:: ENS_PART_VECTOR_ARROW.ALPHABYPALETTE

@@ -1,0 +1,6 @@
+PLOTTER\_TIME\_CLIPPING
+=======================
+
+.. currentmodule:: pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.PLOTTER_TIME_CLIPPING

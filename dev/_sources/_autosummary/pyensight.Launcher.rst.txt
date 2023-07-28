@@ -1,0 +1,37 @@
+﻿Launcher
+========
+
+.. currentmodule:: pyensight
+
+.. autoclass:: Launcher
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Launcher.close
+      
+      
+      Launcher.start
+      
+      
+      Launcher.stop
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      Launcher.session_directory
+   
+   

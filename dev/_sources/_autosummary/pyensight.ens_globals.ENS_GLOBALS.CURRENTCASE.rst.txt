@@ -1,0 +1,6 @@
+CURRENTCASE
+===========
+
+.. currentmodule:: pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.CURRENTCASE

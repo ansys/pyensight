@@ -1,0 +1,6 @@
+USE\_CONTINUOUS
+===============
+
+.. currentmodule:: pyensight.ens_palette
+
+.. autoproperty:: ENS_PALETTE.USE_CONTINUOUS

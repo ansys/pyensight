@@ -1,0 +1,6 @@
+ELTFILTER3VARIABLE
+==================
+
+.. currentmodule:: pyensight.ens_part_clip
+
+.. autoproperty:: ENS_PART_CLIP.ELTFILTER3VARIABLE

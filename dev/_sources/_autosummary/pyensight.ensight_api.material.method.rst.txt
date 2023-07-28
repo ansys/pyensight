@@ -1,0 +1,6 @@
+method
+======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: material.method

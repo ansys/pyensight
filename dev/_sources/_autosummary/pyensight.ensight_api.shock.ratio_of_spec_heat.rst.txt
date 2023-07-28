@@ -1,0 +1,6 @@
+ratio\_of\_spec\_heat
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: shock.ratio_of_spec_heat

@@ -1,0 +1,6 @@
+number\_of\_labels\_x
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: frame.number_of_labels_x

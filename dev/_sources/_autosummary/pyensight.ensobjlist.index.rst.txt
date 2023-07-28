@@ -1,0 +1,6 @@
+index
+=====
+
+.. currentmodule:: pyensight
+
+.. automethod:: ensobjlist.index

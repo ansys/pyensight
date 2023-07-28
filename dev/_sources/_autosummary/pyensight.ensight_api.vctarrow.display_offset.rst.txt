@@ -1,0 +1,6 @@
+display\_offset
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: vctarrow.display_offset

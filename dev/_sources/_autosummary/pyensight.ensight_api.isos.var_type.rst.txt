@@ -1,0 +1,6 @@
+var\_type
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: isos.var_type

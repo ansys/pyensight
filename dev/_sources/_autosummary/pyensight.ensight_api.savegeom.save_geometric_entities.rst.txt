@@ -1,0 +1,6 @@
+save\_geometric\_entities
+=========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: savegeom.save_geometric_entities

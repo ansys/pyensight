@@ -1,0 +1,6 @@
+HANDLES\_ENABLED
+================
+
+.. currentmodule:: pyensight.ens_probe
+
+.. autoproperty:: ENS_PROBE.HANDLES_ENABLED

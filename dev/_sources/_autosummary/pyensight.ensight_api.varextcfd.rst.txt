@@ -1,0 +1,57 @@
+﻿varextcfd
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: varextcfd
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      varextcfd.density
+      
+      
+      varextcfd.freestream_density
+      
+      
+      varextcfd.freestream_mach
+      
+      
+      varextcfd.freestream_speed_sound
+      
+      
+      varextcfd.gas_constant
+      
+      
+      varextcfd.modify_begin
+      
+      
+      varextcfd.modify_end
+      
+      
+      varextcfd.momentum
+      
+      
+      varextcfd.ratio_of_spec_heat
+      
+      
+      varextcfd.show_extended
+      
+      
+      varextcfd.total_energy
+      
+      
+      varextcfd.velocity
+      
+   
+   
+
+   
+   
+   

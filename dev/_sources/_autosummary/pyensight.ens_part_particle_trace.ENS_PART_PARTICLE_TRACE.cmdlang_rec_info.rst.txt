@@ -1,0 +1,6 @@
+cmdlang\_rec\_info
+==================
+
+.. currentmodule:: pyensight.ens_part_particle_trace
+
+.. automethod:: ENS_PART_PARTICLE_TRACE.cmdlang_rec_info

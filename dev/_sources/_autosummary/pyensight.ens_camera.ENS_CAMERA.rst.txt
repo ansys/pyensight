@@ -1,0 +1,104 @@
+﻿ENS\_CAMERA
+===========
+
+.. currentmodule:: pyensight.ens_camera
+
+.. autoclass:: ENS_CAMERA
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_CAMERA.attrgroupinfo
+      
+      
+      ENS_CAMERA.attrinfo
+      
+      
+      ENS_CAMERA.attrissensitive
+      
+      
+      ENS_CAMERA.attrtree
+      
+      
+      ENS_CAMERA.destroy
+      
+      
+      ENS_CAMERA.getattr
+      
+      
+      ENS_CAMERA.getattrs
+      
+      
+      ENS_CAMERA.getmetatag
+      
+      
+      ENS_CAMERA.hasmetatag
+      
+      
+      ENS_CAMERA.populate_attr_list
+      
+      
+      ENS_CAMERA.setattr
+      
+      
+      ENS_CAMERA.setattr_begin
+      
+      
+      ENS_CAMERA.setattr_end
+      
+      
+      ENS_CAMERA.setattr_status
+      
+      
+      ENS_CAMERA.setattrs
+      
+      
+      ENS_CAMERA.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_CAMERA.ANGLE
+      ENS_CAMERA.CLIP
+      ENS_CAMERA.DESCRIPTION
+      ENS_CAMERA.DISTANCE_SCALE
+      ENS_CAMERA.EDIT_TARGET
+      ENS_CAMERA.HANDLES_ENABLED
+      ENS_CAMERA.INDEX
+      ENS_CAMERA.LENS
+      ENS_CAMERA.LOOKAT_NODE_ID
+      ENS_CAMERA.LOOKAT_OPTION
+      ENS_CAMERA.LOOKAT_PART_ID
+      ENS_CAMERA.LOOKAT_SPLINE_ID
+      ENS_CAMERA.LOOKAT_SPLINE_VALUE
+      ENS_CAMERA.LOOKAT_XYZ
+      ENS_CAMERA.METADATA
+      ENS_CAMERA.ORIGIN_NODE_ID
+      ENS_CAMERA.ORIGIN_OPTION
+      ENS_CAMERA.ORIGIN_PART_ID
+      ENS_CAMERA.ORIGIN_SPLINE_ID
+      ENS_CAMERA.ORIGIN_SPLINE_VALUE
+      ENS_CAMERA.ORIGIN_XYZ_DELTA
+      ENS_CAMERA.PROJECT_MASK
+      ENS_CAMERA.SELECTED
+      ENS_CAMERA.TOOL_ORIENTATION
+      ENS_CAMERA.UUID
+      ENS_CAMERA.VIEWPORT_USE
+      ENS_CAMERA.VISIBLE
+      ENS_CAMERA.__OBJID__
+      ENS_CAMERA.objid
+   
+   

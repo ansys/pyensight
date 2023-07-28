@@ -1,0 +1,6 @@
+remote\_obj
+===========
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.remote_obj

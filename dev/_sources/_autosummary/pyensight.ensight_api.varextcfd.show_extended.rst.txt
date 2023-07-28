@@ -1,0 +1,6 @@
+show\_extended
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: varextcfd.show_extended

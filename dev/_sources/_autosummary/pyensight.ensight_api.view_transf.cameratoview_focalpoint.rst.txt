@@ -1,0 +1,6 @@
+cameratoview\_focalpoint
+========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.cameratoview_focalpoint

@@ -1,0 +1,6 @@
+setchildattrs
+=============
+
+.. currentmodule:: pyensight.ens_case
+
+.. automethod:: ENS_CASE.setchildattrs

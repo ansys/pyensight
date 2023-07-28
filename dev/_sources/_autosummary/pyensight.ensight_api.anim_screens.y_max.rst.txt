@@ -1,0 +1,6 @@
+y\_max
+======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_screens.y_max

@@ -1,0 +1,6 @@
+range
+=====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: function.range

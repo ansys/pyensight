@@ -1,0 +1,6 @@
+ENS\_TURBO\_VDIM
+================
+
+.. currentmodule:: pyensight.ens_part
+
+.. autoproperty:: ENS_PART.ENS_TURBO_VDIM

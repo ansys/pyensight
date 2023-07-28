@@ -1,0 +1,6 @@
+little\_hand\_range
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: dial.little_hand_range

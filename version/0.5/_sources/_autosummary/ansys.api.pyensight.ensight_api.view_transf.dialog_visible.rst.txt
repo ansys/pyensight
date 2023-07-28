@@ -1,0 +1,6 @@
+dialog\_visible
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.dialog_visible

@@ -1,0 +1,6 @@
+origin\_2
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: line.origin_2

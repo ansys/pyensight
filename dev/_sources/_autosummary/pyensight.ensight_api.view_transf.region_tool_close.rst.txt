@@ -1,0 +1,6 @@
+region\_tool\_close
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.region_tool_close

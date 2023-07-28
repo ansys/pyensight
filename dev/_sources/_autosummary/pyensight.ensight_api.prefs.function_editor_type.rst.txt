@@ -1,0 +1,6 @@
+function\_editor\_type
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: prefs.function_editor_type

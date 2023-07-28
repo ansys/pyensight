@@ -1,0 +1,6 @@
+undefined\_color
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: function.undefined_color

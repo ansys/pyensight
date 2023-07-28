@@ -1,0 +1,6 @@
+query\_pixelbuffer
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ensight.query_pixelbuffer

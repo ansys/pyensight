@@ -1,0 +1,6 @@
+mcfile\_end
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: data.mcfile_end

@@ -1,0 +1,6 @@
+restore\_center\_of\_transform
+==============================
+
+.. currentmodule:: pyensight.utils.views
+
+.. automethod:: Views.restore_center_of_transform

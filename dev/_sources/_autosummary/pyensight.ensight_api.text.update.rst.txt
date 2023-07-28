@@ -1,0 +1,6 @@
+update
+======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: text.update

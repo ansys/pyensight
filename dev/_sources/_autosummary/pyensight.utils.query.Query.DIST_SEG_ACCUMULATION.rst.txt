@@ -1,0 +1,6 @@
+DIST\_SEG\_ACCUMULATION
+=======================
+
+.. currentmodule:: pyensight.utils.query
+
+.. autoattribute:: Query.DIST_SEG_ACCUMULATION

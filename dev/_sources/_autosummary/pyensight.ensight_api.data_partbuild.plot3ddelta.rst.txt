@@ -1,0 +1,6 @@
+plot3ddelta
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: data_partbuild.plot3ddelta

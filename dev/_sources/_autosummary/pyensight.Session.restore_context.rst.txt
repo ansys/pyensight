@@ -1,0 +1,6 @@
+restore\_context
+================
+
+.. currentmodule:: pyensight
+
+.. automethod:: Session.restore_context

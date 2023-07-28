@@ -1,0 +1,6 @@
+gas\_constant
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: shock.gas_constant

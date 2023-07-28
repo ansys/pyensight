@@ -1,0 +1,6 @@
+brick\_format
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: savegeom.brick_format

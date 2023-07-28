@@ -1,0 +1,6 @@
+image\_plot\_only
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.image_plot_only

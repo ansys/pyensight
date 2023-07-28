@@ -1,0 +1,132 @@
+﻿dial
+====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: dial
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      dial.background
+      
+      
+      dial.background_rgb
+      
+      
+      dial.big_hand_range
+      
+      
+      dial.big_hand_rgb
+      
+      
+      dial.border
+      
+      
+      dial.delete
+      
+      
+      dial.description
+      
+      
+      dial.deselect_all
+      
+      
+      dial.little_hand
+      
+      
+      dial.little_hand_range
+      
+      
+      dial.little_hand_rgb
+      
+      
+      dial.location_x
+      
+      
+      dial.location_y
+      
+      
+      dial.minimum
+      
+      
+      dial.modify_begin
+      
+      
+      dial.modify_end
+      
+      
+      dial.new_dial
+      
+      
+      dial.new_or_mod_dial
+      
+      
+      dial.query_count
+      
+      
+      dial.query_display_attributes
+      
+      
+      dial.query_selected_objects
+      
+      
+      dial.radius
+      
+      
+      dial.select_all
+      
+      
+      dial.select_all_invisible
+      
+      
+      dial.select_all_visible
+      
+      
+      dial.select_begin
+      
+      
+      dial.select_default
+      
+      
+      dial.show_as
+      
+      
+      dial.tick_marks
+      
+      
+      dial.value
+      
+      
+      dial.value_decimal_places
+      
+      
+      dial.value_format
+      
+      
+      dial.value_location
+      
+      
+      dial.value_rgb
+      
+      
+      dial.value_size
+      
+      
+      dial.variable
+      
+      
+      dial.visible
+      
+   
+   
+
+   
+   
+   

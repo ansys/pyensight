@@ -1,0 +1,6 @@
+var\_type
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: context_restore.var_type

@@ -1,0 +1,6 @@
+PROJECT\_MASK
+=============
+
+.. currentmodule:: pyensight.ens_tool_cursor
+
+.. autoproperty:: ENS_TOOL_CURSOR.PROJECT_MASK

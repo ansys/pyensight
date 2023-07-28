@@ -1,0 +1,6 @@
+sphere\_axis
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.sphere_axis

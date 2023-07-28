@@ -1,0 +1,6 @@
+save\_cmd\_file
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.save_cmd_file

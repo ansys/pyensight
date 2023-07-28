@@ -1,0 +1,6 @@
+cmd
+===
+
+.. currentmodule:: pyensight
+
+.. automethod:: Session.cmd

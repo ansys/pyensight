@@ -1,0 +1,6 @@
+face\_zmin\_subgrid
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: viewport_axis.face_zmin_subgrid

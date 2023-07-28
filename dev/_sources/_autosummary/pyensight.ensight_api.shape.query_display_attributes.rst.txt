@@ -1,0 +1,6 @@
+query\_display\_attributes
+==========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: shape.query_display_attributes

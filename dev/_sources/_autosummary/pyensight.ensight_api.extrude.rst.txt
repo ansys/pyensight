@@ -1,0 +1,72 @@
+﻿extrude
+=======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: extrude
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      extrude.axis
+      
+      
+      extrude.begin
+      
+      
+      extrude.create
+      
+      
+      extrude.data01
+      
+      
+      extrude.data02
+      
+      
+      extrude.data03
+      
+      
+      extrude.direction_vector
+      
+      
+      extrude.end
+      
+      
+      extrude.number_of_slices
+      
+      
+      extrude.origin
+      
+      
+      extrude.origin_by_part_centroid
+      
+      
+      extrude.part_byname
+      
+      
+      extrude.part_id
+      
+      
+      extrude.select_default
+      
+      
+      extrude.total_rotation
+      
+      
+      extrude.total_translation
+      
+      
+      extrude.type
+      
+   
+   
+
+   
+   
+   

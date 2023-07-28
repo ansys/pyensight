@@ -1,0 +1,6 @@
+setattrs
+========
+
+.. currentmodule:: pyensight.ens_globals
+
+.. automethod:: ENS_GLOBALS.setattrs

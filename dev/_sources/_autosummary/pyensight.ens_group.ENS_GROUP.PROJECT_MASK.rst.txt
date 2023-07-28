@@ -1,0 +1,6 @@
+PROJECT\_MASK
+=============
+
+.. currentmodule:: pyensight.ens_group
+
+.. autoproperty:: ENS_GROUP.PROJECT_MASK

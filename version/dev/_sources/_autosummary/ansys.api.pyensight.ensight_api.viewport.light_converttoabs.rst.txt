@@ -1,0 +1,6 @@
+light\_converttoabs
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport.light_converttoabs

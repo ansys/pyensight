@@ -1,0 +1,6 @@
+elt\_filter3\_varcomp
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: filterpart.elt_filter3_varcomp

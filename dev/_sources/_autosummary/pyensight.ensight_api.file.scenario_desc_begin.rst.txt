@@ -1,0 +1,6 @@
+scenario\_desc\_begin
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.scenario_desc_begin

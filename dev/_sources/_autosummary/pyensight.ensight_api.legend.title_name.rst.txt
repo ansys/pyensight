@@ -1,0 +1,6 @@
+title\_name
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: legend.title_name

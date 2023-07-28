@@ -1,0 +1,6 @@
+axis\_x\_visible
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: plot.axis_x_visible

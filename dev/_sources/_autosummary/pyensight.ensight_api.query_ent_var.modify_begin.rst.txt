@@ -1,0 +1,6 @@
+modify\_begin
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: query_ent_var.modify_begin

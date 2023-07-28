@@ -1,0 +1,6 @@
+scoped\_name
+============
+
+.. currentmodule:: ansys.pyensight.core.utils.support
+
+.. automethod:: Support.scoped_name

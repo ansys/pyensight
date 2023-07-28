@@ -1,0 +1,6 @@
+LANGUAGE\_INFO
+==============
+
+.. currentmodule:: pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.LANGUAGE_INFO

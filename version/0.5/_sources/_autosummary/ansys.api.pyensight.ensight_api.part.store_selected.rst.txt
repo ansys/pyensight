@@ -1,0 +1,6 @@
+store\_selected
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.store_selected

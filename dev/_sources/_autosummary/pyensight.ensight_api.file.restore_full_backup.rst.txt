@@ -1,0 +1,6 @@
+restore\_full\_backup
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.restore_full_backup

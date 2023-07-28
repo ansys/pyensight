@@ -1,0 +1,109 @@
+﻿ENS\_LPART
+==========
+
+.. currentmodule:: pyensight.ens_lpart
+
+.. autoclass:: ENS_LPART
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_LPART.attrgroupinfo
+      
+      
+      ENS_LPART.attrinfo
+      
+      
+      ENS_LPART.attrissensitive
+      
+      
+      ENS_LPART.attrtree
+      
+      
+      ENS_LPART.destroy
+      
+      
+      ENS_LPART.getattr
+      
+      
+      ENS_LPART.getattrs
+      
+      
+      ENS_LPART.getmetatag
+      
+      
+      ENS_LPART.hasmetatag
+      
+      
+      ENS_LPART.load
+      
+      
+      ENS_LPART.populate_attr_list
+      
+      
+      ENS_LPART.setattr
+      
+      
+      ENS_LPART.setattr_begin
+      
+      
+      ENS_LPART.setattr_end
+      
+      
+      ENS_LPART.setattr_status
+      
+      
+      ENS_LPART.setattrs
+      
+      
+      ENS_LPART.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_LPART.DELTA
+      ENS_LPART.DESCRIPTION
+      ENS_LPART.DIMENSIONS
+      ENS_LPART.DOMAIN
+      ENS_LPART.DTA_BLOCK
+      ENS_LPART.EDIT_TARGET
+      ENS_LPART.ELEMCOUNT
+      ENS_LPART.ENS_DETAILS
+      ENS_LPART.ENS_KIND
+      ENS_LPART.ENS_MATERIAL
+      ENS_LPART.ENS_PARENT_PART
+      ENS_LPART.ENS_SYMMETRY_AXIS
+      ENS_LPART.ENS_SYMMETRY_COUNT
+      ENS_LPART.ENS_TURBO_STAGE
+      ENS_LPART.ENS_TURBO_VDIM
+      ENS_LPART.ENS_TURBO_VIEW
+      ENS_LPART.FLOW3DINFO
+      ENS_LPART.HANDLES_ENABLED
+      ENS_LPART.INDEX
+      ENS_LPART.MESHTYPE
+      ENS_LPART.METADATA
+      ENS_LPART.NODEMAX
+      ENS_LPART.NODEMIN
+      ENS_LPART.NODESTEP
+      ENS_LPART.PARENT
+      ENS_LPART.PARTNUMELE
+      ENS_LPART.PATHNAME
+      ENS_LPART.PROJECT_MASK
+      ENS_LPART.UUID
+      ENS_LPART.__OBJID__
+      ENS_LPART.objid
+   
+   

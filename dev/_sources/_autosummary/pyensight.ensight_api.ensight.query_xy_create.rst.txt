@@ -1,0 +1,6 @@
+query\_xy\_create
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ensight.query_xy_create

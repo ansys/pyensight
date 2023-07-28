@@ -1,0 +1,6 @@
+cei\_suffix
+===========
+
+.. currentmodule:: pyensight
+
+.. autoproperty:: Session.cei_suffix

@@ -1,0 +1,6 @@
+get\_mainvarlist\_select
+========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: variables.get_mainvarlist_select

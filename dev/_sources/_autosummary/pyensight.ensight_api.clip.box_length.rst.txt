@@ -1,0 +1,6 @@
+box\_length
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: clip.box_length

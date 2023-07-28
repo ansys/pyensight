@@ -1,0 +1,6 @@
+watermark
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view.watermark

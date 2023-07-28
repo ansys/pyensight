@@ -1,0 +1,6 @@
+copy\_subpalette
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: function.copy_subpalette

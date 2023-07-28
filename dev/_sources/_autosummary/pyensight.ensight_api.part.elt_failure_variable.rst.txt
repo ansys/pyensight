@@ -1,0 +1,6 @@
+elt\_failure\_variable
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.elt_failure_variable

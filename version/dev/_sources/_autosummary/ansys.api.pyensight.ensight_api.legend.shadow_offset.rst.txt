@@ -1,0 +1,6 @@
+shadow\_offset
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: legend.shadow_offset

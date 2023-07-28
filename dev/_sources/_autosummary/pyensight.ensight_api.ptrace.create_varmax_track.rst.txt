@@ -1,0 +1,6 @@
+create\_varmax\_track
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.create_varmax_track

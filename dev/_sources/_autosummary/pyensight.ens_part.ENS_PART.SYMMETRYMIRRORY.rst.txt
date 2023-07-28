@@ -1,0 +1,6 @@
+SYMMETRYMIRRORY
+===============
+
+.. currentmodule:: pyensight.ens_part
+
+.. autoproperty:: ENS_PART.SYMMETRYMIRRORY

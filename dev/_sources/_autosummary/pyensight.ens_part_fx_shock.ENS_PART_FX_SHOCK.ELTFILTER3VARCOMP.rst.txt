@@ -1,0 +1,6 @@
+ELTFILTER3VARCOMP
+=================
+
+.. currentmodule:: pyensight.ens_part_fx_shock
+
+.. autoproperty:: ENS_PART_FX_SHOCK.ELTFILTER3VARCOMP

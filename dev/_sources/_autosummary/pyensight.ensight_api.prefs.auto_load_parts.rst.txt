@@ -1,0 +1,6 @@
+auto\_load\_parts
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: prefs.auto_load_parts

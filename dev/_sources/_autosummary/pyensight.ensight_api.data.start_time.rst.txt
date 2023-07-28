@@ -1,0 +1,6 @@
+start\_time
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: data.start_time

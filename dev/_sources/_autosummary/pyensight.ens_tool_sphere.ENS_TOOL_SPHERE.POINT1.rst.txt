@@ -1,0 +1,6 @@
+POINT1
+======
+
+.. currentmodule:: pyensight.ens_tool_sphere
+
+.. autoproperty:: ENS_TOOL_SPHERE.POINT1

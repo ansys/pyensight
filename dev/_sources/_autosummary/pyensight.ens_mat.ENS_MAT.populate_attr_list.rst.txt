@@ -1,0 +1,6 @@
+populate\_attr\_list
+====================
+
+.. currentmodule:: pyensight.ens_mat
+
+.. automethod:: ENS_MAT.populate_attr_list

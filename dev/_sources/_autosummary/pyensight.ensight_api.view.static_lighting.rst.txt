@@ -1,0 +1,6 @@
+static\_lighting
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view.static_lighting

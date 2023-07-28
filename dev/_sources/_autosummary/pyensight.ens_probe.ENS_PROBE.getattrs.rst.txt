@@ -1,0 +1,6 @@
+getattrs
+========
+
+.. currentmodule:: pyensight.ens_probe
+
+.. automethod:: ENS_PROBE.getattrs

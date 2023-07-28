@@ -1,0 +1,6 @@
+directory
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: connect.directory

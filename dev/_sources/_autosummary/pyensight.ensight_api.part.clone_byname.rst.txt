@@ -1,0 +1,6 @@
+clone\_byname
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.clone_byname

@@ -1,0 +1,6 @@
+override\_modify\_begin
+=======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: variables.override_modify_begin

@@ -1,0 +1,6 @@
+texture\_svector
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.texture_svector

@@ -1,0 +1,6 @@
+PROJECT\_MASK
+=============
+
+.. currentmodule:: pyensight.ens_polyline
+
+.. autoproperty:: ENS_POLYLINE.PROJECT_MASK

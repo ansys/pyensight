@@ -1,0 +1,6 @@
+geometry
+========
+
+.. currentmodule:: pyensight
+
+.. automethod:: Session.geometry

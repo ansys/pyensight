@@ -1,0 +1,6 @@
+attrtree
+========
+
+.. currentmodule:: pyensight.ens_annot_arrow
+
+.. automethod:: ENS_ANNOT_ARROW.attrtree

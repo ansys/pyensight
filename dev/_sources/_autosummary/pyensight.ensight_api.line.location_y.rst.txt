@@ -1,0 +1,6 @@
+location\_y
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: line.location_y

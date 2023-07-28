@@ -1,0 +1,6 @@
+set\_end\_to\_max
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: solution_time.set_end_to_max

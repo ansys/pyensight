@@ -1,0 +1,6 @@
+query\_lookat\_position
+=======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.query_lookat_position

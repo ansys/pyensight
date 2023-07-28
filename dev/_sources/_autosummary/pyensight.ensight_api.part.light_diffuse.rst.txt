@@ -1,0 +1,6 @@
+light\_diffuse
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.light_diffuse

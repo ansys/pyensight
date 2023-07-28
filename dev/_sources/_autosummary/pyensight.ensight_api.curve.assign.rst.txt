@@ -1,0 +1,6 @@
+assign
+======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: curve.assign

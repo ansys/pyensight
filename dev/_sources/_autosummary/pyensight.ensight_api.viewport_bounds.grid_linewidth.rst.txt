@@ -1,0 +1,6 @@
+grid\_linewidth
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: viewport_bounds.grid_linewidth

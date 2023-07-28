@@ -1,0 +1,6 @@
+rawdata
+=======
+
+.. currentmodule:: pyensight.ens_tool_revolution
+
+.. automethod:: ENS_TOOL_REVOLUTION.rawdata

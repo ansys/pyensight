@@ -1,0 +1,6 @@
+reset\_rot\_trn\_scl
+====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.reset_rot_trn_scl

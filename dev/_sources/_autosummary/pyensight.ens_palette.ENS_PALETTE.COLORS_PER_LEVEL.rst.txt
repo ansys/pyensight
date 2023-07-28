@@ -1,0 +1,6 @@
+COLORS\_PER\_LEVEL
+==================
+
+.. currentmodule:: pyensight.ens_palette
+
+.. autoproperty:: ENS_PALETTE.COLORS_PER_LEVEL

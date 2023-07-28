@@ -1,0 +1,6 @@
+DELAY\_REFRESH
+==============
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.DELAY_REFRESH

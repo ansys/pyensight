@@ -1,0 +1,6 @@
+massed\_initial\_use\_fluid
+===========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.massed_initial_use_fluid

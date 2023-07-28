@@ -1,0 +1,6 @@
+end\_point
+==========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: clip.end_point

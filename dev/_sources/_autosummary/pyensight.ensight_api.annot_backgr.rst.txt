@@ -1,0 +1,45 @@
+﻿annot\_backgr
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: annot_backgr
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      annot_backgr.begin
+      
+      
+      annot_backgr.blended_color
+      
+      
+      annot_backgr.constant_color
+      
+      
+      annot_backgr.edit_level
+      
+      
+      annot_backgr.end
+      
+      
+      annot_backgr.number_of_levels
+      
+      
+      annot_backgr.position
+      
+      
+      annot_backgr.rgb
+      
+   
+   
+
+   
+   
+   

@@ -1,0 +1,6 @@
+box\_min
+========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: clip.box_min

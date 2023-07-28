@@ -1,0 +1,6 @@
+use\_normalized\_width
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: nvc.use_normalized_width

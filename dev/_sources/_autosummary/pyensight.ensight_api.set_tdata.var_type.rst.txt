@@ -1,0 +1,6 @@
+var\_type
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: set_tdata.var_type

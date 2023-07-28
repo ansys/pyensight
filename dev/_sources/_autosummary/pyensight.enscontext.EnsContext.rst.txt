@@ -1,0 +1,27 @@
+﻿EnsContext
+==========
+
+.. currentmodule:: pyensight.enscontext
+
+.. autoclass:: EnsContext
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      EnsContext.load
+      
+      
+      EnsContext.save
+      
+   
+   
+
+   
+   
+   

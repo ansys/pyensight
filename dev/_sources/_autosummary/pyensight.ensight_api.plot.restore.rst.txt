@@ -1,0 +1,6 @@
+restore
+=======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: plot.restore

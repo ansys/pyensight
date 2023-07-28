@@ -1,0 +1,6 @@
+current\_simtime
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: solution_time.current_simtime

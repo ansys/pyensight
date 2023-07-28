@@ -1,0 +1,6 @@
+ENS\_PLIST\_KEY\_SEL\_7
+=======================
+
+.. currentmodule:: pyensight.ens_part_fx_vortex_core
+
+.. autoproperty:: ENS_PART_FX_VORTEX_CORE.ENS_PLIST_KEY_SEL_7

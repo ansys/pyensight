@@ -1,0 +1,114 @@
+﻿ENS\_ANNOT\_SHAPE
+=================
+
+.. currentmodule:: pyensight.ens_annot_shape
+
+.. autoclass:: ENS_ANNOT_SHAPE
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_ANNOT_SHAPE.attrgroupinfo
+      
+      
+      ENS_ANNOT_SHAPE.attrinfo
+      
+      
+      ENS_ANNOT_SHAPE.attrissensitive
+      
+      
+      ENS_ANNOT_SHAPE.attrtree
+      
+      
+      ENS_ANNOT_SHAPE.createannot
+      
+      
+      ENS_ANNOT_SHAPE.destroy
+      
+      
+      ENS_ANNOT_SHAPE.getattr
+      
+      
+      ENS_ANNOT_SHAPE.getattrs
+      
+      
+      ENS_ANNOT_SHAPE.getmetatag
+      
+      
+      ENS_ANNOT_SHAPE.hasmetatag
+      
+      
+      ENS_ANNOT_SHAPE.populate_attr_list
+      
+      
+      ENS_ANNOT_SHAPE.setattr
+      
+      
+      ENS_ANNOT_SHAPE.setattr_begin
+      
+      
+      ENS_ANNOT_SHAPE.setattr_end
+      
+      
+      ENS_ANNOT_SHAPE.setattr_status
+      
+      
+      ENS_ANNOT_SHAPE.setattrs
+      
+      
+      ENS_ANNOT_SHAPE.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_ANNOT_SHAPE.ANNOTINDEX
+      ENS_ANNOT_SHAPE.ANNOTTYPE
+      ENS_ANNOT_SHAPE.ARROWTIPLENGTH
+      ENS_ANNOT_SHAPE.ARROWTIPSIZE
+      ENS_ANNOT_SHAPE.ARROWWIDTH
+      ENS_ANNOT_SHAPE.DESCRIPTION
+      ENS_ANNOT_SHAPE.DIAMETER
+      ENS_ANNOT_SHAPE.EDIT_TARGET
+      ENS_ANNOT_SHAPE.FILL
+      ENS_ANNOT_SHAPE.HANDLES_ENABLED
+      ENS_ANNOT_SHAPE.HEIGHT
+      ENS_ANNOT_SHAPE.JUSTIFICATION
+      ENS_ANNOT_SHAPE.LENGTH
+      ENS_ANNOT_SHAPE.LINEWIDTH
+      ENS_ANNOT_SHAPE.LOCATIONX
+      ENS_ANNOT_SHAPE.LOCATIONY
+      ENS_ANNOT_SHAPE.METADATA
+      ENS_ANNOT_SHAPE.ORIGIN
+      ENS_ANNOT_SHAPE.ORIGINBY
+      ENS_ANNOT_SHAPE.ORIGINFRAME
+      ENS_ANNOT_SHAPE.PROJECT_MASK
+      ENS_ANNOT_SHAPE.RELATIVETO
+      ENS_ANNOT_SHAPE.RELATIVEVIEWPORT
+      ENS_ANNOT_SHAPE.RGB
+      ENS_ANNOT_SHAPE.ROTATIONALANGLE
+      ENS_ANNOT_SHAPE.SELECTED
+      ENS_ANNOT_SHAPE.SHADOWINTENSITY
+      ENS_ANNOT_SHAPE.SHADOWOFFSET
+      ENS_ANNOT_SHAPE.SIZE
+      ENS_ANNOT_SHAPE.TEXTUREOBJECT
+      ENS_ANNOT_SHAPE.TYPE
+      ENS_ANNOT_SHAPE.UUID
+      ENS_ANNOT_SHAPE.VISIBLE
+      ENS_ANNOT_SHAPE.WIDTH
+      ENS_ANNOT_SHAPE.__OBJID__
+      ENS_ANNOT_SHAPE.objid
+   
+   

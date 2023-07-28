@@ -1,0 +1,6 @@
+attrtree
+========
+
+.. currentmodule:: pyensight.ens_mat
+
+.. automethod:: ENS_MAT.attrtree

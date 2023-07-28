@@ -1,0 +1,6 @@
+delete
+======
+
+.. currentmodule:: pyensight.renderable
+
+.. automethod:: Renderable.delete

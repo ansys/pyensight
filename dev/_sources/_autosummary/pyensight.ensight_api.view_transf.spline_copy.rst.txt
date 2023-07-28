@@ -1,0 +1,6 @@
+spline\_copy
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.spline_copy

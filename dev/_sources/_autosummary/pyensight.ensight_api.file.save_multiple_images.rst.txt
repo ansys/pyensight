@@ -1,0 +1,6 @@
+save\_multiple\_images
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.save_multiple_images

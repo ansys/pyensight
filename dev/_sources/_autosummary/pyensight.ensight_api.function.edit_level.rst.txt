@@ -1,0 +1,6 @@
+edit\_level
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: function.edit_level

@@ -1,0 +1,6 @@
+application
+===========
+
+.. currentmodule:: pyensight
+
+.. autoproperty:: LocalLauncher.application

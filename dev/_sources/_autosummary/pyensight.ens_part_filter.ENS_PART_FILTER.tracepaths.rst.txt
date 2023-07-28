@@ -1,0 +1,6 @@
+tracepaths
+==========
+
+.. currentmodule:: pyensight.ens_part_filter
+
+.. automethod:: ENS_PART_FILTER.tracepaths

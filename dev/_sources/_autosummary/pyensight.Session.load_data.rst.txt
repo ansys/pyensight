@@ -1,0 +1,6 @@
+load\_data
+==========
+
+.. currentmodule:: pyensight
+
+.. automethod:: Session.load_data

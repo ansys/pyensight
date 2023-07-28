@@ -1,0 +1,6 @@
+new\_or\_mod\_logo
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim.new_or_mod_logo

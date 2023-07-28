@@ -1,0 +1,6 @@
+\_\_OBJID\_\_
+=============
+
+.. currentmodule:: pyensight.ens_part_vof
+
+.. autoproperty:: ENS_PART_VOF.__OBJID__

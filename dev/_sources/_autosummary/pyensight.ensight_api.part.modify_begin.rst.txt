@@ -1,0 +1,6 @@
+modify\_begin
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.modify_begin

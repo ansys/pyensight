@@ -1,0 +1,6 @@
+override\_lt\_min
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: variables.override_lt_min

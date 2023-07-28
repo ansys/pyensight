@@ -1,0 +1,6 @@
+model\_axis\_location
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: prefs.model_axis_location

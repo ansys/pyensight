@@ -1,0 +1,6 @@
+AXISMODEL\_LOCATION
+===================
+
+.. currentmodule:: pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.AXISMODEL_LOCATION

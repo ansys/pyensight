@@ -1,0 +1,6 @@
+texture\_origin
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.texture_origin

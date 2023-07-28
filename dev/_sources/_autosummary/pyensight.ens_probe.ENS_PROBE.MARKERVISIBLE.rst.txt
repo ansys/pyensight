@@ -1,0 +1,6 @@
+MARKERVISIBLE
+=============
+
+.. currentmodule:: pyensight.ens_probe
+
+.. autoproperty:: ENS_PROBE.MARKERVISIBLE

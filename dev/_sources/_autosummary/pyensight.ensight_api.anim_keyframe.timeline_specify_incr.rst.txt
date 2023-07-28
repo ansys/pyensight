@@ -1,0 +1,6 @@
+timeline\_specify\_incr
+=======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_keyframe.timeline_specify_incr

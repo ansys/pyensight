@@ -1,0 +1,6 @@
+anim\_control
+=============
+
+.. currentmodule:: pyensight.ens_globals
+
+.. automethod:: ENS_GLOBALS.anim_control

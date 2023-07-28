@@ -1,0 +1,732 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Basic EnSight Utils &#8212; PyEnSight</title>
+    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/ansys_sphinx_theme.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/breadcrumbs.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    
+        <link href="../../_static/css/breadcrumbs.css" rel="stylesheet">
+    
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/table.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_examples/25-intermediate/02-utils';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/release/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        </script>
+    <script src="../../_static/js/mermaid.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <link rel="shortcut icon" href="../../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Advanced Examples" href="../50-advanced/index.html" />
+    <link rel="prev" title="Basic EnSight Queries" href="01-queries.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container"><!-- Debugging: html_theme_options =  -->
+
+  <!-- If there is no MiliSearch enabled, use the PyData search -->
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/pyansys-logo-black-cropped.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/pyansys-logo-black-cropped.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/index.html">
+                        Getting started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../user_guide/index.html">
+                        User guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../class_documentation.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributing.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      dev  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+
+    
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(text => document.getElementById("announcement_msg").innerHTML = text)
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+    
+
+    
+    <div class="container-xl">
+    <div class="row">
+        <div class="col-12 col-md-3" id="breadcrumbs-spacer"></div>
+        <div class="col-12 col-md-11 col-xl-9" id="breadcrumbs">
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+    
+    
+        <li class="nav-item nav-item-0"><a href="../../index.html">PyEnSight</a> » </li>
+    
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Examples</a> » </li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Intermediate Examples</a> » </li>
+        <li class="nav-item nav-item-this"><a href="">Basic EnSight Utils</a></li> 
+      </ul>
+    </div>
+        </div>
+  </div>
+</div>
+    
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/index.html">
+                        Getting started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../user_guide/index.html">
+                        User guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../class_documentation.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributing.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      dev  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00-basic/index.html">Basic Examples</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Intermediate Examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="00-designpoints.html">Design Point Comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01-queries.html">Basic EnSight Queries</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Basic EnSight Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../50-advanced/index.html">Advanced Examples</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-examples-25-intermediate-02-utils-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code</p>
+</div>
+<section class="sphx-glr-example-title" id="basic-ensight-utils">
+<span id="ref-utils-example"></span><span id="sphx-glr-examples-25-intermediate-02-utils-py"></span><h1>Basic EnSight Utils<a class="headerlink" href="#basic-ensight-utils" title="Permalink to this heading">#</a></h1>
+<p>The utils modules in PyEnSight have been designed to expose standard
+post-processing operations via simplified APIs.
+The example walks through the utils modules with some examples on
+how they can be used to perform easily specific operations.</p>
+<section id="start-an-ensight-session">
+<h2>Start an EnSight session<a class="headerlink" href="#start-an-ensight-session" title="Permalink to this heading">#</a></h2>
+<p>Start by launching and connecting to an instance of EnSight.
+In this case, we use a local installation of EnSight.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansys.pyensight</span> <span class="kn">import</span> <span class="n">LocalLauncher</span>
+<span class="kn">from</span> <span class="nn">ansys.pyensight.enscontext</span> <span class="kn">import</span> <span class="n">EnsContext</span>
+
+<span class="n">session</span> <span class="o">=</span> <span class="n">LocalLauncher</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="load-the-data">
+<h2>Load the data<a class="headerlink" href="#load-the-data" title="Permalink to this heading">#</a></h2>
+<img alt="../../_images/02_utils_0.png" src="../../_images/02_utils_0.png" />
+<p>Here we use a remote session to load a simple time-varying dataset of
+waterflow over a break.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">session</span><span class="o">.</span><span class="n">load_example</span><span class="p">(</span><span class="s2">&quot;waterbreak.ens&quot;</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="load-the-utils-modules">
+<h2>“Load” the utils modules<a class="headerlink" href="#load-the-utils-modules" title="Permalink to this heading">#</a></h2>
+<p>The utils modules are available as instances of ensight.utils. In this example
+to allow a more simple use, they are casted into new variables with the same names.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">parts</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">parts</span>
+<span class="n">views</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">views</span>
+<span class="n">query</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">query</span>
+</pre></div>
+</div>
+</section>
+<section id="capture-a-context-of-the-current-state">
+<h2>Capture a context of the current state<a class="headerlink" href="#capture-a-context-of-the-current-state" title="Permalink to this heading">#</a></h2>
+<p>With the capture_context() method a in-memory context is saved, to be retrieved
+later in the code. The context is also saved to a file for being used also in future
+PyEnSight session.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">init_state</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">capture_context</span><span class="p">()</span>
+<span class="n">init_state</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;init_state.ctxz&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="change-view-direction-and-restore-a-in-memory-context">
+<h2>Change view direction and restore a in-memory context<a class="headerlink" href="#change-view-direction-and-restore-a-in-memory-context" title="Permalink to this heading">#</a></h2>
+<img alt="../../_images/02_utils_1.png" src="../../_images/02_utils_1.png" />
+<img alt="../../_images/02_utils_2.png" src="../../_images/02_utils_2.png" />
+<img alt="../../_images/02_utils_1.png" src="../../_images/02_utils_1.png" />
+<p>An isometric view along the direction vector (1,1,1) is set, and a new in-memory
+context is saved. The view is also saved with the name “isometric”.
+All the parts are selected via the select_parts_by_tag() method,
+which returns all of them since no tags have been supplied (and also because the dataset
+hasn’t got any metadata for the parts). The parts are being hidden, and then the state
+is restored, showing again the isometric view.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">views</span><span class="o">.</span><span class="n">set_view_direction</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;isometric&quot;</span><span class="p">)</span>
+<span class="n">iso_state</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">capture_context</span><span class="p">()</span>
+<span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+<span class="c1"># Since no tags are supplied, all the parts are selected</span>
+<span class="n">parts</span><span class="o">.</span><span class="n">select_parts_by_tag</span><span class="p">()</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="s2">&quot;VISIBLE&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">restore_context</span><span class="p">(</span><span class="n">iso_state</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="create-scoped-name-for-easy-use-of-the-ensight-submodules-to-generate-a-distance-query">
+<h2>Create scoped name for easy use of the ensight submodules to generate a distance query<a class="headerlink" href="#create-scoped-name-for-easy-use-of-the-ensight-submodules-to-generate-a-distance-query" title="Permalink to this heading">#</a></h2>
+<img alt="../../_images/02_utils_3.png" src="../../_images/02_utils_3.png" />
+<p>PyEnSight supports the generation of context managers for the PyEnSight modules.
+This can simplify the workflow with the addition of the context manager features in Python.
+A query is so generated along a 1D part generated on the fly. The parent part is selected
+using the parts module, with the “select_parts_by_dimension” module to select all the 3D parts.
+A context is saved for later use. The rendering view should look like this.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sn</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">support</span><span class="o">.</span><span class="n">scoped_name</span>
+<span class="n">zclip_state</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">with</span> <span class="n">sn</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="p">)</span> <span class="k">as</span> <span class="n">ensight</span><span class="p">,</span> <span class="n">sn</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="p">)</span> <span class="k">as</span> <span class="n">core</span><span class="p">:</span>
+    <span class="n">clip_default</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">DEFAULTPARTS</span><span class="p">[</span><span class="n">ensight</span><span class="o">.</span><span class="n">PART_CLIP_PLANE</span><span class="p">]</span>
+    <span class="n">clip</span> <span class="o">=</span> <span class="n">clip_default</span><span class="o">.</span><span class="n">createpart</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;XClip&quot;</span><span class="p">,</span> <span class="n">sources</span><span class="o">=</span><span class="n">parts</span><span class="o">.</span><span class="n">select_parts_by_dimension</span><span class="p">(</span><span class="mi">3</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">attrs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">attrs</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s2">&quot;MESHPLANE&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>  <span class="c1"># Z axis</span>
+    <span class="n">attrs</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s2">&quot;TOOL&quot;</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>  <span class="c1"># XYZ Tool</span>
+    <span class="n">attrs</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s2">&quot;VALUE&quot;</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">])</span>  <span class="c1"># Z value</span>
+    <span class="n">zclip</span> <span class="o">=</span> <span class="n">clip_default</span><span class="o">.</span><span class="n">createpart</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ZClip&quot;</span><span class="p">,</span> <span class="n">sources</span><span class="o">=</span><span class="n">clip</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">query</span><span class="o">.</span><span class="n">create_distance</span><span class="p">(</span>
+        <span class="s2">&quot;zlip_query&quot;</span><span class="p">,</span> <span class="n">query</span><span class="o">.</span><span class="n">DISTANCE_PART1D</span><span class="p">,</span> <span class="p">[</span><span class="n">zclip</span><span class="p">],</span> <span class="n">core</span><span class="o">.</span><span class="n">VARIABLES</span><span class="p">[</span><span class="s2">&quot;p&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">new_plotter</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="n">zclip_state</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">capture_context</span><span class="p">()</span>
+<span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="restore-a-view">
+<h2>Restore a view<a class="headerlink" href="#restore-a-view" title="Permalink to this heading">#</a></h2>
+<img alt="../../_images/02_utils_4.png" src="../../_images/02_utils_4.png" />
+<p>The model orientation, position and zoom are changed, then the isometric view is
+restored. An important difference with the context restore is that the view restore
+restores the orientation and the position but not the zoom level. Also,
+a context restore restored also the objects available at the time of the context save,
+while the view can only store position and orientation data. The rendering view should
+look like this.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">view_transf</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="o">-</span><span class="mf">66.5934067</span><span class="p">,</span> <span class="mf">1.71428561</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">view_transf</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mf">18.0219765</span><span class="p">,</span> <span class="o">-</span><span class="mf">31.6363659</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">view_transf</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="o">-</span><span class="mf">4.83516455</span><span class="p">,</span> <span class="mf">9.5064888</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">view_transf</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="mf">0.740957975</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">view_transf</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="mf">0.792766333</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">view_transf</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="mf">0.0719177574</span><span class="p">,</span> <span class="mf">0.0678303316</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">view_transf</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mf">4.83516455</span><span class="p">,</span> <span class="mf">3.42857122</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">views</span><span class="o">.</span><span class="n">restore_view</span><span class="p">(</span><span class="s2">&quot;isometric&quot;</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="create-a-temporal-query">
+<h2>Create a temporal query<a class="headerlink" href="#create-a-temporal-query" title="Permalink to this heading">#</a></h2>
+<img alt="../../_images/02_utils_5.png" src="../../_images/02_utils_5.png" />
+<p>After restoring the distance query context, a temporal query is generated.
+In particular, the query is applied to a specific XYZ point, querying the
+alpha1 variable. The XYZ point is set to be the model centroid, computed
+via the views module. The data generated are then printed with this value returned:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">session</span><span class="o">.</span><span class="n">restore_context</span><span class="p">(</span><span class="n">zclip_state</span><span class="p">)</span>
+<span class="n">temp_query</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">create_temporal</span><span class="p">(</span>
+    <span class="s2">&quot;temporal_query&quot;</span><span class="p">,</span>
+    <span class="n">query</span><span class="o">.</span><span class="n">TEMPORAL_XYZ</span><span class="p">,</span>
+    <span class="n">parts</span><span class="o">.</span><span class="n">select_parts_by_dimension</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+    <span class="s2">&quot;alpha1&quot;</span><span class="p">,</span>
+    <span class="n">xyz</span><span class="o">=</span><span class="n">views</span><span class="o">.</span><span class="n">compute_model_centroid</span><span class="p">(),</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">temp_query</span><span class="o">.</span><span class="n">QUERY_DATA</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="restore-a-context-from-disk">
+<h2>Restore a context from disk<a class="headerlink" href="#restore-a-context-from-disk" title="Permalink to this heading">#</a></h2>
+<img alt="../../_images/02_utils_6.png" src="../../_images/02_utils_6.png" />
+<p>The following code shows how to restore a context previously saved on disk.
+By default the PyEnSight context files won’t store the location of the dataset,
+so the dataset will have to be loaded in advance before restoring the context.
+The rendering view should look like this.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ctx</span> <span class="o">=</span> <span class="n">EnsContext</span><span class="p">()</span>
+<span class="n">ctx</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;init_state.ctxz&quot;</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">restore_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-examples-25-intermediate-02-utils-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/d5b6320ff103f1674b2f83b5996b060b/02-utils.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">02-utils.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/2a439f5f54926a6a9b285010db002ad0/02-utils.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">02-utils.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-an-ensight-session">Start an EnSight session</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-data">Load the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-utils-modules">“Load” the utils modules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#capture-a-context-of-the-current-state">Capture a context of the current state</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#change-view-direction-and-restore-a-in-memory-context">Change view direction and restore a in-memory context</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-scoped-name-for-easy-use-of-the-ensight-submodules-to-generate-a-distance-query">Create scoped name for easy use of the ensight submodules to generate a distance query</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#restore-a-view">Restore a view</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-temporal-query">Create a temporal query</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#restore-a-context-from-disk">Restore a context from disk</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/_examples/25-intermediate/02-utils.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright (c) 2023 ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

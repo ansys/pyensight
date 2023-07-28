@@ -1,0 +1,6 @@
+adjcoord\_x\_variable
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: model.adjcoord_x_variable

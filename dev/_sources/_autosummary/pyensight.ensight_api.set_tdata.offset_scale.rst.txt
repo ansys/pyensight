@@ -1,0 +1,6 @@
+offset\_scale
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: set_tdata.offset_scale

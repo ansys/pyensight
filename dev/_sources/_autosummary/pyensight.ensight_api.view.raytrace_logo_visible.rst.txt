@@ -1,0 +1,6 @@
+raytrace\_logo\_visible
+=======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view.raytrace_logo_visible

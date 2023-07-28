@@ -1,0 +1,6 @@
+mach
+====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: shock.mach

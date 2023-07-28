@@ -1,0 +1,6 @@
+face\_xmax\_subgrid
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: viewport_bounds.face_xmax_subgrid

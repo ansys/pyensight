@@ -1,0 +1,6 @@
+\_\_OBJID\_\_
+=============
+
+.. currentmodule:: pyensight.ens_frame
+
+.. autoproperty:: ENS_FRAME.__OBJID__

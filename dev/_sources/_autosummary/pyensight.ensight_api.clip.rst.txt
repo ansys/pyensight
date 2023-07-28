@@ -1,0 +1,309 @@
+﻿clip
+====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: clip
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      clip.angle
+      
+      
+      clip.axis
+      
+      
+      clip.axis_point_1
+      
+      
+      clip.axis_point_2
+      
+      
+      clip.axis_x
+      
+      
+      clip.axis_y
+      
+      
+      clip.axis_z
+      
+      
+      clip.begin
+      
+      
+      clip.box_axis
+      
+      
+      clip.box_length
+      
+      
+      clip.box_max
+      
+      
+      clip.box_min
+      
+      
+      clip.box_origin
+      
+      
+      clip.create
+      
+      
+      clip.create_delta
+      
+      
+      clip.delta
+      
+      
+      clip.dimension2
+      
+      
+      clip.dimension2_step
+      
+      
+      clip.dimension3
+      
+      
+      clip.dimension3_step
+      
+      
+      clip.domain
+      
+      
+      clip.end
+      
+      
+      clip.end_point
+      
+      
+      clip.extents
+      
+      
+      clip.general_equation
+      
+      
+      clip.grid_pts
+      
+      
+      clip.ijk_axis
+      
+      
+      clip.ijk_scale
+      
+      
+      clip.increment
+      
+      
+      clip.length
+      
+      
+      clip.line
+      
+      
+      clip.line_1
+      
+      
+      clip.line_2
+      
+      
+      clip.line_nodeid
+      
+      
+      clip.mesh_plane
+      
+      
+      clip.number_to_create
+      
+      
+      clip.origin
+      
+      
+      clip.plane
+      
+      
+      clip.plane_1
+      
+      
+      clip.plane_2
+      
+      
+      clip.plane_3
+      
+      
+      clip.plane_nodeid
+      
+      
+      clip.plane_showsplineqia
+      
+      
+      clip.point
+      
+      
+      clip.point_distance
+      
+      
+      clip.point_distance_1
+      
+      
+      clip.point_distance_10
+      
+      
+      clip.point_distance_2
+      
+      
+      clip.point_distance_3
+      
+      
+      clip.point_distance_4
+      
+      
+      clip.point_distance_5
+      
+      
+      clip.point_distance_6
+      
+      
+      clip.point_distance_7
+      
+      
+      clip.point_distance_8
+      
+      
+      clip.point_distance_9
+      
+      
+      clip.point_radii
+      
+      
+      clip.point_radii_1
+      
+      
+      clip.point_radii_10
+      
+      
+      clip.point_radii_2
+      
+      
+      clip.point_radii_3
+      
+      
+      clip.point_radii_4
+      
+      
+      clip.point_radii_5
+      
+      
+      clip.point_radii_6
+      
+      
+      clip.point_radii_7
+      
+      
+      clip.point_radii_8
+      
+      
+      clip.point_radii_9
+      
+      
+      clip.points
+      
+      
+      clip.pts_on_line
+      
+      
+      clip.pts_on_spline
+      
+      
+      clip.radius
+      
+      
+      clip.revolution_points
+      
+      
+      clip.revolve_part
+      
+      
+      clip.revolve_partbyname
+      
+      
+      clip.rtz_axis
+      
+      
+      clip.sample
+      
+      
+      clip.sample_step
+      
+      
+      clip.select_default
+      
+      
+      clip.slider_range_ijk
+      
+      
+      clip.slider_step
+      
+      
+      clip.slider_step_ijk
+      
+      
+      clip.slider_x
+      
+      
+      clip.slider_y
+      
+      
+      clip.slider_z
+      
+      
+      clip.spline_id
+      
+      
+      clip.spline_location
+      
+      
+      clip.spline_name
+      
+      
+      clip.tool
+      
+      
+      clip.type
+      
+      
+      clip.update_to_newtoollocation
+      
+      
+      clip.value
+      
+      
+      clip.x_max_infinite
+      
+      
+      clip.x_min_infinite
+      
+      
+      clip.y_max_infinite
+      
+      
+      clip.y_min_infinite
+      
+      
+      clip.z_max_infinite
+      
+      
+      clip.z_min_infinite
+      
+   
+   
+
+   
+   
+   

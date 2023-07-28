@@ -1,0 +1,6 @@
+light\_specular\_reflection
+===========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.light_specular_reflection

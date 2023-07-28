@@ -1,0 +1,6 @@
+update\_to\_newtoollocation
+===========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: clip.update_to_newtoollocation

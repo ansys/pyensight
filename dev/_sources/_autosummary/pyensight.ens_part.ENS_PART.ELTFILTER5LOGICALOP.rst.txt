@@ -1,0 +1,6 @@
+ELTFILTER5LOGICALOP
+===================
+
+.. currentmodule:: pyensight.ens_part
+
+.. autoproperty:: ENS_PART.ELTFILTER5LOGICALOP

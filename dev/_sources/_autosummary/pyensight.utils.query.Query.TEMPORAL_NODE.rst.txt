@@ -1,0 +1,6 @@
+TEMPORAL\_NODE
+==============
+
+.. currentmodule:: pyensight.utils.query
+
+.. autoattribute:: Query.TEMPORAL_NODE

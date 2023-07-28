@@ -1,0 +1,85 @@
+﻿ENS\_FRAME
+==========
+
+.. currentmodule:: pyensight.ens_frame
+
+.. autoclass:: ENS_FRAME
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_FRAME.attrgroupinfo
+      
+      
+      ENS_FRAME.attrinfo
+      
+      
+      ENS_FRAME.attrissensitive
+      
+      
+      ENS_FRAME.attrtree
+      
+      
+      ENS_FRAME.destroy
+      
+      
+      ENS_FRAME.getattr
+      
+      
+      ENS_FRAME.getattrs
+      
+      
+      ENS_FRAME.getmetatag
+      
+      
+      ENS_FRAME.hasmetatag
+      
+      
+      ENS_FRAME.populate_attr_list
+      
+      
+      ENS_FRAME.setattr
+      
+      
+      ENS_FRAME.setattr_begin
+      
+      
+      ENS_FRAME.setattr_end
+      
+      
+      ENS_FRAME.setattr_status
+      
+      
+      ENS_FRAME.setattrs
+      
+      
+      ENS_FRAME.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_FRAME.DESCRIPTION
+      ENS_FRAME.EDIT_TARGET
+      ENS_FRAME.HANDLES_ENABLED
+      ENS_FRAME.ID
+      ENS_FRAME.METADATA
+      ENS_FRAME.PROJECT_MASK
+      ENS_FRAME.SELECTED
+      ENS_FRAME.UUID
+      ENS_FRAME.__OBJID__
+      ENS_FRAME.objid
+   
+   

@@ -1,0 +1,6 @@
+select\_all
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: dial.select_all

@@ -1,0 +1,6 @@
+use\_gamma\_correction
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view.use_gamma_correction

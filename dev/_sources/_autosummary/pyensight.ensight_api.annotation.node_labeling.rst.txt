@@ -1,0 +1,6 @@
+node\_labeling
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: annotation.node_labeling

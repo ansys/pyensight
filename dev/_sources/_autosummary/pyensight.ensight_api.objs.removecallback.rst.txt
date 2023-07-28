@@ -1,0 +1,6 @@
+removecallback
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: objs.removecallback

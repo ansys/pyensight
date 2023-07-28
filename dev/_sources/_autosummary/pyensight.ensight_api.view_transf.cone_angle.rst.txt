@@ -1,0 +1,6 @@
+cone\_angle
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.cone_angle

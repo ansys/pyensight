@@ -1,0 +1,6 @@
+select\_emitter\_end
+====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace_emitr.select_emitter_end

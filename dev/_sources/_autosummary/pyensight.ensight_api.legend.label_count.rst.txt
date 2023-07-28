@@ -1,0 +1,6 @@
+label\_count
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: legend.label_count

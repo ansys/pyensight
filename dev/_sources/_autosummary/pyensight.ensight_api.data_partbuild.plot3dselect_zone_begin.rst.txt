@@ -1,0 +1,6 @@
+plot3dselect\_zone\_begin
+=========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: data_partbuild.plot3dselect_zone_begin

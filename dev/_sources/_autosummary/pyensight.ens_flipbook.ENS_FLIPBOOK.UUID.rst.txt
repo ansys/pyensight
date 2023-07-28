@@ -1,0 +1,6 @@
+UUID
+====
+
+.. currentmodule:: pyensight.ens_flipbook
+
+.. autoproperty:: ENS_FLIPBOOK.UUID

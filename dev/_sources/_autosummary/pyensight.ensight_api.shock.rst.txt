@@ -1,0 +1,105 @@
+﻿shock
+=====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: shock
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      shock.begin
+      
+      
+      shock.create
+      
+      
+      shock.density
+      
+      
+      shock.end
+      
+      
+      shock.enthalpy
+      
+      
+      shock.gas_constant
+      
+      
+      shock.mach
+      
+      
+      shock.method
+      
+      
+      shock.momentum
+      
+      
+      shock.pressure
+      
+      
+      shock.ratio_of_spec_heat
+      
+      
+      shock.region_threshold_max
+      
+      
+      shock.region_threshold_min
+      
+      
+      shock.region_threshold_value
+      
+      
+      shock.select_default
+      
+      
+      shock.specific_gas
+      
+      
+      shock.surface_threshold_max
+      
+      
+      shock.surface_threshold_min
+      
+      
+      shock.surface_threshold_value
+      
+      
+      shock.temperature
+      
+      
+      shock.threshold
+      
+      
+      shock.threshold_filter
+      
+      
+      shock.threshold_max
+      
+      
+      shock.threshold_min
+      
+      
+      shock.threshold_value
+      
+      
+      shock.total_energy
+      
+      
+      shock.variable
+      
+      
+      shock.velocity
+      
+   
+   
+
+   
+   
+   

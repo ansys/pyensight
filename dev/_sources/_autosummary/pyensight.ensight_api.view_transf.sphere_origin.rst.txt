@@ -1,0 +1,6 @@
+sphere\_origin
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.sphere_origin

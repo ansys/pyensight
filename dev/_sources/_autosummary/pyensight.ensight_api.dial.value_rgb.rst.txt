@@ -1,0 +1,6 @@
+value\_rgb
+==========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: dial.value_rgb

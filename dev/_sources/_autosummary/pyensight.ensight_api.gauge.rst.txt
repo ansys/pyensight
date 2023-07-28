@@ -1,0 +1,123 @@
+﻿gauge
+=====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: gauge
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      gauge.background
+      
+      
+      gauge.background_rgb
+      
+      
+      gauge.border
+      
+      
+      gauge.delete
+      
+      
+      gauge.description
+      
+      
+      gauge.deselect_all
+      
+      
+      gauge.height
+      
+      
+      gauge.level_rgb
+      
+      
+      gauge.location_x
+      
+      
+      gauge.location_y
+      
+      
+      gauge.maximum
+      
+      
+      gauge.minimum
+      
+      
+      gauge.modify_begin
+      
+      
+      gauge.modify_end
+      
+      
+      gauge.new_gauge
+      
+      
+      gauge.new_or_mod_gauge
+      
+      
+      gauge.orientation
+      
+      
+      gauge.query_count
+      
+      
+      gauge.query_display_attributes
+      
+      
+      gauge.query_selected_objects
+      
+      
+      gauge.select_all
+      
+      
+      gauge.select_all_invisible
+      
+      
+      gauge.select_all_visible
+      
+      
+      gauge.select_begin
+      
+      
+      gauge.select_default
+      
+      
+      gauge.value
+      
+      
+      gauge.value_decimal_places
+      
+      
+      gauge.value_format
+      
+      
+      gauge.value_location
+      
+      
+      gauge.value_rgb
+      
+      
+      gauge.value_size
+      
+      
+      gauge.variable
+      
+      
+      gauge.visible
+      
+      
+      gauge.width
+      
+   
+   
+
+   
+   
+   

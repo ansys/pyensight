@@ -1,0 +1,6 @@
+select\_parts\_by\_tag
+======================
+
+.. currentmodule:: pyensight.utils.parts
+
+.. automethod:: Parts.select_parts_by_tag

@@ -1,0 +1,6 @@
+ANGLE
+=====
+
+.. currentmodule:: pyensight.ens_tool_cone
+
+.. autoproperty:: ENS_TOOL_CONE.ANGLE

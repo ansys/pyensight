@@ -1,0 +1,6 @@
+axis\_x\_labelformat
+====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: plot.axis_x_labelformat

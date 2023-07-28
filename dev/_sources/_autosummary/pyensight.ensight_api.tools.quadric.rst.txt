@@ -1,0 +1,6 @@
+quadric
+=======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: tools.quadric

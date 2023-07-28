@@ -1,0 +1,6 @@
+NODESTEP
+========
+
+.. currentmodule:: pyensight.ens_lpart
+
+.. autoproperty:: ENS_LPART.NODESTEP

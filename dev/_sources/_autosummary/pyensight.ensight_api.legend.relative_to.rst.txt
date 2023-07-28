@@ -1,0 +1,6 @@
+relative\_to
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: legend.relative_to

@@ -1,0 +1,6 @@
+ground\_plane\_blendscale
+=========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: scene.ground_plane_blendscale

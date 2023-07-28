@@ -1,0 +1,240 @@
+﻿query\_ent\_var
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: query_ent_var
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      query_ent_var.auto_plot_checkexisting
+      
+      
+      query_ent_var.auto_plot_queries
+      
+      
+      query_ent_var.begin
+      
+      
+      query_ent_var.begin_simtime
+      
+      
+      query_ent_var.constpart_setparttobegin
+      
+      
+      query_ent_var.constpart_setparttoend
+      
+      
+      query_ent_var.constpart_sweepbegin
+      
+      
+      query_ent_var.constpart_sweepend
+      
+      
+      query_ent_var.constrain
+      
+      
+      query_ent_var.cursor_loc
+      
+      
+      query_ent_var.data01
+      
+      
+      query_ent_var.data02
+      
+      
+      query_ent_var.data03
+      
+      
+      query_ent_var.data04
+      
+      
+      query_ent_var.data05
+      
+      
+      query_ent_var.data06
+      
+      
+      query_ent_var.description
+      
+      
+      query_ent_var.distance
+      
+      
+      query_ent_var.distance_in
+      
+      
+      query_ent_var.elem_id
+      
+      
+      query_ent_var.end
+      
+      
+      query_ent_var.end_simtime
+      
+      
+      query_ent_var.frame
+      
+      
+      query_ent_var.generate_over
+      
+      
+      query_ent_var.ijk
+      
+      
+      query_ent_var.line_loc
+      
+      
+      query_ent_var.marker_rgb
+      
+      
+      query_ent_var.marker_size
+      
+      
+      query_ent_var.marker_size_normalized
+      
+      
+      query_ent_var.marker_visible
+      
+      
+      query_ent_var.modify_begin
+      
+      
+      query_ent_var.modify_end
+      
+      
+      query_ent_var.multiple_segments_by
+      
+      
+      query_ent_var.node_id
+      
+      
+      query_ent_var.number_of_sample_pts
+      
+      
+      query_ent_var.operation
+      
+      
+      query_ent_var.operation_factor1
+      
+      
+      query_ent_var.operation_factor2
+      
+      
+      query_ent_var.operation_query1byname
+      
+      
+      query_ent_var.operation_query2byname
+      
+      
+      query_ent_var.origin
+      
+      
+      query_ent_var.part_delta_value
+      
+      
+      query_ent_var.part_id
+      
+      
+      query_ent_var.part_idbyname
+      
+      
+      query_ent_var.part_max_value
+      
+      
+      query_ent_var.part_min_value
+      
+      
+      query_ent_var.point_1
+      
+      
+      query_ent_var.point_2
+      
+      
+      query_ent_var.query
+      
+      
+      query_ent_var.query_count
+      
+      
+      query_ent_var.query_create_attributes
+      
+      
+      query_ent_var.query_display_attributes
+      
+      
+      query_ent_var.query_object_atwindowxy
+      
+      
+      query_ent_var.query_type
+      
+      
+      query_ent_var.sample_by
+      
+      
+      query_ent_var.scalar_value
+      
+      
+      query_ent_var.scalar_variable
+      
+      
+      query_ent_var.select_all_timesteps
+      
+      
+      query_ent_var.spline_id
+      
+      
+      query_ent_var.spline_name
+      
+      
+      query_ent_var.sweep_build1
+      
+      
+      query_ent_var.sweep_build2
+      
+      
+      query_ent_var.sweep_build3
+      
+      
+      query_ent_var.sweep_build4
+      
+      
+      query_ent_var.time_step_begin
+      
+      
+      query_ent_var.time_step_end
+      
+      
+      query_ent_var.type
+      
+      
+      query_ent_var.update_with_newtimesteps
+      
+      
+      query_ent_var.variable
+      
+      
+      query_ent_var.variable_1
+      
+      
+      query_ent_var.variable_1_byname_begin
+      
+      
+      query_ent_var.variable_1_byname_end
+      
+      
+      query_ent_var.variable_2
+      
+   
+   
+
+   
+   
+   

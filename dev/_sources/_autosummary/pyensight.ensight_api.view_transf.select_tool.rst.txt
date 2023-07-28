@@ -1,0 +1,6 @@
+select\_tool
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.select_tool

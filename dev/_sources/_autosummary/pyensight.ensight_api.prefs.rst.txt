@@ -1,0 +1,213 @@
+﻿prefs
+=====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: prefs
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      prefs.abort_server_operations
+      
+      
+      prefs.abort_server_time
+      
+      
+      prefs.allmodelusecompdisplace
+      
+      
+      prefs.animate_model_axis
+      
+      
+      prefs.auto_contrast_foreground
+      
+      
+      prefs.auto_legend_display
+      
+      
+      prefs.auto_legend_replace
+      
+      
+      prefs.auto_load_parts
+      
+      
+      prefs.balloon_help
+      
+      
+      prefs.binary_files_are
+      
+      
+      prefs.cull_lines
+      
+      
+      prefs.default_data_directory
+      
+      
+      prefs.default_data_filefilter
+      
+      
+      prefs.default_palette
+      
+      
+      prefs.detailrep_point_res
+      
+      
+      prefs.fastdisplay_point_res
+      
+      
+      prefs.fastdisplay_sparse_res
+      
+      
+      prefs.frame_mode_allowed
+      
+      
+      prefs.function_editor_type
+      
+      
+      prefs.highlight_textfields
+      
+      
+      prefs.icon_help_labels
+      
+      
+      prefs.large_parts_list
+      
+      
+      prefs.legend_colorby
+      
+      
+      prefs.macro_panel
+      
+      
+      prefs.minimize_redraw
+      
+      
+      prefs.model_axis_location
+      
+      
+      prefs.new_data_notification
+      
+      
+      prefs.nfaced_decomp_method
+      
+      
+      prefs.number_of_peels
+      
+      
+      prefs.number_of_server_cpus
+      
+      
+      prefs.optimize_geometry
+      
+      
+      prefs.part_panel
+      
+      
+      prefs.partlist_details
+      
+      
+      prefs.partlist_displayattr
+      
+      
+      prefs.partlist_displaycase
+      
+      
+      prefs.partlist_displaytree
+      
+      
+      prefs.partlist_sort
+      
+      
+      prefs.plane_tool_type
+      
+      
+      prefs.prompt_on_quit
+      
+      
+      prefs.resetlegend_ontimechange
+      
+      
+      prefs.starting_time_step
+      
+      
+      prefs.static_fast_display
+      
+      
+      prefs.tool_tips
+      
+      
+      prefs.transparency_resort
+      
+      
+      prefs.transparency_sort
+      
+      
+      prefs.undo_redo_history_count
+      
+      
+      prefs.use_continuous_perelem
+      
+      
+      prefs.user_defined_input
+      
+      
+      prefs.user_input_postranssens
+      
+      
+      prefs.user_input_rotatesens
+      
+      
+      prefs.user_input_rotateusing
+      
+      
+      prefs.user_input_rtzlimit
+      
+      
+      prefs.user_input_valtranssens
+      
+      
+      prefs.user_input_zoomsens
+      
+      
+      prefs.user_input_zoomusing
+      
+      
+      prefs.view_mode_allowed
+      
+      
+      prefs.vr_annotation_center
+      
+      
+      prefs.vr_annotation_normal
+      
+      
+      prefs.vr_annotation_scale
+      
+      
+      prefs.vr_annotation_up
+      
+      
+      prefs.vr_view_center
+      
+      
+      prefs.vr_view_diagonal
+      
+      
+      prefs.vr_view_scale
+      
+      
+      prefs.vr_view_scalebydiagonal
+      
+   
+   
+
+   
+   
+   

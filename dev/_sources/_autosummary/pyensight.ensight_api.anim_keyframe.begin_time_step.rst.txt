@@ -1,0 +1,6 @@
+begin\_time\_step
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_keyframe.begin_time_step

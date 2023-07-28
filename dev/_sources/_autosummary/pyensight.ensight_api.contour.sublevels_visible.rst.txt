@@ -1,0 +1,6 @@
+sublevels\_visible
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: contour.sublevels_visible

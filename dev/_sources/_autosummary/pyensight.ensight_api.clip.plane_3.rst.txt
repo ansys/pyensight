@@ -1,0 +1,6 @@
+plane\_3
+========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: clip.plane_3

@@ -1,0 +1,6 @@
+TRANSFORM\_WITH\_MODEL
+======================
+
+.. currentmodule:: pyensight.ens_lightsource
+
+.. autoproperty:: ENS_LIGHTSOURCE.TRANSFORM_WITH_MODEL

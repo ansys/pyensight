@@ -1,0 +1,75 @@
+﻿auxgeom
+=======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: auxgeom
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      auxgeom.begin
+      
+      
+      auxgeom.create
+      
+      
+      auxgeom.end
+      
+      
+      auxgeom.mesh_resolution
+      
+      
+      auxgeom.normals_point
+      
+      
+      auxgeom.origin
+      
+      
+      auxgeom.select_default
+      
+      
+      auxgeom.show_outline
+      
+      
+      auxgeom.show_plane_xmax
+      
+      
+      auxgeom.show_plane_xmin
+      
+      
+      auxgeom.show_plane_ymax
+      
+      
+      auxgeom.show_plane_ymin
+      
+      
+      auxgeom.show_plane_zmax
+      
+      
+      auxgeom.show_plane_zmin
+      
+      
+      auxgeom.size
+      
+      
+      auxgeom.type
+      
+      
+      auxgeom.use_doublesided_walls
+      
+      
+      auxgeom.wall_thickness
+      
+   
+   
+
+   
+   
+   

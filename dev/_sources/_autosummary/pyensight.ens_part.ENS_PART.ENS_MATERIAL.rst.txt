@@ -1,0 +1,6 @@
+ENS\_MATERIAL
+=============
+
+.. currentmodule:: pyensight.ens_part
+
+.. autoproperty:: ENS_PART.ENS_MATERIAL

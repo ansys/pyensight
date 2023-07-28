@@ -1,0 +1,6 @@
+hold
+====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_recorders.hold

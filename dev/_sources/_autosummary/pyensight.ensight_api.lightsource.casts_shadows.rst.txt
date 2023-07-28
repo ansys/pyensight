@@ -1,0 +1,6 @@
+casts\_shadows
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: lightsource.casts_shadows

@@ -1,0 +1,6 @@
+SOURCE
+======
+
+.. currentmodule:: pyensight.ens_source
+
+.. autoproperty:: ENS_SOURCE.SOURCE

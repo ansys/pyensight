@@ -1,0 +1,6 @@
+shadow\_intensity
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: legend.shadow_intensity

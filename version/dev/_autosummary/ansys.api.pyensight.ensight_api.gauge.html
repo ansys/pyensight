@@ -1,0 +1,815 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>gauge &#8212; PyEnSight</title>
+    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys_sphinx_theme.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/breadcrumbs.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    
+        <link href="../_static/css/breadcrumbs.css" rel="stylesheet">
+    
+    <script integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" src="../_static/jquery.js"></script>
+    <script integrity="sha384-lSZeSIVKp9myfKbDQ3GkN/KHjUc+mzg17VKDN4Y2kUeBSJioB9QSM639vM9fuY//" src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/table.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_autosummary/ansys.api.pyensight.ensight_api.gauge';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        </script>
+    <script src="../_static/js/mermaid.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <link rel="icon" href="../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="background" href="ansys.api.pyensight.ensight_api.gauge.background.html" />
+    <link rel="prev" title="value" href="ansys.api.pyensight.ensight_api.function.value.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container"><!-- Debugging: html_theme_options =  -->
+
+  <!-- If there is no MiliSearch enabled, use the PyData search -->
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+</div>
+  </div>
+  
+    
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pyansys-logo-black-cropped.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/pyansys-logo-black-cropped.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../getting_started/index.html">
+                        Getting started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../user_guide/index.html">
+                        User guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../class_documentation.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_examples/index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../contributing.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      dev  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+
+    
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(text => document.getElementById("announcement_msg").innerHTML = text)
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+    
+
+    
+    <div class="container-xl">
+    <div class="row">
+        <div class="col-12 col-md-3" id="breadcrumbs-spacer"></div>
+        <div class="col-12 col-md-11 col-xl-9" id="breadcrumbs">
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+    
+    
+        <li class="nav-item nav-item-0"><a href="../index.html">PyEnSight</a> » </li>
+    
+
+          <li class="nav-item nav-item-1"><a href="../class_documentation.html" >API reference</a> » </li>
+          <li class="nav-item nav-item-2"><a href="../native_documentation.html" accesskey="U">Native API reference</a> » </li>
+        <li class="nav-item nav-item-this"><a href="">gauge</a></li> 
+      </ul>
+    </div>
+        </div>
+  </div>
+</div>
+    
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../getting_started/index.html">
+                        Getting started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../user_guide/index.html">
+                        User guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../class_documentation.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_examples/index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../contributing.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      dev  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../native_documentation.html">Native API reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.html">ansys.api.pyensight.ensight_api</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim.html">anim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_flipbook.html">anim_flipbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_keyframe.html">anim_keyframe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_quick.html">anim_quick</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_recorders.html">anim_recorders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_screens.html">anim_screens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_traces.html">anim_traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annot_backgr.html">annot_backgr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annot_entlbl.html">annot_entlbl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annotation.html">annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.arrow.html">arrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.auxgeom.html">auxgeom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.boundarylayer.html">boundarylayer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.case.html">case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.html">clip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.collab.html">collab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.command.html">command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.connect.html">connect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.context_restore.html">context_restore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.contour.html">contour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.curve.html">curve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.data.html">data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.data_partbuild.html">data_partbuild</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.define.html">define</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.devsrf.html">devsrf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.dial.html">dial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.dpart.html">dpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.elevsurf.html">elevsurf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.html">ensight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.extrude.html">extrude</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.html">file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.filterpart.html">filterpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.format.html">format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.frame.html">frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.function.html">function</a></li>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">gauge</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.background.html">background</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.background_rgb.html">background_rgb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.border.html">border</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.delete.html">delete</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.description.html">description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.deselect_all.html">deselect_all</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.height.html">height</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.level_rgb.html">level_rgb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.location_x.html">location_x</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.location_y.html">location_y</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.maximum.html">maximum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.minimum.html">minimum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.modify_begin.html">modify_begin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.modify_end.html">modify_end</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.new_gauge.html">new_gauge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.new_or_mod_gauge.html">new_or_mod_gauge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.orientation.html">orientation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.query_count.html">query_count</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.query_display_attributes.html">query_display_attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.query_selected_objects.html">query_selected_objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.select_all.html">select_all</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.select_all_invisible.html">select_all_invisible</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.select_all_visible.html">select_all_visible</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.select_begin.html">select_begin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.select_default.html">select_default</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.value.html">value</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.value_decimal_places.html">value_decimal_places</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.value_format.html">value_format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.value_location.html">value_location</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.value_rgb.html">value_rgb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.value_size.html">value_size</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.variable.html">variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.visible.html">visible</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.width.html">width</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.help.html">help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.isos.html">isos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.legend.html">legend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.lightsource.html">lightsource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.line.html">line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.logo.html">logo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.material.html">material</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.message_window.html">message_window</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.model.html">model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.nplot.html">nplot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.nvc.html">nvc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.objs.html">objs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.html">part</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.plot.html">plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.pointpart.html">pointpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.prefs.html">prefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.profile.html">profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ptrace.html">ptrace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ptrace_emitr.html">ptrace_emitr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.query_ent_var.html">query_ent_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.query_interact.html">query_interact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.savegeom.html">savegeom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.scene.html">scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.sepattach.html">sepattach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.set_tdata.html">set_tdata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.set_visenv.html">set_visenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shape.html">shape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shell.html">shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shock.html">shock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.show_info.html">show_info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.solution_time.html">solution_time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.species.html">species</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.subset.html">subset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.tensor.html">tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.text.html">text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.texture.html">texture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.tools.html">tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.user.html">user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.varextcfd.html">varextcfd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.variables.html">variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vctarrow.html">vctarrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.view.html">view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.view_transf.html">view_transf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport.html">viewport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport_axis.html">viewport_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport_bounds.html">viewport_bounds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.views.html">views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vof.html">vof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vortexcore.html">vortexcore</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../object_documentation.html">Object API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calc_functions.html">Calculator functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest_api/rest_api.html">REST API</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.enscontext.EnsContext.html">EnsContext</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.LocalLauncher.html">LocalLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.DockerLauncher.html">DockerLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.renderable.Renderable.html">Renderable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.Session.html">Session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.export.Export.html">Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.parts.Parts.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.query.Query.html">Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.support.Support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.views.Views.html">Views</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="gauge">
+<h1>gauge<a class="headerlink" href="#gauge" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="ansys.api.pyensight.ensight_api.gauge">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ansys.api.pyensight.ensight_api.</span></span><span class="sig-name descname"><span class="pre">gauge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ansys.pyensight.core.Session.html#ansys.pyensight.core.Session" title="ansys.pyensight.core.session.Session"><span class="pre">Session</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ansys.api.pyensight.ensight_api.gauge" title="Permalink to this definition">#</a></dt>
+<dd><p>Class wrapper for EnSight gauge module</p>
+<p>This class acts as a proxy for the EnSight Python module ensight.gauge</p>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.background.html#ansys.api.pyensight.ensight_api.gauge.background" title="ansys.api.pyensight.ensight_api.gauge.background"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.background</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.background_rgb.html#ansys.api.pyensight.ensight_api.gauge.background_rgb" title="ansys.api.pyensight.ensight_api.gauge.background_rgb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.background_rgb</span></code></a>(p0, p1, p2)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.border.html#ansys.api.pyensight.ensight_api.gauge.border" title="ansys.api.pyensight.ensight_api.gauge.border"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.border</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.delete.html#ansys.api.pyensight.ensight_api.gauge.delete" title="ansys.api.pyensight.ensight_api.gauge.delete"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.delete</span></code></a>()</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.description.html#ansys.api.pyensight.ensight_api.gauge.description" title="ansys.api.pyensight.ensight_api.gauge.description"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.description</span></code></a>(p0)</p></td>
+<td><p>Gauge: description</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.deselect_all.html#ansys.api.pyensight.ensight_api.gauge.deselect_all" title="ansys.api.pyensight.ensight_api.gauge.deselect_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.deselect_all</span></code></a>()</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.height.html#ansys.api.pyensight.ensight_api.gauge.height" title="ansys.api.pyensight.ensight_api.gauge.height"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.height</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.level_rgb.html#ansys.api.pyensight.ensight_api.gauge.level_rgb" title="ansys.api.pyensight.ensight_api.gauge.level_rgb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.level_rgb</span></code></a>(p0, p1, p2)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.location_x.html#ansys.api.pyensight.ensight_api.gauge.location_x" title="ansys.api.pyensight.ensight_api.gauge.location_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.location_x</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.location_y.html#ansys.api.pyensight.ensight_api.gauge.location_y" title="ansys.api.pyensight.ensight_api.gauge.location_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.location_y</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.maximum.html#ansys.api.pyensight.ensight_api.gauge.maximum" title="ansys.api.pyensight.ensight_api.gauge.maximum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.maximum</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.minimum.html#ansys.api.pyensight.ensight_api.gauge.minimum" title="ansys.api.pyensight.ensight_api.gauge.minimum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.minimum</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.modify_begin.html#ansys.api.pyensight.ensight_api.gauge.modify_begin" title="ansys.api.pyensight.ensight_api.gauge.modify_begin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.modify_begin</span></code></a>()</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.modify_end.html#ansys.api.pyensight.ensight_api.gauge.modify_end" title="ansys.api.pyensight.ensight_api.gauge.modify_end"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.modify_end</span></code></a>()</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.new_gauge.html#ansys.api.pyensight.ensight_api.gauge.new_gauge" title="ansys.api.pyensight.ensight_api.gauge.new_gauge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.new_gauge</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.new_or_mod_gauge.html#ansys.api.pyensight.ensight_api.gauge.new_or_mod_gauge" title="ansys.api.pyensight.ensight_api.gauge.new_or_mod_gauge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.new_or_mod_gauge</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.orientation.html#ansys.api.pyensight.ensight_api.gauge.orientation" title="ansys.api.pyensight.ensight_api.gauge.orientation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.orientation</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.query_count.html#ansys.api.pyensight.ensight_api.gauge.query_count" title="ansys.api.pyensight.ensight_api.gauge.query_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.query_count</span></code></a>(args)</p></td>
+<td><p>Gauge: query_count</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.query_display_attributes.html#ansys.api.pyensight.ensight_api.gauge.query_display_attributes" title="ansys.api.pyensight.ensight_api.gauge.query_display_attributes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.query_display_attributes</span></code></a>(args)</p></td>
+<td><p>Gauge: query_display_attributes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.query_selected_objects.html#ansys.api.pyensight.ensight_api.gauge.query_selected_objects" title="ansys.api.pyensight.ensight_api.gauge.query_selected_objects"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.query_selected_objects</span></code></a>(args)</p></td>
+<td><p>Gauge: query_selected_objects</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.select_all.html#ansys.api.pyensight.ensight_api.gauge.select_all" title="ansys.api.pyensight.ensight_api.gauge.select_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.select_all</span></code></a>()</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.select_all_invisible.html#ansys.api.pyensight.ensight_api.gauge.select_all_invisible" title="ansys.api.pyensight.ensight_api.gauge.select_all_invisible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.select_all_invisible</span></code></a>()</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.select_all_visible.html#ansys.api.pyensight.ensight_api.gauge.select_all_visible" title="ansys.api.pyensight.ensight_api.gauge.select_all_visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.select_all_visible</span></code></a>()</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.select_begin.html#ansys.api.pyensight.ensight_api.gauge.select_begin" title="ansys.api.pyensight.ensight_api.gauge.select_begin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.select_begin</span></code></a>(*args, **kwargs)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.select_default.html#ansys.api.pyensight.ensight_api.gauge.select_default" title="ansys.api.pyensight.ensight_api.gauge.select_default"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.select_default</span></code></a>()</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.value.html#ansys.api.pyensight.ensight_api.gauge.value" title="ansys.api.pyensight.ensight_api.gauge.value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.value</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.value_decimal_places.html#ansys.api.pyensight.ensight_api.gauge.value_decimal_places" title="ansys.api.pyensight.ensight_api.gauge.value_decimal_places"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.value_decimal_places</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.value_format.html#ansys.api.pyensight.ensight_api.gauge.value_format" title="ansys.api.pyensight.ensight_api.gauge.value_format"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.value_format</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.value_location.html#ansys.api.pyensight.ensight_api.gauge.value_location" title="ansys.api.pyensight.ensight_api.gauge.value_location"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.value_location</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.value_rgb.html#ansys.api.pyensight.ensight_api.gauge.value_rgb" title="ansys.api.pyensight.ensight_api.gauge.value_rgb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.value_rgb</span></code></a>(p0, p1, p2)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.value_size.html#ansys.api.pyensight.ensight_api.gauge.value_size" title="ansys.api.pyensight.ensight_api.gauge.value_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.value_size</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.variable.html#ansys.api.pyensight.ensight_api.gauge.variable" title="ansys.api.pyensight.ensight_api.gauge.variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.variable</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.visible.html#ansys.api.pyensight.ensight_api.gauge.visible" title="ansys.api.pyensight.ensight_api.gauge.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.visible</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.width.html#ansys.api.pyensight.ensight_api.gauge.width" title="ansys.api.pyensight.ensight_api.gauge.width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gauge.width</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ansys.api.pyensight.ensight_api.gauge"><code class="docutils literal notranslate"><span class="pre">gauge</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../_sources/_autosummary/ansys.api.pyensight.ensight_api.gauge.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright (c) 2023 ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+    Built with the <a href="https://sphinxdocs.ansys.com/version/stable/index.html">Ansys Sphinx Theme</a> 0.9.9.
+    <br>Last updated on <span id="date"></span></br>
+</p>
+<script>
+  var options = { day: 'numeric', month: 'long', year: 'numeric' };
+  var lastModifiedDate = new Date(document.lastModified);
+  var date = lastModifiedDate.toLocaleDateString('en-US', options);
+  document.getElementById("date").innerHTML = date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

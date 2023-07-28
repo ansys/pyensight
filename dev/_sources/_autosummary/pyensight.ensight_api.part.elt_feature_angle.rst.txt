@@ -1,0 +1,6 @@
+elt\_feature\_angle
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.elt_feature_angle

@@ -1,0 +1,6 @@
+vr\_annotation\_scale
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: prefs.vr_annotation_scale

@@ -1,0 +1,6 @@
+spline\_id
+==========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.spline_id

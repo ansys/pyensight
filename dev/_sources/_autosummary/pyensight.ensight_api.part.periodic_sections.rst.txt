@@ -1,0 +1,6 @@
+periodic\_sections
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.periodic_sections

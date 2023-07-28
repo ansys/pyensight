@@ -1,0 +1,6 @@
+band\_width
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: function.band_width

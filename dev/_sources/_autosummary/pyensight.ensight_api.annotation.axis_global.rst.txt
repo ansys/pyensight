@@ -1,0 +1,6 @@
+axis\_global
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: annotation.axis_global

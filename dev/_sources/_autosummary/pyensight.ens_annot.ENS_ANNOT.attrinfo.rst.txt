@@ -1,0 +1,6 @@
+attrinfo
+========
+
+.. currentmodule:: pyensight.ens_annot
+
+.. automethod:: ENS_ANNOT.attrinfo

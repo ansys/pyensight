@@ -1,0 +1,6 @@
+load\_type
+==========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_flipbook.load_type

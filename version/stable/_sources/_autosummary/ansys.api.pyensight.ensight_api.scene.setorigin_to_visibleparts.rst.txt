@@ -1,0 +1,6 @@
+setorigin\_to\_visibleparts
+===========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: scene.setorigin_to_visibleparts

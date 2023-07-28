@@ -1,0 +1,6 @@
+add\_default\_file
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.add_default_file

@@ -1,0 +1,6 @@
+ELTFILTER4TESTOP
+================
+
+.. currentmodule:: pyensight.ens_part_axisymmetric
+
+.. autoproperty:: ENS_PART_AXISYMMETRIC.ELTFILTER4TESTOP

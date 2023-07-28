@@ -1,0 +1,6 @@
+light\_shin
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.light_shin

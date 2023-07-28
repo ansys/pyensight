@@ -1,0 +1,6 @@
+axis\_x\_numsubgrid
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: plot.axis_x_numsubgrid

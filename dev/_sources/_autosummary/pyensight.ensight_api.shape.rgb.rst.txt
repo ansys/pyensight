@@ -1,0 +1,6 @@
+rgb
+===
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: shape.rgb

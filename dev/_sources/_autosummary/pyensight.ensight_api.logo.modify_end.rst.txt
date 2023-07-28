@@ -1,0 +1,6 @@
+modify\_end
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: logo.modify_end

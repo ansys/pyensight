@@ -1,0 +1,6 @@
+setattr\_status
+===============
+
+.. currentmodule:: pyensight.ens_part_filter
+
+.. automethod:: ENS_PART_FILTER.setattr_status

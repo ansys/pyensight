@@ -1,0 +1,6 @@
+tip\_size\_rep
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: tensor.tip_size_rep

@@ -1,0 +1,6 @@
+STEREO\_CAPABLE
+===============
+
+.. currentmodule:: pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.STEREO_CAPABLE

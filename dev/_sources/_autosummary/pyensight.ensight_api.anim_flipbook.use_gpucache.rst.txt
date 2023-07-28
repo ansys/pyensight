@@ -1,0 +1,6 @@
+use\_gpucache
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_flipbook.use_gpucache

@@ -1,0 +1,6 @@
+HANDLES\_ENABLED
+================
+
+.. currentmodule:: pyensight.ens_annot_dial
+
+.. autoproperty:: ENS_ANNOT_DIAL.HANDLES_ENABLED

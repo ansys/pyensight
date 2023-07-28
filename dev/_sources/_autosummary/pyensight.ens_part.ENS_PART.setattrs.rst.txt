@@ -1,0 +1,6 @@
+setattrs
+========
+
+.. currentmodule:: pyensight.ens_part
+
+.. automethod:: ENS_PART.setattrs

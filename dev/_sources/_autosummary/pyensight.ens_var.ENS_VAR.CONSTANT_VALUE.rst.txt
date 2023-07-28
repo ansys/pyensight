@@ -1,0 +1,6 @@
+CONSTANT\_VALUE
+===============
+
+.. currentmodule:: pyensight.ens_var
+
+.. autoproperty:: ENS_VAR.CONSTANT_VALUE

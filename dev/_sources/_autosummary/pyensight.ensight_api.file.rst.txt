@@ -1,0 +1,300 @@
+﻿file
+====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: file
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      file.animation_color_type
+      
+      
+      file.animation_file
+      
+      
+      file.animation_format
+      
+      
+      file.animation_format_options
+      
+      
+      file.animation_frame_rate
+      
+      
+      file.animation_frames
+      
+      
+      file.animation_gamma
+      
+      
+      file.animation_multiple_images
+      
+      
+      file.animation_numpasses
+      
+      
+      file.animation_play_flipbook
+      
+      
+      file.animation_play_keyframe
+      
+      
+      file.animation_play_time
+      
+      
+      file.animation_raytrace_ext
+      
+      
+      file.animation_raytrace_it
+      
+      
+      file.animation_rend_offscreen
+      
+      
+      file.animation_reset_flipbook
+      
+      
+      file.animation_reset_keyframe
+      
+      
+      file.animation_reset_time
+      
+      
+      file.animation_reset_traces
+      
+      
+      file.animation_saturation
+      
+      
+      file.animation_screen_tiling
+      
+      
+      file.animation_start_number
+      
+      
+      file.animation_stereo
+      
+      
+      file.animation_window_size
+      
+      
+      file.animation_window_xy
+      
+      
+      file.context_restore_rescale
+      
+      
+      file.image_avi_type
+      
+      
+      file.image_bit_rate
+      
+      
+      file.image_color_type
+      
+      
+      file.image_convert
+      
+      
+      file.image_encapsulated
+      
+      
+      file.image_envideo_type
+      
+      
+      file.image_file
+      
+      
+      file.image_format
+      
+      
+      file.image_format_options
+      
+      
+      file.image_frame_rate
+      
+      
+      file.image_gamma
+      
+      
+      file.image_mpeg_type
+      
+      
+      file.image_numpasses
+      
+      
+      file.image_orientation
+      
+      
+      file.image_plot_only
+      
+      
+      file.image_postscript_cull
+      
+      
+      file.image_postscript_prev
+      
+      
+      file.image_postscript_subd
+      
+      
+      file.image_postscript_type
+      
+      
+      file.image_printer_command
+      
+      
+      file.image_printer_model
+      
+      
+      file.image_quality
+      
+      
+      file.image_raytrace_external
+      
+      
+      file.image_raytrace_it
+      
+      
+      file.image_rend_offscreen
+      
+      
+      file.image_saturation
+      
+      
+      file.image_scale_factor
+      
+      
+      file.image_screen_tiling
+      
+      
+      file.image_stereo
+      
+      
+      file.image_to_file
+      
+      
+      file.image_to_printer
+      
+      
+      file.image_transparent_back
+      
+      
+      file.image_window_size
+      
+      
+      file.image_window_xy
+      
+      
+      file.raytracer
+      
+      
+      file.raytracer_options
+      
+      
+      file.restore_context
+      
+      
+      file.restore_full_backup
+      
+      
+      file.save_animation
+      
+      
+      file.save_cmd_file
+      
+      
+      file.save_context
+      
+      
+      file.save_context_type
+      
+      
+      file.save_full_backup
+      
+      
+      file.save_geometric_entities
+      
+      
+      file.save_image
+      
+      
+      file.save_multiple_images
+      
+      
+      file.save_scenario
+      
+      
+      file.save_scenario_file
+      
+      
+      file.save_scenario_fileslct
+      
+      
+      file.save_scenario_png_file
+      
+      
+      file.save_scenario_png_format
+      
+      
+      file.save_scenario_project
+      
+      
+      file.save_scenario_projslct
+      
+      
+      file.save_scenario_view
+      
+      
+      file.save_scenario_which_parts
+      
+      
+      file.save_screen_to_clipboard
+      
+      
+      file.save_screen_to_file
+      
+      
+      file.scenario_desc_begin
+      
+      
+      file.scenario_desc_end
+      
+      
+      file.scenario_flipbook_anim
+      
+      
+      file.scenario_format
+      
+      
+      file.scenario_keyframe_anim
+      
+      
+      file.scenario_simtime_anim
+      
+      
+      file.scenario_steptime_anim
+      
+      
+      file.scenario_trace_anim
+      
+      
+      file.scenario_transient_anim
+      
+      
+      file.select_begin
+      
+   
+   
+
+   
+   
+   

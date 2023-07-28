@@ -1,0 +1,6 @@
+query\_count
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: frame.query_count

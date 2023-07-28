@@ -1,0 +1,6 @@
+viewport\_layout
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: viewport.viewport_layout

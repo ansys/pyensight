@@ -1,0 +1,6 @@
+new\_time
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: data.new_time

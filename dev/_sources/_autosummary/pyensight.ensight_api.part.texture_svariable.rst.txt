@@ -1,0 +1,6 @@
+texture\_svariable
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.texture_svariable

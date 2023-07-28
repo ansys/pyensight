@@ -1,0 +1,6 @@
+query\_trace\_paths
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ensight.query_trace_paths

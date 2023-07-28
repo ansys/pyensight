@@ -1,0 +1,6 @@
+hasmetatag
+==========
+
+.. currentmodule:: pyensight.ens_camera
+
+.. automethod:: ENS_CAMERA.hasmetatag

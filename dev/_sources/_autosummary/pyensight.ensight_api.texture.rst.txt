@@ -1,0 +1,51 @@
+﻿texture
+=======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: texture
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      texture.autoscale
+      
+      
+      texture.border_rgb
+      
+      
+      texture.border_transparency
+      
+      
+      texture.clear
+      
+      
+      texture.compress
+      
+      
+      texture.display_type
+      
+      
+      texture.frame_limits
+      
+      
+      texture.read
+      
+      
+      texture.select
+      
+      
+      texture.time_limits
+      
+   
+   
+
+   
+   
+   

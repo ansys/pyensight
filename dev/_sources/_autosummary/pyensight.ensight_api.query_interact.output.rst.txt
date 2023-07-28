@@ -1,0 +1,6 @@
+output
+======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: query_interact.output

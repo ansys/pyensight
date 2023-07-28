@@ -1,0 +1,6 @@
+add\_point
+==========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: pointpart.add_point

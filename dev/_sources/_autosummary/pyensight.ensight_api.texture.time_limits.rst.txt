@@ -1,0 +1,6 @@
+time\_limits
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: texture.time_limits

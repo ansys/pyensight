@@ -1,0 +1,6 @@
+get\_cei\_install\_directory
+============================
+
+.. currentmodule:: pyensight
+
+.. automethod:: LocalLauncher.get_cei_install_directory

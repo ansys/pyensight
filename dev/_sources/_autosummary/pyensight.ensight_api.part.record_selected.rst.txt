@@ -1,0 +1,6 @@
+record\_selected
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.record_selected

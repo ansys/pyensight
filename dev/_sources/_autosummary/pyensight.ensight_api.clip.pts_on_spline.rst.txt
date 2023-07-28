@@ -1,0 +1,6 @@
+pts\_on\_spline
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: clip.pts_on_spline

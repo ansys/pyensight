@@ -1,0 +1,6 @@
+little\_hand
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: dial.little_hand

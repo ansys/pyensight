@@ -1,0 +1,6 @@
+elt\_filter3\_active
+====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: model.elt_filter3_active

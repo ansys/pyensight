@@ -1,0 +1,6 @@
+display\_expansion\_factor
+==========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: query_interact.display_expansion_factor

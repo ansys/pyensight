@@ -1,0 +1,6 @@
+HAS2DELEMENTS
+=============
+
+.. currentmodule:: pyensight.ens_part_isosurface
+
+.. autoproperty:: ENS_PART_ISOSURFACE.HAS2DELEMENTS

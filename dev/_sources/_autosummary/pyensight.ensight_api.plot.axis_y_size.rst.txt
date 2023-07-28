@@ -1,0 +1,6 @@
+axis\_y\_size
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: plot.axis_y_size

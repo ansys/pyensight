@@ -1,0 +1,6 @@
+plane\_size
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.plane_size

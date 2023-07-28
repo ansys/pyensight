@@ -1,0 +1,6 @@
+image\_postscript\_subd
+=======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.image_postscript_subd

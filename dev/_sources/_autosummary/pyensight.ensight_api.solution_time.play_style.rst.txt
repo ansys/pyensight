@@ -1,0 +1,6 @@
+play\_style
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: solution_time.play_style

@@ -1,0 +1,6 @@
+deselect\_all
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: legend.deselect_all

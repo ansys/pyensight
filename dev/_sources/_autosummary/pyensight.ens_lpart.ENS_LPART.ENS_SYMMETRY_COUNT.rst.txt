@@ -1,0 +1,6 @@
+ENS\_SYMMETRY\_COUNT
+====================
+
+.. currentmodule:: pyensight.ens_lpart
+
+.. autoproperty:: ENS_LPART.ENS_SYMMETRY_COUNT

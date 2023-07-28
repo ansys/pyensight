@@ -1,0 +1,6 @@
+elt\_filter1\_variable
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: model.elt_filter1_variable

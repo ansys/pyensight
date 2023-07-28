@@ -1,0 +1,6 @@
+capture\_context
+================
+
+.. currentmodule:: pyensight
+
+.. automethod:: Session.capture_context

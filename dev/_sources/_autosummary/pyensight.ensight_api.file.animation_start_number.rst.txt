@@ -1,0 +1,6 @@
+animation\_start\_number
+========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.animation_start_number

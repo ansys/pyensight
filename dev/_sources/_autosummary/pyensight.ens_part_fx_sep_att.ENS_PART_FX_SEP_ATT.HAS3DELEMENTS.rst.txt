@@ -1,0 +1,6 @@
+HAS3DELEMENTS
+=============
+
+.. currentmodule:: pyensight.ens_part_fx_sep_att
+
+.. autoproperty:: ENS_PART_FX_SEP_ATT.HAS3DELEMENTS

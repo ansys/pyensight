@@ -1,0 +1,6 @@
+ungroup
+=======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.ungroup

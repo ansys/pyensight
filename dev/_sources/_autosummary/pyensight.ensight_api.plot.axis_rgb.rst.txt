@@ -1,0 +1,6 @@
+axis\_rgb
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: plot.axis_rgb

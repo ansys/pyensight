@@ -1,0 +1,6 @@
+spline\_location
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: clip.spline_location

@@ -1,0 +1,6 @@
+SFTCONTRAST
+===========
+
+.. currentmodule:: pyensight.ens_case
+
+.. autoproperty:: ENS_CASE.SFTCONTRAST

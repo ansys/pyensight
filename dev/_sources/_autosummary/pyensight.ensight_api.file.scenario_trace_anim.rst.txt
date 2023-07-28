@@ -1,0 +1,6 @@
+scenario\_trace\_anim
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.scenario_trace_anim

@@ -1,0 +1,6 @@
+delete
+======
+
+.. currentmodule:: ansys.pyensight.core.renderable
+
+.. automethod:: Renderable.delete

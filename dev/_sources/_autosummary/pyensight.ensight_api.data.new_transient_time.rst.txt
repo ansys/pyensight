@@ -1,0 +1,6 @@
+new\_transient\_time
+====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: data.new_transient_time

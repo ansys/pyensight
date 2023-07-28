@@ -1,0 +1,6 @@
+getattr
+=======
+
+.. currentmodule:: pyensight.ens_part_discrete_particle
+
+.. automethod:: ENS_PART_DISCRETE_PARTICLE.getattr

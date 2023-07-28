@@ -1,0 +1,6 @@
+MESHTYPE
+========
+
+.. currentmodule:: pyensight.ens_part_aux_geom
+
+.. autoproperty:: ENS_PART_AUX_GEOM.MESHTYPE

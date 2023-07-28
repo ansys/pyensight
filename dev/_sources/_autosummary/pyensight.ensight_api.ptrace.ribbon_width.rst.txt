@@ -1,0 +1,6 @@
+ribbon\_width
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.ribbon_width

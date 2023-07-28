@@ -1,0 +1,6 @@
+border\_visible
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: viewport.border_visible

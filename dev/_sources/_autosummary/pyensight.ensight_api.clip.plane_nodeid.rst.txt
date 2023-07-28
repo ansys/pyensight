@@ -1,0 +1,6 @@
+plane\_nodeid
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: clip.plane_nodeid

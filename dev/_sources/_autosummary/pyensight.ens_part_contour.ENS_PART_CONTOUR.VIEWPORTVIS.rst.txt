@@ -1,0 +1,6 @@
+VIEWPORTVIS
+===========
+
+.. currentmodule:: pyensight.ens_part_contour
+
+.. autoproperty:: ENS_PART_CONTOUR.VIEWPORTVIS

@@ -1,0 +1,6 @@
+STATUS\_STRING
+==============
+
+.. currentmodule:: pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.STATUS_STRING

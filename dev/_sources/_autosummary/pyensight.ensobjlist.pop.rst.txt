@@ -1,0 +1,6 @@
+pop
+===
+
+.. currentmodule:: pyensight
+
+.. automethod:: ensobjlist.pop

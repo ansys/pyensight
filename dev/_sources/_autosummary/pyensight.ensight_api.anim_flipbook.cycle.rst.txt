@@ -1,0 +1,6 @@
+cycle
+=====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_flipbook.cycle

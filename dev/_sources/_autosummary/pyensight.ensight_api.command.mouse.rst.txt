@@ -1,0 +1,6 @@
+mouse
+=====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: command.mouse

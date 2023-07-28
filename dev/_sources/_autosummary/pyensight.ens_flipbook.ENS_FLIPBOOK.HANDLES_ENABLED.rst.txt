@@ -1,0 +1,6 @@
+HANDLES\_ENABLED
+================
+
+.. currentmodule:: pyensight.ens_flipbook
+
+.. autoproperty:: ENS_FLIPBOOK.HANDLES_ENABLED

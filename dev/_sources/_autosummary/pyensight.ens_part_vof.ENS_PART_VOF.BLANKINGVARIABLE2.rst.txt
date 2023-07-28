@@ -1,0 +1,6 @@
+BLANKINGVARIABLE2
+=================
+
+.. currentmodule:: pyensight.ens_part_vof
+
+.. autoproperty:: ENS_PART_VOF.BLANKINGVARIABLE2

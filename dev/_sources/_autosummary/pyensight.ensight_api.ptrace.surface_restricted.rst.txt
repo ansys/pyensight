@@ -1,0 +1,6 @@
+surface\_restricted
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.surface_restricted

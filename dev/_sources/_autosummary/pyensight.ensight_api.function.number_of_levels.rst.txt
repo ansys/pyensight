@@ -1,0 +1,6 @@
+number\_of\_levels
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: function.number_of_levels

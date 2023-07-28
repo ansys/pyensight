@@ -1,0 +1,6 @@
+modify\_netemit\_points
+=======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.modify_netemit_points

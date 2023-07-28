@@ -1,0 +1,6 @@
+LABELFORMAT
+===========
+
+.. currentmodule:: pyensight.ens_probe
+
+.. autoproperty:: ENS_PROBE.LABELFORMAT

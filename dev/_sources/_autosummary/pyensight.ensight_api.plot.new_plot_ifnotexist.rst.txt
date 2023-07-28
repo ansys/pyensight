@@ -1,0 +1,6 @@
+new\_plot\_ifnotexist
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: plot.new_plot_ifnotexist

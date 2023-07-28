@@ -1,0 +1,6 @@
+add\_bypartname
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.add_bypartname

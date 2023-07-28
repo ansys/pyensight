@@ -1,0 +1,6 @@
+update
+======
+
+.. currentmodule:: pyensight.renderable
+
+.. automethod:: Renderable.update

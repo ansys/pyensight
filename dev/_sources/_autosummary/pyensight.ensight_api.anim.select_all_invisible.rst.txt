@@ -1,0 +1,6 @@
+select\_all\_invisible
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim.select_all_invisible

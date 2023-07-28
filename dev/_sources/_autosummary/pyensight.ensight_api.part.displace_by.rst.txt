@@ -1,0 +1,6 @@
+displace\_by
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.displace_by

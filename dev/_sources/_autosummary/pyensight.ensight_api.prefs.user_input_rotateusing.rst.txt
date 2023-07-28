@@ -1,0 +1,6 @@
+user\_input\_rotateusing
+========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: prefs.user_input_rotateusing

@@ -1,0 +1,6 @@
+CMDLANG\_REFERENCE
+==================
+
+.. currentmodule:: pyensight.ens_state
+
+.. autoproperty:: ENS_STATE.CMDLANG_REFERENCE

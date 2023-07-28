@@ -1,0 +1,6 @@
+setattr\_end
+============
+
+.. currentmodule:: pyensight.ens_frame
+
+.. automethod:: ENS_FRAME.setattr_end

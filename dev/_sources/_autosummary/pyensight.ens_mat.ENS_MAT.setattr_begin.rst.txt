@@ -1,0 +1,6 @@
+setattr\_begin
+==============
+
+.. currentmodule:: pyensight.ens_mat
+
+.. automethod:: ENS_MAT.setattr_begin

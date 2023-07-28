@@ -1,0 +1,6 @@
+query\_attributes
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: query_interact.query_attributes

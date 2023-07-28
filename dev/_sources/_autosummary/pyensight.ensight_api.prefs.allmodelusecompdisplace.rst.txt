@@ -1,0 +1,6 @@
+allmodelusecompdisplace
+=======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: prefs.allmodelusecompdisplace

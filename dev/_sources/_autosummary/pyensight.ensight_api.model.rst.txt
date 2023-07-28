@@ -1,0 +1,204 @@
+﻿model
+=====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: model
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      model.adjcoord_scale_factor
+      
+      
+      model.adjcoord_transvec
+      
+      
+      model.adjcoord_varscale_factor
+      
+      
+      model.adjcoord_x_variable
+      
+      
+      model.adjcoord_y_variable
+      
+      
+      model.adjcoord_z_variable
+      
+      
+      model.elt_defined_by
+      
+      
+      model.elt_filter1_active
+      
+      
+      model.elt_filter1_logicalop
+      
+      
+      model.elt_filter1_testop
+      
+      
+      model.elt_filter1_testvalue
+      
+      
+      model.elt_filter1_testvarcomp
+      
+      
+      model.elt_filter1_testvariable
+      
+      
+      model.elt_filter1_varcomp
+      
+      
+      model.elt_filter1_variable
+      
+      
+      model.elt_filter2_active
+      
+      
+      model.elt_filter2_logicalop
+      
+      
+      model.elt_filter2_testop
+      
+      
+      model.elt_filter2_testvalue
+      
+      
+      model.elt_filter2_testvarcomp
+      
+      
+      model.elt_filter2_testvariable
+      
+      
+      model.elt_filter2_varcomp
+      
+      
+      model.elt_filter2_variable
+      
+      
+      model.elt_filter3_active
+      
+      
+      model.elt_filter3_logicalop
+      
+      
+      model.elt_filter3_testop
+      
+      
+      model.elt_filter3_testvalue
+      
+      
+      model.elt_filter3_testvarcomp
+      
+      
+      model.elt_filter3_testvariable
+      
+      
+      model.elt_filter3_varcomp
+      
+      
+      model.elt_filter3_variable
+      
+      
+      model.elt_filter4_active
+      
+      
+      model.elt_filter4_logicalop
+      
+      
+      model.elt_filter4_testop
+      
+      
+      model.elt_filter4_testvalue
+      
+      
+      model.elt_filter4_testvarcomp
+      
+      
+      model.elt_filter4_testvariable
+      
+      
+      model.elt_filter4_varcomp
+      
+      
+      model.elt_filter4_variable
+      
+      
+      model.elt_filter5_active
+      
+      
+      model.elt_filter5_logicalop
+      
+      
+      model.elt_filter5_testop
+      
+      
+      model.elt_filter5_testvalue
+      
+      
+      model.elt_filter5_testvarcomp
+      
+      
+      model.elt_filter5_testvariable
+      
+      
+      model.elt_filter5_varcomp
+      
+      
+      model.elt_filter5_variable
+      
+      
+      model.elt_filter6_active
+      
+      
+      model.elt_filter6_logicalop
+      
+      
+      model.elt_filter6_testop
+      
+      
+      model.elt_filter6_testvalue
+      
+      
+      model.elt_filter6_testvarcomp
+      
+      
+      model.elt_filter6_testvariable
+      
+      
+      model.elt_filter6_varcomp
+      
+      
+      model.elt_filter6_variable
+      
+      
+      model.ijk_axis
+      
+      
+      model.ijk_axis_scale
+      
+      
+      model.noderangestep_i
+      
+      
+      model.noderangestep_j
+      
+      
+      model.noderangestep_k
+      
+      
+      model.select_default
+      
+   
+   
+
+   
+   
+   

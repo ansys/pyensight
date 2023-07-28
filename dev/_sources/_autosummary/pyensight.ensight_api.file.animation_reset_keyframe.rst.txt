@@ -1,0 +1,6 @@
+animation\_reset\_keyframe
+==========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.animation_reset_keyframe

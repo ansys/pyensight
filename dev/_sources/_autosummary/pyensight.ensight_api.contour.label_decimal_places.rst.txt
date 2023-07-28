@@ -1,0 +1,6 @@
+label\_decimal\_places
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: contour.label_decimal_places

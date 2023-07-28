@@ -1,0 +1,6 @@
+UNDEFINED\_COLOR
+================
+
+.. currentmodule:: pyensight.ens_palette
+
+.. autoproperty:: ENS_PALETTE.UNDEFINED_COLOR

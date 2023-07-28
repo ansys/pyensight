@@ -1,0 +1,6 @@
+mirror\_z
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: frame.mirror_z

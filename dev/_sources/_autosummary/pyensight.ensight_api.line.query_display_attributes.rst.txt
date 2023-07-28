@@ -1,0 +1,6 @@
+query\_display\_attributes
+==========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: line.query_display_attributes

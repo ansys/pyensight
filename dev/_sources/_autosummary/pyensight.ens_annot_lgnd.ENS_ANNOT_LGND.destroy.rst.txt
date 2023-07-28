@@ -1,0 +1,6 @@
+destroy
+=======
+
+.. currentmodule:: pyensight.ens_annot_lgnd
+
+.. automethod:: ENS_ANNOT_LGND.destroy

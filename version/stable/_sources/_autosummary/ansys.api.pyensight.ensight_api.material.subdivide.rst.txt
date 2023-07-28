@@ -1,0 +1,6 @@
+subdivide
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: material.subdivide

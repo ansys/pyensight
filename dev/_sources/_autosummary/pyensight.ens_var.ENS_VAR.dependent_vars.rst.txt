@@ -1,0 +1,6 @@
+dependent\_vars
+===============
+
+.. currentmodule:: pyensight.ens_var
+
+.. automethod:: ENS_VAR.dependent_vars

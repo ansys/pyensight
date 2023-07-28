@@ -1,0 +1,6 @@
+modify\_fileemit\_name
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.modify_fileemit_name

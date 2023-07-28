@@ -1,0 +1,6 @@
+\_\_OBJID\_\_
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_part_filter
+
+.. autoproperty:: ENS_PART_FILTER.__OBJID__

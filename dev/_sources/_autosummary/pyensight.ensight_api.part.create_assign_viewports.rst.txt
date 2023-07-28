@@ -1,0 +1,6 @@
+create\_assign\_viewports
+=========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.create_assign_viewports

@@ -1,0 +1,6 @@
+resource
+========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: data.resource

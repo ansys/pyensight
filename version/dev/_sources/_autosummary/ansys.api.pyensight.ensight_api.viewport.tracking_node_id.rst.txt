@@ -1,0 +1,6 @@
+tracking\_node\_id
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport.tracking_node_id

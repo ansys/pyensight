@@ -1,0 +1,6 @@
+LIGHT1AZIMUTH
+=============
+
+.. currentmodule:: pyensight.ens_vport
+
+.. autoproperty:: ENS_VPORT.LIGHT1AZIMUTH

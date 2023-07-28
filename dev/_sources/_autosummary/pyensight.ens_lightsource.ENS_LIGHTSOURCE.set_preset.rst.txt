@@ -1,0 +1,6 @@
+set\_preset
+===========
+
+.. currentmodule:: pyensight.ens_lightsource
+
+.. automethod:: ENS_LIGHTSOURCE.set_preset

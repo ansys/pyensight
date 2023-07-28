@@ -1,0 +1,6 @@
+massed\_initial\_velocity
+=========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.massed_initial_velocity

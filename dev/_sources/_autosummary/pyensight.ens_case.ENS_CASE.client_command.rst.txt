@@ -1,0 +1,6 @@
+client\_command
+===============
+
+.. currentmodule:: pyensight.ens_case
+
+.. automethod:: ENS_CASE.client_command

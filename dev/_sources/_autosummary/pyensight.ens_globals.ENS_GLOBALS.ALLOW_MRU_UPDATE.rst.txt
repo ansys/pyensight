@@ -1,0 +1,6 @@
+ALLOW\_MRU\_UPDATE
+==================
+
+.. currentmodule:: pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.ALLOW_MRU_UPDATE

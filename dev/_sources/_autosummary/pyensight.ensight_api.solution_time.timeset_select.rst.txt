@@ -1,0 +1,6 @@
+timeset\_select
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: solution_time.timeset_select

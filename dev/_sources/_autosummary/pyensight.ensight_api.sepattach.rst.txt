@@ -1,0 +1,66 @@
+﻿sepattach
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: sepattach
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      sepattach.begin
+      
+      
+      sepattach.create
+      
+      
+      sepattach.density
+      
+      
+      sepattach.display_offset
+      
+      
+      sepattach.end
+      
+      
+      sepattach.method
+      
+      
+      sepattach.momentum
+      
+      
+      sepattach.ratio_of_spec_heat
+      
+      
+      sepattach.select_default
+      
+      
+      sepattach.threshold
+      
+      
+      sepattach.threshold_filter
+      
+      
+      sepattach.threshold_max
+      
+      
+      sepattach.threshold_min
+      
+      
+      sepattach.threshold_value
+      
+      
+      sepattach.velocity
+      
+   
+   
+
+   
+   
+   

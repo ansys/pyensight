@@ -1,0 +1,6 @@
+getattr
+=======
+
+.. currentmodule:: pyensight.ens_polyline
+
+.. automethod:: ENS_POLYLINE.getattr

@@ -1,0 +1,6 @@
+populate\_attr\_list
+====================
+
+.. currentmodule:: pyensight.ens_tool_sphere
+
+.. automethod:: ENS_TOOL_SPHERE.populate_attr_list

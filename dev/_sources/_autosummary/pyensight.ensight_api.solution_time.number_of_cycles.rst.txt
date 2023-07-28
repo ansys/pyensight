@@ -1,0 +1,6 @@
+number\_of\_cycles
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: solution_time.number_of_cycles

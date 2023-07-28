@@ -1,0 +1,6 @@
+SEARCH
+======
+
+.. currentmodule:: pyensight.ens_probe
+
+.. autoproperty:: ENS_PROBE.SEARCH

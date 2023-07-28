@@ -1,0 +1,6 @@
+TEXTURETVARIABLE
+================
+
+.. currentmodule:: pyensight.ens_part_mat_interface
+
+.. autoproperty:: ENS_PART_MAT_INTERFACE.TEXTURETVARIABLE

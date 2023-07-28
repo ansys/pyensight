@@ -1,0 +1,6 @@
+query\_proj\_matrix
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.query_proj_matrix

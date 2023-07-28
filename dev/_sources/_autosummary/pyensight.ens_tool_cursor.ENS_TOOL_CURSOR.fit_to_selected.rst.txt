@@ -1,0 +1,6 @@
+fit\_to\_selected
+=================
+
+.. currentmodule:: pyensight.ens_tool_cursor
+
+.. automethod:: ENS_TOOL_CURSOR.fit_to_selected

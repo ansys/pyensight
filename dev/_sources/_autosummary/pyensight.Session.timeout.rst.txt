@@ -1,0 +1,6 @@
+timeout
+=======
+
+.. currentmodule:: pyensight
+
+.. autoproperty:: Session.timeout

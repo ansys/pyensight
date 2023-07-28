@@ -1,0 +1,6 @@
+getmetatag
+==========
+
+.. currentmodule:: pyensight.ens_part_point
+
+.. automethod:: ENS_PART_POINT.getmetatag

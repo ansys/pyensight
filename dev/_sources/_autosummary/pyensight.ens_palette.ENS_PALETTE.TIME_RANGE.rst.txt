@@ -1,0 +1,6 @@
+TIME\_RANGE
+===========
+
+.. currentmodule:: pyensight.ens_palette
+
+.. autoproperty:: ENS_PALETTE.TIME_RANGE

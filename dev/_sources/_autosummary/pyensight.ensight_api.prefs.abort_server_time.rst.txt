@@ -1,0 +1,6 @@
+abort\_server\_time
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: prefs.abort_server_time

@@ -1,0 +1,6 @@
+get\_point
+==========
+
+.. currentmodule:: pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.get_point

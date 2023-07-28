@@ -1,0 +1,6 @@
+momentum
+========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: sepattach.momentum

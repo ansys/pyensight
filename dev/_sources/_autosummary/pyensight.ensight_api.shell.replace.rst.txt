@@ -1,0 +1,6 @@
+replace
+=======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: shell.replace

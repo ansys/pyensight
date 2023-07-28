@@ -1,0 +1,6 @@
+query\_eltid\_atxyz
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.query_eltid_atxyz

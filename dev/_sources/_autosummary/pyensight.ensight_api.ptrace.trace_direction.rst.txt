@@ -1,0 +1,6 @@
+trace\_direction
+================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.trace_direction

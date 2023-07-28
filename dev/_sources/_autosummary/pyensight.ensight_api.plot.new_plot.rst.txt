@@ -1,0 +1,6 @@
+new\_plot
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: plot.new_plot

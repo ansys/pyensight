@@ -1,0 +1,6 @@
+select\_case\_end
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: data.select_case_end

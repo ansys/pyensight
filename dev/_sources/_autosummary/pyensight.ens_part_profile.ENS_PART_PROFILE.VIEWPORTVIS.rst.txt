@@ -1,0 +1,6 @@
+VIEWPORTVIS
+===========
+
+.. currentmodule:: pyensight.ens_part_profile
+
+.. autoproperty:: ENS_PART_PROFILE.VIEWPORTVIS

@@ -1,0 +1,6 @@
+cmdlang\_rec\_info
+==================
+
+.. currentmodule:: pyensight.ens_part_vector_arrow
+
+.. automethod:: ENS_PART_VECTOR_ARROW.cmdlang_rec_info

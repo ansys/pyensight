@@ -1,0 +1,6 @@
+fit\_to\_selected
+=================
+
+.. currentmodule:: pyensight.ens_tool_box
+
+.. automethod:: ENS_TOOL_BOX.fit_to_selected

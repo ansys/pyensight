@@ -1,0 +1,6 @@
+elt\_net
+========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace_emitr.elt_net

@@ -1,0 +1,6 @@
+light\_specular\_intensity
+==========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.light_specular_intensity

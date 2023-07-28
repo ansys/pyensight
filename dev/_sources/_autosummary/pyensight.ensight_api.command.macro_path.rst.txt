@@ -1,0 +1,6 @@
+macro\_path
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: command.macro_path

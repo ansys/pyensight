@@ -1,0 +1,6 @@
+cooling\_channel\_comp
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: vof.cooling_channel_comp

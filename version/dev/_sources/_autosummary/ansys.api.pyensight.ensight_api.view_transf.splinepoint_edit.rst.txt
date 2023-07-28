@@ -1,0 +1,6 @@
+splinepoint\_edit
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.splinepoint_edit

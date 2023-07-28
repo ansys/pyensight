@@ -1,0 +1,6 @@
+render
+======
+
+.. currentmodule:: pyensight
+
+.. automethod:: Session.render

@@ -1,0 +1,6 @@
+copy\_from\_session
+===================
+
+.. currentmodule:: pyensight
+
+.. automethod:: Session.copy_from_session

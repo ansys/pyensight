@@ -1,0 +1,6 @@
+launcher
+========
+
+.. currentmodule:: pyensight
+
+.. autoproperty:: Session.launcher

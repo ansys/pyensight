@@ -1,0 +1,6 @@
+label\_size
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: arrow.label_size

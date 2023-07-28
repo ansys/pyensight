@@ -1,0 +1,6 @@
+add
+===
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: data.add

@@ -1,0 +1,6 @@
+freestream\_density
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: boundarylayer.freestream_density

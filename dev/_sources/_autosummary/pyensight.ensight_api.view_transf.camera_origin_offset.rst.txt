@@ -1,0 +1,6 @@
+camera\_origin\_offset
+======================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.camera_origin_offset

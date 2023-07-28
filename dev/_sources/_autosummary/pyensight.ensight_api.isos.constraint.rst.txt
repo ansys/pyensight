@@ -1,0 +1,6 @@
+constraint
+==========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: isos.constraint

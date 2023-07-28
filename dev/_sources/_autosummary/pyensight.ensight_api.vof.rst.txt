@@ -1,0 +1,156 @@
+﻿vof
+===
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: vof
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      vof.begin
+      
+      
+      vof.blanking_algorithm
+      
+      
+      vof.blanking_clip_alg
+      
+      
+      vof.blanking_threshold
+      
+      
+      vof.blanking_variable1
+      
+      
+      vof.blanking_variable2
+      
+      
+      vof.boundary_flag_xmax
+      
+      
+      vof.boundary_flag_xmin
+      
+      
+      vof.boundary_flag_ymax
+      
+      
+      vof.boundary_flag_ymin
+      
+      
+      vof.boundary_flag_zmax
+      
+      
+      vof.boundary_flag_zmin
+      
+      
+      vof.cell_comp_num
+      
+      
+      vof.cell_type
+      
+      
+      vof.cell_volume_fraction
+      
+      
+      vof.clip_blanking_variable
+      
+      
+      vof.clip_lctw
+      
+      
+      vof.clip_periodic_flagx
+      
+      
+      vof.clip_periodic_flagy
+      
+      
+      vof.clip_type
+      
+      
+      vof.component
+      
+      
+      vof.component_num_in_cell
+      
+      
+      vof.cooling_channel_comp
+      
+      
+      vof.create
+      
+      
+      vof.end
+      
+      
+      vof.epsilon
+      
+      
+      vof.face_area_fraction
+      
+      
+      vof.geometric_type
+      
+      
+      vof.interactive_rangemax
+      
+      
+      vof.interactive_rangemin
+      
+      
+      vof.interactive_step
+      
+      
+      vof.interactive_xmax
+      
+      
+      vof.interactive_xmin
+      
+      
+      vof.interactive_ymax
+      
+      
+      vof.interactive_ymin
+      
+      
+      vof.interactive_zmax
+      
+      
+      vof.interactive_zmin
+      
+      
+      vof.mesh_planeloc
+      
+      
+      vof.select_default
+      
+      
+      vof.specify_cell_comp_num
+      
+      
+      vof.symmetry
+      
+      
+      vof.type
+      
+      
+      vof.value
+      
+      
+      vof.variable
+      
+      
+      vof.ztest
+      
+   
+   
+
+   
+   
+   

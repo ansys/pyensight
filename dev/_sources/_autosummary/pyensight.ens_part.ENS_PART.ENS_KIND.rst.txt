@@ -1,0 +1,6 @@
+ENS\_KIND
+=========
+
+.. currentmodule:: pyensight.ens_part
+
+.. autoproperty:: ENS_PART.ENS_KIND

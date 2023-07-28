@@ -1,0 +1,6 @@
+spline\_visibility
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.spline_visibility

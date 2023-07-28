@@ -1,0 +1,6 @@
+context\_restore\_rescale
+=========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: file.context_restore_rescale

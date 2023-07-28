@@ -1,0 +1,107 @@
+﻿ENS\_ANNOT\_LOGO
+================
+
+.. currentmodule:: pyensight.ens_annot_logo
+
+.. autoclass:: ENS_ANNOT_LOGO
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_ANNOT_LOGO.attrgroupinfo
+      
+      
+      ENS_ANNOT_LOGO.attrinfo
+      
+      
+      ENS_ANNOT_LOGO.attrissensitive
+      
+      
+      ENS_ANNOT_LOGO.attrtree
+      
+      
+      ENS_ANNOT_LOGO.createannot
+      
+      
+      ENS_ANNOT_LOGO.destroy
+      
+      
+      ENS_ANNOT_LOGO.getattr
+      
+      
+      ENS_ANNOT_LOGO.getattrs
+      
+      
+      ENS_ANNOT_LOGO.getmetatag
+      
+      
+      ENS_ANNOT_LOGO.hasmetatag
+      
+      
+      ENS_ANNOT_LOGO.populate_attr_list
+      
+      
+      ENS_ANNOT_LOGO.setattr
+      
+      
+      ENS_ANNOT_LOGO.setattr_begin
+      
+      
+      ENS_ANNOT_LOGO.setattr_end
+      
+      
+      ENS_ANNOT_LOGO.setattr_status
+      
+      
+      ENS_ANNOT_LOGO.setattrs
+      
+      
+      ENS_ANNOT_LOGO.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_ANNOT_LOGO.ANNOTINDEX
+      ENS_ANNOT_LOGO.ANNOTTYPE
+      ENS_ANNOT_LOGO.DESCRIPTION
+      ENS_ANNOT_LOGO.EDIT_TARGET
+      ENS_ANNOT_LOGO.HANDLES_ENABLED
+      ENS_ANNOT_LOGO.JUSTIFICATION
+      ENS_ANNOT_LOGO.LOCATIONX
+      ENS_ANNOT_LOGO.LOCATIONY
+      ENS_ANNOT_LOGO.METADATA
+      ENS_ANNOT_LOGO.NORMALIZEDWIDTH
+      ENS_ANNOT_LOGO.ORIGIN
+      ENS_ANNOT_LOGO.ORIGINBY
+      ENS_ANNOT_LOGO.ORIGINFRAME
+      ENS_ANNOT_LOGO.PROJECT_MASK
+      ENS_ANNOT_LOGO.RELATIVETO
+      ENS_ANNOT_LOGO.RELATIVEVIEWPORT
+      ENS_ANNOT_LOGO.RGB
+      ENS_ANNOT_LOGO.ROTATIONALANGLE
+      ENS_ANNOT_LOGO.SCALE
+      ENS_ANNOT_LOGO.SELECTED
+      ENS_ANNOT_LOGO.SHADOWINTENSITY
+      ENS_ANNOT_LOGO.SHADOWOFFSET
+      ENS_ANNOT_LOGO.SHOWRAYTRACEDIMAGE
+      ENS_ANNOT_LOGO.SIZE
+      ENS_ANNOT_LOGO.USENORMALIZEDWIDTH
+      ENS_ANNOT_LOGO.UUID
+      ENS_ANNOT_LOGO.VISIBLE
+      ENS_ANNOT_LOGO.__OBJID__
+      ENS_ANNOT_LOGO.objid
+   
+   

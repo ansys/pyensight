@@ -1,0 +1,6 @@
+box
+===
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: tools.box

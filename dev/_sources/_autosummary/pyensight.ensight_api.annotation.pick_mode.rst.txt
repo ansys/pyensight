@@ -1,0 +1,6 @@
+pick\_mode
+==========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: annotation.pick_mode

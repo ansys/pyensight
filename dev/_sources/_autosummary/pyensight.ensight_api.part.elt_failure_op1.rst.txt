@@ -1,0 +1,6 @@
+elt\_failure\_op1
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.elt_failure_op1

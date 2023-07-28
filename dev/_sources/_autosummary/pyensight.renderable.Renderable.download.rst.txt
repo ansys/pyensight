@@ -1,0 +1,6 @@
+download
+========
+
+.. currentmodule:: pyensight.renderable
+
+.. automethod:: Renderable.download

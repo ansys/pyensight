@@ -1,0 +1,6 @@
+LIGHT\_QUAD\_XDIR
+=================
+
+.. currentmodule:: pyensight.ens_lightsource
+
+.. autoproperty:: ENS_LIGHTSOURCE.LIGHT_QUAD_XDIR

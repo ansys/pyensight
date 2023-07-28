@@ -1,0 +1,6 @@
+HILITE\_SELECT\_COLOR\_FILL
+===========================
+
+.. currentmodule:: pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.HILITE_SELECT_COLOR_FILL

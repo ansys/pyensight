@@ -1,0 +1,6 @@
+query\_transform\_center
+========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.query_transform_center

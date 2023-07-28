@@ -1,0 +1,6 @@
+symmetry\_type
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: frame.symmetry_type

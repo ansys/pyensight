@@ -1,0 +1,6 @@
+particle\_time
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_traces.particle_time

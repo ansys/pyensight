@@ -1,0 +1,6 @@
+ENS\_SYMMETRY\_AXIS
+===================
+
+.. currentmodule:: pyensight.ens_part_frame
+
+.. autoproperty:: ENS_PART_FRAME.ENS_SYMMETRY_AXIS

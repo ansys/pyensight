@@ -1,0 +1,6 @@
+createpart
+==========
+
+.. currentmodule:: pyensight.ens_part
+
+.. automethod:: ENS_PART.createpart

@@ -1,0 +1,6 @@
+elt\_representation
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.elt_representation

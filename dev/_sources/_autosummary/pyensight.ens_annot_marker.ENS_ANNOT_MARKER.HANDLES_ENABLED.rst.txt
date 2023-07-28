@@ -1,0 +1,6 @@
+HANDLES\_ENABLED
+================
+
+.. currentmodule:: pyensight.ens_annot_marker
+
+.. autoproperty:: ENS_ANNOT_MARKER.HANDLES_ENABLED

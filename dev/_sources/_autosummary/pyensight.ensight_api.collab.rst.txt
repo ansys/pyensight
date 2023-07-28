@@ -1,0 +1,15 @@
+﻿collab
+======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: collab
+
+   
+
+   
+   
+
+   
+   
+   

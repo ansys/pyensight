@@ -1,0 +1,6 @@
+add\_pt
+=======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: ptrace.add_pt

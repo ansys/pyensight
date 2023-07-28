@@ -1,0 +1,6 @@
+refreshgui
+==========
+
+.. currentmodule:: pyensight.ens_group
+
+.. automethod:: ENS_GROUP.refreshgui

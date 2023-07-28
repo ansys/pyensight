@@ -1,0 +1,6 @@
+events\_queued
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: objs.events_queued

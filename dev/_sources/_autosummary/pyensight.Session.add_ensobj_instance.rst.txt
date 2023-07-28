@@ -1,0 +1,6 @@
+add\_ensobj\_instance
+=====================
+
+.. currentmodule:: pyensight
+
+.. automethod:: Session.add_ensobj_instance

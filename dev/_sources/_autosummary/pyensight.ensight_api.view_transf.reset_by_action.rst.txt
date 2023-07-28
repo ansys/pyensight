@@ -1,0 +1,6 @@
+reset\_by\_action
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.reset_by_action

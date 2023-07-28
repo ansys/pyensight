@@ -1,0 +1,6 @@
+point\_select\_begin
+====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: pointpart.point_select_begin

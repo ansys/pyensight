@@ -1,0 +1,6 @@
+set\_palette\_to\_viewminmax
+============================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: function.set_palette_to_viewminmax

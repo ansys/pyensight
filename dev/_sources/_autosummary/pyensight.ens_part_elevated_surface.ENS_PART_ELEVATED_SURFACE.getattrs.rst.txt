@@ -1,0 +1,6 @@
+getattrs
+========
+
+.. currentmodule:: pyensight.ens_part_elevated_surface
+
+.. automethod:: ENS_PART_ELEVATED_SURFACE.getattrs

@@ -1,0 +1,6 @@
+select\_parts\_by\_dimension
+============================
+
+.. currentmodule:: pyensight.utils.parts
+
+.. automethod:: Parts.select_parts_by_dimension

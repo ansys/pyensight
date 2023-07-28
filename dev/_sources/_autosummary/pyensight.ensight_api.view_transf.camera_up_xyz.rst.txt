@@ -1,0 +1,6 @@
+camera\_up\_xyz
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: view_transf.camera_up_xyz

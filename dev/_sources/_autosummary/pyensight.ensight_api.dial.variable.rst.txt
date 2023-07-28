@@ -1,0 +1,6 @@
+variable
+========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: dial.variable

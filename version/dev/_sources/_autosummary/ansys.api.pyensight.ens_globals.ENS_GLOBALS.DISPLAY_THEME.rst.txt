@@ -1,0 +1,6 @@
+DISPLAY\_THEME
+==============
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.DISPLAY_THEME

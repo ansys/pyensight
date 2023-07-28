@@ -1,0 +1,6 @@
+instant
+=======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: vctarrow.instant

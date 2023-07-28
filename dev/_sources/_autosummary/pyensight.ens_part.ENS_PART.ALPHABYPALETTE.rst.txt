@@ -1,0 +1,6 @@
+ALPHABYPALETTE
+==============
+
+.. currentmodule:: pyensight.ens_part
+
+.. autoproperty:: ENS_PART.ALPHABYPALETTE

@@ -1,0 +1,6 @@
+ELEMCOUNT
+=========
+
+.. currentmodule:: pyensight.ens_lpart
+
+.. autoproperty:: ENS_LPART.ELEMCOUNT

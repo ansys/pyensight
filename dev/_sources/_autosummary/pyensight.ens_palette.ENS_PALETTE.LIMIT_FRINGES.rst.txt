@@ -1,0 +1,6 @@
+LIMIT\_FRINGES
+==============
+
+.. currentmodule:: pyensight.ens_palette
+
+.. autoproperty:: ENS_PALETTE.LIMIT_FRINGES

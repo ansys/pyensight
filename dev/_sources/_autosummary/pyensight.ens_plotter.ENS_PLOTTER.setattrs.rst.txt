@@ -1,0 +1,6 @@
+setattrs
+========
+
+.. currentmodule:: pyensight.ens_plotter
+
+.. automethod:: ENS_PLOTTER.setattrs

@@ -1,0 +1,6 @@
+increment
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: solution_time.increment

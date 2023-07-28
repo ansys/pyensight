@@ -1,0 +1,6 @@
+ANTIALIAS\_PARAM\_COMPRESSION
+=============================
+
+.. currentmodule:: pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.ANTIALIAS_PARAM_COMPRESSION

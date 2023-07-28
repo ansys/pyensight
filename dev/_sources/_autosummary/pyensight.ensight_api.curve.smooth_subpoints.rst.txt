@@ -1,0 +1,6 @@
+smooth\_subpoints
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: curve.smooth_subpoints

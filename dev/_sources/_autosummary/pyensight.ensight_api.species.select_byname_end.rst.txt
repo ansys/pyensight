@@ -1,0 +1,6 @@
+select\_byname\_end
+===================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: species.select_byname_end

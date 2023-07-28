@@ -1,0 +1,6 @@
+legend\_origin\_x
+=================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: plot.legend_origin_x

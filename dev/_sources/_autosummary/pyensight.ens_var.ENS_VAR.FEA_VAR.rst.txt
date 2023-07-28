@@ -1,0 +1,6 @@
+FEA\_VAR
+========
+
+.. currentmodule:: pyensight.ens_var
+
+.. autoproperty:: ENS_VAR.FEA_VAR

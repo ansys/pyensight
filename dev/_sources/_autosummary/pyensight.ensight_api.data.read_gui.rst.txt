@@ -1,0 +1,6 @@
+read\_gui
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: data.read_gui

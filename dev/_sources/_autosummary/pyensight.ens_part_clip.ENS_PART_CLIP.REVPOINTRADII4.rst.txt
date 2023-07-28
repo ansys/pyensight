@@ -1,0 +1,6 @@
+REVPOINTRADII4
+==============
+
+.. currentmodule:: pyensight.ens_part_clip
+
+.. autoproperty:: ENS_PART_CLIP.REVPOINTRADII4

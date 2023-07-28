@@ -1,0 +1,6 @@
+string
+======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: text.string

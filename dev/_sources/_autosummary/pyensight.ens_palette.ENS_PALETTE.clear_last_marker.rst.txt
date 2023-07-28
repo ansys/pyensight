@@ -1,0 +1,6 @@
+clear\_last\_marker
+===================
+
+.. currentmodule:: pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.clear_last_marker

@@ -1,0 +1,6 @@
+spline\_name
+============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: clip.spline_name

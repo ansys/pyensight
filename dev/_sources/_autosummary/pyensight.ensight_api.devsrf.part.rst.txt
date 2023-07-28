@@ -1,0 +1,6 @@
+part
+====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: devsrf.part

@@ -1,0 +1,6 @@
+ENS\_TURBO\_VIEW
+================
+
+.. currentmodule:: pyensight.ens_lpart
+
+.. autoproperty:: ENS_LPART.ENS_TURBO_VIEW

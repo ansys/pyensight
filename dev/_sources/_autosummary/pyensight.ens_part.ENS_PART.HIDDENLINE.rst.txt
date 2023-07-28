@@ -1,0 +1,6 @@
+HIDDENLINE
+==========
+
+.. currentmodule:: pyensight.ens_part
+
+.. autoproperty:: ENS_PART.HIDDENLINE

@@ -1,0 +1,6 @@
+texture\_torigin\_nodeid
+========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.texture_torigin_nodeid

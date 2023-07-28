@@ -1,0 +1,6 @@
+environment\_map\_intensity
+===========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: scene.environment_map_intensity

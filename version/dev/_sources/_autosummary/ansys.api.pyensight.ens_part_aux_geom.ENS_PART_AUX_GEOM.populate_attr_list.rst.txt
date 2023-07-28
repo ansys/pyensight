@@ -1,0 +1,6 @@
+populate\_attr\_list
+====================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_aux_geom
+
+.. automethod:: ENS_PART_AUX_GEOM.populate_attr_list

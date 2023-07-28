@@ -1,0 +1,6 @@
+icon\_help\_labels
+==================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: prefs.icon_help_labels

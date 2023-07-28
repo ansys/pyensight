@@ -1,0 +1,6 @@
+begin\_simtime
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: anim_flipbook.begin_simtime

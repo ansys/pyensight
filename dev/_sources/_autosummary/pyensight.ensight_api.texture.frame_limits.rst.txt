@@ -1,0 +1,6 @@
+frame\_limits
+=============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: texture.frame_limits

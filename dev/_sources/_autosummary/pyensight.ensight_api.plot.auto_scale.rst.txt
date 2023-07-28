@@ -1,0 +1,6 @@
+auto\_scale
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: plot.auto_scale

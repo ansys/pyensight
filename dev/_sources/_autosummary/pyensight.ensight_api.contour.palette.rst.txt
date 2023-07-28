@@ -1,0 +1,6 @@
+palette
+=======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: contour.palette

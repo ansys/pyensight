@@ -1,0 +1,93 @@
+﻿anim
+====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: anim
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      anim.delete
+      
+      
+      anim.description
+      
+      
+      anim.deselect_all
+      
+      
+      anim.location_x
+      
+      
+      anim.location_y
+      
+      
+      anim.modify_begin
+      
+      
+      anim.modify_end
+      
+      
+      anim.new_logo
+      
+      
+      anim.new_or_mod_logo
+      
+      
+      anim.normalized_width
+      
+      
+      anim.query_count
+      
+      
+      anim.query_display_attributes
+      
+      
+      anim.query_selected_objects
+      
+      
+      anim.read
+      
+      
+      anim.rgb
+      
+      
+      anim.scale
+      
+      
+      anim.select_all
+      
+      
+      anim.select_all_invisible
+      
+      
+      anim.select_all_visible
+      
+      
+      anim.select_begin
+      
+      
+      anim.select_default
+      
+      
+      anim.show_raytraced_image
+      
+      
+      anim.use_normalized_width
+      
+      
+      anim.visible
+      
+   
+   
+
+   
+   
+   

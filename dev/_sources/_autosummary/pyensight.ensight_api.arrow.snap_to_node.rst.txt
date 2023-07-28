@@ -1,0 +1,6 @@
+snap\_to\_node
+==============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: arrow.snap_to_node

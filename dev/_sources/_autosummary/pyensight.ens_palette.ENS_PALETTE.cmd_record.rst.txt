@@ -1,0 +1,6 @@
+cmd\_record
+===========
+
+.. currentmodule:: pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.cmd_record

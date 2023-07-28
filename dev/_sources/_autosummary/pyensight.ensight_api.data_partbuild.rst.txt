@@ -1,0 +1,108 @@
+﻿data\_partbuild
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: data_partbuild
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      data_partbuild.begin
+      
+      
+      data_partbuild.create
+      
+      
+      data_partbuild.create_iblank
+      
+      
+      data_partbuild.data_type
+      
+      
+      data_partbuild.description
+      
+      
+      data_partbuild.domain
+      
+      
+      data_partbuild.end
+      
+      
+      data_partbuild.group
+      
+      
+      data_partbuild.iblank_type
+      
+      
+      data_partbuild.mpgsload
+      
+      
+      data_partbuild.nodedelta
+      
+      
+      data_partbuild.noderange_i
+      
+      
+      data_partbuild.noderange_j
+      
+      
+      data_partbuild.noderange_k
+      
+      
+      data_partbuild.nodestep
+      
+      
+      data_partbuild.plot3d_version
+      
+      
+      data_partbuild.plot3ddelta
+      
+      
+      data_partbuild.plot3ddomain
+      
+      
+      data_partbuild.plot3dnoderange_i
+      
+      
+      data_partbuild.plot3dnoderange_j
+      
+      
+      data_partbuild.plot3dnoderange_k
+      
+      
+      data_partbuild.plot3dselect_zone_begin
+      
+      
+      data_partbuild.plot3dstep
+      
+      
+      data_partbuild.select_all
+      
+      
+      data_partbuild.select_begin
+      
+      
+      data_partbuild.select_byexpr_begin
+      
+      
+      data_partbuild.select_byexpr_end
+      
+      
+      data_partbuild.select_byname_begin
+      
+      
+      data_partbuild.select_byname_end
+      
+   
+   
+
+   
+   
+   

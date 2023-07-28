@@ -1,0 +1,6 @@
+glyph\_size
+===========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: lightsource.glyph_size

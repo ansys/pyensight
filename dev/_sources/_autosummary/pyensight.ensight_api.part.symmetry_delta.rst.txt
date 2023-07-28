@@ -1,0 +1,6 @@
+symmetry\_delta
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: part.symmetry_delta

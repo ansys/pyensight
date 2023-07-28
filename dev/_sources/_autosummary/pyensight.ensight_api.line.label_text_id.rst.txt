@@ -1,0 +1,6 @@
+label\_text\_id
+===============
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: line.label_text_id

@@ -1,0 +1,6 @@
+centroid
+========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: lightsource.centroid

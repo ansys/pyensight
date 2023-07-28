@@ -1,0 +1,6 @@
+slider\_x
+=========
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: clip.slider_x

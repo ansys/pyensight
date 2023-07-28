@@ -1,0 +1,6 @@
+addtoplot
+=========
+
+.. currentmodule:: pyensight.ens_query
+
+.. automethod:: ENS_QUERY.addtoplot

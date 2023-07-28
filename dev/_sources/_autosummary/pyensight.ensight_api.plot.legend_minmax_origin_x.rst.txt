@@ -1,0 +1,6 @@
+legend\_minmax\_origin\_x
+=========================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: plot.legend_minmax_origin_x

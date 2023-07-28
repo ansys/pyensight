@@ -1,0 +1,6 @@
+normal
+======
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: material.normal

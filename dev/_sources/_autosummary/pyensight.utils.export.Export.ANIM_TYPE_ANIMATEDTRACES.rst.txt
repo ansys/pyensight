@@ -1,0 +1,6 @@
+ANIM\_TYPE\_ANIMATEDTRACES
+==========================
+
+.. currentmodule:: pyensight.utils.export
+
+.. autoattribute:: Export.ANIM_TYPE_ANIMATEDTRACES

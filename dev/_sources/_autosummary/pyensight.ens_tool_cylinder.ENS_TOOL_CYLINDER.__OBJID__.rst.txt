@@ -1,0 +1,6 @@
+\_\_OBJID\_\_
+=============
+
+.. currentmodule:: pyensight.ens_tool_cylinder
+
+.. autoproperty:: ENS_TOOL_CYLINDER.__OBJID__

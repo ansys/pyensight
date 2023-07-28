@@ -1,0 +1,6 @@
+vector\_report\_by\_x
+=====================
+
+.. currentmodule:: pyensight.ensight_api
+
+.. automethod:: query_interact.vector_report_by_x

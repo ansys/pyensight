@@ -1,0 +1,6 @@
+realtimemode
+============
+
+.. currentmodule:: pyensight.ens_part_contour
+
+.. automethod:: ENS_PART_CONTOUR.realtimemode

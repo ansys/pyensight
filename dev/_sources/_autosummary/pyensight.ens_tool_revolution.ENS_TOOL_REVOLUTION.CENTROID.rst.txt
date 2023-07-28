@@ -1,0 +1,6 @@
+CENTROID
+========
+
+.. currentmodule:: pyensight.ens_tool_revolution
+
+.. autoproperty:: ENS_TOOL_REVOLUTION.CENTROID

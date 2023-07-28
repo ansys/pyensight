@@ -1,0 +1,102 @@
+﻿case
+====
+
+.. currentmodule:: pyensight.ensight_api
+
+.. autoclass:: case
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      case.add
+      
+      
+      case.apply_context
+      
+      
+      case.case_linking
+      
+      
+      case.case_linking_labels
+      
+      
+      case.create_viewport
+      
+      
+      case.delete
+      
+      
+      case.limit_list_percase
+      
+      
+      case.link_modelparts_byname
+      
+      
+      case.linked
+      
+      
+      case.reflect_model_in
+      
+      
+      case.reflect_model_origin
+      
+      
+      case.rename
+      
+      
+      case.replace
+      
+      
+      case.select
+      
+      
+      case.sft_brightness
+      
+      
+      case.sft_contrast
+      
+      
+      case.sft_density
+      
+      
+      case.sft_length
+      
+      
+      case.sft_norm_length
+      
+      
+      case.sft_norm_step
+      
+      
+      case.sft_normalize_vector
+      
+      
+      case.sft_step
+      
+      
+      case.sft_variable
+      
+      
+      case.timeline_controller
+      
+      
+      case.timeline_sync
+      
+      
+      case.update_with_timechange
+      
+      
+      case.viewports
+      
+   
+   
+
+   
+   
+   
