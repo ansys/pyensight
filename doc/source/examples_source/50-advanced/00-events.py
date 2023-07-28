@@ -139,4 +139,5 @@ session.ensight.objs.core.PARTS["hood"][0].COLORBYRGB = [0.0, 1.0, 0.0]
 # -----------------
 # Close the connection and shut down the EnSight instance.
 
+# sphinx_gallery_thumbnail_path = '_static/00_events_3.png'
 session.close()

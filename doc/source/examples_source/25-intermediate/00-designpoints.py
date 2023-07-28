@@ -152,4 +152,5 @@ remote = session.show("remote")
 # -----------------
 # Close the connection and shut down the EnSight instance.
 
+# sphinx_gallery_thumbnail_path = '_static/00_compare_4.png'
 session.close()
