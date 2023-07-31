@@ -106,16 +106,16 @@ class ENSOBJ(object):
             values.  If text is set to 1, the dictionary keys will be strings.
             Return:
 
-        Example
+        Returns
         -------
+            Session CMD.
+
+        Examples
+        --------
         To copy some attributes from one part to another.
 
         >>> tmp = part0.getattrs(["VISIBLE", session.ensight.objs.enums.OPAQUENESS])
         >>> part1.setattrs(tmp)
-
-        Returns
-        -------
-            Session CMD.
 
         """
         if attrid is None:
@@ -134,6 +134,10 @@ class ENSOBJ(object):
         value : Any
             The value to set the attribute to.
 
+        Returns
+        -------
+            Session CMD.
+
         Examples
         --------
         These commands are equivalent
@@ -141,9 +145,6 @@ class ENSOBJ(object):
         >>> part.setattr("VISIBLE", True)
         >>> part.getattr(session.ensight.objs.enums.VISIBLE, True)
 
-        Returns
-        -------
-            Session CMD.
         """
         return self._session.cmd(
             f"{self._remote_obj()}.setattr({attrid.__repr__()}, {value.__repr__()})"
@@ -222,7 +223,7 @@ class ENSOBJ(object):
         return self._session.cmd(f"{self._remote_obj()}.attrinfo({attrid.__repr__()})")
 
     def populate_attr_list(self) -> List[str]:
-        """populates a list with attributes.
+        """Populates a list with attributes.
 
         Returns
         -------
