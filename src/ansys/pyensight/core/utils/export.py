@@ -283,14 +283,14 @@ class Export:
             ``"ANIM_TYPE_SOLUTIONTIME"`` is used. This table provides descriptions
             by each option number and name:
 
-            ========================== ========================================
-            Name                       Animation type
-            ========================== ========================================
+            =========================== ========================================
+            Name                        Animation type
+            =========================== ========================================
             0: ANIM_TYPE_SOLUTIONTIME   Animation over all solution times
             1: ANIM_TYPE_ANIMATEDTRACES Records animated rotations and traces
             2: ANIM_TYPE_FLIPBOOK       Records current flipbook animation
             3: ANIM_TYPE_KEYFRAME       Records current kKeyframe animation
-            ========================== ========================================
+            =========================== ========================================
 
         frames : int, optional
             Number of frames to save. The default is ``None``. The default for
