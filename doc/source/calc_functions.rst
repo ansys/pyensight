@@ -898,13 +898,13 @@ The distance normal from the surface to where :math:`u/U=0.995`.
     * - ymax
       - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
-      See the algorithm note that follows.
+        See the algorithm note that follows.
 
     * - grad
       - -1 = flags the computing of the
         velocity-magnitude gradient via three-point interpolation
 
-      vector variable = Grad(velocity magnitude) See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
+        vector variable = Grad(velocity magnitude) See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
 
 .. note::
@@ -999,7 +999,7 @@ thickness :math:`\delta`. It is defined as:
     * - ymax
       - constant number (> 0 = Baldwin-Lomax-Spalart algorithm, 0 = convergence algorithm)
 
-      See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
+        See the algorithm note under :ref:`Boundary Layer Thickness <BL_Thick>`.
 
     * - comp
       - constant number (0 = velocity vector at edge of boundary layer, 1 = decomposed
@@ -1009,7 +1009,7 @@ thickness :math:`\delta`. It is defined as:
       - -1 flags the computing of the
         velocity-magnitude gradient via four-point interpolation
 
-      vector variable = Grad(velocity magnitude) See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
+        vector variable = Grad(velocity magnitude) See :ref:`BL_aGradfVelMag <BL_aGradOfVelMag>`.
 
 
 .. note::

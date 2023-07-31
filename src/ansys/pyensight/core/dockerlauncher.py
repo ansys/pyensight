@@ -605,7 +605,7 @@ class DockerLauncher(Launcher):
     def enshell_log_contents(self) -> Optional[str]:
         """Get the contents of the EnShell log if possible.
 
-        Return
+        Returns
         -------
         str
            Contents of the log or ``None``.
