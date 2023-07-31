@@ -29,6 +29,10 @@ jobs:
 
       - name: Docker pull
         run: docker pull ${{ env.ENSIGHT_IMAGE }}
+      
+      - name: Copy oneapi yaml to static
+        run: |
+          cp doc/source/rest_api/ensight_rest_v1.yaml doc/source/_static/
 
       - name: Run Ansys documentation building action
         uses: ansys/actions/doc-build@v4
