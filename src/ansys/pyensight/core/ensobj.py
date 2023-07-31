@@ -78,8 +78,8 @@ class ENSOBJ(object):
         Any
             The current value of the attribute.
 
-        Example
-        -------
+        Examples
+        --------
         These commands are equivalent
 
         >>> v = part.VISIBLE
@@ -106,8 +106,8 @@ class ENSOBJ(object):
             values.  If text is set to 1, the dictionary keys will be strings.
             Return:
 
-        Example
-        -------
+        Examples
+        --------
         To copy some attributes from one part to another.
 
         >>> tmp = part0.getattrs(["VISIBLE", session.ensight.objs.enums.OPAQUENESS])
@@ -310,8 +310,8 @@ class ENSOBJ(object):
             from the output.  The default value for this keyword is 1 which disables all
             sensitivity filtering.
 
-        Example
-        -------
+        Examples
+        --------
 
         >>> def walk_tree(part,obj,s):
         >>>     a = obj.attr
@@ -380,8 +380,8 @@ class ENSOBJ(object):
         value : Any, optional
             The value to change to tag to.  Note: this can be a string, int or float.
 
-        Example
-        -------
+        Examples
+        --------
         >>> session.ensight.objs.core.PARTS[0].setmetatag("FOO", "HELLO")
         >>> print(session.ensight.objs.core.PARTS[0].METADATA)
 
@@ -422,8 +422,8 @@ class ENSOBJ(object):
         Any
             The value assigned to the tag in the METADATA attribute.
 
-        Example
-        -------
+        Examples
+        --------
         >>> session.ensight.objs.core.PARTS[0].setmetatag("FOO", "HELLO")
         >>> print(session.ensight.objs.core.PARTS[0].getmetatag("FOO"))
 

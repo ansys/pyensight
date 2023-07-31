@@ -23,5 +23,5 @@ to verify the code style. You can use this command to verify the code style:
 
 .. code:: bash
 
-   python pybuild.py precommit
+   pre-commit run --all-files
 
