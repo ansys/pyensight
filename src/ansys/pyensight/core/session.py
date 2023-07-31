@@ -319,7 +319,7 @@ class Session:
 
     @property
     def grpc(self) -> "ensight_grpc.EnSightGRPC":
-        """gRPC wrapper instance used by this session to access EnSight."""
+        """The gRPC wrapper instance used by this session to access EnSight."""
         return self._grpc
 
     @property
@@ -601,8 +601,10 @@ class Session:
         Python debugger with an EnSight Python script, using the PyEnSight interface.
 
         .. note::
-           Because the Python script is imported as a module, the script filename must
-        have a ``.py`` extension.
+
+            Because the Python script is imported as a module, the script filename must
+            have a ``.py`` extension.
+
 
         Parameters
         ----------
@@ -1000,7 +1002,7 @@ class Session:
             data is being read.
 
         Examples
-        -------_
+        --------
         >>> from ansys.pyensight.core import LocalLauncher
         >>> session = LocalLauncher().start()
         >>> session.load_data(r'D:\data\CFX\example_data.res')
@@ -1506,8 +1508,8 @@ class Session:
         context : enscontext.EnsContext
             Context to set the current EnSight instance to.
 
-        Example
-        -------
+        Examples
+        --------
         >>> tmp_ctx = session.capture_context()
         >>> session.restore_context(EnsContext("session_context.ctxz"))
         >>> session.restore_context(tmp_ctx)

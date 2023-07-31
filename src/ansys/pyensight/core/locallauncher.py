@@ -283,7 +283,7 @@ class LocalLauncher(Launcher):
             ``PYENSIGHT_ANSYS_INSTALLATION`` environmental variable is checked first.
 
         Returns
-        --------
+        -------
         str
             Validated installation directory, which contains ``bin/ensight``.
 
