@@ -22,8 +22,7 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
     dock = mocker.patch.object(docker, "from_env", return_value=docker_client)
     os.environ["PYENSIGHT_DEBUG"] = "1"
     launcher = DockerLauncher(
-        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5,
-        use_sos=2
+        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5, use_sos=2
     )
     launcher = DockerLauncher(
         data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5
@@ -41,15 +40,12 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
         assert "Starting EnSight with args: -batch -v 3 -grpc_server" in caplog.records[12].message
     assert launcher.ansys_version() == "345"
     # No data volume
-    launcher = DockerLauncher(
-        use_dev=True, docker_image_name="super_ensight", timeout=5
-    )
+    launcher = DockerLauncher(use_dev=True, docker_image_name="super_ensight", timeout=5)
     mocker.patch.object(DockerLauncher, "_is_system_egl_capable", return_value=True)
     os.environ["PYENSIGHT_FORCE_ENSIGHT_EGL"] = "1"
     # Data volume + egl
     launcher = DockerLauncher(
-        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5,
-        use_egl=True
+        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5, use_egl=True
     )
     # No Data Volume + egl
     launcher = DockerLauncher(
