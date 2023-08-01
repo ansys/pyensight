@@ -14,10 +14,17 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
     os.environ["ANSYSLMD_LICENSE_FILE"] = "1055@mockedserver.com"
     docker_client = mock.MagicMock("Docker")
     run = mock.MagicMock("MockedRun")
+    run.images = mock.MagicMock("DockerImages")
+    run.images.pull = lambda x: ""
     docker_client.containers = mock.MagicMock("MockedContainers")
     docker_client.containers.run = mock.MagicMock("MockedContainer")
     mocker.patch.object(docker_client.containers, "run", return_value=run)
     dock = mocker.patch.object(docker, "from_env", return_value=docker_client)
+    os.environ["PYENSIGHT_DEBUG"] = "1"
+    launcher = DockerLauncher(
+        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5,
+        use_sos=2
+    )
     launcher = DockerLauncher(
         data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5
     )

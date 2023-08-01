@@ -1,10 +1,11 @@
 from unittest import mock
-import pytest
+import os
 import zipfile
 
 from ansys.pyensight.core.enscontext import EnsContext, _capture_context, _restore_context
 
-def test_utils(mocked_session):
+def test_utils(mocked_session, tmpdir):
+    data_dir = tmpdir.mkdir("datadir")
     def animation_file(filename):
         with open(filename, "w") as _file:
             _file.write("")
@@ -55,15 +56,15 @@ def test_utils(mocked_session):
     c._capture_context(ensight=mocked_session._ensight)
     _capture_context(ensight=mocked_session._ensight, full=False)
     _capture_context(ensight=mocked_session._ensight, full=True)
-    with zipfile.ZipFile("test.zip", "w") as _file:
+    with zipfile.ZipFile(os.path.join(data_dir, "test.zip"), "w") as _file:
         pass
-    with open("test.zip", "rb") as _file:
+    with open(os.path.join(data_dir, "test.zip"), "rb") as _file:
         data = _file.read()
     _restore_context(ensight=mocked_session._ensight, data=data)
-    with open("ctx.ctx", "wb") as _file:
+    with open(os.path.join(data_dir, "ctx.ctx"), "wb") as _file:
         _file.write(b"# Object MetaData commands")
         _file.write(b"# End Object MetaData commands")
-    c._fix_context_file("ctx.ctx")
+    c._fix_context_file(os.path.join(data_dir, "ctx.ctx"))
 
 
 

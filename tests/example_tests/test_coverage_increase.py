@@ -13,25 +13,69 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     use_local = pytestconfig.getoption("use_local_launcher")
     root = None
     if use_local:
-        launcher = LocalLauncher()
+        launcher = LocalLauncher(batch=False)
         root = "http://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
     else:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     session = launcher.start()
-    with open("test_exec_run_script.py", "w") as _file:
+    with open(os.path.join(data_dir, "test_exec_run_script.py"), "w") as _file:
         _file.write("")
-    session.run_script("test_exec_run_script.py")
-    session.run_script(os.path.abspath("test_exec_run_script.py"))
+    os.mkdir(os.path.join(data_dir, "test_dir"))
+    with open(os.path.join(data_dir, "test_dir", "second_script.py"), "w") as _file:
+        _file.write("")
+    session.run_script(os.path.join(data_dir, "test_exec_run_script.py"))
+    session.run_script(os.path.join(data_dir, "test_exec_run_script.py"))
+    session.copy_to_session(
+        pathlib.Path(os.path.join(data_dir, "test_exec_run_script.py")).parents[0].as_uri(),
+        ["test_exec_run_script.py"],
+        remote_prefix="files",
+        progress=True
+    )
+    session.copy_to_session(
+        pathlib.Path(
+            os.path.join(data_dir, "test_exec_run_script.py")
+        ).parents[1].as_uri(),
+        ["test_exec_run_script.py", "test_dir"],
+    )
+    with pytest.raises(RuntimeError):
+        session.copy_to_session(
+            "grpc:///",
+            ["test_exec_run_script.py"],
+            remote_prefix="files",
+            progress=True
+        )
+    if not use_local:
+        session.copy_from_session(
+            "file:///data",
+            ["test_exec_run_script.py"],
+            progress=True
+        )
+        session.copy_from_session(
+            "file:///data",
+            ["test_dir"],
+        )
+        with pytest.raises(RuntimeError):
+            session.copy_from_session(
+                "grpc:///",
+                [os.path.basename(os.path.dirname(__file__))],
+            )
+    session.language = "zh"
+    session.language = "en"
+    session.halt_ensight_on_close = False
+    session.halt_ensight_on_close = True
+    session.jupyter_notebook = True
+    session.jupyter_notebook = False
+    assert session.sos == False
     session.load_example("waterbreak.ens", root=root)
     core = session.ensight.objs.core
     core.PARTS.set_attr("COLORBYPALETTE", "alpha1")
     export = session.ensight.utils.export
-    export.image("test.png")
-    export.image("test.png", width=800, height=600)
-    export.image("test.tiff", enhanced=True)
-    export.animation("test.mp4", anim_type=export.ANIM_TYPE_SOLUTIONTIME)
+    export.image(os.path.join(data_dir, "test.png"))
+    export.image(os.path.join(data_dir, "test.png"), width=800, height=600)
+    export.image(os.path.join(data_dir, "test.tiff"), enhanced=True)
+    export.animation(os.path.join(data_dir, "test.mp4"), anim_type=export.ANIM_TYPE_SOLUTIONTIME)
     export.animation(
-        "test.mp4", 
+        os.path.join(data_dir, "test.mp4"), 
         anim_type=export.ANIM_TYPE_SOLUTIONTIME, 
         width=800, 
         height=600, 
@@ -41,7 +85,7 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
         format_options="Quality Hight Type 2"
     )
     export.animation(
-        "test_ray.mp4", 
+        os.path.join(data_dir, "test_ray.mp4"), 
         anim_type=export.ANIM_TYPE_SOLUTIONTIME, 
         width=800, 
         height=600, 
@@ -56,7 +100,7 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     session.ensight.anim_flipbook.specify_time_as("step")
     session.ensight.anim_flipbook.load()
     export.animation(
-        "test2.mp4", 
+        os.path.join(data_dir, "test2.mp4"), 
         anim_type=export.ANIM_TYPE_FLIPBOOK, 
         width=800, 
         height=600, 
@@ -68,19 +112,28 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     session.ensight.view_transf.rotate(11.4172411,-36.7627106,0)
     session.ensight.anim_keyframe.create_keyframe()
     export.animation(
-        "test3.mp4", 
+        os.path.join(data_dir, "test3.mp4"), 
         anim_type=export.ANIM_TYPE_KEYFRAME, 
         width=800, 
         height=600, 
         frames_per_second=80, 
         starting_frame=2,
     )
-    session.ensight.ptrace.create_bypart([6,100])
+    session.ensight.part.select_begin(6)
+    session.ensight.command.delay_refresh("ON")
+    session.ensight.variables.activate("u")
+    session.ensight.ptrace.select_default()
+    session.ensight.ptrace.variable("u")
+    session.ensight.part.select_all()
+    session.ensight.ptrace.create_bypart(6,100)
+    session.ensight.part.select_lastcreatedpart()
+    session.ensight.part.colorby_palette("u")
+    session.ensight.command.delay_refresh("OFF")
     session.ensight.part.select_lastcreatedpart()
     session.ensight.part.colorby_palette("u")
     session.ensight.command.delay_refresh("OFF")
     export.animation(
-        "test4.mp4", 
+        os.path.join(data_dir, "test4.mp4"), 
         anim_type=export.ANIM_TYPE_ANIMATEDTRACES, 
         width=800, 
         height=600, 
@@ -90,7 +143,7 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     )
     with pytest.raises(RuntimeError):
         export.animation(
-            "test4.mp4", 
+            os.path.join(data_dir, "test4.mp4"), 
             anim_type=export.ANIM_TYPE_ANIMATEDTRACES, 
             width=800, 
             height=600, 
@@ -139,17 +192,31 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
         point1=[1.918665e-01, 3.840137e-01, 2.539995e-02],
         point2=[1.918665e-01, 1.069867e-01, 2.539995e-02]
     )
-    session.ensight.view_transf.spline_new()
-    session.ensight.view_transf.splinepoint_create(0,0,0)
-    session.ensight.view_transf.splinepoint_edit(0.292100012,0.292100012,0)
-    session.ensight.view_transf.splinepoint_create(0,0,0)
-    session.ensight.view_transf.splinepoint_edit(0.358806312,0.322734863,0)
-    query.create_distance(
-        "spline", 
-        query.DISTANCE_SPLINE, 
-        ["defaultFaces"],
+    query.create_temporal(
+        "temporal_query",
+        query.TEMPORAL_NODE,
+        parts.select_parts_by_tag(),
         "alpha1",
-        spline_name="0-new_spline0"
+        node_id=13198,
+    )
+    query.create_temporal(
+        "temporal_query",
+        query.TEMPORAL_ELEMENT,
+        parts.select_parts_by_tag(),
+        "alpha1",
+        element_id=21161,
+    )
+    query.create_temporal(
+        "temporal_query",
+        query.TEMPORAL_MINIMUM,
+        parts.select_parts_by_tag(),
+        "alpha1",
+    )
+    query.create_temporal(
+        "temporal_query",
+        query.TEMPORAL_MAXIMUM,
+        parts.select_parts_by_tag(),
+        "alpha1",
     )
     with pytest.raises(ValueError):
         # Varoa;e mpt existing
@@ -161,9 +228,31 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
             spline_name="0-new_spline0"
         )
     session.ensight.objs.core.PARTS[0].getattrs(["VISIBLE", "DESCRIPTION"])
+    session.ensight.objs.core.PARTS[0].getattrs()
     session.ensight.objs.core.PARTS[0].attrtree()
+    session.ensight.objs.core.PARTS[0].attrinfo()
+    session.ensight.objs.core.PARTS[0].attrtree(filter=parts.select_parts_by_dimension(3))
+    session.ensight.objs.core.PARTS[0].attrtree(include=session.ensight.objs.enums.VISIBLE)
+    session.ensight.objs.core.PARTS[0].attrtree(exclude=session.ensight.objs.enums.VISIBLE)
+    session.ensight.objs.core.PARTS[0].attrtree(group_include=session.ensight.objs.enums.VISIBLE)
+    session.ensight.objs.core.PARTS[0].attrtree(group_exclude=session.ensight.objs.enums.VISIBLE)
+    session.ensight.objs.core.PARTS[0].attrinfo("VISIBLE")
+    session.ensight.objs.core.PARTS[0].attrissensitive("VISIBLE")
+    session.ensight.objs.core.PARTS[0].setattr_begin()
+    session.ensight.objs.core.PARTS[0].setattr_end()
+    session.ensight.objs.core.PARTS[0].setattr_status()
+    session.ensight.objs.core.PARTS[0].setmetatag("ENS_KIND", "fluid")
+    session.ensight.objs.core.PARTS[0].hasmetatag("ENS_KIND")
+    session.ensight.objs.core.PARTS[0].getmetatag("ENS_KIND")
+    session.ensight.objs.core.PARTS.find(True, "VISIBLE")
+    session.ensight.objs.core.PARTS.find(True, "VISIBLE", wildcard=1)
+    session.ensight.objs.core.PARTS.find(True, "VISIBLE", wildcard=2)
+    session.ensight.objs.core.PARTS.set_attr("VISIBLE", True)
+    str(session.ensight.objs.core.PARTS[0])
+    str(session.ensight.objs.core.TEXTURES[0])
     if not use_local:
         launcher.enshell_log_contents()
+    assert session.ensight.objs.core.PARTS[0] != session.ensight.objs.core.PARTS[1]
 
 
 
