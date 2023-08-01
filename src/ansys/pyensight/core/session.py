@@ -439,7 +439,7 @@ class Session:
         out = []
         dirlen = 0
         if localdir:
-            dirlen = len(localdir)
+            dirlen = len(localdir) + 1
         for item in filelist:
             try:
                 name = os.path.join(localdir, item)

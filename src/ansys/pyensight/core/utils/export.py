@@ -9,6 +9,7 @@ import numpy
 
 try:
     import ensight
+    import enve
 except ImportError:
     from ansys.api.pyensight import ensight_api
 
@@ -218,8 +219,6 @@ class Export:
         if not raytrace:
             img = ensight.render(x=width, y=height, num_samples=passes, enhanced=enhanced)
         else:
-            import enve
-
             with tempfile.TemporaryDirectory() as tmpdirname:
                 tmpfilename = os.path.join(tmpdirname, str(uuid.uuid1()))
                 ensight.file.image_format("png")
