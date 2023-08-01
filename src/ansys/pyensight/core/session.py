@@ -439,7 +439,8 @@ class Session:
         out = []
         dirlen = 0
         if localdir:
-            dirlen = len(localdir)
+            # we use dirlen + 1 here to remove the '/' inserted by os.path.join()
+            dirlen = len(localdir) + 1
         for item in filelist:
             try:
                 name = os.path.join(localdir, item)
