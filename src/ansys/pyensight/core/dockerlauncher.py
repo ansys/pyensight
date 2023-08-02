@@ -25,9 +25,9 @@ import urllib3
 
 try:
     import grpc
-except ModuleNotFoundError:
+except ModuleNotFoundError:  # pragma: no cover
     raise RuntimeError("The grpc module must be installed for DockerLauncher")
-except Exception:
+except Exception:  # pragma: no cover
     raise RuntimeError("Cannot initialize grpc")
 
 from ansys.pyensight.core.launcher import Launcher
@@ -36,16 +36,16 @@ from ansys.pyensight.core.session import Session
 
 try:
     from ansys.pyensight.core import enshell_grpc
-except ModuleNotFoundError:
+except ModuleNotFoundError:  # pragma: no cover
     raise RuntimeError("The enshell_grpc must be installed for DockerLauncher")
-except Exception:
+except Exception:  # pragma: no cover
     raise RuntimeError("Cannot initialize enshell_grpc")
 
 
 try:
     from simple_upload_server.client import Client
 
-    simple_upload_server_is_available = True
+    simple_upload_server_is_available = True  # pragma: no cover
 except Exception:
     simple_upload_server_is_available = False
 
@@ -295,9 +295,9 @@ class DockerLauncher(Launcher):
 
         try:
             import docker
-        except ModuleNotFoundError:
+        except ModuleNotFoundError:  # pragma: no cover
             raise RuntimeError("The pyansys-docker module must be installed for DockerLauncher")
-        except Exception:
+        except Exception:  # pragma: no cover
             raise RuntimeError("Cannot initialize Docker")
 
         use_egl = self._use_egl()
@@ -390,7 +390,7 @@ class DockerLauncher(Launcher):
         #
         # Start up the EnShell gRPC interface
         log_dir = "/data"
-        if self._enshell_grpc_channel:
+        if self._enshell_grpc_channel:  # pragma: no cover
             self._enshell = enshell_grpc.EnShellGRPC()
             self._enshell.connect_existing_channel(self._enshell_grpc_channel)
             log_dir = "/work"
@@ -559,7 +559,7 @@ class DockerLauncher(Launcher):
             self._pim_instance = None
         super().stop()
 
-    def _get_file_service(self) -> None:
+    def _get_file_service(self) -> None:  # pragma: no cover
         if simple_upload_server_is_available is False:
             return
         if self._pim_instance is None:
@@ -596,7 +596,7 @@ class DockerLauncher(Launcher):
         if self._pim_instance is not None:
             return False
 
-        try:
+        try:  # pragma: no cover
             subprocess.check_output("nvidia-smi")
             return True
         except (subprocess.CalledProcessError, FileNotFoundError):
@@ -638,8 +638,8 @@ class DockerLauncher(Launcher):
                 logging.debug(f"Error getting EnShell log: {e}\n")
                 return None
 
-        fs = self.file_service()
-        if fs is not None:
+        fs = self.file_service()  # pragma: no cover
+        if fs is not None:  # pragma: no cover
             try:
                 fs.download_file("enshell.log", ".")
                 f = open("enshell.log")

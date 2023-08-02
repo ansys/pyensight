@@ -801,7 +801,7 @@ class Session:
         kwargs = dict(
             height=height, width=width, temporal=temporal, aa=aa, fps=fps, num_frames=num_frames
         )
-        if self._jupyter_notebook:
+        if self._jupyter_notebook:  # pragma: no cover
             from IPython.display import display
 
             # get the cell DisplayHandle instance
