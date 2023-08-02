@@ -1,6 +1,6 @@
-"""views module
+"""Views module.
 
-The views module allows pyensight to control the view in the EnSight session
+The Views module allows PyEnSight to control the view in the EnSight session.
 
 Example to set an isometric view:
 
@@ -29,7 +29,7 @@ if TYPE_CHECKING:
 
 
 class Views:
-    """A class to handle the view in the current EnSight session."""
+    """Controls the view in the current EnSight ``Session`` instance."""
 
     def __init__(self, ensight: Union["ensight_api.ensight", "ensight"]):
         self.ensight = ensight
@@ -42,13 +42,13 @@ class Views:
 
         Parameters
         ----------
-        direction : List[float]
-            a list representing the vector to normalize.
+        direction : list[float]
+            List representing the vector to normalize.
 
         Returns
         -------
-        List[float]
-            A list representing the normalized vector.
+        list[float]
+            List representing the normalized vector.
 
         """
         magnitude = math.sqrt(sum(v**2 for v in direction))
@@ -58,19 +58,19 @@ class Views:
 
     @staticmethod
     def _cross_product(vec1: List[float], vec2: List[float]) -> List[float]:
-        """Return the cross product of the two input vector.
+        """Get the cross product of two input vectors.
 
         Parameters
         ----------
-        vec1 : List[float]
-            a list representing the first vector.
-        vec2 : List[float]
-            a list representing the second vector.
+        vec1 : list[float]
+            List representing the first vector.
+        vec2 : list[float]
+            List representing the second vector.
 
         Returns
         -------
-        List[float]
-            A list representing the cross product of the two input vectors.
+        list[float]
+            List representing the cross product of the two input vectors.
 
         """
         return [
@@ -83,27 +83,29 @@ class Views:
         self, direction: List[float], up_axis: Tuple[float, float, float] = (0.0, 1.0, 0.0)
     ) -> Tuple[List[float], List[float], List[float]]:
         """Convert the input direction vector in a rotation matrix.
-        The third row of the rotation matrix will be the view direction.
+
+        The third row of the rotation matrix is the view direction.
+
         The first and second rows are computed to be orthogonal to the view direction,
-        to form an orthogonal matrix.
-        This is because a rotation matrix to get a specific view direction has got
-        the third column to be the view direction itself (that is the view direction becomes the z
+        forming an orthogonal matrix. To get a specific view direction, a rotation matrix has
+        the third column, which is the view direction itself (that is the view direction becomes the z
         axis after the rotation, while the transformed x and y axis are computed to be orthogonal to
         the z transformed axis). The rotation is defined as the matrix transpose of the
-        defined rotation matrix since the aim is to have the view direction pointing towards the camera
+        defined rotation matrix because the aim is to have the view direction pointing towards the camera
         and not the contrary.
 
         Parameters
         ----------
-        direction : list
-            a list describing the desired direction view
-        up_axis : tuple
-            a tuple describing the up_direction. The Y axis is assumed by default
+        direction : list[float]
+            List describing the desired direction view
+        up_axis : tuple[float, float, float], optional
+            Tuple describing the up direction. The default is ``(0.0, 1.0, 0.0)``,
+            which assumes the Y axis.
 
         Returns
         -------
         tuple
-            A tuple containing the three rows of the rotation matrix
+            Tuple containing the three rows of the rotation matrix.
 
         """
         direction = self._normalize_vector(direction)
@@ -119,14 +121,15 @@ class Views:
         Parameters
         ----------
         direction : list
-            a list describing the desired direction view
+            List describing the desired direction view.
         up_axis : tuple
-            a tuple describing the up_direction. The Y axis is assumed by default
+            Tuple describing the up direction. The default is ``(0.0, 1.0, 0.0)``,
+            which assumes the Y axis.
 
         Returns
         -------
         tuple
-            a tuple containing the 4 quaternions describing the required rotation
+            Tuple containing the four quaternions describing the required rotation.
 
         """
         row0, row1, row2 = self._convert_view_direction_to_rotation_matrix(
@@ -138,34 +141,31 @@ class Views:
     def _convert_rotation_matrix_to_quaternion(
         self, row0: List[float], row1: List[float], row2: List[float]
     ) -> Tuple[float, float, float, float]:
-        """Convert a rotation matrix to quaternions
+        """Convert a rotation matrix to quaternions.
 
         Parameters
         ----------
-        row0 : List[float]
-            the first row of the matrix
-        row1 : List[float]
-            the second row of the matrix
-        row2 : List[float]
-            the third row of the matrix
+        row0 : list[float]
+            First row of the matrix.
+        row1 : list[float]
+            Second row of the matrix.
+        row2 : list[float]
+            Third row of the matrix.
 
         Returns
         -------
         tuple
-            the four quaternions describing the rotation
+            Four quaternions describing the rotation.
 
         """
         trace = row0[0] + row1[1] + row2[2]
         if trace > 0:
             s = math.sqrt(trace + 1)
-            print(s)
             qw = s / 2
             s = 1 / (2 * s)
-            print(s)
             qx = (row2[1] - row1[2]) * s
             qy = (row0[2] - row2[0]) * s
             qz = (row1[0] - row0[1]) * s
-            print(qx, qy, qz, qw)
         elif row0[0] > row1[1] and row0[0] > row2[2]:
             s = math.sqrt(1 + row0[0] - row1[1] - row2[2])
             qx = s / 2
@@ -193,12 +193,12 @@ class Views:
 
     @property
     def views_dict(self) -> Dict[str, Tuple[int, List[float]]]:
-        """Getter for the views_dict dictionary holding the stored views
+        """Dictionary holding the stored views.
 
         Returns
         -------
         dict
-            A dictionary containing the stored views
+            Dictionary containing the stored views.
 
         """
         return self._views_dict
@@ -210,27 +210,27 @@ class Views:
         Parameters
         ----------
         xc : float
-            x coordinate of the new center of transform
+            x coordinate of the new center of the transform.
         yc : float
-            y coordinate of the new center of transform
+            y coordinate of the new center of the transform.
         zc : float
-            z coordinate of the new center of transform
+            z coordinate of the new center of the transform.
 
         """
         self.ensight.view_transf.center_of_transform(xc, yc, zc)
 
     def compute_model_centroid(self, vportindex: int = 0) -> List[float]:
-        """Computes the model centroid using the model BOUNDS.
+        """Compute the model centroid using the model bounds.
 
         Parameters
         ----------
-        vportindex : int
-            the viewport to compute the centroid for
+        vportindex : int, optional
+            Viewport to compute the centroid for. The default is ``0``.
 
         Returns
         -------
         list
-            the coordinates of the model centroid
+            Coordinates of the model centroid.
 
         """
         vport = self.ensight.objs.core.VPORTS[vportindex]
@@ -275,27 +275,25 @@ class Views:
         up_axis: Tuple[float, float, float] = (0.0, 1.0, 0.0),
         vportindex: int = 0,
     ) -> None:
-        """Sets the view direction of the session.
-        A name can be given as input to save the new view settings;
-        a default incremental name will be given otherwise.
-        The perspective can be enabled or disabled, by default it will be disabled.
+        """Set the view direction of the session.
 
         Parameters
         ----------
         xdir : float
-            the x component of the view direction
+            x component of the view direction.
         ydir : float
-            the y component of the view direction
+            y component of the view direction.
         zdir : float
-            the z component of the view direction
-        name : str
-            the name to give to the new direction
-        perspective : bool
-            Enable the perspective view if True
-        up_axis : list
-            the up direction for the view direction
-        vportindex : int
-            the viewport to set the view direction for
+            z component of the view direction.
+        name : str, optional
+            Name for the new view settings. The default is ``None``,
+            in which case an incremental name is automatically assigned.
+        perspective : bool, optional
+            Whether to enable the perspective view. The default is ``False``.
+        up_axis : tuple[float, float, float], optional
+            Up direction for the view direction. The default is ``(0.0, 1.0, 0.0)``.
+        vportindex : int, optional
+            Viewport to set the view direction for. The default is ``0``.
         """
         self.ensight.view.perspective("OFF")
         direction = [xdir, ydir, zdir]
@@ -312,19 +310,15 @@ class Views:
         name: Optional[str] = None,
         vportindex: int = 0,
     ) -> None:
-        """Save the current view with an optional name.
-        If not provided, a default incremental name will be given otherwise
+        """Save the current view.
 
         Parameters
         ----------
-        name : str
-            the name to give to the new direction
-        vportindex : int
-            the viewport to set the view direction for
-        name: Optional[str] :
-             (Default value = None)
-        vportindex: int :
-             (Default value = 0)
+        name : str, optional
+            Name to give to the new view. The default is ``None``,
+            in which case an incremental name is automatically assigned.
+        vportindex : int, optional
+            Viewport to set the view direction for. The default is ``0``.
         """
         vport = self.ensight.objs.core.VPORTS[vportindex]
         coretransform = vport.CORETRANSFORM
@@ -340,12 +334,12 @@ class Views:
             self.views_dict[name] = (vportindex, coretransform)
 
     def restore_view(self, name: str) -> None:
-        """Restore a stored view by its name.
+        """Restore a stored view.
 
         Parameters
         ----------
         name : str
-            the name of the view to restore-
+            Name of the view to restore.
 
         """
         if not self.views_dict.get(name):
@@ -357,7 +351,7 @@ class Views:
             vport.CORETRANSFORM = coretransform
 
     def restore_center_of_transform(self) -> None:
-        """Restore the center of transform to the model centroid."""
+        """Restore the center of the transform to the model centroid."""
         original_model_centroid = self.compute_model_centroid()
         self.set_center_of_transform(*original_model_centroid)
 

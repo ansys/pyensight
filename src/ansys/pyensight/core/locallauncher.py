@@ -1,7 +1,8 @@
-"""locallauncher module
+"""Local Launcher module.
 
-The local launcher module provides pyensight with the ability to launch an
-EnSight session using a local Ansys installation.
+The Local Launcher module provides PyEnSight with the ability to launch an
+EnSight :class:`Session<ansys.pyensight.core.Session>` instance using a
+local Ansys installation.
 
 Examples:
 >>> from ansys.pyensight.core import LocalLauncher
@@ -24,39 +25,46 @@ import ansys.pyensight.core.session
 
 
 class LocalLauncher(Launcher):
-    """Create a Session instance by launching a local copy of EnSight
+    """Creates a ``Session`` instance by launching a local copy of EnSight.
 
-    Launch a copy of EnSight locally that supports the gRPC interface.  Create and
-    bind a Session instance to the created gRPC session.  Return that session.
+    This class allows you to launch locally a copy of EnSight that supports the
+    gRPC interface.  It creates and binds a :class:`Session<ansys.pyensight.core.Session>`
+    instance to the created gRPC session and returns that instance.
 
-    Args:
-        ansys_installation:
-            Location of the ANSYS installation, including the version
-            directory Default: None (causes common locations to be scanned)
-        application:
-            The application to be launched. By default, "ensight", but
-            "envision" is also available.
-        batch:
-            By default, the EnSight/EnVision instance will run in batch mode.
-            If batch is set to True, the full GUI will not be presented.
-        timeout:
-            In some cases where the EnSight session can take a significant amount of
-            timme to start up, this is the number of seconds to wait before failing
-            the connection.  The default is 120.0.
-        use_egl:
-            If True, EGL hardware accelerated graphics will be used. The platform
-            must be able to support it.
-        use_sos:
-            If None, don't use SOS. Otherwise, it's the number of EnSight Servers to use (int).
+    Parameters
+    ----------
+    ansys_installation : str, optional
+        Path to the local Ansys installation, including the version
+        directory. The default is ``None``, in which case common locations
+        are scanned to detect the latest local Ansys installation. The
+        ``PYENSIGHT_ANSYS_INSTALLATION`` environmental variable is checked first.
+    application : str, optional
+        App to launch. The default is ``ensight``, but ``envision`` is
+        also an option.
+    batch : bool, optional
+        Whether to run EnSight (or EnVision) in batch mode. The default
+        is ``True``, in which case the full GUI is not presented.
+    timeout : float, optional
+        Number of seconds to try a gRPC connection before giving up.
+        This parameter is defined on the parent ``Launcher`` class,
+        where the default is ``120``.
+    use_egl : bool, optional
+        Whether to use EGL hardware for accelerated graphics. The platform
+        must be able to support this hardware. This parameter is defined on
+        the parent ``Launcher`` class, where the default is ``False``.
+    use_sos : int, optional
+        Number of EnSight servers to use for SOS (Server of Server) mode.
+        This parameter is defined on the parent ``Launcher`` class, where
+        the default is ``None``, in which case SOS mode is not used.
 
-    Examples:
-        ::
+    Examples
+    --------
+    >>> from ansys.pyensight.core import LocalLauncher
+    >>> # Create one EnSight session
+    >>> session1 = LocalLauncher(ansys_installation='/ansys_inc/v232').start()
+    >>> # Create a second session (a new LocalLauncher instance is required)
+    >>> session2 = LocalLauncher(ansys_installation='/ansys_inc/v232').start()
 
-            from ansys.pyensight.core import LocalLauncher
-            # Create one EnSight session
-            session1 = LocalLauncher(ansys_installation='/ansys_inc/v232').start()
-            # Create a second session (a new LocalLauncher instance is required)
-            session2 = LocalLauncher(ansys_installation='/ansys_inc/v232').start()
     """
 
     def __init__(
@@ -86,22 +94,25 @@ class LocalLauncher(Launcher):
 
     @property
     def application(self):
-        """Type of application to launch
-        The application can be "ensight" or "envision"
-        """
+        """Type of app to launch. Options are ``ensight`` and ``envision``."""
         return self._application
 
     def start(self) -> "pyensight.Session":
-        """Start an EnSight session using the local ensight install
-        Launch a copy of EnSight locally that supports the gRPC interface.  Create and
-        bind a Session instance to the created gRPC session.  Return that session.
+        """Start an EnSight session using the local EnSight installation.
 
-        Returns:
-            pyensight Session object instance
+        This method launches a copy of EnSight locally that supports the
+        gRPC interface. It creates and binds a ``Session`` instance to the
+        created gRPC session and returns that session.
 
-        Raises:
-            RuntimeError:
-                if the necessary number of ports could not be allocated.
+        Returns
+        -------
+        obj
+            PyEnSight ``Session`` object instance.
+
+        Raises
+        ------
+        RuntimeError:
+            If the necessary number of ports could not be allocated.
         """
         tmp_session = super().start()
         if tmp_session:
@@ -143,7 +154,7 @@ class LocalLauncher(Launcher):
 
             use_egl = self._use_egl()
 
-            # to aid in debugging PYENSIGHT_DEBUG can be set to a non-zero integer
+            # to aid in debugging, PYENSIGHT_DEBUG can be set to a non-zero integer
             popen_common = dict(
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
@@ -178,10 +189,9 @@ class LocalLauncher(Launcher):
             )
             if not found_scripts:
                 raise RuntimeError("Unable to find websocketserver script")
-            # If we found more than one nexus directory, find the one that corresponds
-            # to the version we should be.  Otherwise, just take the first one found.
-            # Typically, this probably will only happen for developer installations
-            # or build areas.
+            # If more than one nexus directory is found, find the one that corresponds
+            # to the version that should be used. Otherwise, just take the first one found.
+            # This is likely to only happen for developer installations or build areas.
             idx = 0
             try:
                 found_scripts_len = len(found_scripts)
@@ -228,7 +238,7 @@ class LocalLauncher(Launcher):
         if self._use_sos:
             use_sos = True
 
-        # need to use Session like this so we can mock test this class
+        # need to use Session like this for mock testing this class
         session = ansys.pyensight.core.session.Session(
             host="127.0.0.1",
             grpc_port=self._ports[0],
@@ -245,7 +255,7 @@ class LocalLauncher(Launcher):
         return session
 
     def stop(self) -> None:
-        """Release any additional resources allocated during launching"""
+        """Release any additional resources allocated during launching."""
         maximum_wait_secs = 120.0
         start_time = time.time()
         while (time.time() - start_time) < maximum_wait_secs:
@@ -262,25 +272,26 @@ class LocalLauncher(Launcher):
 
     @staticmethod
     def get_cei_install_directory(ansys_installation: Optional[str]) -> str:
-        """Compute the Ansys distribution CEI directory to use
+        """Get the Ansys distribution CEI directory to use.
 
-        The returned directory will be the 'CEI' directory such that
-        bin/ensight exists in that directory.  If the input is None,
-        the PYENSIGHT_ANSYS_INSTALLATION environmental variable will
-        be checked first.
+        Parameters
+        ----------
+        ansys_installation : str, optional
+            Path to the local Ansys installation, including the version
+            directory. The default is ``None``, in which case common locations
+            are scanned to detect the latest local Ansys installation. The
+            ``PYENSIGHT_ANSYS_INSTALLATION`` environmental variable is checked first.
 
-        Args:
-            ansys_installation:
-                This is the pathname of the Ansys distribution to use.
-                None will result in common locations to be scanned for a viable distribution.
+        Returns
+        -------
+        str
+            Validated installation directory, which contains ``bin/ensight``.
 
-        Returns:
-            The validated installation directory (contains bin/ensight)
-
-        Raises:
-            RuntimeError:
-                if the installation directory does not point to a
-                valid EnSight installation
+        Raises
+        ------
+        RuntimeError:
+            If the installation directory does not point to a
+            valid EnSight installation.
         """
         dirs_to_check = []
         if ansys_installation:
@@ -321,10 +332,12 @@ class LocalLauncher(Launcher):
         raise RuntimeError(f"Unable to detect an EnSight installation in: {dirs_to_check}")
 
     def _is_system_egl_capable(self) -> bool:
-        """Return True if the system supports the EGL launch.
+        """Check if the system supports the EGL launch.
 
-        Returns:
-            A bool value that is True if the system supports the EGL launch.
+        Returns
+        -------
+        bool
+            ``True`` if the system supports the EGL launch, ``False`` otherwise.
         """
         if self._is_windows():
             return False

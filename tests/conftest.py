@@ -10,6 +10,7 @@ from ansys.pyensight.core import enshell_grpc, ensight_grpc
 from ansys.pyensight.core.dockerlauncher import DockerLauncher
 from ansys.pyensight.core.locallauncher import LocalLauncher
 from ansys.pyensight.core.session import Session
+import numpy
 import pytest
 
 
@@ -83,7 +84,34 @@ def enshell_mock():
     return mocked_grpc, values_run_command
 
 
+enve = mock.MagicMock("enve")
+ensight = mock.MagicMock("ensight")
+_file = mock.MagicMock("ensight_file")
+_file.image_format = lambda x: ""
+_file.image_file = lambda x: ""
+_file.image_window_size = lambda x: ""
+_file.image_window_xy = lambda x, y: ""
+_file.image_rend_offscreen = lambda x: ""
+_file.image_numpasses = lambda x: ""
+_file.image_stereo = lambda x: ""
+_file.image_screen_tiling = lambda x, y: ""
+_file.raytracer_options = lambda x: ""
+_file.image_raytrace_it = lambda x: ""
+_file.save_image = lambda: ""
+
+ensight.file = _file
+img = mock.MagicMock("img")
+img.metadata = []
+img.variabledata = numpy.zeros(shape=(1, 1))
+img.pickdata = numpy.zeros(shape=(1, 1))
+img.pixeldata = numpy.zeros(shape=(1, 1))
+img.load = mock.MagicMock("load")
+ensight.render = lambda x, y, num_samples, enhanced: img
+enve.image = lambda: img
+
+
 @pytest.fixture
+@mock.patch.dict("sys.modules", {"ensight": ensight, "enve": enve})
 def mocked_session(mocker, tmpdir, enshell_mock) -> "Session":
     cmd_mock = mock.MagicMock("cmd_mock")
     mock_dict = {"a": 1, "b": 2, "c": 3}
@@ -109,4 +137,5 @@ def mocked_session(mocker, tmpdir, enshell_mock) -> "Session":
         session_directory=session_dir,
         timeout=120.0,
     )
+    session._build_utils_interface()
     return session

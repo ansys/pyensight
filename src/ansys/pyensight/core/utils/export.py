@@ -9,39 +9,42 @@ import numpy
 
 try:
     import ensight
+    import enve
 except ImportError:
     from ansys.api.pyensight import ensight_api
 
 
 class Export:
-    """The ensight.utils.export interface
+    """Provides the ``ensight.utils.export`` interface.
 
-    The methods here implement simplified interfaces to common image and
-    animation export operations.
+    The methods in this class implement simplified interfaces to common
+    image and animation export operations.
 
-    This class is instantiated as ``ensight.utils.export`` within EnSight Python
-    and as ``Session.ensight.utils.export`` in PyEnSight.  The constructor is
-    passed the interface which serves as the "ensight" module for either
-    case.  As a result, the methods can be accessed as: ``ensight.utils.export.image()``
-    in EnSight Python or ``session.ensight.utils.export.animation()`` within PyEnSight.
+    This class is instantiated as ``ensight.utils.export`` in EnSight Python
+    and as ``Session.ensight.utils.export`` in PyEnSight. The constructor is
+    passed the interface, which serves as the ``ensight`` module for either
+    case. As a result, the methods can be accessed as ``ensight.utils.export.image()``
+    in EnSight Python or ``session.ensight.utils.export.animation()`` in PyEnSight.
 
-    Args:
-        interface:
-            An entity that provides the 'ensight' namespace.  In the case
-            of PyEnSight, ``Session.ensight`` is passed and in the case of
-            EnSight Python, the ``ensight`` module is passed.
+    Parameters
+    ----------
+    interface :
+        Entity that provides the ``ensight`` namespace. In the case of
+        EnSight Python, the ``ensight`` module is passed. In the case
+        of PyEnSight, ``Session.ensight`` is passed.
     """
 
     def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
         self._ensight = interface
 
     def _remote_support_check(self):
-        """Check to see if ensight.utils.export exists on the remote system
+        """Determine if ``ensight.utils.export`` exists on the remote system.
 
-        Check if the module is available in the EnSight instance before trying
-        to use it.
+            Before trying to use this module, use this method to determine if this
+            module is available in the EnSight instance.
 
-        Raises:
+        Raises
+        ------
             RuntimeError if the module is not present.
         """
         # if a module, then we are inside EnSight
@@ -53,8 +56,8 @@ class Export:
             import ansys.pyensight.core
 
             raise RuntimeError(
-                f"Remote EnSight session must have at least pyensight \
-            version {ansys.pyensight.core.DEFAULT_ANSYS_VERSION} installed to use this API."
+                f"Remote EnSight session must have PyEnsight version \
+            {ansys.pyensight.core.DEFAULT_ANSYS_VERSION} or higher installed to use this API."
             )
 
     TIFFTAG_IMAGEDESCRIPTION: int = 0x010E
@@ -68,32 +71,34 @@ class Export:
         enhanced: bool = False,
         raytrace: bool = False,
     ) -> None:
-        """Render an image
+        """Render an image of the current EnSight scene.
 
-        Render an image of the current EnSight scene.  The call returns a PIL Image
-        object.
+        This method returns a PIL image object.
 
-        Args:
-            filename:
-                The image will be saved into a local file specified by this filename.
-            width:
-                The width of the image in pixels. Default: ensight.objs.core.WINDOWSIZE[0]
-            height:
-                The height of the image in pixels. Default: ensight.objs.core.WINDOWSIZE[1]
-            passes:
-                The number of antialiasing passes to use.  Default: 4.
-            enhanced:
-                If this option is selected and filename is specified, the saved image will
-                be in tiff format and will include additional channels for per-pixel
-                object and variable information.
-            raytrace:
-                If this option is True, the image will be generated using the raytracer.
-        Example:
-            ::
+        Parameters
+        ----------
+        filename : str
+            Name of the local file to save the image to.
+        width : int, optional
+            Width of the image in pixels. The default is ``None``, in which case
+            ```ensight.objs.core.WINDOWSIZE[0]`` is used.
+        height : int, optional
+            Height of the image in pixels. The default is ``None``, in which case
+            ``ensight.objs.core.WINDOWSIZE[1]`` is used.
+        passes : int, optional
+            Number of antialiasing passes. The default is ``4``.
+        enhanced : bool, optional
+            Whether to save the image to the filename specified in the TIFF format.
+            The default is ``False``. The TIFF format includes additional channels
+            for the per-pixel object and variable information.
+        raytrace : bool, optional
+            Whether to render the image with the raytracing engine. The default is ``False``.
 
-                s = LocalLauncher().start()
-                s.load_data(f"{s.cei_home}/ensight{s.cei_suffix}/data/cube/cube.case")
-                s.ensight.utils.export.image("example.png")
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> s.load_data(f"{s.cei_home}/ensight{s.cei_suffix}/data/cube/cube.case")
+        >>> s.ensight.utils.export.image("example.png")
 
         """
         self._remote_support_check()
@@ -124,13 +129,17 @@ class Export:
             pil_image[0].save(filename)
 
     def _dict_to_pil(self, data: dict) -> list:
-        """Convert dictionary contents into a PIL Image
+        """Convert the contents of the dictionary into a PIL image.
 
-        Args:
-            data:
-                A dictionary representation of the contents of an enve object
-        Returns:
-            A list of 1 or 3 image objects:  [RGB {, pick, variable}]
+        Parameters
+        ----------
+        data : dict
+            Dictionary representation of the contents of the ``enve`` object.
+
+        Returns
+        -------
+        list
+            List of one or three image objects, [RGB {, pick, variable}].
         """
         images = [
             Image.fromarray(self._numpy_from_dict(data["pixeldata"])).transpose(
@@ -152,13 +161,16 @@ class Export:
 
     @staticmethod
     def _numpy_to_dict(array: Any) -> Optional[dict]:
-        """Convert numpy array into a dictionary
+        """Convert a numpy array into a dictionary.
 
-        Args:
-            array:
-                A numpy array or None
-        Returns:
-            None or a dictionary that can be serialized
+        Parameters
+        ----------
+        array:
+            Numpy array or None.
+
+        Returns
+        -------
+        ``None`` or a dictionary that can be serialized.
         """
         if array is None:
             return None
@@ -166,13 +178,16 @@ class Export:
 
     @staticmethod
     def _numpy_from_dict(obj: Optional[dict]) -> Any:
-        """Convert a dictionary into a numpy array
+        """Convert a dictionary into a numpy array.
 
-        Args:
-            obj:
-                A dictionary generated by _numpy_to_dict or None
-        Returns:
-            None or a numpy array.
+        Parameters
+        ----------
+        obj:
+            Dictionary generated by ``_numpy_to_dict`` or ``None``.
+
+        Returns
+        -------
+        ``None`` or a numpy array.
         """
         if obj is None:
             return None
@@ -181,28 +196,29 @@ class Export:
     def _image_remote(
         self, width: int, height: int, passes: int, enhanced: bool, raytrace: bool
     ) -> dict:
-        """ensight-side implementation
+        """EnSight-side implementation.
 
-        Args:
-            width:
-                The width of the image in pixels.
-            height:
-                The height of the image in pixels.
-            passes:
-                The number of antialiasing passes.
-            enhanced:
-                If True, the returned image will be a "deep pixel" TIFF image
-            raytrace:
-                If True, render with the raytracing engine.
+        Parameters
+        ----------
+        width : int
+            Width of the image in pixels.
+        height : int
+            Height of the image in pixels.
+        passes : int
+            Number of antialiasing passes.
+        enhanced : bool
+            Whether to returned the image as a "deep pixel" TIFF image file.
+        raytrace :
+            Whether to render the image with the raytracing engine.
 
-        Returns:
-            A dictionary of the various channels
+        Returns
+        -------
+        dict
+            Dictionary of the various channels.
         """
         if not raytrace:
             img = ensight.render(x=width, y=height, num_samples=passes, enhanced=enhanced)
         else:
-            import enve
-
             with tempfile.TemporaryDirectory() as tmpdirname:
                 tmpfilename = os.path.join(tmpdirname, str(uuid.uuid1()))
                 ensight.file.image_format("png")
@@ -244,54 +260,60 @@ class Export:
         format_options: Optional[str] = "",
         raytrace: bool = False,
     ) -> None:
-        """Render an animation
+        """Generate an MPEG4 animation file.
 
-        Generate an MPEG4 animation from temporal data, flipbooks, keyframes or animated traces.
+        An MPEG4 animation file can be generated from temporal data, flipbooks, keyframes,
+        or animated traces.
 
-        Args:
-            filename:
-                The name to save the MPEG4 file to local disk as.
-            width:
-                The width of the image in pixels. Default: ensight.objs.core.WINDOWSIZE[0]
-            height:
-                The height of the image in pixels. Default: ensight.objs.core.WINDOWSIZE[1]
-            passes:
-                The number of antialiasing passes to use.  Default: 4.
-            anim_type:
-                The type of the animation to render:
+        Parameters
+        ----------
+        filename : str
+            Name for the MPEG4 file to save to local disk.
+        width : int, optional
+            Width of the image in pixels. The default is ``None``, in which case
+            ``ensight.objs.core.WINDOWSIZE[0]`` is used.
+        height : int, optional
+            Height of the image in pixels. The default is ``None``, in which case
+            ``ensight.objs.core.WINDOWSIZE[1]`` is used.
+        passes : int, optional
+            Number of antialiasing passes. The default  is ``4``.
+        anim_type : int, optional
+            Type of the animation to render. The default is ``0``, in which case
+            ``"ANIM_TYPE_SOLUTIONTIME"`` is used. This table provides descriptions
+            by each option number and name:
 
-                ======================== ========================================
-                Name                     Animation type
-                ======================== ========================================
-                ANIM_TYPE_SOLUTIONTIME   Animation over all solution times
-                ANIM_TYPE_ANIMATEDTRACES Record animated rotations and traces
-                ANIM_TYPE_FLIPBOOK       Record the current Flipbook animation
-                ANIM_TYPE_KEYFRAME       Record the current Keyframe animation
-                ======================== ========================================
+            =========================== ========================================
+            Name                        Animation type
+            =========================== ========================================
+            0: ANIM_TYPE_SOLUTIONTIME   Animation over all solution times
+            1: ANIM_TYPE_ANIMATEDTRACES Records animated rotations and traces
+            2: ANIM_TYPE_FLIPBOOK       Records current flipbook animation
+            3: ANIM_TYPE_KEYFRAME       Records current kKeyframe animation
+            =========================== ========================================
 
-            frames:
-                The number of frames to save.  Defaults for all but ANIM_TYPE_ANIMATEDTRACES
-                will cover all the timesteps, flipbook pages or keyframe steps.  If
-                ANIM_TYPE_ANIMATEDTRACES is specified, this keyword is required.
-            starting_frame:
-                This keyword allows for saving a subset of the complete collection of frames.
-                Default: 0.
-            frames_per_second:
-                In the saved animation, the number of frames per second for playback.
-                Default: 60.
-            format_options:
-                A string describing more specific option for the MPEG4 encoder.
-            raytrace:
-                It True, use the raytracing engine.
-        Example:
-            ::
+        frames : int, optional
+            Number of frames to save. The default is ``None``. The default for
+            all but ``ANIM_TYPE_ANIMATEDTRACES`` covers all timesteps, flipbook
+            pages, or keyframe steps. If ``ANIM_TYPE_ANIMATEDTRACES`` is specified,
+            this keyword is required.
+        starting_frame : int, optional
+            Keyword for saving a subset of the complete collection of frames.
+            The default is ``0``.
+        frames_per_second : float, optional
+            Number of frames per second for playback in the saved animation.
+            The default is ``60.0``.
+        format_options : str, optional
+            More specific options for the MPEG4 encoder. The default is ``""``.
+        raytrace : bool, optional
+            Whether to render the image with the raytracing engine. The default is ``False``.
 
-                s = LocalLauncher().start()
-                data = f"{s.cei_home}/ensight{s.cei_suffix}gui/demos/Crash Queries.ens"
-                s.ensight.objs.ensxml_restore_file(data)
-                quality = "Quality Best Type 1"
-                s.ensight.utils.export.animation("local_file.mp4", format_options=quality)
-
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> data = f"{s.cei_home}/ensight{s.cei_suffix}gui/demos/Crash Queries.ens"
+        >>> s.ensight.objs.ensxml_restore_file(data)
+        >>> quality = "Quality Best Type 1"
+        >>> s.ensight.utils.export.animation("local_file.mp4", format_options=quality)
 
         """
         self._remote_support_check()
@@ -360,30 +382,33 @@ class Export:
         options: str,
         raytrace: bool,
     ) -> bytes:
-        """ensight-side implementation
+        """EnSight-side implementation.
 
-        Args:
-            width:
-                The width of the image in pixels.
-            height:
-                The height of the image in pixels.
-            passes:
-                The number of antialiasing passes.
-            anim_type:
-                The type of animation to save.
-            start:
-                First frame number to save.
-            frames:
-                The number of frames to save.
-            fps:
-                The output framerate.
-            options:
-                The MPEG4 configuration options.
-            raytrace:
-                If True, raytrace the scene
+        Parameters
+        ----------
+        width : int
+            Width of the image in pixels.
+        height : int
+            Height of the image in pixels.
+        passes : int
+            Number of antialiasing passes.
+        anim_type : int
+            Type of animation to save.
+        start : int
+            First frame number to save.
+        frames : int
+            Number of frames to save.
+        fps : float
+            Output framerate.
+        options : str
+            MPEG4 configuration options.
+        raytrace : bool
+            Whether to render the image with the raytracing engine.
 
-        Returns:
-            The MPEG4 stream in bytes.
+        Returns
+        -------
+        bytes
+            MPEG4 stream in bytes.
         """
 
         with tempfile.TemporaryDirectory() as tmpdirname:

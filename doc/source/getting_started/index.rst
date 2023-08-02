@@ -7,15 +7,15 @@ Getting started
 To use PyEnSight, you must have a locally installed and licensed copy of Ansys EnSight
 2022 R2 or later.
 
-To obtain a copy, see the `Ansys EnSight page <https://www.ansys.com/products/fluids/ansys-ensight>`_
-on the Ansys website.
+To obtain a copy, see the `Ansys EnSight <https://www.ansys.com/products/fluids/ansys-ensight>`_
+page on the Ansys website.
 
-Installation
-------------
+Install the package
+-------------------
 The ``ansys-pyensight-core`` package supports Python 3.8 through
 Python 3.11 on Windows and Linux.
 
-Install the latest package with this code:
+Install the latest package with this command:
 
 .. code::
 
@@ -23,7 +23,7 @@ Install the latest package with this code:
 
 
 If you plan on doing local *development* of PyEnSight on Linux,
-install the latest package with this code:
+install the latest package with these commands:
 
 .. code::
 
@@ -35,62 +35,69 @@ install the latest package with this code:
    pip install .[dev]   # install development dependencies
 
 
+You can then start developing PyEnSight.
 
-Now you can start developing PyEnSight.
-
-To build and install pyensight:
+To build and install PyEnSight, run these commands:
 
 .. code::
 
    python -m build   # build
-   # this will replace the editable install done previously. If you don't want to replace,
-   # switch your virtual environments to test the new install separately.
+   # this replaces the editable installation done previously. If you don't want
+   # to replace, switch your virtual environments to test the new install separately.
    pip install .[tests]   # install test dependencies
    pytest  # Run the tests
 
-Pre-commit setup:
 
+Set up ``pre-commit``
+---------------------
 ``pre-commit`` is a multi-language package manager for pre-commit hooks.
 
 
-To install pre-commit into your git hooks, run:
+To install ``pre-commit`` into your git hooks, run this command:
 
 .. code::
 
    pre-commit install
 
-pre-commit will now run on every commit. Every time you clone a project using pre-commit, this should always be the first thing you do.
+``pre-commit`` now runs on every commit. Each time that you clone a repository,
+running the preceding command to install ``pre-commit`` is always the first
+thing that you should do.
 
-If you want to manually run all pre-commit hooks on a repository, run:
+If you want to manually run all pre-commit hooks on a repository, run
+this command:
 
 .. code::
 
    pre-commit run --all-files
 
-This will run a bunch of formatters on your source files.
 
-To run individual hooks, use:
+A bunch of formatters run on your source files.
+
+To run individual hooks, use this command:
 
 .. code::
 
    pre-commit run <hook_id>
 
-``<hook_id>`` can be obtained from ``.pre-commit-config.yaml``.
-The first time pre-commit runs on a file, it will automatically download, install, and run the hook.
+
+You can obtain the ``<hook_id>`` from the ``.pre-commit-config.yaml`` file.
+The first time ``pre-commit`` runs on a file, it automatically downloads,
+installs, and runs the hook.
 
 
 Start the EnSight session
 -------------------------
-The simplest way of starting an EnSight session is to use this code:
+The simplest way of starting an EnSight session is to use the following code,
+which looks for a local Ansys software installation to use to launch an
+EnSight instance on the local system.
+
+.. vale off
 
 .. code:: python
 
    from ansys.pyensight.core import LocalLauncher
    session = LocalLauncher().start()
 
-
-The preceding code looks for a local Ansys software installation to use to launch an
-EnSight instance on the local system.
 
 Optionally, you can start an EnSight Docker container by using code like this:
 
@@ -101,16 +108,19 @@ Optionally, you can start an EnSight Docker container by using code like this:
    launcher.pull()
    session = launcher.start()
 
+.. vale on
 
-The ``data_directory`` keyword specifies the host directory to map into the container at the mount
-point /data within the container. This provides a method for EnSight running in the container
-to access the host's file system to read or write data. The optional argument ``use_dev=True``
+In the preceding code, the ``data_directory`` argument specifies the host directory
+to map into the container at the mount point, providing access to the data within
+the container. This provides a method for EnSight running in the container to access
+the host's file system to read or write data. The optional ``use_dev=True`` argument
 specifies that the latest development version of EnSight should be used.
 
 Run commands
 ------------
 Once an EnSight instance is running, you can use the session interface to interact with it.
-The ``cmd()`` method can execute any Python string in the EnSight Python interpreter.
+The :func:`cmd<ansys.pyensight.core.Session.cmd>` method can execute any Python string
+in the EnSight Python interpreter.
 
 For example, this code returns the value 25.0:
 
@@ -119,8 +129,8 @@ For example, this code returns the value 25.0:
     value = session.cmd("10.*2.5")
 
 
-This code uses the ``load_data()`` method to load a dataset and
-render the current scene into a PNG-formatted stream:
+The following code uses the :func:`load_data<ansys.pyensight.core.Session.load_data>`
+method to load a dataset and render the current scene into a PNG-formatted stream.
 
 .. code:: python
 
@@ -132,9 +142,9 @@ render the current scene into a PNG-formatted stream:
 
 The resulting image, which is rendered using 4x antialiasing, is 1920x1080 pixels.
 
-You can use the ``show()`` method to view or interact with the current EnSight session
-via the web. This method supports creating various graphical representations and returns URLs
-for viewing or interacting with these representations.
+You can use the :func:`show<ansys.pyensight.core.Session.show>` method to view or interact
+with the current EnSight session via the web. This method supports creating various graphical
+representations and returns URLs for viewing or interacting with these representations.
 
 .. code:: python
 

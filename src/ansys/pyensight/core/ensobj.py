@@ -78,8 +78,8 @@ class ENSOBJ(object):
         Any
             The current value of the attribute.
 
-        Example
-        -------
+        Examples
+        --------
         These commands are equivalent
 
         >>> v = part.VISIBLE
@@ -106,16 +106,16 @@ class ENSOBJ(object):
             values.  If text is set to 1, the dictionary keys will be strings.
             Return:
 
-        Example
+        Returns
         -------
+            Session CMD.
+
+        Examples
+        --------
         To copy some attributes from one part to another.
 
         >>> tmp = part0.getattrs(["VISIBLE", session.ensight.objs.enums.OPAQUENESS])
         >>> part1.setattrs(tmp)
-
-        Returns
-        -------
-            Session CMD.
 
         """
         if attrid is None:
@@ -134,6 +134,10 @@ class ENSOBJ(object):
         value : Any
             The value to set the attribute to.
 
+        Returns
+        -------
+            Session CMD.
+
         Examples
         --------
         These commands are equivalent
@@ -141,9 +145,6 @@ class ENSOBJ(object):
         >>> part.setattr("VISIBLE", True)
         >>> part.getattr(session.ensight.objs.enums.VISIBLE, True)
 
-        Returns
-        -------
-            Session CMD.
         """
         return self._session.cmd(
             f"{self._remote_obj()}.setattr({attrid.__repr__()}, {value.__repr__()})"
@@ -222,7 +223,7 @@ class ENSOBJ(object):
         return self._session.cmd(f"{self._remote_obj()}.attrinfo({attrid.__repr__()})")
 
     def populate_attr_list(self) -> List[str]:
-        """populates a list with attributes.
+        """Populates a list with attributes.
 
         Returns
         -------
@@ -310,8 +311,8 @@ class ENSOBJ(object):
             from the output.  The default value for this keyword is 1 which disables all
             sensitivity filtering.
 
-        Example
-        -------
+        Examples
+        --------
 
         >>> def walk_tree(part,obj,s):
         >>>     a = obj.attr
@@ -380,8 +381,8 @@ class ENSOBJ(object):
         value : Any, optional
             The value to change to tag to.  Note: this can be a string, int or float.
 
-        Example
-        -------
+        Examples
+        --------
         >>> session.ensight.objs.core.PARTS[0].setmetatag("FOO", "HELLO")
         >>> print(session.ensight.objs.core.PARTS[0].METADATA)
 
@@ -422,8 +423,8 @@ class ENSOBJ(object):
         Any
             The value assigned to the tag in the METADATA attribute.
 
-        Example
-        -------
+        Examples
+        --------
         >>> session.ensight.objs.core.PARTS[0].setmetatag("FOO", "HELLO")
         >>> print(session.ensight.objs.core.PARTS[0].getmetatag("FOO"))
 

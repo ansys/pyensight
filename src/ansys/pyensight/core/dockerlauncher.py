@@ -1,7 +1,8 @@
-"""dockerlauncher module
+"""Docker Launcher module.
 
-The docker launcher module provides pyensight with the ability to launch an
-EnSight session using a local Docker installation or a PIM launched Docker installation.
+The Docker Launcher module provides PyEnSight with the ability to launch a
+:class:`Session<ansys.pyensight.core.Session>` instance using a local Docker
+installation or a `PIM <https://github.com/ansys/pypim`_-launched Docker installation.
 
 Examples:
     ::
@@ -50,33 +51,41 @@ except Exception:
 
 
 class DockerLauncher(Launcher):
-    """Create a Session instance using a Docker Container hosted copy of EnSight.
+    """Creates a ``Session`` instance using a copy of EnSight hosted in a Docker container.
 
-    Either attach to a PIM launched Docker Container hosting EnSight, or launch a local Docker Container
-    hosting EnSight.  gRPC connections to EnShell and EnSight are established.  A PyEnSight Session is
-    returned upon successful launch and connection.
+    This class allows you to either attach to a `PIM <https://github.com/ansys/pypim>`_-launched
+    Docker container hosting EnSight or launch a local Docker container hosting EnSight.
+    gRPC connections to EnShell and EnSight are established. A PyEnSight ``Session`` instance
+    is returned upon successful launch and connection.
 
     Parameters
     ----------
-    data_directory :
-        Host directory to make into the container at /data
-    docker_image_name :
-        Optional Docker Image name to use
-    use_dev :
-        Option to use the latest ensight_dev Docker Image; overridden by docker_image_name if specified.
-    timeout :
-        In some cases where the EnSight session can take a significant amount of
-        timme to start up, this is the number of seconds to wait before failing
-        the connection.  The default is 120.0.
-    use_egl :
-        If True, EGL hardware accelerated graphics will be used. The platform
-        must be able to support it.
-    use_sos :
-        If None, don't use SOS. Otherwise, it's the number of EnSight Servers to use (int).
-    channel:
-        Existing gRPC channel to a running EnShell instance such as provided by PIM
-    pim_instance:
-        The PyPIM instance if using PIM (internal)
+    data_directory : str, optional
+        Host directory to make into the container at ``/data``.
+        The default is ``None``.
+    docker_image_name : str, optional
+        Name of the Docker image to use. The default is ``None``.
+    use_dev : bool, optional
+        Whether to use the latest ``ensight_dev`` Docker image. The
+        default is ``False``. However, this value is overridden if the
+        name of a Docker image is specified for the ``docker_image_name``
+        parameter.
+    channel :
+        Existing gRPC channel to a running ``EnShell`` instance provided by PIM.
+    pim_instance :
+        PyPIM instance if using PIM (internal). The default is ``None``.
+    timeout : float, optional
+        Number of seconds to try a gRPC connection before giving up.
+        This parameter is defined on the parent ``Launcher`` class,
+        where the default is ``120``.
+    use_egl : bool, optional
+        Whether to use EGL hardware for accelerated graphics. The platform
+        must be able to support this hardware. This parameter is defined on
+        the parent ``Launcher`` class, where the default is ``False``.
+    use_sos : int, optional
+        Number of EnSight servers to use for SOS (Server of Server) mode.
+        This parameter is defined on the parent ``Launcher`` class, where
+        the default is ``None``, in which case SOS mode is not used.
 
     Examples
     --------
@@ -146,7 +155,7 @@ class DockerLauncher(Launcher):
             self._service_host_port["ws"] = self._get_host_port(
                 self._pim_instance.services["ws"].uri
             )
-            # for parity, add 'grpc' as a placeholder even though pim use sets up the grpc channel.
+            # for parity, add 'grpc' as a placeholder even though using PIM sets up the gRPC channel.
             # this isn't used in this situation.
             self._service_host_port["grpc"] = ("127.0.0.1", -1)
             # attach to the file service if available
@@ -154,7 +163,7 @@ class DockerLauncher(Launcher):
             return
 
         # EnShell gRPC port, EnSight gRPC port, HTTP port, WSS port
-        # skip 1999 as we'll use that internal to the Container for the VNC connection
+        # skip 1999 as that internal to the container is used to the container for the VNC connection
         ports = self._find_unused_ports(4, avoid=[1999])
         if ports is None:
             raise RuntimeError("Unable to allocate local ports for EnSight session")
@@ -164,8 +173,8 @@ class DockerLauncher(Launcher):
         self._service_host_port["http"] = ("127.0.0.1", ports[2])
         self._service_host_port["ws"] = ("127.0.0.1", ports[3])
 
-        # get the optional user specified image name
-        # Note: the default name will need to change over time...  TODO
+        # get the optional user-specified image name
+        # Note: the default name needs to change over time...  TODO
         self._image_name = "ghcr.io/ansys-internal/ensight"
         if use_dev:
             self._image_name = "ghcr.io/ansys-internal/ensight_dev"
@@ -183,23 +192,23 @@ class DockerLauncher(Launcher):
             raise RuntimeError("Cannot initialize Docker")
 
     def ansys_version(self) -> Optional[str]:
-        """Returns the Ansys version as a 3 digit number string as found in the Docker container.
+        """Get the Ansys version (three-digit string) found in the Docker container.
 
         Returns
         -------
         str
-            Ansys 3-digit version as a string, or None if not found or not start()'ed
+            Ansys version or ``None`` if not found or not started.
 
         """
         return self._ansys_version
 
     def pull(self) -> None:
-        """Pulls the Docker image.
+        """Pull the Docker image.
 
         Raises
         ------
         RuntimeError
-            if Docker couldn't pull the image.
+            If the Docker image couldn't be pulled.
 
         """
         try:
@@ -209,26 +218,23 @@ class DockerLauncher(Launcher):
             raise RuntimeError(f"Can't pull Docker image: {self._image_name}")
 
     def start(self) -> "Session":
-        """Start EnShell by running a local Docker EnSight Image.
-        Then, connect to the EnShell in the Container over gRPC.  Once connected,
-        have EnShell launch a copy of EnSight and WSS in the Container.
-        Create and bind a Session instance to the created EnSight gRPC connection.
-        Return the Session.
+        """Start EnShell by running a local Docker EnSight image.
 
-        Parameters
-        ----------
-        host: str :
-            Optional hostname on which the EnSight gRPC service is running
-            by default, "127.0.0.1".
+        Once this method starts EnShell, it connects over gRPC to EnShell running
+        in the Docker container. Once connected, EnShell launches a copy of EnSight
+        and WSS in the container. It then creates and binds a
+        :class:`Session<ansys.pyensight.core.Session>` instance to the created
+        EnSight gRPC connection and returns this instance.
 
         Returns
         -------
-            pyensight Session object instance
+        object
+            PyEnSight ``Session`` object instance.
 
         Raises
         ------
         RuntimeError
-            variety of error conditions.
+            Variety of error conditions.
 
         """
         tmp_session = super().start()
@@ -365,17 +371,20 @@ class DockerLauncher(Launcher):
         return self.connect()
 
     def connect(self):
-        """Internal method. Create and bind a Session instance to the created gRPC EnSight
-           session as started by EnShell.  Return that session.
+        """Create and bind a :class:`Session<ansys.pyensight.core.Session>` instance
+        to the created EnSight gRPC connection started by EnShell.
 
-        Args:
+        This method is an internal method.
 
-        Returns:
-            pyensight Session object instance
+        Returns
+        -------
+        obj
+            :class:`Session<ansys.pyensight.core.Session>` instance
 
-        Raises:
-            RuntimeError:
-                variety of error conditions.
+        Raises
+        ------
+        RuntimeError:
+            Variety of error conditions.
         """
         #
         #
@@ -521,7 +530,7 @@ class DockerLauncher(Launcher):
         return session
 
     def stop(self) -> None:
-        """Release any additional resources allocated during launching"""
+        """Release any additional resources allocated during launching."""
         if self._enshell:
             if self._enshell.is_connected():
                 try:
@@ -564,7 +573,7 @@ class DockerLauncher(Launcher):
             )
 
     def file_service(self) -> Optional[Any]:
-        """Return PIM file service object if available"""
+        """Get the PIM file service object if available."""
         return self._pim_file_service
 
     def _get_host_port(self, uri: str) -> tuple:
@@ -577,7 +586,7 @@ class DockerLauncher(Launcher):
         Returns
         -------
         bool
-            True if capable.
+            ``True`` if the system is EGL capable, ``False`` otherwise.
         """
         if self._is_windows():
             return False
@@ -594,10 +603,12 @@ class DockerLauncher(Launcher):
             return False
 
     def enshell_log_contents(self) -> Optional[str]:
-        """Return the contents of the EnShell log if possible.
+        """Get the contents of the EnShell log if possible.
 
-        Returns:
-            string or None
+        Returns
+        -------
+        str
+           Contents of the log or ``None``.
         """
         if self._enshell_log_file is None:
             return None
