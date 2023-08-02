@@ -65,9 +65,7 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
     launcher.start()
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
-    launcher = DockerLauncher(
-        use_dev=True, docker_image_name="super_ensight", timeout=5
-    )
+    launcher = DockerLauncher(use_dev=True, docker_image_name="super_ensight", timeout=5)
     launcher.start()
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
