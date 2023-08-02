@@ -150,8 +150,8 @@ def launch_ensight(
 
     """
 
-    logging.debug(f"pim_is_available: {pim_is_available}  use_pim: {use_pim}\n")
-    if pim_is_available and use_pim:
+    logging.debug(f"pim_is_available: {pim_is_available}  use_pim: {use_pim}\n")  # pragma: no cover
+    if pim_is_available and use_pim:# pragma: no cover
         if pypim.is_configured():
             return _launch_ensight_with_pim(product_version=product_version, **kwargs)
 
