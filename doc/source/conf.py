@@ -12,8 +12,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src"))
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src", "ansys"))
 
 # Project information
-project = "ansys.pyensight"
-copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
+project = "ansys.pyensight.core"
+copyright = f"(c) {datetime.now().year} ANSYS, Inc. Unauthorized use, distribution, or duplication is prohibited."
 author = "Ansys Inc."
 release = version = __version__
 

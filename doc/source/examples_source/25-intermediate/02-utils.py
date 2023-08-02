@@ -189,3 +189,5 @@ ctx = EnsContext()
 ctx.load("init_state.ctxz")
 session.restore_context(ctx)
 session.show("image", width=800, height=600)
+
+# sphinx_gallery_thumbnail_path = '_static/02_utils_3.png'

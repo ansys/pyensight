@@ -44,7 +44,7 @@ Args:
     name:
         The name of the variable to create.
     value:
-        The expression to evaluate as the new variable.  See also: :ref:`Calculator Functions &lt;caculator_functions&gt;`.
+        The expression to evaluate as the new variable.  See also: :ref:`Calculator Functions &lt;calculator_functions&gt;`.
     sources:
         A list of parts to create the variable with. This can be specified as an ENS_GROUP object, or a list of part names/ids/objects.
     private:
