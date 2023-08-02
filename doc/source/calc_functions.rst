@@ -1,6 +1,6 @@
 .. vale off
 
-.. _caculator_functions:
+.. _calculator_functions:
 
 ====================
 Calculator functions

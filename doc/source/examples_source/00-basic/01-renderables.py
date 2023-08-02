@@ -196,4 +196,5 @@ with open("simple_example.glb", "wb") as fp:
 # -----------------
 # Close the connection and shut down the EnSight instance.
 
+# sphinx_gallery_thumbnail_path = '_static/01_renderable_1.png'
 session.close()
