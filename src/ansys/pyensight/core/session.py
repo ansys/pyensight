@@ -67,7 +67,7 @@ class Session:
     ----------
     host : str, optional
         Name of the host that the EnSight gRPC service is running on.
-        The default is``"127.0.0.1"``, which is the localhost.
+        The default is ``"127.0.0.1"``, which is the localhost.
     install_path : str, optional
         Path to the CEI directory to launch EnSight from.
         The default is ``None``.
@@ -439,7 +439,8 @@ class Session:
         out = []
         dirlen = 0
         if localdir:
-            dirlen = len(localdir)
+            # we use dirlen + 1 here to remove the '/' inserted by os.path.join()
+            dirlen = len(localdir) + 1
         for item in filelist:
             try:
                 name = os.path.join(localdir, item)
@@ -1179,16 +1180,14 @@ class Session:
         Examples
         --------
         A string like this is printed when the dataset is loaded and the part list
-        changes::
+        changes:
 
-        Event :
-            grpc://f6f74dae-f0ed-11ec-aa58-381428170733/partlist?enum=PARTS&uid=221'
-
+        ``    Event : grpc://f6f74dae-f0ed-11ec-aa58-381428170733/partlist?enum=PARTS&uid=221``
 
         >>> from ansys.pyensight.core import LocalLauncher
         >>> s = LocalLauncher().start()
         >>> def cb(v: str):
-        >>> print("Event:", v)
+        >>>     print("Event:", v)
         >>>     s.add_callback("ensight.objs.core", "partlist", ["PARTS"], cb)
         >>> s.load_data(r"D:\ANSYSDev\data\CFX\HeatingCoil_001.res")
         """

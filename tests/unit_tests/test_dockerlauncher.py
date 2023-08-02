@@ -8,16 +8,22 @@ import docker
 import pytest
 
 
-def test_start(mocker, capsys, caplog, enshell_mock):
+def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
     values_run_command = enshell_mock[1].copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
     os.environ["ANSYSLMD_LICENSE_FILE"] = "1055@mockedserver.com"
     docker_client = mock.MagicMock("Docker")
     run = mock.MagicMock("MockedRun")
+    run.images = mock.MagicMock("DockerImages")
+    run.images.pull = lambda x: ""
     docker_client.containers = mock.MagicMock("MockedContainers")
     docker_client.containers.run = mock.MagicMock("MockedContainer")
     mocker.patch.object(docker_client.containers, "run", return_value=run)
     dock = mocker.patch.object(docker, "from_env", return_value=docker_client)
+    os.environ["PYENSIGHT_DEBUG"] = "1"
+    launcher = DockerLauncher(
+        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5, use_sos=2
+    )
     launcher = DockerLauncher(
         data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5
     )
@@ -33,6 +39,21 @@ def test_start(mocker, capsys, caplog, enshell_mock):
         )
         assert "Starting EnSight with args: -batch -v 3 -grpc_server" in caplog.records[12].message
     assert launcher.ansys_version() == "345"
+    # No data volume
+    launcher = DockerLauncher(use_dev=True, docker_image_name="super_ensight", timeout=5)
+    mocker.patch.object(DockerLauncher, "_is_system_egl_capable", return_value=True)
+    os.environ["PYENSIGHT_FORCE_ENSIGHT_EGL"] = "1"
+    # Data volume + egl
+    launcher = DockerLauncher(
+        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5, use_egl=True
+    )
+    # No Data Volume + egl
+    launcher = DockerLauncher(
+        use_dev=True, docker_image_name="super_ensight", timeout=5, use_egl=True
+    )
+    launcher = DockerLauncher(
+        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5
+    )
     values_run_command[0] = [1, "cannot set no reroute"]
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     with pytest.raises(RuntimeError) as exec_info:
