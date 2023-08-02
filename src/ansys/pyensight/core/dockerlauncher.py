@@ -16,6 +16,7 @@ Examples:
 """
 import logging
 import os.path
+import re
 import subprocess
 import time
 from typing import Any, Dict, Optional
@@ -578,7 +579,12 @@ class DockerLauncher(Launcher):
 
     def _get_host_port(self, uri: str) -> tuple:
         parse_results = urllib3.util.parse_url(uri)
-        return (parse_results.host, parse_results.port)
+        port = (
+            parse_results.port
+            if parse_results.port
+            else (443 if re.search("^https|wss$", parse_results.scheme) else None)
+        )
+        return (parse_results.host, port)
 
     def _is_system_egl_capable(self) -> bool:
         """Check if the system is EGL capable.
