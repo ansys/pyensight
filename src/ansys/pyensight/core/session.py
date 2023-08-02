@@ -829,6 +829,7 @@ class Session:
             render = RenderableVNC(self, **kwargs)
         elif what == "remote_scene":
             render = RenderableEVSN(self, **kwargs)
+        # Undocumented. Available only internally
         elif what == "webensight":
             render = RenderableVNCAngular(self, **kwargs)
 
