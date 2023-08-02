@@ -245,7 +245,7 @@ class Launcher:
         # otherwise, use the arg passed to the constructor
         return self._use_egl_param_val
 
-    def _is_system_egl_capable(self) -> bool:
+    def _is_system_egl_capable(self) -> bool:  # pragma: no cover
         """Return True if the system supports the EGL launch.
 
         Returns

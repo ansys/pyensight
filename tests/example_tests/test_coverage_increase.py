@@ -15,6 +15,11 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     else:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     session = launcher.start()
+    if not use_local:
+        launcher._enshell.host
+        launcher._enshell.port
+        launcher._enshell.run_command("printenv")
+        launcher._enshell.run_command_with_env("printenv", "ENSIGHT_ANSYS_ALPHA_FLAG=1")
     with open(os.path.join(data_dir, "test_exec_run_script.py"), "w") as _file:
         _file.write("")
     os.mkdir(os.path.join(data_dir, "test_dir"))
