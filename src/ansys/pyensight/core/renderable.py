@@ -500,6 +500,21 @@ class RenderableVNC(Renderable):
         super().update()
 
 
+# Undocumented class
+class RenderableVNCAngular(Renderable):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self._rendertype = "remote"
+        self.update()
+
+    def update(self):
+        url = f"http://{self._session.hostname}:{self._session.html_port}"
+        url += "/ansys/nexus/angular/viewer_angular_pyensight.html"
+        url += f"?autoconnect=true&host={self._session.hostname}&port={self._session.ws_port}&secretKey={self._session.secret_key}"
+        self._url = url
+        super().update()
+
+
 class RenderableEVSN(Renderable):
     """Generates a URL that can be used to connect to the EnVision VNC remote image renderer."""
 
