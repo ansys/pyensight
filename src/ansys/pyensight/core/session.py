@@ -34,6 +34,7 @@ from ansys.pyensight.core.renderable import (
     RenderableMP4,
     RenderableSGEO,
     RenderableVNC,
+    RenderableVNCAngular,
     RenderableWebGL,
 )
 import requests
@@ -826,6 +827,9 @@ class Session:
             render = RenderableVNC(self, **kwargs)
         elif what == "remote_scene":
             render = RenderableEVSN(self, **kwargs)
+        # Undocumented. Available only internally
+        elif what == "webensight":
+            render = RenderableVNCAngular(self, **kwargs)
 
         if render is None:
             raise RuntimeError("Unable to generate requested visualization")
