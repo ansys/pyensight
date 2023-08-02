@@ -161,14 +161,11 @@ class Views:
         trace = row0[0] + row1[1] + row2[2]
         if trace > 0:
             s = math.sqrt(trace + 1)
-            print(s)
             qw = s / 2
             s = 1 / (2 * s)
-            print(s)
             qx = (row2[1] - row1[2]) * s
             qy = (row0[2] - row2[0]) * s
             qz = (row1[0] - row0[1]) * s
-            print(qx, qy, qz, qw)
         elif row0[0] > row1[1] and row0[0] > row2[2]:
             s = math.sqrt(1 + row0[0] - row1[1] - row2[2])
             qx = s / 2

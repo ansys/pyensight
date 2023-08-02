@@ -561,10 +561,10 @@ class RenderableEVSN(Renderable):
         super().update()
 
 
-class RenderableSGEO(Renderable):
+class RenderableSGEO(Renderable):  # pragma: no cover
     """Generates a WebGL-based renderable that leverages the SGEO format/viewer interface for progressive geometry transport."""
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:  # pragma: no cover
         super().__init__(*args, **kwargs)
         self._generate_url()
         pathname, filename = self._generate_filename("")
@@ -583,7 +583,7 @@ class RenderableSGEO(Renderable):
         self._revision = 0
         self.update()
 
-    def update(self):
+    def update(self):  # pragma: no cover
         """Generate a SGEO geometry file.
 
         This method causes the EnSight session to generate an updated geometry SGEO
