@@ -101,7 +101,7 @@ Every command also returns an error code, which is ``0`` on success. For example
 :samp:`err = session.ensight.part.colorby_rgb([0.0,0.0,"sad"])` sets ``err`` to ``-1``.
 The :func:`attrtree<ansys.api.pyensight.ensight_api.ensight.sendmesgoptions>`
 method can be using to use Python exception handling instead of
-returning an error code.  It is recommended that this be used when debugging
+returning an error code. It is recommended that this be used when debugging
 native API scripts.
 
 .. note::

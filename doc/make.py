@@ -34,7 +34,7 @@ def find_exe(name: str) -> str:
     raise RuntimeError(f"Unable to find script {name}.  Is it installed?")
 
 
-'''
+"""
 # install dependencies
 python.exe -m pip install .[dev]
 python.exe -m pip install .[doc]
@@ -47,7 +47,7 @@ python.exe -m pip install .\dist\ansys_pyensight_core-0.1.dev0-py3-none-any.whl
 cd doc
 # FASTDOCS=1?
 sphinx-build.exe -M html source _build -j auto
-'''
+"""
 
 
 def clean() -> None:
@@ -145,8 +145,12 @@ if __name__ == "__main__":
         ],
         help=operation_help,
     )
-    parser.add_argument('--fastdocs', default=False, action="store_true",
-                        help="Skip generation of API (autosummary) docs")
+    parser.add_argument(
+        "--fastdocs",
+        default=False,
+        action="store_true",
+        help="Skip generation of API (autosummary) docs",
+    )
 
     # parse the command line
     args = parser.parse_args()
