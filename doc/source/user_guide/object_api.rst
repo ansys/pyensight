@@ -80,7 +80,7 @@ Attribute names may be specified using string names or enumerations. There are m
 interfaces to get or set attributes. You can use the :func:`attrinfo<ansys.api.pyensight.ens_annot.ENS_ANNOT.attrinfo>`
 method or the  :func:`attrtree<ansys.api.pyensight.ens_annot.ENS_ANNOT.attrtree>`
 method to access detailed information about an attribute. Descriptions of attributes
-are available in multiple languages, which can be selected via the :samp:`session.language`
+are available in multiple languages, which can be selected via the :samp:`Session.language`
 property.
 
 One nuance to the attribute interface is that all object attributes are lists. Thus,
