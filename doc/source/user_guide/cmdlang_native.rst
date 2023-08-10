@@ -94,25 +94,40 @@ as parameters, which means that this syntax is also valid:
     session.ensight.part.modify_end()
 
 
+Native API debugging
+^^^^^^^^^^^^^^^^^^^^
+
 Every command also returns an error code, which is ``0`` on success. For example,
 :samp:`err = session.ensight.part.colorby_rgb([0.0,0.0,"sad"])` sets ``err`` to ``-1``.
-This code shows how you can also arrange to have error return values converted
+The :func:`attrtree<ansys.api.pyensight.ensight_api.ensight.sendmesgoptions>`
+method can be used to enable Python exception handling instead of
+returning an error code. It is recommended that this be used when debugging
+native API scripts.
+
+.. note::
+    The exception setting is global and care should be taken to reset the error
+    handling status on an error to ensure proper EnSight operation.
+
+
+This example shows how one can arrange to have error return values converted
 into exceptions:
 
 .. code-block:: python
 
     try:
-        ensight.sendmesgoptions(exception=True)
-        ensight.part.select_begin([1, 2])
-        ensight.part.colorby_rgb([0.0,0.0,"sad"])
+        session.ensight.sendmesgoptions(exception=True)
+        session.ensight.part.select_begin([1, 2])
+        session.ensight.part.colorby_rgb([0.0,0.0,"sad"])
     except RuntimeError as e:
         print("Error", e)
     finally:
-        ensight.sendmesgoptions(exception=False)
+        session.ensight.sendmesgoptions(exception=False)
 
-This code prints this error:
+
+The code prints this error:
 
 :samp:`RuntimeError: Command: (part: colorby_rgb 0.0 0.0 sad ) returned: RGB color: bad parameter`
+
 
 GUI conversion
 --------------
@@ -196,3 +211,4 @@ native selection to match the object selection. It can be used like this:
 
 Which allows the object selection mechanisms to be used to set up the part selection
 for subsequent native commands.
+

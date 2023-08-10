@@ -754,8 +754,6 @@ class Session:
             * ``deep_pixel``: EnSight deep pixel image
             * ``animation``: MPEG4 movie
             * ``webgl``: Interactive WebGL-based browser viewer
-            * ``sgeo``: WebGL-based renderer using an incremental scene graph
-              transport mechanism
             * ``remote``: Remote rendering-based interactive EnSight viewer
             * ``remote_scene``: Remote rendering-based interactive EnSight viewer
 
