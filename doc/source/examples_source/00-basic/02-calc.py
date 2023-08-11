@@ -4,7 +4,7 @@
 Calculator usage
 ================
 
-Utilze EnSight Calculator to comute the Spatial Mean of a field variable.
+Utilze EnSight Calculator to compute the Spatial Mean of a field variable.
 Display this constant value, and the create graph over time.
 
 """
@@ -16,6 +16,7 @@ Display this constant value, and the create graph over time.
 # This example uses a local EnSight installation.
 
 from ansys.pyensight.core import LocalLauncher
+
 session = LocalLauncher().start()
 # Setup shortcuts for long winded calls.
 eocore = session.ensight.objs.core
@@ -51,23 +52,27 @@ clip = eocore.DEFAULTPARTS[session.ensight.PART_CLIP_PLANE]
 parent_parts = eocore.PARTS["Part by All Elements"][0]
 
 attrs = []
-attrs.append(['MESHPLANE', eonums.MESH_SLICE_X])
-attrs.append(['TOOL', eonums.CT_XYZ])
-attrs.append(['VALUE', 8.0])
-attrs.append(['DOMAIN', eonums.CLIP_DOMAIN_INTER])
-clip = clip.createpart(name='X_Clip', sources=[parent_parts], attributes=attrs)
+attrs.append(["MESHPLANE", eonums.MESH_SLICE_X])
+attrs.append(["TOOL", eonums.CT_XYZ])
+attrs.append(["VALUE", 8.0])
+attrs.append(["DOMAIN", eonums.CLIP_DOMAIN_INTER])
+clip = clip.createpart(name="X_Clip", sources=[parent_parts], attributes=attrs)
 session.show("image", width=800, height=600)
 print("Parts:", eocore.PARTS)
 
 ###############################################################################
 # Compute the Average Value of Pressure
 # ---------------------------------
-# Use the calcualtor function SpaMean to compute the spatial mean of Pressure on the Clip part
+# Use the calculator function SpaMean to compute the spatial mean of Pressure on the Clip part
 # The Parent Part for this calculator function (source) is the Clip Part Object from above
 # The 'var' variable object is the variable defined from that calculator function.
-# Grab the constant value back out into Python to print() 
+# Grab the constant value back out into Python to print()
 
-var = eocore.create_variable("Ave_Value", value="SpaMean(plist,PRESSION,[],Compute_Per_case)", sources=[clip],)
+var = eocore.create_variable(
+    "Ave_Value",
+    value="SpaMean(plist,PRESSION,[],Compute_Per_case)",
+    sources=[clip],
+)
 python_ave_value = var.MINMAX[0]
 print("Python available value of Ave_Val = {}".format(python_ave_value))
 
@@ -92,12 +97,21 @@ session.show("image", width=800, height=600)
 # When querying a constant, you can choose min or max of the constant to obtain its value.
 # The Parent Part_List for querying a Constant_Per_case can be any part list.
 # Min time is 1; Max time is 160 seconds. There are 160 sample points in time.
-# 
+#
 
 mintime = 1.0
 maxtime = 160.0
 num_samples = 160
-line_query = eoutil.query.create_temporal("Ave_Val vs. time", query_type="min",part_list=eocore.PARTS, variable1="Ave_Value", start_time=mintime, end_time=maxtime, num_samples=num_samples, new_plotter=False)
+line_query = eoutil.query.create_temporal(
+    "Ave_Val vs. time",
+    query_type="min",
+    part_list=eocore.PARTS,
+    variable1="Ave_Value",
+    start_time=mintime,
+    end_time=maxtime,
+    num_samples=num_samples,
+    new_plotter=False,
+)
 
 ###############################################################################
 # Display the query on a plotter
@@ -114,7 +128,7 @@ line_query = eoutil.query.create_temporal("Ave_Val vs. time", query_type="min",p
 line_plot = eocore.defaultplot[0].createplotter()
 line_query.addtoplot(line_plot)
 line_plot.rescale()
-line_plot.PLOTTITLE = f"Ave_Value of Pression on 1D Clip vs Time"
+line_plot.PLOTTITLE = "Ave_Value of Pression on 1D Clip vs Time"
 line_plot.AXISXTITLE = "Time (s)"
 line_plot.AXISYTITLE = "Ave_Value of Pression"
 line_plot.LEGENDVISIBLE = False
