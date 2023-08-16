@@ -148,11 +148,10 @@ line_plot.WIDTH = 0.25
 line_plot.HEIGHT = 0.5
 session.show("image", width=800, height=600)
 
-
 ###############################################################################
-# Close the session
-# -----------------
 # Close the connection and shut down the EnSight instance.
-
+# --------------------------------------------------------
 # sphinx_gallery_thumbnail_path = '_static/02_calc_4.png'
+
+
 session.close()
