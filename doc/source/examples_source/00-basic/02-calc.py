@@ -62,7 +62,7 @@ print("Parts:", eocore.PARTS)
 
 ###############################################################################
 # Compute the Average Value of Pressure
-# ---------------------------------
+# -------------------------------------
 # Use the calculator function SpaMean to compute the spatial mean of Pressure on the Clip part
 # The Parent Part for this calculator function (source) is the Clip Part Object from above
 # The 'var' variable object is the variable defined from that calculator function.
@@ -147,3 +147,11 @@ line_plot.ORIGINY = 0.25
 line_plot.WIDTH = 0.25
 line_plot.HEIGHT = 0.5
 session.show("image", width=800, height=600)
+
+###############################################################################
+# Close the connection and shut down the EnSight instance.
+# --------------------------------------------------------
+# sphinx_gallery_thumbnail_path = '_static/02_calc_4.png'
+
+
+session.close()
