@@ -141,13 +141,20 @@ class ensobjlist(List[T]):  # noqa: N801
 
         """
         count: int = 0
+        objid_list = []
+        session = None
         for item in self:
             if isinstance(item, ENSOBJ):
                 try:
-                    item.setattr(attr, value)
+                    if not session:
+                        session = item._session
+                    objid_list.append(item.__OBJID__)
                     count += 1
                 except RuntimeError:
                     pass
+        if session:
+            msg = f"ensight.objs.ensobjlist(ensight.objs.wrap_id(x) for x in {objid_list}).set_attr({attr.__repr__()}, {value.__repr__()})"
+            session.cmd(msg)
         return count
 
     def get_attr(self, attr: Any, default: Optional[Any] = None):
@@ -175,16 +182,26 @@ class ensobjlist(List[T]):  # noqa: N801
         >>> state = session.ensight.core.PARTS.get_attr(session.ensight.objs.enums.VISIBLE)
 
         """
-        out_list = []
+        objid_list = []
+        session = None
         for item in self:
-            item_value = default
             if isinstance(item, ENSOBJ):
                 try:
-                    item_value = item.getattr(attr)
+                    if not session:
+                        session = item._session
+                    objid_list.append(item.__OBJID__)
                 except RuntimeError:
-                    item_value = default
-            out_list.append(item_value)
-        return out_list
+                    pass
+        value = None
+        if session:
+            if default:
+                msg = f"ensight.objs.ensobjlist(ensight.objs.wrap_id(x) for x in {objid_list}).get_attr({attr.__repr__()}, {default.__repr__()})"
+            else:
+                msg = f"ensight.objs.ensobjlist(ensight.objs.wrap_id(x) for x in {objid_list}).get_attr({attr.__repr__()})"
+            value = session.cmd(msg)
+        if value:
+            return value
+        return [default] * len(objid_list)
 
     @overload
     def __getitem__(self, index: SupportsIndex) -> T:
