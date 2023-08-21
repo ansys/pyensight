@@ -140,19 +140,17 @@ class ensobjlist(List[T]):  # noqa: N801
         >>> session.ensight.objs.core.PARTS.set_attr("VISIBLE", True)
 
         """
-        count: int = 0
         objid_list = []
         session = None
         objid_list = [x.__OBJID__ for x in self if isinstance(x, ENSOBJ)]
-        count = len(objid_list)
         for item in self:
             if hasattr(item, "_session"):
                 session = item._session
                 break
         if session:
             msg = f"ensight.objs.ensobjlist(ensight.objs.wrap_id(x) for x in {objid_list}).set_attr({attr.__repr__()}, {value.__repr__()})"
-            session.cmd(msg)
-        return count
+            return session.cmd(msg)
+        return 0
 
     def get_attr(self, attr: Any, default: Optional[Any] = None):
         """Query a specific attribute for all ENSOBJ objects in the list
