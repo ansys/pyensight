@@ -143,15 +143,12 @@ class ensobjlist(List[T]):  # noqa: N801
         count: int = 0
         objid_list = []
         session = None
+        objid_list = [x.__OBJID__ for x in self if isinstance(x, ENSOBJ)]
+        count = len(objid_list)
         for item in self:
-            if isinstance(item, ENSOBJ):
-                try:
-                    if not session:
-                        session = item._session
-                    objid_list.append(item.__OBJID__)
-                    count += 1
-                except RuntimeError:
-                    pass
+            if hasattr(item, "_session"):
+                session = item._session
+                break
         if session:
             msg = f"ensight.objs.ensobjlist(ensight.objs.wrap_id(x) for x in {objid_list}).set_attr({attr.__repr__()}, {value.__repr__()})"
             session.cmd(msg)
@@ -184,14 +181,11 @@ class ensobjlist(List[T]):  # noqa: N801
         """
         objid_list = []
         session = None
+        objid_list = [x.__OBJID__ for x in self if isinstance(x, ENSOBJ)]
         for item in self:
-            if isinstance(item, ENSOBJ):
-                try:
-                    if not session:
-                        session = item._session
-                    objid_list.append(item.__OBJID__)
-                except RuntimeError:
-                    pass
+            if hasattr(item, "_session"):
+                session = item._session
+                break
         value = None
         if session:
             if default:

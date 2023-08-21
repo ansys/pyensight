@@ -972,6 +972,7 @@ class Session:
         reader_options: Optional[dict] = None,
         new_case: bool = False,
         representation: str = "3D_feature_2D_full",
+        monitor_new_steps: bool = False,
     ) -> None:
         """Load a dataset into the EnSight instance.
 
@@ -1076,7 +1077,10 @@ class Session:
         if result_file:
             cmds.append(f'ensight.data.result(r"""{result_file}""")')
         cmds.append("ensight.data.shift_time(1.000000, 0.000000, 0.000000)")
-        cmds.append('ensight.solution_time.monitor_for_new_steps("off")')
+        if monitor_new_steps is True:
+            cmds.append('ensight.solution_time.monitor_for_new_steps("stay_at_current")')
+        else:
+            cmds.append('ensight.solution_time.monitor_for_new_steps("off")')
         cmds.append(f'ensight.data.replace(r"""{data_file}""")')
         for cmd in cmds:
             if self.cmd(cmd) != 0:
