@@ -63,8 +63,10 @@ PyEnSight cheat sheet. This one-page reference provides syntax rules and command
 for using PyEnSight.
 
 On the `PyEnSight Issues <https://github.com/ansys/pyensight/issues>`_ page, you can
-create issues to report bugs and request new features. On the `Discussions <https://discuss.ansys.com/>`_
-page on the Ansys Developer portal, you can post questions, share ideas, and get community feedback.
+create issues to report bugs and request new features. On the
+`PyEnSight Discussions <https://github.com/ansys/pyensight/discussions>`_ page or the
+`Discussions <https://discuss.ansys.com/>`_ page on the Ansys Developer portal,
+you can post questions, share ideas, and get community feedback.
 
 To reach the project support team, email `pyansys.core@ansys.com <pyansys.core@ansys.com>`_.
 
