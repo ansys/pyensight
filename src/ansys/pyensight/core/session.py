@@ -1002,6 +1002,10 @@ class Session:
         representation : str, optional
             Default representation for the parts loaded. The default is
             ``"3D_feature_2D_full"``.
+        monitor_new_timesteps: str, optional
+            Defaulted to off, if changed EnSight will monitor for new timesteps.
+            The allowed values are MONITOR_NEW_TIMESTEPS_OFF, MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT
+            and MONITOR_NEW_TIMESTEPS_JUMP_TO_END
 
         Raises
         ------
