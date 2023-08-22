@@ -131,7 +131,8 @@ class LocalLauncher(Launcher):
             # Launch EnSight
             # create the environmental variables
             local_env = os.environ.copy()
-            local_env["ENSIGHT_SECURITY_TOKEN"] = self._secret_key
+            if not local_env.get("ENSIGHT_GRPC_DISABLE_SECURITY_TOKEN"):
+                local_env["ENSIGHT_SECURITY_TOKEN"] = self._secret_key
             local_env["WEBSOCKETSERVER_SECURITY_TOKEN"] = self._secret_key
             local_env["ENSIGHT_SESSION_TEMPDIR"] = self.session_directory
             # If for some reason, the ENSIGHT_ANSYS_LAUNCH is set previously,
