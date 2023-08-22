@@ -964,6 +964,10 @@ class Session:
                 # Warn on import errors
                 print(f"Error loading ensight.utils from: '{_filename}' : {e}")
 
+    MONITOR_NEW_TIMESTEPS_OFF = "off"
+    MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT = "stay_at_current"
+    MONITOR_NEW_TIMESTEPS_JUMP_TO_END = "jump_to_end"
+
     def load_data(
         self,
         data_file: str,
@@ -972,6 +976,7 @@ class Session:
         reader_options: Optional[dict] = None,
         new_case: bool = False,
         representation: str = "3D_feature_2D_full",
+        monitor_new_timesteps: str = MONITOR_NEW_TIMESTEPS_OFF,
     ) -> None:
         """Load a dataset into the EnSight instance.
 
@@ -997,6 +1002,10 @@ class Session:
         representation : str, optional
             Default representation for the parts loaded. The default is
             ``"3D_feature_2D_full"``.
+        monitor_new_timesteps: str, optional
+            Defaulted to off, if changed EnSight will monitor for new timesteps.
+            The allowed values are MONITOR_NEW_TIMESTEPS_OFF, MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT
+            and MONITOR_NEW_TIMESTEPS_JUMP_TO_END
 
         Raises
         ------
@@ -1076,7 +1085,7 @@ class Session:
         if result_file:
             cmds.append(f'ensight.data.result(r"""{result_file}""")')
         cmds.append("ensight.data.shift_time(1.000000, 0.000000, 0.000000)")
-        cmds.append('ensight.solution_time.monitor_for_new_steps("off")')
+        cmds.append(f'ensight.solution_time.monitor_for_new_steps("{monitor_new_timesteps}")')
         cmds.append(f'ensight.data.replace(r"""{data_file}""")')
         for cmd in cmds:
             if self.cmd(cmd) != 0:
