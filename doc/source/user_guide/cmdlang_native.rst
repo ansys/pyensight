@@ -109,7 +109,7 @@ method when debugging native API scripts.
     handling status on an error to ensure proper EnSight operation.
 
 
-This example shows how you can can convert error return values into exceptions:
+This example shows how you can convert error return values into exceptions:
 
 .. code-block:: python
 
@@ -218,7 +218,7 @@ Convert existing EnSight scripts to PyEnSight
 PyEnSight has been designed to be fully compatible with the existing EnSight Python language,
 supporting both the *native* Python API and the *object* API. Indeed, the ``ensight`` attribute
 of a PyEnSight ``session`` object is a *clone* of the ``ensight`` module generated via
-introspection. This means that any attribute, object, instance, variable, and more 
+introspection. This means that any attribute, object, instance, variable, and more
 available in the ``ensight`` module is also available in PyEnSight, which manages the
 communication with EnSight and the conversion of a command to its corresponding EnSight counterpart.
 However, you must make a few adjustments to port an existing EnSight script into
@@ -235,7 +235,7 @@ PyEnSight. Here is a list of operations to perform to make the conversion:
     session.ensight.objs.core.PARTS
 
 * The ``ensight`` module cannot be imported anymore because it is an attribute of the PyEnSight ``session`` object.
-  However, you can use the ``scoped_name`` utility to mimick the syntax that you would obtain importing a module
+  However, you can use the ``scoped_name`` utility to mimic the syntax that you would obtain importing a module
   or a submodule:
 
 .. code-block:: python
