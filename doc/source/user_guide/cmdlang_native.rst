@@ -220,11 +220,11 @@ Convert existing EnSight scripts to PyEnSight
 
 PyEnSight has been designed to be fully compatible with the existing EnSight Python language,
 supporting both the "native" Python API and also the "Object" API.
-Indeed, the ``ensight`` attribute of a PyEnSight session object is a ``clone`` of the ensight 
+Indeed, the ``ensight`` attribute of a PyEnSight session object is a ``clone`` of the ensight
 module generated via introspection. This means that any attribute, object, instance, variable etc.
-available in the ``ensight`` module will be also available in PyEnSight, that will deal with the
+available in the ``ensight`` module is also available in PyEnSight, that manages the
 communication with EnSight and the conversion of a command to its corresponding EnSight counterpart.
-There are, however, a few adjustments to be made in order to port an existing EnSight script into
+There are, however, a few adjustments to be made for porting an existing EnSight script into
 PyEnSight. This is a list of operations to perform to make the conversion:
 
 * All the calls to the "ensight" module and its attributes need to be pre-fixed
@@ -238,7 +238,7 @@ PyEnSight. This is a list of operations to perform to make the conversion:
     session.ensight.objs.core.PARTS
 
 * The "ensight" module cannot be imported anymore, being an attribute of the PyEnSight Session object.
-  The syntax you would obtain importing a module or a submodule can be mimiced using the Scoped name utility:
+  The syntax you would obtain importing a module or a submodule can be mimicked using the Scoped name utility:
 
 
 .. code-block:: python
@@ -250,16 +250,16 @@ PyEnSight. This is a list of operations to perform to make the conversion:
 
     # Create a Scoped Name instance
     sn = session.ensight.utils.support.scoped_name
-    
-    # Create a context manager with the Scoped Name instance, where you will be
-    # able to use the old syntax
+
+    # Create a context manager with the Scoped Name instance, where can
+    # use the old syntax
 
     with sn(session.ensight) as ensight, sn(session.ensight.objs.core) as core:
         core.PARTS[0].DESCRIPTION
         ensight.view.bounds("ON")
 
-* The main advantage of using the Scoped Names is that the new syntax is also supported directly in EnSight. This means that porting back a PyEnSight script to EnSight will be much easier!
+* The main advantage of using the Scoped Names is that the new syntax is also supported directly in EnSight. This heavily simplifies the porting of a PyEnSight script into EnSight.
 
 
- 
+
 
