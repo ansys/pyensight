@@ -99,7 +99,7 @@ Native API debugging
 
 Every command also returns an error code, which is ``0`` on success. For example,
 :samp:`err = session.ensight.part.colorby_rgb([0.0,0.0,"sad"])` sets ``err`` to ``-1``.
-You can use te :func:`attrtree<ansys.api.pyensight.ensight_api.ensight.sendmesgoptions>`
+You can use the :func:`attrtree<ansys.api.pyensight.ensight_api.ensight.sendmesgoptions>`
 method to enable Python exception handling instead of returning an error code. You should
 use the :func:`attrtree<ansys.api.pyensight.ensight_api.ensight.sendmesgoptions>`
 method when debugging native API scripts.
