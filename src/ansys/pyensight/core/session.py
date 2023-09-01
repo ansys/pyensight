@@ -1159,10 +1159,14 @@ class Session:
 
         For a given target object (such as ``"ensight.objs.core"``) and a list
         of attributes (such as ``["PARTS", "VARIABLES"]``), this method sets up a
-        callback, which is a method to call with a URL encoded with the supplied tag
-        whenever one of the listed attributes changes.
+        callback to be made when any of those attribute change on the target object.
+        The target can also be an EnSight (not PyEnSight) class name, for example
+        "ENS_PART".  In this latter form, all objects of that type are watched for
+        specified attribute changes.
 
-        The callback is in a URL in this form:
+        The callback is made with a single argument, a string encoded in URL format
+        with the supplied tag, the name of the attribute that changed and the UID
+        of the object that changed.  The string passed to the callback is in this form:
         ``grpc://{sessionguid}/{tag}?enum={attribute}&uid={objectid}``.
 
         Only one callback with the noted tag can be used in the session.
@@ -1190,7 +1194,7 @@ class Session:
 
         Examples
         --------
-        A string like this is printed when the dataset is loaded and the part list
+        A string similar to this is printed when the dataset is loaded and the part list
         changes:
 
         ``    Event : grpc://f6f74dae-f0ed-11ec-aa58-381428170733/partlist?enum=PARTS&uid=221``
@@ -1199,7 +1203,7 @@ class Session:
         >>> s = LocalLauncher().start()
         >>> def cb(v: str):
         >>>     print("Event:", v)
-        >>>     s.add_callback("ensight.objs.core", "partlist", ["PARTS"], cb)
+        >>> s.add_callback("ensight.objs.core", "partlist", ["PARTS"], cb)
         >>> s.load_data(r"D:\ANSYSDev\data\CFX\HeatingCoil_001.res")
         """
         self._establish_connection()
