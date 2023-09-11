@@ -1,10 +1,11 @@
-from typing import Union
 from types import ModuleType
+from typing import Union
 
 try:
     import ensight
 except ImportError:
     from ansys.api.pyensight import ensight_api
+
 
 class Adr:
     """Provides the ``ensight.utils.adr`` interface.
@@ -43,9 +44,15 @@ class Adr:
             self._ensight.core.nexus.ReportServer.get_server().set_username(username)
             self._ensight.core.nexus.ReportServer.get_server().set_password(password)
         else:
-            self._ensight._session.cmd(f"ensight.core.nexus.ReportServer.get_server().set_URL('{url}')")
-            self._ensight._session.cmd(f"ensight.core.nexus.ReportServer.get_server().set_username('{username}')")
-            self._ensight._session.cmd(f"ensight.core.nexus.ReportServer.get_server().set_password('{password}')")
+            self._ensight._session.cmd(
+                f"ensight.core.nexus.ReportServer.get_server().set_URL('{url}')"
+            )
+            self._ensight._session.cmd(
+                f"ensight.core.nexus.ReportServer.get_server().set_username('{username}')"
+            )
+            self._ensight._session.cmd(
+                f"ensight.core.nexus.ReportServer.get_server().set_password('{password}')"
+            )
         self._adr_report_connected = True
 
     def generate_adr_report(self):
