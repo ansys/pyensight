@@ -1,5 +1,5 @@
 from types import ModuleType
-from typing import Union
+from typing import Optional, Union
 
 try:
     import ensight
@@ -26,6 +26,7 @@ class Adr:
     def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
         self._ensight = interface
         self._adr_report_connected = False
+        self._url: Optional[str] = None
 
     def connect_to_existing_adr_report(self, url: str, username: str, password: str) -> None:
         """Connect to an existing ADR report
@@ -39,10 +40,15 @@ class Adr:
         password: string
             the password to connect to the ADR report
         """
+        if self._adr_report_connected is True:
+            raise RuntimeError(
+                "The PyEnSight session is already connected to an ADR report server."
+            )
         if isinstance(self._ensight, ModuleType):
             self._ensight.core.nexus.ReportServer.get_server().set_URL(url)
             self._ensight.core.nexus.ReportServer.get_server().set_username(username)
             self._ensight.core.nexus.ReportServer.get_server().set_password(password)
+            self._ensight.core.nexus.ReportServer.get_server().validate()
         else:
             self._ensight._session.cmd(
                 f"ensight.core.nexus.ReportServer.get_server().set_URL('{url}')"
@@ -53,7 +59,9 @@ class Adr:
             self._ensight._session.cmd(
                 f"ensight.core.nexus.ReportServer.get_server().set_password('{password}')"
             )
+            self._ensight._session.cmd("ensight.core.nexus.ReportServer.get_server().validate()")
         self._adr_report_connected = True
+        self._url = url
 
     def generate_adr_report(self):
         """Generate the ADR report with the current states."""
@@ -65,3 +73,9 @@ class Adr:
             self._ensight.objs.core.STATES[0].generate_report()
         else:
             raise RuntimeError("No states are available to generate the report with.")
+
+    def is_connected_to_adr_report(self):
+        """True if the PyEnSight session is already connected to an ADR report server."""
+        if self._adr_report_connected is True:
+            print(f"The PyEnSight session is connected to the ADR report server {self._url}")
+        return self._adr_report_connected
