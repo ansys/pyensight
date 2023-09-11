@@ -40,6 +40,7 @@ class Adr:
         password: string
             the password to connect to the ADR report
         """
+        ret = None
         if self._adr_report_connected is True:
             raise RuntimeError(
                 f"The PyEnSight session is already connected to the ADR server {self._url}."
@@ -48,7 +49,7 @@ class Adr:
             self._ensight.core.nexus.ReportServer.get_server().set_URL(url)
             self._ensight.core.nexus.ReportServer.get_server().set_username(username)
             self._ensight.core.nexus.ReportServer.get_server().set_password(password)
-            self._ensight.core.nexus.ReportServer.get_server().validate()
+            ret = self._ensight.core.nexus.ReportServer.get_server().validate()
         else:
             self._ensight._session.cmd(
                 f"ensight.core.nexus.ReportServer.get_server().set_URL('{url}')"
@@ -59,9 +60,14 @@ class Adr:
             self._ensight._session.cmd(
                 f"ensight.core.nexus.ReportServer.get_server().set_password('{password}')"
             )
-            self._ensight._session.cmd("ensight.core.nexus.ReportServer.get_server().validate()")
-        self._adr_report_connected = True
-        self._url = url
+            ret = self._ensight._session.cmd(
+                "ensight.core.nexus.ReportServer.get_server().validate()"
+            )
+        if ret is True:
+            self._adr_report_connected = True
+            self._url = url
+        else:
+            raise RuntimeError("Couldn't connect to the ADR report server.")
 
     def generate_adr_report(self):
         """Generate the ADR report with the current states."""
