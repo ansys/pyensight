@@ -42,7 +42,7 @@ class Adr:
         """
         if self._adr_report_connected is True:
             raise RuntimeError(
-                "The PyEnSight session is already connected to an ADR report server."
+                f"The PyEnSight session is already connected to the ADR server {self._url}."
             )
         if isinstance(self._ensight, ModuleType):
             self._ensight.core.nexus.ReportServer.get_server().set_URL(url)
