@@ -28,7 +28,9 @@ class Adr:
         self._adr_report_connected = False
         self._url: Optional[str] = None
 
-    def connect_to_existing_adr_report(self, url: str, username: str, password: str) -> None:
+    def connect_to_existing_adr_report(
+        self, url: str, username: str = "nexus", password: str = "cei"
+    ) -> None:
         """Connect to an existing ADR report
 
         Parameters
