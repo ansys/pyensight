@@ -163,7 +163,8 @@ class DockerLauncher(Launcher):
             self._get_file_service()
             # if using PIM, we have a query parameter to append to http requests
             if self._session.launcher._pim_instance is not None:
-                self._query_parameters = f"instance_name={self._pim_instance.name}"
+                d = {"instance_name" : self._pim_instance.name}
+                self._add_query_parameters(d)
             #
             return
 
@@ -667,16 +668,3 @@ class DockerLauncher(Launcher):
                 return s
             except Exception:
                 return None
-
-    def _http_query_parameters(self) -> Optional[str]:
-        """Return optional http query parameters or None.
-        If query parameters exist, they should be added to any
-        http/https URL intended for the WSS web server.
-        This is used by things such as Ansys Lab.
-
-        Returns
-        -------
-        str
-            query parameters that should be appended to any queries
-        """
-        return self._query_parameters
