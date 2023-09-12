@@ -161,6 +161,10 @@ class DockerLauncher(Launcher):
             self._service_host_port["grpc"] = ("127.0.0.1", -1)
             # attach to the file service if available
             self._get_file_service()
+            # if using PIM, we have a query parameter to append to http requests
+            if self._session.launcher._pim_instance is not None:
+                self._query_parameters = f"instance_name={self._pim_instance.name}"
+            #
             return
 
         # EnShell gRPC port, EnSight gRPC port, HTTP port, WSS port
@@ -482,20 +486,28 @@ class DockerLauncher(Launcher):
         # Run websocketserver
         wss_cmd = "cpython /ansys_inc/v" + self._ansys_version + "/CEI/nexus"
         wss_cmd += self._ansys_version + "/nexus_launcher/websocketserver.py"
+        # websocket port - this needs to come first since we now have
+        # --add_header as a optional arg that can take an arbitrary
+        # number of optional headers.
+        wss_cmd += " " + str(self._service_host_port["ws"][1])
+        #
         wss_cmd += " --http_directory " + self._session_directory
         # http port
         wss_cmd += " --http_port " + str(self._service_host_port["http"][1])
         # vnc port
         wss_cmd += " --client_port 1999"
-
+        # optional PIM instance header
+        if self._pim_instance is not None:
+            # Add the PIM instance header. wss needs to return this optional
+            # header in each http response.  It's how the Ansys Lab proxy
+            # knows how to map back to this particular container's IP and port.
+            wss_cmd += " --add_header instance_name=" + self._pim_instance.name
+        # EnSight REST API
         if self._enable_rest_api:
             # grpc port
             wss_cmd += " --grpc_port " + str(self._service_host_port["grpc_private"][1])
-
         # EnVision sessions
         wss_cmd += " --local_session envision 5"
-        # websocket port
-        wss_cmd += " " + str(self._service_host_port["ws"][1])
 
         logging.debug(f"Starting WSS: {wss_cmd}\n")
         ret = self._enshell.start_other(wss_cmd)
@@ -515,6 +527,7 @@ class DockerLauncher(Launcher):
         session = ansys.pyensight.core.session.Session(
             host=self._service_host_port["grpc_private"][0],
             grpc_port=self._service_host_port["grpc_private"][1],
+            html_hostname=self._service_host_port["http"][0],
             html_port=self._service_host_port["http"][1],
             ws_port=self._service_host_port["ws"][1],
             install_path=None,
@@ -654,3 +667,16 @@ class DockerLauncher(Launcher):
                 return s
             except Exception:
                 return None
+
+    def _http_query_parameters(self) -> Optional[str]:
+        """Return optional http query parameters or None.
+        If query parameters exist, they should be added to any
+        http/https URL intended for the WSS web server.
+        This is used by things such as Ansys Lab.
+
+        Returns
+        -------
+        str
+            query parameters that should be appended to any queries
+        """
+        return self._query_parameters

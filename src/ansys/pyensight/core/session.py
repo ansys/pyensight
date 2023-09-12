@@ -77,6 +77,9 @@ class Session:
         The default is ``""``.
     grpc_port : int, optional
         Port number of the EnSight gRPC service. The default is ``12345``.
+    html_host : str, optional
+        Optional hostname for html connections if different than host
+        Used by Ansys Lab and reverse proxy servers
     html_port : int, optional
         Port number of the websocket server's HTTP server. The default is
         ``None``.
@@ -113,6 +116,7 @@ class Session:
         install_path: Optional[str] = None,
         secret_key: str = "",
         grpc_port: int = 12345,
+        html_hostname: Optional[str] = None,
         html_port: Optional[int] = None,
         ws_port: Optional[int] = None,
         session_directory: Optional[str] = None,
@@ -131,6 +135,7 @@ class Session:
         self._hostname = host
         self._install_path = install_path
         self._launcher = None
+        self._html_hostname = None
         self._html_port = html_port
         self._ws_port = ws_port
         self._secret_key = secret_key
@@ -144,6 +149,10 @@ class Session:
             self._launcher.session_directory = session_directory
             # The stub will not know about us
             self._halt_ensight_on_close = False
+
+        # if we weren't given an html host, use the hostname
+        if self._html_hostname is None:
+            self._html_hostname = self._hostname
 
         # are we in a jupyter notebook?
         try:
@@ -192,7 +201,8 @@ class Session:
             session_dir = self.launcher.session_directory
         s = f"Session(host='{self.hostname}', secret_key='{self.secret_key}', "
         s += f"sos={self.sos}, rest_api={self.rest_api}, "
-        s += f"html_port={self.html_port}, grpc_port={self._grpc_port}, "
+        s += f"html_hostname={self.html_hostname}, html_port={self.html_port}, "
+        s += f"grpc_port={self._grpc_port}, "
         s += f"ws_port={self.ws_port}, session_directory=r'{session_dir}')"
         return s
 
@@ -227,7 +237,7 @@ class Session:
         """
         if not self.rest_api:
             return
-        url = f"http://{self.hostname}:{self.html_port}/ensight/v1/session/exec"
+        url = f"http://{self.html_hostname}:{self.html_port}/ensight/v1/session/exec"
         time_start = time.time()
         while time.time() - time_start < self._timeout:
             try:
@@ -342,6 +352,11 @@ class Session:
     def hostname(self) -> str:
         """Hostname of the system hosting the EnSight instance."""
         return self._hostname
+
+    @property
+    def html_hostname(self) -> str:
+        """Hostname of the system hosting the EnSight web server instance."""
+        return self._html_hostname
 
     @property
     def launcher(self) -> "Launcher":

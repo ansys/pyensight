@@ -82,6 +82,7 @@ class Launcher:
                 self._egl_env_val = True
             else:
                 self._egl_env_val = False
+        self._query_parameters = ""
 
     @property
     def session_directory(self) -> str:
@@ -266,3 +267,23 @@ class Launcher:
 
         """
         return platform.system() == "Windows"
+
+
+    def _http_query_parameters(self) -> str:
+        """Return optional http query parameters or None.
+        If query parameters exist, they should be added to any
+        http/https URL intended for the WSS web server.
+        This is used by things such as Ansys Lab.
+        Note that this string does NOT have a leading or
+        trailing '?' or '&'. Callers must handle this. This
+        gives them more flexibility on how best to incorporate
+        this value and any other query potential parameters.
+        If this string has multiple name value pairs, then it
+        will contain '&' between those.  
+
+        Returns
+        -------
+        str
+            query parameters that should be appended to any queries
+        """
+        return self._query_parameters

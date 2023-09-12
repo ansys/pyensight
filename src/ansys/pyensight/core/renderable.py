@@ -80,9 +80,9 @@ class Renderable:
         self._aa: int = aa
         self._fps: float = fps
         self._num_frames: Optional[int] = num_frames
-        self._query_parameters: Dict[str, str] = {}
-        if self._session.launcher._pim_instance is not None:
-            self._query_parameters["instance_name"] = self._session.launcher._pim_instance.name
+        self._query_parameters = {}
+        self._query_parameter_str = ""
+        self._get_query_parameters()
 
     def __repr__(self) -> str:
         name = self.__class__.__name__
@@ -102,6 +102,21 @@ class Renderable:
         """
         name = self.__class__.__name__
         p.text(f"{name}( url='{self._url}' )")
+
+    def _get_query_parameters(self):
+        """Generate any optional http query parameters.
+        Upon return, self._query_parameter_str will either be an
+        empty string or a query string beginning with a question mark.
+        """
+        qp_dict = self._session.launcher()._http_query_parameters()
+        if qp_dict == None:
+            qp_dict = {}
+        qp_dict.update(self._query_parameters)
+        self._query_parameter_str = ""
+        symbol="?"
+        for p in qp_dict:
+            self._query_parameter_str += f"{symbol}{p[0]}={p[1]}"
+            symbol="&"
 
     def _generate_filename(self, suffix: str) -> Tuple[str, str]:
         """Create session-specific files and URLs.
@@ -129,19 +144,6 @@ class Renderable:
         self._filename_index += 1
         return pathname, filename
 
-    def _generate_request_params(self) -> str:
-        """Generate a string that represents the parameters to add to the request
-
-        Returns:
-            str: a string that represents the parameters to add to the request
-        """
-        params = (
-            ""
-            if len(self._query_parameters) == 0
-            else "?" + "&".join([f"{key}={value}" for key, value in self._query_parameters.items()])
-        )
-        return params
-
     def _generate_url(self) -> None:
         """Build the remote HTML filename and associated URL.
 
@@ -150,6 +152,8 @@ class Renderable:
         The URL to the file (through the session HTTP server) is
         ``http://{system}:{websocketserverhtmlport}/{session}_{guid}_{index}_{type}.html``.
 
+        Note that there may be optional http query parameters at the end of the URL.
+
         After this call, ``_url`` and ``_url_remote_pathname`` reflect these names.
 
         """
@@ -157,12 +161,8 @@ class Renderable:
         filename_index = self._filename_index
         remote_pathname, _ = self._generate_filename(suffix)
         simple_filename = f"{self._session.secret_key}_{self._guid}_{filename_index}{suffix}"
-        if self._session.launcher._pim_instance is None:
-            url = f"http://{self._session.hostname}:{self._session.html_port}"
-        else:
-            url = self._session.launcher._pim_instance.services["http"].uri
-        params = self._generate_request_params()
-        self._url = f"{url}/{simple_filename}{params}"
+        url = f"http://{self._session.html_hostname}:{self._session.html_port}"
+        self._url = f"{url}/{simple_filename}{self._query_parameter_str}"
         self._url_remote_pathname = remote_pathname
 
     def _save_remote_html_page(self, html: str) -> None:
@@ -285,7 +285,7 @@ class Renderable:
 
         """
         for filename in self._download_names:
-            url = f"http://{self._session.hostname}:{self._session.html_port}/{filename}"  # TODO ??
+            url = f"http://{self._session.html_hostname}:{self._session.html_port}/{filename}{self._query_parameter_str}"
             outpath = os.path.join(dirname, filename)
             with requests.get(url, stream=True) as r:
                 with open(outpath, "wb") as f:
@@ -322,8 +322,7 @@ class RenderableImage(Renderable):
         self._session.cmd(cmd)
         # generate HTML page with file references local to the websocket server root
         html = '<body style="margin:0px;padding:0px;">\n'
-        params = self._generate_request_params()
-        html += f'<img src="/{self._png_filename}{params}">\n'
+        html += f'<img src="/{self._png_filename}{self._query_parameter_str}">\n'
         html += "</body>\n"
         # refresh the remote HTML
         self._save_remote_html_page(html)
@@ -368,12 +367,8 @@ class RenderableDeepPixel(Renderable):
         name += "'website', 'static', 'website', 'content', 'bootstrap.min.css')"
         cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
         self._session.cmd(cmd, do_eval=False)
-        if self._session.launcher._pim_instance is None:
-            url = f"http://{self._session.hostname}:{self._session.html_port}"
-        else:
-            url = self._session.launcher._pim_instance.services["http"].uri
-        params = self._generate_request_params()
-        tiff_url = f"{url}/{self._tif_filename}{params}"
+            url = f"http://{self._session.html_hostname}:{self._session.html_port}"
+        tiff_url = f"{url}/{self._tif_filename}{self._query_parameter_str}"
         # replace some bits in the HTML
         html = html.replace("TIFF_URL", tiff_url)
         html = html.replace("ITEMID", self._guid)
@@ -448,11 +443,10 @@ class RenderableMP4(Renderable):
         self._session.ensight.file.animation_reset_keyframe("OFF")
         self._session.ensight.file.save_animation()
 
-        params = self._generate_request_params()
         # generate HTML page with file references local to the websocket server root
         html = '<body style="margin:0px;padding:0px;">\n'
         html += f'<video width="{w}" height="{h}" controls>\n'
-        html += f'    <source src="/{self._mp4_filename}{params}" type="video/mp4" />\n'
+        html += f'    <source src="/{self._mp4_filename}{self._query_parameter_str}" type="video/mp4" />\n'
         html += "</video>\n"
         html += "</body>\n"
 
@@ -498,9 +492,14 @@ class RenderableWebGL(Renderable):
         # Save the file
         self._session.ensight.savegeom.save_geometric_entities(self._avz_pathname)
         # generate HTML page with file references local to the websocket server root
-        params = self._generate_request_params()
-        html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
-        html += f"<ansys-nexus-viewer src='/{self._avz_filename}{params}'></ansys-nexus-viewer>\n"
+        if self._session.launcher._pim_instance is None:
+            html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
+        else:
+            # if using pim we get the static content from the front end and not
+            # where ensight is running, thus we use a specific URI host and not relative.
+            url = self._session.launcher._pim_instance.services["http"].uri
+            html = f"<script src='{url}/ansys/nexus/viewer-loader.js'></script>\n"
+        html += f"<ansys-nexus-viewer src='{url}/{self._avz_filename}{self._query_parameter_str}'></ansys-nexus-viewer>\n"
         # refresh the remote HTML
         self._save_remote_html_page(html)
         super().update()
@@ -511,13 +510,14 @@ class RenderableVNC(Renderable):
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self._query_parameters.update(
-            {
-                "autoconnect": "true",
-                "host": self._session.hostname,
-                "port": self._session.ws_port,
-            }
-        )
+        if self._session.launcher._pim_instance is not None:
+            self._query_parameters.update(
+                {
+                    "autoconnect": "true",
+                    "host": self._session.hostname,
+                    "port": self._session.html_port,
+                }
+            )
         self._rendertype = "remote"
         self.update()
 
@@ -528,15 +528,9 @@ class RenderableVNC(Renderable):
         iframe reference.
 
         """
-        if self._session.launcher._pim_instance is None:
-            url = f"http://{self._session.hostname}:{self._session.html_port}"
-        else:
-            url = self._session.launcher._pim_instance.services["http"].uri
-            self._query_parameters["port"] = self._session.html_port
-
+        url = f"http://{self._session.http_hostname}:{self._session.html_port}"
         url += "/ansys/nexus/novnc/vnc_envision.html"
-        params = self._generate_request_params()
-        url += params
+        url += self._query_parameter_str
         self._url = url
         super().update()
 
@@ -545,10 +539,19 @@ class RenderableVNC(Renderable):
 class RenderableVNCAngular(Renderable):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
+        if self._session.launcher._pim_instance is not None:
+            self._query_parameters.update(
+                {
+                    "autoconnect": "true",
+                    "host": self._session.hostname,
+                    "port": self._session.html_port,
+                }
+            )
         self._rendertype = "remote"
         self.update()
 
     def update(self):
+        # FIXME: update for Ansys Lab mimicing RenderableVNC class for query parameters
         url = f"http://{self._session.hostname}:{self._session.html_port}"
         url += "/ansys/nexus/angular/viewer_angular_pyensight.html"
         url += f"?autoconnect=true&host={self._session.hostname}&port={self._session.ws_port}&secretKey={self._session.secret_key}"
@@ -598,8 +601,6 @@ class RenderableEVSN(Renderable):
         self._session.ensight.variables.select_byname_begin(vars)
         # Save the file
         self._session.ensight.file.save_scenario_fileslct(self._evsn_pathname)
-
-        # params = self._generate_request_params()
 
         # generate HTML page with file references local to the websocketserver root
         html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
@@ -664,10 +665,9 @@ class RenderableSGEO(Renderable):  # pragma: no cover
 
         # If the first update, generate the HTML
         if self._revision == 0:
-            params = self._generate_request_params()
             # generate HTML page with file references local to the websocketserver root
-            attributes = f"src='/{self._sgeo_base_filename}/geometry.sgeo{params}'"
-            attributes += f" proxy_img='/{self._sgeo_base_filename}/proxy.png{params}'"
+            attributes = f"src='/{self._sgeo_base_filename}/geometry.sgeo{self._query_parameters}'"
+            attributes += f" proxy_img='/{self._sgeo_base_filename}/proxy.png{self._query_parameters}'"
             attributes += " aspect_ratio='proxy'"
             attributes += " renderer='sgeo'"
 
@@ -706,8 +706,7 @@ class RenderableSGEO(Renderable):  # pragma: no cover
         html_source = os.path.join(os.path.dirname(__file__), "sgeo_poll.html")
         with open(html_source, "r") as fp:
             html = fp.read()
-        params = self._generate_request_params()
-        revision_uri = f"/{self._sgeo_base_filename}/geometry.rev{params}"
+        revision_uri = f"/{self._sgeo_base_filename}/geometry.rev{self._query_parameters}"
         html = html.replace("REVURL_ITEMID", revision_uri)
         html = html.replace("ITEMID", self._guid)
         return html
