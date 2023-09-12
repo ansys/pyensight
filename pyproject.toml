@@ -27,7 +27,7 @@ classifiers = [
 
 dependencies = [
     "importlib-metadata>=4.0,<5; python_version<='3.8'",
-    "ansys-api-pyensight==0.3.1",
+    "ansys-api-pyensight==0.3.2",
     "requests>=2.28.2",
     "pyansys-docker>=5.0.4",
     "urllib3<2",
