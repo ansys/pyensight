@@ -8,17 +8,18 @@ the *command language*. Every operation in EnSight can be captured in command la
 Scripts can be generated using this language and played back in the GUI or in batch mode.
 Furthermore, features like context files (that capture a session state) do so using
 a command language variant. Command language is not documented, but it roughly follows
-the :ref:`EnSight architecture <ensight_architecture>`. The *native* Python API
+the :ref:`EnSight architecture <ensight_architecture>`. The :ref: `native Python API <native_api_docs>`
 is a binding to this command language interface.
 
 Command language overview
 -------------------------
 
 A command language call has this general form: :samp:`{class}: {command} [values...]`.
-For example, :samp:`view_transf: rotate -4. 24. 0.` rotates the current view and
-:samp:`data: replace data.case` loads a dataset into the current case. Commands
-may also follow a *begin/end* or *modify begin/end* structure where commands of the
-same class are used between the begin and end commands. This form is used to *batch*
+For example, :samp:`view_transf: rotate -4. 24. 0.` rotates the current view, and
+:samp:`data: replace data.case` loads a dataset into the current case.
+
+Commands may also follow a *begin/end* or *modify begin/end* structure, where commands
+of the same class are used between the begin and end commands. This form is used to *batch*
 a collection of changes into a single update operation. Finally, there is a
 *select begin/end* form for expanding values onto multiple lines.
 
@@ -38,16 +39,15 @@ line width and part color::
 
 
 .. note::
-   While most of the command language follows these two command forms, there are a
-   number of commands that do not follow this form.
+   While most of the command language follows these two command forms, there are
+   some commands that do not follow this form.
 
-As noted previously, EnSight maintains a *default* object of every type. Commands
-can be used to modify most attributes on the default object. A *create*
-command can then be used to create a new object instance. For example, the
-following code creates a clip by selecting the default clip object and then setting
-up the type and clip position value on the default clip. It then changes the current
-part selection to what parts should become the parent of the clip and calls
-:samp:`clip: create` to create the clip::
+As noted previously, EnSight maintains a *default* object of every type. You can
+use commands to modify most attributes on the default object. For example, you can
+use the ``create`` command to create a new object instance. The following code creates
+a clip by selecting the default clip object and then setting up the type and clip position
+value on the default clip. It then changes the current part selection to what parts should
+become the parent of the clip and calls the :samp:`clip: create` command to create the clip::
 
     clip: select_default
     clip: begin
@@ -65,8 +65,8 @@ part selection to what parts should become the parent of the clip and calls
 PyEnSight command language binding
 ----------------------------------
 
-The *native* Python API binding is a simple syntax conversion from command language
-into Python syntax. The command class is a module in Python under the ``session.ensight``
+The native Python API binding is a simple syntax conversion from command language
+into Python syntax. The ``command`` class is a module in Python under the ``session.ensight``
 module. All values are passed as native Python parameters. For the *select/begin/end*
 command form, only the ``begin`` command is used. All of the value lines can be specified
 as Python parameters or a list. The previous example becomes this Python script:
@@ -94,25 +94,39 @@ as parameters, which means that this syntax is also valid:
     session.ensight.part.modify_end()
 
 
+Native API debugging
+^^^^^^^^^^^^^^^^^^^^
+
 Every command also returns an error code, which is ``0`` on success. For example,
 :samp:`err = session.ensight.part.colorby_rgb([0.0,0.0,"sad"])` sets ``err`` to ``-1``.
-This code shows how you can also arrange to have error return values converted
-into exceptions:
+You can use the :func:`attrtree<ansys.api.pyensight.ensight_api.ensight.sendmesgoptions>`
+method to enable Python exception handling instead of returning an error code. You should
+use the :func:`attrtree<ansys.api.pyensight.ensight_api.ensight.sendmesgoptions>`
+method when debugging native API scripts.
+
+.. note::
+    Because the exception setting is global, care should be taken to reset the error
+    handling status on an error to ensure proper EnSight operation.
+
+
+This example shows how you can convert error return values into exceptions:
 
 .. code-block:: python
 
     try:
-        ensight.sendmesgoptions(exception=True)
-        ensight.part.select_begin([1, 2])
-        ensight.part.colorby_rgb([0.0,0.0,"sad"])
+        session.ensight.sendmesgoptions(exception=True)
+        session.ensight.part.select_begin([1, 2])
+        session.ensight.part.colorby_rgb([0.0,0.0,"sad"])
     except RuntimeError as e:
         print("Error", e)
     finally:
-        ensight.sendmesgoptions(exception=False)
+        session.ensight.sendmesgoptions(exception=False)
 
-This code prints this error:
+
+The code prints this error:
 
 :samp:`RuntimeError: Command: (part: colorby_rgb 0.0 0.0 sad ) returned: RGB color: bad parameter`
+
 
 GUI conversion
 --------------
@@ -123,8 +137,8 @@ you can use the right-mouse button menu to select and copy lines of command lang
 Next, select the text in the editor and use the **Edit** menu to select either
 the **Convert selection to sendmesg()** or **Convert selection to native Python**
 option. In general, the native Python conversion results in much more readable Python code
-that is far easier to edit than the **Convert selection to sendmesg()** option. The
-**Convert selection to native Python** option should be used for all but legacy development.
+that is far easier to edit than the **Convert selection to sendmesg()** option. You should
+use the **Convert selection to native Python** option for all but legacy development.
 
 The **File** menu provides two items to execute the current file text in the EnSight Python
 interpreter. The **Run script** option causes the file contents to be executed in the global
@@ -137,7 +151,7 @@ Special cases
 -------------
 
 There are a number of commands in the EnSight command language that are not valid
-Python names. A few examples include::
+Python names. Here are a few examples::
 
     function: #_of_levels 5
     annotation: 3d_label_size 10.0
@@ -175,14 +189,16 @@ The previous examples are transformed as follows:
 Selection and the object API
 ----------------------------
 
-The native API maintains a notion of a "current selection" with a collection
-of commands to manipulate it, for example ``ensight.part.select_begin()``. The object API
-reflects the EnSight GUI via SELECTED attributes and selection ENS_GROUP objects.
+The native API maintains a notion of a *current selection* with a collection
+of commands to manipulate it, such as :func: `select_begin()<ansys.api.pyensight.ensight_api.part.select_begin>`.
+The object API reflects the EnSight GUI via SELECTED attributes and selection ``ENS_GROUP`` objects.
 Due to the implicit nature of the native API, until it is used, the native selection
-is not reflected in ensight objects. When using both APIs in a single script, it can
+is not reflected in EnSight objects. When using both APIs in a single script, it can
 become necessary to synchronize the two notions of selection. This is done with the
-the ``ensight.part.get_mainpartlist_select()`` command. This command sets the
-native selection to match the object selection. It can be used like this:
+the :func:`get_mainpartlist_select()<ansys.api.pyensight.ensight_api.part.get_mainpartlist_select>`
+command. This command sets the native selection to match the object selection. For example, this
+code allows the object selection mechanisms to be used to set up the part selection for
+subsequent native commands:
 
 .. code-block:: python
 
@@ -194,5 +210,55 @@ native selection to match the object selection. It can be used like this:
     session.ensight.part.modify_end()
 
 
-Which allows the object selection mechanisms to be used to set up the part selection
-for subsequent native commands.
+.. _ensight_to_pyensight:
+
+Convert existing EnSight scripts to PyEnSight
+---------------------------------------------
+
+PyEnSight has been designed to be fully compatible with the existing EnSight Python language,
+supporting both the *native* Python API and the *object* API. Indeed, the ``ensight`` attribute
+of a PyEnSight ``session`` object is a *clone* of the ``ensight`` module generated via
+introspection. This means that any attribute, object, instance, variable, and more
+available in the ``ensight`` module is also available in PyEnSight, which manages the
+communication with EnSight and the conversion of a command to its corresponding EnSight counterpart.
+However, you must make a few adjustments to port an existing EnSight script into
+PyEnSight. Here is a list of operations to perform to make the conversion:
+
+* All the calls to the ``ensight`` module and its attributes must be pre-fixed
+  with the current session instance. For example:
+
+.. code-block:: python
+
+    # Old syntax
+    # ensight.objs.core.PARTS
+    # New syntax
+    session.ensight.objs.core.PARTS
+
+* The ``ensight`` module cannot be imported anymore because it is an attribute of the PyEnSight ``session`` object.
+  However, you can use the ``scoped_name`` utility to mimic the syntax that you would obtain importing a module
+  or a submodule:
+
+.. code-block:: python
+
+    # Remove previous imports
+    # import ensight
+    # from ensight.objs import *
+    # from ensight.objs import core
+
+    # Create a ``scoped_name`` instance
+    sn = session.ensight.utils.support.scoped_name
+
+    # Create a context manager with the ``scoped_name`` instance, where you can
+    # use the old syntax
+
+    with sn(session.ensight) as ensight, sn(session.ensight.objs.core) as core:
+        core.PARTS[0].DESCRIPTION
+        ensight.view.bounds("ON")
+
+* The main advantage of using the ``scoped_Name`` instance is that the new syntax is also
+  supported directly in EnSight. This greatly simplifies the porting of a PyEnSight script
+  into EnSight.
+
+
+
+

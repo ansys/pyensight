@@ -26,6 +26,14 @@ def test_start(mocker):
     glob_mock.side_effect = ["/path/to/awp/CEI/nexus345/websocketserver.py"]
     launcher = LocalLauncher("/path/to/awp/", batch=False)
     launcher.start()
+    glob_mock.side_effect = ["/path/to/awp/CEI/nexus345/websocketserver.py"]
+    launcher = LocalLauncher("/path/to/awp/", use_sos=3)
+    launcher.start()
+    os.environ["PYENSIGHT_FORCE_ENSIGHT_EGL"] = "1"
+    os.environ["ENSIGHT_ANSYS_LAUNCH"] = "1"
+    os.environ["PYENSIGHT_DEBUG"] = "1"
+    glob_mock.side_effect = ["/path/to/awp/CEI/nexus345/websocketserver.py"]
+    launcher = LocalLauncher("/path/to/awp/", use_egl=True)
 
 
 def test_stop(mocker, tmpdir):

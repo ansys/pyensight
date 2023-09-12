@@ -771,8 +771,6 @@ class Session:
             * ``deep_pixel``: EnSight deep pixel image
             * ``animation``: MPEG4 movie
             * ``webgl``: Interactive WebGL-based browser viewer
-            * ``sgeo``: WebGL-based renderer using an incremental scene graph
-              transport mechanism
             * ``remote``: Remote rendering-based interactive EnSight viewer
             * ``remote_scene``: Remote rendering-based interactive EnSight viewer
 
@@ -818,7 +816,7 @@ class Session:
         kwargs = dict(
             height=height, width=width, temporal=temporal, aa=aa, fps=fps, num_frames=num_frames
         )
-        if self._jupyter_notebook:
+        if self._jupyter_notebook:  # pragma: no cover
             from IPython.display import display
 
             # get the cell DisplayHandle instance
@@ -981,6 +979,10 @@ class Session:
                 # Warn on import errors
                 print(f"Error loading ensight.utils from: '{_filename}' : {e}")
 
+    MONITOR_NEW_TIMESTEPS_OFF = "off"
+    MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT = "stay_at_current"
+    MONITOR_NEW_TIMESTEPS_JUMP_TO_END = "jump_to_end"
+
     def load_data(
         self,
         data_file: str,
@@ -989,6 +991,7 @@ class Session:
         reader_options: Optional[dict] = None,
         new_case: bool = False,
         representation: str = "3D_feature_2D_full",
+        monitor_new_timesteps: str = MONITOR_NEW_TIMESTEPS_OFF,
     ) -> None:
         """Load a dataset into the EnSight instance.
 
@@ -1014,6 +1017,10 @@ class Session:
         representation : str, optional
             Default representation for the parts loaded. The default is
             ``"3D_feature_2D_full"``.
+        monitor_new_timesteps: str, optional
+            Defaulted to off, if changed EnSight will monitor for new timesteps.
+            The allowed values are MONITOR_NEW_TIMESTEPS_OFF, MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT
+            and MONITOR_NEW_TIMESTEPS_JUMP_TO_END
 
         Raises
         ------
@@ -1093,7 +1100,7 @@ class Session:
         if result_file:
             cmds.append(f'ensight.data.result(r"""{result_file}""")')
         cmds.append("ensight.data.shift_time(1.000000, 0.000000, 0.000000)")
-        cmds.append('ensight.solution_time.monitor_for_new_steps("off")')
+        cmds.append(f'ensight.solution_time.monitor_for_new_steps("{monitor_new_timesteps}")')
         cmds.append(f'ensight.data.replace(r"""{data_file}""")')
         for cmd in cmds:
             if self.cmd(cmd) != 0:
@@ -1167,10 +1174,14 @@ class Session:
 
         For a given target object (such as ``"ensight.objs.core"``) and a list
         of attributes (such as ``["PARTS", "VARIABLES"]``), this method sets up a
-        callback, which is a method to call with a URL encoded with the supplied tag
-        whenever one of the listed attributes changes.
+        callback to be made when any of those attribute change on the target object.
+        The target can also be an EnSight (not PyEnSight) class name, for example
+        "ENS_PART".  In this latter form, all objects of that type are watched for
+        specified attribute changes.
 
-        The callback is in a URL in this form:
+        The callback is made with a single argument, a string encoded in URL format
+        with the supplied tag, the name of the attribute that changed and the UID
+        of the object that changed.  The string passed to the callback is in this form:
         ``grpc://{sessionguid}/{tag}?enum={attribute}&uid={objectid}``.
 
         Only one callback with the noted tag can be used in the session.
@@ -1198,7 +1209,7 @@ class Session:
 
         Examples
         --------
-        A string like this is printed when the dataset is loaded and the part list
+        A string similar to this is printed when the dataset is loaded and the part list
         changes:
 
         ``    Event : grpc://f6f74dae-f0ed-11ec-aa58-381428170733/partlist?enum=PARTS&uid=221``
@@ -1207,7 +1218,7 @@ class Session:
         >>> s = LocalLauncher().start()
         >>> def cb(v: str):
         >>>     print("Event:", v)
-        >>>     s.add_callback("ensight.objs.core", "partlist", ["PARTS"], cb)
+        >>> s.add_callback("ensight.objs.core", "partlist", ["PARTS"], cb)
         >>> s.load_data(r"D:\ANSYSDev\data\CFX\HeatingCoil_001.res")
         """
         self._establish_connection()
