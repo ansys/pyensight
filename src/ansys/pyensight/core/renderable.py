@@ -164,7 +164,7 @@ class Renderable:
         filename_index = self._filename_index
         remote_pathname, _ = self._generate_filename(suffix)
         simple_filename = f"{self._session.secret_key}_{self._guid}_{filename_index}{suffix}"
-        url = f"http://{self._session.html_hostname}:{self._session.html_port}"
+        url = f"https://{self._session.html_hostname}:{self._session.html_port}"
         self._url = f"{url}/{simple_filename}{self._get_query_parameters_str()}"
         self._url_remote_pathname = remote_pathname
 
@@ -529,7 +529,7 @@ class RenderableVNC(Renderable):
         iframe reference.
 
         """
-        url = f"http://{self._session.http_hostname}:{self._session.html_port}"
+        url = f"http://{self._session._http_hostname}:{self._session._html_port}"
         url += "/ansys/nexus/novnc/vnc_envision.html"
         url += self._get_query_parameters_str(self._query_params)
         self._url = url
@@ -543,8 +543,8 @@ class RenderableVNCAngular(Renderable):
         if self._session.launcher._pim_instance is not None:
             self._query_params = {
                 "autoconnect": "true",
-                "host": self._session.hostname,
-                "port": self._session.html_port,
+                "host": self._session._html_hostname,
+                "port": self._session._html_port,
                 "secretKey": self._session.secret_key,
             }
         self._rendertype = "remote"
@@ -552,7 +552,7 @@ class RenderableVNCAngular(Renderable):
 
     def update(self):
         # FIXME: update for Ansys Lab mimicking RenderableVNC class for query parameters
-        url = f"http://{self._session.hostname}:{self._session.html_port}"
+        url = f"http://{self._session._html_hostname}:{self._session.html_port}"
         url += "/ansys/nexus/angular/viewer_angular_pyensight.html"
         url += self._get_query_parameters_str(self._query_params)
         self._url = url
