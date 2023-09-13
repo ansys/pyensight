@@ -100,25 +100,25 @@ class Renderable:
         name = self.__class__.__name__
         p.text(f"{name}( url='{self._url}' )")
 
-    def _get_query_parameters_str(self, params: Optional[dict] = None) -> None:
+    def _get_query_parameters_str(self, params: Optional[Dict[str, str]] = None) -> str:
         """Generate any optional http query parameters.
-        Return a string formatted as a URL query to tack on to the 
+        Return a string formatted as a URL query to tack on to the
         beginning part of the URL.  The string may be empty if there
         aren't any parameters.  The method takes a dict
         of parameters, possibly empty or None, and combines it with the
         parameters from the launcher, which also may be empty.
         """
-        qp_dict = self._session.launcher()._get_query_parameters()
-        if qp_dict == None:
+        qp_dict = self._session.launcher._get_query_parameters()
+        if qp_dict is None:
             # just in case
             qp_dict = {}
         if params:
             qp_dict.update(params)
         query_parameter_str = ""
-        symbol="?"
-        for p in qp_dict:
+        symbol = "?"
+        for p in qp_dict.items():
             query_parameter_str += f"{symbol}{p[0]}={p[1]}"
-            symbol="&"
+            symbol = "&"
         return query_parameter_str
 
     def _generate_filename(self, suffix: str) -> Tuple[str, str]:
@@ -370,7 +370,7 @@ class RenderableDeepPixel(Renderable):
         name += "'website', 'static', 'website', 'content', 'bootstrap.min.css')"
         cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
         self._session.cmd(cmd, do_eval=False)
-            url = f"http://{self._session.html_hostname}:{self._session.html_port}"
+        url = f"http://{self._session.html_hostname}:{self._session.html_port}"
         tiff_url = f"{url}/{self._tif_filename}{self._get_query_parameters_str()}"
         # replace some bits in the HTML
         html = html.replace("TIFF_URL", tiff_url)
@@ -514,12 +514,11 @@ class RenderableVNC(Renderable):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         if self._session.launcher._pim_instance is not None:
-            self._query_params =
-                {
-                    "autoconnect": "true",
-                    "host": self._session.hostname,
-                    "port": self._session.html_port,
-                }
+            self._query_params = {
+                "autoconnect": "true",
+                "host": self._session.hostname,
+                "port": self._session.html_port,
+            }
         self._rendertype = "remote"
         self.update()
 
@@ -542,18 +541,17 @@ class RenderableVNCAngular(Renderable):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         if self._session.launcher._pim_instance is not None:
-            self._query_params = 
-                {
-                    "autoconnect": "true",
-                    "host": self._session.hostname,
-                    "port": self._session.html_port,
-                    "secretKey": self._session.secret_key,
-                }
+            self._query_params = {
+                "autoconnect": "true",
+                "host": self._session.hostname,
+                "port": self._session.html_port,
+                "secretKey": self._session.secret_key,
+            }
         self._rendertype = "remote"
         self.update()
 
     def update(self):
-        # FIXME: update for Ansys Lab mimicing RenderableVNC class for query parameters
+        # FIXME: update for Ansys Lab mimicking RenderableVNC class for query parameters
         url = f"http://{self._session.hostname}:{self._session.html_port}"
         url += "/ansys/nexus/angular/viewer_angular_pyensight.html"
         url += self._get_query_parameters_str(self._query_params)
@@ -668,7 +666,9 @@ class RenderableSGEO(Renderable):  # pragma: no cover
         # If the first update, generate the HTML
         if self._revision == 0:
             # generate HTML page with file references local to the websocketserver root
-            attributes = f"src='/{self._sgeo_base_filename}/geometry.sgeo{self._get_query_parameters_str()}'"
+            attributes = (
+                f"src='/{self._sgeo_base_filename}/geometry.sgeo{self._get_query_parameters_str()}'"
+            )
             attributes += f" proxy_img='/{self._sgeo_base_filename}/proxy.png{self._get_query_parameters_str()}'"
             attributes += " aspect_ratio='proxy'"
             attributes += " renderer='sgeo'"

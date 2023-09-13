@@ -162,8 +162,8 @@ class DockerLauncher(Launcher):
             # attach to the file service if available
             self._get_file_service()
             # if using PIM, we have a query parameter to append to http requests
-            if self._session.launcher._pim_instance is not None:
-                d = {"instance_name" : self._pim_instance.name}
+            if self._pim_instance is not None:
+                d = {"instance_name": self._pim_instance.name}
                 self._add_query_parameters(d)
             #
             return

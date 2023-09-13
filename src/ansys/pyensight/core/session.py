@@ -135,7 +135,11 @@ class Session:
         self._hostname = host
         self._install_path = install_path
         self._launcher = None
-        self._html_hostname = None
+        if html_hostname == "" or html_hostname is None:
+            # if we weren't given an html host, use the hostname
+            self._html_hostname = self._hostname
+        else:
+            self._html_hostname = html_hostname
         self._html_port = html_port
         self._ws_port = ws_port
         self._secret_key = secret_key
@@ -149,10 +153,6 @@ class Session:
             self._launcher.session_directory = session_directory
             # The stub will not know about us
             self._halt_ensight_on_close = False
-
-        # if we weren't given an html host, use the hostname
-        if self._html_hostname is None:
-            self._html_hostname = self._hostname
 
         # are we in a jupyter notebook?
         try:
