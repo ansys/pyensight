@@ -91,7 +91,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           requires-xvfb: true
 
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v4
         name: 'Upload coverage to CodeCov'
 
   doc:
