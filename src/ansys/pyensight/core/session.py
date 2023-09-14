@@ -237,7 +237,7 @@ class Session:
         """
         if not self.rest_api:
             return
-        url = f"http://{self.html_hostname}:{self.html_port}/ensight/v1/session/exec"
+        url = f"https://{self.html_hostname}:{self.html_port}/ensight/v1/session/exec"
         time_start = time.time()
         while time.time() - time_start < self._timeout:
             try:

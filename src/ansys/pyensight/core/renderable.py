@@ -80,6 +80,17 @@ class Renderable:
         self._aa: int = aa
         self._fps: float = fps
         self._num_frames: Optional[int] = num_frames
+        #
+        self._using_proxy = False
+        # if we're talking directly to WS, then use 'http' otherwise 'https' for the proxy
+        self._http_protocol = "http"
+        try:
+            if self._session.launcher._pim_instance is not None:
+                self._using_proxy = True
+                self._http_protocol = "https"
+        except Exception:
+            # the launcher may not be PIM aware; that's ok
+            pass
 
     def __repr__(self) -> str:
         name = self.__class__.__name__
@@ -164,7 +175,7 @@ class Renderable:
         filename_index = self._filename_index
         remote_pathname, _ = self._generate_filename(suffix)
         simple_filename = f"{self._session.secret_key}_{self._guid}_{filename_index}{suffix}"
-        url = f"https://{self._session.html_hostname}:{self._session.html_port}"
+        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
         self._url = f"{url}/{simple_filename}{self._get_query_parameters_str()}"
         self._url_remote_pathname = remote_pathname
 
@@ -288,7 +299,7 @@ class Renderable:
 
         """
         for filename in self._download_names:
-            url = f"http://{self._session.html_hostname}:{self._session.html_port}/{filename}{self._get_query_parameters_str()}"
+            url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}/{filename}{self._get_query_parameters_str()}"
             outpath = os.path.join(dirname, filename)
             with requests.get(url, stream=True) as r:
                 with open(outpath, "wb") as f:
@@ -370,7 +381,7 @@ class RenderableDeepPixel(Renderable):
         name += "'website', 'static', 'website', 'content', 'bootstrap.min.css')"
         cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
         self._session.cmd(cmd, do_eval=False)
-        url = f"http://{self._session.html_hostname}:{self._session.html_port}"
+        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
         tiff_url = f"{url}/{self._tif_filename}{self._get_query_parameters_str()}"
         # replace some bits in the HTML
         html = html.replace("TIFF_URL", tiff_url)
@@ -495,14 +506,15 @@ class RenderableWebGL(Renderable):
         # Save the file
         self._session.ensight.savegeom.save_geometric_entities(self._avz_pathname)
         # generate HTML page with file references local to the websocket server root
-        if self._session.launcher._pim_instance is None:
-            html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
-        else:
+        if self._using_proxy:
             # if using pim we get the static content from the front end and not
             # where ensight is running, thus we use a specific URI host and not relative.
-            url = self._session.launcher._pim_instance.services["http"].uri
-            html = f"<script src='{url}/ansys/nexus/viewer-loader.js'></script>\n"
-        html += f"<ansys-nexus-viewer src='{url}/{self._avz_filename}{self._get_query_parameters_str()}'></ansys-nexus-viewer>\n"
+            html = f"<script src='{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}/ansys/nexus/viewer-loader.js'></script>\n"
+            html += f"<ansys-nexus-viewer src='{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}/{self._avz_filename}"
+            html += f"{self._get_query_parameters_str()}'></ansys-nexus-viewer>\n"
+        else:
+            html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
+            html += f"<ansys-nexus-viewer src='/{self._avz_filename}{self._get_query_parameters_str()}'></ansys-nexus-viewer>\n"
         # refresh the remote HTML
         self._save_remote_html_page(html)
         super().update()
@@ -513,12 +525,12 @@ class RenderableVNC(Renderable):
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        if self._session.launcher._pim_instance is not None:
-            self._query_params = {
-                "autoconnect": "true",
-                "host": self._session.hostname,
-                "port": self._session.html_port,
-            }
+        self._query_params = {}
+        self._query_params = {
+            "autoconnect": "true",
+            "host": self._session.hostname,
+            "port": self._session.ws_port,
+        }
         self._rendertype = "remote"
         self.update()
 
@@ -529,7 +541,7 @@ class RenderableVNC(Renderable):
         iframe reference.
 
         """
-        url = f"http://{self._session._http_hostname}:{self._session._html_port}"
+        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
         url += "/ansys/nexus/novnc/vnc_envision.html"
         url += self._get_query_parameters_str(self._query_params)
         self._url = url
@@ -540,19 +552,19 @@ class RenderableVNC(Renderable):
 class RenderableVNCAngular(Renderable):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        if self._session.launcher._pim_instance is not None:
-            self._query_params = {
-                "autoconnect": "true",
-                "host": self._session._html_hostname,
-                "port": self._session._html_port,
-                "secretKey": self._session.secret_key,
-            }
+        self._query_params = {}
+        self._query_params = {
+            "autoconnect": "true",
+            "host": self._session.hostname,
+            "port": self._session.ws_port,
+            "secretKey": self._session.secret_key,
+        }
         self._rendertype = "remote"
         self.update()
 
     def update(self):
         # FIXME: update for Ansys Lab mimicking RenderableVNC class for query parameters
-        url = f"http://{self._session._html_hostname}:{self._session.html_port}"
+        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
         url += "/ansys/nexus/angular/viewer_angular_pyensight.html"
         url += self._get_query_parameters_str(self._query_params)
         self._url = url
@@ -604,14 +616,14 @@ class RenderableEVSN(Renderable):
 
         # generate HTML page with file references local to the websocketserver root
         html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
-        server = f"http://{self._session.hostname}:{self._session.html_port}"  # FIXME: handle _get_query_parameter_str()
+        server = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"  # FIXME: handle _get_query_parameter_str()
         cleanname = self._evsn_pathname.replace("\\", "/")
         attributes = f"src='{cleanname}'"
         attributes += f" proxy_img='/{self._proxy_filename}'"
         attributes += " aspect_ratio='proxy'"
         attributes += " renderer='envnc'"
-        http_uri = f'"http":"{server}"'
-        ws_uri = f'"ws":"http://{self._session.hostname}:{self._session.ws_port}"'  # FIXME: handle _get_query_parameter_str()
+        http_uri = f'"{self._http_protocol}":"{server}"'
+        ws_uri = f'"ws":"{self._http_protocol}://{self._session.hostname}:{self._session.ws_port}"'  # FIXME: handle _get_query_parameter_str()
         secrets = f'"security_token":"{self._session.secret_key}"'
         attributes += f"renderer_options='{{ {http_uri}, {ws_uri}, {secrets} }}'"
         html += f"<ansys-nexus-viewer {attributes}></ansys-nexus-viewer>\n"
@@ -673,7 +685,7 @@ class RenderableSGEO(Renderable):  # pragma: no cover
             attributes += " aspect_ratio='proxy'"
             attributes += " renderer='sgeo'"
 
-            html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
+            html = f"<script src='/ansys/nexus/viewer-loader.js{self._get_query_parameters_str()}'></script>\n"
             html += f"<ansys-nexus-viewer id='{self._guid}' {attributes}></ansys-nexus-viewer>\n"
             html += self._periodic_script()
             # refresh the remote HTML
