@@ -51,7 +51,7 @@ class Adr:
             self._ensight.core.nexus.ReportServer.get_server().set_URL(url)
             self._ensight.core.nexus.ReportServer.get_server().set_username(username)
             self._ensight.core.nexus.ReportServer.get_server().set_password(password)
-            ret = self._ensight.core.nexus.ReportServer.get_server().validate()
+            ret = self._ensight.core.nexus.ReportServer.get_server().validate() == 1.0
         else:
             self._ensight._session.cmd(
                 f"ensight.core.nexus.ReportServer.get_server().set_URL('{url}')"
@@ -63,7 +63,7 @@ class Adr:
                 f"ensight.core.nexus.ReportServer.get_server().set_password('{password}')"
             )
             ret = self._ensight._session.cmd(
-                "ensight.core.nexus.ReportServer.get_server().validate()"
+                "ensight.core.nexus.ReportServer.get_server().validate() == 1.0"
             )
         if ret is True:
             self._adr_report_connected = True
