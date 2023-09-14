@@ -237,7 +237,17 @@ class Session:
         """
         if not self.rest_api:
             return
-        url = f"https://{self.html_hostname}:{self.html_port}/ensight/v1/session/exec"
+        #
+        http_proto = "http"
+        if self._launcher:
+            try:
+                if self._launcher._pim_instance is not None:
+                    http_proto = "https"
+            except Exception:
+                # the launcher may not be PIM aware; that's ok
+                pass
+        #
+        url = f"{http_proto}://{self.html_hostname}:{self.html_port}/ensight/v1/session/exec"
         time_start = time.time()
         while time.time() - time_start < self._timeout:
             try:
