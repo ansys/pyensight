@@ -525,12 +525,16 @@ class DockerLauncher(Launcher):
         use_sos = False
         if self._use_sos:
             use_sos = True
+        if self._pim_instance is None:
+            ws_port = self._service_host_port["ws"][1]
+        else:
+            ws_port = self._service_host_port["http"][1]
         session = ansys.pyensight.core.session.Session(
             host=self._service_host_port["grpc_private"][0],
             grpc_port=self._service_host_port["grpc_private"][1],
             html_hostname=self._service_host_port["http"][0],
             html_port=self._service_host_port["http"][1],
-            ws_port=self._service_host_port["ws"][1],
+            ws_port=ws_port,
             install_path=None,
             secret_key=self._secret_key,
             timeout=self._timeout,

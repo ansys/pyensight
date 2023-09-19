@@ -364,6 +364,9 @@ class RenderableDeepPixel(Renderable):
         an iframe reference.
         """
         # save the (deep) image file
+        # get the optional query parameters which may be an empty string
+        # needed for proxy servers like ansys lab
+        optional_query = self._get_query_parameters_str()
         w, h = self._default_size(1920, 1080)
         deep = f",num_samples={self._aa},enhanced=1"
         cmd = f'ensight.render({w},{h}{deep}).save(r"""{self._tif_pathname}""")'
@@ -382,10 +385,11 @@ class RenderableDeepPixel(Renderable):
         cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
         self._session.cmd(cmd, do_eval=False)
         url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
-        tiff_url = f"{url}/{self._tif_filename}{self._get_query_parameters_str()}"
+        tiff_url = f"{url}/{self._tif_filename}{optional_query}"
         # replace some bits in the HTML
         html = html.replace("TIFF_URL", tiff_url)
         html = html.replace("ITEMID", self._guid)
+        html = html.replace("OPTIONAL_QUERY", optional_query)
         # refresh the remote HTML
         self._save_remote_html_page(html)
         super().update()
@@ -528,7 +532,7 @@ class RenderableVNC(Renderable):
         self._query_params = {}
         self._query_params = {
             "autoconnect": "true",
-            "host": self._session.hostname,
+            "host": self._session.html_hostname,
             "port": self._session.ws_port,
         }
         self._rendertype = "remote"
