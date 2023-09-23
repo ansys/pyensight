@@ -529,7 +529,6 @@ class RenderableVNC(Renderable):
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self._query_params = {}
         self._query_params = {
             "autoconnect": "true",
             "host": self._session.html_hostname,
@@ -556,7 +555,6 @@ class RenderableVNC(Renderable):
 class RenderableVNCAngular(Renderable):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self._query_params = {}
         self._query_params = {
             "autoconnect": "true",
             "host": self._session.hostname,
@@ -567,7 +565,6 @@ class RenderableVNCAngular(Renderable):
         self.update()
 
     def update(self):
-        # FIXME: update for Ansys Lab mimicking RenderableVNC class for query parameters
         url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
         url += "/ansys/nexus/angular/viewer_angular_pyensight.html"
         url += self._get_query_parameters_str(self._query_params)
@@ -619,17 +616,25 @@ class RenderableEVSN(Renderable):
         self._session.ensight.file.save_scenario_fileslct(self._evsn_pathname)
 
         # generate HTML page with file references local to the websocketserver root
-        html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
-        server = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"  # FIXME: handle _get_query_parameter_str()
-        cleanname = self._evsn_pathname.replace("\\", "/")
-        attributes = f"src='{cleanname}'"
-        attributes += f" proxy_img='/{self._proxy_filename}'"
+        # FIXME: does not work with Ansys Lab, yet
+        optional_query = self._get_query_parameters_str()
+        html = f"<script src='/ansys/nexus/viewer-loader.js{optional_query}'></script>\n"
+        server = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
+        # cleanname = self._evsn_pathname.replace("\\", "/")
+        attributes = f"src='{self._evsn_filename}{optional_query}'"
+        attributes += f" proxy_img='/{self._proxy_filename}{optional_query}'"
         attributes += " aspect_ratio='proxy'"
         attributes += " renderer='envnc'"
-        http_uri = f'"{self._http_protocol}":"{server}"'
-        ws_uri = f'"ws":"{self._http_protocol}://{self._session.hostname}:{self._session.ws_port}"'  # FIXME: handle _get_query_parameter_str()
+        http_uri = f'"http":"{server}"'
+        ws_uri = (
+            f'"ws":"{self._http_protocol}://{self._session.html_hostname}:{self._session.ws_port}"'
+        )
         secrets = f'"security_token":"{self._session.secret_key}"'
-        attributes += f"renderer_options='{{ {http_uri}, {ws_uri}, {secrets} }}'"
+        if self._session.launcher._pim_instance is None or optional_query == "":
+            attributes += f" renderer_options='{{ {http_uri}, {ws_uri}, {secrets} }}'"
+        else:
+            query_args = f'"extra_query_args":"{optional_query[1:]}"'
+            attributes += f" renderer_options='{{ {http_uri}, {ws_uri}, {secrets}, {query_args} }}'"
         html += f"<ansys-nexus-viewer {attributes}></ansys-nexus-viewer>\n"
         # refresh the remote HTML
         self._save_remote_html_page(html)
