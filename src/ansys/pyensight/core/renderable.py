@@ -630,7 +630,7 @@ class RenderableEVSN(Renderable):
             f'"ws":"{self._http_protocol}://{self._session.html_hostname}:{self._session.ws_port}"'
         )
         secrets = f'"security_token":"{self._session.secret_key}"'
-        if self._session.launcher._pim_instance is None or optional_query == "":
+        if not self._using_proxy or optional_query == "":
             attributes += f" renderer_options='{{ {http_uri}, {ws_uri}, {secrets} }}'"
         else:
             query_args = f'"extra_query_args":"{optional_query[1:]}"'
