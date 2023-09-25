@@ -357,10 +357,9 @@ class EnShellGRPC(object):
 
     # @brief
     #
-
     # @param cmd The command line
     # @return A tuple of (int, string) for (returnCode, returnString)
-    def start_other(self, cmd: str):
+    def start_other(self, cmd: str, extra_env: Optional[str] = None):
         """Tell EnShell to start a non-EnShell aware command.
 
         The string will be sent to EnShell via the EnShellService::run_command()
@@ -381,7 +380,10 @@ class EnShellGRPC(object):
         self.connect()
         command_string = "start_app OTHER " + cmd
 
-        return self.run_command(command_string)
+        if extra_env is None or extra_env == "":
+            return self.run_command(command_string)
+        else:
+            return self.run_command_with_env(command_string, extra_env)
 
     def cei_home(self):
         """Get the value of CEI_HOME from EnShell."""

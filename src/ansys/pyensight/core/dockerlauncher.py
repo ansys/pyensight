@@ -223,6 +223,33 @@ class DockerLauncher(Launcher):
         except Exception:
             raise RuntimeError(f"Can't pull Docker image: {self._image_name}")
 
+    def _get_container_env(self) -> Dict:
+        # Create the environmental variables
+        local_env = os.environ.copy()
+        local_env["ENSIGHT_SECURITY_TOKEN"] = self._secret_key
+        local_env["WEBSOCKETSERVER_SECURITY_TOKEN"] = self._secret_key
+        # If for some reason, the ENSIGHT_ANSYS_LAUNCH is set previously,
+        # honor that value, otherwise set it to "pyensight".  This allows
+        # for an environmental setup to set the value to something else
+        # (e.g. their "app").
+        if "ENSIGHT_ANSYS_LAUNCH" not in local_env:
+            local_env["ENSIGHT_ANSYS_LAUNCH"] = "container"
+
+        # Environment to pass into the container
+        container_env = {
+            "ENSIGHT_SECURITY_TOKEN": self._secret_key,
+            "WEBSOCKETSERVER_SECURITY_TOKEN": self._secret_key,
+            "ENSIGHT_SESSION_TEMPDIR": self._session_directory,
+            "ENSIGHT_ANSYS_LAUNCH": local_env["ENSIGHT_ANSYS_LAUNCH"],
+        }
+
+        if self._pim_instance is None:
+            container_env["ANSYSLMD_LICENSE_FILE"] = os.environ["ANSYSLMD_LICENSE_FILE"]
+            if "ENSIGHT_ANSYS_APIP_CONFIG" in local_env:
+                container_env["ENSIGHT_ANSYS_APIP_CONFIG"] = local_env["ENSIGHT_ANSYS_APIP_CONFIG"]
+
+        return container_env
+
     def start(self) -> "Session":
         """Start EnShell by running a local Docker EnSight image.
 
@@ -251,27 +278,8 @@ class DockerLauncher(Launcher):
         # initially running EnShell over the first gRPC port. Then launch EnSight
         # and other apps.
 
-        # Create the environmental variables
-        local_env = os.environ.copy()
-        local_env["ENSIGHT_SECURITY_TOKEN"] = self._secret_key
-        local_env["WEBSOCKETSERVER_SECURITY_TOKEN"] = self._secret_key
-        # If for some reason, the ENSIGHT_ANSYS_LAUNCH is set previously,
-        # honor that value, otherwise set it to "pyensight".  This allows
-        # for an environmental setup to set the value to something else
-        # (e.g. their "app").
-        if "ENSIGHT_ANSYS_LAUNCH" not in local_env:
-            local_env["ENSIGHT_ANSYS_LAUNCH"] = "container"
-
-        # Environment to pass into the container
-        container_env = {
-            "ENSIGHT_SECURITY_TOKEN": self._secret_key,
-            "WEBSOCKETSERVER_SECURITY_TOKEN": self._secret_key,
-            "ENSIGHT_SESSION_TEMPDIR": self._session_directory,
-            "ANSYSLMD_LICENSE_FILE": os.environ["ANSYSLMD_LICENSE_FILE"],
-            "ENSIGHT_ANSYS_LAUNCH": local_env["ENSIGHT_ANSYS_LAUNCH"],
-        }
-        if "ENSIGHT_ANSYS_APIP_CONFIG" in local_env:
-            container_env["ENSIGHT_ANSYS_APIP_CONFIG"] = local_env["ENSIGHT_ANSYS_APIP_CONFIG"]
+        # get the environment to pass to the container
+        container_env = self._get_container_env()
 
         # Ports to map between the host and the container
         # If we're here in the code, then we're not using PIM
@@ -458,8 +466,18 @@ class DockerLauncher(Launcher):
 
         use_egl = self._use_egl()
 
+        # get the environment to pass to the container
+        container_env_str = ""
+        if self._pim_instance is not None:
+            container_env = self._get_container_env()
+            for i in container_env.items():
+                container_env_str += f"{i[0]}={i[1]}\n"
+
         # Run EnSight
         ensight_env_vars = None
+        if container_env_str != "":
+            ensight_env_vars = container_env_str
+
         if use_egl:
             ensight_env_vars = "LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1"
 
@@ -510,8 +528,12 @@ class DockerLauncher(Launcher):
         # EnVision sessions
         wss_cmd += " --local_session envision 5"
 
+        wss_env_vars = None
+        if container_env_str != "":
+            wss_env_vars = container_env_str
+
         logging.debug(f"Starting WSS: {wss_cmd}\n")
-        ret = self._enshell.start_other(wss_cmd)
+        ret = self._enshell.start_other(wss_cmd, extra_env=wss_env_vars)
         if ret[0] != 0:
             self.stop()
             raise RuntimeError(f"Error starting WSS: {wss_cmd}\n")

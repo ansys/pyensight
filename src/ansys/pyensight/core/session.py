@@ -238,16 +238,13 @@ class Session:
         if not self.rest_api:
             return
         #
-        http_proto = "http"
-        if self._launcher:
-            try:
-                if self._launcher._pim_instance is not None:
-                    http_proto = "https"
-            except Exception:
-                # the launcher may not be PIM aware; that's ok
-                pass
         #
-        url = f"{http_proto}://{self.html_hostname}:{self.html_port}/ensight/v1/session/exec"
+        # even when using PIM and a proxy server (Ansys Lab) this connects
+        # directly from the python running in the Notebook (the front-end)
+        # to the EnSight Docker Container and not the proxy server.
+        # Thus, here we use 'http', the private hostname, and the html port
+        # (which is the same on the proxy server).
+        url = f"http://{self._hostname}:{self.html_port}/ensight/v1/session/exec"
         time_start = time.time()
         while time.time() - time_start < self._timeout:
             try:
