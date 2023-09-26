@@ -80,7 +80,7 @@ def enshell_mock():
     mocked_grpc.cei_home = lambda: cei_home
     mocked_grpc.ansys_version = lambda: "345"
     mocked_grpc.start_ensight = lambda cmd, env: [0, cmd]
-    mocked_grpc.start_other = lambda cmd: [0, cmd]
+    mocked_grpc.start_other = lambda cmd, extra_env: [0, cmd]
     return mocked_grpc, values_run_command
 
 
