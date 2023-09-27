@@ -225,28 +225,26 @@ class DockerLauncher(Launcher):
 
     def _get_container_env(self) -> Dict:
         # Create the environmental variables
-        local_env = os.environ.copy()
-        local_env["ENSIGHT_SECURITY_TOKEN"] = self._secret_key
-        local_env["WEBSOCKETSERVER_SECURITY_TOKEN"] = self._secret_key
-        # If for some reason, the ENSIGHT_ANSYS_LAUNCH is set previously,
-        # honor that value, otherwise set it to "pyensight".  This allows
-        # for an environmental setup to set the value to something else
-        # (e.g. their "app").
-        if "ENSIGHT_ANSYS_LAUNCH" not in local_env:
-            local_env["ENSIGHT_ANSYS_LAUNCH"] = "container"
-
         # Environment to pass into the container
         container_env = {
             "ENSIGHT_SECURITY_TOKEN": self._secret_key,
             "WEBSOCKETSERVER_SECURITY_TOKEN": self._secret_key,
             "ENSIGHT_SESSION_TEMPDIR": self._session_directory,
-            "ENSIGHT_ANSYS_LAUNCH": local_env["ENSIGHT_ANSYS_LAUNCH"],
         }
+
+        # If for some reason, the ENSIGHT_ANSYS_LAUNCH is set previously,
+        # honor that value, otherwise set it to "pyensight".  This allows
+        # for an environmental setup to set the value to something else
+        # (e.g. their "app").
+        if "ENSIGHT_ANSYS_LAUNCH" not in os.environ:
+            container_env["ENSIGHT_ANSYS_LAUNCH"] = "container"
+        else:
+            container_env["ENSIGHT_ANSYS_LAUNCH"] = os.environ["ENSIGHT_ANSYS_LAUNCH"]
 
         if self._pim_instance is None:
             container_env["ANSYSLMD_LICENSE_FILE"] = os.environ["ANSYSLMD_LICENSE_FILE"]
-            if "ENSIGHT_ANSYS_APIP_CONFIG" in local_env:
-                container_env["ENSIGHT_ANSYS_APIP_CONFIG"] = local_env["ENSIGHT_ANSYS_APIP_CONFIG"]
+            if "ENSIGHT_ANSYS_APIP_CONFIG" in os.environ:
+                container_env["ENSIGHT_ANSYS_APIP_CONFIG"] = os.environ["ENSIGHT_ANSYS_APIP_CONFIG"]
 
         return container_env
 
