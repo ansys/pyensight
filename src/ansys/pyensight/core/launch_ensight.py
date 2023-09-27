@@ -78,10 +78,7 @@ if pim_is_available:
             ]
         )
 
-        launcher = DockerLauncher(
-            channel=channel,
-            pim_instance=instance,
-        )
+        launcher = DockerLauncher(channel=channel, pim_instance=instance, **kwargs)
         return launcher.connect()
 
 

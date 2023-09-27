@@ -14,7 +14,7 @@ Examples:
 import os.path
 import platform
 import socket
-from typing import TYPE_CHECKING, List, Optional
+from typing import TYPE_CHECKING, Dict, List, Optional
 import warnings
 
 import requests
@@ -82,6 +82,8 @@ class Launcher:
                 self._egl_env_val = True
             else:
                 self._egl_env_val = False
+        # a dict of any optional launcher specific query parameters for URLs
+        self._query_parameters: Dict[str, str] = {}
 
     @property
     def session_directory(self) -> str:
@@ -266,3 +268,44 @@ class Launcher:
 
         """
         return platform.system() == "Windows"
+
+    def _get_query_parameters(self) -> Dict[str, str]:
+        """Return optional http query parameters as a dict.
+        It may be empty if there are None.
+        If query parameters exist, they should be added to any
+        http/https URL intended for the WSS web server.
+        This is used by things such as Ansys Lab.
+
+        Returns
+        -------
+        dict
+            query parameters that should be appended to any queries
+        """
+        return self._query_parameters
+
+    def _add_query_parameters(self, params: Dict[str, str]) -> None:
+        """Add query parameters supplied by params to the
+        overall dict of query parameters.
+
+        Parameters
+        ----------
+        params: dict :
+            query parameters to add to overall dict
+        """
+        for item, value in params.items():
+            self._query_parameters[item] = value
+
+    def _delete_query_parameters(self, params: List[str]) -> None:
+        """Delete query parameters supplied by params from the
+        overall dict of query parameters.
+
+        Parameters
+        ----------
+        params: list :
+            query parameters to delete from the overall dict
+        """
+        for item in params:
+            try:
+                del self._query_parameters[item]
+            except Exception:
+                pass

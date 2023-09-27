@@ -16,6 +16,7 @@ Examples:
 """
 import logging
 import os.path
+import re
 import subprocess
 import time
 from typing import Any, Dict, Optional
@@ -160,6 +161,11 @@ class DockerLauncher(Launcher):
             self._service_host_port["grpc"] = ("127.0.0.1", -1)
             # attach to the file service if available
             self._get_file_service()
+            # if using PIM, we have a query parameter to append to http requests
+            if self._pim_instance is not None:
+                d = {"instance_name": self._pim_instance.name}
+                self._add_query_parameters(d)
+            #
             return
 
         # EnShell gRPC port, EnSight gRPC port, HTTP port, WSS port
@@ -217,6 +223,31 @@ class DockerLauncher(Launcher):
         except Exception:
             raise RuntimeError(f"Can't pull Docker image: {self._image_name}")
 
+    def _get_container_env(self) -> Dict:
+        # Create the environmental variables
+        # Environment to pass into the container
+        container_env = {
+            "ENSIGHT_SECURITY_TOKEN": self._secret_key,
+            "WEBSOCKETSERVER_SECURITY_TOKEN": self._secret_key,
+            "ENSIGHT_SESSION_TEMPDIR": self._session_directory,
+        }
+
+        # If for some reason, the ENSIGHT_ANSYS_LAUNCH is set previously,
+        # honor that value, otherwise set it to "pyensight".  This allows
+        # for an environmental setup to set the value to something else
+        # (e.g. their "app").
+        if "ENSIGHT_ANSYS_LAUNCH" not in os.environ:
+            container_env["ENSIGHT_ANSYS_LAUNCH"] = "container"
+        else:
+            container_env["ENSIGHT_ANSYS_LAUNCH"] = os.environ["ENSIGHT_ANSYS_LAUNCH"]
+
+        if self._pim_instance is None:
+            container_env["ANSYSLMD_LICENSE_FILE"] = os.environ["ANSYSLMD_LICENSE_FILE"]
+            if "ENSIGHT_ANSYS_APIP_CONFIG" in os.environ:
+                container_env["ENSIGHT_ANSYS_APIP_CONFIG"] = os.environ["ENSIGHT_ANSYS_APIP_CONFIG"]
+
+        return container_env
+
     def start(self) -> "Session":
         """Start EnShell by running a local Docker EnSight image.
 
@@ -245,27 +276,8 @@ class DockerLauncher(Launcher):
         # initially running EnShell over the first gRPC port. Then launch EnSight
         # and other apps.
 
-        # Create the environmental variables
-        local_env = os.environ.copy()
-        local_env["ENSIGHT_SECURITY_TOKEN"] = self._secret_key
-        local_env["WEBSOCKETSERVER_SECURITY_TOKEN"] = self._secret_key
-        # If for some reason, the ENSIGHT_ANSYS_LAUNCH is set previously,
-        # honor that value, otherwise set it to "pyensight".  This allows
-        # for an environmental setup to set the value to something else
-        # (e.g. their "app").
-        if "ENSIGHT_ANSYS_LAUNCH" not in local_env:
-            local_env["ENSIGHT_ANSYS_LAUNCH"] = "container"
-
-        # Environment to pass into the container
-        container_env = {
-            "ENSIGHT_SECURITY_TOKEN": self._secret_key,
-            "WEBSOCKETSERVER_SECURITY_TOKEN": self._secret_key,
-            "ENSIGHT_SESSION_TEMPDIR": self._session_directory,
-            "ANSYSLMD_LICENSE_FILE": os.environ["ANSYSLMD_LICENSE_FILE"],
-            "ENSIGHT_ANSYS_LAUNCH": local_env["ENSIGHT_ANSYS_LAUNCH"],
-        }
-        if "ENSIGHT_ANSYS_APIP_CONFIG" in local_env:
-            container_env["ENSIGHT_ANSYS_APIP_CONFIG"] = local_env["ENSIGHT_ANSYS_APIP_CONFIG"]
+        # get the environment to pass to the container
+        container_env = self._get_container_env()
 
         # Ports to map between the host and the container
         # If we're here in the code, then we're not using PIM
@@ -452,10 +464,27 @@ class DockerLauncher(Launcher):
 
         use_egl = self._use_egl()
 
+        # get the environment to pass to the container
+        container_env_str = ""
+        if self._pim_instance is not None:
+            container_env = self._get_container_env()
+            for i in container_env.items():
+                container_env_str += f"{i[0]}={i[1]}\n"
+
         # Run EnSight
         ensight_env_vars = None
+        if container_env_str != "":
+            ensight_env_vars = container_env_str
+
         if use_egl:
-            ensight_env_vars = "LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1"
+            if ensight_env_vars is None:
+                ensight_env_vars = (
+                    "LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1"
+                )
+            else:
+                ensight_env_vars += (
+                    "LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1"
+                )
 
         ensight_args = "-batch -v 3"
 
@@ -481,23 +510,35 @@ class DockerLauncher(Launcher):
         # Run websocketserver
         wss_cmd = "cpython /ansys_inc/v" + self._ansys_version + "/CEI/nexus"
         wss_cmd += self._ansys_version + "/nexus_launcher/websocketserver.py"
+        # websocket port - this needs to come first since we now have
+        # --add_header as a optional arg that can take an arbitrary
+        # number of optional headers.
+        wss_cmd += " " + str(self._service_host_port["ws"][1])
+        #
         wss_cmd += " --http_directory " + self._session_directory
         # http port
         wss_cmd += " --http_port " + str(self._service_host_port["http"][1])
         # vnc port
         wss_cmd += " --client_port 1999"
-
+        # optional PIM instance header
+        if self._pim_instance is not None:
+            # Add the PIM instance header. wss needs to return this optional
+            # header in each http response.  It's how the Ansys Lab proxy
+            # knows how to map back to this particular container's IP and port.
+            wss_cmd += " --add_header instance_name=" + self._pim_instance.name
+        # EnSight REST API
         if self._enable_rest_api:
             # grpc port
             wss_cmd += " --grpc_port " + str(self._service_host_port["grpc_private"][1])
-
         # EnVision sessions
         wss_cmd += " --local_session envision 5"
-        # websocket port
-        wss_cmd += " " + str(self._service_host_port["ws"][1])
+
+        wss_env_vars = None
+        if container_env_str != "":
+            wss_env_vars = container_env_str
 
         logging.debug(f"Starting WSS: {wss_cmd}\n")
-        ret = self._enshell.start_other(wss_cmd)
+        ret = self._enshell.start_other(wss_cmd, extra_env=wss_env_vars)
         if ret[0] != 0:
             self.stop()
             raise RuntimeError(f"Error starting WSS: {wss_cmd}\n")
@@ -511,11 +552,16 @@ class DockerLauncher(Launcher):
         use_sos = False
         if self._use_sos:
             use_sos = True
+        if self._pim_instance is None:
+            ws_port = self._service_host_port["ws"][1]
+        else:
+            ws_port = self._service_host_port["http"][1]
         session = ansys.pyensight.core.session.Session(
             host=self._service_host_port["grpc_private"][0],
             grpc_port=self._service_host_port["grpc_private"][1],
+            html_hostname=self._service_host_port["http"][0],
             html_port=self._service_host_port["http"][1],
-            ws_port=self._service_host_port["ws"][1],
+            ws_port=ws_port,
             install_path=None,
             secret_key=self._secret_key,
             timeout=self._timeout,
@@ -578,7 +624,12 @@ class DockerLauncher(Launcher):
 
     def _get_host_port(self, uri: str) -> tuple:
         parse_results = urllib3.util.parse_url(uri)
-        return (parse_results.host, parse_results.port)
+        port = (
+            parse_results.port
+            if parse_results.port
+            else (443 if re.search("^https|wss$", parse_results.scheme) else None)
+        )
+        return (parse_results.host, port)
 
     def _is_system_egl_capable(self) -> bool:
         """Check if the system is EGL capable.
