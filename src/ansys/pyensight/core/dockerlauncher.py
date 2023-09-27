@@ -478,9 +478,13 @@ class DockerLauncher(Launcher):
 
         if use_egl:
             if ensight_env_vars is None:
-                ensight_env_vars = "LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1"
+                ensight_env_vars = (
+                    "LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1"
+                )
             else:
-                ensight_env_vars += "LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1"
+                ensight_env_vars += (
+                    "LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1"
+                )
 
         ensight_args = "-batch -v 3"
 
