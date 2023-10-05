@@ -12,8 +12,8 @@ page on the Ansys website.
 
 Install the package
 -------------------
-The ``ansys-pyensight-core`` package supports Python 3.8 through
-Python 3.11 on Windows and Linux.
+The ``ansys-pyensight-core`` package supports Python 3.9 through
+Python 3.12 on Windows and Linux.
 
 Install the latest package with this command:
 
