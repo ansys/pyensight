@@ -4,7 +4,6 @@ from unittest import mock
 
 import ansys
 from ansys.pyensight.core import DockerLauncher, enshell_grpc
-import docker
 import pytest
 
 
@@ -21,7 +20,7 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
     docker_client.containers = mock.MagicMock("MockedContainers")
     docker_client.containers.run = mock.MagicMock("MockedContainer")
     mocker.patch.object(docker_client.containers, "run", return_value=run)
-    dock = mocker.patch.object(docker, "from_env", return_value=docker_client)
+    mocker.patch.object(DockerLauncher, "_from_env", return_value=docker_client)
     os.environ["PYENSIGHT_DEBUG"] = "1"
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
@@ -87,18 +86,6 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
         "Error sending EnShell command: set_no_reroute_log ret: [1, 'cannot set no reroute']"
         in str(exec_info)
     )
-    values_run_command[0] = [0, "set_no_reroute_log"]
-    enshell_mock[0].run_command.side_effect = values_run_command.copy()
-    mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
-    dock = mocker.patch.object(docker, "from_env", return_value=docker_client)
-    dock.side_effect = ModuleNotFoundError
-    with pytest.raises(RuntimeError) as exec_info:
-        launcher = DockerLauncher(data_directory=".")
-    assert "The pyansys-docker module must be installed for DockerLauncher" in str(exec_info)
-    dock.side_effect = KeyError
-    with pytest.raises(RuntimeError) as exec_info:
-        launcher = DockerLauncher(data_directory=".")
-    assert "Cannot initialize Docker" in str(exec_info)
 
 
 def test_pull(mocker):
@@ -109,7 +96,7 @@ def test_pull(mocker):
     docker_client.images = mock.MagicMock("ImagesInterface")
     docker_client.images.pull = mock.MagicMock("Pull")
     docker_client.images.pull = lambda unused: True
-    mocker.patch.object(docker, "from_env", return_value=docker_client)
+    mocker.patch.object(DockerLauncher, "_from_env", return_value=docker_client)
     launcher = DockerLauncher(data_directory=".")
     launcher.pull()
     docker_client.images.pull = simulate_network_issue

@@ -19,7 +19,7 @@ import os.path
 import re
 import subprocess
 import time
-from typing import Any, Dict, Optional
+from typing import TYPE_CHECKING, Any, Dict, Optional
 import uuid
 
 import urllib3
@@ -49,6 +49,9 @@ try:
     simple_upload_server_is_available = True  # pragma: no cover
 except Exception:
     simple_upload_server_is_available = False
+
+if TYPE_CHECKING:
+    from docker import DockerClient
 
 
 class DockerLauncher(Launcher):
@@ -188,10 +191,15 @@ class DockerLauncher(Launcher):
             self._image_name = docker_image_name
 
         # Load up Docker from the user's environment
+        self._docker_client = self._from_env()
+
+    @staticmethod
+    def _from_env() -> "DockerClient":
+        """Get the DockerClient interface from the docker module"""
         try:
             import docker
 
-            self._docker_client = docker.from_env()
+            return docker.from_env()
         except ModuleNotFoundError:
             raise RuntimeError("The pyansys-docker module must be installed for DockerLauncher")
         except Exception:
