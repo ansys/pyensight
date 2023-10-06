@@ -15,6 +15,7 @@ Examples:
 
 """
 import logging
+import os
 import os.path
 import re
 import subprocess
@@ -49,6 +50,10 @@ try:
     simple_upload_server_is_available = True  # pragma: no cover
 except Exception:
     simple_upload_server_is_available = False
+
+var = 'SETUPTOOLS_USE_DISTUTILS'
+enabled = os.environ.get(var, 'stdlib') == 'local'
+enabled and __import__('_distutils_hack').add_shim(); 
 
 
 class DockerLauncher(Launcher):
