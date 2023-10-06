@@ -94,7 +94,7 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
     dock.side_effect = ModuleNotFoundError
     with pytest.raises(RuntimeError) as exec_info:
         launcher = DockerLauncher(data_directory=".")
-    assert "The pyansys-docker module must be installed for DockerLauncher" in str(exec_info)
+    assert "The docker module must be installed for DockerLauncher" in str(exec_info)
     dock.side_effect = KeyError
     with pytest.raises(RuntimeError) as exec_info:
         launcher = DockerLauncher(data_directory=".")

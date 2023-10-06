@@ -194,7 +194,7 @@ class DockerLauncher(Launcher):
 
             self._docker_client = docker.from_env()
         except ModuleNotFoundError:
-            raise RuntimeError("The pyansys-docker module must be installed for DockerLauncher")
+            raise RuntimeError("The docker module must be installed for DockerLauncher")
         except Exception:
             raise RuntimeError("Cannot initialize Docker")
 
@@ -309,7 +309,7 @@ class DockerLauncher(Launcher):
         try:
             import docker
         except ModuleNotFoundError:  # pragma: no cover
-            raise RuntimeError("The pyansys-docker module must be installed for DockerLauncher")
+            raise RuntimeError("The docker module must be installed for DockerLauncher")
         except Exception:  # pragma: no cover
             raise RuntimeError("Cannot initialize Docker")
 
