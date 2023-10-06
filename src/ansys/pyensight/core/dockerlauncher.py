@@ -51,6 +51,7 @@ try:
 except Exception:
     simple_upload_server_is_available = False
 
+
 class DockerLauncher(Launcher):
     """Creates a ``Session`` instance using a copy of EnSight hosted in a Docker container.
 
