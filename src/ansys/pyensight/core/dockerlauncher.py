@@ -51,11 +51,6 @@ try:
 except Exception:
     simple_upload_server_is_available = False
 
-var = "SETUPTOOLS_USE_DISTUTILS"
-enabled = os.environ.get(var, "stdlib") == "local"
-enabled and __import__("_distutils_hack").add_shim()
-
-
 class DockerLauncher(Launcher):
     """Creates a ``Session`` instance using a copy of EnSight hosted in a Docker container.
 

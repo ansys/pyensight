@@ -29,7 +29,7 @@ dependencies = [
     "importlib-metadata>=4.0; python_version<='3.8'",
     "ansys-api-pyensight==0.3.2",
     "requests>=2.28.2",
-    "pyansys-docker>=5.0.4",
+    "docker>=6.1.0",
     "urllib3<2",
     "typing>=3.7.4.3",
     "typing-extensions>=4.5.0",
