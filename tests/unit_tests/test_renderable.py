@@ -21,7 +21,7 @@ def test_browser(mocked_session, mocker):
     render._url = "http://ansys.com"
     web = mocker.patch.object(webbrowser, "open")
     render.browser()
-    web.called_once_with(render.url)
+    web.assert_called_once_with(render.url)
 
 
 def test_download(mocked_session, mocker):
