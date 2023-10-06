@@ -50,7 +50,7 @@ tests = [
     "pytest-cov==4.1.0",
     "dill>=0.3.5.1",
     "pytest-mock==3.10.0",
-    "urllib3==1.26.10",
+    "urllib3==2.0.6",
     "requests>=2.28.2",
     "docker>=6.1.0",
 ]
