@@ -121,7 +121,7 @@ class ENSOBJ(object):
         if attrid is None:
             cmd = f"{self._remote_obj()}.getattrs(text={text})"
         else:
-            cmd = f"{self._remote_obj()}.getattrs({attrid.__repr__()},text={text})"
+            cmd = f"{self._remote_obj()}.getattrs({attrid.__repr__()}, text={text})"
         return self._session.cmd(cmd)
 
     def setattr(self, attrid: Any, value: Any) -> None:
@@ -329,17 +329,17 @@ class ENSOBJ(object):
         """
         obj = f"{self._remote_obj()}"
         options = f"all={all}"
-        options += f",insensitive={insensitive}"
+        options += f", insensitive={insensitive}"
         if filter:
-            options += f",filter={filter.__repr__()}"
+            options += f", filter={filter.__repr__()}"
         if include:
-            options += f",include={include.__repr__()}"
+            options += f", include={include.__repr__()}"
         if exclude:
-            options += f",exclude={exclude.__repr__()}"
+            options += f", exclude={exclude.__repr__()}"
         if group_exclude:
-            options += f",group_exclude={group_exclude.__repr__()}"
+            options += f", group_exclude={group_exclude.__repr__()}"
         if group_include:
-            options += f",group_include={group_include.__repr__()}"
+            options += f", group_include={group_include.__repr__()}"
         return self._session.cmd(f"{obj}.attrgroupinfo({options})")
 
     def setattr_begin(self) -> None:
@@ -447,7 +447,7 @@ class ENSOBJ(object):
                 # self.DESCRIPTION is a gRPC call that can fail for default objects
                 desc_text = ""
             desc = f", desc: '{desc_text}'"
-        return f"Class: {self.__class__.__name__}{desc}, CvfObjID: {self._objid}, cached:no"
+        return f"Class: {self.__class__.__name__}{desc}, CvfObjID: {self._objid}, cached:no"  # noqa: E231
 
     def __repr__(self) -> str:
         """Custom __repr__ method used by the stub API.

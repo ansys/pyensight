@@ -94,7 +94,7 @@ class Renderable:
 
     def __repr__(self) -> str:
         name = self.__class__.__name__
-        return f"{name}( url='{self._url}' )"
+        return f"{name}( url='{self._url}' )"  # noqa: E201,E202
 
     @no_type_check
     def _repr_pretty_(self, p: "pretty", cycle: bool) -> None:
@@ -109,7 +109,7 @@ class Renderable:
 
         """
         name = self.__class__.__name__
-        p.text(f"{name}( url='{self._url}' )")
+        p.text(f"{name}( url='{self._url}' )")  # noqa: E201,E202
 
     def _get_query_parameters_str(self, params: Optional[Dict[str, str]] = None) -> str:
         """Generate any optional http query parameters.
@@ -175,7 +175,7 @@ class Renderable:
         filename_index = self._filename_index
         remote_pathname, _ = self._generate_filename(suffix)
         simple_filename = f"{self._session.secret_key}_{self._guid}_{filename_index}{suffix}"
-        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
+        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"  # noqa: E231
         self._url = f"{url}/{simple_filename}{self._get_query_parameters_str()}"
         self._url_remote_pathname = remote_pathname
 
@@ -299,7 +299,7 @@ class Renderable:
 
         """
         for filename in self._download_names:
-            url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}/{filename}{self._get_query_parameters_str()}"
+            url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}/{filename}{self._get_query_parameters_str()}"  # noqa: E231
             outpath = os.path.join(dirname, filename)
             with requests.get(url, stream=True) as r:
                 with open(outpath, "wb") as f:
@@ -332,7 +332,7 @@ class RenderableImage(Renderable):
         """
         # save the image file on the remote host
         w, h = self._default_size(1920, 1080)
-        cmd = f'ensight.render({w},{h},num_samples={self._aa}).save(r"""{self._png_pathname}""")'
+        cmd = f'ensight.render({w}, {h}, num_samples={self._aa}).save(r"""{self._png_pathname}""")'
         self._session.cmd(cmd)
         # generate HTML page with file references local to the websocket server root
         html = '<body style="margin:0px;padding:0px;">\n'
@@ -368,8 +368,8 @@ class RenderableDeepPixel(Renderable):
         # needed for proxy servers like ansys lab
         optional_query = self._get_query_parameters_str()
         w, h = self._default_size(1920, 1080)
-        deep = f",num_samples={self._aa},enhanced=1"
-        cmd = f'ensight.render({w},{h}{deep}).save(r"""{self._tif_pathname}""")'
+        deep = f", num_samples={self._aa}, enhanced=1"
+        cmd = f'ensight.render({w}, {h}{deep}).save(r"""{self._tif_pathname}""")'
         self._session.cmd(cmd)
         html_source = os.path.join(os.path.dirname(__file__), "deep_pixel_view.html")
         with open(html_source, "r") as fp:
@@ -384,7 +384,7 @@ class RenderableDeepPixel(Renderable):
         name += "'website', 'static', 'website', 'content', 'bootstrap.min.css')"
         cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
         self._session.cmd(cmd, do_eval=False)
-        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
+        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"  # noqa: E231
         tiff_url = f"{url}/{self._tif_filename}{optional_query}"
         # replace some bits in the HTML
         html = html.replace("TIFF_URL", tiff_url)
@@ -464,7 +464,7 @@ class RenderableMP4(Renderable):
         # generate HTML page with file references local to the websocket server root
         html = '<body style="margin:0px;padding:0px;">\n'
         html += f'<video width="{w}" height="{h}" controls>\n'
-        html += f'    <source src="/{self._mp4_filename}{self._get_query_parameters_str()}" type="video/mp4" />\n'
+        html += f'    <source src="/{self._mp4_filename}{self._get_query_parameters_str()}" type="video/mp4" />\n'  # noqa: E221
         html += "</video>\n"
         html += "</body>\n"
 
@@ -513,8 +513,8 @@ class RenderableWebGL(Renderable):
         if self._using_proxy:
             # if using pim we get the static content from the front end and not
             # where ensight is running, thus we use a specific URI host and not relative.
-            html = f"<script src='{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}/ansys/nexus/viewer-loader.js'></script>\n"
-            html += f"<ansys-nexus-viewer src='{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}/{self._avz_filename}"
+            html = f"<script src='{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}/ansys/nexus/viewer-loader.js'></script>\n"  # noqa: E231
+            html += f"<ansys-nexus-viewer src='{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}/{self._avz_filename}"  # noqa: E231
             html += f"{self._get_query_parameters_str()}'></ansys-nexus-viewer>\n"
         else:
             html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
@@ -544,7 +544,7 @@ class RenderableVNC(Renderable):
         iframe reference.
 
         """
-        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
+        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"  # noqa: E231
         url += "/ansys/nexus/novnc/vnc_envision.html"
         url += self._get_query_parameters_str(self._query_params)
         self._url = url
@@ -565,7 +565,7 @@ class RenderableVNCAngular(Renderable):
         self.update()
 
     def update(self):
-        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
+        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"  # noqa: E231
         url += "/ansys/nexus/angular/viewer_angular_pyensight.html"
         url += self._get_query_parameters_str(self._query_params)
         self._url = url
@@ -598,7 +598,9 @@ class RenderableEVSN(Renderable):
         """
         # Save the proxy image
         w, h = self._default_size(1920, 1080)
-        cmd = f'ensight.render({w},{h},num_samples={self._aa}).save(r"""{self._proxy_pathname}""")'
+        cmd = (
+            f'ensight.render({w}, {h}, num_samples={self._aa}).save(r"""{self._proxy_pathname}""")'
+        )
         self._session.cmd(cmd)
         # save the .evsn file
         self._session.ensight.file.save_scenario_which_parts("all")
@@ -619,7 +621,7 @@ class RenderableEVSN(Renderable):
         optional_query = self._get_query_parameters_str()
 
         html = f"<script src='/ansys/nexus/viewer-loader.js{optional_query}'></script>\n"
-        server = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
+        server = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"  # noqa: E231
 
         # FIXME: This method doesn't work with Ansys Lab since the viewer seems to require
         # a full pathname to the file being generated by EnSight on a shared file system.
@@ -633,16 +635,16 @@ class RenderableEVSN(Renderable):
         attributes += f" proxy_img='/{self._proxy_filename}{optional_query}'"
         attributes += " aspect_ratio='proxy'"
         attributes += " renderer='envnc'"
-        http_uri = f'"http":"{server}"'
-        ws_uri = (
-            f'"ws":"{self._http_protocol}://{self._session.html_hostname}:{self._session.ws_port}"'
-        )
-        secrets = f'"security_token":"{self._session.secret_key}"'
+        http_uri = f'"http":"{server}"'  # noqa: E231
+        ws_uri = f'"ws":"{self._http_protocol}://{self._session.html_hostname}:{self._session.ws_port}"'  # noqa: E231
+        secrets = f'"security_token":"{self._session.secret_key}"'  # noqa: E231
         if not self._using_proxy or optional_query == "":
-            attributes += f" renderer_options='{{ {http_uri}, {ws_uri}, {secrets} }}'"
+            attributes += (
+                f" renderer_options='{{ {http_uri}, {ws_uri}, {secrets} }}'"  # noqa: E231,E201,E202
+            )
         else:
-            query_args = f'"extra_query_args":"{optional_query[1:]}"'
-            attributes += f" renderer_options='{{ {http_uri}, {ws_uri}, {secrets}, {query_args} }}'"
+            query_args = f'"extra_query_args":"{optional_query[1:]}"'  # noqa: E231
+            attributes += f" renderer_options='{{ {http_uri}, {ws_uri}, {secrets}, {query_args} }}'"  # noqa: E231,E201,E202
         html += f"<ansys-nexus-viewer {attributes}></ansys-nexus-viewer>\n"
         # refresh the remote HTML
         self._save_remote_html_page(html)
@@ -712,7 +714,7 @@ class RenderableSGEO(Renderable):  # pragma: no cover
 
         # update the revision file
         rev_filename = f"{self._sgeo_base_pathname}/geometry.rev"
-        cmd = f'with open(r"""{rev_filename}""", "w") as fp:\n'
+        cmd = f'with open(r"""{rev_filename}""", "w") as fp:\n'  # noqa: E231
         cmd += f'    fp.write("{self._revision}")\n'
         self._session.cmd(cmd, do_eval=False)
 
@@ -723,7 +725,7 @@ class RenderableSGEO(Renderable):  # pragma: no cover
         # save a proxy image
         w, h = self._default_size(1920, 1080)
         remote_filename = f"{self._sgeo_base_pathname}/proxy.png"
-        cmd = f'ensight.render({w},{h},num_samples={self._aa}).save(r"""{remote_filename}""")'
+        cmd = f'ensight.render({w}, {h}, num_samples={self._aa}).save(r"""{remote_filename}""")'
         self._session.cmd(cmd, do_eval=False)
 
     def delete(self) -> None:

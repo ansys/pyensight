@@ -14,7 +14,7 @@ def test_rest_apis(tmpdir, pytestconfig: pytest.Config):
 
     s = launcher.start()
     s.load_data(f"{s.cei_home}/ensight{s.cei_suffix}/data/cube/cube.case")
-    uri_base = f"http://{s.hostname}:{s.html_port}/ensight/v1/{s.secret_key}"
+    uri_base = f"http://{s.hostname}:{s.html_port}/ensight/v1/{s.secret_key}"  # noqa: E231
 
     # Simple attempt to do some math, store it and get the value back
 

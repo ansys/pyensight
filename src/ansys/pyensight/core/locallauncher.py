@@ -150,7 +150,7 @@ class LocalLauncher(Launcher):
             else:
                 cmd.append("-no_start_screen")
             cmd.extend(["-grpc_server", str(self._ports[0])])
-            vnc_url = f"vnc://%%3Frfb_port={self._ports[1]}%%26use_auth=0"
+            vnc_url = f"vnc://%%3Frfb_port={self._ports[1]}%%26use_auth=0"  # noqa: E231
             cmd.extend(["-vnc", vnc_url])
 
             use_egl = self._use_egl()
@@ -231,9 +231,9 @@ class LocalLauncher(Launcher):
 
         # build the session instance
         logging.debug(
-            f"Creating session with ports for grpc:{self._ports[0]}\n"
-            + f"html:{self._ports[2]} ws:{self._ports[3]}\n"
-            + f"key:{self._secret_key}\n"
+            f"Creating session with ports for grpc:{self._ports[0]}\n"  # noqa: E231
+            + f"html:{self._ports[2]} ws:{self._ports[3]}\n"  # noqa: E231
+            + f"key:{self._secret_key}\n"  # noqa: E231
         )
         use_sos = False
         if self._use_sos:
@@ -322,7 +322,7 @@ class LocalLauncher(Launcher):
             # Common, default install locations
             install_dir = f"/ansys_inc/v{version}/CEI"
             if platform.system().startswith("Wind"):
-                install_dir = rf"C:\Program Files\ANSYS Inc\v{version}\CEI"
+                install_dir = rf"C:\Program Files\ANSYS Inc\v{version}\CEI"  # noqa: E231
             dirs_to_check.append(install_dir)
 
         for install_dir in dirs_to_check:

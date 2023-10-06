@@ -244,7 +244,7 @@ class Session:
         # to the EnSight Docker Container and not the proxy server.
         # Thus, here we use 'http', the private hostname, and the html port
         # (which is the same on the proxy server).
-        url = f"http://{self._hostname}:{self.html_port}/ensight/v1/session/exec"
+        url = f"http://{self._hostname}:{self.html_port}/ensight/v1/session/exec"  # noqa: E231
         time_start = time.time()
         while time.time() - time_start < self._timeout:
             try:
@@ -497,7 +497,9 @@ class Session:
                     data = fp.read(chunk_size)
                     if data == b"":
                         break
-                    self.cmd(f"copy_write_function__(r'{name}', {data!r})", do_eval=False)
+                    self.cmd(
+                        f"copy_write_function__(r'{name}', {data!r})", do_eval=False  # noqa: E225
+                    )
         return out
 
     def copy_from_session(
@@ -589,7 +591,9 @@ class Session:
         if remote_prefix:
             remote_directory = f"{remote_directory}/{remote_prefix}"
         remote_directory = remote_directory.replace("\\", "/")
-        names = self.cmd(f"copy_walk_function__(r'{remote_directory}', {filelist})", do_eval=True)
+        names = self.cmd(
+            f"copy_walk_function__(r'{remote_directory}', {filelist})", do_eval=True  # noqa: E225
+        )
         if progress:
             try:
                 from tqdm.auto import tqdm
@@ -606,7 +610,8 @@ class Session:
                 chunk_size = 1024 * 1024
                 while True:
                     data = self.cmd(
-                        f"copy_read_function__(r'{name}', {offset}, {chunk_size})", do_eval=True
+                        f"copy_read_function__(r'{name}', {offset}, {chunk_size})",
+                        do_eval=True,  # noqa: E225
                     )
                     if len(data) == 0:
                         break
@@ -1243,8 +1248,8 @@ class Session:
             flags = ",flags=ensight.objs.EVENTMAP_FLAG_COMP_GLOBAL"
         if hasattr(target, "__OBJID__"):
             target = self.remote_obj(target.__OBJID__)
-        cmd = f"ensight.objs.addcallback({target},None,"
-        cmd += f"'{self._grpc.prefix()}{tag}',attrs={repr(attr_list)}{flags})"
+        cmd = f"ensight.objs.addcallback({target}, None, "
+        cmd += f"'{self._grpc.prefix()}{tag}', attrs={repr(attr_list)}{flags})"
         callback_id = self.cmd(cmd)
         # if this is the first callback, start the event stream
         if len(self._callbacks) == 0:
@@ -1492,7 +1497,7 @@ class Session:
                         attr_value = self.cmd(cmd)
                         if attr_value in classname_lookup:
                             classname = classname_lookup[attr_value]
-                            subclass_info = f",attr_id={attr_id}, attr_value={attr_value}"
+                            subclass_info = f", attr_id={attr_id}, attr_value={attr_value}"
                 replace_text = f"session.ensight.objs.{classname}(session, {objid}{subclass_info})"
             if replace_text is None:
                 break
@@ -1525,8 +1530,8 @@ class Session:
         """
         self.cmd("import ansys.pyensight.core.enscontext", do_eval=False)
         data_str = self.cmd(
-            f"ansys.pyensight.core.enscontext._capture_context(ensight,{full_context})",
-            do_eval=True,
+            f"ansys.pyensight.core.enscontext._capture_context(ensight, {full_context})",
+            do_eval=True,  # noqa: E225
         )
         context = EnsContext()
         context._from_data(data_str)
@@ -1553,5 +1558,6 @@ class Session:
         data_str = context._data(b64=True)
         self.cmd("import ansys.pyensight.core.enscontext", do_eval=False)
         self.cmd(
-            f"ansys.pyensight.core.enscontext._restore_context(ensight,'{data_str}')", do_eval=False
+            f"ansys.pyensight.core.enscontext._restore_context(ensight, '{data_str}')",
+            do_eval=False,
         )

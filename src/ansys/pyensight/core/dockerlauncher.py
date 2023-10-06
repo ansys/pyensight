@@ -51,9 +51,9 @@ try:
 except Exception:
     simple_upload_server_is_available = False
 
-var = 'SETUPTOOLS_USE_DISTUTILS'
-enabled = os.environ.get(var, 'stdlib') == 'local'
-enabled and __import__('_distutils_hack').add_shim(); 
+var = "SETUPTOOLS_USE_DISTUTILS"
+enabled = os.environ.get(var, "stdlib") == "local"
+enabled and __import__("_distutils_hack").add_shim()
 
 
 class DockerLauncher(Launcher):
@@ -444,7 +444,7 @@ class DockerLauncher(Launcher):
                 self._enshell_log_file = f
                 break
             else:
-                logging.debug(f"enshell error; cmd: {cmd} ret: {ret}\n")
+                logging.debug(f"enshell error; cmd: {cmd} ret: {ret}\n")  # noqa: E702
 
         if self._enshell_log_file is not None:
             logging.debug(f"enshell log file {self._enshell_log_file}\n")

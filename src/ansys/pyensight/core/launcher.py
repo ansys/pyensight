@@ -126,7 +126,7 @@ class Launcher:
         session.grpc.shutdown(stop_ensight=True, force=True)
 
         # stop the websocketserver instance
-        url = f"http://{session.hostname}:{session.html_port}/v1/stop"
+        url = f"http://{session.hostname}:{session.html_port}/v1/stop"  # noqa: E231
         if session.secret_key:
             url += f"?security_token={session.secret_key}"
         _ = requests.get(url)
