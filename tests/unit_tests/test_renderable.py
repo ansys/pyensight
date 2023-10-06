@@ -9,7 +9,7 @@ import requests
 def test_generate_filename(mocked_session):
     render = renderable.Renderable(mocked_session)
     render._url = "http://ansys.com"
-    assert repr(render) == f"Renderable(url='{render.url}')"
+    assert repr(render) == f"Renderable( url='{render.url}' )"  # noqa: E201,E202
     mocked_session.launcher = launcher.Launcher()
     mocked_session.launcher.session_directory = "/this/path"
     filename = f"{render._session.secret_key}_{render._guid}_{render._filename_index}.png"
@@ -21,7 +21,7 @@ def test_browser(mocked_session, mocker):
     render._url = "http://ansys.com"
     web = mocker.patch.object(webbrowser, "open")
     render.browser()
-    web.called_once_with(render.url)
+    web.assert_called_once_with(render.url)
 
 
 def test_download(mocked_session, mocker):
