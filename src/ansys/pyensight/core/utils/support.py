@@ -31,24 +31,46 @@ class Support:
     def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
         self._ensight = interface
 
-    @staticmethod
-    def scoped_name(obj: Any) -> ContextManager:
+    def scoped_name(self, obj: Any, native_exceptions: bool = False) -> ContextManager:
         """Allow for the use of ``with`` to shorten APIs.
 
         In the EnSight and PyEnsight APIs, the interfaces can become lengthy.
         This class makes it possible to shorten APIs for modules, classes,
-        and namespaces.
+        and namespaces.  The native_exceptions keyword can be used to enable
+        exceptions for EnSight native Python API.  By default, an invalid
+        native API call like ``ensight.part.select_begin(-9999)`` will return
+        -1.  If native_exceptions is True, a Python exception will be thrown.
+        The scope of this operational change parallels the scoped_name()
+        instance.
+
+        Parameters
+        ----------
+        obj: Any
+            The object for which to generate a simplified namespace.
+        native_exceptions: bool
+            If True, then EnSight native Python API exceptions are enabled.
+            The default is False.
+
+        Returns
+        -------
+        The passed object wrapped in a context manager that can be used as a
+        simplified namspace.
 
         Examples
         --------
         >>> sn = s.ensight.utils.support.scoped_name
         >>> with sn(s.ensight.objs.core) as core, sn(s.ensight.objs.enums) as enums:
         >>>     print(core.PARTS.find(True, enums.VISIBLE))
+
         >>> sn = ensight.utils.support.scoped_name
         >>> with sn(ensight.objs.core) as core, sn(ensight.objs.enums) as enums:
         >>>     print(core.PARTS.find(True, enums.VISIBLE))
+
+        >>> sn = ensight.utils.support.scoped_name
+        >>> with sn(ensight.part, native_exceptions=True) as part:
+        >>>     part.select_begin(-9999)
         """
-        return ScopedName(obj)
+        return ScopedName(self._ensight, obj, native_exceptions=native_exceptions)
 
 
 class ScopedName:
@@ -59,11 +81,22 @@ class ScopedName:
     and namespaces.
     """
 
-    def __init__(self, obj: Any):
+    def __init__(self, interface: Union["ensight_api.ensight", "ensight"],
+                 obj: Any, native_exceptions: bool = False):
         self._obj = obj
+        self._ensight = interface
+        self._old_raise = None
+        if native_exceptions:
+            # if we are being asked to enable exceptions, record what to restore it to
+            self._old_raise = self._ensight.query("SENDMESG_RAISE")
 
     def __enter__(self) -> Any:
+        if self._old_raise is not None:
+            # if a restore value is set, enable them
+            self._ensight.sendmesgoptions(exception=1)
         return self._obj
 
     def __exit__(self, exc_type, exc_value, exc_trace):
-        pass
+        if self._old_raise is not None:
+            # if the restore value is set, restore it here
+            self._ensight.sendmesgoptions(exception=self._old_raise)
