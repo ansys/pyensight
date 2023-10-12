@@ -54,7 +54,7 @@ class Support:
         Returns
         -------
         The passed object wrapped in a context manager that can be used as a
-        simplified namspace.
+        simplified namespace.
 
         Examples
         --------
@@ -81,8 +81,12 @@ class ScopedName:
     and namespaces.
     """
 
-    def __init__(self, interface: Union["ensight_api.ensight", "ensight"],
-                 obj: Any, native_exceptions: bool = False):
+    def __init__(
+        self,
+        interface: Union["ensight_api.ensight", "ensight"],
+        obj: Any,
+        native_exceptions: bool = False,
+    ):
         self._obj = obj
         self._ensight = interface
         self._old_raise = None
