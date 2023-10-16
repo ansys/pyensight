@@ -60,6 +60,7 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     session.jupyter_notebook = False
     assert session.sos is False
     session.load_example("waterbreak.ens", root=root)
+    session.geometry("avz")
     core = session.ensight.objs.core
     core.PARTS.set_attr("COLORBYPALETTE", "alpha1")
     export = session.ensight.utils.export

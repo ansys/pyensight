@@ -16,6 +16,7 @@ from os import listdir
 import os.path
 import platform
 import sys
+import tempfile
 import textwrap
 import time
 import types
@@ -908,7 +909,21 @@ class Session:
 
         """
         self._establish_connection()
+        if what == "avz":
+            return self._in_memory_avz()
         return self._grpc.geometry()
+
+    def _in_memory_avz(self):
+        """Return the current EnSight scene as an in-memory AVZ file."""
+        self._ensight.savegeom.format("avz")
+        current_timestep = int(self._ensight.objs.core.TIMESTEP)
+        self._ensight.savegeom.begin_step(current_timestep)
+        self._ensight.savegeom.end_step(current_timestep)
+        self._ensight.savegeom.step_by(1)
+        temp = tempfile.NamedTemporaryFile()
+        self._ensight.savegeom.save_geometric_entities(temp.name)
+        with open(f"{temp.name}.avz", "rb") as avzfile:
+            return avzfile.read()
 
     def render(self, width: int, height: int, aa: int = 1) -> bytes:
         """Render the current EnSight scene and return a PNG image.
