@@ -535,6 +535,12 @@ class Export:
         delta_timestep: int
             The delta timestep to use when exporting
 
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> data = f"{s.cei_home}/ensight{s.cei_suffix}gui/demos/Crash Queries.ens"
+        >>> s.ensight.objs.ensxml_restore_file(data)
+        >>> s.ensight.utils.export.geometry("local_file.glb", format=s.ensight.utils.export.GEOM_EXPORT_GLTF)
         """
         self._remote_support_check()
         raw_data = None
