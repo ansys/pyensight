@@ -143,6 +143,10 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
             frames_per_second=80,
             starting_frame=2,
         )
+    export.geometry("test.avz", export.GEOM_EXPORT_AVZ)
+    export.geometry("test.glb", export.GEOM_EXPORT_GLTF, 0, 4, 2)
+    export.geometry("test.ply", export.GEOM_EXPORT_PLY)
+    export.geometry("test.stl", export.GEOM_EXPORT_STL)
     parts = session.ensight.utils.parts
     parts.select_parts_invert()
     assert parts.select_parts_by_tag(tag="TEST", value="val") == []

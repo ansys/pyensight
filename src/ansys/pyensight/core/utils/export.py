@@ -73,8 +73,6 @@ class Export:
     ) -> None:
         """Render an image of the current EnSight scene.
 
-        This method returns a PIL image object.
-
         Parameters
         ----------
         filename : str
@@ -464,3 +462,94 @@ class Export:
                 mp4_data = fp.read()
 
         return mp4_data
+
+    GEOM_EXPORT_GLTF = "gltf2"
+    GEOM_EXPORT_AVZ = "avz"
+    GEOM_EXPORT_PLY = "ply"
+    GEOM_EXPORT_STL = "stl"
+
+    extension_map = {
+        GEOM_EXPORT_GLTF: ".glb",
+        GEOM_EXPORT_AVZ: ".avz",
+        GEOM_EXPORT_PLY: ".ply",
+        GEOM_EXPORT_STL: ".stl",
+    }
+
+    def _geometry_remote(
+        self, format: str, begin_timestep: int = 0, end_timestep: int = 0, delta_timestep: int = 1
+    ) -> bytes:
+        """EnSight-side implementation.
+
+        Parameters
+        ----------
+        format : str
+            The format to export
+        begin_timestep: int
+            The first timestep to export
+        end_timestep: int
+            The final timestep to export
+        delta_timestep: int
+            The delta timestep to use when exporting
+
+        Returns
+        -------
+        bytes
+            Geometry export in bytes
+        """
+        rawdata = None
+        extension = self.extension_map.get(format)
+        if not extension:
+            raise RuntimeError("The geometry export format provided is not supported.")
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            self._ensight.objs.core.PARTS.set_attr("SELECTED", True)
+            self._ensight.savegeom.format(format)
+            self._ensight.savegeom.begin_step(begin_timestep)
+            self._ensight.savegeom.end_step(end_timestep)
+            self._ensight.savegeom.step_by(delta_timestep)
+            tmpfilename = os.path.join(tmpdirname, str(uuid.uuid1()))
+            self._ensight.savegeom.save_geometric_entities(tmpfilename)
+            with open(tmpfilename + extension, "rb") as tmpfile:
+                rawdata = tmpfile.read()
+        return rawdata
+
+    def geometry(
+        self,
+        filename: str,
+        format: str = GEOM_EXPORT_GLTF,
+        begin_timestep: int = 0,
+        end_timestep: int = 0,
+        delta_timestep: int = 1,
+    ) -> None:
+        """Export a geometry file.
+
+        Parameters
+        ----------
+        filename: str
+            The location where to export the geometry. This is on the PyEnSight system
+        format : str
+            The format to export
+        begin_timestep: int
+            The first timestep to export
+        end_timestep: int
+            The final timestep to export
+        delta_timestep: int
+            The delta timestep to use when exporting
+
+        """
+        self._remote_support_check()
+        raw_data = None
+        if isinstance(self._ensight, ModuleType):
+            raw_data = self._geometry_remote(
+                format,
+                begin_timestep=begin_timestep,
+                end_timestep=end_timestep,
+                delta_timestep=delta_timestep,
+            )
+        else:
+            cmd = f"ensight.utils.export._geometry_remote('{format}', {begin_timestep}, {end_timestep}, {delta_timestep})"
+            raw_data = self._ensight._session.cmd(cmd)
+        if raw_data:
+            with open(filename, "wb") as fp:
+                fp.write(raw_data)
+        else:
+            raise IOError("Export was not successful")
