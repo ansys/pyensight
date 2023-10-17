@@ -476,11 +476,7 @@ class Export:
     }
 
     def _geometry_remote(
-        self, 
-        format: str, 
-        starting_timestep: int, 
-        frames: int, 
-        delta_timestep: int
+        self, format: str, starting_timestep: int, frames: int, delta_timestep: int
     ) -> bytes:
         """EnSight-side implementation.
 
@@ -523,7 +519,7 @@ class Export:
         format: str = GEOM_EXPORT_GLTF,
         starting_timestep: Optional[int] = None,
         frames: Optional[int] = 1,
-        delta_timestep: Optional[int] = None
+        delta_timestep: Optional[int] = None,
     ) -> None:
         """Export a geometry file.
 
