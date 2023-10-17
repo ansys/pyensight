@@ -73,8 +73,6 @@ class Export:
     ) -> None:
         """Render an image of the current EnSight scene.
 
-        This method returns a PIL image object.
-
         Parameters
         ----------
         filename : str
@@ -464,3 +462,108 @@ class Export:
                 mp4_data = fp.read()
 
         return mp4_data
+
+    GEOM_EXPORT_GLTF = "gltf2"
+    GEOM_EXPORT_AVZ = "avz"
+    GEOM_EXPORT_PLY = "ply"
+    GEOM_EXPORT_STL = "stl"
+
+    extension_map = {
+        GEOM_EXPORT_GLTF: ".glb",
+        GEOM_EXPORT_AVZ: ".avz",
+        GEOM_EXPORT_PLY: ".ply",
+        GEOM_EXPORT_STL: ".stl",
+    }
+
+    def _geometry_remote(
+        self, format: str, starting_timestep: int, frames: int, delta_timestep: int
+    ) -> bytes:
+        """EnSight-side implementation.
+
+        Parameters
+        ----------
+        format : str
+            The format to export
+        starting_timestep: int
+            The first timestep to export. If None, defaults to the current timestep
+        frames: int
+            Number of timesteps to save. If None, defaults from the current timestep to the last
+        delta_timestep: int
+            The delta timestep to use when exporting
+
+        Returns
+        -------
+        bytes
+            Geometry export in bytes
+        """
+        rawdata = None
+        extension = self.extension_map.get(format)
+        if not extension:
+            raise RuntimeError("The geometry export format provided is not supported.")
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            self._ensight.part.select_all()
+            self._ensight.savegeom.format(format)
+            self._ensight.savegeom.begin_step(starting_timestep)
+            # frames is 1-indexed, so I need to decrease of 1
+            self._ensight.savegeom.end_step(starting_timestep + frames - 1)
+            self._ensight.savegeom.step_by(delta_timestep)
+            tmpfilename = os.path.join(tmpdirname, str(uuid.uuid1()))
+            self._ensight.savegeom.save_geometric_entities(tmpfilename)
+            with open(tmpfilename + extension, "rb") as tmpfile:
+                rawdata = tmpfile.read()
+        return rawdata
+
+    def geometry(
+        self,
+        filename: str,
+        format: str = GEOM_EXPORT_GLTF,
+        starting_timestep: Optional[int] = None,
+        frames: Optional[int] = 1,
+        delta_timestep: Optional[int] = None,
+    ) -> None:
+        """Export a geometry file.
+
+        Parameters
+        ----------
+        filename: str
+            The location where to export the geometry
+        format : str
+            The format to export
+        starting_timestep: int
+            The first timestep to export. If None, defaults to the current timestep
+        frames: int
+            Number of timesteps to save. If None, defaults from the current timestep to the last
+        delta_timestep: int
+            The delta timestep to use when exporting
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> data = f"{s.cei_home}/ensight{s.cei_suffix}gui/demos/Crash Queries.ens"
+        >>> s.ensight.objs.ensxml_restore_file(data)
+        >>> s.ensight.utils.export.geometry("local_file.glb", format=s.ensight.utils.export.GEOM_EXPORT_GLTF)
+        """
+        if not starting_timestep:
+            starting_timestep = int(self._ensight.objs.core.TIMESTEP)
+        if not frames or frames == -1:
+            # Timesteps are 0-indexed so frames need to be increased of 1
+            frames = int(self._ensight.objs.core.TIMESTEP_LIMITS[1]) + 1
+        if not delta_timestep:
+            delta_timestep = 1
+        self._remote_support_check()
+        raw_data = None
+        if isinstance(self._ensight, ModuleType):
+            raw_data = self._geometry_remote(
+                format,
+                starting_timestep=starting_timestep,
+                frames=frames,
+                delta_timestep=delta_timestep,
+            )
+        else:
+            cmd = f"ensight.utils.export._geometry_remote('{format}', {starting_timestep}, {frames}, {delta_timestep})"
+            raw_data = self._ensight._session.cmd(cmd)
+        if raw_data:
+            with open(filename, "wb") as fp:
+                fp.write(raw_data)
+        else:
+            raise IOError("Export was not successful")
