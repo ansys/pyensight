@@ -242,3 +242,6 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     if not use_local:
         launcher.enshell_log_contents()
     assert session.ensight.objs.core.PARTS[0] != session.ensight.objs.core.PARTS[1]
+    cas_file = session.download_pyansys_example("mixing_elbow.cas.h5", "pyfluent/mixing_elbow")
+    dat_file = session.download_pyansys_example("mixing_elbow.dat.h5", "pyfluent/mixing_elbow")
+    session.load_data(cas_file, result_file=dat_file)

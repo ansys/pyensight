@@ -1113,6 +1113,55 @@ class Session:
             if self.cmd(cmd) != 0:
                 raise RuntimeError("Unable to load the dataset.")
 
+    def download_pyansys_example(
+        self, filename: str, directory: Optional[str] = None, root: Optional[str] = None
+    ) -> str:
+        """Download an example dataset from the ansys/example-data repository.
+        The dataset is downloaded local to the EnSight server location, so that it can
+        be downloaded even if running from a container.
+
+        Parameters
+        ----------
+        filename: str
+            The filename to download
+        directory: str
+            The directory to download the filename from
+        root: str
+            If set, the download will happen from another location
+
+        Returns
+        -------
+        pathname: str
+            The download location, local to the EnSight server directory
+
+        Examples
+        --------
+        >>> from ansys.pyensight.core import DockerLauncher
+        >>> session = DockerLauncher().start(data_directory="D:\\")
+        >>> cas_file = session.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = session.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> session.load_data(cas_file, result_file=dat_file)
+        >>> remote = session.show("remote")
+        >>> remote.browser()
+        """
+        base_uri = "https://github.com/ansys/example-data/raw/master"
+        if root is not None:
+            base_uri = root
+        uri = f"{base_uri}/{filename}"
+        if directory:
+            uri = f"{base_uri}/{directory}/{filename}"
+        pathname = f"{self.launcher.session_directory}/{filename}"
+        script = "import requests\n"
+        script += "import shutil\n"
+        script += "import os\n"
+        script += f'url = "{uri}"\n'
+        script += f'outpath = r"""{pathname}"""\n'
+        script += "with requests.get(url, stream=True) as r:\n"
+        script += "    with open(outpath, 'wb') as f:\n"
+        script += "        shutil.copyfileobj(r.raw, f)\n"
+        self.cmd(script, do_eval=False)
+        return pathname
+
     def load_example(
         self, example_name: str, uncompress: bool = False, root: Optional[str] = None
     ) -> str:
@@ -1151,16 +1200,8 @@ class Session:
         base_uri = "https://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
         if root is not None:
             base_uri = root
-        uri = f"{base_uri}/{example_name}"
-        pathname = f"{self.launcher.session_directory}/{example_name}"
-        script = "import requests\n"
-        script += "import shutil\n"
-        script += "import os\n"
-        script += f'url = "{uri}"\n'
-        script += f'outpath = r"""{pathname}"""\n'
-        script += "with requests.get(url, stream=True) as r:\n"
-        script += "    with open(outpath, 'wb') as f:\n"
-        script += "        shutil.copyfileobj(r.raw, f)\n"
+        pathname = self.download_pyansys_example(example_name, root=base_uri)
+        script = f'outpath = r"""{pathname}"""\n'
         if uncompress:
             # in this case, remove the extension and unzip the file
             pathname_dir = os.path.splitext(pathname)[0]
