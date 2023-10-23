@@ -2,6 +2,10 @@
 History
 =======
 
+v0.7.0
+------
+* Remove Python 3.8 support. Added Python 3.12 support
+
 
 v0.4.0.dev0 (tbd)
 -----------------
