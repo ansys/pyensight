@@ -1510,6 +1510,13 @@ class Session:
                 tail = s.find(", cached:yes")
             if tail == -1:
                 break
+            # Subtype (PartType:, AnnotType:, ToolType:)
+            subtype = None
+            for name in ("PartType:", "AnnotType:", "ToolType:"):
+                location = s.find(name)
+                if (location != -1) and (location > id):
+                    subtype = int(s[location + len(name) :].split(",")[0])
+                    break
             # isolate the block to replace
             prefix = s[:start]
             suffix = s[tail + tail_len :]
@@ -1526,8 +1533,11 @@ class Session:
             else:
                 subclass_info = ""
                 if attr_id is not None:
-                    # if a "subclass" case and no subclass attrid value, ask for it...
-                    if classname_lookup is not None:
+                    if subtype is not None:
+                        # the 2024 R2 interface includes the subtype
+                        subclass_info = f",attr_id={attr_id}, attr_value={subtype}"
+                    elif classname_lookup is not None:
+                        # if a "subclass" case and no subclass attrid value, ask for it...
                         remote_name = self.remote_obj(objid)
                         cmd = f"{remote_name}.getattr({attr_id})"
                         attr_value = self.cmd(cmd)
