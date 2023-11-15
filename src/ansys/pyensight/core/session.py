@@ -1549,6 +1549,8 @@ class Session:
                 break
             s = prefix + replace_text + suffix
         s = s.strip()
+        if "ens_emitterobj" in s:
+            s = f"session.ensight.objs.ens_emitterobj(session, -999)"
         if s.startswith("[") and s.endswith("]"):
             s = "ensobjlist(" + s + ")"
         return s

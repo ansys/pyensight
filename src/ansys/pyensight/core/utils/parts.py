@@ -20,9 +20,10 @@ from typing import TYPE_CHECKING, Dict, Optional, Union
 
 try:
     import ensight
-    from ensight.objs import ensobjlist  # type: ignore
+    from ensight.objs import ensobjlist, ens_emitterobj  # type: ignore
 except ImportError:
     from ansys.pyensight.core.listobj import ensobjlist
+    from ansys.api.pyensight.ens_emitterobj import ens_emitterobj
 
 if TYPE_CHECKING:
     try:
@@ -31,6 +32,48 @@ if TYPE_CHECKING:
         from ansys.api.pyensight import ensight_api
         from ansys.api.pyensight.ens_part import ENS_PART
 
+PARTICLE_TRACE_EMITTER_PART = """
+class EnSEmitterPart(ensight.objs.ens_emitterobj):
+    def __init__(
+        self,
+        repr
+    ):
+        super().__init__(ensight.objs.EMIT_PART, repr)
+"""
+PARTICLE_TRACE_EMITTER_LINE = """
+class EnSEmitterPart(ensight.objs.ens_emitterobj):
+    def __init__(
+        self,
+        repr
+    ):
+        super().__init__(ensight.objs.EMIT_LINE, repr)
+"""
+PARTICLE_TRACE_EMITTER_CURSOR = """
+class EnSEmitterPart(ensight.objs.ens_emitterobj):
+    def __init__(
+        self,
+        repr
+    ):
+        super().__init__(ensight.objs.EMIT_CURSOR, repr)
+"""
+PARTICLE_TRACE_EMITTER_PLANE = """
+class EnSEmitterPart(ensight.objs.ens_emitterobj):
+    def __init__(
+        self,
+        repr
+    ):
+        super().__init__(ensight.objs.EMIT_PLANE, repr)
+"""
+
+class EnSEmitterPart(ensight.objs.ens_emitterobj):
+    def __init__(
+        self,
+        session,
+        objid,
+        repr
+    ):
+        self.repr = repr
+        super().__init__(session, objid, ensight.objs.EMIT_PART)
 
 class Parts:
     """Controls the parts in the current EnSight ``Session`` instance."""
@@ -122,3 +165,27 @@ class Parts:
         if found:
             found.set_attr("SELECTED", True)
         return found
+
+    def _create_particle_trace(
+        self,
+        point1,
+        point2,
+        point3,
+        num_points,
+        num_points_x,
+        num_points_y,
+        part
+    ):
+        point4 = self._create_fourth_point(point1, point2, point3)
+        _repr = f"P11={point1[0]} P12={point1[1]} P13={point1[2]} "
+        _repr += f"P21={point2[0]} P22={point2[1]} P23={point2[2]} "
+        _repr += f"P31={point3[0]} P32={point3[1]} P33={point3[2]} "
+        _repr += f"P41={point4[0]} P42={point4[1]} P43={point4[2]} "
+        additional = ""
+        if num_points > 0:
+            additional += f"NX={num_points} NY=1"
+        elif (num_points_x > 0 and num_points_y > 0):
+            additional += f"NX={num_points_x} NY={num_points_y}"
+        if part:
+            additional += f" DT={part}"
+        self.ensight._session.cmd(PARTICLE_TRACE_EMITTER_CURSOR)
