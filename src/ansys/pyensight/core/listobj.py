@@ -5,10 +5,9 @@ Emulation of the EnSight ensobjlist class
 """
 from collections.abc import Iterable
 import fnmatch
-from typing import Any, List, Optional, TypeVar, no_type_check, overload
+from typing import Any, List, Optional, SupportsIndex, TypeVar, no_type_check, overload
 
 from ansys.pyensight.core.ensobj import ENSOBJ
-from typing_extensions import SupportsIndex
 
 T = TypeVar("T")
 
