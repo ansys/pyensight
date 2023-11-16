@@ -15,68 +15,131 @@ Example for selecting all 3D parts:
 >>> parts.select_by_dimension(3)
 
 """
-
-from typing import TYPE_CHECKING, Dict, Optional, Union
+from types import ModuleType
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
 try:
     import ensight
-    from ensight.objs import ensobjlist, ens_emitterobj  # type: ignore
+    from ensight.objs import ens_emitterobj, ensobjlist  # type: ignore
 except ImportError:
-    from ansys.pyensight.core.listobj import ensobjlist
     from ansys.api.pyensight.ens_emitterobj import ens_emitterobj
+    from ansys.pyensight.core.listobj import ensobjlist
 
 if TYPE_CHECKING:
     try:
-        from ensight.objs import ENS_PART  # type: ignore
+        from ensight.objs import ENS_PART, ENS_VAR  # type: ignore
     except ImportError:
         from ansys.api.pyensight import ensight_api
         from ansys.api.pyensight.ens_part import ENS_PART
+        from ansys.api.pyensight.ens_var import ENS_VAR
 
-PARTICLE_TRACE_EMITTER_PART = """
-class EnSEmitterPart(ensight.objs.ens_emitterobj):
-    def __init__(
-        self,
-        repr
-    ):
-        super().__init__(ensight.objs.EMIT_PART, repr)
-"""
-PARTICLE_TRACE_EMITTER_LINE = """
-class EnSEmitterPart(ensight.objs.ens_emitterobj):
-    def __init__(
-        self,
-        repr
-    ):
-        super().__init__(ensight.objs.EMIT_LINE, repr)
-"""
-PARTICLE_TRACE_EMITTER_CURSOR = """
-class EnSEmitterPart(ensight.objs.ens_emitterobj):
-    def __init__(
-        self,
-        repr
-    ):
-        super().__init__(ensight.objs.EMIT_CURSOR, repr)
-"""
-PARTICLE_TRACE_EMITTER_PLANE = """
-class EnSEmitterPart(ensight.objs.ens_emitterobj):
-    def __init__(
-        self,
-        repr
-    ):
-        super().__init__(ensight.objs.EMIT_PLANE, repr)
-"""
 
-class EnSEmitterPart(ensight.objs.ens_emitterobj):
-    def __init__(
-        self,
-        session,
-        objid,
-        repr
-    ):
-        self.repr = repr
-        super().__init__(session, objid, ensight.objs.EMIT_PART)
+def convert_part(
+    _ensight: Union["ensight_api.ensight", "ensight"], part: Union[str, int, "ENS_PART"]
+):
+    if isinstance(part, str):
+        return _ensight.objs.core.PARTS[part][0].PARTNUMBER
+    elif isinstance(part, int):
+        return part
+    elif hasattr(part, "PARTNUMBER"):
+        return part.PARTNUMBER
+
+
+def convert_variable(
+    _ensight: Union["ensight_api.ensight", "ensight"], var: Union[str, int, "ENS_VAR"]
+):
+    if isinstance(var, str):
+        return _ensight.objs.core.VARIABLES[var][0].ID
+    elif isinstance(var, int):
+        return var
+    elif hasattr(var, "ID"):
+        return var.ID
+
 
 class Parts:
     """Controls the parts in the current EnSight ``Session`` instance."""
+
+    class _EnSEmitterPoint(ens_emitterobj):
+        def __init__(
+            self,
+            ensight: "ensight",
+            point1: Optional[List[float]] = [0, 0, 0],
+        ):
+            if not isinstance(ensight, ModuleType):
+                raise RuntimeError(
+                    "The class cannot be used directly in PyEnSight. It should not be used directly even in EnSight"
+                )
+            super().__init__(ensight.objs.EMIT_CURSOR)
+            self.ensight = ensight
+            self.ensight.view_transf.cursor(*point1)
+            self.CENTROID = point1
+
+    class _EnSEmitterGrid(ens_emitterobj):
+        def __init__(
+            self,
+            ensight: "ensight",
+            point1: Optional[List[float]] = [0, 0, 0],
+            point2: Optional[List[float]] = [0, 0, 0],
+            point3: Optional[List[float]] = [0, 0, 0],
+            point4: Optional[List[float]] = [0, 0, 0],
+            num_points_x: Optional[int] = 25,
+            num_points_y: Optional[int] = 25,
+        ):
+            if not isinstance(ensight, ModuleType):
+                raise RuntimeError(
+                    "The class cannot be used directly in PyEnSight. It should not be used directly even in EnSight"
+                )
+            super().__init__(ensight.objs.EMIT_PLANE)
+            self.ensight = ensight
+            self.ensight.view_transf.plane(1, *point1)
+            self.ensight.view_transf.plane(2, *point2)
+            self.ensight.view_transf.plane(3, *point3)
+            self.POINT1 = point1
+            self.POINT2 = point2
+            self.POINT3 = point3
+            self.POINT4 = point4
+            self.NUM_POINTS_X = num_points_x
+            self.NUM_POINTS_Y = num_points_y
+
+    class _EnSEmitterLine(ens_emitterobj):
+        def __init__(
+            self,
+            ensight: "ensight",
+            point1: Optional[List[float]] = [0, 0, 0],
+            point2: Optional[List[float]] = [0, 0, 0],
+            num_points: Optional[int] = 100,
+        ):
+            if not isinstance(ensight, ModuleType):
+                raise RuntimeError(
+                    "The class cannot be used directly in PyEnSight. It should not be used directly even in EnSight"
+                )
+            super().__init__(ensight.objs.EMIT_LINE)
+            self.ensight = ensight
+            self.ensight.view_transf.line(1, *point1)
+            self.ensight.view_transf.line(2, *point2)
+            self.POINT1 = point1
+            self.POINT2 = point2
+            self.NUM_POINTS = num_points
+
+    class _EnSEmitterPart(ens_emitterobj):
+        def __init__(
+            self,
+            ensight: "ensight",
+            part: Optional[Any] = None,
+            part_kind: Optional[Any] = 0,
+            num_points: Optional[int] = 100,
+        ):
+            if not isinstance(ensight, ModuleType):
+                raise RuntimeError(
+                    "The class cannot be used directly in PyEnSight. It should not be used directly even in EnSight"
+                )
+            super().__init__(ensight.objs.EMIT_PART)
+            self.ensight = ensight
+            if not part:
+                raise RuntimeError("part is a required input")
+            self.PART = convert_part(self.ensight, part)
+            self.NUM_POINTS = num_points
+            self.DISTRIB_TYPE = part_kind
 
     def __init__(self, ensight: Union["ensight_api.ensight", "ensight"]):
         self.ensight = ensight
@@ -166,26 +229,127 @@ class Parts:
             found.set_attr("SELECTED", True)
         return found
 
-    def _create_particle_trace(
+    EMIT_CURSOR: int = 0
+    EMIT_LINE: int = 1
+    EMIT_PLANE: int = 2
+    EMIT_PART: int = 3
+    PT_POS_TIME: str = "+"
+    PT_NEG_TIME: str = "-"
+    PT_POS_NEG_TIME: str = "+/-"
+    PART_EMIT_FROM_NODES: int = 0
+    PART_EMIT_FROM_AREA: int = 1
+
+    def create_particle_trace(
         self,
-        point1,
-        point2,
-        point3,
-        num_points,
-        num_points_x,
-        num_points_y,
-        part
+        name: str,
+        variable: Union[str, int, "ENS_VAR"],
+        direction: Optional[str] = None,
+        emitter_type: Optional[int] = None,
+        pathlines: Optional[bool] = False,
+        point1: Optional[List[float]] = None,
+        point2: Optional[List[float]] = None,
+        point3: Optional[List[float]] = None,
+        source_parts: Optional[Union[str, int, "ENS_PART"]] = None,
+        parts: Optional[List[Union[str, int, "ENS_PART"]]] = None,
+        part_distribution_type: Optional[int] = 0,
+        num_points: Optional[int] = 100,
+        num_points_x: Optional[int] = 25,
+        num_points_y: Optional[int] = 25,
     ):
-        point4 = self._create_fourth_point(point1, point2, point3)
-        _repr = f"P11={point1[0]} P12={point1[1]} P13={point1[2]} "
-        _repr += f"P21={point2[0]} P22={point2[1]} P23={point2[2]} "
-        _repr += f"P31={point3[0]} P32={point3[1]} P33={point3[2]} "
-        _repr += f"P41={point4[0]} P42={point4[1]} P43={point4[2]} "
-        additional = ""
-        if num_points > 0:
-            additional += f"NX={num_points} NY=1"
-        elif (num_points_x > 0 and num_points_y > 0):
-            additional += f"NX={num_points_x} NY={num_points_y}"
-        if part:
-            additional += f" DT={part}"
-        self.ensight._session.cmd(PARTICLE_TRACE_EMITTER_CURSOR)
+        direction_map = {
+            self.PT_POS_TIME: self.ensight.objs.enums.POS_TIME,
+            self.PT_NEG_TIME: self.ensight.objs.enums.NEG_TIME,
+            self.PT_POS_NEG_TIME: self.ensight.objs.enums.POS_NEG_TIME,
+        }
+        if not direction:
+            direction = self.PT_POS_TIME
+        if not emitter_type:
+            emitter_type = self.EMIT_CURSOR
+        if not source_parts:
+            source_parts = self.ensight.objs.core.selection(self.ensight.objs.ENS_PART)
+        converted_source_parts = [convert_part(self.ensight, p) for p in source_parts]
+        idx = self.ensight.objs.enums.PART_PARTICLE_TRACE
+        def_part = self.ensight.objs.core.DEFAULTPARTS[idx]
+        def_part.TYPE = self.ensight.objs.enums.STREAMLINE
+        if pathlines is True:
+            def_part.TYPE = self.ensight.objs.enums.PATHLINE
+        def_part.DESCRIPTION = name
+        def_part.VARIABLE = convert_variable(self.ensight, variable)
+        def_part.SURFACERESTRICTED = False
+        def_part.TRACEDIRECTION = direction_map.get(direction)
+        pathline_part = def_part.createpart(sources=converted_source_parts, name=name)[0]
+        new_emitters: List[Any] = []
+        if emitter_type == self.EMIT_CURSOR:
+            if not point1:
+                raise RuntimeError("point1 needed if particle trace emitted from point")
+            if isinstance(self.ensight, ModuleType):
+                new_emitters.append(self._EnSEmitterPoint(self.ensight, point1=point1))
+            else:
+                new_emitters.append(
+                    self.ensight._session.cmd(
+                        f"ensight.utils.parts._EnSEmitterPoint(ensight, point1={point1})"
+                    )
+                )
+        elif emitter_type == self.EMIT_LINE:
+            if not any([point1, point2]):
+                raise RuntimeError("point1 and point2 needed if particle trace emitted from line")
+            if isinstance(self.ensight, ModuleType):
+                new_emitters.append(
+                    self._EnSEmitterLine(
+                        self.ensight, point1=point1, point2=point2, num_points=num_points
+                    )
+                )
+            else:
+                new_emitters.append(
+                    self.ensight._session.cmd(
+                        f"ensight.utils.parts._EnSEmitterLine(ensight, point1={point1}, point2={point2}, num_points={num_points})"
+                    )
+                )
+        elif emitter_type == self.EMIT_PLANE:
+            if not any([point1, point2, point3]):
+                raise RuntimeError(
+                    "point1, point2 and point3 needed if particle trace emitted from plane"
+                )
+            if isinstance(self.ensight, ModuleType):
+                new_emitters.append(
+                    self._EnSEmitterGrid(
+                        self.ensight,
+                        point1=point1,
+                        point2=point2,
+                        point3=point3,
+                        num_points_x=num_points_x,
+                        num_points_y=num_points_y,
+                    )
+                )
+            else:
+                new_emitters.append(
+                    f"ensight.utils.parts._EnSEmitterGrid(ensight, point1={point1}, point2={point2}, point3={point3}, num_points_x={num_points_x}, num_points_y={num_points_y})"
+                )
+        elif emitter_type == self.EMIT_PART:
+            if not parts:
+                raise RuntimeError("part and num_points needed if particle trace emitted from part")
+            for p in parts:
+                if isinstance(self.ensight, ModuleType):
+                    new_emitters.append(
+                        self._EnSEmitterPart(
+                            self.ensight,
+                            part=p,
+                            num_points=num_points,
+                            part_kind=part_distribution_type,
+                        )
+                    )
+                else:
+                    new_emitters.append(
+                        f"ensight.utils.parts._EnSEmitterPart(ensight, part={convert_part(self.ensight ,p)}, num_points={num_points}, part_kind={part_distribution_type})"
+                    )
+        else:
+            raise RuntimeError("No input provided to create the particle trace")
+        if isinstance(self.ensight, ModuleType):
+            pathline_part.EMITTERS = new_emitters
+        else:
+            text = f"ensight.objs.wrap_id({pathline_part.objid}).setattr('EMITTERS', ["
+            for emitter in new_emitters:
+                text += emitter + ", "
+            text = text[:-2]
+            text += "])"
+            self.ensight._session.cmd(text)
