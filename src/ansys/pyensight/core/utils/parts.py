@@ -69,7 +69,7 @@ class Parts:
                 raise RuntimeError(
                     "The class cannot be used directly in PyEnSight. It should not be used directly even in EnSight"
                 )
-            super().__init__(ensight.objs.EMIT_POINT)
+            super().__init__(ensight.objs.EMIT_CURSOR)
             self.ensight = ensight
             self.ensight.view_transf.cursor(*point1)
             self.CENTROID = point1
