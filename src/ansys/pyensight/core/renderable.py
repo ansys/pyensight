@@ -525,15 +525,11 @@ class RenderableWebGL(Renderable):
 
 
 class RenderableVNC(Renderable):
-    """Generates a URL that can be used to connect to the EnSight VNC remote image renderer."""
+    """Generates an ansys-nexus-viewer component that can be used to connect to the EnSight VNC remote image renderer."""
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self._query_params = {
-            "autoconnect": "true",
-            "host": self._session.html_hostname,
-            "port": self._session.ws_port,
-        }
+        self._generate_url()
         self._rendertype = "remote"
         self.update()
 
@@ -544,10 +540,31 @@ class RenderableVNC(Renderable):
         iframe reference.
 
         """
-        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
-        url += "/ansys/nexus/novnc/vnc_envision.html"
-        url += self._get_query_parameters_str(self._query_params)
-        self._url = url
+        optional_query = self._get_query_parameters_str()
+
+        html = f"<script src='/ansys/nexus/viewer-loader.js{optional_query}'></script>\n"
+        rest_uri = (
+            f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
+        )
+        ws_uri = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.ws_port}"
+
+        query_args = ""
+        if self._using_proxy and optional_query:
+            query_args = f', "extra_query_args":"{optional_query[1:]}"'
+
+        attributes = ' renderer="envnc"'
+        attributes += ' ui="simple"'
+        attributes += ' active="true"'
+        attributes += (
+            " renderer_options='"
+            + f'{{ "ws":"{ws_uri}", "http":"{rest_uri}", "security_token":"{self._session.secret_key}", "connect_to_running_ens":true {query_args} }}'
+            + "'"
+        )
+
+        html += f"<ansys-nexus-viewer {attributes}></ansys-nexus-viewer>\n"
+
+        # refresh the remote HTML
+        self._save_remote_html_page(html)
         super().update()
 
 
