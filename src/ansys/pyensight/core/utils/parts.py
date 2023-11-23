@@ -330,6 +330,7 @@ class Parts:
         delta_time: Optional[float] = None,
     ) -> Tuple["ENS_PART", "ENS_PART"]:
         """Private routine to create a pathline part object"""
+        current_timestep = None
         direction_map = {
             self.PT_POS_TIME: self.ensight.objs.enums.POS_TIME,
             self.PT_NEG_TIME: self.ensight.objs.enums.NEG_TIME,
@@ -340,6 +341,8 @@ class Parts:
         def_part.TYPE = self.ensight.objs.enums.STREAMLINE
         if pathlines is True:
             def_part.TYPE = self.ensight.objs.enums.PATHLINE
+            current_timestep = self.ensight.objs.core.TIMESTEP
+            self.ensight.objs.core.TIMESTEP = self.ensight.objs.core.TIMESTEP_LIMITS[0]
         if total_time:
             def_part.TOTALTIME = total_time
         if delta_time:
@@ -351,6 +354,8 @@ class Parts:
         def_part.SURFACERESTRICTED = False
         def_part.TRACEDIRECTION = direction_map.get(direction)
         pathline_part = def_part.createpart(sources=source_parts, name=name)[0]
+        if current_timestep:
+            self.ensight.objs.core.TIMESTEP = current_timestep
         return pathline_part, def_part
 
     def _add_emitters_to_pathline(
