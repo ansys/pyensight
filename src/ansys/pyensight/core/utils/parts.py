@@ -464,6 +464,14 @@ class Parts:
         delta_time: float
             The interval for the emissions. If not provided, EnSight will provide
             a best estimate.
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> cas_file = s.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> s.load_data(cas_file, result_file=dat_file)
+        >>> s.ensight.utils.parts.create_particle_trace_from_points("mytraces", "Velocity", points=[[-0.02,-0.123,0.01576],[0.109876,-0.123,0.0123]], source_parts=parts.select_parts_by_dimension(3))
         """
         emitter_type = self._EMIT_POINT
         direction, converted_source_parts = self._prepare_particle_creation(
@@ -544,6 +552,15 @@ class Parts:
         delta_time: float
             The interval for the emissions. If not provided, EnSight will provide
             a best estimate.
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> cas_file = s.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> s.load_data(cas_file, result_file=dat_file)
+        >>> parts = s.ensight.utils.parts
+        >>> parts.create_particle_trace_from_line("mytraces", "Velocity", point1=[-0.02,-0.123,0.01576], point2=[0.109876,-0.123,0.0123], num_points=10, source_parts=parts.select_parts_by_dimension(3))
         """
         emitter_type = self._EMIT_LINE
         direction, converted_source_parts = self._prepare_particle_creation(
@@ -634,6 +651,15 @@ class Parts:
         delta_time: float
             The interval for the emissions. If not provided, EnSight will provide
             a best estimate.
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> cas_file = s.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> s.load_data(cas_file, result_file=dat_file)
+        >>> parts = s.ensight.utils.parts
+        >>> parts.create_particle_trace_from_plane("mytraces", "Velocity", point1=[-0.02,-0.123,0.01576], point2=[0.109876,-0.123,0.0123], point3=[0.1, 0, 0.05] ,num_points_x=10, num_points_y=10, source_parts=parts.select_parts_by_dimension(3))
         """
         emitter_type = self._EMIT_PLANE
         direction, converted_source_parts = self._prepare_particle_creation(
@@ -733,6 +759,15 @@ class Parts:
         delta_time: float
             The interval for the emissions. If not provided, EnSight will provide
             a best estimate.
+        
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> cas_file = s.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> s.load_data(cas_file, result_file=dat_file)
+        >>> parts = s.ensight.utils.parts
+        >>> parts.create_particle_trace_from_parts("mytraces", "Velocity", parts=["hot-inlet", "cold-inlet"], num_points=100 source_parts=parts.select_parts_by_dimension(3))
         """
         emitter_type = self._EMIT_PART
         direction, converted_source_parts = self._prepare_particle_creation(
@@ -776,6 +811,15 @@ class Parts:
             Can be the name, the ID or the ``ENS_PART`` object
         points: list
             List of list containing the coordinates for the seed points.
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> cas_file = s.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> s.load_data(cas_file, result_file=dat_file)
+        >>> p = s.ensight.utils.parts.create_particle_trace_from_points("mytraces", "Velocity", points=[[-0.02, -0.123, 0.01576]], source_parts=parts.select_parts_by_dimension(3))
+        >>> p = s.ensight.utils.parts.add_emitter_points_to_pathline_part(p, points=[[0.109876, -0.123, 0.0123]])
         """
         emitter_type = self._EMIT_POINT
         pathline_part = self._cure_pathline_part(pathline_part)
@@ -805,6 +849,15 @@ class Parts:
             The coordinates for point 2.
         num_points: int
             The number of seed points. Defaults to 100.
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> cas_file = s.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> s.load_data(cas_file, result_file=dat_file)
+        >>> p = s.ensight.utils.parts.create_particle_trace_from_points("mytraces", "Velocity", points=[[-0.02,-0.123,0.01576]], source_parts=parts.select_parts_by_dimension(3))
+        >>> p = s.ensight.utils.parts.add_emitter_line_to_pathline_part(p, point1=[-0.02, -0.123, 0.01576], point2=[0.109876, -0.123, 0.0123], num_points=10)
         """
         emitter_type = self._EMIT_LINE
         pathline_part = self._cure_pathline_part(pathline_part)
@@ -844,6 +897,15 @@ class Parts:
         num_points_y: int
             The number of points on the ``Y`` direction of the emission plane.
             Defaults to 25.
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> cas_file = s.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> s.load_data(cas_file, result_file=dat_file)
+        >>> p = s.ensight.utils.parts.create_particle_trace_from_points("mytraces", "Velocity", points=[[-0.02,-0.123,0.01576]], source_parts=parts.select_parts_by_dimension(3))
+        >>> p = s.ensight.utils.parts.add_emitter_plane_to_pathline_part(p, point1=[-0.02, -0.123, 0.01576], point2=[0.109876, -0.123, 0.0123], point3=[0.1, 0, 0.05], num_points_x=10, num_points_y=10)
         """
         emitter_type = self._EMIT_PLANE
         pathline_part = self._cure_pathline_part(pathline_part)
@@ -892,6 +954,15 @@ class Parts:
         num_points: int
             The number of points to emit from.
             Defaults to 100.
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> cas_file = s.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> s.load_data(cas_file, result_file=dat_file)
+        >>> p = s.ensight.utils.parts.create_particle_trace_from_points("mytraces", "Velocity", points=[[-0.02, -0.123, 0.01576]], source_parts=parts.select_parts_by_dimension(3))
+        >>> p = s.ensight.utils.parts.add_emitter_parts_to_pathline_part(p, parts=["cold-inlet", "hot-inlet"], num_points=25)
         """
         emitter_type = self._EMIT_PART
         pathline_part = self._cure_pathline_part(pathline_part)
