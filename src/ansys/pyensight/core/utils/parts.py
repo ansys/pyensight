@@ -759,7 +759,7 @@ class Parts:
         delta_time: float
             The interval for the emissions. If not provided, EnSight will provide
             a best estimate.
-        
+
         Examples
         --------
         >>> s = LocalLauncher().start()
