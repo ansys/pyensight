@@ -12,6 +12,7 @@ ansys.pyensight.Session
 """
 import atexit
 import importlib.util
+import uuid
 from os import listdir
 import os.path
 import platform
@@ -124,6 +125,8 @@ class Session:
         rest_api: bool = False,
         sos: bool = False,
     ) -> None:
+        # every session instance needs a unique name that can be used as a cache key
+        self._session_name = str(uuid.uuid1())
         # when objects come into play, we can reuse them, so hash ID to instance here
         self._ensobj_hash: Dict[int, "ENSOBJ"] = {}
         self._language = "en"
@@ -170,6 +173,7 @@ class Session:
         self._grpc = ensight_grpc.EnSightGRPC(
             host=self._hostname, port=self._grpc_port, secret_key=self._secret_key
         )
+        self._grpc.session_name = self._session_name
 
         # establish the connection with retry
         self._establish_connection(validate=True)
@@ -258,6 +262,13 @@ class Session:
                 pass
             time.sleep(0.5)
         raise RuntimeError("Unable to establish a REST connection to EnSight.")
+
+    @property
+    def name(self) -> str:
+        """The session name is a unique identifier for this Session instance.  It
+        is used by EnSight to maintain session specific data values within the
+        EnSight instance."""
+        return self._session_name
 
     @property
     def language(self) -> str:
@@ -937,11 +948,36 @@ class Session:
         self._establish_connection()
         return self._grpc.render(width=width, height=height, aa=aa)
 
+    def _release_remote_objects(self, object_id: Optional[int] = None):
+        """
+        Send a command to the remote EnSight session to drop a specific object
+        or all objects from the remote object cache.
+
+        Parameters
+        ----------
+        object_id: int, optional
+            The specific object to drop from the cache.  If no objects are specified,
+            then all remote objects associated with this session will be dropped.
+
+        """
+        obj_str = ""
+        if object_id:
+            obj_str = f", id={object_id}"
+        cmd = f"ensight.objs.release_id('{self.name}'{obj_str})"
+        _ = self.cmd(cmd, do_eval=False)
+
     def close(self) -> None:
         """Close the session.
 
         Close the current session and its gRPC connection.
         """
+        # if version 242 or higher, free any objects we have cached there
+        if self.cei_suffix >= '242':
+            try:
+                self._release_remote_objects()
+            except RuntimeError:
+                # handle some intermediate EnSight builds.
+                pass
         if self._launcher and self._halt_ensight_on_close:
             self._launcher.close(self)
         else:
@@ -1473,6 +1509,8 @@ class Session:
 
             Class: ENS_GLOBALS, CvfObjID: 221, cached:yes
             Class: ENS_PART, desc: 'Sphere', CvfObjID: 1078, cached:no
+            Class: ENS_PART, desc: 'engine', PartType: 0, CvfObjID: 1097, cached:no
+            Class: ENS_GROUP, desc: '', Owned, CvfObjID: 1043, cached:no
 
         This method detects strings like those and converts them into strings like these::
 
@@ -1517,6 +1555,8 @@ class Session:
                 if (location != -1) and (location > id):
                     subtype = int(s[location + len(name) :].split(",")[0])
                     break
+            # Owned flag
+            owned_flag = "Owned," in s[start + 7 : tail]
             # isolate the block to replace
             prefix = s[:start]
             suffix = s[tail + tail_len :]
@@ -1544,6 +1584,8 @@ class Session:
                         if attr_value in classname_lookup:
                             classname = classname_lookup[attr_value]
                             subclass_info = f",attr_id={attr_id}, attr_value={attr_value}"
+                if owned_flag:
+                    subclass_info += ",owned=True"
                 replace_text = f"session.ensight.objs.{classname}(session, {objid}{subclass_info})"
             if replace_text is None:
                 break

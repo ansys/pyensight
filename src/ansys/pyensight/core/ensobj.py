@@ -29,9 +29,10 @@ class ENSOBJ(object):
         classes are ENS_TOOL, ENS_PART and ENS_ANNOT.
     attr_value :
         The attribute value associated with any specified attr_id.
-
-    Returns
-    -------
+    owned : bool
+        If True, the object is assumed to be "owned" by this interpreter.
+        This means that the lifecycle of the ENSOBJ instance in EnSight is
+        dictated by the lifecycle of this proxy object.
 
     """
 
@@ -41,6 +42,7 @@ class ENSOBJ(object):
         objid: int,
         attr_id: Optional[int] = None,
         attr_value: Optional[int] = None,
+        owned: Optional[bool] = None,
     ) -> None:
         self._session = session
         self._objid = objid
@@ -48,6 +50,10 @@ class ENSOBJ(object):
         self._attr_value = attr_value
         self._session.add_ensobj_instance(self)
         self.attr_list = self.populate_attr_list()
+        # True if this Python instance "owns" the ENSOBJ instance (via EnSight proxy cache)
+        self._is_owned = False
+        if owned:
+            self._is_owned = True
 
     def __eq__(self, obj):
         return self._objid == obj._objid
@@ -63,6 +69,9 @@ class ENSOBJ(object):
         return self._objid
 
     def _remote_obj(self) -> str:
+        """Convert the object into a string appropriate for use in the
+        remote EnSight session.   Usually, this is some form of
+        ensight.objs.wrap_id()."""
         return self._session.remote_obj(self._objid)
 
     def getattr(self, attrid: Any) -> Any:
@@ -447,7 +456,10 @@ class ENSOBJ(object):
                 # self.DESCRIPTION is a gRPC call that can fail for default objects
                 desc_text = ""
             desc = f", desc: '{desc_text}'"
-        return f"Class: {self.__class__.__name__}{desc}, CvfObjID: {self._objid}, cached:no"
+        owned = ""
+        if self._is_owned:
+            owned = ", Owned"
+        return f"Class: {self.__class__.__name__}{desc}{owned}, CvfObjID: {self._objid}, cached:no"
 
     def __repr__(self) -> str:
         """Custom __repr__ method used by the stub API.
