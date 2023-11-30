@@ -26,12 +26,10 @@ except ImportError:
     from ansys.pyensight.core.listobj import ensobjlist
 
 if TYPE_CHECKING:
-    try:
-        from ensight.objs import ENS_PART, ENS_VAR  # type: ignore
-    except ImportError:
-        from ansys.api.pyensight import ensight_api
-        from ansys.api.pyensight.ens_part import ENS_PART
-        from ansys.api.pyensight.ens_var import ENS_VAR
+    from ansys.api.pyensight import ensight_api
+    from ansys.api.pyensight.ens_part import ENS_PART
+    from ansys.api.pyensight.ens_part_particle_trace import ENS_PART_PARTICLE_TRACE
+    from ansys.api.pyensight.ens_var import ENS_VAR
 
 
 def convert_part(
@@ -328,7 +326,7 @@ class Parts:
         emit_time: Optional[float] = None,
         total_time: Optional[float] = None,
         delta_time: Optional[float] = None,
-    ) -> Tuple["ENS_PART", "ENS_PART"]:
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """Private routine to create a pathline part object"""
         current_timestep = None
         direction_map = {
@@ -337,7 +335,7 @@ class Parts:
             self.PT_POS_NEG_TIME: self.ensight.objs.enums.POS_NEG_TIME,
         }
         idx = self.ensight.objs.enums.PART_PARTICLE_TRACE
-        def_part = self.ensight.objs.core.DEFAULTPARTS[idx]
+        def_part: "ENS_PART_PARTICLE_TRACE" = self.ensight.objs.core.DEFAULTPARTS[idx]
         def_part.TYPE = self.ensight.objs.enums.STREAMLINE
         if pathlines is True:
             def_part.TYPE = self.ensight.objs.enums.PATHLINE
@@ -353,14 +351,19 @@ class Parts:
         def_part.VARIABLE = convert_variable(self.ensight, variable)
         def_part.SURFACERESTRICTED = False
         def_part.TRACEDIRECTION = direction_map.get(direction)
-        pathline_part = def_part.createpart(sources=source_parts, name=name)[0]
+        pathline_part: "ENS_PART_PARTICLE_TRACE" = def_part.createpart(
+            sources=source_parts, name=name
+        )[0]
         if current_timestep:
             self.ensight.objs.core.TIMESTEP = current_timestep
-        return pathline_part, def_part
+        return pathline_part
 
     def _add_emitters_to_pathline(
-        self, pathline_part: "ENS_PART", new_emitters: List[Any], palette: Optional[str] = None
-    ) -> "ENS_PART":
+        self,
+        pathline_part: "ENS_PART_PARTICLE_TRACE",
+        new_emitters: List[Any],
+        palette: Optional[str] = None,
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """Private utility to add emitters to an existing pathline part."""
         if isinstance(self.ensight, ModuleType):
             emitters = pathline_part.EMITTERS.copy()
@@ -385,14 +388,16 @@ class Parts:
             pathline_part.COLORBYPALETTE = palette
         return pathline_part
 
-    def _cure_pathline_part(self, pathline_part: Union[str, int, "ENS_PART"]) -> "ENS_PART":
+    def _cure_pathline_part(
+        self, pathline_part: Union[str, int, "ENS_PART_PARTICLE_TRACE"]
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """Private utility to cure an input pathline part and convert it to an ``ENS_PART`"""
         if isinstance(pathline_part, (str, int)):
             temp = self.ensight.objs.core.PARTS[pathline_part]
             if not temp:
                 raise RuntimeError("pathline_part input is not a valid part")
-            pathline_part = temp[0]
-        return pathline_part
+            _pathline_part: ENS_PART_PARTICLE_TRACE = temp[0]
+        return _pathline_part
 
     def _prepare_particle_creation(
         self,
@@ -410,6 +415,21 @@ class Parts:
             raise RuntimeError("No part selected for particle trace generation")
         return direction, converted_source_parts
 
+    def _find_palette(self, color_by: Optional[Union[str, int, "ENS_VAR"]] = None) -> Optional[str]:
+        """Private utility to find the description of the input color_by variable"""
+        palette: Optional[str] = None
+        if color_by:
+            _color_by_var: List["ENS_VAR"] = ensight.objs.core.VARIABLES[
+                convert_variable(self.ensight, color_by)
+            ]
+            if _color_by_var:
+                palette = _color_by_var[0].DESCRIPTION
+            else:
+                raise RuntimeError(
+                    "The variable supplied to color the particle trace by does not exist"
+                )
+        return palette
+
     def create_particle_trace_from_points(
         self,
         name: str,
@@ -421,7 +441,8 @@ class Parts:
         emit_time: Optional[float] = None,
         total_time: Optional[float] = None,
         delta_time: Optional[float] = None,
-    ) -> "ENS_PART":
+        color_by: Optional[Union[str, int, "ENS_VAR"]] = None,
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """
         Create a particle trace part from a list o points.
         Returns the ``ENS_PART`` generated.
@@ -464,6 +485,9 @@ class Parts:
         delta_time: float
             The interval for the emissions. If not provided, EnSight will provide
             a best estimate.
+        color_by
+            The optional variable to color the particle trace by.
+            It can be the name, the ID or the ``ENS_VAR`` object.
 
         Examples
         --------
@@ -477,7 +501,7 @@ class Parts:
         direction, converted_source_parts = self._prepare_particle_creation(
             direction=direction, source_parts=source_parts
         )
-        pathline_part, def_part = self._create_pathline_part(
+        pathline_part = self._create_pathline_part(
             name,
             variable,
             direction,
@@ -488,8 +512,9 @@ class Parts:
             total_time=total_time,
         )
         new_emitters = self._create_emitters(emitter_type=emitter_type, points=points)
+        palette = self._find_palette(color_by=color_by)
         return self._add_emitters_to_pathline(
-            pathline_part, new_emitters=new_emitters, palette=def_part.VARIABLE.DESCRIPTION
+            pathline_part, new_emitters=new_emitters, palette=palette
         )
 
     def create_particle_trace_from_line(
@@ -505,7 +530,8 @@ class Parts:
         emit_time: Optional[float] = None,
         total_time: Optional[float] = None,
         delta_time: Optional[float] = None,
-    ) -> "ENS_PART":
+        color_by: Optional[Union[str, int, "ENS_VAR"]] = None,
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """
         Create a particle trace part from a line.
         Returns the ``ENS_PART`` generated.
@@ -552,6 +578,9 @@ class Parts:
         delta_time: float
             The interval for the emissions. If not provided, EnSight will provide
             a best estimate.
+        color_by
+            The optional variable to color the particle trace by.
+            It can be the name, the ID or the ``ENS_VAR`` object.
 
         Examples
         --------
@@ -566,7 +595,7 @@ class Parts:
         direction, converted_source_parts = self._prepare_particle_creation(
             direction=direction, source_parts=source_parts
         )
-        pathline_part, def_part = self._create_pathline_part(
+        pathline_part = self._create_pathline_part(
             name,
             variable,
             direction,
@@ -579,8 +608,9 @@ class Parts:
         new_emitters = self._create_emitters(
             emitter_type=emitter_type, point1=point1, point2=point2, num_points=num_points
         )
+        palette = self._find_palette(color_by=color_by)
         return self._add_emitters_to_pathline(
-            pathline_part, new_emitters=new_emitters, palette=def_part.VARIABLE.DESCRIPTION
+            pathline_part, new_emitters=new_emitters, palette=palette
         )
 
     def create_particle_trace_from_plane(
@@ -598,7 +628,8 @@ class Parts:
         emit_time: Optional[float] = None,
         total_time: Optional[float] = None,
         delta_time: Optional[float] = None,
-    ) -> "ENS_PART":
+        color_by: Optional[Union[str, int, "ENS_VAR"]] = None,
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """
         Create a particle trace part from a plane.
         Returns the ``ENS_PART`` generated.
@@ -651,6 +682,9 @@ class Parts:
         delta_time: float
             The interval for the emissions. If not provided, EnSight will provide
             a best estimate.
+        color_by
+            The optional variable to color the particle trace by.
+            It can be the name, the ID or the ``ENS_VAR`` object.
 
         Examples
         --------
@@ -665,7 +699,7 @@ class Parts:
         direction, converted_source_parts = self._prepare_particle_creation(
             direction=direction, source_parts=source_parts
         )
-        pathline_part, def_part = self._create_pathline_part(
+        pathline_part = self._create_pathline_part(
             name,
             variable,
             direction,
@@ -683,8 +717,9 @@ class Parts:
             num_points_x=num_points_x,
             num_points_y=num_points_y,
         )
+        palette = self._find_palette(color_by=color_by)
         return self._add_emitters_to_pathline(
-            pathline_part, new_emitters=new_emitters, palette=def_part.VARIABLE.DESCRIPTION
+            pathline_part, new_emitters=new_emitters, palette=palette
         )
 
     def create_particle_trace_from_parts(
@@ -700,7 +735,8 @@ class Parts:
         emit_time: Optional[float] = None,
         total_time: Optional[float] = None,
         delta_time: Optional[float] = None,
-    ) -> "ENS_PART":
+        color_by: Optional[Union[str, int, "ENS_VAR"]] = None,
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """
         Create a particle trace part from a list of seed parts.
         Returns the ``ENS_PART`` generated.
@@ -759,6 +795,9 @@ class Parts:
         delta_time: float
             The interval for the emissions. If not provided, EnSight will provide
             a best estimate.
+        color_by
+            The optional variable to color the particle trace by.
+            It can be the name, the ID or the ``ENS_VAR`` object.
 
         Examples
         --------
@@ -773,7 +812,7 @@ class Parts:
         direction, converted_source_parts = self._prepare_particle_creation(
             direction=direction, source_parts=source_parts
         )
-        pathline_part, def_part = self._create_pathline_part(
+        pathline_part = self._create_pathline_part(
             name,
             variable,
             direction,
@@ -790,15 +829,16 @@ class Parts:
             part_distribution_type=part_distribution_type,
             num_points=num_points,
         )
+        palette = self._find_palette(color_by=color_by)
         return self._add_emitters_to_pathline(
-            pathline_part, new_emitters=new_emitters, palette=def_part.VARIABLE.DESCRIPTION
+            pathline_part, new_emitters=new_emitters, palette=palette
         )
 
     def add_emitter_points_to_pathline_part(
         self,
         pathline_part: Union[str, int, "ENS_PART"],
         points: List[List[float]],
-    ) -> "ENS_PART":
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """
         Add point emitters to an existing particle trace. The function will return the updated
         ``ENS_PART`` object.
@@ -832,7 +872,7 @@ class Parts:
         point1: List[float],
         point2: List[float],
         num_points: Optional[int] = 100,
-    ):
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """
         Add a line emitter to an existing particle trace. The function will return the updated
         ``ENS_PART`` object.
@@ -874,7 +914,7 @@ class Parts:
         point3: List[float],
         num_points_x: Optional[int] = 25,
         num_points_y: Optional[int] = 25,
-    ):
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """
         Add a plane emitter to an existing particle trace. The function will return the updated
         ``ENS_PART`` object.
@@ -925,7 +965,7 @@ class Parts:
         parts: List[Union[str, int, "ENS_PART"]],
         part_distribution_type: Optional[int] = 0,
         num_points: Optional[int] = 100,
-    ):
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """
         Add a list of part emitters to an existing particle trace. The function will return the updated
         ``ENS_PART`` object.
