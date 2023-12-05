@@ -26,12 +26,10 @@ except ImportError:
     from ansys.pyensight.core.listobj import ensobjlist
 
 if TYPE_CHECKING:
-    try:
-        from ensight.objs import ENS_PART, ENS_VAR  # type: ignore
-    except ImportError:
-        from ansys.api.pyensight import ensight_api
-        from ansys.api.pyensight.ens_part import ENS_PART
-        from ansys.api.pyensight.ens_var import ENS_VAR
+    from ansys.api.pyensight import ensight_api
+    from ansys.api.pyensight.ens_part import ENS_PART
+    from ansys.api.pyensight.ens_part_particle_trace import ENS_PART_PARTICLE_TRACE
+    from ansys.api.pyensight.ens_var import ENS_VAR
 
 
 def convert_part(
@@ -318,7 +316,7 @@ class Parts:
             raise RuntimeError("No input provided to create the emitters for the particle trace")
         return new_emitters
 
-    def _create_pathline_part(
+    def _create_particle_trace_part(
         self,
         name: str,
         variable: Union[str, int, "ENS_VAR"],
@@ -328,18 +326,22 @@ class Parts:
         emit_time: Optional[float] = None,
         total_time: Optional[float] = None,
         delta_time: Optional[float] = None,
-    ) -> Tuple["ENS_PART", "ENS_PART"]:
-        """Private routine to create a pathline part object"""
+        surface_restrict: Optional[bool] = False,
+    ) -> "ENS_PART_PARTICLE_TRACE":
+        """Private routine to create a particle trace part object"""
+        current_timestep = None
         direction_map = {
             self.PT_POS_TIME: self.ensight.objs.enums.POS_TIME,
             self.PT_NEG_TIME: self.ensight.objs.enums.NEG_TIME,
             self.PT_POS_NEG_TIME: self.ensight.objs.enums.POS_NEG_TIME,
         }
         idx = self.ensight.objs.enums.PART_PARTICLE_TRACE
-        def_part = self.ensight.objs.core.DEFAULTPARTS[idx]
+        def_part: "ENS_PART_PARTICLE_TRACE" = self.ensight.objs.core.DEFAULTPARTS[idx]
         def_part.TYPE = self.ensight.objs.enums.STREAMLINE
         if pathlines is True:
             def_part.TYPE = self.ensight.objs.enums.PATHLINE
+            current_timestep = self.ensight.objs.core.TIMESTEP
+            self.ensight.objs.core.TIMESTEP = self.ensight.objs.core.TIMESTEP_LIMITS[0]
         if total_time:
             def_part.TOTALTIME = total_time
         if delta_time:
@@ -350,22 +352,38 @@ class Parts:
         def_part.VARIABLE = convert_variable(self.ensight, variable)
         def_part.SURFACERESTRICTED = False
         def_part.TRACEDIRECTION = direction_map.get(direction)
-        pathline_part = def_part.createpart(sources=source_parts, name=name)[0]
-        return pathline_part, def_part
+        if surface_restrict:
+            def_part.SURFACERESTRICTED = True
+        particle_trace_part: "ENS_PART_PARTICLE_TRACE" = def_part.createpart(
+            sources=source_parts, name=name
+        )[0]
+        if current_timestep:
+            self.ensight.objs.core.TIMESTEP = current_timestep
+        return particle_trace_part
 
-    def _add_emitters_to_pathline(
-        self, pathline_part: "ENS_PART", new_emitters: List[Any], palette: Optional[str] = None
-    ) -> "ENS_PART":
-        """Private utility to add emitters to an existing pathline part."""
+    def _add_emitters_to_particle_trace_part(
+        self,
+        particle_trace_part: "ENS_PART_PARTICLE_TRACE",
+        new_emitters: List[Any],
+        palette: Optional[str] = None,
+        clean: Optional[bool] = False,
+    ) -> "ENS_PART_PARTICLE_TRACE":
+        """Private utility to add emitters to an existing particle trace part."""
         if isinstance(self.ensight, ModuleType):
-            emitters = pathline_part.EMITTERS.copy()
+            if clean:
+                emitters = []
+            else:
+                emitters = particle_trace_part.EMITTERS.copy()
             emitters.extend(new_emitters)
-            pathline_part.EMITTERS = emitters
+            particle_trace_part.EMITTERS = emitters
         else:
-            self.ensight._session.cmd(
-                f"enscl.emitters=ensight.objs.wrap_id({pathline_part.objid}).EMITTERS.copy()",
-                do_eval=False,
-            )
+            if clean:
+                self.ensight._session.cmd("enscl.emitters=[]", do_eval=False)
+            else:
+                self.ensight._session.cmd(
+                    f"enscl.emitters=ensight.objs.wrap_id({particle_trace_part.objid}).EMITTERS.copy()",
+                    do_eval=False,
+                )
             text = "enscl.emitters.extend(["
             for emitter in new_emitters:
                 text += emitter + ", "
@@ -373,21 +391,26 @@ class Parts:
             text += "])"
             self.ensight._session.cmd(text, do_eval=False)
             self.ensight._session.cmd(
-                f"ensight.objs.wrap_id({pathline_part.objid}).setattr('EMITTERS', enscl.emitters.copy())"
+                f"ensight.objs.wrap_id({particle_trace_part.objid}).setattr('EMITTERS', enscl.emitters.copy())"
             )
             self.ensight._session.cmd("del enscl.emitters", do_eval=False)
         if palette:
-            pathline_part.COLORBYPALETTE = palette
-        return pathline_part
+            particle_trace_part.COLORBYPALETTE = palette
+        return particle_trace_part
 
-    def _cure_pathline_part(self, pathline_part: Union[str, int, "ENS_PART"]) -> "ENS_PART":
-        """Private utility to cure an input pathline part and convert it to an ``ENS_PART`"""
-        if isinstance(pathline_part, (str, int)):
-            temp = self.ensight.objs.core.PARTS[pathline_part]
+    def _cure_particle_trace_part(
+        self, particle_trace_part: Union[str, int, "ENS_PART_PARTICLE_TRACE"]
+    ) -> "ENS_PART_PARTICLE_TRACE":
+        """Private utility to cure an input particle trace part and convert it to an ``ENS_PART`"""
+        _particle_trace_part: "ENS_PART_PARTICLE_TRACE"
+        if isinstance(particle_trace_part, (str, int)):
+            temp = self.ensight.objs.core.PARTS[particle_trace_part]
             if not temp:
-                raise RuntimeError("pathline_part input is not a valid part")
-            pathline_part = temp[0]
-        return pathline_part
+                raise RuntimeError("particle_trace_part input is not a valid part")
+            _particle_trace_part = temp[0]
+        else:
+            _particle_trace_part = particle_trace_part
+        return _particle_trace_part
 
     def _prepare_particle_creation(
         self,
@@ -405,6 +428,21 @@ class Parts:
             raise RuntimeError("No part selected for particle trace generation")
         return direction, converted_source_parts
 
+    def _find_palette(self, color_by: Optional[Union[str, int, "ENS_VAR"]] = None) -> Optional[str]:
+        """Private utility to find the description of the input color_by variable"""
+        palette: Optional[str] = None
+        if color_by:
+            _color_by_var: List["ENS_VAR"] = ensight.objs.core.VARIABLES[
+                convert_variable(self.ensight, color_by)
+            ]
+            if _color_by_var:
+                palette = _color_by_var[0].DESCRIPTION
+            else:
+                raise RuntimeError(
+                    "The variable supplied to color the particle trace by does not exist"
+                )
+        return palette
+
     def create_particle_trace_from_points(
         self,
         name: str,
@@ -416,7 +454,8 @@ class Parts:
         emit_time: Optional[float] = None,
         total_time: Optional[float] = None,
         delta_time: Optional[float] = None,
-    ) -> "ENS_PART":
+        color_by: Optional[Union[str, int, "ENS_VAR"]] = None,
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """
         Create a particle trace part from a list o points.
         Returns the ``ENS_PART`` generated.
@@ -459,12 +498,23 @@ class Parts:
         delta_time: float
             The interval for the emissions. If not provided, EnSight will provide
             a best estimate.
+        color_by
+            The optional variable to color the particle trace by.
+            It can be the name, the ID or the ``ENS_VAR`` object.
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> cas_file = s.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> s.load_data(cas_file, result_file=dat_file)
+        >>> s.ensight.utils.parts.create_particle_trace_from_points("mytraces", "Velocity", points=[[-0.02,-0.123,0.01576],[0.109876,-0.123,0.0123]], source_parts=parts.select_parts_by_dimension(3))
         """
         emitter_type = self._EMIT_POINT
         direction, converted_source_parts = self._prepare_particle_creation(
             direction=direction, source_parts=source_parts
         )
-        pathline_part, def_part = self._create_pathline_part(
+        particle_trace_part = self._create_particle_trace_part(
             name,
             variable,
             direction,
@@ -475,8 +525,9 @@ class Parts:
             total_time=total_time,
         )
         new_emitters = self._create_emitters(emitter_type=emitter_type, points=points)
-        return self._add_emitters_to_pathline(
-            pathline_part, new_emitters=new_emitters, palette=def_part.VARIABLE.DESCRIPTION
+        palette = self._find_palette(color_by=color_by)
+        return self._add_emitters_to_particle_trace_part(
+            particle_trace_part, new_emitters=new_emitters, palette=palette, clean=True
         )
 
     def create_particle_trace_from_line(
@@ -492,7 +543,8 @@ class Parts:
         emit_time: Optional[float] = None,
         total_time: Optional[float] = None,
         delta_time: Optional[float] = None,
-    ) -> "ENS_PART":
+        color_by: Optional[Union[str, int, "ENS_VAR"]] = None,
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """
         Create a particle trace part from a line.
         Returns the ``ENS_PART`` generated.
@@ -539,12 +591,24 @@ class Parts:
         delta_time: float
             The interval for the emissions. If not provided, EnSight will provide
             a best estimate.
+        color_by
+            The optional variable to color the particle trace by.
+            It can be the name, the ID or the ``ENS_VAR`` object.
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> cas_file = s.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> s.load_data(cas_file, result_file=dat_file)
+        >>> parts = s.ensight.utils.parts
+        >>> parts.create_particle_trace_from_line("mytraces", "Velocity", point1=[-0.02,-0.123,0.01576], point2=[0.109876,-0.123,0.0123], num_points=10, source_parts=parts.select_parts_by_dimension(3))
         """
         emitter_type = self._EMIT_LINE
         direction, converted_source_parts = self._prepare_particle_creation(
             direction=direction, source_parts=source_parts
         )
-        pathline_part, def_part = self._create_pathline_part(
+        particle_trace_part = self._create_particle_trace_part(
             name,
             variable,
             direction,
@@ -557,8 +621,9 @@ class Parts:
         new_emitters = self._create_emitters(
             emitter_type=emitter_type, point1=point1, point2=point2, num_points=num_points
         )
-        return self._add_emitters_to_pathline(
-            pathline_part, new_emitters=new_emitters, palette=def_part.VARIABLE.DESCRIPTION
+        palette = self._find_palette(color_by=color_by)
+        return self._add_emitters_to_particle_trace_part(
+            particle_trace_part, new_emitters=new_emitters, palette=palette, clean=True
         )
 
     def create_particle_trace_from_plane(
@@ -576,7 +641,8 @@ class Parts:
         emit_time: Optional[float] = None,
         total_time: Optional[float] = None,
         delta_time: Optional[float] = None,
-    ) -> "ENS_PART":
+        color_by: Optional[Union[str, int, "ENS_VAR"]] = None,
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """
         Create a particle trace part from a plane.
         Returns the ``ENS_PART`` generated.
@@ -629,12 +695,24 @@ class Parts:
         delta_time: float
             The interval for the emissions. If not provided, EnSight will provide
             a best estimate.
+        color_by
+            The optional variable to color the particle trace by.
+            It can be the name, the ID or the ``ENS_VAR`` object.
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> cas_file = s.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> s.load_data(cas_file, result_file=dat_file)
+        >>> parts = s.ensight.utils.parts
+        >>> parts.create_particle_trace_from_plane("mytraces", "Velocity", point1=[-0.02,-0.123,0.01576], point2=[0.109876,-0.123,0.0123], point3=[0.1, 0, 0.05] ,num_points_x=10, num_points_y=10, source_parts=parts.select_parts_by_dimension(3))
         """
         emitter_type = self._EMIT_PLANE
         direction, converted_source_parts = self._prepare_particle_creation(
             direction=direction, source_parts=source_parts
         )
-        pathline_part, def_part = self._create_pathline_part(
+        particle_trace_part = self._create_particle_trace_part(
             name,
             variable,
             direction,
@@ -652,8 +730,9 @@ class Parts:
             num_points_x=num_points_x,
             num_points_y=num_points_y,
         )
-        return self._add_emitters_to_pathline(
-            pathline_part, new_emitters=new_emitters, palette=def_part.VARIABLE.DESCRIPTION
+        palette = self._find_palette(color_by=color_by)
+        return self._add_emitters_to_particle_trace_part(
+            particle_trace_part, new_emitters=new_emitters, palette=palette, clean=True
         )
 
     def create_particle_trace_from_parts(
@@ -669,7 +748,9 @@ class Parts:
         emit_time: Optional[float] = None,
         total_time: Optional[float] = None,
         delta_time: Optional[float] = None,
-    ) -> "ENS_PART":
+        color_by: Optional[Union[str, int, "ENS_VAR"]] = None,
+        surface_restrict: Optional[bool] = False,
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """
         Create a particle trace part from a list of seed parts.
         Returns the ``ENS_PART`` generated.
@@ -728,12 +809,28 @@ class Parts:
         delta_time: float
             The interval for the emissions. If not provided, EnSight will provide
             a best estimate.
+        color_by
+            The optional variable to color the particle trace by.
+            It can be the name, the ID or the ``ENS_VAR`` object.
+        surface_restrict: bool
+            True if the particle trace needs to be restricted to the input parts.
+            Defaults to False. The flag will be applied to any additional emitter
+            appended to the particle trace created.
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> cas_file = s.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> s.load_data(cas_file, result_file=dat_file)
+        >>> parts = s.ensight.utils.parts
+        >>> parts.create_particle_trace_from_parts("mytraces", "Velocity", parts=["hot-inlet", "cold-inlet"], num_points=100 source_parts=parts.select_parts_by_dimension(3))
         """
         emitter_type = self._EMIT_PART
         direction, converted_source_parts = self._prepare_particle_creation(
             direction=direction, source_parts=source_parts
         )
-        pathline_part, def_part = self._create_pathline_part(
+        particle_trace_part = self._create_particle_trace_part(
             name,
             variable,
             direction,
@@ -742,6 +839,7 @@ class Parts:
             emit_time=emit_time,
             delta_time=delta_time,
             total_time=total_time,
+            surface_restrict=surface_restrict,
         )
         new_parts = [convert_part(self.ensight, p) for p in parts]
         new_emitters = self._create_emitters(
@@ -750,15 +848,16 @@ class Parts:
             part_distribution_type=part_distribution_type,
             num_points=num_points,
         )
-        return self._add_emitters_to_pathline(
-            pathline_part, new_emitters=new_emitters, palette=def_part.VARIABLE.DESCRIPTION
+        palette = self._find_palette(color_by=color_by)
+        return self._add_emitters_to_particle_trace_part(
+            particle_trace_part, new_emitters=new_emitters, palette=palette, clean=True
         )
 
-    def add_emitter_points_to_pathline_part(
+    def add_emitter_points_to_particle_trace_part(
         self,
-        pathline_part: Union[str, int, "ENS_PART"],
+        particle_trace_part: Union[str, int, "ENS_PART"],
         points: List[List[float]],
-    ) -> "ENS_PART":
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """
         Add point emitters to an existing particle trace. The function will return the updated
         ``ENS_PART`` object.
@@ -766,24 +865,33 @@ class Parts:
         Parameters:
         -----------
 
-        pathline_part:
+        particle_trace_part:
             The particle trace part to be added emitters to.
             Can be the name, the ID or the ``ENS_PART`` object
         points: list
             List of list containing the coordinates for the seed points.
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> cas_file = s.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> s.load_data(cas_file, result_file=dat_file)
+        >>> p = s.ensight.utils.parts.create_particle_trace_from_points("mytraces", "Velocity", points=[[-0.02, -0.123, 0.01576]], source_parts=parts.select_parts_by_dimension(3))
+        >>> p = s.ensight.utils.parts.add_emitter_points_to_particle_trace_part(p, points=[[0.109876, -0.123, 0.0123]])
         """
         emitter_type = self._EMIT_POINT
-        pathline_part = self._cure_pathline_part(pathline_part)
+        particle_trace_part = self._cure_particle_trace_part(particle_trace_part)
         new_emitters = self._create_emitters(emitter_type=emitter_type, points=points)
-        return self._add_emitters_to_pathline(pathline_part, new_emitters)
+        return self._add_emitters_to_particle_trace_part(particle_trace_part, new_emitters)
 
-    def add_emitter_line_to_pathline_part(
+    def add_emitter_line_to_particle_trace_part(
         self,
-        pathline_part: Union[str, int, "ENS_PART"],
+        particle_trace_part: Union[str, int, "ENS_PART"],
         point1: List[float],
         point2: List[float],
         num_points: Optional[int] = 100,
-    ):
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """
         Add a line emitter to an existing particle trace. The function will return the updated
         ``ENS_PART`` object.
@@ -791,7 +899,7 @@ class Parts:
         Parameters:
         -----------
 
-        pathline_part:
+        particle_trace_part:
             The particle trace part to be added emitters to.
             Can be the name, the ID or the ``ENS_PART`` object.
         point1: list
@@ -800,23 +908,32 @@ class Parts:
             The coordinates for point 2.
         num_points: int
             The number of seed points. Defaults to 100.
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> cas_file = s.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> s.load_data(cas_file, result_file=dat_file)
+        >>> p = s.ensight.utils.parts.create_particle_trace_from_points("mytraces", "Velocity", points=[[-0.02,-0.123,0.01576]], source_parts=parts.select_parts_by_dimension(3))
+        >>> p = s.ensight.utils.parts.add_emitter_line_to_particle_trace_part(p, point1=[-0.02, -0.123, 0.01576], point2=[0.109876, -0.123, 0.0123], num_points=10)
         """
         emitter_type = self._EMIT_LINE
-        pathline_part = self._cure_pathline_part(pathline_part)
+        particle_trace_part = self._cure_particle_trace_part(particle_trace_part)
         new_emitters = self._create_emitters(
             emitter_type=emitter_type, point1=point1, point2=point2, num_points=num_points
         )
-        return self._add_emitters_to_pathline(pathline_part, new_emitters)
+        return self._add_emitters_to_particle_trace_part(particle_trace_part, new_emitters)
 
-    def add_emitter_plane_to_pathline_part(
+    def add_emitter_plane_to_particle_trace_part(
         self,
-        pathline_part: Union[str, int, "ENS_PART"],
+        particle_trace_part: Union[str, int, "ENS_PART"],
         point1: List[float],
         point2: List[float],
         point3: List[float],
         num_points_x: Optional[int] = 25,
         num_points_y: Optional[int] = 25,
-    ):
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """
         Add a plane emitter to an existing particle trace. The function will return the updated
         ``ENS_PART`` object.
@@ -824,7 +941,7 @@ class Parts:
         Parameters:
         -----------
 
-        pathline_part:
+        particle_trace_part:
             The particle trace part to be added emitters to.
             Can be the name, the ID or the ``ENS_PART`` object.
         point1: list
@@ -839,9 +956,18 @@ class Parts:
         num_points_y: int
             The number of points on the ``Y`` direction of the emission plane.
             Defaults to 25.
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> cas_file = s.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> s.load_data(cas_file, result_file=dat_file)
+        >>> p = s.ensight.utils.parts.create_particle_trace_from_points("mytraces", "Velocity", points=[[-0.02,-0.123,0.01576]], source_parts=parts.select_parts_by_dimension(3))
+        >>> p = s.ensight.utils.parts.add_emitter_plane_to_particle_trace_part(p, point1=[-0.02, -0.123, 0.01576], point2=[0.109876, -0.123, 0.0123], point3=[0.1, 0, 0.05], num_points_x=10, num_points_y=10)
         """
         emitter_type = self._EMIT_PLANE
-        pathline_part = self._cure_pathline_part(pathline_part)
+        particle_trace_part = self._cure_particle_trace_part(particle_trace_part)
         new_emitters = self._create_emitters(
             emitter_type=emitter_type,
             point1=point1,
@@ -850,15 +976,15 @@ class Parts:
             num_points_x=num_points_x,
             num_points_y=num_points_y,
         )
-        return self._add_emitters_to_pathline(pathline_part, new_emitters)
+        return self._add_emitters_to_particle_trace_part(particle_trace_part, new_emitters)
 
-    def add_emitter_parts_to_pathline_part(
+    def add_emitter_parts_to_particle_trace_part(
         self,
-        pathline_part: Union[str, int, "ENS_PART"],
+        particle_trace_part: Union[str, int, "ENS_PART"],
         parts: List[Union[str, int, "ENS_PART"]],
         part_distribution_type: Optional[int] = 0,
         num_points: Optional[int] = 100,
-    ):
+    ) -> "ENS_PART_PARTICLE_TRACE":
         """
         Add a list of part emitters to an existing particle trace. The function will return the updated
         ``ENS_PART`` object.
@@ -866,7 +992,7 @@ class Parts:
         Parameters:
         -----------
 
-        pathline_part:
+        particle_trace_part:
             The particle trace part to be added emitters to.
             Can be the name, the ID or the ``ENS_PART`` object.
         parts: list
@@ -887,9 +1013,18 @@ class Parts:
         num_points: int
             The number of points to emit from.
             Defaults to 100.
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> cas_file = s.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> s.load_data(cas_file, result_file=dat_file)
+        >>> p = s.ensight.utils.parts.create_particle_trace_from_points("mytraces", "Velocity", points=[[-0.02, -0.123, 0.01576]], source_parts=parts.select_parts_by_dimension(3))
+        >>> p = s.ensight.utils.parts.add_emitter_parts_to_particle_trace_part(p, parts=["cold-inlet", "hot-inlet"], num_points=25)
         """
         emitter_type = self._EMIT_PART
-        pathline_part = self._cure_pathline_part(pathline_part)
+        particle_trace_part = self._cure_particle_trace_part(particle_trace_part)
         new_parts = [convert_part(self.ensight, p) for p in parts]
         new_emitters = self._create_emitters(
             emitter_type=emitter_type,
@@ -897,4 +1032,4 @@ class Parts:
             part_distribution_type=part_distribution_type,
             num_points=num_points,
         )
-        return self._add_emitters_to_pathline(pathline_part, new_emitters)
+        return self._add_emitters_to_particle_trace_part(particle_trace_part, new_emitters)
