@@ -173,8 +173,8 @@ class EnSightGRPC(object):
             if type(s) == str:
                 s = s.encode("utf-8")
             ret.append((b"shared_secret", s))
-        if self._session_name:
-            s = self._session_name.encode("utf-8")
+        if self.session_name:
+            s = self.session_name.encode("utf-8")
             ret.append((b"session_name", s))
         return ret
 

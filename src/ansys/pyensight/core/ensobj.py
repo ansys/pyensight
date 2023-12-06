@@ -74,7 +74,7 @@ class ENSOBJ(object):
             try:
                 cmd = f"ensight.objs.release_id('{tmp_session.name}', {self.__OBJID__})"
                 tmp_session.cmd(cmd, do_eval=False)
-            except Exception:
+            except Exception:  # pragma: no cover
                 # This could happen at any time, including outside
                 # the scope of the session, so we need to be
                 # ready for any error.

@@ -161,7 +161,6 @@ class ensobjlist(List[T]):  # noqa: N801
         >>> session.ensight.objs.core.PARTS.set_attr("VISIBLE", True)
 
         """
-        objid_list = []
         session = None
         objid_list = [x.__OBJID__ for x in self if isinstance(x, ENSOBJ)]
         for item in self:

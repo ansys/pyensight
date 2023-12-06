@@ -309,7 +309,7 @@ class Session:
             except Exception:
                 pass
             time.sleep(0.5)
-        raise RuntimeError("Unable to establish a REST connection to EnSight.")
+        raise RuntimeError("Unable to establish a REST connection to EnSight.")  # pragma: no cover
 
     @property
     def name(self) -> str:
@@ -1024,7 +1024,7 @@ class Session:
         if self.cei_suffix >= "242":
             try:
                 self._release_remote_objects()
-            except RuntimeError:
+            except RuntimeError:  # pragma: no cover
                 # handle some intermediate EnSight builds.
                 pass
         if self._launcher and self._halt_ensight_on_close:
