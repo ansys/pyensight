@@ -1067,7 +1067,7 @@ class Session:
                     # Create an instance, using ensight as the EnSight interface
                     # and place it in this module.
                     setattr(self._ensight.utils, _name, _the_class(self._ensight))
-            except Exception as e:
+            except Exception as e:  # pragma: no cover
                 # Warn on import errors
                 print(f"Error loading ensight.utils from: '{_filename}' : {e}")
 
