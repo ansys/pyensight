@@ -38,6 +38,7 @@ class EnSightGRPC(object):
         self._stub = None
         self._dsg_stub = None
         self._security_token = secret_key
+        self._session_name: str = ""
         # Streaming APIs
         # Event (strings)
         self._event_stream = None
@@ -70,6 +71,19 @@ class EnSightGRPC(object):
     @security_token.setter
     def security_token(self, name: str) -> None:
         self._security_token = name
+
+    @property
+    def session_name(self) -> str:
+        """The gRPC server session name
+
+        EnSight gRPC calls can include the session name via 'session_name' metadata.
+        A client session may provide a session name via this property.
+        """
+        return self._session_name
+
+    @session_name.setter
+    def session_name(self, name: str) -> None:
+        self._session_name = name
 
     def shutdown(self, stop_ensight: bool = False, force: bool = False) -> None:
         """Close down the gRPC connection
@@ -148,7 +162,9 @@ class EnSightGRPC(object):
     def _metadata(self) -> List[Tuple[bytes, Union[str, bytes]]]:
         """Compute the gRPC stream metadata
 
-        Compute the list to be passed to the gRPC calls for things like security.
+        Compute the list to be passed to the gRPC calls for things like security
+        and the session name.
+
         """
         ret: List[Tuple[bytes, Union[str, bytes]]] = list()
         s: Union[str, bytes]
@@ -157,6 +173,9 @@ class EnSightGRPC(object):
             if type(s) == str:
                 s = s.encode("utf-8")
             ret.append((b"shared_secret", s))
+        if self.session_name:
+            s = self.session_name.encode("utf-8")
+            ret.append((b"session_name", s))
         return ret
 
     def render(

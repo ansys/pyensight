@@ -460,8 +460,8 @@ class Parts:
         Create a particle trace part from a list o points.
         Returns the ``ENS_PART`` generated.
 
-        Parameters:
-        -----------
+        Parameters
+        ----------
 
         name: str
             The name of part to be generated
@@ -549,8 +549,8 @@ class Parts:
         Create a particle trace part from a line.
         Returns the ``ENS_PART`` generated.
 
-        Parameters:
-        -----------
+        Parameters
+        ----------
 
         name: str
             The name of part to be generated
@@ -647,8 +647,8 @@ class Parts:
         Create a particle trace part from a plane.
         Returns the ``ENS_PART`` generated.
 
-        Parameters:
-        -----------
+        Parameters
+        ----------
 
         name: str
             The name of part to be generated
@@ -755,8 +755,8 @@ class Parts:
         Create a particle trace part from a list of seed parts.
         Returns the ``ENS_PART`` generated.
 
-        Parameters:
-        -----------
+        Parameters
+        ----------
 
         name: str
             The name of part to be generated
@@ -794,7 +794,7 @@ class Parts:
             ====================   =================================================
             PART_EMIT_FROM_NODES   Emit from the nodes of the part
             PART_EMIT_FROM_AREA    Create an area of equidistant points for emission
-            ==================     =================================================
+            ====================   =================================================
 
             If not provided, it will default to ``PART_EMIT_FROM_NODES``
         num_points: int
@@ -862,8 +862,8 @@ class Parts:
         Add point emitters to an existing particle trace. The function will return the updated
         ``ENS_PART`` object.
 
-        Parameters:
-        -----------
+        Parameters
+        ----------
 
         particle_trace_part:
             The particle trace part to be added emitters to.
@@ -896,8 +896,8 @@ class Parts:
         Add a line emitter to an existing particle trace. The function will return the updated
         ``ENS_PART`` object.
 
-        Parameters:
-        -----------
+        Parameters
+        ----------
 
         particle_trace_part:
             The particle trace part to be added emitters to.
@@ -938,8 +938,8 @@ class Parts:
         Add a plane emitter to an existing particle trace. The function will return the updated
         ``ENS_PART`` object.
 
-        Parameters:
-        -----------
+        Parameters
+        ----------
 
         particle_trace_part:
             The particle trace part to be added emitters to.
@@ -989,8 +989,8 @@ class Parts:
         Add a list of part emitters to an existing particle trace. The function will return the updated
         ``ENS_PART`` object.
 
-        Parameters:
-        -----------
+        Parameters
+        ----------
 
         particle_trace_part:
             The particle trace part to be added emitters to.
@@ -1007,7 +1007,7 @@ class Parts:
             ====================   =================================================
             PART_EMIT_FROM_NODES   Emit from the nodes of the part
             PART_EMIT_FROM_AREA    Create an area of equidistant points for emission
-            ==================     =================================================
+            ====================   =================================================
 
             If not provided, it will default to ``PART_EMIT_FROM_NODES``
         num_points: int
