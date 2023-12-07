@@ -1,7 +1,8 @@
+import glob
 import os
 import tempfile
 from types import ModuleType
-from typing import Any, Optional, Union
+from typing import Any, List, Optional, Union
 import uuid
 
 from PIL import Image
@@ -477,7 +478,7 @@ class Export:
 
     def _geometry_remote(
         self, format: str, starting_timestep: int, frames: int, delta_timestep: int
-    ) -> bytes:
+    ) -> List[bytes]:
         """EnSight-side implementation.
 
         Parameters
@@ -498,6 +499,7 @@ class Export:
         """
         rawdata = None
         extension = self.extension_map.get(format)
+        rawdata_list = []
         if not extension:
             raise RuntimeError("The geometry export format provided is not supported.")
         with tempfile.TemporaryDirectory() as tmpdirname:
@@ -509,9 +511,12 @@ class Export:
             self._ensight.savegeom.step_by(delta_timestep)
             tmpfilename = os.path.join(tmpdirname, str(uuid.uuid1()))
             self._ensight.savegeom.save_geometric_entities(tmpfilename)
-            with open(tmpfilename + extension, "rb") as tmpfile:
-                rawdata = tmpfile.read()
-        return rawdata
+            files = glob.glob(f"{tmpfilename}*{extension}")
+            for export_file in files:
+                with open(export_file, "rb") as tmpfile:
+                    rawdata = tmpfile.read()
+                    rawdata_list.append(rawdata)
+        return rawdata_list
 
     def geometry(
         self,
@@ -543,17 +548,17 @@ class Export:
         >>> s.ensight.objs.ensxml_restore_file(data)
         >>> s.ensight.utils.export.geometry("local_file.glb", format=s.ensight.utils.export.GEOM_EXPORT_GLTF)
         """
-        if not starting_timestep:
+        if starting_timestep is None:
             starting_timestep = int(self._ensight.objs.core.TIMESTEP)
-        if not frames or frames == -1:
+        if frames is None or frames == -1:
             # Timesteps are 0-indexed so frames need to be increased of 1
             frames = int(self._ensight.objs.core.TIMESTEP_LIMITS[1]) + 1
         if not delta_timestep:
             delta_timestep = 1
         self._remote_support_check()
-        raw_data = None
+        raw_data_list = None
         if isinstance(self._ensight, ModuleType):
-            raw_data = self._geometry_remote(
+            raw_data_list = self._geometry_remote(
                 format,
                 starting_timestep=starting_timestep,
                 frames=frames,
@@ -561,9 +566,16 @@ class Export:
             )
         else:
             cmd = f"ensight.utils.export._geometry_remote('{format}', {starting_timestep}, {frames}, {delta_timestep})"
-            raw_data = self._ensight._session.cmd(cmd)
-        if raw_data:
-            with open(filename, "wb") as fp:
-                fp.write(raw_data)
+            raw_data_list = self._ensight._session.cmd(cmd)
+        if raw_data_list:
+            if len(raw_data_list) == 1:
+                with open(filename, "wb") as fp:
+                    fp.write(raw_data_list[0])
+            else:
+                for idx, raw_data in enumerate(raw_data_list):
+                    filename_base, extension = os.path.splitext(filename)
+                    _filename = f"{filename_base}{str(idx).zfill(3)}{extension}"
+                    with open(_filename, "wb") as fp:
+                        fp.write(raw_data)
         else:
             raise IOError("Export was not successful")
