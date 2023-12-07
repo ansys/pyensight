@@ -22,6 +22,7 @@ import types
 from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Tuple
 from urllib.parse import urlparse
 from urllib.request import url2pathname
+import uuid
 import webbrowser
 
 from ansys.pyensight.core.enscontext import EnsContext
@@ -124,6 +125,8 @@ class Session:
         rest_api: bool = False,
         sos: bool = False,
     ) -> None:
+        # every session instance needs a unique name that can be used as a cache key
+        self._session_name = str(uuid.uuid1())
         # when objects come into play, we can reuse them, so hash ID to instance here
         self._ensobj_hash: Dict[int, "ENSOBJ"] = {}
         self._language = "en"
@@ -170,6 +173,7 @@ class Session:
         self._grpc = ensight_grpc.EnSightGRPC(
             host=self._hostname, port=self._grpc_port, secret_key=self._secret_key
         )
+        self._grpc.session_name = self._session_name
 
         # establish the connection with retry
         self._establish_connection(validate=True)
@@ -193,6 +197,54 @@ class Session:
         # we very much want a chance to close it up cleanly. It is legal to
         # call close() twice on this class if needed.
         atexit.register(self.close)
+
+        # Speed up subtype lookups:
+        self._subtype_tables = {}
+        part_lookup_dict = dict()
+        part_lookup_dict[0] = "ENS_PART_MODEL"
+        part_lookup_dict[1] = "ENS_PART_CLIP"
+        part_lookup_dict[2] = "ENS_PART_CONTOUR"
+        part_lookup_dict[3] = "ENS_PART_DISCRETE_PARTICLE"
+        part_lookup_dict[4] = "ENS_PART_FRAME"
+        part_lookup_dict[5] = "ENS_PART_ISOSURFACE"
+        part_lookup_dict[6] = "ENS_PART_PARTICLE_TRACE"
+        part_lookup_dict[7] = "ENS_PART_PROFILE"
+        part_lookup_dict[8] = "ENS_PART_VECTOR_ARROW"
+        part_lookup_dict[9] = "ENS_PART_ELEVATED_SURFACE"
+        part_lookup_dict[10] = "ENS_PART_DEVELOPED_SURFACE"
+        part_lookup_dict[15] = "ENS_PART_BUILT_UP"
+        part_lookup_dict[16] = "ENS_PART_TENSOR_GLYPH"
+        part_lookup_dict[17] = "ENS_PART_FX_VORTEX_CORE"
+        part_lookup_dict[18] = "ENS_PART_FX_SHOCK"
+        part_lookup_dict[19] = "ENS_PART_FX_SEP_ATT"
+        part_lookup_dict[20] = "ENS_PART_MAT_INTERFACE"
+        part_lookup_dict[21] = "ENS_PART_POINT"
+        part_lookup_dict[22] = "ENS_PART_AXISYMMETRIC"
+        part_lookup_dict[24] = "ENS_PART_VOF"
+        part_lookup_dict[25] = "ENS_PART_AUX_GEOM"
+        part_lookup_dict[26] = "ENS_PART_FILTER"
+        self._subtype_tables["ENS_PART"] = part_lookup_dict
+        annot_lookup_dict = dict()
+        annot_lookup_dict[0] = "ENS_ANNOT_TEXT"
+        annot_lookup_dict[1] = "ENS_ANNOT_LINE"
+        annot_lookup_dict[2] = "ENS_ANNOT_LOGO"
+        annot_lookup_dict[3] = "ENS_ANNOT_LGND"
+        annot_lookup_dict[4] = "ENS_ANNOT_MARKER"
+        annot_lookup_dict[5] = "ENS_ANNOT_ARROW"
+        annot_lookup_dict[6] = "ENS_ANNOT_DIAL"
+        annot_lookup_dict[7] = "ENS_ANNOT_GAUGE"
+        annot_lookup_dict[8] = "ENS_ANNOT_SHAPE"
+        self._subtype_tables["ENS_ANNOT"] = annot_lookup_dict
+        tool_lookup_dict = dict()
+        tool_lookup_dict[0] = "ENS_TOOL_CURSOR"
+        tool_lookup_dict[1] = "ENS_TOOL_LINE"
+        tool_lookup_dict[2] = "ENS_TOOL_PLANE"
+        tool_lookup_dict[3] = "ENS_TOOL_BOX"
+        tool_lookup_dict[4] = "ENS_TOOL_CYLINDER"
+        tool_lookup_dict[5] = "ENS_TOOL_CONE"
+        tool_lookup_dict[6] = "ENS_TOOL_SPHERE"
+        tool_lookup_dict[7] = "ENS_TOOL_REVOLUTION"
+        self._subtype_tables["ENS_TOOL"] = tool_lookup_dict
 
     def __repr__(self):
         # if this is called from in the ctor, self.launcher might be None.
@@ -257,7 +309,14 @@ class Session:
             except Exception:
                 pass
             time.sleep(0.5)
-        raise RuntimeError("Unable to establish a REST connection to EnSight.")
+        raise RuntimeError("Unable to establish a REST connection to EnSight.")  # pragma: no cover
+
+    @property
+    def name(self) -> str:
+        """The session name is a unique identifier for this Session instance.  It
+        is used by EnSight to maintain session specific data values within the
+        EnSight instance."""
+        return self._session_name
 
     @property
     def language(self) -> str:
@@ -884,7 +943,8 @@ class Session:
         ret = self._grpc.command(value, do_eval=do_eval)
         if do_eval:
             ret = self._convert_ctor(ret)
-            return eval(ret, dict(session=self, ensobjlist=ensobjlist))
+            value = eval(ret, dict(session=self, ensobjlist=ensobjlist))
+            return value
         return ret
 
     def geometry(self, what: str = "glb") -> bytes:
@@ -937,11 +997,36 @@ class Session:
         self._establish_connection()
         return self._grpc.render(width=width, height=height, aa=aa)
 
+    def _release_remote_objects(self, object_id: Optional[int] = None):
+        """
+        Send a command to the remote EnSight session to drop a specific object
+        or all objects from the remote object cache.
+
+        Parameters
+        ----------
+        object_id: int, optional
+            The specific object to drop from the cache.  If no objects are specified,
+            then all remote objects associated with this session will be dropped.
+
+        """
+        obj_str = ""
+        if object_id:
+            obj_str = f", id={object_id}"
+        cmd = f"ensight.objs.release_id('{self.name}'{obj_str})"
+        _ = self.cmd(cmd, do_eval=False)
+
     def close(self) -> None:
         """Close the session.
 
         Close the current session and its gRPC connection.
         """
+        # if version 242 or higher, free any objects we have cached there
+        if self.cei_suffix >= "242":
+            try:
+                self._release_remote_objects()
+            except RuntimeError:  # pragma: no cover
+                # handle some intermediate EnSight builds.
+                pass
         if self._launcher and self._halt_ensight_on_close:
             self._launcher.close(self)
         else:
@@ -982,7 +1067,7 @@ class Session:
                     # Create an instance, using ensight as the EnSight interface
                     # and place it in this module.
                     setattr(self._ensight.utils, _name, _the_class(self._ensight))
-            except Exception as e:
+            except Exception as e:  # pragma: no cover
                 # Warn on import errors
                 print(f"Error loading ensight.utils from: '{_filename}' : {e}")
 
@@ -1414,55 +1499,13 @@ class Session:
 
         """
         if classname == "ENS_PART":
-            part_lookup_dict = dict()
-            part_lookup_dict[0] = "ENS_PART_MODEL"
-            part_lookup_dict[1] = "ENS_PART_CLIP"
-            part_lookup_dict[2] = "ENS_PART_CONTOUR"
-            part_lookup_dict[3] = "ENS_PART_DISCRETE_PARTICLE"
-            part_lookup_dict[4] = "ENS_PART_FRAME"
-            part_lookup_dict[5] = "ENS_PART_ISOSURFACE"
-            part_lookup_dict[6] = "ENS_PART_PARTICLE_TRACE"
-            part_lookup_dict[7] = "ENS_PART_PROFILE"
-            part_lookup_dict[8] = "ENS_PART_VECTOR_ARROW"
-            part_lookup_dict[9] = "ENS_PART_ELEVATED_SURFACE"
-            part_lookup_dict[10] = "ENS_PART_DEVELOPED_SURFACE"
-            part_lookup_dict[15] = "ENS_PART_BUILT_UP"
-            part_lookup_dict[16] = "ENS_PART_TENSOR_GLYPH"
-            part_lookup_dict[17] = "ENS_PART_FX_VORTEX_CORE"
-            part_lookup_dict[18] = "ENS_PART_FX_SHOCK"
-            part_lookup_dict[19] = "ENS_PART_FX_SEP_ATT"
-            part_lookup_dict[20] = "ENS_PART_MAT_INTERFACE"
-            part_lookup_dict[21] = "ENS_PART_POINT"
-            part_lookup_dict[22] = "ENS_PART_AXISYMMETRIC"
-            part_lookup_dict[24] = "ENS_PART_VOF"
-            part_lookup_dict[25] = "ENS_PART_AUX_GEOM"
-            part_lookup_dict[26] = "ENS_PART_FILTER"
-            return self.ensight.objs.enums.PARTTYPE, part_lookup_dict
+            return self.ensight.objs.enums.PARTTYPE, self._subtype_tables[classname]
 
         elif classname == "ENS_ANNOT":
-            annot_lookup_dict = dict()
-            annot_lookup_dict[0] = "ENS_ANNOT_TEXT"
-            annot_lookup_dict[1] = "ENS_ANNOT_LINE"
-            annot_lookup_dict[2] = "ENS_ANNOT_LOGO"
-            annot_lookup_dict[3] = "ENS_ANNOT_LGND"
-            annot_lookup_dict[4] = "ENS_ANNOT_MARKER"
-            annot_lookup_dict[5] = "ENS_ANNOT_ARROW"
-            annot_lookup_dict[6] = "ENS_ANNOT_DIAL"
-            annot_lookup_dict[7] = "ENS_ANNOT_GAUGE"
-            annot_lookup_dict[8] = "ENS_ANNOT_SHAPE"
-            return self.ensight.objs.enums.ANNOTTYPE, annot_lookup_dict
+            return self.ensight.objs.enums.ANNOTTYPE, self._subtype_tables[classname]
 
         elif classname == "ENS_TOOL":
-            tool_lookup_dict = dict()
-            tool_lookup_dict[0] = "ENS_TOOL_CURSOR"
-            tool_lookup_dict[1] = "ENS_TOOL_LINE"
-            tool_lookup_dict[2] = "ENS_TOOL_PLANE"
-            tool_lookup_dict[3] = "ENS_TOOL_BOX"
-            tool_lookup_dict[4] = "ENS_TOOL_CYLINDER"
-            tool_lookup_dict[5] = "ENS_TOOL_CONE"
-            tool_lookup_dict[6] = "ENS_TOOL_SPHERE"
-            tool_lookup_dict[7] = "ENS_TOOL_REVOLUTION"
-            return self.ensight.objs.enums.TOOLTYPE, tool_lookup_dict
+            return self.ensight.objs.enums.TOOLTYPE, self._subtype_tables[classname]
 
         return None, None
 
@@ -1473,6 +1516,8 @@ class Session:
 
             Class: ENS_GLOBALS, CvfObjID: 221, cached:yes
             Class: ENS_PART, desc: 'Sphere', CvfObjID: 1078, cached:no
+            Class: ENS_PART, desc: 'engine', PartType: 0, CvfObjID: 1097, cached:no
+            Class: ENS_GROUP, desc: '', Owned, CvfObjID: 1043, cached:no
 
         This method detects strings like those and converts them into strings like these::
 
@@ -1495,28 +1540,33 @@ class Session:
 
         """
         self._prune_hash()
+        offset = 0
         while True:
             # Find the object repl block to replace
-            id = s.find("CvfObjID:")
+            id = s.find("CvfObjID:", offset)
             if id == -1:
                 break
-            start = s.find("Class: ")
+            start = s.find("Class: ", offset)
             if (start == -1) or (start > id):
                 break
             tail_len = 11
-            tail = s.find(", cached:no")
+            tail = s.find(", cached:no", offset)
             if tail == -1:
                 tail_len = 12
-                tail = s.find(", cached:yes")
+                tail = s.find(", cached:yes", offset)
             if tail == -1:
                 break
+            # just this object substring
+            tmp = s[start + 7 : tail]
             # Subtype (PartType:, AnnotType:, ToolType:)
             subtype = None
             for name in ("PartType:", "AnnotType:", "ToolType:"):
-                location = s.find(name)
-                if (location != -1) and (location > id):
-                    subtype = int(s[location + len(name) :].split(",")[0])
+                location = tmp.find(name)
+                if location != -1:
+                    subtype = int(tmp[location + len(name) :].split(",")[0])
                     break
+            # Owned flag
+            owned_flag = "Owned," in tmp
             # isolate the block to replace
             prefix = s[:start]
             suffix = s[tail + tail_len :]
@@ -1535,7 +1585,9 @@ class Session:
                 if attr_id is not None:
                     if subtype is not None:
                         # the 2024 R2 interface includes the subtype
-                        subclass_info = f",attr_id={attr_id}, attr_value={subtype}"
+                        if (classname_lookup is not None) and (subtype in classname_lookup):
+                            classname = classname_lookup[subtype]
+                            subclass_info = f",attr_id={attr_id}, attr_value={subtype}"
                     elif classname_lookup is not None:
                         # if a "subclass" case and no subclass attrid value, ask for it...
                         remote_name = self.remote_obj(objid)
@@ -1544,13 +1596,16 @@ class Session:
                         if attr_value in classname_lookup:
                             classname = classname_lookup[attr_value]
                             subclass_info = f",attr_id={attr_id}, attr_value={attr_value}"
+                if owned_flag:
+                    subclass_info += ",owned=True"
                 replace_text = f"session.ensight.objs.{classname}(session, {objid}{subclass_info})"
             if replace_text is None:
                 break
+            offset = start + len(replace_text)
             s = prefix + replace_text + suffix
         s = s.strip()
         if s.startswith("[") and s.endswith("]"):
-            s = "ensobjlist(" + s + ")"
+            s = f"ensobjlist({s}, session=session)"
         return s
 
     def capture_context(self, full_context: bool = False) -> "enscontext.EnsContext":
