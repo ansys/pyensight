@@ -35,6 +35,7 @@ operations that can only be performed via that interface.
    ansys.api.pyensight.ens_case.ENS_CASE
    ansys.api.pyensight.ens_flipbook.ENS_FLIPBOOK
    ansys.api.pyensight.ens_frame.ENS_FRAME
+   ansys.api.pyensight.ens_geom.ENS_GEOM
    ansys.api.pyensight.ens_globals.ENS_GLOBALS
    ansys.api.pyensight.ens_group.ENS_GROUP
    ansys.api.pyensight.ens_lightsource.ENS_LIGHTSOURCE
@@ -68,6 +69,7 @@ operations that can only be performed via that interface.
    ansys.api.pyensight.ens_polyline.ENS_POLYLINE
    ansys.api.pyensight.ens_probe.ENS_PROBE
    ansys.api.pyensight.ens_query.ENS_QUERY
+   ansys.api.pyensight.ens_source.ENS_SCENE
    ansys.api.pyensight.ens_source.ENS_SOURCE
    ansys.api.pyensight.ens_spec.ENS_SPEC
    ansys.api.pyensight.ens_state.ENS_STATE
