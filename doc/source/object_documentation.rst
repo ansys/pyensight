@@ -69,7 +69,7 @@ operations that can only be performed via that interface.
    ansys.api.pyensight.ens_polyline.ENS_POLYLINE
    ansys.api.pyensight.ens_probe.ENS_PROBE
    ansys.api.pyensight.ens_query.ENS_QUERY
-   ansys.api.pyensight.ens_source.ENS_SCENE
+   ansys.api.pyensight.ens_scene.ENS_SCENE
    ansys.api.pyensight.ens_source.ENS_SOURCE
    ansys.api.pyensight.ens_spec.ENS_SPEC
    ansys.api.pyensight.ens_state.ENS_STATE
