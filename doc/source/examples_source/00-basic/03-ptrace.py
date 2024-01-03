@@ -40,7 +40,7 @@ session.load_data(
     file_format="PLOT3D",
     representation="3D_feature_2D_full",
 )
-
+session.show("image", width=800, height=600)
 
 ###############################################################################
 # The PLOT3D reader only reads the volume by default. Now, extract a
@@ -110,7 +110,7 @@ strpart = eoutil.parts.create_particle_trace_from_line(
     source_parts=parent_parts,
     direction="+/-",
 )
-
+session.show("image", width=800, height=600)
 
 ###############################################################################
 # Change Visual Attributes
@@ -122,7 +122,7 @@ strpart = eoutil.parts.create_particle_trace_from_line(
 strpart.REPRESENTATION = eonums.TRACE_TUBE
 strpart.WIDTHSCALEFACTOR = 0.012
 strpart.COLORBYPALETTE = "Momentum"
-
+session.show("image", width=800, height=600)
 
 ###############################################################################
 # Animate the Streamlines
@@ -140,5 +140,6 @@ eocore.HEADSCALE = 0.03
 eocore.PARTICLETIME = 2.0
 eocore.DELTATIME = 0.065
 eocore.MULTIPLEPULSES = True
+session.show("image", width=800, height=600)
 
 session.close()
