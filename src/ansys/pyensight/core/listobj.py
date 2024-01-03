@@ -5,7 +5,19 @@ Emulation of the EnSight ensobjlist class
 """
 from collections.abc import Iterable
 import fnmatch
-from typing import Any, List, Optional, SupportsIndex, TypeVar, no_type_check, overload
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    List,
+    Optional,
+    SupportsIndex,
+    TypeVar,
+    no_type_check,
+    overload,
+)
+
+if TYPE_CHECKING:
+    from ansys.pyensight.core import Session
 
 from ansys.pyensight.core.ensobj import ENSOBJ
 
@@ -44,8 +56,9 @@ class ensobjlist(List[T]):  # noqa: N801
 
     """
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, *args, session: Optional["Session"] = None, **kwargs) -> None:
         super().__init__(*args, **kwargs)
+        self._session = session
 
     @staticmethod
     def _is_iterable(arg: Any) -> bool:
@@ -92,7 +105,7 @@ class ensobjlist(List[T]):  # noqa: N801
         value_list = value
         if not self._is_iterable(value):
             value_list = [value]
-        out_list: ensobjlist[Any] = ensobjlist()
+        out_list: ensobjlist[Any] = ensobjlist(session=self._session)
         for item in self:
             if isinstance(item, ENSOBJ):
                 try:
@@ -112,7 +125,16 @@ class ensobjlist(List[T]):  # noqa: N801
                                 break
                 except RuntimeError:
                     pass
-        # TODO: handle group
+        if group:
+            # This is a bit of a hack, but the find() method generates a local list of
+            # proxy objects.  We want to put that in a group.  We do that by running
+            # a script in EnSight that creates an empty group and then adds those
+            # children to the group.  The output becomes the remote referenced ENS_GROUP.
+            if self._session is not None:
+                ens_group_cmd = "ensight.objs.core.VPORTS.find('__unknown__', group=1)"
+                ens_group = self._session.cmd(ens_group_cmd)
+                ens_group.addchild(out_list)
+                out_list = ens_group
         return out_list
 
     def set_attr(self, attr: Any, value: Any) -> int:
@@ -139,7 +161,6 @@ class ensobjlist(List[T]):  # noqa: N801
         >>> session.ensight.objs.core.PARTS.set_attr("VISIBLE", True)
 
         """
-        objid_list = []
         session = None
         objid_list = [x.__OBJID__ for x in self if isinstance(x, ENSOBJ)]
         for item in self:
@@ -176,7 +197,6 @@ class ensobjlist(List[T]):  # noqa: N801
         >>> state = session.ensight.core.PARTS.get_attr(session.ensight.objs.enums.VISIBLE)
 
         """
-        objid_list = []
         session = None
         objid_list = [x.__OBJID__ for x in self if isinstance(x, ENSOBJ)]
         for item in self:
