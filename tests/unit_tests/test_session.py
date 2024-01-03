@@ -215,19 +215,19 @@ def test_convert_ctor(mocked_session, mocker):
     value = session._convert_ctor("Class: ENS_PART, desc: 'Sphere', CvfObjID: 1078, cached:no")
     assert (
         value
-        == "session.ensight.objs.ENS_PART_MODEL(session, 1078,attr_id=1610612792, attr_value=0)"
+        == "session.ensight.objs.ENS_PART_MODEL(session, 1078,attr_id=1610612795, attr_value=0)"
     )
     cmd.return_value = 3
     value = session._convert_ctor("Class: ENS_ANNOT, desc: 'Pressure', CvfObjID: 4761, cached:no")
     assert (
         value
-        == "session.ensight.objs.ENS_ANNOT_LGND(session, 4761,attr_id=1610612991, attr_value=3)"
+        == "session.ensight.objs.ENS_ANNOT_LGND(session, 4761,attr_id=1610612995, attr_value=3)"
     )
     cmd.return_value = 6
     value = session._convert_ctor("Class: ENS_TOOL, desc: 'Sphere', CvfObjID: 763, cached:no")
     assert (
         value
-        == "session.ensight.objs.ENS_TOOL_SPHERE(session, 763,attr_id=1610613031, attr_value=6)"
+        == "session.ensight.objs.ENS_TOOL_SPHERE(session, 763,attr_id=1610613035, attr_value=6)"
     )
     session._ensobj_hash = {i: i for i in range(10000000)}
     value = session._convert_ctor("Class: ENS_GLOBALS, CvfObjID: 221, cached:yes")
