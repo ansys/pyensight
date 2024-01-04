@@ -142,4 +142,9 @@ eocore.DELTATIME = 0.065
 eocore.MULTIPLEPULSES = True
 session.show("image", width=800, height=600)
 
+###############################################################################
+# Thumbnail
+# sphinx_gallery_thumbnail_path = '_static/03_ptrace_2.png'
+
+
 session.close()
