@@ -75,16 +75,16 @@ clip = clip.createpart(name="X_Clip", sources=[parent_parts], attributes=attrs)
 emitter_part = clip
 parent_parts = eoutil.parts.select_parts_by_dimension(2)
 npts = 25  # number of emitters
-vector_var = varname # Vector variable to use
+vector_var = varname  # Vector variable to use
 pathline_part = eoutil.parts.create_particle_trace_from_parts(
     "Pathline",
     vector_var,
-    parts = emitter_part,
+    parts=emitter_part,
     num_points=npts,
     source_parts=parent_parts,
     pathlines=True,
-    emit_time = 4.0,
-    delta_time = 20.0
+    emit_time=4.0,
+    delta_time=20.0,
 )
 session.show("image", width=800, height=600)
 
