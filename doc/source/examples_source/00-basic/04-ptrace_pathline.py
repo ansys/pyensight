@@ -16,9 +16,8 @@ Create Pathline and Animate.
 # This example uses a local EnSight installation.
 from ansys.pyensight.core import LocalLauncher
 
-ansys_loc = r"""C:\Program Files\ANSYS Inc\v242"""
+session = LocalLauncher().start()
 
-session = LocalLauncher(ansys_installation=ansys_loc).start()
 # Setup shortcuts for long winded calls.
 eocore = session.ensight.objs.core
 eonums = session.ensight.objs.enums
@@ -115,7 +114,7 @@ pathline_part.ANIMATE = True
 eocore.HEADTYPE = eonums.ATRACE_HEAD_SPHERE
 eocore.HEADSCALE = 0.3
 session.ensight.solution_time.play_forward()
-session.show("image", width=800, height=600)
+session.show("animation", width=800, height=600,fps=15)
 
 ###############################################################################
 # Thumbnail
