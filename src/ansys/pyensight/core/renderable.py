@@ -494,7 +494,7 @@ class RenderableWebGL(Renderable):
         # the download is the avz file
         self._download_names.append(self._avz_filename)
         self.update()
-    
+
     def update(self):
         """Update the WebGL geometry and display it.
 
