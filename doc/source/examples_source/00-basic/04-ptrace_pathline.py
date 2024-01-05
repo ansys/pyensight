@@ -114,7 +114,7 @@ pathline_part.ANIMATE = True
 eocore.HEADTYPE = eonums.ATRACE_HEAD_SPHERE
 eocore.HEADSCALE = 0.3
 session.ensight.solution_time.play_forward()
-session.show("animation", width=800, height=600,fps=15)
+session.show("animation", width=800, height=600, fps=15)
 
 ###############################################################################
 # Thumbnail
