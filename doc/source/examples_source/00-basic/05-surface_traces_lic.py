@@ -8,6 +8,8 @@ Utilze EnSight to investigate two types of surface streamlines:
 Surface Restricted Traces (using Particle Trace)
 and LIC (Line Integral Convolution)
 
+Intended to work with EnSight version 24.2 or later
+
 """
 
 ###############################################################################
@@ -30,7 +32,9 @@ eoutil = session.ensight.utils
 #
 # .. image:: /_static/05_srt_lic_0.png
 
-session.ensight.objs.ensxml_restore_file(f"{session.cei_home}/ensight{session.cei_suffix}gui/demos/Shuttle Basic.ens")
+session.ensight.objs.ensxml_restore_file(
+    f"{session.cei_home}/ensight{session.cei_suffix}gui/demos/Shuttle Basic.ens"
+)
 session.ensight.view.highlight_parts("OFF")
 session.ensight.view_transf.fit(0)
 session.show("image", width=800, height=600)
@@ -40,7 +44,7 @@ session.show("image", width=800, height=600)
 # ------------------------------------------------------------------
 # Using a Particle Trace capability
 # Parent Part and Emit part are the same part.
-# Surface Restriction is ON. 
+# Surface Restriction is ON.
 
 # .. image:: /_static/05_srt_lic_1.png
 
@@ -63,19 +67,19 @@ session.show("image", width=800, height=600)
 ###############################################################################
 # Change Visual Attributes
 # ----------------------------------------------------------
-#  Modify the attributes of the Surface Restricted Traces to 
+#  Modify the attributes of the Surface Restricted Traces to
 #  be visually closer to Flourescene or Titantiam Dioxide (experimental use)
 
 # .. image:: /_static/05_str_lic_2.png
 
-SRTpart.colorbyrgb = [0,1,0]
+SRTpart.colorbyrgb = [0, 1, 0]
 SRTpart.OPAQUENESS = 0.25
 session.show("image", width=800, height=600)
 
 ###############################################################################
 # Try Line Integral Convolution (LIC) instead
 # ----------------------------------------------------------
-#  As we don't already have a near-surface, non-zero vector defined we need to create 'Offset' Variable. 
+#  As we don't already have a near-surface, non-zero vector defined we need to create 'Offset' Variable.
 #  Create Offset Variable for Value of Momentum at 2.e-5 distance into fluid domain
 #  Specify Offset Variable as the variable for LIC.
 #  Specify High Contrast and 1 length for the LIC
