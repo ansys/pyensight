@@ -151,7 +151,6 @@ session.show("image", width=800, height=600)
 ###############################################################################
 # Close the connection and shut down the EnSight instance.
 # --------------------------------------------------------
+
 # sphinx_gallery_thumbnail_path = '_static/02_calc_4.png'
-
-
 session.close()

@@ -52,6 +52,7 @@ extensions = [
     "sphinxcontrib.mermaid",
     "sphinxcontrib.jquery",
     "sphinxcontrib.openapi",
+    "sphinxcontrib.video",
     # "ansys_sphinx_theme",
 ]
 
