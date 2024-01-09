@@ -4,8 +4,8 @@
 Particle Trace (Streamline/Pathline) usage
 ==========================================
 
-Utilze EnSight Particle Trace (aka Streamline/Pathline to visualize a
-vector through the domain.)
+Utilize EnSight Particle Trace (aka Streamline/Pathline) to visualize a
+vector through the domain.
 Create Streamline, animate, allow for dynamic change.
 
 """
@@ -15,11 +15,10 @@ Create Streamline, animate, allow for dynamic change.
 # ------------------------
 # Launch and connect to an instance of EnSight.
 # This example uses a local EnSight installation.
+
 from ansys.pyensight.core import LocalLauncher
 
-ansys_loc = r"""C:\Program Files\ANSYS Inc\v242"""
-
-session = LocalLauncher(ansys_installation=ansys_loc).start()
+session = LocalLauncher().start()
 # Setup shortcuts for long winded calls.
 eocore = session.ensight.objs.core
 eonums = session.ensight.objs.enums
@@ -46,7 +45,6 @@ session.show("image", width=800, height=600)
 # The PLOT3D reader only reads the volume by default. Now, extract a
 #  particular IJK range for the surface of the shuttle
 # ------------------------------------------------------------------
-#
 
 session.ensight.data_partbuild.begin()
 session.ensight.case.select("Case 1")
@@ -93,7 +91,7 @@ session.ensight.part.modify_end()
 # ---------------------------------------------------------
 # Using the 3D parts as the parent, with the line tool as the emission type
 # "Momentum" as the vector, and 50 points alone the line as emitter locations.
-
+#
 # .. image:: /_static/03_ptrace_1.png
 
 pt1 = [0.1245, 0.064366, -0.03438]
@@ -116,7 +114,7 @@ session.show("image", width=800, height=600)
 # Change Visual Attributes
 # ----------------------------------------------------------
 #  Modify the attributes of the Streamline for visual clarity
-
+#
 # .. image:: /_static/03_ptrace_2.png
 
 strpart.REPRESENTATION = eonums.TRACE_TUBE
@@ -130,7 +128,7 @@ session.show("image", width=800, height=600)
 #  Turn OFF the streamlines (to see the animate under)
 #  Turn ON the animate streamlines.
 #  Change to Sphere representation, size, and adjust speed and length.
-
+#
 # .. image:: /_static/03_ptrace_3.png
 
 strpart.VISIBLE = False
@@ -143,8 +141,8 @@ eocore.MULTIPLEPULSES = True
 session.show("image", width=800, height=600)
 
 ###############################################################################
-# Thumbnail
+# Close the session
+#
+
 # sphinx_gallery_thumbnail_path = '_static/03_ptrace_2.png'
-
-
 session.close()
