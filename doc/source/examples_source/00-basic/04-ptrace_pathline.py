@@ -4,8 +4,8 @@
 Pathline (transient streamline) Creation
 ========================================
 
-Utilze EnSight Particle Trace for Pathline (transient streamline)
-Create Pathline and Animate.
+Utilize EnSight Particle Trace for Pathline (transient streamline).
+Create a Pathline and Animate it.
 
 """
 
@@ -26,8 +26,8 @@ eoutil = session.ensight.utils
 ###############################################################################
 # Load a dataset
 # --------------
-# Load Flow2D dataset included in the EnSight installation and render
-# Set the timestep to be the minimum timestep.
+# Load Flow2D dataset included in the EnSight installation
+# set the timestep to the minimum timestep and render.
 #
 # .. image:: /_static/04_pathline_0.png
 
@@ -68,7 +68,7 @@ clip = clip.createpart(name="X_Clip", sources=[parent_parts], attributes=attrs)
 # "VITESSE" as the vector, and 25 points along the Clip line as emitter locations.
 # We also setup to first emit the Pathlines at time = 4 seconds.
 # and Emit NEW pathlines ever 20 seconds after that. (They will follow NEW path)
-
+#
 # .. image:: /_static/04_pathline_1.png
 
 emitter_part = clip
@@ -92,7 +92,7 @@ session.show("image", width=800, height=600)
 # Change Visual Attributes
 # ----------------------------------------------------------
 #  Modify the attributes of the pathlines and animate over time
-
+#
 # .. image:: /_static/04_pathline_2.png
 
 pathline_part.REPRESENTATION = eonums.TRACE_TUBE
@@ -106,8 +106,11 @@ session.show("image", width=800, height=600)
 #  Turn OFF the pathline lines visibility (to see the animate under)
 #  Turn ON the animate pathlines.
 #  Change to Sphere representation, size, and adjust speed and length.
-
-# .. image:: /_static/04_pathline_3.mp4
+#
+# .. video:: ../../_static/04_pathline_3.mp4
+#     :width: 640
+#     :height: 360
+#
 
 pathline_part.VISIBLE = False
 pathline_part.ANIMATE = True
@@ -117,8 +120,7 @@ session.ensight.solution_time.play_forward()
 session.show("animation", width=800, height=600, fps=15)
 
 ###############################################################################
-# Thumbnail
+# Close the session
+
 # sphinx_gallery_thumbnail_path = '_static/04_pathline_2.png'
-
-
 session.close()
