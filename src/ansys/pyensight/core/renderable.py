@@ -572,20 +572,29 @@ class RenderableVNC(Renderable):
 class RenderableVNCAngular(Renderable):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self._query_params = {
-            "autoconnect": "true",
-            "host": self._session.hostname,
-            "port": self._session.ws_port,
-            "secretKey": self._session.secret_key,
-        }
+        self._generate_url()
         self._rendertype = "remote"
         self.update()
 
     def update(self):
-        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
-        url += "/ansys/nexus/angular/viewer_angular_pyensight.html"
-        url += self._get_query_parameters_str(self._query_params)
-        self._url = url
+        base_content = """
+<!doctype html>
+<html lang="en" class="dark">
+<head><base href="/ansys/nexus/angular/">
+  <meta charset="utf-8">
+  <title>WebEnSight</title>
+  <script src="/ansys/nexus/viewer-loader.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="ensight.ico">
+<link rel="stylesheet" href="styles.css"></head>
+<body>
+"""
+        module_with_attributes = "\n  <web-en-sight "
+        module_with_attributes += f'wsPort="{self._session.ws_port}" '
+        module_with_attributes += f'secretKey="{self._session.secret_key}">\n'
+        script_src = '<script src="runtime.js" type="module"></script><script src="polyfills.js" type="module"></script><script src="main.js" type="module"></script></body>\n</html>'
+        content = base_content + module_with_attributes + script_src
+        self._save_remote_html_page(content)
         super().update()
 
 
