@@ -19,7 +19,7 @@ import sys
 import textwrap
 import time
 import types
-from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Tuple
+from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Tuple, Union
 from urllib.parse import urlparse
 from urllib.request import url2pathname
 import uuid
@@ -44,6 +44,10 @@ if TYPE_CHECKING:
     from ansys.api.pyensight import ensight_api
     from ansys.pyensight.core import enscontext, ensight_grpc, renderable
     from ansys.pyensight.core.ensobj import ENSOBJ
+
+
+class InvalidEnSightVersion(Exception):
+    pass
 
 
 class Session:
@@ -1661,3 +1665,70 @@ class Session:
         self.cmd(
             f"ansys.pyensight.core.enscontext._restore_context(ensight,'{data_str}')", do_eval=False
         )
+
+    def ensight_version_check(
+        self,
+        version: Union[int, str],
+        message: str = "",
+        exception: bool = True,
+        strict: bool = False,
+    ) -> bool:
+        """Check if the session is a specific version.
+
+        Different versions of pyensight Sessions may host different versions of EnSight.
+        This method compares the version of the remote EnSight session to a specific version
+        number.  If the remote EnSight version is at least the specified version, then
+        this method returns True.  If the version of EnSight is earlier than the specified
+        version, this method  will raise an exception.  The caller can specify the
+        error string to be included.  They may also specify if the version check should
+        be for a specific version vs the specified version or higher.  It is also possible
+        to avoid the exception and instead just return True or False for cases when an
+        alternative implementation might be used.
+
+        Parameters
+        ----------
+        version : Union[int, str]
+            The version number to compare the EnSight version against.
+        message : str
+            The message string to be used as the text for any raised exception.
+        exception : bool
+            If True, and the version comparison fails, an InvalidEnSightVersion is raised.
+            Otherwise, the result of the comparison is returned.
+        strict : bool
+            If True, the comparison of the two versions will only pass if they
+            are identical.  If False, if the EnSight version is greater than or
+            equal to the specified version the comparison will pass.
+
+        Returns
+        -------
+            True if the comparison succeeds, False otherwise.
+
+        Raises
+        ------
+            InvalidEnSightVersion if the comparison fails and exception is True.
+        """
+        ens_version = int(self.ensight.version("suffix"))
+        # handle various input formats
+        target = version
+        if isinstance(target, str):
+            # could be 'year RX' or the suffix as a string
+            if "R" in target:
+                tmp = [int(x) for x in target.split("R")]
+                target = (tmp[0] - 2000) * 10 + tmp[1]
+            else:
+                target = int(target)
+        # check validity
+        valid = ens_version == target
+        at_least = ""
+        if not strict:
+            at_least = "at least "
+            valid = ens_version >= target
+        if (not valid) and exception:
+            ens_version = self.ensight.version("version-full")
+            base_msg = f" ({at_least}'{version}' required, '{ens_version}' current)"
+            if message:
+                message += base_msg
+            else:
+                message = f"A newer version of EnSight is required to use this API:{base_msg}"
+            raise InvalidEnSightVersion(message)
+        return valid
