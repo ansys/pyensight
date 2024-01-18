@@ -68,7 +68,7 @@ session.show("image", width=800, height=600)
 # ----------------------------------------------------------
 #  Modify the attributes of the Surface Restricted Traces to
 #  be visually closer to Flourescene or Titantiam Dioxide (experimental use)
-# .. image:: /_static/05_str_lic_2.png
+# .. image:: /_static/05_srt_lic_2.png
 
 SRTpart.colorbyrgb = [0, 1, 0]
 SRTpart.OPAQUENESS = 0.25
