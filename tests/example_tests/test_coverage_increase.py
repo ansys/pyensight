@@ -245,3 +245,11 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     cas_file = session.download_pyansys_example("mixing_elbow.cas.h5", "pyfluent/mixing_elbow")
     dat_file = session.download_pyansys_example("mixing_elbow.dat.h5", "pyfluent/mixing_elbow")
     session.load_data(cas_file, result_file=dat_file)
+    #
+    assert session.ensight_version_check("2021 R1")
+    assert session.ensight_version_check("211")
+    try:
+        session.ensight_version_check("2100 R2")
+        assert False
+    except Exception:
+        pass
