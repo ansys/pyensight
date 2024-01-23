@@ -565,6 +565,7 @@ class Export:
                 delta_timestep=delta_timestep,
             )
         else:
+            self._ensight._session.ensight_version_check("2024 R2")
             cmd = f"ensight.utils.export._geometry_remote('{format}', {starting_timestep}, {frames}, {delta_timestep})"
             raw_data_list = self._ensight._session.cmd(cmd)
         if raw_data_list:

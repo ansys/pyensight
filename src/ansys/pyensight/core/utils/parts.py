@@ -402,6 +402,11 @@ class Parts:
         self, particle_trace_part: Union[str, int, "ENS_PART_PARTICLE_TRACE"]
     ) -> "ENS_PART_PARTICLE_TRACE":
         """Private utility to cure an input particle trace part and convert it to an ``ENS_PART`"""
+
+        # the add_emitter* functions were added in 2024 R2
+        if not isinstance(self.ensight, ModuleType):
+            self.ensight._session.ensight_version_check("2024 R2")
+
         _particle_trace_part: "ENS_PART_PARTICLE_TRACE"
         if isinstance(particle_trace_part, (str, int)):
             temp = self.ensight.objs.core.PARTS[particle_trace_part]
@@ -418,6 +423,11 @@ class Parts:
         source_parts: Optional[List[Union[str, int, "ENS_PART"]]] = None,
     ) -> Tuple[str, List["ENS_PART"]]:
         """Private utility to set the direction if not provided, and to cure the list of source parts."""
+
+        # the create_particle* functions were added in 2024 R2
+        if not isinstance(self.ensight, ModuleType):
+            self.ensight._session.ensight_version_check("2024 R2")
+
         if not direction:
             direction = self.PT_POS_TIME
         if source_parts:
