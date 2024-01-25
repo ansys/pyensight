@@ -477,7 +477,13 @@ class Export:
     }
 
     def _geometry_remote(
-        self, format: str, starting_timestep: int, frames: int, delta_timestep: int
+        self,
+        format: str,
+        starting_timestep: int,
+        frames: int,
+        delta_timestep: int,
+        binary: Optional[bool] = None,
+        single_file: Optional[bool] = None,
     ) -> List[bytes]:
         """EnSight-side implementation.
 
@@ -491,13 +497,18 @@ class Export:
             Number of timesteps to save. If None, defaults from the current timestep to the last
         delta_timestep: int
             The delta timestep to use when exporting
+        binary: bool, optional
+            If provided, this keyword specifies if the file should be binary or not.
+            This is format specific.
+        single_file: bool, optional
+            If provided, this keyword specifies if the export should be into a single file.
+            This is format specific.
 
         Returns
         -------
         bytes
             Geometry export in bytes
         """
-        rawdata = None
         extension = self.extension_map.get(format)
         rawdata_list = []
         if not extension:
@@ -505,8 +516,18 @@ class Export:
         with tempfile.TemporaryDirectory() as tmpdirname:
             self._ensight.part.select_all()
             self._ensight.savegeom.format(format)
+            if binary is not None:
+                opt = "OFF"
+                if binary:
+                    opt = "ON"
+                self._ensight.savegeom.binary(opt)
+            if single_file is not None:
+                opt = "OFF"
+                if single_file:
+                    opt = "ON"
+                self._ensight.savegeom.single_file(opt)
             self._ensight.savegeom.begin_step(starting_timestep)
-            # frames is 1-indexed, so I need to decrease of 1
+            # frames is 1-indexed, so I need to decrease by 1
             self._ensight.savegeom.end_step(starting_timestep + frames - 1)
             self._ensight.savegeom.step_by(delta_timestep)
             tmpfilename = os.path.join(tmpdirname, str(uuid.uuid1()))
@@ -525,6 +546,8 @@ class Export:
         starting_timestep: Optional[int] = None,
         frames: Optional[int] = 1,
         delta_timestep: Optional[int] = None,
+        binary: Optional[bool] = None,
+        single_file: Optional[bool] = None,
     ) -> None:
         """Export a geometry file.
 
@@ -533,13 +556,19 @@ class Export:
         filename: str
             The location where to export the geometry
         format : str
-            The format to export
+            The format to export. GEOM_EXPORT_GLTF (glb) is the default.
         starting_timestep: int
             The first timestep to export. If None, defaults to the current timestep
         frames: int
             Number of timesteps to save. If None, defaults from the current timestep to the last
         delta_timestep: int
             The delta timestep to use when exporting
+        binary: bool, optional
+            If provided, this keyword specifies if the file should be binary or not.
+            This is format specific, for example PLY and STL support it.
+        single_file: bool, optional
+            If provided, this keyword specifies if the export should be into a single file.
+            This is format specific, for example GLTF supports it.
 
         Examples
         --------
@@ -551,23 +580,30 @@ class Export:
         if starting_timestep is None:
             starting_timestep = int(self._ensight.objs.core.TIMESTEP)
         if frames is None or frames == -1:
-            # Timesteps are 0-indexed so frames need to be increased of 1
+            # Timesteps are 0-indexed so frames need to be increased by 1
             frames = int(self._ensight.objs.core.TIMESTEP_LIMITS[1]) + 1
         if not delta_timestep:
             delta_timestep = 1
         self._remote_support_check()
-        raw_data_list = None
         if isinstance(self._ensight, ModuleType):
             raw_data_list = self._geometry_remote(
                 format,
                 starting_timestep=starting_timestep,
                 frames=frames,
                 delta_timestep=delta_timestep,
+                binary=binary,
+                single_file=single_file,
             )
         else:
             self._ensight._session.ensight_version_check("2024 R2")
-            cmd = f"ensight.utils.export._geometry_remote('{format}', {starting_timestep}, {frames}, {delta_timestep})"
-            raw_data_list = self._ensight._session.cmd(cmd)
+            cmd = f"'{format}', {starting_timestep}, {frames}, {delta_timestep}"
+            if single_file is not None:
+                cmd += f", single_file={single_file}"
+            if binary is not None:
+                cmd += f", binary={binary}"
+            raw_data_list = self._ensight._session.cmd(
+                f"ensight.utils.export._geometry_remote({cmd})"
+            )
         if raw_data_list:
             if len(raw_data_list) == 1:
                 with open(filename, "wb") as fp:
