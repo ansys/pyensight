@@ -1203,7 +1203,11 @@ class Session:
                 raise RuntimeError("Unable to load the dataset.")
 
     def download_pyansys_example(
-        self, filename: str, directory: Optional[str] = None, root: Optional[str] = None
+        self,
+        filename: str,
+        directory: Optional[str] = None,
+        root: Optional[str] = None,
+        folder: Optional[bool] = None,
     ) -> str:
         """Download an example dataset from the ansys/example-data repository.
         The dataset is downloaded local to the EnSight server location, so that it can
@@ -1217,11 +1221,16 @@ class Session:
             The directory to download the filename from
         root: str
             If set, the download will happen from another location
+        folder: bool
+            If set to True, it marks the filename to be a directory rather
+            than a single file
 
         Returns
         -------
         pathname: str
-            The download location, local to the EnSight server directory
+            The download location, local to the EnSight server directory.
+            If folder is set to True, the download location will be a folder containing
+            all the items available in the repository location under that folder.
 
         Examples
         --------
@@ -1234,21 +1243,43 @@ class Session:
         >>> remote.browser()
         """
         base_uri = "https://github.com/ansys/example-data/raw/master"
-        if root is not None:
-            base_uri = root
+        base_api_uri = "https://api.github.com/repos/ansys/example-data/contents"
+        if not folder:
+            if root is not None:
+                base_uri = root
+        else:
+            base_uri = base_api_uri
         uri = f"{base_uri}/{filename}"
         if directory:
             uri = f"{base_uri}/{directory}/{filename}"
         pathname = f"{self.launcher.session_directory}/{filename}"
-        script = "import requests\n"
-        script += "import shutil\n"
-        script += "import os\n"
-        script += f'url = "{uri}"\n'
-        script += f'outpath = r"""{pathname}"""\n'
-        script += "with requests.get(url, stream=True) as r:\n"
-        script += "    with open(outpath, 'wb') as f:\n"
-        script += "        shutil.copyfileobj(r.raw, f)\n"
-        self.cmd(script, do_eval=False)
+        if not folder:
+            script = "import requests\n"
+            script += "import shutil\n"
+            script += "import os\n"
+            script += f'url = "{uri}"\n'
+            script += f'outpath = r"""{pathname}"""\n'
+            script += "with requests.get(url, stream=True) as r:\n"
+            script += "    with open(outpath, 'wb') as f:\n"
+            script += "        shutil.copyfileobj(r.raw, f)\n"
+            self.cmd(script, do_eval=False)
+        else:
+            script = "import requests\n"
+            script += "import shutil\n"
+            script += "import os\n"
+            script += f'url = "{uri}"\n'
+            script += "with requests.get(url) as r:\n"
+            script += "    data = r.json()\n"
+            script += f'    output_directory = r"""{pathname}"""\n'
+            script += "    os.makedirs(output_directory, exist_ok=True)\n"
+            script += "    for item in data:\n"
+            script += "        if item['type'] == 'file':\n"
+            script += "            file_url = item['download_url']\n"
+            script += "            filename = os.path.join(output_directory, item['name'])\n"
+            script += "            r = requests.get(file_url, stream=True)\n"
+            script += "            with open(filename, 'wb') as f:\n"
+            script += "                f.write(r.content)\n"
+            self.cmd(script, do_eval=False)
         return pathname
 
     def load_example(
