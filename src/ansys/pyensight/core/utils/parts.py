@@ -45,13 +45,14 @@ def convert_part(
 
 def convert_variable(
     _ensight: Union["ensight_api.ensight", "ensight"], var: Union[str, int, "ENS_VAR"]
-):
+) -> Optional[int]:
     if isinstance(var, str):
-        return _ensight.objs.core.VARIABLES[var][0].ID
+        return int(_ensight.objs.core.VARIABLES[var][0].ID)
     elif isinstance(var, int):
         return var
     elif hasattr(var, "ID"):
-        return var.ID
+        return int(var.ID)
+    return None
 
 
 class Parts:
@@ -1044,39 +1045,30 @@ class Parts:
         )
         return self._add_emitters_to_particle_trace_part(particle_trace_part, new_emitters)
 
-    ##############################################
-    #
-    #  select parts in the list, or if not a list
-    #    select the ensight.objs.ENS_PART
-    def select_parts(self, p_list, rec_flag=1):
+    def select_parts(
+        self,
+        p_list: Optional[List[Union[str, int, "ENS_PART"]]] = None,
+        rec_flag: Optional[bool] = True,
+    ) -> Optional[List["ENS_PART"]]:
         """
         Select the parts string, or int, or ensight.objs.ENS_PART, or list
         and record the selection (by default) honoring the
-          EnSight preference to record command language by part id or by name
+        EnSight preference to record command language by part id or by name.
+        It creates a list of part objects and selects the parts, and records the
+        selection by default.
 
         Parameters
         ----------
-        p_list:
-        1. A list of ENS_PART objects OR
-        2. A list of int part ids OR
-        3. A list of strings
-            a. each string is an ID
-            b. each string is exact match for a part name OR
-        4. A single ENS_PART object OR
-        5. A single string
-            a. that is a part id OR
-            b. that exactly matches a part name
+        p_list: list
+            The list of part objects to compute the forces on. It can either be a list of names
+            a list of IDs (integers or strings) or directly a list of ENS_PART objects
+        rec_flag: bool
+            True if the selection needs to be recorded
 
-        rec_flag - record the selection
-            1 = record the selection (default)
-            0 = don't record the selection
-
-        Action: creates list of part objects (as of 24.1)
-                and selects the parts, and records the
-                selection by default
-
-        Return: list of part objects selected (as of 24.1)
-                or [ ] if error.
+        Returns
+        -------
+        list
+            list of part objects selected or None if error.
 
 
         NOTE: If you do not want a measured part in your
@@ -1088,59 +1080,54 @@ class Parts:
         #
         pobj_list = self.get_part_id_obj_name(p_list, "obj")
 
-        if len(pobj_list) == 0:
-            print("Error, select_parts: part list is empty ")
-            return []
+        if not pobj_list:
+            raise RuntimeError("Error, select_parts: part list is empty")
         else:
             # This was formerly used to record command lang 10.1.6(c)
             #  using part ids:
             #  ensight.part.select_begin(pid_list,record=1)
             # Now records selection, honoring the the preference
             #   part selection of by part id or by name (2024R1)
-            self.ensight.objs.core.selection(self.ensight.objs.ENS_PART).addchild(
-                pobj_list, replace=1, record=rec_flag
+            record = 1 if rec_flag else 0
+            self.ensight.objs.core.selection(name="ENS_PART").addchild(
+                pobj_list, replace=1, record=record
             )
             # This is essential to synchronize cmd lang with the GUI, C++
             self.ensight.part.get_mainpartlist_select()
 
         return pobj_list
 
-    def get_part_id_obj_name(self, plist=None, ret_flag="id"):
+    def get_part_id_obj_name(
+        self,
+        plist: Optional[Union[str, int, "ENS_PART", List[str], List[int], List["ENS_PART"]]] = None,
+        ret_flag="id",
+    ) -> Union[Optional[List[int]], Optional[List[str]], Optional[List["ENS_PART"]]]:
         """
         input a part or a list of parts and return an id, object, or name
         or a list of ids, objects, or names.
 
         Parameters
         ----------
-        p_list:
-        1. A list of ENS_PART objects
-        OR
-        2. A list of int part ids
-        OR
-        3. A list of strings
-            a. each string is an ID
-            b. each string is exact match for a part name
-        OR
-        4. A single ENS_PART object
-        OR
-        5. A single string
-            a. that is a part id OR
-            b. that exactly matches the part DESCRIPTION
-        OR
-        6. a single int that is a part id
+        p_list: list
+            The list of part objects to compute the forces on. It can either be a list of names
+            a list of IDs (integers or strings) or directly a list of ENS_PART objects
 
-        ret_flag - a string that determines what is returned
+        ret_flag: string
+            a string that determines what is returned
 
-        Return:
-        - a list as follows
-        A. ret_flag contains "id" -   returns a list of ids (default)
-        B. ret_flag contains "name" - returns a list of part names
-        C. ret_flag contains "obj"  - returns a list of ENS_PARTs
-        or [ ] if error.
+        Returns
+        -------
+        list
+            either a list of part IDs, or a list of names or a list of ENS_PART objects
+            depending on the requested ret_flag value
         """
+        # To not change the interface I didn't move ret_flag to be a required argument,
+        # so I need to check its value now
+        if not ret_flag:
+            return None
         if not plist:
-            plist = self.ensight.objs.core.PARTS
-        pobj_list = []
+            plist = [p for p in self.ensight.objs.core.PARTS]
+        pobj_list: List["ENS_PART"] = []
         #
         #  Basically figure out what plist is, then convert it to a list of ENS_PARTs
         #
@@ -1150,56 +1137,47 @@ class Parts:
             or isinstance(plist, str)
         ):
             p_list = [plist]
-        elif isinstance(plist, list) or isinstance(plist, self.ensight.objs.ensobjlist):
-            p_list = plist
+        elif isinstance(plist, list) or isinstance(plist, ensobjlist):
+            p_list = [p for p in plist]
         else:
-            print("Unknown type of input var plist {}".format(type(plist)))
-            return []
+            raise RuntimeError("Unknown type of input var plist {}".format(type(plist)))
         #
         #  p_list must now be a list
         #
-        if len(p_list) > 0:
-            if isinstance(
-                p_list[0], self.ensight.objs.ENS_PART
-            ):  # list of objects assumed consistent
-                for prt in p_list:
+
+        if not p_list:
+            return None
+        if not isinstance(p_list[0], (str, int, self.ensight.objs.ENS_PART)):
+            error = "First member is neither ENS_PART, int, nor string"
+            error += f"{p_list[0]} type = {type(p_list[0])}; aborting"
+            raise RuntimeError(error)
+        pobjs: List["ENS_PART"]
+        if isinstance(p_list[0], int):  # list of ints must be part ids
+            for pid in p_list:
+                pobjs = [p for p in self.ensight.objs.core.PARTS if p.PARTNUMBER == pid]
+                for prt in pobjs:
                     pobj_list.append(prt)
-            elif isinstance(p_list[0], int):  # list of ints must be part ids
-                for pid in p_list:
-                    d = {self.ensight.objs.enums.PARTNUMBER: pid}
-                    pobjs = self.ensight.objs.core.find_objs(self.ensight.objs.core.PARTS, d)
+        elif isinstance(p_list[0], str):
+            if not p_list[0].isdigit():
+                for pname in p_list:
+                    pobjs = [p for p in self.ensight.objs.core.PARTS if p.DESCRIPTION == pname]
                     for prt in pobjs:
                         pobj_list.append(prt)
-            elif isinstance(p_list[0], str):
-                if not p_list[0].isdigit():
-                    for pname in p_list:
-                        d = {self.ensight.objs.enums.DESCRIPTION: pname}
-                        pobjs = self.ensight.objs.core.find_objs(self.ensight.objs.core.PARTS, d)
-                        for prt in pobjs:
-                            pobj_list.append(prt)
-                else:  # digits, must be a string list of part ids?
-                    for pid_str in p_list:
-                        d = {self.ensight.objs.enums.PARTNUMBER: int(pid_str)}
-                        pobjs = self.ensight.objs.core.find_objs(self.ensight.objs.core.PARTS, d)
-                        for prt in pobjs:
-                            pobj_list.append(prt)
-            else:
-                print("First member is neither ENS_PART, int, nor string")
-                print("{} type= {}".format(p_list[0], type(p_list[0])))
-                print("aborting")
-                pobj_list = []
-        else:  # zero length list
-            print("Zero length list")
-            pobj_list = []
-        ret_val = []
-        if pobj_list:
-            for pobj in pobj_list:
-                if ret_flag.lower().find("name") >= 0:
-                    ret_val.append(pobj.DESCRIPTION)
-                elif ret_flag.lower().find("obj") >= 0:
-                    ret_val.append(pobj)
-                else:
-                    ret_val.append(pobj.PARTNUMBER)
+            else:  # digits, must be a string list of part ids?
+                for pid_str in p_list:
+                    pobjs = [
+                        p for p in self.ensight.objs.core.PARTS if p.PARTNUMBER == int(pid_str)
+                    ]
+                    for prt in pobjs:
+                        pobj_list.append(prt)
         else:
-            ret_val = []
-        return ret_val
+            for prt in p_list:
+                pobj_list.append(prt)
+        if ret_flag == "name":
+            val_strings = [str(p.DESCRIPTION) for p in pobj_list]
+            return val_strings
+        if ret_flag == "obj":
+            val_objs = [p for p in pobj_list]
+            return val_objs
+        val_ints = [int(p.ID) for p in pobj_list]
+        return val_ints
