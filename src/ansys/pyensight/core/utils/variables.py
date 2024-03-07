@@ -912,7 +912,7 @@ class Variables:
             new_pres_var_obj = ensvar_values[0]
             press_var_name = new_pres_var_obj.DESCRIPTION
         else:
-            press_var_name = new_pres_var_obj.DESCRIPTION
+            press_var_name = _press_var_obj.DESCRIPTION
 
         #
         # Calculate the Force vector
