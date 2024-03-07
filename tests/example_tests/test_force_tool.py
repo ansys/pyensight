@@ -42,7 +42,7 @@ def create_frame(ensight):
     ensight.frame.assign(0)
 
 
-def test_async_events(tmpdir, pytestconfig: pytest.Config):
+def test_force_tool(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
     if use_local:
