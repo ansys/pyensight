@@ -50,8 +50,9 @@ def test_force_tool(tmpdir, pytestconfig: pytest.Config):
     else:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     session = launcher.start()
-    session.download_pyansys_example("RC_Plane", "pyensight", folder=True)
-    session.load_data("RC_Plane/extra300_RC_Plane_cpp.case")
+    path = session.download_pyansys_example("RC_Plane", "pyensight", folder=True)
+    print(path)
+    session.load_data(os.path.join(path, "extra300_RC_Plane_cpp.case"))
     create_frame(session.ensight)
     body_parts = [
         "canopy",
