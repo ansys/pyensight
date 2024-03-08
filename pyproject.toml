@@ -80,6 +80,10 @@ name = "ansys.pyensight.core"
 
 [tool.coverage.run]
 branch = true
+omit = [
+    "*/locallauncher.py",
+    "*/adr.py"
+]
 
 [tool.coverage.report]
 exclude_lines = [

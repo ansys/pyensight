@@ -91,4 +91,18 @@ def test_force_tool(tmpdir, pytestconfig: pytest.Config):
         up_vector=session.ensight.utils.variables.UP_VECTOR_PLUS_Y,
         frame_index=1,
     )
+    session.ensight.utils.variables.compute_forces(
+        pobj_list=body_parts.copy(),
+        press_var_obj="staticPressure",
+        shear_var_obj="wallShearStress",
+        shear_var_type=session.ensight.utils.variables.SHEAR_VAR_TYPE_STRESS,
+        export_filename="test2.csv",
+        area_ref=area_ref,
+        density_ref=dref,
+        velocity_x_ref=vxref,
+        velocity_y_ref=vyref,
+        velocity_z_ref=vzref,
+        up_vector=session.ensight.utils.variables.UP_VECTOR_PLUS_Y,
+    )
     assert os.path.exists("test.csv")
+    assert os.path.exists("test2.csv")

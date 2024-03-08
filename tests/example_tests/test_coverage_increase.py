@@ -1,7 +1,7 @@
 import os
 import pathlib
 
-from ansys.pyensight.core import DockerLauncher, LocalLauncher
+from ansys.pyensight.core import DockerLauncher, LocalLauncher, launch_ensight
 import pytest
 
 
@@ -60,6 +60,19 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     session.jupyter_notebook = False
     assert session.sos is False
     session.load_example("waterbreak.ens", root=root)
+    session.ensight.utils.variables._check_for_var_elem(
+        "alpha1", session.ensight.objs.core.PARTS["default_region"[0]]
+    )
+    session.ensight.utils.variables._move_var_to_elem(
+        session.ensight.objs.core.PARTS, session.ensight.objs.core.VARIABLES["alpha1"][0]
+    )
+    session.ensight.utils.variables._calc_var(None, None)
+    try:
+        session.ensight.utils.variables._calc_var(
+            session.ensight.objs.core.PARTS["default_region"[0]], "test"
+        )
+    except RuntimeError:
+        pass
     core = session.ensight.objs.core
     core.PARTS.set_attr("COLORBYPALETTE", "alpha1")
     export = session.ensight.utils.export
@@ -253,6 +266,10 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
         assert False
     except Exception:
         pass
+    assert session.grpc.port() == session._grpc_port
+    assert session.grpc.host == session._hostname
+    assert session.grpc.security_token == session._secret_key
+    session.close()
 
 
 def test_particle_traces_and_geometry(tmpdir, pytestconfig: pytest.Config):
@@ -260,10 +277,10 @@ def test_particle_traces_and_geometry(tmpdir, pytestconfig: pytest.Config):
     use_local = pytestconfig.getoption("use_local_launcher")
     root = None
     if use_local:
-        launcher = LocalLauncher()
+        launcher = LocalLauncher(enable_rest_api=True)
         root = "http://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
     else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
+        launcher = DockerLauncher(data_directory=data_dir, use_dev=True, enable_rest_api=True)
     session = launcher.start()
     session.load_example("waterbreak.ens", root=root)
     parts = session.ensight.utils.parts
@@ -335,3 +352,22 @@ def test_particle_traces_and_geometry(tmpdir, pytestconfig: pytest.Config):
         num_points_x=4,
         num_points_y=5,
     )
+
+
+def test_sos(tmpdir, pytestconfig: pytest.Config):
+    data_dir = tmpdir.mkdir("datadir")
+    use_local = pytestconfig.getoption("use_local_launcher")
+    is_docker = False
+    if use_local:
+        launcher = LocalLauncher(use_sos=2)
+    else:
+        is_docker = True
+        launcher = DockerLauncher(data_directory=data_dir, use_dev=True, use_sos=2)
+    session = launcher.start()
+    session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/cube/cube.case")
+    assert session.grpc.port() == session._grpc_port
+    assert session.grpc.host == session._hostname
+    assert session.grpc.security_token == session._secret_key
+    session.close()
+    if is_docker:
+        launch_ensight(use_docker=True, use_dev=True, data_directory=data_dir)

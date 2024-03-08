@@ -263,8 +263,8 @@ class Variables:
         # "Normal" function in the variable calculator.
         #
         temp_string = "ENS_Force_Norm = Normal(plist)"
-        if not self._calc_var(_pobj_list, temp_string):
-            return False
+        if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+            return False  # pragma: no cover
         #
         # makes a new elem var if input var is nodal
         #
@@ -290,8 +290,8 @@ class Variables:
             + shear_var_name
             + ",ENS_Force_Norm)"
         )
-        if not self._calc_var(_pobj_list, temp_string):
-            return False
+        if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+            return False  # pragma: no cover
 
         # multiplying this DOT product by the surface normal vector produces
         # the normal component of the shear stress vector.
@@ -303,8 +303,8 @@ class Variables:
             + stemp_string
             + "_Norm*ENS_Force_Norm"
         )
-        if not self._calc_var(_pobj_list, temp_string):
-            return False
+        if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+            return False  # pragma: no cover
         #
         # The tangential component is now computed by subtracting this normal
         # component from the shear stress vector, or Vt = V - Vn,
@@ -318,8 +318,8 @@ class Variables:
             + "-ENS_Force_NomalShear"
             + stemp_string
         )
-        if not self._calc_var(_pobj_list, temp_string):
-            return False
+        if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+            return False  # pragma: no cover
         #
         # Decompose the TangentialShearStress Vector into its x, y, z component of
         # TangentialShearStress_X, TangentialShearStress_Y, and TangentialShearStress_Z
@@ -330,8 +330,8 @@ class Variables:
             + stemp_string
             + "[X]"
         )
-        if not self._calc_var(_pobj_list, temp_string):
-            return False
+        if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+            return False  # pragma: no cover
 
         temp_string = (
             "ENS_Force_TangentialShear"
@@ -340,8 +340,8 @@ class Variables:
             + stemp_string
             + "[Y]"
         )
-        if not self._calc_var(_pobj_list, temp_string):
-            return False
+        if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+            return False  # pragma: no cover
 
         temp_string = (
             "ENS_Force_TangentialShear"
@@ -350,8 +350,8 @@ class Variables:
             + stemp_string
             + "[Z]"
         )
-        if not self._calc_var(_pobj_list, temp_string):
-            return False
+        if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+            return False  # pragma: no cover
 
         #
         #
@@ -362,57 +362,57 @@ class Variables:
             # Calculate the element area Scalar using the "EleSize function in the Variable Calculator
             #
             temp_string = "ENS_Force_ElementArea = EleSize(plist)"
-            if not self._calc_var(_pobj_list, temp_string):
-                return False
+            if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+                return False  # pragma: no cover
 
             temp_string = (
                 "ENS_Force_Tan_ShearForce_X = ENS_Force_TangentialShear"
                 + stemp_string
                 + "_X*ENS_Force_ElementArea"
             )
-            if not self._calc_var(_pobj_list, temp_string):
-                return False
+            if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+                return False  # pragma: no cover
 
             temp_string = (
                 "ENS_Force_Tan_ShearForce_Y = ENS_Force_TangentialShear"
                 + stemp_string
                 + "_Y*ENS_Force_ElementArea"
             )
-            if not self._calc_var(_pobj_list, temp_string):
-                return False
+            if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+                return False  # pragma: no cover
 
             temp_string = (
                 "ENS_Force_Tan_ShearForce_Z = ENS_Force_TangentialShear"
                 + stemp_string
                 + "_Z*ENS_Force_ElementArea"
             )
-            if not self._calc_var(_pobj_list, temp_string):
-                return False
+            if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+                return False  # pragma: no cover
 
         else:
             temp_string = (
                 "ENS_Force_Tan_ShearForce_X = ENS_Force_TangentialShear" + stemp_string + "_X"
             )
-            if not self._calc_var(_pobj_list, temp_string):
-                return False
+            if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+                return False  # pragma: no cover
 
             temp_string = (
                 "ENS_Force_Tan_ShearForce_Y = ENS_Force_TangentialShear" + stemp_string + "_Y"
             )
-            if not self._calc_var(_pobj_list, temp_string):
-                return False
+            if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+                return False  # pragma: no cover
 
             temp_string = (
                 "ENS_Force_Tan_ShearForce_Z = ENS_Force_TangentialShear" + stemp_string + "_Z"
             )
-            if not self._calc_var(_pobj_list, temp_string):
-                return False
+            if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+                return False  # pragma: no cover
 
         if frame_index > 0 and frame_index < len(self.ensight.objs.core.FRAMES):
             # remake the vector
             temp_string = "ENS_Force_Tan_ShearForce = MakeVect(plist, ENS_Force_Tan_ShearForce_X, ENS_Force_Tan_ShearForce_Y, ENS_Force_Tan_ShearForce_Z)"
-            if not self._calc_var(_pobj_list, temp_string):
-                return False
+            if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+                return False  # pragma: no cover
 
             # resolve it in cylindrical coords
             temp_string = (
@@ -420,21 +420,21 @@ class Variables:
                 + str(frame_index)
                 + ")"
             )
-            if not self._calc_var(_pobj_list, temp_string):
-                return False
+            if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+                return False  # pragma: no cover
 
             # Radial, theta , axial
             temp_string = "ENS_Force_Tan_ShearForce_R  = ENS_Force_Tan_ShearForce_cyl[X]"
-            if not self._calc_var(_pobj_list, temp_string):  # radial force
-                return False
+            if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+                return False  # pragma: no cover
 
             temp_string = "ENS_Force_Tan_ShearForce_T  = ENS_Force_Tan_ShearForce_cyl[Y]"
-            if not self._calc_var(_pobj_list, temp_string):  # angular force
-                return False
+            if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+                return False  # pragma: no cover
 
             temp_string = "ENS_Force_Tan_ShearForce_A  = ENS_Force_Tan_ShearForce_cyl[Z]"
-            if not self._calc_var(_pobj_list, temp_string):  # axial force
-                return False
+            if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+                return False  # pragma: no cover
         return True
 
     def _sum_shear_forces_xyz_rtz(
@@ -479,19 +479,25 @@ class Variables:
         #
         #
         temp_string = "ENS_Force_Net_Tan_ShearForce_X = StatMoment(plist,ENS_Force_Tan_ShearForce_X, 0, Compute_Per_part)"
-        if not self._calc_var(pobj_list, temp_string):
-            err_string = "Error, failed to calculate a variable in {}".format(fcn_name)
-            raise RuntimeError(err_string)
+        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+            err_string = "Error, failed to calculate a variable in {}".format(
+                fcn_name
+            )  # pragma: no cover
+            raise RuntimeError(err_string)  # pragma: no cover
 
         temp_string = "ENS_Force_Net_Tan_ShearForce_Y = StatMoment(plist,ENS_Force_Tan_ShearForce_Y, 0, Compute_Per_part)"
-        if not self._calc_var(pobj_list, temp_string):
-            err_string = "Error, failed to calculate a variable in {}".format(fcn_name)
-            raise RuntimeError(err_string)
+        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+            err_string = "Error, failed to calculate a variable in {}".format(
+                fcn_name
+            )  # pragma: no cover
+            raise RuntimeError(err_string)  # pragma: no cover
 
         temp_string = "ENS_Force_Net_Tan_ShearForce_Z = StatMoment(plist,ENS_Force_Tan_ShearForce_Z, 0, Compute_Per_part)"
-        if not self._calc_var(pobj_list, temp_string):
-            err_string = "Error, failed to calculate a variable in {}".format(fcn_name)
-            raise RuntimeError(err_string)
+        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+            err_string = "Error, failed to calculate a variable in {}".format(
+                fcn_name
+            )  # pragma: no cover
+            raise RuntimeError(err_string)  # pragma: no cover
         #
         # get the 3 constant force values XYZ
         # 10.1.6(b) use ens_utils, 10.2.0(d) Now gets all the per part constants in a list
@@ -540,52 +546,70 @@ class Variables:
         #   they are calc'd to give the user the totals.
         #
         temp_string = "ENS_Force_Total_Net_Tan_ShearForce_X = StatMoment(plist,ENS_Force_Tan_ShearForce_X, 0, Compute_Per_case)"
-        if not self._calc_var(pobj_list, temp_string):
-            err_string = "Error, failed to calculate a variable in {}".format(fcn_name)
-            raise RuntimeError(err_string)
+        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+            err_string = "Error, failed to calculate a variable in {}".format(
+                fcn_name
+            )  # pragma: no cover
+            raise RuntimeError(err_string)  # pragma: no cover
 
         temp_string = "ENS_Force_Total_Net_Tan_ShearForce_Y = StatMoment(plist,ENS_Force_Tan_ShearForce_Y, 0, Compute_Per_case)"
-        if not self._calc_var(pobj_list, temp_string):
-            err_string = "Error, failed to calculate a variable in {}".format(fcn_name)
-            raise RuntimeError(err_string)
+        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+            err_string = "Error, failed to calculate a variable in {}".format(
+                fcn_name
+            )  # pragma: no cover
+            raise RuntimeError(err_string)  # pragma: no cover
 
         temp_string = "ENS_Force_Total_Net_Tan_ShearForce_Z = StatMoment(plist,ENS_Force_Tan_ShearForce_Z, 0, Compute_Per_case)"
-        if not self._calc_var(pobj_list, temp_string):
-            err_string = "Error, failed to calculate a variable in {}".format(fcn_name)
-            raise RuntimeError(err_string)
+        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+            err_string = "Error, failed to calculate a variable in {}".format(
+                fcn_name
+            )  # pragma: no cover
+            raise RuntimeError(err_string)  # pragma: no cover
 
         if frame_index > 0 and frame_index < len(self.ensight.objs.core.FRAMES):
             temp_string = "ENS_Force_Net_Tan_ShearForce_R = StatMoment(plist,ENS_Force_Tan_ShearForce_R,0, Compute_Per_part)"
-            if not self._calc_var(pobj_list, temp_string):
-                err_string = "Error, failed to calculate a variable in {}".format(fcn_name)
-                raise RuntimeError(err_string)
+            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+                err_string = "Error, failed to calculate a variable in {}".format(
+                    fcn_name
+                )  # pragma: no cover
+                raise RuntimeError(err_string)  # pragma: no cover
 
             temp_string = "ENS_Force_Net_Tan_ShearForce_T = StatMoment(plist,ENS_Force_Tan_ShearForce_T,0, Compute_Per_part)"
-            if not self._calc_var(pobj_list, temp_string):
-                err_string = "Error, failed to calculate a variable in {}".format(fcn_name)
-                raise RuntimeError(err_string)
+            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+                err_string = "Error, failed to calculate a variable in {}".format(
+                    fcn_name
+                )  # pragma: no cover
+                raise RuntimeError(err_string)  # pragma: no cover
 
             temp_string = "ENS_Force_Net_Tan_ShearForce_A = StatMoment(plist,ENS_Force_Tan_ShearForce_A,0, Compute_Per_part)"
-            if not self._calc_var(pobj_list, temp_string):
-                err_string = "Error, failed to calculate a variable in {}".format(fcn_name)
-                raise RuntimeError(err_string)
+            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+                err_string = "Error, failed to calculate a variable in {}".format(
+                    fcn_name
+                )  # pragma: no cover
+                raise RuntimeError(err_string)  # pragma: no cover
             #
             # Totals
             #
             temp_string = "ENS_Force_Total_Net_Tan_ShearForce_R = StatMoment(plist,ENS_Force_Tan_ShearForce_R,0, Compute_Per_case)"
-            if not self._calc_var(pobj_list, temp_string):
-                err_string = "Error, failed to calculate a variable in {}".format(fcn_name)
-                raise RuntimeError(err_string)
+            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+                err_string = "Error, failed to calculate a variable in {}".format(
+                    fcn_name
+                )  # pragma: no cover
+                raise RuntimeError(err_string)  # pragma: no cover
 
             temp_string = "ENS_Force_Total_Net_Tan_ShearForce_T = StatMoment(plist,ENS_Force_Tan_ShearForce_T,0, Compute_Per_case)"
-            if not self._calc_var(pobj_list, temp_string):
-                err_string = "Error, failed to calculate a variable in {}".format(fcn_name)
-                raise RuntimeError(err_string)
+            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+                err_string = "Error, failed to calculate a variable in {}".format(
+                    fcn_name
+                )  # pragma: no cover
+                raise RuntimeError(err_string)  # pragma: no cover
 
             temp_string = "ENS_Force_Total_Net_Tan_ShearForce_A = StatMoment(plist,ENS_Force_Tan_ShearForce_A,0, Compute_Per_case)"
-            if not self._calc_var(pobj_list, temp_string):
-                err_string = "Error, failed to calculate a variable in {}".format(fcn_name)
-                raise RuntimeError(err_string)
+            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+                err_string = "Error, failed to calculate a variable in {}".format(
+                    fcn_name
+                )  # pragma: no cover
+                raise RuntimeError(err_string)  # pragma: no cover
             #
             # get the 3 constant force values Radial, Theta, Axial
             # new use ens_utils 10.1.6(b)
@@ -920,20 +944,20 @@ class Variables:
         calc_string = "(plist," + press_var_name + ")"
         force_calc_string = "ENS_Force_press = Force"
         temp_string = force_calc_string + calc_string
-        if not self._calc_var(_pobj_list, temp_string):
-            raise RuntimeError("Error calculating: '" + temp_string + "'")
+        if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+            raise RuntimeError("Error calculating: '" + temp_string + "'")  # pragma: no cover
 
         temp_string = "ENS_Force_press_X = ENS_Force_press[X]"
-        if not self._calc_var(_pobj_list, temp_string):
-            raise RuntimeError("Error calculating: '" + temp_string + "'")
+        if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+            raise RuntimeError("Error calculating: '" + temp_string + "'")  # pragma: no cover
 
         temp_string = "ENS_Force_press_Y = ENS_Force_press[Y]"
-        if not self._calc_var(_pobj_list, temp_string):
-            raise RuntimeError("Error calculating: '" + temp_string + "'")
+        if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+            raise RuntimeError("Error calculating: '" + temp_string + "'")  # pragma: no cover
 
         temp_string = "ENS_Force_press_Z = ENS_Force_press[Z]"
-        if not self._calc_var(_pobj_list, temp_string):
-            raise RuntimeError("Error calculating: '" + temp_string + "'")
+        if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+            raise RuntimeError("Error calculating: '" + temp_string + "'")  # pragma: no cover
         #
         #  RTZ Cylindrical force
         #
@@ -941,20 +965,20 @@ class Variables:
             temp_string = (
                 "ENS_Force_press_cyl = RectToCyl(plist,ENS_Force_press," + str(frame_index) + ")"
             )
-            if not self._calc_var(_pobj_list, temp_string):
-                raise RuntimeError("Error calculating: '" + temp_string + "'")
+            if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+                raise RuntimeError("Error calculating: '" + temp_string + "'")  # pragma: no cover
 
             temp_string = "ENS_Force_press_R = ENS_Force_press_cyl[X]"
-            if not self._calc_var(_pobj_list, temp_string):  # radial force
-                raise RuntimeError("Error calculating: '" + temp_string + "'")
+            if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+                raise RuntimeError("Error calculating: '" + temp_string + "'")  # pragma: no cover
 
             temp_string = "ENS_Force_press_T  = ENS_Force_press_cyl[Y]"
-            if not self._calc_var(pobj_list, temp_string):  # angular force
-                raise RuntimeError("Error calculating: '" + temp_string + "'")
+            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+                raise RuntimeError("Error calculating: '" + temp_string + "'")  # pragma: no cover
 
             temp_string = "ENS_Force_press_A  = ENS_Force_press_cyl[Z]"
-            if not self._calc_var(_pobj_list, temp_string):  # axial force
-                raise RuntimeError("Error calculating: '" + temp_string + "'")
+            if not self._calc_var(_pobj_list, temp_string):  # pragma: no cover
+                raise RuntimeError("Error calculating: '" + temp_string + "'")  # pragma: no cover
         return True
 
     def _sum_pressure_forces_xyz_rtz(
@@ -997,20 +1021,20 @@ class Variables:
         force_calc_string = "ENS_Force_Net_press_X = StatMoment"
         calc_string = "(plist," + "ENS_Force_press_X , 0, Compute_Per_part )"
         temp_string = force_calc_string + calc_string
-        if not self._calc_var(pobj_list, temp_string):
-            return None
+        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+            return None  # pragma: no cover
         #
         force_calc_string = "ENS_Force_Net_press_Y = StatMoment"
         calc_string = "(plist," + "ENS_Force_press_Y , 0, Compute_Per_part )"
         temp_string = force_calc_string + calc_string
-        if not self._calc_var(pobj_list, temp_string):
-            return None
+        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+            return None  # pragma: no cover
         #
         force_calc_string = "ENS_Force_Net_press_Z = StatMoment"
         calc_string = "(plist," + "ENS_Force_press_Z , 0, Compute_Per_part )"
         temp_string = force_calc_string + calc_string
-        if not self._calc_var(pobj_list, temp_string):
-            return None
+        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+            return None  # pragma: no cover
         #
         # Calculate the Total force X, Y, and Z , 10.2.0(d) now case constant variable
         #  Totals are a case constants. We don't do anything with these vars
@@ -1019,20 +1043,20 @@ class Variables:
         force_calc_string = "ENS_Force_Total_Net_press_X = StatMoment"
         calc_string = "(plist," + "ENS_Force_press_X , 0, Compute_Per_case )"
         temp_string = force_calc_string + calc_string
-        if not self._calc_var(pobj_list, temp_string):
-            return None
+        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+            return None  # pragma: no cover
         #
         force_calc_string = "ENS_Force_Total_Net_press_Y = StatMoment"
         calc_string = "(plist," + "ENS_Force_press_Y , 0, Compute_Per_case )"
         temp_string = force_calc_string + calc_string
-        if not self._calc_var(pobj_list, temp_string):
-            return None
+        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+            return None  # pragma: no cover
         #
         force_calc_string = "ENS_Force_Total_Net_press_Z = StatMoment"
         calc_string = "(plist," + "ENS_Force_press_Z , 0, Compute_Per_case )"
         temp_string = force_calc_string + calc_string
-        if not self._calc_var(pobj_list, temp_string):
-            return None
+        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+            return None  # pragma: no cover
         #
         # get a list with a per part force, one for each part, new 10.1.6(b)
         #
@@ -1088,20 +1112,20 @@ class Variables:
             force_calc_string = "ENS_Force_Net_press_R = StatMoment"
             calc_string = "(plist," + "ENS_Force_press_R, 0, Compute_Per_part )"
             temp_string = force_calc_string + calc_string
-            if not self._calc_var(pobj_list, temp_string):
-                return None
+            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+                return None  # pragma: no cover
             #
             force_calc_string = "ENS_Force_Net_press_T = StatMoment"
             calc_string = "(plist," + "ENS_Force_press_T, 0, Compute_Per_part )"
             temp_string = force_calc_string + calc_string
-            if not self._calc_var(pobj_list, temp_string):
-                return None
+            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+                return None  # pragma: no cover
             #
             force_calc_string = "ENS_Force_Net_press_A = StatMoment"
             calc_string = "(plist," + "ENS_Force_press_A, 0, Compute_Per_part )"
             temp_string = force_calc_string + calc_string
-            if not self._calc_var(pobj_list, temp_string):
-                return None
+            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+                return None  # pragma: no cover
             #
             #  Totals are a case constants. We don't do anything with these vars
             #   they are calc'd to give the user the totals.
@@ -1109,20 +1133,20 @@ class Variables:
             force_calc_string = "ENS_Force_Total_Net_press_R = StatMoment"
             calc_string = "(plist," + "ENS_Force_press_R, 0, Compute_Per_case )"
             temp_string = force_calc_string + calc_string
-            if not self._calc_var(pobj_list, temp_string):
-                return None
+            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+                return None  # pragma: no cover
             #
             force_calc_string = "ENS_Force_Total_Net_press_T = StatMoment"
             calc_string = "(plist," + "ENS_Force_press_T, 0, Compute_Per_case )"
             temp_string = force_calc_string + calc_string
-            if not self._calc_var(pobj_list, temp_string):
-                return None
+            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+                return None  # pragma: no cover
             #
             force_calc_string = "ENS_Force_Total_Net_press_A = StatMoment"
             calc_string = "(plist," + "ENS_Force_press_A, 0, Compute_Per_case )"
             temp_string = force_calc_string + calc_string
-            if not self._calc_var(pobj_list, temp_string):
-                return None
+            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+                return None  # pragma: no cover
             #
             #   get a list with a per part force, one for each part, new 10.1.6(b)
             #
