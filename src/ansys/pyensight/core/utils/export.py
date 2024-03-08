@@ -49,8 +49,8 @@ class Export:
             RuntimeError if the module is not present.
         """
         # if a module, then we are inside EnSight
-        if isinstance(self._ensight, ModuleType):
-            return
+        if isinstance(self._ensight, ModuleType):  # pragma: no cover
+            return  # pragma: no cover
         try:
             _ = self._ensight._session.cmd("dir(ensight.utils.export)")
         except RuntimeError:
@@ -108,8 +108,10 @@ class Export:
         if height is None:
             height = win_size[1]
 
-        if isinstance(self._ensight, ModuleType):
-            raw_image = self._image_remote(width, height, passes, enhanced, raytrace)
+        if isinstance(self._ensight, ModuleType):  # pragma: no cover
+            raw_image = self._image_remote(
+                width, height, passes, enhanced, raytrace
+            )  # pragma: no cover
         else:
             cmd = f"ensight.utils.export._image_remote({width}, {height}, {passes}, "
             cmd += f"{enhanced}, {raytrace})"
@@ -348,8 +350,8 @@ class Export:
                  or no FLIPBOOK/KEYFRAME defined."
             )
 
-        if isinstance(self._ensight, ModuleType):
-            raw_mpeg4 = self._animation_remote(
+        if isinstance(self._ensight, ModuleType):  # pragma: no cover
+            raw_mpeg4 = self._animation_remote(  # pragma: no cover
                 width,
                 height,
                 passes,
@@ -557,8 +559,8 @@ class Export:
             delta_timestep = 1
         self._remote_support_check()
         raw_data_list = None
-        if isinstance(self._ensight, ModuleType):
-            raw_data_list = self._geometry_remote(
+        if isinstance(self._ensight, ModuleType):  # pragma: no cover
+            raw_data_list = self._geometry_remote(  # pragma: no cover
                 format,
                 starting_timestep=starting_timestep,
                 frames=frames,

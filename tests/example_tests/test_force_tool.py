@@ -51,7 +51,6 @@ def test_force_tool(tmpdir, pytestconfig: pytest.Config):
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     session = launcher.start()
     path = session.download_pyansys_example("RC_Plane", "pyensight", folder=True)
-    print(path)
     session.load_data(os.path.join(path, "extra300_RC_Plane_cpp.case"))
     create_frame(session.ensight)
     body_parts = [
@@ -68,6 +67,7 @@ def test_force_tool(tmpdir, pytestconfig: pytest.Config):
     vref = session.ensight.utils.variables.get_const_val("Vinf")
     dref = session.ensight.utils.variables.get_const_val("Rho")
     aoa = session.ensight.utils.variables.get_const_val("AoA")
+    session.ensight.utils.variables.get_const_val(session.ensight.objs.core.VARIABLES["AoA"][0])
     vxref = vref * math.cos(aoa * math.pi / 180)
     vyref = vref * math.sin(aoa * math.pi / 180)
     vzref = 0
@@ -91,4 +91,32 @@ def test_force_tool(tmpdir, pytestconfig: pytest.Config):
         up_vector=session.ensight.utils.variables.UP_VECTOR_PLUS_Y,
         frame_index=1,
     )
+    session.ensight.utils.variables.compute_forces(
+        pobj_list=body_parts.copy(),
+        press_var_obj="staticPressure",
+        shear_var_obj="wallShearStress",
+        shear_var_type=session.ensight.utils.variables.SHEAR_VAR_TYPE_STRESS,
+        export_filename="test.csv",
+        area_ref=area_ref,
+        density_ref=dref,
+        velocity_x_ref=vxref,
+        velocity_y_ref=vyref,
+        velocity_z_ref=vzref,
+        up_vector=session.ensight.utils.variables.UP_VECTOR_PLUS_Y,
+        frame_index=1,
+    )
+    session.ensight.utils.variables.compute_forces(
+        pobj_list=body_parts.copy(),
+        press_var_obj="staticPressure",
+        shear_var_obj="wallShearStress",
+        shear_var_type=session.ensight.utils.variables.SHEAR_VAR_TYPE_STRESS,
+        export_filename="test2.csv",
+        area_ref=area_ref,
+        density_ref=dref,
+        velocity_x_ref=vxref,
+        velocity_y_ref=vyref,
+        velocity_z_ref=vzref,
+        up_vector=session.ensight.utils.variables.UP_VECTOR_PLUS_Y,
+    )
     assert os.path.exists("test.csv")
+    assert os.path.exists("test2.csv")
