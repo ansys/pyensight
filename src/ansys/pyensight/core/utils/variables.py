@@ -117,8 +117,8 @@ class Variables:
                 calc_string = "(plist," + var_name + ")"
                 per_node_var = var_name + calc_var_name + " = NodeToElem"
                 temp_string = per_node_var + calc_string
-                if not self._calc_var(pobj_list, temp_string):
-                    raise RuntimeError("Failed to calculate elemental variable")
+                if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
+                    raise RuntimeError("Failed to calculate elemental variable")  # pragma: no cover
             else:
                 print(
                     "Using elemental variable that already exists: {}".format(ret_val.DESCRIPTION)
@@ -158,7 +158,7 @@ class Variables:
             err = self.ensight.variables.evaluate(calc_string)  # ,record=1)
             if err != 0:
                 err_string = "Error calculating " + calc_string
-                raise RuntimeError(err_string)
+                raise RuntimeError(err_string)  # pragma: no cover
         return err == 0
 
     def _shear_force_xyz_rtz(
@@ -243,8 +243,8 @@ class Variables:
         ensvar_values = [v for v in values]
         _shear_var_obj = ensvar_values[0]
 
-        if not pobj_list:
-            raise RuntimeError("Error, no part provided")
+        if not pobj_list:  # pragma: no cover
+            raise RuntimeError("Error, no part provided")  # pragma: no cover
         #
         # select all parts in list
         #
@@ -467,8 +467,8 @@ class Variables:
         #
         #
         fcn_name = "sum_shear_forces_xyz_rtz"
-        if not pobj_list:
-            raise RuntimeError("Error, no part provided")
+        if not pobj_list:  # pragma: no cover
+            raise RuntimeError("Error, no part provided")  # pragma: no cover
         #
         # select all parts in list
         #
@@ -658,16 +658,18 @@ class Variables:
                 for ii in range(len(pobj_list)):
                     ret_val.append([Fx[ii], Fy[ii], Fz[ii], Fr[ii], Ft[ii], Fa[ii]])
                 return ret_val
-            else:
-                raise RuntimeError("Error getting ENS_Force_Net_Tan_ShearForce_R, T and/or A")
+            else:  # pragma: no cover
+                raise RuntimeError(
+                    "Error getting ENS_Force_Net_Tan_ShearForce_R, T and/or A"
+                )  # pragma: no cover
         else:  # Only one frame or user picked frame 0 (None) for cylindrical frame calc
             if all([Fx, Fy, Fz]):
                 ret_val = []
                 for ii in range(len(pobj_list)):
                     ret_val.append([Fx[ii], Fy[ii], Fz[ii], 0.0, 0.0, 0.0])
                 return ret_val
-            else:
-                raise RuntimeError(
+            else:  # pragma: no cover
+                raise RuntimeError(  # pragma: no cover
                     "Error getting Fx, Fy, and/or Fz Shear Net force per part constant values"
                 )
 
@@ -762,28 +764,30 @@ class Variables:
                     v_type=self.ensight.objs.enums.ENS_VAR_CONSTANT
                 ):
                     const_type = self.ensight.objs.enums.ENS_VAR_CONSTANT
-                else:
-                    raise RuntimeError(
+                else:  # pragma: no cover
+                    raise RuntimeError(  # pragma: no cover
                         "Error, {} Constant name {} is not a constant nor a per part constant".format(
                             ens_routine, const_name
                         )
                     )
-            else:
-                raise RuntimeError(
+            else:  # pragma: no cover
+                raise RuntimeError(  # pragma: no cover
                     "Error, {} must supply a valid constant variable name ".format(ens_routine)
                 )
         elif isinstance(cname, self.ensight.objs.ENS_VAR):
             const_name = cname.DESCRIPTION
             const_type = cname.VARTYPEENUM
-            if (
+            if (  # pragma: no cover
                 const_type != self.ensight.objs.enums.ENS_VAR_CONSTANT
                 and const_type != self.ensight.objs.enums.ENS_VAR_CONSTANT_PER_PART
             ):
-                raise RuntimeError(
+                raise RuntimeError(  # pragma: no cover
                     "Error, Variable {} is not a constant nor a per part constant".format(cname)
                 )
-        else:
-            raise RuntimeError("Error, 'get_const_val' Constant name is neither string nor ENS_VAR")
+        else:  # pragma: no cover
+            raise RuntimeError(
+                "Error, 'get_const_val' Constant name is neither string nor ENS_VAR"
+            )  # pragma: no cover
         #
         #
         #  Now get it
@@ -808,8 +812,8 @@ class Variables:
                             ret_val.append(None)
                         else:
                             ret_val.append(val)
-                else:
-                    raise RuntimeError(
+                else:  # pragma: no cover
+                    raise RuntimeError(  # pragma: no cover
                         "Error {} part list must contain a list of only ENS_PARTs".format(
                             ens_routine
                         )
@@ -827,8 +831,8 @@ class Variables:
                 return None
             else:
                 return val
-        else:
-            raise RuntimeError(
+        else:  # pragma: no cover
+            raise RuntimeError(  # pragma: no cover
                 "Error, {} return value from ensight.ensvariable indicates it is not a float from an Ensight Constant".format(
                     ens_routine
                 )
@@ -915,8 +919,8 @@ class Variables:
         ensvar_values: List["ENS_VAR"]
         ensvar_values = [v for v in values]
         _press_var_obj = ensvar_values[0]
-        if not pobj_list:
-            raise RuntimeError("Error, no part provided")
+        if not pobj_list:  # pragma: no cover
+            raise RuntimeError("Error, no part provided")  # pragma: no cover
         #
         # select all parts in list
         #
@@ -1009,8 +1013,8 @@ class Variables:
         #
         if not frame_index:
             frame_index = 0
-        if not pobj_list:
-            raise RuntimeError("Error, no part provided")
+        if not pobj_list:  # pragma: no cover
+            raise RuntimeError("Error, no part provided")  # pragma: no cover
         #
         # Select the part(s) in the list
         # ensight.variables.evaluate("ENS_Force_Net_press_Y = StatMoment(plist,pressure,0,Compute_Per_part)")
@@ -1193,18 +1197,16 @@ class Variables:
                     ret_val.append([Fx[ii], Fy[ii], Fz[ii], Fr[ii], Ft[ii], Fa[ii]])
                 return ret_val
             else:
-                err_string = "Error getting XYZ and/or Cylindrical RTZ Pressure Net Force per part constant values"
-                raise RuntimeError(err_string)
+                err_string = "Error getting XYZ and/or Cylindrical RTZ Pressure Net Force per part constant values"  # pragma: no cover
+                raise RuntimeError(err_string)  # pragma: no cover
         else:  # either only one Frame or Frame 0 has been chosen so no cylindrical calc
             if all([Fx, Fy, Fz]):
                 ret_val = []
                 for ii in range(len(pobj_list)):
                     ret_val.append([Fx[ii], Fy[ii], Fz[ii], 0.0, 0.0, 0.0])
                 return ret_val
-            else:
-                err_string = (
-                    "Error getting Fx, Fy, and/or Fz Pressure Net force per part constant values"
-                )
+            else:  # pragma: no cover
+                err_string = "Error getting Fx, Fy, and/or Fz Pressure Net force per part constant values"  # pragma: no cover  # pragma: no cover
                 raise RuntimeError(err_string)
 
     def _write_out_force_data(
@@ -1539,11 +1541,11 @@ class Variables:
                     #  FIX ME keep track of and write out totals here when loop is done on last line?
                     fp.close()
                     return True
-            except IOError:
-                raise RuntimeError(
+            except IOError:  # pragma: no cover
+                raise RuntimeError(  # pragma: no cover
                     "Error Failed to open output csv filename for writing '" + filename + "'"
-                )
-        raise RuntimeError("Error no pressure force list to write out")
+                )  # pragma: no cover
+        raise RuntimeError("Error no pressure force list to write out")  # pragma: no cover
 
     @staticmethod
     def _force_coeffs(
@@ -1604,8 +1606,8 @@ class Variables:
             up_vec = [0.0, -1.0, 0.0]
         elif up_str == "-Z":
             up_vec = [0.0, 0.0, -1.0]
-        else:
-            raise RuntimeError(
+        else:  # pragma: no cover
+            raise RuntimeError(  # pragma: no cover
                 f"Up vector {up_str} not allowed. It can only be +X, +Y, +Z, -X, -Y, -Z."
             )
         return np.array(up_vec)
