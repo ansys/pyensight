@@ -253,3 +253,92 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
         assert False
     except Exception:
         pass
+
+def test_particle_traces_and_geometry(tmpdir, pytestconfig: pytest.Config):
+    data_dir = tmpdir.mkdir("datadir")
+    use_local = pytestconfig.getoption("use_local_launcher")
+    root = None
+    if use_local:
+        launcher = LocalLauncher()
+        root = "http://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
+    else:
+        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
+    session = launcher.start()
+    session.load_example("waterbreak.ens")
+    parts = session.ensight.utils.parts
+    export = session.ensight.utils.export
+    session.ensight.objs.core.PARTS.set_attr("COLORBYPALETTE", "alpha1")
+    export.geometry("test.glb", format=export.GEOM_EXPORT_GLTF, starting_timestep=0)
+    export.geometry("second_test.glb", format=export.GEOM_EXPORT_GLTF, starting_timestep=0, frames=-1)
+    assert os.path.exists("test.glb")
+    for i in range(20):
+        assert os.path.exists(f"second_test{str(i).zfill(3)}.glb")
+    point_pt = parts.create_particle_trace_from_points(
+            "test", 
+            "u", 
+            points=[[0.01, 0.1, 0]], 
+            source_parts=parts.select_parts_by_dimension(3)
+        )
+    line_pt = parts.create_particle_trace_from_line(
+            "test2",
+            "u", 
+            point1=[0.01, 0.1, -0.02],
+            point2=[0.01, 0.1, 0.02],
+            source_parts=parts.select_parts_by_dimension(3),
+            pathlines=True,
+            emit_time=0.0,
+            total_time=1.0,
+            delta_time=0.025,
+            num_points=3
+    )   
+    plane_pt = parts.create_particle_trace_from_plane(
+        "test3",
+            5,
+            direction=parts.PT_NEG_TIME,
+            source_parts=parts.select_parts_by_dimension(3),
+            point1=[0.5, 0.2, 0.013],
+            point2=[0.5, 0.2, -0.002],
+            point3=[0.5, 0.35, -0.002],
+            num_points_x=4,
+            num_points_y=5
+        )
+    part_pt = parts.create_particle_trace_from_parts(
+            "test4",
+            "u",
+            source_parts=parts.select_parts_by_dimension(3),
+            parts=["leftWall"],
+            num_points=10,
+    )
+    part_pt2 = parts.create_particle_trace_from_parts(
+            "test10",
+            "u",
+            source_parts=parts.select_parts_by_dimension(3),
+            parts=["leftWall"],
+            num_points=10,
+            surface_restrict=True
+    )
+    parts.add_emitter_parts_to_particle_trace_part(
+            part_pt,
+            parts=["lowerWall"],
+            num_points=5,
+            part_distribution_type=parts.PART_EMIT_FROM_AREA
+    )
+    parts.add_emitter_points_to_particle_trace_part(
+            point_pt,
+            points=[[0.02, 0.1, 0]], 
+    )
+    parts.add_emitter_line_to_particle_trace_part(
+            line_pt,
+            point1=[0.02, 0.1, -0.02],
+            point2=[0.02, 0.1, 0.02],
+            num_points=3
+    )
+    parts.add_emitter_plane_to_particle_trace_part(
+            plane_pt,
+            point1=[0.3, 0.2, 0.013],
+            point2=[0.3, 0.2, -0.002],
+            point3=[0.3, 0.35, -0.002],
+            num_points_x=4,
+            num_points_y=5      
+    )
+    
