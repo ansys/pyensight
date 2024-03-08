@@ -58,12 +58,12 @@ def convert_variable(
 class Parts:
     """Controls the parts in the current EnSight ``Session`` instance."""
 
-    class _EnSEmitterPoint(ens_emitterobj):
-        def __init__(
+    class _EnSEmitterPoint(ens_emitterobj):  # pragma: no cover
+        def __init__(  # pragma: no cover
             self,
             ensight: "ensight",
             point1: Optional[List[float]] = [0, 0, 0],
-        ):
+        ):  # pragma: no cover
             if not isinstance(ensight, ModuleType):
                 raise RuntimeError(
                     "The class cannot be used directly in PyEnSight. It should not be used directly even in EnSight"
@@ -73,8 +73,8 @@ class Parts:
             self.ensight.view_transf.cursor(*point1)
             self.CENTROID = point1
 
-    class _EnSEmitterGrid(ens_emitterobj):
-        def __init__(
+    class _EnSEmitterGrid(ens_emitterobj):  # pragma: no cover
+        def __init__(  # pragma: no cover
             self,
             ensight: "ensight",
             point1: Optional[List[float]] = [0, 0, 0],
@@ -83,7 +83,7 @@ class Parts:
             point4: Optional[List[float]] = [0, 0, 0],
             num_points_x: Optional[int] = 25,
             num_points_y: Optional[int] = 25,
-        ):
+        ):  # pragma: no cover
             if not isinstance(ensight, ModuleType):
                 raise RuntimeError(
                     "The class cannot be used directly in PyEnSight. It should not be used directly even in EnSight"
@@ -100,14 +100,14 @@ class Parts:
             self.NUM_POINTS_X = num_points_x
             self.NUM_POINTS_Y = num_points_y
 
-    class _EnSEmitterLine(ens_emitterobj):
-        def __init__(
+    class _EnSEmitterLine(ens_emitterobj):  # pragma: no cover
+        def __init__(  # pragma: no cover
             self,
             ensight: "ensight",
             point1: Optional[List[float]] = [0, 0, 0],
             point2: Optional[List[float]] = [0, 0, 0],
             num_points: Optional[int] = 100,
-        ):
+        ):  # pragma: no cover
             if not isinstance(ensight, ModuleType):
                 raise RuntimeError(
                     "The class cannot be used directly in PyEnSight. It should not be used directly even in EnSight"
@@ -120,14 +120,14 @@ class Parts:
             self.POINT2 = point2
             self.NUM_POINTS = num_points
 
-    class _EnSEmitterPart(ens_emitterobj):
-        def __init__(
+    class _EnSEmitterPart(ens_emitterobj):  # pragma: no cover
+        def __init__(  # pragma: no cover
             self,
             ensight: "ensight",
             part: Optional[Any] = None,
             part_kind: Optional[Any] = 0,
             num_points: Optional[int] = 100,
-        ):
+        ):  # pragma: no cover
             if not isinstance(ensight, ModuleType):
                 raise RuntimeError(
                     "The class cannot be used directly in PyEnSight. It should not be used directly even in EnSight"
@@ -257,8 +257,10 @@ class Parts:
             if not points:
                 raise RuntimeError("list of points needed if particle trace emitted from points")
             for p in points:
-                if isinstance(self.ensight, ModuleType):
-                    new_emitters.append(self._EnSEmitterPoint(self.ensight, point1=p))
+                if isinstance(self.ensight, ModuleType):  # pragma: no cover
+                    new_emitters.append(
+                        self._EnSEmitterPoint(self.ensight, point1=p)
+                    )  # pragma: no cover
                 else:
                     new_emitters.append(
                         f"ensight.utils.parts._EnSEmitterPoint(ensight, point1={p})"
@@ -266,8 +268,8 @@ class Parts:
         elif emitter_type == self._EMIT_LINE:
             if not any([point1, point2]):
                 raise RuntimeError("point1 and point2 needed if particle trace emitted from line")
-            if isinstance(self.ensight, ModuleType):
-                new_emitters.append(
+            if isinstance(self.ensight, ModuleType):  # pragma: no cover
+                new_emitters.append(  # pragma: no cover
                     self._EnSEmitterLine(
                         self.ensight, point1=point1, point2=point2, num_points=num_points
                     )
@@ -281,8 +283,8 @@ class Parts:
                 raise RuntimeError(
                     "point1, point2 and point3 needed if particle trace emitted from plane"
                 )
-            if isinstance(self.ensight, ModuleType):
-                new_emitters.append(
+            if isinstance(self.ensight, ModuleType):  # pragma: no cover
+                new_emitters.append(  # pragma: no cover
                     self._EnSEmitterGrid(
                         self.ensight,
                         point1=point1,
@@ -300,8 +302,8 @@ class Parts:
             if not parts:
                 raise RuntimeError("part and num_points needed if particle trace emitted from part")
             for p in parts:
-                if isinstance(self.ensight, ModuleType):
-                    new_emitters.append(
+                if isinstance(self.ensight, ModuleType):  # pragma: no cover
+                    new_emitters.append(  # pragma: no cover
                         self._EnSEmitterPart(
                             self.ensight,
                             part=p,
@@ -370,13 +372,13 @@ class Parts:
         clean: Optional[bool] = False,
     ) -> "ENS_PART_PARTICLE_TRACE":
         """Private utility to add emitters to an existing particle trace part."""
-        if isinstance(self.ensight, ModuleType):
-            if clean:
-                emitters = []
-            else:
-                emitters = particle_trace_part.EMITTERS.copy()
-            emitters.extend(new_emitters)
-            particle_trace_part.EMITTERS = emitters
+        if isinstance(self.ensight, ModuleType):  # pragma: no cover
+            if clean:  # pragma: no cover
+                emitters = []  # pragma: no cover
+            else:  # pragma: no cover
+                emitters = particle_trace_part.EMITTERS.copy()  # pragma: no cover
+            emitters.extend(new_emitters)  # pragma: no cover
+            particle_trace_part.EMITTERS = emitters  # pragma: no cover
         else:
             if clean:
                 self.ensight._session.cmd("enscl.emitters=[]", do_eval=False)

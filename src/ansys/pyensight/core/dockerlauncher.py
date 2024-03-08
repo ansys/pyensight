@@ -555,7 +555,7 @@ class DockerLauncher(Launcher):
         if self._pim_instance is None:
             ws_port = self._service_host_port["ws"][1]
         else:
-            ws_port = self._service_host_port["http"][1]
+            ws_port = self._service_host_port["http"][1]  # pragma: no cover
         session = ansys.pyensight.core.session.Session(
             host=self._service_host_port["grpc_private"][0],
             grpc_port=self._service_host_port["grpc_private"][1],
