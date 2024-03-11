@@ -4,7 +4,7 @@ from unittest import mock
 import webbrowser
 
 import ansys.pyensight.core
-from ansys.pyensight.core.launcher import Launcher
+from ansys.pyensight.core.launcher import Launcher, Session
 import ansys.pyensight.core.renderable
 import pytest
 
