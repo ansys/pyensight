@@ -113,6 +113,14 @@ class Session:
     >>> from ansys.pyensight.core import LocalLauncher
     >>> session = LocalLauncher().start()
 
+    >>> # Launch an instance of EnSight, then create a second conection to the instance
+    >>> from ansys.pyensight.core import LocalLauncher, Session
+    >>> launched_session = LocalLauncher().start()
+    >>> # Get a string that can be used to create a second connection
+    >>> session_string = str(launched_session)
+    >>> # Create a second connection to the same EnSight instance
+    >>> connected_session = eval(session_string)
+
     """
 
     def __init__(
@@ -257,7 +265,7 @@ class Session:
             session_dir = self.launcher.session_directory
         s = f"Session(host='{self.hostname}', secret_key='{self.secret_key}', "
         s += f"sos={self.sos}, rest_api={self.rest_api}, "
-        s += f"html_hostname={self.html_hostname}, html_port={self.html_port}, "
+        s += f"html_hostname='{self.html_hostname}', html_port={self.html_port}, "
         s += f"grpc_port={self._grpc_port}, "
         s += f"ws_port={self.ws_port}, session_directory=r'{session_dir}')"
         return s
