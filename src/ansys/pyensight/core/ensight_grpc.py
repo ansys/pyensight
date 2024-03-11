@@ -8,8 +8,7 @@ import threading
 from typing import Any, Callable, List, Optional, Tuple, Union
 import uuid
 
-from ansys.api.pyensight.v0 import (ensight_pb2, ensight_pb2_grpc,
-                                    dynamic_scene_graph_pb2, dynamic_scene_graph_pb2_grpc)
+from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2_grpc, ensight_pb2, ensight_pb2_grpc
 import grpc
 
 

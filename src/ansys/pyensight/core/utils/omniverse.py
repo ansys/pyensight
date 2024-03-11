@@ -2,6 +2,7 @@ import os
 import subprocess
 import sys
 from typing import TYPE_CHECKING, Union
+
 import psutil
 
 if TYPE_CHECKING:
@@ -42,6 +43,7 @@ class Omniverse:
         ov.close_connection()
 
     """
+
     def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
         self._ensight = interface
         self._server_pid = None
@@ -59,10 +61,12 @@ class Omniverse:
         """
         try:
             # Note: the EnSight embedded interpreter will not have these
-            import omni, pxr
+            import omni  # noqa: F401
+            import pxr  # noqa: F401
         except ImportError:
             raise RuntimeError(
-                "The module requires the omni and pxr modules to be installed.") from None
+                "The module requires the omni and pxr modules to be installed."
+            ) from None
 
     def _is_running_omniverse(self):
         if self._server_pid is None:
@@ -72,12 +76,15 @@ class Omniverse:
         self._server_pid = None
         return False
 
-    def create_connection(self, omniverse_path: str,
-                          include_camera: bool = False,
-                          normalize_geometry: bool = False,
-                          live: bool = True,
-                          temporal: bool = False,
-                          debug_filename: str = "") -> None:
+    def create_connection(
+        self,
+        omniverse_path: str,
+        include_camera: bool = False,
+        normalize_geometry: bool = False,
+        live: bool = True,
+        temporal: bool = False,
+        debug_filename: str = "",
+    ) -> None:
         """Ensure that an EnSight dsg -> omniverse server is running
 
         pathname = "omniverse://localhost/Users/test"
@@ -91,30 +98,39 @@ class Omniverse:
         self._check_modules()
         if self._is_running_omniverse():
             raise RuntimeError("An Omniverse server connection is already active.")
+        # Make sure the internal ui module is loaded
+        self._ensight._session.cmd("import enspyqtgui_int", do_eval=False)
+        # Get the gRPC connection details and use them to launch the service
         port = self._ensight._session.grpc.port()
         hostname = self._ensight._session.grpc.host
         token = self._ensight._session.grpc.security_token
         script_name = "omniverse_dsg_server.py"
         working_dir = os.path.dirname(__file__)
-        cmd = [sys.executable, script_name,
-               "--host", hostname,
-               "--port", str(port),
-               "--path", omniverse_path]
+        cmd = [
+            sys.executable,
+            script_name,
+            "--host",
+            hostname,
+            "--port",
+            str(port),
+            "--path",
+            omniverse_path,
+        ]
         if live:
-            cmd.extend(['--live'])
+            cmd.extend(["--live"])
         if include_camera:
-            cmd.extend(['--vrmode'])
+            cmd.extend(["--vrmode"])
         if token:
             cmd.extend(["--security", token])
         if temporal:
-            cmd.extend(['--animation'])
+            cmd.extend(["--animation"])
         else:
-            cmd.extend(['--no-animation'])
+            cmd.extend(["--no-animation"])
         if debug_filename:
             cmd.extend(["--log_file", debug_filename])
             cmd.extend(["--verbose", "1"])
         if normalize_geometry:
-            cmd.extend(['--normalize_geometry'])
+            cmd.extend(["--normalize_geometry"])
         env_vars = os.environ.copy()
         process = subprocess.Popen(cmd, close_fds=True, env=env_vars, cwd=working_dir)
         self._server_pid = process.pid
@@ -126,7 +142,7 @@ class Omniverse:
 
         """
         self._check_modules()
-        if not self.is_running_omniverse():
+        if not self._is_running_omniverse():
             return
         proc = psutil.Process(self._server_pid)
         for child in proc.children(recursive=True):
@@ -145,7 +161,8 @@ class Omniverse:
 
     def push_scene(self) -> None:
         """Update the geometry in Omniverse"""
-        if not self.is_running_omniverse():
+        self._check_modules()
+        if not self._is_running_omniverse():
             raise RuntimeError("No Omniverse server connection is currently active.")
         update_cmd = "dynamicscenegraph://localhost/client/update"
         cmd = f'enspyqtgui_int.dynamic_scene_graph_command("{update_cmd}")'
