@@ -280,9 +280,16 @@ class OmniverseWrapper:
         boxPrim.CreateNormalsAttr(OmniverseWrapper.boxNormals)
         boxPrim.CreateFaceVertexCountsAttr(OmniverseWrapper.boxVertexCounts)
         boxPrim.CreateFaceVertexIndicesAttr(OmniverseWrapper.boxVertexIndices)
-        texCoords = boxPrim.CreatePrimvar(
-            "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
-        )
+        # USD 22.08 changed the primvar API
+        if hasattr(boxPrim, "CreatePrimvar"):
+            texCoords = boxPrim.CreatePrimvar(
+                "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+            )
+        else:
+            primvarsAPI = UsdGeom.PrimvarsAPI(boxPrim)
+            texCoords = primvarsAPI.CreatePrimvar(
+                "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+            )
         texCoords.Set(OmniverseWrapper.boxUVs)
         texCoords.SetInterpolation("vertex")
         if not boxPrim:
@@ -357,9 +364,16 @@ class OmniverseWrapper:
         mesh.CreateFaceVertexCountsAttr([3] * int(conn.size / 3))
         mesh.CreateFaceVertexIndicesAttr(conn)
         if (tcoords is not None) and variable:
-            texCoords = mesh.CreatePrimvar(
-                "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
-            )
+            # USD 22.08 changed the primvar API
+            if hasattr(mesh, "CreatePrimvar"):
+                texCoords = mesh.CreatePrimvar(
+                    "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+                )
+            else:
+                primvarsAPI = UsdGeom.PrimvarsAPI(mesh)
+                texCoords = primvarsAPI.CreatePrimvar(
+                    "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+                )
             texCoords.Set(tcoords)
             texCoords.SetInterpolation("vertex")
         # sphere = part_stage.DefinePrim('/' + partname + '/sphere', 'Sphere')
@@ -405,11 +419,11 @@ class OmniverseWrapper:
             filename = self._destinationPath + f"/Parts/Textures/palette_{name}.png"
             diffuseTextureSampler.CreateInput("file", Sdf.ValueTypeNames.Asset).Set(filename)
             diffuseTextureSampler.CreateInput("st", Sdf.ValueTypeNames.Float2).ConnectToSource(
-                stReader, "result"
+                stReader.ConnectableAPI(), "result"
             )
             diffuseTextureSampler.CreateOutput("rgb", Sdf.ValueTypeNames.Float3)
             pbrShader.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).ConnectToSource(
-                diffuseTextureSampler, "rgb"
+                diffuseTextureSampler.ConnectableAPI(), "rgb"
             )
             stInput = material.CreateInput("frame:stPrimvarName", Sdf.ValueTypeNames.Token)
             stInput.Set("st")
@@ -481,7 +495,7 @@ class OmniverseWrapper:
             trans_row = look_at.GetRow(3)
             trans_row = Gf.Vec4d(-trans_row[0], -trans_row[1], -trans_row[2], trans_row[3])
             look_at.SetRow(3, trans_row)
-            print(look_at)
+            # print(look_at)
             cam.transform = look_at
 
             # set the updated camera
