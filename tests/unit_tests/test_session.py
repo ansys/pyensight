@@ -4,7 +4,7 @@ from unittest import mock
 import webbrowser
 
 import ansys.pyensight.core
-from ansys.pyensight.core.launcher import Launcher, Session
+from ansys.pyensight.core.launcher import Launcher, Session # noqa: F401
 import ansys.pyensight.core.renderable
 import pytest
 
