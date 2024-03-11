@@ -52,6 +52,13 @@ def test_show(mocked_session, mocker):
     assert "No websocketserver has been associated with this Session" in str(exec_info)
 
 
+def test_clone(mocked_session):
+    session = mocked_session
+    cmd = str(session)
+    second_connection = eval(cmd)
+    assert session.secret_key() == second_connection.secret_key()
+
+
 def test_exec(mocked_session):
     def function(*args, **kwargs):
         return True

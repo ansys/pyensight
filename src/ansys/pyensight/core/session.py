@@ -113,7 +113,7 @@ class Session:
     >>> from ansys.pyensight.core import LocalLauncher
     >>> session = LocalLauncher().start()
 
-    >>> # Launch an instance of EnSight, then create a second conection to the instance
+    >>> # Launch an instance of EnSight, then create a second connection to the instance
     >>> from ansys.pyensight.core import LocalLauncher, Session
     >>> launched_session = LocalLauncher().start()
     >>> # Get a string that can be used to create a second connection
