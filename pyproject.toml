@@ -84,7 +84,8 @@ name = "ansys.pyensight.core"
 branch = true
 omit = [
     "*/locallauncher.py",
-    "*/adr.py"
+    "*/adr.py",
+    "*/omniverse*.py"
 ]
 
 [tool.coverage.report]

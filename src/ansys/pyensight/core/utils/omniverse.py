@@ -1,7 +1,7 @@
 import os
 import subprocess
 import sys
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Optional, Union
 
 import psutil
 
@@ -46,7 +46,7 @@ class Omniverse:
 
     def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
         self._ensight = interface
-        self._server_pid = None
+        self._server_pid: Optional[int] = None
 
     @staticmethod
     def _check_modules() -> None:

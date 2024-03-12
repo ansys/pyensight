@@ -32,41 +32,43 @@ import queue
 import shutil
 import sys
 import threading
-from typing import Optional
+from typing import Any, List, Optional
 
 from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2
 from ansys.pyensight.core import ensight_grpc
 import numpy
 import omni.client
 import png
-from pxr import Gf, Kind, Sdf, Usd, UsdGeom, UsdLux, UsdShade
+from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdShade
 
 
 class OmniverseWrapper:
     verbose = 0
 
     @staticmethod
-    def logCallback(threadName, component, level, message):
+    def logCallback(threadName: None, component: Any, level: Any, message: str) -> None:
         if OmniverseWrapper.verbose:
             logging.info(message)
 
     @staticmethod
-    def connectionStatusCallback(url, connectionStatus):
+    def connectionStatusCallback(
+        url: Any, connectionStatus: "omni.client.ConnectionStatus"
+    ) -> None:
         if connectionStatus is omni.client.ConnectionStatus.CONNECT_ERROR:
             sys.exit("[ERROR] Failed connection, exiting.")
 
     def __init__(
         self,
-        doLiveEdit=False,
-        path="omniverse://localhost/Users/test",
-        verbose=0,
+        live_edit: bool = False,
+        path: str = "omniverse://localhost/Users/test",
+        verbose: int = 0,
     ):
         self._connectionStatusSubscription = None
         self._stage = None
         self._destinationPath = path
-        self._old_stages = list()
+        self._old_stages: list = []
         self._stagename = "dsg_scene.usd"
-        self._live_edit = doLiveEdit
+        self._live_edit = live_edit
         if self._live_edit:
             self._stagename = "dsg_scene.live"
         OmniverseWrapper.verbose = verbose
@@ -85,17 +87,17 @@ class OmniverseWrapper:
         if not self.isValidOmniUrl(self._destinationPath):
             self.log("Note technically the Omniverse URL {self._destinationPath} is not valid")
 
-    def log(self, msg):
+    def log(self, msg: str) -> None:
         if OmniverseWrapper.verbose:
             logging.info(msg)
 
-    def shutdown(self):
+    def shutdown(self) -> None:
         omni.client.live_wait_for_pending_updates()
         self._connectionStatusSubscription = None
         omni.client.shutdown()
 
     @staticmethod
-    def isValidOmniUrl(url):
+    def isValidOmniUrl(url: str) -> bool:
         omniURL = omni.client.break_url(url)
         if omniURL.scheme == "omniverse" or omniURL.scheme == "omni":
             return True
@@ -106,12 +108,12 @@ class OmniverseWrapper:
             name = self._stagename
         return self._destinationPath + "/" + name
 
-    def delete_old_stages(self):
+    def delete_old_stages(self) -> None:
         while self._old_stages:
             stage = self._old_stages.pop()
             omni.client.delete(stage)
 
-    def create_new_stage(self):
+    def create_new_stage(self) -> None:
         self.log(f"Creating Omniverse stage: {self.stage_url()}")
         if self._stage:
             self._stage.Unload()
@@ -124,14 +126,14 @@ class OmniverseWrapper:
         UsdGeom.SetStageMetersPerUnit(self._stage, 1.0)
         self.log(f"Created stage: {self.stage_url()}")
 
-    def save_stage(self):
-        self._stage.GetRootLayer().Save()
+    def save_stage(self) -> None:
+        self._stage.GetRootLayer().Save()  # type:ignore
         omni.client.live_process()
 
     # This function will add a commented checkpoint to a file on Nucleus if:
     #   Live mode is disabled (live checkpoints are ill-supported)
     #   The Nucleus server supports checkpoints
-    def checkpoint(self, comment: str = ""):
+    def checkpoint(self, comment: str = "") -> None:
         if self._live_edit:
             return
         result, serverInfo = omni.client.get_server_info(self.stage_url())
@@ -140,7 +142,7 @@ class OmniverseWrapper:
             self.log(f"Adding checkpoint comment <{comment}> to stage <{self.stage_url()}>")
             omni.client.create_checkpoint(self.stage_url(), comment, bForceCheckpoint)
 
-    def username(self, display=True):
+    def username(self, display: bool = True) -> Optional[str]:
         result, serverInfo = omni.client.get_server_info(self.stage_url())
         if serverInfo:
             if display:
@@ -267,13 +269,13 @@ class OmniverseWrapper:
         (1, 0),
     ]
 
-    def createBox(self, boxNumber=0):
+    def createBox(self, box_number: int = 0) -> "UsdGeom.Mesh":
         rootUrl = "/Root"
-        boxUrl = rootUrl + "/Boxes/box_%d" % boxNumber
-        xformPrim = UsdGeom.Xform.Define(self._stage, rootUrl)
+        boxUrl = rootUrl + "/Boxes/box_%d" % box_number
+        xformPrim = UsdGeom.Xform.Define(self._stage, rootUrl)  # noqa: F841
         # Define the defaultPrim as the /Root prim
-        rootPrim = self._stage.GetPrimAtPath(rootUrl)
-        self._stage.SetDefaultPrim(rootPrim)
+        rootPrim = self._stage.GetPrimAtPath(rootUrl)  # type:ignore
+        self._stage.SetDefaultPrim(rootPrim)  # type:ignore
         boxPrim = UsdGeom.Mesh.Define(self._stage, boxUrl)
         boxPrim.CreateDisplayColorAttr([(0.463, 0.725, 0.0)])
         boxPrim.CreatePointsAttr(OmniverseWrapper.boxPoints)
@@ -298,18 +300,18 @@ class OmniverseWrapper:
         return boxPrim
 
     @staticmethod
-    def clean_name(name, id=None):
+    def clean_name(name: str, id_name: Any = None) -> str:
         name = name.replace(" ", "_").replace("-", "_")
         name = name.replace(".", "_").replace(":", "_")
         name = name.replace("[", "_").replace("]", "_")
         name = name.replace("(", "_").replace(")", "_")
         name = name.replace("<", "_").replace(">", "_")
         if id is not None:
-            name = name + "_" + str(id)
+            name = name + "_" + str(id_name)
         return name
 
     @staticmethod
-    def decompose_matrix(values):
+    def decompose_matrix(values: Any) -> Any:
         # ang_convert = 180.0/math.pi
         ang_convert = 1.0
         trans_convert = 1.0
@@ -330,11 +332,6 @@ class OmniverseWrapper:
         t = [t[0] * trans_convert, t[1] * trans_convert, t[2] * trans_convert]
         return s, r, t
 
-    # TODO:
-    # coordinate scaling
-    # 1D texture map for variables https://graphics.pixar.com/usd/release/tut_simple_shading.html
-    # Transforms/camera
-    # lights, clipping planes, scaling (cm)
     def create_dsg_mesh_block(
         self,
         name,
@@ -348,6 +345,7 @@ class OmniverseWrapper:
         diffuse=[1.0, 1.0, 1.0, 1.0],
         variable=None,
     ):
+        # 1D texture map for variables https://graphics.pixar.com/usd/release/tut_simple_shading.html
         # create the part usd object
         partname = self.clean_name(name, id)
         stage_name = "/Parts/" + partname + ".usd"
@@ -504,11 +502,27 @@ class OmniverseWrapper:
 
     def create_dsg_group(
         self,
-        name,
-        id,
+        name: str,
         parent_prim,
-        obj_type=None,
-        matrix=[1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+        obj_type: Any = None,
+        matrix: List[float] = [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+        ],
     ):
         path = parent_prim.GetPath().AppendChild(self.clean_name(name))
         group_prim = UsdGeom.Xform.Define(self._stage, path)
@@ -637,11 +651,12 @@ class OmniverseWrapper:
 
 
 class Part(object):
-    def __init__(self, link):
+    def __init__(self, link: "DSGOmniverseLink"):
         self._link = link
+        self.cmd: Optional[Any] = None
         self.reset()
 
-    def reset(self, cmd=None):
+    def reset(self, cmd: Any = None) -> None:
         self.conn_tris = numpy.array([], dtype="int32")
         self.conn_lines = numpy.array([], dtype="int32")
         self.coords = numpy.array([], dtype="float32")
@@ -652,7 +667,7 @@ class Part(object):
         self.tcoords_elem = False
         self.cmd = cmd
 
-    def update_geom(self, cmd):
+    def update_geom(self, cmd: dynamic_scene_graph_pb2.UpdateGeom) -> None:
         if cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.COORDINATES:
             if self.coords.size != cmd.total_array_size:
                 self.coords = numpy.resize(self.coords, cmd.total_array_size)
@@ -823,10 +838,11 @@ class Part(object):
             self.cmd.fill_color[2] * self.cmd.diffuse,
             self.cmd.fill_color[3],
         ]
-        id = self._link._mesh_block_count
-        prim = self._link._omni.create_dsg_mesh_block(
+        obj_id = self._link._mesh_block_count
+        # prim =
+        _ = self._link._omni.create_dsg_mesh_block(
             self.cmd.name,
-            id,
+            obj_id,
             parent[1],
             verts,
             conn,
@@ -845,31 +861,48 @@ class Part(object):
 class DSGOmniverseLink(object):
     def __init__(
         self,
+        omni: OmniverseWrapper,
         port: int = 12345,
         host: str = "127.0.0.1",
         security_code: str = "",
         verbose: int = 0,
-        omni: Optional[OmniverseWrapper] = None,
         normalize_geometry: bool = False,
         vrmode: bool = False,
     ):
         super().__init__()
         self._grpc = ensight_grpc.EnSightGRPC(port=port, host=host, secret_key=security_code)
         self._verbose = verbose
-        self._thread = None
-        self._message_queue = queue.Queue()  # Messages coming from EnSight
-        self._dsg_queue = None  # Outgoing messages to EnSight
+        self._thread: Optional[threading.Thread] = None
+        self._message_queue: queue.Queue = queue.Queue()  # Messages coming from EnSight
+        self._dsg_queue: Optional[queue.SimpleQueue] = None  # Outgoing messages to EnSight
         self._shutdown = False
         self._dsg = None
         self._omni = omni
         self._normalize_geometry = normalize_geometry
         self._vrmode = vrmode
+        self._mesh_block_count = 0
+        self._variables: dict = {}
+        self._groups: dict = {}
+        self._part: Part = Part(self)
+        self._scene_bounds: Optional[List] = None
 
-    def log(self, s: str):
+    def log(self, s: str) -> None:
+        """Log a string to the logging system
+
+        If verbosity is set, log the string.
+        """
         if self._verbose > 0:
             logging.info(s)
 
-    def start(self):
+    def start(self) -> int:
+        """Start a gRPC connection to an EnSight instance
+
+        Make a gRPC connection and start a DSG stream handler.
+
+        Returns
+        -------
+            0 on success, -1 on an error.
+        """
         # Start by setting up and verifying the connection
         self._grpc.connect()
         if not self._grpc.is_connected():
@@ -883,12 +916,16 @@ class DSGOmniverseLink(object):
         if self._dsg is not None:
             return 0
         self._dsg_queue = queue.SimpleQueue()
-        self._dsg = self._grpc.dynamic_scene_graph_stream(iter(self._dsg_queue.get, None))
+        self._dsg = self._grpc.dynamic_scene_graph_stream(
+            iter(self._dsg_queue.get, None)  # type:ignore
+        )
         self._thread = threading.Thread(target=self.poll_messages)
-        self._thread.start()
+        if self._thread is not None:
+            self._thread.start()
         return 0
 
     def end(self):
+        """Stop a gRPC connection to the EnSight instance"""
         self._grpc.stop_server()
         self._shutdown = True
         self._thread.join()
@@ -898,9 +935,18 @@ class DSGOmniverseLink(object):
         self._dsg_queue = None
 
     def is_shutdown(self):
+        """Check the service shutdown request status"""
         return self._shutdown
 
-    def request_an_update(self, animation=False):
+    def request_an_update(self, animation: bool = False) -> None:
+        """Start a DSG update
+        Send a command to the DSG protocol to "init" an update.
+
+        Parameters
+        ----------
+        animation:
+            if True, export all EnSight timesteps.
+        """
         # Send an INIT command to trigger a stream of update packets
         cmd = dynamic_scene_graph_pb2.SceneClientCommand()
         cmd.command_type = dynamic_scene_graph_pb2.SceneClientCommand.INIT
@@ -909,48 +955,66 @@ class DSGOmniverseLink(object):
         cmd.init.include_temporal_geometry = animation
         cmd.init.allow_incremental_updates = False
         cmd.init.maximum_chunk_size = 1024 * 1024
-        self._dsg_queue.put(cmd)
+        self._dsg_queue.put(cmd)  # type:ignore
         # Handle the update messages
         self.handle_one_update()
 
-    def poll_messages(self):
-        # this is run by a thread that is monitoring the dsg RPC call for update messages
-        # it places them in _message_queue as it finds them.  They are picked up by the
-        # main thread via get_next_message()
+    def poll_messages(self) -> None:
+        """Core interface to grab DSG events from gRPC and queue them for processing
+
+        This is run by a thread that is monitoring the dsg RPC call for update messages
+        it places them in _message_queue as it finds them.  They are picked up by the
+        main thread via get_next_message()
+        """
         while not self._shutdown:
             try:
-                self._message_queue.put(next(self._dsg))
-            except Exception as e:
+                self._message_queue.put(next(self._dsg))  # type:ignore
+            except Exception:
                 self._shutdown = True
                 logging.info("DSG connection broken, calling exit")
                 os._exit(0)
 
-    def get_next_message(self, wait=True):
-        # called by the main thread to get any messages that were pulled in from the
-        # dsg stream and placed here by poll_messages()
+    def get_next_message(self, wait: bool = True) -> Any:
+        """Get the next queued up protobuffer message
+
+        Called by the main thread to get any messages that were pulled in from the
+        dsg stream and placed here by poll_messages()
+        """
         try:
             return self._message_queue.get(block=wait)
         except queue.Empty:
             return None
 
-    def handle_one_update(self):
+    def handle_one_update(self) -> None:
+        """Monitor the DSG stream and handle a single update operation
+
+        Wait until we get the scene update begin message.  From there, reset the current
+        scene buckets and then parse all the incoming commands until we get the scene
+        update end command.   At which point, save the generated stage (started in the
+        view command handler).  Note: Parts are handled with an available bucket at all times.
+        When a new part update comes in or the scene update end happens, the part is "finished".
+        """
         # An update starts with a UPDATE_SCENE_BEGIN command
         cmd = self.get_next_message()
-        while cmd.command_type != dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_SCENE_BEGIN:
+        while (cmd is not None) and (
+            cmd.command_type != dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_SCENE_BEGIN
+        ):
             # Look for a begin command
             cmd = self.get_next_message()
         self.log("Begin update ------------------------")
 
         # Start anew
-        self._variables = dict()
-        self._groups = dict()
+        self._variables = {}
+        self._groups = {}
         self._part = Part(self)
         self._scene_bounds = None
         self._mesh_block_count = 0  # reset when a new group shows up
 
         # handle the various commands until UPDATE_SCENE_END
         cmd = self.get_next_message()
-        while cmd.command_type != dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_SCENE_END:
+        while (cmd is not None) and (
+            cmd.command_type != dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_SCENE_END
+        ):
             self.handle_update_command(cmd)
             cmd = self.get_next_message()
 
@@ -963,7 +1027,17 @@ class DSGOmniverseLink(object):
         self.log("End update --------------------------")
 
     # handle an incoming gRPC update command
-    def handle_update_command(self, cmd):
+    def handle_update_command(self, cmd: dynamic_scene_graph_pb2.SceneUpdateCommand) -> None:
+        """Dispatch out a scene update command to the proper handler
+
+        Given a command object, pull out the correct portion of the protobuffer union and
+        pass it to the appropriate handler.
+
+        Parameters
+        ----------
+        cmd:
+            The command to be dispatched.
+        """
         name = "Unknown"
         if cmd.command_type == dynamic_scene_graph_pb2.SceneUpdateCommand.DELETE_ID:
             name = "Delete IDs"
@@ -991,15 +1065,32 @@ class DSGOmniverseLink(object):
             name = "Texture update"
         self.log(f"{name} --------------------------")
 
-    def finish_part(self):
+    def finish_part(self) -> None:
+        """Complete the current part
+
+        There is always a part being modified.  This method completes the current part, commits
+        it to the Omniverse USD, and sets up the next part.
+        """
         self._part.build()
         self._mesh_block_count += 1
 
-    def handle_part(self, part):
+    def handle_part(self, part: Any) -> None:
+        """Handle a DSG UPDATE_GROUP command
+        Parameters
+        ----------
+        part:
+            The command coming from the EnSight stream.
+        """
         self.finish_part()
         self._part.reset(part)
 
-    def handle_group(self, group):
+    def handle_group(self, group: Any) -> None:
+        """Handle a DSG UPDATE_GROUP command
+        Parameters
+        ----------
+        group:
+            The command coming from the EnSight stream.
+        """
         # reset current mesh (part) count for unique "part" naming in USD
         self._mesh_block_count = 0
         # get the parent group or view
@@ -1027,9 +1118,7 @@ class DSGOmniverseLink(object):
                 0.0,
                 1.0,
             ]
-        prim = self._omni.create_dsg_group(
-            group.name, group.id, parent[1], matrix=matrix, obj_type=obj_type
-        )
+        prim = self._omni.create_dsg_group(group.name, parent[1], matrix=matrix, obj_type=obj_type)
         # record the scene bounds in case they are needed later
         self._groups[group.id] = [group, prim]
         bounds = group.attributes.get("ENS_SCENE_BOUNDS", None)
@@ -1043,10 +1132,28 @@ class DSGOmniverseLink(object):
             if len(minmax) == 6:
                 self._scene_bounds = minmax
 
-    def handle_variable(self, var):
+    def handle_variable(self, var: Any) -> None:
+        """Handle a DSG UPDATE_VARIABLE command
+
+        Save off the EnSight variable DSG command object.
+
+        Parameters
+        ----------
+        var:
+            The command coming from the EnSight stream.
+        """
         self._variables[var.id] = var
 
-    def handle_view(self, view):
+    def handle_view(self, view: Any) -> None:
+        """Handle a DSG UPDATE_VIEW command
+
+        Map a view command into a new Omniverse stage and populate it with materials/lights.
+
+        Parameters
+        ----------
+        view:
+            The command coming from the EnSight stream.
+        """
         self._scene_bounds = None
         # Create a new root stage in Omniverse
         self._omni.create_new_stage()
@@ -1152,9 +1259,8 @@ if __name__ == "__main__":
     log_args = dict(format="DSG/Omniverse: %(message)s", level=logging.INFO)
     if args.log_file:
         log_args["filename"] = args.log_file
-    logging.basicConfig(**log_args)
+    logging.basicConfig(**log_args)  # type: ignore
 
-    doLiveEdit = True
     destinationPath = args.path
     loggingEnabled = args.verbose
 
@@ -1168,9 +1274,9 @@ if __name__ == "__main__":
         logging.info("OmniVerse connection established.")
 
     dsg_link = DSGOmniverseLink(
+        omni=target,
         port=args.port,
         host=args.host,
-        omni=target,
         vrmode=args.vrmode,
         security_code=args.security,
         verbose=loggingEnabled,
@@ -1190,13 +1296,13 @@ if __name__ == "__main__":
     # Live operation
     if args.live:
         if loggingEnabled:
-            logging.info(f"Waiting for remote push operations")
+            logging.info("Waiting for remote push operations")
         while not dsg_link.is_shutdown():
             dsg_link.handle_one_update()
 
     # Done...
     if loggingEnabled:
-        logging.info(f"Shutting down DSG connection")
+        logging.info("Shutting down DSG connection")
     dsg_link.end()
 
     # Add a material to the box
