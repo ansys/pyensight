@@ -258,8 +258,6 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     cas_file = session.download_pyansys_example("mixing_elbow.cas.h5", "pyfluent/mixing_elbow")
     dat_file = session.download_pyansys_example("mixing_elbow.dat.h5", "pyfluent/mixing_elbow")
     session.load_data(cas_file, result_file=dat_file)
-<<<<<<< HEAD
-=======
     #
     assert session.ensight_version_check("2021 R1")
     assert session.ensight_version_check("211")
@@ -393,4 +391,3 @@ def test_sos(tmpdir, pytestconfig: pytest.Config):
         session.ensight.utils.parts.get_part_id_obj_name(_parts, "id")
         session.ensight.utils.parts.get_part_id_obj_name(_parts, "name")
         session.ensight.utils.parts.get_part_id_obj_name(_parts, "obj")
->>>>>>> 763ca03e4 (add tests for geometry export and particle traces handling (#354))
