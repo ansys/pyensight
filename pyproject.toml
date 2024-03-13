@@ -6,7 +6,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "ansys-pyensight-core"
-version = "0.7.6"
+version = "0.7.7"
 description = "A python wrapper for Ansys EnSight"
 readme = "README.rst"
 requires-python = ">=3.9,<4"
@@ -27,12 +27,14 @@ classifiers = [
 
 dependencies = [
     "importlib-metadata>=4.0; python_version<='3.8'",
-    "ansys-api-pyensight==0.3.6",
+    "ansys-api-pyensight==0.3.7",
     "requests>=2.28.2",
     "docker>=6.1.0",
     "urllib3<2",
     "numpy>=1.21.0,<2",
     "Pillow>=9.3.0",
+    "pypng>=0.0.20",
+    "psutil>=5.9.2"
 ]
 
 [project.optional-dependencies]
@@ -82,7 +84,8 @@ name = "ansys.pyensight.core"
 branch = true
 omit = [
     "*/locallauncher.py",
-    "*/adr.py"
+    "*/adr.py",
+    "*/omniverse*.py"
 ]
 
 [tool.coverage.report]
