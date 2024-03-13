@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+from types import ModuleType
 from typing import TYPE_CHECKING, Optional, Union
 
 import psutil
@@ -121,6 +122,8 @@ class Omniverse:
             the connection between EnSight and Omniverse.
 
         """
+        if not isinstance(self._ensight, ModuleType):
+            self._ensight._session.ensight_version_check("2023 R2")
         self._check_modules()
         if self._is_running_omniverse():
             raise RuntimeError("An Omniverse server connection is already active.")
@@ -191,6 +194,8 @@ class Omniverse:
         Push the current EnSight scene to the current Omniverse connection.
 
         """
+        if not isinstance(self._ensight, ModuleType):
+            self._ensight._session.ensight_version_check("2023 R2")
         self._check_modules()
         if not self._is_running_omniverse():
             raise RuntimeError("No Omniverse server connection is currently active.")
