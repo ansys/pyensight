@@ -8,7 +8,7 @@ import threading
 from typing import Any, Callable, List, Optional, Tuple, Union
 import uuid
 
-from ansys.api.pyensight.v0 import ensight_pb2, ensight_pb2_grpc
+from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2_grpc, ensight_pb2, ensight_pb2_grpc
 import grpc
 
 
@@ -158,6 +158,7 @@ class EnSightGRPC(object):
             return
         # hook up the stub interface
         self._stub = ensight_pb2_grpc.EnSightServiceStub(self._channel)
+        self._dsg_stub = dynamic_scene_graph_pb2_grpc.DynamicSceneGraphServiceStub(self._channel)
 
     def _metadata(self) -> List[Tuple[bytes, Union[str, bytes]]]:
         """Compute the gRPC stream metadata
@@ -367,6 +368,24 @@ class EnSightGRPC(object):
               True if a ensightservice::EventReply steam is active
         """
         return self._event_stream is not None
+
+    def dynamic_scene_graph_stream(self, client_cmds):
+        """Open up a dynamic scene graph stream
+
+        Make a DynamicSceneGraphService::GetSceneStream() rpc call and return
+        a ensightservice::SceneUpdateCommand stream instance.
+
+        Parameters
+        ----------
+        client_cmds
+            iterator that produces ensightservice::SceneClientCommand objects
+
+        Returns
+        -------
+            ensightservice::SceneUpdateCommand stream instance
+        """
+        self.connect()
+        return self._dsg_stub.GetSceneStream(client_cmds, metadata=self._metadata())
 
     def get_event(self) -> Optional[str]:
         """Retrieve and remove the oldest ensightservice::EventReply string
