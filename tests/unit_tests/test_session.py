@@ -6,6 +6,7 @@ import webbrowser
 import ansys.pyensight.core
 from ansys.pyensight.core.launcher import Launcher
 import ansys.pyensight.core.renderable
+from ansys.pyensight.core.session import Session  # noqa: F401
 import pytest
 
 
@@ -50,6 +51,13 @@ def test_show(mocked_session, mocker):
     with pytest.raises(RuntimeError) as exec_info:
         session.show()
     assert "No websocketserver has been associated with this Session" in str(exec_info)
+
+
+def test_clone(mocked_session):
+    session = mocked_session
+    cmd = str(session)
+    second_connection = eval(cmd)
+    assert session.secret_key == second_connection.secret_key
 
 
 def test_exec(mocked_session):
