@@ -306,6 +306,8 @@ class OmniverseWrapper:
         name = name.replace("[", "_").replace("]", "_")
         name = name.replace("(", "_").replace(")", "_")
         name = name.replace("<", "_").replace(">", "_")
+        name = name.replace("/", "_").replace("=", "_")
+        name = name.replace(",", "_")
         if id is not None:
             name = name + "_" + str(id_name)
         return name
