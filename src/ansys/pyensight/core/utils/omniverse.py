@@ -27,7 +27,7 @@ class Omniverse:
 
     Parameters
     ----------
-    interface :
+    interface:
         Entity that provides the ``ensight`` namespace. In the case of
         EnSight Python, the ``ensight`` module is passed. In the case
         of PyEnSight, ``Session.ensight`` is passed.
@@ -39,7 +39,7 @@ class Omniverse:
         session = LocalLauncher().start()
         ov = session.ensight.utils.omniverse
         ov.create_connection()
-        ov.push_scene()
+        ov.update()
         ov.close_connection()
 
     """
@@ -68,7 +68,12 @@ class Omniverse:
                 "The module requires the omni and pxr modules to be installed."
             ) from None
 
-    def _is_running_omniverse(self):
+    def _is_running_omniverse(self) -> bool:
+        """Check that an Omniverse connection is active
+        Returns
+        -------
+            True if the connection is active, False otherwise.
+        """
         if self._server_pid is None:
             return False
         if psutil.pid_exists(self._server_pid):
@@ -87,12 +92,33 @@ class Omniverse:
     ) -> None:
         """Ensure that an EnSight dsg -> omniverse server is running
 
-        pathname = "omniverse://localhost/Users/test"
-        verbose = ..
-        temporal = False
-        live = True
-        normalize_geometry = False
-        store_camera = False
+        Connect the current EnSight session to an Omniverse server.
+        This is done by launching a new service that makes a dynamic scene graph
+        connection to the EnSight session and pushes updates to the Omniverse server.
+        The initial EnSight scene will be pushed after the connection is established.
+
+        Parameters
+        ----------
+        omniverse_path : str
+            The URI to the Omniverse server. It will look like this:
+            "omniverse://localhost/Users/test"
+        include_camera: bool
+            If True, apply the EnSight camera to the Omniverse scene.  This option
+            should be used if the target viewer is in AR/VR mode.  Defaults to False.
+        normalize_geometry: bool
+            Omniverse units are in meters.  If the source dataset is not in the correct
+            unit system or is just too large/small, this option will remap the geometry
+            to a unit cube.  Defaults to False.
+        live: bool
+            If True, one can call 'update()' to send updated geometry to Omniverse.
+            If False, the Omniverse connection will push a single update and then
+            disconnect.  Defaults to True.
+        temporal: bool
+            If True, all EnSight timesteps will be pushed to Omniverse.  Defaults to False, only
+            the current timestep is pushed.
+        debug_filename: str
+            If the name of a file is provided, it will be used to save logging information on
+            the connection between EnSight and Omniverse.
 
         """
         self._check_modules()
@@ -159,8 +185,12 @@ class Omniverse:
             pass
         self._server_pid = None
 
-    def push_scene(self) -> None:
-        """Update the geometry in Omniverse"""
+    def update(self) -> None:
+        """Update the geometry in Omniverse
+
+        Push the current EnSight scene to the current Omniverse connection.
+
+        """
         self._check_modules()
         if not self._is_running_omniverse():
             raise RuntimeError("No Omniverse server connection is currently active.")

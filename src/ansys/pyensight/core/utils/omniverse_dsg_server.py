@@ -631,7 +631,7 @@ class OmniverseWrapper:
     # Create a dome light in the scene.
     def createDomeLight(self, texturePath):
         newLight = UsdLux.DomeLight.Define(self._stage, "/Root/DomeLight")
-        newLight.CreateIntensityAttr(900.0)
+        newLight.CreateIntensityAttr(2200.0)
         newLight.CreateTextureFileAttr(texturePath)
         newLight.CreateTextureFormatAttr("latlong")
 
@@ -1165,7 +1165,8 @@ class DSGOmniverseLink(object):
         self._omni.checkpoint("Created base scene")
         # Create a distance and dome light in the scene
         # self._omni.createDistantLight()
-        self._omni.createDomeLight("./Materials/kloofendal_48d_partly_cloudy.hdr")
+        # self._omni.createDomeLight("./Materials/kloofendal_48d_partly_cloudy.hdr")
+        self._omni.createDomeLight("./Materials/000_sky.exr")
         self._omni.checkpoint("Added lights to stage")
         # Upload a material and textures to the Omniverse server
         self._omni.uploadMaterial()
