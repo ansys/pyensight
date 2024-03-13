@@ -1058,8 +1058,11 @@ class Session:
         if _utils_dir not in sys.path:
             sys.path.insert(0, _utils_dir)
         onlyfiles = [f for f in listdir(_utils_dir) if os.path.isfile(os.path.join(_utils_dir, f))]
-        for _filename in onlyfiles:
-            _filename = os.path.join(_utils_dir, _filename)
+        for _basename in onlyfiles:
+            # skip over any files with the "_server" in their names
+            if "_server" in _basename:
+                continue
+            _filename = os.path.join(_utils_dir, _basename)
             try:
                 # get the module and class names
                 _name = os.path.splitext(os.path.basename(_filename))[0]
