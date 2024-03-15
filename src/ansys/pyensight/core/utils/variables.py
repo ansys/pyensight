@@ -1266,6 +1266,7 @@ class Variables:
         """
         frames = (
             self.ensight.objs.core.FRAMES is not None
+            and len(self.ensight.objs.core.FRAMES) > 0
             and "frame_index" in params
             and int(params["frame_index"]) > 0
         )
@@ -1460,34 +1461,38 @@ class Variables:
                         # Coefficient shear force components then magnitude
                         #
                         if shear_coeff_list is not None and press_coeff_list is not None:
-                            fp.write(" , ")
-                            for jj in range(3):
-                                fp.write(str(shear_coeff_list[ii][jj]))
+                            if len(shear_coeff_list) > 0 and len(press_coeff_list) > 0:
                                 fp.write(" , ")
-                            fp.write(str(vec_mag(shear_coeff_list[ii][:3])))
-                            fp.write(" , ")
-                            if frames:
                                 for jj in range(3):
-                                    fp.write(str(shear_coeff_list[ii][jj + 3]))
+                                    fp.write(str(shear_coeff_list[ii][jj]))
                                     fp.write(" , ")
-                                fp.write(str(vec_mag(shear_coeff_list[ii][3:])))
+                                fp.write(str(vec_mag(shear_coeff_list[ii][:3])))
                                 fp.write(" , ")
-                            # sum of pressure and shear Coefficient components then magnitude
-                            for jj in range(3):
-                                temp_list[jj] = press_coeff_list[ii][jj] + shear_coeff_list[ii][jj]
-                                fp.write(str(temp_list[jj]))
-                                fp.write(" , ")
-                            fp.write(str(vec_mag(temp_list)))
-                            if frames:
-                                fp.write(" , ")
+                                if frames:
+                                    for jj in range(3):
+                                        fp.write(str(shear_coeff_list[ii][jj + 3]))
+                                        fp.write(" , ")
+                                    fp.write(str(vec_mag(shear_coeff_list[ii][3:])))
+                                    fp.write(" , ")
+                                # sum of pressure and shear Coefficient components then magnitude
                                 for jj in range(3):
                                     temp_list[jj] = (
-                                        press_coeff_list[ii][jj + 3] + shear_coeff_list[ii][jj + 3]
+                                        press_coeff_list[ii][jj] + shear_coeff_list[ii][jj]
                                     )
                                     fp.write(str(temp_list[jj]))
                                     fp.write(" , ")
                                 fp.write(str(vec_mag(temp_list)))
-                            fp.write(" , ")
+                                if frames:
+                                    fp.write(" , ")
+                                    for jj in range(3):
+                                        temp_list[jj] = (
+                                            press_coeff_list[ii][jj + 3]
+                                            + shear_coeff_list[ii][jj + 3]
+                                        )
+                                        fp.write(str(temp_list[jj]))
+                                        fp.write(" , ")
+                                    fp.write(str(vec_mag(temp_list)))
+                                fp.write(" , ")
                         #
                         # Lift, Drag and Side Force
                         # No cylindrical stuff here
@@ -1501,43 +1506,49 @@ class Variables:
                             fp.write(" , ")
                         # LDS shear force components then magnitude
                         if shear_LDS_force_list is not None and press_LDS_force_list is not None:
-                            for jj in range(3):
-                                fp.write(str(shear_LDS_force_list[ii][jj]))
+                            if len(shear_LDS_force_list) > 0 and len(press_LDS_force_list) > 0:
+                                for jj in range(3):
+                                    fp.write(str(shear_LDS_force_list[ii][jj]))
+                                    fp.write(" , ")
+                                fp.write(str(vec_mag(shear_LDS_force_list[ii][:3])))
                                 fp.write(" , ")
-                            fp.write(str(vec_mag(shear_LDS_force_list[ii][:3])))
-                            fp.write(" , ")
-                            # LDS sum of pressure and shear forces components then magnitude
-                            for jj in range(3):
-                                temp_list[jj] = (
-                                    press_LDS_force_list[ii][jj] + shear_LDS_force_list[ii][jj]
-                                )
-                                fp.write(str(temp_list[jj]))
+                                # LDS sum of pressure and shear forces components then magnitude
+                                for jj in range(3):
+                                    temp_list[jj] = (
+                                        press_LDS_force_list[ii][jj] + shear_LDS_force_list[ii][jj]
+                                    )
+                                    fp.write(str(temp_list[jj]))
+                                    fp.write(" , ")
+                                fp.write(str(vec_mag(temp_list)))
                                 fp.write(" , ")
-                            fp.write(str(vec_mag(temp_list)))
-                            fp.write(" , ")
-                        # LDS Coefficient of pressure force components then magnitude
-                        if press_LDS_coeff_list:
-                            for jj in range(3):
-                                fp.write(str(press_LDS_coeff_list[ii][jj]))
+                            # LDS Coefficient of pressure force components then magnitude
+                            if press_LDS_coeff_list:
+                                for jj in range(3):
+                                    fp.write(str(press_LDS_coeff_list[ii][jj]))
+                                    fp.write(" , ")
+                                fp.write(str(vec_mag(press_LDS_coeff_list[ii][:3])))
                                 fp.write(" , ")
-                            fp.write(str(vec_mag(press_LDS_coeff_list[ii][:3])))
-                            fp.write(" , ")
-                        # LDS Coefficient shear force components then magnitude
-                        if shear_LDS_coeff_list is not None and press_LDS_coeff_list is not None:
-                            for jj in range(3):
-                                fp.write(str(shear_LDS_coeff_list[ii][jj]))
-                                fp.write(" , ")
-                            fp.write(str(vec_mag(shear_LDS_coeff_list[ii][:3])))
-                            fp.write(" , ")
-                            # LDS sum of pressure and shear Coefficient components then magnitude
-                            for jj in range(3):
-                                temp_list[jj] = (
-                                    press_LDS_coeff_list[ii][jj] + shear_LDS_coeff_list[ii][jj]
-                                )
-                                fp.write(str(temp_list[jj]))
-                                fp.write(" , ")
-                            fp.write(str(vec_mag(temp_list)))
-                        fp.write("\n")
+                            # LDS Coefficient shear force components then magnitude
+                            if (
+                                shear_LDS_coeff_list is not None
+                                and press_LDS_coeff_list is not None
+                            ):
+                                if len(shear_LDS_coeff_list) > 0 and len(press_LDS_coeff_list) > 0:
+                                    for jj in range(3):
+                                        fp.write(str(shear_LDS_coeff_list[ii][jj]))
+                                        fp.write(" , ")
+                                    fp.write(str(vec_mag(shear_LDS_coeff_list[ii][:3])))
+                                    fp.write(" , ")
+                                    # LDS sum of pressure and shear Coefficient components then magnitude
+                                    for jj in range(3):
+                                        temp_list[jj] = (
+                                            press_LDS_coeff_list[ii][jj]
+                                            + shear_LDS_coeff_list[ii][jj]
+                                        )
+                                        fp.write(str(temp_list[jj]))
+                                        fp.write(" , ")
+                                    fp.write(str(vec_mag(temp_list)))
+                                fp.write("\n")
                     #  FIX ME keep track of and write out totals here when loop is done on last line?
                     fp.close()
                     return True
@@ -1843,61 +1854,62 @@ class Variables:
                             self._lds_forces(np.array(part_force), lift_vec, drag_vec, side_vec)
                         )
         if export_filename is not None and pobj_list is not None:
-            press_varname = None
-            shear_varname = None
-            if press_var_obj:
-                _press_var_id = convert_variable(self.ensight, press_var_obj)
-                if _press_var_id:
-                    press_varnames = [
-                        v for v in self.ensight.objs.core.VARIABLES if v.ID == _press_var_id
-                    ]
-                    if press_varnames:
-                        press_varname = str(press_varnames[0].DESCRIPTION)
-            if shear_var_obj:
-                _shear_var_id = convert_variable(self.ensight, shear_var_obj)
-                if _shear_var_id:
-                    shear_varnames = [
-                        v for v in self.ensight.objs.core.VARIABLES if v.ID == _press_var_id
-                    ]
-                    if shear_varnames:
-                        shear_varname = str(shear_varnames[0].DESCRIPTION)
-            params = {}
-            if press_varname:
-                params["press_varname"] = press_varname
-            if shear_varname:
-                params["shear_varname"] = shear_varname
-            if shear_var_type is not None:
-                value = shear_map.get(shear_var_type)
-                if value:
-                    params["shear_vartype"] = value
-            if area_ref:
-                params["Area_ref"] = str(area_ref)
-            if density_ref:
-                params["Dens_ref"] = str(density_ref)
-            if velocity_x_ref:
-                params["Vx_ref"] = str(velocity_x_ref)
-            if velocity_y_ref:
-                params["Vy_ref"] = str(velocity_y_ref)
-            if velocity_z_ref:
-                params["Vz_ref"] = str(velocity_z_ref)
-            if up_vector:
-                params["up_vector"] = up_vector
-            if frame_index > 0:
-                params["frame_index"] = str(frame_index)
+            if len(pobj_list) > 0:
+                press_varname = None
+                shear_varname = None
+                if press_var_obj:
+                    _press_var_id = convert_variable(self.ensight, press_var_obj)
+                    if _press_var_id:
+                        press_varnames = [
+                            v for v in self.ensight.objs.core.VARIABLES if v.ID == _press_var_id
+                        ]
+                        if press_varnames:
+                            press_varname = str(press_varnames[0].DESCRIPTION)
+                if shear_var_obj:
+                    _shear_var_id = convert_variable(self.ensight, shear_var_obj)
+                    if _shear_var_id:
+                        shear_varnames = [
+                            v for v in self.ensight.objs.core.VARIABLES if v.ID == _press_var_id
+                        ]
+                        if shear_varnames:
+                            shear_varname = str(shear_varnames[0].DESCRIPTION)
+                params = {}
+                if press_varname:
+                    params["press_varname"] = press_varname
+                if shear_varname:
+                    params["shear_varname"] = shear_varname
+                if shear_var_type is not None:
+                    value = shear_map.get(shear_var_type)
+                    if value:
+                        params["shear_vartype"] = value
+                if area_ref:
+                    params["Area_ref"] = str(area_ref)
+                if density_ref:
+                    params["Dens_ref"] = str(density_ref)
+                if velocity_x_ref:
+                    params["Vx_ref"] = str(velocity_x_ref)
+                if velocity_y_ref:
+                    params["Vy_ref"] = str(velocity_y_ref)
+                if velocity_z_ref:
+                    params["Vz_ref"] = str(velocity_z_ref)
+                if up_vector:
+                    params["up_vector"] = up_vector
+                if frame_index > 0:
+                    params["frame_index"] = str(frame_index)
 
-            self._write_out_force_data(
-                export_filename,
-                _pobj_list,
-                params=params,
-                press_force_list=computed_press_forces,
-                shear_force_list=computed_shear_forces,
-                press_coeff_list=computed_press_force_coeffs,
-                shear_coeff_list=computed_shear_force_coeffs,
-                press_LDS_force_list=computed_press_forces_lds,
-                shear_LDS_force_list=computed_shear_forces_lds,
-                press_LDS_coeff_list=computed_press_forces_lds_coeffs,
-                shear_LDS_coeff_list=computed_shear_forces_lds_coeffs,
-            )
+                self._write_out_force_data(
+                    export_filename,
+                    _pobj_list,
+                    params=params,
+                    press_force_list=computed_press_forces,
+                    shear_force_list=computed_shear_forces,
+                    press_coeff_list=computed_press_force_coeffs,
+                    shear_coeff_list=computed_shear_force_coeffs,
+                    press_LDS_force_list=computed_press_forces_lds,
+                    shear_LDS_force_list=computed_shear_forces_lds,
+                    press_LDS_coeff_list=computed_press_forces_lds_coeffs,
+                    shear_LDS_coeff_list=computed_shear_forces_lds_coeffs,
+                )
         return {
             "pressure_forces": {
                 p.DESCRIPTION: computed_press_forces[idx]
