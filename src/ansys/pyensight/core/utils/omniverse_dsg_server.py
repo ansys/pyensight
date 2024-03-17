@@ -63,6 +63,8 @@ class OmniverseWrapper:
         path: str = "omniverse://localhost/Users/test",
         verbose: int = 0,
     ):
+        self._cleaned_index = 0
+        self._cleaned_names: dict = {}
         self._connectionStatusSubscription = None
         self._stage = None
         self._destinationPath = path
@@ -299,17 +301,51 @@ class OmniverseWrapper:
         self.save_stage()
         return boxPrim
 
-    @staticmethod
-    def clean_name(name: str, id_name: Any = None) -> str:
-        name = name.replace(" ", "_").replace("-", "_")
+    def clear_cleaned_names(self) -> None:
+        """Clear the list of cleaned names"""
+        self._cleaned_names = {}
+        self._cleaned_index = 0
+
+    def clean_name(self, name: str, id_name: Any = None) -> str:
+        """Generate a vais USD name
+
+        From a base (EnSight) varname, partname, etc. and the DSG id, generate
+        a unique, valid USD name.  Save the names so that if the same name
+        comes in again, the previously computed name is returned and if the
+        manipulation results in a conflict, the name can be made unique.
+
+        Parameters
+        ----------
+        name:
+            The name to generate a USD name for.
+
+        id_name:
+            The DSG id associated with the DSG name, if any.
+
+        Returns
+        -------
+            A unique USD name.
+        """
+        # return any previously generated name
+        if (name, id_name) in self._cleaned_names:
+            return self._cleaned_names[(name, id_name)]
+        # replace invalid characters
+        name = name.replace("+", "_").replace("-", "_")
         name = name.replace(".", "_").replace(":", "_")
         name = name.replace("[", "_").replace("]", "_")
         name = name.replace("(", "_").replace(")", "_")
         name = name.replace("<", "_").replace(">", "_")
         name = name.replace("/", "_").replace("=", "_")
-        name = name.replace(",", "_")
-        if id is not None:
+        name = name.replace(",", "_").replace(" ", "_")
+        if id_name is not None:
             name = name + "_" + str(id_name)
+        if name in self._cleaned_names.values():
+            # Make the name unique
+            while f"{name}_{self._cleaned_index}" in self._cleaned_names.values():
+                self._cleaned_index += 1
+            name = f"{name}_{self._cleaned_index}"
+        # store off the cleaned name
+        self._cleaned_names[(name, id_name)] = name
         return name
 
     @staticmethod
@@ -1011,6 +1047,7 @@ class DSGOmniverseLink(object):
         self._part = Part(self)
         self._scene_bounds = None
         self._mesh_block_count = 0  # reset when a new group shows up
+        self._omni.clear_cleaned_names()
 
         # handle the various commands until UPDATE_SCENE_END
         cmd = self.get_next_message()
