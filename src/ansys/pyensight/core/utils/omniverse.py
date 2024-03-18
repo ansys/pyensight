@@ -2,7 +2,7 @@ import os
 import subprocess
 import sys
 from types import ModuleType
-from typing import TYPE_CHECKING, Optional, Union
+from typing import TYPE_CHECKING, List, Optional, Union
 
 import psutil
 
@@ -17,7 +17,7 @@ class Omniverse:
     """Provides the ``ensight.utils.omniverse`` interface.
 
     The omniverse class methods provide an interface between an EnSight session
-    and an Omniverse instance.
+    and an Omniverse instance.  See :ref:`omniverse_info` for additional details.
 
     Note
     ----
@@ -48,26 +48,60 @@ class Omniverse:
     def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
         self._ensight = interface
         self._server_pid: Optional[int] = None
+        self._interpreter: List[str] = []
 
-    @staticmethod
-    def _check_modules() -> None:
+    def _check_modules(self) -> None:
         """Verify that the Python interpreter is correct
 
-        Check for omni and pxr modules. If not present, raise an exception.
+        Check for omni module. If not present, raise an exception.
+        If pxr is there as well, then we can just use sys.executable.
+        If not, check to see if 'kit.bat' or 'kit.sh' can be found and
+        arrange to use those instead.
 
         Raises
         ------
         RuntimeError if the necessary modules are missing.
 
         """
+        # One time check for this
+        if len(self._interpreter):
+            return
         try:
             # Note: the EnSight embedded interpreter will not have these
-            import omni  # noqa: F401
-            import pxr  # noqa: F401
+            import omni.client  # noqa: F401
         except ImportError:
-            raise RuntimeError(
-                "The module requires the omni and pxr modules to be installed."
-            ) from None
+            raise RuntimeError("The module requires the omni module to be installed.") from None
+
+        try:
+            # if we can import pxr, then we can just use sys.executable
+            from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdShade  # noqa: F401
+
+            if os.path.basename(sys.executable).startswith("kit"):
+                # we are running inside of an Omniverse app like Create, use the 'kit' script
+                raise ImportError("Internal retry")
+
+            self._interpreter = [sys.executable]
+            return
+        except ImportError:
+            # Can we find 'kit.bat' or 'kit.sh' (we may be running in it)?
+            # Interesting cases:  something/kit/python/python.exe,
+            # something/kit/kit.exe.  All mapped to something/kit.{bat,sh} if found.
+            ov_dir = os.path.dirname(sys.executable)
+            for _ in range(3):
+                for name in ("kit.bat", "kit.sh"):
+                    exe_name = os.path.join(ov_dir, name)
+                    if os.path.exists(exe_name):
+                        self._interpreter = [
+                            exe_name,
+                            "--enable",
+                            "omni.client",
+                            "--enable",
+                            "omni.usd",
+                            "--exec",
+                        ]
+                        return
+                ov_dir = os.path.dirname(ov_dir)
+            raise RuntimeError("Unable to detect a copy of the Omniverse kit executable.") from None
 
     def _is_running_omniverse(self) -> bool:
         """Check that an Omniverse connection is active
@@ -88,7 +122,6 @@ class Omniverse:
         include_camera: bool = False,
         normalize_geometry: bool = False,
         live: bool = True,
-        temporal: bool = False,
         debug_filename: str = "",
     ) -> None:
         """Ensure that an EnSight dsg -> omniverse server is running
@@ -103,21 +136,18 @@ class Omniverse:
         omniverse_path : str
             The URI to the Omniverse server. It will look like this:
             "omniverse://localhost/Users/test"
-        include_camera: bool
+        include_camera : bool
             If True, apply the EnSight camera to the Omniverse scene.  This option
             should be used if the target viewer is in AR/VR mode.  Defaults to False.
-        normalize_geometry: bool
+        normalize_geometry : bool
             Omniverse units are in meters.  If the source dataset is not in the correct
             unit system or is just too large/small, this option will remap the geometry
             to a unit cube.  Defaults to False.
-        live: bool
+        live : bool
             If True, one can call 'update()' to send updated geometry to Omniverse.
             If False, the Omniverse connection will push a single update and then
             disconnect.  Defaults to True.
-        temporal: bool
-            If True, all EnSight timesteps will be pushed to Omniverse.  Defaults to False, only
-            the current timestep is pushed.
-        debug_filename: str
+        debug_filename : str
             If the name of a file is provided, it will be used to save logging information on
             the connection between EnSight and Omniverse.
 
@@ -136,7 +166,6 @@ class Omniverse:
         script_name = "omniverse_dsg_server.py"
         working_dir = os.path.dirname(__file__)
         cmd = [
-            sys.executable,
             script_name,
             "--host",
             hostname,
@@ -151,17 +180,23 @@ class Omniverse:
             cmd.extend(["--vrmode"])
         if token:
             cmd.extend(["--security", token])
-        if temporal:
-            cmd.extend(["--animation"])
-        else:
-            cmd.extend(["--no-animation"])
+        # if temporal:
+        #     cmd.extend(["--animation"])
+        # else:
+        #     cmd.extend(["--no-animation"])
         if debug_filename:
             cmd.extend(["--log_file", debug_filename])
             cmd.extend(["--verbose", "1"])
         if normalize_geometry:
             cmd.extend(["--normalize_geometry"])
+        # if using kit.bat, convert args into a string, otherwise, just use them
+        cmdline = []
+        cmdline.extend(self._interpreter)
+        if len(self._interpreter) > 1:
+            cmd = [" ".join(cmd)]
+        cmdline.extend(cmd)
         env_vars = os.environ.copy()
-        process = subprocess.Popen(cmd, close_fds=True, env=env_vars, cwd=working_dir)
+        process = subprocess.Popen(cmdline, close_fds=True, env=env_vars, cwd=working_dir)
         self._server_pid = process.pid
 
     def close_connection(self) -> None:

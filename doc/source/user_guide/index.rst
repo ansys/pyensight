@@ -68,6 +68,7 @@ interfaces and the EnSight core.
    cmdlang_native
    object_api
    api_differences
+   omniverse_info
 
 
 EnSight and PyEnSight interfaces
