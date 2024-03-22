@@ -18,7 +18,10 @@ Intended to work with EnSight version 24.2 or later
 # This example uses a local EnSight installation.
 from ansys.pyensight.core import LocalLauncher
 
-session = LocalLauncher(batch=False).start()
+# batch is default (no visible ensight session)
+session = LocalLauncher().start()
+# use below for interactive debugging with a visible ensight session 
+#session = LocalLauncher(batch=False).start()
 
 # Setup shortcuts for long winded calls.
 eocore = session.ensight.objs.core
@@ -31,11 +34,44 @@ eoutil = session.ensight.utils
 #
 # .. image:: /_static/07_volume_render_0.png
 
-session.ensight.objs.ensxml_restore_file(
-    f"{session.cei_home}/ensight{session.cei_suffix}gui/demos/Shuttle Basic.ens"
+###############################################################################
+# Load a dataset
+# --------------
+# Load Shuttle data included in the EnSight installation and render
+#
+# .. image:: /_static/03_ptrace_0.png
+
+xyz_file = f"{session.cei_home}/ensight{session.cei_suffix}/data/plot3d/shuttle.xyz"
+q_file = f"{session.cei_home}/ensight{session.cei_suffix}/data/plot3d/shuttle.q"
+session.load_data(
+    data_file=xyz_file,
+    result_file=q_file,
+    file_format="PLOT3D",
+    representation="3D_feature_2D_full",
 )
-session.ensight.view.highlight_parts("OFF")
-#session.ensight.view_transf.fit(0)
+session.show("image", width=800, height=600)
+
+###############################################################################
+# The PLOT3D reader only reads the volume by default. Now, extract a
+#  particular IJK range for the surface of the shuttle
+# ------------------------------------------------------------------
+
+session.ensight.data_partbuild.begin()
+session.ensight.case.select("Case 1")
+session.ensight.data_partbuild.data_type("structured")
+session.ensight.data_partbuild.group("OFF")
+session.ensight.data_partbuild.select_begin(1)
+session.ensight.data_partbuild.domain("all")
+session.ensight.data_partbuild.noderange_i(1, 53)
+session.ensight.data_partbuild.noderange_j(1, 63)
+session.ensight.data_partbuild.noderange_k(1, 1)
+session.ensight.data_partbuild.nodestep(1, 1, 1)
+session.ensight.data_partbuild.nodedelta(0, 0, 0)
+session.ensight.data_partbuild.description("Shuttle")
+session.ensight.data_partbuild.create()
+session.ensight.part.select_byname_begin("(CASE:Case 1)Shuttle")
+session.ensight.case.select("Case 1")
+session.ensight.data_partbuild.end()
 session.show("image", width=800, height=600)
 
 ##############################################################################
@@ -83,33 +119,47 @@ sesse.clip.domain("volume")
 sesse.clip.tool("xyz_box")
 sesse.clip.sample_step(128,128,128)
 sesse.clip.origin(-0.497170001,1.27204275,-0.879772604)
-sesse.clip.axis("x",0,0,1)
-sesse.clip.axis("y",0,-1,0)
-sesse.clip.axis("z",1,0,0)
+#
+#temporary fix til the ensight bindings are fixed
+#
+session.cmd('ensight.clip.axis("x",0,0,1)')
+session.cmd('ensight.clip.axis("y",0,-1,0)')
+session.cmd('ensight.clip.axis("z",1,0,0)')
 sesse.clip.length(2.24244738,1.39883041,3.60410643)
 sesse.clip.end()
 sesse.clip.create()
 sesse.legend.width(0.0244169608)
 sesse.legend.height(0.662014842)
 sesse.function.palette("Mach")
-sesse.function.point(0,"alpha",0.000000,0.000000)
-sesse.function.point(1,"alpha",0.061172,0.000000)
-sesse.function.point(2,"alpha",0.133467,0.000000)
-sesse.function.point(3,"alpha",0.194639,0.000000)
-sesse.function.point(4,"alpha",0.236347,0.899835)
-sesse.function.point(5,"alpha",0.316983,0.899835)
-sesse.function.point(6,"alpha",0.319764,0.000000)
-sesse.function.point(7,"alpha",0.361472,0.000000)
-sesse.function.point(8,"alpha",0.364253,0.908182)
-sesse.function.point(9,"alpha",0.433767,0.908182)
-sesse.function.point(10,"alpha",0.444889,0.000000)
-sesse.function.point(11,"alpha",0.486597,0.000000)
-sesse.function.add_knot(12,"alpha")
-sesse.function.point(12,"alpha",0.500500,0.933223)
-sesse.function.point(13,"alpha",0.611722,0.883140)
-sesse.function.point(14,"alpha",0.639528,0.000000)
-sesse.function.point(15,"alpha",0.959292,0.000000)
-sesse.function.point(16,"alpha",1.000000,0.899835)
+#
+#
+# These don't work, waiting on bindings to be fixed
+#
+session.cmd('ensight.function.point(0,"alpha",0.000000,0.000000)')
+session.cmd('ensight.function.point(1,"alpha",0.061172,0.000000)')
+session.cmd('ensight.function.point(2,"alpha",0.133467,0.000000)')
+session.cmd('ensight.function.point(3,"alpha",0.194639,0.000000)')
+session.cmd('ensight.function.point(4,"alpha",0.236347,0.899835)')
+session.cmd('ensight.function.point(5,"alpha",0.316983,0.899835)')
+session.cmd('ensight.function.point(6,"alpha",0.319764,0.000000)')
+session.cmd('ensight.function.point(7,"alpha",0.361472,0.000000)')
+session.cmd('ensight.function.point(8,"alpha",0.364253,0.908182)')
+session.cmd('ensight.function.point(9,"alpha",0.433767,0.908182)')
+session.cmd('ensight.function.point(10,"alpha",0.444889,0.000000)')
+session.cmd('ensight.function.point(11,"alpha",0.486597,0.000000)')
+#
+#
+session.cmd('ensight.function.add_knot(12,"alpha")')
+#
+#
+# These don't work
+# waiting on bindings to be fixed
+#
+session.cmd('ensight.function.point(12,"alpha",0.500500,0.933223)')
+session.cmd('ensight.function.point(13,"alpha",0.611722,0.883140)')
+session.cmd('ensight.function.point(14,"alpha",0.639528,0.000000)')
+session.cmd('ensight.function.point(15,"alpha",0.959292,0.000000)')
+session.cmd('ensight.function.point(16,"alpha",1.000000,0.899835)')
 #
 #  by adjusting the min and max of the variable values
 #  shown, this can isolate the view to only the values
