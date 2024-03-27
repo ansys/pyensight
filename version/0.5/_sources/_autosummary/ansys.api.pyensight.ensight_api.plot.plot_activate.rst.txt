@@ -1,0 +1,6 @@
+plot\_activate
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.plot_activate
