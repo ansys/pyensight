@@ -45,7 +45,6 @@ session.show("image", width=800, height=600)
 # Using a Particle Trace capability
 # Parent Part and Emit part are the same part.
 # Surface Restriction is ON.
-
 # .. image:: /_static/05_srt_lic_1.png
 
 emitter_part = eoutil.parts.select_parts_by_dimension(2)
@@ -69,8 +68,7 @@ session.show("image", width=800, height=600)
 # ----------------------------------------------------------
 #  Modify the attributes of the Surface Restricted Traces to
 #  be visually closer to Flourescene or Titantiam Dioxide (experimental use)
-
-# .. image:: /_static/05_str_lic_2.png
+# .. image:: /_static/05_srt_lic_2.png
 
 SRTpart.colorbyrgb = [0, 1, 0]
 SRTpart.OPAQUENESS = 0.25
@@ -84,7 +82,6 @@ session.show("image", width=800, height=600)
 #  Specify Offset Variable as the variable for LIC.
 #  Specify High Contrast and 1 length for the LIC
 #  Specify that we want to see LIC for the Shuttle Surface
-
 # .. image:: /_static/05_srt_lic_3.png
 
 SRTpart.VISIBLE = False
