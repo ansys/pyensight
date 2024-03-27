@@ -70,7 +70,7 @@ def test_force_tool(tmpdir, pytestconfig: pytest.Config):
     session.ensight.utils.variables.get_const_val(session.ensight.objs.core.VARIABLES["AoA"][0])
     vxref = vref * math.cos(aoa * math.pi / 180)
     vyref = vref * math.sin(aoa * math.pi / 180)
-    vzref = 0
+    vzref = 0.0
     area_ref = None
     if session.ensight.utils.variables._calc_var(["wing_upper_surface"], "area_ref = Area(plist)"):
         area_ref = session.ensight.utils.variables.get_const_val("area_ref")

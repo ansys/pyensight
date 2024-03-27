@@ -21,6 +21,7 @@ operations that can only be performed via that interface.
 
    ansys.pyensight.core.ensobj.ENSOBJ
    ansys.pyensight.core.ensobjlist
+   ansys.api.pyensight.calc_funcs.ens_calculator
    ansys.api.pyensight.ens_annot.ENS_ANNOT
    ansys.api.pyensight.ens_annot_text.ENS_ANNOT_TEXT
    ansys.api.pyensight.ens_annot_line.ENS_ANNOT_LINE

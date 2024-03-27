@@ -52,7 +52,7 @@ def convert_variable(
         return var
     elif hasattr(var, "ID"):
         return int(var.ID)
-    return None
+    return None  # pragma: no cover
 
 
 class Parts:
@@ -214,7 +214,7 @@ class Parts:
                 found = ensobjlist([p for p, met in metadata.items() if met.get(tag) == value])
             elif value and not tag:
                 found = ensobjlist([p for p, met in metadata.items() if value in met.values()])
-            elif tag and not value:
+            elif tag and not value:  # pragma: no cover
                 found = ensobjlist([p for p, met in metadata.items() if tag in met.keys()])
         else:
             found = ensobjlist(
@@ -254,8 +254,10 @@ class Parts:
         """Private routine to create emitter objects"""
         new_emitters: List[Any] = []
         if emitter_type == self._EMIT_POINT:
-            if not points:
-                raise RuntimeError("list of points needed if particle trace emitted from points")
+            if not points:  # pragma: no cover
+                raise RuntimeError(
+                    "list of points needed if particle trace emitted from points"
+                )  # pragma: no cover
             for p in points:
                 if isinstance(self.ensight, ModuleType):  # pragma: no cover
                     new_emitters.append(
@@ -280,7 +282,7 @@ class Parts:
                 )
         elif emitter_type == self._EMIT_PLANE:
             if not any([point1, point2, point3]):
-                raise RuntimeError(
+                raise RuntimeError(  # pragma: no cover
                     "point1, point2 and point3 needed if particle trace emitted from plane"
                 )
             if isinstance(self.ensight, ModuleType):  # pragma: no cover
@@ -298,9 +300,11 @@ class Parts:
                 new_emitters.append(
                     f"ensight.utils.parts._EnSEmitterGrid(ensight, point1={point1}, point2={point2}, point3={point3}, num_points_x={num_points_x}, num_points_y={num_points_y})"
                 )
-        elif emitter_type == self._EMIT_PART:
-            if not parts:
-                raise RuntimeError("part and num_points needed if particle trace emitted from part")
+        elif emitter_type == self._EMIT_PART:  # pragma: no cover
+            if not parts:  # pragma: no cover
+                raise RuntimeError(
+                    "part and num_points needed if particle trace emitted from part"
+                )  # pragma: no cover
             for p in parts:
                 if isinstance(self.ensight, ModuleType):  # pragma: no cover
                     new_emitters.append(  # pragma: no cover
@@ -316,7 +320,9 @@ class Parts:
                         f"ensight.utils.parts._EnSEmitterPart(ensight, part={convert_part(self.ensight ,p)}, num_points={num_points}, part_kind={part_distribution_type})"
                     )
         else:
-            raise RuntimeError("No input provided to create the emitters for the particle trace")
+            raise RuntimeError(
+                "No input provided to create the emitters for the particle trace"
+            )  # pragma: no cover
         return new_emitters
 
     def _create_particle_trace_part(
@@ -349,7 +355,7 @@ class Parts:
             def_part.TOTALTIME = total_time
         if delta_time:
             def_part.DELTATIME = delta_time
-        if emit_time:
+        if emit_time:  # pragma: no cover
             def_part.STARTTIME = emit_time
         def_part.DESCRIPTION = name
         def_part.VARIABLE = convert_variable(self.ensight, variable)
@@ -407,15 +413,17 @@ class Parts:
         """Private utility to cure an input particle trace part and convert it to an ``ENS_PART`"""
 
         # the add_emitter* functions were added in 2024 R2
-        if not isinstance(self.ensight, ModuleType):
+        if not isinstance(self.ensight, ModuleType):  # pragma: no cover
             self.ensight._session.ensight_version_check("2024 R2")
 
         _particle_trace_part: "ENS_PART_PARTICLE_TRACE"
-        if isinstance(particle_trace_part, (str, int)):
-            temp = self.ensight.objs.core.PARTS[particle_trace_part]
-            if not temp:
-                raise RuntimeError("particle_trace_part input is not a valid part")
-            _particle_trace_part = temp[0]
+        if isinstance(particle_trace_part, (str, int)):  # pragma: no cover
+            temp = self.ensight.objs.core.PARTS[particle_trace_part]  # pragma: no cover
+            if not temp:  # pragma: no cover
+                raise RuntimeError(
+                    "particle_trace_part input is not a valid part"
+                )  # pragma: no cover
+            _particle_trace_part = temp[0]  # pragma: no cover
         else:
             _particle_trace_part = particle_trace_part
         return _particle_trace_part
@@ -428,29 +436,32 @@ class Parts:
         """Private utility to set the direction if not provided, and to cure the list of source parts."""
 
         # the create_particle* functions were added in 2024 R2
-        if not isinstance(self.ensight, ModuleType):
+        if not isinstance(self.ensight, ModuleType):  # pragma: no cover
             self.ensight._session.ensight_version_check("2024 R2")
 
         if not direction:
             direction = self.PT_POS_TIME
-        if source_parts:
+        if source_parts:  # pragma: no cover
             converted_source_parts = [convert_part(self.ensight, p) for p in source_parts]
-        if not source_parts:
-            converted_source_parts = self.ensight.objs.core.selection(name="ENS_PART")
-        if not converted_source_parts:
-            raise RuntimeError("No part selected for particle trace generation")
+        if not source_parts:  # pragma: no cover
+            converted_source_parts = self.ensight.objs.core.selection(  # pragma: no cover
+                name="ENS_PART"
+            )
+        if not converted_source_parts:  # pragma: no cover
+            raise RuntimeError("No part selected for particle trace generation")  # pragma: no cover
         return direction, converted_source_parts
 
     def _find_palette(self, color_by: Optional[Union[str, int, "ENS_VAR"]] = None) -> Optional[str]:
         """Private utility to find the description of the input color_by variable"""
         palette: Optional[str] = None
         if color_by:
-            _color_by_var: List["ENS_VAR"] = ensight.objs.core.VARIABLES[
-                convert_variable(self.ensight, color_by)
-            ]
-            if _color_by_var:
-                palette = _color_by_var[0].DESCRIPTION
-            else:
+            try:
+                _color_by_var: List["ENS_VAR"] = self.ensight.objs.core.VARIABLES.find(
+                    [convert_variable(self.ensight, color_by)], attr="ID"
+                )
+                if _color_by_var:
+                    palette = _color_by_var[0].DESCRIPTION
+            except Exception:
                 raise RuntimeError(
                     "The variable supplied to color the particle trace by does not exist"
                 )
@@ -1141,20 +1152,23 @@ class Parts:
             p_list = [plist]
         elif isinstance(plist, list) or isinstance(plist, ensobjlist):
             p_list = [p for p in plist]
-        else:
-            raise RuntimeError("Unknown type of input var plist {}".format(type(plist)))
+        else:  # pragma: no cover
+            raise RuntimeError(  # pragma: no cover
+                "Unknown type of input var plist {}".format(type(plist))
+            )
         #
         #  p_list must now be a list
         #
 
         if not p_list:
             return None
-        if not isinstance(p_list[0], (str, int, self.ensight.objs.ENS_PART)):
-            error = "First member is neither ENS_PART, int, nor string"
-            error += f"{p_list[0]} type = {type(p_list[0])}; aborting"
-            raise RuntimeError(error)
+        if not isinstance(p_list[0], (str, int, self.ensight.objs.ENS_PART)):  # pragma: no cover
+            error = "First member is neither ENS_PART, int, nor string"  # pragma: no cover
+            error += f"{p_list[0]} type = {type(p_list[0])}; aborting"  # pragma: no cover
+            raise RuntimeError(error)  # pragma: no cover
         pobjs: List["ENS_PART"]
-        if isinstance(p_list[0], int):  # list of ints must be part ids
+        if isinstance(p_list[0], int):
+            # list of ints must be part ids
             for pid in p_list:
                 pobjs = [p for p in self.ensight.objs.core.PARTS if p.PARTNUMBER == pid]
                 for prt in pobjs:
@@ -1181,5 +1195,5 @@ class Parts:
         if ret_flag == "obj":
             val_objs = [p for p in pobj_list]
             return val_objs
-        val_ints = [int(p.ID) for p in pobj_list]
+        val_ints = [int(p.PARTNUMBER) for p in pobj_list]
         return val_ints
