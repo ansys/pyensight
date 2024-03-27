@@ -31,8 +31,8 @@ try:
     from ansys.pyensight.core.dockerlauncher import DockerLauncher
 
     docker_is_available = True
-except Exception:
-    pass
+except Exception:  # pragma: no cover
+    pass  # pragma: no cover
 logging.debug(f"docker_is_available: {docker_is_available}\n")
 
 

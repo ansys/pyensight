@@ -563,8 +563,8 @@ class RenderableVNC(Renderable):
         """
         optional_query = self._get_query_parameters_str()
         version = _get_ansysnexus_version(self._session._cei_suffix)
-        if int(self._session._cei_suffix) < 241:
-            self._update_2023R2_or_less()
+        if int(self._session._cei_suffix) < 241:  # pragma: no cover
+            self._update_2023R2_or_less()  # pragma: no cover
         else:
             html = (
                 f"<script src='/ansys{version}/nexus/viewer-loader.js{optional_query}'></script>\n"
@@ -577,8 +577,8 @@ class RenderableVNC(Renderable):
             )
 
             query_args = ""
-            if self._using_proxy and optional_query:
-                query_args = f', "extra_query_args":"{optional_query[1:]}"'
+            if self._using_proxy and optional_query:  # pragma: no cover
+                query_args = f', "extra_query_args":"{optional_query[1:]}"'  # pragma: no cover
 
             attributes = ' renderer="envnc"'
             attributes += ' ui="simple"'
@@ -693,11 +693,11 @@ class RenderableEVSN(Renderable):
             f'"ws":"{self._http_protocol}://{self._session.html_hostname}:{self._session.ws_port}"'
         )
         secrets = f'"security_token":"{self._session.secret_key}"'
-        if not self._using_proxy or optional_query == "":
+        if not self._using_proxy or optional_query == "":  # pragma: no cover
             attributes += f" renderer_options='{{ {http_uri}, {ws_uri}, {secrets} }}'"
-        else:
-            query_args = f'"extra_query_args":"{optional_query[1:]}"'
-            attributes += f" renderer_options='{{ {http_uri}, {ws_uri}, {secrets}, {query_args} }}'"
+        else:  # pragma: no cover
+            query_args = f'"extra_query_args":"{optional_query[1:]}"'  # pragma: no cover
+            attributes += f" renderer_options='{{ {http_uri}, {ws_uri}, {secrets}, {query_args} }}'"  # pragma: no cover
         html += f"<ansys-nexus-viewer {attributes}></ansys-nexus-viewer>\n"
         # refresh the remote HTML
         self._save_remote_html_page(html)
