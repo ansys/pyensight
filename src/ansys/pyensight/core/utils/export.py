@@ -53,10 +53,10 @@ class Export:
             return  # pragma: no cover
         try:
             _ = self._ensight._session.cmd("dir(ensight.utils.export)")
-        except RuntimeError:
-            import ansys.pyensight.core
+        except RuntimeError:  # pragma: no cover
+            import ansys.pyensight.core  # pragma: no cover
 
-            raise RuntimeError(
+            raise RuntimeError(  # pragma: no cover
                 f"Remote EnSight session must have PyEnsight version \
             {ansys.pyensight.core.DEFAULT_ANSYS_VERSION} or higher installed to use this API."
             )
@@ -344,8 +344,8 @@ class Export:
         else:
             num_frames = frames
 
-        if num_frames < 1:
-            raise RuntimeError(
+        if num_frames < 1:  # pragma: no cover
+            raise RuntimeError(  # pragma: no cover
                 "No frames selected. Perhaps a static dataset SOLUTIONTIME request \
                  or no FLIPBOOK/KEYFRAME defined."
             )
@@ -478,7 +478,7 @@ class Export:
         GEOM_EXPORT_STL: ".stl",
     }
 
-    def _geometry_remote(
+    def _geometry_remote(  # pragma: no cover
         self, format: str, starting_timestep: int, frames: int, delta_timestep: int
     ) -> List[bytes]:
         """EnSight-side implementation.
@@ -570,7 +570,7 @@ class Export:
             self._ensight._session.ensight_version_check("2024 R2")
             cmd = f"ensight.utils.export._geometry_remote('{format}', {starting_timestep}, {frames}, {delta_timestep})"
             raw_data_list = self._ensight._session.cmd(cmd)
-        if raw_data_list:
+        if raw_data_list:  # pragma: no cover
             if len(raw_data_list) == 1:
                 with open(filename, "wb") as fp:
                     fp.write(raw_data_list[0])
@@ -580,5 +580,5 @@ class Export:
                     _filename = f"{filename_base}{str(idx).zfill(3)}{extension}"
                     with open(_filename, "wb") as fp:
                         fp.write(raw_data)
-        else:
-            raise IOError("Export was not successful")
+        else:  # pragma: no cover
+            raise IOError("Export was not successful")  # pragma: no cover

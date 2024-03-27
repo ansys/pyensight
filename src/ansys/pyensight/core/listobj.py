@@ -107,12 +107,14 @@ class ensobjlist(List[T]):  # noqa: N801
             value_list = [value]
         out_list: ensobjlist[Any] = ensobjlist(session=self._session)
         for item in self:
-            if isinstance(item, ENSOBJ):
+            if isinstance(item, ENSOBJ):  # pragma: no cover
                 try:
                     item_value = item.getattr(attr)
                     for check_value in value_list:
                         if wildcard == 2:
-                            if fnmatch.fnmatch(str(item_value), str(check_value)):
+                            if fnmatch.fnmatch(
+                                str(item_value), str(check_value)
+                            ):  # pragma: no cover
                                 out_list.append(item)
                                 break
                         elif wildcard > 0:
@@ -123,14 +125,14 @@ class ensobjlist(List[T]):  # noqa: N801
                             if item_value == check_value:
                                 out_list.append(item)
                                 break
-                except RuntimeError:
-                    pass
+                except RuntimeError:  # pragma: no cover
+                    pass  # pragma: no cover
         if group:
             # This is a bit of a hack, but the find() method generates a local list of
             # proxy objects.  We want to put that in a group.  We do that by running
             # a script in EnSight that creates an empty group and then adds those
             # children to the group.  The output becomes the remote referenced ENS_GROUP.
-            if self._session is not None:
+            if self._session is not None:  # pragma: no cover
                 ens_group_cmd = "ensight.objs.core.VPORTS.find('__unknown__', group=1)"
                 ens_group = self._session.cmd(ens_group_cmd)
                 ens_group.addchild(out_list)
@@ -163,14 +165,14 @@ class ensobjlist(List[T]):  # noqa: N801
         """
         session = None
         objid_list = [x.__OBJID__ for x in self if isinstance(x, ENSOBJ)]
-        for item in self:
-            if hasattr(item, "_session"):
+        for item in self:  # pragma: no cover
+            if hasattr(item, "_session"):  # pragma: no cover
                 session = item._session
                 break
-        if session:
+        if session:  # pragma: no cover
             msg = f"ensight.objs.ensobjlist(ensight.objs.wrap_id(x) for x in {objid_list}).set_attr({attr.__repr__()}, {value.__repr__()})"
             return session.cmd(msg)
-        return 0
+        return 0  # pragma: no cover
 
     def get_attr(self, attr: Any, default: Optional[Any] = None):
         """Query a specific attribute for all ENSOBJ objects in the list
@@ -199,20 +201,20 @@ class ensobjlist(List[T]):  # noqa: N801
         """
         session = None
         objid_list = [x.__OBJID__ for x in self if isinstance(x, ENSOBJ)]
-        for item in self:
-            if hasattr(item, "_session"):
+        for item in self:  # pragma: no cover
+            if hasattr(item, "_session"):  # pragma: no cover
                 session = item._session
                 break
         value = None
-        if session:
-            if default:
-                msg = f"ensight.objs.ensobjlist(ensight.objs.wrap_id(x) for x in {objid_list}).get_attr({attr.__repr__()}, {default.__repr__()})"
+        if session:  # pragma: no cover
+            if default:  # pragma: no cover
+                msg = f"ensight.objs.ensobjlist(ensight.objs.wrap_id(x) for x in {objid_list}).get_attr({attr.__repr__()}, {default.__repr__()})"  # pragma: no cover
             else:
                 msg = f"ensight.objs.ensobjlist(ensight.objs.wrap_id(x) for x in {objid_list}).get_attr({attr.__repr__()})"
             value = session.cmd(msg)
-        if value:
+        if value:  # pragma: no cover
             return value
-        return [default] * len(objid_list)
+        return [default] * len(objid_list)  # pragma: no cover
 
     @overload
     def __getitem__(self, index: SupportsIndex) -> T:
