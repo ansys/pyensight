@@ -563,7 +563,8 @@ class RenderableVNC(Renderable):
         """
         optional_query = self._get_query_parameters_str()
         version = _get_ansysnexus_version(self._session._cei_suffix)
-        if int(self._session._cei_suffix) < 241:  # pragma: no cover
+        if int(self._session._cei_suffix) < 242:  # pragma: no cover
+            version = ""
             self._update_2023R2_or_less()  # pragma: no cover
         else:
             html = (
