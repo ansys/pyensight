@@ -337,6 +337,7 @@ class OmniverseWrapper:
         name = name.replace("<", "_").replace(">", "_")
         name = name.replace("/", "_").replace("=", "_")
         name = name.replace(",", "_").replace(" ", "_")
+        name = name.replace("\\", "_")
         if id_name is not None:
             name = name + "_" + str(id_name)
         if name in self._cleaned_names.values():
