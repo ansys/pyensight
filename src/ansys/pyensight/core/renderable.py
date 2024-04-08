@@ -625,7 +625,7 @@ class RenderableVNCAngular(Renderable):
         module_with_attributes += f'secretKey="{self._session.secret_key}"'
         if self._using_proxy and optional_query:  # pragma: no cover
             module_with_attributes += f' extraQueryArgs="{optional_query[1:]}"'
-        module_with_attributes+= ">\n"
+        module_with_attributes += ">\n"
         script_src = '<script src="runtime.js" type="module"></script><script src="polyfills.js" type="module"></script><script src="main.js" type="module"></script></body>\n</html>'
         content = base_content + module_with_attributes + script_src
         self._save_remote_html_page(content)
