@@ -1,3 +1,8 @@
+"""Parts module.
+
+This module contains utilities to do readers specific operations.
+"""
+
 from threading import Thread
 from typing import Optional, Union
 
@@ -8,6 +13,8 @@ except ImportError:
 
 
 class Readers:
+    """A namespace to access the interfaces of specific readers"""
+
     def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
         self._ensight = interface
         self._dvs = DVS(self._ensight)
@@ -18,15 +25,53 @@ class Readers:
 
 
 class DVS:
+    """A namespace to access specific DVS interfaces"""
+
     def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
         self._ensight = interface
 
+    MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT = "stay_at_current"
+    MONITOR_NEW_TIMESTEPS_JUMP_TO_END = "jump_to_end"
+
     def launch_live_dvs(
-        self, 
-        port: int = 0, 
-        secret_key: Optional[str] = None, 
-        threaded: Optional[bool] = False
+        self,
+        port: int = 0,
+        secret_key: Optional[str] = None,
+        threaded: Optional[bool] = False,
+        monitor_new_timesteps: str = MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT,
     ) -> Optional[Thread]:
+        """To provide an interface to launch an in-situ EnSight DVS session.
+
+        Parameters
+        ----------
+        port: int
+            the port number where the first DVS server will be started. In case of a
+            SOS EnSight session, on the following server the DVS servers will be started on the
+            next port, e.g. if the first server starts at port 50055, the second will start
+            at port 50056 and so on. Defaults to 0, which is the random port
+        secret_key: str
+            an optional secret key to pass in case the DVS clients have been started with a secret key
+            for the underlying gRPC connections. An empty string can be provided if needed
+        threaded: bool
+            if True, the DVS loading will be started as a thread, and the thread itself we'll be returned.
+        monitor_new_timesteps: str
+            set the way EnSight will monitor for new timesteps. Defaults to MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT.
+            The allowed values are MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT
+            and MONITOR_NEW_TIMESTEPS_JUMP_TO_END
+
+
+        """
+
+        def load_dvs():
+            self._ensight._session.cmd(cmd, do_eval=False)
+
+        if monitor_new_timesteps not in [
+            self.MONITOR_NEW_TIMESTEPS_JUMP_TO_END,
+            self.MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT,
+        ]:
+            raise RuntimeError(
+                f"{monitor_new_timesteps} value not allowed for an in-situ DVS session"
+            )
         indent = "    "
         cmd = "def dvs_callback():\n"
         cmd += f'{indent}command_string = f"set_server_port={port}"\n'
@@ -37,12 +82,12 @@ class DVS:
         cmd += f"{indent}reply = ensight.objs.core.CURRENTCASE[0].client_command(command_string)\n"
         cmd += f'{indent}return f"{port}" in str(reply)\n\n'
         cmd += "ensight.objs.core.CURRENTCASE[0].client_command_callback(dvs_callback)\n"
-        cmd += 'ensight.solution_time.monitor_for_new_steps("stay_at_current")\n'
+        cmd += f'ensight.solution_time.monitor_for_new_steps("{monitor_new_timesteps}")\n'
         cmd += 'ensight.data.replace("notexisting.dvs")\n'
         cmd += "ensight.objs.core.CURRENTCASE[0].client_command_callback(None)"
-        load_dvs = lambda: self._ensight._session.cmd(cmd, do_eval=False)
         if threaded:
-            t = Thread(target = load_dvs)
+            t = Thread(target=load_dvs)
             t.start()
             return t
         load_dvs()
+        return None
