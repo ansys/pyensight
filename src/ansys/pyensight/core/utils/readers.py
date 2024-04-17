@@ -35,11 +35,11 @@ class DVS:
 
     def launch_live_dvs(
         self,
-        port: int = 0,
+        port: int,
         secret_key: Optional[str] = None,
-        threaded: Optional[bool] = False,
         monitor_new_timesteps: str = MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT,
-    ) -> Optional[Thread]:
+        start_thread: bool = True,
+    ) -> Thread:
         """To provide an interface to launch an in-situ EnSight DVS session.
 
         Parameters
@@ -48,18 +48,21 @@ class DVS:
             the port number where the first DVS server will be started. In case of a
             SOS EnSight session, on the following server the DVS servers will be started on the
             next port, e.g. if the first server starts at port 50055, the second will start
-            at port 50056 and so on. Defaults to 0, which is the random port
+            at port 50056 and so on
         secret_key: str
             an optional secret key to pass in case the DVS clients have been started with a secret key
             for the underlying gRPC connections. An empty string can be provided if needed
-        threaded: bool
-            if True, the DVS loading will be started as a thread, and the thread itself we'll be returned.
         monitor_new_timesteps: str
             set the way EnSight will monitor for new timesteps. Defaults to MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT.
             The allowed values are MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT
             and MONITOR_NEW_TIMESTEPS_JUMP_TO_END
+        start_thread: bool
+            True if the thread to be returned needs to be started already. Default is True
 
-
+        Returns
+        -------
+        Thread:
+            a python Thread which holds the dvs load
         """
 
         def load_dvs():
@@ -85,9 +88,7 @@ class DVS:
         cmd += f'ensight.solution_time.monitor_for_new_steps("{monitor_new_timesteps}")\n'
         cmd += 'ensight.data.replace("notexisting.dvs")\n'
         cmd += "ensight.objs.core.CURRENTCASE[0].client_command_callback(None)"
-        if threaded:
-            t = Thread(target=load_dvs)
+        t = Thread(target=load_dvs)
+        if start_thread:
             t.start()
-            return t
-        load_dvs()
-        return None
+        return t
