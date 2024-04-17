@@ -1,4 +1,4 @@
-"""Parts module.
+"""Readers module.
 
 This module contains utilities to do readers specific operations.
 """
