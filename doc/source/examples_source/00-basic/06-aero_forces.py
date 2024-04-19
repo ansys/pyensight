@@ -19,7 +19,7 @@ Intended to work with EnSight version 24.2 or later
 import math
 import os
 from ansys.pyensight.core import LocalLauncher
-
+#
 # batch is default (no visible ensight session)
 session = LocalLauncher().start()
 # use below for interactive debugging with a visible ensight session 
@@ -63,7 +63,10 @@ if session.ensight.utils.variables._calc_var(["wing_upper_surface"], "area_ref =
 
 if not area_ref:
     raise RuntimeError("The reference area could not be calculated")
-
+#
+#  Compute forces on 2D parts
+# .. image:: /_static/06_aero_forces_1.png
+#
 session.ensight.utils.variables.compute_forces(
     pobj_list=body_parts.copy(),
     press_var_obj="staticPressure",
@@ -99,4 +102,19 @@ session.ensight.view.highlight_parts("OFF")
 #
 # 
 session.show("image", width=800, height=600)
+gv = session.ensight.utils.variables.get_const_val
+#
+#  Print out results
+#
+per_part_pressure_var_list = ['ENS_Force_Net_press_X','ENS_Force_Net_press_Y','ENS_Force_Net_press_Z']
+per_part_shear_var_list = ['ENS_Force_Net_Tan_ShearForce_X','ENS_Force_Net_Tan_ShearForce_Y','ENS_Force_Net_Tan_ShearForce_Z']
+total_net_pressure_var_list= ['ENS_Force_Total_Net_press_X','ENS_Force_Total_Net_press_Y','ENS_Force_Total_Net_press_Z']
+total_net_shear_var_list = ['ENS_Force_Total_Net_Tan_ShearForce_X','ENS_Force_Total_Net_Tan_ShearForce_Y','ENS_Force_Total_Net_Tan_ShearForce_Z']
+#
+print("Per part force X")
+print(body_parts[0], gv(per_part_pressure_var_list[0],body_parts[0]))
+print(body_parts[0], gv(per_part_shear_var_list[0],body_parts[0]))
+print("Total Force")
+print("Total (Net) Pressure Force X = ",gv(total_net_pressure_var_list[0]))
+print("Total (Net) Shear Force X = ",gv( total_net_shear_var_list[0]))
 session.close()
