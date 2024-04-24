@@ -1778,3 +1778,38 @@ class Session:
                 message = f"A newer version of EnSight is required to use this API:{base_msg}"
             raise InvalidEnSightVersion(message)
         return valid
+
+    def find_remote_unused_ports(
+        self,
+        count: int,
+        start: Optional[int] = None,
+        end: Optional[int] = None,
+        avoid: Optional[list[int]] = None,
+    ) -> Optional[List[int]]:
+        """
+        Find "count" unused ports on the host system.  A port is considered
+        unused if it does not respond to a "connect" attempt.  Walk the ports
+        from 'start' to 'end' looking for unused ports and avoiding any ports
+        in the 'avoid' list.  Stop once the desired number of ports have been
+        found.  If an insufficient number of ports were found, return None.
+        An admin user check is used to skip [1-1023].
+
+        Parameters
+        ----------
+        count: int
+            number of unused ports to find
+        start: int
+            the first port to check or None (random start)
+        end: int
+            the last port to check or None (full range check)
+        avoid: list
+            an optional list of ports not to check
+
+        Returns
+        -------
+            the detected ports or None on failure
+        """
+        cmd = "from cei import find_unused_ports\n"
+        cmd += f"ports = find_unused_ports({count}, start={start}, end={end}, avoid={avoid})"
+        self.cmd(cmd, do_eval=False)
+        return self.cmd("ports")
