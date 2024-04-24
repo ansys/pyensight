@@ -486,24 +486,18 @@ class Variables:
         #
         #
         temp_string = "ENS_Force_Net_Tan_ShearForce_X = StatMoment(plist,ENS_Force_Tan_ShearForce_X, 0, Compute_Per_part)"
-        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-            err_string = "Error, failed to calculate a variable in {}".format(
-                fcn_name
-            )  # pragma: no cover
+        if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+            err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
             raise RuntimeError(err_string)  # pragma: no cover
 
         temp_string = "ENS_Force_Net_Tan_ShearForce_Y = StatMoment(plist,ENS_Force_Tan_ShearForce_Y, 0, Compute_Per_part)"
-        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-            err_string = "Error, failed to calculate a variable in {}".format(
-                fcn_name
-            )  # pragma: no cover
+        if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+            err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
             raise RuntimeError(err_string)  # pragma: no cover
 
         temp_string = "ENS_Force_Net_Tan_ShearForce_Z = StatMoment(plist,ENS_Force_Tan_ShearForce_Z, 0, Compute_Per_part)"
         if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-            err_string = "Error, failed to calculate a variable in {}".format(
-                fcn_name
-            )  # pragma: no cover
+            err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
             raise RuntimeError(err_string)  # pragma: no cover
         #
         # get the 3 constant force values XYZ
@@ -520,7 +514,7 @@ class Variables:
         if val:
             if isinstance(val, list):
                 for v in val:
-                    if not v:  # pragma: no cover
+                    if v is None:  # pragma: no cover
                         return None  # pragma: no cover
                     Fx.append(v)
             else:
@@ -531,7 +525,7 @@ class Variables:
         if val:
             if isinstance(val, list):
                 for v in val:
-                    if not v:  # pragma: no cover
+                    if v is None:  # pragma: no cover
                         return None  # pragma: no cover
                     Fy.append(v)
             else:
@@ -542,7 +536,7 @@ class Variables:
         if val:
             if isinstance(val, list):
                 for v in val:
-                    if not v:  # pragma: no cover
+                    if v is None:  # pragma: no cover
                         return None  # pragma: no cover
                     Fz.append(v)
             else:
@@ -553,69 +547,51 @@ class Variables:
         #   they are calc'd to give the user the totals.
         #
         temp_string = "ENS_Force_Total_Net_Tan_ShearForce_X = StatMoment(plist,ENS_Force_Tan_ShearForce_X, 0, Compute_Per_case)"
-        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-            err_string = "Error, failed to calculate a variable in {}".format(
-                fcn_name
-            )  # pragma: no cover
+        if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+            err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
             raise RuntimeError(err_string)  # pragma: no cover
 
         temp_string = "ENS_Force_Total_Net_Tan_ShearForce_Y = StatMoment(plist,ENS_Force_Tan_ShearForce_Y, 0, Compute_Per_case)"
-        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-            err_string = "Error, failed to calculate a variable in {}".format(
-                fcn_name
-            )  # pragma: no cover
+        if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+            err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
             raise RuntimeError(err_string)  # pragma: no cover
 
         temp_string = "ENS_Force_Total_Net_Tan_ShearForce_Z = StatMoment(plist,ENS_Force_Tan_ShearForce_Z, 0, Compute_Per_case)"
-        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-            err_string = "Error, failed to calculate a variable in {}".format(
-                fcn_name
-            )  # pragma: no cover
+        if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+            err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
             raise RuntimeError(err_string)  # pragma: no cover
 
         if frame_index > 0 and frame_index < len(self.ensight.objs.core.FRAMES):
             temp_string = "ENS_Force_Net_Tan_ShearForce_R = StatMoment(plist,ENS_Force_Tan_ShearForce_R,0, Compute_Per_part)"
-            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-                err_string = "Error, failed to calculate a variable in {}".format(
-                    fcn_name
-                )  # pragma: no cover
+            if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+                err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
                 raise RuntimeError(err_string)  # pragma: no cover
 
             temp_string = "ENS_Force_Net_Tan_ShearForce_T = StatMoment(plist,ENS_Force_Tan_ShearForce_T,0, Compute_Per_part)"
-            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-                err_string = "Error, failed to calculate a variable in {}".format(
-                    fcn_name
-                )  # pragma: no cover
+            if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+                err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
                 raise RuntimeError(err_string)  # pragma: no cover
 
             temp_string = "ENS_Force_Net_Tan_ShearForce_A = StatMoment(plist,ENS_Force_Tan_ShearForce_A,0, Compute_Per_part)"
-            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-                err_string = "Error, failed to calculate a variable in {}".format(
-                    fcn_name
-                )  # pragma: no cover
+            if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+                err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
                 raise RuntimeError(err_string)  # pragma: no cover
             #
             # Totals
             #
             temp_string = "ENS_Force_Total_Net_Tan_ShearForce_R = StatMoment(plist,ENS_Force_Tan_ShearForce_R,0, Compute_Per_case)"
-            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-                err_string = "Error, failed to calculate a variable in {}".format(
-                    fcn_name
-                )  # pragma: no cover
+            if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+                err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
                 raise RuntimeError(err_string)  # pragma: no cover
 
             temp_string = "ENS_Force_Total_Net_Tan_ShearForce_T = StatMoment(plist,ENS_Force_Tan_ShearForce_T,0, Compute_Per_case)"
-            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-                err_string = "Error, failed to calculate a variable in {}".format(
-                    fcn_name
-                )  # pragma: no cover
+            if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+                err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
                 raise RuntimeError(err_string)  # pragma: no cover
 
             temp_string = "ENS_Force_Total_Net_Tan_ShearForce_A = StatMoment(plist,ENS_Force_Tan_ShearForce_A,0, Compute_Per_case)"
-            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-                err_string = "Error, failed to calculate a variable in {}".format(
-                    fcn_name
-                )  # pragma: no cover
+            if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+                err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
                 raise RuntimeError(err_string)  # pragma: no cover
             #
             # get the 3 constant force values Radial, Theta, Axial
@@ -633,7 +609,7 @@ class Variables:
             if val:
                 if isinstance(val, list):
                     for v in val:
-                        if not v:  # pragma: no cover
+                        if v is None:  # pragma: no cover
                             return None  # pragma: no cover
                         Fr.append(v)
                 else:
@@ -644,7 +620,7 @@ class Variables:
             if val:
                 if isinstance(val, list):
                     for v in val:
-                        if not v:  # pragma: no cover
+                        if v is None:  # pragma: no cover
                             return None  # pragma: no cover
                         Ft.append(v)
                 else:
@@ -655,7 +631,7 @@ class Variables:
             if val:
                 if isinstance(val, list):
                     for v in val:
-                        if not v:  # pragma: no cover
+                        if v is None:  # pragma: no cover
                             return None  # pragma: no cover
                         Fa.append(v)
                 else:
@@ -1027,6 +1003,7 @@ class Variables:
         #
         # Select the part(s) in the list
         # ensight.variables.evaluate("ENS_Force_Net_press_Y = StatMoment(plist,pressure,0,Compute_Per_part)")
+        fcn_name = "sum_press_forces_xyz_rtz"
         self.ensight.utils.parts.select_parts(pobj_list)
         #
         # Calculate the net force X, Y, and Z , 10.2.0(d) now per part constant variable
@@ -1034,20 +1011,23 @@ class Variables:
         force_calc_string = "ENS_Force_Net_press_X = StatMoment"
         calc_string = "(plist," + "ENS_Force_press_X , 0, Compute_Per_part )"
         temp_string = force_calc_string + calc_string
-        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-            return None  # pragma: no cover
+        if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+            err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
+            raise RuntimeError(err_string)  # pragma: no cover
         #
         force_calc_string = "ENS_Force_Net_press_Y = StatMoment"
         calc_string = "(plist," + "ENS_Force_press_Y , 0, Compute_Per_part )"
         temp_string = force_calc_string + calc_string
-        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-            return None  # pragma: no cover
+        if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+            err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
+            raise RuntimeError(err_string)  # pragma: no cover
         #
         force_calc_string = "ENS_Force_Net_press_Z = StatMoment"
         calc_string = "(plist," + "ENS_Force_press_Z , 0, Compute_Per_part )"
         temp_string = force_calc_string + calc_string
-        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-            return None  # pragma: no cover
+        if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+            err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
+            raise RuntimeError(err_string)  # pragma: no cover
         #
         # Calculate the Total force X, Y, and Z , 10.2.0(d) now case constant variable
         #  Totals are a case constants. We don't do anything with these vars
@@ -1056,20 +1036,23 @@ class Variables:
         force_calc_string = "ENS_Force_Total_Net_press_X = StatMoment"
         calc_string = "(plist," + "ENS_Force_press_X , 0, Compute_Per_case )"
         temp_string = force_calc_string + calc_string
-        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-            return None  # pragma: no cover
+        if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+            err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
+            raise RuntimeError(err_string)  # pragma: no cover
         #
         force_calc_string = "ENS_Force_Total_Net_press_Y = StatMoment"
         calc_string = "(plist," + "ENS_Force_press_Y , 0, Compute_Per_case )"
         temp_string = force_calc_string + calc_string
-        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-            return None  # pragma: no cover
+        if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+            err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
+            raise RuntimeError(err_string)  # pragma: no cover
         #
         force_calc_string = "ENS_Force_Total_Net_press_Z = StatMoment"
         calc_string = "(plist," + "ENS_Force_press_Z , 0, Compute_Per_case )"
         temp_string = force_calc_string + calc_string
-        if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-            return None  # pragma: no cover
+        if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+            err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
+            raise RuntimeError(err_string)  # pragma: no cover
         #
         # get a list with a per part force, one for each part, new 10.1.6(b)
         #
@@ -1083,7 +1066,7 @@ class Variables:
         if val:
             if isinstance(val, list):
                 for v in val:
-                    if not v:  # pragma: no cover
+                    if v is None:  # pragma: no cover
                         return None  # pragma: no cover
                     Fx.append(v)
             else:
@@ -1094,7 +1077,7 @@ class Variables:
         if val:
             if isinstance(val, list):
                 for v in val:
-                    if not v:  # pragma: no cover
+                    if v is None:  # pragma: no cover
                         return None  # pragma: no cover
                     Fy.append(v)
             else:
@@ -1105,7 +1088,7 @@ class Variables:
         if val:
             if isinstance(val, list):
                 for v in val:
-                    if not v:  # pragma: no cover
+                    if v is None:  # pragma: no cover
                         return None  # pragma: no cover
                     Fz.append(v)
             else:
@@ -1125,20 +1108,23 @@ class Variables:
             force_calc_string = "ENS_Force_Net_press_R = StatMoment"
             calc_string = "(plist," + "ENS_Force_press_R, 0, Compute_Per_part )"
             temp_string = force_calc_string + calc_string
-            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-                return None  # pragma: no cover
+            if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+                err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
+                raise RuntimeError(err_string)  # pragma: no cover
             #
             force_calc_string = "ENS_Force_Net_press_T = StatMoment"
             calc_string = "(plist," + "ENS_Force_press_T, 0, Compute_Per_part )"
             temp_string = force_calc_string + calc_string
-            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-                return None  # pragma: no cover
+            if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+                err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
+                raise RuntimeError(err_string)  # pragma: no cover
             #
             force_calc_string = "ENS_Force_Net_press_A = StatMoment"
             calc_string = "(plist," + "ENS_Force_press_A, 0, Compute_Per_part )"
             temp_string = force_calc_string + calc_string
-            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-                return None  # pragma: no cover
+            if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+                err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
+                raise RuntimeError(err_string)  # pragma: no cover
             #
             #  Totals are a case constants. We don't do anything with these vars
             #   they are calc'd to give the user the totals.
@@ -1146,20 +1132,23 @@ class Variables:
             force_calc_string = "ENS_Force_Total_Net_press_R = StatMoment"
             calc_string = "(plist," + "ENS_Force_press_R, 0, Compute_Per_case )"
             temp_string = force_calc_string + calc_string
-            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-                return None  # pragma: no cover
+            if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+                err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
+                raise RuntimeError(err_string)  # pragma: no cover
             #
             force_calc_string = "ENS_Force_Total_Net_press_T = StatMoment"
             calc_string = "(plist," + "ENS_Force_press_T, 0, Compute_Per_case )"
             temp_string = force_calc_string + calc_string
-            if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-                return None  # pragma: no cover
+            if self._calc_var(pobj_list, temp_string) is False:  # pragma: no cover
+                err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
+                raise RuntimeError(err_string)  # pragma: no cover
             #
             force_calc_string = "ENS_Force_Total_Net_press_A = StatMoment"
             calc_string = "(plist," + "ENS_Force_press_A, 0, Compute_Per_case )"
             temp_string = force_calc_string + calc_string
             if not self._calc_var(pobj_list, temp_string):  # pragma: no cover
-                return None  # pragma: no cover
+                err_string = f"Error, failed to calculate {temp_string} in {fcn_name}"  # pragma: no cover  # pragma: no cover  # pragma: no cover
+                raise RuntimeError(err_string)  # pragma: no cover
             #
             #   get a list with a per part force, one for each part, new 10.1.6(b)
             #
@@ -1172,7 +1161,7 @@ class Variables:
             if val:
                 if isinstance(val, list):
                     for v in val:
-                        if not v:  # pragma: no cover
+                        if v is None:  # pragma: no cover
                             return None  # pragma: no cover
                         Fr.append(v)
                 else:
@@ -1183,7 +1172,7 @@ class Variables:
             if val:
                 if isinstance(val, list):
                     for v in val:
-                        if not v:  # pragma: no cover
+                        if v is None:  # pragma: no cover
                             return None  # pragma: no cover
                         Ft.append(v)
                 else:
@@ -1194,7 +1183,7 @@ class Variables:
             if val:
                 if isinstance(val, list):
                     for v in val:
-                        if not v:  # pragma: no cover
+                        if v is None:  # pragma: no cover
                             return None  # pragma: no cover
                         Fa.append(v)
                 else:
