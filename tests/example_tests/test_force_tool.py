@@ -57,11 +57,11 @@ def test_force_tool(tmpdir, pytestconfig: pytest.Config):
     else:
         count = 0
         success = False
-        while(not success and count < 5):
+        while not success and count < 5:
             try:
                 path = session.download_pyansys_example("RC_Plane", "pyensight", folder=True)
                 success = True
-            except:
+            except Exception:
                 time.sleep(5)
                 count += 1
         if count == 5 and success is False:
