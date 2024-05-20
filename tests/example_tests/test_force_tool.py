@@ -1,5 +1,6 @@
 import math
 import os
+import time
 
 from ansys.pyensight.core.dockerlauncher import DockerLauncher
 from ansys.pyensight.core.locallauncher import LocalLauncher
@@ -50,7 +51,21 @@ def test_force_tool(tmpdir, pytestconfig: pytest.Config):
     else:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     session = launcher.start()
-    path = session.download_pyansys_example("RC_Plane", "pyensight", folder=True)
+    path = None
+    if use_local:
+        path = f"{session.cei_home}/ensight{session.cei_suffix}/data/RC_Plane/"
+    else:
+        count = 0
+        success = False
+        while(not success and count < 5):
+            try:
+                path = session.download_pyansys_example("RC_Plane", "pyensight", folder=True)
+                success = True
+            except:
+                time.sleep(5)
+                count += 1
+        if count == 5 and success is False:
+            raise RuntimeError("Download of RC Plane case not possible")
     session.load_data(os.path.join(path, "extra300_RC_Plane_cpp.case"))
     create_frame(session.ensight)
     body_parts = [
