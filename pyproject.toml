@@ -34,7 +34,8 @@ dependencies = [
     "numpy>=1.21.0,<2",
     "Pillow>=9.3.0",
     "pypng>=0.0.20",
-    "psutil>=5.9.2"
+    "psutil>=5.9.2",
+    "requests<2.32.0"
 ]
 
 [project.optional-dependencies]
