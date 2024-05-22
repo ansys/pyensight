@@ -20,8 +20,13 @@ from ansys.pyensight.core import LocalLauncher
 
 # batch is default (no visible ensight session)
 session = LocalLauncher().start()
+
 # use below for interactive debugging with a visible ensight session 
 #session = LocalLauncher(batch=False).start()
+
+# You can also specify the version of EnSight to use
+#ansys_loc = r"""C:\Program Files\ANSYS Inc\v242"""
+#session=LocalLauncher(ansys_installation = ansys_loc, batch=False).start()
 
 # Setup shortcuts for long winded calls.
 sesse = session.ensight
@@ -34,13 +39,7 @@ eoutil = sesse.utils
 # Load Shuttle Session file included in the EnSight installation and render
 #
 # .. image:: /_static/07_volume_render_0.png
-
-###############################################################################
-# Load a dataset
-# --------------
-# Load Shuttle data included in the EnSight installation and render
 #
-# .. image:: /_static/03_ptrace_0.png
 
 xyz_file = f"{session.cei_home}/ensight{session.cei_suffix}/data/plot3d/shuttle.xyz"
 q_file = f"{session.cei_home}/ensight{session.cei_suffix}/data/plot3d/shuttle.q"
@@ -110,8 +109,6 @@ sesse.function.modify_end()
 #   the normalized variable value and the opacity ('alpha') for
 #   ranges of values set using function points and the magnitude
 #
-sesse.tools.box("ON")
-sesse.tools.box("OFF")
 sesse.part.select_begin(1)
 sesse.clip.begin()
 sesse.part.colorby_palette("Mach")
