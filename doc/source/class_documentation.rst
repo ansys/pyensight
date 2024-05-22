@@ -47,3 +47,4 @@ PyEnSight using the ``ansys.pyensight.core.Session.ensight`` interface.
    ansys.pyensight.core.utils.variables.Variables
    ansys.pyensight.core.utils.omniverse.Omniverse
    ansys.pyensight.core.utils.readers.Readers
+   ansys.pyensight.core.utils.readers.DVS
