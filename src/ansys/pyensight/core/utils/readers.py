@@ -26,7 +26,7 @@ class Readers:
         self._dvs = DVS(self._ensight)
 
     @property
-    def dvs(self):
+    def dvs(self) -> "DVS":
         return self._dvs
 
 
