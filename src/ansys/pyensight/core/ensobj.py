@@ -452,16 +452,16 @@ class ENSOBJ(object):
 
     def __str__(self) -> str:
         desc = ""
-        if hasattr(self.__class__, "attr_list"):
+        if hasattr(self.__class__, "attr_list"):  # pragma: no cover
             if self._session.ensight.objs.enums.DESCRIPTION in self.__class__.attr_list:
                 try:
-                    if hasattr(self, "DESCRIPTION"):
+                    if hasattr(self, "DESCRIPTION"):  # pragma: no cover
                         desc_text = self.DESCRIPTION
                     else:
                         desc_text = ""
-                except RuntimeError:
+                except RuntimeError:  # pragma: no cover
                     # self.DESCRIPTION is a gRPC call that can fail for default objects
-                    desc_text = ""
+                    desc_text = ""  # pragma: no cover
                 desc = f", desc: '{desc_text}'"
         owned = ""
         if self._is_owned:

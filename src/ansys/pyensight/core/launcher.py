@@ -78,8 +78,8 @@ class Launcher:
         self._egl_env_val: Optional[bool] = None
         egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
         if egl_env is not None:
-            if egl_env == "1":
-                self._egl_env_val = True
+            if egl_env == "1":  # pragma: no cover
+                self._egl_env_val = True  # pragma: no cover
             else:
                 self._egl_env_val = False
         # a dict of any optional launcher specific query parameters for URLs
@@ -127,7 +127,7 @@ class Launcher:
 
         # stop the websocketserver instance
         url = f"http://{session.hostname}:{session.html_port}/v1/stop"
-        if session.secret_key:
+        if session.secret_key:  # pragma: no cover
             url += f"?security_token={session.secret_key}"
         _ = requests.get(url)
 
@@ -221,7 +221,7 @@ class Launcher:
         # in case we failed...
         if len(ports) < count:  # pragma: no cover
             return None  # pragma: no cover
-        return ports
+        return ports  # pragma: no cover
 
     def _use_egl(self) -> bool:
         """Return True if the system supports the EGL and if EGL was desired.

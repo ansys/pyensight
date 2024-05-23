@@ -2,6 +2,9 @@ import os
 import pathlib
 
 from ansys.pyensight.core import DockerLauncher, LocalLauncher, launch_ensight
+from ansys.pyensight.core.enscontext import EnsContext
+from ansys.pyensight.core.utils.parts import convert_part, convert_variable
+from ansys.pyensight.core.utils.variables import vec_mag
 import pytest
 
 
@@ -34,8 +37,8 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
         progress=True,
     )
     session.copy_to_session(
-        pathlib.Path(os.path.join(data_dir, "test_exec_run_script.py")).parents[1].as_uri(),
-        ["test_exec_run_script.py", "test_dir"],
+        pathlib.Path(data_dir).as_uri(),
+        ["test_dir"],
     )
     with pytest.raises(RuntimeError):
         session.copy_to_session(
@@ -47,11 +50,15 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
             "file:///data",
             ["test_dir"],
         )
+        session.copy_from_session(
+            "file:///data", ["test_exec_run_script.py"], remote_prefix="files", progress=True
+        )
         with pytest.raises(RuntimeError):
             session.copy_from_session(
                 "grpc:///",
                 [os.path.basename(os.path.dirname(__file__))],
             )
+    vec_mag([0, 1])
     session.language = "zh"
     session.language = "en"
     session.halt_ensight_on_close = False
@@ -60,6 +67,20 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     session.jupyter_notebook = False
     assert session.sos is False
     session.load_example("waterbreak.ens", root=root)
+    session.ensight.utils.variables.calculator.area(["leftWall"])
+    assert session.ensight.utils.variables.get_const_val("Area_0", ["leftWall"]) > 0
+    session.ensight.utils.variables.get_const_vars()
+    session.ensight.utils.variables.get_const_var_names()
+    temp_part = session.ensight.objs.core.PARTS.find(1, attr="PARTNUMBER")[0]
+    convert_part(session.ensight, temp_part)
+    convert_variable(session.ensight, session.ensight.objs.core.VARIABLES[0])
+    session.ensight.utils.export._numpy_to_dict(None)
+    session.ensight.utils.export._numpy_from_dict(None)
+    context = session.capture_context()
+    context.save("test.ctxz")
+    context2 = EnsContext("test.ctxz")
+    with pytest.raises(RuntimeError):
+        context2.load("test.zippp")
     session.ensight.utils.variables._check_for_var_elem(
         "alpha1", session.ensight.objs.core.PARTS["default_region"[0]]
     )
@@ -80,6 +101,11 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     export.image(os.path.join(data_dir, "test.png"), width=800, height=600)
     export.image(os.path.join(data_dir, "test.tiff"), enhanced=True)
     export.animation(os.path.join(data_dir, "test.mp4"), anim_type=export.ANIM_TYPE_SOLUTIONTIME)
+    export.animation(
+        os.path.join(data_dir, "test.mp4"),
+        anim_type=export.ANIM_TYPE_SOLUTIONTIME,
+        format_options=None,
+    )
     export.animation(
         os.path.join(data_dir, "test.mp4"),
         anim_type=export.ANIM_TYPE_SOLUTIONTIME,
@@ -158,6 +184,11 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
         )
     parts = session.ensight.utils.parts
     parts.select_parts_invert()
+    session.ensight.objs.core.PARTS[0].setmetatag("test_tag1", "3")
+    assert (
+        parts.select_parts_by_tag(tag="test_tag1", value="3")[0]
+        == session.ensight.objs.core.PARTS[0]
+    )
     assert parts.select_parts_by_tag(tag="TEST", value="val") == []
     assert parts.select_parts_by_tag(tag="TEST") == []
     assert parts.select_parts_by_tag(value="val") == []
@@ -182,6 +213,8 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     views.save_current_view("test")
     views.save_current_view("")
     views.restore_view("test")
+    with pytest.raises(KeyError):
+        views.restore_view("non_existing_view")
     views.restore_center_of_transform()
     views.reinitialize_view()
     views._convert_rotation_matrix_to_quaternion([1, 0, 0], [0, -1, 0], [0, 0, -3])
@@ -197,6 +230,16 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
         "alpha1",
         point1=[1.918665e-01, 3.840137e-01, 2.539995e-02],
         point2=[1.918665e-01, 1.069867e-01, 2.539995e-02],
+    )
+    session.ensight.view_transf.spline_new()
+    session.ensight.view_transf.splinepoint_create(0.255759448, 0.291166872, 0.025399996)
+    session.ensight.view_transf.splinepoint_create(0.302727759, 0.306592941, 0.0253999885)
+    session.ensight.view_transf.splinepoint_create(0.369678676, 0.318534851, 0.0254000034)
+    session.ensight.view_transf.splinepoint_create(0.412878871, 0.329110414, 0.0253999978)
+    session.ensight.view_transf.splinepoint_create(0.457060218, 0.365240633, 0.0253999904)
+    session.ensight.view_transf.splinepoint_create(0.453760058, 0.382999331, 0.0253999867)
+    query.create_distance(
+        "spline query", query.DISTANCE_SPLINE, ["defaultFaces"], "alpha1", spline_name="new_spline0"
     )
     query.create_temporal(
         "temporal_query",
@@ -283,9 +326,13 @@ def test_particle_traces_and_geometry(tmpdir, pytestconfig: pytest.Config):
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True, enable_rest_api=True)
     session = launcher.start()
     session.load_example("waterbreak.ens", root=root)
+    session.show("webensight")
+    session.show("webgl")
+    session.show("remote")._update_2023R2_or_less()
     parts = session.ensight.utils.parts
     export = session.ensight.utils.export
     session.ensight.objs.core.PARTS.set_attr("COLORBYPALETTE", "alpha1")
+    session.ensight.objs.core.PARTS[0].setmetatag("testtag", None)
     export.geometry("test.glb", format=export.GEOM_EXPORT_GLTF, starting_timestep=0)
     export.geometry(
         "second_test.glb", format=export.GEOM_EXPORT_GLTF, starting_timestep=0, frames=-1
@@ -344,7 +391,15 @@ def test_particle_traces_and_geometry(tmpdir, pytestconfig: pytest.Config):
     parts.add_emitter_line_to_particle_trace_part(
         line_pt, point1=[0.02, 0.1, -0.02], point2=[0.02, 0.1, 0.02], num_points=3
     )
-    parts.add_emitter_plane_to_particle_trace_part(
+    parts._find_palette("alpha1")
+    with pytest.raises(RuntimeError):
+        parts._find_palette("alpha2")
+    parts.select_parts(None)
+    parts.get_part_id_obj_name(session.ensight.objs.core.PARTS, ret_flag=None)
+    parts.get_part_id_obj_name(session.ensight.objs.core.PARTS[0])
+    parts.get_part_id_obj_name([1, 2], "name")
+    parts.get_part_id_obj_name(["1", "2"], "obj")
+    temp_part = parts.add_emitter_plane_to_particle_trace_part(
         plane_pt,
         point1=[0.3, 0.2, 0.013],
         point2=[0.3, 0.2, -0.002],
@@ -352,6 +407,7 @@ def test_particle_traces_and_geometry(tmpdir, pytestconfig: pytest.Config):
         num_points_x=4,
         num_points_y=5,
     )
+    temp_part.destroy()
 
 
 def test_sos(tmpdir, pytestconfig: pytest.Config):

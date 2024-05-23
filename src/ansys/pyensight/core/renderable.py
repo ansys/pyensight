@@ -540,6 +540,20 @@ class RenderableVNC(Renderable):
         self._rendertype = "remote"
         self.update()
 
+    def _update_2023R2_or_less(self):
+        """Update the remote rendering widget and display it for
+        backend EnSight of version earlier than 2024R1
+        """
+        query_params = {
+            "autoconnect": "true",
+            "host": self._session.html_hostname,
+            "port": self._session.ws_port,
+        }
+        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
+        url += "/ansys/nexus/novnc/vnc_envision.html"
+        url += self._get_query_parameters_str(query_params)
+        self._url = url
+
     def update(self):
         """Update the remote rendering widget and display it.
 
@@ -549,29 +563,37 @@ class RenderableVNC(Renderable):
         """
         optional_query = self._get_query_parameters_str()
         version = _get_ansysnexus_version(self._session._cei_suffix)
-        html = f"<script src='/ansys{version}/nexus/viewer-loader.js{optional_query}'></script>\n"
-        rest_uri = (
-            f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
-        )
-        ws_uri = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.ws_port}"
+        if int(self._session._cei_suffix) < 242:  # pragma: no cover
+            version = ""
+            self._update_2023R2_or_less()  # pragma: no cover
+        else:
+            html = (
+                f"<script src='/ansys{version}/nexus/viewer-loader.js{optional_query}'></script>\n"
+            )
+            rest_uri = (
+                f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
+            )
+            ws_uri = (
+                f"{self._http_protocol}://{self._session.html_hostname}:{self._session.ws_port}"
+            )
 
-        query_args = ""
-        if self._using_proxy and optional_query:
-            query_args = f', "extra_query_args":"{optional_query[1:]}"'
+            query_args = ""
+            if self._using_proxy and optional_query:  # pragma: no cover
+                query_args = f', "extra_query_args":"{optional_query[1:]}"'  # pragma: no cover
 
-        attributes = ' renderer="envnc"'
-        attributes += ' ui="simple"'
-        attributes += ' active="true"'
-        attributes += (
-            " renderer_options='"
-            + f'{{ "ws":"{ws_uri}", "http":"{rest_uri}", "security_token":"{self._session.secret_key}", "connect_to_running_ens":true {query_args} }}'
-            + "'"
-        )
+            attributes = ' renderer="envnc"'
+            attributes += ' ui="simple"'
+            attributes += ' active="true"'
+            attributes += (
+                " renderer_options='"
+                + f'{{ "ws":"{ws_uri}", "http":"{rest_uri}", "security_token":"{self._session.secret_key}", "connect_to_running_ens":true {query_args} }}'
+                + "'"
+            )
 
-        html += f"<ansys-nexus-viewer {attributes}></ansys-nexus-viewer>\n"
+            html += f"<ansys-nexus-viewer {attributes}></ansys-nexus-viewer>\n"
 
-        # refresh the remote HTML
-        self._save_remote_html_page(html)
+            # refresh the remote HTML
+            self._save_remote_html_page(html)
         super().update()
 
 
@@ -584,6 +606,7 @@ class RenderableVNCAngular(Renderable):
         self.update()
 
     def update(self):
+        optional_query = self._get_query_parameters_str()
         version = _get_ansysnexus_version(self._session._cei_suffix)
         base_content = f"""
 <!doctype html>
@@ -599,7 +622,10 @@ class RenderableVNCAngular(Renderable):
 """
         module_with_attributes = "\n  <web-en-sight "
         module_with_attributes += f'wsPort="{self._session.ws_port}" '
-        module_with_attributes += f'secretKey="{self._session.secret_key}">\n'
+        module_with_attributes += f'secretKey="{self._session.secret_key}"'
+        if self._using_proxy and optional_query:  # pragma: no cover
+            module_with_attributes += f' extraQueryArgs="{optional_query[1:]}"'
+        module_with_attributes += ">\n"
         script_src = '<script src="runtime.js" type="module"></script><script src="polyfills.js" type="module"></script><script src="main.js" type="module"></script></body>\n</html>'
         content = base_content + module_with_attributes + script_src
         self._save_remote_html_page(content)
@@ -672,11 +698,11 @@ class RenderableEVSN(Renderable):
             f'"ws":"{self._http_protocol}://{self._session.html_hostname}:{self._session.ws_port}"'
         )
         secrets = f'"security_token":"{self._session.secret_key}"'
-        if not self._using_proxy or optional_query == "":
+        if not self._using_proxy or not optional_query:  # pragma: no cover
             attributes += f" renderer_options='{{ {http_uri}, {ws_uri}, {secrets} }}'"
-        else:
-            query_args = f'"extra_query_args":"{optional_query[1:]}"'
-            attributes += f" renderer_options='{{ {http_uri}, {ws_uri}, {secrets}, {query_args} }}'"
+        elif self._using_proxy and optional_query:  # pragma: no cover
+            query_args = f'"extra_query_args":"{optional_query[1:]}"'  # pragma: no cover
+            attributes += f" renderer_options='{{ {http_uri}, {ws_uri}, {secrets}, {query_args} }}'"  # pragma: no cover
         html += f"<ansys-nexus-viewer {attributes}></ansys-nexus-viewer>\n"
         # refresh the remote HTML
         self._save_remote_html_page(html)

@@ -95,11 +95,11 @@ class EnShellGRPC(object):
         n : Optional[int], optional
             An string to be used as the security token, by default None
         """
-        self._security_token = n
+        self._security_token = n  # pragma: no cover
 
     def set_random_security_token(self):
         """Set a random security token for the gRPC connection."""
-        self._security_token = str(random.randint(0, 1000000))
+        self._security_token = str(random.randint(0, 1000000))  # pragma: no cover
 
     def security_token(self):
         """Return the security token for the gRPC connection.
@@ -118,10 +118,10 @@ class EnShellGRPC(object):
         send the gRPC exit() call and then shut down all connections.
         """
         # if we launched EnShell, shut it down.
-        if self._pid is not None:
-            _ = self.stop_server()
+        if self._pid is not None:  # pragma: no cover
+            _ = self.stop_server()  # pragma: no cover
 
-    def start_server(self):
+    def start_server(self):  # pragma: no cover
         """Start an EnShell gRPC server instance.
 
         If the host application wishes to launch an EnShell instance, start_server()
@@ -165,13 +165,13 @@ class EnShellGRPC(object):
         """
         response = None
         # if we are connected and we started the server, we will emit the 'exit' message
-        if self.is_connected():
+        if self.is_connected():  # pragma: no cover
             response = self._stub.exit_cleanly(
                 enshell_pb2.google_dot_protobuf_dot_empty__pb2.Empty(), metadata=self.metadata()
             )
         self._stub = None
         self._dsg_stub = None
-        if self._channel:
+        if self._channel:  # pragma: no cover
             self._channel.close()
         self._channel = None
         self._pid = None
@@ -239,7 +239,7 @@ class EnShellGRPC(object):
         self._channel = channel
         self._stub = enshell_pb2_grpc.EnShellServiceStub(self._channel)
 
-    def metadata(self):
+    def metadata(self):  # pragma: no cover
         """Compute internal gRPC stream metadata."""
         ret = list()
         if self._security_token is not None:

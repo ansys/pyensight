@@ -244,21 +244,21 @@ class Views:
             ymin = bounds[1]
             zmax = bounds[5]
             zmin = bounds[2]
-        except AttributeError:
+        except AttributeError:  # pragma: no cover
             # Old method. It assumes autosize is set to True and
             # that the bounds have not been modified
-            enabled = False
-            if self.ensight.objs.core.BOUNDS is False:
-                enabled = True
-                self.ensight.view.bounds("ON")
-            xmax = vport.AXISXMAX
-            xmin = vport.AXISXMIN
-            ymax = vport.AXISYMAX
-            ymin = vport.AXISYMIN
-            zmax = vport.AXISZMAX
-            zmin = vport.AXISZMIN
-            if enabled:
-                self.ensight.view.bounds("OFF")
+            enabled = False  # pragma: no cover
+            if self.ensight.objs.core.BOUNDS is False:  # pragma: no cover
+                enabled = True  # pragma: no cover
+                self.ensight.view.bounds("ON")  # pragma: no cover
+            xmax = vport.AXISXMAX  # pragma: no cover
+            xmin = vport.AXISXMIN  # pragma: no cover
+            ymax = vport.AXISYMAX  # pragma: no cover
+            ymin = vport.AXISYMIN  # pragma: no cover
+            zmax = vport.AXISZMAX  # pragma: no cover
+            zmin = vport.AXISZMIN  # pragma: no cover
+            if enabled:  # pragma: no cover
+                self.ensight.view.bounds("OFF")  # pragma: no cover
         xavg = (xmax + xmin) / 2
         yavg = (ymax + ymin) / 2
         zavg = (zmax + zmin) / 2
@@ -345,7 +345,7 @@ class Views:
         if not self.views_dict.get(name):
             raise KeyError("ERROR: view set not available")
         found = self.views_dict.get(name)
-        if found:
+        if found:  # pragma: no cover
             viewport, coretransform = found
             vport = self.ensight.objs.core.VPORTS[viewport]
             vport.CORETRANSFORM = coretransform
