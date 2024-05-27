@@ -62,7 +62,7 @@ class OmniverseWrapper:
         live_edit: bool = False,
         path: str = "omniverse://localhost/Users/test",
         verbose: int = 0,
-    ):
+    ) -> None:
         self._cleaned_index = 0
         self._cleaned_names: dict = {}
         self._connectionStatusSubscription = None
@@ -136,6 +136,9 @@ class OmniverseWrapper:
     #   Live mode is disabled (live checkpoints are ill-supported)
     #   The Nucleus server supports checkpoints
     def checkpoint(self, comment: str = "") -> None:
+        # for the present, disable checkpoint until live_edit is working again
+        return
+
         if self._live_edit:
             return
         result, serverInfo = omni.client.get_server_info(self.stage_url())
@@ -151,155 +154,6 @@ class OmniverseWrapper:
                 self.log(f"Connected username:{serverInfo.username}")
             return serverInfo.username
         return None
-
-    h = 50.0
-    boxVertexIndices = [
-        0,
-        1,
-        2,
-        1,
-        3,
-        2,
-        4,
-        5,
-        6,
-        4,
-        6,
-        7,
-        8,
-        9,
-        10,
-        8,
-        10,
-        11,
-        12,
-        13,
-        14,
-        12,
-        14,
-        15,
-        16,
-        17,
-        18,
-        16,
-        18,
-        19,
-        20,
-        21,
-        22,
-        20,
-        22,
-        23,
-    ]
-    boxVertexCounts = [3] * 12
-    boxNormals = [
-        (0, 0, -1),
-        (0, 0, -1),
-        (0, 0, -1),
-        (0, 0, -1),
-        (0, 0, 1),
-        (0, 0, 1),
-        (0, 0, 1),
-        (0, 0, 1),
-        (0, -1, 0),
-        (0, -1, 0),
-        (0, -1, 0),
-        (0, -1, 0),
-        (1, 0, 0),
-        (1, 0, 0),
-        (1, 0, 0),
-        (1, 0, 0),
-        (0, 1, 0),
-        (0, 1, 0),
-        (0, 1, 0),
-        (0, 1, 0),
-        (-1, 0, 0),
-        (-1, 0, 0),
-        (-1, 0, 0),
-        (-1, 0, 0),
-    ]
-    boxPoints = [
-        (h, -h, -h),
-        (-h, -h, -h),
-        (h, h, -h),
-        (-h, h, -h),
-        (h, h, h),
-        (-h, h, h),
-        (-h, -h, h),
-        (h, -h, h),
-        (h, -h, h),
-        (-h, -h, h),
-        (-h, -h, -h),
-        (h, -h, -h),
-        (h, h, h),
-        (h, -h, h),
-        (h, -h, -h),
-        (h, h, -h),
-        (-h, h, h),
-        (h, h, h),
-        (h, h, -h),
-        (-h, h, -h),
-        (-h, -h, h),
-        (-h, h, h),
-        (-h, h, -h),
-        (-h, -h, -h),
-    ]
-    boxUVs = [
-        (0, 0),
-        (0, 1),
-        (1, 1),
-        (1, 0),
-        (0, 0),
-        (0, 1),
-        (1, 1),
-        (1, 0),
-        (0, 0),
-        (0, 1),
-        (1, 1),
-        (1, 0),
-        (0, 0),
-        (0, 1),
-        (1, 1),
-        (1, 0),
-        (0, 0),
-        (0, 1),
-        (1, 1),
-        (1, 0),
-        (0, 0),
-        (0, 1),
-        (1, 1),
-        (1, 0),
-    ]
-
-    def createBox(self, box_number: int = 0) -> "UsdGeom.Mesh":
-        rootUrl = "/Root"
-        boxUrl = rootUrl + "/Boxes/box_%d" % box_number
-        xformPrim = UsdGeom.Xform.Define(self._stage, rootUrl)  # noqa: F841
-        # Define the defaultPrim as the /Root prim
-        rootPrim = self._stage.GetPrimAtPath(rootUrl)  # type:ignore
-        self._stage.SetDefaultPrim(rootPrim)  # type:ignore
-        boxPrim = UsdGeom.Mesh.Define(self._stage, boxUrl)
-        boxPrim.CreateDisplayColorAttr([(0.463, 0.725, 0.0)])
-        boxPrim.CreatePointsAttr(OmniverseWrapper.boxPoints)
-        boxPrim.CreateNormalsAttr(OmniverseWrapper.boxNormals)
-        boxPrim.CreateFaceVertexCountsAttr(OmniverseWrapper.boxVertexCounts)
-        boxPrim.CreateFaceVertexIndicesAttr(OmniverseWrapper.boxVertexIndices)
-        # USD 22.08 changed the primvar API
-        if hasattr(boxPrim, "CreatePrimvar"):
-            texCoords = boxPrim.CreatePrimvar(
-                "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
-            )
-        else:
-            primvarsAPI = UsdGeom.PrimvarsAPI(boxPrim)
-            texCoords = primvarsAPI.CreatePrimvar(
-                "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
-            )
-        texCoords.Set(OmniverseWrapper.boxUVs)
-        texCoords.SetInterpolation("vertex")
-        if not boxPrim:
-            sys.exit("[ERROR] Failure to create box")
-        self.save_stage()
-        return boxPrim
 
     def clear_cleaned_names(self) -> None:
         """Clear the list of cleaned names"""
@@ -1306,7 +1160,9 @@ if __name__ == "__main__":
     loggingEnabled = args.verbose
 
     # Make the OmniVerse connection
-    target = OmniverseWrapper(path=destinationPath, verbose=loggingEnabled)
+    target = OmniverseWrapper(path=destinationPath,
+                              verbose=loggingEnabled,
+                              live_edit=args.live)
 
     # Print the username for the server
     target.username()
