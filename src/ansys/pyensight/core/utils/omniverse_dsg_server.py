@@ -47,6 +47,11 @@ class OmniverseWrapper:
 
     @staticmethod
     def logCallback(threadName: None, component: Any, level: Any, message: str) -> None:
+        """
+        The logger method registered to handle async messages from Omniverse
+
+        If running in verbose mode, reroute the messages to Python Logging.
+        """
         if OmniverseWrapper.verbose:
             logging.info(message)
 
@@ -54,6 +59,9 @@ class OmniverseWrapper:
     def connectionStatusCallback(
         url: Any, connectionStatus: "omni.client.ConnectionStatus"
     ) -> None:
+        """
+        If no connection to Omniverse can be made, shut down the service.
+        """
         if connectionStatus is omni.client.ConnectionStatus.CONNECT_ERROR:
             sys.exit("[ERROR] Failed connection, exiting.")
 
@@ -62,15 +70,15 @@ class OmniverseWrapper:
         live_edit: bool = False,
         path: str = "omniverse://localhost/Users/test",
         verbose: int = 0,
-    ):
+    ) -> None:
         self._cleaned_index = 0
         self._cleaned_names: dict = {}
         self._connectionStatusSubscription = None
         self._stage = None
-        self._destinationPath = path
+        self._destinationPath: str = path
         self._old_stages: list = []
         self._stagename = "dsg_scene.usd"
-        self._live_edit = live_edit
+        self._live_edit: bool = live_edit
         if self._live_edit:
             self._stagename = "dsg_scene.live"
         OmniverseWrapper.verbose = verbose
@@ -90,10 +98,16 @@ class OmniverseWrapper:
             self.log("Note technically the Omniverse URL {self._destinationPath} is not valid")
 
     def log(self, msg: str) -> None:
+        """
+        Local method to dispatch to whatever logging system has been enabled.
+        """
         if OmniverseWrapper.verbose:
             logging.info(msg)
 
     def shutdown(self) -> None:
+        """
+        Shutdown the connection to Omniverse cleanly.
+        """
         omni.client.live_wait_for_pending_updates()
         self._connectionStatusSubscription = None
         omni.client.shutdown()
@@ -106,22 +120,40 @@ class OmniverseWrapper:
         return False
 
     def stage_url(self, name: Optional[str] = None) -> str:
+        """
+        For a given object name, create the URL for the item.
+        Parameters
+        ----------
+        name: the name of the object to generate the URL for. If None, it will be the URL for the
+              stage name.
+
+        Returns
+        -------
+        The URL for the object.
+        """
         if name is None:
             name = self._stagename
         return self._destinationPath + "/" + name
 
     def delete_old_stages(self) -> None:
+        """
+        Remove all the stages included in the "_old_stages" list.
+        """
         while self._old_stages:
             stage = self._old_stages.pop()
             omni.client.delete(stage)
 
     def create_new_stage(self) -> None:
+        """
+        Create a new stage. using the current stage name.
+        """
         self.log(f"Creating Omniverse stage: {self.stage_url()}")
         if self._stage:
             self._stage.Unload()
             self._stage = None
         self.delete_old_stages()
         self._stage = Usd.Stage.CreateNew(self.stage_url())
+        # record the stage in the "_old_stages" list.
         self._old_stages.append(self.stage_url())
         UsdGeom.SetStageUpAxis(self._stage, UsdGeom.Tokens.y)
         # in M
@@ -129,6 +161,11 @@ class OmniverseWrapper:
         self.log(f"Created stage: {self.stage_url()}")
 
     def save_stage(self) -> None:
+        """
+        For live connections, save the current edit and allow live processing.
+
+        Presently, live connections are disabled.
+        """
         self._stage.GetRootLayer().Save()  # type:ignore
         omni.client.live_process()
 
@@ -136,6 +173,9 @@ class OmniverseWrapper:
     #   Live mode is disabled (live checkpoints are ill-supported)
     #   The Nucleus server supports checkpoints
     def checkpoint(self, comment: str = "") -> None:
+        # for the present, disable checkpoint until live_edit is working again
+        return
+
         if self._live_edit:
             return
         result, serverInfo = omni.client.get_server_info(self.stage_url())
@@ -145,6 +185,17 @@ class OmniverseWrapper:
             omni.client.create_checkpoint(self.stage_url(), comment, bForceCheckpoint)
 
     def username(self, display: bool = True) -> Optional[str]:
+        """
+        Get the username of the current user.
+
+        Parameters
+        ----------
+        display : bool, optional if True, send the username to the logging system.
+
+        Returns
+        -------
+        The username or None.
+        """
         result, serverInfo = omni.client.get_server_info(self.stage_url())
         if serverInfo:
             if display:
@@ -152,162 +203,15 @@ class OmniverseWrapper:
             return serverInfo.username
         return None
 
-    h = 50.0
-    boxVertexIndices = [
-        0,
-        1,
-        2,
-        1,
-        3,
-        2,
-        4,
-        5,
-        6,
-        4,
-        6,
-        7,
-        8,
-        9,
-        10,
-        8,
-        10,
-        11,
-        12,
-        13,
-        14,
-        12,
-        14,
-        15,
-        16,
-        17,
-        18,
-        16,
-        18,
-        19,
-        20,
-        21,
-        22,
-        20,
-        22,
-        23,
-    ]
-    boxVertexCounts = [3] * 12
-    boxNormals = [
-        (0, 0, -1),
-        (0, 0, -1),
-        (0, 0, -1),
-        (0, 0, -1),
-        (0, 0, 1),
-        (0, 0, 1),
-        (0, 0, 1),
-        (0, 0, 1),
-        (0, -1, 0),
-        (0, -1, 0),
-        (0, -1, 0),
-        (0, -1, 0),
-        (1, 0, 0),
-        (1, 0, 0),
-        (1, 0, 0),
-        (1, 0, 0),
-        (0, 1, 0),
-        (0, 1, 0),
-        (0, 1, 0),
-        (0, 1, 0),
-        (-1, 0, 0),
-        (-1, 0, 0),
-        (-1, 0, 0),
-        (-1, 0, 0),
-    ]
-    boxPoints = [
-        (h, -h, -h),
-        (-h, -h, -h),
-        (h, h, -h),
-        (-h, h, -h),
-        (h, h, h),
-        (-h, h, h),
-        (-h, -h, h),
-        (h, -h, h),
-        (h, -h, h),
-        (-h, -h, h),
-        (-h, -h, -h),
-        (h, -h, -h),
-        (h, h, h),
-        (h, -h, h),
-        (h, -h, -h),
-        (h, h, -h),
-        (-h, h, h),
-        (h, h, h),
-        (h, h, -h),
-        (-h, h, -h),
-        (-h, -h, h),
-        (-h, h, h),
-        (-h, h, -h),
-        (-h, -h, -h),
-    ]
-    boxUVs = [
-        (0, 0),
-        (0, 1),
-        (1, 1),
-        (1, 0),
-        (0, 0),
-        (0, 1),
-        (1, 1),
-        (1, 0),
-        (0, 0),
-        (0, 1),
-        (1, 1),
-        (1, 0),
-        (0, 0),
-        (0, 1),
-        (1, 1),
-        (1, 0),
-        (0, 0),
-        (0, 1),
-        (1, 1),
-        (1, 0),
-        (0, 0),
-        (0, 1),
-        (1, 1),
-        (1, 0),
-    ]
-
-    def createBox(self, box_number: int = 0) -> "UsdGeom.Mesh":
-        rootUrl = "/Root"
-        boxUrl = rootUrl + "/Boxes/box_%d" % box_number
-        xformPrim = UsdGeom.Xform.Define(self._stage, rootUrl)  # noqa: F841
-        # Define the defaultPrim as the /Root prim
-        rootPrim = self._stage.GetPrimAtPath(rootUrl)  # type:ignore
-        self._stage.SetDefaultPrim(rootPrim)  # type:ignore
-        boxPrim = UsdGeom.Mesh.Define(self._stage, boxUrl)
-        boxPrim.CreateDisplayColorAttr([(0.463, 0.725, 0.0)])
-        boxPrim.CreatePointsAttr(OmniverseWrapper.boxPoints)
-        boxPrim.CreateNormalsAttr(OmniverseWrapper.boxNormals)
-        boxPrim.CreateFaceVertexCountsAttr(OmniverseWrapper.boxVertexCounts)
-        boxPrim.CreateFaceVertexIndicesAttr(OmniverseWrapper.boxVertexIndices)
-        # USD 22.08 changed the primvar API
-        if hasattr(boxPrim, "CreatePrimvar"):
-            texCoords = boxPrim.CreatePrimvar(
-                "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
-            )
-        else:
-            primvarsAPI = UsdGeom.PrimvarsAPI(boxPrim)
-            texCoords = primvarsAPI.CreatePrimvar(
-                "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
-            )
-        texCoords.Set(OmniverseWrapper.boxUVs)
-        texCoords.SetInterpolation("vertex")
-        if not boxPrim:
-            sys.exit("[ERROR] Failure to create box")
-        self.save_stage()
-        return boxPrim
-
     def clear_cleaned_names(self) -> None:
-        """Clear the list of cleaned names"""
+        """
+        Clear the list of cleaned names
+        """
         self._cleaned_names = {}
         self._cleaned_index = 0
 
     def clean_name(self, name: str, id_name: Any = None) -> str:
-        """Generate a vais USD name
+        """Generate a valid USD name
 
         From a base (EnSight) varname, partname, etc. and the DSG id, generate
         a unique, valid USD name.  Save the names so that if the same name
@@ -329,7 +233,7 @@ class OmniverseWrapper:
         # return any previously generated name
         if (name, id_name) in self._cleaned_names:
             return self._cleaned_names[(name, id_name)]
-        # replace invalid characters
+        # replace invalid characters.  EnSight uses a number of characters that are illegal in USD names.
         name = name.replace("+", "_").replace("-", "_")
         name = name.replace(".", "_").replace(":", "_")
         name = name.replace("[", "_").replace("]", "_")
@@ -351,6 +255,17 @@ class OmniverseWrapper:
 
     @staticmethod
     def decompose_matrix(values: Any) -> Any:
+        """
+        Decompose an array of floats (representing a 4x4 matrix) into scale, rotation and translation.
+        Parameters
+        ----------
+        values:
+            16 values (input to Gf.Matrix4f CTOR)
+
+        Returns
+        -------
+        (scale, rotation, translation)
+        """
         # ang_convert = 180.0/math.pi
         ang_convert = 1.0
         trans_convert = 1.0
@@ -656,16 +571,12 @@ class OmniverseWrapper:
 
         UsdShade.MaterialBindingAPI.Apply(mesh.GetPrim()).Bind(newMat)
 
-        # self.save_stage()
-
     # Create a distant light in the scene.
     def createDistantLight(self):
         newLight = UsdLux.DistantLight.Define(self._stage, "/Root/DistantLight")
         newLight.CreateAngleAttr(0.53)
         newLight.CreateColorAttr(Gf.Vec3f(1.0, 1.0, 0.745))
         newLight.CreateIntensityAttr(500.0)
-
-        # self.save_stage()
 
     # Create a dome light in the scene.
     def createDomeLight(self, texturePath):
@@ -679,8 +590,6 @@ class OmniverseWrapper:
         rotateOp = xForm.AddXformOp(UsdGeom.XformOp.TypeRotateZYX, UsdGeom.XformOp.PrecisionFloat)
         rotateOp.Set(Gf.Vec3f(270, 0, 0))
 
-        # self.save_stage()
-
     def createEmptyFolder(self, emptyFolderPath):
         folder = self._destinationPath + emptyFolderPath
         self.log(f"Creating new folder: {folder}")
@@ -691,6 +600,19 @@ class OmniverseWrapper:
 
 class Part(object):
     def __init__(self, link: "DSGOmniverseLink"):
+        """
+        This object roughly represents an EnSight "Part"
+
+        This object stores basic geometry information coming from the DSG protocol.  The update() method
+        can parse an "UpdateGeom" protobuffer and merges the results into the Part object.
+
+        The build() method can be used to generate a USD block representing the current object state.
+
+        Parameters
+        ----------
+        link:
+            The Omniverse connection to be used in the build() method.
+        """
         self._link = link
         self.cmd: Optional[Any] = None
         self.reset()
@@ -908,6 +830,14 @@ class DSGOmniverseLink(object):
         normalize_geometry: bool = False,
         vrmode: bool = False,
     ):
+        """
+        Manage a gRPC connection and link it to an OmniverseWrapper instance
+
+        This class makes a DSG gRPC connection via the specified port and host (leveraging
+        the passed security code).  As DSG protobuffers arrive, they are merged into a Part
+        object instance and then pushed out to the OmniverseWrapper instance.
+
+        """
         super().__init__()
         self._grpc = ensight_grpc.EnSightGRPC(port=port, host=host, secret_key=security_code)
         self._verbose = verbose
@@ -1306,7 +1236,7 @@ if __name__ == "__main__":
     loggingEnabled = args.verbose
 
     # Make the OmniVerse connection
-    target = OmniverseWrapper(path=destinationPath, verbose=loggingEnabled)
+    target = OmniverseWrapper(path=destinationPath, verbose=loggingEnabled, live_edit=args.live)
 
     # Print the username for the server
     target.username()
@@ -1345,11 +1275,5 @@ if __name__ == "__main__":
     if loggingEnabled:
         logging.info("Shutting down DSG connection")
     dsg_link.end()
-
-    # Add a material to the box
-    # target.createMaterial(boxMesh)
-
-    # Add a Nucleus Checkpoint to the stage
-    # target.checkpoint("Add material to the box")
 
     target.shutdown()
