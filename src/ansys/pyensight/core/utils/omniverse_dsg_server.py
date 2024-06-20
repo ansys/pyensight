@@ -158,7 +158,7 @@ class OmniverseWrapper:
         UsdGeom.SetStageMetersPerUnit(self._stage, 1.0)
         self.log(f"Created stage: {self.stage_url()}")
 
-    def save_stage(self) -> None:
+    def save_stage(self, comment: str = "") -> None:
         """
         For live connections, save the current edit and allow live processing.
 
@@ -167,14 +167,18 @@ class OmniverseWrapper:
         self._stage.GetRootLayer().Save()  # type:ignore
         omni.client.live_process()
 
-    # This function will add a commented checkpoint to a file on Nucleus if:
-    #   Live mode is disabled (live checkpoints are ill-supported)
-    #   The Nucleus server supports checkpoints
+    # This function will add a commented checkpoint to a file on Nucleus if
+    # the Nucleus server supports checkpoints
     def checkpoint(self, comment: str = "") -> None:
-        # for the present, disable checkpoint until live_edit is working again
-        return
+        """
+        Add a checkpoint to the current stage.
 
-        if self._live_edit:
+        Parameters
+        ----------
+        comment: str
+            If not empty, the comment to be added to the stage
+        """
+        if not comment:
             return
         result, serverInfo = omni.client.get_server_info(self.stage_url())
         if result and serverInfo and serverInfo.checkpoints_enabled:
@@ -626,10 +630,8 @@ class OmniverseUpdateHandler(UpdateHandler):
             if self.session.vrmode:
                 camera_info = None
             prim = self._omni.create_dsg_root(camera=camera_info)
-            self._omni.checkpoint("Created base scene")
             # Create a distance and dome light in the scene
             self._omni.createDomeLight("./Materials/000_sky.exr")
-            self._omni.checkpoint("Added lights to stage")
             # Upload a material and textures to the Omniverse server
             self._omni.uploadMaterial()
             self._omni.create_dsg_variable_textures(self.session.variables)
@@ -670,7 +672,6 @@ class OmniverseUpdateHandler(UpdateHandler):
         super().finalize_part(part)
 
     def start_connection(self) -> None:
-        print("RJF Start_conenction")
         super().start_connection()
 
     def end_connection(self) -> None:

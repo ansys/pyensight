@@ -265,6 +265,7 @@ class UpdateHandler(object):
 
     @property
     def session(self) -> "DSGSession":
+        """The session object this handler has been associated with"""
         return self._session
 
     @session.setter
@@ -272,40 +273,56 @@ class UpdateHandler(object):
         self._session = session
 
     def add_group(self, id: int, view: bool = False) -> None:
+        """Called when a new group command has been added: self.session.groups[id]"""
         if view:
             self.session.log(f"Adding view: {self.session.groups[id]}")
         else:
             self.session.log(f"Adding group: {self.session.groups[id].name}")
 
     def add_variable(self, id: int) -> None:
+        """Called when a new group command has been added: self.session.variables[id]"""
         self.session.log(f"Adding variable: {self.session.variables[id].name}")
 
     def finalize_part(self, part: Part) -> None:
+        """Called when all the updates on a Part object have been completed.
+        Note: this should be called after the subclass has processed the part
+        as the part command will be destroyed by this call.
+        """
         if part.cmd:
             self.session.log(f"Part finalized: {part.cmd.name}")
         part.cmd = None
 
     def start_connection(self) -> None:
+        """A new gRPC connection has been established:  self.session.grpc"""
         grpc = self.session.grpc
         self.session.log(f"gRPC connection established to: {grpc.host}:{grpc.port}")
 
     def end_connection(self) -> None:
+        """The previous gRPC connection has been closed"""
         self.session.log("gRPC connection closed")
 
     def begin_update(self) -> None:
+        """A new scene update is about to begin"""
         self.session.log("Begin update ------------------------")
 
     def end_update(self) -> None:
+        """The scene update is complete"""
         self.session.log("End update ------------------------")
 
-    def group_obj_type(self, group: Any) -> Optional[str]:
-        return group.attributes.get("ENS_OBJ_TYPE", None)
+    def get_dsg_cmd_attribute(self, obj: Any, name: str, default: Any = None) -> Optional[str]:
+        """Utility function to get an attribute from a DSG update object
+
+        Note: UpdateVariable and UpdateGroup commands support generic attributes
+        """
+        return obj.attributes.get(name, default)
 
     def group_matrix(self, group: Any) -> Any:
         matrix = group.matrix4x4
         # The Case matrix is basically the camera transform.  In vrmode, we only want
         # the raw geometry, so use the identity matrix.
-        if (self.group_obj_type(group) == "ENS_CASE") and self.session.vrmode:
+        if (
+            self.get_dsg_cmd_attribute(group, "ENS_OBJ_TYPE") == "ENS_CASE"
+        ) and self.session.vrmode:
             matrix = [
                 1.0,
                 0.0,
