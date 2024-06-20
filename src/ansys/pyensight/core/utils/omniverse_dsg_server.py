@@ -615,7 +615,7 @@ class OmniverseUpdateHandler(UpdateHandler):
         group = self.session.groups[id]
         if not view:
             parent_prim = self._group_prims[group.parent_id]
-            obj_type = self.group_obj_type(group)
+            obj_type = self.get_dsg_cmd_attribute(group, "ENS_OBJ_TYPE")
             matrix = self.group_matrix(group)
             prim = self._omni.create_dsg_group(
                 group.name, parent_prim, matrix=matrix, obj_type=obj_type
