@@ -382,10 +382,19 @@ class RenderableDeepPixel(Renderable):
             html = fp.read()
         # copy some files from Nexus
         cmd = "import shutil, enve, ceiversion, os.path\n"
-        for script in ["jquery-3.4.1.min.js", "geotiff.js", "geotiff_nexus.js", "bootstrap.min.js"]:
-            name = "os.path.join(enve.home(), f'nexus{ceiversion.nexus_suffix}', 'django', "
-            name += f"'website', 'static', 'website', 'scripts', '{script}')"
+        base_name = "os.path.join(enve.home(), f'nexus{ceiversion.nexus_suffix}', 'django', "
+        base_name += "'website', 'static', 'website', 'scripts', "
+        for script in ["geotiff.js", "geotiff_nexus.js", "bootstrap.min.js"]:
+            name = base_name + f"'{script}')"
             cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
+        jquery = ["jquery-3.4.1.min.js", "jquery.min.js"]
+        cmd = "import shutil, enve, ceiversion, os.path\n"
+        for script in jquery:
+            name = base_name + f"'{script}')"
+            cmd += "try:"
+            cmd += f'    shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
+            cmd += "except Exception:"
+            cmd += "    pass"
         name = "os.path.join(enve.home(), f'nexus{ceiversion.nexus_suffix}', 'django', "
         name += "'website', 'static', 'website', 'content', 'bootstrap.min.css')"
         cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
