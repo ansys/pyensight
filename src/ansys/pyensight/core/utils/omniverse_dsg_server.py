@@ -28,18 +28,16 @@ import argparse
 import logging
 import math
 import os
-import queue
 import shutil
 import sys
-import threading
-from typing import Any, List, Optional
+from typing import Any, Dict, List, Optional
 
-from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2
-from ansys.pyensight.core import ensight_grpc
-import numpy
 import omni.client
 import png
 from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdShade
+
+sys.path.append(os.path.dirname(__file__))
+from dsg_server import DSGSession, Part, UpdateHandler  # noqa: E402
 
 
 class OmniverseWrapper:
@@ -160,7 +158,7 @@ class OmniverseWrapper:
         UsdGeom.SetStageMetersPerUnit(self._stage, 1.0)
         self.log(f"Created stage: {self.stage_url()}")
 
-    def save_stage(self) -> None:
+    def save_stage(self, comment: str = "") -> None:
         """
         For live connections, save the current edit and allow live processing.
 
@@ -169,14 +167,18 @@ class OmniverseWrapper:
         self._stage.GetRootLayer().Save()  # type:ignore
         omni.client.live_process()
 
-    # This function will add a commented checkpoint to a file on Nucleus if:
-    #   Live mode is disabled (live checkpoints are ill-supported)
-    #   The Nucleus server supports checkpoints
+    # This function will add a commented checkpoint to a file on Nucleus if
+    # the Nucleus server supports checkpoints
     def checkpoint(self, comment: str = "") -> None:
-        # for the present, disable checkpoint until live_edit is working again
-        return
+        """
+        Add a checkpoint to the current stage.
 
-        if self._live_edit:
+        Parameters
+        ----------
+        comment: str
+            If not empty, the comment to be added to the stage
+        """
+        if not comment:
             return
         result, serverInfo = omni.client.get_server_info(self.stage_url())
         if result and serverInfo and serverInfo.checkpoints_enabled:
@@ -598,551 +600,94 @@ class OmniverseWrapper:
         return result.name
 
 
-class Part(object):
-    def __init__(self, link: "DSGOmniverseLink"):
-        """
-        This object roughly represents an EnSight "Part"
+class OmniverseUpdateHandler(UpdateHandler):
+    """
+    Implement the Omniverse glue to a DSGSession instance
+    """
 
-        This object stores basic geometry information coming from the DSG protocol.  The update() method
-        can parse an "UpdateGeom" protobuffer and merges the results into the Part object.
+    def __init__(self, omni: OmniverseWrapper):
+        super().__init__()
+        self._omni = omni
+        self._group_prims: Dict[int, Any] = dict()
 
-        The build() method can be used to generate a USD block representing the current object state.
-
-        Parameters
-        ----------
-        link:
-            The Omniverse connection to be used in the build() method.
-        """
-        self._link = link
-        self.cmd: Optional[Any] = None
-        self.reset()
-
-    def reset(self, cmd: Any = None) -> None:
-        self.conn_tris = numpy.array([], dtype="int32")
-        self.conn_lines = numpy.array([], dtype="int32")
-        self.coords = numpy.array([], dtype="float32")
-        self.normals = numpy.array([], dtype="float32")
-        self.normals_elem = False
-        self.tcoords = numpy.array([], dtype="float32")
-        self.tcoords_var = None
-        self.tcoords_elem = False
-        self.cmd = cmd
-
-    def update_geom(self, cmd: dynamic_scene_graph_pb2.UpdateGeom) -> None:
-        if cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.COORDINATES:
-            if self.coords.size != cmd.total_array_size:
-                self.coords = numpy.resize(self.coords, cmd.total_array_size)
-            self.coords[cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)] = cmd.flt_array
-        elif cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.TRIANGLES:
-            if self.conn_tris.size != cmd.total_array_size:
-                self.conn_tris = numpy.resize(self.conn_tris, cmd.total_array_size)
-            self.conn_tris[cmd.chunk_offset : cmd.chunk_offset + len(cmd.int_array)] = cmd.int_array
-        elif cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.LINES:
-            if self.conn_lines.size != cmd.total_array_size:
-                self.conn_lines = numpy.resize(self.conn_lines, cmd.total_array_size)
-            self.conn_lines[
-                cmd.chunk_offset : cmd.chunk_offset + len(cmd.int_array)
-            ] = cmd.int_array
-        elif (cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.ELEM_NORMALS) or (
-            cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.NODE_NORMALS
-        ):
-            self.normals_elem = cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.ELEM_NORMALS
-            if self.normals.size != cmd.total_array_size:
-                self.normals = numpy.resize(self.normals, cmd.total_array_size)
-            self.normals[cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)] = cmd.flt_array
-        elif (cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.ELEM_VARIABLE) or (
-            cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.NODE_VARIABLE
-        ):
-            # Get the variable definition
-            if cmd.variable_id in self._link._variables:
-                self.tcoords_var = cmd.variable_id
-                self.tcoords_elem = (
-                    cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.ELEM_VARIABLE
-                )
-                if self.tcoords.size != cmd.total_array_size:
-                    self.tcoords = numpy.resize(self.tcoords, cmd.total_array_size)
-                self.tcoords[
-                    cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)
-                ] = cmd.flt_array
-            else:
-                self.tcoords_var = None
-
-    def build(self):
-        if self.cmd is None:
-            return
-        if self.conn_lines.size:
-            self._link.log(
-                f"Note, part '{self.cmd.name}' has lines which are not currently supported."
+    def add_group(self, id: int, view: bool = False) -> None:
+        super().add_group(id, view)
+        group = self.session.groups[id]
+        if not view:
+            parent_prim = self._group_prims[group.parent_id]
+            obj_type = self.get_dsg_cmd_attribute(group, "ENS_OBJ_TYPE")
+            matrix = self.group_matrix(group)
+            prim = self._omni.create_dsg_group(
+                group.name, parent_prim, matrix=matrix, obj_type=obj_type
             )
-            self.cmd = None
+            self._group_prims[id] = prim
+        else:
+            # Map a view command into a new Omniverse stage and populate it with materials/lights.
+            # Create a new root stage in Omniverse
+            self._omni.create_new_stage()
+            # Create the root group/camera
+            camera_info = group
+            if self.session.vrmode:
+                camera_info = None
+            prim = self._omni.create_dsg_root(camera=camera_info)
+            # Create a distance and dome light in the scene
+            self._omni.createDomeLight("./Materials/000_sky.exr")
+            # Upload a material and textures to the Omniverse server
+            self._omni.uploadMaterial()
+            self._omni.create_dsg_variable_textures(self.session.variables)
+        # record
+        self._group_prims[id] = prim
+
+    def add_variable(self, id: int) -> None:
+        super().add_variable(id)
+
+    def finalize_part(self, part: Part) -> None:
+        # generate an Omniverse compliant mesh from the Part
+        command, verts, conn, normals, tcoords, var_cmd = part.build()
+        if command is None:
             return
-        verts = self.coords
-        if self._link._normalize_geometry and self._link._scene_bounds is not None:
-            midx = (self._link._scene_bounds[3] + self._link._scene_bounds[0]) * 0.5
-            midy = (self._link._scene_bounds[4] + self._link._scene_bounds[1]) * 0.5
-            midz = (self._link._scene_bounds[5] + self._link._scene_bounds[2]) * 0.5
-            dx = self._link._scene_bounds[3] - self._link._scene_bounds[0]
-            dy = self._link._scene_bounds[4] - self._link._scene_bounds[1]
-            dz = self._link._scene_bounds[5] - self._link._scene_bounds[2]
-            s = dx
-            if dy > s:
-                s = dy
-            if dz > s:
-                s = dz
-            if s == 0:
-                s = 1.0
-            num_verts = int(verts.size / 3)
-            for i in range(num_verts):
-                j = i * 3
-                verts[j + 0] = (verts[j + 0] - midx) / s
-                verts[j + 1] = (verts[j + 1] - midy) / s
-                verts[j + 2] = (verts[j + 2] - midz) / s
-
-        conn = self.conn_tris
-        normals = self.normals
-        tcoords = None
-        if self.tcoords.size:
-            tcoords = self.tcoords
-        if self.tcoords_elem or self.normals_elem:
-            verts_per_prim = 3
-            num_prims = int(conn.size / verts_per_prim)
-            # "flatten" the triangles to move values from elements to nodes
-            new_verts = numpy.ndarray((num_prims * verts_per_prim * 3,), dtype="float32")
-            new_conn = numpy.ndarray((num_prims * verts_per_prim,), dtype="int32")
-            new_tcoords = None
-            if tcoords is not None:
-                # remember that the input values are 1D at this point, we will expand to 2D later
-                new_tcoords = numpy.ndarray((num_prims * verts_per_prim,), dtype="float32")
-            new_normals = None
-            if normals is not None:
-                if normals.size == 0:
-                    print("Warning: zero length normals!")
-                else:
-                    new_normals = numpy.ndarray((num_prims * verts_per_prim * 3,), dtype="float32")
-            j = 0
-            for i0 in range(num_prims):
-                for i1 in range(verts_per_prim):
-                    idx = conn[i0 * verts_per_prim + i1]
-                    # new connectivity (identity)
-                    new_conn[j] = j
-                    # copy the vertex
-                    new_verts[j * 3 + 0] = verts[idx * 3 + 0]
-                    new_verts[j * 3 + 1] = verts[idx * 3 + 1]
-                    new_verts[j * 3 + 2] = verts[idx * 3 + 2]
-                    if new_normals is not None:
-                        if self.normals_elem:
-                            # copy the normal associated with the face
-                            new_normals[j * 3 + 0] = normals[i0 * 3 + 0]
-                            new_normals[j * 3 + 1] = normals[i0 * 3 + 1]
-                            new_normals[j * 3 + 2] = normals[i0 * 3 + 2]
-                        else:
-                            # copy the same normal as the vertex
-                            new_normals[j * 3 + 0] = normals[idx * 3 + 0]
-                            new_normals[j * 3 + 1] = normals[idx * 3 + 1]
-                            new_normals[j * 3 + 2] = normals[idx * 3 + 2]
-                    if new_tcoords is not None:
-                        # remember, 1D texture coords at this point
-                        if self.tcoords_elem:
-                            # copy the texture coord associated with the face
-                            new_tcoords[j] = tcoords[i0]
-                        else:
-                            # copy the same texture coord as the vertex
-                            new_tcoords[j] = tcoords[idx]
-                    j += 1
-            # new arrays.
-            verts = new_verts
-            conn = new_conn
-            normals = new_normals
-            if tcoords is not None:
-                tcoords = new_tcoords
-
-        var = None
-        # texture coords need transformation from variable value to [ST]
-        if tcoords is not None:
-            var_id = self.cmd.color_variableid
-            var = self._link._variables[var_id]
-            v_min = None
-            v_max = None
-            for lvl in var.levels:
-                if (v_min is None) or (v_min > lvl.value):
-                    v_min = lvl.value
-                if (v_max is None) or (v_max < lvl.value):
-                    v_max = lvl.value
-            var_minmax = [v_min, v_max]
-            # build a power of two x 1 texture
-            num_texels = int(len(var.texture) / 4)
-            half_texel = 1 / (num_texels * 2.0)
-            num_verts = int(verts.size / 3)
-            tmp = numpy.ndarray((num_verts * 2,), dtype="float32")
-            tmp.fill(0.5)  # fill in the T coordinate...
-            tex_width = half_texel * 2 * (num_texels - 1)  # center to center of num_texels
-            # if the range is 0, adjust the min by -1.   The result is that the texture
-            # coords will get mapped to S=1.0 which is what EnSight does in this situation
-            if (var_minmax[1] - var_minmax[0]) == 0.0:
-                var_minmax[0] = var_minmax[0] - 1.0
-            var_width = var_minmax[1] - var_minmax[0]
-            for idx in range(num_verts):
-                # normalized S coord value (clamp)
-                s = (tcoords[idx] - var_minmax[0]) / var_width
-                if s < 0.0:
-                    s = 0.0
-                if s > 1.0:
-                    s = 1.0
-                # map to the texture range and set the S value
-                tmp[idx * 2] = s * tex_width + half_texel
-            tcoords = tmp
-
-        parent = self._link._groups[self.cmd.parent_id]
+        parent_prim = self._group_prims[command.parent_id]
+        obj_id = self._session.mesh_block_count
+        matrix = command.matrix4x4
+        name = command.name
         color = [
-            self.cmd.fill_color[0] * self.cmd.diffuse,
-            self.cmd.fill_color[1] * self.cmd.diffuse,
-            self.cmd.fill_color[2] * self.cmd.diffuse,
-            self.cmd.fill_color[3],
+            command.fill_color[0] * command.diffuse,
+            command.fill_color[1] * command.diffuse,
+            command.fill_color[2] * command.diffuse,
+            command.fill_color[3],
         ]
-        obj_id = self._link._mesh_block_count
-        # prim =
-        _ = self._link._omni.create_dsg_mesh_block(
-            self.cmd.name,
+        # Generate the mesh block
+        _ = self._omni.create_dsg_mesh_block(
+            name,
             obj_id,
-            parent[1],
+            parent_prim,
             verts,
             conn,
             normals,
             tcoords,
-            matrix=self.cmd.matrix4x4,
+            matrix=matrix,
             diffuse=color,
-            variable=var,
+            variable=var_cmd,
         )
-        self._link.log(
-            f"Part '{self.cmd.name}' defined: {self.coords.size/3} verts, {self.conn_tris.size/3} tris, {self.conn_lines.size/2} lines."
-        )
-        self.cmd = None
+        super().finalize_part(part)
 
+    def start_connection(self) -> None:
+        super().start_connection()
 
-class DSGOmniverseLink(object):
-    def __init__(
-        self,
-        omni: OmniverseWrapper,
-        port: int = 12345,
-        host: str = "127.0.0.1",
-        security_code: str = "",
-        verbose: int = 0,
-        normalize_geometry: bool = False,
-        vrmode: bool = False,
-    ):
-        """
-        Manage a gRPC connection and link it to an OmniverseWrapper instance
+    def end_connection(self) -> None:
+        super().end_connection()
 
-        This class makes a DSG gRPC connection via the specified port and host (leveraging
-        the passed security code).  As DSG protobuffers arrive, they are merged into a Part
-        object instance and then pushed out to the OmniverseWrapper instance.
-
-        """
-        super().__init__()
-        self._grpc = ensight_grpc.EnSightGRPC(port=port, host=host, secret_key=security_code)
-        self._verbose = verbose
-        self._thread: Optional[threading.Thread] = None
-        self._message_queue: queue.Queue = queue.Queue()  # Messages coming from EnSight
-        self._dsg_queue: Optional[queue.SimpleQueue] = None  # Outgoing messages to EnSight
-        self._shutdown = False
-        self._dsg = None
-        self._omni = omni
-        self._normalize_geometry = normalize_geometry
-        self._vrmode = vrmode
-        self._mesh_block_count = 0
-        self._variables: dict = {}
-        self._groups: dict = {}
-        self._part: Part = Part(self)
-        self._scene_bounds: Optional[List] = None
-
-    def log(self, s: str) -> None:
-        """Log a string to the logging system
-
-        If verbosity is set, log the string.
-        """
-        if self._verbose > 0:
-            logging.info(s)
-
-    def start(self) -> int:
-        """Start a gRPC connection to an EnSight instance
-
-        Make a gRPC connection and start a DSG stream handler.
-
-        Returns
-        -------
-            0 on success, -1 on an error.
-        """
-        # Start by setting up and verifying the connection
-        self._grpc.connect()
-        if not self._grpc.is_connected():
-            logging.info(
-                f"Unable to establish gRPC connection to: {self._grpc.host()}:{self._grpc.port()}"
-            )
-            return -1
-        # Streaming API requires an iterator, so we make one from a queue
-        # it also returns an iterator.  self._dsg_queue is the input stream interface
-        # self._dsg is the returned stream iterator.
-        if self._dsg is not None:
-            return 0
-        self._dsg_queue = queue.SimpleQueue()
-        self._dsg = self._grpc.dynamic_scene_graph_stream(
-            iter(self._dsg_queue.get, None)  # type:ignore
-        )
-        self._thread = threading.Thread(target=self.poll_messages)
-        if self._thread is not None:
-            self._thread.start()
-        return 0
-
-    def end(self):
-        """Stop a gRPC connection to the EnSight instance"""
-        self._grpc.stop_server()
-        self._shutdown = True
-        self._thread.join()
-        self._grpc.shutdown()
-        self._dsg = None
-        self._thread = None
-        self._dsg_queue = None
-
-    def is_shutdown(self):
-        """Check the service shutdown request status"""
-        return self._shutdown
-
-    def request_an_update(self, animation: bool = False) -> None:
-        """Start a DSG update
-        Send a command to the DSG protocol to "init" an update.
-
-        Parameters
-        ----------
-        animation:
-            if True, export all EnSight timesteps.
-        """
-        # Send an INIT command to trigger a stream of update packets
-        cmd = dynamic_scene_graph_pb2.SceneClientCommand()
-        cmd.command_type = dynamic_scene_graph_pb2.SceneClientCommand.INIT
-        # Allow EnSight push commands, but full scene only for now...
-        cmd.init.allow_spontaneous = True
-        cmd.init.include_temporal_geometry = animation
-        cmd.init.allow_incremental_updates = False
-        cmd.init.maximum_chunk_size = 1024 * 1024
-        self._dsg_queue.put(cmd)  # type:ignore
-        # Handle the update messages
-        self.handle_one_update()
-
-    def poll_messages(self) -> None:
-        """Core interface to grab DSG events from gRPC and queue them for processing
-
-        This is run by a thread that is monitoring the dsg RPC call for update messages
-        it places them in _message_queue as it finds them.  They are picked up by the
-        main thread via get_next_message()
-        """
-        while not self._shutdown:
-            try:
-                self._message_queue.put(next(self._dsg))  # type:ignore
-            except Exception:
-                self._shutdown = True
-                logging.info("DSG connection broken, calling exit")
-                os._exit(0)
-
-    def get_next_message(self, wait: bool = True) -> Any:
-        """Get the next queued up protobuffer message
-
-        Called by the main thread to get any messages that were pulled in from the
-        dsg stream and placed here by poll_messages()
-        """
-        try:
-            return self._message_queue.get(block=wait)
-        except queue.Empty:
-            return None
-
-    def handle_one_update(self) -> None:
-        """Monitor the DSG stream and handle a single update operation
-
-        Wait until we get the scene update begin message.  From there, reset the current
-        scene buckets and then parse all the incoming commands until we get the scene
-        update end command.   At which point, save the generated stage (started in the
-        view command handler).  Note: Parts are handled with an available bucket at all times.
-        When a new part update comes in or the scene update end happens, the part is "finished".
-        """
-        # An update starts with a UPDATE_SCENE_BEGIN command
-        cmd = self.get_next_message()
-        while (cmd is not None) and (
-            cmd.command_type != dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_SCENE_BEGIN
-        ):
-            # Look for a begin command
-            cmd = self.get_next_message()
-        self.log("Begin update ------------------------")
-
-        # Start anew
-        self._variables = {}
-        self._groups = {}
-        self._part = Part(self)
-        self._scene_bounds = None
-        self._mesh_block_count = 0  # reset when a new group shows up
+    def begin_update(self) -> None:
+        super().begin_update()
+        # restart the name tables
         self._omni.clear_cleaned_names()
+        # clear the group Omni prims list
+        self._group_prims = dict()
 
-        # handle the various commands until UPDATE_SCENE_END
-        cmd = self.get_next_message()
-        while (cmd is not None) and (
-            cmd.command_type != dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_SCENE_END
-        ):
-            self.handle_update_command(cmd)
-            cmd = self.get_next_message()
-
-        # Flush the last part
-        self.finish_part()
-
+    def end_update(self) -> None:
+        super().end_update()
         # Stage update complete
         self._omni.save_stage()
-
-        self.log("End update --------------------------")
-
-    # handle an incoming gRPC update command
-    def handle_update_command(self, cmd: dynamic_scene_graph_pb2.SceneUpdateCommand) -> None:
-        """Dispatch out a scene update command to the proper handler
-
-        Given a command object, pull out the correct portion of the protobuffer union and
-        pass it to the appropriate handler.
-
-        Parameters
-        ----------
-        cmd:
-            The command to be dispatched.
-        """
-        name = "Unknown"
-        if cmd.command_type == dynamic_scene_graph_pb2.SceneUpdateCommand.DELETE_ID:
-            name = "Delete IDs"
-        elif cmd.command_type == dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_PART:
-            name = "Part update"
-            tmp = cmd.update_part
-            self.handle_part(tmp)
-        elif cmd.command_type == dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_GROUP:
-            name = "Group update"
-            tmp = cmd.update_group
-            self.handle_group(tmp)
-        elif cmd.command_type == dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_GEOM:
-            name = "Geom update"
-            tmp = cmd.update_geom
-            self._part.update_geom(tmp)
-        elif cmd.command_type == dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_VARIABLE:
-            name = "Variable update"
-            tmp = cmd.update_variable
-            self.handle_variable(tmp)
-        elif cmd.command_type == dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_VIEW:
-            name = "View update"
-            tmp = cmd.update_view
-            self.handle_view(tmp)
-        elif cmd.command_type == dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_TEXTURE:
-            name = "Texture update"
-        self.log(f"{name} --------------------------")
-
-    def finish_part(self) -> None:
-        """Complete the current part
-
-        There is always a part being modified.  This method completes the current part, commits
-        it to the Omniverse USD, and sets up the next part.
-        """
-        self._part.build()
-        self._mesh_block_count += 1
-
-    def handle_part(self, part: Any) -> None:
-        """Handle a DSG UPDATE_GROUP command
-        Parameters
-        ----------
-        part:
-            The command coming from the EnSight stream.
-        """
-        self.finish_part()
-        self._part.reset(part)
-
-    def handle_group(self, group: Any) -> None:
-        """Handle a DSG UPDATE_GROUP command
-        Parameters
-        ----------
-        group:
-            The command coming from the EnSight stream.
-        """
-        # reset current mesh (part) count for unique "part" naming in USD
-        self._mesh_block_count = 0
-        # get the parent group or view
-        parent = self._groups[group.parent_id]
-        obj_type = group.attributes.get("ENS_OBJ_TYPE", None)
-        matrix = group.matrix4x4
-        # The Case matrix is basically the camera transform.  In vrmode, we only want
-        # the raw geometry, so use the identity matrix.
-        if (obj_type == "ENS_CASE") and self._vrmode:
-            matrix = [
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-            ]
-        prim = self._omni.create_dsg_group(group.name, parent[1], matrix=matrix, obj_type=obj_type)
-        # record the scene bounds in case they are needed later
-        self._groups[group.id] = [group, prim]
-        bounds = group.attributes.get("ENS_SCENE_BOUNDS", None)
-        if bounds:
-            minmax = []
-            for v in bounds.split(","):
-                try:
-                    minmax.append(float(v))
-                except Exception:
-                    pass
-            if len(minmax) == 6:
-                self._scene_bounds = minmax
-
-    def handle_variable(self, var: Any) -> None:
-        """Handle a DSG UPDATE_VARIABLE command
-
-        Save off the EnSight variable DSG command object.
-
-        Parameters
-        ----------
-        var:
-            The command coming from the EnSight stream.
-        """
-        self._variables[var.id] = var
-
-    def handle_view(self, view: Any) -> None:
-        """Handle a DSG UPDATE_VIEW command
-
-        Map a view command into a new Omniverse stage and populate it with materials/lights.
-
-        Parameters
-        ----------
-        view:
-            The command coming from the EnSight stream.
-        """
-        self._scene_bounds = None
-        # Create a new root stage in Omniverse
-        self._omni.create_new_stage()
-        # Create the root group/camera
-        camera_info = view
-        if self._vrmode:
-            camera_info = None
-        root = self._omni.create_dsg_root(camera=camera_info)
-        self._omni.checkpoint("Created base scene")
-        # Create a distance and dome light in the scene
-        # self._omni.createDistantLight()
-        # self._omni.createDomeLight("./Materials/kloofendal_48d_partly_cloudy.hdr")
-        self._omni.createDomeLight("./Materials/000_sky.exr")
-        self._omni.checkpoint("Added lights to stage")
-        # Upload a material and textures to the Omniverse server
-        self._omni.uploadMaterial()
-        self._omni.create_dsg_variable_textures(self._variables)
-        # record
-        self._groups[view.id] = [view, root]
 
 
 if __name__ == "__main__":
@@ -1235,26 +780,28 @@ if __name__ == "__main__":
     destinationPath = args.path
     loggingEnabled = args.verbose
 
-    # Make the OmniVerse connection
+    # Build the OmniVerse connection
     target = OmniverseWrapper(path=destinationPath, verbose=loggingEnabled, live_edit=args.live)
-
     # Print the username for the server
     target.username()
 
     if loggingEnabled:
-        logging.info("OmniVerse connection established.")
+        logging.info("Omniverse connection established.")
 
-    dsg_link = DSGOmniverseLink(
-        omni=target,
+    # link it to a DSG session
+    update_handler = OmniverseUpdateHandler(target)
+    dsg_link = DSGSession(
         port=args.port,
         host=args.host,
         vrmode=args.vrmode,
         security_code=args.security,
         verbose=loggingEnabled,
         normalize_geometry=args.normalize,
+        handler=update_handler,
     )
+
     if loggingEnabled:
-        logging.info(f"Make DSG connection to: {args.host}:{args.port}")
+        dsg_link.log(f"Making DSG connection to: {args.host}:{args.port}")
 
     # Start the DSG link
     err = dsg_link.start()
@@ -1267,13 +814,13 @@ if __name__ == "__main__":
     # Live operation
     if args.live:
         if loggingEnabled:
-            logging.info("Waiting for remote push operations")
+            dsg_link.log("Waiting for remote push operations")
         while not dsg_link.is_shutdown():
             dsg_link.handle_one_update()
 
     # Done...
     if loggingEnabled:
-        logging.info("Shutting down DSG connection")
+        dsg_link.log("Shutting down DSG connection")
     dsg_link.end()
 
     target.shutdown()
