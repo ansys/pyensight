@@ -87,7 +87,7 @@ omit = [
     "*/adr.py",
     "*/omniverse*.py",
     "*/dsg_server.py",
-    "*/readers.py
+    "*/readers.py"
 ]
 
 [tool.coverage.report]
