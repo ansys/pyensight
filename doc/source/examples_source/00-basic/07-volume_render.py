@@ -173,9 +173,10 @@ session.ensight.view_transf.rotate(9.64879894, 6.2014122, 0)
 
 session.show("image", width=800, height=600)
 
+
 ###############################################################################
 # Thumbnail
-# sphinx_gallery_thumbnail_path = '_static/07_volume_rendering_3.png'
+# sphinx_gallery_thumbnail_path = '_static/07_volume_rendering_1.png'
 
 
 session.close()

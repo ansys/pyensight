@@ -85,7 +85,9 @@ branch = true
 omit = [
     "*/locallauncher.py",
     "*/adr.py",
-    "*/omniverse*.py"
+    "*/omniverse*.py",
+    "*/dsg_server.py",
+    "*/readers.py"
 ]
 
 [tool.coverage.report]

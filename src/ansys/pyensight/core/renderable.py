@@ -387,14 +387,16 @@ class RenderableDeepPixel(Renderable):
         for script in ["geotiff.js", "geotiff_nexus.js", "bootstrap.min.js"]:
             name = base_name + f"'{script}')"
             cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
-        jquery = ["jquery-3.4.1.min.js", "jquery.min.js"]
+        if int(self._session._cei_suffix) < 251:
+            jquery = "jquery-3.4.1.min.js"
+        else:
+            jquery = "jquery.min.js"
         cmd = "import shutil, enve, ceiversion, os.path\n"
-        for script in jquery:
-            name = base_name + f"'{script}')"
-            cmd += "try:"
-            cmd += f'    shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
-            cmd += "except Exception:"
-            cmd += "    pass"
+        name = base_name + f"'{jquery}')"
+        cmd += "try:"
+        cmd += f'    shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
+        cmd += "except Exception:"
+        cmd += "    pass"
         name = "os.path.join(enve.home(), f'nexus{ceiversion.nexus_suffix}', 'django', "
         name += "'website', 'static', 'website', 'content', 'bootstrap.min.css')"
         cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
