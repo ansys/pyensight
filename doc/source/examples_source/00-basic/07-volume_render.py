@@ -88,7 +88,7 @@ session.ensight.clip.origin(-0.497170001, 1.27204275, -0.879772604)
 session.ensight.clip.axis("x", 0, 0, 1)
 session.ensight.clip.axis("y", 0, -1, 0)
 session.ensight.clip.axis("z", 1, 0, 0)
-session.ensight.clip.length(2.24244738, 1.39883041, 3.60410643)
+session.ensight.clip.length(2.24244738, 1.27204275, 3.60410643)
 session.ensight.clip.end()
 session.ensight.clip.create()
 
@@ -161,9 +161,8 @@ session.show("image", width=800, height=600)
 
 
 ###############################################################################
-# Close the session
-# -----------------
 # Close the connection and shut down the EnSight instance.
 
-# sphinx_gallery_thumbnail_path = '_static/07_volume_rendering_3.png'
+# sphinx_gallery_thumbnail_path = '_static/07_volume_render_3.png'
+
 session.close()

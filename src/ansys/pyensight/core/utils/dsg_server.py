@@ -100,9 +100,6 @@ class Part(object):
         It will duplicate triangles as needed (to preserve element normals) and will convert
         variable data into texture coordinates.
 
-        Note: this call can only be made once as the internal structures are released when this
-        call is made.
-
         Returns
         -------
         On failure, the method returns None for the first return value.  The returned tuple is:
@@ -122,7 +119,6 @@ class Part(object):
             self.session.log(
                 f"Note: part '{self.cmd.name}' contains lines which are not currently supported."
             )
-            self.cmd = None
             return None, None, None, None, None, None
         verts = self.coords
         if self.session.normalize_geometry and self.session.scene_bounds is not None:
@@ -285,8 +281,9 @@ class UpdateHandler(object):
 
     def finalize_part(self, part: Part) -> None:
         """Called when all the updates on a Part object have been completed.
-        Note: this should be called after the subclass has processed the part
-        as the part command will be destroyed by this call.
+
+        Note: this superclass method should be called after the subclass has processed
+        the part geometry as the saved part command will be destroyed by this call.
         """
         if part.cmd:
             self.session.log(f"Part finalized: {part.cmd.name}")
