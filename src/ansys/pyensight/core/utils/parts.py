@@ -1081,7 +1081,7 @@ class Parts:
         Returns
         -------
         list
-            list of part objects selected or None if error.
+            A list of part objects selected or None if error.
 
 
         NOTE: If you do not want a measured part in your
@@ -1116,7 +1116,7 @@ class Parts:
         ret_flag="id",
     ) -> Union[Optional[List[int]], Optional[List[str]], Optional[List["ENS_PART"]]]:
         """
-        input a part or a list of parts and return an id, object, or name
+        Input a part or a list of parts and return an id, object, or name
         or a list of ids, objects, or names.
 
         Parameters
@@ -1125,13 +1125,13 @@ class Parts:
             The list of part objects to compute the forces on. It can either be a list of names
             a list of IDs (integers or strings) or directly a list of ENS_PART objects
 
-        ret_flag: string
-            a string that determines what is returned
+        ret_flag: str
+            A string that determines what is returned
 
         Returns
         -------
         list
-            either a list of part IDs, or a list of names or a list of ENS_PART objects
+            Either a list of part IDs, or a list of names or a list of ENS_PART objects
             depending on the requested ret_flag value
         """
         # To not change the interface I didn't move ret_flag to be a required argument,
