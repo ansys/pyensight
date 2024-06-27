@@ -23,10 +23,6 @@ from ansys.pyensight.core import LocalLauncher
 
 session = LocalLauncher().start()
 
-# Setup shortcuts for long-winded calls.
-eocore = session.ensight.objs.core
-eoutil = session.ensight.utils
-
 
 ###############################################################################
 # Load a dataset
@@ -52,14 +48,13 @@ session.show("image", width=800, height=600)
 #
 # .. image:: /_static/05_srt_lic_1.png
 
-emitter_part = eoutil.parts.select_parts_by_dimension(2)
+emitter_part = session.ensight.utils.parts.select_parts_by_dimension(2)
 parent_parts = emitter_part
 npts = 1500  # number of emitters
-vector_var = eocore.VARIABLES["Momentum"][0]  # Vector variable to use
 
-SRTpart = eoutil.parts.create_particle_trace_from_parts(
+SRTpart = session.ensight.utils.parts.create_particle_trace_from_parts(
     "SurfaceRestrictedTrace",
-    vector_var,
+    "Momentum",
     parts=emitter_part,
     source_parts=parent_parts,
     direction="+/-",
@@ -94,14 +89,12 @@ session.show("image", width=800, height=600)
 # .. image:: /_static/05_srt_lic_3.png
 
 SRTpart.VISIBLE = False
-shuttle = session.ensight.objs.core.PARTS["Shuttle"][0]
-momentum = session.ensight.objs.core.VARIABLES["Momentum"][0]
-offset_var = session.ensight.utils.variables.calculator.offsetvar([shuttle], momentum, 2.0e-5)
+offset_var = session.ensight.utils.variables.calculator.offsetvar(["Shuttle"], "Momentum", 2.0e-5)
 current_case = session.ensight.objs.core.CURRENTCASE[0]
 current_case.SFTVARIABLE = offset_var
 current_case.SFTCONTRAST = True
 current_case.SFTNORMLENGTH = 1.0
-shuttle.SHOWSFT = True
+session.ensight.objs.core.PARTS["Shuttle"][0].SHOWSFT = True
 
 session.show("image", width=800, height=600)
 
