@@ -41,10 +41,12 @@ session.load_data(
 )
 session.show("image", width=800, height=600)
 
+
 ###############################################################################
-# The PLOT3D reader only reads the volume by default. Now, extract a
-#  particular IJK range for the surface of the shuttle
-# ------------------------------------------------------------------
+# Extract an IJK Range
+# --------------------
+# The PLOT3D reader only reads the volume by default. Extract a
+# particular IJK range for the surface of the shuttle
 
 session.ensight.data_partbuild.begin()
 session.ensight.case.select("Case 1")
@@ -66,7 +68,7 @@ session.ensight.data_partbuild.end()
 
 ###############################################################################
 # Setup the View
-# ----------------------------------
+# --------------
 # Set View, Turn on Symmetry, turn off visibility of flow domain.
 
 session.ensight.view_transf.rotate(-109.084335, -1.64276719, 0)
@@ -85,6 +87,7 @@ session.ensight.part.select_begin(1)
 session.ensight.part.modify_begin()
 session.ensight.part.visible("OFF")
 session.ensight.part.modify_end()
+
 
 ###############################################################################
 # Create a Particle Trace using the Line Tool Specification
