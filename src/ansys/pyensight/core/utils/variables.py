@@ -54,7 +54,42 @@ class Variables:
 
     @property
     def calculator(self) -> "ens_calculator":
-        """Return the instance of the calculator functions class"""
+        """
+        The calculator interface presents a Pythonic mechanism to access all the
+        EnSight calculator functions: :doc:`Calculator Functions <../calc_functions>`.
+
+        Unlike the native API function :func:`pyensight.ensight_api.variables.evaluate`
+        and the object API function :func:`pyensight.ens_globals.ENS_GLOBALS.create_variable`
+        which take a string as the function definition, the methods on the calculator
+        object take natural Python objects and return any newly created ``ENS_VARIABLE``
+        object.
+
+        Returns
+        -------
+        ens_calculator
+            An object supporting a method for each EnSight calculator function.
+
+        Examples
+        --------
+        The following are equavalent:
+
+        >>> # Native API
+        >>> session.ensight.part.select_all()
+        >>> session.ensight.variables.evaluate("EleSize = EleSize(plist)")
+        >>> var1 = session.ensight.objs.core.VARIABLES["EleSize"][0]
+        >>> session.ensight.variables.evaluate("OffsetVar = OffsetVar(plist,Momentum,2e-05)")
+        >>> var2 = session.ensight.objs.core.VARIABLES["OffsetVar"][0]
+        >>> # Object API
+        >>> parts = session.ensight.objs.core.PARTS
+        >>> var1 = session.ensight.objs.core.create_variable("EleSize", "EleSize(plist)", sources=parts)
+        >>> var2 = session.ensight.objs.core.create_variable("OffsetVar", "OffsetVar(plist,Momentum,2e-05)", sources=parts)
+        >>> # ens_calculator API
+        >>> parts = session.ensight.objs.core.PARTS
+        >>> var1 = session.ensight.utils.variables.calculator.elesize(parts, output_varname="EleSize")
+        >>> momentum = session.objs.core.PARTS["Momentum"]
+        >>> var2 = session.ensight.utils.variables.calculator.offsetvar(parts, momentum[0], 2.e-5, output_varname="OffsetVar")
+
+        """
         return self._calculator
 
     def _check_for_var_elem(

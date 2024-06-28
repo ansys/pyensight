@@ -19,13 +19,6 @@ class Omniverse:
     The omniverse class methods provide an interface between an EnSight session
     and an Omniverse instance.  See :ref:`omniverse_info` for additional details.
 
-    Note
-    ----
-    This interface is only available when using pyensight (they do not work with
-    the ensight Python interpreter) and the module must be used in an interpreter
-    that includes the Omniverse Python modules (e.g. omni and pxr).  Only a single
-    Omniverse connection can be established within a single pyensight session.
-
     Parameters
     ----------
     interface:
@@ -33,8 +26,15 @@ class Omniverse:
         EnSight Python, the ``ensight`` module is passed. In the case
         of PyEnSight, ``Session.ensight`` is passed.
 
-    Example
-    -------
+    Notes
+    -----
+    This interface is only available when using pyensight (they do not work with
+    the ensight Python interpreter) and the module must be used in an interpreter
+    that includes the Omniverse Python modules (e.g. omni and pxr).  Only a single
+    Omniverse connection can be established within a single pyensight session.
+
+    Examples
+    --------
     ::
         from ansys.pyensight.core import LocalLauncher
         session = LocalLauncher().start()
