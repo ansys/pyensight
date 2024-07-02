@@ -1,0 +1,6 @@
+ENS\_SYMMETRY\_AXIS
+===================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_point
+
+.. autoproperty:: ENS_PART_POINT.ENS_SYMMETRY_AXIS

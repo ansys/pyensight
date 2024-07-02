@@ -1,0 +1,6 @@
+spline\_point\_size
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.spline_point_size

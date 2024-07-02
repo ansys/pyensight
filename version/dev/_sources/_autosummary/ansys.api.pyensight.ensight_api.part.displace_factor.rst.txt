@@ -1,0 +1,6 @@
+displace\_factor
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.displace_factor
