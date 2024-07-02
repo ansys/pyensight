@@ -1,4 +1,8 @@
-# Python Extension Example [ansys.geometry.serviceui]
+# ANSYS Omniverse Geometry Service GUI [ansys.geometry.serviceui]
 
-This is an example of pure python Kit extension. It is intended to be copied and serve as a template to create new extensions.
+This Omniverse extension is a UI interface to the [ansys.geometry.service]
+kit extension.  It allows an Omniverse application user to connect to
+a running copy of ANSYS EnSight or other application that supports the 
+Dynamic Scene Graph gRPC protocol.  The GUI allows for the remote scene
+to be pulled, on request,  into a specified Omniverse location.
 

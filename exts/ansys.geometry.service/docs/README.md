@@ -1,4 +1,9 @@
-# Python Extension Example [ansys.geometry.service]
+# ANSYS Omniverse Geometry Service [ansys.geometry.service]
 
-This is an example of pure python Kit extension. It is intended to be copied and serve as a template to create new extensions.
+The Omniverse extension provides a dynamic connection between an ANSYS
+geometry source (e.g. ANSYS EnSight) and an Omniverse instance.  The
+connection runs as a standalone service capable of supporting scripted
+execution utilizing just a kit CLI.  It can also be launched via 
+PyEnSight and via a simple GUI provided by the [ansys.geometry.serviceui]
+kit extension.
 
