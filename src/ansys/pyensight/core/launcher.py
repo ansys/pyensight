@@ -13,6 +13,7 @@ Examples:
 """
 import os.path
 import platform
+import random
 import re
 import socket
 from typing import TYPE_CHECKING, Dict, List, Optional
@@ -225,7 +226,7 @@ class Launcher:
         ports = list()
 
         # pick a starting port number
-        start = os.getpid() % 64000
+        start = random.randint(1024, 64000)
         # We will scan for 65530 ports unless end is specified
         port_mod = 65530
         end = start + port_mod - 1
