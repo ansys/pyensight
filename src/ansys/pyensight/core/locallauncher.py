@@ -123,7 +123,9 @@ class LocalLauncher(Launcher):
             self.session_directory = tempfile.mkdtemp(prefix="pyensight_")
 
             # gRPC port, VNC port, websocketserver ws, websocketserver html
-            self._ports = self._find_unused_ports(4)
+            to_avoid = self._find_ports_used_by_other_pyensight_and_ensight()
+            print(to_avoid)
+            self._ports = self._find_unused_ports(5, avoid=to_avoid)
             if self._ports is None:
                 raise RuntimeError("Unable to allocate local ports for EnSight session")
             is_windows = self._is_windows()
@@ -152,6 +154,7 @@ class LocalLauncher(Launcher):
             cmd.extend(["-grpc_server", str(self._ports[0])])
             vnc_url = f"vnc://%%3Frfb_port={self._ports[1]}%%26use_auth=0"
             cmd.extend(["-vnc", vnc_url])
+            cmd.extend(["-ports", str(self._ports[4])])
 
             use_egl = self._use_egl()
 

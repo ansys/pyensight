@@ -13,10 +13,12 @@ Examples:
 """
 import os.path
 import platform
+import re
 import socket
 from typing import TYPE_CHECKING, Dict, List, Optional
 import warnings
 
+import psutil
 import requests
 
 if TYPE_CHECKING:
@@ -164,6 +166,38 @@ class Launcher:
             by the launching method.
         """
         return
+
+    def _find_ports_used_by_other_pyensight_and_ensight(self):
+        """Find ports to avoid when looking for empty ports.
+
+        The ports are found iterating the current processes and
+        looking for PyEnSight/EnSight sessions and their command
+        lines.
+        """
+        pyensight_found = []
+        ensight_found = []
+        for process in psutil.process_iter():
+            try:
+                process_cmdline = process.cmdline()
+            except psutil.AccessDenied:
+                continue
+            if not process_cmdline:
+                continue
+            if len(process_cmdline) > 1:
+                if "websocketserver.py" in os.path.basename(process_cmdline[1]):
+                    pyensight_found.append(process_cmdline)
+            if any(["ensight" in os.path.basename(x) for x in process_cmdline]):
+                if any([x == "-ports" for x in process_cmdline]):
+                    ensight_found.append(process_cmdline)
+        ports = []
+        for command_line in pyensight_found:
+            for command in command_line:
+                if re.match(r"^\d{4,5}$", command):
+                    ports.append(int(command))
+        for command_line in ensight_found:
+            idx = command_line.index("-ports") + 1
+            ports.append(int(command_line[idx]))
+        return list(set(ports))
 
     @staticmethod
     def _find_unused_ports(count: int, avoid: Optional[List[int]] = None) -> Optional[List[int]]:
