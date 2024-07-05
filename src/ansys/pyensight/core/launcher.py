@@ -180,7 +180,7 @@ class Launcher:
         for process in psutil.process_iter():
             try:
                 process_cmdline = process.cmdline()
-            except psutil.AccessDenied:
+            except (psutil.AccessDenied, psutil.ZombieProcess):
                 continue
             if not process_cmdline:
                 continue
