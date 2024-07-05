@@ -124,7 +124,6 @@ class LocalLauncher(Launcher):
 
             # gRPC port, VNC port, websocketserver ws, websocketserver html
             to_avoid = self._find_ports_used_by_other_pyensight_and_ensight()
-            print(to_avoid)
             self._ports = self._find_unused_ports(5, avoid=to_avoid)
             if self._ports is None:
                 raise RuntimeError("Unable to allocate local ports for EnSight session")
