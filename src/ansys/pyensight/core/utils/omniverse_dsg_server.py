@@ -235,15 +235,28 @@ class OmniverseWrapper:
         # return any previously generated name
         if (name, id_name) in self._cleaned_names:
             return self._cleaned_names[(name, id_name)]
+        orig_name = name
         # replace invalid characters.  EnSight uses a number of characters that are illegal in USD names.
-        name = name.replace("+", "_").replace("-", "_")
-        name = name.replace(".", "_").replace(":", "_")
-        name = name.replace("[", "_").replace("]", "_")
-        name = name.replace("(", "_").replace(")", "_")
-        name = name.replace("<", "_").replace(">", "_")
-        name = name.replace("/", "_").replace("=", "_")
-        name = name.replace(",", "_").replace(" ", "_")
-        name = name.replace("\\", "_")
+        replacements = {
+            ord("+"): "_",
+            ord("-"): "_",
+            ord("."): "_",
+            ord(":"): "_",
+            ord("["): "_",
+            ord("]"): "_",
+            ord("("): "_",
+            ord(")"): "_",
+            ord("<"): "_",
+            ord(">"): "_",
+            ord("/"): "_",
+            ord("="): "_",
+            ord(","): "_",
+            ord(" "): "_",
+            ord("\\"): "_",
+        }
+        name = name.translate(replacements)
+        if name[0].isdigit():
+            name = f"_{name}"
         if id_name is not None:
             name = name + "_" + str(id_name)
         if name in self._cleaned_names.values():
@@ -252,7 +265,7 @@ class OmniverseWrapper:
                 self._cleaned_index += 1
             name = f"{name}_{self._cleaned_index}"
         # store off the cleaned name
-        self._cleaned_names[(name, id_name)] = name
+        self._cleaned_names[(orig_name, id_name)] = name
         return name
 
     @staticmethod
@@ -493,7 +506,8 @@ class OmniverseWrapper:
     def uploadMaterial(self):
         uriPath = self._destinationPath + "/Materials"
         omni.client.delete(uriPath)
-        omni.client.copy("resources/Materials", uriPath)
+        fullpath = os.path.join(os.path.dirname(__file__), "resources", "Materials")
+        omni.client.copy(fullpath, uriPath)
 
     def createMaterial(self, mesh):
         # Create a material instance for this in USD
@@ -810,6 +824,8 @@ if __name__ == "__main__":
 
     # Simple pull request
     dsg_link.request_an_update(animation=args.animation)
+    # Handle the update block
+    dsg_link.handle_one_update()
 
     # Live operation
     if args.live:

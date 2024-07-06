@@ -515,8 +515,6 @@ class DSGSession(object):
         cmd.init.allow_incremental_updates = False
         cmd.init.maximum_chunk_size = 1024 * 1024
         self._dsg_queue.put(cmd)  # type:ignore
-        # Handle the update messages
-        self.handle_one_update()
 
     def _poll_messages(self) -> None:
         """Core interface to grab DSG events from gRPC and queue them for processing

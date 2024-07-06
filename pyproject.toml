@@ -156,7 +156,7 @@ python_version = 3.9
 strict = false
 namespace_packages = true
 explicit_package_bases = true
-exclude = ["tests/", "^doc"]
+exclude = ["tests/", "^doc", "^src/ansys/pyensight/core/exts/"]
 no_site_packages = true
 follow_imports = "skip"
 
