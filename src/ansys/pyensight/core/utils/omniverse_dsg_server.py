@@ -652,10 +652,11 @@ class OmniverseUpdateHandler(UpdateHandler):
             # record
             self._group_prims[id] = self._root_prim
  
-            self._omni._stage.SetStartTimeCode(self.session.time_limits[0])
-            self._omni._stage.SetEndTimeCode(self.session.time_limits[1])
-            self._omni._stage.SetTimeCodesPerSecond(1)
-            self._omni._stage.SetFramesPerSecond(1)
+            if self._omni._stage is not None:
+                self._omni._stage.SetStartTimeCode(self.session.time_limits[0])
+                self._omni._stage.SetEndTimeCode(self.session.time_limits[1])
+                self._omni._stage.SetTimeCodesPerSecond(1)
+                self._omni._stage.SetFramesPerSecond(1)
 
             # Send the variable textures.  Safe to do so once the first view is processed.
             if not self._sent_textures:

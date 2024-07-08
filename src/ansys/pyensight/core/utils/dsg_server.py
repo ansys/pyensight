@@ -402,7 +402,7 @@ class DSGSession(object):
         self._groups: Dict[int, Any] = dict()
         self._part: Part = Part(self)
         self._scene_bounds: Optional[List] = None
-        self._cur_timeline: List = None  # Start/End time for current update
+        self._cur_timeline: List = [0.0,0.0]  # Start/End time for current update
         self._callback_handler.session = self
 
     @property
