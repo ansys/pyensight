@@ -7,7 +7,7 @@ authors = ["ANSYS"]
 
 # The title and description fields are primarily for displaying extension info in UI
 title = "ANSYS Omniverse Geometry Service GUI"
-description="A geometry synchronization service that enables export of geometry scenes from ANSYS products to Omniverse."
+description = "A geometry synchronization service that enables export of geometry scenes from ANSYS products to Omniverse."
 
 # Path (relative to the root) or content of readme markdown file for UI.
 readme  = "docs/README.md"
@@ -23,7 +23,7 @@ keywords = ["ANSYS", "EnSight", "PyEnSight", "Fluent", "kit"]
 
 # Location of change log file in target (final) folder of extension, relative to the root.
 # More info on writing changelog: https://keepachangelog.com/en/1.0.0/
-changelog="docs/CHANGELOG.md"
+changelog = "docs/CHANGELOG.md"
 
 # Preview image and icon. Folder named "data" automatically goes in git lfs (see .gitattributes file).
 # Preview image is shown in "Overview" of Extensions window. Screenshot of an extension might be a good preview image.

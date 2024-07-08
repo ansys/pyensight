@@ -1,7 +1,5 @@
 ansys.geometry.service
-#############################
-
-Example of Python only extension
+######################
 
 
 .. toctree::

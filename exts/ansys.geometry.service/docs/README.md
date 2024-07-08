@@ -7,3 +7,7 @@ execution utilizing just a kit CLI.  It can also be launched via
 PyEnSight and via a simple GUI provided by the [ansys.geometry.serviceui]
 kit extension.
 
+For more details on this extension see:
+https://ensight.docs.pyansys.com/version/dev/user_guide/omniverse_info.html
+
+
