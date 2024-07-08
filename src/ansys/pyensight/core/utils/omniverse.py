@@ -1,8 +1,9 @@
+import glob
 import os
 import subprocess
 import sys
 from types import ModuleType
-from typing import TYPE_CHECKING, List, Optional, Union
+from typing import TYPE_CHECKING, Optional, Union
 
 import psutil
 
@@ -11,6 +12,8 @@ if TYPE_CHECKING:
         import ensight
     except ImportError:
         from ansys.api.pyensight import ensight_api
+
+import ansys.pyensight.core
 
 
 class Omniverse:
@@ -48,7 +51,78 @@ class Omniverse:
     def __init__(self, interface: Union["ensight_api.ensight", "ensight"]):
         self._ensight = interface
         self._server_pid: Optional[int] = None
-        self._interpreter: List[str] = []
+        self._interpreter: str = ""
+
+    @staticmethod
+    def find_kit_filename(fallback_directory: Optional[str] = None) -> Optional[str]:
+        """
+        Use a combination of the current omniverse application and the information
+        in the local .nvidia-omniverse/config/omniverse.toml file to come up with
+        the pathname of a kit executable suitable for hosting another copy of the
+        ansys.geometry.server kit.
+
+        Returns
+        -------
+            The pathname of a kit executable or None
+
+        """
+        # parse the toml config file for the location of the installed apps
+        try:
+            import tomllib
+        except ModuleNotFoundError:
+            import pip._vendor.tomli as tomllib
+
+        homedir = os.path.expanduser("~")
+        ov_config = os.path.join(homedir, ".nvidia-omniverse", "config", "omniverse.toml")
+        if not os.path.exists(ov_config):
+            return None
+        # read the Omniverse configuration toml file
+        with open(ov_config, "rb") as ov_file:
+            config = tomllib.load(ov_file)
+        appdir = config.get("paths", {}).get("library_root", fallback_directory)
+
+        # If we are running inside an Omniverse app, use that information
+        try:
+            import omni.kit.app
+
+            # get the current application
+            app = omni.kit.app.get_app()
+            app_name = app.get_app_filename().split(".")[-1]
+            app_version = app.get_app_version().split("-")[0]
+            # and where it is installed
+            appdir = os.path.join(appdir, f"{app_name}-{app_version}")
+        except ModuleNotFoundError:
+            # Names should be like: "C:\\Users\\foo\\AppData\\Local\\ov\\pkg\\create-2023.2.3\\launcher.toml"
+            target = None
+            target_version = None
+            for d in glob.glob(os.path.join(appdir, "*", "launcher.toml")):
+                test_dir = os.path.dirname(d)
+                # the name will be something like "create-2023.2.3"
+                name = os.path.basename(test_dir).split("-")
+                if len(name) != 2:
+                    continue
+                if name[0] not in ("kit", "create", "view"):
+                    continue
+                if (target_version is None) or (name[1] > target_version):
+                    target = test_dir
+                    target_version = name[1]
+            if target is None:
+                return None
+            appdir = target
+
+        # Windows: 'kit.bat' in '.' or 'kit' followed by 'kit.exe' in '.' or 'kit'
+        # Linux: 'kit.sh' in '.' or 'kit' followed by 'kit' in '.' or 'kit'
+        exe_names = ["kit.sh", "kit"]
+        if sys.platform.startswith("win"):
+            exe_names = ["kit.bat", "kit.exe"]
+
+        # look in 4 places...
+        for dir_name in [appdir, os.path.join(appdir, "kit")]:
+            for exe_name in exe_names:
+                if os.path.exists(os.path.join(dir_name, exe_name)):
+                    return os.path.join(dir_name, exe_name)
+
+        return None
 
     def _check_modules(self) -> None:
         """Verify that the Python interpreter is correct
@@ -66,44 +140,14 @@ class Omniverse:
         # One time check for this
         if len(self._interpreter):
             return
-        try:
-            # Note: the EnSight embedded interpreter will not have these
-            import omni.client  # noqa: F401
-        except ImportError:
-            raise RuntimeError("The module requires the omni module to be installed.") from None
 
-        try:
-            # if we can import pxr, then we can just use sys.executable
-            from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdShade  # noqa: F401
-
-            if os.path.basename(sys.executable).startswith("kit"):
-                # we are running inside of an Omniverse app like Create, use the 'kit' script
-                raise ImportError("Internal retry")
-
-            self._interpreter = [sys.executable]
+        kit_exe = self.find_kit_filename()
+        if kit_exe:
+            self._interpreter = kit_exe
             return
-        except ImportError:
-            # Can we find 'kit.bat' or 'kit.sh' (we may be running in it)?
-            # Interesting cases:  something/kit/python/python.exe,
-            # something/kit/kit.exe.  All mapped to something/kit.{bat,sh} if found.
-            ov_dir = os.path.dirname(sys.executable)
-            for _ in range(3):
-                for name in ("kit.bat", "kit.sh"):
-                    exe_name = os.path.join(ov_dir, name)
-                    if os.path.exists(exe_name):
-                        self._interpreter = [
-                            exe_name,
-                            "--enable",
-                            "omni.client",
-                            "--enable",
-                            "omni.usd",
-                            "--exec",
-                        ]
-                        return
-                ov_dir = os.path.dirname(ov_dir)
-            raise RuntimeError("Unable to detect a copy of the Omniverse kit executable.") from None
+        raise RuntimeError("Unable to detect a copy of the Omniverse kit executable.") from None
 
-    def _is_running_omniverse(self) -> bool:
+    def is_running_omniverse(self) -> bool:
         """Check that an Omniverse connection is active
         Returns
         -------
@@ -121,8 +165,10 @@ class Omniverse:
         omniverse_path: str,
         include_camera: bool = False,
         normalize_geometry: bool = False,
+        temporal: bool = False,
         live: bool = True,
         debug_filename: str = "",
+        options: dict = {},
     ) -> None:
         """Ensure that an EnSight dsg -> omniverse server is running
 
@@ -143,6 +189,8 @@ class Omniverse:
             Omniverse units are in meters.  If the source dataset is not in the correct
             unit system or is just too large/small, this option will remap the geometry
             to a unit cube.  Defaults to False.
+        temporal : bool
+            If True, save all timesteps.
         live : bool
             If True, one can call 'update()' to send updated geometry to Omniverse.
             If False, the Omniverse connection will push a single update and then
@@ -150,53 +198,46 @@ class Omniverse:
         debug_filename : str
             If the name of a file is provided, it will be used to save logging information on
             the connection between EnSight and Omniverse.
-
+        options : dict
+            Allows for a fallback for the grpc host/port and the security token.
         """
         if not isinstance(self._ensight, ModuleType):
             self._ensight._session.ensight_version_check("2023 R2")
         self._check_modules()
-        if self._is_running_omniverse():
+        if self.is_running_omniverse():
             raise RuntimeError("An Omniverse server connection is already active.")
-        # Make sure the internal ui module is loaded
-        self._ensight._session.cmd("import enspyqtgui_int", do_eval=False)
-        # Get the gRPC connection details and use them to launch the service
-        port = self._ensight._session.grpc.port()
-        hostname = self._ensight._session.grpc.host
-        token = self._ensight._session.grpc.security_token
-        script_name = "omniverse_dsg_server.py"
-        working_dir = os.path.dirname(__file__)
-        cmd = [
-            script_name,
-            "--host",
-            hostname,
-            "--port",
-            str(port),
-            "--path",
-            omniverse_path,
-        ]
-        if live:
-            cmd.extend(["--live"])
-        if include_camera:
-            cmd.extend(["--vrmode"])
+        if not isinstance(self._ensight, ModuleType):
+            # Make sure the internal ui module is loaded
+            self._ensight._session.cmd("import enspyqtgui_int", do_eval=False)
+            # Get the gRPC connection details and use them to launch the service
+            port = self._ensight._session.grpc.port()
+            hostname = self._ensight._session.grpc.host
+            token = self._ensight._session.grpc.security_token
+        else:
+            hostname = options.get("host", "127.0.0.1")
+            port = options.get("port", 12345)
+            token = options.get("security", "")
+
+        # Launch the server via the 'ansys.geometry.service' kit
+        dsg_uri = f"grpc://{hostname}:{port}"
+        kit_dir = os.path.join(os.path.dirname(ansys.pyensight.core.__file__), "exts")
+        cmd = [self._interpreter]
+        cmd.extend(["--ext-folder", kit_dir])
+        cmd.extend(["--enable", "ansys.geometry.service"])
         if token:
-            cmd.extend(["--security", token])
-        # if temporal:
-        #     cmd.extend(["--animation"])
-        # else:
-        #     cmd.extend(["--no-animation"])
-        if debug_filename:
-            cmd.extend(["--log_file", debug_filename])
-            cmd.extend(["--verbose", "1"])
+            cmd.append(f"--/exts/ansys.geometry.service/securityCode={token}")
+        if temporal:
+            cmd.append("--/exts/ansys.geometry.service/temporal=1")
+        if not include_camera:
+            cmd.append("--/exts/ansys.geometry.service/vrmode=1")
         if normalize_geometry:
-            cmd.extend(["--normalize_geometry"])
-        # if using kit.bat, convert args into a string, otherwise, just use them
-        cmdline = []
-        cmdline.extend(self._interpreter)
-        if len(self._interpreter) > 1:
-            cmd = [" ".join(cmd)]
-        cmdline.extend(cmd)
+            cmd.append("--/exts/ansys.geometry.service/normalizeGeometry=1")
+        cmd.append(f"--/exts/ansys.geometry.service/omniUrl={omniverse_path}")
+        cmd.append(f"--/exts/ansys.geometry.service/dsgUrl={dsg_uri}")
+        cmd.append("--/exts/ansys.geometry.service/run=1")
         env_vars = os.environ.copy()
-        process = subprocess.Popen(cmdline, close_fds=True, env=env_vars, cwd=working_dir)
+        working_dir = os.path.join(os.path.dirname(ansys.pyensight.core.__file__), "utils")
+        process = subprocess.Popen(cmd, close_fds=True, env=env_vars, cwd=working_dir)
         self._server_pid = process.pid
 
     def close_connection(self) -> None:
@@ -206,7 +247,7 @@ class Omniverse:
 
         """
         self._check_modules()
-        if not self._is_running_omniverse():
+        if not self.is_running_omniverse():
             return
         proc = psutil.Process(self._server_pid)
         for child in proc.children(recursive=True):
@@ -229,11 +270,15 @@ class Omniverse:
         Push the current EnSight scene to the current Omniverse connection.
 
         """
+        update_cmd = "dynamicscenegraph://localhost/client/update"
+        self._check_modules()
+        if not self.is_running_omniverse():
+            raise RuntimeError("No Omniverse server connection is currently active.")
         if not isinstance(self._ensight, ModuleType):
             self._ensight._session.ensight_version_check("2023 R2")
-        self._check_modules()
-        if not self._is_running_omniverse():
-            raise RuntimeError("No Omniverse server connection is currently active.")
-        update_cmd = "dynamicscenegraph://localhost/client/update"
-        cmd = f'enspyqtgui_int.dynamic_scene_graph_command("{update_cmd}")'
-        self._ensight._session.cmd(cmd, do_eval=False)
+            cmd = f'enspyqtgui_int.dynamic_scene_graph_command("{update_cmd}")'
+            self._ensight._session.cmd(cmd, do_eval=False)
+        else:
+            import enspyqtgui_int
+
+            enspyqtgui_int.dynamic_scene_graph_command(f"{update_cmd}")
