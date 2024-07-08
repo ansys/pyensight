@@ -302,11 +302,11 @@ class OmniverseWrapper:
         matrix=[1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0],
         diffuse=[1.0, 1.0, 1.0, 1.0],
         variable=None,
-        timeline=[0.0,0.0]
+        timeline=[0.0, 0.0],
     ):
         # 1D texture map for variables https://graphics.pixar.com/usd/release/tut_simple_shading.html
         # create the part usd object
-        partname = self.clean_name(name+str(timeline[0]))
+        partname = self.clean_name(name + str(timeline[0]))
         stage_name = "/Parts/" + partname + ".usd"
         part_stage_url = self.stage_url(stage_name)
         omni.client.delete(part_stage_url)
@@ -347,14 +347,16 @@ class OmniverseWrapper:
         )
 
         # add a layer in the group hierarchy for the timestep
-        timestep_group_path = parent_prim.GetPath().AppendChild( self.clean_name("t"+str(timeline[0]), None))
+        timestep_group_path = parent_prim.GetPath().AppendChild(
+            self.clean_name("t" + str(timeline[0]), None)
+        )
         timestep_prim = UsdGeom.Xform.Define(self._stage, timestep_group_path)
         visibility_attr = UsdGeom.Imageable(timestep_prim).GetVisibilityAttr()
-        visibility_attr.Set('invisible', Usd.TimeCode.EarliestTime())
-        visibility_attr.Set('inherited', timeline[0])
+        visibility_attr.Set("invisible", Usd.TimeCode.EarliestTime())
+        visibility_attr.Set("inherited", timeline[0])
         # Final timestep has timeline[0]==timeline[1].  Leave final timestep visible.
-        if (timeline[0] < timeline[1]):
-            visibility_attr.Set('invisible', timeline[1])
+        if timeline[0] < timeline[1]:
+            visibility_attr.Set("invisible", timeline[1])
 
         # glue it into our stage
         path = timestep_prim.GetPath().AppendChild("part_ref_" + partname)
@@ -510,7 +512,7 @@ class OmniverseWrapper:
     def uploadMaterial(self):
         uriPath = self._destinationPath + "/Materials"
         omni.client.delete(uriPath)
-        full_path = os.path.join(os.path.dirname(__file__),"resources","Materials")
+        full_path = os.path.join(os.path.dirname(__file__), "resources", "Materials")
         omni.client.copy(full_path, uriPath)
 
     def createMaterial(self, mesh):
@@ -651,7 +653,7 @@ class OmniverseUpdateHandler(UpdateHandler):
 
             # record
             self._group_prims[id] = self._root_prim
- 
+
             if self._omni._stage is not None:
                 self._omni._stage.SetStartTimeCode(self.session.time_limits[0])
                 self._omni._stage.SetEndTimeCode(self.session.time_limits[1])
@@ -662,7 +664,6 @@ class OmniverseUpdateHandler(UpdateHandler):
             if not self._sent_textures:
                 self._omni.create_dsg_variable_textures(self.session.variables)
                 self._sent_textures = True
-
 
     def add_variable(self, id: int) -> None:
         super().add_variable(id)
@@ -694,7 +695,7 @@ class OmniverseUpdateHandler(UpdateHandler):
             matrix=matrix,
             diffuse=color,
             variable=var_cmd,
-            timeline=self.session.cur_timeline
+            timeline=self.session.cur_timeline,
         )
         super().finalize_part(part)
 
@@ -718,7 +719,6 @@ class OmniverseUpdateHandler(UpdateHandler):
         # Upload a material to the Omniverse server
         self._omni.uploadMaterial()
         self._sent_textures = False
-
 
     def end_update(self) -> None:
         super().end_update()
@@ -834,9 +834,9 @@ if __name__ == "__main__":
     if args.debugWait:
         # Not working
         pass
-        #import debugpy
-        #debugpy.listen(5678)
-        #debugpy.wait_for_client()
+        # import debugpy
+        # debugpy.listen(5678)
+        # debugpy.wait_for_client()
 
     # link it to a DSG session
     update_handler = OmniverseUpdateHandler(target)

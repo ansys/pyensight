@@ -1,8 +1,8 @@
 import logging
 import os
 import queue
-import threading
 import sys
+import threading
 from typing import Any, Dict, List, Optional
 
 from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2
@@ -396,13 +396,16 @@ class DSGSession(object):
         self._dsg = None
         self._normalize_geometry = normalize_geometry
         self._vrmode = vrmode
-        self._time_limits = [sys.float_info.max, -sys.float_info.max]  # Min/max across all time steps
+        self._time_limits = [
+            sys.float_info.max,
+            -sys.float_info.max,
+        ]  # Min/max across all time steps
         self._mesh_block_count = 0
         self._variables: Dict[int, Any] = dict()
         self._groups: Dict[int, Any] = dict()
         self._part: Part = Part(self)
         self._scene_bounds: Optional[List] = None
-        self._cur_timeline: List = [0.0,0.0]  # Start/End time for current update
+        self._cur_timeline: List = [0.0, 0.0]  # Start/End time for current update
         self._callback_handler.session = self
 
     @property
@@ -710,6 +713,6 @@ class DSGSession(object):
         self._finish_part()
         self._scene_bounds = None
         self._groups[view.id] = view
-        if len(view.timeline)==2:
+        if len(view.timeline) == 2:
             self.cur_timeline = [view.timeline[0], view.timeline[1]]
         self._callback_handler.add_group(view.id, view=True)
