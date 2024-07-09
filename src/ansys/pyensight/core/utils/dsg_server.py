@@ -501,7 +501,7 @@ class DSGSession(object):
     def end(self):
         """Stop a gRPC connection to the EnSight instance"""
         self._callback_handler.end_connection()
-        self._grpc.stop_server()
+        self._grpc.shutdown()
         self._shutdown = True
         self._thread.join()
         self._grpc.shutdown()
