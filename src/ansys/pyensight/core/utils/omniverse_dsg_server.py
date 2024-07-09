@@ -681,7 +681,7 @@ class OmniverseUpdateHandler(UpdateHandler):
 
     def finalize_part(self, part: Part) -> None:
         # generate an Omniverse compliant mesh from the Part
-        command, verts, conn, normals, tcoords, var_cmd = part.build()
+        command, verts, conn, normals, tcoords, var_cmd = part.nodal_surface_rep()
         if command is None:
             return
         parent_prim = self._group_prims[command.parent_id]

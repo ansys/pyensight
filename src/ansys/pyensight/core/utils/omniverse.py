@@ -78,8 +78,9 @@ class Omniverse:
         if not os.path.exists(ov_config):
             return None
         # read the Omniverse configuration toml file
-        with open(ov_config, "rb") as ov_file:
-            config = tomllib.load(ov_file)
+        with open(ov_config, "r") as ov_file:
+            ov_data = ov_file.read()
+        config = tomllib.loads(ov_data)
         appdir = config.get("paths", {}).get("library_root", fallback_directory)
 
         # If we are running inside an Omniverse app, use that information
@@ -268,13 +269,19 @@ class Omniverse:
             pass
         self._server_pid = None
 
-    def update(self) -> None:
+    def update(self, temporal: bool = False) -> None:
         """Update the geometry in Omniverse
 
-        Push the current EnSight scene to the current Omniverse connection.
+        Export the current EnSight scene to the current Omniverse connection.
 
+        Parameters
+        ----------
+        temporal : bool
+            If True, export all timesteps.
         """
         update_cmd = "dynamicscenegraph://localhost/client/update"
+        if temporal:
+            update_cmd += "?timesteps=1"
         self._check_modules()
         if not self.is_running_omniverse():
             raise RuntimeError("No Omniverse server connection is currently active.")

@@ -89,6 +89,8 @@ class AnsysGeometryServiceUIExtension(omni.ext.IExt):
             return
         self._grpc.command("import enspyqtgui_int", do_eval=False)
         update_cmd = "dynamicscenegraph://localhost/client/update"
+        if self._temporal_w.model.as_bool:
+            update_cmd += "?timesteps=1"
         cmd = f'enspyqtgui_int.dynamic_scene_graph_command("{update_cmd}")'
         self._grpc.command(cmd, do_eval=False)
 
@@ -105,7 +107,7 @@ class AnsysGeometryServiceUIExtension(omni.ext.IExt):
         else:
             self._connect_w.text = "Connect to DSG Server"
         self._update_w.enabled = self._connected
-        self._temporal_w.enabled = not self._connected
+        self._temporal_w.enabled = True
         self._vrmode_w.enabled = not self._connected
         self._normalize_w.enabled = not self._connected
         self._dsg_uri_w.enabled = not self._connected

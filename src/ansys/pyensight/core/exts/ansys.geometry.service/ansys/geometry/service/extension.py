@@ -43,8 +43,9 @@ def find_kit_filename() -> Optional[str]:
 
     homedir = os.path.expanduser("~")
     ov_config = os.path.join(homedir, ".nvidia-omniverse", "config", "omniverse.toml")
-    with open(ov_config, "rb") as ov_file:
-        config = tomllib.load(ov_file)
+    with open(ov_config, "r") as ov_file:
+        ov_data = ov_file.read()
+    config = tomllib.loads(ov_data)
     appdir = config.get("paths", {}).get("library_root", None)
     appdir = os.path.join(appdir, f"{app_name}-{app_version}")
 
