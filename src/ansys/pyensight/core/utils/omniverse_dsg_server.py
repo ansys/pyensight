@@ -232,6 +232,7 @@ class OmniverseWrapper:
         -------
             A unique USD name.
         """
+        orig_name = name
         # return any previously generated name
         if (name, id_name) in self._cleaned_names:
             return self._cleaned_names[(name, id_name)]
@@ -244,6 +245,7 @@ class OmniverseWrapper:
         name = name.replace("/", "_").replace("=", "_")
         name = name.replace(",", "_").replace(" ", "_")
         name = name.replace("\\", "_")
+
         if id_name is not None:
             name = name + "_" + str(id_name)
         if name in self._cleaned_names.values():
@@ -252,7 +254,7 @@ class OmniverseWrapper:
                 self._cleaned_index += 1
             name = f"{name}_{self._cleaned_index}"
         # store off the cleaned name
-        self._cleaned_names[(name, id_name)] = name
+        self._cleaned_names[(orig_name, id_name)] = name
         return name
 
     @staticmethod
@@ -300,10 +302,11 @@ class OmniverseWrapper:
         matrix=[1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0],
         diffuse=[1.0, 1.0, 1.0, 1.0],
         variable=None,
+        timeline=[0.0, 0.0],
     ):
         # 1D texture map for variables https://graphics.pixar.com/usd/release/tut_simple_shading.html
         # create the part usd object
-        partname = self.clean_name(name, id)
+        partname = self.clean_name(name + str(timeline[0]))
         stage_name = "/Parts/" + partname + ".usd"
         part_stage_url = self.stage_url(stage_name)
         omni.client.delete(part_stage_url)
@@ -342,12 +345,25 @@ class OmniverseWrapper:
         self.create_dsg_material(
             part_stage, mesh, "/" + partname, diffuse=diffuse, variable=variable
         )
-        part_stage.GetRootLayer().Save()
+
+        # add a layer in the group hierarchy for the timestep
+        timestep_group_path = parent_prim.GetPath().AppendChild(
+            self.clean_name("t" + str(timeline[0]), None)
+        )
+        timestep_prim = UsdGeom.Xform.Define(self._stage, timestep_group_path)
+        visibility_attr = UsdGeom.Imageable(timestep_prim).GetVisibilityAttr()
+        visibility_attr.Set("invisible", Usd.TimeCode.EarliestTime())
+        visibility_attr.Set("inherited", timeline[0])
+        # Final timestep has timeline[0]==timeline[1].  Leave final timestep visible.
+        if timeline[0] < timeline[1]:
+            visibility_attr.Set("invisible", timeline[1])
 
         # glue it into our stage
-        path = parent_prim.GetPath().AppendChild("part_ref_" + partname)
+        path = timestep_prim.GetPath().AppendChild("part_ref_" + partname)
         part_ref = self._stage.OverridePrim(path)
         part_ref.GetReferences().AddReference("." + stage_name)
+
+        part_stage.GetRootLayer().Save()
 
         return part_stage_url
 
@@ -413,13 +429,15 @@ class OmniverseWrapper:
         omni.client.delete(uriPath)
         omni.client.copy("scratch/Textures", uriPath)
 
-    def create_dsg_root(self, camera=None):
+    def create_dsg_root(self):
         root_name = "/Root"
         root_prim = UsdGeom.Xform.Define(self._stage, root_name)
         # Define the defaultPrim as the /Root prim
         root_prim = self._stage.GetPrimAtPath(root_name)
         self._stage.SetDefaultPrim(root_prim)
+        return root_prim
 
+    def update_camera(self, camera):
         if camera is not None:
             cam_name = "/Root/Cam"
             cam_prim = UsdGeom.Xform.Define(self._stage, cam_name)
@@ -454,7 +472,6 @@ class OmniverseWrapper:
 
             # set the updated camera
             geom_cam.SetFromCamera(cam)
-        return root_prim
 
     def create_dsg_group(
         self,
@@ -481,19 +498,22 @@ class OmniverseWrapper:
         ],
     ):
         path = parent_prim.GetPath().AppendChild(self.clean_name(name))
-        group_prim = UsdGeom.Xform.Define(self._stage, path)
-        # At present, the group transforms have been cooked into the vertices so this is not needed
-        matrixOp = group_prim.AddXformOp(
-            UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
-        )
-        matrixOp.Set(Gf.Matrix4d(*matrix).GetTranspose())
-        self.log(f"Created group:'{name}' {str(obj_type)}")
+        group_prim = UsdGeom.Xform.Get(self._stage, path)
+        if not group_prim:
+            group_prim = UsdGeom.Xform.Define(self._stage, path)
+            # At present, the group transforms have been cooked into the vertices so this is not needed
+            matrixOp = group_prim.AddXformOp(
+                UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
+            )
+            matrixOp.Set(Gf.Matrix4d(*matrix).GetTranspose())
+            self.log(f"Created group:'{name}' {str(obj_type)}")
         return group_prim
 
     def uploadMaterial(self):
         uriPath = self._destinationPath + "/Materials"
         omni.client.delete(uriPath)
-        omni.client.copy("resources/Materials", uriPath)
+        full_path = os.path.join(os.path.dirname(__file__), "resources", "Materials")
+        omni.client.copy(full_path, uriPath)
 
     def createMaterial(self, mesh):
         # Create a material instance for this in USD
@@ -609,6 +629,8 @@ class OmniverseUpdateHandler(UpdateHandler):
         super().__init__()
         self._omni = omni
         self._group_prims: Dict[int, Any] = dict()
+        self._root_prim = None
+        self._sent_textures = False
 
     def add_group(self, id: int, view: bool = False) -> None:
         super().add_group(id, view)
@@ -624,19 +646,24 @@ class OmniverseUpdateHandler(UpdateHandler):
         else:
             # Map a view command into a new Omniverse stage and populate it with materials/lights.
             # Create a new root stage in Omniverse
-            self._omni.create_new_stage()
-            # Create the root group/camera
-            camera_info = group
-            if self.session.vrmode:
-                camera_info = None
-            prim = self._omni.create_dsg_root(camera=camera_info)
-            # Create a distance and dome light in the scene
-            self._omni.createDomeLight("./Materials/000_sky.exr")
-            # Upload a material and textures to the Omniverse server
-            self._omni.uploadMaterial()
-            self._omni.create_dsg_variable_textures(self.session.variables)
-        # record
-        self._group_prims[id] = prim
+
+            # Create or update the root group/camera
+            if not self.session.vrmode:
+                self._omni.update_camera(camera=group)
+
+            # record
+            self._group_prims[id] = self._root_prim
+
+            if self._omni._stage is not None:
+                self._omni._stage.SetStartTimeCode(self.session.time_limits[0])
+                self._omni._stage.SetEndTimeCode(self.session.time_limits[1])
+                self._omni._stage.SetTimeCodesPerSecond(1)
+                self._omni._stage.SetFramesPerSecond(1)
+
+            # Send the variable textures.  Safe to do so once the first view is processed.
+            if not self._sent_textures:
+                self._omni.create_dsg_variable_textures(self.session.variables)
+                self._sent_textures = True
 
     def add_variable(self, id: int) -> None:
         super().add_variable(id)
@@ -668,6 +695,7 @@ class OmniverseUpdateHandler(UpdateHandler):
             matrix=matrix,
             diffuse=color,
             variable=var_cmd,
+            timeline=self.session.cur_timeline,
         )
         super().finalize_part(part)
 
@@ -683,6 +711,14 @@ class OmniverseUpdateHandler(UpdateHandler):
         self._omni.clear_cleaned_names()
         # clear the group Omni prims list
         self._group_prims = dict()
+
+        self._omni.create_new_stage()
+        self._root_prim = self._omni.create_dsg_root()
+        # Create a distance and dome light in the scene
+        self._omni.createDomeLight("./Materials/000_sky.exr")
+        # Upload a material to the Omniverse server
+        self._omni.uploadMaterial()
+        self._sent_textures = False
 
     def end_update(self) -> None:
         super().end_update()
@@ -770,6 +806,13 @@ if __name__ == "__main__":
         default=False,
         help="In this mode do not include a camera or the case level matrix.  Geometry only.",
     )
+    parser.add_argument(
+        "--debugwait",
+        dest="debugWait",
+        action="store_true",
+        default=False,
+        help="On startup, wait for a debugger to attach.",
+    )
     args = parser.parse_args()
 
     log_args = dict(format="DSG/Omniverse: %(message)s", level=logging.INFO)
@@ -787,6 +830,13 @@ if __name__ == "__main__":
 
     if loggingEnabled:
         logging.info("Omniverse connection established.")
+
+    if args.debugWait:
+        # Not working
+        pass
+        # import debugpy
+        # debugpy.listen(5678)
+        # debugpy.wait_for_client()
 
     # link it to a DSG session
     update_handler = OmniverseUpdateHandler(target)

@@ -1,6 +1,7 @@
 import logging
 import os
 import queue
+import sys
 import threading
 from typing import Any, Dict, List, Optional
 
@@ -395,11 +396,16 @@ class DSGSession(object):
         self._dsg = None
         self._normalize_geometry = normalize_geometry
         self._vrmode = vrmode
+        self._time_limits = [
+            sys.float_info.max,
+            -sys.float_info.max,
+        ]  # Min/max across all time steps
         self._mesh_block_count = 0
         self._variables: Dict[int, Any] = dict()
         self._groups: Dict[int, Any] = dict()
         self._part: Part = Part(self)
         self._scene_bounds: Optional[List] = None
+        self._cur_timeline: List = [0.0, 0.0]  # Start/End time for current update
         self._callback_handler.session = self
 
     @property
@@ -437,6 +443,20 @@ class DSGSession(object):
     @property
     def part(self) -> Part:
         return self._part
+
+    @property
+    def time_limits(self) -> List:
+        return self._time_limits
+
+    @property
+    def cur_timeline(self) -> List:
+        return self._cur_timeline
+
+    @cur_timeline.setter
+    def cur_timeline(self, timeline: List) -> None:
+        self._cur_timeline = timeline
+        self._time_limits[0] = min(self._time_limits[0], self._cur_timeline[0])
+        self._time_limits[1] = max(self._time_limits[1], self._cur_timeline[1])
 
     @property
     def grpc(self) -> ensight_grpc.EnSightGRPC:
@@ -686,10 +706,13 @@ class DSGSession(object):
         """Handle a DSG UPDATE_VIEW command
 
         Parameters
-        ----------s
+        ----------
         view:
             The command coming from the EnSight stream.
         """
+        self._finish_part()
         self._scene_bounds = None
         self._groups[view.id] = view
+        if len(view.timeline) == 2:
+            self.cur_timeline = [view.timeline[0], view.timeline[1]]
         self._callback_handler.add_group(view.id, view=True)
