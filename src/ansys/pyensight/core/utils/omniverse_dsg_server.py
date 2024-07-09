@@ -236,7 +236,6 @@ class OmniverseWrapper:
         # return any previously generated name
         if (name, id_name) in self._cleaned_names:
             return self._cleaned_names[(name, id_name)]
-        orig_name = name
         # replace invalid characters.  EnSight uses a number of characters that are illegal in USD names.
         replacements = {
             ord("+"): "_",
@@ -818,13 +817,6 @@ if __name__ == "__main__":
         default=False,
         help="In this mode do not include a camera or the case level matrix.  Geometry only.",
     )
-    parser.add_argument(
-        "--debugwait",
-        dest="debugWait",
-        action="store_true",
-        default=False,
-        help="On startup, wait for a debugger to attach.",
-    )
     args = parser.parse_args()
 
     log_args = dict(format="DSG/Omniverse: %(message)s", level=logging.INFO)
@@ -842,13 +834,6 @@ if __name__ == "__main__":
 
     if loggingEnabled:
         logging.info("Omniverse connection established.")
-
-    if args.debugWait:
-        # Not working
-        pass
-        # import debugpy
-        # debugpy.listen(5678)
-        # debugpy.wait_for_client()
 
     # link it to a DSG session
     update_handler = OmniverseUpdateHandler(target)
