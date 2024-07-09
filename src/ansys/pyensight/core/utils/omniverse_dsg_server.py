@@ -527,7 +527,6 @@ class OmniverseWrapper:
         fullpath = os.path.join(os.path.dirname(__file__), "resources", "Materials")
         omni.client.copy(fullpath, uriPath)
 
-
     def createMaterial(self, mesh):
         # Create a material instance for this in USD
         materialName = "Fieldstone"
