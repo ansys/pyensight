@@ -24,7 +24,7 @@ class Omniverse:
 
     Parameters
     ----------
-    interface:
+    interface: Union["ensight_api.ensight", "ensight"]
         Entity that provides the ``ensight`` namespace. In the case of
         EnSight Python, the ``ensight`` module is passed. In the case
         of PyEnSight, ``Session.ensight`` is passed.
@@ -38,13 +38,13 @@ class Omniverse:
 
     Examples
     --------
-    ::
-        from ansys.pyensight.core import LocalLauncher
-        session = LocalLauncher().start()
-        ov = session.ensight.utils.omniverse
-        ov.create_connection()
-        ov.update()
-        ov.close_connection()
+
+    >>> from ansys.pyensight.core import LocalLauncher
+    >>> session = LocalLauncher().start()
+    >>> ov = session.ensight.utils.omniverse
+    >>> ov.create_connection()
+    >>> ov.update()
+    >>> ov.close_connection()
 
     """
 
@@ -63,6 +63,7 @@ class Omniverse:
 
         Returns
         -------
+        Optional[str]
             The pathname of a kit executable or None
 
         """
@@ -134,7 +135,8 @@ class Omniverse:
 
         Raises
         ------
-        RuntimeError if the necessary modules are missing.
+        RuntimeError
+            if the necessary modules are missing.
 
         """
         # One time check for this
@@ -149,8 +151,10 @@ class Omniverse:
 
     def is_running_omniverse(self) -> bool:
         """Check that an Omniverse connection is active
+
         Returns
         -------
+        bool
             True if the connection is active, False otherwise.
         """
         if self._server_pid is None:
