@@ -31,12 +31,14 @@ repos:
             -r,
             -x, "venv/*, tests/*"
         ]
+
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.3.0
     hooks:
     -   id: mypy
         # Exclude only works here, not in config files
-        exclude: "tests/|doc/"
+        exclude: "tests/|doc/|src/ansys/pyensight/core/exts/|exts/"
+
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
@@ -46,4 +48,5 @@ repos:
     - id: check-yaml
     - id: trailing-whitespace
     - id: check-added-large-files
+      exclude: "src/ansys/pyensight/core/exts/[^\/]+/data/|exts/[^\/]+/data/"
     - id: check-case-conflict
