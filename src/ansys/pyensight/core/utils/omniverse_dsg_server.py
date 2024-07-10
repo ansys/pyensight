@@ -237,15 +237,26 @@ class OmniverseWrapper:
         if (name, id_name) in self._cleaned_names:
             return self._cleaned_names[(name, id_name)]
         # replace invalid characters.  EnSight uses a number of characters that are illegal in USD names.
-        name = name.replace("+", "_").replace("-", "_")
-        name = name.replace(".", "_").replace(":", "_")
-        name = name.replace("[", "_").replace("]", "_")
-        name = name.replace("(", "_").replace(")", "_")
-        name = name.replace("<", "_").replace(">", "_")
-        name = name.replace("/", "_").replace("=", "_")
-        name = name.replace(",", "_").replace(" ", "_")
-        name = name.replace("\\", "_")
-
+        replacements = {
+            ord("+"): "_",
+            ord("-"): "_",
+            ord("."): "_",
+            ord(":"): "_",
+            ord("["): "_",
+            ord("]"): "_",
+            ord("("): "_",
+            ord(")"): "_",
+            ord("<"): "_",
+            ord(">"): "_",
+            ord("/"): "_",
+            ord("="): "_",
+            ord(","): "_",
+            ord(" "): "_",
+            ord("\\"): "_",
+        }
+        name = name.translate(replacements)
+        if name[0].isdigit():
+            name = f"_{name}"
         if id_name is not None:
             name = name + "_" + str(id_name)
         if name in self._cleaned_names.values():
@@ -512,8 +523,8 @@ class OmniverseWrapper:
     def uploadMaterial(self):
         uriPath = self._destinationPath + "/Materials"
         omni.client.delete(uriPath)
-        full_path = os.path.join(os.path.dirname(__file__), "resources", "Materials")
-        omni.client.copy(full_path, uriPath)
+        fullpath = os.path.join(os.path.dirname(__file__), "resources", "Materials")
+        omni.client.copy(fullpath, uriPath)
 
     def createMaterial(self, mesh):
         # Create a material instance for this in USD
@@ -670,7 +681,7 @@ class OmniverseUpdateHandler(UpdateHandler):
 
     def finalize_part(self, part: Part) -> None:
         # generate an Omniverse compliant mesh from the Part
-        command, verts, conn, normals, tcoords, var_cmd = part.build()
+        command, verts, conn, normals, tcoords, var_cmd = part.nodal_surface_rep()
         if command is None:
             return
         parent_prim = self._group_prims[command.parent_id]
@@ -806,13 +817,6 @@ if __name__ == "__main__":
         default=False,
         help="In this mode do not include a camera or the case level matrix.  Geometry only.",
     )
-    parser.add_argument(
-        "--debugwait",
-        dest="debugWait",
-        action="store_true",
-        default=False,
-        help="On startup, wait for a debugger to attach.",
-    )
     args = parser.parse_args()
 
     log_args = dict(format="DSG/Omniverse: %(message)s", level=logging.INFO)
@@ -830,13 +834,6 @@ if __name__ == "__main__":
 
     if loggingEnabled:
         logging.info("Omniverse connection established.")
-
-    if args.debugWait:
-        # Not working
-        pass
-        # import debugpy
-        # debugpy.listen(5678)
-        # debugpy.wait_for_client()
 
     # link it to a DSG session
     update_handler = OmniverseUpdateHandler(target)
@@ -860,6 +857,8 @@ if __name__ == "__main__":
 
     # Simple pull request
     dsg_link.request_an_update(animation=args.animation)
+    # Handle the update block
+    dsg_link.handle_one_update()
 
     # Live operation
     if args.live:

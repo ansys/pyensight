@@ -10,6 +10,7 @@
 *.so
 *.o
 *.cache
+*.whl
 .pytest_cache/
 */__pycache__
 

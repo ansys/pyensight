@@ -95,7 +95,7 @@ class Part(object):
             else:
                 self.tcoords_var_id = None
 
-    def build(self):
+    def nodal_surface_rep(self):
         """
         This function processes the geometry arrays and converts them into nodal representation.
         It will duplicate triangles as needed (to preserve element normals) and will convert
@@ -116,10 +116,8 @@ class Part(object):
         """
         if self.cmd is None:
             return None, None, None, None, None, None
-        if self.conn_lines.size:
-            self.session.log(
-                f"Note: part '{self.cmd.name}' contains lines which are not currently supported."
-            )
+        if self.conn_tris.size == 0:
+            self.session.log(f"Note: part '{self.cmd.name}' contains no triangles.")
             return None, None, None, None, None, None
         verts = self.coords
         if self.session.normalize_geometry and self.session.scene_bounds is not None:
@@ -238,7 +236,7 @@ class Part(object):
             tcoords = tmp
 
         self.session.log(
-            f"Part '{self.cmd.name}' defined: {self.coords.size/3} verts, {self.conn_tris.size/3} tris, {self.conn_lines.size/2} lines."
+            f"Part '{self.cmd.name}' defined: {self.coords.size/3} verts, {self.conn_tris.size/3} tris."
         )
         command = self.cmd
 
@@ -503,7 +501,7 @@ class DSGSession(object):
     def end(self):
         """Stop a gRPC connection to the EnSight instance"""
         self._callback_handler.end_connection()
-        self._grpc.stop_server()
+        self._grpc.shutdown()
         self._shutdown = True
         self._thread.join()
         self._grpc.shutdown()
@@ -535,8 +533,6 @@ class DSGSession(object):
         cmd.init.allow_incremental_updates = False
         cmd.init.maximum_chunk_size = 1024 * 1024
         self._dsg_queue.put(cmd)  # type:ignore
-        # Handle the update messages
-        self.handle_one_update()
 
     def _poll_messages(self) -> None:
         """Core interface to grab DSG events from gRPC and queue them for processing
@@ -646,7 +642,6 @@ class DSGSession(object):
         There is always a part being modified.  This method completes the current part, committing
         it to the handler.
         """
-        self._part.build()
         self._callback_handler.finalize_part(self.part)
         self._mesh_block_count += 1
 
