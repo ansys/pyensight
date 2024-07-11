@@ -314,10 +314,11 @@ class OmniverseWrapper:
         diffuse=[1.0, 1.0, 1.0, 1.0],
         variable=None,
         timeline=[0.0, 0.0],
+        first_timestep=False,
     ):
         # 1D texture map for variables https://graphics.pixar.com/usd/release/tut_simple_shading.html
         # create the part usd object
-        partname = self.clean_name(name + str(timeline[0]))
+        partname = self.clean_name(name + str(id) + str(timeline[0]))
         stage_name = "/Parts/" + partname + ".usd"
         part_stage_url = self.stage_url(stage_name)
         omni.client.delete(part_stage_url)
@@ -363,7 +364,10 @@ class OmniverseWrapper:
         )
         timestep_prim = UsdGeom.Xform.Define(self._stage, timestep_group_path)
         visibility_attr = UsdGeom.Imageable(timestep_prim).GetVisibilityAttr()
-        visibility_attr.Set("invisible", Usd.TimeCode.EarliestTime())
+        if first_timestep:
+            visibility_attr.Set("inherited", Usd.TimeCode.EarliestTime())
+        else:
+            visibility_attr.Set("invisible", Usd.TimeCode.EarliestTime())
         visibility_attr.Set("inherited", timeline[0])
         # Final timestep has timeline[0]==timeline[1].  Leave final timestep visible.
         if timeline[0] < timeline[1]:
@@ -685,7 +689,7 @@ class OmniverseUpdateHandler(UpdateHandler):
         if command is None:
             return
         parent_prim = self._group_prims[command.parent_id]
-        obj_id = self._session.mesh_block_count
+        obj_id = self.session.mesh_block_count
         matrix = command.matrix4x4
         name = command.name
         color = [
@@ -707,6 +711,7 @@ class OmniverseUpdateHandler(UpdateHandler):
             diffuse=color,
             variable=var_cmd,
             timeline=self.session.cur_timeline,
+            first_timestep=(self.session.cur_timeline[0] == self.session.time_limits[0]),
         )
         super().finalize_part(part)
 
