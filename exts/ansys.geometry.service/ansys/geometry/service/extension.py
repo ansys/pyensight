@@ -13,6 +13,8 @@ import psutil
 
 try:
     import ansys.pyensight.core
+    import ansys.pyensight.core.utils.dsg_server as tmp_dsg_server  # noqa: F401
+    import ansys.pyensight.core.utils.omniverse_dsg_server as tmp_ov_dsg_server  # noqa: F401
 except ModuleNotFoundError:
     logging.warning("ansys.geometry.server - Installing ansys-pyensight-core")
     omni.kit.pipapi.install("ansys-pyensight-core")
@@ -82,6 +84,11 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
         self._security_token = self._setting("securityCode", "ENSIGHT_SECURITY_TOKEN")
         self._temporal = self._setting("temporal") != "0"
         self._vrmode = self._setting("vrmode") != "0"
+        try:
+            scale = float(self._setting("timeScale"))
+        except ValueError:
+            scale = 1.0
+        self._time_scale = scale
         self._normalize_geometry = self._setting("normalizeGeometry") != "0"
         self._version = "unknown"
         self._shutdown = False
@@ -140,6 +147,15 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
     @normalize_geometry.setter
     def normalize_geometry(self, val: bool) -> None:
         self._normalize_geometry = val
+
+    @property
+    def time_scale(self) -> float:
+        """Value to multiply DSG time values by before passing to Omniverse"""
+        return self._time_scale
+
+    @time_scale.setter
+    def time_scale(self, value: float) -> None:
+        self._time_scale = value
 
     @classmethod
     def get_instance(cls) -> Optional["AnsysGeometryServiceServerExtension"]:
@@ -260,18 +276,40 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
         self.warning(
             f"    If non-zero, remap the geometry to the domain [-1,-1,-1]-[1,1,1].  (default: {self.normalize_geometry})"
         )
+        self.warning("  --/exts/ansys.geometry.service/timeScale=FLOAT")
+        self.warning(
+            f"    Multiply all DSG time values by this value.  (default: {self.time_scale})"
+        )
+
+    def is_server_running(self) -> bool:
+        """
+        Returns True if the server is running.
+
+        Returns
+        -------
+        bool
+            True if the server is running.
+        """
+        if self._server_process:
+            if psutil.pid_exists(self._server_process.pid):
+                return True
+        return False
 
     def stop_server(self) -> None:
         """
         If a DSG server connection has been started, stop it.  It could be in
         process or a subprocess.
         """
-        self._shutdown = True
-        if self._server_process:
-            for child in psutil.Process(self._server_process.pid).children(recursive=True):
-                child.kill()
-            self._server_process.kill()
-            self._server_process = None
+        try:
+            self._shutdown = True
+            if self._server_process:
+                for child in psutil.Process(self._server_process.pid).children(recursive=True):
+                    child.kill()
+                self._server_process.kill()
+        except psutil.NoSuchProcess:
+            pass
+        self._server_process = None
+        self._shutdown = False
 
     def launch_server(self) -> None:
         """
@@ -300,6 +338,8 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
             cmd.append("--/exts/ansys.geometry.service/vrmode=1")
         if self.normalize_geometry:
             cmd.append("--/exts/ansys.geometry.service/normalizeGeometry=1")
+        if self.time_scale != 1.0:
+            cmd.append(f"--/exts/ansys.geometry.service/timeScale={self.time_scale}")
         cmd.append(f"--/exts/ansys.geometry.service/omniUrl={self.omni_uri}")
         cmd.append(f"--/exts/ansys.geometry.service/dsgUrl={self.dsg_uri}")
         cmd.append("--/exts/ansys.geometry.service/run=1")
@@ -344,6 +384,7 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
             security_code=self.security_token,
             verbose=1,
             normalize_geometry=self.normalize_geometry,
+            time_scale=self.time_scale,
             handler=update_handler,
         )
 
