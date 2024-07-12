@@ -21,12 +21,13 @@ Omniverse System Configuration
 ------------------------------
 
 To use this functionality, a local installation of Omniverse is required.
-Install Omniverse along with one application like "Create" or "View" on
-your local system.
+Please `install Omniverse <https://docs.omniverse.nvidia.com/install-guide/>`_ along
+with one application like "Create" or "View" on your local system before
+attempting to use this interface.
 
 
 PyEnSight and EnSight Python API
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------
 
 The ``omniverse`` pyensight module will look for and leverage locally installed
 Omniverse to provide its APIs. If you are using the
@@ -44,6 +45,16 @@ in your own python, one can just use the API like this:
     # Do some more work...
     # Push a scene update
     s.ensight.utils.omniverse.update()
+
+
+.. note::
+
+    The ``batch=False`` option used in the examples causes the EnSight
+    GUI to be displayed together with the Omniverse Composer GUI.
+
+    Also, care must be taken to close the EnSight session before
+    exiting an Omniverse application hosting a PyEnSight session or is
+    it possible to leave the EnSight instance running.
 
 
 From inside an EnSight session, the API is similar:
@@ -65,12 +76,22 @@ From inside an EnSight session, the API is similar:
 
 After running the script, the scene will appear in the Nucleus tree view as
 ``User/water``.  The file ``dsg_scene.usd`` can be loaded into Composer.  The
-``s.ensight.utils.omniverse.update()`` command can be used to update the
+``ensight.utils.omniverse.update()`` command can be used to update the
 USD data in Omniverse, reflecting any recent changes in the EnSight scene.
 
+Starting with 2025 R1, one can also access Omniverse via an EnSight
+user-defined tool:
 
-Within an Omniverse Application
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. image:: /_static/omniverse_tool.png
+
+This tool will only be available if EnSight detects an installed copy
+of Omniverse.  Clicking on "Connect to Omniverse" executes something
+similar to the previous Python snippet and the button will change to
+a mode where it just executes ``ensight.utils.omniverse.update()``.
+
+
+PyEnSight/Omniverse kit from Within an Omniverse Application
+------------------------------------------------------------
 
 To install the service (and the pyensight module) into an Omniverse
 application, one can install is via the third party extensions dialog.
@@ -80,18 +101,24 @@ will install it, along with the ansys.pyensight.core module.
 
 .. image:: /_static/omniverse_extension.png
 
-At this point, the same pyensight script can be used to connect to
+At this point, the same pyensight script run in the Omniverse
+``Script Editor`` panel can be used to connect to
 an EnSight session or the GUI panel can be used to connect to a
 copy of EnSight that was launched with the ``-grpc_server {port}``
 option specified.
 
+The ``ansys.geometry.serviceui`` kit includes a GUI similar to the
+EnSight 2025 R1 user-defined tool.  It allows one to select a
+target URI in Omniverse and the details of a gRPC connection
+to a running EnSight.  For example, if one launches EnSight with
+``ensight.bat -grpc_server 2345``, then the uri:  ``grpc://127.0.0.1:2345``
+can to used to request a locally running EnSight to push the current
+scene to Omniverse.
+
 
 .. note::
 
-    The ``batch=False`` option used in the examples causes the EnSight
-    GUI to be displayed together with the Omniverse Composer GUI.
-
-    Also, care must be taken to close the EnSight session before
-    exiting an Omniverse application hosting a pyensight session or is
-    it possible to leave the EnSight instance running.
-
+    If the ``ansys.geometry.service`` and ``ansys.geometry.serviceui``
+    do not show up in the Community extensions list in Omniverse, then
+    it can be added to the ``Extension Search Paths`` list as:
+    ``git://github.com/ansys/pyensight.git?branch=main&dir=exts``.
