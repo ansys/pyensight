@@ -20,6 +20,7 @@ class AnsysGeometryServiceUIExtension(omni.ext.IExt):
         self._temporal_w = None
         self._vrmode_w = None
         self._normalize_w = None
+        self._time_scale_w = None
         self._connect_w = None
         self._update_w = None
         self._connected = False
@@ -38,7 +39,7 @@ class AnsysGeometryServiceUIExtension(omni.ext.IExt):
         self._logger.error(text)
 
     def launch_server(self) -> None:
-        if self._connected:
+        if self.service.is_server_running():
             return
         self.service.dsg_uri = self._dsg_uri_w.model.as_string
         self.service.security_token = self._dsg_token_w.model.as_string
@@ -46,7 +47,14 @@ class AnsysGeometryServiceUIExtension(omni.ext.IExt):
         self.service.temporal = self._temporal_w.model.as_bool
         self.service.vrmode = self._vrmode_w.model.as_bool
         self.service.normalize_geometry = self._normalize_w.model.as_bool
+        scale = self._time_scale_w.model.as_float
+        if scale <= 0.0:
+            scale = 1.0
+        self.service.time_scale = scale
         self.service.launch_server()
+        if not self.service.is_server_running():
+            self.error("Failed to launch omniverse service.")
+            return
 
         # parse the DSG USI
         parsed = urlparse(self.service.dsg_uri)
@@ -60,6 +68,9 @@ class AnsysGeometryServiceUIExtension(omni.ext.IExt):
             host=host, port=port, secret_key=self.service.security_token
         )
         self._grpc.connect()
+        if not self._grpc.is_connected():
+            self.error(f"Failed to connect to DSG service {host}:{port}")
+            return
 
         self.info("Connected to DSG service")
         self._connected = True
@@ -69,6 +80,7 @@ class AnsysGeometryServiceUIExtension(omni.ext.IExt):
             return
         self.service.stop_server()
         self._grpc.shutdown()
+        self._grpc = None
 
         self.info("Disconnect from DSG service")
         self._connected = False
@@ -104,12 +116,15 @@ class AnsysGeometryServiceUIExtension(omni.ext.IExt):
     def update_ui(self) -> None:
         if self._connected:
             self._connect_w.text = "Disconnect from DSG Server"
+            self._label_w.text = f"Connected to: {self.service.dsg_uri}"
         else:
             self._connect_w.text = "Connect to DSG Server"
+            self._label_w.text = "No connected DSG server"
         self._update_w.enabled = self._connected
         self._temporal_w.enabled = True
         self._vrmode_w.enabled = not self._connected
         self._normalize_w.enabled = not self._connected
+        self._time_scale_w.enabled = not self._connected
         self._dsg_uri_w.enabled = not self._connected
         self._dsg_token_w.enabled = not self._connected
         self._omni_uri_w.enabled = not self._connected
@@ -151,6 +166,13 @@ class AnsysGeometryServiceUIExtension(omni.ext.IExt):
                         self._normalize_w.model.set_value(self.service.normalize_geometry)
                         ui.Label("Normalize", alignment=ui.Alignment.LEFT_CENTER)
 
+                with ui.HStack(spacing=5):
+                    ui.Label(
+                        "Temporal scaling factor:", alignment=ui.Alignment.RIGHT_CENTER, width=0
+                    )
+                    self._time_scale_w = ui.FloatField()
+                    self._time_scale_w.model.as_float = self.service.time_scale
+
                 with ui.HStack():
                     self._connect_w = ui.Button("Connect to DSG Server", clicked_fn=self.connect_cb)
                     self._update_w = ui.Button("Request Update", clicked_fn=self.update_cb)
@@ -166,5 +188,6 @@ class AnsysGeometryServiceUIExtension(omni.ext.IExt):
         self._temporal_w = None
         self._vrmode_w = None
         self._normalize_w = None
+        self._time_scale_w = None
         self._connect_w = None
         self._update_w = None

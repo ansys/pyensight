@@ -349,6 +349,7 @@ class DSGSession(object):
         verbose: int = 0,
         normalize_geometry: bool = False,
         vrmode: bool = False,
+        time_scale: float = 1.0,
         handler: UpdateHandler = UpdateHandler(),
     ):
         """
@@ -378,6 +379,9 @@ class DSGSession(object):
         vrmode : bool
             If True, do not include the EnSight camera in the generated view group. The default
             is to include the EnSight view in the scene transformations.
+        time_scale : float
+            All DSG protobuffers time values will be multiplied by this factor after
+            being received.  The default is ``1.0``.
         handler : UpdateHandler
             This is an UpdateHandler subclass that is called back when the state of
             a scene transfer changes.  For example, methods are called when the
@@ -394,6 +398,7 @@ class DSGSession(object):
         self._dsg = None
         self._normalize_geometry = normalize_geometry
         self._vrmode = vrmode
+        self._time_scale = time_scale
         self._time_limits = [
             sys.float_info.max,
             -sys.float_info.max,
@@ -709,5 +714,7 @@ class DSGSession(object):
         self._scene_bounds = None
         self._groups[view.id] = view
         if len(view.timeline) == 2:
+            view.timeline[0] *= self._time_scale
+            view.timeline[1] *= self._time_scale
             self.cur_timeline = [view.timeline[0], view.timeline[1]]
         self._callback_handler.add_group(view.id, view=True)
