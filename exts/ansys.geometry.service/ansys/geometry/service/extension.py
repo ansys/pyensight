@@ -331,7 +331,7 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
         cmd.extend(["--ext-folder", kit_dir])
         cmd.extend(["--enable", "ansys.geometry.service"])
         if self.security_token:
-            cmd.append(f"--/exts/ansys.geometry.service/securityCode={self.security_token}")
+            cmd.append(f'--/exts/ansys.geometry.service/securityCode="{self.security_token}"')
         if self.temporal:
             cmd.append("--/exts/ansys.geometry.service/temporal=1")
         if self.vrmode:

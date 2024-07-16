@@ -27,7 +27,7 @@ attempting to use this interface.
 
 
 PyEnSight and EnSight Python API
---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The ``omniverse`` pyensight module will look for and leverage locally installed
 Omniverse to provide its APIs. If you are using the
@@ -91,7 +91,7 @@ a mode where it just executes ``ensight.utils.omniverse.update()``.
 
 
 PyEnSight/Omniverse kit from Within an Omniverse Application
-------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To install the service (and the pyensight module) into an Omniverse
 application, one can install is via the third party extensions dialog.
@@ -115,10 +115,74 @@ to a running EnSight.  For example, if one launches EnSight with
 can to used to request a locally running EnSight to push the current
 scene to Omniverse.
 
-
 .. note::
 
     If the ``ansys.geometry.service`` and ``ansys.geometry.serviceui``
     do not show up in the Community extensions list in Omniverse, then
     it can be added to the ``Extension Search Paths`` list as:
     ``git://github.com/ansys/pyensight.git?branch=main&dir=exts``.
+
+
+Developers: Running a "dev" build from the Command Line
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Omniverse kits can be run as command line tools and
+the ``ansys.geometry.service`` is designed to support this mode
+of operation as well.  For this to work, one needs a copy of the
+pyensight wheel and the name of a ``kit`` executable. The pyensight wheel
+can be built by checking out the repo and building it. One can
+find the location of a kit via the ``Omniverse Launcher`` application
+using the ``Settings`` option:
+
+.. image:: /_static/omniverse_create_location.png
+
+Consider an example where the create app has been installed and the
+file ``C:\Users\me\AppData\Local\ov\pkg\create-2023.2.5\kit.bat``
+exists.  A copy of the pyensight repo is located and built here:
+``D:\repos\pyensight``.  With these conditions, one can run the extension
+from the command line like this:
+
+.. code-block:: bat
+
+    cd "C:\Users\me\AppData\Local\ov\pkg\create-2023.2.5"
+    .\kit.bat --ext-folder "D:\repos\pyensight\exts" --enable ansys.geometry.service --/exts/ansys.geometry.service/help=1
+
+
+Will generate the following output in the logs:
+
+.. code-block::
+
+    ANSYS Omniverse Geometry Service: ansys.geometry.service-0.8.5
+      --/exts/ansys.geometry.service/help=1
+         Display this help.
+      --/exts/ansys.geometry.service/run=1
+         Run the server.
+      --/exts/ansys.geometry.service/omniUrl=URL
+         Omniverse pathname.  (default: omniverse://localhost/Users/test)
+      --/exts/ansys.geometry.service/dsgUrl=URL
+         Dynamic Scene Graph connection URL.  (default: grpc://127.0.0.1:5234)
+      --/exts/ansys.geometry.service/securityCode=TOKEN
+         Dynamic Scene Graph security token.  (default: )
+      --/exts/ansys.geometry.service/temporal=0|1
+         If non-zero, include all timeseteps in the scene.  (default: False)
+      --/exts/ansys.geometry.service/vrmode=0|1
+         If non-zero, do not include a camera in the scene.  (default: False)
+      --/exts/ansys.geometry.service/normalizeGeometry=0|1
+         If non-zero, remap the geometry to the domain [-1,-1,-1]-[1,1,1].  (default: False)
+
+
+Documenting the various kit command line options.  Using the ``run=1`` option will launch the server from
+from the command line.  This version of the service will be run using the version of the pyensight wheel
+installed in the specified ``--ext-folder``.  When run as above, the service will use the
+latest release of the ansys.pyensight.core wheel.  If a local build is located here:
+``D:\repos\pyensight\dist\ansys_pyensight_core-0.9.0.dev0-py3-none-any.whl`` it can be
+used in the above kit by installing it into the Omniverse kit Python:
+
+
+.. code-block:: bat
+
+    .\kit\python.bat -m pip install D:\repos\pyensight\dist\ansys_pyensight_core-0.9.0.dev0-py3-none-any.whl
+
+
+This version will be used instead of the older version in the PyPi repository.
+
