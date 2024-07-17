@@ -173,6 +173,7 @@ class Omniverse:
         temporal: bool = False,
         live: bool = True,
         debug_filename: str = "",
+        time_scale: float = 1.0,
         options: dict = {},
     ) -> None:
         """Ensure that an EnSight dsg -> omniverse server is running
@@ -200,9 +201,13 @@ class Omniverse:
             If True, one can call 'update()' to send updated geometry to Omniverse.
             If False, the Omniverse connection will push a single update and then
             disconnect.  Defaults to True.
+        time_scale : float
+            Multiply all EnSight time values by this factor before exporting to Omniverse.
+            The default is 1.0.
         debug_filename : str
             If the name of a file is provided, it will be used to save logging information on
-            the connection between EnSight and Omniverse.
+            the connection between EnSight and Omniverse.  This option is no longer supported,
+            but the API remains for backwards compatibility.
         options : dict
             Allows for a fallback for the grpc host/port and the security token.
         """
@@ -237,6 +242,8 @@ class Omniverse:
             cmd.append("--/exts/ansys.geometry.service/vrmode=1")
         if normalize_geometry:
             cmd.append("--/exts/ansys.geometry.service/normalizeGeometry=1")
+        if time_scale != 1.0:
+            cmd.append(f"--/exts/ansys.geometry.service/timeScale={time_scale}")
         cmd.append(f"--/exts/ansys.geometry.service/omniUrl={omniverse_path}")
         cmd.append(f"--/exts/ansys.geometry.service/dsgUrl={dsg_uri}")
         cmd.append("--/exts/ansys.geometry.service/run=1")
