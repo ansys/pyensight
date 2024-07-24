@@ -1,4 +1,6 @@
 import logging
+import threading
+import time
 from typing import Any, Optional
 from urllib.parse import urlparse
 
@@ -113,14 +115,25 @@ class AnsysGeometryServiceUIExtension(omni.ext.IExt):
         self.build_ui()
         self.update_ui()
 
+    def _update_callback(self) -> None:
+        self.update_ui()
+        threading.Timer(0.5, self._update_callback).start()
+
     def update_ui(self) -> None:
+        status = self.service.read_status_file()
         if self._connected:
             self._connect_w.text = "Disconnect from DSG Server"
-            self._label_w.text = f"Connected to: {self.service.dsg_uri}"
+            tmp = f"Connected to: {self.service.dsg_uri}"
+            if status.get("status", "idle") == "working":
+                count = status.get("processed_buffers", 0)
+                total = status.get("total_buffers", 0)
+                dt = time.time() - status.get("start_time", 0.0)
+                tmp = f"Transfer: {count} of {total} : {dt:.2f}s"
+            self._label_w.text = tmp
         else:
             self._connect_w.text = "Connect to DSG Server"
             self._label_w.text = "No connected DSG server"
-        self._update_w.enabled = self._connected
+        self._update_w.enabled = self._connected and (status.get("status", "idle") == "idle")
         self._temporal_w.enabled = True
         self._vrmode_w.enabled = not self._connected
         self._normalize_w.enabled = not self._connected
@@ -130,7 +143,7 @@ class AnsysGeometryServiceUIExtension(omni.ext.IExt):
         self._omni_uri_w.enabled = not self._connected
 
     def build_ui(self) -> None:
-        self._window = ui.Window("ANSYS Geometry Service")
+        self._window = ui.Window(f"ANSYS Geometry Service ({self.service.pyensight_version})")
         with self._window.frame:
             with ui.VStack(height=0, spacing=5):
                 self._label_w = ui.Label("No connected DSG server")

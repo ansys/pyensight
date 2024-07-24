@@ -1,9 +1,13 @@
+from importlib import reload
+import json
 import logging
 import os
 import subprocess
 import sys
+import tempfile
 from typing import Optional
 from urllib.parse import urlparse
+import uuid
 
 import carb.settings
 import omni.ext
@@ -11,13 +15,55 @@ import omni.kit.app
 import omni.kit.pipapi
 import psutil
 
+"""
+For development environments, it can be useful to use a "future versioned"
+build of ansys-pyensight-core.  If the appropriate environmental variables
+are set, a pip install from another repository can be forced.
+"""
+extra_args = []
+if "ANSYS_PYPI_INDEX_URL" in os.environ:
+    extra_args.append(os.environ["ANSYS_PYPI_INDEX_URL"])
+
+if os.environ.get("ANSYS_PYPI_REINSTALL", "") == "1":
+    extra_args.extend(["--upgrade", "--no-deps", "--no-cache-dir", "--force-reinstall", "--pre"])
+
+    logging.warning("ansys.geometry.server - Forced reinstall ansys-pyensight-core")
+    omni.kit.pipapi.install("ansys-pyensight-core", extra_args=extra_args)
+
 try:
+    # Checking to see if we need to install the module
     import ansys.pyensight.core
     import ansys.pyensight.core.utils.dsg_server as tmp_dsg_server  # noqa: F401
     import ansys.pyensight.core.utils.omniverse_dsg_server as tmp_ov_dsg_server  # noqa: F401
 except ModuleNotFoundError:
     logging.warning("ansys.geometry.server - Installing ansys-pyensight-core")
-    omni.kit.pipapi.install("ansys-pyensight-core")
+    omni.kit.pipapi.install("ansys-pyensight-core", extra_args=extra_args)
+
+"""
+If we have a local copy of the module, the above installed the correct
+dependencies, but we want to use the local copy.  Do this by prefixing
+the path and (re)load the modules.
+"""
+if "ANSYS_OV_SERVER_PYENSIGHT_DIR" in os.environ:
+    # name of 'ansys/pyensight/core' directory. We need three levels above.
+    name = os.environ["ANSYS_OV_SERVER_PYENSIGHT_DIR"]
+    name = os.path.dirname(os.path.dirname(os.path.dirname(name)))
+    sys.path.insert(0, name)
+    logging.info(f"Using ansys.pyensight.core from: {name}")
+
+# at this point, we may need to repeat the imports that make have failed earlier
+import ansys.pyensight.core  # noqa: F811, E402
+import ansys.pyensight.core.utils.dsg_server as dsg_server  # noqa: E402
+import ansys.pyensight.core.utils.omniverse_dsg_server as ov_dsg_server  # noqa: E402
+
+# force a reload if we changed the path or had a partial failure that lead
+# to a pipapi install.
+_ = reload(ansys.pyensight.core)
+_ = reload(ansys.pyensight.core.utils)
+_ = reload(ansys.pyensight.core.utils.dsg_server)
+_ = reload(ansys.pyensight.core.utils.omniverse_dsg_server)
+
+logging.warning(f"RJF Using ansys.pyensight.core from: {ansys.pyensight.core.__file__}")
 
 
 def find_kit_filename() -> Optional[str]:
@@ -93,6 +139,12 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
         self._version = "unknown"
         self._shutdown = False
         self._server_process = None
+        self._status_filename: str = ""
+
+    @property
+    def pyensight_version(self) -> str:
+        """The ansys.pyensight.core version"""
+        return ansys.pyensight.core.VERSION
 
     @property
     def dsg_uri(self) -> str:
@@ -344,8 +396,53 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
         cmd.append(f"--/exts/ansys.geometry.service/dsgUrl={self.dsg_uri}")
         cmd.append("--/exts/ansys.geometry.service/run=1")
         env_vars = os.environ.copy()
+        # we are launching the kit from an Omniverse app.  In this case, we
+        # inform the kit instance of:
+        # (1) the name of the "server status" file, if any
+        self._new_status_file()
+        env_vars["ANSYS_OV_SERVER_STATUS_FILENAME"] = self._status_filename
         working_dir = os.path.join(os.path.dirname(ansys.pyensight.core.__file__), "utils")
         self._server_process = subprocess.Popen(cmd, close_fds=True, env=env_vars, cwd=working_dir)
+
+    def _new_status_file(self, new=True) -> None:
+        """
+        Remove any existing status file and create a new one if requested.
+
+        Parameters
+        ----------
+        new : bool
+            If True, create a new status file.
+        """
+        if self._status_filename:
+            try:
+                os.remove(self._status_filename)
+            except OSError:
+                self.warning(f"Unable to delete the status file: {self._status_filename}")
+        self._status_filename = ""
+        if new:
+            self._status_filename = os.path.join(
+                tempfile.gettempdir(), str(uuid.uuid1()) + "_gs_status.txt"
+            )
+
+    def read_status_file(self) -> dict:
+        """Read the status file and return its contents as a dictionary.
+
+        Note: this can fail if the file is being written to when this call is made, so expect
+        failures.
+
+        Returns
+        -------
+        Optional[dict]
+            A dictionary with the fields 'status', 'start_time', 'processed_buffers', 'total_buffers' or empty
+        """
+        if not self._status_filename:
+            return {}
+        try:
+            with open(self._status_filename, "r") as status_file:
+                data = json.load(status_file)
+        except Exception:
+            return {}
+        return data
 
     def run_server(self) -> None:
         """
@@ -354,17 +451,14 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
         Note: this method does not return until the DSG connection is dropped or
         self.stop_server() has been called.
         """
-        try:
-            import ansys.pyensight.core.utils.dsg_server as dsg_server
-            import ansys.pyensight.core.utils.omniverse_dsg_server as ov_dsg_server
-        except ImportError as e:
-            self.error(f"Unable to load DSG service core: {str(e)}")
-            return
+        self.warning(f"RJF Using dsg_server from: {dsg_server.__file__}")
+        self.warning(f"RJF Using ov_dsg_server from: {ov_dsg_server.__file__}")
 
         # Note: This is temporary.  The correct fix will be included in
         # the pyensight 0.8.5 wheel.  The OmniverseWrapper assumes the CWD
         # to be the directory with the "resource" directory.
-        os.chdir(os.path.dirname(ov_dsg_server.__file__))
+        # RJF
+        # os.chdir(os.path.dirname(ov_dsg_server.__file__))
 
         # Build the Omniverse connection
         omni_link = ov_dsg_server.OmniverseWrapper(path=self._omni_uri, verbose=1)
