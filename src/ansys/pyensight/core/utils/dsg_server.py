@@ -84,18 +84,23 @@ class Part(object):
         ):
             # Get the variable definition
             if cmd.variable_id in self.session.variables:
-                if self.cmd.color_variableid == cmd.variable_id:
+                if self.cmd.color_variableid == cmd.variable_id:  # type: ignore
                     # Receive the colorby var values
-                    self.tcoords_elem = (cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.ELEM_VARIABLE)
+                    self.tcoords_elem = (
+                        cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.ELEM_VARIABLE
+                    )
                     if self.tcoords.size != cmd.total_array_size:
                         self.tcoords = numpy.resize(self.tcoords, cmd.total_array_size)
-                    self.tcoords[cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)] = cmd.flt_array
-                if self.cmd.node_size_variableid == cmd.variable_id:
+                    self.tcoords[
+                        cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)
+                    ] = cmd.flt_array
+                if self.cmd.node_size_variableid == cmd.variable_id:  # type: ignore
                     # Receive the node size var values
                     if self.node_sizes.size != cmd.total_array_size:
                         self.node_sizes = numpy.resize(self.node_sizes, cmd.total_array_size)
-                    self.node_sizes[cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)] = cmd.flt_array
-
+                    self.node_sizes[
+                        cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)
+                    ] = cmd.flt_array
 
     def nodal_surface_rep(self):
         """
@@ -123,7 +128,6 @@ class Part(object):
             return None, None, None, None, None, None
         verts = self.coords
         self.normalize_verts(verts)
-
 
         conn = self.conn_tris
         normals = self.normals
@@ -226,7 +230,6 @@ class Part(object):
 
         return command, verts, conn, normals, tcoords, var_cmd
 
-
     def normalize_verts(self, verts: numpy.ndarray):
         """
         This function scales and translates vertices, so the longest axis in the scene is of
@@ -255,7 +258,7 @@ class Part(object):
                 verts[j + 0] = (verts[j + 0] - midx) / s
                 verts[j + 1] = (verts[j + 1] - midy) / s
                 verts[j + 2] = (verts[j + 2] - midz) / s
-        return 1.0/s
+        return 1.0 / s
 
     def point_rep(self):
         """
@@ -281,19 +284,19 @@ class Part(object):
         verts = self.coords
         num_verts = int(verts.size / 3)
         norm_scale = self.normalize_verts(verts)
-        print(f"norm_scale = {norm_scale}")
 
         # Convert var values in self.tcoords to RGB colors
         # For now, look up RGB colors.  Planned USD enhancements should allow tex coords instead.
         colors = None
         var_cmd = None
 
-        if self.tcoords.size and self.tcoords.size==num_verts:
+        if self.tcoords.size and self.tcoords.size == num_verts:
             var_dsg_id = self.cmd.color_variableid
             var_cmd = self.session.variables[var_dsg_id]
-            var_vals = self.tcoords
-            if len(var_cmd.levels)==0:
-                self.session.log(f"Note: Node rep not created for part '{self.cmd.name}'.  It has var values, but a palette with 0 levels.")
+            if len(var_cmd.levels) == 0:
+                self.session.log(
+                    f"Note: Node rep not created for part '{self.cmd.name}'.  It has var values, but a palette with 0 levels."
+                )
                 return None, None, None, None, None
 
             p_min = None
@@ -303,66 +306,65 @@ class Part(object):
                     p_min = lvl.value
                 if (p_max is None) or (p_max < lvl.value):
                     p_max = lvl.value
-            pal_minmax = [p_min, p_max]
 
             num_texels = int(len(var_cmd.texture) / 4)
 
             colors = numpy.ndarray((num_verts * 3,), dtype="float32")
-            low_color  = [ c/255.0 for c in var_cmd.texture[0:3] ]
-            high_color = [ c/255.0 for c in var_cmd.texture[4*(num_texels-1):4*(num_texels-1) + 3] ]
-            if p_min==p_max:
+            low_color = [c / 255.0 for c in var_cmd.texture[0:3]]
+            high_color = [
+                c / 255.0 for c in var_cmd.texture[4 * (num_texels - 1) : 4 * (num_texels - 1) + 3]
+            ]
+            if p_min == p_max:
                 # Special case where palette min == palette max
-                mid_color = var_cmd[4*(num_texels//2):4*(num_texels//2) + 3]
+                mid_color = var_cmd[4 * (num_texels // 2) : 4 * (num_texels // 2) + 3]
                 for idx in range(num_verts):
                     val = self.tcoords[idx]
-                    if val==p_min:
-                        colors[idx*3:idx*3+3] = mid_color
+                    if val == p_min:
+                        colors[idx * 3 : idx * 3 + 3] = mid_color
                     elif val < p_min:
-                        colors[idx*3:idx*3+3] = low_color
+                        colors[idx * 3 : idx * 3 + 3] = low_color
                     elif val > p_min:
-                        colors[idx*3:idx*3+3] = high_color
+                        colors[idx * 3 : idx * 3 + 3] = high_color
             else:
                 for idx in range(num_verts):
                     val = self.tcoords[idx]
                     if val <= p_min:
-                        colors[idx*3:idx*3+3] = low_color
+                        colors[idx * 3 : idx * 3 + 3] = low_color
                     else:
-                        pal_pos = (num_texels-1)*(val-p_min)/(p_max-p_min)
-                        pal_idx, pal_sub = divmod(pal_pos,1)
+                        pal_pos = (num_texels - 1) * (val - p_min) / (p_max - p_min)
+                        pal_idx, pal_sub = divmod(pal_pos, 1)
                         pal_idx = int(pal_idx)
 
-                        if (pal_idx >= num_texels-1):
-                            colors[idx*3:idx*3+3] = high_color
+                        if pal_idx >= num_texels - 1:
+                            colors[idx * 3 : idx * 3 + 3] = high_color
                         else:
-                            col0 = var_cmd.texture[pal_idx*4:pal_idx*4+3]
-                            col1 = var_cmd.texture[4+pal_idx*4:4+pal_idx*4+3]
-                            for ii in range(0,3):
-                                colors[idx*3+ii] = (col0[ii]*pal_sub+col1[ii]*(1.0-pal_sub))/255.0
-                #for idx in range(num_verts):
-                #    print(f"Val: {self.tcoords[idx]}: Color [{colors[idx*3]},{colors[idx*3+1]},{colors[idx*3+2]}]")
-            print(f"Part '{self.cmd.name}' defined: {self.coords.size/3} points.")
+                            col0 = var_cmd.texture[pal_idx * 4 : pal_idx * 4 + 3]
+                            col1 = var_cmd.texture[4 + pal_idx * 4 : 4 + pal_idx * 4 + 3]
+                            for ii in range(0, 3):
+                                colors[idx * 3 + ii] = (
+                                    col0[ii] * pal_sub + col1[ii] * (1.0 - pal_sub)
+                                ) / 255.0
+            self.session.log(f"Part '{self.cmd.name}' defined: {self.coords.size/3} points.")
 
         node_sizes = None
-        if self.node_sizes.size and self.node_sizes.size==num_verts:
+        if self.node_sizes.size and self.node_sizes.size == num_verts:
             # Pass out the node sizes if there is a size-by variable
             node_size_default = self.cmd.node_size_default * norm_scale
             node_sizes = numpy.ndarray((num_verts,), dtype="float32")
-            for ii in range(0,num_verts):
+            for ii in range(0, num_verts):
                 node_sizes[ii] = self.node_sizes[ii] * node_size_default
         elif norm_scale != 1.0:
             # Pass out the node sizes if the model is normalized to fit in a unit cube
             node_size_default = self.cmd.node_size_default * norm_scale
             node_sizes = numpy.ndarray((num_verts,), dtype="float32")
-            for ii in range(0,num_verts):
+            for ii in range(0, num_verts):
                 node_sizes[ii] = node_size_default
-            
 
-        self.session.log(
-            f"Part '{self.cmd.name}' defined: {self.coords.size/3} points."
-        )
+        self.session.log(f"Part '{self.cmd.name}' defined: {self.coords.size/3} points.")
         command = self.cmd
 
         return command, verts, node_sizes, colors, var_cmd
+
 
 class UpdateHandler(object):
     """

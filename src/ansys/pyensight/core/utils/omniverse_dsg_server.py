@@ -34,7 +34,7 @@ from typing import Any, Dict, List, Optional
 
 import omni.client
 import png
-from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdShade, Vt
+from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdShade
 
 sys.path.append(os.path.dirname(__file__))
 from dsg_server import DSGSession, Part, UpdateHandler  # noqa: E402
@@ -369,8 +369,9 @@ class OmniverseWrapper:
 
         return part_stage_url
 
-
-    def add_timestep_group(self, parent_prim: UsdGeom.Xform, timeline: List[float], first_timestep: bool) -> UsdGeom.Xform:
+    def add_timestep_group(
+        self, parent_prim: UsdGeom.Xform, timeline: List[float], first_timestep: bool
+    ) -> UsdGeom.Xform:
         # add a layer in the group hierarchy for the timestep
         timestep_group_path = parent_prim.GetPath().AppendChild(
             self.clean_name("t" + str(timeline[0]), None)
@@ -386,7 +387,6 @@ class OmniverseWrapper:
         if timeline[0] < timeline[1]:
             visibility_attr.Set("invisible", timeline[1])
         return timestep_prim
-
 
     def create_dsg_points(
         self,
@@ -412,19 +412,19 @@ class OmniverseWrapper:
         xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
 
         points = UsdGeom.Points.Define(part_stage, "/" + partname + "/Points")
-        #points.GetPointsAttr().Set(Vt.Vec3fArray(verts.tolist()))
+        # points.GetPointsAttr().Set(Vt.Vec3fArray(verts.tolist()))
         points.GetPointsAttr().Set(verts)
-        if sizes is not None and sizes.size == (verts.size//3):
+        if sizes is not None and sizes.size == (verts.size // 3):
             points.GetWidthsAttr().Set(sizes)
         else:
-            points.GetWidthsAttr().Set([default_size]*(verts.size//3))
+            points.GetWidthsAttr().Set([default_size] * (verts.size // 3))
 
         colorAttr = points.GetPrim().GetAttribute("primvars:displayColor")
         colorAttr.SetMetadata("interpolation", "vertex")
         if colors is not None and colors.size == verts.size:
             colorAttr.Set(colors)
         else:
-            colorAttr.Set([default_color[0:3]]*(verts.size//3))
+            colorAttr.Set([default_color[0:3]] * (verts.size // 3))
 
         part_prim = part_stage.GetPrimAtPath("/" + partname)
         part_stage.SetDefaultPrim(part_prim)
@@ -444,7 +444,6 @@ class OmniverseWrapper:
         part_stage.GetRootLayer().Save()
 
         return part_stage_url
-
 
     def create_dsg_material(
         self, stage, mesh, root_name, diffuse=[1.0, 1.0, 1.0, 1.0], variable=None
@@ -749,7 +748,7 @@ class OmniverseUpdateHandler(UpdateHandler):
 
     def finalize_part(self, part: Part) -> None:
         # generate an Omniverse compliant mesh from the Part
-        #if part.cmd:
+        # if part.cmd:
         #    print(f"Part {part.cmd.name} Points: {part.coords.size} Var values: {part.tcoords.size} Node sizes: {part.node_sizes.size}")
         #    for s in part.node_sizes:
         #        print(f"{s}")
@@ -782,7 +781,8 @@ class OmniverseUpdateHandler(UpdateHandler):
                     diffuse=color,
                     variable=var_cmd,
                     timeline=self.session.cur_timeline,
-                    first_timestep=(self.session.cur_timeline[0] == self.session.time_limits[0]),)
+                    first_timestep=(self.session.cur_timeline[0] == self.session.time_limits[0]),
+                )
 
         elif part.cmd.render == part.cmd.NODES:
             command, verts, sizes, colors, var_cmd = part.point_rep()
@@ -798,7 +798,8 @@ class OmniverseUpdateHandler(UpdateHandler):
                     default_size=part.cmd.node_size_default,
                     default_color=color,
                     timeline=self.session.cur_timeline,
-                    first_timestep=(self.session.cur_timeline[0] == self.session.time_limits[0]),)
+                    first_timestep=(self.session.cur_timeline[0] == self.session.time_limits[0]),
+                )
         super().finalize_part(part)
 
     def start_connection(self) -> None:
