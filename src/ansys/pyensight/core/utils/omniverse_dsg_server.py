@@ -357,6 +357,20 @@ class OmniverseWrapper:
             part_stage, mesh, "/" + partname, diffuse=diffuse, variable=variable
         )
 
+        timestep_prim = self.add_timestep_group(parent_prim, timeline, first_timestep)
+
+        # glue it into our stage
+        path = timestep_prim.GetPath().AppendChild("part_ref_" + partname)
+        part_ref = self._stage.OverridePrim(path)
+        part_ref.GetReferences().AddReference("." + stage_name)
+
+        part_stage.GetRootLayer().Save()
+
+        return part_stage_url
+
+    def add_timestep_group(
+        self, parent_prim: UsdGeom.Xform, timeline: List[float], first_timestep: bool
+    ) -> UsdGeom.Xform:
         # add a layer in the group hierarchy for the timestep
         timestep_group_path = parent_prim.GetPath().AppendChild(
             self.clean_name("t" + str(timeline[0]), None)
@@ -371,6 +385,55 @@ class OmniverseWrapper:
         # Final timestep has timeline[0]==timeline[1].  Leave final timestep visible.
         if timeline[0] < timeline[1]:
             visibility_attr.Set("invisible", timeline[1])
+        return timestep_prim
+
+    def create_dsg_points(
+        self,
+        name,
+        id,
+        parent_prim,
+        verts,
+        sizes,
+        colors,
+        matrix=[1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+        default_size=1.0,
+        default_color=[1.0, 1.0, 1.0, 1.0],
+        timeline=[0.0, 0.0],
+        first_timestep=False,
+    ):
+        # create the part usd object
+        partname = self.clean_name(name + str(id) + str(timeline[0]))
+        stage_name = "/Parts/" + partname + ".usd"
+        part_stage_url = self.stage_url(stage_name)
+        omni.client.delete(part_stage_url)
+        part_stage = Usd.Stage.CreateNew(part_stage_url)
+        self._old_stages.append(part_stage_url)
+        xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
+
+        points = UsdGeom.Points.Define(part_stage, "/" + partname + "/Points")
+        # points.GetPointsAttr().Set(Vt.Vec3fArray(verts.tolist()))
+        points.GetPointsAttr().Set(verts)
+        if sizes is not None and sizes.size == (verts.size // 3):
+            points.GetWidthsAttr().Set(sizes)
+        else:
+            points.GetWidthsAttr().Set([default_size] * (verts.size // 3))
+
+        colorAttr = points.GetPrim().GetAttribute("primvars:displayColor")
+        colorAttr.SetMetadata("interpolation", "vertex")
+        if colors is not None and colors.size == verts.size:
+            colorAttr.Set(colors)
+        else:
+            colorAttr.Set([default_color[0:3]] * (verts.size // 3))
+
+        part_prim = part_stage.GetPrimAtPath("/" + partname)
+        part_stage.SetDefaultPrim(part_prim)
+
+        # Currently, this will never happen, but it is a setup for rigid body transforms
+        # At present, the group transforms have been cooked into the vertices so this is not needed
+        matrixOp = xform.AddXformOp(UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble)
+        matrixOp.Set(Gf.Matrix4d(*matrix).GetTranspose())
+
+        timestep_prim = self.add_timestep_group(parent_prim, timeline, first_timestep)
 
         # glue it into our stage
         path = timestep_prim.GetPath().AppendChild("part_ref_" + partname)
@@ -599,34 +662,58 @@ class OmniverseUpdateHandler(UpdateHandler):
 
     def finalize_part(self, part: Part) -> None:
         # generate an Omniverse compliant mesh from the Part
-        command, verts, conn, normals, tcoords, var_cmd = part.nodal_surface_rep()
-        if command is None:
+        # if part.cmd:
+        #    print(f"Part {part.cmd.name} Points: {part.coords.size} Var values: {part.tcoords.size} Node sizes: {part.node_sizes.size}")
+        #    for s in part.node_sizes:
+        #        print(f"{s}")
+        if part is None or part.cmd is None:
             return
-        parent_prim = self._group_prims[command.parent_id]
+        parent_prim = self._group_prims[part.cmd.parent_id]
         obj_id = self.session.mesh_block_count
-        matrix = command.matrix4x4
-        name = command.name
+        matrix = part.cmd.matrix4x4
+        name = part.cmd.name
         color = [
-            command.fill_color[0] * command.diffuse,
-            command.fill_color[1] * command.diffuse,
-            command.fill_color[2] * command.diffuse,
-            command.fill_color[3],
+            part.cmd.fill_color[0] * part.cmd.diffuse,
+            part.cmd.fill_color[1] * part.cmd.diffuse,
+            part.cmd.fill_color[2] * part.cmd.diffuse,
+            part.cmd.fill_color[3],
         ]
-        # Generate the mesh block
-        _ = self._omni.create_dsg_mesh_block(
-            name,
-            obj_id,
-            parent_prim,
-            verts,
-            conn,
-            normals,
-            tcoords,
-            matrix=matrix,
-            diffuse=color,
-            variable=var_cmd,
-            timeline=self.session.cur_timeline,
-            first_timestep=(self.session.cur_timeline[0] == self.session.time_limits[0]),
-        )
+
+        if part.cmd.render == part.cmd.CONNECTIVITY:
+            command, verts, conn, normals, tcoords, var_cmd = part.nodal_surface_rep()
+            if command is not None:
+                # Generate the mesh block
+                _ = self._omni.create_dsg_mesh_block(
+                    name,
+                    obj_id,
+                    parent_prim,
+                    verts,
+                    conn,
+                    normals,
+                    tcoords,
+                    matrix=matrix,
+                    diffuse=color,
+                    variable=var_cmd,
+                    timeline=self.session.cur_timeline,
+                    first_timestep=(self.session.cur_timeline[0] == self.session.time_limits[0]),
+                )
+
+        elif part.cmd.render == part.cmd.NODES:
+            command, verts, sizes, colors, var_cmd = part.point_rep()
+            if command is not None:
+                _ = self._omni.create_dsg_points(
+                    name,
+                    obj_id,
+                    parent_prim,
+                    verts,
+                    sizes,
+                    colors,
+                    matrix=matrix,
+                    default_size=part.cmd.node_size_default,
+                    default_color=color,
+                    timeline=self.session.cur_timeline,
+                    first_timestep=(self.session.cur_timeline[0] == self.session.time_limits[0]),
+                )
         super().finalize_part(part)
 
     def start_connection(self) -> None:

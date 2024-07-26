@@ -34,8 +34,8 @@ class Part(object):
         self.normals = numpy.array([], dtype="float32")
         self.normals_elem = False
         self.tcoords = numpy.array([], dtype="float32")
-        self.tcoords_var_id: Optional[int] = None
         self.tcoords_elem = False
+        self.node_sizes = numpy.array([], dtype="float32")
         self.cmd: Optional[Any] = None
         self.reset()
 
@@ -48,6 +48,7 @@ class Part(object):
         self.tcoords = numpy.array([], dtype="float32")
         self.tcoords_var_id = None
         self.tcoords_elem = False
+        self.node_sizes = numpy.array([], dtype="float32")
         self.cmd = cmd
 
     def update_geom(self, cmd: dynamic_scene_graph_pb2.UpdateGeom) -> None:
@@ -85,17 +86,23 @@ class Part(object):
         ):
             # Get the variable definition
             if cmd.variable_id in self.session.variables:
-                self.tcoords_var_id = cmd.variable_id
-                self.tcoords_elem = (
-                    cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.ELEM_VARIABLE
-                )
-                if self.tcoords.size != cmd.total_array_size:
-                    self.tcoords = numpy.resize(self.tcoords, cmd.total_array_size)
-                self.tcoords[
-                    cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)
-                ] = cmd.flt_array
-            else:
-                self.tcoords_var_id = None
+                if self.cmd.color_variableid == cmd.variable_id:  # type: ignore
+                    # Receive the colorby var values
+                    self.tcoords_elem = (
+                        cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.ELEM_VARIABLE
+                    )
+                    if self.tcoords.size != cmd.total_array_size:
+                        self.tcoords = numpy.resize(self.tcoords, cmd.total_array_size)
+                    self.tcoords[
+                        cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)
+                    ] = cmd.flt_array
+                if self.cmd.node_size_variableid == cmd.variable_id:  # type: ignore
+                    # Receive the node size var values
+                    if self.node_sizes.size != cmd.total_array_size:
+                        self.node_sizes = numpy.resize(self.node_sizes, cmd.total_array_size)
+                    self.node_sizes[
+                        cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)
+                    ] = cmd.flt_array
 
     def nodal_surface_rep(self):
         """
@@ -122,26 +129,7 @@ class Part(object):
             self.session.log(f"Note: part '{self.cmd.name}' contains no triangles.")
             return None, None, None, None, None, None
         verts = self.coords
-        if self.session.normalize_geometry and self.session.scene_bounds is not None:
-            midx = (self.session.scene_bounds[3] + self.session.scene_bounds[0]) * 0.5
-            midy = (self.session.scene_bounds[4] + self.session.scene_bounds[1]) * 0.5
-            midz = (self.session.scene_bounds[5] + self.session.scene_bounds[2]) * 0.5
-            dx = self.session.scene_bounds[3] - self.session.scene_bounds[0]
-            dy = self.session.scene_bounds[4] - self.session.scene_bounds[1]
-            dz = self.session.scene_bounds[5] - self.session.scene_bounds[2]
-            s = dx
-            if dy > s:
-                s = dy
-            if dz > s:
-                s = dz
-            if s == 0:
-                s = 1.0
-            num_verts = int(verts.size / 3)
-            for i in range(num_verts):
-                j = i * 3
-                verts[j + 0] = (verts[j + 0] - midx) / s
-                verts[j + 1] = (verts[j + 1] - midy) / s
-                verts[j + 2] = (verts[j + 2] - midz) / s
+        self.normalize_verts(verts)
 
         conn = self.conn_tris
         normals = self.normals
@@ -243,6 +231,141 @@ class Part(object):
         command = self.cmd
 
         return command, verts, conn, normals, tcoords, var_cmd
+
+    def normalize_verts(self, verts: numpy.ndarray):
+        """
+        This function scales and translates vertices, so the longest axis in the scene is of
+        length 1.0, and data is centered at the origin
+
+        Returns the scale factor
+        """
+        s = 1.0
+        if self.session.normalize_geometry and self.session.scene_bounds is not None:
+            num_verts = int(verts.size / 3)
+            midx = (self.session.scene_bounds[3] + self.session.scene_bounds[0]) * 0.5
+            midy = (self.session.scene_bounds[4] + self.session.scene_bounds[1]) * 0.5
+            midz = (self.session.scene_bounds[5] + self.session.scene_bounds[2]) * 0.5
+            dx = self.session.scene_bounds[3] - self.session.scene_bounds[0]
+            dy = self.session.scene_bounds[4] - self.session.scene_bounds[1]
+            dz = self.session.scene_bounds[5] - self.session.scene_bounds[2]
+            s = dx
+            if dy > s:
+                s = dy
+            if dz > s:
+                s = dz
+            if s == 0:
+                s = 1.0
+            for i in range(num_verts):
+                j = i * 3
+                verts[j + 0] = (verts[j + 0] - midx) / s
+                verts[j + 1] = (verts[j + 1] - midy) / s
+                verts[j + 2] = (verts[j + 2] - midz) / s
+        return 1.0 / s
+
+    def point_rep(self):
+        """
+        This function processes the geometry arrays and returns values to represent point data
+
+        Returns
+        -------
+        On failure, the method returns None for the first return value.  The returned tuple is:
+
+        (part_command, vertices, sizes, colors, var_command)
+
+        part_command: UPDATE_PART command object
+        vertices: numpy array of per-node coordinates
+        sizes: numpy array of per-node radii
+        colors: numpy array of per-node rgb colors
+        var_command: UPDATE_VARIABLE command object for the variable the colors correspond to, if any
+        """
+        if self.cmd is None:
+            return None, None, None, None, None
+        if self.cmd.render != self.cmd.NODES:
+            # Early out.  Rendering type for this object is a surface rep, not a point rep
+            return None, None, None, None, None
+        verts = self.coords
+        num_verts = int(verts.size / 3)
+        norm_scale = self.normalize_verts(verts)
+
+        # Convert var values in self.tcoords to RGB colors
+        # For now, look up RGB colors.  Planned USD enhancements should allow tex coords instead.
+        colors = None
+        var_cmd = None
+
+        if self.tcoords.size and self.tcoords.size == num_verts:
+            var_dsg_id = self.cmd.color_variableid
+            var_cmd = self.session.variables[var_dsg_id]
+            if len(var_cmd.levels) == 0:
+                self.session.log(
+                    f"Note: Node rep not created for part '{self.cmd.name}'.  It has var values, but a palette with 0 levels."
+                )
+                return None, None, None, None, None
+
+            p_min = None
+            p_max = None
+            for lvl in var_cmd.levels:
+                if (p_min is None) or (p_min > lvl.value):
+                    p_min = lvl.value
+                if (p_max is None) or (p_max < lvl.value):
+                    p_max = lvl.value
+
+            num_texels = int(len(var_cmd.texture) / 4)
+
+            colors = numpy.ndarray((num_verts * 3,), dtype="float32")
+            low_color = [c / 255.0 for c in var_cmd.texture[0:3]]
+            high_color = [
+                c / 255.0 for c in var_cmd.texture[4 * (num_texels - 1) : 4 * (num_texels - 1) + 3]
+            ]
+            if p_min == p_max:
+                # Special case where palette min == palette max
+                mid_color = var_cmd[4 * (num_texels // 2) : 4 * (num_texels // 2) + 3]
+                for idx in range(num_verts):
+                    val = self.tcoords[idx]
+                    if val == p_min:
+                        colors[idx * 3 : idx * 3 + 3] = mid_color
+                    elif val < p_min:
+                        colors[idx * 3 : idx * 3 + 3] = low_color
+                    elif val > p_min:
+                        colors[idx * 3 : idx * 3 + 3] = high_color
+            else:
+                for idx in range(num_verts):
+                    val = self.tcoords[idx]
+                    if val <= p_min:
+                        colors[idx * 3 : idx * 3 + 3] = low_color
+                    else:
+                        pal_pos = (num_texels - 1) * (val - p_min) / (p_max - p_min)
+                        pal_idx, pal_sub = divmod(pal_pos, 1)
+                        pal_idx = int(pal_idx)
+
+                        if pal_idx >= num_texels - 1:
+                            colors[idx * 3 : idx * 3 + 3] = high_color
+                        else:
+                            col0 = var_cmd.texture[pal_idx * 4 : pal_idx * 4 + 3]
+                            col1 = var_cmd.texture[4 + pal_idx * 4 : 4 + pal_idx * 4 + 3]
+                            for ii in range(0, 3):
+                                colors[idx * 3 + ii] = (
+                                    col0[ii] * pal_sub + col1[ii] * (1.0 - pal_sub)
+                                ) / 255.0
+            self.session.log(f"Part '{self.cmd.name}' defined: {self.coords.size/3} points.")
+
+        node_sizes = None
+        if self.node_sizes.size and self.node_sizes.size == num_verts:
+            # Pass out the node sizes if there is a size-by variable
+            node_size_default = self.cmd.node_size_default * norm_scale
+            node_sizes = numpy.ndarray((num_verts,), dtype="float32")
+            for ii in range(0, num_verts):
+                node_sizes[ii] = self.node_sizes[ii] * node_size_default
+        elif norm_scale != 1.0:
+            # Pass out the node sizes if the model is normalized to fit in a unit cube
+            node_size_default = self.cmd.node_size_default * norm_scale
+            node_sizes = numpy.ndarray((num_verts,), dtype="float32")
+            for ii in range(0, num_verts):
+                node_sizes[ii] = node_size_default
+
+        self.session.log(f"Part '{self.cmd.name}' defined: {self.coords.size/3} points.")
+        command = self.cmd
+
+        return command, verts, node_sizes, colors, var_cmd
 
 
 class UpdateHandler(object):
@@ -700,7 +823,7 @@ class DSGSession(object):
         self._callback_handler.finalize_part(self.part)
         self._mesh_block_count += 1
 
-    def _handle_part(self, part: Any) -> None:
+    def _handle_part(self, part_cmd: Any) -> None:
         """Handle a DSG UPDATE_PART command
 
         Finish the current part and set up the next part.
@@ -711,7 +834,7 @@ class DSGSession(object):
             The command coming from the EnSight stream.
         """
         self._finish_part()
-        self._part.reset(part)
+        self._part.reset(part_cmd)
 
     def _handle_group(self, group: Any) -> None:
         """Handle a DSG UPDATE_GROUP command
