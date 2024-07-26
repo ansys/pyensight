@@ -256,10 +256,8 @@ class Omniverse:
         # we are launching the kit from EnSight or PyEnSight.  In these cases, we
         # inform the kit instance of:
         # (1) the name of the "server status" file, if any
-        # (2) where should it get the ansys.pyensight.core module from
         self._new_status_file()
         env_vars["ANSYS_OV_SERVER_STATUS_FILENAME"] = self._status_filename
-        env_vars["ANSYS_OV_SERVER_PYENSIGHT_DIR"] = pyensight_core_dir
         working_dir = os.path.join(pyensight_core_dir, "utils")
         process = subprocess.Popen(cmd, close_fds=True, env=env_vars, cwd=working_dir)
         self._server_pid = process.pid

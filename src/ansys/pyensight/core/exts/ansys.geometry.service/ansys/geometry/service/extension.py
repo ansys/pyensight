@@ -42,12 +42,24 @@ except ModuleNotFoundError:
 """
 If we have a local copy of the module, the above installed the correct
 dependencies, but we want to use the local copy.  Do this by prefixing
-the path and (re)load the modules.
+the path and (re)load the modules.  The pyensight wheel includes the
+following for this file:
+ansys\pyensight\core\exts\ansys.geometry.service\ansys\geometry\service\extension.py
 """
-if "ANSYS_OV_SERVER_PYENSIGHT_DIR" in os.environ:
+kit_dir = __file__
+for _ in range(5):
+    kit_dir = os.path.dirname(kit_dir)
+"""
+At this point, the name should be: {something}\ansys\pyensight\core\exts
+Check for the fragments in the right order.
+"""
+offsets = []
+for name in ["ansys", "pyensight", "core", "exts"]:
+    offsets.append(kit_dir.find(name))
+# if the order of the names in correct and there is no -1 in the offsets, we found it
+if (sorted(offsets) == offsets) and (sorted(offsets)[0] != -1):
     # name of 'ansys/pyensight/core' directory. We need three levels above.
-    name = os.environ["ANSYS_OV_SERVER_PYENSIGHT_DIR"]
-    name = os.path.dirname(os.path.dirname(os.path.dirname(name)))
+    name = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(kit_dir))))
     sys.path.insert(0, name)
     logging.info(f"Using ansys.pyensight.core from: {name}")
 
@@ -63,7 +75,7 @@ _ = reload(ansys.pyensight.core.utils)
 _ = reload(ansys.pyensight.core.utils.dsg_server)
 _ = reload(ansys.pyensight.core.utils.omniverse_dsg_server)
 
-logging.warning(f"RJF Using ansys.pyensight.core from: {ansys.pyensight.core.__file__}")
+logging.warning(f"Using ansys.pyensight.core from: {ansys.pyensight.core.__file__}")
 
 
 def find_kit_filename() -> Optional[str]:
@@ -451,14 +463,6 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
         Note: this method does not return until the DSG connection is dropped or
         self.stop_server() has been called.
         """
-        self.warning(f"RJF Using dsg_server from: {dsg_server.__file__}")
-        self.warning(f"RJF Using ov_dsg_server from: {ov_dsg_server.__file__}")
-
-        # Note: This is temporary.  The correct fix will be included in
-        # the pyensight 0.8.5 wheel.  The OmniverseWrapper assumes the CWD
-        # to be the directory with the "resource" directory.
-        # RJF
-        # os.chdir(os.path.dirname(ov_dsg_server.__file__))
 
         # Build the Omniverse connection
         omni_link = ov_dsg_server.OmniverseWrapper(path=self._omni_uri, verbose=1)

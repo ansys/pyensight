@@ -113,7 +113,7 @@ class AnsysGeometryServiceUIExtension(omni.ext.IExt):
         if self.service is None:
             self.error("Unable to find ansys.geometry.service instance")
         self.build_ui()
-        self.update_ui()
+        self._update_callback()
 
     def _update_callback(self) -> None:
         self.update_ui()
@@ -134,6 +134,7 @@ class AnsysGeometryServiceUIExtension(omni.ext.IExt):
             self._connect_w.text = "Connect to DSG Server"
             self._label_w.text = "No connected DSG server"
         self._update_w.enabled = self._connected and (status.get("status", "idle") == "idle")
+        self._connect_w.enabled = status.get("status", "idle") == "idle"
         self._temporal_w.enabled = True
         self._vrmode_w.enabled = not self._connected
         self._normalize_w.enabled = not self._connected
