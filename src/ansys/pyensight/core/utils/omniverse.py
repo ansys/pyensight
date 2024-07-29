@@ -1,9 +1,12 @@
 import glob
+import json
 import os
 import subprocess
 import sys
+import tempfile
 from types import ModuleType
 from typing import TYPE_CHECKING, Optional, Union
+import uuid
 
 import psutil
 
@@ -52,6 +55,7 @@ class Omniverse:
         self._ensight = interface
         self._server_pid: Optional[int] = None
         self._interpreter: str = ""
+        self._status_filename: str = ""
 
     @staticmethod
     def find_kit_filename(fallback_directory: Optional[str] = None) -> Optional[str]:
@@ -230,7 +234,8 @@ class Omniverse:
 
         # Launch the server via the 'ansys.geometry.service' kit
         dsg_uri = f"grpc://{hostname}:{port}"
-        kit_dir = os.path.join(os.path.dirname(ansys.pyensight.core.__file__), "exts")
+        pyensight_core_dir = os.path.dirname(ansys.pyensight.core.__file__)
+        kit_dir = os.path.join(pyensight_core_dir, "exts")
         cmd = [self._interpreter]
         cmd.extend(["--ext-folder", kit_dir])
         cmd.extend(["--enable", "ansys.geometry.service"])
@@ -248,9 +253,54 @@ class Omniverse:
         cmd.append(f"--/exts/ansys.geometry.service/dsgUrl={dsg_uri}")
         cmd.append("--/exts/ansys.geometry.service/run=1")
         env_vars = os.environ.copy()
-        working_dir = os.path.join(os.path.dirname(ansys.pyensight.core.__file__), "utils")
+        # we are launching the kit from EnSight or PyEnSight.  In these cases, we
+        # inform the kit instance of:
+        # (1) the name of the "server status" file, if any
+        self._new_status_file()
+        env_vars["ANSYS_OV_SERVER_STATUS_FILENAME"] = self._status_filename
+        working_dir = os.path.join(pyensight_core_dir, "utils")
         process = subprocess.Popen(cmd, close_fds=True, env=env_vars, cwd=working_dir)
         self._server_pid = process.pid
+
+    def _new_status_file(self, new=True) -> None:
+        """
+        Remove any existing status file and create a new one if requested.
+
+        Parameters
+        ----------
+        new : bool
+            If True, create a new status file.
+        """
+        if self._status_filename:
+            try:
+                os.remove(self._status_filename)
+            except OSError:
+                pass
+        self._status_filename = ""
+        if new:
+            self._status_filename = os.path.join(
+                tempfile.gettempdir(), str(uuid.uuid1()) + "_gs_status.txt"
+            )
+
+    def read_status_file(self) -> dict:
+        """Read the status file and return its contents as a dictionary.
+
+        Note: this can fail if the file is being written to when this call is made, so expect
+        failures.
+
+        Returns
+        -------
+        Optional[dict]
+            A dictionary with the fields 'status', 'start_time', 'processed_buffers', 'total_buffers' or empty
+        """
+        if not self._status_filename:
+            return {}
+        try:
+            with open(self._status_filename, "r") as status_file:
+                data = json.load(status_file)
+        except Exception:
+            return {}
+        return data
 
     def close_connection(self) -> None:
         """Shut down the open EnSight dsg -> omniverse server
@@ -275,6 +325,7 @@ class Omniverse:
         except psutil.NoSuchProcess:
             pass
         self._server_pid = None
+        self._new_status_file(new=False)
 
     def update(self, temporal: bool = False) -> None:
         """Update the geometry in Omniverse
