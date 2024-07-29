@@ -123,8 +123,18 @@ scene to Omniverse.
     ``git://github.com/ansys/pyensight.git?branch=main&dir=exts``.
 
 
-Developers: Running a "dev" build from the Command Line
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Developers: Running development builds
+--------------------------------------
+
+There are several different ways for developers working on these
+features to debug and test them.  There is a command line approach
+perhaps more suited to the pyensight developer and there is an
+Omniverse tool GUI approach that can be useful when looking to
+develop/extend the UI kits.
+
+
+From the Command Line
+^^^^^^^^^^^^^^^^^^^^^
 
 Omniverse kits can be run as command line tools and
 the ``ansys.geometry.service`` is designed to support this mode
@@ -137,15 +147,15 @@ using the ``Settings`` option:
 .. image:: /_static/omniverse_create_location.png
 
 Consider an example where the create app has been installed and the
-file ``C:\Users\me\AppData\Local\ov\pkg\create-2023.2.5\kit.bat``
+file ``C:\Users\user1\AppData\Local\ov\pkg\create-2023.2.5\kit.bat``
 exists.  A copy of the pyensight repo is located and built here:
 ``D:\repos\pyensight``.  With these conditions, one can run the extension
 from the command line like this:
 
 .. code-block:: bat
 
-    cd "C:\Users\me\AppData\Local\ov\pkg\create-2023.2.5"
-    .\kit.bat --ext-folder "D:\repos\pyensight\exts" --enable ansys.geometry.service --/exts/ansys.geometry.service/help=1
+    cd "C:\Users\user1\AppData\Local\ov\pkg\create-2023.2.5"
+    .\kit.bat --ext-folder "D:\repos\pyensight\src\ansys\pyensight\core\exts" --enable ansys.geometry.service --/exts/ansys.geometry.service/help=1
 
 
 Will generate the following output in the logs:
@@ -172,17 +182,29 @@ Will generate the following output in the logs:
 
 
 Documenting the various kit command line options.  Using the ``run=1`` option will launch the server from
-from the command line.  This version of the service will be run using the version of the pyensight wheel
+from the command line.  This version of the service will be run using the version of the pyensight module
 installed in the specified ``--ext-folder``.  When run as above, the service will use the
-latest release of the ansys.pyensight.core wheel.  If a local build is located here:
-``D:\repos\pyensight\dist\ansys_pyensight_core-0.9.0.dev0-py3-none-any.whl`` it can be
-used in the above kit by installing it into the Omniverse kit Python:
+latest released of the ansys.pyensight.core wheel.  It is important the the ``--ext-folder`` option
+point to the ``exts`` directory inside of the ``ansys\pyensight\core`` directories as this will
+cause the kit to use the ``ansys.pyensight.core`` module from the directories above the kit
+instead of the any version installed in the kit Python itself.
 
 
-.. code-block:: bat
+From an Omniverse Application GUI
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-    .\kit\python.bat -m pip install D:\repos\pyensight\dist\ansys_pyensight_core-0.9.0.dev0-py3-none-any.whl
+This approach is very similar to the CLI approach in that one needs to get the GUI application
+to use the kit from either a source code checkout or perhaps from a local EnSight install.
+In either case, the key point is to add the same directory pointed out earlier to the GUI application.
 
+For example, if one has a copy of the pyensight repo checked out as in the previous CLI example, the
+key directory will be ``D:\repos\pyensight\src\ansys\pyensight\core\exts``.  This pathname can be
+added to the extensions path in an application like "Composer" through this GUI:
 
-This version will be used instead of the older version in the PyPi repository.
+.. image:: /_static/omniverse_app_paths.png
+
+With the path in place, the kits will show up in the Third-party extensions list and can be
+activated in the GUI.
+
+.. image:: /_static/omniverse_app_exts.png
 

@@ -24,7 +24,6 @@
 #
 ###############################################################################
 
-import argparse
 import logging
 import math
 import os
@@ -36,8 +35,8 @@ import omni.client
 import png
 from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdShade
 
-sys.path.append(os.path.dirname(__file__))
-from dsg_server import DSGSession, Part, UpdateHandler  # noqa: E402
+sys.path.insert(0, os.path.dirname(__file__))
+from dsg_server import Part, UpdateHandler  # noqa: E402
 
 
 class OmniverseWrapper:
@@ -593,91 +592,6 @@ class OmniverseWrapper:
         fullpath = os.path.join(os.path.dirname(__file__), "resources", "Materials")
         omni.client.copy(fullpath, uriPath)
 
-    def createMaterial(self, mesh):
-        # Create a material instance for this in USD
-        materialName = "Fieldstone"
-        newMat = UsdShade.Material.Define(self._stage, "/Root/Looks/Fieldstone")
-
-        matPath = "/Root/Looks/Fieldstone"
-
-        # MDL Shader
-        # Create the MDL shader
-        mdlShader = UsdShade.Shader.Define(self._stage, matPath + "/Fieldstone")
-        mdlShader.CreateIdAttr("mdlMaterial")
-
-        mdlShaderModule = "./Materials/Fieldstone.mdl"
-        mdlShader.SetSourceAsset(mdlShaderModule, "mdl")
-        # mdlShader.GetPrim().CreateAttribute("info:mdl:sourceAsset:subIdentifier",
-        #                                    Sdf.ValueTypeNames.Token, True).Set(materialName)
-        # mdlOutput = newMat.CreateSurfaceOutput("mdl")
-        # mdlOutput.ConnectToSource(mdlShader, "out")
-        mdlShader.SetSourceAssetSubIdentifier(materialName, "mdl")
-        shaderOutput = mdlShader.CreateOutput("out", Sdf.ValueTypeNames.Token)
-        shaderOutput.SetRenderType("material")
-        newMat.CreateSurfaceOutput("mdl").ConnectToSource(shaderOutput)
-        newMat.CreateDisplacementOutput("mdl").ConnectToSource(shaderOutput)
-        newMat.CreateVolumeOutput("mdl").ConnectToSource(shaderOutput)
-
-        # USD Preview Surface Shaders
-
-        # Create the "USD Primvar reader for float2" shader
-        primStShader = UsdShade.Shader.Define(self._stage, matPath + "/PrimST")
-        primStShader.CreateIdAttr("UsdPrimvarReader_float2")
-        primStShader.CreateOutput("result", Sdf.ValueTypeNames.Float2)
-        primStShader.CreateInput("varname", Sdf.ValueTypeNames.Token).Set("st")
-
-        # Create the "Diffuse Color Tex" shader
-        diffuseColorShader = UsdShade.Shader.Define(self._stage, matPath + "/DiffuseColorTex")
-        diffuseColorShader.CreateIdAttr("UsdUVTexture")
-        texInput = diffuseColorShader.CreateInput("file", Sdf.ValueTypeNames.Asset)
-        texInput.Set("./Materials/Fieldstone/Fieldstone_BaseColor.png")
-        texInput.GetAttr().SetColorSpace("RGB")
-        diffuseColorShader.CreateInput("st", Sdf.ValueTypeNames.Float2).ConnectToSource(
-            primStShader.CreateOutput("result", Sdf.ValueTypeNames.Float2)
-        )
-        diffuseColorShaderOutput = diffuseColorShader.CreateOutput("rgb", Sdf.ValueTypeNames.Float3)
-
-        # Create the "Normal Tex" shader
-        normalShader = UsdShade.Shader.Define(self._stage, matPath + "/NormalTex")
-        normalShader.CreateIdAttr("UsdUVTexture")
-        normalTexInput = normalShader.CreateInput("file", Sdf.ValueTypeNames.Asset)
-        normalTexInput.Set("./Materials/Fieldstone/Fieldstone_N.png")
-        normalTexInput.GetAttr().SetColorSpace("RAW")
-        normalShader.CreateInput("st", Sdf.ValueTypeNames.Float2).ConnectToSource(
-            primStShader.CreateOutput("result", Sdf.ValueTypeNames.Float2)
-        )
-        normalShaderOutput = normalShader.CreateOutput("rgb", Sdf.ValueTypeNames.Float3)
-
-        # Create the USD Preview Surface shader
-        usdPreviewSurfaceShader = UsdShade.Shader.Define(self._stage, matPath + "/PreviewSurface")
-        usdPreviewSurfaceShader.CreateIdAttr("UsdPreviewSurface")
-        diffuseColorInput = usdPreviewSurfaceShader.CreateInput(
-            "diffuseColor", Sdf.ValueTypeNames.Color3f
-        )
-        diffuseColorInput.ConnectToSource(diffuseColorShaderOutput)
-        normalInput = usdPreviewSurfaceShader.CreateInput("normal", Sdf.ValueTypeNames.Normal3f)
-        normalInput.ConnectToSource(normalShaderOutput)
-
-        # Set the linkage between material and USD Preview surface shader
-        # usdPreviewSurfaceOutput = newMat.CreateSurfaceOutput()
-        # usdPreviewSurfaceOutput.ConnectToSource(usdPreviewSurfaceShader, "surface")
-        # UsdShade.MaterialBindingAPI(mesh).Bind(newMat)
-
-        usdPreviewSurfaceShaderOutput = usdPreviewSurfaceShader.CreateOutput(
-            "surface", Sdf.ValueTypeNames.Token
-        )
-        usdPreviewSurfaceShaderOutput.SetRenderType("material")
-        newMat.CreateSurfaceOutput().ConnectToSource(usdPreviewSurfaceShaderOutput)
-
-        UsdShade.MaterialBindingAPI.Apply(mesh.GetPrim()).Bind(newMat)
-
-    # Create a distant light in the scene.
-    def createDistantLight(self):
-        newLight = UsdLux.DistantLight.Define(self._stage, "/Root/DistantLight")
-        newLight.CreateAngleAttr(0.53)
-        newLight.CreateColorAttr(Gf.Vec3f(1.0, 1.0, 0.745))
-        newLight.CreateIntensityAttr(500.0)
-
     # Create a dome light in the scene.
     def createDomeLight(self, texturePath):
         newLight = UsdLux.DomeLight.Define(self._stage, "/Root/DomeLight")
@@ -827,141 +741,3 @@ class OmniverseUpdateHandler(UpdateHandler):
         super().end_update()
         # Stage update complete
         self._omni.save_stage()
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Python Omniverse EnSight Dynamic Scene Graph Client",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    )
-    parser.add_argument(
-        "--path",
-        action="store",
-        default="omniverse://localhost/Users/test",
-        help="Omniverse pathname. Default=omniverse://localhost/Users/test",
-    )
-    parser.add_argument(
-        "--port",
-        metavar="ensight_grpc_port",
-        nargs="?",
-        default=12345,
-        type=int,
-        help="EnSight gRPC port number",
-    )
-    parser.add_argument(
-        "--host",
-        metavar="ensight_grpc_host",
-        nargs="?",
-        default="127.0.0.1",
-        type=str,
-        help="EnSight gRPC hostname",
-    )
-    parser.add_argument(
-        "--security",
-        metavar="ensight_grpc_security_code",
-        nargs="?",
-        default="",
-        type=str,
-        help="EnSight gRPC security code",
-    )
-    parser.add_argument(
-        "--verbose",
-        metavar="verbose_level",
-        default=0,
-        type=int,
-        help="Enable debugging information",
-    )
-    parser.add_argument(
-        "--animation", dest="animation", action="store_true", help="Save all timesteps (default)"
-    )
-    parser.add_argument(
-        "--no-animation",
-        dest="animation",
-        action="store_false",
-        help="Save only the current timestep",
-    )
-    parser.set_defaults(animation=False)
-    parser.add_argument(
-        "--log_file",
-        metavar="log_filename",
-        default="",
-        type=str,
-        help="Save program output to the named log file instead of stdout",
-    )
-    parser.add_argument(
-        "--live",
-        dest="live",
-        action="store_true",
-        default=False,
-        help="Enable continuous operation",
-    )
-    parser.add_argument(
-        "--normalize_geometry",
-        dest="normalize",
-        action="store_true",
-        default=False,
-        help="Spatially normalize incoming geometry",
-    )
-    parser.add_argument(
-        "--vrmode",
-        dest="vrmode",
-        action="store_true",
-        default=False,
-        help="In this mode do not include a camera or the case level matrix.  Geometry only.",
-    )
-    args = parser.parse_args()
-
-    log_args = dict(format="DSG/Omniverse: %(message)s", level=logging.INFO)
-    if args.log_file:
-        log_args["filename"] = args.log_file
-    logging.basicConfig(**log_args)  # type: ignore
-
-    destinationPath = args.path
-    loggingEnabled = args.verbose
-
-    # Build the OmniVerse connection
-    target = OmniverseWrapper(path=destinationPath, verbose=loggingEnabled, live_edit=args.live)
-    # Print the username for the server
-    target.username()
-
-    if loggingEnabled:
-        logging.info("Omniverse connection established.")
-
-    # link it to a DSG session
-    update_handler = OmniverseUpdateHandler(target)
-    dsg_link = DSGSession(
-        port=args.port,
-        host=args.host,
-        vrmode=args.vrmode,
-        security_code=args.security,
-        verbose=loggingEnabled,
-        normalize_geometry=args.normalize,
-        handler=update_handler,
-    )
-
-    if loggingEnabled:
-        dsg_link.log(f"Making DSG connection to: {args.host}:{args.port}")
-
-    # Start the DSG link
-    err = dsg_link.start()
-    if err < 0:
-        sys.exit(err)
-
-    # Simple pull request
-    dsg_link.request_an_update(animation=args.animation)
-    # Handle the update block
-    dsg_link.handle_one_update()
-
-    # Live operation
-    if args.live:
-        if loggingEnabled:
-            dsg_link.log("Waiting for remote push operations")
-        while not dsg_link.is_shutdown():
-            dsg_link.handle_one_update()
-
-    # Done...
-    if loggingEnabled:
-        dsg_link.log("Shutting down DSG connection")
-    dsg_link.end()
-
-    target.shutdown()

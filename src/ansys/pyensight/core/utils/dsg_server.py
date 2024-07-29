@@ -1,8 +1,10 @@
+import json
 import logging
 import os
 import queue
 import sys
 import threading
+import time
 from typing import Any, Dict, List, Optional
 
 from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2
@@ -533,6 +535,9 @@ class DSGSession(object):
         self._scene_bounds: Optional[List] = None
         self._cur_timeline: List = [0.0, 0.0]  # Start/End time for current update
         self._callback_handler.session = self
+        # log any status changes to this file.  external apps will be monitoring
+        self._status_file = os.environ.get("ANSYS_OV_SERVER_STATUS_FILENAME", "")
+        self._status = dict(status="idle", start_time=0.0, processed_buffers=0, total_buffers=0)
 
     @property
     def scene_bounds(self) -> Optional[List]:
@@ -641,6 +646,38 @@ class DSGSession(object):
         """Check the service shutdown request status"""
         return self._shutdown
 
+    def _update_status_file(self, timed: bool = False):
+        """
+        Update the status file contents. The status file will contain the
+        following json object, stored as: self._status
+
+        {
+        'status' : "working|idle",
+        'start_time' : timestamp_of_update_begin,
+        'processed_buffers' : number_of_protobuffers_processed,
+        'total_buffers' : number_of_protobuffers_total,
+        }
+
+        Parameters
+        ----------
+        timed : bool, optional:
+            if True, only update every second.
+
+        """
+        if self._status_file:
+            current_time = time.time()
+            if timed:
+                last_time = self._status.get("last_time", 0.0)
+                if current_time - last_time < 1.0:  # type: ignore
+                    return
+            self._status["last_time"] = current_time
+            try:
+                message = json.dumps(self._status)
+                with open(self._status_file, "w") as status_file:
+                    status_file.write(message)
+            except IOError:
+                pass  # Note failure is expected here in some cases
+
     def request_an_update(self, animation: bool = False, allow_spontaneous: bool = True) -> None:
         """Start a DSG update
         Send a command to the DSG protocol to "init" an update.
@@ -713,18 +750,31 @@ class DSGSession(object):
         self._mesh_block_count = 0  # reset when a new group shows up
         self._callback_handler.begin_update()
 
+        # Update our status
+        self._status = dict(
+            status="working", start_time=time.time(), processed_buffers=1, total_buffers=1
+        )
+        self._update_status_file()
+
         # handle the various commands until UPDATE_SCENE_END
         cmd = self._get_next_message()
         while (cmd is not None) and (
             cmd.command_type != dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_SCENE_END
         ):
             self._handle_update_command(cmd)
+            self._status["processed_buffers"] += 1  # type: ignore
+            self._status["total_buffers"] = self._status["processed_buffers"] + self._message_queue.qsize()  # type: ignore
+            self._update_status_file(timed=True)
             cmd = self._get_next_message()
 
         # Flush the last part
         self._finish_part()
 
         self._callback_handler.end_update()
+
+        # Update our status
+        self._status = dict(status="idle", start_time=0.0, processed_buffers=0, total_buffers=0)
+        self._update_status_file()
 
     def _handle_update_command(self, cmd: dynamic_scene_graph_pb2.SceneUpdateCommand) -> None:
         """Dispatch out a scene update command to the proper handler
