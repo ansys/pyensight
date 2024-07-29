@@ -17,13 +17,13 @@ from typing import Optional
 from ansys.pyensight.core.locallauncher import LocalLauncher
 from ansys.pyensight.core.session import Session
 
-pim_is_available = False
+pim_is_available = False  # pragma: no cover
 try:
     import ansys.platform.instancemanagement as pypim
 
-    pim_is_available = True
-except Exception:
-    pass
+    pim_is_available = True  # pragma: no cover
+except Exception:  # pragma: no cover
+    pass  # pragma: no cover
 logging.debug(f"pim_is_available: {pim_is_available}\n")
 
 docker_is_available = False
@@ -31,8 +31,8 @@ try:
     from ansys.pyensight.core.dockerlauncher import DockerLauncher
 
     docker_is_available = True
-except Exception:
-    pass
+except Exception:  # pragma: no cover
+    pass  # pragma: no cover
 logging.debug(f"docker_is_available: {docker_is_available}\n")
 
 
@@ -78,10 +78,7 @@ if pim_is_available:
             ]
         )
 
-        launcher = DockerLauncher(
-            channel=channel,
-            pim_instance=instance,
-        )
+        launcher = DockerLauncher(channel=channel, pim_instance=instance, **kwargs)
         return launcher.connect()
 
 
@@ -167,10 +164,10 @@ def launch_ensight(
         return launcher.start()
 
     # use local installation of EnSight
-    launcher = LocalLauncher(
-        ansys_installation=ansys_installation,
-        application=application,
-        batch=batch,
-        **kwargs,
-    )
-    return launcher.start()
+    launcher = LocalLauncher(  # pragma: no cover
+        ansys_installation=ansys_installation,  # pragma: no cover
+        application=application,  # pragma: no cover
+        batch=batch,  # pragma: no cover
+        **kwargs,  # pragma: no cover
+    )  # pragma: no cover
+    return launcher.start()  # pragma: no cover

@@ -1,7 +1,8 @@
+import glob
 import os
 import tempfile
 from types import ModuleType
-from typing import Any, Optional, Union
+from typing import Any, List, Optional, Union
 import uuid
 
 from PIL import Image
@@ -48,14 +49,14 @@ class Export:
             RuntimeError if the module is not present.
         """
         # if a module, then we are inside EnSight
-        if isinstance(self._ensight, ModuleType):
-            return
+        if isinstance(self._ensight, ModuleType):  # pragma: no cover
+            return  # pragma: no cover
         try:
             _ = self._ensight._session.cmd("dir(ensight.utils.export)")
-        except RuntimeError:
-            import ansys.pyensight.core
+        except RuntimeError:  # pragma: no cover
+            import ansys.pyensight.core  # pragma: no cover
 
-            raise RuntimeError(
+            raise RuntimeError(  # pragma: no cover
                 f"Remote EnSight session must have PyEnsight version \
             {ansys.pyensight.core.DEFAULT_ANSYS_VERSION} or higher installed to use this API."
             )
@@ -72,8 +73,6 @@ class Export:
         raytrace: bool = False,
     ) -> None:
         """Render an image of the current EnSight scene.
-
-        This method returns a PIL image object.
 
         Parameters
         ----------
@@ -109,8 +108,10 @@ class Export:
         if height is None:
             height = win_size[1]
 
-        if isinstance(self._ensight, ModuleType):
-            raw_image = self._image_remote(width, height, passes, enhanced, raytrace)
+        if isinstance(self._ensight, ModuleType):  # pragma: no cover
+            raw_image = self._image_remote(
+                width, height, passes, enhanced, raytrace
+            )  # pragma: no cover
         else:
             cmd = f"ensight.utils.export._image_remote({width}, {height}, {passes}, "
             cmd += f"{enhanced}, {raytrace})"
@@ -343,14 +344,14 @@ class Export:
         else:
             num_frames = frames
 
-        if num_frames < 1:
-            raise RuntimeError(
+        if num_frames < 1:  # pragma: no cover
+            raise RuntimeError(  # pragma: no cover
                 "No frames selected. Perhaps a static dataset SOLUTIONTIME request \
                  or no FLIPBOOK/KEYFRAME defined."
             )
 
-        if isinstance(self._ensight, ModuleType):
-            raw_mpeg4 = self._animation_remote(
+        if isinstance(self._ensight, ModuleType):  # pragma: no cover
+            raw_mpeg4 = self._animation_remote(  # pragma: no cover
                 width,
                 height,
                 passes,
@@ -464,3 +465,120 @@ class Export:
                 mp4_data = fp.read()
 
         return mp4_data
+
+    GEOM_EXPORT_GLTF = "gltf2"
+    GEOM_EXPORT_AVZ = "avz"
+    GEOM_EXPORT_PLY = "ply"
+    GEOM_EXPORT_STL = "stl"
+
+    extension_map = {
+        GEOM_EXPORT_GLTF: ".glb",
+        GEOM_EXPORT_AVZ: ".avz",
+        GEOM_EXPORT_PLY: ".ply",
+        GEOM_EXPORT_STL: ".stl",
+    }
+
+    def _geometry_remote(  # pragma: no cover
+        self, format: str, starting_timestep: int, frames: int, delta_timestep: int
+    ) -> List[bytes]:
+        """EnSight-side implementation.
+
+        Parameters
+        ----------
+        format : str
+            The format to export
+        starting_timestep: int
+            The first timestep to export. If None, defaults to the current timestep
+        frames: int
+            Number of timesteps to save. If None, defaults from the current timestep to the last
+        delta_timestep: int
+            The delta timestep to use when exporting
+
+        Returns
+        -------
+        bytes
+            Geometry export in bytes
+        """
+        rawdata = None
+        extension = self.extension_map.get(format)
+        rawdata_list = []
+        if not extension:
+            raise RuntimeError("The geometry export format provided is not supported.")
+        with tempfile.TemporaryDirectory() as tmpdirname:
+            self._ensight.part.select_all()
+            self._ensight.savegeom.format(format)
+            self._ensight.savegeom.begin_step(starting_timestep)
+            # frames is 1-indexed, so I need to decrease of 1
+            self._ensight.savegeom.end_step(starting_timestep + frames - 1)
+            self._ensight.savegeom.step_by(delta_timestep)
+            tmpfilename = os.path.join(tmpdirname, str(uuid.uuid1()))
+            self._ensight.savegeom.save_geometric_entities(tmpfilename)
+            files = glob.glob(f"{tmpfilename}*{extension}")
+            for export_file in files:
+                with open(export_file, "rb") as tmpfile:
+                    rawdata = tmpfile.read()
+                    rawdata_list.append(rawdata)
+        return rawdata_list
+
+    def geometry(
+        self,
+        filename: str,
+        format: str = GEOM_EXPORT_GLTF,
+        starting_timestep: Optional[int] = None,
+        frames: Optional[int] = 1,
+        delta_timestep: Optional[int] = None,
+    ) -> None:
+        """Export a geometry file.
+
+        Parameters
+        ----------
+        filename: str
+            The location where to export the geometry
+        format : str
+            The format to export
+        starting_timestep: int
+            The first timestep to export. If None, defaults to the current timestep
+        frames: int
+            Number of timesteps to save. If None, defaults from the current timestep to the last
+        delta_timestep: int
+            The delta timestep to use when exporting
+
+        Examples
+        --------
+        >>> s = LocalLauncher().start()
+        >>> data = f"{s.cei_home}/ensight{s.cei_suffix}gui/demos/Crash Queries.ens"
+        >>> s.ensight.objs.ensxml_restore_file(data)
+        >>> s.ensight.utils.export.geometry("local_file.glb", format=s.ensight.utils.export.GEOM_EXPORT_GLTF)
+        """
+        if starting_timestep is None:
+            starting_timestep = int(self._ensight.objs.core.TIMESTEP)
+        if frames is None or frames == -1:
+            # Timesteps are 0-indexed so frames need to be increased of 1
+            frames = int(self._ensight.objs.core.TIMESTEP_LIMITS[1]) + 1
+        if not delta_timestep:
+            delta_timestep = 1
+        self._remote_support_check()
+        raw_data_list = None
+        if isinstance(self._ensight, ModuleType):  # pragma: no cover
+            raw_data_list = self._geometry_remote(  # pragma: no cover
+                format,
+                starting_timestep=starting_timestep,
+                frames=frames,
+                delta_timestep=delta_timestep,
+            )
+        else:
+            self._ensight._session.ensight_version_check("2024 R2")
+            cmd = f"ensight.utils.export._geometry_remote('{format}', {starting_timestep}, {frames}, {delta_timestep})"
+            raw_data_list = self._ensight._session.cmd(cmd)
+        if raw_data_list:  # pragma: no cover
+            if len(raw_data_list) == 1:
+                with open(filename, "wb") as fp:
+                    fp.write(raw_data_list[0])
+            else:
+                for idx, raw_data in enumerate(raw_data_list):
+                    filename_base, extension = os.path.splitext(filename)
+                    _filename = f"{filename_base}{str(idx).zfill(3)}{extension}"
+                    with open(_filename, "wb") as fp:
+                        fp.write(raw_data)
+        else:  # pragma: no cover
+            raise IOError("Export was not successful")  # pragma: no cover

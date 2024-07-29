@@ -19,9 +19,10 @@ import sys
 import textwrap
 import time
 import types
-from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Tuple
+from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Tuple, Union
 from urllib.parse import urlparse
 from urllib.request import url2pathname
+import uuid
 import webbrowser
 
 from ansys.pyensight.core.enscontext import EnsContext
@@ -43,6 +44,10 @@ if TYPE_CHECKING:
     from ansys.api.pyensight import ensight_api
     from ansys.pyensight.core import enscontext, ensight_grpc, renderable
     from ansys.pyensight.core.ensobj import ENSOBJ
+
+
+class InvalidEnSightVersion(Exception):
+    pass
 
 
 class Session:
@@ -77,6 +82,9 @@ class Session:
         The default is ``""``.
     grpc_port : int, optional
         Port number of the EnSight gRPC service. The default is ``12345``.
+    html_host : str, optional
+        Optional hostname for html connections if different than host
+        Used by Ansys Lab and reverse proxy servers
     html_port : int, optional
         Port number of the websocket server's HTTP server. The default is
         ``None``.
@@ -105,6 +113,14 @@ class Session:
     >>> from ansys.pyensight.core import LocalLauncher
     >>> session = LocalLauncher().start()
 
+    >>> # Launch an instance of EnSight, then create a second connection to the instance
+    >>> from ansys.pyensight.core import LocalLauncher, Session
+    >>> launched_session = LocalLauncher().start()
+    >>> # Get a string that can be used to create a second connection
+    >>> session_string = str(launched_session)
+    >>> # Create a second connection to the same EnSight instance
+    >>> connected_session = eval(session_string)
+
     """
 
     def __init__(
@@ -113,6 +129,7 @@ class Session:
         install_path: Optional[str] = None,
         secret_key: str = "",
         grpc_port: int = 12345,
+        html_hostname: Optional[str] = None,
         html_port: Optional[int] = None,
         ws_port: Optional[int] = None,
         session_directory: Optional[str] = None,
@@ -120,6 +137,8 @@ class Session:
         rest_api: bool = False,
         sos: bool = False,
     ) -> None:
+        # every session instance needs a unique name that can be used as a cache key
+        self._session_name = str(uuid.uuid1())
         # when objects come into play, we can reuse them, so hash ID to instance here
         self._ensobj_hash: Dict[int, "ENSOBJ"] = {}
         self._language = "en"
@@ -131,6 +150,11 @@ class Session:
         self._hostname = host
         self._install_path = install_path
         self._launcher = None
+        if html_hostname == "" or html_hostname is None:
+            # if we weren't given an html host, use the hostname
+            self._html_hostname = self._hostname
+        else:
+            self._html_hostname = html_hostname
         self._html_port = html_port
         self._ws_port = ws_port
         self._secret_key = secret_key
@@ -148,7 +172,7 @@ class Session:
         # are we in a jupyter notebook?
         try:
             _ = get_ipython()  # type: ignore
-            self._jupyter_notebook = True
+            self._jupyter_notebook = True  # pragma: no cover
         except NameError:
             self._jupyter_notebook = False
 
@@ -161,6 +185,7 @@ class Session:
         self._grpc = ensight_grpc.EnSightGRPC(
             host=self._hostname, port=self._grpc_port, secret_key=self._secret_key
         )
+        self._grpc.session_name = self._session_name
 
         # establish the connection with retry
         self._establish_connection(validate=True)
@@ -185,6 +210,54 @@ class Session:
         # call close() twice on this class if needed.
         atexit.register(self.close)
 
+        # Speed up subtype lookups:
+        self._subtype_tables = {}
+        part_lookup_dict = dict()
+        part_lookup_dict[0] = "ENS_PART_MODEL"
+        part_lookup_dict[1] = "ENS_PART_CLIP"
+        part_lookup_dict[2] = "ENS_PART_CONTOUR"
+        part_lookup_dict[3] = "ENS_PART_DISCRETE_PARTICLE"
+        part_lookup_dict[4] = "ENS_PART_FRAME"
+        part_lookup_dict[5] = "ENS_PART_ISOSURFACE"
+        part_lookup_dict[6] = "ENS_PART_PARTICLE_TRACE"
+        part_lookup_dict[7] = "ENS_PART_PROFILE"
+        part_lookup_dict[8] = "ENS_PART_VECTOR_ARROW"
+        part_lookup_dict[9] = "ENS_PART_ELEVATED_SURFACE"
+        part_lookup_dict[10] = "ENS_PART_DEVELOPED_SURFACE"
+        part_lookup_dict[15] = "ENS_PART_BUILT_UP"
+        part_lookup_dict[16] = "ENS_PART_TENSOR_GLYPH"
+        part_lookup_dict[17] = "ENS_PART_FX_VORTEX_CORE"
+        part_lookup_dict[18] = "ENS_PART_FX_SHOCK"
+        part_lookup_dict[19] = "ENS_PART_FX_SEP_ATT"
+        part_lookup_dict[20] = "ENS_PART_MAT_INTERFACE"
+        part_lookup_dict[21] = "ENS_PART_POINT"
+        part_lookup_dict[22] = "ENS_PART_AXISYMMETRIC"
+        part_lookup_dict[24] = "ENS_PART_VOF"
+        part_lookup_dict[25] = "ENS_PART_AUX_GEOM"
+        part_lookup_dict[26] = "ENS_PART_FILTER"
+        self._subtype_tables["ENS_PART"] = part_lookup_dict
+        annot_lookup_dict = dict()
+        annot_lookup_dict[0] = "ENS_ANNOT_TEXT"
+        annot_lookup_dict[1] = "ENS_ANNOT_LINE"
+        annot_lookup_dict[2] = "ENS_ANNOT_LOGO"
+        annot_lookup_dict[3] = "ENS_ANNOT_LGND"
+        annot_lookup_dict[4] = "ENS_ANNOT_MARKER"
+        annot_lookup_dict[5] = "ENS_ANNOT_ARROW"
+        annot_lookup_dict[6] = "ENS_ANNOT_DIAL"
+        annot_lookup_dict[7] = "ENS_ANNOT_GAUGE"
+        annot_lookup_dict[8] = "ENS_ANNOT_SHAPE"
+        self._subtype_tables["ENS_ANNOT"] = annot_lookup_dict
+        tool_lookup_dict = dict()
+        tool_lookup_dict[0] = "ENS_TOOL_CURSOR"
+        tool_lookup_dict[1] = "ENS_TOOL_LINE"
+        tool_lookup_dict[2] = "ENS_TOOL_PLANE"
+        tool_lookup_dict[3] = "ENS_TOOL_BOX"
+        tool_lookup_dict[4] = "ENS_TOOL_CYLINDER"
+        tool_lookup_dict[5] = "ENS_TOOL_CONE"
+        tool_lookup_dict[6] = "ENS_TOOL_SPHERE"
+        tool_lookup_dict[7] = "ENS_TOOL_REVOLUTION"
+        self._subtype_tables["ENS_TOOL"] = tool_lookup_dict
+
     def __repr__(self):
         # if this is called from in the ctor, self.launcher might be None.
         session_dir = ""
@@ -192,7 +265,8 @@ class Session:
             session_dir = self.launcher.session_directory
         s = f"Session(host='{self.hostname}', secret_key='{self.secret_key}', "
         s += f"sos={self.sos}, rest_api={self.rest_api}, "
-        s += f"html_port={self.html_port}, grpc_port={self._grpc_port}, "
+        s += f"html_hostname='{self.html_hostname}', html_port={self.html_port}, "
+        s += f"grpc_port={self._grpc_port}, "
         s += f"ws_port={self.ws_port}, session_directory=r'{session_dir}')"
         return s
 
@@ -205,7 +279,7 @@ class Session:
             If true, actually try to communicate with EnSight. By default false.
         """
         time_start = time.time()
-        while time.time() - time_start < self._timeout:
+        while time.time() - time_start < self._timeout:  # pragma: no cover
             if self._grpc.is_connected():
                 try:
                     if validate:
@@ -213,10 +287,10 @@ class Session:
                         self._cei_suffix = self.cmd("ensight.version('suffix')")
                     self._check_rest_connection()
                     return
-                except OSError:
-                    pass
+                except OSError:  # pragma: no cover
+                    pass  # pragma: no cover
             self._grpc.connect(timeout=self._timeout)
-        raise RuntimeError("Unable to establish a gRPC connection to EnSight.")
+        raise RuntimeError("Unable to establish a gRPC connection to EnSight.")  # pragma: no cover
 
     def _check_rest_connection(self) -> None:
         """Validate the REST API connection works
@@ -227,7 +301,14 @@ class Session:
         """
         if not self.rest_api:
             return
-        url = f"http://{self.hostname}:{self.html_port}/ensight/v1/session/exec"
+        #
+        #
+        # even when using PIM and a proxy server (Ansys Lab) this connects
+        # directly from the python running in the Notebook (the front-end)
+        # to the EnSight Docker Container and not the proxy server.
+        # Thus, here we use 'http', the private hostname, and the html port
+        # (which is the same on the proxy server).
+        url = f"http://{self._hostname}:{self.html_port}/ensight/v1/session/exec"
         time_start = time.time()
         while time.time() - time_start < self._timeout:
             try:
@@ -240,7 +321,14 @@ class Session:
             except Exception:
                 pass
             time.sleep(0.5)
-        raise RuntimeError("Unable to establish a REST connection to EnSight.")
+        raise RuntimeError("Unable to establish a REST connection to EnSight.")  # pragma: no cover
+
+    @property
+    def name(self) -> str:
+        """The session name is a unique identifier for this Session instance.  It
+        is used by EnSight to maintain session specific data values within the
+        EnSight instance."""
+        return self._session_name
 
     @property
     def language(self) -> str:
@@ -344,6 +432,11 @@ class Session:
         return self._hostname
 
     @property
+    def html_hostname(self) -> str:
+        """Hostname of the system hosting the EnSight web server instance."""
+        return self._html_hostname
+
+    @property
     def launcher(self) -> "Launcher":
         """Reference to the launcher instance if a launcher was used to instantiate the session."""
         return self._launcher
@@ -439,7 +532,7 @@ class Session:
 
         out = []
         dirlen = 0
-        if localdir:
+        if localdir:  # pragma: no cover
             # we use dirlen + 1 here to remove the '/' inserted by os.path.join()
             dirlen = len(localdir) + 1
         for item in filelist:
@@ -454,7 +547,7 @@ class Session:
                             out.append((fullname[dirlen:], os.stat(fullname).st_size))
             except Exception:
                 pass
-        if progress:
+        if progress:  # pragma: no cover
             try:
                 from tqdm.auto import tqdm
             except ImportError:
@@ -475,7 +568,9 @@ class Session:
                     data = fp.read(chunk_size)
                     if data == b"":
                         break
-                    self.cmd(f"copy_write_function__(r'{name}', {data!r})", do_eval=False)
+                    self.cmd(
+                        f"copy_write_function__(r'{name}', {data!r})", do_eval=False
+                    )  # pragma: no cover
         return out
 
     def copy_from_session(
@@ -620,23 +715,23 @@ class Session:
 
         """
         dirname = os.path.dirname(filename)
-        if not dirname:
-            dirname = "."
+        if not dirname:  # pragma: no cover
+            dirname = "."  # pragma: no cover
         if dirname not in sys.path:
             sys.path.append(dirname)
         module_name, _ = os.path.splitext(os.path.basename(filename))
         # get the module reference
         spec = importlib.util.find_spec(module_name)
-        if spec:
+        if spec:  # pragma: no cover
             module = importlib.util.module_from_spec(spec)
             # insert an ensight interface into the module
             if self.ensight:
                 module.ensight = self.ensight  # type: ignore
                 # load (run) the module
-                if spec.loader:
+                if spec.loader:  # pragma: no cover
                     spec.loader.exec_module(module)
             return module
-        return None
+        return None  # pragma: no cover
 
     def exec(self, function: Callable, *args, remote: bool = False, **kwargs) -> Any:
         """Run a function containing EnSight API calls locally or in the EnSight interpreter.
@@ -719,7 +814,9 @@ class Session:
             # Create a bound object that allows for direct encoding of the args/kwargs params
             # The new function would be bound_function(ensight) where the args are captured
             # in the lambda.
-            bound_function = lambda ens: function(ens, *args, **kwargs)  # noqa: E731
+            bound_function = lambda ens: function(  # noqa: E731  # pragma: no cover
+                ens, *args, **kwargs
+            )
             # Serialize the bound function
             serialized_function = dill.dumps(bound_function, recurse=True)
             self.cmd("import dill", do_eval=False)
@@ -862,7 +959,8 @@ class Session:
         ret = self._grpc.command(value, do_eval=do_eval)
         if do_eval:
             ret = self._convert_ctor(ret)
-            return eval(ret, dict(session=self, ensobjlist=ensobjlist))
+            value = eval(ret, dict(session=self, ensobjlist=ensobjlist))
+            return value
         return ret
 
     def geometry(self, what: str = "glb") -> bytes:
@@ -915,11 +1013,36 @@ class Session:
         self._establish_connection()
         return self._grpc.render(width=width, height=height, aa=aa)
 
+    def _release_remote_objects(self, object_id: Optional[int] = None):
+        """
+        Send a command to the remote EnSight session to drop a specific object
+        or all objects from the remote object cache.
+
+        Parameters
+        ----------
+        object_id: int, optional
+            The specific object to drop from the cache.  If no objects are specified,
+            then all remote objects associated with this session will be dropped.
+
+        """
+        obj_str = ""
+        if object_id:  # pragma: no cover
+            obj_str = f", id={object_id}"  # pragma: no cover
+        cmd = f"ensight.objs.release_id('{self.name}'{obj_str})"
+        _ = self.cmd(cmd, do_eval=False)
+
     def close(self) -> None:
         """Close the session.
 
         Close the current session and its gRPC connection.
         """
+        # if version 242 or higher, free any objects we have cached there
+        if self.cei_suffix >= "242":
+            try:
+                self._release_remote_objects()
+            except RuntimeError:  # pragma: no cover
+                # handle some intermediate EnSight builds.
+                pass
         if self._launcher and self._halt_ensight_on_close:
             self._launcher.close(self)
         else:
@@ -939,8 +1062,11 @@ class Session:
         if _utils_dir not in sys.path:
             sys.path.insert(0, _utils_dir)
         onlyfiles = [f for f in listdir(_utils_dir) if os.path.isfile(os.path.join(_utils_dir, f))]
-        for _filename in onlyfiles:
-            _filename = os.path.join(_utils_dir, _filename)
+        for _basename in onlyfiles:
+            # skip over any files with the "_server" in their names
+            if "_server" in _basename:
+                continue
+            _filename = os.path.join(_utils_dir, _basename)
             try:
                 # get the module and class names
                 _name = os.path.splitext(os.path.basename(_filename))[0]
@@ -951,16 +1077,16 @@ class Session:
                 spec = importlib.util.spec_from_file_location(
                     f"ansys.pyensight.core.utils.{_name}", _filename
                 )
-                if spec:
+                if spec:  # pragma: no cover
                     _module = importlib.util.module_from_spec(spec)
-                    if spec.loader:
+                    if spec.loader:  # pragma: no cover
                         spec.loader.exec_module(_module)
                     # get the class from the module (query.py filename -> Query() object)
                     _the_class = getattr(_module, _cap_name)
                     # Create an instance, using ensight as the EnSight interface
                     # and place it in this module.
                     setattr(self._ensight.utils, _name, _the_class(self._ensight))
-            except Exception as e:
+            except Exception as e:  # pragma: no cover
                 # Warn on import errors
                 print(f"Error loading ensight.utils from: '{_filename}' : {e}")
 
@@ -1091,6 +1217,86 @@ class Session:
             if self.cmd(cmd) != 0:
                 raise RuntimeError("Unable to load the dataset.")
 
+    def download_pyansys_example(
+        self,
+        filename: str,
+        directory: Optional[str] = None,
+        root: Optional[str] = None,
+        folder: Optional[bool] = None,
+    ) -> str:
+        """Download an example dataset from the ansys/example-data repository.
+        The dataset is downloaded local to the EnSight server location, so that it can
+        be downloaded even if running from a container.
+
+        Parameters
+        ----------
+        filename: str
+            The filename to download
+        directory: str
+            The directory to download the filename from
+        root: str
+            If set, the download will happen from another location
+        folder: bool
+            If set to True, it marks the filename to be a directory rather
+            than a single file
+
+        Returns
+        -------
+        pathname: str
+            The download location, local to the EnSight server directory.
+            If folder is set to True, the download location will be a folder containing
+            all the items available in the repository location under that folder.
+
+        Examples
+        --------
+        >>> from ansys.pyensight.core import DockerLauncher
+        >>> session = DockerLauncher().start(data_directory="D:\\")
+        >>> cas_file = session.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = session.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        >>> session.load_data(cas_file, result_file=dat_file)
+        >>> remote = session.show("remote")
+        >>> remote.browser()
+        """
+        base_uri = "https://github.com/ansys/example-data/raw/master"
+        base_api_uri = "https://api.github.com/repos/ansys/example-data/contents"
+        if not folder:
+            if root is not None:
+                base_uri = root
+        else:
+            base_uri = base_api_uri
+        uri = f"{base_uri}/{filename}"
+        if directory:
+            uri = f"{base_uri}/{directory}/{filename}"
+        pathname = f"{self.launcher.session_directory}/{filename}"
+        if not folder:
+            script = "import requests\n"
+            script += "import shutil\n"
+            script += "import os\n"
+            script += f'url = "{uri}"\n'
+            script += f'outpath = r"""{pathname}"""\n'
+            script += "with requests.get(url, stream=True) as r:\n"
+            script += "    with open(outpath, 'wb') as f:\n"
+            script += "        shutil.copyfileobj(r.raw, f)\n"
+            self.cmd(script, do_eval=False)
+        else:
+            script = "import requests\n"
+            script += "import shutil\n"
+            script += "import os\n"
+            script += f'url = "{uri}"\n'
+            script += "with requests.get(url) as r:\n"
+            script += "    data = r.json()\n"
+            script += f'    output_directory = r"""{pathname}"""\n'
+            script += "    os.makedirs(output_directory, exist_ok=True)\n"
+            script += "    for item in data:\n"
+            script += "        if item['type'] == 'file':\n"
+            script += "            file_url = item['download_url']\n"
+            script += "            filename = os.path.join(output_directory, item['name'])\n"
+            script += "            r = requests.get(file_url, stream=True)\n"
+            script += "            with open(filename, 'wb') as f:\n"
+            script += "                f.write(r.content)\n"
+            self.cmd(script, do_eval=False)
+        return pathname
+
     def load_example(
         self, example_name: str, uncompress: bool = False, root: Optional[str] = None
     ) -> str:
@@ -1127,18 +1333,10 @@ class Session:
 
         """
         base_uri = "https://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
-        if root is not None:
-            base_uri = root
-        uri = f"{base_uri}/{example_name}"
-        pathname = f"{self.launcher.session_directory}/{example_name}"
-        script = "import requests\n"
-        script += "import shutil\n"
-        script += "import os\n"
-        script += f'url = "{uri}"\n'
-        script += f'outpath = r"""{pathname}"""\n'
-        script += "with requests.get(url, stream=True) as r:\n"
-        script += "    with open(outpath, 'wb') as f:\n"
-        script += "        shutil.copyfileobj(r.raw, f)\n"
+        if root is not None:  # pragma: no cover
+            base_uri = root  # pragma: no cover
+        pathname = self.download_pyansys_example(example_name, root=base_uri)
+        script = f'outpath = r"""{pathname}"""\n'
         if uncompress:
             # in this case, remove the extension and unzip the file
             pathname_dir = os.path.splitext(pathname)[0]
@@ -1351,55 +1549,13 @@ class Session:
 
         """
         if classname == "ENS_PART":
-            part_lookup_dict = dict()
-            part_lookup_dict[0] = "ENS_PART_MODEL"
-            part_lookup_dict[1] = "ENS_PART_CLIP"
-            part_lookup_dict[2] = "ENS_PART_CONTOUR"
-            part_lookup_dict[3] = "ENS_PART_DISCRETE_PARTICLE"
-            part_lookup_dict[4] = "ENS_PART_FRAME"
-            part_lookup_dict[5] = "ENS_PART_ISOSURFACE"
-            part_lookup_dict[6] = "ENS_PART_PARTICLE_TRACE"
-            part_lookup_dict[7] = "ENS_PART_PROFILE"
-            part_lookup_dict[8] = "ENS_PART_VECTOR_ARROW"
-            part_lookup_dict[9] = "ENS_PART_ELEVATED_SURFACE"
-            part_lookup_dict[10] = "ENS_PART_DEVELOPED_SURFACE"
-            part_lookup_dict[15] = "ENS_PART_BUILT_UP"
-            part_lookup_dict[16] = "ENS_PART_TENSOR_GLYPH"
-            part_lookup_dict[17] = "ENS_PART_FX_VORTEX_CORE"
-            part_lookup_dict[18] = "ENS_PART_FX_SHOCK"
-            part_lookup_dict[19] = "ENS_PART_FX_SEP_ATT"
-            part_lookup_dict[20] = "ENS_PART_MAT_INTERFACE"
-            part_lookup_dict[21] = "ENS_PART_POINT"
-            part_lookup_dict[22] = "ENS_PART_AXISYMMETRIC"
-            part_lookup_dict[24] = "ENS_PART_VOF"
-            part_lookup_dict[25] = "ENS_PART_AUX_GEOM"
-            part_lookup_dict[26] = "ENS_PART_FILTER"
-            return self.ensight.objs.enums.PARTTYPE, part_lookup_dict
+            return self.ensight.objs.enums.PARTTYPE, self._subtype_tables[classname]
 
         elif classname == "ENS_ANNOT":
-            annot_lookup_dict = dict()
-            annot_lookup_dict[0] = "ENS_ANNOT_TEXT"
-            annot_lookup_dict[1] = "ENS_ANNOT_LINE"
-            annot_lookup_dict[2] = "ENS_ANNOT_LOGO"
-            annot_lookup_dict[3] = "ENS_ANNOT_LGND"
-            annot_lookup_dict[4] = "ENS_ANNOT_MARKER"
-            annot_lookup_dict[5] = "ENS_ANNOT_ARROW"
-            annot_lookup_dict[6] = "ENS_ANNOT_DIAL"
-            annot_lookup_dict[7] = "ENS_ANNOT_GAUGE"
-            annot_lookup_dict[8] = "ENS_ANNOT_SHAPE"
-            return self.ensight.objs.enums.ANNOTTYPE, annot_lookup_dict
+            return self.ensight.objs.enums.ANNOTTYPE, self._subtype_tables[classname]
 
         elif classname == "ENS_TOOL":
-            tool_lookup_dict = dict()
-            tool_lookup_dict[0] = "ENS_TOOL_CURSOR"
-            tool_lookup_dict[1] = "ENS_TOOL_LINE"
-            tool_lookup_dict[2] = "ENS_TOOL_PLANE"
-            tool_lookup_dict[3] = "ENS_TOOL_BOX"
-            tool_lookup_dict[4] = "ENS_TOOL_CYLINDER"
-            tool_lookup_dict[5] = "ENS_TOOL_CONE"
-            tool_lookup_dict[6] = "ENS_TOOL_SPHERE"
-            tool_lookup_dict[7] = "ENS_TOOL_REVOLUTION"
-            return self.ensight.objs.enums.TOOLTYPE, tool_lookup_dict
+            return self.ensight.objs.enums.TOOLTYPE, self._subtype_tables[classname]
 
         return None, None
 
@@ -1410,6 +1566,8 @@ class Session:
 
             Class: ENS_GLOBALS, CvfObjID: 221, cached:yes
             Class: ENS_PART, desc: 'Sphere', CvfObjID: 1078, cached:no
+            Class: ENS_PART, desc: 'engine', PartType: 0, CvfObjID: 1097, cached:no
+            Class: ENS_GROUP, desc: '', Owned, CvfObjID: 1043, cached:no
 
         This method detects strings like those and converts them into strings like these::
 
@@ -1432,21 +1590,33 @@ class Session:
 
         """
         self._prune_hash()
+        offset = 0
         while True:
             # Find the object repl block to replace
-            id = s.find("CvfObjID:")
+            id = s.find("CvfObjID:", offset)
             if id == -1:
                 break
-            start = s.find("Class: ")
+            start = s.find("Class: ", offset)
             if (start == -1) or (start > id):
                 break
             tail_len = 11
-            tail = s.find(", cached:no")
+            tail = s.find(", cached:no", offset)
             if tail == -1:
                 tail_len = 12
-                tail = s.find(", cached:yes")
-            if tail == -1:
-                break
+                tail = s.find(", cached:yes", offset)
+            if tail == -1:  # pragma: no cover
+                break  # pragma: no cover
+            # just this object substring
+            tmp = s[start + 7 : tail]
+            # Subtype (PartType:, AnnotType:, ToolType:)
+            subtype = None
+            for name in ("PartType:", "AnnotType:", "ToolType:"):
+                location = tmp.find(name)
+                if location != -1:
+                    subtype = int(tmp[location + len(name) :].split(",")[0])
+                    break
+            # Owned flag
+            owned_flag = "Owned," in tmp
             # isolate the block to replace
             prefix = s[:start]
             suffix = s[tail + tail_len :]
@@ -1463,21 +1633,29 @@ class Session:
             else:
                 subclass_info = ""
                 if attr_id is not None:
-                    # if a "subclass" case and no subclass attrid value, ask for it...
-                    if classname_lookup is not None:
+                    if subtype is not None:
+                        # the 2024 R2 interface includes the subtype
+                        if (classname_lookup is not None) and (subtype in classname_lookup):
+                            classname = classname_lookup[subtype]
+                            subclass_info = f",attr_id={attr_id}, attr_value={subtype}"
+                    elif classname_lookup is not None:  # pragma: no cover
+                        # if a "subclass" case and no subclass attrid value, ask for it...
                         remote_name = self.remote_obj(objid)
                         cmd = f"{remote_name}.getattr({attr_id})"
                         attr_value = self.cmd(cmd)
                         if attr_value in classname_lookup:
                             classname = classname_lookup[attr_value]
                             subclass_info = f",attr_id={attr_id}, attr_value={attr_value}"
+                if owned_flag:
+                    subclass_info += ",owned=True"
                 replace_text = f"session.ensight.objs.{classname}(session, {objid}{subclass_info})"
-            if replace_text is None:
-                break
+            if replace_text is None:  # pragma: no cover
+                break  # pragma: no cover
+            offset = start + len(replace_text)
             s = prefix + replace_text + suffix
         s = s.strip()
         if s.startswith("[") and s.endswith("]"):
-            s = "ensobjlist(" + s + ")"
+            s = f"ensobjlist({s}, session=session)"
         return s
 
     def capture_context(self, full_context: bool = False) -> "enscontext.EnsContext":
@@ -1533,3 +1711,105 @@ class Session:
         self.cmd(
             f"ansys.pyensight.core.enscontext._restore_context(ensight,'{data_str}')", do_eval=False
         )
+
+    def ensight_version_check(
+        self,
+        version: Union[int, str],
+        message: str = "",
+        exception: bool = True,
+        strict: bool = False,
+    ) -> bool:
+        """Check if the session is a specific version.
+
+        Different versions of pyensight Sessions may host different versions of EnSight.
+        This method compares the version of the remote EnSight session to a specific version
+        number.  If the remote EnSight version is at least the specified version, then
+        this method returns True.  If the version of EnSight is earlier than the specified
+        version, this method  will raise an exception.  The caller can specify the
+        error string to be included.  They may also specify if the version check should
+        be for a specific version vs the specified version or higher.  It is also possible
+        to avoid the exception and instead just return True or False for cases when an
+        alternative implementation might be used.
+
+        Parameters
+        ----------
+        version : Union[int, str]
+            The version number to compare the EnSight version against.
+        message : str
+            The message string to be used as the text for any raised exception.
+        exception : bool
+            If True, and the version comparison fails, an InvalidEnSightVersion is raised.
+            Otherwise, the result of the comparison is returned.
+        strict : bool
+            If True, the comparison of the two versions will only pass if they
+            are identical.  If False, if the EnSight version is greater than or
+            equal to the specified version the comparison will pass.
+
+        Returns
+        -------
+            True if the comparison succeeds, False otherwise.
+
+        Raises
+        ------
+            InvalidEnSightVersion if the comparison fails and exception is True.
+        """
+        ens_version = int(self.ensight.version("suffix"))
+        # handle various input formats
+        target = version
+        if isinstance(target, str):  # pragma: no cover
+            # could be 'year RX' or the suffix as a string
+            if "R" in target:
+                tmp = [int(x) for x in target.split("R")]
+                target = (tmp[0] - 2000) * 10 + tmp[1]
+            else:
+                target = int(target)
+        # check validity
+        valid = ens_version == target
+        at_least = ""
+        if not strict:  # pragma: no cover
+            at_least = "at least "
+            valid = ens_version >= target
+        if (not valid) and exception:
+            ens_version = self.ensight.version("version-full")
+            base_msg = f" ({at_least}'{version}' required, '{ens_version}' current)"
+            if message:  # pragma: no cover
+                message += base_msg  # pragma: no cover
+            else:
+                message = f"A newer version of EnSight is required to use this API:{base_msg}"
+            raise InvalidEnSightVersion(message)
+        return valid
+
+    def find_remote_unused_ports(
+        self,
+        count: int,
+        start: Optional[int] = None,
+        end: Optional[int] = None,
+        avoid: Optional[list[int]] = None,
+    ) -> Optional[List[int]]:
+        """
+        Find "count" unused ports on the host system.  A port is considered
+        unused if it does not respond to a "connect" attempt.  Walk the ports
+        from 'start' to 'end' looking for unused ports and avoiding any ports
+        in the 'avoid' list.  Stop once the desired number of ports have been
+        found.  If an insufficient number of ports were found, return None.
+        An admin user check is used to skip [1-1023].
+
+        Parameters
+        ----------
+        count: int
+            number of unused ports to find
+        start: int
+            the first port to check or None (random start)
+        end: int
+            the last port to check or None (full range check)
+        avoid: list
+            an optional list of ports not to check
+
+        Returns
+        -------
+            the detected ports or None on failure
+        """
+        cmd = "from cei import find_unused_ports\n"
+        cmd += f"ports = find_unused_ports({count}, start={start}, end={end}, avoid={avoid})"
+        self.cmd(cmd, do_eval=False)
+        return self.cmd("ports")

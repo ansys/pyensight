@@ -2,6 +2,17 @@
 History
 =======
 
+v0.8.0
+------
+* Improved object transmission support
+* Support remote objects: ENS_GROUP, etc
+* Simplified APIs for particle tracing
+* Update documentation for ENS_SCENE and ENS_GEOM objects
+
+v0.7.0
+------
+* Remove Python 3.8 support. Added Python 3.12 support
+
 
 v0.4.0.dev0 (tbd)
 -----------------

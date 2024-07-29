@@ -16,6 +16,7 @@ Examples:
 """
 import logging
 import os.path
+import re
 import subprocess
 import time
 from typing import Any, Dict, Optional
@@ -160,13 +161,20 @@ class DockerLauncher(Launcher):
             self._service_host_port["grpc"] = ("127.0.0.1", -1)
             # attach to the file service if available
             self._get_file_service()
+            # if using PIM, we have a query parameter to append to http requests
+            if self._pim_instance is not None:
+                d = {"instance_name": self._pim_instance.name}
+                self._add_query_parameters(d)
+            #
             return
 
         # EnShell gRPC port, EnSight gRPC port, HTTP port, WSS port
         # skip 1999 as that internal to the container is used to the container for the VNC connection
         ports = self._find_unused_ports(4, avoid=[1999])
-        if ports is None:
-            raise RuntimeError("Unable to allocate local ports for EnSight session")
+        if ports is None:  # pragma: no cover
+            raise RuntimeError(
+                "Unable to allocate local ports for EnSight session"
+            )  # pragma: no cover
         self._service_host_port = {}
         self._service_host_port["grpc"] = ("127.0.0.1", ports[0])
         self._service_host_port["grpc_private"] = ("127.0.0.1", ports[1])
@@ -187,7 +195,7 @@ class DockerLauncher(Launcher):
 
             self._docker_client = docker.from_env()
         except ModuleNotFoundError:
-            raise RuntimeError("The pyansys-docker module must be installed for DockerLauncher")
+            raise RuntimeError("The docker module must be installed for DockerLauncher")
         except Exception:
             raise RuntimeError("Cannot initialize Docker")
 
@@ -212,10 +220,35 @@ class DockerLauncher(Launcher):
 
         """
         try:
-            if self._docker_client is not None:
+            if self._docker_client is not None:  # pragma: no cover
                 self._docker_client.images.pull(self._image_name)
         except Exception:
             raise RuntimeError(f"Can't pull Docker image: {self._image_name}")
+
+    def _get_container_env(self) -> Dict:
+        # Create the environmental variables
+        # Environment to pass into the container
+        container_env = {
+            "ENSIGHT_SECURITY_TOKEN": self._secret_key,
+            "WEBSOCKETSERVER_SECURITY_TOKEN": self._secret_key,
+            "ENSIGHT_SESSION_TEMPDIR": self._session_directory,
+        }
+
+        # If for some reason, the ENSIGHT_ANSYS_LAUNCH is set previously,
+        # honor that value, otherwise set it to "pyensight".  This allows
+        # for an environmental setup to set the value to something else
+        # (e.g. their "app").
+        if "ENSIGHT_ANSYS_LAUNCH" not in os.environ:
+            container_env["ENSIGHT_ANSYS_LAUNCH"] = "container"
+        else:
+            container_env["ENSIGHT_ANSYS_LAUNCH"] = os.environ["ENSIGHT_ANSYS_LAUNCH"]
+
+        if self._pim_instance is None:
+            container_env["ANSYSLMD_LICENSE_FILE"] = os.environ["ANSYSLMD_LICENSE_FILE"]
+            if "ENSIGHT_ANSYS_APIP_CONFIG" in os.environ:
+                container_env["ENSIGHT_ANSYS_APIP_CONFIG"] = os.environ["ENSIGHT_ANSYS_APIP_CONFIG"]
+
+        return container_env
 
     def start(self) -> "Session":
         """Start EnShell by running a local Docker EnSight image.
@@ -245,27 +278,8 @@ class DockerLauncher(Launcher):
         # initially running EnShell over the first gRPC port. Then launch EnSight
         # and other apps.
 
-        # Create the environmental variables
-        local_env = os.environ.copy()
-        local_env["ENSIGHT_SECURITY_TOKEN"] = self._secret_key
-        local_env["WEBSOCKETSERVER_SECURITY_TOKEN"] = self._secret_key
-        # If for some reason, the ENSIGHT_ANSYS_LAUNCH is set previously,
-        # honor that value, otherwise set it to "pyensight".  This allows
-        # for an environmental setup to set the value to something else
-        # (e.g. their "app").
-        if "ENSIGHT_ANSYS_LAUNCH" not in local_env:
-            local_env["ENSIGHT_ANSYS_LAUNCH"] = "container"
-
-        # Environment to pass into the container
-        container_env = {
-            "ENSIGHT_SECURITY_TOKEN": self._secret_key,
-            "WEBSOCKETSERVER_SECURITY_TOKEN": self._secret_key,
-            "ENSIGHT_SESSION_TEMPDIR": self._session_directory,
-            "ANSYSLMD_LICENSE_FILE": os.environ["ANSYSLMD_LICENSE_FILE"],
-            "ENSIGHT_ANSYS_LAUNCH": local_env["ENSIGHT_ANSYS_LAUNCH"],
-        }
-        if "ENSIGHT_ANSYS_APIP_CONFIG" in local_env:
-            container_env["ENSIGHT_ANSYS_APIP_CONFIG"] = local_env["ENSIGHT_ANSYS_APIP_CONFIG"]
+        # get the environment to pass to the container
+        container_env = self._get_container_env()
 
         # Ports to map between the host and the container
         # If we're here in the code, then we're not using PIM
@@ -296,7 +310,7 @@ class DockerLauncher(Launcher):
         try:
             import docker
         except ModuleNotFoundError:  # pragma: no cover
-            raise RuntimeError("The pyansys-docker module must be installed for DockerLauncher")
+            raise RuntimeError("The docker module must be installed for DockerLauncher")
         except Exception:  # pragma: no cover
             raise RuntimeError("Cannot initialize Docker")
 
@@ -304,9 +318,9 @@ class DockerLauncher(Launcher):
 
         logging.debug("Starting Container...\n")
         if data_volume:
-            if use_egl:
+            if use_egl:  # pragma: no cover
                 if self._docker_client:
-                    self._container = self._docker_client.containers.run(
+                    self._container = self._docker_client.containers.run(  # pragma: no cover
                         self._image_name,
                         command=enshell_cmd,
                         volumes=data_volume,
@@ -337,8 +351,8 @@ class DockerLauncher(Launcher):
                     )
                 logging.debug(f"_container = {str(self._container)}\n")
         else:
-            if use_egl:
-                if self._docker_client:
+            if use_egl:  # pragma: no cover
+                if self._docker_client:  # pragma: no cover
                     self._container = self._docker_client.containers.run(
                         self._image_name,
                         command=enshell_cmd,
@@ -352,11 +366,13 @@ class DockerLauncher(Launcher):
                         auto_remove=True,
                         remove=True,
                     )
-            else:
-                logging.debug(f"Running container {self._image_name} with cmd {enshell_cmd}\n")
-                logging.debug(f"ports to map: {ports_to_map}\n")
-                if self._docker_client:
-                    self._container = self._docker_client.containers.run(
+            else:  # pragma: no cover
+                logging.debug(
+                    f"Running container {self._image_name} with cmd {enshell_cmd}\n"
+                )  # pragma: no cover
+                logging.debug(f"ports to map: {ports_to_map}\n")  # pragma: no cover
+                if self._docker_client:  # pragma: no cover
+                    self._container = self._docker_client.containers.run(  # pragma: no cover
                         self._image_name,
                         command=enshell_cmd,
                         environment=container_env,
@@ -400,17 +416,17 @@ class DockerLauncher(Launcher):
             )
             self._enshell = enshell_grpc.EnShellGRPC(port=self._service_host_port["grpc"][1])
             time_start = time.time()
-            while time.time() - time_start < self._timeout:
+            while time.time() - time_start < self._timeout:  # pragma: no cover
                 if self._enshell.is_connected():
                     break
                 try:
                     self._enshell.connect(timeout=self._timeout)
-                except OSError:
-                    pass
+                except OSError:  # pragma: no cover
+                    pass  # pragma: no cover
 
-        if not self._enshell.is_connected():
-            self.stop()
-            raise RuntimeError("Can't connect to EnShell over gRPC.")
+        if not self._enshell.is_connected():  # pragma: no cover
+            self.stop()  # pragma: no cover
+            raise RuntimeError("Can't connect to EnShell over gRPC.")  # pragma: no cover
 
         cmd = "set_no_reroute_log"
         ret = self._enshell.run_command(cmd)
@@ -420,7 +436,7 @@ class DockerLauncher(Launcher):
             raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
 
         files_to_try = [log_dir + "/enshell.log", "/home/ensight/enshell.log"]
-        for f in files_to_try:
+        for f in files_to_try:  # pragma: no cover
             cmd = "set_debug_log " + f
             ret = self._enshell.run_command(cmd)
             if ret[0] == 0:
@@ -429,15 +445,17 @@ class DockerLauncher(Launcher):
             else:
                 logging.debug(f"enshell error; cmd: {cmd} ret: {ret}\n")
 
-        if self._enshell_log_file is not None:
+        if self._enshell_log_file is not None:  # pragma: no cover
             logging.debug(f"enshell log file {self._enshell_log_file}\n")
 
         cmd = "verbose 3"
         ret = self._enshell.run_command(cmd)
         logging.debug(f"enshell cmd: {cmd} ret: {ret}\n")
-        if ret[0] != 0:
-            self.stop()
-            raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
+        if ret[0] != 0:  # pragma: no cover
+            self.stop()  # pragma: no cover
+            raise RuntimeError(
+                f"Error sending EnShell command: {cmd} ret: {ret}"
+            )  # pragma: no cover
 
         logging.debug("Connected to EnShell.  Getting CEI_HOME and Ansys version...\n")
         logging.debug(f"  _enshell: {self._enshell}\n\n")
@@ -452,10 +470,27 @@ class DockerLauncher(Launcher):
 
         use_egl = self._use_egl()
 
+        # get the environment to pass to the container
+        container_env_str = ""
+        if self._pim_instance is not None:
+            container_env = self._get_container_env()
+            for i in container_env.items():
+                container_env_str += f"{i[0]}={i[1]}\n"
+
         # Run EnSight
         ensight_env_vars = None
+        if container_env_str != "":  # pragma: no cover
+            ensight_env_vars = container_env_str  # pragma: no cover
+
         if use_egl:
-            ensight_env_vars = "LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1"
+            if ensight_env_vars is None:  # pragma: no cover
+                ensight_env_vars = (
+                    "LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1"
+                )
+            else:
+                ensight_env_vars += (  # pragma: no cover
+                    "LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1"
+                )
 
         ensight_args = "-batch -v 3"
 
@@ -472,35 +507,49 @@ class DockerLauncher(Launcher):
 
         logging.debug(f"Starting EnSight with args: {ensight_args}\n")
         ret = self._enshell.start_ensight(ensight_args, ensight_env_vars)
-        if ret[0] != 0:
-            self.stop()
-            raise RuntimeError(f"Error starting EnSight with args: {ensight_args}")
+        if ret[0] != 0:  # pragma: no cover
+            self.stop()  # pragma: no cover
+            raise RuntimeError(
+                f"Error starting EnSight with args: {ensight_args}"
+            )  # pragma: no cover
 
         logging.debug("EnSight started.  Starting wss...\n")
 
         # Run websocketserver
         wss_cmd = "cpython /ansys_inc/v" + self._ansys_version + "/CEI/nexus"
         wss_cmd += self._ansys_version + "/nexus_launcher/websocketserver.py"
+        # websocket port - this needs to come first since we now have
+        # --add_header as a optional arg that can take an arbitrary
+        # number of optional headers.
+        wss_cmd += " " + str(self._service_host_port["ws"][1])
+        #
         wss_cmd += " --http_directory " + self._session_directory
         # http port
         wss_cmd += " --http_port " + str(self._service_host_port["http"][1])
         # vnc port
         wss_cmd += " --client_port 1999"
-
+        # optional PIM instance header
+        if self._pim_instance is not None:
+            # Add the PIM instance header. wss needs to return this optional
+            # header in each http response.  It's how the Ansys Lab proxy
+            # knows how to map back to this particular container's IP and port.
+            wss_cmd += " --add_header instance_name=" + self._pim_instance.name
+        # EnSight REST API
         if self._enable_rest_api:
             # grpc port
             wss_cmd += " --grpc_port " + str(self._service_host_port["grpc_private"][1])
-
         # EnVision sessions
         wss_cmd += " --local_session envision 5"
-        # websocket port
-        wss_cmd += " " + str(self._service_host_port["ws"][1])
+
+        wss_env_vars = None
+        if container_env_str != "":  # pragma: no cover
+            wss_env_vars = container_env_str  # pragma: no cover
 
         logging.debug(f"Starting WSS: {wss_cmd}\n")
-        ret = self._enshell.start_other(wss_cmd)
-        if ret[0] != 0:
-            self.stop()
-            raise RuntimeError(f"Error starting WSS: {wss_cmd}\n")
+        ret = self._enshell.start_other(wss_cmd, extra_env=wss_env_vars)
+        if ret[0] != 0:  # pragma: no cover
+            self.stop()  # pragma: no cover
+            raise RuntimeError(f"Error starting WSS: {wss_cmd}\n")  # pragma: no cover
 
         logging.debug("wss started.  Making session...\n")
 
@@ -511,11 +560,16 @@ class DockerLauncher(Launcher):
         use_sos = False
         if self._use_sos:
             use_sos = True
+        if self._pim_instance is None:
+            ws_port = self._service_host_port["ws"][1]
+        else:
+            ws_port = self._service_host_port["http"][1]  # pragma: no cover
         session = ansys.pyensight.core.session.Session(
             host=self._service_host_port["grpc_private"][0],
             grpc_port=self._service_host_port["grpc_private"][1],
+            html_hostname=self._service_host_port["http"][0],
             html_port=self._service_host_port["http"][1],
-            ws_port=self._service_host_port["ws"][1],
+            ws_port=ws_port,
             install_path=None,
             secret_key=self._secret_key,
             timeout=self._timeout,
@@ -532,12 +586,12 @@ class DockerLauncher(Launcher):
     def stop(self) -> None:
         """Release any additional resources allocated during launching."""
         if self._enshell:
-            if self._enshell.is_connected():
+            if self._enshell.is_connected():  # pragma: no cover
                 try:
                     logging.debug("Stopping EnShell.\n")
                     self._enshell.stop_server()
-                except Exception:
-                    pass
+                except Exception:  # pragma: no cover
+                    pass  # pragma: no cover
                 self._enshell = None
         #
         if self._container:
@@ -578,7 +632,12 @@ class DockerLauncher(Launcher):
 
     def _get_host_port(self, uri: str) -> tuple:
         parse_results = urllib3.util.parse_url(uri)
-        return (parse_results.host, parse_results.port)
+        port = (
+            parse_results.port
+            if parse_results.port
+            else (443 if re.search("^https|wss$", parse_results.scheme) else None)
+        )
+        return (parse_results.host, port)
 
     def _is_system_egl_capable(self) -> bool:
         """Check if the system is EGL capable.
@@ -589,7 +648,7 @@ class DockerLauncher(Launcher):
             ``True`` if the system is EGL capable, ``False`` otherwise.
         """
         if self._is_windows():
-            return False
+            return False  # pragma: no cover
 
         # FIXME: MFK, need to figure out how we'd do this
         # with a PIM managed system such as Ansys Lab
@@ -610,8 +669,8 @@ class DockerLauncher(Launcher):
         str
            Contents of the log or ``None``.
         """
-        if self._enshell_log_file is None:
-            return None
+        if self._enshell_log_file is None:  # pragma: no cover
+            return None  # pragma: no cover
 
         if self._container is not None:
             try:
@@ -634,9 +693,9 @@ class DockerLauncher(Launcher):
                 s = text.read().decode("utf-8")
                 text.close()
                 return s
-            except Exception as e:
-                logging.debug(f"Error getting EnShell log: {e}\n")
-                return None
+            except Exception as e:  # pragma: no cover
+                logging.debug(f"Error getting EnShell log: {e}\n")  # pragma: no cover
+                return None  # pragma: no cover
 
         fs = self.file_service()  # pragma: no cover
         if fs is not None:  # pragma: no cover

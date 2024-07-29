@@ -52,6 +52,7 @@ extensions = [
     "sphinxcontrib.mermaid",
     "sphinxcontrib.jquery",
     "sphinxcontrib.openapi",
+    "sphinxcontrib.video",
     # "ansys_sphinx_theme",
 ]
 
@@ -164,6 +165,14 @@ master_doc = "index"
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
 language = "en"
+
+# Ignore certain URLs
+linkcheck_ignore = [
+    r"https://www.ansys.com/.*",
+    r"https://www.ansyshelp.ansys.com/.*",
+    r"https://ansys.com/.*",
+    r"https://ansyshelp.ansys.com/.*",
+]
 
 # exclude traditional Python prompts from the copied code
 copybutton_prompt_text = r">>> ?|\.\.\. "

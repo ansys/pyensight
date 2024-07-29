@@ -5,7 +5,7 @@ that can be displayed via HTML over the websocket server interface.
 """
 import os
 import shutil
-from typing import TYPE_CHECKING, Any, List, Optional, Tuple, no_type_check
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union, no_type_check
 import uuid
 import webbrowser
 
@@ -13,6 +13,12 @@ import requests
 
 if TYPE_CHECKING:
     from ansys.pyensight.core import Session
+
+
+def _get_ansysnexus_version(version: Union[int, str]) -> str:
+    if int(version) < 242:
+        return ""
+    return str(version)
 
 
 class Renderable:
@@ -80,6 +86,17 @@ class Renderable:
         self._aa: int = aa
         self._fps: float = fps
         self._num_frames: Optional[int] = num_frames
+        #
+        self._using_proxy = False
+        # if we're talking directly to WS, then use 'http' otherwise 'https' for the proxy
+        self._http_protocol = "http"
+        try:
+            if self._session.launcher._pim_instance is not None:
+                self._using_proxy = True
+                self._http_protocol = "https"
+        except Exception:
+            # the launcher may not be PIM aware; that's ok
+            pass
 
     def __repr__(self) -> str:
         name = self.__class__.__name__
@@ -99,6 +116,27 @@ class Renderable:
         """
         name = self.__class__.__name__
         p.text(f"{name}( url='{self._url}' )")
+
+    def _get_query_parameters_str(self, params: Optional[Dict[str, str]] = None) -> str:
+        """Generate any optional http query parameters.
+        Return a string formatted as a URL query to tack on to the
+        beginning part of the URL.  The string may be empty if there
+        aren't any parameters.  The method takes a dict
+        of parameters, possibly empty or None, and combines it with the
+        parameters from the launcher, which also may be empty.
+        """
+        qp_dict = self._session.launcher._get_query_parameters()
+        if qp_dict is None:
+            # just in case
+            qp_dict = {}
+        if params:
+            qp_dict.update(params)
+        query_parameter_str = ""
+        symbol = "?"
+        for p in qp_dict.items():
+            query_parameter_str += f"{symbol}{p[0]}={p[1]}"
+            symbol = "&"
+        return query_parameter_str
 
     def _generate_filename(self, suffix: str) -> Tuple[str, str]:
         """Create session-specific files and URLs.
@@ -134,6 +172,8 @@ class Renderable:
         The URL to the file (through the session HTTP server) is
         ``http://{system}:{websocketserverhtmlport}/{session}_{guid}_{index}_{type}.html``.
 
+        Note that there may be optional http query parameters at the end of the URL.
+
         After this call, ``_url`` and ``_url_remote_pathname`` reflect these names.
 
         """
@@ -141,8 +181,8 @@ class Renderable:
         filename_index = self._filename_index
         remote_pathname, _ = self._generate_filename(suffix)
         simple_filename = f"{self._session.secret_key}_{self._guid}_{filename_index}{suffix}"
-        url = f"http://{self._session.hostname}:{self._session.html_port}/{simple_filename}"
-        self._url = url
+        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
+        self._url = f"{url}/{simple_filename}{self._get_query_parameters_str()}"
         self._url_remote_pathname = remote_pathname
 
     def _save_remote_html_page(self, html: str) -> None:
@@ -265,7 +305,7 @@ class Renderable:
 
         """
         for filename in self._download_names:
-            url = f"http://{self._session.hostname}:{self._session.html_port}/{filename}"
+            url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}/{filename}{self._get_query_parameters_str()}"
             outpath = os.path.join(dirname, filename)
             with requests.get(url, stream=True) as r:
                 with open(outpath, "wb") as f:
@@ -302,7 +342,7 @@ class RenderableImage(Renderable):
         self._session.cmd(cmd)
         # generate HTML page with file references local to the websocket server root
         html = '<body style="margin:0px;padding:0px;">\n'
-        html += f'<img src="/{self._png_filename}">\n'
+        html += f'<img src="/{self._png_filename}{self._get_query_parameters_str()}">\n'
         html += "</body>\n"
         # refresh the remote HTML
         self._save_remote_html_page(html)
@@ -330,6 +370,9 @@ class RenderableDeepPixel(Renderable):
         an iframe reference.
         """
         # save the (deep) image file
+        # get the optional query parameters which may be an empty string
+        # needed for proxy servers like ansys lab
+        optional_query = self._get_query_parameters_str()
         w, h = self._default_size(1920, 1080)
         deep = f",num_samples={self._aa},enhanced=1"
         cmd = f'ensight.render({w},{h}{deep}).save(r"""{self._tif_pathname}""")'
@@ -339,18 +382,31 @@ class RenderableDeepPixel(Renderable):
             html = fp.read()
         # copy some files from Nexus
         cmd = "import shutil, enve, ceiversion, os.path\n"
-        for script in ["jquery-3.4.1.min.js", "geotiff.js", "geotiff_nexus.js", "bootstrap.min.js"]:
-            name = "os.path.join(enve.home(), f'nexus{ceiversion.nexus_suffix}', 'django', "
-            name += f"'website', 'static', 'website', 'scripts', '{script}')"
+        base_name = "os.path.join(enve.home(), f'nexus{ceiversion.nexus_suffix}', 'django', "
+        base_name += "'website', 'static', 'website', 'scripts', "
+        for script in ["geotiff.js", "geotiff_nexus.js", "bootstrap.min.js"]:
+            name = base_name + f"'{script}')"
             cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
+        if int(self._session._cei_suffix) < 251:
+            jquery = "jquery-3.4.1.min.js"
+        else:
+            jquery = "jquery.min.js"
+        cmd = "import shutil, enve, ceiversion, os.path\n"
+        name = base_name + f"'{jquery}')"
+        cmd += "try:"
+        cmd += f'    shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
+        cmd += "except Exception:"
+        cmd += "    pass"
         name = "os.path.join(enve.home(), f'nexus{ceiversion.nexus_suffix}', 'django', "
         name += "'website', 'static', 'website', 'content', 'bootstrap.min.css')"
         cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
         self._session.cmd(cmd, do_eval=False)
+        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
+        tiff_url = f"{url}/{self._tif_filename}{optional_query}"
         # replace some bits in the HTML
-        tiff_url = f"http://{self._session.hostname}:{self._session.html_port}/{self._tif_filename}"
         html = html.replace("TIFF_URL", tiff_url)
         html = html.replace("ITEMID", self._guid)
+        html = html.replace("OPTIONAL_QUERY", optional_query)
         # refresh the remote HTML
         self._save_remote_html_page(html)
         super().update()
@@ -425,7 +481,7 @@ class RenderableMP4(Renderable):
         # generate HTML page with file references local to the websocket server root
         html = '<body style="margin:0px;padding:0px;">\n'
         html += f'<video width="{w}" height="{h}" controls>\n'
-        html += f'    <source src="/{self._mp4_filename}" type="video/mp4" />\n'
+        html += f'    <source src="/{self._mp4_filename}{self._get_query_parameters_str()}" type="video/mp4" />\n'
         html += "</video>\n"
         html += "</body>\n"
 
@@ -471,20 +527,43 @@ class RenderableWebGL(Renderable):
         # Save the file
         self._session.ensight.savegeom.save_geometric_entities(self._avz_pathname)
         # generate HTML page with file references local to the websocket server root
-        html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
-        html += f"<ansys-nexus-viewer src='/{self._avz_filename}'></ansys-nexus-viewer>\n"
+        version = _get_ansysnexus_version(self._session._cei_suffix)
+        if self._using_proxy:
+            # if using pim we get the static content from the front end and not
+            # where ensight is running, thus we use a specific URI host and not relative.
+            html = f"<script src='{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}/ansys{version}/nexus/viewer-loader.js'></script>\n"
+            html += f"<ansys-nexus-viewer src='{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}/{self._avz_filename}"
+            html += f"{self._get_query_parameters_str()}'></ansys-nexus-viewer>\n"
+        else:
+            html = f"<script src='/ansys{version}/nexus/viewer-loader.js'></script>\n"
+            html += f"<ansys-nexus-viewer src='/{self._avz_filename}{self._get_query_parameters_str()}'></ansys-nexus-viewer>\n"
         # refresh the remote HTML
         self._save_remote_html_page(html)
         super().update()
 
 
 class RenderableVNC(Renderable):
-    """Generates a URL that can be used to connect to the EnSight VNC remote image renderer."""
+    """Generates an ansys-nexus-viewer component that can be used to connect to the EnSight VNC remote image renderer."""
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
+        self._generate_url()
         self._rendertype = "remote"
         self.update()
+
+    def _update_2023R2_or_less(self):
+        """Update the remote rendering widget and display it for
+        backend EnSight of version earlier than 2024R1
+        """
+        query_params = {
+            "autoconnect": "true",
+            "host": self._session.html_hostname,
+            "port": self._session.ws_port,
+        }
+        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
+        url += "/ansys/nexus/novnc/vnc_envision.html"
+        url += self._get_query_parameters_str(query_params)
+        self._url = url
 
     def update(self):
         """Update the remote rendering widget and display it.
@@ -493,10 +572,39 @@ class RenderableVNC(Renderable):
         iframe reference.
 
         """
-        url = f"http://{self._session.hostname}:{self._session.html_port}"
-        url += "/ansys/nexus/novnc/vnc_envision.html"
-        url += f"?autoconnect=true&host={self._session.hostname}&port={self._session.ws_port}"
-        self._url = url
+        optional_query = self._get_query_parameters_str()
+        version = _get_ansysnexus_version(self._session._cei_suffix)
+        if int(self._session._cei_suffix) < 242:  # pragma: no cover
+            version = ""
+            self._update_2023R2_or_less()  # pragma: no cover
+        else:
+            html = (
+                f"<script src='/ansys{version}/nexus/viewer-loader.js{optional_query}'></script>\n"
+            )
+            rest_uri = (
+                f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
+            )
+            ws_uri = (
+                f"{self._http_protocol}://{self._session.html_hostname}:{self._session.ws_port}"
+            )
+
+            query_args = ""
+            if self._using_proxy and optional_query:  # pragma: no cover
+                query_args = f', "extra_query_args":"{optional_query[1:]}"'  # pragma: no cover
+
+            attributes = ' renderer="envnc"'
+            attributes += ' ui="simple"'
+            attributes += ' active="true"'
+            attributes += (
+                " renderer_options='"
+                + f'{{ "ws":"{ws_uri}", "http":"{rest_uri}", "security_token":"{self._session.secret_key}", "connect_to_running_ens":true {query_args} }}'
+                + "'"
+            )
+
+            html += f"<ansys-nexus-viewer {attributes}></ansys-nexus-viewer>\n"
+
+            # refresh the remote HTML
+            self._save_remote_html_page(html)
         super().update()
 
 
@@ -504,14 +612,34 @@ class RenderableVNC(Renderable):
 class RenderableVNCAngular(Renderable):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
+        self._generate_url()
         self._rendertype = "remote"
         self.update()
 
     def update(self):
-        url = f"http://{self._session.hostname}:{self._session.html_port}"
-        url += "/ansys/nexus/angular/viewer_angular_pyensight.html"
-        url += f"?autoconnect=true&host={self._session.hostname}&port={self._session.ws_port}&secretKey={self._session.secret_key}"
-        self._url = url
+        optional_query = self._get_query_parameters_str()
+        version = _get_ansysnexus_version(self._session._cei_suffix)
+        base_content = f"""
+<!doctype html>
+<html lang="en" class="dark">
+<head><base href="/ansys{version}/nexus/angular/">
+  <meta charset="utf-8">
+  <title>WebEnSight</title>
+  <script src="/ansys{version}/nexus/viewer-loader.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="ensight.ico">
+<link rel="stylesheet" href="styles.css"></head>
+<body>
+"""
+        module_with_attributes = "\n  <web-en-sight "
+        module_with_attributes += f'wsPort="{self._session.ws_port}" '
+        module_with_attributes += f'secretKey="{self._session.secret_key}"'
+        if self._using_proxy and optional_query:  # pragma: no cover
+            module_with_attributes += f' extraQueryArgs="{optional_query[1:]}"'
+        module_with_attributes += ">\n"
+        script_src = '<script src="runtime.js" type="module"></script><script src="polyfills.js" type="module"></script><script src="main.js" type="module"></script></body>\n</html>'
+        content = base_content + module_with_attributes + script_src
+        self._save_remote_html_page(content)
         super().update()
 
 
@@ -559,17 +687,33 @@ class RenderableEVSN(Renderable):
         self._session.ensight.file.save_scenario_fileslct(self._evsn_pathname)
 
         # generate HTML page with file references local to the websocketserver root
-        html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
-        server = f"http://{self._session.hostname}:{self._session.html_port}"
-        cleanname = self._evsn_pathname.replace("\\", "/")
+        optional_query = self._get_query_parameters_str()
+        version = _get_ansysnexus_version(self._session._cei_suffix)
+        html = f"<script src='/ansys{version}/nexus/viewer-loader.js{optional_query}'></script>\n"
+        server = f"{self._http_protocol}://{self._session.html_hostname}:{self._session.html_port}"
+
+        # FIXME: This method doesn't work with Ansys Lab since the viewer seems to require
+        # a full pathname to the file being generated by EnSight on a shared file system.
+        # The following commented out line should replace the two after that, but that
+        # prevents running locally from working since it's not using the full pathname to
+        # the shared file. -MFK
+        cleanname = self._evsn_filename.replace("\\", "/")
         attributes = f"src='{cleanname}'"
-        attributes += f" proxy_img='/{self._proxy_filename}'"
+        # attributes = f"src='{cleanname}{optional_query}'"
+
+        attributes += f" proxy_img='/{self._proxy_filename}{optional_query}'"
         attributes += " aspect_ratio='proxy'"
         attributes += " renderer='envnc'"
         http_uri = f'"http":"{server}"'
-        ws_uri = f'"ws":"http://{self._session.hostname}:{self._session.ws_port}"'
+        ws_uri = (
+            f'"ws":"{self._http_protocol}://{self._session.html_hostname}:{self._session.ws_port}"'
+        )
         secrets = f'"security_token":"{self._session.secret_key}"'
-        attributes += f"renderer_options='{{ {http_uri}, {ws_uri}, {secrets} }}'"
+        if not self._using_proxy or not optional_query:  # pragma: no cover
+            attributes += f" renderer_options='{{ {http_uri}, {ws_uri}, {secrets} }}'"
+        elif self._using_proxy and optional_query:  # pragma: no cover
+            query_args = f'"extra_query_args":"{optional_query[1:]}"'  # pragma: no cover
+            attributes += f" renderer_options='{{ {http_uri}, {ws_uri}, {secrets}, {query_args} }}'"  # pragma: no cover
         html += f"<ansys-nexus-viewer {attributes}></ansys-nexus-viewer>\n"
         # refresh the remote HTML
         self._save_remote_html_page(html)
@@ -622,12 +766,14 @@ class RenderableSGEO(Renderable):  # pragma: no cover
         # If the first update, generate the HTML
         if self._revision == 0:
             # generate HTML page with file references local to the websocketserver root
-            attributes = f"src='/{self._sgeo_base_filename}/geometry.sgeo'"
-            attributes += f" proxy_img='/{self._sgeo_base_filename}/proxy.png'"
+            attributes = (
+                f"src='/{self._sgeo_base_filename}/geometry.sgeo{self._get_query_parameters_str()}'"
+            )
+            attributes += f" proxy_img='/{self._sgeo_base_filename}/proxy.png{self._get_query_parameters_str()}'"
             attributes += " aspect_ratio='proxy'"
             attributes += " renderer='sgeo'"
-
-            html = "<script src='/ansys/nexus/viewer-loader.js'></script>\n"
+            version = _get_ansysnexus_version(self._session._cei_suffix)
+            html = f"<script src='/ansys{version}/nexus/viewer-loader.js{self._get_query_parameters_str()}'></script>\n"
             html += f"<ansys-nexus-viewer id='{self._guid}' {attributes}></ansys-nexus-viewer>\n"
             html += self._periodic_script()
             # refresh the remote HTML
@@ -662,7 +808,7 @@ class RenderableSGEO(Renderable):  # pragma: no cover
         html_source = os.path.join(os.path.dirname(__file__), "sgeo_poll.html")
         with open(html_source, "r") as fp:
             html = fp.read()
-        revision_uri = f"/{self._sgeo_base_filename}/geometry.rev"
+        revision_uri = f"/{self._sgeo_base_filename}/geometry.rev{self._get_query_parameters_str()}"
         html = html.replace("REVURL_ITEMID", revision_uri)
         html = html.replace("ITEMID", self._guid)
         return html
