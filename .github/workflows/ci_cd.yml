@@ -28,7 +28,7 @@ jobs:
     name: "Code style"
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/code-style@v4
+      - uses: ansys/actions/code-style@v6
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
@@ -36,7 +36,7 @@ jobs:
     name: "Doc style"
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/doc-style@v4
+      - uses: ansys/actions/doc-style@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -56,7 +56,7 @@ jobs:
             os: macos-latest
     steps:
       - name: Build wheelhouse and perform smoke test
-        uses: ansys/actions/build-wheelhouse@v4
+        uses: ansys/actions/build-wheelhouse@v6
         with:
           library-name: ${{ env.PACKAGE_NAME }}
           library-namespace: ${{ env.PACKAGE_NAMESPACE }}
@@ -84,7 +84,7 @@ jobs:
         run: docker pull ${{ env.ENSIGHT_IMAGE }}
 
       - name: Run pytest
-        uses: ansys/actions/tests-pytest@v4
+        uses: ansys/actions/tests-pytest@v6
         env:
           ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
         with:
@@ -112,7 +112,7 @@ jobs:
         run: docker pull ${{ env.ENSIGHT_IMAGE }}
 
       - name: Run Ansys documentation building action
-        uses: ansys/actions/doc-build@v4
+        uses: ansys/actions/doc-build@v6
         env:
           ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
         with:
@@ -123,7 +123,7 @@ jobs:
     needs: [doc, tests]
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/build-library@v4
+      - uses: ansys/actions/build-library@v6
         with:
           library-name: ${{ env.PACKAGE_NAME }}
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
@@ -136,7 +136,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Deploy the latest documentation"
-        uses: ansys/actions/doc-deploy-dev@v4
+        uses: ansys/actions/doc-deploy-dev@v6
         with:
             cname: ${{ env.DOCUMENTATION_CNAME }}
             token: ${{ secrets.GITHUB_TOKEN }}
@@ -149,20 +149,20 @@ jobs:
     steps:
       # Upload first to the private PyPi, at least up until we release
       - name: Release to the private PyPI repository
-        uses: ansys/actions/release-pypi-private@v4
+        uses: ansys/actions/release-pypi-private@v6
         with:
           library-name: ${{ env.PACKAGE_NAME }}
           twine-token: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
 
       - name: Release to the public PyPI repository
-        uses: ansys/actions/release-pypi-public@v4
+        uses: ansys/actions/release-pypi-public@v6
         with:
           library-name: ${{ env.PACKAGE_NAME }}
           twine-username: "__token__"
           twine-token: ${{ secrets.PYPI_TOKEN }}
 
       - name: Release to GitHub
-        uses: ansys/actions/release-github@v4
+        uses: ansys/actions/release-github@v6
         with:
           library-name: ${{ env.PACKAGE_NAME }}
 
@@ -174,7 +174,7 @@ jobs:
     needs: release
     steps:
       - name: "Deploy the stable documentation"
-        uses: ansys/actions/doc-deploy-stable@v4
+        uses: ansys/actions/doc-deploy-stable@v6
         with:
             cname: ${{ env.DOCUMENTATION_CNAME }}
             token: ${{ secrets.GITHUB_TOKEN }}
