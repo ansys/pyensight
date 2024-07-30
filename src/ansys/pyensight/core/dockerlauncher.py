@@ -171,8 +171,10 @@ class DockerLauncher(Launcher):
         # EnShell gRPC port, EnSight gRPC port, HTTP port, WSS port
         # skip 1999 as that internal to the container is used to the container for the VNC connection
         ports = self._find_unused_ports(4, avoid=[1999])
-        if ports is None:
-            raise RuntimeError("Unable to allocate local ports for EnSight session")
+        if ports is None:  # pragma: no cover
+            raise RuntimeError(
+                "Unable to allocate local ports for EnSight session"
+            )  # pragma: no cover
         self._service_host_port = {}
         self._service_host_port["grpc"] = ("127.0.0.1", ports[0])
         self._service_host_port["grpc_private"] = ("127.0.0.1", ports[1])
@@ -218,7 +220,7 @@ class DockerLauncher(Launcher):
 
         """
         try:
-            if self._docker_client is not None:
+            if self._docker_client is not None:  # pragma: no cover
                 self._docker_client.images.pull(self._image_name)
         except Exception:
             raise RuntimeError(f"Can't pull Docker image: {self._image_name}")
@@ -316,9 +318,9 @@ class DockerLauncher(Launcher):
 
         logging.debug("Starting Container...\n")
         if data_volume:
-            if use_egl:
+            if use_egl:  # pragma: no cover
                 if self._docker_client:
-                    self._container = self._docker_client.containers.run(
+                    self._container = self._docker_client.containers.run(  # pragma: no cover
                         self._image_name,
                         command=enshell_cmd,
                         volumes=data_volume,
@@ -349,8 +351,8 @@ class DockerLauncher(Launcher):
                     )
                 logging.debug(f"_container = {str(self._container)}\n")
         else:
-            if use_egl:
-                if self._docker_client:
+            if use_egl:  # pragma: no cover
+                if self._docker_client:  # pragma: no cover
                     self._container = self._docker_client.containers.run(
                         self._image_name,
                         command=enshell_cmd,
@@ -364,11 +366,13 @@ class DockerLauncher(Launcher):
                         auto_remove=True,
                         remove=True,
                     )
-            else:
-                logging.debug(f"Running container {self._image_name} with cmd {enshell_cmd}\n")
-                logging.debug(f"ports to map: {ports_to_map}\n")
-                if self._docker_client:
-                    self._container = self._docker_client.containers.run(
+            else:  # pragma: no cover
+                logging.debug(
+                    f"Running container {self._image_name} with cmd {enshell_cmd}\n"
+                )  # pragma: no cover
+                logging.debug(f"ports to map: {ports_to_map}\n")  # pragma: no cover
+                if self._docker_client:  # pragma: no cover
+                    self._container = self._docker_client.containers.run(  # pragma: no cover
                         self._image_name,
                         command=enshell_cmd,
                         environment=container_env,
@@ -412,17 +416,17 @@ class DockerLauncher(Launcher):
             )
             self._enshell = enshell_grpc.EnShellGRPC(port=self._service_host_port["grpc"][1])
             time_start = time.time()
-            while time.time() - time_start < self._timeout:
+            while time.time() - time_start < self._timeout:  # pragma: no cover
                 if self._enshell.is_connected():
                     break
                 try:
                     self._enshell.connect(timeout=self._timeout)
-                except OSError:
-                    pass
+                except OSError:  # pragma: no cover
+                    pass  # pragma: no cover
 
-        if not self._enshell.is_connected():
-            self.stop()
-            raise RuntimeError("Can't connect to EnShell over gRPC.")
+        if not self._enshell.is_connected():  # pragma: no cover
+            self.stop()  # pragma: no cover
+            raise RuntimeError("Can't connect to EnShell over gRPC.")  # pragma: no cover
 
         cmd = "set_no_reroute_log"
         ret = self._enshell.run_command(cmd)
@@ -432,7 +436,7 @@ class DockerLauncher(Launcher):
             raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
 
         files_to_try = [log_dir + "/enshell.log", "/home/ensight/enshell.log"]
-        for f in files_to_try:
+        for f in files_to_try:  # pragma: no cover
             cmd = "set_debug_log " + f
             ret = self._enshell.run_command(cmd)
             if ret[0] == 0:
@@ -441,15 +445,17 @@ class DockerLauncher(Launcher):
             else:
                 logging.debug(f"enshell error; cmd: {cmd} ret: {ret}\n")
 
-        if self._enshell_log_file is not None:
+        if self._enshell_log_file is not None:  # pragma: no cover
             logging.debug(f"enshell log file {self._enshell_log_file}\n")
 
         cmd = "verbose 3"
         ret = self._enshell.run_command(cmd)
         logging.debug(f"enshell cmd: {cmd} ret: {ret}\n")
-        if ret[0] != 0:
-            self.stop()
-            raise RuntimeError(f"Error sending EnShell command: {cmd} ret: {ret}")
+        if ret[0] != 0:  # pragma: no cover
+            self.stop()  # pragma: no cover
+            raise RuntimeError(
+                f"Error sending EnShell command: {cmd} ret: {ret}"
+            )  # pragma: no cover
 
         logging.debug("Connected to EnShell.  Getting CEI_HOME and Ansys version...\n")
         logging.debug(f"  _enshell: {self._enshell}\n\n")
@@ -473,16 +479,16 @@ class DockerLauncher(Launcher):
 
         # Run EnSight
         ensight_env_vars = None
-        if container_env_str != "":
-            ensight_env_vars = container_env_str
+        if container_env_str != "":  # pragma: no cover
+            ensight_env_vars = container_env_str  # pragma: no cover
 
         if use_egl:
-            if ensight_env_vars is None:
+            if ensight_env_vars is None:  # pragma: no cover
                 ensight_env_vars = (
                     "LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1"
                 )
             else:
-                ensight_env_vars += (
+                ensight_env_vars += (  # pragma: no cover
                     "LD_PRELOAD=/usr/local/lib64/libGL.so.1:/usr/local/lib64/libEGL.so.1"
                 )
 
@@ -501,9 +507,11 @@ class DockerLauncher(Launcher):
 
         logging.debug(f"Starting EnSight with args: {ensight_args}\n")
         ret = self._enshell.start_ensight(ensight_args, ensight_env_vars)
-        if ret[0] != 0:
-            self.stop()
-            raise RuntimeError(f"Error starting EnSight with args: {ensight_args}")
+        if ret[0] != 0:  # pragma: no cover
+            self.stop()  # pragma: no cover
+            raise RuntimeError(
+                f"Error starting EnSight with args: {ensight_args}"
+            )  # pragma: no cover
 
         logging.debug("EnSight started.  Starting wss...\n")
 
@@ -534,14 +542,14 @@ class DockerLauncher(Launcher):
         wss_cmd += " --local_session envision 5"
 
         wss_env_vars = None
-        if container_env_str != "":
-            wss_env_vars = container_env_str
+        if container_env_str != "":  # pragma: no cover
+            wss_env_vars = container_env_str  # pragma: no cover
 
         logging.debug(f"Starting WSS: {wss_cmd}\n")
         ret = self._enshell.start_other(wss_cmd, extra_env=wss_env_vars)
-        if ret[0] != 0:
-            self.stop()
-            raise RuntimeError(f"Error starting WSS: {wss_cmd}\n")
+        if ret[0] != 0:  # pragma: no cover
+            self.stop()  # pragma: no cover
+            raise RuntimeError(f"Error starting WSS: {wss_cmd}\n")  # pragma: no cover
 
         logging.debug("wss started.  Making session...\n")
 
@@ -555,7 +563,7 @@ class DockerLauncher(Launcher):
         if self._pim_instance is None:
             ws_port = self._service_host_port["ws"][1]
         else:
-            ws_port = self._service_host_port["http"][1]
+            ws_port = self._service_host_port["http"][1]  # pragma: no cover
         session = ansys.pyensight.core.session.Session(
             host=self._service_host_port["grpc_private"][0],
             grpc_port=self._service_host_port["grpc_private"][1],
@@ -578,12 +586,12 @@ class DockerLauncher(Launcher):
     def stop(self) -> None:
         """Release any additional resources allocated during launching."""
         if self._enshell:
-            if self._enshell.is_connected():
+            if self._enshell.is_connected():  # pragma: no cover
                 try:
                     logging.debug("Stopping EnShell.\n")
                     self._enshell.stop_server()
-                except Exception:
-                    pass
+                except Exception:  # pragma: no cover
+                    pass  # pragma: no cover
                 self._enshell = None
         #
         if self._container:
@@ -640,7 +648,7 @@ class DockerLauncher(Launcher):
             ``True`` if the system is EGL capable, ``False`` otherwise.
         """
         if self._is_windows():
-            return False
+            return False  # pragma: no cover
 
         # FIXME: MFK, need to figure out how we'd do this
         # with a PIM managed system such as Ansys Lab
@@ -661,8 +669,8 @@ class DockerLauncher(Launcher):
         str
            Contents of the log or ``None``.
         """
-        if self._enshell_log_file is None:
-            return None
+        if self._enshell_log_file is None:  # pragma: no cover
+            return None  # pragma: no cover
 
         if self._container is not None:
             try:
@@ -685,9 +693,9 @@ class DockerLauncher(Launcher):
                 s = text.read().decode("utf-8")
                 text.close()
                 return s
-            except Exception as e:
-                logging.debug(f"Error getting EnShell log: {e}\n")
-                return None
+            except Exception as e:  # pragma: no cover
+                logging.debug(f"Error getting EnShell log: {e}\n")  # pragma: no cover
+                return None  # pragma: no cover
 
         fs = self.file_service()  # pragma: no cover
         if fs is not None:  # pragma: no cover

@@ -138,4 +138,5 @@ def mocked_session(mocker, tmpdir, enshell_mock) -> "Session":
         timeout=120.0,
     )
     session._build_utils_interface()
+    session._cei_suffix = "345"
     return session

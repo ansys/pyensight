@@ -68,10 +68,10 @@ print("Parts:", eocore.PARTS)
 # The 'var' variable object is the variable defined from that calculator function.
 # Grab the constant value back out into Python to print()
 
-var = eocore.create_variable(
-    "Ave_Value",
-    value="SpaMean(plist,PRESSION,[],Compute_Per_case)",
-    sources=[clip],
+# The source parts and the variable are passed as strings. Alternatively
+# a list of ENS_PART objects and the ENS_VAR object can be passed
+var = session.ensight.utils.variables.calculator.spamean(
+    source_parts=["X_Clip"], variable="PRESSION", component="[]", output_varname="Ave_Value"
 )
 python_ave_value = var.MINMAX[0]
 print("Python available value of Ave_Val = {}".format(python_ave_value))
@@ -151,7 +151,6 @@ session.show("image", width=800, height=600)
 ###############################################################################
 # Close the connection and shut down the EnSight instance.
 # --------------------------------------------------------
+
 # sphinx_gallery_thumbnail_path = '_static/02_calc_4.png'
-
-
 session.close()

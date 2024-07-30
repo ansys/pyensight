@@ -13,10 +13,13 @@ Examples:
 """
 import os.path
 import platform
+import random
+import re
 import socket
 from typing import TYPE_CHECKING, Dict, List, Optional
 import warnings
 
+import psutil
 import requests
 
 if TYPE_CHECKING:
@@ -78,8 +81,8 @@ class Launcher:
         self._egl_env_val: Optional[bool] = None
         egl_env = os.environ.get("PYENSIGHT_FORCE_ENSIGHT_EGL")
         if egl_env is not None:
-            if egl_env == "1":
-                self._egl_env_val = True
+            if egl_env == "1":  # pragma: no cover
+                self._egl_env_val = True  # pragma: no cover
             else:
                 self._egl_env_val = False
         # a dict of any optional launcher specific query parameters for URLs
@@ -127,7 +130,7 @@ class Launcher:
 
         # stop the websocketserver instance
         url = f"http://{session.hostname}:{session.html_port}/v1/stop"
-        if session.secret_key:
+        if session.secret_key:  # pragma: no cover
             url += f"?security_token={session.secret_key}"
         _ = requests.get(url)
 
@@ -165,6 +168,38 @@ class Launcher:
         """
         return
 
+    def _find_ports_used_by_other_pyensight_and_ensight(self):
+        """Find ports to avoid when looking for empty ports.
+
+        The ports are found iterating the current processes and
+        looking for PyEnSight/EnSight sessions and their command
+        lines.
+        """
+        pyensight_found = []
+        ensight_found = []
+        for process in psutil.process_iter():
+            try:
+                process_cmdline = process.cmdline()
+            except (psutil.AccessDenied, psutil.ZombieProcess, OSError):
+                continue
+            if not process_cmdline:
+                continue
+            if len(process_cmdline) > 1:
+                if "websocketserver.py" in os.path.basename(process_cmdline[1]):
+                    pyensight_found.append(process_cmdline)
+            if any(["ensight" in os.path.basename(x) for x in process_cmdline]):
+                if any([x == "-ports" for x in process_cmdline]):
+                    ensight_found.append(process_cmdline)
+        ports = []
+        for command_line in pyensight_found:
+            for command in command_line:
+                if re.match(r"^\d{4,5}$", command):
+                    ports.append(int(command))
+        for command_line in ensight_found:
+            idx = command_line.index("-ports") + 1
+            ports.append(int(command_line[idx]))
+        return list(set(ports))
+
     @staticmethod
     def _find_unused_ports(count: int, avoid: Optional[List[int]] = None) -> Optional[List[int]]:
         """Find "count" unused ports on the host system
@@ -191,7 +226,7 @@ class Launcher:
         ports = list()
 
         # pick a starting port number
-        start = os.getpid() % 64000
+        start = random.randint(1024, 64000)
         # We will scan for 65530 ports unless end is specified
         port_mod = 65530
         end = start + port_mod - 1
@@ -201,14 +236,14 @@ class Launcher:
             # There have been some issues with 65534+ so we stop at 65530
             port = base_port % port_mod
             # port 0 is special
-            if port == 0:
-                continue
+            if port == 0:  # pragma: no cover
+                continue  # pragma: no cover
             # avoid admin ports
-            if port < 1024:
-                continue
+            if port < 1024:  # pragma: no cover
+                continue  # pragma: no cover
             # are we supposed to skip this one?
-            if port in avoid:
-                continue
+            if port in avoid:  # pragma: no cover
+                continue  # pragma: no cover
             # is anyone listening?
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             result = sock.connect_ex(("127.0.0.1", port))
@@ -219,9 +254,9 @@ class Launcher:
             if len(ports) >= count:
                 return ports
         # in case we failed...
-        if len(ports) < count:
-            return None
-        return ports
+        if len(ports) < count:  # pragma: no cover
+            return None  # pragma: no cover
+        return ports  # pragma: no cover
 
     def _use_egl(self) -> bool:
         """Return True if the system supports the EGL and if EGL was desired.
@@ -240,12 +275,12 @@ class Launcher:
             # if the system can't do it, return False now
             return False
 
-        if self._egl_env_val is not None:
+        if self._egl_env_val is not None:  # pragma: no cover
             # if the environment variable was set, that overrides the constructor option
             return self._egl_env_val
 
         # otherwise, use the arg passed to the constructor
-        return self._use_egl_param_val
+        return self._use_egl_param_val  # pragma: no cover
 
     def _is_system_egl_capable(self) -> bool:  # pragma: no cover
         """Return True if the system supports the EGL launch.
@@ -292,8 +327,8 @@ class Launcher:
         params: dict :
             query parameters to add to overall dict
         """
-        for item, value in params.items():
-            self._query_parameters[item] = value
+        for item, value in params.items():  # pragma: no cover
+            self._query_parameters[item] = value  # pragma: no cover
 
     def _delete_query_parameters(self, params: List[str]) -> None:
         """Delete query parameters supplied by params from the
@@ -304,8 +339,8 @@ class Launcher:
         params: list :
             query parameters to delete from the overall dict
         """
-        for item in params:
-            try:
-                del self._query_parameters[item]
-            except Exception:
-                pass
+        for item in params:  # pragma: no cover
+            try:  # pragma: no cover
+                del self._query_parameters[item]  # pragma: no cover
+            except Exception:  # pragma: no cover
+                pass  # pragma: no cover

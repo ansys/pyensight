@@ -3,7 +3,7 @@
 The ensobj module provides the base class to all EnSight proxy objects
 
 """
-from typing import TYPE_CHECKING, Any, List, Optional, no_type_check
+from typing import TYPE_CHECKING, Any, Optional, no_type_check
 
 if TYPE_CHECKING:
     from ansys.pyensight.core import Session
@@ -29,9 +29,10 @@ class ENSOBJ(object):
         classes are ENS_TOOL, ENS_PART and ENS_ANNOT.
     attr_value :
         The attribute value associated with any specified attr_id.
-
-    Returns
-    -------
+    owned : bool
+        If True, the object is assumed to be "owned" by this interpreter.
+        This means that the lifecycle of the ENSOBJ instance in EnSight is
+        dictated by the lifecycle of this proxy object.
 
     """
 
@@ -41,13 +42,20 @@ class ENSOBJ(object):
         objid: int,
         attr_id: Optional[int] = None,
         attr_value: Optional[int] = None,
+        owned: Optional[bool] = None,
     ) -> None:
         self._session = session
         self._objid = objid
         self._attr_id = attr_id
         self._attr_value = attr_value
-        self._session.add_ensobj_instance(self)
-        self.attr_list = self.populate_attr_list()
+
+        # True if this Python instance "owns" the ENSOBJ instance (via EnSight proxy cache)
+        if owned:
+            self._is_owned = True
+        else:
+            self._is_owned = False
+            # do not put this object in the cache if it is owned, allow gc
+            self._session.add_ensobj_instance(self)
 
     def __eq__(self, obj):
         return self._objid == obj._objid
@@ -58,11 +66,28 @@ class ENSOBJ(object):
     def __hash__(self):
         return self._objid
 
+    def __del__(self):
+        # release the session to allow for garbage collection
+        tmp_session = self._session
+        self._session = None
+        if self._is_owned:
+            try:
+                cmd = f"ensight.objs.release_id('{tmp_session.name}', {self.__OBJID__})"
+                tmp_session.cmd(cmd, do_eval=False)
+            except Exception:  # pragma: no cover
+                # This could happen at any time, including outside
+                # the scope of the session, so we need to be
+                # ready for any error.
+                pass
+
     @property
     def __OBJID__(self) -> int:  # noqa: N802
         return self._objid
 
     def _remote_obj(self) -> str:
+        """Convert the object into a string appropriate for use in the
+        remote EnSight session.   Usually, this is some form of
+        ensight.objs.wrap_id()."""
         return self._session.remote_obj(self._objid)
 
     def getattr(self, attrid: Any) -> Any:
@@ -221,16 +246,6 @@ class ENSOBJ(object):
         if not attrid:
             return self._session.cmd(f"{self._remote_obj()}.attrinfo()")
         return self._session.cmd(f"{self._remote_obj()}.attrinfo({attrid.__repr__()})")
-
-    def populate_attr_list(self) -> List[str]:
-        """Populates a list with attributes.
-
-        Returns
-        -------
-        List[str]
-            The list with the attributes.
-        """
-        return [k for k, _ in self.attrinfo().items()]
 
     def attrissensitive(self, attrid: Any) -> bool:
         """Check to see if a given attribute is 'sensitive'
@@ -437,17 +452,21 @@ class ENSOBJ(object):
 
     def __str__(self) -> str:
         desc = ""
-        if self._session.ensight.objs.enums.DESCRIPTION in self.attr_list:
-            try:
-                if hasattr(self, "DESCRIPTION"):
-                    desc_text = self.DESCRIPTION
-                else:
-                    desc_text = ""
-            except RuntimeError:
-                # self.DESCRIPTION is a gRPC call that can fail for default objects
-                desc_text = ""
-            desc = f", desc: '{desc_text}'"
-        return f"Class: {self.__class__.__name__}{desc}, CvfObjID: {self._objid}, cached:no"
+        if hasattr(self.__class__, "attr_list"):  # pragma: no cover
+            if self._session.ensight.objs.enums.DESCRIPTION in self.__class__.attr_list:
+                try:
+                    if hasattr(self, "DESCRIPTION"):  # pragma: no cover
+                        desc_text = self.DESCRIPTION
+                    else:
+                        desc_text = ""
+                except RuntimeError:  # pragma: no cover
+                    # self.DESCRIPTION is a gRPC call that can fail for default objects
+                    desc_text = ""  # pragma: no cover
+                desc = f", desc: '{desc_text}'"
+        owned = ""
+        if self._is_owned:
+            owned = ", Owned"
+        return f"Class: {self.__class__.__name__}{desc}{owned}, CvfObjID: {self._objid}, cached:no"
 
     def __repr__(self) -> str:
         """Custom __repr__ method used by the stub API.
