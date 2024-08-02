@@ -35,6 +35,7 @@ dependencies = [
     "Pillow>=9.3.0",
     "pypng>=0.0.20",
     "psutil>=5.9.2",
+    "pygltflib>=1.16.2",
 ]
 
 [project.optional-dependencies]
