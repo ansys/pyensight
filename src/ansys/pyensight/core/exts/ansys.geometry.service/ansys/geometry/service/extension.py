@@ -1,7 +1,10 @@
+from datetime import time
+import glob
 from importlib import reload
 import json
 import logging
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -35,6 +38,7 @@ try:
     import ansys.pyensight.core
     import ansys.pyensight.core.utils.dsg_server as tmp_dsg_server  # noqa: F401
     import ansys.pyensight.core.utils.omniverse_dsg_server as tmp_ov_dsg_server  # noqa: F401
+    import ansys.pyensight.core.utils.omniverse_glb_server as tmp_ov_glb_server  # noqa: F401
 except ModuleNotFoundError:
     logging.warning("ansys.geometry.server - Installing ansys-pyensight-core")
     omni.kit.pipapi.install("ansys-pyensight-core", extra_args=extra_args)
@@ -75,9 +79,14 @@ _ = reload(ansys.pyensight.core.utils)
 import ansys.pyensight.core.utils.dsg_server as dsg_server  # noqa: E402
 
 _ = reload(ansys.pyensight.core.utils.dsg_server)
+
 import ansys.pyensight.core.utils.omniverse_dsg_server as ov_dsg_server  # noqa: E402
 
 _ = reload(ansys.pyensight.core.utils.omniverse_dsg_server)
+
+import ansys.pyensight.core.utils.omniverse_glb_server as ov_glb_server  # noqa: E402
+
+_ = reload(ansys.pyensight.core.utils.omniverse_glb_server)
 
 logging.warning(f"Using ansys.pyensight.core from: {ansys.pyensight.core.__file__}")
 
@@ -156,6 +165,14 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
         self._shutdown = False
         self._server_process = None
         self._status_filename: str = ""
+        self._monitor_directory: str = self._setting("monitorDirectory", "ANSYS_OMNI_MONITOR_DIR")
+
+    @property
+    def monitor_directory(self) -> Optional[str]:
+        if self._monitor_directory:
+            return self._monitor_directory
+        # converts "" -> None
+        return None
 
     @property
     def pyensight_version(self) -> str:
@@ -307,7 +324,10 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
         if self._setting("help") is not None:
             self.help()
         elif self._setting("run") is not None:
-            self.run_server(one_shot=self._setting("run") == "0")
+            if self.monitor_directory:
+                self.run_monitor()
+            else:
+                self.run_server(one_shot=self._setting("run") == "0")
 
     def on_shutdown(self) -> None:
         """
@@ -349,6 +369,10 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
         self.warning("  --/exts/ansys.geometry.service/timeScale=FLOAT")
         self.warning(
             f"    Multiply all DSG time values by this value.  (default: {self.time_scale})"
+        )
+        self.warning("  --/exts/ansys.geometry.service/monitorDirectory=directory_path")
+        self.warning(
+            "    If specified, monitor the directory for files to upload to Omniverse.  (default: '')"
         )
 
     def is_server_running(self) -> bool:
@@ -516,4 +540,66 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
 
         self.info("Shutting down DSG connection")
         dsg_link.end()
+        omni_link.shutdown()
+
+    def run_monitor(self):
+        """
+        Run monitor and upload GLB files to Omniverse in process.
+
+        Note: this method does not return until a "shutdown" file or an error is
+        encountered.
+        """
+        the_dir = self.monitor_directory
+        single_file_upload = False
+        if os.path.isfile(the_dir) and the_dir.lower().endswith(".glb"):
+            single_file_upload = True
+        else:
+            if not os.path.isdir(the_dir):
+                self.error(f"The monitor directory {the_dir} does not exist.")
+                return
+
+        # Build the Omniverse connection
+        omni_link = ov_dsg_server.OmniverseWrapper(path=self._omni_uri, verbose=1)
+        self.info("Omniverse connection established.")
+
+        # use an OmniverseUpdateHandler
+        update_handler = ov_dsg_server.OmniverseUpdateHandler(omni_link)
+
+        # Link it to the GLB file monitoring service
+        glb_link = ov_glb_server.GLBSession(
+            verbose=1,
+            handler=update_handler,
+        )
+        if single_file_upload:
+            start_time = time.time()
+            self.info(f"Uploading file: {the_dir}.")
+            try:
+                glb_link.upload_file(the_dir)
+            except Exception as error:
+                self.warning(f"Error uploading file: {the_dir}: {error}")
+            self.info(f"Uploaded in {(time.time() - start_time):%.2f}")
+        else:
+            self.info(f"Starting file monitoring for {the_dir}.")
+            try:
+                stop_file = os.path.join(the_dir, "shutdown")
+                while not os.path.exists(stop_file):
+                    loop_time = time.time()
+                    for filename in glob.glob(os.path.join(the_dir, "*", "upload")):
+                        dir_name = os.path.dirname(filename)
+                        for glb_file in glob.glob(os.path.join(dir_name, "*.glb")):
+                            start_time = time.time()
+                            self.info(f"Uploading file: {glb_file}.")
+                            try:
+                                glb_link.upload_file(glb_file)
+                            except Exception as error:
+                                self.warning(f"Error uploading file: {glb_file}: {error}")
+                            self.info(f"Uploaded in {(time.time() - start_time):%.2f}")
+                        shutil.rmtree(dir_name)
+                    if time.time() - loop_time < 0.1:
+                        time.sleep(0.25)
+            except Exception as error:
+                self.error(f"Error encountered while monitoring: {error}")
+            self.info("Stopping file monitoring.")
+            os.unlink(stop_file)
+
         omni_link.shutdown()

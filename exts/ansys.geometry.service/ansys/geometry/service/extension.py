@@ -327,7 +327,7 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
             if self.monitor_directory:
                 self.run_monitor()
             else:
-                self.run_server()
+                self.run_server(one_shot=self._setting("run") == "0")
 
     def on_shutdown(self) -> None:
         """
@@ -345,7 +345,9 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
         self.warning("  --/exts/ansys.geometry.service/help=1")
         self.warning("     Display this help.")
         self.warning("  --/exts/ansys.geometry.service/run=1")
-        self.warning("     Run the server.")
+        self.warning("     Run the server until the DSG connection is broken.")
+        self.warning("  --/exts/ansys.geometry.service/run=0")
+        self.warning("     Run the server for a single scene conversion.")
         self.warning("  --/exts/ansys.geometry.service/omniUrl=URL")
         self.warning(f"    Omniverse pathname.  (default: {self.omni_uri})")
         self.warning("  --/exts/ansys.geometry.service/dsgUrl=URL")
@@ -484,12 +486,18 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
             return {}
         return data
 
-    def run_server(self) -> None:
+    def run_server(self, one_shot: bool = False) -> None:
         """
         Run a DSG to Omniverse server in process.
 
         Note: this method does not return until the DSG connection is dropped or
         self.stop_server() has been called.
+
+        Parameters
+        ----------
+        one_shot : bool
+            If True, only run the server to transfer a single scene and
+            then return.
         """
 
         # Build the Omniverse connection
@@ -527,6 +535,8 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
         # until the link is dropped, continue
         while not dsg_link.is_shutdown() and not self._shutdown:
             dsg_link.handle_one_update()
+            if one_shot:
+                continue
 
         self.info("Shutting down DSG connection")
         dsg_link.end()
