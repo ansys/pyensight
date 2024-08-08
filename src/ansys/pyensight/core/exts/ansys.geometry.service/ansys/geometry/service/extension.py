@@ -583,7 +583,7 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
                 glb_link.upload_file(the_dir)
             except Exception as error:
                 self.warning(f"Error uploading file: {the_dir}: {error}")
-            self.info(f"Uploaded in {(time.time() - start_time):%.2f}")
+            self.info(f"Uploaded in {(time.time() - start_time):.2f}")
         else:
             self.info(f"Starting file monitoring for {the_dir}.")
             try:
