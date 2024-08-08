@@ -53,26 +53,30 @@ for _ in range(5):
 At this point, the name should be: {something}\ansys\pyensight\core\exts
 Check for the fragments in the right order.
 """
-offsets = []
-for name in ["ansys", "pyensight", "core", "exts"]:
-    offsets.append(kit_dir.find(name))
-# if the order of the names in correct and there is no -1 in the offsets, we found it
-if (sorted(offsets) == offsets) and (sorted(offsets)[0] != -1):
+tmp_kit_dir = kit_dir
+valid_dir = True
+for name in ["exts", "core", "pyensight", "ansys"]:
+    if not tmp_kit_dir.endswith(name):
+        valid_dir = False
+    tmp_kit_dir = os.path.dirname(tmp_kit_dir)
+if valid_dir:
     # name of 'ansys/pyensight/core' directory. We need three levels above.
     name = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(kit_dir))))
     sys.path.insert(0, name)
-    logging.info(f"Using ansys.pyensight.core from: {name}")
+    logging.warning(f"Using ansys.pyensight.core from: {name}")
 
 # at this point, we may need to repeat the imports that make have failed earlier
 import ansys.pyensight.core  # noqa: F811, E402
-import ansys.pyensight.core.utils.dsg_server as dsg_server  # noqa: E402
-import ansys.pyensight.core.utils.omniverse_dsg_server as ov_dsg_server  # noqa: E402
 
 # force a reload if we changed the path or had a partial failure that lead
 # to a pipapi install.
 _ = reload(ansys.pyensight.core)
 _ = reload(ansys.pyensight.core.utils)
+import ansys.pyensight.core.utils.dsg_server as dsg_server  # noqa: E402
+
 _ = reload(ansys.pyensight.core.utils.dsg_server)
+import ansys.pyensight.core.utils.omniverse_dsg_server as ov_dsg_server  # noqa: E402
+
 _ = reload(ansys.pyensight.core.utils.omniverse_dsg_server)
 
 logging.warning(f"Using ansys.pyensight.core from: {ansys.pyensight.core.__file__}")
