@@ -72,10 +72,16 @@ if valid_dir:
 # at this point, we may need to repeat the imports that make have failed earlier
 import ansys.pyensight.core  # noqa: F811, E402
 
+try:
+    import ansys.pyensight.core.utils  # noqa: F811, E402
+except ImportError:
+    pass
+
 # force a reload if we changed the path or had a partial failure that lead
 # to a pipapi install.
 _ = reload(ansys.pyensight.core)
 _ = reload(ansys.pyensight.core.utils)
+
 import ansys.pyensight.core.utils.dsg_server as dsg_server  # noqa: E402
 
 _ = reload(ansys.pyensight.core.utils.dsg_server)

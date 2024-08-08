@@ -662,10 +662,6 @@ class OmniverseUpdateHandler(UpdateHandler):
 
     def finalize_part(self, part: Part) -> None:
         # generate an Omniverse compliant mesh from the Part
-        # if part.cmd:
-        #    print(f"Part {part.cmd.name} Points: {part.coords.size} Var values: {part.tcoords.size} Node sizes: {part.node_sizes.size}")
-        #    for s in part.node_sizes:
-        #        print(f"{s}")
         if part is None or part.cmd is None:
             return
         parent_prim = self._group_prims[part.cmd.parent_id]
