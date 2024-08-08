@@ -55,7 +55,7 @@ tests = [
     "docker>=6.1.0",
 ]
 doc = [
-    "Sphinx==7.2.6",
+    "Sphinx==8.0.2",
     "numpydoc==1.5.0",
     "ansys-sphinx-theme==0.9.9",
     "sphinx-copybutton==0.5.2",
