@@ -28,22 +28,29 @@ with open(pyensight_version_file, "r") as version_file:
 version = f"{pyensight_version}" if pyensight_version else None
 
 extra_args = []
-if "ANSYS_PYPI_INDEX_URL" in os.environ:
-    extra_args.append(os.environ["ANSYS_PYPI_INDEX_URL"])
+if "dev0" in version and "ANSYS_PYPI_INDEX_URL" in os.environ:
+    # Get PyEnSight from the private PyPi repo - dev environment
+    extra_args.append(str(os.environ["ANSYS_PYPI_INDEX_URL"]))
+    extra_args.append("--pre")
 
 if os.environ.get("ANSYS_PYPI_REINSTALL", "") == "1":
+    package_name = "ansys-pyensight-core"
+
+    # Add possibility of installing local wheels
+    if os.environ.get("ANSYS_PYENSIGHT_LOCAL_WHEEL"):
+        package_name = os.environ.get("ANSYS_PYENSIGHT_LOCAL_WHEEL")
+
     extra_args.extend(
         [
             "--upgrade",
-            "--no-deps",
             "--no-cache-dir",
             "--force-reinstall",
-            "--pre",
         ]
     )
 
     logging.warning("ansys.tools.omniverse.server - Forced reinstall ansys-pyensight-core")
-    omni.kit.pipapi.install("ansys-pyensight-core", extra_args=extra_args, version=version)
+    # Add ignore cache attribute when reinstalling so that you can switch between dev and released versions if needed
+    omni.kit.pipapi.install(package_name, extra_args=extra_args, version=version, ignore_cache=True)
 
 try:
     # Checking to see if we need to install the module
