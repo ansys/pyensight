@@ -1,0 +1,45 @@
+﻿message\_window
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. autoclass:: message_window
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      message_window.clear
+      
+      
+      message_window.display_error
+      
+      
+      message_window.display_errorpopup
+      
+      
+      message_window.display_information
+      
+      
+      message_window.display_warning
+      
+      
+      message_window.memory_snapshot
+      
+      
+      message_window.query
+      
+      
+      message_window.save
+      
+   
+   
+
+   
+   
+   
