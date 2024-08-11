@@ -11,8 +11,8 @@ or later.
 
 The API is available through a PyEnSight session instance, from EnSight
 Python directly as (ensight.utils.omniverse for 2025 R1 and later) and
-from within Omniverse applications via the ansys.geometry.service and
-ansys.geometry.serviceui kit extensions.
+from within Omniverse applications via the ansys.tools.omniverse.core and
+ansys.tools.omniverse.dsgui kit extensions.
 
 The Python API is defined here: :class:`Omniverse<ansys.pyensight.core.utils.omniverse.Omniverse>`.
 
@@ -107,7 +107,7 @@ an EnSight session or the GUI panel can be used to connect to a
 copy of EnSight that was launched with the ``-grpc_server {port}``
 option specified.
 
-The ``ansys.geometry.serviceui`` kit includes a GUI similar to the
+The ``ansys.tools.omniverse.dsgui`` kit includes a GUI similar to the
 EnSight 2025 R1 user-defined tool.  It allows one to select a
 target URI in Omniverse and the details of a gRPC connection
 to a running EnSight.  For example, if one launches EnSight with
@@ -117,7 +117,7 @@ scene to Omniverse.
 
 .. note::
 
-    If the ``ansys.geometry.service`` and ``ansys.geometry.serviceui``
+    If the ``ansys.tools.omniverse.core`` and ``ansys.tools.omniverse.dsgui``
     do not show up in the Community extensions list in Omniverse, then
     it can be added to the ``Extension Search Paths`` list as:
     ``git://github.com/ansys/pyensight.git?branch=main&dir=exts``.
@@ -137,7 +137,7 @@ From the Command Line
 ^^^^^^^^^^^^^^^^^^^^^
 
 Omniverse kits can be run as command line tools and
-the ``ansys.geometry.service`` is designed to support this mode
+the ``ansys.tools.omniverse.core`` is designed to support this mode
 of operation as well.  For this to work, one needs a copy of the
 pyensight wheel and the name of a ``kit`` executable. The pyensight wheel
 can be built by checking out the repo and building it. One can
@@ -155,29 +155,29 @@ from the command line like this:
 .. code-block:: bat
 
     cd "C:\Users\user1\AppData\Local\ov\pkg\create-2023.2.5"
-    .\kit.bat --ext-folder "D:\repos\pyensight\src\ansys\pyensight\core\exts" --enable ansys.geometry.service --/exts/ansys.geometry.service/help=1
+    .\kit.bat --ext-folder "D:\repos\pyensight\src\ansys\pyensight\core\exts" --enable ansys.tools.omniverse.core --/exts/ansys.tools.omniverse.core/help=1
 
 
 Will generate the following output in the logs:
 
 .. code-block::
 
-    ANSYS Omniverse Geometry Service: ansys.geometry.service-0.8.5
-      --/exts/ansys.geometry.service/help=1
+    ANSYS Tools Omniverse Core:: ansys.tools.omniverse.core-0.1.0
+      --/exts/ansys.tools.omniverse.core/help=1
          Display this help.
-      --/exts/ansys.geometry.service/run=1
+      --/exts/ansys.tools.omniverse.core/run=1
          Run the server.
-      --/exts/ansys.geometry.service/omniUrl=URL
+      --/exts/ansys.tools.omniverse.core/omniUrl=URL
          Omniverse pathname.  (default: omniverse://localhost/Users/test)
-      --/exts/ansys.geometry.service/dsgUrl=URL
+      --/exts/ansys.tools.omniverse.core/dsgUrl=URL
          Dynamic Scene Graph connection URL.  (default: grpc://127.0.0.1:5234)
-      --/exts/ansys.geometry.service/securityCode=TOKEN
+      --/exts/ansys.tools.omniverse.core/securityCode=TOKEN
          Dynamic Scene Graph security token.  (default: )
-      --/exts/ansys.geometry.service/temporal=0|1
+      --/exts/ansys.tools.omniverse.core/temporal=0|1
          If non-zero, include all timeseteps in the scene.  (default: False)
-      --/exts/ansys.geometry.service/vrmode=0|1
+      --/exts/ansys.tools.omniverse.core/vrmode=0|1
          If non-zero, do not include a camera in the scene.  (default: False)
-      --/exts/ansys.geometry.service/normalizeGeometry=0|1
+      --/exts/ansys.tools.omniverse.core/normalizeGeometry=0|1
          If non-zero, remap the geometry to the domain [-1,-1,-1]-[1,1,1].  (default: False)
 
 
@@ -186,7 +186,7 @@ from the command line.  This version of the service will be run using the versio
 installed in the specified ``--ext-folder``.  When run as above, the service will use the
 latest released of the ansys.pyensight.core wheel.  It is important the the ``--ext-folder`` option
 point to the ``exts`` directory inside of the ``ansys\pyensight\core`` directories as this will
-cause the kit to use the ``ansys.pyensight.core`` module from the directories above the kit
+cause the kit to use the ``ansys.tools.omniverse.core`` module from the directories above the kit
 instead of the any version installed in the kit Python itself.
 
 

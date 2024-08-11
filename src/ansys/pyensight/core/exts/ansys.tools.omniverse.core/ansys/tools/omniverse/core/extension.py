@@ -68,7 +68,7 @@ following for this file:
 ansys\pyensight\core\exts\ansys.tools.omniverse.core\ansys\tools\omniverse\core\extension.py
 """
 kit_dir = __file__
-for _ in range(5):
+for _ in range(6):
     kit_dir = os.path.dirname(kit_dir)
 """
 At this point, the name should be: {something}\ansys\pyensight\core\exts
@@ -91,11 +91,19 @@ import ansys.pyensight.core  # noqa: F811, E402
 
 # force a reload if we changed the path or had a partial failure that lead
 # to a pipapi install.
-_ = reload(ansys.pyensight.core)
+try:
+    _ = reload(ansys.pyensight.core)
+except Exception:
+    pass
+
+import ansys.pyensight.core.utils  # noqa: F811, E402
+
 _ = reload(ansys.pyensight.core.utils)
+
 import ansys.pyensight.core.utils.dsg_server as dsg_server  # noqa: E402
 
 _ = reload(ansys.pyensight.core.utils.dsg_server)
+
 import ansys.pyensight.core.utils.omniverse_dsg_server as ov_dsg_server  # noqa: E402
 
 _ = reload(ansys.pyensight.core.utils.omniverse_dsg_server)
@@ -181,6 +189,8 @@ class AnsysToolsOmniverseCoreServerExtension(omni.ext.IExt):
     @property
     def pyensight_version(self) -> str:
         """The ansys.pyensight.core version"""
+        if version:
+            return version
         return ansys.pyensight.core.VERSION
 
     @property
