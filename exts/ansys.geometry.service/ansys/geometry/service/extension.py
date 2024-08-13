@@ -1,13 +1,13 @@
-from datetime import time
 import glob
 from importlib import reload
 import json
 import logging
 import os
-import shutil
+import pathlib
 import subprocess
 import sys
 import tempfile
+import time
 from typing import Optional
 from urllib.parse import urlparse
 import uuid
@@ -550,10 +550,33 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
 
     def run_monitor(self):
         """
-        Run monitor and upload GLB files to Omniverse in process.
+        Run monitor and upload GLB files to Omniverse in process.  There are two cases:
 
-        Note: this method does not return until a "shutdown" file or an error is
-        encountered.
+        1) the "directory name" is actually a .glb file.  In this case, simply push
+        the glb file contents to Omniverse.
+
+        2) If a directory, then we periodically scan the directory for files named "*.upload".
+        If this file is found, there are two cases:
+
+            a) The file is empty.  In this case, for a file named ABC.upload, the file
+            ABC.glb will be read and uploaded before both files are deleted.
+
+            b) The file contains valid json.  In this case, the json object is parsed with
+            the following format (two glb files for the first timestep and one for the second):
+
+                {
+                    "version": 1,
+                    "omniuri": "",
+                    "files": ["a.glb", "b.glb", "c.glb"],
+                    "times": [0.0, 0.0, 1.0]
+                }
+
+            "times" is optional and defaults to [0*len("files")].  Once processed,
+            all the files referenced in the json and the json file itself are deleted.
+            "omniuri" is optional and defaults to the passed Omniverse path.
+
+            Note: In this mode, the method does not return until a "shutdown" file or
+            an error is encountered.
         """
         the_dir = self.monitor_directory
         single_file_upload = False
@@ -583,29 +606,78 @@ class AnsysGeometryServiceServerExtension(omni.ext.IExt):
                 glb_link.upload_file(the_dir)
             except Exception as error:
                 self.warning(f"Error uploading file: {the_dir}: {error}")
-            self.info(f"Uploaded in {(time.time() - start_time):%.2f}")
+            self.info(f"Uploaded in {(time.time() - start_time):.2f}")
         else:
             self.info(f"Starting file monitoring for {the_dir}.")
+            the_dir_path = pathlib.Path(the_dir)
             try:
                 stop_file = os.path.join(the_dir, "shutdown")
+                orig_omni_uri = omni_link.omniUri
                 while not os.path.exists(stop_file):
                     loop_time = time.time()
-                    for filename in glob.glob(os.path.join(the_dir, "*", "upload")):
-                        dir_name = os.path.dirname(filename)
-                        for glb_file in glob.glob(os.path.join(dir_name, "*.glb")):
-                            start_time = time.time()
-                            self.info(f"Uploading file: {glb_file}.")
+                    files_to_remove = []
+                    for filename in glob.glob(os.path.join(the_dir, "*", "*.upload")):
+                        # reset to the launch URI/directory
+                        omni_link.omniUri = orig_omni_uri
+                        # Keep track of the files and time values
+                        files_to_remove.append(filename)
+                        files_to_process = []
+                        file_timestamps = []
+                        if os.path.getsize(filename) == 0:
+                            # replace the ".upload" extension with ".glb"
+                            glb_file = os.path.splitext(filename)[0] + ".glb"
+                            if os.path.exists(glb_file):
+                                files_to_process.append(glb_file)
+                                file_timestamps.append(0.0)
+                                files_to_remove.append(glb_file)
+                        else:
+                            # read the .upload file json content
                             try:
-                                glb_link.upload_file(glb_file)
-                            except Exception as error:
-                                self.warning(f"Error uploading file: {glb_file}: {error}")
-                            self.info(f"Uploaded in {(time.time() - start_time):%.2f}")
-                        shutil.rmtree(dir_name)
+                                with open(filename, "r") as fp:
+                                    glb_info = json.load(fp)
+                            except Exception:
+                                self.warning(f"Error reading file: {filename}")
+                                continue
+                            # if specified, set the URI/directory target
+                            omni_link.omniUri = glb_info.get("omniuri", orig_omni_uri)
+                            # Get the GLB files to process
+                            the_files = glb_info.get("files", [])
+                            files_to_remove.extend(the_files)
+                            # Times not used for now, but parse them anyway
+                            the_times = glb_info.get("times", [0.0] * len(the_files))
+                            # Validate a few things
+                            if len(the_files) != len(the_times):
+                                self.warning(
+                                    f"Number of times and files are not the same in: {filename}"
+                                )
+                                continue
+                            if len(set(the_times)) != 1:
+                                self.warning("Time values not currently supported.")
+                            if len(the_files) > 1:
+                                self.warning("Multiple glb files not currently fully supported.")
+                            files_to_process.extend(the_files)
+                            # Upload the files
+                            for glb_file in files_to_process:
+                                start_time = time.time()
+                                self.info(f"Uploading file: {glb_file} to {omni_link.omniUri}.")
+                                try:
+                                    glb_link.upload_file(glb_file)
+                                except Exception as error:
+                                    self.warning(f"Error uploading file: {glb_file}: {error}")
+                                self.info(f"Uploaded in {(time.time() - start_time):%.2f}")
+                    for filename in files_to_remove:
+                        try:
+                            # Only delete the file if it is in the_dir_path
+                            filename_path = pathlib.Path(filename)
+                            if filename_path.is_relative_to(the_dir_path):
+                                os.remove(filename)
+                        except IOError:
+                            pass
                     if time.time() - loop_time < 0.1:
                         time.sleep(0.25)
             except Exception as error:
                 self.error(f"Error encountered while monitoring: {error}")
             self.info("Stopping file monitoring.")
-            os.unlink(stop_file)
+            os.remove(stop_file)
 
         omni_link.shutdown()
