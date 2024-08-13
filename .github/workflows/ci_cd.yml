@@ -112,7 +112,7 @@ jobs:
         run: docker pull ${{ env.ENSIGHT_IMAGE }}
 
       - name: Run Ansys documentation building action
-        uses: ansys/actions/doc-build@v7
+        uses: ansys/actions/doc-build@v6
         env:
           ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
         with:
