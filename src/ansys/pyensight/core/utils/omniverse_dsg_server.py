@@ -101,6 +101,15 @@ class OmniverseWrapper:
         if OmniverseWrapper.verbose:
             logging.info(msg)
 
+    @property
+    def omniUri(self) -> str:
+        """The current Omniverse URL."""
+        return self._destinationPath
+
+    @omniUri.setter
+    def omniUri(self, url: str) -> None:
+        self._destinationPath = url
+
     def shutdown(self) -> None:
         """
         Shutdown the connection to Omniverse cleanly.
