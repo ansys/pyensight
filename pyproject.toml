@@ -88,8 +88,8 @@ omit = [
     "*/omniverse*.py",
     "*/dsg_server.py",
     "*/readers.py",
-    "*/service/*.py",
-    "*/serviceui/*.py",
+    "*/omniverse/core/*.py",
+    "*/omniverse/dsgui/*.py",
 ]
 
 [tool.coverage.report]
