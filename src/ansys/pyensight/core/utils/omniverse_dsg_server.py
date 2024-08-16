@@ -78,6 +78,8 @@ class OmniverseWrapper:
         self._live_edit: bool = live_edit
         if self._live_edit:
             self._stagename = "dsg_scene.live"
+        # USD time slider will have 120 tick marks per second of animation time
+        self._time_codes_per_second = 120.0
         OmniverseWrapper.verbose = verbose
 
         omni.client.set_log_callback(OmniverseWrapper.logCallback)
@@ -381,10 +383,10 @@ class OmniverseWrapper:
             visibility_attr.Set("inherited", Usd.TimeCode.EarliestTime())
         else:
             visibility_attr.Set("invisible", Usd.TimeCode.EarliestTime())
-        visibility_attr.Set("inherited", timeline[0])
+        visibility_attr.Set("inherited", timeline[0] * self._time_codes_per_second)
         # Final timestep has timeline[0]==timeline[1].  Leave final timestep visible.
         if timeline[0] < timeline[1]:
-            visibility_attr.Set("invisible", timeline[1])
+            visibility_attr.Set("invisible", timeline[1] * self._time_codes_per_second)
         return timestep_prim
 
     def create_dsg_points(
@@ -647,10 +649,13 @@ class OmniverseUpdateHandler(UpdateHandler):
             self._group_prims[id] = self._root_prim
 
             if self._omni._stage is not None:
-                self._omni._stage.SetStartTimeCode(self.session.time_limits[0])
-                self._omni._stage.SetEndTimeCode(self.session.time_limits[1])
-                self._omni._stage.SetTimeCodesPerSecond(1)
-                self._omni._stage.SetFramesPerSecond(1)
+                self._omni._stage.SetStartTimeCode(
+                    self.session.time_limits[0] * self._omni._time_codes_per_second
+                )
+                self._omni._stage.SetEndTimeCode(
+                    self.session.time_limits[1] * self._omni._time_codes_per_second
+                )
+                self._omni._stage.SetTimeCodesPerSecond(self._omni._time_codes_per_second)
 
             # Send the variable textures.  Safe to do so once the first view is processed.
             if not self._sent_textures:
