@@ -602,6 +602,15 @@ class DSGSession(object):
         if level < self._verbose:
             logging.info(s)
 
+    @staticmethod
+    def warn(s: str) -> None:
+        """Issue a warning to the logging system
+
+        The logging message is mapped to "warn" and cannot be blocked via verbosity
+        checks.
+        """
+        logging.warning(s)
+
     def start(self) -> int:
         """Start a gRPC connection to an EnSight instance
 
@@ -820,7 +829,10 @@ class DSGSession(object):
         There is always a part being modified.  This method completes the current part, committing
         it to the handler.
         """
-        self._callback_handler.finalize_part(self.part)
+        try:
+            self._callback_handler.finalize_part(self.part)
+        except Exception as e:
+            self.warn(f"Error encountered while finalizing part geometry: {str(e)}")
         self._mesh_block_count += 1
 
     def _handle_part(self, part_cmd: Any) -> None:

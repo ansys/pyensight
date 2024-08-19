@@ -128,7 +128,10 @@ class AnsysToolsOmniverseDSGUIExtension(omni.ext.IExt):
                 count = status.get("processed_buffers", 0)
                 total = status.get("total_buffers", 0)
                 dt = time.time() - status.get("start_time", 0.0)
-                tmp = f"Transfer: {count} of {total} : {dt:.2f}s"
+                percent = 0
+                if total > 0:
+                    percent = int((count / total) * 100)
+                tmp = f"Transfer: {percent}% : {dt:.2f}s"
             self._label_w.text = tmp
         else:
             self._connect_w.text = "Connect to DSG Server"

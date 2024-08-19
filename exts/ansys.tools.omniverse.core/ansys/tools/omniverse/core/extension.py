@@ -1,10 +1,13 @@
+import glob
 from importlib import reload
 import json
 import logging
 import os
+import pathlib
 import subprocess
 import sys
 import tempfile
+import time
 from typing import Optional
 from urllib.parse import urlparse
 import uuid
@@ -48,7 +51,7 @@ if os.environ.get("ANSYS_PYPI_REINSTALL", "") == "1":
         ]
     )
 
-    logging.warning("ansys.tools.omniverse.server - Forced reinstall ansys-pyensight-core")
+    logging.warning("ansys.tools.omniverse.core - Forced reinstall ansys-pyensight-core")
     # Add ignore cache attribute when reinstalling so that you can switch between dev and released versions if needed
     omni.kit.pipapi.install(package_name, extra_args=extra_args, version=version, ignore_cache=True)
 try:
@@ -56,6 +59,7 @@ try:
     import ansys.pyensight.core
     import ansys.pyensight.core.utils.dsg_server as tmp_dsg_server  # noqa: F401
     import ansys.pyensight.core.utils.omniverse_dsg_server as tmp_ov_dsg_server  # noqa: F401
+    import ansys.pyensight.core.utils.omniverse_glb_server as tmp_ov_glb_server  # noqa: F401
 except ModuleNotFoundError:
     logging.warning("ansys.tools.omniverse.server - Installing ansys-pyensight-core")
     omni.kit.pipapi.install("ansys-pyensight-core", extra_args=extra_args, version=version)
@@ -116,7 +120,7 @@ def find_kit_filename() -> Optional[str]:
     Use a combination of the current omniverse application and the information
     in the local .nvidia-omniverse/config/omniverse.toml file to come up with
     the pathname of a kit executable suitable for hosting another copy of the
-    ansys.tools.omniverse.server kit.
+    ansys.tools.omniverse.core kit.
 
     Returns
     -------
@@ -185,6 +189,14 @@ class AnsysToolsOmniverseCoreServerExtension(omni.ext.IExt):
         self._shutdown = False
         self._server_process = None
         self._status_filename: str = ""
+        self._monitor_directory: str = self._setting("monitorDirectory", "ANSYS_OMNI_MONITOR_DIR")
+
+    @property
+    def monitor_directory(self) -> Optional[str]:
+        if self._monitor_directory:
+            return self._monitor_directory
+        # converts "" -> None
+        return None
 
     @property
     def pyensight_version(self) -> str:
@@ -338,7 +350,10 @@ class AnsysToolsOmniverseCoreServerExtension(omni.ext.IExt):
         if self._setting("help") is not None:
             self.help()
         elif self._setting("run") is not None:
-            self.run_server()
+            if self.monitor_directory:
+                self.run_monitor()
+            else:
+                self.run_server(one_shot=self._setting("run") == 0)
 
     def on_shutdown(self) -> None:
         """
@@ -356,7 +371,9 @@ class AnsysToolsOmniverseCoreServerExtension(omni.ext.IExt):
         self.warning("  --/exts/ansys.tools.omniverse.core/help=1")
         self.warning("     Display this help.")
         self.warning("  --/exts/ansys.tools.omniverse.core/run=1")
-        self.warning("     Run the server.")
+        self.warning("     Run the server until the DSG connection is broken.")
+        self.warning("  --/exts/ansys.tools.omniverse.core/run=0")
+        self.warning("     Run the server for a single scene conversion.")
         self.warning("  --/exts/ansys.tools.omniverse.core/omniUrl=URL")
         self.warning(f"    Omniverse pathname.  (default: {self.omni_uri})")
         self.warning("  --/exts/ansys.tools.omniverse.core/dsgUrl=URL")
@@ -378,6 +395,10 @@ class AnsysToolsOmniverseCoreServerExtension(omni.ext.IExt):
         self.warning("  --/exts/ansys.tools.omniverse.core/timeScale=FLOAT")
         self.warning(
             f"    Multiply all DSG time values by this value.  (default: {self.time_scale})"
+        )
+        self.warning("  --/exts/ansys.tools.omniverse.core/monitorDirectory=directory_path")
+        self.warning(
+            "    If specified, monitor the directory for files to upload to Omniverse.  (default: '')"
         )
 
     def is_server_running(self) -> bool:
@@ -491,12 +512,18 @@ class AnsysToolsOmniverseCoreServerExtension(omni.ext.IExt):
             return {}
         return data
 
-    def run_server(self) -> None:
+    def run_server(self, one_shot: bool = False) -> None:
         """
         Run a DSG to Omniverse server in process.
 
         Note: this method does not return until the DSG connection is dropped or
         self.stop_server() has been called.
+
+        Parameters
+        ----------
+        one_shot : bool
+            If True, only run the server to transfer a single scene and
+            then return.
         """
 
         # Build the Omniverse connection
@@ -534,7 +561,143 @@ class AnsysToolsOmniverseCoreServerExtension(omni.ext.IExt):
         # until the link is dropped, continue
         while not dsg_link.is_shutdown() and not self._shutdown:
             dsg_link.handle_one_update()
+            if one_shot:
+                break
 
         self.info("Shutting down DSG connection")
         dsg_link.end()
+        omni_link.shutdown()
+
+    def run_monitor(self):
+        """
+        Run monitor and upload GLB files to Omniverse in process.  There are two cases:
+
+        1) the "directory name" is actually a .glb file.  In this case, simply push
+        the glb file contents to Omniverse.
+
+        2) If a directory, then we periodically scan the directory for files named "*.upload".
+        If this file is found, there are two cases:
+
+            a) The file is empty.  In this case, for a file named ABC.upload, the file
+            ABC.glb will be read and uploaded before both files are deleted.
+
+            b) The file contains valid json.  In this case, the json object is parsed with
+            the following format (two glb files for the first timestep and one for the second):
+
+                {
+                    "version": 1,
+                    "omniuri": "",
+                    "files": ["a.glb", "b.glb", "c.glb"],
+                    "times": [0.0, 0.0, 1.0]
+                }
+
+            "times" is optional and defaults to [0*len("files")].  Once processed,
+            all the files referenced in the json and the json file itself are deleted.
+            "omniuri" is optional and defaults to the passed Omniverse path.
+
+            Note: In this mode, the method does not return until a "shutdown" file or
+            an error is encountered.
+        """
+        the_dir = self.monitor_directory
+        single_file_upload = False
+        if os.path.isfile(the_dir) and the_dir.lower().endswith(".glb"):
+            single_file_upload = True
+        else:
+            if not os.path.isdir(the_dir):
+                self.error(f"The monitor directory {the_dir} does not exist.")
+                return
+
+        # Build the Omniverse connection
+        omni_link = ov_dsg_server.OmniverseWrapper(path=self._omni_uri, verbose=1)
+        self.info("Omniverse connection established.")
+
+        # use an OmniverseUpdateHandler
+        update_handler = ov_dsg_server.OmniverseUpdateHandler(omni_link)
+
+        # Link it to the GLB file monitoring service
+        glb_link = ov_glb_server.GLBSession(
+            verbose=1,
+            handler=update_handler,
+        )
+        if single_file_upload:
+            start_time = time.time()
+            self.info(f"Uploading file: {the_dir}.")
+            try:
+                glb_link.upload_file(the_dir)
+            except Exception as error:
+                self.warning(f"Error uploading file: {the_dir}: {error}")
+            self.info(f"Uploaded in {(time.time() - start_time):.2f}")
+        else:
+            self.info(f"Starting file monitoring for {the_dir}.")
+            the_dir_path = pathlib.Path(the_dir)
+            try:
+                stop_file = os.path.join(the_dir, "shutdown")
+                orig_omni_uri = omni_link.omniUri
+                while not os.path.exists(stop_file):
+                    loop_time = time.time()
+                    files_to_remove = []
+                    for filename in glob.glob(os.path.join(the_dir, "*", "*.upload")):
+                        # reset to the launch URI/directory
+                        omni_link.omniUri = orig_omni_uri
+                        # Keep track of the files and time values
+                        files_to_remove.append(filename)
+                        files_to_process = []
+                        file_timestamps = []
+                        if os.path.getsize(filename) == 0:
+                            # replace the ".upload" extension with ".glb"
+                            glb_file = os.path.splitext(filename)[0] + ".glb"
+                            if os.path.exists(glb_file):
+                                files_to_process.append(glb_file)
+                                file_timestamps.append(0.0)
+                                files_to_remove.append(glb_file)
+                        else:
+                            # read the .upload file json content
+                            try:
+                                with open(filename, "r") as fp:
+                                    glb_info = json.load(fp)
+                            except Exception:
+                                self.warning(f"Error reading file: {filename}")
+                                continue
+                            # if specified, set the URI/directory target
+                            omni_link.omniUri = glb_info.get("omniuri", orig_omni_uri)
+                            # Get the GLB files to process
+                            the_files = glb_info.get("files", [])
+                            files_to_remove.extend(the_files)
+                            # Times not used for now, but parse them anyway
+                            the_times = glb_info.get("times", [0.0] * len(the_files))
+                            # Validate a few things
+                            if len(the_files) != len(the_times):
+                                self.warning(
+                                    f"Number of times and files are not the same in: {filename}"
+                                )
+                                continue
+                            if len(set(the_times)) != 1:
+                                self.warning("Time values not currently supported.")
+                            if len(the_files) > 1:
+                                self.warning("Multiple glb files not currently fully supported.")
+                            files_to_process.extend(the_files)
+                            # Upload the files
+                            for glb_file in files_to_process:
+                                start_time = time.time()
+                                self.info(f"Uploading file: {glb_file} to {omni_link.omniUri}.")
+                                try:
+                                    glb_link.upload_file(glb_file)
+                                except Exception as error:
+                                    self.warning(f"Error uploading file: {glb_file}: {error}")
+                                self.info(f"Uploaded in {(time.time() - start_time):%.2f}")
+                    for filename in files_to_remove:
+                        try:
+                            # Only delete the file if it is in the_dir_path
+                            filename_path = pathlib.Path(filename)
+                            if filename_path.is_relative_to(the_dir_path):
+                                os.remove(filename)
+                        except IOError:
+                            pass
+                    if time.time() - loop_time < 0.1:
+                        time.sleep(0.25)
+            except Exception as error:
+                self.error(f"Error encountered while monitoring: {error}")
+            self.info("Stopping file monitoring.")
+            os.remove(stop_file)
+
         omni_link.shutdown()
