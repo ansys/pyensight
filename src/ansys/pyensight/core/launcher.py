@@ -59,7 +59,10 @@ class Launcher:
     enable_rest_api : bool, optional
         Whether to enable the EnSight REST API. The default is ``False``.
         This parameter is supported in EnSight 2024 R1 and later.
-
+    additional_command_line_options: list, optional
+        Additional command line options to be used to launch EnSight.
+        Please note, when using DockerLauncher, arguments that contain spaces
+        are not supported.
     """
 
     def __init__(
@@ -68,6 +71,7 @@ class Launcher:
         use_egl: bool = False,
         use_sos: Optional[int] = None,
         enable_rest_api: bool = False,
+        additional_command_line_options: Optional[List] = None,
     ) -> None:
         self._timeout = timeout
         self._use_egl_param_val: bool = use_egl
@@ -87,6 +91,7 @@ class Launcher:
                 self._egl_env_val = False
         # a dict of any optional launcher specific query parameters for URLs
         self._query_parameters: Dict[str, str] = {}
+        self._additional_command_line_options = additional_command_line_options
 
     @property
     def session_directory(self) -> str:

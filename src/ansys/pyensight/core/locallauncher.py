@@ -56,6 +56,8 @@ class LocalLauncher(Launcher):
         Number of EnSight servers to use for SOS (Server of Server) mode.
         This parameter is defined on the parent ``Launcher`` class, where
         the default is ``None``, in which case SOS mode is not used.
+    additional_command_line_options: list, optional
+        Additional command line options to be used to launch EnSight.
 
     Examples
     --------
@@ -154,6 +156,8 @@ class LocalLauncher(Launcher):
             vnc_url = f"vnc://%%3Frfb_port={self._ports[1]}%%26use_auth=0"
             cmd.extend(["-vnc", vnc_url])
             cmd.extend(["-ports", str(self._ports[4])])
+            if self._additional_command_line_options:
+                cmd.extend(self._additional_command_line_options)
 
             use_egl = self._use_egl()
 

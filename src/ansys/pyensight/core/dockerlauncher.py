@@ -87,6 +87,9 @@ class DockerLauncher(Launcher):
         Number of EnSight servers to use for SOS (Server of Server) mode.
         This parameter is defined on the parent ``Launcher`` class, where
         the default is ``None``, in which case SOS mode is not used.
+    additional_command_line_options: list, optional
+        Additional command line options to be used to launch EnSight.
+        Arguments that contain spaces are not supported.
 
     Examples
     --------
@@ -504,6 +507,9 @@ class DockerLauncher(Launcher):
 
         vnc_url = "vnc://%%3Frfb_port=1999%%26use_auth=0"
         ensight_args += " -vnc " + vnc_url
+        if self._additional_command_line_options:
+            ensight_args += " "
+            ensight_args += " ".join(self._additional_command_line_options)
 
         logging.debug(f"Starting EnSight with args: {ensight_args}\n")
         ret = self._enshell.start_ensight(ensight_args, ensight_env_vars)
