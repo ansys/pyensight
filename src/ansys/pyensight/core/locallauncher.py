@@ -56,6 +56,8 @@ class LocalLauncher(Launcher):
         Number of EnSight servers to use for SOS (Server of Server) mode.
         This parameter is defined on the parent ``Launcher`` class, where
         the default is ``None``, in which case SOS mode is not used.
+    additional_command_line_options: list, optional
+        Additional command line options to be used to launch EnSight.
 
     Examples
     --------

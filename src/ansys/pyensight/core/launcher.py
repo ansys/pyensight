@@ -61,6 +61,8 @@ class Launcher:
         This parameter is supported in EnSight 2024 R1 and later.
     additional_command_line_options: list, optional
         Additional command line options to be used to launch EnSight.
+        Please note, when using DockerLauncher, arguments that contain spaces
+        are not supported.
     """
 
     def __init__(
