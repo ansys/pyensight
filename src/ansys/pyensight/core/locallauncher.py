@@ -154,6 +154,8 @@ class LocalLauncher(Launcher):
             vnc_url = f"vnc://%%3Frfb_port={self._ports[1]}%%26use_auth=0"
             cmd.extend(["-vnc", vnc_url])
             cmd.extend(["-ports", str(self._ports[4])])
+            if self._additional_command_line_options:
+                cmd.extend(self._additional_command_line_options)
 
             use_egl = self._use_egl()
 

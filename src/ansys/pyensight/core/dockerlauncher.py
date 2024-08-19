@@ -504,6 +504,9 @@ class DockerLauncher(Launcher):
 
         vnc_url = "vnc://%%3Frfb_port=1999%%26use_auth=0"
         ensight_args += " -vnc " + vnc_url
+        if self._additional_command_line_options:
+            ensight_args += " "
+            ensight_args += " ".join(self._additional_command_line_options)
 
         logging.debug(f"Starting EnSight with args: {ensight_args}\n")
         ret = self._enshell.start_ensight(ensight_args, ensight_env_vars)
