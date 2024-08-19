@@ -112,6 +112,10 @@ import ansys.pyensight.core.utils.omniverse_dsg_server as ov_dsg_server  # noqa:
 
 _ = reload(ansys.pyensight.core.utils.omniverse_dsg_server)
 
+import ansys.pyensight.core.utils.omniverse_glb_server as ov_glb_server  # noqa: E402
+
+_ = reload(ansys.pyensight.core.utils.omniverse_glb_server)
+
 logging.warning(f"Using ansys.pyensight.core from: {ansys.pyensight.core.__file__}")
 
 
