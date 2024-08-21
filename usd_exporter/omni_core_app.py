@@ -1,14 +1,15 @@
 import os
 import sys
-if getattr(sys, 'frozen', False):
-    os.environ["OMNI_KIT_ACCEPT_EULA"] = "yes"
 
-from omni.kit_app import KitApp
+if getattr(sys, "frozen", False):
+    os.environ["OMNI_KIT_ACCEPT_EULA"] = "yes"
 
 import argparse
 import logging
 from typing import Optional
 from urllib.parse import urlparse
+
+from omni.kit_app import KitApp
 
 
 class AnsysToolsOmniverseCoreServerExtension:
@@ -20,16 +21,17 @@ class AnsysToolsOmniverseCoreServerExtension:
 
     _service_instance = None
 
-    def __init__(self, 
-            app=None, 
-            dsg_uri=None, 
-            omni_uri=None, 
-            security_token=None,
-            temporal=False,
-            vrmode=False,
-            timescale=1.0,
-            normalize_geometry=False
-        ) -> None:
+    def __init__(
+        self,
+        app=None,
+        dsg_uri=None,
+        omni_uri=None,
+        security_token=None,
+        temporal=False,
+        vrmode=False,
+        timescale=1.0,
+        normalize_geometry=False,
+    ) -> None:
         ext_name = __name__.rsplit(".", 1)[0]
         self._app = app
         self._logger = logging.getLogger(ext_name)
@@ -172,6 +174,7 @@ class AnsysToolsOmniverseCoreServerExtension:
         """
         import ansys.pyensight.core.utils.dsg_server as dsg_server  # noqa: E402
         import ansys.pyensight.core.utils.omniverse_dsg_server as ov_dsg_server  # noqa: E402
+
         # Build the Omniverse connection
         omni_link = ov_dsg_server.OmniverseWrapper(path=self._omni_uri, verbose=1)
         self.info("Omniverse connection established.")
@@ -222,6 +225,7 @@ def visualize_in_omniverse(kit_app: str, on_startup):
         app.update()
     sys.exit(app.shutdown())
 
+
 def parser():
     parser = argparse.ArgumentParser("Extension parser")
     parser.add_argument("--secret-key", type=str)
@@ -232,6 +236,7 @@ def parser():
     parser.add_argument("--normalize-geometry", action="store_true", default=False)
     parser.add_argument("--time-scale", type=float, default=1.0)
     return parser
+
 
 def launch_server(service, args) -> None:
     service.dsg_uri = f"http://127.0.0.1:{args.grpc_port}"
@@ -251,9 +256,7 @@ def launch_server(service, args) -> None:
     # make a direct grpc connection to the DSG server
     from ansys.pyensight.core import ensight_grpc  # pylint: disable=import-outside-toplevel
 
-    _grpc = ensight_grpc.EnSightGRPC(
-         host=host, port=port, secret_key=service.security_token
-    )
+    _grpc = ensight_grpc.EnSightGRPC(host=host, port=port, secret_key=service.security_token)
     _grpc.connect()
     if not _grpc.is_connected():
         print(f"Failed to connect to DSG service {host}:{port}")
@@ -264,17 +267,19 @@ def launch_server(service, args) -> None:
 
 def main(args):
     def on_startup(app=None):
-        '''
+        """
         Generate USD content directly in the Kit runtime USD stage
-        '''
+        """
         instance = AnsysToolsOmniverseCoreServerExtension(app=app)
         launch_server(instance, args)
         instance.on_startup()
-    if getattr(sys, 'frozen', False):
+
+    if getattr(sys, "frozen", False):
         root_path = sys._MEIPASS
     else:
         root_path = os.path.dirname(os.path.abspath(os.path.realpath(__file__)))
     visualize_in_omniverse(os.path.join(root_path, "omni.ansys.tools.core.kit"), on_startup)
+
 
 if __name__ == "__main__":
     args = sys.argv[1:]

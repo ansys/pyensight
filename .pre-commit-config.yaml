@@ -19,6 +19,10 @@ repos:
     hooks:
       - id: codespell
         additional_dependencies: ["tomli"]
+        exclude: >
+            (?x)^(
+                .*\.spec
+            )$
 
   - repo: https://github.com/PyCQA/bandit
     rev: 1.7.5

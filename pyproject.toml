@@ -90,6 +90,7 @@ omit = [
     "*/readers.py",
     "*/omniverse/core/*.py",
     "*/omniverse/dsgui/*.py",
+    "usd_exporter/*"
 ]
 
 [tool.coverage.report]
