@@ -1,0 +1,21 @@
+No dependency on PyInstaller, omniverse_kit and pxr has been introduced yet in the pyproject.toml
+
+To run the exporter:
+
+1) In your Python environment run:
+
+python -m pip install omniverse_kit --index-url=https://pypi.nvidia.com/
+The environment must be Python 3.10
+
+2) Launch the application:
+python usd_exporter/omni_core_app.py --help (this will show the command line options. Pretty straightforward. You will have to launch EnSight with a gRPC server on the side)
+
+To build the exporter:
+
+1) In your Python environment run:
+
+python -m pip install pyinstaller
+
+2) Run:
+
+pyinstaller omni_core_app.spec
