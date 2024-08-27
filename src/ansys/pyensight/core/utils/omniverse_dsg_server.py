@@ -100,22 +100,25 @@ class OmniverseWrapper(object):
         """
         if name is None:
             name = self._stagename
-        return self._destinationPath + "/" + name
+        return os.path.join(self._destinationPath, name)
 
     def delete_old_stages(self) -> None:
         """
         Remove all the stages included in the "_old_stages" list.
+        If a stage is in use and cannot be removed, keep its name in _old_stages
+        to retry later.
         """
+        stages_unremoved = list()
         while self._old_stages:
             stage = self._old_stages.pop()
-            # delete the directory or file
-            if os.path.isfile(stage):
-                try:
+            try:
+                if os.path.isfile(stage):
                     os.remove(stage)
-                except OSError:
-                    pass
-            else:
-                shutil.rmtree(stage, ignore_errors=True, onerror=None)
+                else:
+                    shutil.rmtree(stage, ignore_errors=True, onerror=None)
+            except OSError:
+                stages_unremoved.append(stage)
+        self._old_stages = stages_unremoved
 
     def create_new_stage(self) -> None:
         """
@@ -242,6 +245,7 @@ class OmniverseWrapper(object):
         self,
         name,
         id,
+        part_hash,
         parent_prim,
         verts,
         conn,
@@ -255,44 +259,48 @@ class OmniverseWrapper(object):
     ):
         # 1D texture map for variables https://graphics.pixar.com/usd/release/tut_simple_shading.html
         # create the part usd object
-        partname = self.clean_name(name + str(id) + str(timeline[0]))
+        partname = self.clean_name(name + part_hash.hexdigest())
         stage_name = "/Parts/" + partname + ".usd"
-        part_stage_url = self.stage_url(stage_name)
-        part_stage = Usd.Stage.CreateNew(part_stage_url)
-        self._old_stages.append(part_stage_url)
-        xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
-        mesh = UsdGeom.Mesh.Define(part_stage, "/" + partname + "/Mesh")
-        # mesh.CreateDisplayColorAttr()
-        mesh.CreateDoubleSidedAttr().Set(True)
-        mesh.CreatePointsAttr(verts)
-        mesh.CreateNormalsAttr(normals)
-        mesh.CreateFaceVertexCountsAttr([3] * int(conn.size / 3))
-        mesh.CreateFaceVertexIndicesAttr(conn)
-        if (tcoords is not None) and variable:
-            # USD 22.08 changed the primvar API
-            if hasattr(mesh, "CreatePrimvar"):
-                texCoords = mesh.CreatePrimvar(
-                    "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
-                )
-            else:
-                primvarsAPI = UsdGeom.PrimvarsAPI(mesh)
-                texCoords = primvarsAPI.CreatePrimvar(
-                    "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
-                )
-            texCoords.Set(tcoords)
-            texCoords.SetInterpolation("vertex")
-        # sphere = part_stage.DefinePrim('/' + partname + '/sphere', 'Sphere')
-        part_prim = part_stage.GetPrimAtPath("/" + partname)
-        part_stage.SetDefaultPrim(part_prim)
+        part_stage_url = self.stage_url(os.path.join("Parts", partname + ".usd"))
+        part_stage = None
 
-        # Currently, this will never happen, but it is a setup for rigid body transforms
-        # At present, the group transforms have been cooked into the vertices so this is not needed
-        matrixOp = xform.AddXformOp(UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble)
-        matrixOp.Set(Gf.Matrix4d(*matrix).GetTranspose())
+        if not os.path.exists(part_stage_url):
+            part_stage = Usd.Stage.CreateNew(part_stage_url)
+            self._old_stages.append(part_stage_url)
+            xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
+            mesh = UsdGeom.Mesh.Define(part_stage, "/" + partname + "/Mesh")
+            # mesh.CreateDisplayColorAttr()
+            mesh.CreateDoubleSidedAttr().Set(True)
+            mesh.CreatePointsAttr(verts)
+            mesh.CreateNormalsAttr(normals)
+            mesh.CreateFaceVertexCountsAttr([3] * int(conn.size / 3))
+            mesh.CreateFaceVertexIndicesAttr(conn)
+            if (tcoords is not None) and variable:
+                # USD 22.08 changed the primvar API
+                if hasattr(mesh, "CreatePrimvar"):
+                    texCoords = mesh.CreatePrimvar(
+                        "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+                    )
+                else:
+                    primvarsAPI = UsdGeom.PrimvarsAPI(mesh)
+                    texCoords = primvarsAPI.CreatePrimvar(
+                        "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+                    )
+                texCoords.Set(tcoords)
+                texCoords.SetInterpolation("vertex")
+            part_prim = part_stage.GetPrimAtPath("/" + partname)
+            part_stage.SetDefaultPrim(part_prim)
 
-        self.create_dsg_material(
-            part_stage, mesh, "/" + partname, diffuse=diffuse, variable=variable
-        )
+            # Currently, this will never happen, but it is a setup for rigid body transforms
+            # At present, the group transforms have been cooked into the vertices so this is not needed
+            matrixOp = xform.AddXformOp(
+                UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
+            )
+            matrixOp.Set(Gf.Matrix4d(*matrix).GetTranspose())
+
+            self.create_dsg_material(
+                part_stage, mesh, "/" + partname, diffuse=diffuse, variable=variable
+            )
 
         timestep_prim = self.add_timestep_group(parent_prim, timeline, first_timestep)
 
@@ -301,7 +309,8 @@ class OmniverseWrapper(object):
         part_ref = self._stage.OverridePrim(path)
         part_ref.GetReferences().AddReference("." + stage_name)
 
-        part_stage.GetRootLayer().Save()
+        if part_stage is not None:
+            part_stage.GetRootLayer().Save()
 
         return part_stage_url
 
@@ -328,6 +337,7 @@ class OmniverseWrapper(object):
         self,
         name,
         id,
+        part_hash,
         parent_prim,
         verts,
         sizes,
@@ -339,35 +349,40 @@ class OmniverseWrapper(object):
         first_timestep=False,
     ):
         # create the part usd object
-        partname = self.clean_name(name + str(id) + str(timeline[0]))
+        partname = self.clean_name(name + part_hash.hexdigest())
         stage_name = "/Parts/" + partname + ".usd"
-        part_stage_url = self.stage_url(stage_name)
-        part_stage = Usd.Stage.CreateNew(part_stage_url)
-        self._old_stages.append(part_stage_url)
-        xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
+        part_stage_url = self.stage_url(os.path.join("Parts", partname + ".usd"))
+        part_stage = None
 
-        points = UsdGeom.Points.Define(part_stage, "/" + partname + "/Points")
-        # points.GetPointsAttr().Set(Vt.Vec3fArray(verts.tolist()))
-        points.GetPointsAttr().Set(verts)
-        if sizes is not None and sizes.size == (verts.size // 3):
-            points.GetWidthsAttr().Set(sizes)
-        else:
-            points.GetWidthsAttr().Set([default_size] * (verts.size // 3))
+        if not os.path.exists(part_stage_url):
+            part_stage = Usd.Stage.CreateNew(part_stage_url)
+            self._old_stages.append(part_stage_url)
+            xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
 
-        colorAttr = points.GetPrim().GetAttribute("primvars:displayColor")
-        colorAttr.SetMetadata("interpolation", "vertex")
-        if colors is not None and colors.size == verts.size:
-            colorAttr.Set(colors)
-        else:
-            colorAttr.Set([default_color[0:3]] * (verts.size // 3))
+            points = UsdGeom.Points.Define(part_stage, "/" + partname + "/Points")
+            # points.GetPointsAttr().Set(Vt.Vec3fArray(verts.tolist()))
+            points.GetPointsAttr().Set(verts)
+            if sizes is not None and sizes.size == (verts.size // 3):
+                points.GetWidthsAttr().Set(sizes)
+            else:
+                points.GetWidthsAttr().Set([default_size] * (verts.size // 3))
 
-        part_prim = part_stage.GetPrimAtPath("/" + partname)
-        part_stage.SetDefaultPrim(part_prim)
+            colorAttr = points.GetPrim().GetAttribute("primvars:displayColor")
+            colorAttr.SetMetadata("interpolation", "vertex")
+            if colors is not None and colors.size == verts.size:
+                colorAttr.Set(colors)
+            else:
+                colorAttr.Set([default_color[0:3]] * (verts.size // 3))
 
-        # Currently, this will never happen, but it is a setup for rigid body transforms
-        # At present, the group transforms have been cooked into the vertices so this is not needed
-        matrixOp = xform.AddXformOp(UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble)
-        matrixOp.Set(Gf.Matrix4d(*matrix).GetTranspose())
+            part_prim = part_stage.GetPrimAtPath("/" + partname)
+            part_stage.SetDefaultPrim(part_prim)
+
+            # Currently, this will never happen, but it is a setup for rigid body transforms
+            # At present, the group transforms have been cooked into the vertices so this is not needed
+            matrixOp = xform.AddXformOp(
+                UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
+            )
+            matrixOp.Set(Gf.Matrix4d(*matrix).GetTranspose())
 
         timestep_prim = self.add_timestep_group(parent_prim, timeline, first_timestep)
 
@@ -376,7 +391,8 @@ class OmniverseWrapper(object):
         part_ref = self._stage.OverridePrim(path)
         part_ref.GetReferences().AddReference("." + stage_name)
 
-        part_stage.GetRootLayer().Save()
+        if part_stage is not None:
+            part_stage.GetRootLayer().Save()
 
         return part_stage_url
 
@@ -614,6 +630,7 @@ class OmniverseUpdateHandler(UpdateHandler):
                 _ = self._omni.create_dsg_mesh_block(
                     name,
                     obj_id,
+                    part.hash,
                     parent_prim,
                     verts,
                     conn,
@@ -632,6 +649,7 @@ class OmniverseUpdateHandler(UpdateHandler):
                 _ = self._omni.create_dsg_points(
                     name,
                     obj_id,
+                    part.hash,
                     parent_prim,
                     verts,
                     sizes,

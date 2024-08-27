@@ -1,3 +1,4 @@
+import hashlib
 import json
 import logging
 import os
@@ -37,6 +38,7 @@ class Part(object):
         self.tcoords_elem = False
         self.node_sizes = numpy.array([], dtype="float32")
         self.cmd: Optional[Any] = None
+        self.hash = hashlib.new("sha256")
         self.reset()
 
     def reset(self, cmd: Any = None) -> None:
@@ -49,6 +51,9 @@ class Part(object):
         self.tcoords_var_id = None
         self.tcoords_elem = False
         self.node_sizes = numpy.array([], dtype="float32")
+        self.hash = hashlib.new("sha256")
+        if cmd is not None:
+            self.hash.update(cmd.hash.encode("utf-8"))
         self.cmd = cmd
 
     def update_geom(self, cmd: dynamic_scene_graph_pb2.UpdateGeom) -> None:
@@ -103,6 +108,8 @@ class Part(object):
                     self.node_sizes[
                         cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)
                     ] = cmd.flt_array
+        # Combine the hashes for the UpdatePart and all UpdateGeom messages
+        self.hash.update(cmd.hash.encode("utf-8"))
 
     def nodal_surface_rep(self):
         """
