@@ -452,9 +452,12 @@ if __name__ == "__main__":
         level = logging.INFO
     elif args.verbose == 3:
         level = logging.DEBUG
-    log_args = dict(format="GeometryService: %(message)s", level=level)
+    log_args = dict(format="GeometryService:%(levelname)s:%(message)s", level=level)
     if args.log_file:
         log_args["filename"] = args.log_file
+    # start with a clean logging instance
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
     logging.basicConfig(**log_args)  # type: ignore
 
     # Build the server object
