@@ -28,6 +28,7 @@ import logging
 import math
 import os
 import shutil
+import tempfile
 from typing import Any, Dict, List, Optional
 
 from ansys.pyensight.core.utils.dsg_server import Part, UpdateHandler
@@ -438,25 +439,25 @@ class OmniverseWrapper(object):
         return material
 
     def create_dsg_variable_textures(self, variables):
-        # make folder:   scratch/Textures/{palette_*.png}
-        shutil.rmtree("scratch", ignore_errors=True, onerror=None)
-        os.makedirs("scratch/Textures", exist_ok=True)
-        for var in variables.values():
-            data = bytearray(var.texture)
-            n_pixels = int(len(data) / 4)
-            row = []
-            for i in range(n_pixels):
-                row.append(data[i * 4 + 0])
-                row.append(data[i * 4 + 1])
-                row.append(data[i * 4 + 2])
-            io = png.Writer(width=n_pixels, height=2, bitdepth=8, greyscale=False)
-            rows = [row, row]
-            name = self.clean_name(var.name)
-            with open(f"scratch/Textures/palette_{name}.png", "wb") as fp:
-                io.write(fp, rows)
-        uriPath = self._destinationPath + "/Parts/Textures"
-        shutil.rmtree(uriPath, ignore_errors=True, onerror=None)
-        shutil.copytree("scratch/Textures", uriPath)
+        with tempfile.TemporaryDirectory() as tempdir:
+            # make folder:   {tempdir}/scratch/Textures/{palette_*.png}
+            os.makedirs(f"{tempdir}/scratch/Textures", exist_ok=True)
+            for var in variables.values():
+                data = bytearray(var.texture)
+                n_pixels = int(len(data) / 4)
+                row = []
+                for i in range(n_pixels):
+                    row.append(data[i * 4 + 0])
+                    row.append(data[i * 4 + 1])
+                    row.append(data[i * 4 + 2])
+                io = png.Writer(width=n_pixels, height=2, bitdepth=8, greyscale=False)
+                rows = [row, row]
+                name = self.clean_name(var.name)
+                with open(f"{tempdir}/scratch/Textures/palette_{name}.png", "wb") as fp:
+                    io.write(fp, rows)
+            uriPath = self._destinationPath + "/Parts/Textures"
+            shutil.rmtree(uriPath, ignore_errors=True, onerror=None)
+            shutil.copytree(f"{tempdir}/scratch/Textures", uriPath)
 
     def create_dsg_root(self):
         root_name = "/Root"
