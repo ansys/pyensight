@@ -78,9 +78,7 @@ class OmniverseGeometryServer(object):
         normalize_geometry: bool = False,
         dsg_uri: str = "",
         monitor_directory: str = "",
-        **kwargs,
     ) -> None:
-        super().__init__(**kwargs)
         self._dsg_uri = dsg_uri
         self._destination = destination
         self._security_token = security_token
@@ -371,76 +369,76 @@ class OmniverseGeometryServer(object):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="PyEnSight Omniverse Geometry Service")
     parser.add_argument(
-        "destination", default="", type=str, help="The directory to save the USD scene graph into"
+        "destination", default="", type=str, help="The directory to save the USD scene graph into."
     )
     parser.add_argument(
         "--verbose",
         metavar="verbose_level",
         default=0,
         type=partial(int_range_type, min_value=0, max_value=3),
-        help="Enable debugging information",
+        help="Enable logging information (0-3).  Default: 0",
     )
     parser.add_argument(
         "--log_file",
         metavar="log_filename",
         default="",
         type=str,
-        help="Save program output to the named log file instead of stdout",
+        help="Save logging output to the named log file instead of stdout.",
     )
     parser.add_argument(
-        "--dsg_url",
+        "--dsg_uri",
         default="grpc://127.0.0.1:5234",
         type=str,
-        help="The URL of the EnSight Dynamic Scene Graph server",
+        help="The URI of the EnSight Dynamic Scene Graph server.  Default: grpc://127.0.0.1:5234",
     )
     parser.add_argument(
         "--security_token",
         metavar="token",
         default="",
         type=str,
-        help="Dynamic scene graph API security token.",
+        help="Dynamic scene graph API security token.  Default: none",
     )
     parser.add_argument(
         "--monitor_directory",
         metavar="glb_directory",
         default="",
         type=str,
-        help="Monitor the specified directory for GLB files to be exported as USD scene graphs",
+        help="Monitor specified directory for GLB files to be exported.  Default: none",
     )
     parser.add_argument(
         "--time_scale",
         metavar="time_scale",
         default=1.0,
         type=float,
-        help="Scaling factor to be applied to input time values",
+        help="Scaling factor to be applied to input time values.  Default: 1.0",
     )
     parser.add_argument(
         "--normalize_geometry",
         metavar="yes|no|true|false|1|0",
         default=False,
         type=str2bool_type,
-        help="Enable mapping of geometry to a normalized Cartesian space",
+        help="Enable mapping of geometry to a normalized Cartesian space. Default: false",
     )
     parser.add_argument(
         "--include_camera",
         metavar="yes|no|true|false|1|0",
         default=True,
         type=str2bool_type,
-        help="Include the camera in the output USD scene graph",
+        help="Include the camera in the output USD scene graph. Default: true",
     )
     parser.add_argument(
         "--temporal",
         metavar="yes|no|true|false|1|0",
         default=False,
         type=str2bool_type,
-        help="Export a temporal scene graph",
+        help="Export a temporal scene graph. Default: false",
     )
     parser.add_argument(
         "--oneshot",
         metavar="yes|no|true|false|1|0",
         default=False,
         type=str2bool_type,
-        help="Convert a single geometry into USD and exit",
+        help="Convert a single geometry into USD and exit.  Default: false",
     )
 
     # parse the command line
@@ -462,7 +460,7 @@ if __name__ == "__main__":
     # Build the server object
     server = OmniverseGeometryServer(
         destination=args.destination,
-        dsg_url=args.dsg_url,
+        dsg_uri=args.dsg_uri,
         security_token=args.security_token,
         monitor_directory=args.monitor_directory,
         time_scale=args.time_scale,
