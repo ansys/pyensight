@@ -28,51 +28,20 @@ import logging
 import math
 import os
 import shutil
-import sys
 from typing import Any, Dict, List, Optional
 
-import omni.client
+from ansys.pyensight.core.utils.dsg_server import Part, UpdateHandler
 import png
 from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdShade
 
-sys.path.insert(0, os.path.dirname(__file__))
-from dsg_server import Part, UpdateHandler  # noqa: E402
 
-
-class OmniverseWrapper:
-    verbose = 0
-
-    @staticmethod
-    def logCallback(threadName: None, component: Any, level: Any, message: str) -> None:
-        """
-        The logger method registered to handle async messages from Omniverse
-
-        If running in verbose mode, reroute the messages to Python Logging.
-        """
-        if OmniverseWrapper.verbose:
-            logging.info(message)
-
-    @staticmethod
-    def connectionStatusCallback(
-        url: Any, connectionStatus: "omni.client.ConnectionStatus"
-    ) -> None:
-        """
-        If no connection to Omniverse can be made, shut down the service.
-        """
-        if connectionStatus is omni.client.ConnectionStatus.CONNECT_ERROR:
-            sys.exit("[ERROR] Failed connection, exiting.")
-
-    def __init__(
-        self,
-        live_edit: bool = False,
-        path: str = "omniverse://localhost/Users/test",
-        verbose: int = 0,
-    ) -> None:
+class OmniverseWrapper(object):
+    def __init__(self, live_edit: bool = False, destination: str = "") -> None:
         self._cleaned_index = 0
         self._cleaned_names: dict = {}
         self._connectionStatusSubscription = None
         self._stage = None
-        self._destinationPath: str = path
+        self._destinationPath: str = ""
         self._old_stages: list = []
         self._stagename = "dsg_scene.usd"
         self._live_edit: bool = live_edit
@@ -80,52 +49,42 @@ class OmniverseWrapper:
             self._stagename = "dsg_scene.live"
         # USD time slider will have 120 tick marks per second of animation time
         self._time_codes_per_second = 120.0
-        OmniverseWrapper.verbose = verbose
 
-        omni.client.set_log_callback(OmniverseWrapper.logCallback)
-        if verbose > 1:
-            omni.client.set_log_level(omni.client.LogLevel.DEBUG)
-
-        if not omni.client.initialize():
-            sys.exit("[ERROR] Unable to initialize Omniverse client, exiting.")
-
-        self._connectionStatusSubscription = omni.client.register_connection_status_callback(
-            OmniverseWrapper.connectionStatusCallback
-        )
-
-        if not self.isValidOmniUrl(self._destinationPath):
-            self.log("Note technically the Omniverse URL {self._destinationPath} is not valid")
-
-    def log(self, msg: str) -> None:
-        """
-        Local method to dispatch to whatever logging system has been enabled.
-        """
-        if OmniverseWrapper.verbose:
-            logging.info(msg)
+        if destination:
+            self.destination = destination
 
     @property
-    def omniUri(self) -> str:
-        """The current Omniverse URL."""
+    def destination(self) -> str:
+        """The current output directory."""
         return self._destinationPath
 
-    @omniUri.setter
-    def omniUri(self, url: str) -> None:
-        self._destinationPath = url
+    @destination.setter
+    def destination(self, directory: str) -> None:
+        self._destinationPath = directory
+        if not self.is_valid_destination(directory):
+            logging.warning(f"Invalid destination path: {directory}")
 
     def shutdown(self) -> None:
         """
         Shutdown the connection to Omniverse cleanly.
         """
-        omni.client.live_wait_for_pending_updates()
         self._connectionStatusSubscription = None
-        omni.client.shutdown()
 
     @staticmethod
-    def isValidOmniUrl(url: str) -> bool:
-        omniURL = omni.client.break_url(url)
-        if omniURL.scheme == "omniverse" or omniURL.scheme == "omni":
-            return True
-        return False
+    def is_valid_destination(path: str) -> bool:
+        """
+        Verify that the target path is a writeable directory.
+
+        Parameters
+        ----------
+        path
+            The path to check
+
+        Returns
+        -------
+            True if the path is a writeable directory, False otherwise.
+        """
+        return os.access(path, os.W_OK)
 
     def stage_url(self, name: Optional[str] = None) -> str:
         """
@@ -149,13 +108,20 @@ class OmniverseWrapper:
         """
         while self._old_stages:
             stage = self._old_stages.pop()
-            omni.client.delete(stage)
+            # delete the directory or file
+            if os.path.isfile(stage):
+                try:
+                    os.remove(stage)
+                except OSError:
+                    pass
+            else:
+                shutil.rmtree(stage, ignore_errors=True, onerror=None)
 
     def create_new_stage(self) -> None:
         """
         Create a new stage. using the current stage name.
         """
-        self.log(f"Creating Omniverse stage: {self.stage_url()}")
+        logging.info(f"Creating Omniverse stage: {self.stage_url()}")
         if self._stage:
             self._stage.Unload()
             self._stage = None
@@ -166,7 +132,7 @@ class OmniverseWrapper:
         UsdGeom.SetStageUpAxis(self._stage, UsdGeom.Tokens.y)
         # in M
         UsdGeom.SetStageMetersPerUnit(self._stage, 1.0)
-        self.log(f"Created stage: {self.stage_url()}")
+        logging.info(f"Created stage: {self.stage_url()}")
 
     def save_stage(self, comment: str = "") -> None:
         """
@@ -175,45 +141,6 @@ class OmniverseWrapper:
         Presently, live connections are disabled.
         """
         self._stage.GetRootLayer().Save()  # type:ignore
-        omni.client.live_process()
-
-    # This function will add a commented checkpoint to a file on Nucleus if
-    # the Nucleus server supports checkpoints
-    def checkpoint(self, comment: str = "") -> None:
-        """
-        Add a checkpoint to the current stage.
-
-        Parameters
-        ----------
-        comment: str
-            If not empty, the comment to be added to the stage
-        """
-        if not comment:
-            return
-        result, serverInfo = omni.client.get_server_info(self.stage_url())
-        if result and serverInfo and serverInfo.checkpoints_enabled:
-            bForceCheckpoint = True
-            self.log(f"Adding checkpoint comment <{comment}> to stage <{self.stage_url()}>")
-            omni.client.create_checkpoint(self.stage_url(), comment, bForceCheckpoint)
-
-    def username(self, display: bool = True) -> Optional[str]:
-        """
-        Get the username of the current user.
-
-        Parameters
-        ----------
-        display : bool, optional if True, send the username to the logging system.
-
-        Returns
-        -------
-        The username or None.
-        """
-        result, serverInfo = omni.client.get_server_info(self.stage_url())
-        if serverInfo:
-            if display:
-                self.log(f"Connected username:{serverInfo.username}")
-            return serverInfo.username
-        return None
 
     def clear_cleaned_names(self) -> None:
         """
@@ -331,7 +258,6 @@ class OmniverseWrapper:
         partname = self.clean_name(name + str(id) + str(timeline[0]))
         stage_name = "/Parts/" + partname + ".usd"
         part_stage_url = self.stage_url(stage_name)
-        omni.client.delete(part_stage_url)
         part_stage = Usd.Stage.CreateNew(part_stage_url)
         self._old_stages.append(part_stage_url)
         xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
@@ -416,7 +342,6 @@ class OmniverseWrapper:
         partname = self.clean_name(name + str(id) + str(timeline[0]))
         stage_name = "/Parts/" + partname + ".usd"
         part_stage_url = self.stage_url(stage_name)
-        omni.client.delete(part_stage_url)
         part_stage = Usd.Stage.CreateNew(part_stage_url)
         self._old_stages.append(part_stage_url)
         xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
@@ -514,8 +439,8 @@ class OmniverseWrapper:
             with open(f"scratch/Textures/palette_{name}.png", "wb") as fp:
                 io.write(fp, rows)
         uriPath = self._destinationPath + "/Parts/Textures"
-        omni.client.delete(uriPath)
-        omni.client.copy("scratch/Textures", uriPath)
+        shutil.rmtree(uriPath, ignore_errors=True, onerror=None)
+        shutil.copytree("scratch/Textures", uriPath)
 
     def create_dsg_root(self):
         root_name = "/Root"
@@ -594,14 +519,14 @@ class OmniverseWrapper:
                 UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
             )
             matrixOp.Set(Gf.Matrix4d(*matrix).GetTranspose())
-            self.log(f"Created group:'{name}' {str(obj_type)}")
+            logging.info(f"Created group:'{name}' {str(obj_type)}")
         return group_prim
 
     def uploadMaterial(self):
         uriPath = self._destinationPath + "/Materials"
-        omni.client.delete(uriPath)
+        shutil.rmtree(uriPath, ignore_errors=True, onerror=None)
         fullpath = os.path.join(os.path.dirname(__file__), "resources", "Materials")
-        omni.client.copy(fullpath, uriPath)
+        shutil.copytree(fullpath, uriPath)
 
     # Create a dome light in the scene.
     def createDomeLight(self, texturePath):
@@ -614,13 +539,6 @@ class OmniverseWrapper:
         xForm = newLight
         rotateOp = xForm.AddXformOp(UsdGeom.XformOp.TypeRotateZYX, UsdGeom.XformOp.PrecisionFloat)
         rotateOp.Set(Gf.Vec3f(270, 0, 0))
-
-    def createEmptyFolder(self, emptyFolderPath):
-        folder = self._destinationPath + emptyFolderPath
-        self.log(f"Creating new folder: {folder}")
-        result = omni.client.create_folder(folder)
-        self.log(f"Finished creating: {result.name}")
-        return result.name
 
 
 class OmniverseUpdateHandler(UpdateHandler):
