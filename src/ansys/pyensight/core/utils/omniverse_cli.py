@@ -456,8 +456,8 @@ if __name__ == "__main__":
     if args.log_file:
         log_args["filename"] = args.log_file
     # start with a clean logging instance
-    for handler in logging.root.handlers[:]:
-        logging.root.removeHandler(handler)
+    while logging.root.hasHandlers():
+        logging.root.removeHandler(logging.root.handlers[0])
     logging.basicConfig(**log_args)  # type: ignore
 
     # Build the server object

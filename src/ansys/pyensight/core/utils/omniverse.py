@@ -1,6 +1,7 @@
 import glob
 import json
 import os
+import platform
 import subprocess
 import sys
 import tempfile
@@ -15,8 +16,6 @@ if TYPE_CHECKING:
         import ensight
     except ImportError:
         from ansys.api.pyensight import ensight_api
-
-import ansys.pyensight.core
 
 
 class Omniverse:
@@ -133,10 +132,7 @@ class Omniverse:
     def _check_modules(self) -> None:
         """Verify that the Python interpreter is correct
 
-        Check for omni module. If not present, raise an exception.
-        If pxr is there as well, then we can just use sys.executable.
-        If not, check to see if 'kit.bat' or 'kit.sh' can be found and
-        arrange to use those instead.
+        Check for module dependencies. If not present, raise an exception.
 
         Raises
         ------
@@ -148,11 +144,27 @@ class Omniverse:
         if len(self._interpreter):
             return
 
-        kit_exe = self.find_kit_filename()
-        if kit_exe:
-            self._interpreter = kit_exe
+        # if a module, then we are inside EnSight
+        if isinstance(self._ensight, ModuleType):  # pragma: no cover
+            # in this case, we can just use cpython
+            import ceiversion
+            import enve
+
+            cei_home = os.environ.get("CEI_HOME", enve.home())
+            self._interpreter = os.path.join(cei_home, "bin", f"cpython{ceiversion.apex_suffix}")
+            if platform.system() == "Windows":
+                self._interpreter += ".bat"
             return
-        raise RuntimeError("Unable to detect a copy of the Omniverse kit executable.") from None
+        # Using the python interpreter running this code
+        self._interpreter = sys.executable
+
+        # in the future, these will be part of the pyensight wheel
+        # dependencies, but for now we include this check.
+        try:
+            import pxr  # noqa: F401
+            import pygltflib  # noqa: F401
+        except Exception:
+            raise RuntimeError("Unable to detect omniverse dependencies: usd-core, pygltflib.")
 
     def is_running_omniverse(self) -> bool:
         """Check that an Omniverse connection is active
@@ -232,34 +244,29 @@ class Omniverse:
             port = options.get("port", 12345)
             token = options.get("security", "")
 
-        # Launch the server via the 'ansys.geometry.service' kit
+        # Launch the server via the 'ansys.pyensight.core.utils.omniverse_cli' module
         dsg_uri = f"grpc://{hostname}:{port}"
-        pyensight_core_dir = os.path.dirname(ansys.pyensight.core.__file__)
-        kit_dir = os.path.join(pyensight_core_dir, "exts")
         cmd = [self._interpreter]
-        cmd.extend(["--ext-folder", kit_dir])
-        cmd.extend(["--enable", "ansys.geometry.service"])
+        cmd.extend(["-m", "ansys.pyensight.core.utils.omniverse_cli"])
+        cmd.append(omniverse_path)
         if token:
-            cmd.append(f"--/exts/ansys.geometry.service/securityCode={token}")
+            cmd.extend(["--security_token", token])
         if temporal:
-            cmd.append("--/exts/ansys.geometry.service/temporal=1")
+            cmd.extend(["--temporal", "true"])
         if not include_camera:
-            cmd.append("--/exts/ansys.geometry.service/vrmode=1")
+            cmd.extend(["--include_camera", "false"])
         if normalize_geometry:
-            cmd.append("--/exts/ansys.geometry.service/normalizeGeometry=1")
+            cmd.extend(["--normalize_geometry", "true"])
         if time_scale != 1.0:
-            cmd.append(f"--/exts/ansys.geometry.service/timeScale={time_scale}")
-        cmd.append(f"--/exts/ansys.geometry.service/omniUrl={omniverse_path}")
-        cmd.append(f"--/exts/ansys.geometry.service/dsgUrl={dsg_uri}")
-        cmd.append("--/exts/ansys.geometry.service/run=1")
+            cmd.extend(["--time_scale", str(time_scale)])
+        cmd.extend(["--dsg_uri", dsg_uri])
         env_vars = os.environ.copy()
         # we are launching the kit from EnSight or PyEnSight.  In these cases, we
         # inform the kit instance of:
         # (1) the name of the "server status" file, if any
         self._new_status_file()
         env_vars["ANSYS_OV_SERVER_STATUS_FILENAME"] = self._status_filename
-        working_dir = os.path.join(pyensight_core_dir, "utils")
-        process = subprocess.Popen(cmd, close_fds=True, env=env_vars, cwd=working_dir)
+        process = subprocess.Popen(cmd, close_fds=True, env=env_vars)
         self._server_pid = process.pid
 
     def _new_status_file(self, new=True) -> None:
