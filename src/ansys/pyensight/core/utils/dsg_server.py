@@ -1,3 +1,4 @@
+import hashlib
 import json
 import logging
 import os
@@ -37,6 +38,7 @@ class Part(object):
         self.tcoords_elem = False
         self.node_sizes = numpy.array([], dtype="float32")
         self.cmd: Optional[Any] = None
+        self.hash = hashlib.new("sha256")
         self.reset()
 
     def reset(self, cmd: Any = None) -> None:
@@ -49,6 +51,9 @@ class Part(object):
         self.tcoords_var_id = None
         self.tcoords_elem = False
         self.node_sizes = numpy.array([], dtype="float32")
+        self.hash = hashlib.new("sha256")
+        if cmd is not None:
+            self.hash.update(cmd.hash.encode("utf-8"))
         self.cmd = cmd
 
     def update_geom(self, cmd: dynamic_scene_graph_pb2.UpdateGeom) -> None:
@@ -103,6 +108,8 @@ class Part(object):
                     self.node_sizes[
                         cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)
                     ] = cmd.flt_array
+        # Combine the hashes for the UpdatePart and all UpdateGeom messages
+        self.hash.update(cmd.hash.encode("utf-8"))
 
     def nodal_surface_rep(self):
         """
@@ -602,6 +609,15 @@ class DSGSession(object):
         if level < self._verbose:
             logging.info(s)
 
+    @staticmethod
+    def warn(s: str) -> None:
+        """Issue a warning to the logging system
+
+        The logging message is mapped to "warn" and cannot be blocked via verbosity
+        checks.
+        """
+        logging.warning(s)
+
     def start(self) -> int:
         """Start a gRPC connection to an EnSight instance
 
@@ -820,7 +836,10 @@ class DSGSession(object):
         There is always a part being modified.  This method completes the current part, committing
         it to the handler.
         """
-        self._callback_handler.finalize_part(self.part)
+        try:
+            self._callback_handler.finalize_part(self.part)
+        except Exception as e:
+            self.warn(f"Error encountered while finalizing part geometry: {str(e)}")
         self._mesh_block_count += 1
 
     def _handle_part(self, part_cmd: Any) -> None:

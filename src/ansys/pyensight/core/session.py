@@ -1064,7 +1064,7 @@ class Session:
         onlyfiles = [f for f in listdir(_utils_dir) if os.path.isfile(os.path.join(_utils_dir, f))]
         for _basename in onlyfiles:
             # skip over any files with the "_server" in their names
-            if "_server" in _basename:
+            if "_server" in _basename or "_cli" in _basename:
                 continue
             _filename = os.path.join(_utils_dir, _basename)
             try:
