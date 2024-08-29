@@ -1,10 +1,11 @@
 import glob
 import os
+import time
 
 from ansys.pyensight.core import DockerLauncher, LocalLauncher
-import pytest
 from pxr import Usd
-import time
+import pytest
+
 
 def compare_prims(prim1, prim2):
     if prim1.GetPath() != prim2.GetPath():
@@ -16,6 +17,7 @@ def compare_prims(prim1, prim2):
         if not attr2 or attr1.Get() != attr2.Get():
             return False
     return True
+
 
 def compare_usd_files(stage1, stage2):
     if not stage1 or not stage2:
@@ -44,6 +46,7 @@ def wait_for_usd(directory):
         time.sleep(0.5)
     return usd_files
 
+
 def wait_for_mod(filename, previous_result):
     different = False
     start = time.time()
@@ -53,6 +56,7 @@ def wait_for_mod(filename, previous_result):
             different = True
         time.sleep(0.5)
     return different
+
 
 def test_usd_export(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
@@ -92,5 +96,3 @@ def test_usd_export(tmpdir, pytestconfig: pytest.Config):
     # Considering deduplication, at the end of the export there will be 39 items
     # not 100 (5*20)
     assert len(parts) == 39
-
-
