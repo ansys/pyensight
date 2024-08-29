@@ -44,6 +44,8 @@ dev = [
     "ipdb>=0.9.4",
     "dill>=0.3.5.1",
     "pre-commit>=3.3.3",
+    "usd-core>=24.8",
+    "pygltflib>=1.16.2",
 ]
 tests = [
     "pytest==8.3.2",
@@ -53,6 +55,8 @@ tests = [
     "urllib3==2.2.2",
     "requests>=2.28.2",
     "docker>=6.1.0",
+    "usd-core>=24.8",
+    "pygltflib>=1.16.2",
 ]
 doc = [
     "Sphinx==8.0.2",
@@ -68,6 +72,8 @@ doc = [
     "coverage-badge==1.1.0",
     "sphinxcontrib-openapi==0.8.1",
     "sphinxcontrib-video==0.2.0",
+    "usd-core>=24.8",
+    "pygltflib>=1.16.2",
 ]
 
 [project.urls]
