@@ -13,7 +13,7 @@ description = "A geometry synchronization service that enables export of geometr
 readme  = "docs/README.md"
 
 # URL of the extension source repository.
-repository = "https://github.com/ansys-internal/ansys-tools-omniverse"
+repository = "https://github.com/ansys/pyensight"
 
 # One of categories for UI.
 category = "simulation"
