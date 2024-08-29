@@ -72,6 +72,7 @@ def test_usd_export(tmpdir, pytestconfig: pytest.Config):
     assert len(usd_files) == 1
     base_usd = usd_files[0]
     result = os.stat(base_usd)
+    time.sleep(60)
     parts = glob.glob(os.path.join(data_dir, "Parts", "*.usd"))
     assert len(parts) == 5
     temp_stage = Usd.Stage.Open(usd_files[0])
