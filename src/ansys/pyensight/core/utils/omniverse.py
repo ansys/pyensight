@@ -259,6 +259,8 @@ class Omniverse:
             cmd.extend(["--normalize_geometry", "true"])
         if time_scale != 1.0:
             cmd.extend(["--time_scale", str(time_scale)])
+        if not live:
+            cmd.extend(["--oneshot", "1"])
         cmd.extend(["--dsg_uri", dsg_uri])
         env_vars = os.environ.copy()
         # we are launching the kit from EnSight or PyEnSight.  In these cases, we
