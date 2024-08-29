@@ -45,6 +45,7 @@ def wait_for_idle(session):
         time.sleep(0.5)
     return found
 
+
 def test_usd_export(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
