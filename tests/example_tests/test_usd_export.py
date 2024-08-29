@@ -35,28 +35,15 @@ def compare_usd_files(stage1, stage2):
     return True
 
 
-def wait_for_usd(directory):
+def wait_for_idle(session):
     found = False
     start = time.time()
-    usd_files = []
     while not found and time.time() - start < 60:
-        usd_files = glob.glob(os.path.join(directory, "*.usd"))
-        if usd_files:
+        status = session.ensight.utils.omniverse.read_status_file()
+        if status.get("status") == "idle":
             found = True
         time.sleep(0.5)
-    return usd_files
-
-
-def wait_for_mod(filename, previous_result):
-    different = False
-    start = time.time()
-    while not different and time.time() - start < 60:
-        new_result = os.stat(filename)
-        if new_result.st_mtime > previous_result.st_mtime:
-            different = True
-        time.sleep(0.5)
-    return different
-
+    return found
 
 def test_usd_export(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
@@ -68,11 +55,10 @@ def test_usd_export(tmpdir, pytestconfig: pytest.Config):
     session = launcher.start()
     session.load_example("waterbreak.ens")
     session.ensight.utils.omniverse.create_connection(data_dir)
-    usd_files = wait_for_usd(data_dir)
+    assert wait_for_idle(session)
+    usd_files = glob.glob(os.path.join(data_dir, "*.usd"))
     assert len(usd_files) == 1
     base_usd = usd_files[0]
-    result = os.stat(base_usd)
-    time.sleep(60)
     parts = glob.glob(os.path.join(data_dir, "Parts", "*.usd"))
     assert len(parts) == 5
     temp_stage = Usd.Stage.Open(usd_files[0])
@@ -82,17 +68,14 @@ def test_usd_export(tmpdir, pytestconfig: pytest.Config):
     stage1 = Usd.Stage.Open(os.path.join(data_dir, "stage1.usd"))
     session.ensight.objs.core.PARTS.set_attr("COLORBYPALETTE", "alpha1")
     session.ensight.utils.omniverse.update()
-    assert wait_for_mod(base_usd, result) is True
-    new_result = os.stat(base_usd)
+    assert wait_for_idle(session)
     stage2 = Usd.Stage.Open(base_usd)
     diff = compare_usd_files(stage1, stage2)
     assert diff is False
     diff = compare_usd_files(temp_stage, stage2)
     assert diff is True
     session.ensight.utils.omniverse.update(temporal=True)
-    assert wait_for_mod(base_usd, new_result) is True
-    # Give time to export all the timesteps
-    time.sleep(60)
+    assert wait_for_idle(session)
     parts = glob.glob(os.path.join(data_dir, "Parts", "*.usd"))
     # Considering deduplication, at the end of the export there will be 39 items
     # not 100 (5*20)
