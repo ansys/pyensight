@@ -3,6 +3,7 @@
 This module provides the interface for creating objects in the EnSight session
 that can be displayed via HTML over the websocket server interface.
 """
+import hashlib
 import os
 import shutil
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union, no_type_check
@@ -812,3 +813,18 @@ class RenderableSGEO(Renderable):  # pragma: no cover
         html = html.replace("REVURL_ITEMID", revision_uri)
         html = html.replace("ITEMID", self._guid)
         return html
+
+
+class RenderableFluidsWebUI(Renderable):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self._rendertype = "webui"
+        self._generate_url()
+        self.update()
+
+    def _generate_url(self) -> None:
+        sha256_hash = hashlib.sha256()
+        sha256_hash.update(self._session._secret_key.encode())
+        token = sha256_hash.hexdigest()
+        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session._webui_port}#{token}"
+        self._url = url
