@@ -13,7 +13,7 @@ description = "A geometry synchronization service that enables export of geometr
 readme  = "docs/README.md"
 
 # URL of the extension source repository.
-repository = "https://github.com/ansys-internal/ansys-tools-omniverse"
+repository = "https://github.com/ansys/pyensight"
 
 # One of categories for UI.
 category = "simulation"
@@ -51,10 +51,9 @@ dependencies = [
 [settings]
 # CLI setting defaults (note: "help" and "run" are also supported)
 exts."ansys.tools.omniverse.core".dsgUrl = "grpc://127.0.0.1:5234"
-exts."ansys.tools.omniverse.core".omniUrl = "omniverse://localhost/Users/test"
+exts."ansys.tools.omniverse.core".omniUrl = "~"
 exts."ansys.tools.omniverse.core".securityCode = ""
 exts."ansys.tools.omniverse.core".temporal = "0"
 exts."ansys.tools.omniverse.core".vrmode = "0"
 exts."ansys.tools.omniverse.core".normalizeGeometry = "0"
 exts."ansys.tools.omniverse.core".timeScale = "1.0"
-exts."ansys.tools.omniverse.core".monitorDirectory = ""
