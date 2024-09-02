@@ -262,6 +262,10 @@ class DockerLauncher(Launcher):
             container_env["ANSYSLMD_LICENSE_FILE"] = os.environ["ANSYSLMD_LICENSE_FILE"]
             if "ENSIGHT_ANSYS_APIP_CONFIG" in os.environ:
                 container_env["ENSIGHT_ANSYS_APIP_CONFIG"] = os.environ["ENSIGHT_ANSYS_APIP_CONFIG"]
+        
+        if self._launch_webui:
+            container_env["SIMBA_WEBSERVER_TOKEN"] = self._secret_key
+            container_env["FLUENT_WEBSERVER_TOKEN"] = self._secret_key
 
         return container_env
 
@@ -418,7 +422,7 @@ class DockerLauncher(Launcher):
         grpc_port = self._service_host_port["grpc"][1]
         http_port = self._service_host_port["http"][1]
         ws_port = self._service_host_port["ws"][1]
-        cmd += f" --server-listen-ports {webui_port}"
+        cmd += f" --server-listen-port {webui_port}"
         cmd += (
             f" --server-web-roots /ansys_inc/v{self._ansys_version}/CEI/apex{self._ansys_version}/"
         )
@@ -428,13 +432,6 @@ class DockerLauncher(Launcher):
         cmd += f" --ensight-ws-port {ws_port}"
         cmd += f" --ensight-session-directory {self._session_directory}"
         cmd += f" --ensight-secret-key {self._secret_key}"
-        env_string = (
-            f"SIMBA_WEBSERVER_TOKEN={self._secret_key} FLUENT_WEBSERVER_TOKEN={self._secret_key}"
-        )
-        if container_env_str != "":
-            container_env_str += f" {env_string}"
-        else:
-            container_env_str = env_string
         logging.debug(f"Starting WebUI: {cmd}\n")
         ret = self._enshell.start_other(cmd, extra_env=container_env_str)
         if ret[0] != 0:  # pragma: no cover
