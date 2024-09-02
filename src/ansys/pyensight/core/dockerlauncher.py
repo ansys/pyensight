@@ -262,7 +262,7 @@ class DockerLauncher(Launcher):
             container_env["ANSYSLMD_LICENSE_FILE"] = os.environ["ANSYSLMD_LICENSE_FILE"]
             if "ENSIGHT_ANSYS_APIP_CONFIG" in os.environ:
                 container_env["ENSIGHT_ANSYS_APIP_CONFIG"] = os.environ["ENSIGHT_ANSYS_APIP_CONFIG"]
-        
+
         if self._launch_webui:
             container_env["SIMBA_WEBSERVER_TOKEN"] = self._secret_key
             container_env["FLUENT_WEBSERVER_TOKEN"] = self._secret_key
