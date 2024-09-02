@@ -419,7 +419,7 @@ class DockerLauncher(Launcher):
         # --add_header as a optional arg that can take an arbitrary
         # number of optional headers.
         webui_port = self._service_host_port["webui"][1]
-        grpc_port = self._service_host_port["grpc"][1]
+        grpc_port = self._service_host_port["grpc_private"][1]
         http_port = self._service_host_port["http"][1]
         ws_port = self._service_host_port["ws"][1]
         cmd += f" --server-listen-port {webui_port}"
