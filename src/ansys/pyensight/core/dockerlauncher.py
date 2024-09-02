@@ -144,8 +144,8 @@ class DockerLauncher(Launcher):
 
         if self._enshell_grpc_channel and self._pim_instance:
             service_set = ["grpc_private", "http", "ws"]
-            if self._launch_webui:
-                service_set.append("webui")
+            # if self._launch_webui:
+            #    service_set.append("webui")
             if not set(service_set).issubset(self._pim_instance.services):
                 raise RuntimeError(
                     "If channel is specified, the PIM instance must have a list of length 3 "
@@ -162,10 +162,10 @@ class DockerLauncher(Launcher):
             self._service_host_port["ws"] = self._get_host_port(
                 self._pim_instance.services["ws"].uri
             )
-            if self._launch_webui:
-                self._service_host_port["webui"] = self._get_host_port(
-                    self._pim_instance.services["webui"].uri
-                )
+            # if self._launch_webui:
+            #    self._service_host_port["webui"] = self._get_host_port(
+            #        self._pim_instance.services["webui"].uri
+            #    )
             # for parity, add 'grpc' as a placeholder even though using PIM sets up the gRPC channel.
             # this isn't used in this situation.
             self._service_host_port["grpc"] = ("127.0.0.1", -1)
