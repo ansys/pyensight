@@ -122,7 +122,7 @@ class LocalLauncher(Launcher):
                 if int(os.environ["PYENSIGHT_DEBUG"]) > 0:
                     del popen_common["stdout"]
                     del popen_common["stderr"]
-            except ValueError:
+            except (ValueError, KeyError):
                 pass
         popen_common["env"].update(
             {
