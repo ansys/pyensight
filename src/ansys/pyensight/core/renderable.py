@@ -8,6 +8,7 @@ import os
 import shutil
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union, no_type_check
 import uuid
+import warnings
 import webbrowser
 
 import requests
@@ -818,6 +819,10 @@ class RenderableSGEO(Renderable):  # pragma: no cover
 class RenderableFluidsWebUI(Renderable):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
+        self._session.ensight_version_check("2025 R1")
+        warnings.warn(
+            "This is a beta feature. Please report any issue and feedback on the PyEnSight GitHub page"
+        )
         self._rendertype = "webui"
         self._generate_url()
         self.update()
