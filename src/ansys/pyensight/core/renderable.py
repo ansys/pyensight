@@ -826,5 +826,7 @@ class RenderableFluidsWebUI(Renderable):
         sha256_hash = hashlib.sha256()
         sha256_hash.update(self._session._secret_key.encode())
         token = sha256_hash.hexdigest()
-        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session._webui_port}#{token}"
+        optional_query = self._get_query_parameters_str()
+        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session._webui_port}"
+        url += f"#{token}{optional_query}"
         self._url = url

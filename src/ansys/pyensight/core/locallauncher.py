@@ -106,9 +106,8 @@ class LocalLauncher(Launcher):
         cmd += [webui_script]
         version = re.findall(r"nexus(\d+)", webui_script)[0]
         path_to_webui = self._install_path
-        plat = "win64" if self._is_windows() else "linux_2.6_64"
         path_to_webui = os.path.join(
-            path_to_webui, f"apex{version}", "machines", plat, "WebUI", "web", "ui"
+            path_to_webui, f"nexus{version}", f"ansys{version}", "ensight", "WebUI", "web", "ui"
         )
         cmd += ["--server-listen-port", str(self._ports[5])]
         cmd += ["--server-web-roots", path_to_webui]
