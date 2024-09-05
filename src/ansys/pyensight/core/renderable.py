@@ -834,11 +834,13 @@ class RenderableFluidsWebUI(Renderable):
         optional_query = self._get_query_parameters_str()
         port = self._session._webui_port
         if "instance_name" in self._session._launcher._get_query_parameters():
+            instance_name = self._session._launcher._get_query_parameters()["instance_name"]
             # If using PIM, the port needs to be the 443 HTTPS Port;
-            # the new param will ask to route the calls to the internal
-            # simba-core server
             port = self._session.html_port
-            optional_query += "&webui=true"
+            # In the webUI code there's already a workflow to pass down the query parameter
+            # ans_instance_id, just use it
+            instance_name = self._session._launcher._get_query_parameters()["instance_name"]
+            optional_query = f"?ans_instance_id={instance_name}"
         url = f"{self._http_protocol}://{self._session.html_hostname}:{port}"
         url += f"{optional_query}#{token}"
         self._url = url
