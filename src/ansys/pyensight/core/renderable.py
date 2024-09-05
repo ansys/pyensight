@@ -832,6 +832,13 @@ class RenderableFluidsWebUI(Renderable):
         sha256_hash.update(self._session._secret_key.encode())
         token = sha256_hash.hexdigest()
         optional_query = self._get_query_parameters_str()
-        url = f"{self._http_protocol}://{self._session.html_hostname}:{self._session._webui_port}"
-        url += f"#{token}{optional_query}"
+        port = self._session._webui_port
+        if "instance_name" in self._session._launcher._get_query_parameters():
+            # If using PIM, the port needs to be the 443 HTTPS Port;
+            # the new param will ask to route the calls to the internal
+            # simba-core server
+            port = self._session.html_port
+            optional_query += "&webui=true"
+        url = f"{self._http_protocol}://{self._session.html_hostname}:{port}"
+        url += f"{optional_query}#{token}"
         self._url = url

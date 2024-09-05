@@ -257,7 +257,7 @@ class LocalLauncher(Launcher):
             cmd.extend(["--http_port", str(self._ports[2])])
             # vnc port
             cmd.extend(["--client_port", str(self._ports[1])])
-            if self._enable_rest_api or self._launch_webui:
+            if self._enable_rest_api:
                 # grpc port
                 cmd.extend(["--grpc_port", str(self._ports[0])])
             # EnVision sessions
