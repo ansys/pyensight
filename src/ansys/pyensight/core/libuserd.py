@@ -16,7 +16,7 @@ any issues via github.
 Examples
 --------
 
->>> from ansys.pyensight import libuserd
+>>> from ansys.pyensight.core import libuserd
 >>> userd = libuserd.LibUserd()
 >>> userd.initialize()
 >>> print(userd.library_version())
@@ -231,6 +231,22 @@ class Part(object):
         return f"Part id: {self.id}, name: '{self.name}'"
 
     def nodes(self) -> "numpy.array":
+        """
+        Return the vertex array for the part.
+
+        Returns
+        -------
+        A numpy array of packed values: x,y,z,z,y,z, ...
+
+        Examples
+        --------
+
+        >>> part = reader.parts()[0]
+        >>> nodes = part.nodes()
+        >>> nodes.shape = (len(nodes)//3, 3)
+        >>> print(nodes)
+
+        """
         self._userd.connect_check()
         pb = libuserd_pb2.Part_nodesRequest()
         pb.part_id = self.id
@@ -249,6 +265,23 @@ class Part(object):
         return nodes
 
     def num_elements(self) -> dict:
+        """
+        Get the number of elements of a given type in the current part.
+
+        Returns
+        -------
+        A dictionary with keys being the element type and the values being the number of
+        such elements.  Element types with zero elements are not included in the dictionary.
+
+        Examples
+        --------
+
+        >>> part = reader.parts()[0]
+        >>> elements = part.elements()
+        >>> for etype,count in elements.items():
+        ...  print(libuserd_instance.ElementType(etype).name, count)
+
+        """
         self._userd.connect_check()
         pb = libuserd_pb2.Part_num_elementsRequest()
         pb.part_id = self.id
@@ -263,6 +296,30 @@ class Part(object):
         return elements
 
     def element_conn(self, elem_type: int) -> "numpy.array":
+        """
+        For "zoo" element types, return the part element connectivity for the specified
+        element type.
+
+        Parameters
+        ----------
+        elem_type : int
+            The element type.  All but NFACED and NSIDED element types are allowed.
+
+        Returns
+        -------
+        A numpy array of the node indices.
+
+        Examples
+        --------
+
+        >>> part = reader.parts()[0]
+        >>> conn = part.element_conn(libuserd_instance.ElementType.HEX08)
+        >>> nodes_per_elem = libuserd_instance.nodes_per_element(libuserd_instance.ElementType.HEX08)
+        >>> conn.shape = (len(conn)//nodes_per_elem, nodes_per_elem)
+        >>> for element in conn:
+        ...  print(element)
+
+        """
         pb = libuserd_pb2.Part_element_connRequest()
         pb.part_id = self.id
         pb.elemType = elem_type
@@ -281,6 +338,28 @@ class Part(object):
         return conn
 
     def element_conn_nsided(self, elem_type: int) -> List["numpy.array"]:
+        """
+        For an N-Sided element type (regular or ghost), return the connectivity information
+        for the elements of that type in this part at this timestep.
+
+        Two arrays are returned in a list:
+
+        - num_nodes_per_element : one number per element that represent the number of nodes in that element
+        - nodes : the actual node indices
+
+        Arrays are packed sequentially.  Walking the elements sequentially, if the number of
+        nodes for an element is 4, then there are 4 entries added to the nodes array
+        for that element.
+
+        Parameters
+        ----------
+        elem_type: int
+            NSIDED or NSIDED_GHOST.
+
+        Returns
+        -------
+        Two numpy arrays: num_nodes_per_element, nodes
+        """
         self._userd.connect_check()
         pb = libuserd_pb2.Part_element_conn_nsidedRequest()
         pb.part_id = self.id
@@ -307,6 +386,30 @@ class Part(object):
         return [nodes, indices]
 
     def element_conn_nfaced(self, elem_type: int) -> List["numpy.array"]:
+        """
+        For an N-Faced element type (regular or ghost), return the connectivity information
+        for the elements of that type in this part at this timestep.
+
+        Three arrays are returned in a list:
+
+        - num_faces_per_element : one number per element that represent the number of faces in that element
+        - num_nodes_per_face : for each face, the number of nodes in the face.
+        - face_nodes : the actual node indices
+
+        All arrays are packed sequentially.  Walking the elements sequentially, if the number of
+        faces for an element is 4, then there are 4 entries added to the num_nodes_per_face array
+        for that element.  Likewise, the nodes for each face are appended in order to the
+        face_nodes array.
+
+        Parameters
+        ----------
+        elem_type: int
+            NFACED or NFACED_GHOST.
+
+        Returns
+        -------
+        Three numpy arrays: num_faces_per_element, num_nodes_per_face, face_nodes
+        """
         self._userd.connect_check()
         pb = libuserd_pb2.Part_element_conn_nfacedRequest()
         pb.part_id = self.id
@@ -340,15 +443,40 @@ class Part(object):
         return [face, npf, nodes]
 
     def variable_values(
-        self, variable: "Variable", elem_type: int = 0, complex: bool = False, component: int = 0
+        self, variable: "Variable", elem_type: int = 0, imaginary: bool = False, component: int = 0
     ) -> "numpy.array":
+        """
+        Return a numpy array containing the value(s) of a variable.  If the variable is a
+        part variable, a single float value is returned.  If the variable is a nodal variable,
+        the resulting numpy array will have the same number of values as there are nodes.
+        If the variable is elemental, the `elem_type` selects the block of elements to return
+        the variable values for (`elem_type` is ignored for other variable types).
+
+        Parameters
+        ----------
+        variable : "Variable"
+            The variable to return the values for.
+        elem_type : int
+            Used only if the variable location is elemental, this keyword selects the element
+            type to return the variable values for.
+        imaginary : bool
+            If the variable is of type complex, setting this to True will select the imaginary
+            portion of the data.
+        component : int
+            Select the channel for a multivalued variable type.  For example, if the variable
+            is a vector, setting component to 1 will select the 'Y' component.
+
+        Returns
+        -------
+        A numpy array or a single scalar float.
+        """
         self._userd.connect_check()
         pb = libuserd_pb2.Part_variable_valuesRequest()
         pb.part_id = self.id
         pb.var_id = variable.id
         pb.elemType = elem_type
         pb.varComponent = component
-        pb.complex = complex
+        pb.complex = imaginary
         try:
             stream = self._userd.stub.Part_variable_values(pb, metadata=self._userd.metadata())
         except grpc.RpcError as e:
@@ -364,6 +492,20 @@ class Part(object):
         return v
 
     def rigid_body_transform(self) -> dict:
+        """
+        Return the rigid body transform for this part at the current timestep.  The
+        returned dictionary includes the following fields:
+
+        - "translation" : Translation 3 floats x,y,z
+        - "euler_value" : Euler values 4 floats e0,e1,e2,e3
+        - "center_of_gravity" : Center of transform 3 floats x,y,z
+        - "rotation_order" : The order rotations are applied 1 float
+        - "rotation_angles" : The rotations in radians 3 floats rx,ry,rz
+
+        Returns
+        -------
+        The transform dictionary.
+        """
         self._userd.connect_check()
         pb = libuserd_pb2.Part_rigid_body_transformRequest()
         pb.part_id = self.id
@@ -699,9 +841,10 @@ class LibUserd(object):
     >>> from ansys.pyensight.core import libuserd
     >>> l = libuserd.LibUserd()
     >>> l.initialize()
-    >>> readers = l.read_dataset(r"D:\data\Axial_001.res")
+    >>> readers = l.query_format(r"D:\data\Axial_001.res")
     >>> data = readers[0].read_dataset(r"D:\data\Axial_001.res")
-    >>> print(data.parts[0].nodes())
+    >>> part = data.parts[0]
+    >>> print(part, part.nodes())
     >>> l.shutdown()
 
     """
@@ -1086,7 +1229,7 @@ class LibUserd(object):
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_nodes_per_elementRequest()
-        pb.element_type = element_type
+        pb.elemType = element_type
         try:
             ret = self.stub.Libuserd_nodes_per_element(pb, metadata=self.metadata())
         except grpc.RpcError as e:
@@ -1110,7 +1253,7 @@ class LibUserd(object):
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_element_is_ghostRequest()
-        pb.element_type = element_type
+        pb.elemType = element_type
         try:
             ret = self.stub.Libuserd_element_is_ghost(pb, metadata=self.metadata())
         except grpc.RpcError as e:
@@ -1132,7 +1275,7 @@ class LibUserd(object):
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_element_is_zooRequest()
-        pb.element_type = element_type
+        pb.elemType = element_type
         try:
             ret = self.stub.Libuserd_element_is_zoo(pb, metadata=self.metadata())
         except grpc.RpcError as e:
@@ -1154,7 +1297,7 @@ class LibUserd(object):
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_element_is_nsidedRequest()
-        pb.element_type = element_type
+        pb.elemType = element_type
         try:
             ret = self.stub.Libuserd_element_is_nsided(pb, metadata=self.metadata())
         except grpc.RpcError as e:
@@ -1176,7 +1319,7 @@ class LibUserd(object):
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_element_is_nfacedRequest()
-        pb.element_type = element_type
+        pb.elemType = element_type
         try:
             ret = self.stub.Libuserd_element_is_nfaced(pb, metadata=self.metadata())
         except grpc.RpcError as e:
