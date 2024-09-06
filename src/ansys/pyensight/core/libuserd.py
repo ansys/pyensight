@@ -1,5 +1,4 @@
-"""libuserd module.
-
+"""
 The ``libuserd`` module allows PyEnSight to directly access EnSight
 user-defined readers (USERD).  Any file format for which EnSight
 uses a USERD interface can be read using this API
@@ -116,7 +115,8 @@ class Query(object):
 
         Returns
         -------
-        A list of two numpy arrays [X, Y].
+        List["numpy.array"]
+            A list of two numpy arrays [X, Y].
         """
         self._userd.connect_check()
         pb = libuserd_pb2.Query_dataRequest()
@@ -236,7 +236,8 @@ class Part(object):
 
         Returns
         -------
-        A numpy array of packed values: x,y,z,z,y,z, ...
+        "numpy.array"
+            A numpy array of packed values: x,y,z,z,y,z, ...
 
         Examples
         --------
@@ -270,8 +271,9 @@ class Part(object):
 
         Returns
         -------
-        A dictionary with keys being the element type and the values being the number of
-        such elements.  Element types with zero elements are not included in the dictionary.
+        dict
+            A dictionary with keys being the element type and the values being the number of
+            such elements.  Element types with zero elements are not included in the dictionary.
 
         Examples
         --------
@@ -307,7 +309,8 @@ class Part(object):
 
         Returns
         -------
-        A numpy array of the node indices.
+        "numpy.array"
+            A numpy array of the node indices.
 
         Examples
         --------
@@ -358,7 +361,8 @@ class Part(object):
 
         Returns
         -------
-        Two numpy arrays: num_nodes_per_element, nodes
+        List["numpy.array"]
+            Two numpy arrays: num_nodes_per_element, nodes
         """
         self._userd.connect_check()
         pb = libuserd_pb2.Part_element_conn_nsidedRequest()
@@ -408,7 +412,8 @@ class Part(object):
 
         Returns
         -------
-        Three numpy arrays: num_faces_per_element, num_nodes_per_face, face_nodes
+        List["numpy.array"]
+            Three numpy arrays: num_faces_per_element, num_nodes_per_face, face_nodes
         """
         self._userd.connect_check()
         pb = libuserd_pb2.Part_element_conn_nfacedRequest()
@@ -468,7 +473,8 @@ class Part(object):
 
         Returns
         -------
-        A numpy array or a single scalar float.
+        "numpy.array"
+            A numpy array or a single scalar float.
         """
         self._userd.connect_check()
         pb = libuserd_pb2.Part_variable_valuesRequest()
@@ -504,7 +510,8 @@ class Part(object):
 
         Returns
         -------
-        The transform dictionary.
+        dict
+            The transform dictionary.
         """
         self._userd.connect_check()
         pb = libuserd_pb2.Part_rigid_body_transformRequest()
@@ -562,7 +569,8 @@ class Reader(object):
 
         Returns
         -------
-        A list of Part objects.
+        List[Part]
+            A list of Part objects.
         """
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_partsRequest()
@@ -581,7 +589,8 @@ class Reader(object):
 
         Returns
         -------
-        A list of Variable objects.
+        List[Variable]
+            A list of Variable objects.
         """
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_variablesRequest()
@@ -600,7 +609,8 @@ class Reader(object):
 
         Returns
         -------
-        A list of Query objects.
+        List[Query]
+            A list of Query objects.
         """
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_queriesRequest()
@@ -619,7 +629,8 @@ class Reader(object):
 
         Returns
         -------
-        A list of time floats.
+        List[float]
+            A list of time floats.
         """
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_timevaluesRequest()
@@ -675,7 +686,8 @@ class Reader(object):
 
         Returns
         -------
-        True if the geometry is changing, False otherwise.
+        bool
+            True if the geometry is changing, False otherwise.
         """
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_is_geometry_changingRequest()
@@ -698,7 +710,8 @@ class Reader(object):
 
         Returns
         -------
-        The value of the variable.
+        float
+            The value of the variable.
         """
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_variable_valueRequest()
@@ -784,7 +797,8 @@ class ReaderInfo(object):
 
         Returns
         -------
-        An instance of the `Reader` class.
+        "Reader"
+            An instance of the `Reader` class.
         """
         self._userd.connect_check()
         pb = libuserd_pb2.ReaderInfo_read_datasetRequest()
@@ -968,7 +982,8 @@ class LibUserd(object):
 
         Returns
         -------
-        The first valid ensight_server found or None
+        str
+            The first valid ensight_server found or None
 
         """
         dirs_to_check = []
@@ -1017,7 +1032,8 @@ class LibUserd(object):
 
         Returns
         -------
-        True if the connection is active.
+        bool
+            True if the connection is active.
         """
         return self._channel is not None
 
@@ -1060,8 +1076,9 @@ class LibUserd(object):
 
         Returns
         -------
-        A list object of the metadata elements needed in a gRPC call to
-        satisfy the EnSight server gRPC requirements.
+        List[Tuple[bytes, Union[str, bytes]]]
+            A list object of the metadata elements needed in a gRPC call to
+            satisfy the EnSight server gRPC requirements.
         """
         ret: List[Tuple[bytes, Union[str, bytes]]] = list()
         s: Union[str, bytes]
@@ -1085,8 +1102,9 @@ class LibUserd(object):
 
         Returns
         -------
-        Either the original exception or a LibUserdError exception instance, depending on
-        the original exception message details.
+        Exception
+            Either the original exception or a LibUserdError exception instance, depending on
+            the original exception message details.
         """
         msg = e.details()
         if msg.startswith("LibUserd("):
@@ -1166,7 +1184,8 @@ class LibUserd(object):
 
         Returns
         -------
-        Return a string like "2025 R1"
+        str
+            Return a string like "2025 R1"
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_ansys_release_stringRequest()
@@ -1182,7 +1201,8 @@ class LibUserd(object):
 
         Returns
         -------
-        A version number like 251 (for "2025 R1")
+        int
+            A version number like 251 (for "2025 R1")
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_ansys_release_numberRequest()
@@ -1203,7 +1223,8 @@ class LibUserd(object):
 
         Returns
         -------
-        The library interface version number string.
+        str
+            The library interface version number string.
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_library_versionRequest()
@@ -1225,7 +1246,8 @@ class LibUserd(object):
 
         Returns
         -------
-        Number of nodes per element or 0 if elem_type is not a valid zoo element type.
+        int
+            Number of nodes per element or 0 if elem_type is not a valid zoo element type.
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_nodes_per_elementRequest()
@@ -1249,7 +1271,8 @@ class LibUserd(object):
 
         Returns
         -------
-        True if the element is a ghost (or an invalid element type).
+        bool
+            True if the element is a ghost (or an invalid element type).
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_element_is_ghostRequest()
@@ -1271,7 +1294,8 @@ class LibUserd(object):
 
         Returns
         -------
-        True if the element is a zoo element and false if it is NSIDED or NFACED.
+        bool
+            True if the element is a zoo element and false if it is NSIDED or NFACED.
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_element_is_zooRequest()
@@ -1293,7 +1317,8 @@ class LibUserd(object):
 
         Returns
         -------
-        True if the element is a NSIDED or NSIDED_GHOST and False otherwise.
+        bool
+            True if the element is a NSIDED or NSIDED_GHOST and False otherwise.
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_element_is_nsidedRequest()
@@ -1315,7 +1340,8 @@ class LibUserd(object):
 
         Returns
         -------
-        True if the element is a NFACED or NFACED_GHOST and False otherwise.
+        bool
+            True if the element is a NFACED or NFACED_GHOST and False otherwise.
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_element_is_nfacedRequest()
@@ -1336,7 +1362,8 @@ class LibUserd(object):
 
         Returns
         -------
-        The number of zoo element types.
+        int
+            The number of zoo element types.
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_number_of_simple_element_typesRequest()
@@ -1364,7 +1391,8 @@ class LibUserd(object):
 
         Returns
         -------
-        List of all ReaderInfo objects.
+        List["ReaderInfo"]
+            List of all ReaderInfo objects.
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_get_all_readersRequest()
@@ -1392,7 +1420,8 @@ class LibUserd(object):
 
         Returns
         -------
-        List of ReaderInfo objects that might be able to read the dataset
+        List["ReaderInfo"]
+            List of ReaderInfo objects that might be able to read the dataset
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_query_formatRequest()
