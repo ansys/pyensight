@@ -70,7 +70,7 @@ doc = [
     "requests>=2.28.2",
     "sphinxcontrib.jquery==4.1",
     "coverage-badge==1.1.0",
-    "sphinxcontrib-openapi==0.8.1",
+    "sphinxcontrib-openapi==0.8.4",
     "sphinxcontrib-video==0.2.0",
     "usd-core>=24.8",
     "pygltflib>=1.16.2",
