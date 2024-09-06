@@ -27,6 +27,7 @@ class Readers:
 
     @property
     def dvs(self) -> "DVS":
+        """The ensight interface"""
         return self._dvs
 
 
