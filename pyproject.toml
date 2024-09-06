@@ -27,7 +27,7 @@ classifiers = [
 
 dependencies = [
     "importlib-metadata>=4.0; python_version<='3.8'",
-    "ansys-api-pyensight==0.4.1",
+    "ansys-api-pyensight==0.4.2",
     "requests>=2.28.2",
     "docker>=6.1.0",
     "urllib3<3.0.0",
@@ -164,7 +164,7 @@ python_version = 3.9
 strict = false
 namespace_packages = true
 explicit_package_bases = true
-exclude = ["tests/", "^doc", "^src/ansys/pyensight/core/exts/"]
+exclude = ["tests/", "^doc"]
 no_site_packages = true
 follow_imports = "skip"
 
