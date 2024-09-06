@@ -4,7 +4,17 @@ The ``libuserd`` module allows PyEnSight to directly access EnSight
 user-defined readers (USERD).  Any file format for which EnSight
 uses a USERD interface can be read using this API
 
-Examples:
+
+Notes
+-----
+
+This module was first introduced with the Ansys 2025 R1 distribution.
+It should be considered **Beta** at this point in time. Please report
+any issues via github.
+
+
+Examples
+--------
 
 >>> from ansys.pyensight import libuserd
 >>> userd = libuserd.LibUserd()
@@ -35,27 +45,59 @@ import psutil
 
 class LibUserdError(Exception):
     """
-    This class represents an error returned from the libuserd
-    library itself (not the gRPC remote interface).
+    This class is an exception object raised from the libuserd
+    library itself (not the gRPC remote interface).  The associated
+    numeric LibUserd.ErrorCode is available via the 'code' attribute.
+
+    Parameters
+    ----------
+    msg : str
+        The message text to be included in the exception.
     """
 
-    def __init__(self, msg):
+    def __init__(self, msg) -> None:
         super(LibUserdError, self).__init__(msg)
-        self.code = libuserd_pb2.ErrorCodes.UNKNOWN_ERROR
+        self._code = libuserd_pb2.ErrorCodes.UNKNOWN_ERROR
         if msg.startswith("LibUserd("):
             try:
-                self.code = int(msg[len("LibUserd(") :].split(")")[0])
+                self._code = int(msg[len("LibUserd(") :].split(")")[0])
             except Exception:
                 pass
 
     @property
-    def code(self):
+    def code(self) -> int:
         """The numeric error code: LibUserd.ErrorCodes"""
-        return self.code
+        return self._code
 
 
 class Query(object):
-    def __init__(self, userd: "LibUserd", pb: libuserd_pb2.QueryInfo):
+    """
+    The class represents a reader "query" instance.  It includes
+    the query name as well as the preferred titles.  The ``data``
+    method may be used to access the X,Y plot values.
+
+    Parameters
+    ----------
+    userd
+        The LibUserd instance this query is associated with.
+    pb
+        The protobuffer that represents this object.
+
+    Attributes
+    ----------
+    id : int
+        The id of this query.
+    name : str
+        The name of this query.
+    x_title : str
+        String to use as the x-axis title.
+    y_title : str
+        String to use as the y-axis title.
+    metadata : Dict[str, str]
+        The metadata for this query.
+    """
+
+    def __init__(self, userd: "LibUserd", pb: libuserd_pb2.QueryInfo) -> None:
         self._userd = userd
         self.id = pb.id
         self.name = pb.name
@@ -65,10 +107,17 @@ class Query(object):
         for key in pb.metadata.keys():
             self.metadata[key] = pb.metadata[key]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Query id: {self.id}, name: '{self.name}'"
 
     def data(self) -> List["numpy.array"]:
+        """
+        Get the X,Y values for this query.
+
+        Returns
+        -------
+        A list of two numpy arrays [X, Y].
+        """
         self._userd.connect_check()
         pb = libuserd_pb2.Query_dataRequest()
         try:
@@ -79,7 +128,44 @@ class Query(object):
 
 
 class Variable(object):
-    def __init__(self, userd: "LibUserd", pb: libuserd_pb2.VariableInfo):
+    """
+    The class represents a reader "variable" instance.  It includes
+    information about the variable, including it type (vector, scalar, etc)
+    location (nodal, elemental, etc), name and units.
+
+    Parameters
+    ----------
+    userd
+        The LibUserd instance this query is associated with.
+    pb
+        The protobuffer that represents this object.
+
+    Attributes
+    ----------
+    id : int
+        The id of this variable.
+    name : str
+        The name of this variable.
+    unitLabel : str
+        The unit label of this variable, "Pa" for example.
+    unitDims : str
+        The dimensions of this variable, "L/S" for distance per second.
+    location : "LibUserd.LocationType"
+        The location of this variable.
+    type : "LibUserd.VariableType"
+        The type of this variable.
+    timeVarying : bool
+        True if the variable is time-varying.
+    isComplex : bool
+        True if the variable is complex.
+    numOfComponents : int
+        The number of components of this variable.  A scalar is 1 and
+        a vector is 3.
+    metadata : Dict[str, str]
+        The metadata for this query.
+    """
+
+    def __init__(self, userd: "LibUserd", pb: libuserd_pb2.VariableInfo) -> None:
         self._userd = userd
         self.id = pb.id
         self.name = pb.name
@@ -95,18 +181,47 @@ class Variable(object):
         for key in pb.metadata.keys():
             self.metadata[key] = pb.metadata[key]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Variable id: {self.id}, name: '{self.name}', type: {self.type.name}, location: {self.location.name}"
 
 
 class Part(object):
+    """
+    This class represents the EnSight notion of a part.  A part is a single mesh consisting
+    of a nodal array along with a collection of element specifications.  Methods are provided
+    to access the nodes and connectivity as well as any variables that might be defined
+    on the nodes or elements of this mesh.
+
+    Parameters
+    ----------
+    userd
+        The LibUserd instance this query is associated with.
+    pb
+        The protobuffer that represents this object.
+
+    Attributes
+    ----------
+    id : int
+        The id of this part.
+    name : str
+        The name of this part.
+    reader_id : int
+        The id of the Reader this part is associated with.
+    hints : int
+        See: `LibUserd.PartHints`.
+    reader_api_version : float
+        The API version number of the USERD reader this part was read with.
+    metadata : Dict[str, str]
+        The metadata for this query.
+    """
+
     def __init__(self, userd: "LibUserd", pb: libuserd_pb2.PartInfo):
         self._userd = userd
         self.index = pb.index
         self.id = pb.id
         self.name = pb.name
         self.reader_id = pb.reader_id
-        self.host = pb.hints
+        self.hints = pb.hints
         self.reader_api_version = pb.reader_api_version
         self.metadata = {}
         for key in pb.metadata.keys():
@@ -267,7 +382,31 @@ class Part(object):
 
 
 class Reader(object):
-    def __init__(self, userd: "LibUserd", pb: libuserd_pb2.Reader):
+    """
+    This class represents is an instance of a user-defined reader that is actively reading a
+    dataset.
+
+    Parameters
+    ----------
+    userd
+        The LibUserd instance this query is associated with.
+    pb
+        The protobuffer that represents this object.
+
+    Attributes
+    ----------
+    unit_system : str
+        The units system provided by the dataset.
+    metadata : Dict[str, str]
+        The metadata for this query.
+
+    Notes
+    -----
+    There can only be one reader active in a single `LibUserd` instance.
+
+    """
+
+    def __init__(self, userd: "LibUserd", pb: libuserd_pb2.Reader) -> None:
         self._userd = userd
         self.unit_system = pb.unitSystem
         self.metadata = {}
@@ -276,6 +415,13 @@ class Reader(object):
         self.raw_metadata = pb.raw_metadata
 
     def parts(self) -> List[Part]:
+        """
+        Get a list of the parts this reader can access.
+
+        Returns
+        -------
+        A list of Part objects.
+        """
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_partsRequest()
         try:
@@ -288,6 +434,13 @@ class Reader(object):
         return out
 
     def variables(self) -> List[Variable]:
+        """
+        Get a list of the variables this reader can access.
+
+        Returns
+        -------
+        A list of Variable objects.
+        """
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_variablesRequest()
         try:
@@ -300,6 +453,13 @@ class Reader(object):
         return out
 
     def queries(self) -> List[Query]:
+        """
+        Get a list of the queries this reader can access.
+
+        Returns
+        -------
+        A list of Query objects.
+        """
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_queriesRequest()
         try:
@@ -312,6 +472,13 @@ class Reader(object):
         return out
 
     def timevalues(self) -> List[float]:
+        """
+        Get a list of the time step values in this dataset.
+
+        Returns
+        -------
+        A list of time floats.
+        """
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_timevaluesRequest()
         pb.timeSetNumber = 1
@@ -322,15 +489,35 @@ class Reader(object):
         return numpy.array(timevalues.timeValues)
 
     def set_timevalue(self, timevalue: float) -> None:
+        """
+        Change the current time to the specified value.  This value should ideally
+        be on of the values returned by `timevalues`
+
+        Parameters
+        ----------
+        timevalue : float
+            The time value to change the timestep closest to.
+        """
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_set_timevalueRequest()
         pb.timeSetNumber = 1
+        pb.timeValue = timevalue
         try:
             _ = self._userd.stub.Reader_set_timevalue(pb, metadata=self._userd.metadata())
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
 
     def set_timestep(self, timestep: int) -> None:
+        """
+        Change the current time to the specified timestep.  This call is the same as:
+        ``reader.set_timevalue(reader.timevalues()[timestep])``.
+
+        Parameters
+        ----------
+        timestep : int
+            The timestep to change to.
+
+        """
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_set_timestepRequest()
         pb.timeSetNumber = 1
@@ -341,6 +528,13 @@ class Reader(object):
             raise self._userd.libuserd_exception(e)
 
     def is_geometry_changing(self) -> bool:
+        """
+        Check to see if the geometry in this dataset is changing. over time
+
+        Returns
+        -------
+        True if the geometry is changing, False otherwise.
+        """
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_is_geometry_changingRequest()
         try:
@@ -352,6 +546,18 @@ class Reader(object):
         return reply.isGeomChanging
 
     def variable_value(self, variable: "Variable") -> float:
+        """
+        For any "case" variable (e.g. time), the value of the variable.
+
+        Parameters
+        ----------
+        variable
+            The variable to query.  Note, this variable location must be on a CASE.
+
+        Returns
+        -------
+        The value of the variable.
+        """
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_variable_valueRequest()
         pb.variable_id = variable.id
@@ -363,6 +569,43 @@ class Reader(object):
 
 
 class ReaderInfo(object):
+    """
+    This class represents an available reader, before it has been instantiated.
+    The read_dataset() function actually tries to open a dataset and returns
+    a `Reader` instance that is reading the data.
+
+    The class contains a list of options that can control/configure the reader.
+    These include "boolean", "option" and "field" options.  These include defaults
+    supplied by the reader. To use these, change the value or value_index fields
+    to the desired values before calling `read_dataset`.
+
+    Parameters
+    ----------
+    userd
+        The LibUserd instance this query is associated with.
+    pb
+        The protobuffer that represents this object.
+
+    Attributes
+    ----------
+    id : int
+        The reader id.
+    name : str
+        The reader name.
+    description : str
+        A brief description of the reader and in some cases its operation.
+    fileLabel1 : str
+        A string appropriate for a "file select" button for the primary filename.
+    fileLabel2 : str
+        A string appropriate for a "file select" button for the secondary filename.
+    opt_booleans : List[dict]
+        The boolean user options.
+    opt_options : List[dict]
+        The option user options suitable for display via an option menu.
+    opt_fields : List[dict]
+        The field user options suitable for display via a text field.
+    """
+
     def __init__(self, userd: "LibUserd", pb: libuserd_pb2.ReaderInfo):
         self._userd = userd
         self.id = pb.id
@@ -386,6 +629,21 @@ class ReaderInfo(object):
             self.opt_fields.append(dict(name=f.name, value=f.value, default=f.default_value))
 
     def read_dataset(self, file1: str, file2: str = "") -> "Reader":
+        """
+        Attempt to read some files on disk using this reader and the specified options.
+        If successful, return an actual reader instance.
+
+        Parameters
+        ----------
+        file1 : str
+            The primary filename (e.g. "foo.cas")
+        file2 : str
+            An optional secondary filename (e.g. "foo.dat")
+
+        Returns
+        -------
+        An instance of the `Reader` class.
+        """
         self._userd.connect_check()
         pb = libuserd_pb2.ReaderInfo_read_datasetRequest()
         pb.filename_1 = file1
@@ -406,6 +664,7 @@ class ReaderInfo(object):
         return Reader(self._userd, reader.reader)
 
     def _get_option_values(self) -> dict:
+        """Extract the current option values from the options dictionaries"""
         out = dict()
         booleans = []
         for b in self.opt_booleans:
@@ -421,11 +680,32 @@ class ReaderInfo(object):
         out["fields"] = fields
         return out
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"ReaderInfo id: {self.id}, name: {self.name}, description: {self.description}"
 
 
 class LibUserd(object):
+    """
+    LibUserd is the primary interface to the USERD library. All interaction starts at this object.
+
+    Parameters
+    ----------
+    ansys_installation
+        Optional location to search for an Ansys software installation.
+
+    Examples
+    --------
+
+    >>> from ansys.pyensight.core import libuserd
+    >>> l = libuserd.LibUserd()
+    >>> l.initialize()
+    >>> readers = l.read_dataset(r"D:\data\Axial_001.res")
+    >>> data = readers[0].read_dataset(r"D:\data\Axial_001.res")
+    >>> print(data.parts[0].nodes())
+    >>> l.shutdown()
+
+    """
+
     def __init__(self, ansys_installation: str = ""):
         # find the pathname to the server
         self._server_pathname = self._find_ensight_server_name(
@@ -468,7 +748,7 @@ class LibUserd(object):
             self._security_file = os.path.join(tmpdirname, "security.grpc")
 
             # Build the command line
-            cmd = [self.server_pathname]
+            cmd = [str(self.server_pathname)]
             cmd.extend(["-grpc_server", str(self.grpc_port)])
             cmd.extend(["-security_file", self._security_file])
             env_vars = os.environ.copy()
@@ -515,16 +795,17 @@ class LibUserd(object):
         return self._stub
 
     @property
-    def server_pathname(self):
+    def server_pathname(self) -> Optional[str]:
+        """The pathanme of the detected EnSight server executable used as the gRPC server"""
         return self._server_pathname
 
     @property
-    def security_token(self):
+    def security_token(self) -> str:
         """The current gRPC security token"""
         return self._security_token
 
     @property
-    def grpc_port(self):
+    def grpc_port(self) -> int:
         """The current gRPC port"""
         return self._grpc_port
 
@@ -544,7 +825,7 @@ class LibUserd(object):
 
         Returns
         -------
-            The first valid ensight_server found or None
+        The first valid ensight_server found or None
 
         """
         dirs_to_check = []
@@ -593,7 +874,7 @@ class LibUserd(object):
 
         Returns
         -------
-             True if the connection is active.
+        True if the connection is active.
         """
         return self._channel is not None
 
@@ -636,8 +917,8 @@ class LibUserd(object):
 
         Returns
         -------
-            A list object of the metadata elements needed in a gRPC call to
-            satisfy the EnSight server gRPC requirements.
+        A list object of the metadata elements needed in a gRPC call to
+        satisfy the EnSight server gRPC requirements.
         """
         ret: List[Tuple[bytes, Union[str, bytes]]] = list()
         s: Union[str, bytes]
@@ -648,7 +929,7 @@ class LibUserd(object):
             ret.append((b"shared_secret", s))
         return ret
 
-    def libuserd_exception(self, e: grpc.RpcError) -> Exception:
+    def libuserd_exception(self, e: "grpc.RpcError") -> Exception:
         """
         Given an exception raised as the result of a gRPC call, return either
         the input exception or a LibUserdError exception object to differentiate
@@ -661,8 +942,8 @@ class LibUserd(object):
 
         Returns
         -------
-            Either the original exception or a LibUserdError exception instance, depending on
-            the original exception message details.
+        Either the original exception or a LibUserdError exception instance, depending on
+        the original exception message details.
         """
         msg = e.details()
         if msg.startswith("LibUserd("):
@@ -703,7 +984,7 @@ class LibUserd(object):
 
         Raises
         ------
-            RuntimeError if there is no active connection.
+        RuntimeError if there is no active connection.
         """
         if not self._is_connected():
             raise RuntimeError("gRPC connection not established")
@@ -737,6 +1018,13 @@ class LibUserd(object):
         self._server_process = None
 
     def ansys_release_string(self) -> str:
+        """
+        Return the Ansys release for the library.
+
+        Returns
+        -------
+        Return a string like "2025 R1"
+        """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_ansys_release_stringRequest()
         try:
@@ -746,6 +1034,13 @@ class LibUserd(object):
         return ret.result
 
     def ansys_release_number(self) -> int:
+        """
+        Return the Ansys release number of the library.
+
+        Returns
+        -------
+        A version number like 251 (for "2025 R1")
+        """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_ansys_release_numberRequest()
         try:
@@ -755,6 +1050,18 @@ class LibUserd(object):
         return ret.result
 
     def library_version(self) -> str:
+        """
+        The library version number.  This string is the version of the
+        library interface itself.  This is not the same as the version
+        number of the Ansys release that corresponds to the library.
+
+        This number follows semantic versioning rules: "1.0.0" or
+        "0.4.3-rc.1" would be examples of valid library_version() strings.
+
+        Returns
+        -------
+        The library interface version number string.
+        """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_library_versionRequest()
         try:
@@ -764,6 +1071,19 @@ class LibUserd(object):
         return ret.result
 
     def nodes_per_element(self, element_type: int) -> int:
+        """
+        For a given element type (e.g. HEX20), return the number of nodes used by the element.
+        Note, this is not supported for NSIDED and NFACED element types.
+
+        Parameters
+        ----------
+        element_type
+            The element type:  LibUserd.ElementType enum value
+
+        Returns
+        -------
+        Number of nodes per element or 0 if elem_type is not a valid zoo element type.
+        """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_nodes_per_elementRequest()
         pb.element_type = element_type
@@ -774,6 +1094,20 @@ class LibUserd(object):
         return ret.result
 
     def element_is_ghost(self, element_type: int) -> bool:
+        """
+
+        For a given element type (e.g. HEX20), determine if the element type should be considered
+        a "ghost" element.
+
+        Parameters
+        ----------
+        element_type
+            The element type:  LibUserd.ElementType enum value
+
+        Returns
+        -------
+        True if the element is a ghost (or an invalid element type).
+        """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_element_is_ghostRequest()
         pb.element_type = element_type
@@ -784,6 +1118,18 @@ class LibUserd(object):
         return ret.result
 
     def element_is_zoo(self, element_type: int) -> bool:
+        """
+        For a given element type (e.g. HEX20), determine if the element type is zoo or not
+
+        Parameters
+        ----------
+        element_type
+            The element type:  LibUserd.ElementType enum value
+
+        Returns
+        -------
+        True if the element is a zoo element and false if it is NSIDED or NFACED.
+        """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_element_is_zooRequest()
         pb.element_type = element_type
@@ -794,6 +1140,18 @@ class LibUserd(object):
         return ret.result
 
     def element_is_nsided(self, element_type: int) -> bool:
+        """
+        For a given element type, determine if the element type is n-sided or not
+
+        Parameters
+        ----------
+        element_type
+            The element type:  LibUserd.ElementType enum value
+
+        Returns
+        -------
+        True if the element is a NSIDED or NSIDED_GHOST and False otherwise.
+        """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_element_is_nsidedRequest()
         pb.element_type = element_type
@@ -804,6 +1162,18 @@ class LibUserd(object):
         return ret.result
 
     def element_is_nfaced(self, element_type: int) -> bool:
+        """
+        For a given element type, determine if the element type is n-faced or not
+
+        Parameters
+        ----------
+        element_type
+            The element type:  LibUserd.ElementType enum value
+
+        Returns
+        -------
+        True if the element is a NFACED or NFACED_GHOST and False otherwise.
+        """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_element_is_nfacedRequest()
         pb.element_type = element_type
@@ -814,6 +1184,17 @@ class LibUserd(object):
         return ret.result
 
     def number_of_simple_element_types(self) -> int:
+        """
+        There is a consecutive range of element type enums that are supported by the
+        Part.element_conn() method.  This function returns the number of those elements
+        and may be useful in common element type handling code.
+
+        Note: The value is effectively int(LibUserd.ElementType.NSIDED).
+
+        Returns
+        -------
+        The number of zoo element types.
+        """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_number_of_simple_element_typesRequest()
         try:
@@ -823,6 +1204,10 @@ class LibUserd(object):
         return ret.result
 
     def initialize(self) -> None:
+        """
+        This call initializes the libuserd system.  It causes the library to scan for available
+        readers and set up any required reduction engine bits.  It can only be called once.
+        """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_initializeRequest()
         try:
@@ -831,6 +1216,13 @@ class LibUserd(object):
             raise self.libuserd_exception(e)
 
     def get_all_readers(self) -> List["ReaderInfo"]:
+        """
+        Return a list of the readers that are available.
+
+        Returns
+        -------
+        List of all ReaderInfo objects.
+        """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_get_all_readersRequest()
         try:
@@ -843,6 +1235,22 @@ class LibUserd(object):
         return out
 
     def query_format(self, name1: str, name2: str = "") -> List["ReaderInfo"]:
+        """
+        For a given dataset (filename(s)), ask the readers if they should be able to read
+        that data.
+
+        Parameters
+        ----------
+        name1
+            Primary input filename
+
+        name2
+            Optional, secondary input filename
+
+        Returns
+        -------
+        List of ReaderInfo objects that might be able to read the dataset
+        """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_query_formatRequest()
         pb.name1 = name1
