@@ -69,7 +69,7 @@ doc = [
     "matplotlib==3.9.1.post1",
     "requests>=2.28.2",
     "sphinxcontrib.jquery==4.1",
-    "coverage-badge==1.1.0",
+    "coverage-badge==1.1.2",
     "sphinxcontrib-openapi==0.8.1",
     "sphinxcontrib-video==0.2.0",
     "usd-core>=24.8",
