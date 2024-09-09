@@ -115,7 +115,7 @@ class Query(object):
 
         Returns
         -------
-        List["numpy.array"]
+        List[numpy.array]
             A list of two numpy arrays [X, Y].
         """
         self._userd.connect_check()
@@ -236,7 +236,7 @@ class Part(object):
 
         Returns
         -------
-        "numpy.array"
+        numpy.array
             A numpy array of packed values: x,y,z,z,y,z, ...
 
         Examples
@@ -309,7 +309,7 @@ class Part(object):
 
         Returns
         -------
-        "numpy.array"
+        numpy.array
             A numpy array of the node indices.
 
         Examples
@@ -361,7 +361,7 @@ class Part(object):
 
         Returns
         -------
-        List["numpy.array"]
+        List[numpy.array]
             Two numpy arrays: num_nodes_per_element, nodes
         """
         self._userd.connect_check()
@@ -412,7 +412,7 @@ class Part(object):
 
         Returns
         -------
-        List["numpy.array"]
+        List[numpy.array]
             Three numpy arrays: num_faces_per_element, num_nodes_per_face, face_nodes
         """
         self._userd.connect_check()
@@ -473,7 +473,7 @@ class Part(object):
 
         Returns
         -------
-        "numpy.array"
+        numpy.array
             A numpy array or a single scalar float.
         """
         self._userd.connect_check()
@@ -623,9 +623,33 @@ class Reader(object):
             out.append(Query(self._userd, query))
         return out
 
-    def timevalues(self) -> List[float]:
+    def get_number_of_time_sets(self) -> int:
+        """
+        Get the number of timesets in the dataset.
+
+        Returns
+        -------
+        int
+            The number of timesets.
+        """
+        self._userd.connect_check()
+        pb = libuserd_pb2.Reader_get_number_of_time_setsRequest()
+        try:
+            reply = self._userd.stub.Reader_get_number_of_time_sets(
+                pb, metadata=self._userd.metadata()
+            )
+        except grpc.RpcError as e:
+            raise self._userd.libuserd_exception(e)
+        return reply.numberOfTimeSets
+
+    def timevalues(self, timeset: int = 1) -> List[float]:
         """
         Get a list of the time step values in this dataset.
+
+        Parameters
+        ----------
+        timeset : int, optional
+            The timestep to query (default is 1)
 
         Returns
         -------
@@ -634,7 +658,7 @@ class Reader(object):
         """
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_timevaluesRequest()
-        pb.timeSetNumber = 1
+        pb.timeSetNumber = timeset
         try:
             timevalues = self._userd.stub.Reader_timevalues(pb, metadata=self._userd.metadata())
         except grpc.RpcError as e:
@@ -797,7 +821,7 @@ class ReaderInfo(object):
 
         Returns
         -------
-        "Reader"
+        Reader
             An instance of the `Reader` class.
         """
         self._userd.connect_check()
@@ -1145,7 +1169,8 @@ class LibUserd(object):
 
         Raises
         ------
-        RuntimeError if there is no active connection.
+        RuntimeError
+            If there is no active connection.
         """
         if not self._is_connected():
             raise RuntimeError("gRPC connection not established")
@@ -1391,7 +1416,7 @@ class LibUserd(object):
 
         Returns
         -------
-        List["ReaderInfo"]
+        List[ReaderInfo]
             List of all ReaderInfo objects.
         """
         self.connect_check()
@@ -1420,7 +1445,7 @@ class LibUserd(object):
 
         Returns
         -------
-        List["ReaderInfo"]
+        List[ReaderInfo]
             List of ReaderInfo objects that might be able to read the dataset
         """
         self.connect_check()
