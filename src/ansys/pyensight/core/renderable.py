@@ -820,9 +820,7 @@ class RenderableFluidsWebUI(Renderable):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self._session.ensight_version_check("2025 R1")
-        warnings.warn(
-            "This is a beta feature. Please report any issue and feedback on the PyEnSight GitHub page"
-        )
+        warnings.warn("The webUI is still under active development and should be considered beta.")
         self._rendertype = "webui"
         self._generate_url()
         self.update()
