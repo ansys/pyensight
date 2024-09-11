@@ -9,7 +9,7 @@ user-defined readers (USERD).  Any file format for which EnSight
 uses a USERD interface can be read using this API.
 
 
-.. note::
+.. note:
     This module was first introduced with the Ansys 2025 R1 distribution.
     It should be considered **Beta** at this point in time. Please report
     issues via github.

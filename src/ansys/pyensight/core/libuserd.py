@@ -3,6 +3,15 @@ The ``libuserd`` module allows PyEnSight to directly access EnSight
 user-defined readers (USERD).  Any file format for which EnSight
 uses a USERD interface can be read using this API
 
+
+Notes
+-----
+
+This module was first introduced with the Ansys 2025 R1 distribution.
+It should be considered **Beta** at this point in time. Please report
+any issues via github.
+
+
 Examples
 --------
 
@@ -26,18 +35,11 @@ import tempfile
 import time
 from typing import List, Optional, Tuple, Union
 import uuid
-import warnings
 
 from ansys.api.pyensight.v0 import libuserd_pb2, libuserd_pb2_grpc
 import grpc
 import numpy
 import psutil
-
-# This code is currently in development/beta state
-warnings.warn(
-    "The libuserd interface/API is still under active development and should be considered beta.",
-    stacklevel=2,
-)
 
 
 class LibUserdError(Exception):
@@ -54,7 +56,7 @@ class LibUserdError(Exception):
 
     def __init__(self, msg) -> None:
         super(LibUserdError, self).__init__(msg)
-        self._code = libuserd_pb2.ErrorCodes.UNKNOWN
+        self._code = libuserd_pb2.ErrorCodes.UNKNOWN_ERROR
         if msg.startswith("LibUserd("):
             try:
                 self._code = int(msg[len("LibUserd(") :].split(")")[0])
@@ -106,9 +108,6 @@ class Query(object):
 
     def __str__(self) -> str:
         return f"Query id: {self.id}, name: '{self.name}'"
-
-    def __repr__(self):
-        return f"<{self.__class__.__name__} object, id: {self.id}, name: '{self.name}'>"
 
     def data(self) -> List["numpy.array"]:
         """
@@ -185,9 +184,6 @@ class Variable(object):
     def __str__(self) -> str:
         return f"Variable id: {self.id}, name: '{self.name}', type: {self.type.name}, location: {self.location.name}"
 
-    def __repr__(self):
-        return f"<{self.__class__.__name__} object, id: {self.id}, name: '{self.name}'>"
-
 
 class Part(object):
     """
@@ -234,9 +230,6 @@ class Part(object):
     def __str__(self):
         return f"Part id: {self.id}, name: '{self.name}'"
 
-    def __repr__(self):
-        return f"<{self.__class__.__name__} object, id: {self.id}, name: '{self.name}'>"
-
     def nodes(self) -> "numpy.array":
         """
         Return the vertex array for the part.
@@ -267,8 +260,9 @@ class Part(object):
             if len(nodes) < chunk.total_size:
                 nodes = numpy.empty(chunk.total_size, dtype=numpy.float32)
             offset = chunk.offset
-            values = numpy.array(chunk.xyz)
-            nodes[offset : offset + len(values)] = values
+            for f in chunk.xyz:
+                nodes[offset] = f
+                offset += 1
         return nodes
 
     def num_elements(self) -> dict:
@@ -286,7 +280,7 @@ class Part(object):
 
         >>> part = reader.parts()[0]
         >>> elements = part.elements()
-        >>> for etype, count in elements.items():
+        >>> for etype,count in elements.items():
         ...  print(libuserd_instance.ElementType(etype).name, count)
 
         """
@@ -329,27 +323,21 @@ class Part(object):
         ...  print(element)
 
         """
-        if elem_type >= self._userd.ElementType.NSIDED:
-            raise RuntimeError(f"Element type {elem_type} is not valid for this call")
         pb = libuserd_pb2.Part_element_connRequest()
         pb.part_id = self.id
         pb.elemType = elem_type
         try:
             stream = self._userd.stub.Part_element_conn(pb, metadata=self._userd.metadata())
-            conn = numpy.empty(0, dtype=numpy.uint32)
-            for chunk in stream:
-                if len(conn) < chunk.total_size:
-                    conn = numpy.empty(chunk.total_size, dtype=numpy.uint32)
-                offset = chunk.offset
-                values = numpy.array(chunk.connectivity)
-                conn[offset : offset + len(values)] = values
         except grpc.RpcError as e:
-            error = self._userd.libuserd_exception(e)
-            # if we get an "UNKNOWN" error, then return an empty array
-            if isinstance(error, LibUserdError):
-                if error.code == self._userd.ErrorCodes.UNKNOWN:  # type: ignore
-                    return numpy.empty(0, dtype=numpy.uint32)
-            raise error
+            raise self._userd.libuserd_exception(e)
+        conn = numpy.empty(0, dtype=numpy.uint32)
+        for chunk in stream:
+            if len(conn) < chunk.total_size:
+                conn = numpy.empty(chunk.total_size, dtype=numpy.uint32)
+            offset = chunk.offset
+            for i in chunk.connectivity:
+                conn[offset] = i
+                offset += 1
         return conn
 
     def element_conn_nsided(self, elem_type: int) -> List["numpy.array"]:
@@ -382,23 +370,23 @@ class Part(object):
         pb.elemType = elem_type
         try:
             stream = self._userd.stub.Part_element_conn_nsided(pb, metadata=self._userd.metadata())
-            nodes = numpy.empty(0, dtype=numpy.uint32)
-            indices = numpy.empty(0, dtype=numpy.uint32)
-            for chunk in stream:
-                if len(nodes) < chunk.nodes_total_size:
-                    nodes = numpy.empty(chunk.nodes_total_size, dtype=numpy.uint32)
-                if len(indices) < chunk.indices_total_size:
-                    indices = numpy.empty(chunk.indices_total_size, dtype=numpy.uint32)
-                if len(chunk.nodesPerPolygon):
-                    offset = chunk.nodes_offset
-                    values = numpy.array(chunk.nodesPerPolygon)
-                    nodes[offset : offset + len(values)] = values
-                if len(chunk.nodeIndices):
-                    offset = chunk.indices_offset
-                    values = numpy.array(chunk.nodeIndices)
-                    indices[offset : offset + len(values)] = values
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
+        nodes = numpy.empty(0, dtype=numpy.uint32)
+        indices = numpy.empty(0, dtype=numpy.uint32)
+        for chunk in stream:
+            if len(nodes) < chunk.nodes_total_size:
+                nodes = numpy.empty(chunk.nodes_total_size, dtype=numpy.uint32)
+            if len(indices) < chunk.indices_total_size:
+                indices = numpy.empty(chunk.indices_total_size, dtype=numpy.uint32)
+            offset = chunk.nodes_offset
+            for i in chunk.nodesPerPolygon:
+                nodes[offset] = i
+                offset += 1
+            offset = chunk.indices_offset
+            for i in chunk.nodeIndices:
+                indices[offset] = i
+                offset += 1
         return [nodes, indices]
 
     def element_conn_nfaced(self, elem_type: int) -> List["numpy.array"]:
@@ -433,30 +421,30 @@ class Part(object):
         pb.elemType = elem_type
         try:
             stream = self._userd.stub.Part_element_conn_nfaced(pb, metadata=self._userd.metadata())
-            face = numpy.empty(0, dtype=numpy.uint32)
-            npf = numpy.empty(0, dtype=numpy.uint32)
-            nodes = numpy.empty(0, dtype=numpy.uint32)
-            for chunk in stream:
-                if len(face) < chunk.face_total_size:
-                    face = numpy.empty(chunk.face_total_size, dtype=numpy.uint32)
-                if len(npf) < chunk.npf_total_size:
-                    npf = numpy.empty(chunk.npf_total_size, dtype=numpy.uint32)
-                if len(nodes) < chunk.nodes_total_size:
-                    nodes = numpy.empty(chunk.nodes_total_size, dtype=numpy.uint32)
-                if len(chunk.facesPerElement):
-                    offset = chunk.face_offset
-                    values = numpy.array(chunk.facesPerElement)
-                    face[offset : offset + len(values)] = values
-                if len(chunk.nodesPerFace):
-                    offset = chunk.npf_offset
-                    values = numpy.array(chunk.nodesPerFace)
-                    npf[offset : offset + len(values)] = values
-                if len(chunk.nodeIndices):
-                    offset = chunk.nodes_offset
-                    values = numpy.array(chunk.nodeIndices)
-                    nodes[offset : offset + len(values)] = values
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
+        face = numpy.empty(0, dtype=numpy.uint32)
+        npf = numpy.empty(0, dtype=numpy.uint32)
+        nodes = numpy.empty(0, dtype=numpy.uint32)
+        for chunk in stream:
+            if len(face) < chunk.face_total_size:
+                face = numpy.empty(chunk.face_total_size, dtype=numpy.uint32)
+            if len(npf) < chunk.npf_total_size:
+                npf = numpy.empty(chunk.npf_total_size, dtype=numpy.uint32)
+            if len(nodes) < chunk.nodes_total_size:
+                nodes = numpy.empty(chunk.nodes_total_size, dtype=numpy.uint32)
+            offset = chunk.face_offset
+            for i in chunk.facesPerElement:
+                face[offset] = i
+                offset += 1
+            offset = chunk.npf_offset
+            for i in chunk.nodesPerFace:
+                npf[offset] = i
+                offset += 1
+            offset = chunk.nodes_offset
+            for i in chunk.nodeIndices:
+                nodes[offset] = i
+                offset += 1
         return [face, npf, nodes]
 
     def variable_values(
@@ -497,15 +485,16 @@ class Part(object):
         pb.complex = imaginary
         try:
             stream = self._userd.stub.Part_variable_values(pb, metadata=self._userd.metadata())
-            v = numpy.empty(0, dtype=numpy.float32)
-            for chunk in stream:
-                if len(v) < chunk.total_size:
-                    v = numpy.empty(chunk.total_size, dtype=numpy.float32)
-                offset = chunk.offset
-                values = numpy.array(chunk.varValues)
-                v[offset : offset + len(values)] = values
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
+        v = numpy.empty(0, dtype=numpy.float32)
+        for chunk in stream:
+            if len(v) < chunk.total_size:
+                v = numpy.empty(chunk.total_size, dtype=numpy.float32)
+            offset = chunk.offset
+            for f in chunk.varValues:
+                v[offset] = f
+                offset += 1
         return v
 
     def rigid_body_transform(self) -> dict:
@@ -676,7 +665,7 @@ class Reader(object):
             raise self._userd.libuserd_exception(e)
         return numpy.array(timevalues.timeValues)
 
-    def set_timevalue(self, timevalue: float, timeset: int = 1) -> None:
+    def set_timevalue(self, timevalue: float) -> None:
         """
         Change the current time to the specified value.  This value should ideally
         be on of the values returned by `timevalues`
@@ -685,19 +674,17 @@ class Reader(object):
         ----------
         timevalue : float
             The time value to change the timestep closest to.
-        timeset : int, optional
-            The timestep to query (default is 1)
         """
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_set_timevalueRequest()
-        pb.timesetNumber = timeset
+        pb.timeSetNumber = 1
         pb.timeValue = timevalue
         try:
             _ = self._userd.stub.Reader_set_timevalue(pb, metadata=self._userd.metadata())
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
 
-    def set_timestep(self, timestep: int, timeset: int = 1) -> None:
+    def set_timestep(self, timestep: int) -> None:
         """
         Change the current time to the specified timestep.  This call is the same as:
         ``reader.set_timevalue(reader.timevalues()[timestep])``.
@@ -706,12 +693,11 @@ class Reader(object):
         ----------
         timestep : int
             The timestep to change to.
-        timeset : int, optional
-            The timestep to query (default is 1)
+
         """
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_set_timestepRequest()
-        pb.timeSetNumber = timeset
+        pb.timeSetNumber = 1
         pb.timeStep = timestep
         try:
             _ = self._userd.stub.Reader_set_timestep(pb, metadata=self._userd.metadata())
@@ -876,9 +862,6 @@ class ReaderInfo(object):
 
     def __str__(self) -> str:
         return f"ReaderInfo id: {self.id}, name: {self.name}, description: {self.description}"
-
-    def __repr__(self):
-        return f"<{self.__class__.__name__} object, id: {self.id}, name: '{self.name}'>"
 
 
 class LibUserd(object):
