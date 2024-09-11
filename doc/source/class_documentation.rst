@@ -29,10 +29,11 @@ PyEnSight using the ``ansys.pyensight.core.Session.ensight`` interface.
    object_documentation
    calc_functions
    rest_api/rest_api
-
+   libuserd_documentation
 
 .. autosummary::
    :toctree: _autosummary/
+   :recursive:
 
    ansys.pyensight.core.enscontext.EnsContext
    ansys.pyensight.core.LocalLauncher
