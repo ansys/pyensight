@@ -1,13 +1,13 @@
 """ This module provides a list of common utilities shared between different PyEnSight modules."""
 
-import urllib3
 import random
-import socket
 import re
+import socket
 import time
-from typing import TYPE_CHECKING, Tuple, Optional, List, Any, Dict
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple
 
 from ansys.pyensight.core import enshell_grpc
+import urllib3
 
 try:
     from simple_upload_server.client import Client
@@ -18,6 +18,7 @@ except Exception:
 
 if TYPE_CHECKING:
     from docker import DockerClient
+
 
 def find_unused_ports(count: int, avoid: Optional[List[int]] = None) -> Optional[List[int]]:
     """Find "count" unused ports on the host system
@@ -43,9 +44,9 @@ def find_unused_ports(count: int, avoid: Optional[List[int]] = None) -> Optional
         avoid = []
     ports = list()
 
-        # pick a starting port number
+    # pick a starting port number
     start = random.randint(1024, 64000)
-        # We will scan for 65530 ports unless end is specified
+    # We will scan for 65530 ports unless end is specified
     port_mod = 65530
     end = start + port_mod - 1
     # walk the "virtual" port range
@@ -76,6 +77,7 @@ def find_unused_ports(count: int, avoid: Optional[List[int]] = None) -> Optional
         return None  # pragma: no cover
     return ports  # pragma: no cover
 
+
 def get_host_port(uri: str) -> Tuple[str, int]:
     """Get the host port for the input uri"""
     parse_results = urllib3.util.parse_url(uri)
@@ -85,6 +87,7 @@ def get_host_port(uri: str) -> Tuple[str, int]:
         else (443 if re.search("^https|wss$", parse_results.scheme) else None)
     )
     return (parse_results.host, port)
+
 
 def get_file_service(pim_instance: Any) -> Optional[Any]:
     if simple_upload_server_is_available is False:
@@ -99,26 +102,27 @@ def get_file_service(pim_instance: Any) -> Optional[Any]:
             headers=pim_instance.services["http-simple-upload-server"].headers,
         )
         return pim_file_service
-    
-def populate_service_host_port(pim_instance: Any, service_host_port: Dict[str, Tuple[str, int]]) -> Dict[str, str]:        
+    return None
+
+
+def populate_service_host_port(
+    pim_instance: Any, service_host_port: Dict[str, Tuple[str, int]]
+) -> Dict[str, Tuple[str, int]]:
     if not set(("grpc_private", "http", "ws")).issubset(pim_instance.services):
         raise RuntimeError(
             "If channel is specified, the PIM instance must have a list of length 3 "
             + "containing the appropriate service URIs. It does not."
-    )
-    service_host_port["grpc_private"] = get_host_port(
-        pim_instance.services["grpc_private"].uri
-    )
-    service_host_port["http"] = get_host_port(
-        pim_instance.services["http"].uri
-    )
-    service_host_port["ws"] = get_host_port(
-        pim_instance.services["ws"].uri
-    )
+        )
+    service_host_port["grpc_private"] = get_host_port(pim_instance.services["grpc_private"].uri)
+    service_host_port["http"] = get_host_port(pim_instance.services["http"].uri)
+    service_host_port["ws"] = get_host_port(pim_instance.services["ws"].uri)
     service_host_port["grpc"] = ("127.0.0.1", -1)
     return service_host_port
 
-def launch_enshell_interface(enshell_grpc_channel: Any, grpc_port: int, timeout: float) -> enshell_grpc.EnShellGRPC:
+
+def launch_enshell_interface(
+    enshell_grpc_channel: Any, grpc_port: int, timeout: float
+) -> enshell_grpc.EnShellGRPC:
     if enshell_grpc_channel:
         enshell = enshell_grpc.EnShellGRPC()
         enshell.connect_existing_channel(enshell_grpc_channel)
@@ -134,10 +138,11 @@ def launch_enshell_interface(enshell_grpc_channel: Any, grpc_port: int, timeout:
                 pass  # pragma: no cover
     return enshell
 
-def pull_image(docker_client: 'DockerClient', image_name: str) -> None:
+
+def pull_image(docker_client: "DockerClient", image_name: str) -> None:
     """Pull the input docker image using the input Docker Client"""
     try:
         if docker_client is not None:  # pragma: no cover
             docker_client.images.pull(image_name)
     except Exception:
-        raise RuntimeError(f"Can't pull Docker image: {image_name}") 
+        raise RuntimeError(f"Can't pull Docker image: {image_name}")
