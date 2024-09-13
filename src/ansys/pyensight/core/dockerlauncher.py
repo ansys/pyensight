@@ -142,13 +142,18 @@ class DockerLauncher(Launcher):
         )
 
         if self._enshell_grpc_channel and self._pim_instance:
-            if not set(("grpc_private", "http", "ws")).issubset(self._pim_instance.services):
+            service_set = ["grpc_private", "http", "ws"]
+            # if self._launch_webui:
+            #    service_set.append("webui")
+            if not set(service_set).issubset(self._pim_instance.services):
                 raise RuntimeError(
                     "If channel is specified, the PIM instance must have a list of length 3 "
                     + "containing the appropriate service URIs. It does not."
                 )
             # grab the URIs for the 3 required services passed in from PIM
-            self._service_host_port = populate_service_host_port(self._pim_instance, {})
+            self._service_host_port = populate_service_host_port(
+                self._pim_instance, {}, webui=self._launch_webui
+            )
             # attach to the file service if available
             self._pim_file_service = get_file_service(self._pim_instance)
             # if using PIM, we have a query parameter to append to http requests
@@ -160,7 +165,10 @@ class DockerLauncher(Launcher):
 
         # EnShell gRPC port, EnSight gRPC port, HTTP port, WSS port
         # skip 1999 as that internal to the container is used to the container for the VNC connection
-        ports = find_unused_ports(4, avoid=[1999])
+        num_ports = 4
+        if self._launch_webui:
+            num_ports = 5
+        ports = find_unused_ports(num_ports, avoid=[1999])
         if ports is None:  # pragma: no cover
             raise RuntimeError(
                 "Unable to allocate local ports for EnSight session"
@@ -170,6 +178,8 @@ class DockerLauncher(Launcher):
         self._service_host_port["grpc_private"] = ("127.0.0.1", ports[1])
         self._service_host_port["http"] = ("127.0.0.1", ports[2])
         self._service_host_port["ws"] = ("127.0.0.1", ports[3])
+        if self._launch_webui:
+            self._service_host_port["webui"] = ("127.0.0.1", ports[4])
 
         # get the optional user-specified image name
         # Note: the default name needs to change over time...  TODO
@@ -227,6 +237,10 @@ class DockerLauncher(Launcher):
             if "ENSIGHT_ANSYS_APIP_CONFIG" in os.environ:
                 container_env["ENSIGHT_ANSYS_APIP_CONFIG"] = os.environ["ENSIGHT_ANSYS_APIP_CONFIG"]
 
+        if self._launch_webui:
+            container_env["SIMBA_WEBSERVER_TOKEN"] = self._secret_key
+            container_env["FLUENT_WEBSERVER_TOKEN"] = self._secret_key
+
         return container_env
 
     def start(self) -> "Session":
@@ -275,7 +289,13 @@ class DockerLauncher(Launcher):
             + "/tcp": str(self._service_host_port["http"][1]),
             str(self._service_host_port["ws"][1]) + "/tcp": str(self._service_host_port["ws"][1]),
         }
-
+        if self._launch_webui:
+            ports_to_map.update(
+                {
+                    str(self._service_host_port["webui"][1])
+                    + "/tcp": str(self._service_host_port["webui"][1])
+                }
+            )
         # The data directory to map into the container
         data_volume = None
         if self._data_directory:
@@ -357,6 +377,33 @@ class DockerLauncher(Launcher):
                 # logging.debug(f"_container = {str(self._container)}\n")
         logging.debug("Container started.\n")
         return self.connect()
+
+    def launch_webui(self, container_env_str):
+        # Run websocketserver
+        cmd = f"cpython /ansys_inc/v{self._ansys_version}/CEI/"
+        cmd += f"nexus{self._ansys_version}/nexus_launcher/webui_launcher.py"
+        # websocket port - this needs to come first since we now have
+        # --add_header as a optional arg that can take an arbitrary
+        # number of optional headers.
+        webui_port = self._service_host_port["webui"][1]
+        grpc_port = self._service_host_port["grpc_private"][1]
+        http_port = self._service_host_port["http"][1]
+        ws_port = self._service_host_port["ws"][1]
+        cmd += f" --server-listen-port {webui_port}"
+        cmd += (
+            f" --server-web-roots /ansys_inc/v{self._ansys_version}/CEI/nexus{self._ansys_version}/"
+        )
+        cmd += f"ansys{self._ansys_version}/ensight/WebUI/web/ui/"
+        cmd += f" --ensight-grpc-port {grpc_port}"
+        cmd += f" --ensight-html-port {http_port}"
+        cmd += f" --ensight-ws-port {ws_port}"
+        cmd += f" --ensight-session-directory {self._session_directory}"
+        cmd += f" --ensight-secret-key {self._secret_key}"
+        logging.debug(f"Starting WebUI: {cmd}\n")
+        ret = self._enshell.start_other(cmd, extra_env=container_env_str)
+        if ret[0] != 0:  # pragma: no cover
+            self.stop()  # pragma: no cover
+            raise RuntimeError(f"Error starting WebUI: {cmd}\n")  # pragma: no cover
 
     def connect(self):
         """Create and bind a :class:`Session<ansys.pyensight.core.Session>` instance
@@ -538,10 +585,13 @@ class DockerLauncher(Launcher):
             timeout=self._timeout,
             sos=use_sos,
             rest_api=self._enable_rest_api,
+            webui_port=self._service_host_port["webui"][1] if self._launch_webui else None,
         )
         session.launcher = self
         self._sessions.append(session)
 
+        if self._launch_webui:
+            self.launch_webui(container_env_str)
         logging.debug("Return session.\n")
 
         return session

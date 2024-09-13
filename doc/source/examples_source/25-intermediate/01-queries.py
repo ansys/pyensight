@@ -2,7 +2,7 @@
 .. _ref_queries_example:
 
 Queries
-=======
+============================
 
 A query is basically a collection of x,y values. In addition to the raw
 values, each point is potentially a location in 3D space and a notion of

@@ -79,7 +79,19 @@ def find_unused_ports(count: int, avoid: Optional[List[int]] = None) -> Optional
 
 
 def get_host_port(uri: str) -> Tuple[str, int]:
-    """Get the host port for the input uri"""
+    """Get the host port for the input uri
+
+    Parameters
+    ----------
+
+    uri: str
+        The Uri to inspect
+
+    Returns
+    -------
+    (tuple):
+        A tuple containing the host and the port of the input uri
+    """
     parse_results = urllib3.util.parse_url(uri)
     port = (
         parse_results.port
@@ -90,6 +102,20 @@ def get_host_port(uri: str) -> Tuple[str, int]:
 
 
 def get_file_service(pim_instance: Any) -> Optional[Any]:
+    """Get the file service object for the input pim instance.
+
+    Parameters
+    ----------
+
+    pim_instance:
+        the PIM instance to get the service from.
+
+    Returns
+    -------
+
+    pim_file_service:
+        the PIM file service object
+    """
     if simple_upload_server_is_available is False:
         return None
     if pim_instance is None:
@@ -106,8 +132,24 @@ def get_file_service(pim_instance: Any) -> Optional[Any]:
 
 
 def populate_service_host_port(
-    pim_instance: Any, service_host_port: Dict[str, Tuple[str, int]]
+    pim_instance: Any, service_host_port: Dict[str, Tuple[str, int]], webui: bool = False
 ) -> Dict[str, Tuple[str, int]]:
+    """Populate the service host port dictionary with the services available in the PIM instance.
+
+    Parameters
+    ----------
+    pim_instance:
+        the PIM instance to get the servicea from.
+    service_host_port: dict
+        the dictionary to be updated with the services from the PIM instance
+    webui: bool
+        if True retrieve also the webUI service
+
+    Returns
+    -------
+    service_host_port: dict
+        the dictionary updated with the services from the PIM instance
+    """
     if not set(("grpc_private", "http", "ws")).issubset(pim_instance.services):
         raise RuntimeError(
             "If channel is specified, the PIM instance must have a list of length 3 "
@@ -117,12 +159,30 @@ def populate_service_host_port(
     service_host_port["http"] = get_host_port(pim_instance.services["http"].uri)
     service_host_port["ws"] = get_host_port(pim_instance.services["ws"].uri)
     service_host_port["grpc"] = ("127.0.0.1", -1)
+    if webui:
+        service_host_port["webui"] = get_host_port(pim_instance.services["webui"].uri)
     return service_host_port
 
 
 def launch_enshell_interface(
     enshell_grpc_channel: Any, grpc_port: int, timeout: float
 ) -> enshell_grpc.EnShellGRPC:
+    """Launch the EnShell gRPC Interface.
+
+    Parameters
+    ----------
+    enshell_grpc_channel:
+        An eventual gRPC channel already available, like in the PIM case
+    grpc_port: int
+        the gRPC port to connect to
+    timeout: float
+        a timeout to wait for the gRPC connection
+
+    Returns
+    -------
+    enshell: enshell_grpc.EnShellGRPC
+        the enshell gRPC interface
+    """
     if enshell_grpc_channel:
         enshell = enshell_grpc.EnShellGRPC()
         enshell.connect_existing_channel(enshell_grpc_channel)
@@ -140,7 +200,15 @@ def launch_enshell_interface(
 
 
 def pull_image(docker_client: "DockerClient", image_name: str) -> None:
-    """Pull the input docker image using the input Docker Client"""
+    """Pull the input docker image using the input Docker Client
+
+    Parameters
+    ----------
+    docker_client: DockerClient
+        the current DockerClient to pull the image with
+    image_name: str
+        the image to pull
+    """
     try:
         if docker_client is not None:  # pragma: no cover
             docker_client.images.pull(image_name)
