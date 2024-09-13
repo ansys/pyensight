@@ -20,6 +20,7 @@ from typing import Optional
 import uuid
 
 import ansys.pyensight.core as pyensight
+from ansys.pyensight.core.common import find_unused_ports
 from ansys.pyensight.core.launcher import Launcher
 import ansys.pyensight.core.session
 
@@ -126,7 +127,7 @@ class LocalLauncher(Launcher):
 
             # gRPC port, VNC port, websocketserver ws, websocketserver html
             to_avoid = self._find_ports_used_by_other_pyensight_and_ensight()
-            self._ports = self._find_unused_ports(5, avoid=to_avoid)
+            self._ports = find_unused_ports(5, avoid=to_avoid)
             if self._ports is None:
                 raise RuntimeError("Unable to allocate local ports for EnSight session")
             is_windows = self._is_windows()

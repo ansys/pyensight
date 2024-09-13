@@ -16,13 +16,9 @@ Examples:
 """
 import logging
 import os.path
-import re
 import subprocess
-import time
-from typing import Any, Dict, Optional
+from typing import TYPE_CHECKING, Any, Dict, Optional
 import uuid
-
-import urllib3
 
 try:
     import grpc
@@ -31,24 +27,27 @@ except ModuleNotFoundError:  # pragma: no cover
 except Exception:  # pragma: no cover
     raise RuntimeError("Cannot initialize grpc")
 
+try:
+    import docker
+except ModuleNotFoundError:  # pragma: no cover
+    raise RuntimeError("The docker module must be installed for DockerLauncher")
+except Exception:  # pragma: no cover
+    raise RuntimeError("Cannot initialize Docker")
+
+from ansys.pyensight.core.common import (
+    find_unused_ports,
+    get_file_service,
+    launch_enshell_interface,
+    populate_service_host_port,
+    pull_image,
+)
 from ansys.pyensight.core.launcher import Launcher
 import ansys.pyensight.core.session
 from ansys.pyensight.core.session import Session
 
-try:
-    from ansys.pyensight.core import enshell_grpc
-except ModuleNotFoundError:  # pragma: no cover
-    raise RuntimeError("The enshell_grpc must be installed for DockerLauncher")
-except Exception:  # pragma: no cover
-    raise RuntimeError("Cannot initialize enshell_grpc")
-
-
-try:
-    from simple_upload_server.client import Client
-
-    simple_upload_server_is_available = True  # pragma: no cover
-except Exception:
-    simple_upload_server_is_available = False
+if TYPE_CHECKING:
+    from docker import DockerClient
+    from docker.models.containers import Container
 
 
 class DockerLauncher(Launcher):
@@ -117,8 +116,8 @@ class DockerLauncher(Launcher):
         self._enshell_grpc_channel = channel
         self._service_uris: Dict[Any, str] = {}
         self._image_name: Optional[str] = None
-        self._docker_client: Optional[Any] = None
-        self._container = None
+        self._docker_client: Optional["DockerClient"] = None
+        self._container: Optional["Container"] = None
         self._enshell: Optional[Any] = None
         self._pim_instance: Optional[Any] = pim_instance
 
@@ -148,22 +147,10 @@ class DockerLauncher(Launcher):
                     "If channel is specified, the PIM instance must have a list of length 3 "
                     + "containing the appropriate service URIs. It does not."
                 )
-            self._service_host_port = {}
             # grab the URIs for the 3 required services passed in from PIM
-            self._service_host_port["grpc_private"] = self._get_host_port(
-                self._pim_instance.services["grpc_private"].uri
-            )
-            self._service_host_port["http"] = self._get_host_port(
-                self._pim_instance.services["http"].uri
-            )
-            self._service_host_port["ws"] = self._get_host_port(
-                self._pim_instance.services["ws"].uri
-            )
-            # for parity, add 'grpc' as a placeholder even though using PIM sets up the gRPC channel.
-            # this isn't used in this situation.
-            self._service_host_port["grpc"] = ("127.0.0.1", -1)
+            self._service_host_port = populate_service_host_port(self._pim_instance, {})
             # attach to the file service if available
-            self._get_file_service()
+            self._pim_file_service = get_file_service(self._pim_instance)
             # if using PIM, we have a query parameter to append to http requests
             if self._pim_instance is not None:
                 d = {"instance_name": self._pim_instance.name}
@@ -173,7 +160,7 @@ class DockerLauncher(Launcher):
 
         # EnShell gRPC port, EnSight gRPC port, HTTP port, WSS port
         # skip 1999 as that internal to the container is used to the container for the VNC connection
-        ports = self._find_unused_ports(4, avoid=[1999])
+        ports = find_unused_ports(4, avoid=[1999])
         if ports is None:  # pragma: no cover
             raise RuntimeError(
                 "Unable to allocate local ports for EnSight session"
@@ -193,14 +180,7 @@ class DockerLauncher(Launcher):
             self._image_name = docker_image_name
 
         # Load up Docker from the user's environment
-        try:
-            import docker
-
-            self._docker_client = docker.from_env()
-        except ModuleNotFoundError:
-            raise RuntimeError("The docker module must be installed for DockerLauncher")
-        except Exception:
-            raise RuntimeError("Cannot initialize Docker")
+        self._docker_client = docker.from_env()
 
     def ansys_version(self) -> Optional[str]:
         """Get the Ansys version (three-digit string) found in the Docker container.
@@ -222,11 +202,7 @@ class DockerLauncher(Launcher):
             If the Docker image couldn't be pulled.
 
         """
-        try:
-            if self._docker_client is not None:  # pragma: no cover
-                self._docker_client.images.pull(self._image_name)
-        except Exception:
-            raise RuntimeError(f"Can't pull Docker image: {self._image_name}")
+        pull_image(self._docker_client, self._image_name)
 
     def _get_container_env(self) -> Dict:
         # Create the environmental variables
@@ -309,13 +285,6 @@ class DockerLauncher(Launcher):
         # gRPC server as the command
         #
         enshell_cmd = "-app -v 3 -grpc_server " + str(grpc_port)
-
-        try:
-            import docker
-        except ModuleNotFoundError:  # pragma: no cover
-            raise RuntimeError("The docker module must be installed for DockerLauncher")
-        except Exception:  # pragma: no cover
-            raise RuntimeError("Cannot initialize Docker")
 
         use_egl = self._use_egl()
 
@@ -408,24 +377,12 @@ class DockerLauncher(Launcher):
         #
         #
         # Start up the EnShell gRPC interface
+        self._enshell = launch_enshell_interface(
+            self._enshell_grpc_channel, self._service_host_port["grpc"][1], self._timeout
+        )
         log_dir = "/data"
         if self._enshell_grpc_channel:  # pragma: no cover
-            self._enshell = enshell_grpc.EnShellGRPC()
-            self._enshell.connect_existing_channel(self._enshell_grpc_channel)
             log_dir = "/work"
-        else:
-            logging.debug(
-                f"Connecting to EnShell over gRPC port: {self._service_host_port['grpc'][1]}...\n"
-            )
-            self._enshell = enshell_grpc.EnShellGRPC(port=self._service_host_port["grpc"][1])
-            time_start = time.time()
-            while time.time() - time_start < self._timeout:  # pragma: no cover
-                if self._enshell.is_connected():
-                    break
-                try:
-                    self._enshell.connect(timeout=self._timeout)
-                except OSError:  # pragma: no cover
-                    pass  # pragma: no cover
 
         if not self._enshell.is_connected():  # pragma: no cover
             self.stop()  # pragma: no cover
@@ -619,31 +576,9 @@ class DockerLauncher(Launcher):
             self._pim_instance = None
         super().stop()
 
-    def _get_file_service(self) -> None:  # pragma: no cover
-        if simple_upload_server_is_available is False:
-            return
-        if self._pim_instance is None:
-            return
-
-        if "http-simple-upload-server" in self._pim_instance.services:
-            self._pim_file_service = Client(
-                token="token",
-                url=self._pim_instance.services["http-simple-upload-server"].uri,
-                headers=self._pim_instance.services["http-simple-upload-server"].headers,
-            )
-
     def file_service(self) -> Optional[Any]:
         """Get the PIM file service object if available."""
         return self._pim_file_service
-
-    def _get_host_port(self, uri: str) -> tuple:
-        parse_results = urllib3.util.parse_url(uri)
-        port = (
-            parse_results.port
-            if parse_results.port
-            else (443 if re.search("^https|wss$", parse_results.scheme) else None)
-        )
-        return (parse_results.host, port)
 
     def _is_system_egl_capable(self) -> bool:
         """Check if the system is EGL capable.
