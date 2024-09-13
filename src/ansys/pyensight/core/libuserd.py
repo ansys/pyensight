@@ -1525,7 +1525,7 @@ class LibUserd(object):
         >>> userd = libuserd.LibUserd()
         >>> userd.initialize()
         >>> opt = {'Long names': False, 'Number of timesteps': '10', 'Number of scalars': '3'}
-        >>> data = userd.load_data("foo", file_format="Synthetic", reader_option=opt
+        >>> data = userd.load_data("foo", file_format="Synthetic", reader_options=opt
         >>> print(data.parts())
         >>> print(data.variables())
         >>> userd.shutdown()
