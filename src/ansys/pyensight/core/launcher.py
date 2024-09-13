@@ -63,6 +63,8 @@ class Launcher:
         Additional command line options to be used to launch EnSight.
         Please note, when using DockerLauncher, arguments that contain spaces
         are not supported.
+    launch_web_ui : bool, optional
+        Whether to launch the webUI from EnSight
     """
 
     def __init__(
@@ -72,6 +74,7 @@ class Launcher:
         use_sos: Optional[int] = None,
         enable_rest_api: bool = False,
         additional_command_line_options: Optional[List] = None,
+        launch_webui: bool = False,
     ) -> None:
         self._timeout = timeout
         self._use_egl_param_val: bool = use_egl
@@ -92,6 +95,7 @@ class Launcher:
         # a dict of any optional launcher specific query parameters for URLs
         self._query_parameters: Dict[str, str] = {}
         self._additional_command_line_options = additional_command_line_options
+        self._launch_webui = launch_webui
 
     @property
     def session_directory(self) -> str:
