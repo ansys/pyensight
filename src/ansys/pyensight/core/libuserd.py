@@ -24,7 +24,7 @@ import platform
 import subprocess
 import tempfile
 import time
-from typing import List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 import uuid
 import warnings
 
@@ -50,6 +50,11 @@ class LibUserdError(Exception):
     ----------
     msg : str
         The message text to be included in the exception.
+
+    Attributes
+    ----------
+    code : int
+        The LibUserd ErrorCodes enum value for this error.
     """
 
     def __init__(self, msg) -> None:
@@ -471,7 +476,7 @@ class Part(object):
 
         Parameters
         ----------
-        variable : "Variable"
+        variable : Variable
             The variable to return the values for.
         elem_type : int
             Used only if the variable location is elemental, this keyword selects the element
@@ -966,7 +971,7 @@ class LibUserd(object):
                 raise error
 
             start_time = time.time()
-            while (self._grpc_port == 0) and (time.time() - start_time < 20.0):
+            while (self._grpc_port == 0) and (time.time() - start_time < 120.0):
                 try:
                     # Read the port and security token from the security file
                     with open(self._security_file, "r") as f:
@@ -982,7 +987,7 @@ class LibUserd(object):
             # Unable to get the grpc port/password
             if self._grpc_port == 0:
                 self.shutdown()
-                raise RuntimeError("Unable to start the gRPC server.")
+                raise RuntimeError(f"Unable to start the gRPC server ({str(self.server_pathname)})")
 
             # Build the gRPC connection
             self._connect()
@@ -1478,3 +1483,81 @@ class LibUserd(object):
         for reader in readers.readerInfo:
             out.append(ReaderInfo(self, reader))
         return out
+
+    def load_data(
+        self,
+        data_file: str,
+        result_file: str = "",
+        file_format: Optional[str] = None,
+        reader_options: Dict[str, Any] = {},
+    ) -> "Reader":
+        """Use the reader to load a dataset and return an instance
+        to the resulting ``Reader`` interface.
+
+        Parameters
+        ----------
+        data_file : str
+            Name of the data file to load.
+        result_file : str, optional
+            Name of the second data file for dual-file datasets.
+        file_format : str, optional
+            Name of the USERD reader to use. The default is ``None``,
+            in which case libuserd selects a reader.
+        reader_options : dict, optional
+            Dictionary of reader-specific option-value pairs that can be used
+            to customize the reader behavior. The default is ``None``.
+
+        Returns
+        -------
+        Reader
+            Resulting Reader object instance.
+
+        Raises
+        ------
+        RuntimeError
+            If libused cannot guess the file format or an error occurs while the
+            data is being read.
+
+        Examples
+        --------
+
+        >>> from ansys.pyensight.core import libuserd
+        >>> userd = libuserd.LibUserd()
+        >>> userd.initialize()
+        >>> opt = {'Long names': False, 'Number of timesteps': '10', 'Number of scalars': '3'}
+        >>> data = userd.load_data("foo", file_format="Synthetic", reader_option=opt
+        >>> print(data.parts())
+        >>> print(data.variables())
+        >>> userd.shutdown()
+
+        """
+        the_reader: Optional[ReaderInfo] = None
+        if file_format:
+            for reader in self.get_all_readers():
+                if reader.name == file_format:
+                    the_reader = reader
+                    break
+            if the_reader is None:
+                raise RuntimeError(f"The reader '{file_format}' could not be found.")
+        else:
+            readers = self.query_format(data_file, name2=result_file)
+            if len(readers):
+                the_reader = readers[0]
+            if the_reader is None:
+                raise RuntimeError(f"Unable to find a reader for '{data_file}':'{result_file}'.")
+        for key, value in reader_options.items():
+            for b in the_reader.opt_booleans:
+                if key == b["name"]:
+                    b["value"] = bool(value)
+            for o in the_reader.opt_options:
+                if key == o["name"]:
+                    o["value"] = int(value)
+            for f in the_reader.opt_fields:
+                if key == f["name"]:
+                    f["value"] = str(value)
+        try:
+            output = the_reader.read_dataset(data_file, result_file)
+        except Exception:
+            raise RuntimeError("Unable to open the specified dataset.")
+
+        return output

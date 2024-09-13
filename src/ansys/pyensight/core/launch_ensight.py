@@ -58,7 +58,7 @@ if pim_is_available:
 
         Returns
         -------
-
+        Session
             pyensight Session object instance
 
         """
