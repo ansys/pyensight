@@ -14,7 +14,6 @@ Examples
 import logging
 from typing import Optional
 
-from ansys.pyensight.core.libuserd import LibUserd
 from ansys.pyensight.core.locallauncher import LocalLauncher
 from ansys.pyensight.core.session import Session
 
@@ -86,7 +85,7 @@ if pim_is_available:
 
         Returns
         -------
-
+        Session
             pyensight Session object instance
 
         """
@@ -95,6 +94,8 @@ if pim_is_available:
         return launcher.connect()
 
     def _launch_libuserd_with_pim(product_version: Optional[str] = None, **kwargs):
+        from ansys.pyensight.core.libuserd import LibUserd
+
         instance, channel = _prepare_pim(product_version=product_version)
         libuserd = LibUserd(channel=channel, pim_instance=instance, **kwargs)
         libuserd.initialize()
@@ -248,6 +249,8 @@ def launch_libuserd(
         variety of error conditions
 
     """
+    from ansys.pyensight.core.libuserd import LibUserd
+
     logging.debug(f"pim_is_available: {pim_is_available}  use_pim: {use_pim}\n")  # pragma: no cover
     if pim_is_available and use_pim:  # pragma: no cover
         if pypim.is_configured():
