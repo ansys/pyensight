@@ -355,6 +355,38 @@ class EnShellGRPC(object):
         else:
             return self.run_command_with_env(command_string, ensight_env)  # pragma: no cover
 
+    def start_ensight_server(
+        self, ensight_args: Optional[str] = None, ensight_env: Optional[str] = None
+    ):
+        """Tell EnShell to start the EnSight server.
+
+        The string will be sent to EnShell via the EnShellService::run_command()
+        gRPC call.  An IOError exception may be thrown
+        if there's a gRPC communication problem.  The response
+        is the tuple of the EnShell return code and return string.
+
+        Parameters
+        ----------
+        ensight_args : Optional[str], optional
+            ensight_args arguments for the ensight command line, by default None
+
+        Returns
+        -------
+        Tuple
+            A tuple of (int, string) for (returnCode, returnString)
+        """
+        self.connect()
+        command_string = (
+            f"start_app OTHER /ansys_inc/v{self.ansys_version()}/CEI/bin/ensight_server"
+        )
+        if ensight_args and (ensight_args != ""):
+            command_string += " " + ensight_args
+
+        if ensight_env is None or ensight_env == "":  # pragma: no cover
+            return self.run_command(command_string)
+        else:
+            return self.run_command_with_env(command_string, ensight_env)  # pragma: no cover
+
     # @brief
     #
     # @param cmd The command line
