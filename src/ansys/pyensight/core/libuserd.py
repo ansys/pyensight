@@ -26,11 +26,7 @@ import shutil
 import subprocess
 import tempfile
 import time
-<<<<<<< HEAD
-from typing import Any, Dict, List, Optional, Tuple, Union
-=======
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
->>>>>>> main
 import uuid
 import warnings
 
@@ -1744,6 +1740,7 @@ class LibUserd(object):
             raise RuntimeError("Unable to open the specified dataset.")
 
         return output
+
     @staticmethod
     def _download_files(uri: str, pathname: str, folder: bool = False):
         """Download files from the input uri and save them on the input pathname.
