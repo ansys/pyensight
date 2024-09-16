@@ -1,15 +1,15 @@
 from unittest import mock
 
+from ansys.pyensight.core.common import find_unused_ports
 from ansys.pyensight.core.launcher import Launcher
 import pytest
 import requests
 
 
 def test_find_unused_port(mocker):
-    launcher = Launcher()
-    found = launcher._find_unused_ports(2)
+    found = find_unused_ports(2)
     assert len(found) == 2
-    found = launcher._find_unused_ports(1, avoid=[1000, 1001])
+    found = find_unused_ports(1, avoid=[1000, 1001])
     assert found not in [1000, 1001]
 
 

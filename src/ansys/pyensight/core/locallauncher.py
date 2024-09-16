@@ -21,6 +21,7 @@ from typing import Optional
 import uuid
 
 import ansys.pyensight.core as pyensight
+from ansys.pyensight.core.common import find_unused_ports
 from ansys.pyensight.core.launcher import Launcher
 import ansys.pyensight.core.session
 
@@ -161,7 +162,7 @@ class LocalLauncher(Launcher):
             num_ports = 5
             if self._launch_webui:
                 num_ports = 6
-            self._ports = self._find_unused_ports(num_ports, avoid=to_avoid)
+            self._ports = find_unused_ports(num_ports, avoid=to_avoid)
             if self._ports is None:
                 raise RuntimeError("Unable to allocate local ports for EnSight session")
             is_windows = self._is_windows()
