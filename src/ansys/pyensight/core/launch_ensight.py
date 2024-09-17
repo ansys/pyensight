@@ -93,7 +93,9 @@ if pim_is_available:  # pragma: no cover
         launcher = DockerLauncher(channel=channel, pim_instance=instance, **kwargs)
         return launcher.connect()
 
-    def _launch_libuserd_with_pim(product_version: Optional[str] = None, **kwargs):  # pragma: no cover
+    def _launch_libuserd_with_pim(
+        product_version: Optional[str] = None, **kwargs
+    ):  # pragma: no cover
         from ansys.pyensight.core.libuserd import LibUserd
 
         instance, channel = _prepare_pim(product_version=product_version)
