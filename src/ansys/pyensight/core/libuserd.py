@@ -955,7 +955,6 @@ class LibUserd(object):
         self._security_file: Optional[str] = None
         # Docker attributes
         self._pull_image = pull_image_if_not_available
-        self._temporary_pyansys_dir: Optional[str] = None
         self._timeout = timeout
         self._product_version = product_version
         self._data_directory = data_directory
@@ -1078,7 +1077,8 @@ class LibUserd(object):
             self._grpc_port = int(self._service_host_port["grpc_private"][1])
             self._host = self._service_host_port["grpc_private"][0]
         else:
-            self._temporary_pyansys_dir = tempfile.mkdtemp(prefix="pyensight_")
+            if not self._data_directory:
+                self._data_directory = tempfile.mkdtemp(prefix="pyensight_")
             available = self._check_if_image_available()
             if not available and self._pull_image and not self._pim_instance:
                 self._pull_docker_image()
@@ -1120,11 +1120,8 @@ class LibUserd(object):
         container_env = {
             "ENSIGHT_SECURITY_TOKEN": self.security_token,
         }
-        # At runtime we don't know if a volume is available, so create one a priori
-        # where the downloaded PyAnsys data can be downloaded
-        data_volume = {self._temporary_pyansys_dir: {"bind": "/pyansys_data", "mode": "rw"}}
-        if self._data_directory:
-            data_volume.update({self._data_directory: {"bind": "/data", "mode": "rw"}})
+        data_volume = {self._data_directory: {"bind": "/data", "mode": "rw"}}
+
         if not self._docker_client:
             raise RuntimeError("Could not startup docker.")
         self._container = self._docker_client.containers.run(  # pragma: no cover
@@ -1132,7 +1129,6 @@ class LibUserd(object):
             command=enshell_cmd,
             volumes=data_volume,
             environment=container_env,
-            device_requests=[docker.types.DeviceRequest(count=-1)],
             ports=ports_to_map,
             tty=True,
             detach=True,
@@ -1825,12 +1821,12 @@ class LibUserd(object):
             uri = f"{base_uri}/{directory}/{filename}"
         # Local installs and PIM instances
         download_path = f"{os.getcwd()}/{filename}"
-        if self._temporary_pyansys_dir:
+        if self._container and self._data_directory:
             # Docker Image
-            download_path = os.path.join(self._temporary_pyansys_dir, filename)
+            download_path = os.path.join(self._data_directory, filename)
         self._download_files(uri, download_path, folder=folder)
         pathname = download_path
-        if self._temporary_pyansys_dir:
+        if self._container:
             # Convert local path to Docker mounted volume path
-            pathname = f"/pyansys_data/{filename}"
+            pathname = f"/data/{filename}"
         return pathname

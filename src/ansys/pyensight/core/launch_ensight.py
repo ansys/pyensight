@@ -14,7 +14,6 @@ Examples
 import logging
 from typing import Optional
 
-from ansys.pyensight.core.libuserd import LibUserd
 from ansys.pyensight.core.locallauncher import LocalLauncher
 from ansys.pyensight.core.session import Session
 
@@ -37,9 +36,9 @@ except Exception:  # pragma: no cover
 logging.debug(f"docker_is_available: {docker_is_available}\n")
 
 
-if pim_is_available:
+if pim_is_available:  # pragma: no cover
 
-    def _prepare_pim(
+    def _prepare_pim(  # pragma: no cover
         product_version: Optional[str] = None,
     ):
         """Create a PIM instance and gRPC channel for the input version of EnSight.
@@ -66,7 +65,7 @@ if pim_is_available:
         )
         return instance, channel
 
-    def _launch_ensight_with_pim(
+    def _launch_ensight_with_pim(  # pragma: no cover
         product_version: Optional[str] = None,
         **kwargs,
     ) -> "Session":
@@ -94,7 +93,11 @@ if pim_is_available:
         launcher = DockerLauncher(channel=channel, pim_instance=instance, **kwargs)
         return launcher.connect()
 
-    def _launch_libuserd_with_pim(product_version: Optional[str] = None, **kwargs):
+    def _launch_libuserd_with_pim(
+        product_version: Optional[str] = None, **kwargs
+    ):  # pragma: no cover
+        from ansys.pyensight.core.libuserd import LibUserd
+
         instance, channel = _prepare_pim(product_version=product_version)
         libuserd = LibUserd(channel=channel, pim_instance=instance, **kwargs)
         libuserd.initialize()
@@ -192,7 +195,7 @@ def launch_ensight(
     return launcher.start()  # pragma: no cover
 
 
-def launch_libuserd(
+def launch_libuserd(  # pragma: no cover
     product_version: Optional[str] = None,
     use_pim: bool = True,
     use_docker: bool = True,
@@ -248,6 +251,8 @@ def launch_libuserd(
         variety of error conditions
 
     """
+    from ansys.pyensight.core.libuserd import LibUserd
+
     logging.debug(f"pim_is_available: {pim_is_available}  use_pim: {use_pim}\n")  # pragma: no cover
     if pim_is_available and use_pim:  # pragma: no cover
         if pypim.is_configured():
