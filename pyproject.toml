@@ -35,6 +35,8 @@ dependencies = [
     "Pillow>=9.3.0",
     "pypng>=0.0.20",
     "psutil>=5.9.2",
+    "usd-core>=24.8",
+    "pygltflib>=1.16.2",
 ]
 
 [project.optional-dependencies]
@@ -44,8 +46,6 @@ dev = [
     "ipdb>=0.9.4",
     "dill>=0.3.5.1",
     "pre-commit>=3.3.3",
-    "usd-core>=24.8",
-    "pygltflib>=1.16.2",
 ]
 tests = [
     "pytest==8.3.2",
