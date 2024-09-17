@@ -82,7 +82,7 @@ jobs:
 
       - name: docker
         run: docker pull ${{ env.ENSIGHT_IMAGE }}
-      
+
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
 
