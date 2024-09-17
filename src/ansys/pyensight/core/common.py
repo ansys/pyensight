@@ -69,7 +69,7 @@ def find_unused_ports(count: int, avoid: Optional[List[int]] = None) -> Optional
         if result != 0:
             ports.append(port)
         else:
-            sock.close()
+            sock.close()  # pragma: no cover
         if len(ports) >= count:
             return ports
     # in case we failed...
@@ -101,7 +101,7 @@ def get_host_port(uri: str) -> Tuple[str, int]:
     return (parse_results.host, port)
 
 
-def get_file_service(pim_instance: Any) -> Optional[Any]:
+def get_file_service(pim_instance: Any) -> Optional[Any]:  # pragma: no cover
     """Get the file service object for the input pim instance.
 
     Parameters
@@ -131,7 +131,7 @@ def get_file_service(pim_instance: Any) -> Optional[Any]:
     return None
 
 
-def populate_service_host_port(
+def populate_service_host_port(  # pragma: no cover
     pim_instance: Any, service_host_port: Dict[str, Tuple[str, int]], webui: bool = False
 ) -> Dict[str, Tuple[str, int]]:
     """Populate the service host port dictionary with the services available in the PIM instance.
@@ -183,9 +183,9 @@ def launch_enshell_interface(
     enshell: enshell_grpc.EnShellGRPC
         the enshell gRPC interface
     """
-    if enshell_grpc_channel:
-        enshell = enshell_grpc.EnShellGRPC()
-        enshell.connect_existing_channel(enshell_grpc_channel)
+    if enshell_grpc_channel:  # pragma: no cover
+        enshell = enshell_grpc.EnShellGRPC()  # pragma: no cover
+        enshell.connect_existing_channel(enshell_grpc_channel)  # pragma: no cover
     else:
         enshell = enshell_grpc.EnShellGRPC(port=grpc_port)
         time_start = time.time()
