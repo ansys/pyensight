@@ -1132,7 +1132,6 @@ class LibUserd(object):
             command=enshell_cmd,
             volumes=data_volume,
             environment=container_env,
-            device_requests=[docker.types.DeviceRequest(count=-1)],
             ports=ports_to_map,
             tty=True,
             detach=True,

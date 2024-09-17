@@ -83,9 +83,6 @@ jobs:
       - name: docker
         run: docker pull ${{ env.ENSIGHT_IMAGE }}
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-
       - name: Run pytest
         uses: ansys/actions/tests-pytest@v4
         env:
