@@ -57,12 +57,12 @@ def test_libuserd_synthetic_time(tmpdir, pytestconfig: pytest.Config):
     assert len(d.timevalues()) == 10
     assert d.get_number_of_time_sets() == 1
 
-    d.set_timetep(5)
+    d.set_timestep(5)
     n = p.nodes()
     n.shape = (len(n) // 3, 3)
     centroid_5 = numpy.average(n, 0)
 
-    d.set_timetep(0)
+    d.set_timestep(0)
     n = p.nodes()
     n.shape = (len(n) // 3, 3)
     centroid_0 = numpy.average(n, 0)

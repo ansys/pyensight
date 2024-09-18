@@ -799,6 +799,26 @@ class Reader(object):
             The time value to change the timestep closest to.
         timeset : int, optional
             The timeset to change (default is 0)
+
+        Examples
+        --------
+        >>> from ansys.pyensight.core import libuserd
+        >>> import numpy
+        >>> s = libuserd.LibUserd()
+        >>> s.initialize()
+        >>> opt = {'Long names': 0, 'Number of timesteps': 5, 'Number of scalars': 3,
+        ...        'Number of spheres': 2, 'Number of cubes': 2}
+        >>> d = s.load_data("foo", file_format="Synthetic", reader_options=opt)
+        >>> parts = d.parts()
+        >>> for t in d.timevalues():
+        ...    d.set_timevalue(t)
+        ...    for p in parts:
+        ...        nodes = p.nodes()
+        ...        nodes.shape = (len(nodes)//3, 3)
+        ...        centroid = numpy.average(nodes, 0)
+        ...        print(f"Time: {t} Part: {p.name} Centroid: {centroid}")
+        >>> s.shutdown()
+
         """
         if timeset == 0:
             self._common_set_time(timevalue)
