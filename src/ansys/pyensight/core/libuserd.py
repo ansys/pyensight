@@ -1826,7 +1826,7 @@ class LibUserd(object):
         try:
             output = the_reader.read_dataset(data_file, result_file)
         except Exception:
-            raise RuntimeError("Unable to open the specified dataset.")
+            raise RuntimeError("Unable to open the specified dataset.") from None
 
         return output
 
