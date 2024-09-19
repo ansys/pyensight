@@ -601,6 +601,79 @@ class Reader(object):
         for key in pb.metadata.keys():
             self.metadata[key] = pb.metadata[key]
         self.raw_metadata = pb.raw_metadata
+        self._timesets: List["numpy.array"] = []
+        self._update_timesets()
+
+    def _update_timesets(self) -> None:
+        """
+        To simplify the interface to time, the timesets are all queried and
+        cached.  Additionally, a "common timeset" is generated that combines
+        all the timevalues from all timesets into a single timeset which is
+        saved as "timeset 0".
+
+        This method reads all the timesets and generates the common timeset.
+        """
+        if len(self._timesets):
+            return
+        num_timesets = self.get_number_of_time_sets()
+        # The common timeset
+        common = set()
+        self._timesets = [numpy.array([], dtype="float32")]
+        # The other timesets
+        for ts in range(1, num_timesets + 1):
+            v = self.timevalues(timeset=ts)
+            # merge into the common timeset
+            common.update(v)
+            self._timesets.append(v)
+        self._timesets[0] = numpy.array(sorted(list(common)))
+
+    def _common_set_step(self, s: int) -> None:
+        """
+        When the common timeset is used in a ``set_timestep()`` call, this
+        method selects the time value from the common timeset and then calls
+        ``_common_set_time()`` to change the current simulation time.
+
+        Parameters
+        ----------
+        s : int
+            The index (timestep) in the common timeset to change the current time to.
+
+        Raises
+        ------
+        RuntimeError
+            If the timestep index is invalid.
+
+        """
+        try:
+            v = self._timesets[0][s]
+            self._common_set_time(v)
+        except IndexError:
+            raise RuntimeError(f"Invalid step number {s}.") from None
+
+    def _common_set_time(self, t: float) -> None:
+        """
+        Change the current time value to the passed time value.  This method
+        walks all the timesets.  It selects the largest time value in each timeset
+        that is less than or equal to the specified time value.  It then sets
+        the time value for each timeset accordingly.
+
+        Parameters
+        ----------
+        t : float
+            The time value (in the common timeset) to change the reader simulation time to.
+
+        """
+        # given the time float from the common timeline,
+        # change the timestep in all the timesets to match.
+        for timeset in range(1, len(self._timesets)):
+            # check for perfect match first (avoids rounding)
+            where = numpy.where(self._timesets[timeset] == t)
+            if len(where[0]):
+                timestep = where[0][0]
+            else:
+                timestep = numpy.searchsorted(self._timesets[timeset], t)
+                timestep = min(timestep, len(self._timesets[timeset]) - 1)
+            self.set_timestep(timestep, timeset=timeset)
 
     def parts(self) -> List[Part]:
         """
@@ -671,6 +744,8 @@ class Reader(object):
         int
             The number of timesets.
         """
+        if len(self._timesets):
+            return len(self._timesets) - 1
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_get_number_of_time_setsRequest()
         try:
@@ -681,20 +756,27 @@ class Reader(object):
             raise self._userd.libuserd_exception(e)
         return reply.numberOfTimeSets
 
-    def timevalues(self, timeset: int = 1) -> List[float]:
+    def timevalues(self, timeset: int = 0) -> List[float]:
         """
-        Get a list of the time step values in this dataset.
+        Get a list of the time step values in this dataset for the specified timeset.
+        The default timeset is ``0`` which is a special, "common" timeset formed by
+        merging all the timesets in the data into a single timeset.
 
         Parameters
         ----------
         timeset : int, optional
-            The timestep to query (default is 1)
+            The timestep to query (default is 0)
 
         Returns
         -------
-        List[float]
-            A list of time floats.
+        numpy.array
+            The simulation time value floats.
         """
+        if timeset == 0:
+            try:
+                return self._timesets[timeset]
+            except IndexError:
+                return numpy.array([], dtype="float32")
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_timevaluesRequest()
         pb.timeSetNumber = timeset
@@ -704,18 +786,43 @@ class Reader(object):
             raise self._userd.libuserd_exception(e)
         return numpy.array(timevalues.timeValues)
 
-    def set_timevalue(self, timevalue: float, timeset: int = 1) -> None:
+    def set_timevalue(self, timevalue: float, timeset: int = 0) -> None:
         """
-        Change the current time to the specified value.  This value should ideally
-        be on of the values returned by `timevalues`
+        Change the current time within the selected timeset to the specified value.
+        The default timeset selected is the merged "common" timeset ``0``.  If the
+        "common" timeset is used, the appropriate time value will be set for
+        all timesets by this method.
 
         Parameters
         ----------
         timevalue : float
             The time value to change the timestep closest to.
         timeset : int, optional
-            The timestep to query (default is 1)
+            The timeset to change (default is 0)
+
+        Examples
+        --------
+        >>> from ansys.pyensight.core import libuserd
+        >>> import numpy
+        >>> s = libuserd.LibUserd()
+        >>> s.initialize()
+        >>> opt = {'Long names': 0, 'Number of timesteps': 5, 'Number of scalars': 3,
+        ...        'Number of spheres': 2, 'Number of cubes': 2}
+        >>> d = s.load_data("foo", file_format="Synthetic", reader_options=opt)
+        >>> parts = d.parts()
+        >>> for t in d.timevalues():
+        ...    d.set_timevalue(t)
+        ...    for p in parts:
+        ...        nodes = p.nodes()
+        ...        nodes.shape = (len(nodes)//3, 3)
+        ...        centroid = numpy.average(nodes, 0)
+        ...        print(f"Time: {t} Part: {p.name} Centroid: {centroid}")
+        >>> s.shutdown()
+
         """
+        if timeset == 0:
+            self._common_set_time(timevalue)
+            return
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_set_timevalueRequest()
         pb.timesetNumber = timeset
@@ -725,18 +832,24 @@ class Reader(object):
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
 
-    def set_timestep(self, timestep: int, timeset: int = 1) -> None:
+    def set_timestep(self, timestep: int, timeset: int = 0) -> None:
         """
         Change the current time to the specified timestep.  This call is the same as:
         ``reader.set_timevalue(reader.timevalues()[timestep])``.
+        The default timeset selected is the merged "common" timeset ``0``.  If the
+        "common" timeset is used, the appropriate time value will be set for
+        all timesets by this method.
 
         Parameters
         ----------
         timestep : int
             The timestep to change to.
         timeset : int, optional
-            The timestep to query (default is 1)
+            The timeset to change (default is 0)
         """
+        if timeset == 0:
+            self._common_set_step(timestep)
+            return
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_set_timestepRequest()
         pb.timeSetNumber = timeset
@@ -1733,7 +1846,7 @@ class LibUserd(object):
         try:
             output = the_reader.read_dataset(data_file, result_file)
         except Exception:
-            raise RuntimeError("Unable to open the specified dataset.")
+            raise RuntimeError("Unable to open the specified dataset.") from None
 
         return output
 
