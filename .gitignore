@@ -53,4 +53,7 @@ pyensight_test_results.xml
 venv/
 .vscode/
 .venv/
+*.glb
+*.csv
+*.ctxz
 
