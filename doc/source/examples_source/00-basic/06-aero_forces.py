@@ -4,7 +4,7 @@
 Calculate the Net Aerodynamic Forces
 =======================================================
 
-Utilze EnSight Net Force Tool in order
+Utilize EnSight Net Force Tool in order
 to Calculate the Net Aerodynamic Forces
 
 Intended to work with EnSight version 24.2 or later
