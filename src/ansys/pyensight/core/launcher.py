@@ -13,9 +13,7 @@ Examples:
 """
 import os.path
 import platform
-import random
 import re
-import socket
 from typing import TYPE_CHECKING, Dict, List, Optional
 import warnings
 
@@ -59,7 +57,12 @@ class Launcher:
     enable_rest_api : bool, optional
         Whether to enable the EnSight REST API. The default is ``False``.
         This parameter is supported in EnSight 2024 R1 and later.
-
+    additional_command_line_options: list, optional
+        Additional command line options to be used to launch EnSight.
+        Please note, when using DockerLauncher, arguments that contain spaces
+        are not supported.
+    launch_web_ui : bool, optional
+        Whether to launch the webUI from EnSight
     """
 
     def __init__(
@@ -68,6 +71,8 @@ class Launcher:
         use_egl: bool = False,
         use_sos: Optional[int] = None,
         enable_rest_api: bool = False,
+        additional_command_line_options: Optional[List] = None,
+        launch_webui: bool = False,
     ) -> None:
         self._timeout = timeout
         self._use_egl_param_val: bool = use_egl
@@ -87,6 +92,8 @@ class Launcher:
                 self._egl_env_val = False
         # a dict of any optional launcher specific query parameters for URLs
         self._query_parameters: Dict[str, str] = {}
+        self._additional_command_line_options = additional_command_line_options
+        self._launch_webui = launch_webui
 
     @property
     def session_directory(self) -> str:
@@ -199,64 +206,6 @@ class Launcher:
             idx = command_line.index("-ports") + 1
             ports.append(int(command_line[idx]))
         return list(set(ports))
-
-    @staticmethod
-    def _find_unused_ports(count: int, avoid: Optional[List[int]] = None) -> Optional[List[int]]:
-        """Find "count" unused ports on the host system
-
-        A port is considered unused if it does not respond to a "connect" attempt.  Walk
-        the ports from 'start' to 'end' looking for unused ports and avoiding any ports
-        in the 'avoid' list.  Stop once the desired number of ports have been
-        found.  If an insufficient number of ports were found, return None.
-
-        Parameters
-        ----------
-        count: int :
-            Number of unused ports to find
-        avoid: Optional[List[int]] :
-            An optional list of ports not to check
-
-        Returns
-        -------
-            The detected ports or None on failure
-
-        """
-        if avoid is None:
-            avoid = []
-        ports = list()
-
-        # pick a starting port number
-        start = random.randint(1024, 64000)
-        # We will scan for 65530 ports unless end is specified
-        port_mod = 65530
-        end = start + port_mod - 1
-        # walk the "virtual" port range
-        for base_port in range(start, end + 1):
-            # Map to physical port range
-            # There have been some issues with 65534+ so we stop at 65530
-            port = base_port % port_mod
-            # port 0 is special
-            if port == 0:  # pragma: no cover
-                continue  # pragma: no cover
-            # avoid admin ports
-            if port < 1024:  # pragma: no cover
-                continue  # pragma: no cover
-            # are we supposed to skip this one?
-            if port in avoid:  # pragma: no cover
-                continue  # pragma: no cover
-            # is anyone listening?
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            result = sock.connect_ex(("127.0.0.1", port))
-            if result != 0:
-                ports.append(port)
-            else:
-                sock.close()
-            if len(ports) >= count:
-                return ports
-        # in case we failed...
-        if len(ports) < count:  # pragma: no cover
-            return None  # pragma: no cover
-        return ports  # pragma: no cover
 
     def _use_egl(self) -> bool:
         """Return True if the system supports the EGL and if EGL was desired.

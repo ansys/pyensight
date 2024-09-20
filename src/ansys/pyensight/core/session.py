@@ -31,6 +31,7 @@ from ansys.pyensight.core.listobj import ensobjlist
 from ansys.pyensight.core.renderable import (
     RenderableDeepPixel,
     RenderableEVSN,
+    RenderableFluidsWebUI,
     RenderableImage,
     RenderableMP4,
     RenderableSGEO,
@@ -136,6 +137,7 @@ class Session:
         timeout: float = 120.0,
         rest_api: bool = False,
         sos: bool = False,
+        webui_port: Optional[int] = None,
     ) -> None:
         # every session instance needs a unique name that can be used as a cache key
         self._session_name = str(uuid.uuid1())
@@ -161,6 +163,7 @@ class Session:
         self._grpc_port = grpc_port
         self._halt_ensight_on_close = True
         self._callbacks: Dict[str, Tuple[int, Any]] = dict()
+        self._webui_port = webui_port
         # if the caller passed a session directory we will assume they are
         # creating effectively a proxy Session and create a (stub) launcher
         if session_directory is not None:
@@ -927,6 +930,8 @@ class Session:
         # Undocumented. Available only internally
         elif what == "webensight":
             render = RenderableVNCAngular(self, **kwargs)
+        elif what == "webui":
+            render = RenderableFluidsWebUI(self, **kwargs)
 
         if render is None:
             raise RuntimeError("Unable to generate requested visualization")
@@ -1064,7 +1069,7 @@ class Session:
         onlyfiles = [f for f in listdir(_utils_dir) if os.path.isfile(os.path.join(_utils_dir, f))]
         for _basename in onlyfiles:
             # skip over any files with the "_server" in their names
-            if "_server" in _basename:
+            if "_server" in _basename or "_cli" in _basename:
                 continue
             _filename = os.path.join(_utils_dir, _basename)
             try:

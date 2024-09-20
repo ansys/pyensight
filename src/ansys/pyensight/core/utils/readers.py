@@ -10,8 +10,6 @@ from types import ModuleType
 from typing import Optional, Tuple, Union
 import uuid
 
-from ansys.pyensight.core import LocalLauncher
-
 try:
     import ensight
 except ImportError:
@@ -27,6 +25,7 @@ class Readers:
 
     @property
     def dvs(self) -> "DVS":
+        """The ensight interface"""
         return self._dvs
 
 
@@ -104,15 +103,20 @@ class DVS:
         """Find the dvs port allocated from the input temporary name"""
         if not tmp_name:
             raise RuntimeError("Temporary name for dvs port file not available")
-        is_local = isinstance(self._ensight._session._launcher, LocalLauncher)
-        if is_local:
-            with open(tmp_name) as dvs_port_file:
-                self._dvs_port = int(dvs_port_file.read().strip())
-        else:
-            log_content = self._ensight._session._launcher.enshell_log_contents()
-            dvs_port_match = re.search(r"\(0.0.0.0\):([0-9]{4,5})\n", log_content)
-            if dvs_port_match:
-                self._dvs_port = int(str(dvs_port_match.groups(1)[0]).strip())
+        try_local = True
+        if self._ensight._session._launcher:
+            if hasattr(self._ensight._session._launcher, "_enshell"):
+                try_local = False
+                log_content = self._ensight._session._launcher.enshell_log_contents()
+                dvs_port_match = re.search(r"\(0.0.0.0\):([0-9]{4,5})\n", log_content)
+                if dvs_port_match:
+                    self._dvs_port = int(str(dvs_port_match.groups(1)[0]).strip())
+        if try_local:
+            try:
+                with open(tmp_name) as dvs_port_file:
+                    self._dvs_port = int(dvs_port_file.read().strip())
+            except Exception:
+                raise RuntimeError("Cannot retrieve DVS Port")
 
     @staticmethod
     def _launch_dvs_callback_in_ensight(

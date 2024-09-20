@@ -12,6 +12,7 @@ import glob
 import logging
 import os.path
 import platform
+import re
 import shutil
 import subprocess
 import tempfile
@@ -20,6 +21,7 @@ from typing import Optional
 import uuid
 
 import ansys.pyensight.core as pyensight
+from ansys.pyensight.core.common import find_unused_ports
 from ansys.pyensight.core.launcher import Launcher
 import ansys.pyensight.core.session
 
@@ -56,6 +58,8 @@ class LocalLauncher(Launcher):
         Number of EnSight servers to use for SOS (Server of Server) mode.
         This parameter is defined on the parent ``Launcher`` class, where
         the default is ``None``, in which case SOS mode is not used.
+    additional_command_line_options: list, optional
+        Additional command line options to be used to launch EnSight.
 
     Examples
     --------
@@ -87,6 +91,7 @@ class LocalLauncher(Launcher):
         # launched process ids
         self._ensight_pid = None
         self._websocketserver_pid = None
+        self._webui_pid = None
         # and ports
         self._ports = None
         # Are we running the instance in batch
@@ -96,6 +101,36 @@ class LocalLauncher(Launcher):
     def application(self):
         """Type of app to launch. Options are ``ensight`` and ``envision``."""
         return self._application
+
+    def launch_webui(self, cpython, webui_script, popen_common):
+        cmd = [cpython]
+        cmd += [webui_script]
+        version = re.findall(r"nexus(\d+)", webui_script)[0]
+        path_to_webui = self._install_path
+        path_to_webui = os.path.join(
+            path_to_webui, f"nexus{version}", f"ansys{version}", "ensight", "WebUI", "web", "ui"
+        )
+        cmd += ["--server-listen-port", str(self._ports[5])]
+        cmd += ["--server-web-roots", path_to_webui]
+        cmd += ["--ensight-grpc-port", str(self._ports[0])]
+        cmd += ["--ensight-html-port", str(self._ports[2])]
+        cmd += ["--ensight-ws-port", str(self._ports[3])]
+        cmd += ["--ensight-session-directory", self._session_directory]
+        cmd += ["--ensight-secret-key", self._secret_key]
+        if "PYENSIGHT_DEBUG" in os.environ:
+            try:
+                if int(os.environ["PYENSIGHT_DEBUG"]) > 0:
+                    del popen_common["stdout"]
+                    del popen_common["stderr"]
+            except (ValueError, KeyError):
+                pass
+        popen_common["env"].update(
+            {
+                "SIMBA_WEBSERVER_TOKEN": self._secret_key,
+                "FLUENT_WEBSERVER_TOKEN": self._secret_key,
+            }
+        )
+        self._webui_pid = subprocess.Popen(cmd, **popen_common).pid
 
     def start(self) -> "pyensight.Session":
         """Start an EnSight session using the local EnSight installation.
@@ -124,7 +159,10 @@ class LocalLauncher(Launcher):
 
             # gRPC port, VNC port, websocketserver ws, websocketserver html
             to_avoid = self._find_ports_used_by_other_pyensight_and_ensight()
-            self._ports = self._find_unused_ports(5, avoid=to_avoid)
+            num_ports = 5
+            if self._launch_webui:
+                num_ports = 6
+            self._ports = find_unused_ports(num_ports, avoid=to_avoid)
             if self._ports is None:
                 raise RuntimeError("Unable to allocate local ports for EnSight session")
             is_windows = self._is_windows()
@@ -154,6 +192,8 @@ class LocalLauncher(Launcher):
             vnc_url = f"vnc://%%3Frfb_port={self._ports[1]}%%26use_auth=0"
             cmd.extend(["-vnc", vnc_url])
             cmd.extend(["-ports", str(self._ports[4])])
+            if self._additional_command_line_options:
+                cmd.extend(self._additional_command_line_options)
 
             use_egl = self._use_egl()
 
@@ -207,11 +247,12 @@ class LocalLauncher(Launcher):
             except Exception:
                 pass
             websocket_script = found_scripts[idx]
-
+            webui_script = websocket_script.replace("websocketserver.py", "webui_launcher.py")
             # build the commandline
             cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
             if is_windows:
                 cmd[0] += ".bat"
+            ensight_python = cmd[0]
             cmd.extend(["--http_directory", self.session_directory])
             # http port
             cmd.extend(["--http_port", str(self._ports[2])])
@@ -252,9 +293,13 @@ class LocalLauncher(Launcher):
             timeout=self._timeout,
             sos=use_sos,
             rest_api=self._enable_rest_api,
+            webui_port=self._ports[5] if self._launch_webui else None,
         )
         session.launcher = self
         self._sessions.append(session)
+
+        if self._launch_webui:
+            self.launch_webui(ensight_python, webui_script, popen_common)
         return session
 
     def stop(self) -> None:
