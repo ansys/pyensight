@@ -194,7 +194,7 @@ class Parts:
             Dictionary containing the key and value pairs for finding
             the parts. Only the parts that have all the keys and corresponding
             values are returned. If a value for this parameter is supplied, it
-            takes precedence over the valeus supplied for the ``tag`` and
+            takes precedence over the values supplied for the ``tag`` and
             ``value`` parameters.
 
         Returns
