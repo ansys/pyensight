@@ -3,10 +3,12 @@
 This module provides the interface for creating objects in the EnSight session
 that can be displayed via HTML over the websocket server interface.
 """
+import hashlib
 import os
 import shutil
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union, no_type_check
 import uuid
+import warnings
 import webbrowser
 
 import requests
@@ -812,3 +814,31 @@ class RenderableSGEO(Renderable):  # pragma: no cover
         html = html.replace("REVURL_ITEMID", revision_uri)
         html = html.replace("ITEMID", self._guid)
         return html
+
+
+class RenderableFluidsWebUI(Renderable):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self._session.ensight_version_check("2025 R1")
+        warnings.warn("The webUI is still under active development and should be considered beta.")
+        self._rendertype = "webui"
+        self._generate_url()
+        self.update()
+
+    def _generate_url(self) -> None:
+        sha256_hash = hashlib.sha256()
+        sha256_hash.update(self._session._secret_key.encode())
+        token = sha256_hash.hexdigest()
+        optional_query = self._get_query_parameters_str()
+        port = self._session._webui_port
+        if "instance_name" in self._session._launcher._get_query_parameters():
+            instance_name = self._session._launcher._get_query_parameters()["instance_name"]
+            # If using PIM, the port needs to be the 443 HTTPS Port;
+            port = self._session.html_port
+            # In the webUI code there's already a workflow to pass down the query parameter
+            # ans_instance_id, just use it
+            instance_name = self._session._launcher._get_query_parameters()["instance_name"]
+            optional_query = f"?ans_instance_id={instance_name}"
+        url = f"{self._http_protocol}://{self._session.html_hostname}:{port}"
+        url += f"{optional_query}#{token}"
+        self._url = url
