@@ -4,7 +4,7 @@
 Calculator usage
 ================
 
-Utilze EnSight Calculator to compute the Spatial Mean of a field variable.
+Utilize EnSight Calculator to compute the Spatial Mean of a field variable.
 Display this constant value, and the create graph over time.
 
 """
