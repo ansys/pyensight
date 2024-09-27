@@ -71,7 +71,7 @@ class Variables:
 
         Examples
         --------
-        The following are equavalent:
+        The following are equivalent:
 
         >>> # Native API
         >>> session.ensight.part.select_all()

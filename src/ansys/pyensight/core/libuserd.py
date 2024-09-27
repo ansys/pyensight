@@ -3,15 +3,6 @@ The ``libuserd`` module allows PyEnSight to directly access EnSight
 user-defined readers (USERD).  Any file format for which EnSight
 uses a USERD interface can be read using this API
 
-
-Notes
------
-
-This module was first introduced with the Ansys 2025 R1 distribution.
-It should be considered **Beta** at this point in time. Please report
-any issues via github.
-
-
 Examples
 --------
 
@@ -28,18 +19,48 @@ Examples
 
 """
 import enum
+import logging
 import os
 import platform
+import shutil
 import subprocess
 import tempfile
 import time
-from typing import List, Optional, Tuple, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
 import uuid
+import warnings
 
 from ansys.api.pyensight.v0 import libuserd_pb2, libuserd_pb2_grpc
+from ansys.pyensight.core.common import (
+    find_unused_ports,
+    get_file_service,
+    launch_enshell_interface,
+    populate_service_host_port,
+    pull_image,
+)
 import grpc
 import numpy
 import psutil
+import requests
+
+try:
+    import docker
+except ModuleNotFoundError:  # pragma: no cover
+    raise RuntimeError("The docker module must be installed for DockerLauncher")
+except Exception:  # pragma: no cover
+    raise RuntimeError("Cannot initialize Docker")
+
+
+if TYPE_CHECKING:
+    from docker import DockerClient
+    from docker.models.containers import Container
+    from enshell_grpc import EnShellGRPC
+
+# This code is currently in development/beta state
+warnings.warn(
+    "The libuserd interface/API is still under active development and should be considered beta.",
+    stacklevel=2,
+)
 
 
 class LibUserdError(Exception):
@@ -52,11 +73,16 @@ class LibUserdError(Exception):
     ----------
     msg : str
         The message text to be included in the exception.
+
+    Attributes
+    ----------
+    code : int
+        The LibUserd ErrorCodes enum value for this error.
     """
 
     def __init__(self, msg) -> None:
         super(LibUserdError, self).__init__(msg)
-        self._code = libuserd_pb2.ErrorCodes.UNKNOWN_ERROR
+        self._code = libuserd_pb2.ErrorCodes.UNKNOWN
         if msg.startswith("LibUserd("):
             try:
                 self._code = int(msg[len("LibUserd(") :].split(")")[0])
@@ -109,13 +135,16 @@ class Query(object):
     def __str__(self) -> str:
         return f"Query id: {self.id}, name: '{self.name}'"
 
+    def __repr__(self):
+        return f"<{self.__class__.__name__} object, id: {self.id}, name: '{self.name}'>"
+
     def data(self) -> List["numpy.array"]:
         """
         Get the X,Y values for this query.
 
         Returns
         -------
-        List["numpy.array"]
+        List[numpy.array]
             A list of two numpy arrays [X, Y].
         """
         self._userd.connect_check()
@@ -184,6 +213,9 @@ class Variable(object):
     def __str__(self) -> str:
         return f"Variable id: {self.id}, name: '{self.name}', type: {self.type.name}, location: {self.location.name}"
 
+    def __repr__(self):
+        return f"<{self.__class__.__name__} object, id: {self.id}, name: '{self.name}'>"
+
 
 class Part(object):
     """
@@ -230,13 +262,16 @@ class Part(object):
     def __str__(self):
         return f"Part id: {self.id}, name: '{self.name}'"
 
+    def __repr__(self):
+        return f"<{self.__class__.__name__} object, id: {self.id}, name: '{self.name}'>"
+
     def nodes(self) -> "numpy.array":
         """
         Return the vertex array for the part.
 
         Returns
         -------
-        "numpy.array"
+        numpy.array
             A numpy array of packed values: x,y,z,z,y,z, ...
 
         Examples
@@ -260,9 +295,8 @@ class Part(object):
             if len(nodes) < chunk.total_size:
                 nodes = numpy.empty(chunk.total_size, dtype=numpy.float32)
             offset = chunk.offset
-            for f in chunk.xyz:
-                nodes[offset] = f
-                offset += 1
+            values = numpy.array(chunk.xyz)
+            nodes[offset : offset + len(values)] = values
         return nodes
 
     def num_elements(self) -> dict:
@@ -280,7 +314,7 @@ class Part(object):
 
         >>> part = reader.parts()[0]
         >>> elements = part.elements()
-        >>> for etype,count in elements.items():
+        >>> for etype, count in elements.items():
         ...  print(libuserd_instance.ElementType(etype).name, count)
 
         """
@@ -309,7 +343,7 @@ class Part(object):
 
         Returns
         -------
-        "numpy.array"
+        numpy.array
             A numpy array of the node indices.
 
         Examples
@@ -323,21 +357,27 @@ class Part(object):
         ...  print(element)
 
         """
+        if elem_type >= self._userd.ElementType.NSIDED:
+            raise RuntimeError(f"Element type {elem_type} is not valid for this call")
         pb = libuserd_pb2.Part_element_connRequest()
         pb.part_id = self.id
         pb.elemType = elem_type
         try:
             stream = self._userd.stub.Part_element_conn(pb, metadata=self._userd.metadata())
+            conn = numpy.empty(0, dtype=numpy.uint32)
+            for chunk in stream:
+                if len(conn) < chunk.total_size:
+                    conn = numpy.empty(chunk.total_size, dtype=numpy.uint32)
+                offset = chunk.offset
+                values = numpy.array(chunk.connectivity)
+                conn[offset : offset + len(values)] = values
         except grpc.RpcError as e:
-            raise self._userd.libuserd_exception(e)
-        conn = numpy.empty(0, dtype=numpy.uint32)
-        for chunk in stream:
-            if len(conn) < chunk.total_size:
-                conn = numpy.empty(chunk.total_size, dtype=numpy.uint32)
-            offset = chunk.offset
-            for i in chunk.connectivity:
-                conn[offset] = i
-                offset += 1
+            error = self._userd.libuserd_exception(e)
+            # if we get an "UNKNOWN" error, then return an empty array
+            if isinstance(error, LibUserdError):
+                if error.code == self._userd.ErrorCodes.UNKNOWN:  # type: ignore
+                    return numpy.empty(0, dtype=numpy.uint32)
+            raise error
         return conn
 
     def element_conn_nsided(self, elem_type: int) -> List["numpy.array"]:
@@ -361,7 +401,7 @@ class Part(object):
 
         Returns
         -------
-        List["numpy.array"]
+        List[numpy.array]
             Two numpy arrays: num_nodes_per_element, nodes
         """
         self._userd.connect_check()
@@ -370,23 +410,23 @@ class Part(object):
         pb.elemType = elem_type
         try:
             stream = self._userd.stub.Part_element_conn_nsided(pb, metadata=self._userd.metadata())
+            nodes = numpy.empty(0, dtype=numpy.uint32)
+            indices = numpy.empty(0, dtype=numpy.uint32)
+            for chunk in stream:
+                if len(nodes) < chunk.nodes_total_size:
+                    nodes = numpy.empty(chunk.nodes_total_size, dtype=numpy.uint32)
+                if len(indices) < chunk.indices_total_size:
+                    indices = numpy.empty(chunk.indices_total_size, dtype=numpy.uint32)
+                if len(chunk.nodesPerPolygon):
+                    offset = chunk.nodes_offset
+                    values = numpy.array(chunk.nodesPerPolygon)
+                    nodes[offset : offset + len(values)] = values
+                if len(chunk.nodeIndices):
+                    offset = chunk.indices_offset
+                    values = numpy.array(chunk.nodeIndices)
+                    indices[offset : offset + len(values)] = values
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
-        nodes = numpy.empty(0, dtype=numpy.uint32)
-        indices = numpy.empty(0, dtype=numpy.uint32)
-        for chunk in stream:
-            if len(nodes) < chunk.nodes_total_size:
-                nodes = numpy.empty(chunk.nodes_total_size, dtype=numpy.uint32)
-            if len(indices) < chunk.indices_total_size:
-                indices = numpy.empty(chunk.indices_total_size, dtype=numpy.uint32)
-            offset = chunk.nodes_offset
-            for i in chunk.nodesPerPolygon:
-                nodes[offset] = i
-                offset += 1
-            offset = chunk.indices_offset
-            for i in chunk.nodeIndices:
-                indices[offset] = i
-                offset += 1
         return [nodes, indices]
 
     def element_conn_nfaced(self, elem_type: int) -> List["numpy.array"]:
@@ -412,7 +452,7 @@ class Part(object):
 
         Returns
         -------
-        List["numpy.array"]
+        List[numpy.array]
             Three numpy arrays: num_faces_per_element, num_nodes_per_face, face_nodes
         """
         self._userd.connect_check()
@@ -421,30 +461,30 @@ class Part(object):
         pb.elemType = elem_type
         try:
             stream = self._userd.stub.Part_element_conn_nfaced(pb, metadata=self._userd.metadata())
+            face = numpy.empty(0, dtype=numpy.uint32)
+            npf = numpy.empty(0, dtype=numpy.uint32)
+            nodes = numpy.empty(0, dtype=numpy.uint32)
+            for chunk in stream:
+                if len(face) < chunk.face_total_size:
+                    face = numpy.empty(chunk.face_total_size, dtype=numpy.uint32)
+                if len(npf) < chunk.npf_total_size:
+                    npf = numpy.empty(chunk.npf_total_size, dtype=numpy.uint32)
+                if len(nodes) < chunk.nodes_total_size:
+                    nodes = numpy.empty(chunk.nodes_total_size, dtype=numpy.uint32)
+                if len(chunk.facesPerElement):
+                    offset = chunk.face_offset
+                    values = numpy.array(chunk.facesPerElement)
+                    face[offset : offset + len(values)] = values
+                if len(chunk.nodesPerFace):
+                    offset = chunk.npf_offset
+                    values = numpy.array(chunk.nodesPerFace)
+                    npf[offset : offset + len(values)] = values
+                if len(chunk.nodeIndices):
+                    offset = chunk.nodes_offset
+                    values = numpy.array(chunk.nodeIndices)
+                    nodes[offset : offset + len(values)] = values
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
-        face = numpy.empty(0, dtype=numpy.uint32)
-        npf = numpy.empty(0, dtype=numpy.uint32)
-        nodes = numpy.empty(0, dtype=numpy.uint32)
-        for chunk in stream:
-            if len(face) < chunk.face_total_size:
-                face = numpy.empty(chunk.face_total_size, dtype=numpy.uint32)
-            if len(npf) < chunk.npf_total_size:
-                npf = numpy.empty(chunk.npf_total_size, dtype=numpy.uint32)
-            if len(nodes) < chunk.nodes_total_size:
-                nodes = numpy.empty(chunk.nodes_total_size, dtype=numpy.uint32)
-            offset = chunk.face_offset
-            for i in chunk.facesPerElement:
-                face[offset] = i
-                offset += 1
-            offset = chunk.npf_offset
-            for i in chunk.nodesPerFace:
-                npf[offset] = i
-                offset += 1
-            offset = chunk.nodes_offset
-            for i in chunk.nodeIndices:
-                nodes[offset] = i
-                offset += 1
         return [face, npf, nodes]
 
     def variable_values(
@@ -459,7 +499,7 @@ class Part(object):
 
         Parameters
         ----------
-        variable : "Variable"
+        variable : Variable
             The variable to return the values for.
         elem_type : int
             Used only if the variable location is elemental, this keyword selects the element
@@ -473,7 +513,7 @@ class Part(object):
 
         Returns
         -------
-        "numpy.array"
+        numpy.array
             A numpy array or a single scalar float.
         """
         self._userd.connect_check()
@@ -485,16 +525,15 @@ class Part(object):
         pb.complex = imaginary
         try:
             stream = self._userd.stub.Part_variable_values(pb, metadata=self._userd.metadata())
+            v = numpy.empty(0, dtype=numpy.float32)
+            for chunk in stream:
+                if len(v) < chunk.total_size:
+                    v = numpy.empty(chunk.total_size, dtype=numpy.float32)
+                offset = chunk.offset
+                values = numpy.array(chunk.varValues)
+                v[offset : offset + len(values)] = values
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
-        v = numpy.empty(0, dtype=numpy.float32)
-        for chunk in stream:
-            if len(v) < chunk.total_size:
-                v = numpy.empty(chunk.total_size, dtype=numpy.float32)
-            offset = chunk.offset
-            for f in chunk.varValues:
-                v[offset] = f
-                offset += 1
         return v
 
     def rigid_body_transform(self) -> dict:
@@ -562,6 +601,79 @@ class Reader(object):
         for key in pb.metadata.keys():
             self.metadata[key] = pb.metadata[key]
         self.raw_metadata = pb.raw_metadata
+        self._timesets: List["numpy.array"] = []
+        self._update_timesets()
+
+    def _update_timesets(self) -> None:
+        """
+        To simplify the interface to time, the timesets are all queried and
+        cached.  Additionally, a "common timeset" is generated that combines
+        all the timevalues from all timesets into a single timeset which is
+        saved as "timeset 0".
+
+        This method reads all the timesets and generates the common timeset.
+        """
+        if len(self._timesets):
+            return
+        num_timesets = self.get_number_of_time_sets()
+        # The common timeset
+        common = set()
+        self._timesets = [numpy.array([], dtype="float32")]
+        # The other timesets
+        for ts in range(1, num_timesets + 1):
+            v = self.timevalues(timeset=ts)
+            # merge into the common timeset
+            common.update(v)
+            self._timesets.append(v)
+        self._timesets[0] = numpy.array(sorted(list(common)))
+
+    def _common_set_step(self, s: int) -> None:
+        """
+        When the common timeset is used in a ``set_timestep()`` call, this
+        method selects the time value from the common timeset and then calls
+        ``_common_set_time()`` to change the current simulation time.
+
+        Parameters
+        ----------
+        s : int
+            The index (timestep) in the common timeset to change the current time to.
+
+        Raises
+        ------
+        RuntimeError
+            If the timestep index is invalid.
+
+        """
+        try:
+            v = self._timesets[0][s]
+            self._common_set_time(v)
+        except IndexError:
+            raise RuntimeError(f"Invalid step number {s}.") from None
+
+    def _common_set_time(self, t: float) -> None:
+        """
+        Change the current time value to the passed time value.  This method
+        walks all the timesets.  It selects the largest time value in each timeset
+        that is less than or equal to the specified time value.  It then sets
+        the time value for each timeset accordingly.
+
+        Parameters
+        ----------
+        t : float
+            The time value (in the common timeset) to change the reader simulation time to.
+
+        """
+        # given the time float from the common timeline,
+        # change the timestep in all the timesets to match.
+        for timeset in range(1, len(self._timesets)):
+            # check for perfect match first (avoids rounding)
+            where = numpy.where(self._timesets[timeset] == t)
+            if len(where[0]):
+                timestep = where[0][0]
+            else:
+                timestep = numpy.searchsorted(self._timesets[timeset], t)
+                timestep = min(timestep, len(self._timesets[timeset]) - 1)
+            self.set_timestep(timestep, timeset=timeset)
 
     def parts(self) -> List[Part]:
         """
@@ -623,57 +735,124 @@ class Reader(object):
             out.append(Query(self._userd, query))
         return out
 
-    def timevalues(self) -> List[float]:
+    def get_number_of_time_sets(self) -> int:
         """
-        Get a list of the time step values in this dataset.
+        Get the number of timesets in the dataset.
 
         Returns
         -------
-        List[float]
-            A list of time floats.
+        int
+            The number of timesets.
         """
+        if len(self._timesets):
+            return len(self._timesets) - 1
+        self._userd.connect_check()
+        pb = libuserd_pb2.Reader_get_number_of_time_setsRequest()
+        try:
+            reply = self._userd.stub.Reader_get_number_of_time_sets(
+                pb, metadata=self._userd.metadata()
+            )
+        except grpc.RpcError as e:
+            raise self._userd.libuserd_exception(e)
+        return reply.numberOfTimeSets
+
+    def timevalues(self, timeset: int = 0) -> List[float]:
+        """
+        Get a list of the time step values in this dataset for the specified timeset.
+        The default timeset is ``0`` which is a special, "common" timeset formed by
+        merging all the timesets in the data into a single timeset.
+
+        Parameters
+        ----------
+        timeset : int, optional
+            The timestep to query (default is 0)
+
+        Returns
+        -------
+        numpy.array
+            The simulation time value floats.
+        """
+        if timeset == 0:
+            try:
+                return self._timesets[timeset]
+            except IndexError:
+                return numpy.array([], dtype="float32")
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_timevaluesRequest()
-        pb.timeSetNumber = 1
+        pb.timeSetNumber = timeset
         try:
             timevalues = self._userd.stub.Reader_timevalues(pb, metadata=self._userd.metadata())
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
         return numpy.array(timevalues.timeValues)
 
-    def set_timevalue(self, timevalue: float) -> None:
+    def set_timevalue(self, timevalue: float, timeset: int = 0) -> None:
         """
-        Change the current time to the specified value.  This value should ideally
-        be on of the values returned by `timevalues`
+        Change the current time within the selected timeset to the specified value.
+        The default timeset selected is the merged "common" timeset ``0``.  If the
+        "common" timeset is used, the appropriate time value will be set for
+        all timesets by this method.
 
         Parameters
         ----------
         timevalue : float
             The time value to change the timestep closest to.
+        timeset : int, optional
+            The timeset to change (default is 0)
+
+        Examples
+        --------
+        >>> from ansys.pyensight.core import libuserd
+        >>> import numpy
+        >>> s = libuserd.LibUserd()
+        >>> s.initialize()
+        >>> opt = {'Long names': 0, 'Number of timesteps': 5, 'Number of scalars': 3,
+        ...        'Number of spheres': 2, 'Number of cubes': 2}
+        >>> d = s.load_data("foo", file_format="Synthetic", reader_options=opt)
+        >>> parts = d.parts()
+        >>> for t in d.timevalues():
+        ...    d.set_timevalue(t)
+        ...    for p in parts:
+        ...        nodes = p.nodes()
+        ...        nodes.shape = (len(nodes)//3, 3)
+        ...        centroid = numpy.average(nodes, 0)
+        ...        print(f"Time: {t} Part: {p.name} Centroid: {centroid}")
+        >>> s.shutdown()
+
         """
+        if timeset == 0:
+            self._common_set_time(timevalue)
+            return
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_set_timevalueRequest()
-        pb.timeSetNumber = 1
+        pb.timesetNumber = timeset
         pb.timeValue = timevalue
         try:
             _ = self._userd.stub.Reader_set_timevalue(pb, metadata=self._userd.metadata())
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
 
-    def set_timestep(self, timestep: int) -> None:
+    def set_timestep(self, timestep: int, timeset: int = 0) -> None:
         """
         Change the current time to the specified timestep.  This call is the same as:
         ``reader.set_timevalue(reader.timevalues()[timestep])``.
+        The default timeset selected is the merged "common" timeset ``0``.  If the
+        "common" timeset is used, the appropriate time value will be set for
+        all timesets by this method.
 
         Parameters
         ----------
         timestep : int
             The timestep to change to.
-
+        timeset : int, optional
+            The timeset to change (default is 0)
         """
+        if timeset == 0:
+            self._common_set_step(timestep)
+            return
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_set_timestepRequest()
-        pb.timeSetNumber = 1
+        pb.timeSetNumber = timeset
         pb.timeStep = timestep
         try:
             _ = self._userd.stub.Reader_set_timestep(pb, metadata=self._userd.metadata())
@@ -797,7 +976,7 @@ class ReaderInfo(object):
 
         Returns
         -------
-        "Reader"
+        Reader
             An instance of the `Reader` class.
         """
         self._userd.connect_check()
@@ -839,6 +1018,9 @@ class ReaderInfo(object):
     def __str__(self) -> str:
         return f"ReaderInfo id: {self.id}, name: {self.name}, description: {self.description}"
 
+    def __repr__(self):
+        return f"<{self.__class__.__name__} object, id: {self.id}, name: '{self.name}'>"
+
 
 class LibUserd(object):
     """
@@ -863,43 +1045,64 @@ class LibUserd(object):
 
     """
 
-    def __init__(self, ansys_installation: str = ""):
-        # find the pathname to the server
-        self._server_pathname = self._find_ensight_server_name(
-            ansys_installation=ansys_installation
-        )
-        if self._server_pathname is None:
-            raise RuntimeError("Unable to detect an EnSight server installation.")
-        # default to our token
+    def __init__(
+        self,
+        ansys_installation: str = "",
+        use_docker: bool = False,
+        data_directory: Optional[str] = None,
+        docker_image_name: Optional[str] = None,
+        use_dev: bool = False,
+        product_version: Optional[str] = None,
+        channel: Optional[grpc.Channel] = None,
+        pim_instance: Optional[Any] = None,
+        timeout: float = 120.0,
+        pull_image_if_not_available: bool = False,
+    ):
+        self._server_pathname: Optional[str] = None
+        self._host = "127.0.0.1"
         self._security_token = str(uuid.uuid1())
         self._grpc_port = 0
-        self._host = "127.0.0.1"
-        self._server_process = None
-        self._channel = None
+        self._server_process: Optional[subprocess.Popen] = None
+        self._channel: Optional[grpc.Channel] = None
         self._stub = None
-
+        self._security_file: Optional[str] = None
+        # Docker attributes
+        self._pull_image = pull_image_if_not_available
+        self._timeout = timeout
+        self._product_version = product_version
+        self._data_directory = data_directory
+        self._image_name = "ghcr.io/ansys-internal/ensight"
+        if use_dev:
+            self._image_name = "ghcr.io/ansys-internal/ensight_dev"
+        if docker_image_name:
+            self._image_name = docker_image_name
+        self._docker_client: Optional["DockerClient"] = None
+        self._container: Optional["Container"] = None
+        self._enshell: Optional["EnShellGRPC"] = None
+        self._pim_instance = pim_instance
+        self._enshell_grpc_channel: Optional[grpc.Channel] = channel
+        self._pim_file_service: Optional[Any] = None
+        self._service_host_port: Dict[str, Tuple[str, int]] = {}
+        local_launch = True
+        if any([use_docker, use_dev, self._pim_instance]):
+            local_launch = False
+            self._launch_enshell()
+        else:
+            # find the pathname to the server
+            self._server_pathname = self._find_ensight_server_name(
+                ansys_installation=ansys_installation
+            )
+            if self._server_pathname is None:
+                raise RuntimeError("Unable to detect an EnSight server installation.")
         # enums
-        values = {}
-        for v in libuserd_pb2.ErrorCodes.items():
-            values[v[0]] = v[1]
-        self.ErrorCodes = enum.IntEnum("ErrorCodes", values)  # type: ignore
-        values = {}
-        for v in libuserd_pb2.ElementType.items():
-            values[v[0]] = v[1]
-        self.ElementType = enum.IntEnum("ElementType", values)  # type: ignore
-        values = {}
-        for v in libuserd_pb2.VariableLocation.items():
-            values[v[0]] = v[1]
-        self.VariableLocation = enum.IntEnum("VariableLocation", values)  # type: ignore
-        values = {}
-        for v in libuserd_pb2.VariableType.items():
-            values[v[0]] = v[1]
-        self.VariableType = enum.IntEnum("VariableType", values)  # type: ignore
-        values = {}
-        for v in libuserd_pb2.PartHints.items():
-            values[v[0]] = v[1]
-        self.PartHints = enum.IntEnum("PartHints", values)  # type: ignore
+        self._build_enums()
+        if local_launch:
+            self._local_launch()
+        # Build the gRPC connection
+        self._connect()
 
+    def _local_launch(self) -> None:
+        """Launch the gRPC server from a local installation."""
         # have the server save status so we can read it later
         with tempfile.TemporaryDirectory() as tmpdirname:
             self._security_file = os.path.join(tmpdirname, "security.grpc")
@@ -925,7 +1128,7 @@ class LibUserd(object):
                 raise error
 
             start_time = time.time()
-            while (self._grpc_port == 0) and (time.time() - start_time < 20.0):
+            while (self._grpc_port == 0) and (time.time() - start_time < 120.0):
                 try:
                     # Read the port and security token from the security file
                     with open(self._security_file, "r") as f:
@@ -941,10 +1144,138 @@ class LibUserd(object):
             # Unable to get the grpc port/password
             if self._grpc_port == 0:
                 self.shutdown()
-                raise RuntimeError("Unable to start the gRPC server.")
+                raise RuntimeError(f"Unable to start the gRPC server ({str(self.server_pathname)})")
 
-            # Build the gRPC connection
-            self._connect()
+    def _build_enums(self) -> None:
+        """Build the enums values."""
+        values = {}
+        for v in libuserd_pb2.ErrorCodes.items():
+            values[v[0]] = v[1]
+        self.ErrorCodes = enum.IntEnum("ErrorCodes", values)  # type: ignore
+        values = {}
+        for v in libuserd_pb2.ElementType.items():
+            values[v[0]] = v[1]
+        self.ElementType = enum.IntEnum("ElementType", values)  # type: ignore
+        values = {}
+        for v in libuserd_pb2.VariableLocation.items():
+            values[v[0]] = v[1]
+        self.VariableLocation = enum.IntEnum("VariableLocation", values)  # type: ignore
+        values = {}
+        for v in libuserd_pb2.VariableType.items():
+            values[v[0]] = v[1]
+        self.VariableType = enum.IntEnum("VariableType", values)  # type: ignore
+        values = {}
+        for v in libuserd_pb2.PartHints.items():
+            values[v[0]] = v[1]
+        self.PartHints = enum.IntEnum("PartHints", values)  # type: ignore
+
+    def _pull_docker_image(self) -> None:
+        """Pull the docker image if not available"""
+        pull_image(self._docker_client, self._image_name)
+
+    def _check_if_image_available(self) -> bool:
+        """Check if the input docker image is available."""
+        if not self._docker_client:
+            return False
+        filtered_images = self._docker_client.images.list(filters={"reference": self._image_name})
+        if len(filtered_images) > 0:
+            return True
+        return False
+
+    def _launch_enshell(self) -> None:
+        """Create an enshell entry point and use it to launch a Container."""
+        if self._pim_instance:
+            self._service_host_port = populate_service_host_port(self._pim_instance, {})
+            self._pim_file_service = get_file_service(self._pim_instance)
+            self._grpc_port = int(self._service_host_port["grpc_private"][1])
+            self._host = self._service_host_port["grpc_private"][0]
+        else:
+            if not self._data_directory:
+                self._data_directory = tempfile.mkdtemp(prefix="pyensight_")
+            available = self._check_if_image_available()
+            if not available and self._pull_image and not self._pim_instance:
+                self._pull_docker_image()
+            ports = find_unused_ports(2, avoid=[1999])
+            self._service_host_port = {
+                "grpc": ("127.0.0.1", ports[0]),
+                "grpc_private": ("127.0.0.1", ports[1]),
+            }
+            self._grpc_port = ports[1]
+        if not self._pim_instance:
+            self._launch_container()
+        self._enshell = launch_enshell_interface(
+            self._enshell_grpc_channel, self._service_host_port["grpc"][1], self._timeout
+        )
+        self._cei_home = self._enshell.cei_home()
+        self._ansys_version = self._enshell.ansys_version()
+        print("CEI_HOME=", self._cei_home)
+        print("Ansys Version=", self._ansys_version)
+        grpc_port = self._service_host_port["grpc_private"][1]
+        ensight_args = f"-grpc_server {grpc_port}"
+        container_env_str = f"ENSIGHT_SECURITY_TOKEN={self._security_token}\n"
+        ret = self._enshell.start_ensight_server(ensight_args, container_env_str)
+        if ret[0] != 0:  # pragma: no cover
+            self._stop_container_and_enshell()  # pragma: no cover
+            raise RuntimeError(
+                f"Error starting EnSight Server with args: {ensight_args}"
+            )  # pragma: no cover
+
+    def _launch_container(self) -> None:
+        """Launch a docker container for the input image."""
+        self._docker_client = docker.from_env()
+        grpc_port = self._service_host_port["grpc"][1]
+        private_grpc_port = self._service_host_port["grpc_private"][1]
+        ports_to_map = {
+            str(self._service_host_port["grpc"][1]) + "/tcp": str(grpc_port),
+            str(self._service_host_port["grpc_private"][1]) + "/tcp": str(private_grpc_port),
+        }
+        enshell_cmd = "-app -v 3 -grpc_server " + str(grpc_port)
+        container_env = {
+            "ENSIGHT_SECURITY_TOKEN": self.security_token,
+        }
+        data_volume = {self._data_directory: {"bind": "/data", "mode": "rw"}}
+
+        if not self._docker_client:
+            raise RuntimeError("Could not startup docker.")
+        self._container = self._docker_client.containers.run(  # pragma: no cover
+            self._image_name,
+            command=enshell_cmd,
+            volumes=data_volume,
+            environment=container_env,
+            ports=ports_to_map,
+            tty=True,
+            detach=True,
+            auto_remove=True,
+            remove=True,
+        )
+
+    def _stop_container_and_enshell(self) -> None:
+        """Release any additional resources allocated during launching."""
+        if self._enshell:
+            if self._enshell.is_connected():  # pragma: no cover
+                try:
+                    logging.debug("Stopping EnShell.\n")
+                    self._enshell.stop_server()
+                except Exception:  # pragma: no cover
+                    pass  # pragma: no cover
+                self._enshell = None
+        if self._container:
+            try:
+                logging.debug("Stopping the Docker Container.\n")
+                self._container.stop()
+            except Exception:
+                pass
+            try:
+                logging.debug("Removing the Docker Container.\n")
+                self._container.remove()
+            except Exception:
+                pass
+            self._container = None
+
+        if self._pim_instance is not None:
+            logging.debug("Deleting the PIM instance.\n")
+            self._pim_instance.delete()
+            self._pim_instance = None
 
     @property
     def stub(self):
@@ -1037,7 +1368,7 @@ class LibUserd(object):
         """
         return self._channel is not None
 
-    def _connect(self, timeout: float = 15.0) -> None:
+    def _connect(self) -> None:
         """Establish the gRPC connection to EnSight
 
         Attempt to connect to an EnSight gRPC server using the host and port
@@ -1052,6 +1383,7 @@ class LibUserd(object):
         if self._is_connected():
             return
         # set up the channel
+
         self._channel = grpc.insecure_channel(
             "{}:{}".format(self._host, self._grpc_port),
             options=[
@@ -1061,7 +1393,7 @@ class LibUserd(object):
             ],
         )
         try:
-            grpc.channel_ready_future(self._channel).result(timeout=timeout)
+            grpc.channel_ready_future(self._channel).result(timeout=self._timeout)
         except grpc.FutureTimeoutError:  # pragma: no cover
             self._channel = None  # pragma: no cover
             return  # pragma: no cover
@@ -1145,7 +1477,8 @@ class LibUserd(object):
 
         Raises
         ------
-        RuntimeError if there is no active connection.
+        RuntimeError
+            If there is no active connection.
         """
         if not self._is_connected():
             raise RuntimeError("gRPC connection not established")
@@ -1176,6 +1509,8 @@ class LibUserd(object):
                     proc.kill()
                 except psutil.NoSuchProcess:
                     pass
+        if self._container:
+            self._stop_container_and_enshell()
         self._server_process = None
 
     def ansys_release_string(self) -> str:
@@ -1391,7 +1726,7 @@ class LibUserd(object):
 
         Returns
         -------
-        List["ReaderInfo"]
+        List[ReaderInfo]
             List of all ReaderInfo objects.
         """
         self.connect_check()
@@ -1420,7 +1755,7 @@ class LibUserd(object):
 
         Returns
         -------
-        List["ReaderInfo"]
+        List[ReaderInfo]
             List of ReaderInfo objects that might be able to read the dataset
         """
         self.connect_check()
@@ -1436,3 +1771,175 @@ class LibUserd(object):
         for reader in readers.readerInfo:
             out.append(ReaderInfo(self, reader))
         return out
+
+    def load_data(
+        self,
+        data_file: str,
+        result_file: str = "",
+        file_format: Optional[str] = None,
+        reader_options: Dict[str, Any] = {},
+    ) -> "Reader":
+        """Use the reader to load a dataset and return an instance
+        to the resulting ``Reader`` interface.
+
+        Parameters
+        ----------
+        data_file : str
+            Name of the data file to load.
+        result_file : str, optional
+            Name of the second data file for dual-file datasets.
+        file_format : str, optional
+            Name of the USERD reader to use. The default is ``None``,
+            in which case libuserd selects a reader.
+        reader_options : dict, optional
+            Dictionary of reader-specific option-value pairs that can be used
+            to customize the reader behavior. The default is ``None``.
+
+        Returns
+        -------
+        Reader
+            Resulting Reader object instance.
+
+        Raises
+        ------
+        RuntimeError
+            If libused cannot guess the file format or an error occurs while the
+            data is being read.
+
+        Examples
+        --------
+
+        >>> from ansys.pyensight.core import libuserd
+        >>> userd = libuserd.LibUserd()
+        >>> userd.initialize()
+        >>> opt = {'Long names': False, 'Number of timesteps': '10', 'Number of scalars': '3'}
+        >>> data = userd.load_data("foo", file_format="Synthetic", reader_options=opt
+        >>> print(data.parts())
+        >>> print(data.variables())
+        >>> userd.shutdown()
+
+        """
+        the_reader: Optional[ReaderInfo] = None
+        if file_format:
+            for reader in self.get_all_readers():
+                if reader.name == file_format:
+                    the_reader = reader
+                    break
+            if the_reader is None:
+                raise RuntimeError(f"The reader '{file_format}' could not be found.")
+        else:
+            readers = self.query_format(data_file, name2=result_file)
+            if len(readers):
+                the_reader = readers[0]
+            if the_reader is None:
+                raise RuntimeError(f"Unable to find a reader for '{data_file}':'{result_file}'.")
+        for key, value in reader_options.items():
+            for b in the_reader.opt_booleans:
+                if key == b["name"]:
+                    b["value"] = bool(value)
+            for o in the_reader.opt_options:
+                if key == o["name"]:
+                    o["value"] = int(value)
+            for f in the_reader.opt_fields:
+                if key == f["name"]:
+                    f["value"] = str(value)
+        try:
+            output = the_reader.read_dataset(data_file, result_file)
+        except Exception:
+            raise RuntimeError("Unable to open the specified dataset.") from None
+
+        return output
+
+    @staticmethod
+    def _download_files(uri: str, pathname: str, folder: bool = False):
+        """Download files from the input uri and save them on the input pathname.
+
+        Parameters:
+        ----------
+
+        uri: str
+            The uri to get files from
+        pathname: str
+            The location were to save the files. It could be either a file or a folder.
+        folder: bool
+            True if the uri will server files from a directory. In this case,
+            pathname will be used as the directory were to save the files.
+        """
+        if not folder:
+            with requests.get(uri, stream=True) as r:
+                with open(pathname, "wb") as f:
+                    shutil.copyfileobj(r.raw, f)
+        else:
+            with requests.get(uri) as r:
+                data = r.json()
+                os.makedirs(pathname, exist_ok=True)
+                for item in data:
+                    if item["type"] == "file":
+                        file_url = item["download_url"]
+                        filename = os.path.join(pathname, item["name"])
+                        r = requests.get(file_url, stream=True)
+                        with open(filename, "wb") as f:
+                            f.write(r.content)
+
+    def file_service(self) -> Optional[Any]:
+        """Get the PIM file service object if available."""
+        return self._pim_file_service
+
+    def download_pyansys_example(
+        self,
+        filename: str,
+        directory: Optional[str] = None,
+        root: Optional[str] = None,
+        folder: bool = False,
+    ) -> str:
+        """Download an example dataset from the ansys/example-data repository.
+        The dataset is downloaded local to the EnSight server location, so that it can
+        be downloaded even if running from a container.
+
+        Parameters
+        ----------
+        filename: str
+            The filename to download
+        directory: str
+            The directory to download the filename from
+        root: str
+            If set, the download will happen from another location
+        folder: bool
+            If set to True, it marks the filename to be a directory rather
+            than a single file
+
+        Returns
+        -------
+        pathname: str
+            The download location, local to the EnSight server directory.
+            If folder is set to True, the download location will be a folder containing
+            all the items available in the repository location under that folder.
+
+        Examples
+        --------
+        >>> from ansys.pyensight.core import libuserd
+        >>> l = libuserd.LibUserd()
+        >>> cas_file = l.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
+        >>> dat_file = l.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
+        """
+        base_uri = "https://github.com/ansys/example-data/raw/master"
+        base_api_uri = "https://api.github.com/repos/ansys/example-data/contents"
+        if not folder:
+            if root is not None:
+                base_uri = root
+        else:
+            base_uri = base_api_uri
+        uri = f"{base_uri}/{filename}"
+        if directory:
+            uri = f"{base_uri}/{directory}/{filename}"
+        # Local installs and PIM instances
+        download_path = f"{os.getcwd()}/{filename}"
+        if self._container and self._data_directory:
+            # Docker Image
+            download_path = os.path.join(self._data_directory, filename)
+        self._download_files(uri, download_path, folder=folder)
+        pathname = download_path
+        if self._container:
+            # Convert local path to Docker mounted volume path
+            pathname = f"/data/{filename}"
+        return pathname
