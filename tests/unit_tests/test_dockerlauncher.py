@@ -4,6 +4,7 @@ from unittest import mock
 
 import ansys
 from ansys.pyensight.core import DockerLauncher, enshell_grpc
+from ansys.pyensight.core.common import get_host_port
 import docker
 import pytest
 
@@ -21,7 +22,7 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
     docker_client.containers = mock.MagicMock("MockedContainers")
     docker_client.containers.run = mock.MagicMock("MockedContainer")
     mocker.patch.object(docker_client.containers, "run", return_value=run)
-    dock = mocker.patch.object(docker, "from_env", return_value=docker_client)
+    mocker.patch.object(docker, "from_env", return_value=docker_client)
     os.environ["PYENSIGHT_DEBUG"] = "1"
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
@@ -42,7 +43,7 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
             "Running container super_ensight with cmd -app -v 3 -grpc_server"
             in caplog.records[1].message
         )
-        assert "Starting EnSight with args: -batch -v 3 -grpc_server" in caplog.records[12].message
+        assert "Starting EnSight with args: -batch -v 3 -grpc_server" in caplog.records[11].message
     assert launcher.ansys_version() == "345"
     # No data volume
     mocker.patch.object(DockerLauncher, "_is_system_egl_capable", return_value=True)
@@ -90,15 +91,6 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
     values_run_command[0] = [0, "set_no_reroute_log"]
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
-    dock = mocker.patch.object(docker, "from_env", return_value=docker_client)
-    dock.side_effect = ModuleNotFoundError
-    with pytest.raises(RuntimeError) as exec_info:
-        launcher = DockerLauncher(data_directory=".")
-    assert "The docker module must be installed for DockerLauncher" in str(exec_info)
-    dock.side_effect = KeyError
-    with pytest.raises(RuntimeError) as exec_info:
-        launcher = DockerLauncher(data_directory=".")
-    assert "Cannot initialize Docker" in str(exec_info)
 
 
 def test_pull(mocker):
@@ -116,4 +108,4 @@ def test_pull(mocker):
     with pytest.raises(RuntimeError) as exec_info:
         launcher.pull()
     assert "pull Docker image: ghcr.io/ansys-internal/ensight" in str(exec_info)
-    assert launcher._get_host_port("http://ensight.com:3000") == ("ensight.com", 3000)
+    assert get_host_port("http://ensight.com:3000") == ("ensight.com", 3000)

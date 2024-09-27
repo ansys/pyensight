@@ -44,7 +44,7 @@ class Omniverse:
     >>> from ansys.pyensight.core import LocalLauncher
     >>> session = LocalLauncher().start()
     >>> ov = session.ensight.utils.omniverse
-    >>> ov.create_connection()
+    >>> ov.create_connection(r"D:\Omniverse\Example")
     >>> ov.update()
     >>> ov.close_connection()
 
@@ -202,8 +202,8 @@ class Omniverse:
         Parameters
         ----------
         omniverse_path : str
-            The URI to the Omniverse server. It will look like this:
-            "omniverse://localhost/Users/test"
+            The directory name where the USD files should be saved. For example:
+            "C:/Users/test/OV/usdfiles"
         include_camera : bool
             If True, apply the EnSight camera to the Omniverse scene.  This option
             should be used if the target viewer is in AR/VR mode.  Defaults to False.
