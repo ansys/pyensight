@@ -1,23 +1,16 @@
 import glob
 from operator import attrgetter
 import os
+from typing import TYPE_CHECKING, Any, Optional, Tuple
 
-from ansys.pyensight.core.dockerlauncher import DockerLauncher
-from ansys.pyensight.core.locallauncher import LocalLauncher
+if TYPE_CHECKING:
+    from ansys.pyensight.core import Session
+
 import numpy as np
-import pytest
 
 
-def test_queries(tmpdir, pytestconfig: pytest.Config):
-    data_dir = tmpdir.mkdir("datadir")
-    use_local = pytestconfig.getoption("use_local_launcher")
-    root = None
-    if use_local:
-        launcher = LocalLauncher()
-        root = "http://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
-    else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
-    session = launcher.start()
+def test_queries(launch_pyensight_session: Tuple["Session", Any, Optional[str]]):
+    session, data_dir, root = launch_pyensight_session
     session.load_example("waterbreak.ens", root=root)
     # Get the core part and variable objects
     var = session.ensight.objs.core.VARIABLES["p"][0]
