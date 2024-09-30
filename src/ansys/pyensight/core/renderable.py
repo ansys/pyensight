@@ -389,6 +389,7 @@ class RenderableDeepPixel(Renderable):
         for script in ["geotiff.js", "geotiff_nexus.js", "bootstrap.min.js"]:
             name = base_name + f"'{script}')"
             cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
+        self._session.cmd(cmd, do_eval=False)
         if int(self._session._cei_suffix) < 251:
             jquery = "jquery-3.4.1.min.js"
         else:
