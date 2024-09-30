@@ -1,10 +1,10 @@
 import math
 import os
 import time
+from typing import TYPE_CHECKING, Any, Optional, Tuple
 
-from ansys.pyensight.core.dockerlauncher import DockerLauncher
-from ansys.pyensight.core.locallauncher import LocalLauncher
-import pytest
+if TYPE_CHECKING:
+    from ansys.pyensight.core import Session
 
 
 def create_frame(ensight):
@@ -43,14 +43,9 @@ def create_frame(ensight):
     ensight.frame.assign(0)
 
 
-def test_force_tool(tmpdir, pytestconfig: pytest.Config):
-    data_dir = tmpdir.mkdir("datadir")
-    use_local = pytestconfig.getoption("use_local_launcher")
-    if use_local:
-        launcher = LocalLauncher()
-    else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
-    session = launcher.start()
+def test_force_tool(launch_pyensight_session: Tuple["Session", Any, Optional[str]]):
+    session, _, _ = launch_pyensight_session
+    use_local = not hasattr(session._launcher, "_enshell")
     path = None
     if use_local:
         path = f"{session.cei_home}/ensight{session.cei_suffix}/data/RC_Plane/"

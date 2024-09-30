@@ -1,17 +1,12 @@
 import gc
+from typing import TYPE_CHECKING, Any, Optional, Tuple
 
-from ansys.pyensight.core import DockerLauncher, LocalLauncher
-import pytest
+if TYPE_CHECKING:
+    from ansys.pyensight.core import Session
 
 
-def test_remote_objects(tmpdir, pytestconfig: pytest.Config):
-    data_dir = tmpdir.mkdir("datadir")
-    use_local = pytestconfig.getoption("use_local_launcher")
-    if use_local:
-        launcher = LocalLauncher()
-    else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
-    session = launcher.start()
+def test_remote_objects(launch_pyensight_session: Tuple["Session", Any, Optional[str]]):
+    session, _, _ = launch_pyensight_session
     session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/guard_rail/crash.case")
 
     # call __str__ on an ENSOBJ object w/o DESCRIPTION attribute (for coverage)
