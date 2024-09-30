@@ -13,7 +13,7 @@ from ansys.pyensight.core.session import Session
 import numpy
 import pytest
 
-from glbutils import GLBUtils
+from .glbutils import GLBUtils
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
