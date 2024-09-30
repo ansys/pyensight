@@ -1519,16 +1519,16 @@ where:
       - constant number between 0 and 360 degrees.
 
 
-.. _ConstPerPart:
+.. _ConstantPerPart:
 
---------------
-ConstPerPart()
---------------
+-----------------
+ConstantPerPart()
+-----------------
 
 
-**ConstPerPart**
+**ConstantPerPart**
 
-``ConstPerPart(any parts, constant)``
+``ConstantPerPart(any parts, constant)``
 
 
 This function assigns a value to the selected parts. The value can be either a
@@ -1539,6 +1539,7 @@ The existing parts that were previously selected retain their previously assigne
 value. In other words, each successive time that this value is recalculated for an
 existing variable, the values assigned to the most recently selected parts are updated
 without removing previously assigned values.
+
 
 
 .. _Curl:
@@ -6384,6 +6385,31 @@ udmf_sum()
 
 
 
+.. _Vector1DProjection:
+
+--------------------
+Vector1DProjection()
+--------------------
+
+
+**Vector 1D Part Projection**
+
+``Vector1DProjection(any parts, vector, direction)``
+
+
+Computes a new vector variable defined as the specified vector variable
+projected onto a 1D part's local tangent or normal direction.
+
+.. list-table:: **Function arguments**
+    :widths: 30 70
+
+    * - vector
+      - model vector variable
+    * - direction
+      - normal or tangent
+
+
+
 .. _VectorCylProjection:
 
 ---------------------
@@ -6416,7 +6442,7 @@ of the vector variable against the direction vector.
       - frame number (0-based) with frame 0 being the
         global reference.
     * - axis
-      - radial (R), angular (Theta), ar Axial (Frame Z
+      - radial (R), angular (Theta), or Axial (Frame Z
         direction)
 
 

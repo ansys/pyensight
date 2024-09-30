@@ -115,8 +115,8 @@ scene to Omniverse.
     ``git://github.com/ansys/pyensight.git?branch=main&dir=exts``.
 
 
-Developers: Running via the Command Line
-----------------------------------------
+Running via the Command Line
+----------------------------
 
 There is an omniverse_cli module included in the pyensight install.
 This module can be used to execute any service operation from the
@@ -139,6 +139,7 @@ has it installed:
 Will generate the following output:
 
 .. code-block::
+
     usage: omniverse_cli.py [-h] [--verbose verbose_level] [--log_file log_filename] [--dsg_uri DSG_URI]
                             [--security_token token] [--monitor_directory glb_directory] [--time_scale time_scale]
                             [--normalize_geometry yes|no|true|false|1|0] [--include_camera yes|no|true|false|1|0]

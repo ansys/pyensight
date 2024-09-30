@@ -784,12 +784,22 @@ class DSGSession(object):
             cmd = self._get_next_message()
 
         # Flush the last part
-        self._finish_part()
-
-        self._callback_handler.end_update()
+        success = self._finish_part()
+        try:
+            # Note: things like "out of disk space" can happen in end_update() as it pushes out
+            # the in-memory assets.
+            self._callback_handler.end_update()
+        except Exception as e:
+            self.warn(f"Error encountered while finalizing part geometry: {str(e)}")
+            success = False
+        if not success:
+            self.warn("The operation could not be completed as requested.")
 
         # Update our status
-        self._status = dict(status="idle", start_time=0.0, processed_buffers=0, total_buffers=0)
+        # TODO: use the status file to return "error" state in conjunction with exceptions as noted above.
+        self._status = dict(
+            status="idle", start_time=0.0, processed_buffers=0, total_buffers=0, success=success
+        )
         self._update_status_file()
 
     def _handle_update_command(self, cmd: dynamic_scene_graph_pb2.SceneUpdateCommand) -> None:
@@ -830,17 +840,25 @@ class DSGSession(object):
             name = "Texture update"
         self.log(f"{name} --------------------------")
 
-    def _finish_part(self) -> None:
+    def _finish_part(self) -> bool:
         """Complete the current part
 
         There is always a part being modified.  This method completes the current part, committing
         it to the handler.
+
+        Returns
+        -------
+        bool
+            True on success, False on failure
         """
+        ret = True
         try:
             self._callback_handler.finalize_part(self.part)
         except Exception as e:
             self.warn(f"Error encountered while finalizing part geometry: {str(e)}")
+            ret = False
         self._mesh_block_count += 1
+        return ret
 
     def _handle_part(self, part_cmd: Any) -> None:
         """Handle a DSG UPDATE_PART command
@@ -902,7 +920,7 @@ class DSGSession(object):
         view:
             The command coming from the EnSight stream.
         """
-        self._finish_part()
+        _ = self._finish_part()
         self._scene_bounds = None
         self._groups[view.id] = view
         if len(view.timeline) == 2:
