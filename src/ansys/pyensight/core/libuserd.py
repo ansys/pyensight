@@ -63,6 +63,22 @@ warnings.warn(
 )
 
 
+def _build_enum(name: str, pb_enum: Any) -> enum.IntEnum:
+    values = {}
+    for v in pb_enum:
+        values[v[0]] = v[1]
+    return enum.IntEnum(name, values)
+
+
+ErrorCodes: enum.IntEnum = _build_enum("ErrorCodes", libuserd_pb2.ErrorCodes.items())
+ElementType: enum.IntEnum = _build_enum("ElementType", libuserd_pb2.ElementType.items())
+VariableLocation: enum.IntEnum = _build_enum(
+    "VariableLocation", libuserd_pb2.VariableLocation.items()
+)
+VariableType: enum.IntEnum = _build_enum("VariableType", libuserd_pb2.VariableType.items())
+PartHints: enum.IntEnum = _build_enum("PartHints", libuserd_pb2.PartHints.items())
+
+
 class LibUserdError(Exception):
     """
     This class is an exception object raised from the libuserd
@@ -179,9 +195,9 @@ class Variable(object):
         The unit label of this variable, "Pa" for example.
     unitDims : str
         The dimensions of this variable, "L/S" for distance per second.
-    location : "LibUserd.LocationType"
+    location : "VariableLocation"
         The location of this variable.
-    type : "LibUserd.VariableType"
+    type : "VariableType"
         The type of this variable.
     timeVarying : bool
         True if the variable is time-varying.
@@ -200,8 +216,8 @@ class Variable(object):
         self.name = pb.name
         self.unitLabel = pb.unitLabel
         self.unitDims = pb.unitDims
-        self.location = self._userd.VariableLocation(pb.varLocation)
-        self.type = self._userd.VariableType(pb.type)
+        self.location = VariableLocation(pb.varLocation)  # type: ignore
+        self.type = VariableType(pb.type)  # type: ignore
         self.timeVarying = pb.timeVarying
         self.isComplex = pb.isComplex
         self.interleaveFlag = pb.interleaveFlag
@@ -240,7 +256,7 @@ class Part(object):
     reader_id : int
         The id of the Reader this part is associated with.
     hints : int
-        See: `LibUserd.PartHints`.
+        See: `PartHints`.
     reader_api_version : float
         The API version number of the USERD reader this part was read with.
     metadata : Dict[str, str]
@@ -315,7 +331,7 @@ class Part(object):
         >>> part = reader.parts()[0]
         >>> elements = part.elements()
         >>> for etype, count in elements.items():
-        ...  print(libuserd_instance.ElementType(etype).name, count)
+        ...  print(libuserd.ElementType(etype).name, count)
 
         """
         self._userd.connect_check()
@@ -350,14 +366,14 @@ class Part(object):
         --------
 
         >>> part = reader.parts()[0]
-        >>> conn = part.element_conn(libuserd_instance.ElementType.HEX08)
-        >>> nodes_per_elem = libuserd_instance.nodes_per_element(libuserd_instance.ElementType.HEX08)
+        >>> conn = part.element_conn(libuserd.ElementType.HEX08)
+        >>> nodes_per_elem = libuserd_instance.nodes_per_element(libuserd.ElementType.HEX08)
         >>> conn.shape = (len(conn)//nodes_per_elem, nodes_per_elem)
         >>> for element in conn:
         ...  print(element)
 
         """
-        if elem_type >= self._userd.ElementType.NSIDED:
+        if elem_type >= ElementType.NSIDED:  # type: ignore
             raise RuntimeError(f"Element type {elem_type} is not valid for this call")
         pb = libuserd_pb2.Part_element_connRequest()
         pb.part_id = self.id
@@ -375,7 +391,7 @@ class Part(object):
             error = self._userd.libuserd_exception(e)
             # if we get an "UNKNOWN" error, then return an empty array
             if isinstance(error, LibUserdError):
-                if error.code == self._userd.ErrorCodes.UNKNOWN:  # type: ignore
+                if error.code == ErrorCodes.UNKNOWN:  # type: ignore
                     return numpy.empty(0, dtype=numpy.uint32)
             raise error
         return conn
@@ -1147,27 +1163,12 @@ class LibUserd(object):
                 raise RuntimeError(f"Unable to start the gRPC server ({str(self.server_pathname)})")
 
     def _build_enums(self) -> None:
-        """Build the enums values."""
-        values = {}
-        for v in libuserd_pb2.ErrorCodes.items():
-            values[v[0]] = v[1]
-        self.ErrorCodes = enum.IntEnum("ErrorCodes", values)  # type: ignore
-        values = {}
-        for v in libuserd_pb2.ElementType.items():
-            values[v[0]] = v[1]
-        self.ElementType = enum.IntEnum("ElementType", values)  # type: ignore
-        values = {}
-        for v in libuserd_pb2.VariableLocation.items():
-            values[v[0]] = v[1]
-        self.VariableLocation = enum.IntEnum("VariableLocation", values)  # type: ignore
-        values = {}
-        for v in libuserd_pb2.VariableType.items():
-            values[v[0]] = v[1]
-        self.VariableType = enum.IntEnum("VariableType", values)  # type: ignore
-        values = {}
-        for v in libuserd_pb2.PartHints.items():
-            values[v[0]] = v[1]
-        self.PartHints = enum.IntEnum("PartHints", values)  # type: ignore
+        # retained for backward compatibility
+        self.ErrorCodes = ErrorCodes
+        self.ElementType = ElementType
+        self.VariableLocation = VariableLocation
+        self.VariableType = VariableType
+        self.PartHints = PartHints
 
     def _pull_docker_image(self) -> None:
         """Pull the docker image if not available"""
@@ -1577,7 +1578,7 @@ class LibUserd(object):
         Parameters
         ----------
         element_type
-            The element type:  LibUserd.ElementType enum value
+            The element type:  ElementType enum value
 
         Returns
         -------
@@ -1602,7 +1603,7 @@ class LibUserd(object):
         Parameters
         ----------
         element_type
-            The element type:  LibUserd.ElementType enum value
+            The element type:  ElementType enum value
 
         Returns
         -------
@@ -1625,7 +1626,7 @@ class LibUserd(object):
         Parameters
         ----------
         element_type
-            The element type:  LibUserd.ElementType enum value
+            The element type:  ElementType enum value
 
         Returns
         -------
@@ -1648,7 +1649,7 @@ class LibUserd(object):
         Parameters
         ----------
         element_type
-            The element type:  LibUserd.ElementType enum value
+            The element type:  ElementType enum value
 
         Returns
         -------
@@ -1671,7 +1672,7 @@ class LibUserd(object):
         Parameters
         ----------
         element_type
-            The element type:  LibUserd.ElementType enum value
+            The element type:  ElementType enum value
 
         Returns
         -------
@@ -1693,7 +1694,7 @@ class LibUserd(object):
         Part.element_conn() method.  This function returns the number of those elements
         and may be useful in common element type handling code.
 
-        Note: The value is effectively int(LibUserd.ElementType.NSIDED).
+        Note: The value is effectively int(ElementType.NSIDED).
 
         Returns
         -------

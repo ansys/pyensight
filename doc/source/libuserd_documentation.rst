@@ -29,6 +29,12 @@ uses a USERD interface can be read using this API.
    ansys.pyensight.core.libuserd.ReaderInfo
    ansys.pyensight.core.libuserd.Reader
    ansys.pyensight.core.libuserd.Part
+   ansys.pyensight.core.libuserd.PartHints
+   ansys.pyensight.core.libuserd.ElementType
    ansys.pyensight.core.libuserd.Variable
+   ansys.pyensight.core.libuserd.VariableType
+   ansys.pyensight.core.libuserd.VariableLocation
    ansys.pyensight.core.libuserd.Query
    ansys.pyensight.core.libuserd.LibUserdError
+   ansys.pyensight.core.libuserd.ErrorCodes
+
