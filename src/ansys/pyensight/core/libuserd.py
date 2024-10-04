@@ -63,20 +63,20 @@ warnings.warn(
 )
 
 
-def _build_enum(name: str, pb_enum: Any) -> enum.IntEnum:
+def _build_enum(name: str, pb_enum: Any, flag: bool = False) -> Union[enum.IntEnum, enum.IntFlag]:
     values = {}
     for v in pb_enum:
         values[v[0]] = v[1]
+    if flag:
+        return enum.IntFlag(name, values)
     return enum.IntEnum(name, values)
 
 
-ErrorCodes: enum.IntEnum = _build_enum("ErrorCodes", libuserd_pb2.ErrorCodes.items())
-ElementType: enum.IntEnum = _build_enum("ElementType", libuserd_pb2.ElementType.items())
-VariableLocation: enum.IntEnum = _build_enum(
-    "VariableLocation", libuserd_pb2.VariableLocation.items()
-)
-VariableType: enum.IntEnum = _build_enum("VariableType", libuserd_pb2.VariableType.items())
-PartHints: enum.IntEnum = _build_enum("PartHints", libuserd_pb2.PartHints.items())
+ErrorCodes = _build_enum("ErrorCodes", libuserd_pb2.ErrorCodes.items())
+ElementType = _build_enum("ElementType", libuserd_pb2.ElementType.items())
+VariableLocation = _build_enum("VariableLocation", libuserd_pb2.VariableLocation.items())
+VariableType = _build_enum("VariableType", libuserd_pb2.VariableType.items())
+PartHints = _build_enum("PartHints", libuserd_pb2.PartHints.items(), flag=True)
 
 
 class LibUserdError(Exception):
