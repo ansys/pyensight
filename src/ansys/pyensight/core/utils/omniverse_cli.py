@@ -276,15 +276,14 @@ class OmniverseGeometryServer(object):
         update_handler = ov_dsg_server.OmniverseUpdateHandler(omni_link)
 
         # Link it to the GLB file monitoring service
-        glb_link = ov_glb_server.GLBSession(
-            verbose=1,
-            handler=update_handler,
-        )
+        glb_link = ov_glb_server.GLBSession(verbose=1, handler=update_handler, vrmode=self.vrmode)
         if single_file_upload:
             start_time = time.time()
             logging.info(f"Uploading file: {the_dir}.")
             try:
+                glb_link.start_uploads([0.0, 0.0])
                 glb_link.upload_file(the_dir)
+                glb_link.end_uploads()
             except Exception as error:
                 logging.warning(f"Error uploading file: {the_dir}: {error}")
             logging.info(f"Uploaded in {(time.time() - start_time):.2f}")
@@ -338,6 +337,7 @@ class OmniverseGeometryServer(object):
                                 logging.warning("Multiple glb files not currently fully supported.")
                             files_to_process.extend(the_files)
                             # Upload the files
+                            glb_link.start_uploads([min(the_times), max(the_times)])
                             for glb_file in files_to_process:
                                 start_time = time.time()
                                 logging.info(
@@ -348,6 +348,7 @@ class OmniverseGeometryServer(object):
                                 except Exception as error:
                                     logging.warning(f"Error uploading file: {glb_file}: {error}")
                                 logging.info(f"Uploaded in {(time.time() - start_time):%.2f}")
+                            glb_link.end_uploads()
                     for filename in files_to_remove:
                         try:
                             # Only delete the file if it is in the_dir_path
