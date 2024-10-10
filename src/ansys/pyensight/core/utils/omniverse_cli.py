@@ -325,30 +325,35 @@ class OmniverseGeometryServer(object):
                             files_to_remove.extend(the_files)
                             # Times not used for now, but parse them anyway
                             the_times = glb_info.get("times", [0.0] * len(the_files))
+                            file_timestamps.extend(the_times)
                             # Validate a few things
                             if len(the_files) != len(the_times):
                                 logging.warning(
                                     f"Number of times and files are not the same in: {filename}"
                                 )
                                 continue
-                            if len(set(the_times)) != 1:
-                                logging.warning("Time values not currently supported.")
-                            if len(the_files) > 1:
-                                logging.warning("Multiple glb files not currently fully supported.")
                             files_to_process.extend(the_files)
-                            # Upload the files
-                            glb_link.start_uploads([min(the_times), max(the_times)])
-                            for glb_file in files_to_process:
-                                start_time = time.time()
-                                logging.info(
-                                    f"Uploading file: {glb_file} to {omni_link.destination}."
-                                )
-                                try:
-                                    glb_link.upload_file(glb_file)
-                                except Exception as error:
-                                    logging.warning(f"Error uploading file: {glb_file}: {error}")
-                                logging.info(f"Uploaded in {(time.time() - start_time):%.2f}")
-                            glb_link.end_uploads()
+                        # manage time
+                        timeline = sorted(set(file_timestamps))
+                        if len(timeline) != 1:
+                            logging.warning("Time values not currently supported.")
+                        if len(files_to_process) > 1:
+                            logging.warning("Multiple glb files not currently fully supported.")
+                        # Upload the files
+                        glb_link.start_uploads([timeline[0], timeline[-1]])
+                        for glb_file, timestamp in zip(files_to_process, file_timestamps):
+                            start_time = time.time()
+                            logging.info(f"Uploading file: {glb_file} to {omni_link.destination}.")
+                            try:
+                                time_idx = timeline.index(timestamp) + 1
+                                if time_idx == len(timeline):
+                                    time_idx -= 1
+                                limits = [timestamp, timeline[time_idx]]
+                                glb_link.upload_file(glb_file, timeline=limits)
+                            except Exception as error:
+                                logging.warning(f"Error uploading file: {glb_file}: {error}")
+                            logging.info(f"Uploaded in {(time.time() - start_time):%.2f}")
+                        glb_link.end_uploads()
                     for filename in files_to_remove:
                         try:
                             # Only delete the file if it is in the_dir_path

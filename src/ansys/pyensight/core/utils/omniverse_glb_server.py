@@ -113,7 +113,7 @@ class GLBSession(dsg_server.DSGSession):
         if glb_varid:
             part_pb.color_variableid = glb_varid
 
-    def _parse_mesh(self, meshid: int, parentid: int) -> None:
+    def _parse_mesh(self, meshid: int, parentid: int, parentname: str) -> None:
         """
         Walk a mesh id found in a "node" instance.  This amounts to
         walking the list of "primitives" in the "meshes" list indexed
@@ -126,9 +126,12 @@ class GLBSession(dsg_server.DSGSession):
 
         parentid: int
             The DSG parent id.
+
+        parentname: str
+            The name of the GROUP parent of the meshes.
         """
         mesh = self._gltf.meshes[meshid]
-        for prim in mesh.primitives:
+        for prim_idx, prim in enumerate(mesh.primitives):
             # POINTS, LINES, LINE_LOOP, LINE_STRIP, TRIANGLES, TRIANGLE_STRIP, TRIANGLE_FAN
             mode = prim.mode
             if mode not in (pygltflib.TRIANGLES, pygltflib.LINES, pygltflib.POINTS):
@@ -139,7 +142,8 @@ class GLBSession(dsg_server.DSGSession):
             glb_materialid = prim.material
 
             # GLB Prim -> DSG Part
-            cmd, part_pb = self._create_pb("PART", parent_id=parentid, name=self._name(prim))
+            part_name = f"{parentname}_prim{prim_idx}_"
+            cmd, part_pb = self._create_pb("PART", parent_id=parentid, name=part_name)
             part_pb.render = dynamic_scene_graph_pb2.UpdatePart.RenderingMode.CONNECTIVITY
             part_pb.shading = dynamic_scene_graph_pb2.UpdatePart.ShadingMode.NODAL
             self._map_material(glb_materialid, part_pb)
@@ -272,7 +276,7 @@ class GLBSession(dsg_server.DSGSession):
         self._handle_update_command(cmd)
 
         if node.mesh is not None:
-            self._parse_mesh(node.mesh, group_pb.id)
+            self._parse_mesh(node.mesh, group_pb.id, name)
 
         # Handle node.rotation, node.translation, node.scale, node.matrix
         for child_id in node.children:
