@@ -121,7 +121,7 @@ Developers: Running via the Command Line
 There is an omniverse_cli module included in the pyensight install.
 This module can be used to execute any service operation from the
 command line.  The Python included in the EnSight distribution
-includes this module as well. Assuming the pyensight repo has been
+includes this module as well. Assuming the pyensight repository has been
 cloned to: ``D:\repos\pyensight`` the following can be run in a
 Python virtual environment that was used to build the module and
 has it installed:

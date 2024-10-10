@@ -747,6 +747,13 @@ class DSGSession(object):
         except queue.Empty:
             return None
 
+    def _reset(self):
+        self._variables = {}
+        self._groups = {}
+        self._part = Part(self)
+        self._scene_bounds = None
+        self._mesh_block_count = 0  # reset when a new group shows up
+
     def handle_one_update(self) -> None:
         """Monitor the DSG stream and handle a single update operation
 
@@ -765,11 +772,7 @@ class DSGSession(object):
             cmd = self._get_next_message()
 
         # Start anew
-        self._variables = {}
-        self._groups = {}
-        self._part = Part(self)
-        self._scene_bounds = None
-        self._mesh_block_count = 0  # reset when a new group shows up
+        self._reset()
         self._callback_handler.begin_update()
 
         # Update our status
@@ -845,7 +848,11 @@ class DSGSession(object):
         try:
             self._callback_handler.finalize_part(self.part)
         except Exception as e:
+            import traceback
+
             self.warn(f"Error encountered while finalizing part geometry: {str(e)}")
+            traceback_str = "".join(traceback.format_tb(e.__traceback__))
+            logging.debug(f"Traceback: {traceback_str}")
         self._mesh_block_count += 1
 
     def _handle_part(self, part_cmd: Any) -> None:
