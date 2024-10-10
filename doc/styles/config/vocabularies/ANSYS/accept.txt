@@ -70,6 +70,7 @@ num_points
 NumPy
 numpy
 Oddy
+Omniverse
 Q_criteria
 partlist
 peakness
@@ -79,6 +80,7 @@ Pitot
 pitot
 plist
 Protobuf
+pyensight
 PyPI
 Python
 Radiograph_grid
