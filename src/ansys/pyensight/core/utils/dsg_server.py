@@ -101,6 +101,12 @@ class Part(object):
                     self.tcoords[
                         cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)
                     ] = cmd.flt_array
+
+                    # Add the variable hash to the Part's hash, to pick up palette changes
+                    var_cmd = self.session.variables.get(cmd.variable_id, None)
+                    if var_cmd is not None:
+                        self.hash.update(var_cmd.hash.encode("utf-8"))
+
                 if self.cmd.node_size_variableid == cmd.variable_id:  # type: ignore
                     # Receive the node size var values
                     if self.node_sizes.size != cmd.total_array_size:
