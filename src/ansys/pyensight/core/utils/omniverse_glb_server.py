@@ -346,6 +346,15 @@ class GLBSession(dsg_server.DSGSession):
             self._gltf = pygltflib.GLTF2().load(glb_filename)
             self.log(f"File: {glb_filename}  Info: {self._gltf.asset}")
 
+            # check for GLTFWriter source
+            if (self._gltf.asset.generator is None) or (
+                "GLTF Writer" not in self._gltf.asset.generator
+            ):
+                self.error(
+                    f"Unable to process: {glb_filename} : Not written by GLTF Writer library"
+                )
+                return False
+
             # Walk texture nodes -> DSG Variable buffers
             for tex_idx, texture in enumerate(self._gltf.textures):
                 image = self._gltf.images[texture.source]
@@ -444,7 +453,7 @@ class GLBSession(dsg_server.DSGSession):
         except Exception as e:
             import traceback
 
-            self.log(f"Error: Unable to process: {glb_filename} : {e}")
+            self.error(f"Unable to process: {glb_filename} : {e}")
             traceback_str = "".join(traceback.format_tb(e.__traceback__))
             logging.debug(f"Traceback: {traceback_str}")
             ok = False
