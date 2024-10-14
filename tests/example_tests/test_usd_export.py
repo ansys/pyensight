@@ -1,12 +1,10 @@
 import glob
 import os
 import time
-from typing import TYPE_CHECKING, Any, Optional, Tuple
 
-if TYPE_CHECKING:
-    from ansys.pyensight.core import Session
-
+from ansys.pyensight.core import DockerLauncher, LocalLauncher
 from pxr import Usd
+import pytest
 
 
 def compare_prims(prim1, prim2):
@@ -48,8 +46,14 @@ def wait_for_idle(session):
     return found
 
 
-def test_usd_export(launch_pyensight_session: Tuple["Session", Any, Optional[str]]):
-    session, data_dir, _ = launch_pyensight_session
+def test_usd_export(tmpdir, pytestconfig: pytest.Config):
+    data_dir = tmpdir.mkdir("datadir")
+    use_local = pytestconfig.getoption("use_local_launcher")
+    if use_local:
+        launcher = LocalLauncher()
+    else:
+        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
+    session = launcher.start()
     session.load_example("waterbreak.ens")
     session.ensight.utils.omniverse.create_connection(data_dir)
     assert wait_for_idle(session)

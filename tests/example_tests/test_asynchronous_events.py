@@ -14,15 +14,21 @@ with different mechanisms for getting data values.
 # Start by launching and connecting to an instance of EnSight.
 # In this case, we use a local installation of EnSight.
 
-from typing import TYPE_CHECKING, Any, Optional, Tuple
 from urllib.parse import parse_qs, urlparse
 
-if TYPE_CHECKING:
-    from ansys.pyensight.core import Session
+from ansys.pyensight.core.dockerlauncher import DockerLauncher
+from ansys.pyensight.core.locallauncher import LocalLauncher
+import pytest
 
 
-def test_async_events(launch_pyensight_session: Tuple["Session", Any, Optional[str]]):
-    session, data_dir, _ = launch_pyensight_session
+def test_async_events(tmpdir, pytestconfig: pytest.Config):
+    data_dir = tmpdir.mkdir("datadir")
+    use_local = pytestconfig.getoption("use_local_launcher")
+    if use_local:
+        launcher = LocalLauncher()
+    else:
+        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
+    session = launcher.start()
     ###############################################################################
     # Simple event
     # ------------

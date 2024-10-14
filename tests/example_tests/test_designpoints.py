@@ -1,14 +1,20 @@
 import glob
 import os
-from typing import TYPE_CHECKING, Any, Optional, Tuple
 
-if TYPE_CHECKING:
-    from ansys.pyensight.core import Session
+from ansys.pyensight.core import DockerLauncher, LocalLauncher
+import pytest
 
 
-def test_designpoints(launch_pyensight_session: Tuple["Session", Any, Optional[str]]):
-    session, data_dir, root = launch_pyensight_session
-
+def test_designpoints(tmpdir, pytestconfig: pytest.Config):
+    data_dir = tmpdir.mkdir("datadir")
+    use_local = pytestconfig.getoption("use_local_launcher")
+    root = None
+    if use_local:
+        launcher = LocalLauncher()
+        root = "http://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
+    else:
+        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
+    session = launcher.start()
     session.load_example("elbow_dp0_dp1.ens", root=root)
     image = session.show("image", width=800, height=600)
     image.download(data_dir)

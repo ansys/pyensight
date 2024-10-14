@@ -1,13 +1,18 @@
 import glob
 import os
-from typing import TYPE_CHECKING, Any, Optional, Tuple
 
-if TYPE_CHECKING:
-    from ansys.pyensight.core import Session
+from ansys.pyensight.core import DockerLauncher, LocalLauncher
+import pytest
 
 
-def test_basic_usage(launch_pyensight_session: Tuple["Session", Any, Optional[str]]):
-    session, data_dir, _ = launch_pyensight_session
+def test_basic_usage(tmpdir, pytestconfig: pytest.Config):
+    data_dir = tmpdir.mkdir("datadir")
+    use_local = pytestconfig.getoption("use_local_launcher")
+    if use_local:
+        launcher = LocalLauncher()
+    else:
+        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
+    session = launcher.start()
     core = session.ensight.objs.core
     session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/cube/cube.case")
     session.ensight.view_transf.rotate(30, 30, 0)

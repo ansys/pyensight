@@ -1,25 +1,28 @@
 import os
 import pathlib
-from typing import TYPE_CHECKING, Any, Optional, Tuple
 
-from ansys.pyensight.core import launch_ensight
+from ansys.pyensight.core import DockerLauncher, LocalLauncher, launch_ensight
 from ansys.pyensight.core.enscontext import EnsContext
 from ansys.pyensight.core.utils.parts import convert_part, convert_variable
 from ansys.pyensight.core.utils.variables import vec_mag
 import pytest
 
-if TYPE_CHECKING:
-    from ansys.pyensight.core import Session
 
-
-def test_coverage_increase(launch_pyensight_session: Tuple["Session", Any, Optional[str]]):
-    session, data_dir, root = launch_pyensight_session
-    use_local = not hasattr(session._launcher, "_enshell")
+def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
+    data_dir = tmpdir.mkdir("datadir")
+    use_local = pytestconfig.getoption("use_local_launcher")
+    root = None
+    if use_local:
+        launcher = LocalLauncher()
+        root = "http://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
+    else:
+        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
+    session = launcher.start()
     if not use_local:
-        session._launcher._enshell.host
-        session._launcher._enshell.port
-        session._launcher._enshell.run_command("printenv")
-        session._launcher._enshell.run_command_with_env("printenv", "ENSIGHT_ANSYS_ALPHA_FLAG=1")
+        launcher._enshell.host
+        launcher._enshell.port
+        launcher._enshell.run_command("printenv")
+        launcher._enshell.run_command_with_env("printenv", "ENSIGHT_ANSYS_ALPHA_FLAG=1")
     with open(os.path.join(data_dir, "test_exec_run_script.py"), "w") as _file:
         _file.write("")
     os.mkdir(os.path.join(data_dir, "test_dir"))
@@ -293,7 +296,7 @@ def test_coverage_increase(launch_pyensight_session: Tuple["Session", Any, Optio
     str(session.ensight.objs.core.PARTS[0])
     str(session.ensight.objs.core.TEXTURES[0])
     if not use_local:
-        session._launcher.enshell_log_contents()
+        launcher.enshell_log_contents()
     assert session.ensight.objs.core.PARTS[0] != session.ensight.objs.core.PARTS[1]
     cas_file = session.download_pyansys_example("mixing_elbow.cas.h5", "pyfluent/mixing_elbow")
     dat_file = session.download_pyansys_example("mixing_elbow.dat.h5", "pyfluent/mixing_elbow")
@@ -312,10 +315,16 @@ def test_coverage_increase(launch_pyensight_session: Tuple["Session", Any, Optio
     session.close()
 
 
-def test_particle_traces_and_geometry(
-    launch_pyensight_session: Tuple["Session", Any, Optional[str]]
-):
-    session, _, root = launch_pyensight_session
+def test_particle_traces_and_geometry(tmpdir, pytestconfig: pytest.Config):
+    data_dir = tmpdir.mkdir("datadir")
+    use_local = pytestconfig.getoption("use_local_launcher")
+    root = None
+    if use_local:
+        launcher = LocalLauncher(enable_rest_api=True)
+        root = "http://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
+    else:
+        launcher = DockerLauncher(data_directory=data_dir, use_dev=True, enable_rest_api=True)
+    session = launcher.start()
     session.load_example("waterbreak.ens", root=root)
     session.show("webensight")
     session.show("webgl")
@@ -401,15 +410,22 @@ def test_particle_traces_and_geometry(
     temp_part.destroy()
 
 
-def test_sos(launch_pyensight_session: Tuple["Session", Any, Optional[str]]):
-    session, data_dir, root = launch_pyensight_session
-    use_local = not hasattr(session._launcher, "_enshell")
+def test_sos(tmpdir, pytestconfig: pytest.Config):
+    data_dir = tmpdir.mkdir("datadir")
+    use_local = pytestconfig.getoption("use_local_launcher")
+    is_docker = False
+    if use_local:
+        launcher = LocalLauncher(use_sos=2)
+    else:
+        is_docker = True
+        launcher = DockerLauncher(data_directory=data_dir, use_dev=True, use_sos=2)
+    session = launcher.start()
     session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/cube/cube.case")
     assert session.grpc.port() == session._grpc_port
     assert session.grpc.host == session._hostname
     assert session.grpc.security_token == session._secret_key
     session.close()
-    if not use_local:
+    if is_docker:
         session = launch_ensight(use_docker=True, use_dev=True, data_directory=data_dir)
         assert session._launcher._enshell.host() == session._hostname
         session._launcher._enshell.port()
