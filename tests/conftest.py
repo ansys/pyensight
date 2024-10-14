@@ -140,27 +140,3 @@ def mocked_session(mocker, tmpdir, enshell_mock) -> "Session":
     session._build_utils_interface()
     session._cei_suffix = "345"
     return session
-
-
-@pytest.fixture
-def launch_pyensight_session(tmpdir, pytestconfig: pytest.Config):
-    data_dir = tmpdir.mkdir("datadir")
-    use_local = pytestconfig.getoption("use_local_launcher")
-    root = None
-    if use_local:
-        root = "http://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
-    if use_local:
-        launcher = LocalLauncher(enable_rest_api=True)
-    else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True, enable_rest_api=True)
-    counter = 0
-    working = False
-    session = None
-    while not working and counter < 4:
-        try:
-            session = launcher.start()
-            working = True
-            break
-        except Exception:
-            counter += 1
-    return session, data_dir, root
