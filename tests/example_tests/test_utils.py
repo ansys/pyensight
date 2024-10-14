@@ -1,19 +1,25 @@
 import os
-from typing import TYPE_CHECKING, Any, Optional, Tuple
 import warnings
 
+from ansys.pyensight.core.dockerlauncher import DockerLauncher
 from ansys.pyensight.core.enscontext import EnsContext
+from ansys.pyensight.core.locallauncher import LocalLauncher
+import pytest
 
 warnings.filterwarnings("ignore")
 
 
-if TYPE_CHECKING:
-    from ansys.pyensight.core import Session
-
-
-def test_utils(launch_pyensight_session: Tuple["Session", Any, Optional[str]]):
-    session, data_dir, root = launch_pyensight_session
-    session2 = session._launcher.start()
+def test_utils(tmpdir, pytestconfig: pytest.Config):
+    data_dir = tmpdir.mkdir("datadir")
+    use_local = pytestconfig.getoption("use_local_launcher")
+    root = None
+    if use_local:
+        launcher = LocalLauncher()
+        root = "http://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
+    else:
+        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
+    session = launcher.start()
+    session2 = launcher.start()
     # Check that only one session is associated to a launcher
     assert session == session2
     session.load_example("waterbreak.ens", root=root)

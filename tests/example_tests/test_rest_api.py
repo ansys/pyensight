@@ -1,13 +1,18 @@
-from typing import TYPE_CHECKING, Any, Optional, Tuple
-
-if TYPE_CHECKING:
-    from ansys.pyensight.core import Session
-
+from ansys.pyensight.core.dockerlauncher import DockerLauncher
+from ansys.pyensight.core.locallauncher import LocalLauncher
+import pytest
 import requests
 
 
-def test_rest_apis(launch_pyensight_session: Tuple["Session", Any, Optional[str]]):
-    s, _, _ = launch_pyensight_session
+def test_rest_apis(tmpdir, pytestconfig: pytest.Config):
+    data_dir = tmpdir.mkdir("datadir")
+    use_local = pytestconfig.getoption("use_local_launcher")
+    if use_local:
+        launcher = LocalLauncher(enable_rest_api=True)
+    else:
+        launcher = DockerLauncher(data_directory=data_dir, use_dev=True, enable_rest_api=True)
+
+    s = launcher.start()
     s.load_data(f"{s.cei_home}/ensight{s.cei_suffix}/data/cube/cube.case")
     uri_base = f"http://{s.hostname}:{s.html_port}/ensight/v1/{s.secret_key}"
 
