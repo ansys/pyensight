@@ -276,17 +276,16 @@ class OmniverseGeometryServer(object):
         update_handler = ov_dsg_server.OmniverseUpdateHandler(omni_link)
 
         # Link it to the GLB file monitoring service
-        glb_link = ov_glb_server.GLBSession(
-            verbose=1,
-            handler=update_handler,
-        )
+        glb_link = ov_glb_server.GLBSession(verbose=1, handler=update_handler, vrmode=self.vrmode)
         if single_file_upload:
             start_time = time.time()
             logging.info(f"Uploading file: {the_dir}.")
             try:
+                glb_link.start_uploads([0.0, 0.0])
                 glb_link.upload_file(the_dir)
+                glb_link.end_uploads()
             except Exception as error:
-                logging.warning(f"Error uploading file: {the_dir}: {error}")
+                logging.error(f"Unable to upload file: {the_dir}: {error}")
             logging.info(f"Uploaded in {(time.time() - start_time):.2f}")
         else:
             logging.info(f"Starting file monitoring for {the_dir}.")
@@ -317,7 +316,7 @@ class OmniverseGeometryServer(object):
                                 with open(filename, "r") as fp:
                                     glb_info = json.load(fp)
                             except Exception:
-                                logging.warning(f"Error reading file: {filename}")
+                                logging.error(f"Unable to read file: {filename}")
                                 continue
                             # if specified, set the URI/directory target
                             omni_link.destination = glb_info.get("destination", orig_destination)
@@ -326,28 +325,35 @@ class OmniverseGeometryServer(object):
                             files_to_remove.extend(the_files)
                             # Times not used for now, but parse them anyway
                             the_times = glb_info.get("times", [0.0] * len(the_files))
+                            file_timestamps.extend(the_times)
                             # Validate a few things
                             if len(the_files) != len(the_times):
-                                logging.warning(
+                                logging.error(
                                     f"Number of times and files are not the same in: {filename}"
                                 )
                                 continue
-                            if len(set(the_times)) != 1:
-                                logging.warning("Time values not currently supported.")
-                            if len(the_files) > 1:
-                                logging.warning("Multiple glb files not currently fully supported.")
                             files_to_process.extend(the_files)
-                            # Upload the files
-                            for glb_file in files_to_process:
-                                start_time = time.time()
-                                logging.info(
-                                    f"Uploading file: {glb_file} to {omni_link.destination}."
-                                )
-                                try:
-                                    glb_link.upload_file(glb_file)
-                                except Exception as error:
-                                    logging.warning(f"Error uploading file: {glb_file}: {error}")
-                                logging.info(f"Uploaded in {(time.time() - start_time):%.2f}")
+                        # manage time
+                        timeline = sorted(set(file_timestamps))
+                        if len(timeline) != 1:
+                            logging.warning("Time values not currently supported.")
+                        if len(files_to_process) > 1:
+                            logging.warning("Multiple glb files not currently fully supported.")
+                        # Upload the files
+                        glb_link.start_uploads([timeline[0], timeline[-1]])
+                        for glb_file, timestamp in zip(files_to_process, file_timestamps):
+                            start_time = time.time()
+                            logging.info(f"Uploading file: {glb_file} to {omni_link.destination}.")
+                            try:
+                                time_idx = timeline.index(timestamp) + 1
+                                if time_idx == len(timeline):
+                                    time_idx -= 1
+                                limits = [timestamp, timeline[time_idx]]
+                                glb_link.upload_file(glb_file, timeline=limits)
+                            except Exception as error:
+                                logging.error(f"Unable to upload file: {glb_file}: {error}")
+                            logging.info(f"Uploaded in {(time.time() - start_time):%.2f}")
+                        glb_link.end_uploads()
                     for filename in files_to_remove:
                         try:
                             # Only delete the file if it is in the_dir_path

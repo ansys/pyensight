@@ -121,7 +121,7 @@ Developers: Running via the Command Line
 There is an omniverse_cli module included in the pyensight install.
 This module can be used to execute any service operation from the
 command line.  The Python included in the EnSight distribution
-includes this module as well. Assuming the pyensight repo has been
+includes this module as well. Assuming the pyensight repository has been
 cloned to: ``D:\repos\pyensight`` the following can be run in a
 Python virtual environment that was used to build the module and
 has it installed:
@@ -138,7 +138,9 @@ has it installed:
 
 Will generate the following output:
 
+
 .. code-block::
+
     usage: omniverse_cli.py [-h] [--verbose verbose_level] [--log_file log_filename] [--dsg_uri DSG_URI]
                             [--security_token token] [--monitor_directory glb_directory] [--time_scale time_scale]
                             [--normalize_geometry yes|no|true|false|1|0] [--include_camera yes|no|true|false|1|0]
@@ -178,4 +180,30 @@ where the resulting USD files should be saved and provide the correct URI to the
 needed to connect to the EnSight DSG server.  The service will continue to monitor the EnSight
 session, pushing geometry updated as specified by the EnSight session until the EnSight session
 is stopped.  If only a single download/conversion is desired, the ``--oneshot 1`` option may be specified.
+
+DSG Connection
+^^^^^^^^^^^^^^
+
+A continuous DSG server can be started, connected to EnSight run with the command line option
+``-grpc_server 12342`` using the following command line:
+
+
+.. code-block:: bat
+
+    python -m ansys.pyensight.core.utils.omniverse_cli --dsg_uri grpc://127.0.0.1:12342 d:\save\usd_files
+
+
+The server will cause an initial scene push and will then wait, pushing geometry as requested until the
+EnSight session ends.
+
+
+GLB Conversion
+^^^^^^^^^^^^^^
+
+For GLB to USD conversions, ``--monitor_directory`` should point to a directory into which ``.glb`` files are copied.
+The server watches for a file of the same base name as the GLB file, but the extension ``.upload``.
+The server will then convert the file and delete both the GLB file and the upload file.  Additionally,
+if ``--monitor_directory`` is set to the name of a GLB file, that file will be converted into
+USD format into the destination folder.   GLB to USD conversions are only supported for GLB
+files written using the GLTFWriter library (e.g. by Ansys Fluent).
 

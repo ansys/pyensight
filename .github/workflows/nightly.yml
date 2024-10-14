@@ -26,7 +26,7 @@ jobs:
         run: docker pull ${{ env.ENSIGHT_IMAGE }}
 
       - name: Run pytest
-        uses: ansys/actions/tests-pytest@v7
+        uses: ansys/actions/tests-pytest@v8
         env:
           ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
         with:
@@ -42,7 +42,7 @@ jobs:
     steps:
 
       - name: Build library source and wheel artifacts
-        uses: ansys/actions/build-library@v7
+        uses: ansys/actions/build-library@v8
         with:
           library-name: ${{ env.PACKAGE_NAME }}
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
