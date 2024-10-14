@@ -624,6 +624,15 @@ class DSGSession(object):
         """
         logging.warning(s)
 
+    @staticmethod
+    def error(s: str) -> None:
+        """Issue an error to the logging system
+
+        The logging message is mapped to "error" and cannot be blocked via verbosity
+        checks.
+        """
+        logging.error(s)
+
     def start(self) -> int:
         """Start a gRPC connection to an EnSight instance
 

@@ -285,7 +285,7 @@ class OmniverseGeometryServer(object):
                 glb_link.upload_file(the_dir)
                 glb_link.end_uploads()
             except Exception as error:
-                logging.warning(f"Error uploading file: {the_dir}: {error}")
+                logging.error(f"Unable to upload file: {the_dir}: {error}")
             logging.info(f"Uploaded in {(time.time() - start_time):.2f}")
         else:
             logging.info(f"Starting file monitoring for {the_dir}.")
@@ -316,7 +316,7 @@ class OmniverseGeometryServer(object):
                                 with open(filename, "r") as fp:
                                     glb_info = json.load(fp)
                             except Exception:
-                                logging.warning(f"Error reading file: {filename}")
+                                logging.error(f"Unable to read file: {filename}")
                                 continue
                             # if specified, set the URI/directory target
                             omni_link.destination = glb_info.get("destination", orig_destination)
@@ -328,7 +328,7 @@ class OmniverseGeometryServer(object):
                             file_timestamps.extend(the_times)
                             # Validate a few things
                             if len(the_files) != len(the_times):
-                                logging.warning(
+                                logging.error(
                                     f"Number of times and files are not the same in: {filename}"
                                 )
                                 continue
@@ -351,7 +351,7 @@ class OmniverseGeometryServer(object):
                                 limits = [timestamp, timeline[time_idx]]
                                 glb_link.upload_file(glb_file, timeline=limits)
                             except Exception as error:
-                                logging.warning(f"Error uploading file: {glb_file}: {error}")
+                                logging.error(f"Unable to upload file: {glb_file}: {error}")
                             logging.info(f"Uploaded in {(time.time() - start_time):%.2f}")
                         glb_link.end_uploads()
                     for filename in files_to_remove:
