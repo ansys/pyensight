@@ -101,6 +101,12 @@ class Part(object):
                     self.tcoords[
                         cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)
                     ] = cmd.flt_array
+
+                    # Add the variable hash to the Part's hash, to pick up palette changes
+                    var_cmd = self.session.variables.get(cmd.variable_id, None)
+                    if var_cmd is not None:
+                        self.hash.update(var_cmd.hash.encode("utf-8"))
+
                 if self.cmd.node_size_variableid == cmd.variable_id:  # type: ignore
                     # Receive the node size var values
                     if self.node_sizes.size != cmd.total_array_size:
@@ -618,6 +624,15 @@ class DSGSession(object):
         """
         logging.warning(s)
 
+    @staticmethod
+    def error(s: str) -> None:
+        """Issue an error to the logging system
+
+        The logging message is mapped to "error" and cannot be blocked via verbosity
+        checks.
+        """
+        logging.error(s)
+
     def start(self) -> int:
         """Start a gRPC connection to an EnSight instance
 
@@ -741,6 +756,13 @@ class DSGSession(object):
         except queue.Empty:
             return None
 
+    def _reset(self):
+        self._variables = {}
+        self._groups = {}
+        self._part = Part(self)
+        self._scene_bounds = None
+        self._mesh_block_count = 0  # reset when a new group shows up
+
     def handle_one_update(self) -> None:
         """Monitor the DSG stream and handle a single update operation
 
@@ -759,11 +781,7 @@ class DSGSession(object):
             cmd = self._get_next_message()
 
         # Start anew
-        self._variables = {}
-        self._groups = {}
-        self._part = Part(self)
-        self._scene_bounds = None
-        self._mesh_block_count = 0  # reset when a new group shows up
+        self._reset()
         self._callback_handler.begin_update()
 
         # Update our status
@@ -839,7 +857,11 @@ class DSGSession(object):
         try:
             self._callback_handler.finalize_part(self.part)
         except Exception as e:
+            import traceback
+
             self.warn(f"Error encountered while finalizing part geometry: {str(e)}")
+            traceback_str = "".join(traceback.format_tb(e.__traceback__))
+            logging.debug(f"Traceback: {traceback_str}")
         self._mesh_block_count += 1
 
     def _handle_part(self, part_cmd: Any) -> None:

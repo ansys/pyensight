@@ -401,12 +401,14 @@ class OmniverseWrapper(object):
         self, stage, mesh, root_name, diffuse=[1.0, 1.0, 1.0, 1.0], variable=None
     ):
         # https://graphics.pixar.com/usd/release/spec_usdpreviewsurface.html
+        # Use ior==1.0 to be more like EnSight - rays of light do not bend when passing through transparent objs
         material = UsdShade.Material.Define(stage, root_name + "/Material")
         pbrShader = UsdShade.Shader.Define(stage, root_name + "/Material/PBRShader")
         pbrShader.CreateIdAttr("UsdPreviewSurface")
         pbrShader.CreateInput("roughness", Sdf.ValueTypeNames.Float).Set(1.0)
         pbrShader.CreateInput("metallic", Sdf.ValueTypeNames.Float).Set(0.0)
         pbrShader.CreateInput("opacity", Sdf.ValueTypeNames.Float).Set(diffuse[3])
+        pbrShader.CreateInput("ior", Sdf.ValueTypeNames.Float).Set(1.0)
         pbrShader.CreateInput("useSpecularWorkflow", Sdf.ValueTypeNames.Int).Set(1)
         if variable:
             stReader = UsdShade.Shader.Define(stage, root_name + "/Material/stReader")
@@ -416,7 +418,7 @@ class OmniverseWrapper(object):
             )
             diffuseTextureSampler.CreateIdAttr("UsdUVTexture")
             name = self.clean_name(variable.name)
-            filename = self._destinationPath + f"/Parts/Textures/palette_{name}.png"
+            filename = f"./Textures/palette_{name}.png"
             diffuseTextureSampler.CreateInput("file", Sdf.ValueTypeNames.Asset).Set(filename)
             diffuseTextureSampler.CreateInput("st", Sdf.ValueTypeNames.Float2).ConnectToSource(
                 stReader.ConnectableAPI(), "result"

@@ -1,23 +1,27 @@
-import json
+import io
 import logging
 import os
 import sys
-import time
-from typing import Any, Dict, List, Optional
+from typing import Any, List, Optional
+import uuid
 
+from PIL import Image
 from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2
+import ansys.pyensight.core.utils.dsg_server as dsg_server
+import numpy
 import pygltflib
 
 sys.path.insert(0, os.path.dirname(__file__))
-from dsg_server import Part, UpdateHandler  # noqa: E402
+from dsg_server import UpdateHandler  # noqa: E402
 
 
-class GLBSession(object):
+class GLBSession(dsg_server.DSGSession):
     def __init__(
         self,
         verbose: int = 0,
         normalize_geometry: bool = False,
         time_scale: float = 1.0,
+        vrmode: bool = False,
         handler: UpdateHandler = UpdateHandler(),
     ):
         """
@@ -36,169 +40,299 @@ class GLBSession(object):
             The default is not to remap coordinates.
         time_scale : float
             Scale time values by this factor after being read.  The default is ``1.0``.
+        vrmode : bool
+            If True, do not include the camera in the output.
         handler : UpdateHandler
             This is an UpdateHandler subclass that is called back when the state of
             a scene transfer changes.  For example, methods are called when the
             transfer begins or ends and when a Part (mesh block) is ready for processing.
         """
-        super().__init__()
-        self._callback_handler = handler
-        self._verbose = verbose
-        self._normalize_geometry = normalize_geometry
-        self._time_scale = time_scale
-        self._time_limits = [
-            sys.float_info.max,
-            -sys.float_info.max,
-        ]  # Min/max across all time steps
-        self._mesh_block_count = 0
-        self._node_idx: int = -1
-        self._variables: Dict[int, Any] = dict()
-        self._groups: Dict[int, Any] = dict()
-        self._part: Part = Part(self)
-        self._scene_bounds: Optional[List] = None
-        self._cur_timeline: List = [0.0, 0.0]  # Start/End time for current update
-        self._callback_handler.session = self
-        # log any status changes to this file.  external apps will be monitoring
-        self._status_file = os.environ.get("ANSYS_OV_SERVER_STATUS_FILENAME", "")
-        self._status = dict(status="idle", start_time=0.0, processed_buffers=0, total_buffers=0)
+        super().__init__(
+            verbose=verbose,
+            normalize_geometry=normalize_geometry,
+            time_scale=time_scale,
+            vrmode=vrmode,
+            handler=handler,
+        )
         self._gltf: pygltflib.GLTF2 = pygltflib.GLTF2()
         self._id_num: int = 0
+        self._node_idx: int = -1
+        self._glb_textures: dict = {}
+        self._scene_id: int = 0
 
-    def _reset(self):
-        self._variables = dict()
-        self._groups = dict()
-        self._part = Part(self)
-        self._scene_bounds = None
+    def _reset(self) -> None:
+        """
+        Reset the current state to prepare for a new dataset.
+        """
+        super()._reset()
         self._cur_timeline = [0.0, 0.0]  # Start/End time for current update
         self._status = dict(status="idle", start_time=0.0, processed_buffers=0, total_buffers=0)
         self._gltf = pygltflib.GLTF2()
         self._node_idx = -1
-        self._mesh_block_count = 0
         self._id_num = 0
+        self._glb_textures = {}
+        self._scene_id = 0
 
     def _next_id(self) -> int:
+        """Simple sequential number source
+        Called whenever a unique integer is needed.
+
+        Returns
+        -------
+        int
+            A unique, monotonically increasing integer.
+        """
         self._id_num += 1
         return self._id_num
 
-    @property
-    def scene_bounds(self) -> Optional[List]:
-        return self._scene_bounds
-
-    @property
-    def mesh_block_count(self) -> int:
-        return self._mesh_block_count
-
-    @property
-    def normalize_geometry(self) -> bool:
-        return self._normalize_geometry
-
-    @normalize_geometry.setter
-    def normalize_geometry(self, value: bool) -> None:
-        self._normalize_geometry = value
-
-    @property
-    def variables(self) -> dict:
-        return self._variables
-
-    @property
-    def groups(self) -> dict:
-        return self._groups
-
-    @property
-    def part(self) -> Part:
-        return self._part
-
-    @property
-    def time_limits(self) -> List:
-        return self._time_limits
-
-    @property
-    def cur_timeline(self) -> List:
-        return self._cur_timeline
-
-    @cur_timeline.setter
-    def cur_timeline(self, timeline: List) -> None:
-        self._cur_timeline = timeline
-        self._time_limits[0] = min(self._time_limits[0], self._cur_timeline[0])
-        self._time_limits[1] = max(self._time_limits[1], self._cur_timeline[1])
-
-    @property
-    def vrmode(self) -> bool:
-        """No camera support for the present."""
-        return True
-
-    def log(self, s: str, level: int = 0) -> None:
-        """Log a string to the logging system
-
-        If the message level is less than the current verbosity,
-        emit the message.
+    def _map_material(self, glb_materialid: int, part_pb: Any) -> None:
         """
-        if level < self._verbose:
-            logging.info(s)
-
-    def _update_status_file(self, timed: bool = False):
-        """
-        Update the status file contents. The status file will contain the
-        following json object, stored as: self._status
-
-        {
-        'status' : "working|idle",
-        'start_time' : timestamp_of_update_begin,
-        'processed_buffers' : number_of_protobuffers_processed,
-        'total_buffers' : number_of_protobuffers_total,
-        }
+        Apply various material properties to part protocol buffer.
 
         Parameters
         ----------
-        timed : bool, optional:
-            if True, only update every second.
+        glb_materialid : int
+            The GLB material ID to use as the source information.
+        part_pb : Any
+            The DSG UpdatePart protocol buffer to update.
+        """
+        mat = self._gltf.materials[glb_materialid]
+        color = [1.0, 1.0, 1.0, 1.0]
+        # Change the color if we can find one
+        if hasattr(mat, "pbrMetallicRoughness"):
+            if hasattr(mat.pbrMetallicRoughness, "baseColorFactor"):
+                color = mat.pbrMetallicRoughness.baseColorFactor
+        part_pb.fill_color.extend(color)
+        part_pb.line_color.extend(color)
+        # Constants for now
+        part_pb.ambient = 1.0
+        part_pb.diffuse = 1.0
+        part_pb.specular_intensity = 1.0
+        # if the material maps to a variable, set the variable id for coloring
+        glb_varid = self._find_variable_from_glb_mat(glb_materialid)
+        if glb_varid:
+            part_pb.color_variableid = glb_varid
+
+    def _parse_mesh(self, meshid: int, parentid: int, parentname: str) -> None:
+        """
+        Walk a mesh id found in a "node" instance.  This amounts to
+        walking the list of "primitives" in the "meshes" list indexed
+        by the meshid.
+
+        Parameters
+        ----------
+        meshid: int
+            The index of the mesh in the "meshes" list.
+
+        parentid: int
+            The DSG parent id.
+
+        parentname: str
+            The name of the GROUP parent of the meshes.
+        """
+        mesh = self._gltf.meshes[meshid]
+        for prim_idx, prim in enumerate(mesh.primitives):
+            # POINTS, LINES, LINE_LOOP, LINE_STRIP, TRIANGLES, TRIANGLE_STRIP, TRIANGLE_FAN
+            mode = prim.mode
+            if mode not in (pygltflib.TRIANGLES, pygltflib.LINES, pygltflib.POINTS):
+                self.warn(
+                    f"Unhandled connectivity {mode}. Currently only TRIANGLE and LINE connectivity is supported."
+                )
+                continue
+            glb_materialid = prim.material
+
+            # GLB Prim -> DSG Part
+            part_name = f"{parentname}_prim{prim_idx}_"
+            cmd, part_pb = self._create_pb("PART", parent_id=parentid, name=part_name)
+            part_pb.render = dynamic_scene_graph_pb2.UpdatePart.RenderingMode.CONNECTIVITY
+            part_pb.shading = dynamic_scene_graph_pb2.UpdatePart.ShadingMode.NODAL
+            self._map_material(glb_materialid, part_pb)
+            part_dsg_id = part_pb.id
+            self._handle_update_command(cmd)
+
+            # GLB Attributes -> DSG Geom
+            conn = self._get_data(prim.indices, 0)
+            cmd, conn_pb = self._create_pb("GEOM", parent_id=part_dsg_id)
+            if mode == pygltflib.TRIANGLES:
+                conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.TRIANGLES
+            elif mode == pygltflib.LINES:
+                conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.LINES
+            else:
+                conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.POINTS
+            conn_pb.int_array.extend(conn)
+            conn_pb.chunk_offset = 0
+            conn_pb.total_array_size = len(conn)
+            self._handle_update_command(cmd)
+
+            if prim.attributes.POSITION is not None:
+                verts = self._get_data(prim.attributes.POSITION)
+                cmd, verts_pb = self._create_pb("GEOM", parent_id=part_dsg_id)
+                verts_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.COORDINATES
+                verts_pb.flt_array.extend(verts)
+                verts_pb.chunk_offset = 0
+                verts_pb.total_array_size = len(verts)
+                self._handle_update_command(cmd)
+
+            if prim.attributes.NORMAL is not None:
+                normals = self._get_data(prim.attributes.NORMAL)
+                cmd, normals_pb = self._create_pb("GEOM", parent_id=part_dsg_id)
+                normals_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.NODE_NORMALS
+                normals_pb.flt_array.extend(normals)
+                normals_pb.chunk_offset = 0
+                normals_pb.total_array_size = len(normals)
+                self._handle_update_command(cmd)
+
+            if prim.attributes.TEXCOORD_0 is not None:
+                # Note: texture coords are stored as VEC2, so we get 2 components back
+                texcoords = self._get_data(prim.attributes.TEXCOORD_0, components=2)
+                # we only want the 's' component of an s,t pairing
+                texcoords = texcoords[::2]
+                cmd, texcoords_pb = self._create_pb("GEOM", parent_id=part_dsg_id)
+                texcoords_pb.payload_type = (
+                    dynamic_scene_graph_pb2.UpdateGeom.ArrayType.NODE_VARIABLE
+                )
+                texcoords_pb.flt_array.extend(texcoords)
+                texcoords_pb.chunk_offset = 0
+                texcoords_pb.total_array_size = len(texcoords)
+                glb_varid = self._find_variable_from_glb_mat(glb_materialid)
+                if glb_varid:
+                    texcoords_pb.variable_id = glb_varid
+                self._handle_update_command(cmd)
+
+    def _get_data(
+        self,
+        accessorid: int,
+        components: int = 3,
+    ) -> numpy.ndarray:
+        """
+        Return the float buffer corresponding to the given accessorid.   The id
+        is usually obtained from a primitive:  primitive.attributes.POSITION
+        or primitive.attributes.NORMAL or primitive.attributes.TEXCOORD_0.
+        It can also come from primitive.indices.  In that case, the number of
+        components needs to be set to 0.
+
+        Parameters
+        ----------
+        accessorid: int
+            The accessor index of the primitive.
+
+        components: int
+            The number of floats per vertex for the values 1,2,3 if the number
+            of components is 0, read integer indices.
+
+        Returns
+        -------
+        numpy.ndarray
+            The float buffer corresponding to the nodal data or an int buffer of connectivity.
+        """
+        dtypes = {}
+        dtypes[pygltflib.BYTE] = numpy.int8
+        dtypes[pygltflib.UNSIGNED_BYTE] = numpy.uint8
+        dtypes[pygltflib.SHORT] = numpy.int16
+        dtypes[pygltflib.UNSIGNED_SHORT] = numpy.uint16
+        dtypes[pygltflib.UNSIGNED_INT] = numpy.uint32
+        dtypes[pygltflib.FLOAT] = numpy.float32
+
+        binary_blob = self._gltf.binary_blob()
+        accessor = self._gltf.accessors[accessorid]
+        buffer_view = self._gltf.bufferViews[accessor.bufferView]
+        dtype = numpy.float32
+        data_dtype = dtypes[accessor.componentType]
+        count = accessor.count * components
+        # connectivity
+        if components == 0:
+            dtype = numpy.uint32
+            count = accessor.count
+        offset = buffer_view.byteOffset + accessor.byteOffset
+        blob = binary_blob[offset : offset + buffer_view.byteLength]
+        ret = numpy.frombuffer(blob, dtype=data_dtype, count=count)
+        if data_dtype != dtype:
+            return ret.astype(dtype)
+        return ret
+
+    def _walk_node(self, nodeid: int, parentid: int) -> None:
+        """
+        Given a node id (likely from walking a scenes array), walk the mesh
+        objects in the node.  A "node" has the keys "mesh" and "name".
+
+        Each node has a single mesh object in it.
+
+        Parameters
+        ----------
+        nodeid: int
+            The node id to walk.
+
+        parentid: int
+            The DSG parent id.
 
         """
-        if self._status_file:
-            current_time = time.time()
-            if timed:
-                last_time = self._status.get("last_time", 0.0)
-                if current_time - last_time < 1.0:  # type: ignore
-                    return
-            self._status["last_time"] = current_time
-            try:
-                message = json.dumps(self._status)
-                with open(self._status_file, "w") as status_file:
-                    status_file.write(message)
-            except IOError:
-                pass  # Note failure is expected here in some cases
-
-    def _parse_mesh(self, meshid: Any) -> None:
-        mesh = self._gltf.meshes[meshid]
-        logging.warning(f"mesh id: {meshid}, {mesh}")
-        for prim in mesh.primitives:
-            # TODO: GLB Prim -> DSG Part
-            self.log(f"prim {prim}")
-            # TODO: GLB Attributes -> DSG Geom
-
-        # mesh.mode, mesh.indices
-        # mesh.attributes(POSITION, NORMAL, COLOR_0, TEXCOORD_0, TEXCOORD_1)
-        # mesh.material
-        # mesh.images
-
-    def _walk_node(self, nodeid: Any) -> None:
         node = self._gltf.nodes[nodeid]
-        self.log(f"node id: {nodeid}, {node}")
-        # TODO: GLB node -> DSG Group
+        name = self._name(node)
+        matrix = self._transform(node)
+
+        # GLB node -> DSG Group
+        cmd, group_pb = self._create_pb("GROUP", parent_id=parentid, name=name)
+        group_pb.matrix4x4.extend(matrix)
+        self._handle_update_command(cmd)
 
         if node.mesh is not None:
-            self._parse_mesh(node.mesh)
+            self._parse_mesh(node.mesh, group_pb.id, name)
 
         # Handle node.rotation, node.translation, node.scale, node.matrix
         for child_id in node.children:
-            self._walk_node(child_id)
+            self._walk_node(child_id, group_pb.id)
 
-    def upload_file(self, glb_filename: str) -> bool:
-        """Parse a GLB file and call out to the handler to present the data
+    def start_uploads(self, timeline: List[float]) -> None:
+        """
+        Begin an upload process for a potential collection of files.
+
+        Parameters
+        ----------
+        timeline : List[float]
+            The time values for the files span this range of values.
+        """
+        self._scene_id = self._next_id()
+        self._cur_timeline = timeline
+        self._callback_handler.begin_update()
+        self._update_status_file()
+
+    def end_uploads(self) -> None:
+        """
+        The upload process for the current collection of files is complete.
+        """
+        self._reset()
+        self._update_status_file()
+
+    def _find_variable_from_glb_mat(self, glb_material_id: int) -> Optional[int]:
+        """
+        Given a glb_material id, find the corresponding dsg variable id
+
+        Parameters
+        ----------
+        glb_material_id : int
+            The material id from the glb file.
+
+        Returns
+        -------
+        Optional[int]
+            The dsg variable id or None, if no variable is found.
+        """
+        value = self._glb_textures.get(glb_material_id, None)
+        if value is not None:
+            return value["pb"].id
+        return None
+
+    def upload_file(self, glb_filename: str, timeline: List[float] = [0.0, 0.0]) -> bool:
+        """
+        Parse a GLB file and call out to the handler to present the data
         to another interface (e.g. Omniverse)
 
         Parameters
         ----------
+        timeline : List[float]
+            The first and last time value for which the content of this file should be
+            visible.
+
         glb_filename : str
             The name of the GLB file to parse
 
@@ -212,43 +346,211 @@ class GLBSession(object):
             self._gltf = pygltflib.GLTF2().load(glb_filename)
             self.log(f"File: {glb_filename}  Info: {self._gltf.asset}")
 
-            self._callback_handler.begin_update()
-            self._update_status_file()
+            # check for GLTFWriter source
+            if (self._gltf.asset.generator is None) or (
+                "GLTF Writer" not in self._gltf.asset.generator
+            ):
+                self.error(
+                    f"Unable to process: {glb_filename} : Not written by GLTF Writer library"
+                )
+                return False
 
-            # TODO: Variables, Textures
+            # Walk texture nodes -> DSG Variable buffers
+            for tex_idx, texture in enumerate(self._gltf.textures):
+                image = self._gltf.images[texture.source]
+                raw_png = self._gltf.get_data_from_buffer_uri(image.uri)
+                png_img = Image.open(io.BytesIO(raw_png))
+                raw_rgba = png_img.tobytes()
+                var_name = "Variable_" + str(tex_idx)
+                cmd, var_pb = self._create_pb("VARIABLE", parent_id=self._scene_id, name=var_name)
+                var_pb.location = dynamic_scene_graph_pb2.UpdateVariable.VarLocation.NODAL
+                var_pb.dimension = dynamic_scene_graph_pb2.UpdateVariable.VarDimension.SCALAR
+                var_pb.undefined_value = -1e38
+                var_pb.pal_interp = (
+                    dynamic_scene_graph_pb2.UpdateVariable.PaletteInterpolation.CONTINUOUS
+                )
+                var_pb.sub_levels = 0
+                var_pb.undefined_display = (
+                    dynamic_scene_graph_pb2.UpdateVariable.UndefinedDisplay.AS_ZERO
+                )
+                var_pb.texture = raw_rgba
+                colors = numpy.frombuffer(raw_rgba, dtype=numpy.uint8)
+                colors.shape = (-1, 4)
+                num = len(colors)
+                levels = []
+                for i, c in enumerate(colors):
+                    level = dynamic_scene_graph_pb2.VariableLevel()
+                    level.value = float(i) / float(num - 1)
+                    level.red = float(c[0]) / 255.0
+                    level.green = float(c[1]) / 255.0
+                    level.blue = float(c[2]) / 255.0
+                    level.alpha = float(c[3]) / 255.0
+                    levels.append(level)
+                var_pb.levels.extend(levels)
+                # create a map from GLB material index to glb
+                material_index = -1
+                d = dict(pb=var_pb, idx=tex_idx)
+                for mat_idx, mat in enumerate(self._gltf.materials):
+                    if not hasattr(mat, "pbrMetallicRoughness"):
+                        continue
+                    if not hasattr(mat.pbrMetallicRoughness, "baseColorTexture"):
+                        continue
+                    if not hasattr(mat.pbrMetallicRoughness.baseColorTexture, "index"):
+                        continue
+                    if mat.pbrMetallicRoughness.baseColorTexture.index == tex_idx:
+                        material_index = mat_idx
+                        break
+                # does this already exist?
+                duplicate = None
+                saved_id = var_pb.id
+                saved_name = var_pb.name
+                for key, value in self._glb_textures.items():
+                    var_pb.name = value["pb"].name
+                    var_pb.id = value["pb"].id
+                    if value["pb"] == var_pb:
+                        duplicate = key
+                        break
+                var_pb.id = saved_id
+                var_pb.name = saved_name
+                # texture is never referenced, skip it
+                if duplicate is not None:
+                    self._glb_textures[material_index] = self._glb_textures[duplicate]
+                elif material_index != -1:
+                    # if not, record a new variable
+                    self._handle_update_command(cmd)
+                    self._glb_textures[material_index] = d
 
-            # TODO: GLB Scene -> DSG View
+            # GLB Scene -> DSG View
+            cmd, view_pb = self._create_pb("VIEW", parent_id=self._scene_id)
+            view_pb.lookat.extend([0.0, 0.0, -1.0])
+            view_pb.lookfrom.extend([0.0, 0.0, 0.0])
+            view_pb.upvector.extend([0.0, 1.0, 0.0])
+            view_pb.timeline.extend(timeline)
+            camera = self._gltf.cameras[0]
+            if camera.type == "orthographic":
+                view_pb.nearfar.extend(
+                    [float(camera.orthographic.znear), float(camera.orthographic.zfar)]
+                )
+            else:
+                view_pb.nearfar.extend(
+                    [float(camera.perspective.znear), float(camera.perspective.zfar)]
+                )
+                view_pb.fieldofview = camera.perspective.yfov
+                view_pb.aspectratio = camera.aspectratio.aspectRatio
+
+            self._handle_update_command(cmd)
 
             # for present, just the default scene
+            # GLB file: general layout
+            # scene: "default_index"
+            # scenes: [scene_index].nodes -> [node ids]
             for node_id in self._gltf.scenes[self._gltf.scene].nodes:
-                self._walk_node(node_id)
+                self._walk_node(node_id, view_pb.id)
 
             self._finish_part()
             self._callback_handler.end_update()
 
         except Exception as e:
-            self.log(f"Error: Unable to process: {glb_filename} : {e}")
+            import traceback
+
+            self.error(f"Unable to process: {glb_filename} : {e}")
+            traceback_str = "".join(traceback.format_tb(e.__traceback__))
+            logging.debug(f"Traceback: {traceback_str}")
             ok = False
 
-        self._reset()
-        self._update_status_file()
         return ok
 
-    def _finish_part(self) -> None:
-        """Complete the current part
-
-        There is always a part being modified.  This method completes the current part, committing
-        it to the handler.
+    @staticmethod
+    def _transform(node: Any) -> List[float]:
         """
-        self._callback_handler.finalize_part(self.part)
-        self._mesh_block_count += 1
+        Convert the node "matrix" or "translation", "rotation" and "scale" values into
+        a 4x4 matrix representation.
+
+        "nodes": [
+             {
+             "matrix": [
+             1,0,0,0,
+             0,1,0,0,
+             0,0,1,0,
+             5,6,7,1
+             ],
+             ...
+             },
+             {
+             "translation":
+             [ 0,0,0 ],
+             "rotation":
+             [ 0,0,0,1 ],
+             "scale":
+             [ 1,1,1 ]
+             ...
+             },
+            ]
+
+        Parameters
+        ----------
+        node: Any
+            The node to compute the matrix transform for.
+
+        Returns
+        -------
+        List[float]
+            The 4x4 transformation matrix.
+
+        """
+        identity = numpy.identity(4)
+        if node.matrix:
+            tmp = numpy.array(node.matrix)
+            tmp.shape = (4, 4)
+            tmp = tmp.transpose()
+            return list(tmp.flatten())
+        if node.translation:
+            identity[3][0] = node.translation[0]
+            identity[3][1] = node.translation[1]
+            identity[3][2] = node.translation[2]
+        if node.rotation:
+            # In GLB, the null quat is [0,0,0,1] so reverse the vector here
+            q = [node.rotation[3], node.rotation[0], node.rotation[1], node.rotation[2]]
+            rot = numpy.array(
+                [
+                    [q[0], -q[1], -q[2], -q[3]],
+                    [q[1], q[0], -q[3], q[2]],
+                    [q[2], q[3], q[0], -q[1]],
+                    [q[3], -q[2], q[1], q[0]],
+                ]
+            )
+            identity = numpy.multiply(identity, rot)
+        if node.scale:
+            s = node.scale
+            scale = numpy.array(
+                [
+                    [s[0], 0.0, 0.0, 0.0],
+                    [0.0, s[1], 0.0, 0.0],
+                    [0.0, 0.0, s[2], 0.0],
+                    [0.0, 0.0, 0.0, 1.0],
+                ]
+            )
+            identity = numpy.multiply(identity, scale)
+        return list(identity.flatten())
 
     def _name(self, node: Any) -> str:
-        if node.name:
+        """
+        Given a GLB node object, return the name of the node.  If the node does not
+        have a name, give it a generated node.
+
+        Parameters
+        ----------
+        node: Any
+            The GLB node to get the name of.
+
+        Returns
+        -------
+        str
+            The name of the node.
+        """
+        if hasattr(node, "name") and node.name:
             return node.name
         self._node_idx += 1
-        if self._node_idx == 0:
-            return "Root"
         return f"Node_{self._node_idx}"
 
     def _create_pb(
@@ -258,6 +560,7 @@ class GLBSession(object):
         if cmd_type == "PART":
             cmd.command_type = dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_PART
             subcmd = cmd.update_part
+            subcmd.hash = str(uuid.uuid1())
         elif cmd_type == "GROUP":
             cmd.command_type = dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_GROUP
             subcmd = cmd.update_group
@@ -267,6 +570,7 @@ class GLBSession(object):
         elif cmd_type == "GEOM":
             cmd.command_type = dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_GEOM
             subcmd = cmd.update_geom
+            subcmd.hash = str(uuid.uuid1())
         elif cmd_type == "VIEW":
             cmd.command_type = dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_VIEW
             subcmd = cmd.update_view
