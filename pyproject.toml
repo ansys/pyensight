@@ -129,7 +129,7 @@ minversion = "7.1"
 testpaths = [
     "tests",
 ]
-addopts = "-n 4 --reruns 3 --setup-show --cov=ansys.pyensight.core --cov-report html:coverage-html --cov-report term --cov-config=.coveragerc --capture=tee-sys --tb=native -p no:warnings"
+addopts = "--setup-show --cov=ansys.pyensight.core --cov-report html:coverage-html --cov-report term --cov-config=.coveragerc --capture=tee-sys --tb=native -p no:warnings"
 markers =[
     "integration:Run integration tests",
     "smoke:Run the smoke tests",
