@@ -389,11 +389,14 @@ class RenderableDeepPixel(Renderable):
         for script in ["geotiff.js", "geotiff_nexus.js", "bootstrap.min.js"]:
             name = base_name + f"'{script}')"
             cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
+        name = "os.path.join(enve.home(), f'nexus{ceiversion.nexus_suffix}', 'django', "
+        name += "'website', 'static', 'website', 'content', 'bootstrap.min.css')"
+        cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
         self._session.cmd(cmd, do_eval=False)
+        jquery_version = ""
         if int(self._session._cei_suffix) < 251:
-            jquery = "jquery-3.4.1.min.js"
-        else:
-            jquery = "jquery.min.js"
+            jquery_version = "-3.4.1"
+        jquery = f"jquery{jquery_version}.min.js"
         cmd = "import shutil, enve, ceiversion, os.path\n"
         name = base_name + f"'{jquery}')"
         cmd += "try:"
@@ -410,6 +413,7 @@ class RenderableDeepPixel(Renderable):
         html = html.replace("TIFF_URL", tiff_url)
         html = html.replace("ITEMID", self._guid)
         html = html.replace("OPTIONAL_QUERY", optional_query)
+        html = html.replace("JQUERY_VERSION", jquery_version)
         # refresh the remote HTML
         self._save_remote_html_page(html)
         super().update()
