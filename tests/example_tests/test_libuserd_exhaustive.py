@@ -597,7 +597,7 @@ def compare(userd, session, file1_userd, file2_userd, file1_session, file2_sessi
 def test_cfx(launch_libuserd_and_get_files):
     file_1 = "InjectMixer.res"
     file_2 = None
-    rel_path = "result_files/cfx-mixing_elbow/"
+    rel_path = "result_files/cfx-mixing_elbow"
 
     # return file1_userd, file2_userd, file1_session, file2_session, libuserd, session, data_dir
     (
@@ -616,7 +616,7 @@ def test_cfx(launch_libuserd_and_get_files):
 def test_fluent_hdf5(launch_libuserd_and_get_files):
     file_1 = "axial_comp-1-01438.cas.h5"
     file_2 = "axial_comp-1-01438.dat.h5"
-    rel_path = "result_files/fluent-axial_comp/"
+    rel_path = "result_files/fluent-axial_comp"
 
     (
         file1_userd,
