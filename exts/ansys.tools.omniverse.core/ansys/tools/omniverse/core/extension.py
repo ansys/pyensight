@@ -243,6 +243,11 @@ class AnsysToolsOmniverseCoreServerExtension(omni.ext.IExt):
             The first cpython found or None
 
         """
+
+        cpython = "cpython"
+        if platform.system() == "Windows":
+            cpython += ".bat"
+
         dirs_to_check = []
         if "PYENSIGHT_ANSYS_INSTALLATION" in os.environ:
             env_inst = os.environ["PYENSIGHT_ANSYS_INSTALLATION"]
@@ -252,13 +257,10 @@ class AnsysToolsOmniverseCoreServerExtension(omni.ext.IExt):
             # ways, we'll add that one too, just in case.
             dirs_to_check.append(os.path.join(env_inst, "CEI"))
 
-        if "CEI_HOME" in os.environ:
-            env_inst = os.environ["CEI_HOME"]
-            dirs_to_check.append(env_inst)
-
         # Look for most recent Ansys install
         awp_roots = []
         for env_name in dict(os.environ).keys():
+            # TODO: do not allow earlier than 251
             if env_name.startswith("AWP_ROOT"):
                 awp_roots.append(env_name)
         awp_roots.sort(reverse=True)
@@ -266,9 +268,6 @@ class AnsysToolsOmniverseCoreServerExtension(omni.ext.IExt):
             dirs_to_check.append(os.path.join(os.environ[env_name], "CEI"))
 
         # check all the collected locations in order
-        cpython = "cpython"
-        if platform.system() == "Windows":
-            cpython += ".bat"
         for install_dir in dirs_to_check:
             launch_file = os.path.join(install_dir, "bin", cpython)
             if os.path.isfile(launch_file):
