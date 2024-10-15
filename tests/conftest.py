@@ -155,7 +155,7 @@ def launch_libuserd_and_get_files(tmpdir, pytestconfig: pytest.Config):
             session = LocalLauncher(ansys_installation=install_path).start()
         else:
             libuserd = LibUserd(use_docker=True, use_dev=True, data_directory=data_dir)
-            session = DockerLauncher(use_docker=True, use_dev=True, data_directory=data_dir).start()
+            session = DockerLauncher(use_dev=True, data_directory=data_dir).start()
 
         libuserd.initialize()
         file1_userd = libuserd.download_pyansys_example(filename1, filepath1)
