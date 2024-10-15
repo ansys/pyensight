@@ -146,9 +146,6 @@ def mocked_session(mocker, tmpdir, enshell_mock) -> "Session":
 @pytest.fixture
 def launch_libuserd_and_get_files(tmpdir, pytestconfig: pytest.Config):
     def _files(filename1, filename2, filepath1, filepath2):
-        filename1 = "" if filename1 is None else filename1
-        filename2 = "" if filename2 is None else filename2
-
         data_dir = tmpdir.mkdir("datadir")
         use_local = pytestconfig.getoption("use_local_launcher")
         install_path = pytestconfig.getoption("install_path")
@@ -165,10 +162,14 @@ def launch_libuserd_and_get_files(tmpdir, pytestconfig: pytest.Config):
         libuserd.initialize()
 
         file1_userd = libuserd.download_pyansys_example(filename1, filepath1)
-        file2_userd = libuserd.download_pyansys_example(filename2, filepath2)
-
         file1_session = session.download_pyansys_example(filename1, filepath1)
-        file2_session = session.download_pyansys_example(filename2, filepath2)
+
+        if filename2 == None:
+            file2_userd = ""
+            file2_session = ""
+        else:
+            file2_userd = libuserd.download_pyansys_example(filename2, filepath2)
+            file2_session = session.download_pyansys_example(filename2, filepath2)
 
         return file1_userd, file2_userd, file1_session, file2_session, libuserd, session, data_dir
 
