@@ -151,9 +151,11 @@ def launch_libuserd_and_get_files(tmpdir, pytestconfig: pytest.Config):
         install_path = pytestconfig.getoption("install_path")
         session = None
         if use_local:
+            # Launch locally
             libuserd = LibUserd(ansys_installation=install_path)
             session = LocalLauncher(ansys_installation=install_path).start()
         else:
+            # Launch on docker otherwise
             libuserd = LibUserd(use_docker=True, use_dev=True, data_directory=data_dir)
             session = DockerLauncher(use_dev=True, data_directory=data_dir).start()
 
