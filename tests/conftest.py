@@ -164,7 +164,7 @@ def launch_libuserd_and_get_files(tmpdir, pytestconfig: pytest.Config):
         file1_userd = libuserd.download_pyansys_example(filename1, filepath1)
         file1_session = session.download_pyansys_example(filename1, filepath1)
 
-        if filename2 == None:
+        if filename2 is None:
             file2_userd = ""
             file2_session = ""
         else:
