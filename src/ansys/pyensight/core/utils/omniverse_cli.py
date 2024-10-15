@@ -296,7 +296,7 @@ class OmniverseGeometryServer(object):
                 while not os.path.exists(stop_file):
                     loop_time = time.time()
                     files_to_remove = []
-                    for filename in glob.glob(os.path.join(the_dir, "*", "*.upload")):
+                    for filename in glob.glob(os.path.join(the_dir, "*.upload")):
                         # reset to the launch URI/directory
                         omni_link.destination = orig_destination
                         # Keep track of the files and time values
@@ -352,7 +352,7 @@ class OmniverseGeometryServer(object):
                                 glb_link.upload_file(glb_file, timeline=limits)
                             except Exception as error:
                                 logging.error(f"Unable to upload file: {glb_file}: {error}")
-                            logging.info(f"Uploaded in {(time.time() - start_time):%.2f}")
+                            logging.info(f"Uploaded in {(time.time() - start_time):.2f}")
                         glb_link.end_uploads()
                     for filename in files_to_remove:
                         try:
@@ -367,7 +367,10 @@ class OmniverseGeometryServer(object):
             except Exception as error:
                 logging.error(f"Error encountered while monitoring: {error}")
             logging.info("Stopping file monitoring.")
-            os.remove(stop_file)
+            try:
+                os.remove(stop_file)
+            except IOError:
+                logging.error("Unable to remove 'shutdown' file.")
 
         omni_link.shutdown()
 
