@@ -393,8 +393,11 @@ class RenderableDeepPixel(Renderable):
         name += "'website', 'static', 'website', 'content', 'bootstrap.min.css')"
         cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
         self._session.cmd(cmd, do_eval=False)
+        # With Bootstrap 5 (2025 R1), class names have '-bs-' in them, e.g. 'data-bs-toggle' vs 'data-toggle'
+        bs_prefix = "bs-"
         jquery_version = ""
         if int(self._session._cei_suffix) < 251:
+            bs_prefix = ""
             jquery_version = "-3.4.1"
         jquery = f"jquery{jquery_version}.min.js"
         cmd = "import shutil, enve, ceiversion, os.path\n"
@@ -414,6 +417,7 @@ class RenderableDeepPixel(Renderable):
         html = html.replace("ITEMID", self._guid)
         html = html.replace("OPTIONAL_QUERY", optional_query)
         html = html.replace("JQUERY_VERSION", jquery_version)
+        html = html.replace("BS_PREFIX", bs_prefix)
         # refresh the remote HTML
         self._save_remote_html_page(html)
         super().update()
