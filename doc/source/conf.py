@@ -5,7 +5,7 @@ import os
 import sys
 
 from ansys.pyensight.core import VERSION as __version__
-from ansys_sphinx_theme import ansys_favicon, get_version_match, pyansys_logo_black
+from ansys_sphinx_theme import ansys_favicon, get_version_match
 from sphinx_gallery.sorting import FileNameSortKey
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", "src"))
@@ -22,7 +22,6 @@ cname = os.getenv("DOCUMENTATION_CNAME", "ensight.docs.pyansys.com")
 
 # HTML output options
 html_short_title = html_title = "PyEnSight"
-html_logo = pyansys_logo_black
 html_theme = "ansys_sphinx_theme"
 html_favicon = ansys_favicon
 html_theme_options = {
@@ -35,6 +34,7 @@ html_theme_options = {
     "github_url": "https://github.com/ansys/pyensight",
     "show_prev_next": False,
     "show_breadcrumbs": True,
+    "logo": "ansys",
 }
 
 # Sphinx extensions
@@ -53,7 +53,6 @@ extensions = [
     "sphinxcontrib.jquery",
     "sphinxcontrib.openapi",
     "sphinxcontrib.video",
-    # "ansys_sphinx_theme",
 ]
 
 autoapi_options = [
