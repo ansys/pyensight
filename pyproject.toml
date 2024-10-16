@@ -55,7 +55,7 @@ tests = [
     "urllib3==2.2.2",
     "requests>=2.28.2",
     "docker>=6.1.0",
-    "pytest-xdist==1.31.0",
+    "pytest-xdist==3.6.1",
     "pytest-rerunfailures~=14.0",
 ]
 doc = [
