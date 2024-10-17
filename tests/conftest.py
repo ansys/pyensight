@@ -21,11 +21,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
     $ pytest tests --install-path "/ansys_inc/v231/CEI/bin/ensight"
     TODO: Default must be set to the one on the CI/CD server.
     """
-    parser.addoption(
-        "--install-path",
-        action="store",
-        default=f"/ansys_inc/v{ansys.pyensight.core.__ansys_version__}/",
-    )
+    parser.addoption("--install-path", action="store")
     parser.addoption("--use-local-launcher", default=False, action="store_true")
 
 
