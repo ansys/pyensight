@@ -1,0 +1,23 @@
+﻿ansys.pyensight.core.libuserd
+=============================
+
+.. automodule:: ansys.pyensight.core.libuserd
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      LibUserd
+      Part
+      Query
+      Reader
+      ReaderInfo
+      Variable
+   
+   .. rubric:: Exceptions
+
+   .. autosummary::
+   
+      LibUserdError
+   

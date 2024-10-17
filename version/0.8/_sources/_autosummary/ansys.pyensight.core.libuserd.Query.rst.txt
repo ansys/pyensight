@@ -1,0 +1,24 @@
+﻿Query
+=====
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoclass:: Query
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Query.data
+      
+   
+   
+
+   
+   
+   

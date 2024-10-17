@@ -1,0 +1,6 @@
+update\_points
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: pointpart.update_points
