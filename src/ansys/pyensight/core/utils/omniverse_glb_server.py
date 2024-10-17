@@ -348,7 +348,8 @@ class GLBSession(dsg_server.DSGSession):
 
             # check for GLTFWriter source
             if (self._gltf.asset.generator is None) or (
-                "GLTF Writer" not in self._gltf.asset.generator
+                ("GLTF Writer" not in self._gltf.asset.generator)
+                and ("Ansys Ensight" not in self._gltf.asset.generator)
             ):
                 self.error(
                     f"Unable to process: {glb_filename} : Not written by GLTF Writer library"
@@ -361,6 +362,7 @@ class GLBSession(dsg_server.DSGSession):
                 raw_png = self._gltf.get_data_from_buffer_uri(image.uri)
                 png_img = Image.open(io.BytesIO(raw_png))
                 raw_rgba = png_img.tobytes()
+                raw_rgba = raw_rgba[0 : len(raw_rgba) // png_img.size[1]]
                 var_name = "Variable_" + str(tex_idx)
                 cmd, var_pb = self._create_pb("VARIABLE", parent_id=self._scene_id, name=var_name)
                 var_pb.location = dynamic_scene_graph_pb2.UpdateVariable.VarLocation.NODAL
@@ -388,8 +390,8 @@ class GLBSession(dsg_server.DSGSession):
                     levels.append(level)
                 var_pb.levels.extend(levels)
                 # create a map from GLB material index to glb
-                material_index = -1
                 d = dict(pb=var_pb, idx=tex_idx)
+                # Find all the materials that map to this texture
                 for mat_idx, mat in enumerate(self._gltf.materials):
                     if not hasattr(mat, "pbrMetallicRoughness"):
                         continue
@@ -399,55 +401,55 @@ class GLBSession(dsg_server.DSGSession):
                         continue
                     if mat.pbrMetallicRoughness.baseColorTexture.index == tex_idx:
                         material_index = mat_idx
-                        break
-                # does this already exist?
-                duplicate = None
-                saved_id = var_pb.id
-                saved_name = var_pb.name
-                for key, value in self._glb_textures.items():
-                    var_pb.name = value["pb"].name
-                    var_pb.id = value["pb"].id
-                    if value["pb"] == var_pb:
-                        duplicate = key
-                        break
-                var_pb.id = saved_id
-                var_pb.name = saved_name
-                # texture is never referenced, skip it
-                if duplicate is not None:
-                    self._glb_textures[material_index] = self._glb_textures[duplicate]
-                elif material_index != -1:
-                    # if not, record a new variable
-                    self._handle_update_command(cmd)
-                    self._glb_textures[material_index] = d
+                    # does this Variable/texture already exist?
+                    duplicate = None
+                    saved_id = var_pb.id
+                    saved_name = var_pb.name
+                    for key, value in self._glb_textures.items():
+                        var_pb.name = value["pb"].name
+                        var_pb.id = value["pb"].id
+                        if value["pb"] == var_pb:
+                            duplicate = key
+                            break
+                    var_pb.id = saved_id
+                    var_pb.name = saved_name
+                    # if a new texture, add the Variable and create an index to the material
+                    if duplicate is None:
+                        self._handle_update_command(cmd)
+                        self._glb_textures[material_index] = d
+                    else:
+                        # create an additional reference to this variable from this material
+                        self._glb_textures[material_index] = self._glb_textures[duplicate]
 
-            # GLB Scene -> DSG View
-            cmd, view_pb = self._create_pb("VIEW", parent_id=self._scene_id)
-            view_pb.lookat.extend([0.0, 0.0, -1.0])
-            view_pb.lookfrom.extend([0.0, 0.0, 0.0])
-            view_pb.upvector.extend([0.0, 1.0, 0.0])
-            view_pb.timeline.extend(timeline)
-            camera = self._gltf.cameras[0]
-            if camera.type == "orthographic":
-                view_pb.nearfar.extend(
-                    [float(camera.orthographic.znear), float(camera.orthographic.zfar)]
-                )
-            else:
-                view_pb.nearfar.extend(
-                    [float(camera.perspective.znear), float(camera.perspective.zfar)]
-                )
-                view_pb.fieldofview = camera.perspective.yfov
-                view_pb.aspectratio = camera.aspectratio.aspectRatio
-
-            self._handle_update_command(cmd)
-
-            # for present, just the default scene
             # GLB file: general layout
             # scene: "default_index"
             # scenes: [scene_index].nodes -> [node ids]
-            for node_id in self._gltf.scenes[self._gltf.scene].nodes:
-                self._walk_node(node_id, view_pb.id)
+            # was scene_id = self._gltf.scene
+            num_scenes = len(self._gltf.scenes)
+            for scene_idx in range(num_scenes):
+                # GLB Scene -> DSG View
+                cmd, view_pb = self._create_pb("VIEW", parent_id=self._scene_id)
+                view_pb.lookat.extend([0.0, 0.0, -1.0])
+                view_pb.lookfrom.extend([0.0, 0.0, 0.0])
+                view_pb.upvector.extend([0.0, 1.0, 0.0])
+                view_pb.timeline.extend(self._build_scene_timeline(scene_idx, timeline))
+                if len(self._gltf.cameras) > 0:
+                    camera = self._gltf.cameras[0]
+                    if camera.type == "orthographic":
+                        view_pb.nearfar.extend(
+                            [float(camera.orthographic.znear), float(camera.orthographic.zfar)]
+                        )
+                    else:
+                        view_pb.nearfar.extend(
+                            [float(camera.perspective.znear), float(camera.perspective.zfar)]
+                        )
+                        view_pb.fieldofview = camera.perspective.yfov
+                        view_pb.aspectratio = camera.aspectratio.aspectRatio
+                self._handle_update_command(cmd)
+                for node_id in self._gltf.scenes[scene_idx].nodes:
+                    self._walk_node(node_id, view_pb.id)
+                self._finish_part()
 
-            self._finish_part()
             self._callback_handler.end_update()
 
         except Exception as e:
@@ -459,6 +461,46 @@ class GLBSession(dsg_server.DSGSession):
             ok = False
 
         return ok
+
+    def _build_scene_timeline(self, scene_idx: int, input_timeline: List[float]) -> List[float]:
+        """
+        For a given scene and externally supplied timeline, compute the timeline for the scene.
+
+        If the ANSYS_scene_time extension is present, use that value.
+        If there is only a single scene, return the supplied timeline.
+        If the supplied timeline is empty, use an integer timeline based on the number of scenes in the GLB file.
+        Carve up the timeline into chunks, one per scene.
+
+        Parameters
+        ----------
+        scene_idx: int
+            The index of the scene to compute for.
+
+        input_timeline: List[float]
+            An externally supplied timeline.
+
+        Returns
+        -------
+        List[float]
+            The computed timeline.
+        """
+        # if ANSYS_scene_time is used, time ranges will come from there
+        if "ANSYS_scene_time" in self._gltf.scenes[scene_idx].extensions:
+            return self._gltf.scenes[scene_idx].extensions["ANSYS_scene_time"]
+        # if there is only one scene, then use the input timeline
+        num_scenes = len(self._gltf.scenes)
+        if num_scenes == 1:
+            return input_timeline
+        # if the timeline has zero length, we make it the number of scenes
+        timeline = input_timeline
+        if timeline[1] - timeline[0] <= 0.0:
+            timeline = [0.0, float(num_scenes - 1)]
+        # carve time into the input timeline.
+        delta = (timeline[1] - timeline[0]) / float(num_scenes)
+        output: List[float] = []
+        output.append(float(scene_idx) * delta + timeline[0])
+        output.append(output[0] + delta)
+        return output
 
     @staticmethod
     def _transform(node: Any) -> List[float]:
