@@ -352,7 +352,7 @@ class OmniverseGeometryServer(object):
                                 glb_link.upload_file(glb_file, timeline=limits)
                             except Exception as error:
                                 logging.error(f"Unable to upload file: {glb_file}: {error}")
-                            logging.info(f"Uploaded in {(time.time() - start_time):.2f}")
+                            logging.info(f"Uploaded in {(time.time() - start_time):.2f}s")
                         glb_link.end_uploads()
                     for filename in files_to_remove:
                         try:
