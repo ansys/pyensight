@@ -159,7 +159,7 @@ class AnsysToolsOmniverseDSGUIExtension(omni.ext.IExt):
 
                 with ui.HStack(spacing=5):
                     ui.Label(
-                        "Omniverse URI:",
+                        "Export directory:",
                         alignment=ui.Alignment.RIGHT_CENTER,
                         width=0,
                     )
