@@ -2,6 +2,39 @@ from enum import Enum
 
 import numpy as np
 
+ELEMENT_STRING_TO_INT_MAP = {
+    "point": 0,
+    "g_point": 1,
+    "bar2": 2,
+    "g_bar2": 3,
+    "bar3": 4,
+    "g_bar3": 5,
+    "tria3": 6,
+    "g_tria3": 7,
+    "tria6": 8,
+    "g_tria6": 9,
+    "quad4": 10,
+    "g_quad4": 11,
+    "quad8": 12,
+    "g_quad8": 13,
+    "tetra4": 14,
+    "g_tetra4": 15,
+    "tetra10": 16,
+    "g_tetra10": 17,
+    "pyramid5": 18,
+    "g_pyramid5": 19,
+    "pyramid13": 20,
+    "g_pyramid13": 21,
+    "penta6": 22,
+    "g_penta6": 23,
+    "penta15": 24,
+    "g_penta15": 25,
+    "hexa8": 26,
+    "g_hexa8": 27,
+    "hexa20": 28,
+    "g_hexa20": 29,
+}
+
 
 def print_userd_info(userd):
     print(f"Userd lib version: {userd.library_version()}")
@@ -348,46 +381,12 @@ def convert_element_map(elemental_map_userd):
     Returns:
     dict: A new dictionary with element numbers as keys and element counts as values.
     """
-    # Local mapping inside the function to convert element strings to numbers
-    element_string_to_int_map = {
-        "point": 0,
-        "g_point": 1,
-        "bar2": 2,
-        "g_bar2": 3,
-        "bar3": 4,
-        "g_bar3": 5,
-        "tria3": 6,
-        "g_tria3": 7,
-        "tria6": 8,
-        "g_tria6": 9,
-        "quad4": 10,
-        "g_quad4": 11,
-        "quad8": 12,
-        "g_quad8": 13,
-        "tetra4": 14,
-        "g_tetra4": 15,
-        "tetra10": 16,
-        "g_tetra10": 17,
-        "pyramid5": 18,
-        "g_pyramid5": 19,
-        "pyramid13": 20,
-        "g_pyramid13": 21,
-        "penta6": 22,
-        "g_penta6": 23,
-        "penta15": 24,
-        "g_penta15": 25,
-        "hexa8": 26,
-        "g_hexa8": 27,
-        "hexa20": 28,
-        "g_hexa20": 29,
-    }
-
     # Create a new dictionary to store the converted data
     elemental_map_converted = {}
 
     for element_string, element_count in elemental_map_userd.items():
         # Normalize the element string to lowercase and find the corresponding integer
-        element_number = element_string_to_int_map.get(element_string.lower(), -1)
+        element_number = ELEMENT_STRING_TO_INT_MAP.get(element_string.lower(), -1)
 
         if element_number != -1:  # Only include valid element numbers
             elemental_map_converted[element_number] = element_count
@@ -789,9 +788,8 @@ def compare(userd, session, file1_userd, file2_userd, file1_session, file2_sessi
         parts_pyensight, variables_pyensight, part_xyz_cache_userd, time_step
     )
 
-    if (
-        part_element_cache_userd and part_element_cache_userd != {}
-    ):  # Check if part_element_cache_userd is not empty
+    # Check if part_element_cache_userd is not empty
+    if part_element_cache_userd:
         element_map_failures, element_map_error_code = _test_elemental_map(
             parts_pyensight, part_element_cache_userd, time_step
         )
@@ -825,14 +823,17 @@ def compare(userd, session, file1_userd, file2_userd, file1_session, file2_sessi
         "Variable Values Comparison", variable_value_failures, variable_value_error_code
     )
 
+    codes = [
+        part_error_code,
+        variable_error_code,
+        variable_value_error_code,
+        xyz_error_code,
+        element_map_error_code,
+    ]
+    passed = [x == 0 for x in codes]
+
     # Check for success or failure
-    if (
-        part_error_code == 0
-        and variable_error_code == 0
-        and variable_value_error_code == 0
-        and xyz_error_code == 0
-        and element_map_error_code == 0
-    ):
+    if all(passed):
         print("Overall Test: PASS\n")
     else:
         raise AssertionError(
