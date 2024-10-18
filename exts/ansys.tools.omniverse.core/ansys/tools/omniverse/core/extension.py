@@ -166,6 +166,15 @@ class AnsysToolsOmniverseCoreServerExtension(omni.ext.IExt):
     def time_scale(self, value: float) -> None:
         self._time_scale = value
 
+    @property
+    def interpreter(self) -> str:
+        """Fully qualified path to the python.exe or .bat wrapper in which pyensight is installed."""
+        return self._interpreter
+
+    @interpreter.setter
+    def interpreter(self, value: str) -> None:
+        self._interpreter = value
+
     @classmethod
     def get_instance(cls) -> Optional["AnsysToolsOmniverseCoreServerExtension"]:
         return cls._service_instance
@@ -257,11 +266,10 @@ class AnsysToolsOmniverseCoreServerExtension(omni.ext.IExt):
             # ways, we'll add that one too, just in case.
             dirs_to_check.append(os.path.join(env_inst, "CEI"))
 
-        # Look for most recent Ansys install
+        # Look for most recent Ansys install, 25.1 or later
         awp_roots = []
         for env_name in dict(os.environ).keys():
-            # TODO: do not allow earlier than 251
-            if env_name.startswith("AWP_ROOT"):
+            if env_name.startswith("AWP_ROOT") and int(env_name[len("AWP_ROOT") :]) >= 251:
                 awp_roots.append(env_name)
         awp_roots.sort(reverse=True)
         for env_name in awp_roots:
@@ -271,8 +279,9 @@ class AnsysToolsOmniverseCoreServerExtension(omni.ext.IExt):
         for install_dir in dirs_to_check:
             launch_file = os.path.join(install_dir, "bin", cpython)
             if os.path.isfile(launch_file):
-                return launch_file
-        return None
+                if self.validate_interpreter(launch_file):
+                    return launch_file
+        return ""
 
     def on_startup(self, ext_id: str) -> None:
         """
@@ -294,6 +303,21 @@ class AnsysToolsOmniverseCoreServerExtension(omni.ext.IExt):
         self.info("ANSYS tools omniverse core server shutdown")
         self.shutdown()
         AnsysToolsOmniverseCoreServerExtension._service_instance = None
+
+    def validate_interpreter(self, launch_file: str) -> bool:
+        if len(launch_file) == 0:
+            return False
+        has_ov_module = False
+        try:
+            cmd = [launch_file, "-m", "ansys.pyensight.core.utils.omniverse_cli", "-h"]
+            env_vars = os.environ.copy()
+            proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, env=env_vars)
+            proc.wait(timeout=60)
+            has_ov_module = proc.communicate()[0].decode("utf-8").startswith("usage: omniverse_cli")
+        except Exception as error:
+            self.warning(f"Exception thrown while testing python {str(launch_file)}: {str(error)}")
+            has_ov_module = False
+        return has_ov_module
 
     def dsg_export(self) -> None:
         """
