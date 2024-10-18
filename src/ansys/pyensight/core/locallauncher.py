@@ -314,6 +314,8 @@ class LocalLauncher(Launcher):
                 return
             except PermissionError:
                 pass
+            except FileNotFoundError:
+                pass
             except Exception:
                 raise
         raise RuntimeError(f"Unable to remove {self.session_directory} in {maximum_wait_secs}s")
