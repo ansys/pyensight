@@ -1,0 +1,6 @@
+color
+=====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: text.color

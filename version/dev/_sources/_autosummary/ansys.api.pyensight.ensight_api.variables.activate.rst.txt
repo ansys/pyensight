@@ -1,0 +1,6 @@
+activate
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: variables.activate

@@ -1,0 +1,6 @@
+case\_linking
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: case.case_linking
