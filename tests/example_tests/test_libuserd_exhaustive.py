@@ -126,10 +126,10 @@ def process_variables(timestep, dataset, parts, variables):
 
 
 def precompute_all_timesteps(dataset, parts, variables, max_time_steps):
-    timestep_cache = {}     # This will hold the concatenated var_data_map for each timestep
-    part_var_cache = {}     # This will hold the part-specific part_var_data_map for each timestep
-    part_xyz_cache = {}     # This will hold the part-specific part_xyz_cache for each timestep
-    part_element_cache = {} # This will hold the part-specific part_element_cache for each timestep
+    timestep_cache = {}  # This will hold the concatenated var_data_map for each timestep
+    part_var_cache = {}  # This will hold the part-specific part_var_data_map for each timestep
+    part_xyz_cache = {}  # This will hold the part-specific part_xyz_cache for each timestep
+    part_element_cache = {}  # This will hold the part-specific part_element_cache for each timestep
 
     # Determine if we are dealing with static (max_time_steps == 0) or dynamic simulation
     if max_time_steps == 0:
@@ -143,7 +143,12 @@ def precompute_all_timesteps(dataset, parts, variables, max_time_steps):
             print(f"Reading variables data for timestep {timestep}...")
 
         # Get both concatenated and part-specific maps from process_variables
-        var_data_map, part_var_data_map, part_xyz_data_map, part_element_data_map = process_variables(timestep, dataset, parts, variables)
+        (
+            var_data_map,
+            part_var_data_map,
+            part_xyz_data_map,
+            part_element_data_map,
+        ) = process_variables(timestep, dataset, parts, variables)
 
         # Handle NaN values in var_data_map (concatenated data across all parts)
         for var_id, data in var_data_map.items():
@@ -186,7 +191,15 @@ def get_all_userd_data(userd, file_1, file_2=None):
     userd.shutdown()
     print("Userd shutdown complete.")
 
-    return parts, variables, max_time_steps, timestep_cache, part_var_cache, part_xyz_cache, part_element_cache
+    return (
+        parts,
+        variables,
+        max_time_steps,
+        timestep_cache,
+        part_var_cache,
+        part_xyz_cache,
+        part_element_cache,
+    )
 
 
 def get_all_pyensight_data(session, file_1, file_2):
@@ -324,6 +337,7 @@ def get_userd_values(userd_part_var_timestep_cache, timestep, part_id, var_id):
 
     return userd_values
 
+
 def convert_element_map(elemental_map_userd):
     """
     Converts a dictionary with element strings as keys to a dictionary with element numbers as keys.
@@ -365,7 +379,7 @@ def convert_element_map(elemental_map_userd):
         "hexa8": 26,
         "g_hexa8": 27,
         "hexa20": 28,
-        "g_hexa20": 29
+        "g_hexa20": 29,
     }
 
     # Create a new dictionary to store the converted data
@@ -374,7 +388,7 @@ def convert_element_map(elemental_map_userd):
     for element_string, element_count in elemental_map_userd.items():
         # Normalize the element string to lowercase and find the corresponding integer
         element_number = element_string_to_int_map.get(element_string.lower(), -1)
-        
+
         if element_number != -1:  # Only include valid element numbers
             elemental_map_converted[element_number] = element_count
         else:
@@ -382,8 +396,8 @@ def convert_element_map(elemental_map_userd):
 
     return elemental_map_converted
 
-def _test_elemental_map(parts_ensight, userd_part_element_timestep_cache, time_step):
 
+def _test_elemental_map(parts_ensight, userd_part_element_timestep_cache, time_step):
     # Check if the time_step exists in the cache
     if time_step not in userd_part_element_timestep_cache:
         raise KeyError(f"Time step {time_step} not found in the userd_part_element_timestep_cache")
@@ -408,7 +422,9 @@ def _test_elemental_map(parts_ensight, userd_part_element_timestep_cache, time_s
             failures.append(f"Failed to get Ensight elemental map for Part {part_id}: {str(e)}")
             continue  # Skip to the next part if error occurs
 
-        elemental_map_ensight = convert_element_map(elemental_map_ensight) # convert the map to <Key:int, value:int> to be consistent with userd
+        elemental_map_ensight = convert_element_map(
+            elemental_map_ensight
+        )  # convert the map to <Key:int, value:int> to be consistent with userd
 
         # Compare keys (element types)
         userd_element_types = set(elemental_map_userd.keys())
@@ -418,9 +434,13 @@ def _test_elemental_map(parts_ensight, userd_part_element_timestep_cache, time_s
             missing_userd = userd_element_types - ensight_element_types
             missing_ensight = ensight_element_types - userd_element_types
             if missing_userd:
-                failures.append(f"Part {part_id} is missing element types in Ensight: {missing_userd}")
+                failures.append(
+                    f"Part {part_id} is missing element types in Ensight: {missing_userd}"
+                )
             if missing_ensight:
-                failures.append(f"Part {part_id} is missing element types in Userd: {missing_ensight}")
+                failures.append(
+                    f"Part {part_id} is missing element types in Userd: {missing_ensight}"
+                )
             continue  # Skip further comparisons if element types don't match
 
         # Compare element counts for each type
@@ -437,11 +457,11 @@ def _test_elemental_map(parts_ensight, userd_part_element_timestep_cache, time_s
     # Return the list of failures and error code
     return failures, 0 if not failures else 1
 
+
 def _test_xyz_values(parts_ensight, variables_ensight, userd_part_xyz_timestep_cache, time_step):
     # Extract the XYZ (or Coordinates) variable from the list of variables
     coordinate_var = next(
-        (var for var in variables_ensight if var.DESCRIPTION == "Coordinates"),
-        None
+        (var for var in variables_ensight if var.DESCRIPTION == "Coordinates"), None
     )
 
     if coordinate_var is None:
@@ -463,7 +483,9 @@ def _test_xyz_values(parts_ensight, variables_ensight, userd_part_xyz_timestep_c
             continue  # Skip to the next part if no userd coordinates
 
         try:
-            coordinates_ensight = ensight_part.get_values([coordinate_var], activate=1)[coordinate_var]
+            coordinates_ensight = ensight_part.get_values([coordinate_var], activate=1)[
+                coordinate_var
+            ]
         except Exception as e:
             failures.append(f"Failed to get Ensight coordinates for Part {part_id}: {str(e)}")
             continue  # Skip to the next part if error occurs
@@ -487,7 +509,6 @@ def _test_xyz_values(parts_ensight, variables_ensight, userd_part_xyz_timestep_c
 
     # Return the list of failures and error code
     return failures, 0 if not failures else 1
-
 
 
 def _test_variable_values(
@@ -720,6 +741,7 @@ def print_test_results(test_name, failures, error_code):
         for failure in failures:
             print(f" - {failure}")
 
+
 def smoke_test(userd, file1_userd, file2_userd):
     try:
         # Retrieve userd data
@@ -729,12 +751,15 @@ def smoke_test(userd, file1_userd, file2_userd):
             max_time_steps_userd,
             timestep_cache_userd,
             part_var_cache_userd,
-            part_xyz_cache_userd, 
+            part_xyz_cache_userd,
             part_element_cache_userd,
         ) = get_all_userd_data(userd, file1_userd, file2_userd)
 
     except Exception as e:
-        raise RuntimeError(f"Smoke test failed for: {file1_userd}, {file2_userd}. Error: {str(e)}") from e
+        raise RuntimeError(
+            f"Smoke test failed for: {file1_userd}, {file2_userd}. Error: {str(e)}"
+        ) from e
+
 
 def compare(userd, session, file1_userd, file2_userd, file1_session, file2_session, time_step):
     # Retrieve userd data
@@ -744,7 +769,7 @@ def compare(userd, session, file1_userd, file2_userd, file1_session, file2_sessi
         max_time_steps_userd,
         timestep_cache_userd,
         part_var_cache_userd,
-        part_xyz_cache_userd, 
+        part_xyz_cache_userd,
         part_element_cache_userd,
     ) = get_all_userd_data(userd, file1_userd, file2_userd)
 
@@ -760,10 +785,16 @@ def compare(userd, session, file1_userd, file2_userd, file1_session, file2_sessi
     variable_failures, variable_error_code = _test_variables(variables_userd, variables_pyensight)
 
     # Test XYZ
-    xyz_failures, xyz_error_code = _test_xyz_values(parts_pyensight, variables_pyensight, part_xyz_cache_userd, time_step)
+    xyz_failures, xyz_error_code = _test_xyz_values(
+        parts_pyensight, variables_pyensight, part_xyz_cache_userd, time_step
+    )
 
-    if part_element_cache_userd and part_element_cache_userd != {}:  # Check if part_element_cache_userd is not empty
-        element_map_failures, element_map_error_code = _test_elemental_map(parts_pyensight, part_element_cache_userd, time_step)
+    if (
+        part_element_cache_userd and part_element_cache_userd != {}
+    ):  # Check if part_element_cache_userd is not empty
+        element_map_failures, element_map_error_code = _test_elemental_map(
+            parts_pyensight, part_element_cache_userd, time_step
+        )
     else:
         element_map_failures, element_map_error_code = [], 0  # Default values if the cache is empty
 
@@ -795,7 +826,13 @@ def compare(userd, session, file1_userd, file2_userd, file1_session, file2_sessi
     )
 
     # Check for success or failure
-    if part_error_code == 0 and variable_error_code == 0 and variable_value_error_code == 0 and xyz_error_code == 0 and element_map_error_code == 0:
+    if (
+        part_error_code == 0
+        and variable_error_code == 0
+        and variable_value_error_code == 0
+        and xyz_error_code == 0
+        and element_map_error_code == 0
+    ):
         print("Overall Test: PASS\n")
     else:
         raise AssertionError(
@@ -821,6 +858,7 @@ def test_cfx(launch_libuserd_and_get_files):
 
     compare(userd, session, file1_userd, file2_userd, file1_session, file2_session, 0)
 
+
 def test_fluent_hdf5(launch_libuserd_and_get_files):
     file_1 = "axial_comp-1-01438.cas.h5"
     file_2 = "axial_comp-1-01438.dat.h5"
@@ -837,8 +875,9 @@ def test_fluent_hdf5(launch_libuserd_and_get_files):
     ) = launch_libuserd_and_get_files(file_1, file_2, rel_path, rel_path)
     compare(userd, session, file1_userd, file2_userd, file1_session, file2_session, 0)
 
+
 # Some difference observed for some of the variables (Strain Energy)
-#def test_ansys_rst(launch_libuserd_and_get_files):
+# def test_ansys_rst(launch_libuserd_and_get_files):
 #    file_1 = "crankshaft.rst"
 #    file_2 = None
 #    rel_path = "result_files/crankshaft"
@@ -855,7 +894,7 @@ def test_fluent_hdf5(launch_libuserd_and_get_files):
 #    compare(userd, session, file1_userd, file2_userd, file1_session, file2_session, 0)
 
 # There are some read errors (although low priority)
-#def test_cff(launch_libuserd_and_get_files):
+# def test_cff(launch_libuserd_and_get_files):
 #    file_1 = "def.cas.cff"
 #    file_2 = "def.dat.cff"
 #    rel_path = "result_files/cfx-heating_coil"
@@ -870,6 +909,7 @@ def test_fluent_hdf5(launch_libuserd_and_get_files):
 #        data_dir,
 #    ) = launch_libuserd_and_get_files(file_1, file_2, rel_path, rel_path)
 #    smoke_test(userd, file1_userd, file2_userd)
+
 
 def test_ansys_rst(launch_libuserd_and_get_files):
     file_1 = "transient.rst"
@@ -887,6 +927,7 @@ def test_ansys_rst(launch_libuserd_and_get_files):
     ) = launch_libuserd_and_get_files(file_1, file_2, rel_path, rel_path)
 
     smoke_test(userd, file1_userd, file2_userd)
+
 
 def test_vtk(launch_libuserd_and_get_files):
     file_1 = "rotor_linear_step21_unorm.vtk"
