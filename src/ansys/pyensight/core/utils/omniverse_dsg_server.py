@@ -32,12 +32,19 @@ import tempfile
 from typing import Any, Dict, List, Optional
 
 from ansys.pyensight.core.utils.dsg_server import Part, UpdateHandler
+import numpy
 import png
 from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdShade
 
 
 class OmniverseWrapper(object):
-    def __init__(self, live_edit: bool = False, destination: str = "") -> None:
+    def __init__(
+        self,
+        live_edit: bool = False,
+        destination: str = "",
+        line_width: float = -0.0001,
+        use_lines: bool = False,
+    ) -> None:
         self._cleaned_index = 0
         self._cleaned_names: dict = {}
         self._connectionStatusSubscription = None
@@ -54,6 +61,9 @@ class OmniverseWrapper(object):
         if destination:
             self.destination = destination
 
+        self._line_width = line_width
+        self._use_lines = use_lines
+
     @property
     def destination(self) -> str:
         """The current output directory."""
@@ -64,6 +74,18 @@ class OmniverseWrapper(object):
         self._destinationPath = directory
         if not self.is_valid_destination(directory):
             logging.warning(f"Invalid destination path: {directory}")
+
+    @property
+    def line_width(self) -> float:
+        return self._line_width
+
+    @line_width.setter
+    def line_width(self, line_width: float) -> None:
+        self._line_width = line_width
+
+    @property
+    def use_lines(self) -> bool:
+        return self._use_lines
 
     def shutdown(self) -> None:
         """
@@ -274,7 +296,7 @@ class OmniverseWrapper(object):
             mesh.CreateDoubleSidedAttr().Set(True)
             mesh.CreatePointsAttr(verts)
             mesh.CreateNormalsAttr(normals)
-            mesh.CreateFaceVertexCountsAttr([3] * int(conn.size / 3))
+            mesh.CreateFaceVertexCountsAttr([3] * (conn.size // 3))
             mesh.CreateFaceVertexIndicesAttr(conn)
             if (tcoords is not None) and variable:
                 # USD 22.08 changed the primvar API
@@ -333,6 +355,100 @@ class OmniverseWrapper(object):
         if timeline[0] < timeline[1]:
             visibility_attr.Set("invisible", timeline[1] * self._time_codes_per_second)
         return timestep_prim
+
+    def create_dsg_lines(
+        self,
+        name,
+        id,
+        part_hash,
+        parent_prim,
+        verts,
+        tcoords,
+        matrix=[1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+        diffuse=[1.0, 1.0, 1.0, 1.0],
+        variable=None,
+        timeline=[0.0, 0.0],
+        first_timestep=False,
+    ):
+        # 1D texture map for variables https://graphics.pixar.com/usd/release/tut_simple_shading.html
+        # create the part usd object
+        partname = self.clean_name(name + part_hash.hexdigest())
+        stage_name = "/Parts/" + partname + ".usd"
+        part_stage_url = self.stage_url(os.path.join("Parts", partname + ".usd"))
+        part_stage = None
+
+        # TODO: GLB extension maps to DSG PART attribute map
+        width = self.line_width
+        wireframe = width == 0.0
+        if width < 0.0:
+            tmp = verts.reshape(-1, 3)
+            mins = numpy.min(tmp, axis=0)
+            maxs = numpy.max(tmp, axis=0)
+            dx = maxs[0] - mins[0]
+            dy = maxs[1] - mins[1]
+            dz = maxs[2] - mins[2]
+            diagonal = math.sqrt(dx * dx + dy * dy + dz * dz)
+            width = diagonal * math.fabs(width)
+            self.line_width = width
+
+        # For the present, only line colors are supported, no texturing
+        # var_cmd = variable
+        var_cmd = None
+
+        if not os.path.exists(part_stage_url):
+            part_stage = Usd.Stage.CreateNew(part_stage_url)
+            self._old_stages.append(part_stage_url)
+            xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
+            lines = UsdGeom.BasisCurves.Define(part_stage, "/" + partname + "/Lines")
+            lines.CreateDoubleSidedAttr().Set(True)
+            lines.CreatePointsAttr(verts)
+            lines.CreateCurveVertexCountsAttr([2] * (verts.size // 6))
+            lines.CreatePurposeAttr().Set("render")
+            lines.CreateTypeAttr().Set("linear")
+            lines.CreateWidthsAttr([width])
+            lines.SetWidthsInterpolation("constant")
+            prim = lines.GetPrim()
+            prim.CreateAttribute(
+                "omni:scene:visualization:drawWireframe", Sdf.ValueTypeNames.Bool
+            ).Set(wireframe)
+            if (tcoords is not None) and var_cmd:
+                # USD 22.08 changed the primvar API
+                if hasattr(lines, "CreatePrimvar"):
+                    texCoords = lines.CreatePrimvar(
+                        "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+                    )
+                else:
+                    primvarsAPI = UsdGeom.PrimvarsAPI(lines)
+                    texCoords = primvarsAPI.CreatePrimvar(
+                        "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+                    )
+                texCoords.Set(tcoords)
+                texCoords.SetInterpolation("vertex")
+            part_prim = part_stage.GetPrimAtPath("/" + partname)
+            part_stage.SetDefaultPrim(part_prim)
+
+            # Currently, this will never happen, but it is a setup for rigid body transforms
+            # At present, the group transforms have been cooked into the vertices so this is not needed
+            matrixOp = xform.AddXformOp(
+                UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
+            )
+            matrixOp.Set(Gf.Matrix4d(*matrix).GetTranspose())
+
+            self.create_dsg_material(
+                part_stage, lines, "/" + partname, diffuse=diffuse, variable=var_cmd
+            )
+
+        timestep_prim = self.add_timestep_group(parent_prim, timeline, first_timestep)
+
+        # glue it into our stage
+        path = timestep_prim.GetPath().AppendChild("part_ref_" + partname)
+        part_ref = self._stage.OverridePrim(path)
+        part_ref.GetReferences().AddReference("." + stage_name)
+
+        if part_stage is not None:
+            part_stage.GetRootLayer().Save()
+
+        return part_stage_url
 
     def create_dsg_points(
         self,
@@ -645,6 +761,31 @@ class OmniverseUpdateHandler(UpdateHandler):
                     timeline=self.session.cur_timeline,
                     first_timestep=(self.session.cur_timeline[0] == self.session.time_limits[0]),
                 )
+            if self._omni.use_lines:
+                command, verts, tcoords, var_cmd = part.line_rep()
+                if command is not None:
+                    line_color = [
+                        part.cmd.line_color[0] * part.cmd.diffuse,
+                        part.cmd.line_color[1] * part.cmd.diffuse,
+                        part.cmd.line_color[2] * part.cmd.diffuse,
+                        part.cmd.line_color[3],
+                    ]
+                    # Generate the lines
+                    _ = self._omni.create_dsg_lines(
+                        name,
+                        obj_id,
+                        part.hash,
+                        parent_prim,
+                        verts,
+                        tcoords,
+                        matrix=matrix,
+                        diffuse=line_color,
+                        variable=var_cmd,
+                        timeline=self.session.cur_timeline,
+                        first_timestep=(
+                            self.session.cur_timeline[0] == self.session.time_limits[0]
+                        ),
+                    )
 
         elif part.cmd.render == part.cmd.NODES:
             command, verts, sizes, colors, var_cmd = part.point_rep()

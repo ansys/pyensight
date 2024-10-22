@@ -78,6 +78,8 @@ class OmniverseGeometryServer(object):
         normalize_geometry: bool = False,
         dsg_uri: str = "",
         monitor_directory: str = "",
+        line_width: float = -0.0001,
+        use_lines: bool = False,
     ) -> None:
         self._dsg_uri = dsg_uri
         self._destination = destination
@@ -93,6 +95,8 @@ class OmniverseGeometryServer(object):
         self._server_process = None
         self._status_filename: str = ""
         self._monitor_directory: str = monitor_directory
+        self._line_width = line_width
+        self._use_lines = use_lines
 
     @property
     def monitor_directory(self) -> Optional[str]:
@@ -184,7 +188,9 @@ class OmniverseGeometryServer(object):
         """
 
         # Build the Omniverse connection
-        omni_link = ov_dsg_server.OmniverseWrapper(destination=self._destination)
+        omni_link = ov_dsg_server.OmniverseWrapper(
+            destination=self._destination, line_width=self._line_width, use_lines=self._use_lines
+        )
         logging.info("Omniverse connection established.")
 
         # parse the DSG USI
@@ -269,7 +275,9 @@ class OmniverseGeometryServer(object):
                 return
 
         # Build the Omniverse connection
-        omni_link = ov_dsg_server.OmniverseWrapper(destination=self._destination)
+        omni_link = ov_dsg_server.OmniverseWrapper(
+            destination=self._destination, line_width=self._line_width, use_lines=self._use_lines
+        )
         logging.info("Omniverse connection established.")
 
         # use an OmniverseUpdateHandler
@@ -449,6 +457,20 @@ if __name__ == "__main__":
         type=str2bool_type,
         help="Convert a single geometry into USD and exit.  Default: false",
     )
+    line_default: Any = os.environ.get("ANSYS_OV_LINE_WIDTH", None)
+    if line_default is not None:
+        try:
+            line_default = float(line_default)
+        except ValueError:
+            line_default = None
+    # Potential future default: -0.0001
+    parser.add_argument(
+        "--line_width",
+        metavar="line_width",
+        default=line_default,
+        type=float,
+        help=f"Width of lines: >0=absolute size. <0=fraction of diagonal. 0=wireframe. Default: {line_default}",
+    )
 
     # parse the command line
     args = parser.parse_args()
@@ -469,6 +491,12 @@ if __name__ == "__main__":
         logging.root.removeHandler(logging.root.handlers[0])
     logging.basicConfig(**log_args)  # type: ignore
 
+    # size of lines in data units or fraction of bounding box diagonal
+    use_lines = args.line_width is not None
+    line_width = -0.0001
+    if args.line_width is not None:
+        line_width = args.line_width
+
     # Build the server object
     server = OmniverseGeometryServer(
         destination=args.destination,
@@ -479,6 +507,8 @@ if __name__ == "__main__":
         normalize_geometry=args.normalize_geometry,
         vrmode=not args.include_camera,
         temporal=args.temporal,
+        line_width=line_width,
+        use_lines=use_lines,
     )
 
     # run the server
