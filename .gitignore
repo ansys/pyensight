@@ -37,6 +37,7 @@ dist/
 _autosummary
 _examples
 _build
+sg_execution_times.rst
 
 # Testing
 .coverage

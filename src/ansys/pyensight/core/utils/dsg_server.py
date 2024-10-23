@@ -142,7 +142,7 @@ class Part(object):
             self.session.log(f"Note: part '{self.cmd.name}' contains no triangles.")
             return None, None, None, None, None, None
         verts = self.coords
-        self.normalize_verts(verts)
+        _ = self._normalize_verts(verts)
 
         conn = self.conn_tris
         normals = self.normals
@@ -151,7 +151,7 @@ class Part(object):
             tcoords = self.tcoords
         if self.tcoords_elem or self.normals_elem:
             verts_per_prim = 3
-            num_prims = int(conn.size / verts_per_prim)
+            num_prims = conn.size // verts_per_prim
             # "flatten" the triangles to move values from elements to nodes
             new_verts = numpy.ndarray((num_prims * verts_per_prim * 3,), dtype="float32")
             new_conn = numpy.ndarray((num_prims * verts_per_prim,), dtype="int32")
@@ -205,47 +205,16 @@ class Part(object):
         var_cmd = None
         # texture coords need transformation from variable value to [ST]
         if tcoords is not None:
-            var_dsg_id = self.cmd.color_variableid
-            var_cmd = self.session.variables[var_dsg_id]
-            v_min = None
-            v_max = None
-            for lvl in var_cmd.levels:
-                if (v_min is None) or (v_min > lvl.value):
-                    v_min = lvl.value
-                if (v_max is None) or (v_max < lvl.value):
-                    v_max = lvl.value
-            var_minmax = [v_min, v_max]
-            # build a power of two x 1 texture
-            num_texels = int(len(var_cmd.texture) / 4)
-            half_texel = 1 / (num_texels * 2.0)
-            num_verts = int(verts.size / 3)
-            tmp = numpy.ndarray((num_verts * 2,), dtype="float32")
-            tmp.fill(0.5)  # fill in the T coordinate...
-            tex_width = half_texel * 2 * (num_texels - 1)  # center to center of num_texels
-            # if the range is 0, adjust the min by -1.   The result is that the texture
-            # coords will get mapped to S=1.0 which is what EnSight does in this situation
-            if (var_minmax[1] - var_minmax[0]) == 0.0:
-                var_minmax[0] = var_minmax[0] - 1.0
-            var_width = var_minmax[1] - var_minmax[0]
-            for idx in range(num_verts):
-                # normalized S coord value (clamp)
-                s = (tcoords[idx] - var_minmax[0]) / var_width
-                if s < 0.0:
-                    s = 0.0
-                if s > 1.0:
-                    s = 1.0
-                # map to the texture range and set the S value
-                tmp[idx * 2] = s * tex_width + half_texel
-            tcoords = tmp
+            tcoords, var_cmd = self._build_st_coords(tcoords, verts.size // 3)
 
         self.session.log(
-            f"Part '{self.cmd.name}' defined: {self.coords.size/3} verts, {self.conn_tris.size/3} tris."
+            f"Part '{self.cmd.name}' defined: {self.coords.size // 3} verts, {self.conn_tris.size // 3} tris."
         )
         command = self.cmd
 
         return command, verts, conn, normals, tcoords, var_cmd
 
-    def normalize_verts(self, verts: numpy.ndarray):
+    def _normalize_verts(self, verts: numpy.ndarray):
         """
         This function scales and translates vertices, so the longest axis in the scene is of
         length 1.0, and data is centered at the origin
@@ -254,7 +223,7 @@ class Part(object):
         """
         s = 1.0
         if self.session.normalize_geometry and self.session.scene_bounds is not None:
-            num_verts = int(verts.size / 3)
+            num_verts = verts.size // 3
             midx = (self.session.scene_bounds[3] + self.session.scene_bounds[0]) * 0.5
             midy = (self.session.scene_bounds[4] + self.session.scene_bounds[1]) * 0.5
             midz = (self.session.scene_bounds[5] + self.session.scene_bounds[2]) * 0.5
@@ -274,6 +243,118 @@ class Part(object):
                 verts[j + 1] = (verts[j + 1] - midy) / s
                 verts[j + 2] = (verts[j + 2] - midz) / s
         return 1.0 / s
+
+    def _build_st_coords(self, tcoords: numpy.ndarray, num_verts: int):
+        """
+        The Omniverse interface uses 2D texturing (s,t) to reference the texture map.
+        This method converts DSG texture coordinates (1D and in "variable" units) into
+        2D OpenGL style [0.,1.] normalized coordinate space.  the "t" coordinate will
+        always be 0.5.
+
+        Parameters
+        ----------
+        tcoords: numpy.ndarray
+            The DSG 1D texture coordinates, which are actually variable values.
+
+        num_verts: int
+            The number of vertices in the mesh.
+
+        Returns
+        -------
+        numpy.ndarray, Any
+            The ST OpenGL GL texture coordinate array and the variable definition DSG command.
+        """
+        var_dsg_id = self.cmd.color_variableid  # type: ignore
+        var_cmd = self.session.variables[var_dsg_id]
+        v_min = None
+        v_max = None
+        for lvl in var_cmd.levels:
+            if (v_min is None) or (v_min > lvl.value):
+                v_min = lvl.value
+            if (v_max is None) or (v_max < lvl.value):
+                v_max = lvl.value
+        var_minmax: List[float] = [v_min, v_max]  # type: ignore
+        # build a power of two x 1 texture
+        num_texels = len(var_cmd.texture) // 4
+        half_texel = 1 / (num_texels * 2.0)
+        tmp = numpy.ndarray((num_verts * 2,), dtype="float32")
+        tmp.fill(0.5)  # fill in the T coordinate...
+        tex_width = half_texel * 2 * (num_texels - 1)  # center to center of num_texels
+        # if the range is 0, adjust the min by -1.   The result is that the texture
+        # coords will get mapped to S=1.0 which is what EnSight does in this situation
+        if (var_minmax[1] - var_minmax[0]) == 0.0:
+            var_minmax[0] = var_minmax[0] - 1.0
+        var_width = var_minmax[1] - var_minmax[0]
+        for idx in range(num_verts):
+            # normalized S coord value (clamp)
+            s = (tcoords[idx] - var_minmax[0]) / var_width
+            if s < 0.0:
+                s = 0.0
+            if s > 1.0:
+                s = 1.0
+            # map to the texture range and set the S value
+            tmp[idx * 2] = s * tex_width + half_texel
+        return tmp, var_cmd
+
+    def line_rep(self):
+        """
+        This function processes the geometry arrays and returns values to represent line data.
+        The vertex array embeds the connectivity, so every two points represent a line segment.
+        The tcoords similarly follow the vertex array notion.
+
+        Returns
+        -------
+        On failure, the method returns None for the first return value.  The returned tuple is:
+
+        (part_command, vertices, connectivity, tex_coords, var_command)
+
+        part_command: UPDATE_PART command object
+        vertices: numpy array of per-node coordinates (two per line segment)
+        tcoords: numpy array of per vertex texture coordinates (optional)
+        var_command: UPDATE_VARIABLE command object for the variable the colors correspond to, if any
+        """
+        if self.cmd is None:
+            return None, None, None, None
+        if self.cmd.render != self.cmd.CONNECTIVITY:
+            # Early out.  Rendering type for this object is a surface rep, not a point rep
+            return None, None, None, None
+
+        num_lines = self.conn_lines.size // 2
+        if num_lines == 0:
+            return None, None, None, None
+        verts = numpy.ndarray((num_lines * 2 * 3,), dtype="float32")
+        tcoords = None
+        if self.tcoords.size:
+            tcoords = numpy.ndarray((num_lines * 2,), dtype="float32")
+        # TODO: handle elemental line values (self.tcoords_elem) by converting to nodal...
+        # if self.tcoords_elem:
+        for i in range(num_lines):
+            i0 = self.conn_lines[i * 2]
+            i1 = self.conn_lines[i * 2 + 1]
+            offset = i * 6
+            verts[offset + 0] = self.coords[i0 * 3 + 0]
+            verts[offset + 1] = self.coords[i0 * 3 + 1]
+            verts[offset + 2] = self.coords[i0 * 3 + 2]
+            verts[offset + 3] = self.coords[i1 * 3 + 0]
+            verts[offset + 4] = self.coords[i1 * 3 + 1]
+            verts[offset + 5] = self.coords[i1 * 3 + 2]
+            if tcoords is not None:
+                # tcoords are 1D at this point
+                offset = i * 2
+                tcoords[offset + 0] = self.tcoords[i0]
+                tcoords[offset + 1] = self.tcoords[i1]
+
+        _ = self._normalize_verts(verts)
+
+        var_cmd = None
+        # texture coords need transformation from variable value to [ST]
+        if tcoords is not None:
+            tcoords, var_cmd = self._build_st_coords(tcoords, verts.size // 3)
+
+        self.session.log(f"Part '{self.cmd.name}' defined: {num_lines} lines.")
+        command = self.cmd
+
+        return command, verts, tcoords, var_cmd
 
     def point_rep(self):
         """
@@ -297,8 +378,8 @@ class Part(object):
             # Early out.  Rendering type for this object is a surface rep, not a point rep
             return None, None, None, None, None
         verts = self.coords
-        num_verts = int(verts.size / 3)
-        norm_scale = self.normalize_verts(verts)
+        num_verts = verts.size // 3
+        norm_scale = self._normalize_verts(verts)
 
         # Convert var values in self.tcoords to RGB colors
         # For now, look up RGB colors.  Planned USD enhancements should allow tex coords instead.
@@ -359,7 +440,7 @@ class Part(object):
                                 colors[idx * 3 + ii] = (
                                     col0[ii] * pal_sub + col1[ii] * (1.0 - pal_sub)
                                 ) / 255.0
-            self.session.log(f"Part '{self.cmd.name}' defined: {self.coords.size/3} points.")
+            self.session.log(f"Part '{self.cmd.name}' defined: {self.coords.size // 3} points.")
 
         node_sizes = None
         if self.node_sizes.size and self.node_sizes.size == num_verts:
@@ -375,7 +456,7 @@ class Part(object):
             for ii in range(0, num_verts):
                 node_sizes[ii] = node_size_default
 
-        self.session.log(f"Part '{self.cmd.name}' defined: {self.coords.size/3} points.")
+        self.session.log(f"Part '{self.cmd.name}' defined: {self.coords.size // 3} points.")
         command = self.cmd
 
         return command, verts, node_sizes, colors, var_cmd

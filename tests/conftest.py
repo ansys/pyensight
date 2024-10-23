@@ -8,6 +8,7 @@ from unittest import mock
 import ansys.pyensight.core
 from ansys.pyensight.core import enshell_grpc, ensight_grpc
 from ansys.pyensight.core.dockerlauncher import DockerLauncher
+from ansys.pyensight.core.libuserd import LibUserd
 from ansys.pyensight.core.locallauncher import LocalLauncher
 from ansys.pyensight.core.session import Session
 import numpy
@@ -20,11 +21,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
     $ pytest tests --install-path "/ansys_inc/v231/CEI/bin/ensight"
     TODO: Default must be set to the one on the CI/CD server.
     """
-    parser.addoption(
-        "--install-path",
-        action="store",
-        default=f"/ansys_inc/v{ansys.pyensight.core.__ansys_version__}/",
-    )
+    parser.addoption("--install-path", action="store")
     parser.addoption("--use-local-launcher", default=False, action="store_true")
 
 
@@ -140,3 +137,36 @@ def mocked_session(mocker, tmpdir, enshell_mock) -> "Session":
     session._build_utils_interface()
     session._cei_suffix = "345"
     return session
+
+
+@pytest.fixture
+def launch_libuserd_and_get_files(tmpdir, pytestconfig: pytest.Config):
+    def _files(filename1, filename2, filepath1, filepath2):
+        data_dir = tmpdir.mkdir("datadir")
+        use_local = pytestconfig.getoption("use_local_launcher")
+        install_path = pytestconfig.getoption("install_path")
+        session = None
+        if use_local:
+            # Launch locally
+            libuserd = LibUserd(ansys_installation=install_path)
+            session = LocalLauncher(ansys_installation=install_path).start()
+        else:
+            # Launch on docker otherwise
+            libuserd = LibUserd(use_docker=True, use_dev=True, data_directory=data_dir)
+            session = DockerLauncher(use_dev=True, data_directory=data_dir).start()
+
+        libuserd.initialize()
+
+        file1_userd = libuserd.download_pyansys_example(filename1, filepath1)
+        file1_session = session.download_pyansys_example(filename1, filepath1)
+
+        if filename2 is None:
+            file2_userd = ""
+            file2_session = ""
+        else:
+            file2_userd = libuserd.download_pyansys_example(filename2, filepath2)
+            file2_session = session.download_pyansys_example(filename2, filepath2)
+
+        return file1_userd, file2_userd, file1_session, file2_session, libuserd, session, data_dir
+
+    return _files

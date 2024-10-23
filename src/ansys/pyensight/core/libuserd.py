@@ -1330,6 +1330,13 @@ class LibUserd(object):
             # ways, we'll add that one too, just in case.
             dirs_to_check.append(os.path.join(env_inst, "CEI"))
 
+        try:
+            import enve
+
+            dirs_to_check.append(enve.home())
+        except ModuleNotFoundError:
+            pass
+
         if "CEI_HOME" in os.environ:
             env_inst = os.environ["CEI_HOME"]
             dirs_to_check.append(env_inst)
