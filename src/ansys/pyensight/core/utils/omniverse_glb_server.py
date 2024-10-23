@@ -359,7 +359,13 @@ class GLBSession(dsg_server.DSGSession):
             # Walk texture nodes -> DSG Variable buffers
             for tex_idx, texture in enumerate(self._gltf.textures):
                 image = self._gltf.images[texture.source]
-                raw_png = self._gltf.get_data_from_buffer_uri(image.uri)
+                if image.uri is None:
+                    bv = self._gltf.bufferViews[image.bufferView]
+                    raw_png = self._gltf.binary_blob()[
+                        bv.byteOffset : bv.byteOffset + bv.byteLength
+                    ]
+                else:
+                    raw_png = self._gltf.get_data_from_buffer_uri(image.uri)
                 png_img = Image.open(io.BytesIO(raw_png))
                 raw_rgba = png_img.tobytes()
                 raw_rgba = raw_rgba[0 : len(raw_rgba) // png_img.size[1]]
