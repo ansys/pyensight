@@ -1,0 +1,6 @@
+band\_clear\_all
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: function.band_clear_all
