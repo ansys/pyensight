@@ -34,7 +34,7 @@ from typing import Any, Dict, List, Optional
 from ansys.pyensight.core.utils.dsg_server import Part, UpdateHandler
 import numpy
 import png
-from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdShade
+from pxr import Gf, Kind, Sdf, Usd, UsdGeom, UsdLux, UsdShade
 
 
 class OmniverseWrapper(object):
@@ -299,16 +299,10 @@ class OmniverseWrapper(object):
             mesh.CreateFaceVertexCountsAttr([3] * (conn.size // 3))
             mesh.CreateFaceVertexIndicesAttr(conn)
             if (tcoords is not None) and variable:
-                # USD 22.08 changed the primvar API
-                if hasattr(mesh, "CreatePrimvar"):
-                    texCoords = mesh.CreatePrimvar(
-                        "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
-                    )
-                else:
-                    primvarsAPI = UsdGeom.PrimvarsAPI(mesh)
-                    texCoords = primvarsAPI.CreatePrimvar(
-                        "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
-                    )
+                primvarsAPI = UsdGeom.PrimvarsAPI(mesh)
+                texCoords = primvarsAPI.CreatePrimvar(
+                    "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+                )
                 texCoords.Set(tcoords)
                 texCoords.SetInterpolation("vertex")
             part_prim = part_stage.GetPrimAtPath("/" + partname)
@@ -372,7 +366,7 @@ class OmniverseWrapper(object):
     ):
         # 1D texture map for variables https://graphics.pixar.com/usd/release/tut_simple_shading.html
         # create the part usd object
-        partname = self.clean_name(name + part_hash.hexdigest())
+        partname = self.clean_name(name + part_hash.hexdigest()) + "_l"
         stage_name = "/Parts/" + partname + ".usd"
         part_stage_url = self.stage_url(os.path.join("Parts", partname + ".usd"))
         part_stage = None
@@ -391,9 +385,7 @@ class OmniverseWrapper(object):
             width = diagonal * math.fabs(width)
             self.line_width = width
 
-        # For the present, only line colors are supported, no texturing
-        # var_cmd = variable
-        var_cmd = None
+        var_cmd = variable
 
         if not os.path.exists(part_stage_url):
             part_stage = Usd.Stage.CreateNew(part_stage_url)
@@ -407,21 +399,22 @@ class OmniverseWrapper(object):
             lines.CreateTypeAttr().Set("linear")
             lines.CreateWidthsAttr([width])
             lines.SetWidthsInterpolation("constant")
+            # Rounded endpoint are a primvar
+            primvarsAPI = UsdGeom.PrimvarsAPI(lines)
+            endCaps = primvarsAPI.CreatePrimvar(
+                "endcaps", Sdf.ValueTypeNames.Int, UsdGeom.Tokens.constant
+            )
+            endCaps.Set(2)  # Rounded = 2
+
             prim = lines.GetPrim()
             prim.CreateAttribute(
                 "omni:scene:visualization:drawWireframe", Sdf.ValueTypeNames.Bool
             ).Set(wireframe)
             if (tcoords is not None) and var_cmd:
-                # USD 22.08 changed the primvar API
-                if hasattr(lines, "CreatePrimvar"):
-                    texCoords = lines.CreatePrimvar(
-                        "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
-                    )
-                else:
-                    primvarsAPI = UsdGeom.PrimvarsAPI(lines)
-                    texCoords = primvarsAPI.CreatePrimvar(
-                        "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
-                    )
+                primvarsAPI = UsdGeom.PrimvarsAPI(lines)
+                texCoords = primvarsAPI.CreatePrimvar(
+                    "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+                )
                 texCoords.Set(tcoords)
                 texCoords.SetInterpolation("vertex")
             part_prim = part_stage.GetPrimAtPath("/" + partname)
@@ -615,7 +608,6 @@ class OmniverseWrapper(object):
             trans_row = look_at.GetRow(3)
             trans_row = Gf.Vec4d(-trans_row[0], -trans_row[1], -trans_row[2], trans_row[3])
             look_at.SetRow(3, trans_row)
-            # print(look_at)
             cam.transform = look_at
 
             # set the updated camera
@@ -650,10 +642,17 @@ class OmniverseWrapper(object):
         if not group_prim:
             group_prim = UsdGeom.Xform.Define(self._stage, path)
             # At present, the group transforms have been cooked into the vertices so this is not needed
-            matrixOp = group_prim.AddXformOp(
+            matrix_op = group_prim.AddXformOp(
                 UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
             )
-            matrixOp.Set(Gf.Matrix4d(*matrix).GetTranspose())
+            matrix_op.Set(Gf.Matrix4d(*matrix).GetTranspose())
+            # Map kinds
+            kind = Kind.Tokens.group
+            if obj_type == "ENS_CASE":
+                kind = Kind.Tokens.assembly
+            elif obj_type == "ENS_PART":
+                kind = Kind.Tokens.component
+            Usd.ModelAPI(group_prim).SetKind(kind)
             logging.info(f"Created group:'{name}' {str(obj_type)}")
         return group_prim
 
@@ -743,8 +742,10 @@ class OmniverseUpdateHandler(UpdateHandler):
         ]
 
         if part.cmd.render == part.cmd.CONNECTIVITY:
+            has_triangles = False
             command, verts, conn, normals, tcoords, var_cmd = part.nodal_surface_rep()
             if command is not None:
+                has_triangles = True
                 # Generate the mesh block
                 _ = self._omni.create_dsg_mesh_block(
                     name,
@@ -764,12 +765,21 @@ class OmniverseUpdateHandler(UpdateHandler):
             if self._omni.use_lines:
                 command, verts, tcoords, var_cmd = part.line_rep()
                 if command is not None:
-                    line_color = [
-                        part.cmd.line_color[0] * part.cmd.diffuse,
-                        part.cmd.line_color[1] * part.cmd.diffuse,
-                        part.cmd.line_color[2] * part.cmd.diffuse,
-                        part.cmd.line_color[3],
-                    ]
+                    # If there are no triangle (ideally if these are not hidden line
+                    # edges), then use the base color for the part.  If there are
+                    # triangles, then assume these are hidden line edges and use the
+                    # line_color.
+                    line_color = color
+                    if has_triangles:
+                        line_color = [
+                            part.cmd.line_color[0] * part.cmd.diffuse,
+                            part.cmd.line_color[1] * part.cmd.diffuse,
+                            part.cmd.line_color[2] * part.cmd.diffuse,
+                            part.cmd.line_color[3],
+                        ]
+                    # TODO: texture coordinates on lines are current invalid in OV
+                    var_cmd = None
+                    tcoords = None
                     # Generate the lines
                     _ = self._omni.create_dsg_lines(
                         name,
