@@ -3,11 +3,12 @@
 PyEnSight/ANSYS Omniverse Interface
 ===================================
 
-This release of PyEnSight includes an interface to export the surfaces
-in the current EnSight scene to an Omniverse server.  This functionality
-is was developed against the "203" (2023.x) version of Omniverse.  Other
-versions may or may not work.  The interface supports EnSight 2023 R2
-or later.
+PyEnSight includes an interface to export geometry representing the
+current EnSight scene to an Omniverse server.  The interface supports
+EnSight 2023 R2 or later.  It leverages the EnSight Dynamic Scene Graph
+gRPC interface to access the scene.  It is also possible to export
+EnSight scene as glTF (GLB) format files and convert them into USD
+format.
 
 The API is available through a PyEnSight session instance, from EnSight
 Python directly as (ensight.utils.omniverse for 2025 R1 and later) and
@@ -20,18 +21,18 @@ The Python API is defined here: :class:`Omniverse<ansys.pyensight.core.utils.omn
 PyEnSight and EnSight Python API
 --------------------------------
 
-If you are using the
-`ansys-pyensight-core <https://pypi.org/project/ansys-pyensight-core/>`_ module
-in your own python, one can just use the API like this:
+The API can be used directly from a local Python installation of the
+`ansys-pyensight-core <https://pypi.org/project/ansys-pyensight-core/>`_ module:
 
 .. code-block:: python
 
     from ansys.pyensight.core import LocalLauncher
     s = LocalLauncher(batch=False).start()
     s.load_example("waterbreak.ens")
+    # The directory to save USD representation into
+    usd_directory = "/omniverse/examples/water"
     # Start a new connection between EnSight and Omniverse
-    directory = "/omniverse/examples/water"
-    s.ensight.utils.omniverse.create_connection(directory)
+    s.ensight.utils.omniverse.create_connection(usd_directory)
     # Do some work...
     # Push a scene update
     s.ensight.utils.omniverse.update()
@@ -58,8 +59,8 @@ From inside an EnSight session, the API is similar:
     options = {"host": "127.0.0.1", "port": str(grpc_port)}
     if security:
         options["security"] = security
-    directory = "/omniverse/examples/water"
-    ensight.utils.omniverse.create_connection(directory, options=options)
+    usd_directory = "/omniverse/examples/water"
+    ensight.utils.omniverse.create_connection(usd_directory, options=options)
     # Do some more work...
     # Push a scene update
     ensight.utils.omniverse.update()
@@ -67,8 +68,9 @@ From inside an EnSight session, the API is similar:
 
 After running the script, the scene will appear in any Omniverse kit tree view
 under the specified directory.  The file ``dsg_scene.usd`` can be loaded into
-Composer.  The ``ensight.utils.omniverse.update()`` command can be used to update
-the USD data in Omniverse, reflecting any recent changes in the EnSight scene.
+Omniverse applications such as Create.  The ``ensight.utils.omniverse.update()`` command
+may be used to update the USD data in Omniverse, reflecting any recent changes in
+the EnSight scene.
 
 Starting with 2025 R1, one can also access Omniverse via an EnSight
 user-defined tool:
@@ -81,6 +83,7 @@ a mode where it just executes ``ensight.utils.omniverse.update()``
 when the "Export scene" button is clicked.
 
 .. note::
+
     Several of the options are locked in once the service is started.
     To change options like "Temporal", the service must often be stopped
     and restarted using this dialog.
@@ -115,28 +118,28 @@ scene to Omniverse.
     ``git://github.com/ansys/pyensight.git?branch=main&dir=exts``.
 
 
-Developers: Running via the Command Line
-----------------------------------------
+Running the Scene Exporter via Command Line
+-------------------------------------------
 
-There is an omniverse_cli module included in the pyensight install.
-This module can be used to execute any service operation from the
-command line.  The Python included in the EnSight distribution
-includes this module as well. Assuming the pyensight repository has been
-cloned to: ``D:\repos\pyensight`` the following can be run in a
-Python virtual environment that was used to build the module and
-has it installed:
-
+A pyensight install includes the omniverse_cli module which
+may be used to execute an export operation from the
+command line or launch the export service.  The Python included
+in the EnSight distribution includes this module as well. Assuming
+the pyensight repository has been cloned to: ``D:\repos\pyensight`` the
+following can be run in the Python virtual environment that was
+used to build the module and the module installed:
 
 .. code-block:: bat
 
     cd "D:\repos\pyensight"
     .\venv\Scripts\activate.ps1
     python -m build
+    python -m pip uninstall ansys.pyensight.core -y
     python -m pip install .\dist\ansys_pyensight_core-0.9.0.dev0-py3-none-any.whl
     python -m ansys.pyensight.core.utils.omniverse_cli -h
 
 
-Will generate the following output:
+The following help output will be generated:
 
 
 .. code-block::
@@ -145,6 +148,7 @@ Will generate the following output:
                             [--security_token token] [--monitor_directory glb_directory] [--time_scale time_scale]
                             [--normalize_geometry yes|no|true|false|1|0] [--include_camera yes|no|true|false|1|0]
                             [--temporal yes|no|true|false|1|0] [--oneshot yes|no|true|false|1|0]
+                            [--line_width line_width]
                             destination
 
     PyEnSight Omniverse Geometry Service
@@ -173,13 +177,16 @@ Will generate the following output:
                             Export a temporal scene graph. Default: false
       --oneshot yes|no|true|false|1|0
                             Convert a single geometry into USD and exit. Default: false
+      --line_width line_width
+                            Width of lines: >0=absolute size. <0=fraction of diagonal. 0=wireframe. Default: None
 
 
-Documenting the various command line options.  To start the server, specify the ``destination`` directory
-where the resulting USD files should be saved and provide the correct URI to the ``--dsg_uri`` option
-needed to connect to the EnSight DSG server.  The service will continue to monitor the EnSight
+Documenting the various command line options.  To start a server instance, specify the ``destination``
+directory where the resulting USD files should be saved and provide the correct URI to the ``--dsg_uri``
+option needed to connect to the EnSight DSG server.  The service will continue to monitor the EnSight
 session, pushing geometry updated as specified by the EnSight session until the EnSight session
 is stopped.  If only a single download/conversion is desired, the ``--oneshot 1`` option may be specified.
+
 
 DSG Connection
 ^^^^^^^^^^^^^^
