@@ -269,7 +269,7 @@ Server vs One-Shot Mode
 If the ``--oneshot`` option is not specified, the tool will run in server mode.  It will monitor either
 the DSG protocol or the directory specified by ``--monitor_directory`` option for geometry data.  In
 this mode, the USD scene in the ``destination`` will be updated to reflect the last scene pushed.
-Unreferenced files will be removed and items that do not change will not be updated.  Thus, server
+Unused files will be removed and items that do not change will not be updated.  Thus, server
 mode is best suited for dynamic, interactive applications.
 
 If ``--oneshot`` is specified, only a single conversion is performed and the tool will not maintain
