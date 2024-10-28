@@ -364,13 +364,6 @@ class OmniverseWrapper(object):
         timeline=[0.0, 0.0],
         first_timestep=False,
     ):
-        # 1D texture map for variables https://graphics.pixar.com/usd/release/tut_simple_shading.html
-        # create the part usd object
-        partname = self.clean_name(name + part_hash.hexdigest()) + "_l"
-        stage_name = "/Parts/" + partname + ".usd"
-        part_stage_url = self.stage_url(os.path.join("Parts", partname + ".usd"))
-        part_stage = None
-
         # TODO: GLB extension maps to DSG PART attribute map
         width = self.line_width
         wireframe = width == 0.0
@@ -384,6 +377,16 @@ class OmniverseWrapper(object):
             diagonal = math.sqrt(dx * dx + dy * dy + dz * dz)
             width = diagonal * math.fabs(width)
             self.line_width = width
+
+        # include the line width in the hash
+        part_hash.update(str(self.line_width).encode("utf-8"))
+
+        # 1D texture map for variables https://graphics.pixar.com/usd/release/tut_simple_shading.html
+        # create the part usd object
+        partname = self.clean_name(name + part_hash.hexdigest()) + "_l"
+        stage_name = "/Parts/" + partname + ".usd"
+        part_stage_url = self.stage_url(os.path.join("Parts", partname + ".usd"))
+        part_stage = None
 
         var_cmd = variable
 
