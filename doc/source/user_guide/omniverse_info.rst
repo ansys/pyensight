@@ -181,19 +181,41 @@ The following help output will be generated:
                             Width of lines: >0=absolute size. <0=fraction of diagonal. 0=wireframe. Default: None
 
 
-Documenting the various command line options.  To start a server instance, specify the ``destination``
-directory where the resulting USD files should be saved and provide the correct URI to the ``--dsg_uri``
-option needed to connect to the EnSight DSG server.  The service will continue to monitor the EnSight
-session, pushing geometry updated as specified by the EnSight session until the EnSight session
-is stopped.  If only a single download/conversion is desired, the ``--oneshot 1`` option may be specified.
+Listing the various command line options.
+
+The core operation of this CLI tool is to convert a scene into USD format.  The resulting USD data
+can be read into Omniverse, Blender and other DCC asset pipelines.  The input data for this
+conversion can come from one of two sources: the EnSight Dynamic Scene Graph gRPC server or
+via GLB files.
+
+The command line tool can be run in two different modes: *server* and *one-shot*.  In *one-shot* mode,
+a single conversion, export is performed and the CLI tool exits.  In server mode, an initial
+conversion is performed and the server continues to run, either monitoring a directory for
+scene updates or listening for DSG scene push operations.  The advantage of the latter
+approach is that it is possible for the tool to push incremental updates to the USD scene
+which can be faster and may result in cleaner output over time.
 
 
-DSG Connection
-^^^^^^^^^^^^^^
+Scene Source: DSG Connection
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A continuous DSG server can be started, connected to EnSight run with the command line option
-``-grpc_server 12342`` using the following command line:
+This is the default scene source.  It is selected by the ``--dsg_uri`` command line option which
+defaults to: ``grpc://127.0.0.1:5234``.  In this mode, the tool will attempt to connect to an
+EnSight session via the DSG protocol.  EnSight run with the command line option ``-grpc_server 5234``
+will start the DSG server.  The port number may be varied as needed by the deployment and the
+EnSight session can run on an entirely different system (e.g. remote PyEnSight session) by supplying
+the hostname in the grpc URI specification.
 
+.. note::
+
+    If using remote connections, it is strongly suggested that ``--security_token`` be used to
+    prevent the scene from being observed by other applications.
+    Additionally, if EnSight is not started with a gRPC server option specified, the server
+    can be started later using the EnSight Python APIs.
+
+
+Once the EnSight session has been established, the following command line may be used to start
+a server:
 
 .. code-block:: bat
 
@@ -201,16 +223,101 @@ A continuous DSG server can be started, connected to EnSight run with the comman
 
 
 The server will cause an initial scene push and will then wait, pushing geometry as requested until the
-EnSight session ends.
+EnSight DSG session ends.
 
 
-GLB Conversion
-^^^^^^^^^^^^^^
+Scene Source: GLB Files
+^^^^^^^^^^^^^^^^^^^^^^^
 
-For GLB to USD conversions, ``--monitor_directory`` should point to a directory into which ``.glb`` files are copied.
-The server watches for a file of the same base name as the GLB file, but the extension ``.upload``.
-The server will then convert the file and delete both the GLB file and the upload file.  Additionally,
-if ``--monitor_directory`` is set to the name of a GLB file, that file will be converted into
-USD format into the destination folder.   GLB to USD conversions are only supported for GLB
-files written using the GLTFWriter library (e.g. by Ansys Fluent).
+The GLB file support is restricted to specially formatted GLB files written using the Ansys GLTFWriter
+library from Ansys applications like EnSight and Fluent.  These files contain additional, Ansys specific
+hints that are used to enhance and accelerate the conversions.   The GLB conversion mode is selected
+using the ``--monitor_directory`` command line option.  In server mode, it should point to a directory
+into which ``.glb`` files are copied. The server watches for a file of the same base name as the GLB file,
+but the extension ``.upload``.  The server will then convert the file into USD form and delete both the
+GLB file and the upload file.
 
+For example, if one has a GLB file named: ``car_body.glb``, one should first copy the file into the
+directory specified by ``--monitor_directory`` and once the copy is complete, an empty file
+named: ``car_body.upload`` should be created in the directory as well (the server will not attempt to
+read the GLB file until the ``.upload`` file exists). Once the conversion is complete, the two files
+will be deleted by the server.
+
+.. note::
+
+    The ``.upload`` file can also be a JSON description of the scene which allows for importing
+    of multiple GLB files and setting other options.  This format will be documented in a future
+    release.
+
+
+If the tool is being run in *one-shot* mode, the single GLB file that should be specified using
+``--monitor_directory`` along with the ``--oneshot`` options. For example:
+
+
+.. code-block:: bat
+
+    python -m ansys.pyensight.core.utils.omniverse_cli --monitor_directory d:\source\in_file.glb --oneshot 1 d:\save\usd_files
+
+
+Will convert the single GLB file into USD format and then exit.
+
+.. _OneShotMode:
+
+Server vs One-Shot Mode
+^^^^^^^^^^^^^^^^^^^^^^^
+
+If the ``--oneshot`` option is not specified, the tool will run in server mode.  It will monitor either
+the DSG protocol or the directory specified by ``--monitor_directory`` option for geometry data.  In
+this mode, the USD scene in the ``destination`` will be updated to reflect the last scene pushed.
+Unreferenced files will be removed and items that do not change will not be updated.  Thus, server
+mode is best suited for dynamic, interactive applications.
+
+If ``--oneshot`` is specified, only a single conversion is performed and the tool will not maintain
+a notion of the scene state.  This makes the operation simpler and avoids the need for extra processes,
+however old files from previous export operations will not be removed and the USD directory may need
+to be manually cleaned between export operations.
+
+
+General Options
+^^^^^^^^^^^^^^^
+
+Output options:
+
+* ``--verbose verbose_level`` - Controls the amount of progress and debug information that will be
+  generated.
+* ``--log_file log_filename`` - If specified, the verbose output will be saved to the named file
+  instead of stdout.
+
+
+Several options can be used to customize the scaling of various aspects of the generated output.
+
+* ``--time_scale time_scale`` - If specified, the timestep values in the input geometry stream will be
+  multiplied by this value before being sent into the USD file.  This can be used to do things like
+  transform solution times into video time lines.
+* ``--normalize_geometry yes|no|true|false|1|0`` - If enabled, the largest axis in the input geometry
+  will be scaled to a unit cube and the other axis will be scaled by the same ratio.
+* ``--line_width line_width`` - Input scenes may include lines.  If this option is specified, those
+  lines will be include in the USD output.  The size of the lines are specified in the scene geometry
+  space units by this option.  If this option is negative, the size of the lines will be set to the
+  diagonal of the first geometry block with lines, multiplied by the absolute value of the option.
+  The environmental variable ``ANSYS_OV_LINE_WIDTH`` can be used to specify the default value for
+  this option.
+
+
+Miscellaneous features:
+
+* ``--include_camera yes|no|true|false|1|0`` - By default, the tool will attempt to include
+  the input scene camera in the USD output.  This can be useful when trying to reproduce a
+  specific view.  However, when exporting assets that will be combined later or in
+  interactive/VR/AR use-cases the camera specification can be disabled using this option.
+* ``--temporal yes|no|true|false|1|0`` - When using the DSG geometry source, this option can
+  be used to force time-varying export from EnSight.  The default is to export only the
+  the current timestep.
+* ``--oneshot yes|no|true|false|1|0`` - As discussed earlier, this option is used to disable
+  server mode.  See :ref:`OneShotMode` for details.
+
+
+Material Conversions
+^^^^^^^^^^^^^^^^^^^^
+
+A mechanism for semi-automated mapping of materials is currently a work in progress.
