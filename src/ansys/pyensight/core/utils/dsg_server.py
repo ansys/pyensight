@@ -39,9 +39,22 @@ class Part(object):
         self.node_sizes = numpy.array([], dtype="float32")
         self.cmd: Optional[Any] = None
         self.hash = hashlib.new("sha256")
+        self._material: Optional[Any] = None
         self.reset()
 
     def reset(self, cmd: Any = None) -> None:
+        """
+        Reset the part object state to prepare the object
+        for a new part representation. Numpy arrays are cleared
+        and the state reset.
+
+        Parameters
+        ----------
+        cmd: Any
+            The DSG command that triggered this reset.  Most likely
+            this is a UPDATE_PART command.
+
+        """
         self.conn_tris = numpy.array([], dtype="int32")
         self.conn_lines = numpy.array([], dtype="int32")
         self.coords = numpy.array([], dtype="float32")
@@ -55,6 +68,63 @@ class Part(object):
         if cmd is not None:
             self.hash.update(cmd.hash.encode("utf-8"))
         self.cmd = cmd
+        self._material = None
+
+    def _parse_material(self) -> None:
+        """
+        Parse the JSON string in the part command material string and
+        make the content accessible via material_names() and material().
+        """
+        if self._material is not None:
+            return
+        try:
+            if self.cmd.material_name:  # type: ignore
+                self._material = json.loads(self.cmd.material_name)  # type: ignore
+                for key, value in self._material.items():
+                    value["name"] = key
+            else:
+                self._material = {}
+        except Exception as e:
+            self.session.warn(f"Unable to parse JSON material: {str(e)}")
+            self._material = {}
+
+    def material_names(self) -> List[str]:
+        """
+        Return the list of material names included in the part material.
+
+        Returns
+        -------
+        List[str]
+            The list of defined material names.
+        """
+        self._parse_material()
+        if self._material is None:
+            return []
+        return list(self._material.keys())
+
+    def material(self, name: str = "") -> dict:
+        """
+        Return the material dictionary for the specified material name.
+
+        Parameters
+        ----------
+        name: str
+            The material name to query.  If no material name is given, the
+            first name in the material_names() list is used.
+
+        Returns
+        -------
+        dict
+            The material description dictionary or an empty dictionary.
+        """
+        self._parse_material()
+        if not name:
+            names = self.material_names()
+            if len(names):
+                name = names[0]
+        if self._material is None:
+            return {}
+        return self._material.get(name, {})
 
     def update_geom(self, cmd: dynamic_scene_graph_pb2.UpdateGeom) -> None:
         """
@@ -214,7 +284,7 @@ class Part(object):
 
         return command, verts, conn, normals, tcoords, var_cmd
 
-    def _normalize_verts(self, verts: numpy.ndarray):
+    def _normalize_verts(self, verts: numpy.ndarray) -> float:
         """
         This function scales and translates vertices, so the longest axis in the scene is of
         length 1.0, and data is centered at the origin

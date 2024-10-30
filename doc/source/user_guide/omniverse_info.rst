@@ -270,7 +270,19 @@ If the ``--oneshot`` option is not specified, the tool will run in server mode. 
 the DSG protocol or the directory specified by ``--monitor_directory`` option for geometry data.  In
 this mode, the USD scene in the ``destination`` will be updated to reflect the last scene pushed.
 Unused files will be removed and items that do not change will not be updated.  Thus, server
-mode is best suited for dynamic, interactive applications.
+mode is best suited for dynamic, interactive applications.  If server mode is initiated via the command line,
+a single scene push will automatically be performed.  One can start subsequent push operations
+from the EnSight python interpreter with the following commands.
+
+
+.. code-block:: python
+
+    import enspyqtgui_int
+    # Current timestep
+    enspyqtgui_int.dynamic_scene_graph_command("dynamicscenegraph://localhost/client/update")
+    # All timesteps
+    enspyqtgui_int.dynamic_scene_graph_command("dynamicscenegraph://localhost/client/update?timesteps=1")
+
 
 If ``--oneshot`` is specified, only a single conversion is performed and the tool will not maintain
 a notion of the scene state.  This makes the operation simpler and avoids the need for extra processes,
