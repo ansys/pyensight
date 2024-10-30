@@ -272,7 +272,7 @@ this mode, the USD scene in the ``destination`` will be updated to reflect the l
 Unused files will be removed and items that do not change will not be updated.  Thus, server
 mode is best suited for dynamic, interactive applications.  If server mode is initiated via the command line,
 a single scene push will automatically be performed.  One can start subsequent push operations
-from the EnSight python interpreter with the following command(s).
+from the EnSight python interpreter with the following commands.
 
 
 .. code-block:: python
