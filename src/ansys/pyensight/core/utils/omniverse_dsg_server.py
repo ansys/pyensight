@@ -23,7 +23,6 @@
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 ###############################################################################
-
 import logging
 import math
 import os
@@ -279,6 +278,7 @@ class OmniverseWrapper(object):
         variable=None,
         timeline=[0.0, 0.0],
         first_timestep=False,
+        mat_info={},
     ):
         # 1D texture map for variables https://graphics.pixar.com/usd/release/tut_simple_shading.html
         # create the part usd object
@@ -316,7 +316,12 @@ class OmniverseWrapper(object):
             matrixOp.Set(Gf.Matrix4d(*matrix).GetTranspose())
 
             self.create_dsg_material(
-                part_stage, mesh, "/" + partname, diffuse=diffuse, variable=variable
+                part_stage,
+                mesh,
+                "/" + partname,
+                diffuse=diffuse,
+                variable=variable,
+                mat_info=mat_info,
             )
 
         timestep_prim = self.add_timestep_group(parent_prim, timeline, first_timestep)
@@ -363,6 +368,7 @@ class OmniverseWrapper(object):
         variable=None,
         timeline=[0.0, 0.0],
         first_timestep=False,
+        mat_info={},
     ):
         # TODO: GLB extension maps to DSG PART attribute map
         width = self.line_width
@@ -431,7 +437,12 @@ class OmniverseWrapper(object):
             matrixOp.Set(Gf.Matrix4d(*matrix).GetTranspose())
 
             self.create_dsg_material(
-                part_stage, lines, "/" + partname, diffuse=diffuse, variable=var_cmd
+                part_stage,
+                lines,
+                "/" + partname,
+                diffuse=diffuse,
+                variable=var_cmd,
+                mat_info=mat_info,
             )
 
         timestep_prim = self.add_timestep_group(parent_prim, timeline, first_timestep)
@@ -510,16 +521,19 @@ class OmniverseWrapper(object):
         return part_stage_url
 
     def create_dsg_material(
-        self, stage, mesh, root_name, diffuse=[1.0, 1.0, 1.0, 1.0], variable=None
+        self, stage, mesh, root_name, diffuse=[1.0, 1.0, 1.0, 1.0], variable=None, mat_info={}
     ):
         # https://graphics.pixar.com/usd/release/spec_usdpreviewsurface.html
         # Use ior==1.0 to be more like EnSight - rays of light do not bend when passing through transparent objs
         material = UsdShade.Material.Define(stage, root_name + "/Material")
         pbrShader = UsdShade.Shader.Define(stage, root_name + "/Material/PBRShader")
         pbrShader.CreateIdAttr("UsdPreviewSurface")
-        pbrShader.CreateInput("roughness", Sdf.ValueTypeNames.Float).Set(1.0)
-        pbrShader.CreateInput("metallic", Sdf.ValueTypeNames.Float).Set(0.0)
-        pbrShader.CreateInput("opacity", Sdf.ValueTypeNames.Float).Set(diffuse[3])
+        smoothness = mat_info.get("smoothness", 0.0)
+        pbrShader.CreateInput("roughness", Sdf.ValueTypeNames.Float).Set(1.0 - smoothness)
+        metallic = mat_info.get("metallic", 0.0)
+        pbrShader.CreateInput("metallic", Sdf.ValueTypeNames.Float).Set(metallic)
+        opacity = mat_info.get("opacity", diffuse[3])
+        pbrShader.CreateInput("opacity", Sdf.ValueTypeNames.Float).Set(opacity)
         pbrShader.CreateInput("ior", Sdf.ValueTypeNames.Float).Set(1.0)
         pbrShader.CreateInput("useSpecularWorkflow", Sdf.ValueTypeNames.Int).Set(1)
         if variable:
@@ -543,9 +557,29 @@ class OmniverseWrapper(object):
             stInput.Set("st")
             stReader.CreateInput("varname", Sdf.ValueTypeNames.Token).ConnectToSource(stInput)
         else:
-            scale = 1.0
-            color = Gf.Vec3f(diffuse[0] * scale, diffuse[1] * scale, diffuse[2] * scale)
+            # The colors are a mixture of content from the DSG PART protocol buffer
+            # and the JSON material block from the material_name field.
+            kd = 1.0
+            diffuse_color = [diffuse[0], diffuse[1], diffuse[2]]
+            ke = 1.0
+            emissive_color = [0.0, 0.0, 0.0]
+            ks = 1.0
+            specular_color = [0.0, 0.0, 0.0]
+            mat_name = mat_info.get("name", "")
+            if mat_name.startswith("ensight"):
+                diffuse_color = mat_info.get("diffuse", diffuse_color)
+                if mat_name != "ensight/Default":
+                    ke = mat_info.get("ke", ke)
+                    emissive_color = mat_info.get("emissive", emissive_color)
+                    ks = mat_info.get("ks", ks)
+                    specular_color = mat_info.get("specular", specular_color)
+            # Set the colors
+            color = Gf.Vec3f(diffuse_color[0] * kd, diffuse_color[1] * kd, diffuse_color[2] * kd)
             pbrShader.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).Set(color)
+            color = Gf.Vec3f(emissive_color[0] * ke, emissive_color[1] * ke, emissive_color[2] * ke)
+            pbrShader.CreateInput("emissiveColor", Sdf.ValueTypeNames.Color3f).Set(color)
+            color = Gf.Vec3f(specular_color[0] * ks, specular_color[1] * ks, specular_color[2] * ks)
+            pbrShader.CreateInput("specularColor", Sdf.ValueTypeNames.Color3f).Set(color)
 
         material.CreateSurfaceOutput().ConnectToSource(pbrShader.ConnectableAPI(), "surface")
         UsdShade.MaterialBindingAPI(mesh).Bind(material)
@@ -744,6 +778,7 @@ class OmniverseUpdateHandler(UpdateHandler):
             part.cmd.fill_color[3],
         ]
 
+        mat_info = part.material()
         if part.cmd.render == part.cmd.CONNECTIVITY:
             has_triangles = False
             command, verts, conn, normals, tcoords, var_cmd = part.nodal_surface_rep()
@@ -764,6 +799,7 @@ class OmniverseUpdateHandler(UpdateHandler):
                     variable=var_cmd,
                     timeline=self.session.cur_timeline,
                     first_timestep=(self.session.cur_timeline[0] == self.session.time_limits[0]),
+                    mat_info=mat_info,
                 )
             if self._omni.use_lines:
                 command, verts, tcoords, var_cmd = part.line_rep()
