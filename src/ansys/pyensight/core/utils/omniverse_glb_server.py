@@ -132,38 +132,34 @@ class GLBSession(dsg_server.DSGSession):
         """
         mesh = self._gltf.meshes[meshid]
         for prim_idx, prim in enumerate(mesh.primitives):
-            # POINTS, LINES, LINE_LOOP, LINE_STRIP, TRIANGLES, TRIANGLE_STRIP, TRIANGLE_FAN
+            # TODO: LINE_LOOP, LINE_STRIP, TRIANGLE_STRIP, TRIANGLE_FAN, line width/point size
+            # POINTS, LINES, TRIANGLES,
             mode = prim.mode
             if mode not in (pygltflib.TRIANGLES, pygltflib.LINES, pygltflib.POINTS):
                 self.warn(
-                    f"Unhandled connectivity {mode}. Currently only TRIANGLE and LINE connectivity is supported."
+                    f"Unhandled connectivity {mode}. Currently only POINT, TRIANGLE and LINE connectivity is supported."
                 )
                 continue
             glb_materialid = prim.material
 
+            line_width = self._callback_handler._omni.line_width
+            # TODO: override from scene extension: ANSYS_linewidth
+
             # GLB Prim -> DSG Part
             part_name = f"{parentname}_prim{prim_idx}_"
             cmd, part_pb = self._create_pb("PART", parent_id=parentid, name=part_name)
-            part_pb.render = dynamic_scene_graph_pb2.UpdatePart.RenderingMode.CONNECTIVITY
+            if mode == pygltflib.POINTS:
+                part_pb.render = dynamic_scene_graph_pb2.UpdatePart.RenderingMode.NODES
+                part_pb.node_size_default = line_width
+            else:
+                part_pb.render = dynamic_scene_graph_pb2.UpdatePart.RenderingMode.CONNECTIVITY
             part_pb.shading = dynamic_scene_graph_pb2.UpdatePart.ShadingMode.NODAL
             self._map_material(glb_materialid, part_pb)
             part_dsg_id = part_pb.id
             self._handle_update_command(cmd)
 
             # GLB Attributes -> DSG Geom
-            conn = self._get_data(prim.indices, 0)
-            cmd, conn_pb = self._create_pb("GEOM", parent_id=part_dsg_id)
-            if mode == pygltflib.TRIANGLES:
-                conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.TRIANGLES
-            elif mode == pygltflib.LINES:
-                conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.LINES
-            else:
-                conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.POINTS
-            conn_pb.int_array.extend(conn)
-            conn_pb.chunk_offset = 0
-            conn_pb.total_array_size = len(conn)
-            self._handle_update_command(cmd)
-
+            # Verts
             if prim.attributes.POSITION is not None:
                 verts = self._get_data(prim.attributes.POSITION)
                 cmd, verts_pb = self._create_pb("GEOM", parent_id=part_dsg_id)
@@ -173,6 +169,20 @@ class GLBSession(dsg_server.DSGSession):
                 verts_pb.total_array_size = len(verts)
                 self._handle_update_command(cmd)
 
+            # Connectivity
+            if prim.indices is not None:
+                conn = self._get_data(prim.indices, 0)
+                cmd, conn_pb = self._create_pb("GEOM", parent_id=part_dsg_id)
+                if mode == pygltflib.TRIANGLES:
+                    conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.TRIANGLES
+                elif mode == pygltflib.LINES:
+                    conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.LINES
+                conn_pb.int_array.extend(conn)
+                conn_pb.chunk_offset = 0
+                conn_pb.total_array_size = len(conn)
+                self._handle_update_command(cmd)
+
+            # Normals
             if prim.attributes.NORMAL is not None:
                 normals = self._get_data(prim.attributes.NORMAL)
                 cmd, normals_pb = self._create_pb("GEOM", parent_id=part_dsg_id)
@@ -182,6 +192,7 @@ class GLBSession(dsg_server.DSGSession):
                 normals_pb.total_array_size = len(normals)
                 self._handle_update_command(cmd)
 
+            # Texture coords
             if prim.attributes.TEXCOORD_0 is not None:
                 # Note: texture coords are stored as VEC2, so we get 2 components back
                 texcoords = self._get_data(prim.attributes.TEXCOORD_0, components=2)
