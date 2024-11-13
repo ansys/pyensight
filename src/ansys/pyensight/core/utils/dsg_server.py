@@ -685,6 +685,9 @@ class DSGSession(object):
         self._dsg_queue: Optional[queue.SimpleQueue] = None  # Outgoing messages to EnSight
         self._shutdown = False
         self._dsg = None
+        # Prevent the protobuffer queue from growing w/o limits.  The payload chunking is
+        # around 4MB, so 200 buffers would be a bit less than 1GB.
+        self._max_dsg_queue_size = int(os.environ.get("ANSYS_OV_SERVER_MAX_GRPC_QUEUE_SIZE", "200"))
         self._normalize_geometry = normalize_geometry
         self._vrmode = vrmode
         self._time_scale = time_scale
@@ -710,6 +713,14 @@ class DSGSession(object):
     @property
     def mesh_block_count(self) -> int:
         return self._mesh_block_count
+
+    @property
+    def max_dsg_queue_size(self) -> int:
+        return self._max_dsg_queue_size
+
+    @max_dsg_queue_size.setter
+    def max_dsg_queue_size(self, value: int) -> None:
+        self._max_dsg_queue_size = value
 
     @property
     def vrmode(self) -> bool:
@@ -891,6 +902,11 @@ class DSGSession(object):
         while not self._shutdown:
             try:
                 self._message_queue.put(next(self._dsg))  # type:ignore
+                # if the queue is getting too deep, wait a bit to avoid holding too
+                # many messages (filling up memory)
+                if self.max_dsg_queue_size:
+                    while self._message_queue.qsize() >= self.max_dsg_queue_size:
+                        time.sleep(0.001)
             except Exception:
                 self._shutdown = True
                 self.log("DSG connection broken, calling exit")
