@@ -606,7 +606,7 @@ class RenderableVNC(Renderable):
                 query_args = f', "extra_query_args":"{optional_query[1:]}"'  # pragma: no cover
 
             attributes = ' renderer="envnc"'
-            attributes += f' ui={ui}'
+            attributes += f" ui={ui}"
             attributes += ' active="true"'
             attributes += (
                 " renderer_options='"
