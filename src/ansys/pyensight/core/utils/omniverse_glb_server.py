@@ -132,13 +132,19 @@ class GLBSession(dsg_server.DSGSession):
         """
         mesh = self._gltf.meshes[meshid]
         for prim_idx, prim in enumerate(mesh.primitives):
-            # TODO: LINE_LOOP, LINE_STRIP, TRIANGLE_STRIP, TRIANGLE_FAN, line width/point size
-            # POINTS, LINES, TRIANGLES,
+            # TODO: line width/point size
+            # POINTS, LINES, TRIANGLES, LINE_LOOP, LINE_STRIP, TRIANGLE_STRIP, TRIANGLE_FAN
             mode = prim.mode
-            if mode not in (pygltflib.TRIANGLES, pygltflib.LINES, pygltflib.POINTS):
-                self.warn(
-                    f"Unhandled connectivity {mode}. Currently only POINT, TRIANGLE and LINE connectivity is supported."
-                )
+            if mode not in (
+                pygltflib.TRIANGLES,
+                pygltflib.LINES,
+                pygltflib.POINTS,
+                pygltflib.LINE_LOOP,
+                pygltflib.LINE_STRIP,
+                pygltflib.TRIANGLE_STRIP,
+                pygltflib.TRIANGLE_FAN,
+            ):
+                self.warn(f"Unhandled connectivity detected: {mode}.  Geometry skipped.")
                 continue
             glb_materialid = prim.material
 
@@ -160,8 +166,10 @@ class GLBSession(dsg_server.DSGSession):
 
             # GLB Attributes -> DSG Geom
             # Verts
+            num_verts = 0
             if prim.attributes.POSITION is not None:
                 verts = self._get_data(prim.attributes.POSITION)
+                num_verts = len(verts) // 3
                 cmd, verts_pb = self._create_pb("GEOM", parent_id=part_dsg_id)
                 verts_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.COORDINATES
                 verts_pb.flt_array.extend(verts)
@@ -170,13 +178,28 @@ class GLBSession(dsg_server.DSGSession):
                 self._handle_update_command(cmd)
 
             # Connectivity
-            if prim.indices is not None:
-                conn = self._get_data(prim.indices, 0)
+            if num_verts and (mode != pygltflib.POINTS):
+                if prim.indices is not None:
+                    conn = self._get_data(prim.indices, 0)
+                else:
+                    conn = numpy.array(list(range(num_verts)), dtype=numpy.uint32)
                 cmd, conn_pb = self._create_pb("GEOM", parent_id=part_dsg_id)
                 if mode == pygltflib.TRIANGLES:
                     conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.TRIANGLES
+                elif mode == pygltflib.TRIANGLE_STRIP:
+                    conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.TRIANGLES
+                    conn = self._tri_strip_to_tris(conn)
+                elif mode == pygltflib.TRIANGLE_FAN:
+                    conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.TRIANGLES
+                    conn = self._tri_fan_to_tris(conn)
                 elif mode == pygltflib.LINES:
                     conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.LINES
+                elif mode == pygltflib.LINE_LOOP:
+                    conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.LINES
+                    conn = self._line_loop_to_lines(conn)
+                elif mode == pygltflib.LINE_STRIP:
+                    conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.LINES
+                    conn = self._line_strip_to_lines(conn)
                 conn_pb.int_array.extend(conn)
                 conn_pb.chunk_offset = 0
                 conn_pb.total_array_size = len(conn)
@@ -209,6 +232,103 @@ class GLBSession(dsg_server.DSGSession):
                 if glb_varid:
                     texcoords_pb.variable_id = glb_varid
                 self._handle_update_command(cmd)
+
+    @staticmethod
+    def _tri_strip_to_tris(conn: numpy.ndarray) -> numpy.ndarray:
+        """
+        Convert GL_TRIANGLE_STRIP connectivity into GL_TRIANGLES
+
+        Parameters
+        ----------
+        conn: numpy.ndarray
+            The tri strip connectivity
+
+        Returns
+        -------
+        numpy.array:
+            Triangles connectivity
+        """
+        tris = []
+        swap = False
+        for i in range(len(conn) - 2):
+            tris.append(conn[i])
+            if swap:
+                tris.append(conn[i + 2])
+                tris.append(conn[i + 1])
+            else:
+                tris.append(conn[i + 1])
+                tris.append(conn[i + 2])
+            swap = not swap
+        return numpy.array(tris, dtype=conn.dtype)
+
+    @staticmethod
+    def _tri_fan_to_tris(conn: numpy.ndarray) -> numpy.ndarray:
+        """
+        Convert GL_TRIANGLE_FAN connectivity into GL_TRIANGLES
+
+        Parameters
+        ----------
+        conn: numpy.ndarray
+            The fan connectivity
+
+        Returns
+        -------
+        numpy.array:
+            Triangles connectivity
+        """
+        tris = []
+        for i in range(1, len(conn) - 1):
+            tris.append(conn[0])
+            tris.append(conn[i])
+            tris.append(conn[i + 1])
+        return numpy.array(tris, dtype=conn.dtype)
+
+    @staticmethod
+    def _line_strip_to_lines(conn) -> numpy.ndarray:
+        """
+        Convert GL_LINE_STRIP connectivity into GL_LINES
+
+        Parameters
+        ----------
+        conn: numpy.ndarray
+           The line strip connectivity
+
+        Returns
+        -------
+        numpy.array:
+           Lines connectivity
+        """
+        lines = []
+        num_nodes = len(conn)
+        for i in range(num_nodes - 1):
+            lines.append(conn[i])
+            lines.append(conn[i + 1])
+        return numpy.array(lines, dtype=conn.dtype)
+
+    @staticmethod
+    def _line_loop_to_lines(conn) -> numpy.ndarray:
+        """
+        Convert GL_LINE_LOOP connectivity into GL_LINES
+
+        Parameters
+        ----------
+        conn: numpy.ndarray
+           The line loop connectivity
+
+        Returns
+        -------
+        numpy.array:
+           Lines connectivity
+        """
+        lines = []
+        num_nodes = len(conn)
+        for i in range(num_nodes):
+            lines.append(conn[i])
+            if i + 1 == num_nodes:
+                lines.append(conn[0])
+            else:
+                lines.append(conn[i + 1])
+        return numpy.array(lines, dtype=conn.dtype)
 
     def _get_data(
         self,
