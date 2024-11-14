@@ -557,10 +557,13 @@ class RenderableVNC(Renderable):
     """Generates an ansys-nexus-viewer component that can be used to connect to the EnSight VNC remote image renderer."""
 
     def __init__(self, *args, **kwargs) -> None:
+        ui = kwargs.get("ui")
+        if kwargs.get("ui"):
+            kwargs.pop("ui")
         super().__init__(*args, **kwargs)
+        self._ui = ui
         self._generate_url()
         self._rendertype = "remote"
-        self._ui = kwargs.get("ui")
         self.update()
 
     def _update_2023R2_or_less(self):

@@ -838,6 +838,7 @@ class Session:
         aa: int = 4,
         fps: float = 30.0,
         num_frames: Optional[int] = None,
+        ui: Optional[str] = "simple",
     ) -> "renderable.Renderable":
         """Capture the current EnSight scene or otherwise make it available for
         display in a web browser.
@@ -898,7 +899,7 @@ class Session:
         if self._html_port is None:
             raise RuntimeError("No websocketserver has been associated with this Session")
 
-        kwargs = dict(
+        kwargs: Dict[str, Union[float, int, None, str]] = dict(
             height=height, width=width, temporal=temporal, aa=aa, fps=fps, num_frames=num_frames
         )
         if self._jupyter_notebook:  # pragma: no cover
@@ -924,6 +925,7 @@ class Session:
             else:
                 render = RenderableSGEO(self, **kwargs)
         elif what == "remote":
+            kwargs["ui"] = ui
             render = RenderableVNC(self, **kwargs)
         elif what == "remote_scene":
             render = RenderableEVSN(self, **kwargs)
