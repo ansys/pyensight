@@ -148,10 +148,17 @@ class GLBSession(dsg_server.DSGSession):
                 continue
             glb_materialid = prim.material
 
+            line_width = self._callback_handler._omni.line_width
+            # TODO: override from scene extension: ANSYS_linewidth
+
             # GLB Prim -> DSG Part
             part_name = f"{parentname}_prim{prim_idx}_"
             cmd, part_pb = self._create_pb("PART", parent_id=parentid, name=part_name)
-            part_pb.render = dynamic_scene_graph_pb2.UpdatePart.RenderingMode.CONNECTIVITY
+            if mode == pygltflib.POINTS:
+                part_pb.render = dynamic_scene_graph_pb2.UpdatePart.RenderingMode.NODES
+                part_pb.node_size_default = line_width
+            else:
+                part_pb.render = dynamic_scene_graph_pb2.UpdatePart.RenderingMode.CONNECTIVITY
             part_pb.shading = dynamic_scene_graph_pb2.UpdatePart.ShadingMode.NODAL
             self._map_material(glb_materialid, part_pb)
             part_dsg_id = part_pb.id
@@ -208,6 +215,7 @@ class GLBSession(dsg_server.DSGSession):
                 normals_pb.total_array_size = len(normals)
                 self._handle_update_command(cmd)
 
+            # Texture coords
             if prim.attributes.TEXCOORD_0 is not None:
                 # Note: texture coords are stored as VEC2, so we get 2 components back
                 texcoords = self._get_data(prim.attributes.TEXCOORD_0, components=2)

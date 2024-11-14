@@ -190,6 +190,7 @@ class Omniverse:
         live: bool = True,
         debug_filename: str = "",
         time_scale: float = 1.0,
+        line_width: float = 0.0,
         options: dict = {},
     ) -> None:
         """Ensure that an EnSight dsg -> omniverse server is running
@@ -224,6 +225,9 @@ class Omniverse:
             If the name of a file is provided, it will be used to save logging information on
             the connection between EnSight and Omniverse.  This option is no longer supported,
             but the API remains for backwards compatibility.
+        line_width : float
+            If set, line objects will be represented as "tubes" of the size specified by
+            this factor.  The default is 0.0 and causes lines not to be exported.
         options : dict
             Allows for a fallback for the grpc host/port and the security token.
         """
@@ -259,6 +263,8 @@ class Omniverse:
             cmd.extend(["--normalize_geometry", "true"])
         if time_scale != 1.0:
             cmd.extend(["--time_scale", str(time_scale)])
+        if line_width != 0.0:
+            cmd.extend(["--line_width", str(line_width)])
         if not live:
             cmd.extend(["--oneshot", "1"])
         cmd.extend(["--dsg_uri", dsg_uri])
@@ -336,7 +342,7 @@ class Omniverse:
         self._server_pid = None
         self._new_status_file(new=False)
 
-    def update(self, temporal: bool = False) -> None:
+    def update(self, temporal: bool = False, line_width: float = 0.0) -> None:
         """Update the geometry in Omniverse
 
         Export the current EnSight scene to the current Omniverse connection.
@@ -345,10 +351,20 @@ class Omniverse:
         ----------
         temporal : bool
             If True, export all timesteps.
+        line_width : float
+            If set to a non-zero value, lines will be exported with this thickness.
+            This feature is only available in 2025 R2 and later.
         """
         update_cmd = "dynamicscenegraph://localhost/client/update"
+        prefix = "?"
         if temporal:
-            update_cmd += "?timesteps=1"
+            update_cmd += f"{prefix}timesteps=1"
+            prefix = "&"
+        if line_width != 0.0:
+            # only in 2025 R2 and beyond
+            if self._ensight._session.ensight_version_check("2025 R2", exception=False):
+                update_cmd += f"{prefix}line_width={line_width}"
+                prefix = "&"
         self._check_modules()
         if not self.is_running_omniverse():
             raise RuntimeError("No Omniverse server connection is currently active.")
