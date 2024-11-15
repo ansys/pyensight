@@ -363,7 +363,7 @@ class Omniverse:
         if line_width != 0.0:
             # only in 2025 R2 and beyond
             if self._ensight._session.ensight_version_check("2025 R2", exception=False):
-                update_cmd += f"{prefix}line_width={line_width}"
+                update_cmd += f"{prefix}ANSYS_linewidth={line_width}"
                 prefix = "&"
         self._check_modules()
         if not self.is_running_omniverse():

@@ -78,8 +78,7 @@ class OmniverseGeometryServer(object):
         normalize_geometry: bool = False,
         dsg_uri: str = "",
         monitor_directory: str = "",
-        line_width: float = -0.0001,
-        use_lines: bool = False,
+        line_width: float = 0.0,
     ) -> None:
         self._dsg_uri = dsg_uri
         self._destination = destination
@@ -96,7 +95,6 @@ class OmniverseGeometryServer(object):
         self._status_filename: str = ""
         self._monitor_directory: str = monitor_directory
         self._line_width = line_width
-        self._use_lines = use_lines
 
     @property
     def monitor_directory(self) -> Optional[str]:
@@ -173,6 +171,14 @@ class OmniverseGeometryServer(object):
     def time_scale(self, value: float) -> None:
         self._time_scale = value
 
+    @property
+    def line_width(self) -> float:
+        return self._line_width
+
+    @line_width.setter
+    def line_width(self, line_width: float) -> None:
+        self._line_width = line_width
+
     def run_server(self, one_shot: bool = False) -> None:
         """
         Run a DSG to Omniverse server in process.
@@ -189,11 +195,11 @@ class OmniverseGeometryServer(object):
 
         # Build the Omniverse connection
         omni_link = ov_dsg_server.OmniverseWrapper(
-            destination=self._destination, line_width=self._line_width, use_lines=self._use_lines
+            destination=self._destination, line_width=self.line_width
         )
         logging.info("Omniverse connection established.")
 
-        # parse the DSG USI
+        # parse the DSG URI
         parsed = urlparse(self.dsg_uri)
         port = parsed.port
         host = parsed.hostname
@@ -276,7 +282,7 @@ class OmniverseGeometryServer(object):
 
         # Build the Omniverse connection
         omni_link = ov_dsg_server.OmniverseWrapper(
-            destination=self._destination, line_width=self._line_width, use_lines=self._use_lines
+            destination=self._destination, line_width=self.line_width
         )
         logging.info("Omniverse connection established.")
 
@@ -463,7 +469,6 @@ if __name__ == "__main__":
             line_default = float(line_default)
         except ValueError:
             line_default = None
-    # Potential future default: -0.0001
     parser.add_argument(
         "--line_width",
         metavar="line_width",
@@ -492,8 +497,7 @@ if __name__ == "__main__":
     logging.basicConfig(**log_args)  # type: ignore
 
     # size of lines in data units or fraction of bounding box diagonal
-    use_lines = args.line_width is not None
-    line_width = -0.0001
+    line_width = 0.0
     if args.line_width is not None:
         line_width = args.line_width
 
@@ -508,7 +512,6 @@ if __name__ == "__main__":
         vrmode=not args.include_camera,
         temporal=args.temporal,
         line_width=line_width,
-        use_lines=use_lines,
     )
 
     # run the server
