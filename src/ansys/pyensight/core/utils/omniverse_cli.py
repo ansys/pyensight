@@ -229,7 +229,10 @@ class OmniverseGeometryServer(object):
 
         # until the link is dropped, continue
         while not dsg_link.is_shutdown() and not self._shutdown:
+            # Reset the line width to the CLI default before each update
+            omni_link.line_width = self.line_width
             dsg_link.handle_one_update()
+
             if one_shot:
                 break
 
@@ -353,6 +356,8 @@ class OmniverseGeometryServer(object):
                             logging.warning("Time values not currently supported.")
                         if len(files_to_process) > 1:
                             logging.warning("Multiple glb files not currently fully supported.")
+                        # Reset the line width to the CLI default before each update
+                        omni_link.line_width = self.line_width
                         # Upload the files
                         glb_link.start_uploads([timeline[0], timeline[-1]])
                         for glb_file, timestamp in zip(files_to_process, file_timestamps):
