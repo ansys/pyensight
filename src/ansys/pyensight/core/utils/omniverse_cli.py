@@ -479,7 +479,7 @@ if __name__ == "__main__":
         metavar="line_width",
         default=line_default,
         type=float,
-        help=f"Width of lines: >0=absolute size. <0=fraction of diagonal. 0=wireframe. Default: {line_default}",
+        help=f"Width of lines: >0=absolute size. <0=fraction of diagonal. 0=none. Default: {line_default}",
     )
 
     # parse the command line
