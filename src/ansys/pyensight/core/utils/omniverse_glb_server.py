@@ -132,7 +132,6 @@ class GLBSession(dsg_server.DSGSession):
         """
         mesh = self._gltf.meshes[meshid]
         for prim_idx, prim in enumerate(mesh.primitives):
-            # TODO: line width/point size
             # POINTS, LINES, TRIANGLES, LINE_LOOP, LINE_STRIP, TRIANGLE_STRIP, TRIANGLE_FAN
             mode = prim.mode
             if mode not in (
@@ -147,9 +146,7 @@ class GLBSession(dsg_server.DSGSession):
                 self.warn(f"Unhandled connectivity detected: {mode}.  Geometry skipped.")
                 continue
             glb_materialid = prim.material
-
             line_width = self._callback_handler._omni.line_width
-            # TODO: override from scene extension: ANSYS_linewidth
 
             # GLB Prim -> DSG Part
             part_name = f"{parentname}_prim{prim_idx}_"
@@ -583,7 +580,16 @@ class GLBSession(dsg_server.DSGSession):
                         view_pb.fieldofview = camera.perspective.yfov
                         view_pb.aspectratio = camera.aspectratio.aspectRatio
                 self._handle_update_command(cmd)
-                for node_id in self._gltf.scenes[scene_idx].nodes:
+                # walk the scene nodes RJF
+                scene = self._gltf.scenes[scene_idx]
+                try:
+                    if self._callback_handler._omni.line_width == 0.0:
+                        width = float(scene.extensions["ANSYS_linewidth"]["linewidth"])
+                        self._callback_handler._omni.line_width = width
+                except (KeyError, ValueError):
+                    # in the case where the extension does not exist or is mal-formed
+                    pass
+                for node_id in scene.nodes:
                     self._walk_node(node_id, view_pb.id)
                 self._finish_part()
 
@@ -621,11 +627,22 @@ class GLBSession(dsg_server.DSGSession):
         List[float]
             The computed timeline.
         """
-        # if ANSYS_scene_time is used, time ranges will come from there
-        if "ANSYS_scene_time" in self._gltf.scenes[scene_idx].extensions:
-            return self._gltf.scenes[scene_idx].extensions["ANSYS_scene_time"]
-        # if there is only one scene, then use the input timeline
         num_scenes = len(self._gltf.scenes)
+        # if ANSYS_scene_timevalue is used, time ranges will come from there
+        try:
+            t0 = self._gltf.scenes[scene_idx].extensions["ANSYS_scene_timevalue"]["timevalue"]
+            idx = scene_idx + 1
+            if idx >= num_scenes:
+                idx = scene_idx
+                t1 = self._gltf.scenes[idx].extensions["ANSYS_scene_timevalue"]["timevalue"]
+            else:
+                t1 = t0
+            return [t0, t1]
+        except KeyError:
+            # If we fail due to dictionary key issue, the extension does not exist or is
+            # improperly formatted.
+            pass
+        # if there is only one scene, then use the input timeline
         if num_scenes == 1:
             return input_timeline
         # if the timeline has zero length, we make it the number of scenes

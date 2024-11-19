@@ -41,8 +41,7 @@ class OmniverseWrapper(object):
         self,
         live_edit: bool = False,
         destination: str = "",
-        line_width: float = -0.0001,
-        use_lines: bool = False,
+        line_width: float = 0.0,
     ) -> None:
         self._cleaned_index = 0
         self._cleaned_names: dict = {}
@@ -61,7 +60,6 @@ class OmniverseWrapper(object):
             self.destination = destination
 
         self._line_width = line_width
-        self._use_lines = use_lines
 
     @property
     def destination(self) -> str:
@@ -81,10 +79,6 @@ class OmniverseWrapper(object):
     @line_width.setter
     def line_width(self, line_width: float) -> None:
         self._line_width = line_width
-
-    @property
-    def use_lines(self) -> bool:
-        return self._use_lines
 
     def shutdown(self) -> None:
         """
@@ -727,7 +721,16 @@ class OmniverseUpdateHandler(UpdateHandler):
     def add_group(self, id: int, view: bool = False) -> None:
         super().add_group(id, view)
         group = self.session.groups[id]
+
         if not view:
+            # Capture changes in line/sphere sizes if it was not set from cli
+            width = self.get_dsg_cmd_attribute(group, "ANSYS_linewidth")
+            if width:
+                try:
+                    self._omni.line_width = float(width)
+                except ValueError:
+                    pass
+
             parent_prim = self._group_prims[group.parent_id]
             obj_type = self.get_dsg_cmd_attribute(group, "ENS_OBJ_TYPE")
             matrix = self.group_matrix(group)
@@ -801,40 +804,37 @@ class OmniverseUpdateHandler(UpdateHandler):
                     first_timestep=(self.session.cur_timeline[0] == self.session.time_limits[0]),
                     mat_info=mat_info,
                 )
-            if self._omni.use_lines:
-                command, verts, tcoords, var_cmd = part.line_rep()
-                if command is not None:
-                    # If there are no triangle (ideally if these are not hidden line
-                    # edges), then use the base color for the part.  If there are
-                    # triangles, then assume these are hidden line edges and use the
-                    # line_color.
-                    line_color = color
-                    if has_triangles:
-                        line_color = [
-                            part.cmd.line_color[0] * part.cmd.diffuse,
-                            part.cmd.line_color[1] * part.cmd.diffuse,
-                            part.cmd.line_color[2] * part.cmd.diffuse,
-                            part.cmd.line_color[3],
-                        ]
-                    # TODO: texture coordinates on lines are current invalid in OV
-                    var_cmd = None
-                    tcoords = None
-                    # Generate the lines
-                    _ = self._omni.create_dsg_lines(
-                        name,
-                        obj_id,
-                        part.hash,
-                        parent_prim,
-                        verts,
-                        tcoords,
-                        matrix=matrix,
-                        diffuse=line_color,
-                        variable=var_cmd,
-                        timeline=self.session.cur_timeline,
-                        first_timestep=(
-                            self.session.cur_timeline[0] == self.session.time_limits[0]
-                        ),
-                    )
+            command, verts, tcoords, var_cmd = part.line_rep()
+            if command is not None:
+                # If there are no triangle (ideally if these are not hidden line
+                # edges), then use the base color for the part.  If there are
+                # triangles, then assume these are hidden line edges and use the
+                # line_color.
+                line_color = color
+                if has_triangles:
+                    line_color = [
+                        part.cmd.line_color[0] * part.cmd.diffuse,
+                        part.cmd.line_color[1] * part.cmd.diffuse,
+                        part.cmd.line_color[2] * part.cmd.diffuse,
+                        part.cmd.line_color[3],
+                    ]
+                # TODO: texture coordinates on lines are current invalid in OV
+                var_cmd = None
+                tcoords = None
+                # Generate the lines
+                _ = self._omni.create_dsg_lines(
+                    name,
+                    obj_id,
+                    part.hash,
+                    parent_prim,
+                    verts,
+                    tcoords,
+                    matrix=matrix,
+                    diffuse=line_color,
+                    variable=var_cmd,
+                    timeline=self.session.cur_timeline,
+                    first_timestep=(self.session.cur_timeline[0] == self.session.time_limits[0]),
+                )
 
         elif part.cmd.render == part.cmd.NODES:
             command, verts, sizes, colors, var_cmd = part.point_rep()
