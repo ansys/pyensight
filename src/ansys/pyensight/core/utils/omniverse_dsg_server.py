@@ -633,7 +633,8 @@ class OmniverseWrapper(object):
             cam = geom_cam.GetCamera()
             # LOL, not sure why is might be correct, but so far it seems to work???
             cam.focalLength = camera.fieldofview
-            cam.clippingRange = Gf.Range1f(0.1, 10)
+            dist = (target_pos - cam_pos).GetLength()
+            cam.clippingRange = Gf.Range1f(0.1 * dist, 10.0 * dist)
             look_at = Gf.Matrix4d()
             look_at.SetLookAt(cam_pos, target_pos, up_vec)
             trans_row = look_at.GetRow(3)
@@ -717,6 +718,7 @@ class OmniverseUpdateHandler(UpdateHandler):
         self._group_prims: Dict[int, Any] = dict()
         self._root_prim = None
         self._sent_textures = False
+        self._updated_camera = False
 
     def add_group(self, id: int, view: bool = False) -> None:
         super().add_group(id, view)
@@ -732,8 +734,46 @@ class OmniverseUpdateHandler(UpdateHandler):
                     pass
 
             parent_prim = self._group_prims[group.parent_id]
+            # get the EnSight object type and the transform matrix
             obj_type = self.get_dsg_cmd_attribute(group, "ENS_OBJ_TYPE")
-            matrix = self.group_matrix(group)
+            matrix = group.matrix4x4
+            # Is this a "case" group (it will contain part of the camera view in the matrix)
+            if obj_type == "ENS_CASE":
+                if (not self.session.vrmode) and (not self._updated_camera):
+                    # if in camera mode, we need to update the camera matrix so we can
+                    # use the identity matrix on this group.  The camera should have been
+                    # created in the "view" handler
+                    cam_name = "/Root/Cam"
+                    cam_prim = self._omni._stage.GetPrimAtPath(cam_name)  # type: ignore
+                    geom_cam = UsdGeom.Camera(cam_prim)
+                    # get the camera
+                    cam = geom_cam.GetCamera()
+                    c = cam.transform
+                    m = Gf.Matrix4d(*matrix).GetTranspose()
+                    # move the model transform to the camera transform
+                    cam.transform = c * m.GetInverse()
+                    # set the updated camera
+                    geom_cam.SetFromCamera(cam)
+                    # We only want to do this once
+                    self._updated_camera = True
+                matrix = [
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                ]
             prim = self._omni.create_dsg_group(
                 group.name, parent_prim, matrix=matrix, obj_type=obj_type
             )
@@ -875,6 +915,8 @@ class OmniverseUpdateHandler(UpdateHandler):
         # Upload a material to the Omniverse server
         self._omni.uploadMaterial()
         self._sent_textures = False
+        # We want to update the camera a single time within this update
+        self._updated_camera = False
 
     def end_update(self) -> None:
         super().end_update()
