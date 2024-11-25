@@ -59,6 +59,7 @@ class EnSightGRPC(object):
         self._image_thread = None
         self._image = None
         self._image_number = 0
+        self._sub_service = None
 
     @property
     def host(self) -> str:
@@ -586,7 +587,9 @@ class EnSightGRPC(object):
 
         self._start_sub_service()
         conn_type = ensight_pb2.SubscribeImageOptions.GRPC
-        options = dict(uri=self._sub_service._uri)
+        options = {}
+        if self._sub_service:
+            options = dict(uri=self._sub_service._uri)
         image_options = ensight_pb2.SubscribeImageOptions(
             prefix=self.prefix(),
             type=conn_type,
