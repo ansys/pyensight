@@ -4,14 +4,18 @@ This package defines the EnSightGRPC class which provides a simpler
 interface to the EnSight gRPC interface, including event streams.
 
 """
+from concurrent import futures
 import os
+import platform
+import sys
 import tempfile
 import threading
 from typing import Any, Callable, List, Optional, Tuple, Union
 import uuid
-from concurrent import futures
+
 from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2_grpc, ensight_pb2, ensight_pb2_grpc
 import grpc
+
 
 class EnSightGRPC(object):
     """Wrapper around a gRPC connection to an EnSight instance
@@ -48,8 +52,9 @@ class EnSightGRPC(object):
         # Callback for events (self._events not used)
         self._event_callback: Optional[Callable] = None
         self._prefix: Optional[str] = None
+        self._shmem_module = None
         self._shmem_filename: Optional[str] = None
-        self._shmem_client = False
+        self._shmem_client = None
         self._image_stream = None
         self._image_thread = None
         self._image = None
@@ -128,8 +133,11 @@ class EnSightGRPC(object):
                 self._channel.close()
             self._channel = None
             if self._shmem_client:
-                self.command("ensight_grpc_shmem.stream_destroy(enscl._shmem_client)")
-                self._shmem_client = False
+                if self._shmem_module:
+                    self._shmem_module.stream_destroy(self._shmem_client)
+                else:
+                    self.command("ensight_grpc_shmem.stream_destroy(enscl._shmem_client)")
+                self._shmem_client = None
 
     def is_connected(self) -> bool:
         """Check to see if the gRPC connection is live
@@ -441,38 +449,69 @@ class EnSightGRPC(object):
             self._event_stream = None
             self._event_thread = None
 
+    def _attempt_shared_mem_import(self):
+        try:
+            import ensight_grpc_shmem
+
+            self._shmem_module = ensight_grpc_shmem
+        except ModuleNotFoundError:
+            try:
+                cei_home = self.command("import enve\nenve.home()")
+                cei_version = self.command("import ceiversion\nceiversion.version_suffix")
+                py_version = self.command("import sys\nsys.version_info[:3]")
+                is_win = True if "Win" in platform.system() else False
+                plat = "win64" if is_win else "linux_2.6_64"
+                _lib = "Lib" if is_win else "lib"
+                site = "site-packages" if is_win else f"python{py_version[0]}.{py_version[1]}"
+                site_packages = os.path.join(
+                    cei_home,
+                    f"apex{cei_version}",
+                    "machines",
+                    plat,
+                    f"Python{py_version[0]}.{py_version[1]}.{py_version[2]}",
+                    _lib,
+                    site,
+                )
+                if os.path.exists(site_packages):
+                    sys.path.append(site_packages)
+                    import ensight_grpc_shmem
+
+                    self._shmem_module = ensight_grpc_shmem
+            except ModuleNotFoundError:
+                pass
+
     @classmethod
-    def _find_filename(cls, size=1024*1024*25):
+    def _find_filename(cls, size=1024 * 1024 * 25):
         """Create a file on disk to support shared memory transport.
-        
+
         A file, 25MB in size, will be created using the pid of the current
         process to generate the filename. It will be located in a temporary
         directory.
         """
         tempdir = tempfile.mkdtemp(prefix="pyensight_shmem")
         for i in range(100):
-            filename = os.path.join(tempdir, "shmem_{}.bin".format(os.getpid()+i))
+            filename = os.path.join(tempdir, "shmem_{}.bin".format(os.getpid() + i))
             if not os.path.exists(filename):
                 try:
                     tmp = open(filename, "wb")
-                    tmp.write(b'\0'*size)  # 25MB
+                    tmp.write(b"\0" * size)  # 25MB
                     tmp.close()
                     return filename
-                except:
+                except Exception:
                     pass
         return None
 
     def get_image(self):
         """Retrieve the current EnSight image.
-        
+
         When any of the image streaming systems is enabled, Python threads will receive the
         most recent image and store them in this instance.  The frame stored in this instance
         can be accessed by calling this method
-        
+
         Returns
         -------
         (tuple):
-            A tuple containing a dictionary defining the image binary 
+            A tuple containing a dictionary defining the image binary
             (pixels=bytearray, width=w, height=h) and the image frame number.
         """
         return self._image, self._image_number
@@ -488,14 +527,14 @@ class EnSightGRPC(object):
                 return
             self._sub_service = _EnSightSubServicer(parent=self)
             self._sub_service.start()
-        except:
+        except Exception:
             self._sub_service = None
 
     def subscribe_images(self, flip_vertical=False, use_shmem=True):
         """Subscribe to an image stream.
 
-        This methond makes a EnSightService::SubscribeImages() gRPC call.  If 
-        use_shmem is False, the transport system will be made over gRPC.  It causes 
+        This methond makes a EnSightService::SubscribeImages() gRPC call.  If
+        use_shmem is False, the transport system will be made over gRPC.  It causes
         EnSight to make a reverse gRPC connection over with gRPC calls with the
         various images will be made.  If use_shmem is True (the default), the \ref shmem will be used.
 
@@ -513,18 +552,27 @@ class EnSightGRPC(object):
                 if self._shmem_filename is not None:
                     conn_type = ensight_pb2.SubscribeImageOptions.SHARED_MEM
                     options = dict(filename=self._shmem_filename)
-                    image_options = ensight_pb2.SubscribeImageOptions(prefix=self.prefix(),
-                                                                      type=conn_type,
-                                                                      options=options,
-                                                                      flip_vertical=flip_vertical,
-                                                                      chunk=False)
+                    image_options = ensight_pb2.SubscribeImageOptions(
+                        prefix=self.prefix(),
+                        type=conn_type,
+                        options=options,
+                        flip_vertical=flip_vertical,
+                        chunk=False,
+                    )
                     _ = self._stub.SubscribeImages(image_options, metadata=self._metadata())
                     # start the local server
-                    to_send = self._shmem_filename.replace("\\", "\\\\")
-                    self.command("import ensight_grpc_shmem", do_eval=False)
-                    self.command(f"enscl._shmem_client = ensight_grpc_shmem.stream_create('{to_send}')", do_eval=False)
-                    if self.command("enscl._shmem_client is not None"):
-                        self._shmem_client = True
+                    if self._shmem_module:
+                        self._shmem_client = self._shmem_module.stream_create(self._shmem_filename)
+                    else:
+                        self.command("import ensight_grpc_shmem", do_eval=False)
+                        to_send = self._shmem_filename.replace("\\", "\\\\")
+                        self.command(
+                            f"enscl._shmem_client = ensight_grpc_shmem.stream_create('{to_send}')",
+                            do_eval=False,
+                        )
+                        if self.command("enscl._shmem_client is not None"):
+                            self._shmem_client = True
+
                     # turn on the polling thread
                     self._image_thread = threading.Thread(target=self._poll_images)
                     self._image_thread.daemon = True
@@ -536,18 +584,20 @@ class EnSightGRPC(object):
         self._start_sub_service()
         conn_type = ensight_pb2.SubscribeImageOptions.GRPC
         options = dict(uri=self._sub_service._uri)
-        image_options = ensight_pb2.SubscribeImageOptions(prefix=self.prefix(),
-                                                          type=conn_type,
-                                                          options=options,
-                                                          flip_vertical=flip_vertical,
-                                                          chunk=True)
+        image_options = ensight_pb2.SubscribeImageOptions(
+            prefix=self.prefix(),
+            type=conn_type,
+            options=options,
+            flip_vertical=flip_vertical,
+            chunk=True,
+        )
         _ = self._stub.SubscribeImages(image_options, metadata=self._metadata())
 
     def image_stream_enable(self, flip_vertical=False):
         """Enable a simple gRPC-based image stream from EnSight.
 
         This method makes a EnSightService::GetImageStream() gRPC call into EnSight, returning
-        an ensightservice::ImageReply stream.  The method creates a thread to hold this 
+        an ensightservice::ImageReply stream.  The method creates a thread to hold this
         stream open and read new image frames from it.  The thread places the read images
         in this object.  An external application can retrieve the most recent one using
         get_image().
@@ -561,23 +611,24 @@ class EnSightGRPC(object):
         self.connect()
         self._image_stream = self._stub.GetImageStream(
             ensight_pb2.ImageStreamRequest(flip_vertical=flip_vertical, chunk=True),
-            metadata=self._metadata())
+            metadata=self._metadata(),
+        )
         self._image_thread = threading.Thread(target=self._poll_images)
         self._image_thread.daemon = True
         self._image_thread.start()
 
     def _put_image(self, the_image):
         """Store an image on this instance.
-        
+
         This method is used by threads to store the latest image they receive
-        so it can be accessed by get_image.        
+        so it can be accessed by get_image.
         """
         self._image = the_image
         self._image_number += 1
 
     def image_stream_is_enabled(self):
         """Check to see if the image stream is enabled.
-        
+
         If an image stream has been successfully established via image_stream_enable(),
         then this function returns True.
 
@@ -597,14 +648,22 @@ class EnSightGRPC(object):
         try:
             while self._stub is not None:
                 if self._shmem_client:
-                    img = self.command("ensight_grpc_shmem.stream_lock(enscl._shmem_client)")
+                    if self._shmem_module:
+                        img = self._shmem_module.stream_lock(self._shmem_client)
+                    else:
+                        img = self.command("ensight_grpc_shmem.stream_lock(enscl._shmem_client)")
                     if type(img) is dict:
-                        the_image = dict(pixels=img['pixeldata'],
-                                         width=img['width'],
-                                         height=img['height'])
+                        the_image = dict(
+                            pixels=img["pixeldata"], width=img["width"], height=img["height"]
+                        )
                         self._put_image(the_image)
-                        self.command("ensight_grpc_shmem.stream_unlock(enscl._shmem_client)", do_eval=False)
-
+                        if self._shmem_module:
+                            self._shmem_module.stream_unlock(self._shmem_client)
+                        else:
+                            self.command(
+                                "ensight_grpc_shmem.stream_unlock(enscl._shmem_client)",
+                                do_eval=False,
+                            )
 
                 if self._image_stream is not None:
                     img = self._image_stream.next()
@@ -616,11 +675,12 @@ class EnSightGRPC(object):
 
                     the_image = dict(pixels=buffer, width=img.width, height=img.height)
                     self._put_image(the_image)
-        except:
+        except Exception:
             # signal that the gRPC connection has broken
             self._image_stream = None
             self._image_thread = None
             self._image = None
+
 
 class _EnSightSubServicer(ensight_pb2_grpc.EnSightSubscriptionServicer):
     """Internal class handling reverse subscription connections.
@@ -635,7 +695,7 @@ class _EnSightSubServicer(ensight_pb2_grpc.EnSightSubscriptionServicer):
     The EnSightSubServicer class implements a gRPC server for the client application.
     """
 
-    def __init__(self, parent: Optional["EnSightGRPC"]=None):
+    def __init__(self, parent: Optional["EnSightGRPC"] = None):
         self._server: Optional["grpc.Server"] = None
         self._uri: str = ""
         self._parent = parent
@@ -643,8 +703,8 @@ class _EnSightSubServicer(ensight_pb2_grpc.EnSightSubscriptionServicer):
     def PublishEvent(self, request: Any, context: Any) -> "ensight_pb2.GenericResponse":
         """Publish an event to the remote server."""
         if self._parent is not None:
-            self._parent.put_event(request)
-        return ensight_pb2.GenericResponse(str='Event Published')
+            self._parent._put_event(request)
+        return ensight_pb2.GenericResponse(str="Event Published")
 
     def PublishImage(self, request_iterator: Any, context: Any) -> "ensight_pb2.GenericResponse":
         """Publish a single image (possibly in chucks) to the remote server."""
@@ -656,14 +716,13 @@ class _EnSightSubServicer(ensight_pb2_grpc.EnSightSubscriptionServicer):
         the_image = dict(pixels=buffer, width=img.width, height=img.height)
         if self._parent is not None:
             self._parent._put_image(the_image)
-        return ensight_pb2.GenericResponse(str='Image Published')
+        return ensight_pb2.GenericResponse(str="Image Published")
 
     def start(self):
         """Start the gRPC server to be used for the EnSight Subscription Service."""
         self._server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-        ensight_pb2_grpc.add_EnSightSubscriptionServicer_to_server(
-            self, self._server)
+        ensight_pb2_grpc.add_EnSightSubscriptionServicer_to_server(self, self._server)
         # Start the server on localhost with a random port
-        port = self._server.add_insecure_port('localhost:0')
-        self._uri = 'localhost:' + str(port)
+        port = self._server.add_insecure_port("localhost:0")
+        self._uri = "localhost:" + str(port)
         self._server.start()
