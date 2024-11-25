@@ -576,7 +576,8 @@ class OmniverseWrapper(object):
             pbrShader.CreateInput("specularColor", Sdf.ValueTypeNames.Color3f).Set(color)
 
         material.CreateSurfaceOutput().ConnectToSource(pbrShader.ConnectableAPI(), "surface")
-        UsdShade.MaterialBindingAPI(mesh).Bind(material)
+        mat_binding_api = UsdShade.MaterialBindingAPI.Apply(mesh.GetPrim())
+        mat_binding_api.Bind(material)
 
         return material
 
