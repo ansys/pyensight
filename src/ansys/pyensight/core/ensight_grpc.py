@@ -456,24 +456,25 @@ class EnSightGRPC(object):
             self._shmem_module = ensight_grpc_shmem
         except ModuleNotFoundError:
             try:
-                cei_home = self.command("import enve\nenve.home()")
-                cei_version = self.command("import ceiversion\nceiversion.version_suffix")
-                py_version = self.command("import sys\nsys.version_info[:3]")
+                self.command("import enve", do_eval=False)
+                cei_home = eval(self.command("enve.home()"))
+                self.command("import ceiversion", do_eval=False)
+                cei_version = eval(self.command("ceiversion.version_suffix"))
+                self.command("import sys", do_eval=False)
+                py_version = eval(self.command("sys.version_info[:3]"))
                 is_win = True if "Win" in platform.system() else False
                 plat = "win64" if is_win else "linux_2.6_64"
-                _lib = "Lib" if is_win else "lib"
-                site = "site-packages" if is_win else f"python{py_version[0]}.{py_version[1]}"
-                site_packages = os.path.join(
+                _lib = "DLLs" if is_win else f"lib/python{py_version[0]}.{py_version[1]}"
+                dll_loc = os.path.join(
                     cei_home,
                     f"apex{cei_version}",
                     "machines",
                     plat,
-                    f"Python{py_version[0]}.{py_version[1]}.{py_version[2]}",
+                    f"Python-{py_version[0]}.{py_version[1]}.{py_version[2]}",
                     _lib,
-                    site,
                 )
-                if os.path.exists(site_packages):
-                    sys.path.append(site_packages)
+                if os.path.exists(dll_loc):
+                    sys.path.append(dll_loc)
                     import ensight_grpc_shmem
 
                     self._shmem_module = ensight_grpc_shmem
@@ -561,6 +562,8 @@ class EnSightGRPC(object):
                     )
                     _ = self._stub.SubscribeImages(image_options, metadata=self._metadata())
                     # start the local server
+                    if not self._shmem_module:
+                        self._attempt_shared_mem_import()
                     if self._shmem_module:
                         self._shmem_client = self._shmem_module.stream_create(self._shmem_filename)
                     else:
