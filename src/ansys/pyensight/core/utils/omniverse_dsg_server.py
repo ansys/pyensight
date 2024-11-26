@@ -755,6 +755,27 @@ class OmniverseUpdateHandler(UpdateHandler):
                     cam.transform = c * m.GetInverse()
                     # set the updated camera
                     geom_cam.SetFromCamera(cam)
+                    # apply the inverse cam transform to move the center of interest
+                    # from data space to camera space
+                    coi_attr = cam_prim.GetAttribute("omni:kit:centerOfInterest")
+                    if coi_attr.IsValid():
+                        coi_data = coi_attr.Get()
+                        coi_cam = (
+                            Gf.Vec4d(coi_data[0], coi_data[1], coi_data[2], 1.0)
+                            * cam.transform.GetInverse()
+                        )
+                        coi_attr.Set(
+                            Gf.Vec3d(
+                                coi_cam[0] / coi_cam[3],
+                                coi_cam[1] / coi_cam[3],
+                                coi_cam[2] / coi_cam[3],
+                            )
+                        )
+                    # use the camera view by default
+                    self._omni._stage.GetRootLayer().customLayerData = {  # type: ignore
+                        "cameraSettings": {"boundCamera": "/Root/Cam"}
+                    }
+
                     # We only want to do this once
                     self._updated_camera = True
                 matrix = [
