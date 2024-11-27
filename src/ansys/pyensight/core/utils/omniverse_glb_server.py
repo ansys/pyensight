@@ -153,6 +153,7 @@ class GLBSession(dsg_server.DSGSession):
             cmd, part_pb = self._create_pb("PART", parent_id=parentid, name=part_name)
             if mode == pygltflib.POINTS:
                 part_pb.render = dynamic_scene_graph_pb2.UpdatePart.RenderingMode.NODES
+                # Size of the spheres
                 part_pb.node_size_default = line_width
             else:
                 part_pb.render = dynamic_scene_graph_pb2.UpdatePart.RenderingMode.CONNECTIVITY
@@ -401,10 +402,39 @@ class GLBSession(dsg_server.DSGSession):
         # GLB node -> DSG Group
         cmd, group_pb = self._create_pb("GROUP", parent_id=parentid, name=name)
         group_pb.matrix4x4.extend(matrix)
-        self._handle_update_command(cmd)
-
         if node.mesh is not None:
+            # This is a little ugly, but spheres have a size that is part of the PART
+            # protobuffer.  So, if the current mesh has the "ANSYS_linewidth" extension,
+            # we need to temporally change the line width.  However, if this is a lines
+            # object, then we need to set the ANSYS_linewidth attribute.  Unfortunately,
+            # this is only available on the GROUP protobuffer, thus we will try to set
+            # both here.
+            # Note: in the EnSight push, ANSYS_linewidth will only ever be set on the
+            # top level node. In the GLB case, we will scope it to the group.  Thus,
+            # every "mesh" protobuffer sequence will have an explicit line width in
+            # the group above the part.
+
+            # save/restore the current line_width
+            orig_width = self._callback_handler._omni.line_width
+            mesh = self._gltf.meshes[node.mesh]
+            try:
+                # check for line_width on the mesh object
+                width = float(mesh.extensions["ANSYS_linewidth"]["linewidth"])
+                # make sure spheres work
+                self._callback_handler._omni.line_width = width
+            except (KeyError, ValueError):
+                pass
+            # make sure lines work (via the group attributes map)
+            group_pb.attributes["ANSYS_linewidth"] = str(self._callback_handler._omni.line_width)
+            # send the group protobuffer
+            self._handle_update_command(cmd)
+            # Export the mesh
             self._parse_mesh(node.mesh, group_pb.id, name)
+            # restore the old line_width
+            self._callback_handler._omni.line_width = orig_width
+        else:
+            # send the group protobuffer
+            self._handle_update_command(cmd)
 
         # Handle node.rotation, node.translation, node.scale, node.matrix
         for child_id in node.children:
@@ -580,7 +610,7 @@ class GLBSession(dsg_server.DSGSession):
                         view_pb.fieldofview = camera.perspective.yfov
                         view_pb.aspectratio = camera.aspectratio.aspectRatio
                 self._handle_update_command(cmd)
-                # walk the scene nodes RJF
+                # walk the scene nodes
                 scene = self._gltf.scenes[scene_idx]
                 try:
                     if self._callback_handler._omni.line_width == 0.0:

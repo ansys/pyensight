@@ -357,6 +357,7 @@ class OmniverseWrapper(object):
         parent_prim,
         verts,
         tcoords,
+        width,
         matrix=[1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0],
         diffuse=[1.0, 1.0, 1.0, 1.0],
         variable=None,
@@ -364,20 +365,6 @@ class OmniverseWrapper(object):
         first_timestep=False,
         mat_info={},
     ):
-        # TODO: GLB extension maps to DSG PART attribute map
-        width = self.line_width
-        wireframe = width == 0.0
-        if width < 0.0:
-            tmp = verts.reshape(-1, 3)
-            mins = numpy.min(tmp, axis=0)
-            maxs = numpy.max(tmp, axis=0)
-            dx = maxs[0] - mins[0]
-            dy = maxs[1] - mins[1]
-            dz = maxs[2] - mins[2]
-            diagonal = math.sqrt(dx * dx + dy * dy + dz * dz)
-            width = diagonal * math.fabs(width)
-            self.line_width = width
-
         # include the line width in the hash
         part_hash.update(str(self.line_width).encode("utf-8"))
 
@@ -410,6 +397,7 @@ class OmniverseWrapper(object):
             endCaps.Set(2)  # Rounded = 2
 
             prim = lines.GetPrim()
+            wireframe = width == 0.0
             prim.CreateAttribute(
                 "omni:scene:visualization:drawWireframe", Sdf.ValueTypeNames.Bool
             ).Set(wireframe)
@@ -876,9 +864,30 @@ class OmniverseUpdateHandler(UpdateHandler):
                         part.cmd.line_color[2] * part.cmd.diffuse,
                         part.cmd.line_color[3],
                     ]
-                # TODO: texture coordinates on lines are current invalid in OV
+                # TODO: texture coordinates on lines are currently invalid in Omniverse
                 var_cmd = None
                 tcoords = None
+                # line info can come from self or our parent group
+                width = self._omni.line_width
+                # Allow the group to override
+                group = self.session.find_group_pb(part.cmd.parent_id)
+                if group:
+                    try:
+                        width = float(group.attributes.get("ANSYS_linewidth", str(width)))
+                    except ValueError:
+                        pass
+                if width < 0.0:
+                    tmp = verts.reshape(-1, 3)
+                    mins = numpy.min(tmp, axis=0)
+                    maxs = numpy.max(tmp, axis=0)
+                    dx = maxs[0] - mins[0]
+                    dy = maxs[1] - mins[1]
+                    dz = maxs[2] - mins[2]
+                    diagonal = math.sqrt(dx * dx + dy * dy + dz * dz)
+                    width = diagonal * math.fabs(width)
+                    if self._omni.line_width < 0.0:
+                        self._omni.line_width = width
+
                 # Generate the lines
                 _ = self._omni.create_dsg_lines(
                     name,
@@ -887,6 +896,7 @@ class OmniverseUpdateHandler(UpdateHandler):
                     parent_prim,
                     verts,
                     tcoords,
+                    width,
                     matrix=matrix,
                     diffuse=line_color,
                     variable=var_cmd,
