@@ -707,7 +707,6 @@ class OmniverseUpdateHandler(UpdateHandler):
         self._group_prims: Dict[int, Any] = dict()
         self._root_prim = None
         self._sent_textures = False
-        self._updated_camera = False
 
     def add_group(self, id: int, view: bool = False) -> None:
         super().add_group(id, view)
@@ -728,7 +727,7 @@ class OmniverseUpdateHandler(UpdateHandler):
             matrix = group.matrix4x4
             # Is this a "case" group (it will contain part of the camera view in the matrix)
             if obj_type == "ENS_CASE":
-                if (not self.session.vrmode) and (not self._updated_camera):
+                if not self.session.vrmode:
                     # if in camera mode, we need to update the camera matrix so we can
                     # use the identity matrix on this group.  The camera should have been
                     # created in the "view" handler
@@ -763,9 +762,6 @@ class OmniverseUpdateHandler(UpdateHandler):
                     self._omni._stage.GetRootLayer().customLayerData = {  # type: ignore
                         "cameraSettings": {"boundCamera": "/Root/Cam"}
                     }
-
-                    # We only want to do this once
-                    self._updated_camera = True
                 matrix = [
                     1.0,
                     0.0,
@@ -947,8 +943,6 @@ class OmniverseUpdateHandler(UpdateHandler):
         # Upload a material to the Omniverse server
         self._omni.uploadMaterial()
         self._sent_textures = False
-        # We want to update the camera a single time within this update
-        self._updated_camera = False
 
     def end_update(self) -> None:
         super().end_update()
