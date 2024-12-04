@@ -318,7 +318,7 @@ class Parts:
                     )
                 else:
                     new_emitters.append(
-                        f"ensight.utils.parts._EnSEmitterPart(ensight, part={convert_part(self.ensight ,p)}, num_points={num_points}, part_kind={part_distribution_type})"
+                        f"ensight.utils.parts._EnSEmitterPart(ensight, part={convert_part(self.ensight , p)}, num_points={num_points}, part_kind={part_distribution_type})"
                     )
         else:
             raise RuntimeError(

@@ -63,7 +63,7 @@ class DVS:
             f"{indent}dvs_port = int(re.search(r':([0-9]{{4,5}})', dvs_port_string).groups(1)[0])\n"
         )
         cmd += f"{indent}with open('{tmp_name}', 'w') as temp_file:\n"
-        cmd += f"{2*indent}temp_file.write(str(dvs_port))\n"
+        cmd += f"{2 * indent}temp_file.write(str(dvs_port))\n"
         cmd += f"{indent}return True\n\n"
         cmd += "reply = ensight.objs.core.CURRENTCASE[0].client_command_callback(dvs_callback)\n"
         if monitor_new_timesteps:
