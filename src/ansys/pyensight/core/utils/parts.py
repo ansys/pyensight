@@ -15,6 +15,7 @@ Example for selecting all 3D parts:
 >>> parts.select_by_dimension(3)
 
 """
+
 from types import ModuleType
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
 

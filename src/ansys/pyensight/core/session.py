@@ -10,6 +10,7 @@ Examples:
 ansys.pyensight.Session
 
 """
+
 import atexit
 import importlib.util
 from os import listdir

@@ -78,7 +78,7 @@ def find_unused_ports(count: int, avoid: Optional[List[int]] = None) -> Optional
     return ports  # pragma: no cover
 
 
-def get_host_port(uri: str) -> Tuple[str, int]:
+def get_host_port(uri: str) -> Optional[Tuple[str, int]]:
     """Get the host port for the input uri
 
     Parameters
@@ -98,7 +98,9 @@ def get_host_port(uri: str) -> Tuple[str, int]:
         if parse_results.port
         else (443 if re.search("^https|wss$", parse_results.scheme) else None)
     )
-    return (parse_results.host, port)
+    if port:
+        return (parse_results.host, port)
+    return None
 
 
 def get_file_service(pim_instance: Any) -> Optional[Any]:  # pragma: no cover
@@ -155,12 +157,20 @@ def populate_service_host_port(  # pragma: no cover
             "If channel is specified, the PIM instance must have a list of length 3 "
             + "containing the appropriate service URIs. It does not."
         )
-    service_host_port["grpc_private"] = get_host_port(pim_instance.services["grpc_private"].uri)
-    service_host_port["http"] = get_host_port(pim_instance.services["http"].uri)
-    service_host_port["ws"] = get_host_port(pim_instance.services["ws"].uri)
+    grpc_private = get_host_port(pim_instance.services["grpc_private"].uri)
+    http = get_host_port(pim_instance.services["http"].uri)
+    ws = get_host_port(pim_instance.services["ws"].uri)
+    if grpc_private:
+        service_host_port["grpc_private"] = grpc_private
+    if http:
+        service_host_port["http"] = http
+    if ws:
+        service_host_port["ws"] = ws
     service_host_port["grpc"] = ("127.0.0.1", -1)
     if webui:
-        service_host_port["webui"] = get_host_port(pim_instance.services["webui"].uri)
+        webui_vals = get_host_port(pim_instance.services["webui"].uri)
+        if webui_vals:
+            service_host_port["webui"] = webui_vals
     return service_host_port
 
 

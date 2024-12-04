@@ -3,6 +3,7 @@
 This module provides simplified interface to compute specific variables via PyEnSight
 
 """
+
 import math
 import os
 from typing import TYPE_CHECKING, Dict, List, Optional, Union

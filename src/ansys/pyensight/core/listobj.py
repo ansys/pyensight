@@ -3,6 +3,7 @@
 Emulation of the EnSight ensobjlist class
 
 """
+
 from collections.abc import Iterable
 import fnmatch
 from typing import (
@@ -217,12 +218,10 @@ class ensobjlist(List[T]):  # noqa: N801
         return [default] * len(objid_list)  # pragma: no cover
 
     @overload
-    def __getitem__(self, index: SupportsIndex) -> T:
-        ...
+    def __getitem__(self, index: SupportsIndex) -> T: ...  # noqa: E704
 
     @overload
-    def __getitem__(self, index: slice) -> List[T]:
-        ...
+    def __getitem__(self, index: slice) -> List[T]: ...  # noqa: E704
 
     def __getitem__(self, index):
         """Overload the getitem operator to allow for tuple and string DESCRIPTION queries"""

@@ -3,6 +3,7 @@
 This module provides the interface for creating objects in the EnSight session
 that can be displayed via HTML over the websocket server interface.
 """
+
 import hashlib
 import os
 import shutil

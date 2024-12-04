@@ -11,6 +11,7 @@ Examples:
         session = LocalLauncher().start()
 
 """
+
 import os.path
 import platform
 import re

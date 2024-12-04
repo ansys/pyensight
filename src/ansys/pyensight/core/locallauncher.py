@@ -8,6 +8,7 @@ Examples:
 >>> from ansys.pyensight.core import LocalLauncher
 >>> session = LocalLauncher().start()
 """
+
 import glob
 import logging
 import os.path

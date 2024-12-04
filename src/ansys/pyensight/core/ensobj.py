@@ -3,6 +3,7 @@
 The ensobj module provides the base class to all EnSight proxy objects
 
 """
+
 from typing import TYPE_CHECKING, Any, Optional, no_type_check
 
 if TYPE_CHECKING:

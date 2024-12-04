@@ -7,6 +7,7 @@ Three types of content are supported:
     #. Simple context: an EnSight context file without any data loading reference.
 
 """
+
 import base64
 import io
 import os
@@ -93,7 +94,7 @@ class EnsContext:
             context zip file.
 
         """
-        if type(data) != bytes:
+        if not isinstance(data, bytes):
             data = base64.b64decode(data)
         self._buffer = io.BytesIO(data)
         the_file = zipfile.ZipFile(self._buffer, "r")

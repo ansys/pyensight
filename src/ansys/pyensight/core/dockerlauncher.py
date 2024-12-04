@@ -14,6 +14,7 @@ Examples:
         session.close()
 
 """
+
 import logging
 import os.path
 import subprocess
