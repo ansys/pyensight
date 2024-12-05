@@ -682,10 +682,13 @@ class GLBSession(dsg_server.DSGSession):
         if timeline[1] - timeline[0] <= 0.0:
             timeline = [0.0, float(num_scenes - 1)]
         # carve time into the input timeline.
-        delta = (timeline[1] - timeline[0]) / float(num_scenes)
+        delta = (timeline[1] - timeline[0]) / float(num_scenes-1)
         output: List[float] = []
         output.append(float(scene_idx) * delta + timeline[0])
-        output.append(output[0] + delta)
+        if scene_idx < num_scenes-1:
+            output.append(output[0] + delta)
+        else:
+            output.append(output[0])
         return output
 
     @staticmethod
