@@ -1,4 +1,5 @@
 import io
+import json
 import logging
 import os
 import sys
@@ -108,6 +109,8 @@ class GLBSession(dsg_server.DSGSession):
         part_pb.ambient = 1.0
         part_pb.diffuse = 1.0
         part_pb.specular_intensity = 1.0
+        if "ANSYS_material_details" in mat.extensions:
+            part_pb.material_name = json.dumps(mat.extensions["ANSYS_material_details"])
         # if the material maps to a variable, set the variable id for coloring
         glb_varid = self._find_variable_from_glb_mat(glb_materialid)
         if glb_varid:
@@ -662,8 +665,7 @@ class GLBSession(dsg_server.DSGSession):
         try:
             t0 = self._gltf.scenes[scene_idx].extensions["ANSYS_scene_timevalue"]["timevalue"]
             idx = scene_idx + 1
-            if idx >= num_scenes:
-                idx = scene_idx
+            if idx < num_scenes:
                 t1 = self._gltf.scenes[idx].extensions["ANSYS_scene_timevalue"]["timevalue"]
             else:
                 t1 = t0
