@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  MAIN_PYTHON_VERSION: '3.10'
+  MAIN_PYTHON_VERSION: '3.13'
   PACKAGE_NAME: 'ansys-pyensight-core'
   ENSIGHT_IMAGE: 'ghcr.io/ansys-internal/ensight_dev'
 

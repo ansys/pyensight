@@ -1,4 +1,5 @@
 """Unit tests for session.py"""
+
 import platform
 from unittest import mock
 import webbrowser

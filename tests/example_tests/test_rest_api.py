@@ -68,6 +68,6 @@ def test_rest_apis(tmpdir, pytestconfig: pytest.Config):
     assert ret.status_code == 200
     ret = requests.put(uri_base + "/call_func/rest_test/foo", json=dict(n=3)).json()
     assert len(ret) == 3
-    assert type(ret[0]) == float
+    assert isinstance(ret[0], float)
 
     s.close()

@@ -146,9 +146,9 @@ class Part(object):
         elif cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.LINES:
             if self.conn_lines.size != cmd.total_array_size:
                 self.conn_lines = numpy.resize(self.conn_lines, cmd.total_array_size)
-            self.conn_lines[
-                cmd.chunk_offset : cmd.chunk_offset + len(cmd.int_array)
-            ] = cmd.int_array
+            self.conn_lines[cmd.chunk_offset : cmd.chunk_offset + len(cmd.int_array)] = (
+                cmd.int_array
+            )
         elif (cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.ELEM_NORMALS) or (
             cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.NODE_NORMALS
         ):
@@ -168,9 +168,9 @@ class Part(object):
                     )
                     if self.tcoords.size != cmd.total_array_size:
                         self.tcoords = numpy.resize(self.tcoords, cmd.total_array_size)
-                    self.tcoords[
-                        cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)
-                    ] = cmd.flt_array
+                    self.tcoords[cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)] = (
+                        cmd.flt_array
+                    )
 
                     # Add the variable hash to the Part's hash, to pick up palette changes
                     var_cmd = self.session.variables.get(cmd.variable_id, None)
@@ -181,9 +181,9 @@ class Part(object):
                     # Receive the node size var values
                     if self.node_sizes.size != cmd.total_array_size:
                         self.node_sizes = numpy.resize(self.node_sizes, cmd.total_array_size)
-                    self.node_sizes[
-                        cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)
-                    ] = cmd.flt_array
+                    self.node_sizes[cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)] = (
+                        cmd.flt_array
+                    )
         # Combine the hashes for the UpdatePart and all UpdateGeom messages
         self.hash.update(cmd.hash.encode("utf-8"))
 
