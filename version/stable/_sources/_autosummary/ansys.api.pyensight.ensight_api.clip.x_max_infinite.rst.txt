@@ -1,0 +1,6 @@
+x\_max\_infinite
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: clip.x_max_infinite

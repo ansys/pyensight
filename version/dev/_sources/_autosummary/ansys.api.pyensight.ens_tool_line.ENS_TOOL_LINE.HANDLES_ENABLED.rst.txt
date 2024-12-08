@@ -1,0 +1,6 @@
+HANDLES\_ENABLED
+================
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_line
+
+.. autoproperty:: ENS_TOOL_LINE.HANDLES_ENABLED
