@@ -1,0 +1,6 @@
+TET10
+=====
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.TET10

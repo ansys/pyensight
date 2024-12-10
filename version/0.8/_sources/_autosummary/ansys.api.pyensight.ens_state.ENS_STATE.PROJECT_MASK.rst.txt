@@ -1,0 +1,6 @@
+PROJECT\_MASK
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_state
+
+.. autoproperty:: ENS_STATE.PROJECT_MASK

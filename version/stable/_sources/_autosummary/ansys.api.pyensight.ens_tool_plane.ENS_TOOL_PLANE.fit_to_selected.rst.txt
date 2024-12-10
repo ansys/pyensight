@@ -1,0 +1,6 @@
+fit\_to\_selected
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_plane
+
+.. automethod:: ENS_TOOL_PLANE.fit_to_selected
