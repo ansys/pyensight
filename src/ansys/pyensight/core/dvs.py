@@ -16,6 +16,7 @@ import threading
 import time
 import traceback
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
+import warnings
 
 from ansys.api.pyensight.dvs_api import dvs_base
 from ansys.pyensight.core import LocalLauncher
@@ -164,9 +165,7 @@ class DVS(dvs_base):
 
                 self._dvs_module = dynamic_visualization_store
             except (ModuleNotFoundError, ImportError):
-                raise RuntimeError(
-                    "Cannot import DVS module from provided ansys installation folder."
-                )
+                warnings.warn("Cannot import DVS module from provided ansys installation folder.")
 
     DVS_NULL_TRANSPORT = 0
     DVS_GRPC_TRANSPORT = 1
