@@ -716,5 +716,5 @@ class DVS(dvs_base):
         for c in range(self._client_count):
             client = self._clients[c]
             self.end_update(client["client_id"])
-            del client["update_started"]
+            client["update_started"] = False
         self._update_num += 1
