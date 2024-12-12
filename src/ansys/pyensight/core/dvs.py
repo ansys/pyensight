@@ -55,7 +55,10 @@ class DVS(dvs_base):
         lib_folder: Optional[str] = None,
     ) -> None:
         super().__init__(session=session)
-        self._ansys_installation: Optional[str] = ansys_installation
+        if ansys_installation:
+            self._ansys_installation: Optional[str] = LocalLauncher.get_cei_install_directory(
+                ansys_installation
+            )
         self._lib_folder: Optional[str] = lib_folder
         if self._session:
             if not self._ansys_installation and hasattr(self._session._launcher, "_install_path"):
@@ -143,13 +146,10 @@ class DVS(dvs_base):
                 raise RuntimeError("Cannot import DVS module from provided library folder.")
         if self._ansys_installation:
             # Check if you are inside of an ansys install
-            cei_install = os.path.join(self._ansys_installation, "CEI")
-            apex_path = glob.glob(os.path.join(cei_install, "apex???"))
+            apex_path = glob.glob(os.path.join(self._ansys_installation, "apex???"))
             if not apex_path:
                 # try dev path
-                apex_path = glob.glob(os.path.join(self._ansys_installation, "apex???"))
-                if not apex_path:
-                    raise RuntimeError("Cannot find a valid EnSight install")
+                raise RuntimeError("Cannot find a valid EnSight install")
             apex_path = apex_path[-1]
             arch = "win64" if self._is_windows() else "linux_2.6_64"
             apex_libs = os.path.join(apex_path, "machines", arch)
