@@ -59,7 +59,7 @@ class DVS(dvs_base):
         self._lib_folder: Optional[str] = lib_folder
         if self._session:
             if not self._ansys_installation and hasattr(self._session._launcher, "_install_path"):
-                self._ansys_installation = os.path.dirname(self._session._launcher._install_path)
+                self._ansys_installation = self._session._launcher._install_path
         if not self._session and not self._ansys_installation and not self._lib_folder:
             raise RuntimeError(
                 "Either a PyEnSight session or an ansys installation path, or a folder containing the DVS Python modules need to be provided."
