@@ -731,14 +731,16 @@ class DVS(dvs_base):
             client["update_started"] = False
         self._update_num += 1
 
-    def delete_item_on_clients(self, update_num):
+    def delete_item_on_clients(self, update_num, filter=""):
         """Delete an item from all the running clients.
 
         Parameters
         ----------
         update_num: int
             the update number to remove from the database
+        filter: str
+            the filter to apply when deleting the update number
         """
         for c in range(self._client_count):
             client = self._clients[c]
-            _ = self.delete_item(client["client_id"], update_num, client["rank"])
+            _ = self.delete_item(client["client_id"], update_num, client["rank"], filter)
