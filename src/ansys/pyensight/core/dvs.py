@@ -55,11 +55,9 @@ class DVS(dvs_base):
         lib_folder: Optional[str] = None,
     ) -> None:
         super().__init__(session=session)
-        self._ansys_installation = None
+        self._ansys_installation: Optional[str] = None
         if ansys_installation:
-            self._ansys_installation: Optional[str] = LocalLauncher.get_cei_install_directory(
-                ansys_installation
-            )
+            self._ansys_installation = LocalLauncher.get_cei_install_directory(ansys_installation)
         self._lib_folder: Optional[str] = lib_folder
         if self._session:
             if not self._ansys_installation and hasattr(self._session._launcher, "_install_path"):
@@ -732,3 +730,15 @@ class DVS(dvs_base):
             self.end_update(client["client_id"])
             client["update_started"] = False
         self._update_num += 1
+
+    def delete_item_on_clients(self, update_num):
+        """Delete an item from all the running clients.
+
+        Parameters
+        ----------
+        update_num: int
+            the update number to remove from the database
+        """
+        for c in range(self._client_count):
+            client = self._clients[c]
+            _ = self.delete_item(client["client_id"], update_num, client["rank"])
