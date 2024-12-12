@@ -55,6 +55,7 @@ class DVS(dvs_base):
         lib_folder: Optional[str] = None,
     ) -> None:
         super().__init__(session=session)
+        self._ansys_installation = None
         if ansys_installation:
             self._ansys_installation: Optional[str] = LocalLauncher.get_cei_install_directory(
                 ansys_installation
