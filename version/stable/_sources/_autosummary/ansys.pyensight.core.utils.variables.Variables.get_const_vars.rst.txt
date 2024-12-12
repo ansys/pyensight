@@ -1,0 +1,6 @@
+get\_const\_vars
+================
+
+.. currentmodule:: ansys.pyensight.core.utils.variables
+
+.. automethod:: Variables.get_const_vars
