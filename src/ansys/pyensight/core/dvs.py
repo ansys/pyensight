@@ -390,6 +390,24 @@ class DVS(dvs_base):
             )
             thread.start()
 
+    def begin_initialization(self):
+        """Begin initialization for all the clients."""
+        for c in range(self._client_count):
+            client = self._clients[c]
+            _ = self.begin_init(
+                client["client_id"],
+                dataset_name=f"Simba_{self._dataset_name}",
+                rank=client["rank"],
+                total_ranks=self._total_ranks,
+                num_chunks=1,
+            )
+
+    def end_initialization(self):
+        """End initialization for all the clients."""
+        for c in range(self._client_count):
+            client = self._clients[c]
+            _ = self.end_init(client["client_id"])
+
     def create_part(self, part_id: int, part_name: str, metadata: Optional[Dict[str, str]] = None):
         """Create a part definition for the DVS export.
 
@@ -416,17 +434,7 @@ class DVS(dvs_base):
         }
         for c in range(self._client_count):
             client = self._clients[c]
-            _ = self.begin_init(
-                client["client_id"],
-                dataset_name=f"Simba_{self._dataset_name}",
-                rank=client["rank"],
-                total_ranks=self._total_ranks,
-                num_chunks=1,
-            )
             self.add_part_info(client["client_id"], [part])
-        for c in range(self._client_count):
-            client = self._clients[c]
-            _ = self.end_init(client["client_id"])
         self._parts[part_id] = part
 
     def create_variable(
@@ -686,7 +694,12 @@ class DVS(dvs_base):
         for c in range(self._client_count):
             client = self._clients[c]
             arrays = split_arrays[c]
-            indices = numpy.concatenate(arrays)
+            if len(arrays) > 1:
+                indices = numpy.concatenate(arrays)
+            elif arrays:
+                indices = arrays[0]
+            else:
+                indices = numpy.array([])
             if elem_type not in [
                 self.ELEMTYPE_N_SIDED_POLYGON,
                 self.ELEMTYPE_N_SIDED_POLYGON_GHOST,
