@@ -226,8 +226,6 @@ class DVS(dvs_base):
                 self.server_start(
                     server_id, server_num=n, local_ranks=ranks_per_server, options=options
                 )
-                if grpc:
-                    time.sleep(0.5)
                 self._server_ids.append(server_id)
                 self._servers[n] = {
                     "server_id": server_id,
@@ -503,7 +501,8 @@ class DVS(dvs_base):
         start = time.time()
         while not started and time.time() - start < 60:
             started = all([vals["update_started"] for c, vals in self._clients.items()])
-            time.sleep(0.5)
+            if not started:
+                time.sleep(0.5)
         if not started:
             raise RuntimeError("Not all clients have begun the updates.")
 
