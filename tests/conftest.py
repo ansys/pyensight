@@ -1,6 +1,7 @@
 """
 Global fixtures go here.
 """
+
 import atexit
 import subprocess
 from unittest import mock

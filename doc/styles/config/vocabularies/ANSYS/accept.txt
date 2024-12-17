@@ -96,6 +96,7 @@ SOSConstant
 Stimpson
 subpackage
 te
+THIRDPARTY
 timestep1
 timestep2
 Tij

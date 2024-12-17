@@ -420,11 +420,11 @@ class Query:
         part_list = []
         if parts:  # pragma: no cover
             for p in parts:
-                if type(p) == str:  # pragma: no cover
+                if isinstance(p, str):  # pragma: no cover
                     part_list.append(
                         self._ensight.objs.core.PARTS[p][0].PARTNUMBER
                     )  # pragma: no cover
-                elif type(p) == int:  # pragma: no cover
+                elif isinstance(p, int):  # pragma: no cover
                     part_list.append(p)  # pragma: no cover
                 else:
                     if hasattr(p, "PARTNUMBER"):  # pragma: no cover
