@@ -716,10 +716,40 @@ class DVS(dvs_base):
                 )
         self._parts[part_id]["dvs_elem_type"] = elem_type
 
-    def load_dataset_in_ensight(self):
-        """Launch the cached dataset in EnSight."""
+    def _check_timestep_count(self, timeout=120.0):
+        """Check that there are no pending timesteps before loading data.
+
+        Parameters
+        ----------
+        timeout: float
+            the timeout to set while checking for pending timesteps
+        """
+        ready = False
+        start = time.time()
+        while not ready and time.time() - start < timeout:
+            vals = []
+            for server_id in self._server_ids:
+                num_pending, num_complete = self.server_timestep_count(server_id)
+                vals.append(num_pending == 0)
+            ready = all(vals)
+            if not ready:
+                time.sleep(0.5)
+        if not ready:
+            raise RuntimeError(
+                f"There are still pending timesteps within the input timeout of {timeout} seconds"
+            )
+
+    def load_dataset_in_ensight(self, timeout=120.0):
+        """Launch the cached dataset in EnSight.
+
+        Parameters
+        ----------
+        timeout: float
+            the timeout to set while checking for pending timesteps
+        """
         if not self._session:
             raise RuntimeError("A PyEnSight session must be available.")
+        self._check_timestep_count(timeout=timeout)
         self._session.load_data(os.path.join(self._cache_folder, f"Simba_{self._dataset_name}.dvs"))
 
     def end_updates(self):
