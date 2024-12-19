@@ -1,0 +1,6 @@
+reflect\_model\_origin
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: case.reflect_model_origin

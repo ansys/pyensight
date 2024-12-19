@@ -1,0 +1,6 @@
+distribution
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: contour.distribution

@@ -1,0 +1,6 @@
+texture\_origin\_nodeid
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.texture_origin_nodeid
