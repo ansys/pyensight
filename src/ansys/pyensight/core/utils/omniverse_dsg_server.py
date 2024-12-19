@@ -209,6 +209,11 @@ class OmniverseWrapper(object):
             ord(","): "_",
             ord(" "): "_",
             ord("\\"): "_",
+            ord("^"): "_",
+            ord("!"): "_",
+            ord("#"): "_",
+            ord("%"): "_",
+            ord("&"): "_",
         }
         name = name.translate(replacements)
         if name[0].isdigit():
