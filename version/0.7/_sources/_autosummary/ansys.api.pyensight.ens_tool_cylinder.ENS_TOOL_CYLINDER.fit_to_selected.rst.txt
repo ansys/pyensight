@@ -1,0 +1,6 @@
+fit\_to\_selected
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_cylinder
+
+.. automethod:: ENS_TOOL_CYLINDER.fit_to_selected
