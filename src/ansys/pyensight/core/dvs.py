@@ -200,7 +200,7 @@ class DVS(dvs_base):
             DVS_NULL_TRANSPORT Start the servers with the null protocol. Default
             DVS_GRPC_TRANSPORT Start the servers with the grpc protocol.
             ================== =========================================================
-        ranks_per_servers: int
+        ranks_per_server: int
             the number or ranks that will be connected to each server. Defaults to 1
         secret_key: str
             the secret key that will be used for the eventual gRPC connection.
