@@ -1,0 +1,6 @@
+getattr
+=======
+
+.. currentmodule:: ansys.api.pyensight.ens_source
+
+.. automethod:: ENS_SOURCE.getattr

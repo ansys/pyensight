@@ -1,0 +1,6 @@
+location\_x
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: legend.location_x

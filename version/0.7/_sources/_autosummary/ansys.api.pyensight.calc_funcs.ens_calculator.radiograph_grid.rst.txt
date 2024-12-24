@@ -1,0 +1,6 @@
+radiograph\_grid
+================
+
+.. currentmodule:: ansys.api.pyensight.calc_funcs
+
+.. automethod:: ens_calculator.radiograph_grid
