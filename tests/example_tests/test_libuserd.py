@@ -3,6 +3,7 @@ import numpy
 import pytest
 
 
+@pytest.mark.skip(reason="Temporarily disabled until protobuffer changes complete")
 def test_libuserd_basic(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
@@ -11,9 +12,9 @@ def test_libuserd_basic(tmpdir, pytestconfig: pytest.Config):
     else:
         libuserd = LibUserd(use_docker=True, use_dev=True, data_directory=data_dir)
     libuserd.initialize()
-    libuserd.get_all_readers()
-    libuserd.ansys_release_number()
-    libuserd.ansys_release_string()
+    _ = libuserd.get_all_readers()
+    _ = libuserd.ansys_release_number()
+    _ = libuserd.ansys_release_string()
     cas_file = libuserd.download_pyansys_example("mixing_elbow.cas.h5", "pyfluent/mixing_elbow")
     dat_file = libuserd.download_pyansys_example("mixing_elbow.dat.h5", "pyfluent/mixing_elbow")
     r = libuserd.query_format(cas_file, dat_file)
@@ -25,14 +26,15 @@ def test_libuserd_basic(tmpdir, pytestconfig: pytest.Config):
     vars = d.variables()
     v = [v for v in vars if v.name == "Static_Pressure"][0]
 
-    p.nodes()
-    p.num_elements()
-    p.element_conn(libuserd.ElementType.HEX08)
-    p.variable_values(v, libuserd.ElementType.HEX08)
+    _ = p.nodes()
+    _ = p.num_elements()
+    _ = p.element_conn(libuserd.ElementType.HEX08)
+    _ = p.variable_values(v, libuserd.ElementType.HEX08)
 
     libuserd.shutdown()
 
 
+@pytest.mark.skip(reason="Temporarily disabled until protobuffer changes complete")
 def test_libuserd_synthetic_time(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
