@@ -93,10 +93,8 @@ def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
     conn = build_numpy_conn_simba_format(update_handler._conn)
     dvs.start_dvs_servers(3, 0, 1)
     dvs.start_dvs_clients("TestDatasetSimbaFormat")
+    dvs.begin_initialization()
     dvs.create_part(part.PARTNUMBER, part.DESCRIPTION)
-    dvs.begin_updates(session.ensight.objs.core.TIMEVALUES[0][1])
-    dvs.send_connectivity(part.PARTNUMBER, conn)
-    dvs.send_coordinates(part.PARTNUMBER, update_handler._coords)
     var_location = (
         dvs.LOCATION_ELEMENT
         if variable.LOCATION == session.ensight.objs.enums.ENS_VAR_ELEM
@@ -112,4 +110,9 @@ def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
         variable.ENS_UNITS_LABEL,
         variable.metadata,
     )
+    dvs.end_initialization()
+    dvs.begin_updates(session.ensight.objs.core.TIMEVALUES[0][1])
+    dvs.send_connectivity(part.PARTNUMBER, conn)
+    dvs.send_coordinates(part.PARTNUMBER, update_handler._coords)
     dvs.send_variable_data(variable.ID, part.PARTNUMBER, update_handler._tcoords)
+    dvs.end_updates()
