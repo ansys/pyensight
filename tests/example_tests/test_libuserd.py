@@ -3,7 +3,6 @@ import numpy
 import pytest
 
 
-@pytest.mark.skip(reason="Temporarily disabled until protobuffer changes complete")
 def test_libuserd_basic(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
@@ -34,7 +33,6 @@ def test_libuserd_basic(tmpdir, pytestconfig: pytest.Config):
     libuserd.shutdown()
 
 
-@pytest.mark.skip(reason="Temporarily disabled until protobuffer changes complete")
 def test_libuserd_synthetic_time(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
