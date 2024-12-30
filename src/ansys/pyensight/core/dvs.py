@@ -4,8 +4,8 @@ It also provides a collection of utilities to starts DVS servers, clients,
 launch a local PyEnSight session, or connect to an existing one, and finally
 to send data from the clients to the servers.
 """
-import logging
 import glob
+import logging
 import os
 import pathlib
 import platform
@@ -504,8 +504,9 @@ class DVS(dvs_base):
             if not started:
                 time.sleep(0.5)
         if not started:
-            for c,vals in self._clients.items():
-                logging.debug(f"Client {c}, update: {vals["update_started"]}")
+            for c, vals in self._clients.items():
+                update = vals["update_started"]
+                logging.debug(f"Client {c}, update: {update}")
             raise RuntimeError("Not all clients have begun the updates.")
 
     def send_coordinates(self, part_id: int, vertices: Union[List[float], numpy.ndarray]):
