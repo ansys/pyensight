@@ -229,7 +229,7 @@ def test_convert_ctor(mocked_session, mocker):
     value = session._convert_ctor("Class: ENS_ANNOT, desc: 'Pressure', CvfObjID: 4761, cached:no")
     assert (
         value
-        == "session.ensight.objs.ENS_ANNOT_LGND(session, 4761,attr_id=1610612995, attr_value=3)"
+        == "session.ensight.objs.ENS_ANNOT_LGND(session, 4761,attr_id=1610612996, attr_value=3)"
     )
     cmd.return_value = 6
     value = session._convert_ctor("Class: ENS_TOOL, desc: 'Sphere', CvfObjID: 763, cached:no")

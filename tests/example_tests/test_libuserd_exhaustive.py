@@ -698,7 +698,7 @@ def _test_variables(variables_userd, variables_ensight):
         try:
             # compare Is_complex
             assert (
-                userd_var.isComplex == pyensight_is_complex
+                userd_var.complex == pyensight_is_complex
             ), f"Complexity do not match for Part ID {var_id} and name '{userd_var.name}': {userd_var.isComplex} (userd) vs {pyensight_is_complex} (ensight)"
         except AssertionError as e:
             failures.append(str(e))
