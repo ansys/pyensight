@@ -361,7 +361,7 @@ class DVS(dvs_base):
             The chunk of the update
         """
         try:
-            self.begin_update(client_dict["client_id"], self._update_num, time, rank, chunk)
+            _ = self.begin_update(client_dict["client_id"], self._update_num, time, rank, chunk)
             client_dict["update_started"] = True
         except Exception as e:
             traceback.print_exc()
@@ -759,7 +759,7 @@ class DVS(dvs_base):
         """End the current updates."""
         for c in range(self._client_count):
             client = self._clients[c]
-            self.end_update(client["client_id"])
+            _ = self.end_update(client["client_id"])
             client["update_started"] = False
         self._update_num += 1
 

@@ -58,7 +58,7 @@ def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
     if use_local:
-        launcher = LocalLauncher()
+        launcher = LocalLauncher(ansys_installation="D:\\ANSYSDev\\Product-src")
     else:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     session = launcher.start()
@@ -95,11 +95,7 @@ def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
     dvs.start_dvs_clients("TestDatasetSimbaFormat")
     dvs.begin_initialization()
     dvs.create_part(part.PARTNUMBER, part.DESCRIPTION)
-    var_location = (
-        dvs.LOCATION_ELEMENT
-        if variable.LOCATION == session.ensight.objs.enums.ENS_VAR_ELEM
-        else dvs.LOCATION_NODE
-    )
+    var_location = dvs.LOCATION_NODE  # DSG sends by default a nodal representation of the data
     var_type = dvs.VARTYPE_SCALAR
     dvs.create_variable(
         variable.ID,
@@ -116,3 +112,5 @@ def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
     dvs.send_coordinates(part.PARTNUMBER, update_handler._coords)
     dvs.send_variable_data(variable.ID, part.PARTNUMBER, update_handler._tcoords)
     dvs.end_updates()
+    dvs.load_dataset_in_ensight()
+    assert len(session.ensight.objs.core.PARTS) == 1
