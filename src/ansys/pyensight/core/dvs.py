@@ -479,17 +479,7 @@ class DVS(dvs_base):
         }
         for c in range(self._client_count):
             client = self._clients[c]
-            _ = self.begin_init(
-                client["client_id"],
-                dataset_name=f"Simba_{self._dataset_name}",
-                rank=client["rank"],
-                total_ranks=self._total_ranks,
-                num_chunks=1,
-            )
             self.add_var_info(client["client_id"], [var])
-        for c in range(self._client_count):
-            client = self._clients[c]
-            _ = self.end_init(client["client_id"])
         self._vars[var_id] = var
 
     def _check_updates_started(self):
