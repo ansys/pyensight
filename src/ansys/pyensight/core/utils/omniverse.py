@@ -29,7 +29,6 @@ class OmniverseKitInstance:
 
     def __init__(self, pid: int) -> None:
         self._pid: Optional[int] = pid
-        print("CTOR:", pid)
 
     def __del__(self) -> None:
         """Close down the instance on delete"""

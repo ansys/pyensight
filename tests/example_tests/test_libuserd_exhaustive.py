@@ -1,7 +1,6 @@
 from enum import Enum
 
 import numpy as np
-import pytest
 
 ELEMENT_STRING_TO_INT_MAP = {
     "point": 0,
@@ -699,7 +698,7 @@ def _test_variables(variables_userd, variables_ensight):
         try:
             # compare Is_complex
             assert (
-                userd_var.isComplex == pyensight_is_complex
+                userd_var.complex == pyensight_is_complex
             ), f"Complexity do not match for Part ID {var_id} and name '{userd_var.name}': {userd_var.isComplex} (userd) vs {pyensight_is_complex} (ensight)"
         except AssertionError as e:
             failures.append(str(e))
@@ -842,7 +841,6 @@ def compare(userd, session, file1_userd, file2_userd, file1_session, file2_sessi
         )
 
 
-@pytest.mark.skip(reason="Temporarily disabled until protobuffer changes complete")
 def test_cfx(launch_libuserd_and_get_files):
     file_1 = "InjectMixer.res"
     file_2 = None
@@ -862,7 +860,6 @@ def test_cfx(launch_libuserd_and_get_files):
     compare(userd, session, file1_userd, file2_userd, file1_session, file2_session, 0)
 
 
-@pytest.mark.skip(reason="Temporarily disabled until protobuffer changes complete")
 def test_fluent_hdf5(launch_libuserd_and_get_files):
     file_1 = "axial_comp-1-01438.cas.h5"
     file_2 = "axial_comp-1-01438.dat.h5"
@@ -915,7 +912,6 @@ def test_fluent_hdf5(launch_libuserd_and_get_files):
 #    smoke_test(userd, file1_userd, file2_userd)
 
 
-@pytest.mark.skip(reason="Temporarily disabled until protobuffer changes complete")
 def test_ansys_rst(launch_libuserd_and_get_files):
     file_1 = "transient.rst"
     file_2 = None
@@ -934,7 +930,6 @@ def test_ansys_rst(launch_libuserd_and_get_files):
     smoke_test(userd, file1_userd, file2_userd)
 
 
-@pytest.mark.skip(reason="Temporarily disabled until protobuffer changes complete")
 def test_vtk(launch_libuserd_and_get_files):
     file_1 = "rotor_linear_step21_unorm.vtk"
     file_2 = None
