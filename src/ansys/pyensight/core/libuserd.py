@@ -1298,8 +1298,8 @@ class LibUserd(object):
         )
         self._cei_home = self._enshell.cei_home()
         self._ansys_version = self._enshell.ansys_version()
-        print("CEI_HOME=", self._cei_home)
-        print("Ansys Version=", self._ansys_version)
+        # print("CEI_HOME=", self._cei_home)
+        # print("Ansys Version=", self._ansys_version)
         grpc_port = self._service_host_port["grpc_private"][1]
         ensight_args = f"-grpc_server {grpc_port}"
         container_env_str = f"ENSIGHT_SECURITY_TOKEN={self._security_token}\n"

@@ -1,3 +1,5 @@
+import os
+
 from ansys.pyensight.core.libuserd import LibUserd
 import numpy
 import pytest
@@ -74,5 +76,39 @@ def test_libuserd_synthetic_time(tmpdir, pytestconfig: pytest.Config):
 
     assert numpy.array_equal(centroid_5, centroid_50)
     assert not numpy.array_equal(centroid_5, centroid_0)
+
+    libuserd.shutdown()
+
+
+def test_libuserd_userd_case(tmpdir, pytestconfig: pytest.Config):
+    data_dir = tmpdir.mkdir("datadir")
+    use_local = pytestconfig.getoption("use_local_launcher")
+    if use_local:
+        libuserd = LibUserd()
+    else:
+        libuserd = LibUserd(use_docker=True, use_dev=True, data_directory=data_dir)
+    libuserd.initialize()
+    readers = libuserd.query_format("example.case")
+    assert len(readers) == 1
+    assert readers[0].name == "USERD EnSight Case"
+
+    cei_root = os.path.dirname(os.path.dirname(libuserd.server_pathname))
+    casefile = os.path.join(
+        cei_root,
+        f"ensight{libuserd.ansys_release_number()}",
+        "other_data",
+        "ensight",
+        "guard_rail_xml",
+        "crash_xml.case",
+    )
+
+    readers = libuserd.query_format(casefile)
+    data = readers[0].read_dataset(casefile)
+
+    assert len(data.parts) == 15
+    assert len(data.variables) == 2
+    assert len(data.timevalues()) == 21
+    assert data.variables()[0].unit_label == "mm"
+    assert data.variables()[1].unit_label == "kg m^-1 s^-2"
 
     libuserd.shutdown()
