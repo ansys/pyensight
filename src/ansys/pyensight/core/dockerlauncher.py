@@ -325,6 +325,7 @@ class DockerLauncher(Launcher):
                         detach=True,
                         auto_remove=True,
                         remove=True,
+                        user="ensight:ensight"
                     )
             else:
                 logging.debug(f"Running container {self._image_name} with cmd {enshell_cmd}\n")
@@ -340,6 +341,7 @@ class DockerLauncher(Launcher):
                         detach=True,
                         auto_remove=True,
                         remove=True,
+                        user="ensight:ensight"
                     )
                 logging.debug(f"_container = {str(self._container)}\n")
         else:
@@ -357,6 +359,7 @@ class DockerLauncher(Launcher):
                         detach=True,
                         auto_remove=True,
                         remove=True,
+                        user="ensight:ensight"
                     )
             else:  # pragma: no cover
                 logging.debug(
@@ -373,6 +376,7 @@ class DockerLauncher(Launcher):
                         detach=True,
                         auto_remove=True,
                         remove=True,
+                        user="ensight:ensight"
                     )
                 # logging.debug(f"_container = {str(self._container)}\n")
         logging.debug("Container started.\n")
