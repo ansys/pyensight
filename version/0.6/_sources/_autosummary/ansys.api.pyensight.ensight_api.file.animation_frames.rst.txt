@@ -1,0 +1,6 @@
+animation\_frames
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.animation_frames

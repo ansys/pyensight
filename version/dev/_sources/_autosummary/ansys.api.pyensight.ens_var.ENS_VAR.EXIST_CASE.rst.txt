@@ -1,0 +1,6 @@
+EXIST\_CASE
+===========
+
+.. currentmodule:: ansys.api.pyensight.ens_var
+
+.. autoproperty:: ENS_VAR.EXIST_CASE
