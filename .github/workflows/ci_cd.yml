@@ -83,6 +83,11 @@ jobs:
       - name: docker
         run: docker pull ${{ env.ENSIGHT_IMAGE }}
 
+      #- name: Setup tmate session
+      #  uses: mxschmitt/action-tmate@v3
+      #  env:
+      #    ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
+
       - name: Run pytest
         uses: ansys/actions/tests-pytest@v8
         env:
