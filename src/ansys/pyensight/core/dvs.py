@@ -87,7 +87,7 @@ class DVS(dvs_base):
             os.mkdir(os.path.join(self._temp_cache.name, "dvs_cache"))
             self._cache_folder: str = os.path.join(self._temp_cache.name, "dvs_cache")
         else:
-            self._cache_folder = "/data"
+            self._cache_folder = "/home/ensight/dvs_cache"
         self._dataset_name: Optional[str] = None
         self._secret_key: Optional[str] = None
 
@@ -766,3 +766,12 @@ class DVS(dvs_base):
         for c in range(self._client_count):
             client = self._clients[c]
             _ = self.delete_item(client["client_id"], update_num, client["rank"], filter)
+
+    def get_dvs_data_from_container(self, destination: str):
+        """Utility to save the data from the container to a local destination.
+
+        destination: str
+            the folder where to copy the files to
+        """
+        posix_uri = pathlib.Path(destination).as_uri()
+        self._session.copy_from_session(posix_uri, ["dvs_cache"])

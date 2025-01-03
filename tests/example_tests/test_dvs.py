@@ -1,3 +1,4 @@
+import os
 import threading
 import time
 
@@ -114,3 +115,6 @@ def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
     dvs.end_updates()
     dvs.load_dataset_in_ensight()
     assert len(session.ensight.objs.core.PARTS) == 1
+    push_dir = tmpdir.mkdir("newdir")
+    dvs.get_dvs_data_from_container(push_dir)
+    assert os.path.isdir(os.path.join(push_dir, "dvs_cache"))
