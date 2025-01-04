@@ -92,23 +92,16 @@ def test_libuserd_userd_case(tmpdir, pytestconfig: pytest.Config):
     assert len(readers) == 1
     assert readers[0].name == "USERD EnSight Case"
 
-    cei_root = os.path.dirname(os.path.dirname(libuserd.server_pathname))
-    casefile = os.path.join(
-        cei_root,
-        f"ensight{libuserd.ansys_release_number()}",
-        "other_data",
-        "ensight",
-        "guard_rail_xml",
-        "crash_xml.case",
-    )
+    casedir = libuserd.download_pyansys_example("RC_Plane", "pyensight", folder=True)
+    casefile = os.path.join(casedir, "extra300_RC_Plane_nodal.case")
 
     readers = libuserd.query_format(casefile)
     data = readers[0].read_dataset(casefile)
 
     assert len(data.parts) == 15
-    assert len(data.variables) == 2
-    assert len(data.timevalues()) == 21
-    assert data.variables()[0].unit_label == "mm"
-    assert data.variables()[1].unit_label == "kg m^-1 s^-2"
+    assert len(data.variables) == 6
+    assert len(data.timevalues()) == 1
+    assert data.variables()[0].unit_label == "Pa"
+    assert data.variables()[2].unit_label == "s^-1'"
 
     libuserd.shutdown()
