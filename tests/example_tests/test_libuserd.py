@@ -98,8 +98,8 @@ def test_libuserd_userd_case(tmpdir, pytestconfig: pytest.Config):
     readers = libuserd.query_format(casefile)
     data = readers[0].read_dataset(casefile)
 
-    assert len(data.parts) == 15
-    assert len(data.variables) == 6
+    assert len(data.parts()) == 15
+    assert len(data.variables()) == 6
     assert len(data.timevalues()) == 1
     assert data.variables()[0].unit_label == "Pa"
     assert data.variables()[2].unit_label == "s^-1'"

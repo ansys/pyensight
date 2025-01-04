@@ -1129,7 +1129,7 @@ class LibUserd(object):
 
     Parameters
     ----------
-    ansys_installation
+    ansys_installation : str
         Optional location to search for an Ansys software installation.
 
     Examples
@@ -1695,7 +1695,7 @@ class LibUserd(object):
 
         Parameters
         ----------
-        element_type
+        element_type : int
             The element type:  ElementType enum value
 
         Returns
@@ -1720,7 +1720,7 @@ class LibUserd(object):
 
         Parameters
         ----------
-        element_type
+        element_type : int
             The element type:  ElementType enum value
 
         Returns
@@ -1743,7 +1743,7 @@ class LibUserd(object):
 
         Parameters
         ----------
-        element_type
+        element_type : int
             The element type:  ElementType enum value
 
         Returns
@@ -1766,7 +1766,7 @@ class LibUserd(object):
 
         Parameters
         ----------
-        element_type
+        element_type : int
             The element type:  ElementType enum value
 
         Returns
@@ -1789,7 +1789,7 @@ class LibUserd(object):
 
         Parameters
         ----------
-        element_type
+        element_type : int
             The element type:  ElementType enum value
 
         Returns
@@ -1827,13 +1827,26 @@ class LibUserd(object):
             raise self.libuserd_exception(e)
         return ret.result
 
-    def initialize(self) -> None:
+    def initialize(self, number_of_ranks: int = 0) -> None:
         """
         This call initializes the libuserd system.  It causes the library to scan for available
         readers and set up any required reduction engine bits.  It can only be called once.
+
+        Parameters
+        ----------
+        number_of_ranks : int, optional
+            The degree of I/O parallelism to read data with.  Zero is serial I/O.  Note: this
+            option is not currently implemented and 0 should be used.
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_initializeRequest()
+        if number_of_ranks:
+            self._number_of_ranks = number_of_ranks
+            try:
+                pb.parallel_node_count = number_of_ranks
+            except Exception:
+                # This exception is allowed to support older .proto versions
+                pass
         try:
             _ = self.stub.Libuserd_initialize(pb, metadata=self.metadata())
         except grpc.RpcError as e:
@@ -1866,10 +1879,10 @@ class LibUserd(object):
 
         Parameters
         ----------
-        name1
+        name1 : str
             Primary input filename
 
-        name2
+        name2 : str
             Optional, secondary input filename
 
         Returns
@@ -1976,11 +1989,11 @@ class LibUserd(object):
         Parameters:
         ----------
 
-        uri: str
+        uri : str
             The uri to get files from
-        pathname: str
+        pathname : str
             The location were to save the files. It could be either a file or a folder.
-        folder: bool
+        folder : bool
             True if the uri will server files from a directory. In this case,
             pathname will be used as the directory were to save the files.
         """
