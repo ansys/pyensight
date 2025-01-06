@@ -1,3 +1,5 @@
+import os
+
 from ansys.pyensight.core.libuserd import LibUserd
 import numpy
 import pytest
@@ -74,5 +76,32 @@ def test_libuserd_synthetic_time(tmpdir, pytestconfig: pytest.Config):
 
     assert numpy.array_equal(centroid_5, centroid_50)
     assert not numpy.array_equal(centroid_5, centroid_0)
+
+    libuserd.shutdown()
+
+
+def test_libuserd_userd_case(tmpdir, pytestconfig: pytest.Config):
+    data_dir = tmpdir.mkdir("datadir")
+    use_local = pytestconfig.getoption("use_local_launcher")
+    if use_local:
+        libuserd = LibUserd()
+    else:
+        libuserd = LibUserd(use_docker=True, use_dev=True, data_directory=data_dir)
+    libuserd.initialize()
+    readers = libuserd.query_format("example.case")
+    assert len(readers) == 1
+    assert readers[0].name == "USERD EnSight Case"
+
+    casedir = libuserd.download_pyansys_example("RC_Plane", "pyensight", folder=True)
+    casefile = os.path.join(casedir, "extra300_RC_Plane_nodal.case")
+
+    readers = libuserd.query_format(casefile)
+    data = readers[0].read_dataset(casefile)
+
+    assert len(data.parts()) == 15
+    assert len(data.variables()) == 6
+    assert len(data.timevalues()) == 1
+    assert data.variables()[0].unit_label == "Pa"
+    assert data.variables()[2].unit_label == "s^-1"
 
     libuserd.shutdown()
