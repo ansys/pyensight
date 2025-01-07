@@ -58,10 +58,8 @@ def build_numpy_conn_simba_format(conn):
 def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
-    local = False
     if use_local:
         launcher = LocalLauncher()
-        local = True
     else:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     session = launcher.start()
@@ -117,7 +115,7 @@ def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
     dvs.end_updates()
     dvs.load_dataset_in_ensight()
     assert len(session.ensight.objs.core.PARTS) == 1
-    if local:
+    if hasattr(launcher, "_install_path"):
         push_dir = tmpdir.mkdir("newdir")
         dvs.get_dvs_data_from_container(push_dir)
         assert os.path.isdir(os.path.join(push_dir, "dvs_cache"))
