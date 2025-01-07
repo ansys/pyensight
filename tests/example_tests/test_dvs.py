@@ -115,6 +115,9 @@ def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
     dvs.end_updates()
     dvs.load_dataset_in_ensight()
     assert len(session.ensight.objs.core.PARTS) == 1
-    push_dir = tmpdir.mkdir("newdir")
-    dvs.get_dvs_data_from_container(push_dir)
-    assert os.path.isdir(os.path.join(push_dir, "dvs_cache"))
+    if use_local:
+        push_dir = tmpdir.mkdir("newdir")
+        dvs.get_dvs_data_from_container(push_dir)
+        assert os.path.isdir(os.path.join(push_dir, "dvs_cache"))
+    else:
+        assert os.path.isdir(dvs._cache_folder)
