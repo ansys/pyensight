@@ -59,7 +59,7 @@ def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
     if use_local:
-        launcher = LocalLauncher(ansys_installation="D:\\ANSYSDev\\Product-src")
+        launcher = LocalLauncher()
     else:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     session = launcher.start()
