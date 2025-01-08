@@ -1,5 +1,6 @@
 """ This module provides a list of common utilities shared between different PyEnSight modules."""
 
+import os
 import random
 import re
 import socket
@@ -214,3 +215,19 @@ def pull_image(docker_client: "DockerClient", image_name: str) -> None:
             docker_client.images.pull(image_name)
     except Exception:
         raise RuntimeError(f"Can't pull Docker image: {image_name}")
+
+
+def _is_within_directory(directory, target):
+    """Check if target is inside of the input directory."""
+    abs_directory = os.path.abspath(directory)
+    abs_target = os.path.abspath(target)
+    return os.path.commonprefix([abs_directory, abs_target]) == abs_directory
+
+
+def safe_extract(tar, path=".", members=None, *, numeric_owner=False):
+    """Utility to check tar extraction to avoid bandit check issue."""
+    for member in tar.getmembers():
+        member_path = os.path.join(path, member.name)
+        if not _is_within_directory(path, member_path):
+            raise Exception("Attempted Path Traversal in Tar File")
+    tar.extractall(path, members, numeric_owner=numeric_owner)

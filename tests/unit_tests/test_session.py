@@ -217,7 +217,7 @@ def test_callbacks(mocked_session, mocker):
 
 
 def test_convert_ctor(mocked_session, mocker):
-    session = mocked_session
+    session: "Session" = mocked_session
     value = session._convert_ctor("Class: ENS_GLOBALS, CvfObjID: 221, cached:yes")
     assert value == "session.ensight.objs.ENS_GLOBALS(session, 221)"
     cmd = mocker.patch.object(session, "cmd", return_value=0)
