@@ -119,5 +119,8 @@ def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
         push_dir = tmpdir.mkdir("newdir")
         dvs.get_dvs_data_from_container(push_dir)
         assert os.path.isdir(os.path.join(push_dir, "dvs_cache"))
+        tar_dir = tmpdir.mkdir("newdir2")
+        dvs.get_dvs_data_from_container(tar_dir)
+        assert os.path.isdir(os.path.join(tar_dir, "dvs_cache"))
     else:
         assert os.path.isdir(dvs._cache_folder)

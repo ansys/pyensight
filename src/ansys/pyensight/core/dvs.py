@@ -22,6 +22,7 @@ import warnings
 
 from ansys.api.pyensight.dvs_api import dvs_base
 from ansys.pyensight.core import DockerLauncher, LocalLauncher
+from ansys.pyensight.core.common import safe_extract
 import numpy
 
 if TYPE_CHECKING:
@@ -785,7 +786,7 @@ class DVS(dvs_base):
         if use_docker:
             bits, stat = self._session._launcher._container.get_archive(self._cache_folder)
             with tarfile.open(fileobj=io.BytesIO(b"".join(bits)), mode="r") as tar:
-                tar.extractall(path=destination)
-                os.remove(bits)
+                safe_extract(tar, destination)
+            os.remove(bits)
         else:
             self._session.copy_from_session(posix_uri, ["dvs_cache"])
