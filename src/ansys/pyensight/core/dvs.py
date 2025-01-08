@@ -5,12 +5,14 @@ launch a local PyEnSight session, or connect to an existing one, and finally
 to send data from the clients to the servers.
 """
 import glob
+import io
 import logging
 import os
 import pathlib
 import platform
 import re
 import sys
+import tarfile
 import tempfile
 import threading
 import time
@@ -19,7 +21,7 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 import warnings
 
 from ansys.api.pyensight.dvs_api import dvs_base
-from ansys.pyensight.core import LocalLauncher
+from ansys.pyensight.core import DockerLauncher, LocalLauncher
 import numpy
 
 if TYPE_CHECKING:
@@ -767,11 +769,23 @@ class DVS(dvs_base):
             client = self._clients[c]
             _ = self.delete_item(client["client_id"], update_num, client["rank"], filter)
 
-    def get_dvs_data_from_container(self, destination: str):
+    def get_dvs_data_from_container(self, destination: str, use_docker=False):
         """Utility to save the data from the container to a local destination.
 
         destination: str
             the folder where to copy the files to
+        use_docker: bool
+            if True, download is done using the docker CLI
         """
+        if not isinstance(self._session._launcher, DockerLauncher):
+            raise RuntimeError("Method only available for DockerLauncher instances.")
+        if not os.path.exists(destination):
+            os.makedirs(destination)
         posix_uri = pathlib.Path(destination).as_uri()
-        self._session.copy_from_session(posix_uri, ["dvs_cache"])
+        if use_docker:
+            bits, stat = self._session._launcher._container.get_archive(self._cache_folder)
+            with tarfile.open(fileobj=io.BytesIO(b"".join(bits)), mode="r") as tar:
+                tar.extractall(path=destination)
+                os.remove(bits)
+        else:
+            self._session.copy_from_session(posix_uri, ["dvs_cache"])
