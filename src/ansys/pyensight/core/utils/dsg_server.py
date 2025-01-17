@@ -6,11 +6,14 @@ import queue
 import sys
 import threading
 import time
-from typing import Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2
 from ansys.pyensight.core import ensight_grpc
 import numpy
+
+if TYPE_CHECKING:
+    from ansys.pyensight.core import Session
 
 
 class Part(object):
@@ -640,6 +643,7 @@ class DSGSession(object):
         vrmode: bool = False,
         time_scale: float = 1.0,
         handler: UpdateHandler = UpdateHandler(),
+        session: Optional["Session"] = None,
     ):
         """
         Manage a gRPC connection and link it to an UpdateHandler instance
@@ -678,6 +682,9 @@ class DSGSession(object):
         """
         super().__init__()
         self._grpc = ensight_grpc.EnSightGRPC(port=port, host=host, secret_key=security_code)
+        self._session = session
+        if self._session:
+            self._session.set_dsg_session(self)
         self._callback_handler = handler
         self._verbose = verbose
         self._thread: Optional[threading.Thread] = None
@@ -705,6 +712,7 @@ class DSGSession(object):
         # log any status changes to this file.  external apps will be monitoring
         self._status_file = os.environ.get("ANSYS_OV_SERVER_STATUS_FILENAME", "")
         self._status = dict(status="idle", start_time=0.0, processed_buffers=0, total_buffers=0)
+        self._pyensight_grpc_coming = False
 
     @property
     def scene_bounds(self) -> Optional[List]:
@@ -892,6 +900,13 @@ class DSGSession(object):
         cmd.init.maximum_chunk_size = 1024 * 1024
         self._dsg_queue.put(cmd)  # type:ignore
 
+    def _is_queue_full(self):
+        if not self.max_dsg_queue_size:
+            return False
+        if self._pyensight_grpc_coming:
+            return False
+        return self._message_queue.qsize() >= self.max_dsg_queue_size
+
     def _poll_messages(self) -> None:
         """Core interface to grab DSG events from gRPC and queue them for processing
 
@@ -905,7 +920,7 @@ class DSGSession(object):
                 # if the queue is getting too deep, wait a bit to avoid holding too
                 # many messages (filling up memory)
                 if self.max_dsg_queue_size:
-                    while self._message_queue.qsize() >= self.max_dsg_queue_size:
+                    while self._is_queue_full():
                         time.sleep(0.001)
             except Exception:
                 self._shutdown = True

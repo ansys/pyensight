@@ -10,11 +10,14 @@ import platform
 import sys
 import tempfile
 import threading
-from typing import Any, Callable, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING, Any, Callable, List, Optional, Tuple, Union
 import uuid
 
 from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2_grpc, ensight_pb2, ensight_pb2_grpc
 import grpc
+
+if TYPE_CHECKING:
+    from ansys.pyensight.core.utils.dsg_server import DSGSession
 
 
 class EnSightGRPC(object):
@@ -60,6 +63,10 @@ class EnSightGRPC(object):
         self._image = None
         self._image_number = 0
         self._sub_service = None
+        self._dsg_session: Optional["DSGSession"] = None
+
+    def set_dsg_session(self, dsg_session: "DSGSession"):
+        self._dsg_session = dsg_session
 
     @property
     def host(self) -> str:
