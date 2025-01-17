@@ -45,6 +45,7 @@ if TYPE_CHECKING:
     from ansys.api.pyensight import ensight_api
     from ansys.pyensight.core import enscontext, ensight_grpc, renderable
     from ansys.pyensight.core.ensobj import ENSOBJ
+    from ansys.pyensight.core.utils.dsg_server import DSGSession
 
 
 class InvalidEnSightVersion(Exception):
@@ -140,6 +141,7 @@ class Session:
         webui_port: Optional[int] = None,
     ) -> None:
         # every session instance needs a unique name that can be used as a cache key
+        self._dsg_session: Optional["DSGSession"] = None
         self._session_name = str(uuid.uuid1())
         # when objects come into play, we can reuse them, so hash ID to instance here
         self._ensobj_hash: Dict[int, "ENSOBJ"] = {}
@@ -962,8 +964,12 @@ class Session:
         >>> print(session.cmd("10+4"))
             14
         """
+        if self._dsg_session:
+            self._dsg_session._pyensight_grpc_coming = True
         self._establish_connection()
         ret = self._grpc.command(value, do_eval=do_eval)
+        if self._dsg_session:
+            self._dsg_session._pyensight_grpc_coming = False
         if do_eval:
             ret = self._convert_ctor(ret)
             value = eval(ret, dict(session=self, ensobjlist=ensobjlist))
@@ -1820,3 +1826,17 @@ class Session:
         cmd += f"ports = find_unused_ports({count}, start={start}, end={end}, avoid={avoid})"
         self.cmd(cmd, do_eval=False)
         return self.cmd("ports")
+
+    def set_dsg_session(self, dsg_session: "DSGSession"):
+        """Set a DSG Session for the current PyEnSight session.
+
+        This is required if a DSGSession is running together with
+        PyEnSight and the second might send gRPC requests while the first
+        is blocked because the gRPC queue is full.
+
+        Parameters
+        ----------
+        dsg_session: DSGSession
+            a DSGSession object
+        """
+        self._dsg_session = dsg_session
