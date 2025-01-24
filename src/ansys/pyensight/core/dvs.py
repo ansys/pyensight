@@ -665,7 +665,7 @@ class DVS(dvs_base):
         if not isinstance(faces, numpy.ndarray):
             faces = numpy.array(faces)
         if not isinstance(offsets, numpy.ndarray):
-            faces = numpy.array(offsets)
+            offsets = numpy.array(offsets)
         connectivity_split = faces
         vertices_per_face = numpy.diff(offsets)
         elem_type = self.ELEMTYPE_N_SIDED_POLYGON
