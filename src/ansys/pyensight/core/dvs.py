@@ -666,8 +666,8 @@ class DVS(dvs_base):
             faces = numpy.array(faces)
         if not isinstance(offsets, numpy.ndarray):
             offsets = numpy.array(offsets)
-        connectivity_split = faces
         vertices_per_face = numpy.diff(offsets)
+        connectivity_split = numpy.split(faces, numpy.cumsum(vertices_per_face[:-1]))
         elem_type = self.ELEMTYPE_N_SIDED_POLYGON
         all_same = numpy.all(numpy.array(vertices_per_face) == vertices_per_face[0])
         if all_same:
