@@ -1,0 +1,6 @@
+ELTFILTER2TESTVARCOMP
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_developed_surface
+
+.. autoproperty:: ENS_PART_DEVELOPED_SURFACE.ELTFILTER2TESTVARCOMP
