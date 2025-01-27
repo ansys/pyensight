@@ -38,7 +38,7 @@ if TYPE_CHECKING:
 # keywords.
 INTERCONNECT_MAP = {"ethernet": "eth", "infiniband": "ib"}
 
-MPI_TYPES = ["intel", "intel2018", "intel2021", "openmpi"]
+MPI_TYPES = ["intel2018", "intel2021", "openmpi"]
 
 
 class Launcher:
