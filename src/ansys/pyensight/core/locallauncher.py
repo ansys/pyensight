@@ -218,8 +218,16 @@ class LocalLauncher(Launcher):
                 cmd.append("-egl")
             if self._use_sos:
                 cmd.append("-sos")
-                cmd.append("-nservers")
-                cmd.append(str(int(self._use_sos)))
+                if not self._use_mpi:
+                    cmd.append("-nservers")
+                    cmd.append(str(int(self._use_sos)))
+                else:
+                    cmd.append(f"--np={int(self._use_sos)+1}")
+                    cmd.append(f"--mpi={self._use_mpi}")
+                    cmd.append(f"--ic={self._interconnect}")
+                    hosts = ",".join(self._server_hosts)
+                    cmd.append(f"--cnf={hosts}")
+
             # cmd.append("-minimize_console")
             logging.debug(f"Starting EnSight with : {cmd}\n")
             self._ensight_pid = subprocess.Popen(cmd, **popen_common).pid
