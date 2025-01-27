@@ -34,6 +34,12 @@ if TYPE_CHECKING:
 # See: https://bugs.python.org/issue29288
 "".encode("idna")
 
+# The user doesn't know "eth" and "ib" what they mean. Use more meaningful
+# keywords.
+INTERCONNECT_MAP = {"ethernet": "eth", "infiniband": "ib"}
+
+MPI_TYPES = ["intel", "intel2018", "openmpi"]
+
 
 class Launcher:
     """Provides the EnSight ``Launcher`` base class.
@@ -65,11 +71,11 @@ class Launcher:
         Whether to launch the webUI from EnSight
     use_mpi: str, optional
         If set, EnSight will be launched with the MPI type selected. Valid values
-        are "intel2021", "intel2018", "openmpi". The remote nodes must be Linux nodes.
+        are "intel", "intel2018", "openmpi". The remote nodes must be Linux nodes.
         This option is valid only if a LocalLauncher is used.
     interconnet: str, optional
         If set, EnSight will be launched with the MPI Interconnect selected. Valid values
-        are "ethernet", "infiniband", "myrinet". It requires use_mpi to be set.
+        are "ethernet", "infiniband". It requires use_mpi to be set.
         If use_mpi is set and interconnect is not, "ethernet" will be used.
         This option is valid only if a LocalLauncher is used.
     server_hosts: List[str], optional
@@ -95,17 +101,14 @@ class Launcher:
         self._use_sos = use_sos
         self._use_mpi = use_mpi
         self._interconnect = interconnect
-        if self._use_mpi and self._use_mpi not in ["intel2021", "intel2019", "openmpi"]:
+        if self._use_mpi and self._use_mpi not in MPI_TYPES:
             raise RuntimeError(f"{self._use_mpi} is not a valid MPI option.")
         if self._use_mpi and not self._interconnect:
-            self._interconnect = "eth"
-        if self._interconnect and self._interconnect not in [
-            "eth",
-            "ethernet",
-            "infiniband",
-            "myriniband",
-        ]:
-            raise RuntimeError(f"{self._interconnect} is not a valid MPI interconnect option.")
+            self._interconnect = "ethernet"
+        if self._interconnect:
+            if self._interconnect not in list(INTERCONNECT_MAP.values()):
+                raise RuntimeError(f"{self._interconnect} is not a valid MPI interconnect option.")
+            self._interconnect = INTERCONNECT_MAP.get(self._interconnect)
         self._server_hosts = server_hosts
         if self._use_mpi and not self._server_hosts:
             self._server_hosts = ["localhost"]
