@@ -38,7 +38,7 @@ if TYPE_CHECKING:
 # keywords.
 INTERCONNECT_MAP = {"ethernet": "eth", "infiniband": "ib"}
 
-MPI_TYPES = ["intel", "intel2018", "openmpi"]
+MPI_TYPES = ["intel", "intel2018", "intel2021", "openmpi"]
 
 
 class Launcher:
@@ -70,8 +70,20 @@ class Launcher:
     launch_web_ui : bool, optional
         Whether to launch the webUI from EnSight
     use_mpi: str, optional
-        If set, EnSight will be launched with the MPI type selected. Valid values
-        are "intel", "intel2018", "openmpi". The remote nodes must be Linux nodes.
+        If set, EnSight will be launched with the MPI type selected. The valid
+        values depend on the EnSight version to be used. The user can see
+        the specific list starting the EnSight Launcher manually and specifying the options
+        to launch EnSight in parallel and MPI. Here are reported the values for releases
+        2024R2 and 2025R1.
+
+        =================== =========================================
+        Release             Valid MPI Types
+        =================== =========================================
+        2024R2              intel2021, intel2018, openmpi
+        2025R1              intel2021, intel2018, openmpi
+        =================== =========================================
+
+        The remote nodes must be Linux nodes.
         This option is valid only if a LocalLauncher is used.
     interconnet: str, optional
         If set, EnSight will be launched with the MPI Interconnect selected. Valid values
