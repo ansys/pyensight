@@ -34,6 +34,12 @@ if TYPE_CHECKING:
 # See: https://bugs.python.org/issue29288
 "".encode("idna")
 
+# The user doesn't know "eth" and "ib" what they mean. Use more meaningful
+# keywords.
+INTERCONNECT_MAP = {"ethernet": "eth", "infiniband": "ib"}
+
+MPI_TYPES = ["intel2018", "intel2021", "openmpi"]
+
 
 class Launcher:
     """Provides the EnSight ``Launcher`` base class.
@@ -63,6 +69,31 @@ class Launcher:
         are not supported.
     launch_web_ui : bool, optional
         Whether to launch the webUI from EnSight
+    use_mpi: str, optional
+        If set, EnSight will be launched with the MPI type selected. The valid
+        values depend on the EnSight version to be used. The user can see
+        the specific list starting the EnSight Launcher manually and specifying the options
+        to launch EnSight in parallel and MPI. Here are reported the values for releases
+        2024R2 and 2025R1.
+
+        =================== =========================================
+        Release             Valid MPI Types
+        =================== =========================================
+        2024R2              intel2021, intel2018, openmpi
+        2025R1              intel2021, intel2018, openmpi
+        =================== =========================================
+
+        The remote nodes must be Linux nodes.
+        This option is valid only if a LocalLauncher is used.
+    interconnet: str, optional
+        If set, EnSight will be launched with the MPI Interconnect selected. Valid values
+        are "ethernet", "infiniband". It requires use_mpi to be set.
+        If use_mpi is set and interconnect is not, "ethernet" will be used.
+        This option is valid only if a LocalLauncher is used.
+    server_hosts: List[str], optional
+        A list of hostnames where the server processes should be spawned on when MPI is selected.
+        If use_mpi is set and server_hosts not, it will default to "localhost".
+        This option is valid only if a LocalLauncher is used.
     """
 
     def __init__(
@@ -73,10 +104,26 @@ class Launcher:
         enable_rest_api: bool = False,
         additional_command_line_options: Optional[List] = None,
         launch_webui: bool = False,
+        use_mpi: Optional[str] = None,
+        interconnect: Optional[str] = None,
+        server_hosts: Optional[List[str]] = None,
     ) -> None:
         self._timeout = timeout
         self._use_egl_param_val: bool = use_egl
         self._use_sos = use_sos
+        self._use_mpi = use_mpi
+        self._interconnect = interconnect
+        if self._use_mpi and self._use_mpi not in MPI_TYPES:
+            raise RuntimeError(f"{self._use_mpi} is not a valid MPI option.")
+        if self._use_mpi and not self._interconnect:
+            self._interconnect = "ethernet"
+        if self._interconnect:
+            if self._interconnect not in list(INTERCONNECT_MAP.values()):
+                raise RuntimeError(f"{self._interconnect} is not a valid MPI interconnect option.")
+            self._interconnect = INTERCONNECT_MAP.get(self._interconnect)
+        self._server_hosts = server_hosts
+        if self._use_mpi and not self._server_hosts:
+            self._server_hosts = ["localhost"]
         self._enable_rest_api = enable_rest_api
 
         self._sessions: List[Session] = []
