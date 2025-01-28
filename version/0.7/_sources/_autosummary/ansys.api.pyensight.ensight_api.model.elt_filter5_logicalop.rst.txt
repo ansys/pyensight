@@ -1,0 +1,6 @@
+elt\_filter5\_logicalop
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: model.elt_filter5_logicalop

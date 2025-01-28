@@ -1,0 +1,6 @@
+spline\_name
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: query_ent_var.spline_name

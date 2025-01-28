@@ -1,0 +1,6 @@
+set\_range\_to\_over\_time\_minmax
+==================================
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.set_range_to_over_time_minmax

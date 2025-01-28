@@ -1,0 +1,6 @@
+preslognorm
+===========
+
+.. currentmodule:: ansys.api.pyensight.calc_funcs
+
+.. automethod:: ens_calculator.preslognorm

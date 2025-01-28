@@ -1,0 +1,71 @@
+﻿ENS\_SPEC
+=========
+
+.. currentmodule:: ansys.api.pyensight.ens_spec
+
+.. autoclass:: ENS_SPEC
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_SPEC.attrinfo
+      
+      
+      ENS_SPEC.attrissensitive
+      
+      
+      ENS_SPEC.attrtree
+      
+      
+      ENS_SPEC.destroy
+      
+      
+      ENS_SPEC.getattr
+      
+      
+      ENS_SPEC.getattrs
+      
+      
+      ENS_SPEC.getmetatag
+      
+      
+      ENS_SPEC.hasmetatag
+      
+      
+      ENS_SPEC.setattr
+      
+      
+      ENS_SPEC.setattr_begin
+      
+      
+      ENS_SPEC.setattr_end
+      
+      
+      ENS_SPEC.setattr_status
+      
+      
+      ENS_SPEC.setattrs
+      
+      
+      ENS_SPEC.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_SPEC.__OBJID__
+      ENS_SPEC.objid
+   
+   
