@@ -1,5 +1,6 @@
 import os
 import pathlib
+import time
 
 from ansys.pyensight.core import DockerLauncher, LocalLauncher, launch_ensight
 from ansys.pyensight.core.enscontext import EnsContext
@@ -298,8 +299,20 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     if not use_local:
         launcher.enshell_log_contents()
     assert session.ensight.objs.core.PARTS[0] != session.ensight.objs.core.PARTS[1]
-    cas_file = session.download_pyansys_example("mixing_elbow.cas.h5", "pyfluent/mixing_elbow")
-    dat_file = session.download_pyansys_example("mixing_elbow.dat.h5", "pyfluent/mixing_elbow")
+    counter = 0
+    while True and counter < 5:
+        try:
+            cas_file = session.download_pyansys_example(
+                "mixing_elbow.cas.h5", "pyfluent/mixing_elbow"
+            )
+            dat_file = session.download_pyansys_example(
+                "mixing_elbow.dat.h5", "pyfluent/mixing_elbow"
+            )
+        except Exception:
+            counter += 1
+            time.sleep(60)
+    if counter == 5:
+        raise RuntimeError("Couldn't download data from github")
     session.load_data(cas_file, result_file=dat_file)
     #
     assert session.ensight_version_check("2021 R1")

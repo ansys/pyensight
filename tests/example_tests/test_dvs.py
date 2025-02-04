@@ -63,8 +63,20 @@ def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
     else:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     session = launcher.start()
-    cas_file = session.download_pyansys_example("mixing_elbow.cas.h5", "pyfluent/mixing_elbow")
-    dat_file = session.download_pyansys_example("mixing_elbow.dat.h5", "pyfluent/mixing_elbow")
+    counter = 0
+    while True and counter < 5:
+        try:
+            cas_file = session.download_pyansys_example(
+                "mixing_elbow.cas.h5", "pyfluent/mixing_elbow"
+            )
+            dat_file = session.download_pyansys_example(
+                "mixing_elbow.dat.h5", "pyfluent/mixing_elbow"
+            )
+        except Exception:
+            counter += 1
+            time.sleep(60)
+    if counter == 5:
+        raise RuntimeError("Couldn't download data from github")
     session.load_data(cas_file, result_file=dat_file)
     dvs = None
     if use_local:
