@@ -300,7 +300,8 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
         launcher.enshell_log_contents()
     assert session.ensight.objs.core.PARTS[0] != session.ensight.objs.core.PARTS[1]
     counter = 0
-    while True and counter < 5:
+    success = False
+    while not success and counter < 5:
         try:
             cas_file = session.download_pyansys_example(
                 "mixing_elbow.cas.h5", "pyfluent/mixing_elbow"
@@ -308,10 +309,11 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
             dat_file = session.download_pyansys_example(
                 "mixing_elbow.dat.h5", "pyfluent/mixing_elbow"
             )
+            success = True
         except Exception:
             counter += 1
             time.sleep(60)
-    if counter == 5:
+    if counter == 5 and not success:
         raise RuntimeError("Couldn't download data from github")
     session.load_data(cas_file, result_file=dat_file)
     #
