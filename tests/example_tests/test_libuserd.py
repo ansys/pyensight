@@ -110,7 +110,7 @@ def test_libuserd_userd_case(tmpdir, pytestconfig: pytest.Config):
 
     if use_local:
         cei_path = os.path.dirname(os.path.dirname(libuserd._server_pathname))
-        suffix = glob.glob(os.path.join(cei_path, "apex???"))[-1][4:]
+        suffix = glob.glob(os.path.join(cei_path, "apex???"))[-1][-3:]
         casedir = f"{cei_path}/ensight{suffix}/data/RC_Plane/"
     else:
         casedir = libuserd.download_pyansys_example("RC_Plane", "pyensight", folder=True)
