@@ -27,7 +27,7 @@ classifiers = [
 
 dependencies = [
     "importlib-metadata>=4.0; python_version<='3.8'",
-    "ansys-api-pyensight==0.4.6",
+    "ansys-api-pyensight==0.4.7",
     "requests>=2.28.2",
     "docker>=6.1.0",
     "urllib3<3.0.0",
@@ -35,8 +35,9 @@ dependencies = [
     "Pillow>=9.3.0",
     "pypng>=0.0.20",
     "psutil>=5.9.2",
-    "usd-core>=24.8",
+    "usd-core==24.8",
     "pygltflib>=1.16.2",
+    "grpcio<=1.67.1"
 ]
 
 [project.optional-dependencies]

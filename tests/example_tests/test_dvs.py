@@ -63,8 +63,22 @@ def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
     else:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     session = launcher.start()
-    cas_file = session.download_pyansys_example("mixing_elbow.cas.h5", "pyfluent/mixing_elbow")
-    dat_file = session.download_pyansys_example("mixing_elbow.dat.h5", "pyfluent/mixing_elbow")
+    counter = 0
+    success = False
+    while not success and counter < 5:
+        try:
+            cas_file = session.download_pyansys_example(
+                "mixing_elbow.cas.h5", "pyfluent/mixing_elbow"
+            )
+            dat_file = session.download_pyansys_example(
+                "mixing_elbow.dat.h5", "pyfluent/mixing_elbow"
+            )
+            success = True
+        except Exception:
+            counter += 1
+            time.sleep(60)
+    if counter == 5 and not success:
+        raise RuntimeError("Couldn't download data from github")
     session.load_data(cas_file, result_file=dat_file)
     dvs = None
     if use_local:
@@ -91,7 +105,9 @@ def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
         'enspyqtgui_int.dynamic_scene_graph_command("dynamicscenegraph://localhost/client/update")'
     )
     assert wait_for_data(update_handler)
-    conn = build_numpy_conn_simba_format(update_handler._conn)
+    num_tris = int(update_handler._conn.size / 3)
+    offsets = numpy.full(num_tris, 3)
+    offsets = numpy.concatenate([[0], numpy.cumsum(offsets)])
     dvs.start_dvs_servers(3, 0, 1)
     dvs.start_dvs_clients("TestDatasetSimbaFormat")
     dvs.begin_initialization()
@@ -109,7 +125,7 @@ def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
     )
     dvs.end_initialization()
     dvs.begin_updates(session.ensight.objs.core.TIMEVALUES[0][1])
-    dvs.send_connectivity(part.PARTNUMBER, conn)
+    dvs.send_connectivity(part.PARTNUMBER, offsets, update_handler._conn)
     dvs.send_coordinates(part.PARTNUMBER, update_handler._coords)
     dvs.send_variable_data(variable.ID, part.PARTNUMBER, update_handler._tcoords)
     dvs.end_updates()

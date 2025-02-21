@@ -627,32 +627,23 @@ class DVS(dvs_base):
             start = end
         return parts
 
-    def _disassemble_simba_connectivity(self, faces):
-        i = 0
-        vertices_per_face = []
-        connectivity_1d = []
-        indices = []
-        while i < len(faces):
-            indices.append(i)
-            i += faces[i] + 1
-        mask = numpy.zeros(faces.shape, dtype=bool)
-        mask[indices] = True
-        vertices_per_face = numpy.array(faces[mask])
-        connectivity_1d = numpy.array(faces[~mask])
-        connectivity_split = numpy.split(connectivity_1d, numpy.cumsum(vertices_per_face[:-1]))
-        all_same = numpy.all(numpy.array(vertices_per_face) == vertices_per_face[0])
-        return connectivity_split, vertices_per_face, all_same
-
-    def send_connectivity(self, part_id, faces: Union[List, numpy.ndarray], ghost=False):
+    def send_connectivity(
+        self,
+        part_id,
+        offsets: Union[List, numpy.ndarray],
+        faces: Union[List, numpy.ndarray],
+        ghost=False,
+    ):
         """Send the connectivity data for the input part.
 
         The data will be used for building an element block in DVS.
         The connectivity array will be split among all the available ranks.
-        The data are assumed in the following format:
+        The faces data are assumed in the following format:
         [n, i1, i2, ...in, m, j1, j2, ...jn, p, k1, k2, ...kp, ...]
-        i.e. the first element declares how many vertices are available on the face,
-        then the following elements will be the indices of the vertices for the specific
-        face, and so on.
+        The offsets data instead:
+        [0, n, n+m, n+m+p ....]
+        The faces list indicates the IDs of the vertices of each face, in order.
+        The offsets lists indicates the index where to find a specific face.
 
         Parameters
         ----------
@@ -671,10 +662,12 @@ class DVS(dvs_base):
             )
         if not isinstance(faces, numpy.ndarray):
             faces = numpy.array(faces)
-        connectivity_split, vertices_per_face, all_same = self._disassemble_simba_connectivity(
-            faces
-        )
+        if not isinstance(offsets, numpy.ndarray):
+            offsets = numpy.array(offsets)
+        vertices_per_face = numpy.diff(offsets)
+        connectivity_split = numpy.split(faces, numpy.cumsum(vertices_per_face[:-1]))
         elem_type = self.ELEMTYPE_N_SIDED_POLYGON
+        all_same = numpy.all(numpy.array(vertices_per_face) == vertices_per_face[0])
         if all_same:
             num_vertices = vertices_per_face[0]
             _elem_type = self._elem_type_map.get(num_vertices)
