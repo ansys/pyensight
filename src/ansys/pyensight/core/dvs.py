@@ -650,7 +650,7 @@ class DVS(dvs_base):
         part_id: int
             the part to define the connectivity for
         offsets: List[int] or numpy array
-            the offsets values. The format is described above.        
+            the offsets values. The format is described above.
         faces: List[int] or numpy array
             the connectivity value. The format is described above.
         ghost: bool
