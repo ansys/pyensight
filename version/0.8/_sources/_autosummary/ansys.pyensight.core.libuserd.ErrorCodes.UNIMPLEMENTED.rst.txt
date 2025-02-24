@@ -1,0 +1,6 @@
+UNIMPLEMENTED
+=============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ErrorCodes.UNIMPLEMENTED

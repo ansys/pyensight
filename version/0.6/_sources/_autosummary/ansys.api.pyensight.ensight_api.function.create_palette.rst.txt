@@ -1,0 +1,6 @@
+create\_palette
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: function.create_palette

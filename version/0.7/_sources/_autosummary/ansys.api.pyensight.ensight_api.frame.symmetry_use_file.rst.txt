@@ -1,0 +1,6 @@
+symmetry\_use\_file
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: frame.symmetry_use_file
