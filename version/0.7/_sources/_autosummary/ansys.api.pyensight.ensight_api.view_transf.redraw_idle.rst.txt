@@ -1,0 +1,6 @@
+redraw\_idle
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.redraw_idle
