@@ -1,0 +1,6 @@
+SINGLE\_READER\_ALLOWED
+=======================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ErrorCodes.SINGLE_READER_ALLOWED

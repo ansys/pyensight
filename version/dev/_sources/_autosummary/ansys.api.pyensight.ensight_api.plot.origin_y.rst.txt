@@ -1,0 +1,6 @@
+origin\_y
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.origin_y

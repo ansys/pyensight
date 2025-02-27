@@ -1,0 +1,6 @@
+mix\_rgb
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: line.mix_rgb
