@@ -384,8 +384,7 @@ class DockerLauncher(Launcher):
 
     def launch_webui(self, container_env_str):
         # Run websocketserver
-        cmd = f"cpython /ansys_inc/v{self._ansys_version}/CEI/"
-        cmd += f"nexus{self._ansys_version}/nexus_launcher/webui_launcher.py"
+        cmd = "cpython -m ansys.simba.plugin.post.simba_post"
         # websocket port - this needs to come first since we now have
         # --add_header as a optional arg that can take an arbitrary
         # number of optional headers.
