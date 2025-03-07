@@ -126,7 +126,7 @@ class LocalLauncher(Launcher):
         cmd += ["--ensight-ws-port", str(self._ports[3])]
         cmd += ["--ensight-session-directory", self._session_directory]
         cmd += ["--ensight-secret-key", self._secret_key]
-        cmd += ["--main-show-gui", "False"]
+        cmd += ["--main-show-gui", "'False'"]
         if "PYENSIGHT_DEBUG" in os.environ:
             try:
                 if int(os.environ["PYENSIGHT_DEBUG"]) > 0:
