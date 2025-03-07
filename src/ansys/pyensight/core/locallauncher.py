@@ -102,10 +102,8 @@ class LocalLauncher(Launcher):
         """Type of app to launch. Options are ``ensight`` and ``envision``."""
         return self._application
 
-    def launch_webui(self, cpython, webui_script, popen_common):
-        cmd = [cpython]
-        cmd += [webui_script]
-        version = re.findall(r"nexus(\d+)", webui_script)[0]
+    def launch_webui(self, cpython, version, popen_common):
+        cmd = [cpython, "-m", "ansys.simba.plugin.post.simba_post"]
         path_to_webui = self._install_path
         # Dev environment
         path_to_webui_internal = os.path.join(
@@ -267,7 +265,7 @@ class LocalLauncher(Launcher):
             except Exception:
                 pass
             websocket_script = found_scripts[idx]
-            webui_script = websocket_script.replace("websocketserver.py", "webui_launcher.py")
+            version = re.findall(r"nexus(\d+)", websocket_script)[0]
             # build the commandline
             cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
             if is_windows:
@@ -319,7 +317,7 @@ class LocalLauncher(Launcher):
         self._sessions.append(session)
 
         if self._launch_webui:
-            self.launch_webui(ensight_python, webui_script, popen_common)
+            self.launch_webui(ensight_python, version, popen_common)
         return session
 
     def stop(self) -> None:
