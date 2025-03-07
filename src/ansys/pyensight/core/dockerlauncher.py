@@ -402,6 +402,7 @@ class DockerLauncher(Launcher):
         cmd += f" --ensight-ws-port {ws_port}"
         cmd += f" --ensight-session-directory {self._session_directory}"
         cmd += f" --ensight-secret-key {self._secret_key}"
+        cmd += "--main-show-gui 'False'"
         logging.debug(f"Starting WebUI: {cmd}\n")
         ret = self._enshell.start_other(cmd, extra_env=container_env_str)
         if ret[0] != 0:  # pragma: no cover
