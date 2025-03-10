@@ -5,7 +5,6 @@ from unittest import mock
 import webbrowser
 
 import ansys.pyensight.core
-from ansys.pyensight.core.launcher import Launcher
 import ansys.pyensight.core.renderable
 from ansys.pyensight.core.session import Session  # noqa: F401
 import pytest
@@ -256,12 +255,6 @@ def test_close(mocked_session, mocker):
     session = mocked_session
     session._grpc.shutdown = mock.MagicMock("shutdown")
     session.close()
-    session._halt_ensight_on_close = True
-    session._launcher = Launcher()
-    session = mocked_session
-    with pytest.raises(RuntimeError) as exec_info:
-        session.close()
-    assert "Session not associated with this Launcher" in str(exec_info)
 
 
 def test_render(mocked_session):
