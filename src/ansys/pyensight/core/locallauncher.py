@@ -105,9 +105,20 @@ class LocalLauncher(Launcher):
     def launch_webui(self, cpython, version, popen_common):
         cmd = [cpython, "-m", "ansys.simba.plugin.post.simba_post"]
         path_to_webui = self._install_path
-        path_to_webui = os.path.join(
+        # Dev environment
+        path_to_webui_internal = os.path.join(
             path_to_webui, f"nexus{version}", f"ansys{version}", "ensight", "WebUI", "web", "ui"
         )
+        # Ansys environment
+        paths_to_webui_ansys = [
+            os.path.join(os.path.dirname(path_to_webui), "simcfd", "web", "ui"),
+            os.path.join(os.path.dirname(path_to_webui), "fluidsone", "web", "ui"),
+        ]
+        path_to_webui = path_to_webui_internal
+        for path in paths_to_webui_ansys:
+            if os.path.exists(path):
+                path_to_webui = path
+                break
         cmd += ["--server-listen-port", str(self._ports[5])]
         cmd += ["--server-web-roots", path_to_webui]
         cmd += ["--ensight-grpc-port", str(self._ports[0])]
@@ -115,6 +126,7 @@ class LocalLauncher(Launcher):
         cmd += ["--ensight-ws-port", str(self._ports[3])]
         cmd += ["--ensight-session-directory", self._session_directory]
         cmd += ["--ensight-secret-key", self._secret_key]
+        cmd += ["--main-show-gui", "'False'"]
         if "PYENSIGHT_DEBUG" in os.environ:
             try:
                 if int(os.environ["PYENSIGHT_DEBUG"]) > 0:
