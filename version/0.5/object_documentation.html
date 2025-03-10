@@ -1,0 +1,835 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Object API reference &#8212; PyEnSight</title>
+    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/ansys_sphinx_theme.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/breadcrumbs.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    
+        <link href="_static/css/breadcrumbs.css" rel="stylesheet">
+    
+    <script integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" src="_static/jquery.js"></script>
+    <script integrity="sha384-lSZeSIVKp9myfKbDQ3GkN/KHjUc+mzg17VKDN4Y2kUeBSJioB9QSM639vM9fuY//" src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/js/table.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'object_documentation';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.5';
+        </script>
+    <script src="_static/js/mermaid.js"></script>
+    <script src="_static/jquery.js"></script>
+    <link rel="icon" href="_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ENSOBJ" href="_autosummary/ansys.pyensight.core.ensobj.ENSOBJ.html" />
+    <link rel="prev" title="velocity" href="_autosummary/ansys.api.pyensight.ensight_api.vortexcore.velocity.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <link rel="canonical" href="https://ensight.docs.pyansys.com/version/stable/object_documentation.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container"><!-- Debugging: html_theme_options =  -->
+
+  <!-- If there is no MiliSearch enabled, use the PyData search -->
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+</div>
+  </div>
+  
+    
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/pyansys-logo-black-cropped.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/pyansys-logo-black-cropped.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="getting_started/index.html">
+                        Getting started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="user_guide/index.html">
+                        User guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="class_documentation.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="_examples/index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="contributing.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      0.5  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+
+    
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(text => document.getElementById("announcement_msg").innerHTML = text)
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+    
+
+    
+    <div class="container-xl">
+    <div class="row">
+        <div class="col-12 col-md-3" id="breadcrumbs-spacer"></div>
+        <div class="col-12 col-md-11 col-xl-9" id="breadcrumbs">
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+    
+    
+        <li class="nav-item nav-item-0"><a href="index.html">PyEnSight</a> » </li>
+    
+
+          <li class="nav-item nav-item-1"><a href="class_documentation.html" accesskey="U">API reference</a> » </li>
+        <li class="nav-item nav-item-this"><a href="">Object API reference</a></li> 
+      </ul>
+    </div>
+        </div>
+  </div>
+</div>
+    
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="getting_started/index.html">
+                        Getting started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="user_guide/index.html">
+                        User guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="class_documentation.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="_examples/index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="contributing.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      0.5  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="native_documentation.html">Native API reference</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Object API reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.pyensight.core.ensobj.ENSOBJ.html">ENSOBJ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.pyensight.core.ensobjlist.html">ensobjlist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot.ENS_ANNOT.html">ENS_ANNOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_text.ENS_ANNOT_TEXT.html">ENS_ANNOT_TEXT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_line.ENS_ANNOT_LINE.html">ENS_ANNOT_LINE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_logo.ENS_ANNOT_LOGO.html">ENS_ANNOT_LOGO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_lgnd.ENS_ANNOT_LGND.html">ENS_ANNOT_LGND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_marker.ENS_ANNOT_MARKER.html">ENS_ANNOT_MARKER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_arrow.ENS_ANNOT_ARROW.html">ENS_ANNOT_ARROW</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_dial.ENS_ANNOT_DIAL.html">ENS_ANNOT_DIAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_gauge.ENS_ANNOT_GAUGE.html">ENS_ANNOT_GAUGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_shape.ENS_ANNOT_SHAPE.html">ENS_ANNOT_SHAPE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_camera.ENS_CAMERA.html">ENS_CAMERA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_case.ENS_CASE.html">ENS_CASE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_flipbook.ENS_FLIPBOOK.html">ENS_FLIPBOOK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_frame.ENS_FRAME.html">ENS_FRAME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_globals.ENS_GLOBALS.html">ENS_GLOBALS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_group.ENS_GROUP.html">ENS_GROUP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_lightsource.ENS_LIGHTSOURCE.html">ENS_LIGHTSOURCE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_lpart.ENS_LPART.html">ENS_LPART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_mat.ENS_MAT.html">ENS_MAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_palette.ENS_PALETTE.html">ENS_PALETTE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part.ENS_PART.html">ENS_PART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_model.ENS_PART_MODEL.html">ENS_PART_MODEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.html">ENS_PART_CLIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_contour.ENS_PART_CONTOUR.html">ENS_PART_CONTOUR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_discrete_particle.ENS_PART_DISCRETE_PARTICLE.html">ENS_PART_DISCRETE_PARTICLE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_frame.ENS_PART_FRAME.html">ENS_PART_FRAME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_isosurface.ENS_PART_ISOSURFACE.html">ENS_PART_ISOSURFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE.html">ENS_PART_PARTICLE_TRACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_profile.ENS_PART_PROFILE.html">ENS_PART_PROFILE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_vector_arrow.ENS_PART_VECTOR_ARROW.html">ENS_PART_VECTOR_ARROW</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_elevated_surface.ENS_PART_ELEVATED_SURFACE.html">ENS_PART_ELEVATED_SURFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_developed_surface.ENS_PART_DEVELOPED_SURFACE.html">ENS_PART_DEVELOPED_SURFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_built_up.ENS_PART_BUILT_UP.html">ENS_PART_BUILT_UP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_tensor_glyph.ENS_PART_TENSOR_GLYPH.html">ENS_PART_TENSOR_GLYPH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_fx_vortex_core.ENS_PART_FX_VORTEX_CORE.html">ENS_PART_FX_VORTEX_CORE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_fx_shock.ENS_PART_FX_SHOCK.html">ENS_PART_FX_SHOCK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_fx_sep_att.ENS_PART_FX_SEP_ATT.html">ENS_PART_FX_SEP_ATT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_mat_interface.ENS_PART_MAT_INTERFACE.html">ENS_PART_MAT_INTERFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_point.ENS_PART_POINT.html">ENS_PART_POINT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_axisymmetric.ENS_PART_AXISYMMETRIC.html">ENS_PART_AXISYMMETRIC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_vof.ENS_PART_VOF.html">ENS_PART_VOF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_aux_geom.ENS_PART_AUX_GEOM.html">ENS_PART_AUX_GEOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_filter.ENS_PART_FILTER.html">ENS_PART_FILTER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_plotter.ENS_PLOTTER.html">ENS_PLOTTER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_polyline.ENS_POLYLINE.html">ENS_POLYLINE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_probe.ENS_PROBE.html">ENS_PROBE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_query.ENS_QUERY.html">ENS_QUERY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_source.ENS_SOURCE.html">ENS_SOURCE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_spec.ENS_SPEC.html">ENS_SPEC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_state.ENS_STATE.html">ENS_STATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_texture.ENS_TEXTURE.html">ENS_TEXTURE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool.ENS_TOOL.html">ENS_TOOL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool_cursor.ENS_TOOL_CURSOR.html">ENS_TOOL_CURSOR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool_line.ENS_TOOL_LINE.html">ENS_TOOL_LINE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool_plane.ENS_TOOL_PLANE.html">ENS_TOOL_PLANE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool_box.ENS_TOOL_BOX.html">ENS_TOOL_BOX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool_cylinder.ENS_TOOL_CYLINDER.html">ENS_TOOL_CYLINDER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool_cone.ENS_TOOL_CONE.html">ENS_TOOL_CONE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool_sphere.ENS_TOOL_SPHERE.html">ENS_TOOL_SPHERE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool_revolution.ENS_TOOL_REVOLUTION.html">ENS_TOOL_REVOLUTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_var.ENS_VAR.html">ENS_VAR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_vport.ENS_VPORT.html">ENS_VPORT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="calc_functions.html">Calculator functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rest_api/rest_api.html">REST API</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="_autosummary/ansys.pyensight.core.enscontext.EnsContext.html">EnsContext</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_autosummary/ansys.pyensight.core.LocalLauncher.html">LocalLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_autosummary/ansys.pyensight.core.DockerLauncher.html">DockerLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_autosummary/ansys.pyensight.core.renderable.Renderable.html">Renderable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_autosummary/ansys.pyensight.core.Session.html">Session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_autosummary/ansys.pyensight.core.utils.export.Export.html">Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_autosummary/ansys.pyensight.core.utils.parts.Parts.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_autosummary/ansys.pyensight.core.utils.query.Query.html">Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_autosummary/ansys.pyensight.core.utils.support.Support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_autosummary/ansys.pyensight.core.utils.views.Views.html">Views</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="object-api-reference">
+<span id="ref-object-api-docs"></span><h1>Object API reference<a class="headerlink" href="#object-api-reference" title="Permalink to this heading">#</a></h1>
+<p>The <a class="reference internal" href="user_guide/object_api.html#ref-object-api"><span class="std std-ref">“object”</span></a> API is a direct interface to the EnSight object structures.
+It includes the ability to set/query attributes as well as connect callback
+function that execute when attribute values change, etc. While it is a more
+advanced interface than the <a class="reference internal" href="user_guide/cmdlang_native.html#ref-cmdlang-native"><span class="std std-ref">“native”</span></a>  API, there are some
+operations that can only be performed via that interface.</p>
+<div class="toctree-wrapper compound">
+</div>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.pyensight.core.ensobj.ENSOBJ.html#ansys.pyensight.core.ensobj.ENSOBJ" title="ansys.pyensight.core.ensobj.ENSOBJ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.pyensight.core.ensobj.ENSOBJ</span></code></a>(session, ...)</p></td>
+<td><p>Bass class for all EnSight proxy objects</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.pyensight.core.ensobjlist.html#ansys.pyensight.core.ensobjlist" title="ansys.pyensight.core.ensobjlist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.pyensight.core.ensobjlist</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Class used when returning lists of EnSight proxy objects.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot.ENS_ANNOT.html#ansys.api.pyensight.ens_annot.ENS_ANNOT" title="ansys.api.pyensight.ens_annot.ENS_ANNOT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_annot.ENS_ANNOT</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_ANNOT</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_text.ENS_ANNOT_TEXT.html#ansys.api.pyensight.ens_annot_text.ENS_ANNOT_TEXT" title="ansys.api.pyensight.ens_annot_text.ENS_ANNOT_TEXT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_annot_text.ENS_ANNOT_TEXT</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_ANNOT</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_line.ENS_ANNOT_LINE.html#ansys.api.pyensight.ens_annot_line.ENS_ANNOT_LINE" title="ansys.api.pyensight.ens_annot_line.ENS_ANNOT_LINE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_annot_line.ENS_ANNOT_LINE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_ANNOT</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_logo.ENS_ANNOT_LOGO.html#ansys.api.pyensight.ens_annot_logo.ENS_ANNOT_LOGO" title="ansys.api.pyensight.ens_annot_logo.ENS_ANNOT_LOGO"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_annot_logo.ENS_ANNOT_LOGO</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_ANNOT</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_lgnd.ENS_ANNOT_LGND.html#ansys.api.pyensight.ens_annot_lgnd.ENS_ANNOT_LGND" title="ansys.api.pyensight.ens_annot_lgnd.ENS_ANNOT_LGND"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_annot_lgnd.ENS_ANNOT_LGND</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_ANNOT</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_marker.ENS_ANNOT_MARKER.html#ansys.api.pyensight.ens_annot_marker.ENS_ANNOT_MARKER" title="ansys.api.pyensight.ens_annot_marker.ENS_ANNOT_MARKER"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_annot_marker.ENS_ANNOT_MARKER</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_ANNOT</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_arrow.ENS_ANNOT_ARROW.html#ansys.api.pyensight.ens_annot_arrow.ENS_ANNOT_ARROW" title="ansys.api.pyensight.ens_annot_arrow.ENS_ANNOT_ARROW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_annot_arrow.ENS_ANNOT_ARROW</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_ANNOT</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_dial.ENS_ANNOT_DIAL.html#ansys.api.pyensight.ens_annot_dial.ENS_ANNOT_DIAL" title="ansys.api.pyensight.ens_annot_dial.ENS_ANNOT_DIAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_annot_dial.ENS_ANNOT_DIAL</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_ANNOT</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_gauge.ENS_ANNOT_GAUGE.html#ansys.api.pyensight.ens_annot_gauge.ENS_ANNOT_GAUGE" title="ansys.api.pyensight.ens_annot_gauge.ENS_ANNOT_GAUGE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_annot_gauge.ENS_ANNOT_GAUGE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_ANNOT</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_annot_shape.ENS_ANNOT_SHAPE.html#ansys.api.pyensight.ens_annot_shape.ENS_ANNOT_SHAPE" title="ansys.api.pyensight.ens_annot_shape.ENS_ANNOT_SHAPE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_annot_shape.ENS_ANNOT_SHAPE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_ANNOT</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_camera.ENS_CAMERA.html#ansys.api.pyensight.ens_camera.ENS_CAMERA" title="ansys.api.pyensight.ens_camera.ENS_CAMERA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_camera.ENS_CAMERA</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_CAMERA</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_case.ENS_CASE.html#ansys.api.pyensight.ens_case.ENS_CASE" title="ansys.api.pyensight.ens_case.ENS_CASE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_case.ENS_CASE</span></code></a>(*args, ...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_CASE</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_flipbook.ENS_FLIPBOOK.html#ansys.api.pyensight.ens_flipbook.ENS_FLIPBOOK" title="ansys.api.pyensight.ens_flipbook.ENS_FLIPBOOK"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_flipbook.ENS_FLIPBOOK</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_FLIPBOOK</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_frame.ENS_FRAME.html#ansys.api.pyensight.ens_frame.ENS_FRAME" title="ansys.api.pyensight.ens_frame.ENS_FRAME"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_frame.ENS_FRAME</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_FRAME</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_globals.ENS_GLOBALS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_globals.ENS_GLOBALS</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_GLOBALS</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_group.ENS_GROUP.html#ansys.api.pyensight.ens_group.ENS_GROUP" title="ansys.api.pyensight.ens_group.ENS_GROUP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_group.ENS_GROUP</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_GROUP</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_lightsource.ENS_LIGHTSOURCE.html#ansys.api.pyensight.ens_lightsource.ENS_LIGHTSOURCE" title="ansys.api.pyensight.ens_lightsource.ENS_LIGHTSOURCE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_lightsource.ENS_LIGHTSOURCE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_LIGHTSOURCE</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_lpart.ENS_LPART.html#ansys.api.pyensight.ens_lpart.ENS_LPART" title="ansys.api.pyensight.ens_lpart.ENS_LPART"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_lpart.ENS_LPART</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_LPART</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_mat.ENS_MAT.html#ansys.api.pyensight.ens_mat.ENS_MAT" title="ansys.api.pyensight.ens_mat.ENS_MAT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_mat.ENS_MAT</span></code></a>(*args, ...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_MAT</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_palette.ENS_PALETTE.html#ansys.api.pyensight.ens_palette.ENS_PALETTE" title="ansys.api.pyensight.ens_palette.ENS_PALETTE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_palette.ENS_PALETTE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PALETTE</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part.ENS_PART.html#ansys.api.pyensight.ens_part.ENS_PART" title="ansys.api.pyensight.ens_part.ENS_PART"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part.ENS_PART</span></code></a>(*args, ...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_model.ENS_PART_MODEL.html#ansys.api.pyensight.ens_part_model.ENS_PART_MODEL" title="ansys.api.pyensight.ens_part_model.ENS_PART_MODEL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_model.ENS_PART_MODEL</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.html#ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP" title="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_contour.ENS_PART_CONTOUR.html#ansys.api.pyensight.ens_part_contour.ENS_PART_CONTOUR" title="ansys.api.pyensight.ens_part_contour.ENS_PART_CONTOUR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_contour.ENS_PART_CONTOUR</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_discrete_particle.ENS_PART_DISCRETE_PARTICLE.html#ansys.api.pyensight.ens_part_discrete_particle.ENS_PART_DISCRETE_PARTICLE" title="ansys.api.pyensight.ens_part_discrete_particle.ENS_PART_DISCRETE_PARTICLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_discrete_particle.ENS_PART_DISCRETE_PARTICLE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_frame.ENS_PART_FRAME.html#ansys.api.pyensight.ens_part_frame.ENS_PART_FRAME" title="ansys.api.pyensight.ens_part_frame.ENS_PART_FRAME"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_frame.ENS_PART_FRAME</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_isosurface.ENS_PART_ISOSURFACE.html#ansys.api.pyensight.ens_part_isosurface.ENS_PART_ISOSURFACE" title="ansys.api.pyensight.ens_part_isosurface.ENS_PART_ISOSURFACE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_isosurface.ENS_PART_ISOSURFACE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE.html#ansys.api.pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE" title="ansys.api.pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_profile.ENS_PART_PROFILE.html#ansys.api.pyensight.ens_part_profile.ENS_PART_PROFILE" title="ansys.api.pyensight.ens_part_profile.ENS_PART_PROFILE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_profile.ENS_PART_PROFILE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_vector_arrow.ENS_PART_VECTOR_ARROW.html#ansys.api.pyensight.ens_part_vector_arrow.ENS_PART_VECTOR_ARROW" title="ansys.api.pyensight.ens_part_vector_arrow.ENS_PART_VECTOR_ARROW"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_vector_arrow.ENS_PART_VECTOR_ARROW</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_elevated_surface.ENS_PART_ELEVATED_SURFACE.html#ansys.api.pyensight.ens_part_elevated_surface.ENS_PART_ELEVATED_SURFACE" title="ansys.api.pyensight.ens_part_elevated_surface.ENS_PART_ELEVATED_SURFACE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_elevated_surface.ENS_PART_ELEVATED_SURFACE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_developed_surface.ENS_PART_DEVELOPED_SURFACE.html#ansys.api.pyensight.ens_part_developed_surface.ENS_PART_DEVELOPED_SURFACE" title="ansys.api.pyensight.ens_part_developed_surface.ENS_PART_DEVELOPED_SURFACE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_developed_surface.ENS_PART_DEVELOPED_SURFACE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_built_up.ENS_PART_BUILT_UP.html#ansys.api.pyensight.ens_part_built_up.ENS_PART_BUILT_UP" title="ansys.api.pyensight.ens_part_built_up.ENS_PART_BUILT_UP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_built_up.ENS_PART_BUILT_UP</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_tensor_glyph.ENS_PART_TENSOR_GLYPH.html#ansys.api.pyensight.ens_part_tensor_glyph.ENS_PART_TENSOR_GLYPH" title="ansys.api.pyensight.ens_part_tensor_glyph.ENS_PART_TENSOR_GLYPH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_tensor_glyph.ENS_PART_TENSOR_GLYPH</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_fx_vortex_core.ENS_PART_FX_VORTEX_CORE.html#ansys.api.pyensight.ens_part_fx_vortex_core.ENS_PART_FX_VORTEX_CORE" title="ansys.api.pyensight.ens_part_fx_vortex_core.ENS_PART_FX_VORTEX_CORE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_fx_vortex_core.ENS_PART_FX_VORTEX_CORE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_fx_shock.ENS_PART_FX_SHOCK.html#ansys.api.pyensight.ens_part_fx_shock.ENS_PART_FX_SHOCK" title="ansys.api.pyensight.ens_part_fx_shock.ENS_PART_FX_SHOCK"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_fx_shock.ENS_PART_FX_SHOCK</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_fx_sep_att.ENS_PART_FX_SEP_ATT.html#ansys.api.pyensight.ens_part_fx_sep_att.ENS_PART_FX_SEP_ATT" title="ansys.api.pyensight.ens_part_fx_sep_att.ENS_PART_FX_SEP_ATT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_fx_sep_att.ENS_PART_FX_SEP_ATT</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_mat_interface.ENS_PART_MAT_INTERFACE.html#ansys.api.pyensight.ens_part_mat_interface.ENS_PART_MAT_INTERFACE" title="ansys.api.pyensight.ens_part_mat_interface.ENS_PART_MAT_INTERFACE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_mat_interface.ENS_PART_MAT_INTERFACE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_point.ENS_PART_POINT.html#ansys.api.pyensight.ens_part_point.ENS_PART_POINT" title="ansys.api.pyensight.ens_part_point.ENS_PART_POINT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_point.ENS_PART_POINT</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_axisymmetric.ENS_PART_AXISYMMETRIC.html#ansys.api.pyensight.ens_part_axisymmetric.ENS_PART_AXISYMMETRIC" title="ansys.api.pyensight.ens_part_axisymmetric.ENS_PART_AXISYMMETRIC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_axisymmetric.ENS_PART_AXISYMMETRIC</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_vof.ENS_PART_VOF.html#ansys.api.pyensight.ens_part_vof.ENS_PART_VOF" title="ansys.api.pyensight.ens_part_vof.ENS_PART_VOF"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_vof.ENS_PART_VOF</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_aux_geom.ENS_PART_AUX_GEOM.html#ansys.api.pyensight.ens_part_aux_geom.ENS_PART_AUX_GEOM" title="ansys.api.pyensight.ens_part_aux_geom.ENS_PART_AUX_GEOM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_aux_geom.ENS_PART_AUX_GEOM</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_part_filter.ENS_PART_FILTER.html#ansys.api.pyensight.ens_part_filter.ENS_PART_FILTER" title="ansys.api.pyensight.ens_part_filter.ENS_PART_FILTER"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_part_filter.ENS_PART_FILTER</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PART</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_plotter.ENS_PLOTTER.html#ansys.api.pyensight.ens_plotter.ENS_PLOTTER" title="ansys.api.pyensight.ens_plotter.ENS_PLOTTER"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_plotter.ENS_PLOTTER</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PLOTTER</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_polyline.ENS_POLYLINE.html#ansys.api.pyensight.ens_polyline.ENS_POLYLINE" title="ansys.api.pyensight.ens_polyline.ENS_POLYLINE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_polyline.ENS_POLYLINE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_POLYLINE</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_probe.ENS_PROBE.html#ansys.api.pyensight.ens_probe.ENS_PROBE" title="ansys.api.pyensight.ens_probe.ENS_PROBE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_probe.ENS_PROBE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_PROBE</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_query.ENS_QUERY.html#ansys.api.pyensight.ens_query.ENS_QUERY" title="ansys.api.pyensight.ens_query.ENS_QUERY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_query.ENS_QUERY</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_QUERY</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_source.ENS_SOURCE.html#ansys.api.pyensight.ens_source.ENS_SOURCE" title="ansys.api.pyensight.ens_source.ENS_SOURCE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_source.ENS_SOURCE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_SOURCE</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_spec.ENS_SPEC.html#ansys.api.pyensight.ens_spec.ENS_SPEC" title="ansys.api.pyensight.ens_spec.ENS_SPEC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_spec.ENS_SPEC</span></code></a>(*args, ...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_SPEC</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_state.ENS_STATE.html#ansys.api.pyensight.ens_state.ENS_STATE" title="ansys.api.pyensight.ens_state.ENS_STATE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_state.ENS_STATE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_STATE</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_texture.ENS_TEXTURE.html#ansys.api.pyensight.ens_texture.ENS_TEXTURE" title="ansys.api.pyensight.ens_texture.ENS_TEXTURE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_texture.ENS_TEXTURE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_TEXTURE</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool.ENS_TOOL.html#ansys.api.pyensight.ens_tool.ENS_TOOL" title="ansys.api.pyensight.ens_tool.ENS_TOOL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_tool.ENS_TOOL</span></code></a>(*args, ...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_TOOL</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool_cursor.ENS_TOOL_CURSOR.html#ansys.api.pyensight.ens_tool_cursor.ENS_TOOL_CURSOR" title="ansys.api.pyensight.ens_tool_cursor.ENS_TOOL_CURSOR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_tool_cursor.ENS_TOOL_CURSOR</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_TOOL</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool_line.ENS_TOOL_LINE.html#ansys.api.pyensight.ens_tool_line.ENS_TOOL_LINE" title="ansys.api.pyensight.ens_tool_line.ENS_TOOL_LINE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_tool_line.ENS_TOOL_LINE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_TOOL</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool_plane.ENS_TOOL_PLANE.html#ansys.api.pyensight.ens_tool_plane.ENS_TOOL_PLANE" title="ansys.api.pyensight.ens_tool_plane.ENS_TOOL_PLANE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_tool_plane.ENS_TOOL_PLANE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_TOOL</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool_box.ENS_TOOL_BOX.html#ansys.api.pyensight.ens_tool_box.ENS_TOOL_BOX" title="ansys.api.pyensight.ens_tool_box.ENS_TOOL_BOX"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_tool_box.ENS_TOOL_BOX</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_TOOL</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool_cylinder.ENS_TOOL_CYLINDER.html#ansys.api.pyensight.ens_tool_cylinder.ENS_TOOL_CYLINDER" title="ansys.api.pyensight.ens_tool_cylinder.ENS_TOOL_CYLINDER"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_tool_cylinder.ENS_TOOL_CYLINDER</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_TOOL</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool_cone.ENS_TOOL_CONE.html#ansys.api.pyensight.ens_tool_cone.ENS_TOOL_CONE" title="ansys.api.pyensight.ens_tool_cone.ENS_TOOL_CONE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_tool_cone.ENS_TOOL_CONE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_TOOL</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool_sphere.ENS_TOOL_SPHERE.html#ansys.api.pyensight.ens_tool_sphere.ENS_TOOL_SPHERE" title="ansys.api.pyensight.ens_tool_sphere.ENS_TOOL_SPHERE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_tool_sphere.ENS_TOOL_SPHERE</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_TOOL</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_tool_revolution.ENS_TOOL_REVOLUTION.html#ansys.api.pyensight.ens_tool_revolution.ENS_TOOL_REVOLUTION" title="ansys.api.pyensight.ens_tool_revolution.ENS_TOOL_REVOLUTION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_tool_revolution.ENS_TOOL_REVOLUTION</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_TOOL</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_var.ENS_VAR.html#ansys.api.pyensight.ens_var.ENS_VAR" title="ansys.api.pyensight.ens_var.ENS_VAR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_var.ENS_VAR</span></code></a>(*args, ...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_VAR</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ansys.api.pyensight.ens_vport.ENS_VPORT.html#ansys.api.pyensight.ens_vport.ENS_VPORT" title="ansys.api.pyensight.ens_vport.ENS_VPORT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ansys.api.pyensight.ens_vport.ENS_VPORT</span></code></a>(...)</p></td>
+<td><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_VPORT</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+
+
+                </article>
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="_sources/object_documentation.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright (c) 2023 ANSYS, Inc. Unauthorized use, distribution, or duplication is prohibited..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+    Built with the <a href="https://sphinxdocs.ansys.com/version/stable/index.html">Ansys Sphinx Theme</a> 0.9.9.
+    <br>Last updated on <span id="date"></span></br>
+</p>
+<script>
+  var options = { day: 'numeric', month: 'long', year: 'numeric' };
+  var lastModifiedDate = new Date(document.lastModified);
+  var date = lastModifiedDate.toLocaleDateString('en-US', options);
+  document.getElementById("date").innerHTML = date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
