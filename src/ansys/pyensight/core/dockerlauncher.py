@@ -619,7 +619,7 @@ class DockerLauncher(Launcher):
                 pass
             try:
                 logging.debug("Removing the Docker Container.\n")
-                self._container.remove()
+                self._container.remove(force=True)
             except Exception:
                 pass
             self._container = None
