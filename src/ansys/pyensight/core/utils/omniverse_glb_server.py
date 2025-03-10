@@ -1,4 +1,5 @@
 import io
+import json
 import logging
 import os
 import sys
@@ -108,6 +109,8 @@ class GLBSession(dsg_server.DSGSession):
         part_pb.ambient = 1.0
         part_pb.diffuse = 1.0
         part_pb.specular_intensity = 1.0
+        if "ANSYS_material_details" in mat.extensions:
+            part_pb.material_name = json.dumps(mat.extensions["ANSYS_material_details"])
         # if the material maps to a variable, set the variable id for coloring
         glb_varid = self._find_variable_from_glb_mat(glb_materialid)
         if glb_varid:
@@ -132,7 +135,6 @@ class GLBSession(dsg_server.DSGSession):
         """
         mesh = self._gltf.meshes[meshid]
         for prim_idx, prim in enumerate(mesh.primitives):
-            # TODO: line width/point size
             # POINTS, LINES, TRIANGLES, LINE_LOOP, LINE_STRIP, TRIANGLE_STRIP, TRIANGLE_FAN
             mode = prim.mode
             if mode not in (
@@ -147,15 +149,14 @@ class GLBSession(dsg_server.DSGSession):
                 self.warn(f"Unhandled connectivity detected: {mode}.  Geometry skipped.")
                 continue
             glb_materialid = prim.material
-
             line_width = self._callback_handler._omni.line_width
-            # TODO: override from scene extension: ANSYS_linewidth
 
             # GLB Prim -> DSG Part
             part_name = f"{parentname}_prim{prim_idx}_"
             cmd, part_pb = self._create_pb("PART", parent_id=parentid, name=part_name)
             if mode == pygltflib.POINTS:
                 part_pb.render = dynamic_scene_graph_pb2.UpdatePart.RenderingMode.NODES
+                # Size of the spheres
                 part_pb.node_size_default = line_width
             else:
                 part_pb.render = dynamic_scene_graph_pb2.UpdatePart.RenderingMode.CONNECTIVITY
@@ -404,10 +405,39 @@ class GLBSession(dsg_server.DSGSession):
         # GLB node -> DSG Group
         cmd, group_pb = self._create_pb("GROUP", parent_id=parentid, name=name)
         group_pb.matrix4x4.extend(matrix)
-        self._handle_update_command(cmd)
-
         if node.mesh is not None:
+            # This is a little ugly, but spheres have a size that is part of the PART
+            # protobuffer.  So, if the current mesh has the "ANSYS_linewidth" extension,
+            # we need to temporally change the line width.  However, if this is a lines
+            # object, then we need to set the ANSYS_linewidth attribute.  Unfortunately,
+            # this is only available on the GROUP protobuffer, thus we will try to set
+            # both here.
+            # Note: in the EnSight push, ANSYS_linewidth will only ever be set on the
+            # top level node. In the GLB case, we will scope it to the group.  Thus,
+            # every "mesh" protobuffer sequence will have an explicit line width in
+            # the group above the part.
+
+            # save/restore the current line_width
+            orig_width = self._callback_handler._omni.line_width
+            mesh = self._gltf.meshes[node.mesh]
+            try:
+                # check for line_width on the mesh object
+                width = float(mesh.extensions["ANSYS_linewidth"]["linewidth"])
+                # make sure spheres work
+                self._callback_handler._omni.line_width = width
+            except (KeyError, ValueError):
+                pass
+            # make sure lines work (via the group attributes map)
+            group_pb.attributes["ANSYS_linewidth"] = str(self._callback_handler._omni.line_width)
+            # send the group protobuffer
+            self._handle_update_command(cmd)
+            # Export the mesh
             self._parse_mesh(node.mesh, group_pb.id, name)
+            # restore the old line_width
+            self._callback_handler._omni.line_width = orig_width
+        else:
+            # send the group protobuffer
+            self._handle_update_command(cmd)
 
         # Handle node.rotation, node.translation, node.scale, node.matrix
         for child_id in node.children:
@@ -583,7 +613,16 @@ class GLBSession(dsg_server.DSGSession):
                         view_pb.fieldofview = camera.perspective.yfov
                         view_pb.aspectratio = camera.aspectratio.aspectRatio
                 self._handle_update_command(cmd)
-                for node_id in self._gltf.scenes[scene_idx].nodes:
+                # walk the scene nodes
+                scene = self._gltf.scenes[scene_idx]
+                try:
+                    if self._callback_handler._omni.line_width == 0.0:
+                        width = float(scene.extensions["ANSYS_linewidth"]["linewidth"])
+                        self._callback_handler._omni.line_width = width
+                except (KeyError, ValueError):
+                    # in the case where the extension does not exist or is mal-formed
+                    pass
+                for node_id in scene.nodes:
                     self._walk_node(node_id, view_pb.id)
                 self._finish_part()
 
@@ -621,11 +660,21 @@ class GLBSession(dsg_server.DSGSession):
         List[float]
             The computed timeline.
         """
-        # if ANSYS_scene_time is used, time ranges will come from there
-        if "ANSYS_scene_time" in self._gltf.scenes[scene_idx].extensions:
-            return self._gltf.scenes[scene_idx].extensions["ANSYS_scene_time"]
-        # if there is only one scene, then use the input timeline
         num_scenes = len(self._gltf.scenes)
+        # if ANSYS_scene_timevalue is used, time ranges will come from there
+        try:
+            t0 = self._gltf.scenes[scene_idx].extensions["ANSYS_scene_timevalue"]["timevalue"]
+            idx = scene_idx + 1
+            if idx < num_scenes:
+                t1 = self._gltf.scenes[idx].extensions["ANSYS_scene_timevalue"]["timevalue"]
+            else:
+                t1 = t0
+            return [t0, t1]
+        except KeyError:
+            # If we fail due to dictionary key issue, the extension does not exist or is
+            # improperly formatted.
+            pass
+        # if there is only one scene, then use the input timeline
         if num_scenes == 1:
             return input_timeline
         # if the timeline has zero length, we make it the number of scenes
@@ -633,10 +682,13 @@ class GLBSession(dsg_server.DSGSession):
         if timeline[1] - timeline[0] <= 0.0:
             timeline = [0.0, float(num_scenes - 1)]
         # carve time into the input timeline.
-        delta = (timeline[1] - timeline[0]) / float(num_scenes)
+        delta = (timeline[1] - timeline[0]) / float(num_scenes - 1)
         output: List[float] = []
         output.append(float(scene_idx) * delta + timeline[0])
-        output.append(output[0] + delta)
+        if scene_idx < num_scenes - 1:
+            output.append(output[0] + delta)
+        else:
+            output.append(output[0])
         return output
 
     @staticmethod

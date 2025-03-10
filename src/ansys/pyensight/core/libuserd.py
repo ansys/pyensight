@@ -77,6 +77,8 @@ ElementType = _build_enum("ElementType", libuserd_pb2.ElementType.items())
 VariableLocation = _build_enum("VariableLocation", libuserd_pb2.VariableLocation.items())
 VariableType = _build_enum("VariableType", libuserd_pb2.VariableType.items())
 PartHints = _build_enum("PartHints", libuserd_pb2.PartHints.items(), flag=True)
+UpdateHints = _build_enum("UpdateHints", libuserd_pb2.UpdateHints.items(), flag=True)
+RankValues = _build_enum("RankValues", libuserd_pb2.RankValues.items())
 
 
 class LibUserdError(Exception):
@@ -142,8 +144,8 @@ class Query(object):
         self._userd = userd
         self.id = pb.id
         self.name = pb.name
-        self.x_title = pb.xTitle
-        self.y_title = pb.yTitle
+        self.x_title = pb.x_title
+        self.y_title = pb.y_title
         self.metadata = {}
         for key in pb.metadata.keys():
             self.metadata[key] = pb.metadata[key]
@@ -165,6 +167,7 @@ class Query(object):
         """
         self._userd.connect_check()
         pb = libuserd_pb2.Query_dataRequest()
+        pb.query_id = self.id
         try:
             reply = self._userd.stub.Query_data(pb, metadata=self._userd.metadata())
         except grpc.RpcError as e:
@@ -191,19 +194,19 @@ class Variable(object):
         The id of this variable.
     name : str
         The name of this variable.
-    unitLabel : str
+    unit_label : str
         The unit label of this variable, "Pa" for example.
-    unitDims : str
+    unit_dims : str
         The dimensions of this variable, "L/S" for distance per second.
     location : "VariableLocation"
         The location of this variable.
     type : "VariableType"
         The type of this variable.
-    timeVarying : bool
+    time_varying : bool
         True if the variable is time-varying.
-    isComplex : bool
+    complex : bool
         True if the variable is complex.
-    numOfComponents : int
+    number_of_components : int
         The number of components of this variable.  A scalar is 1 and
         a vector is 3.
     metadata : Dict[str, str]
@@ -214,14 +217,14 @@ class Variable(object):
         self._userd = userd
         self.id = pb.id
         self.name = pb.name
-        self.unitLabel = pb.unitLabel
-        self.unitDims = pb.unitDims
-        self.location = VariableLocation(pb.varLocation)  # type: ignore
+        self.unit_label = pb.unit_label
+        self.unit_dims = pb.unit_dims
+        self.location = VariableLocation(pb.location)  # type: ignore
         self.type = VariableType(pb.type)  # type: ignore
-        self.timeVarying = pb.timeVarying
-        self.isComplex = pb.isComplex
-        self.interleaveFlag = pb.interleaveFlag
-        self.numOfComponents = pb.numOfComponents
+        self.time_varying = pb.time_varying
+        self.complex = pb.complex
+        self.interleave_flag = pb.interleave_flag
+        self.number_of_components = pb.number_of_components
         self.metadata = {}
         for key in pb.metadata.keys():
             self.metadata[key] = pb.metadata[key]
@@ -257,8 +260,6 @@ class Part(object):
         The id of the Reader this part is associated with.
     hints : int
         See: `PartHints`.
-    reader_api_version : float
-        The API version number of the USERD reader this part was read with.
     metadata : Dict[str, str]
         The metadata for this query.
     """
@@ -270,7 +271,6 @@ class Part(object):
         self.name = pb.name
         self.reader_id = pb.reader_id
         self.hints = pb.hints
-        self.reader_api_version = pb.reader_api_version
         self.metadata = {}
         for key in pb.metadata.keys():
             self.metadata[key] = pb.metadata[key]
@@ -281,9 +281,15 @@ class Part(object):
     def __repr__(self):
         return f"<{self.__class__.__name__} object, id: {self.id}, name: '{self.name}'>"
 
-    def nodes(self) -> "numpy.array":
+    def nodes(self, rank: Optional[int] = None) -> "numpy.array":
         """
         Return the vertex array for the part.
+
+        Parameters
+        ----------
+        rank : int, optional
+            For a dataset using multiple ranks, the rank to return data from.  The
+            default is RankValues.SINGLE_RANK.
 
         Returns
         -------
@@ -300,8 +306,10 @@ class Part(object):
 
         """
         self._userd.connect_check()
+        rank = self._userd.rank_check(rank)
         pb = libuserd_pb2.Part_nodesRequest()
         pb.part_id = self.id
+        pb.rank = rank
         try:
             stream = self._userd.stub.Part_nodes(pb, metadata=self._userd.metadata())
         except grpc.RpcError as e:
@@ -315,9 +323,15 @@ class Part(object):
             nodes[offset : offset + len(values)] = values
         return nodes
 
-    def num_elements(self) -> dict:
+    def num_elements(self, rank: Optional[int] = None) -> dict:
         """
         Get the number of elements of a given type in the current part.
+
+        Parameters
+        ----------
+        rank : int, optional
+            For a dataset using multiple ranks, the rank to return data from.  The
+            default is RankValues.SINGLE_RANK.
 
         Returns
         -------
@@ -335,19 +349,21 @@ class Part(object):
 
         """
         self._userd.connect_check()
+        rank = self._userd.rank_check(rank)
         pb = libuserd_pb2.Part_num_elementsRequest()
         pb.part_id = self.id
+        pb.rank = rank
         try:
             reply = self._userd.stub.Part_num_elements(pb, metadata=self._userd.metadata())
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
         elements = {}
-        for key in reply.elementCount.keys():
-            if reply.elementCount[key] > 0:
-                elements[key] = reply.elementCount[key]
+        for key in reply.element_count.keys():
+            if reply.element_count[key] > 0:
+                elements[key] = reply.element_count[key]
         return elements
 
-    def element_conn(self, elem_type: int) -> "numpy.array":
+    def element_conn(self, elem_type: int, rank: Optional[int] = None) -> "numpy.array":
         """
         For "zoo" element types, return the part element connectivity for the specified
         element type.
@@ -356,6 +372,9 @@ class Part(object):
         ----------
         elem_type : int
             The element type.  All but NFACED and NSIDED element types are allowed.
+        rank : int, optional
+            For a dataset using multiple ranks, the rank to return data from.  The
+            default is RankValues.SINGLE_RANK.
 
         Returns
         -------
@@ -375,9 +394,12 @@ class Part(object):
         """
         if elem_type >= ElementType.NSIDED:  # type: ignore
             raise RuntimeError(f"Element type {elem_type} is not valid for this call")
+        self._userd.connect_check()
+        rank = self._userd.rank_check(rank)
         pb = libuserd_pb2.Part_element_connRequest()
         pb.part_id = self.id
-        pb.elemType = elem_type
+        pb.type = elem_type
+        pb.rank = rank
         try:
             stream = self._userd.stub.Part_element_conn(pb, metadata=self._userd.metadata())
             conn = numpy.empty(0, dtype=numpy.uint32)
@@ -396,7 +418,9 @@ class Part(object):
             raise error
         return conn
 
-    def element_conn_nsided(self, elem_type: int) -> List["numpy.array"]:
+    def element_conn_nsided(
+        self, elem_type: int, rank: Optional[int] = None
+    ) -> List["numpy.array"]:
         """
         For an N-Sided element type (regular or ghost), return the connectivity information
         for the elements of that type in this part at this timestep.
@@ -414,6 +438,9 @@ class Part(object):
         ----------
         elem_type: int
             NSIDED or NSIDED_GHOST.
+        rank : int, optional
+            For a dataset using multiple ranks, the rank to return data from.  The
+            default is RankValues.SINGLE_RANK.
 
         Returns
         -------
@@ -421,9 +448,11 @@ class Part(object):
             Two numpy arrays: num_nodes_per_element, nodes
         """
         self._userd.connect_check()
+        rank = self._userd.rank_check(rank)
         pb = libuserd_pb2.Part_element_conn_nsidedRequest()
         pb.part_id = self.id
-        pb.elemType = elem_type
+        pb.type = elem_type
+        pb.rank = rank
         try:
             stream = self._userd.stub.Part_element_conn_nsided(pb, metadata=self._userd.metadata())
             nodes = numpy.empty(0, dtype=numpy.uint32)
@@ -433,19 +462,21 @@ class Part(object):
                     nodes = numpy.empty(chunk.nodes_total_size, dtype=numpy.uint32)
                 if len(indices) < chunk.indices_total_size:
                     indices = numpy.empty(chunk.indices_total_size, dtype=numpy.uint32)
-                if len(chunk.nodesPerPolygon):
+                if len(chunk.nodes_per_polygon):
                     offset = chunk.nodes_offset
-                    values = numpy.array(chunk.nodesPerPolygon)
+                    values = numpy.array(chunk.nodes_per_polygon)
                     nodes[offset : offset + len(values)] = values
-                if len(chunk.nodeIndices):
+                if len(chunk.node_indices):
                     offset = chunk.indices_offset
-                    values = numpy.array(chunk.nodeIndices)
+                    values = numpy.array(chunk.node_indices)
                     indices[offset : offset + len(values)] = values
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
         return [nodes, indices]
 
-    def element_conn_nfaced(self, elem_type: int) -> List["numpy.array"]:
+    def element_conn_nfaced(
+        self, elem_type: int, rank: Optional[int] = None
+    ) -> List["numpy.array"]:
         """
         For an N-Faced element type (regular or ghost), return the connectivity information
         for the elements of that type in this part at this timestep.
@@ -465,6 +496,9 @@ class Part(object):
         ----------
         elem_type: int
             NFACED or NFACED_GHOST.
+        rank : int, optional
+            For a dataset using multiple ranks, the rank to return data from.  The
+            default is RankValues.SINGLE_RANK.
 
         Returns
         -------
@@ -472,9 +506,11 @@ class Part(object):
             Three numpy arrays: num_faces_per_element, num_nodes_per_face, face_nodes
         """
         self._userd.connect_check()
+        rank = self._userd.rank_check(rank)
         pb = libuserd_pb2.Part_element_conn_nfacedRequest()
         pb.part_id = self.id
-        pb.elemType = elem_type
+        pb.type = elem_type
+        pb.rank = rank
         try:
             stream = self._userd.stub.Part_element_conn_nfaced(pb, metadata=self._userd.metadata())
             face = numpy.empty(0, dtype=numpy.uint32)
@@ -487,24 +523,29 @@ class Part(object):
                     npf = numpy.empty(chunk.npf_total_size, dtype=numpy.uint32)
                 if len(nodes) < chunk.nodes_total_size:
                     nodes = numpy.empty(chunk.nodes_total_size, dtype=numpy.uint32)
-                if len(chunk.facesPerElement):
+                if len(chunk.faces_per_element):
                     offset = chunk.face_offset
-                    values = numpy.array(chunk.facesPerElement)
+                    values = numpy.array(chunk.faces_per_element)
                     face[offset : offset + len(values)] = values
-                if len(chunk.nodesPerFace):
+                if len(chunk.nodes_per_face):
                     offset = chunk.npf_offset
-                    values = numpy.array(chunk.nodesPerFace)
+                    values = numpy.array(chunk.nodes_per_face)
                     npf[offset : offset + len(values)] = values
-                if len(chunk.nodeIndices):
+                if len(chunk.node_indices):
                     offset = chunk.nodes_offset
-                    values = numpy.array(chunk.nodeIndices)
+                    values = numpy.array(chunk.node_indices)
                     nodes[offset : offset + len(values)] = values
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
         return [face, npf, nodes]
 
     def variable_values(
-        self, variable: "Variable", elem_type: int = 0, imaginary: bool = False, component: int = 0
+        self,
+        variable: "Variable",
+        elem_type: int = 0,
+        imaginary: bool = False,
+        component: int = 0,
+        rank: Optional[int] = None,
     ) -> "numpy.array":
         """
         Return a numpy array containing the value(s) of a variable.  If the variable is a
@@ -526,6 +567,9 @@ class Part(object):
         component : int
             Select the channel for a multivalued variable type.  For example, if the variable
             is a vector, setting component to 1 will select the 'Y' component.
+        rank : int, optional
+            For a dataset using multiple ranks, the rank to return data from.  The
+            default is RankValues.SINGLE_RANK.
 
         Returns
         -------
@@ -533,12 +577,14 @@ class Part(object):
             A numpy array or a single scalar float.
         """
         self._userd.connect_check()
+        rank = self._userd.rank_check(rank)
         pb = libuserd_pb2.Part_variable_valuesRequest()
         pb.part_id = self.id
         pb.var_id = variable.id
-        pb.elemType = elem_type
-        pb.varComponent = component
+        pb.type = elem_type
+        pb.component = component
         pb.complex = imaginary
+        pb.rank = rank
         try:
             stream = self._userd.stub.Part_variable_values(pb, metadata=self._userd.metadata())
             v = numpy.empty(0, dtype=numpy.float32)
@@ -546,7 +592,7 @@ class Part(object):
                 if len(v) < chunk.total_size:
                     v = numpy.empty(chunk.total_size, dtype=numpy.float32)
                 offset = chunk.offset
-                values = numpy.array(chunk.varValues)
+                values = numpy.array(chunk.values)
                 v[offset : offset + len(values)] = values
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
@@ -603,6 +649,10 @@ class Reader(object):
         The units system provided by the dataset.
     metadata : Dict[str, str]
         The metadata for this query.
+    reader_api_version : float
+        The reader USERD API version number
+    number_of_ranks : int
+        The number of ranks being used by the dataset reader
 
     Notes
     -----
@@ -612,7 +662,9 @@ class Reader(object):
 
     def __init__(self, userd: "LibUserd", pb: libuserd_pb2.Reader) -> None:
         self._userd = userd
-        self.unit_system = pb.unitSystem
+        self.unit_system = pb.unit_system
+        self.reader_api_version = pb.reader_api_version
+        self.number_of_ranks = pb.number_of_ranks
         self.metadata = {}
         for key in pb.metadata.keys():
             self.metadata[key] = pb.metadata[key]
@@ -707,7 +759,7 @@ class Reader(object):
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
         out = []
-        for part in parts.partList:
+        for part in parts.part_list:
             out.append(Part(self._userd, part))
         return out
 
@@ -727,7 +779,7 @@ class Reader(object):
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
         out = []
-        for variable in variables.variableList:
+        for variable in variables.variable_list:
             out.append(Variable(self._userd, variable))
         return out
 
@@ -747,7 +799,7 @@ class Reader(object):
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
         out = []
-        for query in queries.queryList:
+        for query in queries.query_list:
             out.append(Query(self._userd, query))
         return out
 
@@ -770,7 +822,7 @@ class Reader(object):
             )
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
-        return reply.numberOfTimeSets
+        return reply.number_of_timesets
 
     def timevalues(self, timeset: int = 0) -> List[float]:
         """
@@ -795,12 +847,12 @@ class Reader(object):
                 return numpy.array([], dtype="float32")
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_timevaluesRequest()
-        pb.timeSetNumber = timeset
+        pb.timeset_number = timeset
         try:
             timevalues = self._userd.stub.Reader_timevalues(pb, metadata=self._userd.metadata())
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
-        return numpy.array(timevalues.timeValues)
+        return numpy.array(timevalues.time_values)
 
     def set_timevalue(self, timevalue: float, timeset: int = 0) -> None:
         """
@@ -841,8 +893,8 @@ class Reader(object):
             return
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_set_timevalueRequest()
-        pb.timesetNumber = timeset
-        pb.timeValue = timevalue
+        pb.timeset_number = timeset
+        pb.time_value = timevalue
         try:
             _ = self._userd.stub.Reader_set_timevalue(pb, metadata=self._userd.metadata())
         except grpc.RpcError as e:
@@ -868,8 +920,8 @@ class Reader(object):
             return
         self._userd.connect_check()
         pb = libuserd_pb2.Reader_set_timestepRequest()
-        pb.timeSetNumber = timeset
-        pb.timeStep = timestep
+        pb.timeset_number = timeset
+        pb.time_step = timestep
         try:
             _ = self._userd.stub.Reader_set_timestep(pb, metadata=self._userd.metadata())
         except grpc.RpcError as e:
@@ -892,9 +944,38 @@ class Reader(object):
             )
         except grpc.RpcError as e:
             raise self._userd.libuserd_exception(e)
-        return reply.isGeomChanging
+        return reply.is_geometry_changing
 
-    def variable_value(self, variable: "Variable") -> float:
+    def dynamic_update_check(self, changes_allowed: int) -> int:
+        """
+        When this method is called, it allows the reader to change aspects of
+        dataset.  If the reader changes the time steps, mesh data or the
+        dataset structure (variable, part or query lists) this function
+        will return the nature of the change.  The returned bits will always be
+        a subset of the input allowed bits.
+
+        Parameters
+        ----------
+        changes_allowed : int
+            Bitfield formed by oring UpdateHints values for the things that are allowed to change.
+
+        Returns
+        -------
+        int
+            A bitfield formed by oring UpdateHints values for the things that changed.
+        """
+        self._userd.connect_check()
+        pb = libuserd_pb2.Reader_dynamic_update_checkRequest()
+        pb.changes_allowed = changes_allowed
+        try:
+            reply = self._userd.stub.Reader_dynamic_update_check(
+                pb, metadata=self._userd.metadata()
+            )
+        except grpc.RpcError as e:
+            raise self._userd.libuserd_exception(e)
+        return reply.changed
+
+    def variable_value(self, variable: "Variable", rank: Optional[int] = None) -> float:
         """
         For any "case" variable (e.g. time), the value of the variable.
 
@@ -902,15 +983,19 @@ class Reader(object):
         ----------
         variable
             The variable to query.  Note, this variable location must be on a CASE.
-
+        rank : int, optional
+            For a dataset using multiple ranks, the rank to return data from.  The
+            default is RankValues.SINGLE_RANK.
         Returns
         -------
         float
             The value of the variable.
         """
         self._userd.connect_check()
+        rank = self._userd.rank_check(rank)
         pb = libuserd_pb2.Reader_variable_valueRequest()
         pb.variable_id = variable.id
+        pb.rank = rank
         try:
             reply = self._userd.stub.Reader_variable_value(pb, metadata=self._userd.metadata())
         except grpc.RpcError as e:
@@ -944,9 +1029,9 @@ class ReaderInfo(object):
         The reader name.
     description : str
         A brief description of the reader and in some cases its operation.
-    fileLabel1 : str
+    file_label1 : str
         A string appropriate for a "file select" button for the primary filename.
-    fileLabel2 : str
+    file_label2 : str
         A string appropriate for a "file select" button for the secondary filename.
     opt_booleans : List[dict]
         The boolean user options.
@@ -961,8 +1046,8 @@ class ReaderInfo(object):
         self.id = pb.id
         self.name = pb.name
         self.description = pb.description
-        self.fileLabel1 = pb.fileLabel1
-        self.fileLabel2 = pb.fileLabel2
+        self.file_label1 = pb.file_label1
+        self.file_label2 = pb.file_label2
         self.opt_booleans = []
         for b in pb.options.booleans:
             self.opt_booleans.append(dict(name=b.name, value=b.value, default=b.default_value))
@@ -1044,7 +1129,7 @@ class LibUserd(object):
 
     Parameters
     ----------
-    ansys_installation
+    ansys_installation : str
         Optional location to search for an Ansys software installation.
 
     Examples
@@ -1073,6 +1158,7 @@ class LibUserd(object):
         pim_instance: Optional[Any] = None,
         timeout: float = 120.0,
         pull_image_if_not_available: bool = False,
+        number_of_ranks: int = 1,
     ):
         self._server_pathname: Optional[str] = None
         self._host = "127.0.0.1"
@@ -1099,6 +1185,7 @@ class LibUserd(object):
         self._enshell_grpc_channel: Optional[grpc.Channel] = channel
         self._pim_file_service: Optional[Any] = None
         self._service_host_port: Dict[str, Tuple[str, int]] = {}
+        self._number_of_ranks = number_of_ranks
         local_launch = True
         if any([use_docker, use_dev, self._pim_instance]):
             local_launch = False
@@ -1169,6 +1256,8 @@ class LibUserd(object):
         self.VariableLocation = VariableLocation
         self.VariableType = VariableType
         self.PartHints = PartHints
+        self.UpdateHints = UpdateHints
+        self.RankValues = RankValues
 
     def _pull_docker_image(self) -> None:
         """Pull the docker image if not available"""
@@ -1209,8 +1298,8 @@ class LibUserd(object):
         )
         self._cei_home = self._enshell.cei_home()
         self._ansys_version = self._enshell.ansys_version()
-        print("CEI_HOME=", self._cei_home)
-        print("Ansys Version=", self._ansys_version)
+        # print("CEI_HOME=", self._cei_home)
+        # print("Ansys Version=", self._ansys_version)
         grpc_port = self._service_host_port["grpc_private"][1]
         ensight_args = f"-grpc_server {grpc_port}"
         container_env_str = f"ENSIGHT_SECURITY_TOKEN={self._security_token}\n"
@@ -1491,6 +1580,28 @@ class LibUserd(object):
         if not self._is_connected():
             raise RuntimeError("gRPC connection not established")
 
+    def rank_check(self, rank: Optional[int]) -> int:
+        """
+        Validate the specified rank number.  If the rank is None, return 0.
+
+        Parameters
+        ----------
+        rank: Optional[int]
+            The rank number to validate.
+
+        Returns
+        -------
+        int
+            The validated rank number.
+        """
+        if rank is None:
+            return 0
+        if int(rank) < 0 or int(rank) >= self._number_of_ranks:
+            raise RuntimeError(
+                f"Invalid rank number specified: {rank}.  Valid range:[0, {self._number_of_ranks-1}]"
+            )
+        return int(rank)
+
     """
     gRPC method bindings
     """
@@ -1584,7 +1695,7 @@ class LibUserd(object):
 
         Parameters
         ----------
-        element_type
+        element_type : int
             The element type:  ElementType enum value
 
         Returns
@@ -1609,7 +1720,7 @@ class LibUserd(object):
 
         Parameters
         ----------
-        element_type
+        element_type : int
             The element type:  ElementType enum value
 
         Returns
@@ -1632,7 +1743,7 @@ class LibUserd(object):
 
         Parameters
         ----------
-        element_type
+        element_type : int
             The element type:  ElementType enum value
 
         Returns
@@ -1655,7 +1766,7 @@ class LibUserd(object):
 
         Parameters
         ----------
-        element_type
+        element_type : int
             The element type:  ElementType enum value
 
         Returns
@@ -1678,7 +1789,7 @@ class LibUserd(object):
 
         Parameters
         ----------
-        element_type
+        element_type : int
             The element type:  ElementType enum value
 
         Returns
@@ -1716,13 +1827,26 @@ class LibUserd(object):
             raise self.libuserd_exception(e)
         return ret.result
 
-    def initialize(self) -> None:
+    def initialize(self, number_of_ranks: int = 0) -> None:
         """
         This call initializes the libuserd system.  It causes the library to scan for available
         readers and set up any required reduction engine bits.  It can only be called once.
+
+        Parameters
+        ----------
+        number_of_ranks : int, optional
+            The degree of I/O parallelism to read data with.  Zero is serial I/O.  Note: this
+            option is not currently implemented and 0 should be used.
         """
         self.connect_check()
         pb = libuserd_pb2.Libuserd_initializeRequest()
+        if number_of_ranks:
+            self._number_of_ranks = number_of_ranks
+            try:
+                pb.parallel_node_count = number_of_ranks
+            except Exception:
+                # This exception is allowed to support older .proto versions
+                pass
         try:
             _ = self.stub.Libuserd_initialize(pb, metadata=self.metadata())
         except grpc.RpcError as e:
@@ -1744,7 +1868,7 @@ class LibUserd(object):
         except grpc.RpcError as e:
             raise self.libuserd_exception(e)
         out = []
-        for reader in readers.readerInfo:
+        for reader in readers.reader_info:
             out.append(ReaderInfo(self, reader))
         return out
 
@@ -1755,10 +1879,10 @@ class LibUserd(object):
 
         Parameters
         ----------
-        name1
+        name1 : str
             Primary input filename
 
-        name2
+        name2 : str
             Optional, secondary input filename
 
         Returns
@@ -1776,7 +1900,7 @@ class LibUserd(object):
         except grpc.RpcError as e:
             raise self.libuserd_exception(e)
         out = []
-        for reader in readers.readerInfo:
+        for reader in readers.reader_info:
             out.append(ReaderInfo(self, reader))
         return out
 
@@ -1865,11 +1989,11 @@ class LibUserd(object):
         Parameters:
         ----------
 
-        uri: str
+        uri : str
             The uri to get files from
-        pathname: str
+        pathname : str
             The location were to save the files. It could be either a file or a folder.
-        folder: bool
+        folder : bool
             True if the uri will server files from a directory. In this case,
             pathname will be used as the directory were to save the files.
         """

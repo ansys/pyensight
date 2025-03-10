@@ -37,4 +37,6 @@ uses a USERD interface can be read using this API.
    ansys.pyensight.core.libuserd.Query
    ansys.pyensight.core.libuserd.LibUserdError
    ansys.pyensight.core.libuserd.ErrorCodes
+   ansys.pyensight.core.libuserd.UpdateHints
+   ansys.pyensight.core.libuserd.RankValues
 

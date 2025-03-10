@@ -6,7 +6,7 @@ import subprocess
 import sys
 import tempfile
 from types import ModuleType
-from typing import TYPE_CHECKING, Optional, Union
+from typing import TYPE_CHECKING, List, Optional, Union
 import uuid
 
 import psutil
@@ -16,6 +16,198 @@ if TYPE_CHECKING:
         import ensight
     except ImportError:
         from ansys.api.pyensight import ensight_api
+
+
+class OmniverseKitInstance:
+    """Interface to an Omniverse application instance
+
+    Parameters
+    ----------
+    pid : int
+        The process id of the launched instance
+    """
+
+    def __init__(self, pid: int) -> None:
+        self._pid: Optional[int] = pid
+
+    def __del__(self) -> None:
+        """Close down the instance on delete"""
+        self.close()
+
+    def close(self) -> None:
+        """Shutdown the Omniverse instance
+
+        If the instance associated with this object is still running,
+        shut it down.
+        """
+        if not self.is_running():
+            return
+        proc = psutil.Process(self._pid)
+        for child in proc.children(recursive=True):
+            if psutil.pid_exists(child.pid):
+                # This can be a race condition, so it is ok if the child is dead already
+                try:
+                    child.kill()
+                except psutil.NoSuchProcess:
+                    pass
+        # Same issue, this process might already be shutting down, so NoSuchProcess is ok.
+        try:
+            proc.kill()
+        except psutil.NoSuchProcess:
+            pass
+        self._pid = None
+
+    def is_running(self) -> bool:
+        """Check if the instance is still running
+
+        Returns
+        -------
+        bool
+            True if the instance is still running.
+        """
+        if not self._pid:
+            return False
+        if psutil.pid_exists(self._pid):
+            return True
+        self._pid = None
+        return False
+
+
+def find_kit_filename(fallback_directory: Optional[str] = None) -> Optional[str]:
+    """
+    Use a combination of the current omniverse application and the information
+    in the local .nvidia-omniverse/config/omniverse.toml file to come up with
+    the pathname of a kit executable suitable for hosting another copy of the
+    ansys.geometry.server kit.
+
+    Returns
+    -------
+    Optional[str]
+        The pathname of a kit executable or None
+
+    """
+    # parse the toml config file for the location of the installed apps
+    try:
+        import tomllib
+    except ModuleNotFoundError:
+        import pip._vendor.tomli as tomllib
+
+    homedir = os.path.expanduser("~")
+    ov_config = os.path.join(homedir, ".nvidia-omniverse", "config", "omniverse.toml")
+    if not os.path.exists(ov_config):
+        return None
+    # read the Omniverse configuration toml file
+    with open(ov_config, "r") as ov_file:
+        ov_data = ov_file.read()
+    config = tomllib.loads(ov_data)
+    appdir = config.get("paths", {}).get("library_root", fallback_directory)
+
+    # If we are running inside an Omniverse app, use that information
+    try:
+        import omni.kit.app
+
+        # get the current application
+        app = omni.kit.app.get_app()
+        app_name = app.get_app_filename().split(".")[-1]
+        app_version = app.get_app_version().split("-")[0]
+        # and where it is installed
+        appdir = os.path.join(appdir, f"{app_name}-{app_version}")
+    except ModuleNotFoundError:
+        # Names should be like: "C:\\Users\\foo\\AppData\\Local\\ov\\pkg\\create-2023.2.3\\launcher.toml"
+        target = None
+        target_version = None
+        for d in glob.glob(os.path.join(appdir, "*", "launcher.toml")):
+            test_dir = os.path.dirname(d)
+            # the name will be something like "create-2023.2.3"
+            name = os.path.basename(test_dir).split("-")
+            if len(name) != 2:
+                continue
+            if name[0] not in ("kit", "create", "view"):
+                continue
+            if (target_version is None) or (name[1] > target_version):
+                target = test_dir
+                target_version = name[1]
+        if target is None:
+            return None
+        appdir = target
+
+    # Windows: 'kit.bat' in '.' or 'kit' followed by 'kit.exe' in '.' or 'kit'
+    # Linux: 'kit.sh' in '.' or 'kit' followed by 'kit' in '.' or 'kit'
+    exe_names = ["kit.sh", "kit"]
+    if sys.platform.startswith("win"):
+        exe_names = ["kit.bat", "kit.exe"]
+
+    # look in 4 places...
+    for dir_name in [appdir, os.path.join(appdir, "kit")]:
+        for exe_name in exe_names:
+            if os.path.exists(os.path.join(dir_name, exe_name)):
+                return os.path.join(dir_name, exe_name)
+
+    return None
+
+
+def launch_kit_instance(
+    kit_path: Optional[str] = None,
+    extension_paths: Optional[List[str]] = None,
+    extensions: Optional[List[str]] = None,
+    cli_options: Optional[List[str]] = None,
+    log_file: Optional[str] = None,
+    log_level: str = "warn",
+) -> "OmniverseKitInstance":
+    """Launch an Omniverse application instance
+
+    Parameters
+    ----------
+    kit_path : Optional[str]
+        The full pathname of to a binary capable of serving as a kit runner.
+    extension_paths : Optional[List[str]]
+        List of directory names to include the in search for kits.
+    extensions : Optional[List[str]]
+        List of kit extensions to be loaded into the launched kit instance.
+    log_file : Optional[str]
+        The name of a text file where the logging information for the instance will be saved.
+    log_level : str
+        The level of the logging information to record: "verbose", "info", "warn", "error", "fatal",
+        the default is "warn".
+
+    Returns
+    -------
+    OmniverseKitInstance
+        The object interface for the launched instance
+
+    Examples
+    --------
+    Run a simple, empty GUI kit instance.
+
+    >>> from ansys.pyensight.core.utils import omniverse
+    >>> ov = omniverse.launch_kit_instance(extensions=['omni.kit.uiapp'])
+
+    """
+    # build the command line
+    if not kit_path:
+        kit_path = find_kit_filename()
+    if not kit_path:
+        raise RuntimeError("Unable to find a suitable Omniverse kit install")
+    cmd = [kit_path]
+    if extension_paths:
+        for path in extension_paths:
+            cmd.extend(["--ext-folder", path])
+    if extensions:
+        for ext in extensions:
+            cmd.extend(["--enable", ext])
+    if cli_options:
+        for opt in cli_options:
+            cmd.append(opt)
+    if log_level not in ("verbose", "info", "warn", "error", "fatal"):
+        raise RuntimeError(f"Invalid logging level: {log_level}")
+    cmd.append(f"--/log/level={log_level}")
+    if log_file:
+        cmd.append(f"--/log/file={log_file}")
+        cmd.append("--/log/enabled=true")
+    # Launch the process
+    env_vars = os.environ.copy()
+    p = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env_vars)
+    return OmniverseKitInstance(p.pid)
 
 
 class Omniverse:
@@ -55,79 +247,6 @@ class Omniverse:
         self._server_pid: Optional[int] = None
         self._interpreter: str = ""
         self._status_filename: str = ""
-
-    @staticmethod
-    def find_kit_filename(fallback_directory: Optional[str] = None) -> Optional[str]:
-        """
-        Use a combination of the current omniverse application and the information
-        in the local .nvidia-omniverse/config/omniverse.toml file to come up with
-        the pathname of a kit executable suitable for hosting another copy of the
-        ansys.geometry.server kit.
-
-        Returns
-        -------
-        Optional[str]
-            The pathname of a kit executable or None
-
-        """
-        # parse the toml config file for the location of the installed apps
-        try:
-            import tomllib
-        except ModuleNotFoundError:
-            import pip._vendor.tomli as tomllib
-
-        homedir = os.path.expanduser("~")
-        ov_config = os.path.join(homedir, ".nvidia-omniverse", "config", "omniverse.toml")
-        if not os.path.exists(ov_config):
-            return None
-        # read the Omniverse configuration toml file
-        with open(ov_config, "r") as ov_file:
-            ov_data = ov_file.read()
-        config = tomllib.loads(ov_data)
-        appdir = config.get("paths", {}).get("library_root", fallback_directory)
-
-        # If we are running inside an Omniverse app, use that information
-        try:
-            import omni.kit.app
-
-            # get the current application
-            app = omni.kit.app.get_app()
-            app_name = app.get_app_filename().split(".")[-1]
-            app_version = app.get_app_version().split("-")[0]
-            # and where it is installed
-            appdir = os.path.join(appdir, f"{app_name}-{app_version}")
-        except ModuleNotFoundError:
-            # Names should be like: "C:\\Users\\foo\\AppData\\Local\\ov\\pkg\\create-2023.2.3\\launcher.toml"
-            target = None
-            target_version = None
-            for d in glob.glob(os.path.join(appdir, "*", "launcher.toml")):
-                test_dir = os.path.dirname(d)
-                # the name will be something like "create-2023.2.3"
-                name = os.path.basename(test_dir).split("-")
-                if len(name) != 2:
-                    continue
-                if name[0] not in ("kit", "create", "view"):
-                    continue
-                if (target_version is None) or (name[1] > target_version):
-                    target = test_dir
-                    target_version = name[1]
-            if target is None:
-                return None
-            appdir = target
-
-        # Windows: 'kit.bat' in '.' or 'kit' followed by 'kit.exe' in '.' or 'kit'
-        # Linux: 'kit.sh' in '.' or 'kit' followed by 'kit' in '.' or 'kit'
-        exe_names = ["kit.sh", "kit"]
-        if sys.platform.startswith("win"):
-            exe_names = ["kit.bat", "kit.exe"]
-
-        # look in 4 places...
-        for dir_name in [appdir, os.path.join(appdir, "kit")]:
-            for exe_name in exe_names:
-                if os.path.exists(os.path.join(dir_name, exe_name)):
-                    return os.path.join(dir_name, exe_name)
-
-        return None
 
     def _check_modules(self) -> None:
         """Verify that the Python interpreter is correct
@@ -361,9 +480,15 @@ class Omniverse:
             update_cmd += f"{prefix}timesteps=1"
             prefix = "&"
         if line_width != 0.0:
-            # only in 2025 R2 and beyond
-            if self._ensight._session.ensight_version_check("2025 R2", exception=False):
-                update_cmd += f"{prefix}line_width={line_width}"
+            add_linewidth = False
+            if isinstance(self._ensight, ModuleType):
+                add_linewidth = True
+            else:
+                # only in 2025 R2 and beyond
+                if self._ensight._session.ensight_version_check("2025 R2", exception=False):
+                    add_linewidth = True
+            if add_linewidth:
+                update_cmd += f"{prefix}ANSYS_linewidth={line_width}"
                 prefix = "&"
         self._check_modules()
         if not self.is_running_omniverse():
