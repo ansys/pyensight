@@ -49,12 +49,14 @@ class OmniverseWrapper(object):
         self._stage = None
         self._destinationPath: str = ""
         self._old_stages: list = []
-        self._stagename = "dsg_scene.usd"
+        self._stagename: str = "dsg_scene.usd"
         self._live_edit: bool = live_edit
         if self._live_edit:
             self._stagename = "dsg_scene.live"
         # USD time slider will have 120 tick marks per second of animation time
-        self._time_codes_per_second = 120.0
+        self._time_codes_per_second: float = 120.0
+        # Omniverse content currently only scales correctly for scenes in cm.  DJB, Feb 2025
+        self._units_per_meter: float = 100.0
 
         if destination:
             self.destination = destination
@@ -149,8 +151,7 @@ class OmniverseWrapper(object):
         # record the stage in the "_old_stages" list.
         self._old_stages.append(self.stage_url())
         UsdGeom.SetStageUpAxis(self._stage, UsdGeom.Tokens.y)
-        # in M
-        UsdGeom.SetStageMetersPerUnit(self._stage, 1.0)
+        UsdGeom.SetStageMetersPerUnit(self._stage, 1.0 / self._units_per_meter)
         logging.info(f"Created stage: {self.stage_url()}")
 
     def save_stage(self, comment: str = "") -> None:
@@ -288,6 +289,8 @@ class OmniverseWrapper(object):
 
         if not os.path.exists(part_stage_url):
             part_stage = Usd.Stage.CreateNew(part_stage_url)
+            UsdGeom.SetStageUpAxis(part_stage, UsdGeom.Tokens.y)
+            UsdGeom.SetStageMetersPerUnit(part_stage, 1.0 / self._units_per_meter)
             self._old_stages.append(part_stage_url)
             xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
             mesh = UsdGeom.Mesh.Define(part_stage, "/" + partname + "/Mesh")
@@ -384,6 +387,8 @@ class OmniverseWrapper(object):
 
         if not os.path.exists(part_stage_url):
             part_stage = Usd.Stage.CreateNew(part_stage_url)
+            UsdGeom.SetStageUpAxis(part_stage, UsdGeom.Tokens.y)
+            UsdGeom.SetStageMetersPerUnit(part_stage, 1.0 / self._units_per_meter)
             self._old_stages.append(part_stage_url)
             xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
             lines = UsdGeom.BasisCurves.Define(part_stage, "/" + partname + "/Lines")
@@ -467,6 +472,8 @@ class OmniverseWrapper(object):
 
         if not os.path.exists(part_stage_url):
             part_stage = Usd.Stage.CreateNew(part_stage_url)
+            UsdGeom.SetStageUpAxis(part_stage, UsdGeom.Tokens.y)
+            UsdGeom.SetStageMetersPerUnit(part_stage, 1.0 / self._units_per_meter)
             self._old_stages.append(part_stage_url)
             xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
 
@@ -627,8 +634,8 @@ class OmniverseWrapper(object):
             cam = geom_cam.GetCamera()
             # LOL, not sure why is might be correct, but so far it seems to work???
             cam.focalLength = camera.fieldofview
-            dist = (target_pos - cam_pos).GetLength()
-            cam.clippingRange = Gf.Range1f(0.1 * dist, 10.0 * dist)
+            dist = (target_pos - cam_pos).GetLength() * self._units_per_meter
+            cam.clippingRange = Gf.Range1f(0.1 * dist, 1000.0 * dist)
             look_at = Gf.Matrix4d()
             look_at.SetLookAt(cam_pos, target_pos, up_vec)
             trans_row = look_at.GetRow(3)
@@ -744,7 +751,8 @@ class OmniverseUpdateHandler(UpdateHandler):
                     c = cam.transform
                     m = Gf.Matrix4d(*matrix).GetTranspose()
                     # move the model transform to the camera transform
-                    cam.transform = c * m.GetInverse()
+                    sc = Gf.Matrix4d(self._omni._units_per_meter)
+                    cam.transform = c * m.GetInverse() * sc
                     # set the updated camera
                     geom_cam.SetFromCamera(cam)
                     # apply the inverse cam transform to move the center of interest
@@ -758,8 +766,8 @@ class OmniverseUpdateHandler(UpdateHandler):
                         )
                         coi_attr.Set(
                             Gf.Vec3d(
-                                coi_cam[0] / coi_cam[3],
-                                coi_cam[1] / coi_cam[3],
+                                0,
+                                0,
                                 coi_cam[2] / coi_cam[3],
                             )
                         )
@@ -836,6 +844,7 @@ class OmniverseUpdateHandler(UpdateHandler):
         if part.cmd.render == part.cmd.CONNECTIVITY:
             has_triangles = False
             command, verts, conn, normals, tcoords, var_cmd = part.nodal_surface_rep()
+            verts = numpy.multiply(verts, self._omni._units_per_meter)
             if command is not None:
                 has_triangles = True
                 # Generate the mesh block
@@ -856,6 +865,7 @@ class OmniverseUpdateHandler(UpdateHandler):
                     mat_info=mat_info,
                 )
             command, verts, tcoords, var_cmd = part.line_rep()
+            verts = numpy.multiply(verts, self._omni._units_per_meter)
             if command is not None:
                 # If there are no triangle (ideally if these are not hidden line
                 # edges), then use the base color for the part.  If there are
@@ -889,10 +899,10 @@ class OmniverseUpdateHandler(UpdateHandler):
                     dy = maxs[1] - mins[1]
                     dz = maxs[2] - mins[2]
                     diagonal = math.sqrt(dx * dx + dy * dy + dz * dz)
-                    width = diagonal * math.fabs(width)
+                    width = diagonal * math.fabs(width) / self._omni._units_per_meter
                     if self._omni.line_width < 0.0:
                         self._omni.line_width = width
-
+                width = width * self._omni._units_per_meter
                 # Generate the lines
                 _ = self._omni.create_dsg_lines(
                     name,
@@ -911,6 +921,10 @@ class OmniverseUpdateHandler(UpdateHandler):
 
         elif part.cmd.render == part.cmd.NODES:
             command, verts, sizes, colors, var_cmd = part.point_rep()
+            verts = numpy.multiply(verts, self._omni._units_per_meter)
+
+            if sizes is not None:
+                sizes = numpy.multiply(sizes, self._omni._units_per_meter)
             if command is not None:
                 _ = self._omni.create_dsg_points(
                     name,
@@ -921,7 +935,7 @@ class OmniverseUpdateHandler(UpdateHandler):
                     sizes,
                     colors,
                     matrix=matrix,
-                    default_size=part.cmd.node_size_default,
+                    default_size=part.cmd.node_size_default * self._omni._units_per_meter,
                     default_color=color,
                     timeline=self.session.cur_timeline,
                     first_timestep=(self.session.cur_timeline[0] == self.session.time_limits[0]),

@@ -1,4 +1,6 @@
+import glob
 import os
+import time
 
 from ansys.pyensight.core.libuserd import LibUserd
 import numpy
@@ -16,8 +18,22 @@ def test_libuserd_basic(tmpdir, pytestconfig: pytest.Config):
     _ = libuserd.get_all_readers()
     _ = libuserd.ansys_release_number()
     _ = libuserd.ansys_release_string()
-    cas_file = libuserd.download_pyansys_example("mixing_elbow.cas.h5", "pyfluent/mixing_elbow")
-    dat_file = libuserd.download_pyansys_example("mixing_elbow.dat.h5", "pyfluent/mixing_elbow")
+    counter = 0
+    success = False
+    while not success and counter < 5:
+        try:
+            cas_file = libuserd.download_pyansys_example(
+                "mixing_elbow.cas.h5", "pyfluent/mixing_elbow"
+            )
+            dat_file = libuserd.download_pyansys_example(
+                "mixing_elbow.dat.h5", "pyfluent/mixing_elbow"
+            )
+            success = True
+        except Exception:
+            counter += 1
+            time.sleep(60)
+    if counter == 5 and not success:
+        raise RuntimeError("Couldn't download data from github")
     r = libuserd.query_format(cas_file, dat_file)
     d = r[0].read_dataset(cas_file, dat_file)
 
@@ -92,7 +108,12 @@ def test_libuserd_userd_case(tmpdir, pytestconfig: pytest.Config):
     assert len(readers) == 1
     assert readers[0].name == "USERD EnSight Case"
 
-    casedir = libuserd.download_pyansys_example("RC_Plane", "pyensight", folder=True)
+    if use_local:
+        cei_path = os.path.dirname(os.path.dirname(libuserd._server_pathname))
+        suffix = glob.glob(os.path.join(cei_path, "apex???"))[-1][-3:]
+        casedir = f"{cei_path}/ensight{suffix}/data/RC_Plane/"
+    else:
+        casedir = libuserd.download_pyansys_example("RC_Plane", "pyensight", folder=True)
     casefile = os.path.join(casedir, "extra300_RC_Plane_nodal.case")
 
     readers = libuserd.query_format(casefile)

@@ -19,20 +19,20 @@ def test_start(mocker):
     mocker.patch.object(LocalLauncher, "_is_system_egl_capable", return_value=False)
     mocker.patch.object(subprocess, "Popen", return_value=popen)
     glob_mock = mock.MagicMock("superGlob")
-    glob_mock.side_effect = ["/path/to/awp/CEI/nexus345/websocketserver.py"]
+    glob_mock.side_effect = [["/path/to/awp/CEI/nexus345/websocketserver.py"]]
     mocker.patch.object(glob, "glob", glob_mock)
     mocker.patch.object(ansys.pyensight.core.session, "Session")
     launcher.start()
-    glob_mock.side_effect = ["/path/to/awp/CEI/nexus345/websocketserver.py"]
+    glob_mock.side_effect = [["/path/to/awp/CEI/nexus345/websocketserver.py"]]
     launcher = LocalLauncher("/path/to/awp/", batch=False)
     launcher.start()
-    glob_mock.side_effect = ["/path/to/awp/CEI/nexus345/websocketserver.py"]
+    glob_mock.side_effect = [["/path/to/awp/CEI/nexus345/websocketserver.py"]]
     launcher = LocalLauncher("/path/to/awp/", use_sos=3)
     launcher.start()
     os.environ["PYENSIGHT_FORCE_ENSIGHT_EGL"] = "1"
     os.environ["ENSIGHT_ANSYS_LAUNCH"] = "1"
     os.environ["PYENSIGHT_DEBUG"] = "1"
-    glob_mock.side_effect = ["/path/to/awp/CEI/nexus345/websocketserver.py"]
+    glob_mock.side_effect = [["/path/to/awp/CEI/nexus345/websocketserver.py"]]
     launcher = LocalLauncher("/path/to/awp/", use_egl=True)
 
 
