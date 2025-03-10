@@ -1,0 +1,6 @@
+ANTIALIAS\_PARAM\_SMOOTH
+========================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.ANTIALIAS_PARAM_SMOOTH
