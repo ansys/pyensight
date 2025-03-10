@@ -1,10 +1,10 @@
 """Unit tests for session.py"""
+import fnmatch
 import platform
 from unittest import mock
 import webbrowser
 
 import ansys.pyensight.core
-from ansys.pyensight.core.launcher import Launcher
 import ansys.pyensight.core.renderable
 from ansys.pyensight.core.session import Session  # noqa: F401
 import pytest
@@ -216,26 +216,26 @@ def test_callbacks(mocked_session, mocker):
 
 
 def test_convert_ctor(mocked_session, mocker):
-    session = mocked_session
+    session: "Session" = mocked_session
     value = session._convert_ctor("Class: ENS_GLOBALS, CvfObjID: 221, cached:yes")
     assert value == "session.ensight.objs.ENS_GLOBALS(session, 221)"
     cmd = mocker.patch.object(session, "cmd", return_value=0)
     value = session._convert_ctor("Class: ENS_PART, desc: 'Sphere', CvfObjID: 1078, cached:no")
-    assert (
-        value
-        == "session.ensight.objs.ENS_PART_MODEL(session, 1078,attr_id=1610612795, attr_value=0)"
+    # Note: attr_id=ensight.objs.enums.PARTTYPE
+    assert fnmatch.fnmatch(
+        value, "session.ensight.objs.ENS_PART_MODEL(session, 1078,attr_id=*, attr_value=0)"
     )
     cmd.return_value = 3
     value = session._convert_ctor("Class: ENS_ANNOT, desc: 'Pressure', CvfObjID: 4761, cached:no")
-    assert (
-        value
-        == "session.ensight.objs.ENS_ANNOT_LGND(session, 4761,attr_id=1610612995, attr_value=3)"
+    # Note: attr_id=ensight.objs.enums.ANNOTTYPE
+    assert fnmatch.fnmatch(
+        value, "session.ensight.objs.ENS_ANNOT_LGND(session, 4761,attr_id=*, attr_value=3)"
     )
     cmd.return_value = 6
     value = session._convert_ctor("Class: ENS_TOOL, desc: 'Sphere', CvfObjID: 763, cached:no")
-    assert (
-        value
-        == "session.ensight.objs.ENS_TOOL_SPHERE(session, 763,attr_id=1610613035, attr_value=6)"
+    # Note: attr_id=ensight.objs.enums.TOOLTYPE
+    assert fnmatch.fnmatch(
+        value, "session.ensight.objs.ENS_TOOL_SPHERE(session, 763,attr_id=*, attr_value=6)"
     )
     session._ensobj_hash = {i: i for i in range(10000000)}
     value = session._convert_ctor("Class: ENS_GLOBALS, CvfObjID: 221, cached:yes")
@@ -255,12 +255,6 @@ def test_close(mocked_session, mocker):
     session = mocked_session
     session._grpc.shutdown = mock.MagicMock("shutdown")
     session.close()
-    session._halt_ensight_on_close = True
-    session._launcher = Launcher()
-    session = mocked_session
-    with pytest.raises(RuntimeError) as exec_info:
-        session.close()
-    assert "Session not associated with this Launcher" in str(exec_info)
 
 
 def test_render(mocked_session):

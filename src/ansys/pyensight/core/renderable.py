@@ -557,7 +557,11 @@ class RenderableVNC(Renderable):
     """Generates an ansys-nexus-viewer component that can be used to connect to the EnSight VNC remote image renderer."""
 
     def __init__(self, *args, **kwargs) -> None:
+        ui = kwargs.get("ui")
+        if kwargs.get("ui"):
+            kwargs.pop("ui")
         super().__init__(*args, **kwargs)
+        self._ui = ui
         self._generate_url()
         self._rendertype = "remote"
         self.update()
@@ -585,6 +589,7 @@ class RenderableVNC(Renderable):
         """
         optional_query = self._get_query_parameters_str()
         version = _get_ansysnexus_version(self._session._cei_suffix)
+        ui = "simple" if not self._ui else self._ui
         if int(self._session._cei_suffix) < 242:  # pragma: no cover
             version = ""
             self._update_2023R2_or_less()  # pragma: no cover
@@ -604,7 +609,7 @@ class RenderableVNC(Renderable):
                 query_args = f', "extra_query_args":"{optional_query[1:]}"'  # pragma: no cover
 
             attributes = ' renderer="envnc"'
-            attributes += ' ui="simple"'
+            attributes += f" ui={ui}"
             attributes += ' active="true"'
             attributes += (
                 " renderer_options='"

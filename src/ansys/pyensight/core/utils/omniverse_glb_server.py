@@ -1,4 +1,5 @@
 import io
+import json
 import logging
 import os
 import sys
@@ -108,6 +109,8 @@ class GLBSession(dsg_server.DSGSession):
         part_pb.ambient = 1.0
         part_pb.diffuse = 1.0
         part_pb.specular_intensity = 1.0
+        if "ANSYS_material_details" in mat.extensions:
+            part_pb.material_name = json.dumps(mat.extensions["ANSYS_material_details"])
         # if the material maps to a variable, set the variable id for coloring
         glb_varid = self._find_variable_from_glb_mat(glb_materialid)
         if glb_varid:
@@ -132,40 +135,42 @@ class GLBSession(dsg_server.DSGSession):
         """
         mesh = self._gltf.meshes[meshid]
         for prim_idx, prim in enumerate(mesh.primitives):
-            # POINTS, LINES, LINE_LOOP, LINE_STRIP, TRIANGLES, TRIANGLE_STRIP, TRIANGLE_FAN
+            # POINTS, LINES, TRIANGLES, LINE_LOOP, LINE_STRIP, TRIANGLE_STRIP, TRIANGLE_FAN
             mode = prim.mode
-            if mode not in (pygltflib.TRIANGLES, pygltflib.LINES, pygltflib.POINTS):
-                self.warn(
-                    f"Unhandled connectivity {mode}. Currently only TRIANGLE and LINE connectivity is supported."
-                )
+            if mode not in (
+                pygltflib.TRIANGLES,
+                pygltflib.LINES,
+                pygltflib.POINTS,
+                pygltflib.LINE_LOOP,
+                pygltflib.LINE_STRIP,
+                pygltflib.TRIANGLE_STRIP,
+                pygltflib.TRIANGLE_FAN,
+            ):
+                self.warn(f"Unhandled connectivity detected: {mode}.  Geometry skipped.")
                 continue
             glb_materialid = prim.material
+            line_width = self._callback_handler._omni.line_width
 
             # GLB Prim -> DSG Part
             part_name = f"{parentname}_prim{prim_idx}_"
             cmd, part_pb = self._create_pb("PART", parent_id=parentid, name=part_name)
-            part_pb.render = dynamic_scene_graph_pb2.UpdatePart.RenderingMode.CONNECTIVITY
+            if mode == pygltflib.POINTS:
+                part_pb.render = dynamic_scene_graph_pb2.UpdatePart.RenderingMode.NODES
+                # Size of the spheres
+                part_pb.node_size_default = line_width
+            else:
+                part_pb.render = dynamic_scene_graph_pb2.UpdatePart.RenderingMode.CONNECTIVITY
             part_pb.shading = dynamic_scene_graph_pb2.UpdatePart.ShadingMode.NODAL
             self._map_material(glb_materialid, part_pb)
             part_dsg_id = part_pb.id
             self._handle_update_command(cmd)
 
             # GLB Attributes -> DSG Geom
-            conn = self._get_data(prim.indices, 0)
-            cmd, conn_pb = self._create_pb("GEOM", parent_id=part_dsg_id)
-            if mode == pygltflib.TRIANGLES:
-                conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.TRIANGLES
-            elif mode == pygltflib.LINES:
-                conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.LINES
-            else:
-                conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.POINTS
-            conn_pb.int_array.extend(conn)
-            conn_pb.chunk_offset = 0
-            conn_pb.total_array_size = len(conn)
-            self._handle_update_command(cmd)
-
+            # Verts
+            num_verts = 0
             if prim.attributes.POSITION is not None:
                 verts = self._get_data(prim.attributes.POSITION)
+                num_verts = len(verts) // 3
                 cmd, verts_pb = self._create_pb("GEOM", parent_id=part_dsg_id)
                 verts_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.COORDINATES
                 verts_pb.flt_array.extend(verts)
@@ -173,6 +178,35 @@ class GLBSession(dsg_server.DSGSession):
                 verts_pb.total_array_size = len(verts)
                 self._handle_update_command(cmd)
 
+            # Connectivity
+            if num_verts and (mode != pygltflib.POINTS):
+                if prim.indices is not None:
+                    conn = self._get_data(prim.indices, 0)
+                else:
+                    conn = numpy.array(list(range(num_verts)), dtype=numpy.uint32)
+                cmd, conn_pb = self._create_pb("GEOM", parent_id=part_dsg_id)
+                if mode == pygltflib.TRIANGLES:
+                    conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.TRIANGLES
+                elif mode == pygltflib.TRIANGLE_STRIP:
+                    conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.TRIANGLES
+                    conn = self._tri_strip_to_tris(conn)
+                elif mode == pygltflib.TRIANGLE_FAN:
+                    conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.TRIANGLES
+                    conn = self._tri_fan_to_tris(conn)
+                elif mode == pygltflib.LINES:
+                    conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.LINES
+                elif mode == pygltflib.LINE_LOOP:
+                    conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.LINES
+                    conn = self._line_loop_to_lines(conn)
+                elif mode == pygltflib.LINE_STRIP:
+                    conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.LINES
+                    conn = self._line_strip_to_lines(conn)
+                conn_pb.int_array.extend(conn)
+                conn_pb.chunk_offset = 0
+                conn_pb.total_array_size = len(conn)
+                self._handle_update_command(cmd)
+
+            # Normals
             if prim.attributes.NORMAL is not None:
                 normals = self._get_data(prim.attributes.NORMAL)
                 cmd, normals_pb = self._create_pb("GEOM", parent_id=part_dsg_id)
@@ -182,6 +216,7 @@ class GLBSession(dsg_server.DSGSession):
                 normals_pb.total_array_size = len(normals)
                 self._handle_update_command(cmd)
 
+            # Texture coords
             if prim.attributes.TEXCOORD_0 is not None:
                 # Note: texture coords are stored as VEC2, so we get 2 components back
                 texcoords = self._get_data(prim.attributes.TEXCOORD_0, components=2)
@@ -198,6 +233,103 @@ class GLBSession(dsg_server.DSGSession):
                 if glb_varid:
                     texcoords_pb.variable_id = glb_varid
                 self._handle_update_command(cmd)
+
+    @staticmethod
+    def _tri_strip_to_tris(conn: numpy.ndarray) -> numpy.ndarray:
+        """
+        Convert GL_TRIANGLE_STRIP connectivity into GL_TRIANGLES
+
+        Parameters
+        ----------
+        conn: numpy.ndarray
+            The tri strip connectivity
+
+        Returns
+        -------
+        numpy.array:
+            Triangles connectivity
+        """
+        tris = []
+        swap = False
+        for i in range(len(conn) - 2):
+            tris.append(conn[i])
+            if swap:
+                tris.append(conn[i + 2])
+                tris.append(conn[i + 1])
+            else:
+                tris.append(conn[i + 1])
+                tris.append(conn[i + 2])
+            swap = not swap
+        return numpy.array(tris, dtype=conn.dtype)
+
+    @staticmethod
+    def _tri_fan_to_tris(conn: numpy.ndarray) -> numpy.ndarray:
+        """
+        Convert GL_TRIANGLE_FAN connectivity into GL_TRIANGLES
+
+        Parameters
+        ----------
+        conn: numpy.ndarray
+            The fan connectivity
+
+        Returns
+        -------
+        numpy.array:
+            Triangles connectivity
+        """
+        tris = []
+        for i in range(1, len(conn) - 1):
+            tris.append(conn[0])
+            tris.append(conn[i])
+            tris.append(conn[i + 1])
+        return numpy.array(tris, dtype=conn.dtype)
+
+    @staticmethod
+    def _line_strip_to_lines(conn) -> numpy.ndarray:
+        """
+        Convert GL_LINE_STRIP connectivity into GL_LINES
+
+        Parameters
+        ----------
+        conn: numpy.ndarray
+           The line strip connectivity
+
+        Returns
+        -------
+        numpy.array:
+           Lines connectivity
+        """
+        lines = []
+        num_nodes = len(conn)
+        for i in range(num_nodes - 1):
+            lines.append(conn[i])
+            lines.append(conn[i + 1])
+        return numpy.array(lines, dtype=conn.dtype)
+
+    @staticmethod
+    def _line_loop_to_lines(conn) -> numpy.ndarray:
+        """
+        Convert GL_LINE_LOOP connectivity into GL_LINES
+
+        Parameters
+        ----------
+        conn: numpy.ndarray
+           The line loop connectivity
+
+        Returns
+        -------
+        numpy.array:
+           Lines connectivity
+        """
+        lines = []
+        num_nodes = len(conn)
+        for i in range(num_nodes):
+            lines.append(conn[i])
+            if i + 1 == num_nodes:
+                lines.append(conn[0])
+            else:
+                lines.append(conn[i + 1])
+        return numpy.array(lines, dtype=conn.dtype)
 
     def _get_data(
         self,
@@ -273,10 +405,39 @@ class GLBSession(dsg_server.DSGSession):
         # GLB node -> DSG Group
         cmd, group_pb = self._create_pb("GROUP", parent_id=parentid, name=name)
         group_pb.matrix4x4.extend(matrix)
-        self._handle_update_command(cmd)
-
         if node.mesh is not None:
+            # This is a little ugly, but spheres have a size that is part of the PART
+            # protobuffer.  So, if the current mesh has the "ANSYS_linewidth" extension,
+            # we need to temporally change the line width.  However, if this is a lines
+            # object, then we need to set the ANSYS_linewidth attribute.  Unfortunately,
+            # this is only available on the GROUP protobuffer, thus we will try to set
+            # both here.
+            # Note: in the EnSight push, ANSYS_linewidth will only ever be set on the
+            # top level node. In the GLB case, we will scope it to the group.  Thus,
+            # every "mesh" protobuffer sequence will have an explicit line width in
+            # the group above the part.
+
+            # save/restore the current line_width
+            orig_width = self._callback_handler._omni.line_width
+            mesh = self._gltf.meshes[node.mesh]
+            try:
+                # check for line_width on the mesh object
+                width = float(mesh.extensions["ANSYS_linewidth"]["linewidth"])
+                # make sure spheres work
+                self._callback_handler._omni.line_width = width
+            except (KeyError, ValueError):
+                pass
+            # make sure lines work (via the group attributes map)
+            group_pb.attributes["ANSYS_linewidth"] = str(self._callback_handler._omni.line_width)
+            # send the group protobuffer
+            self._handle_update_command(cmd)
+            # Export the mesh
             self._parse_mesh(node.mesh, group_pb.id, name)
+            # restore the old line_width
+            self._callback_handler._omni.line_width = orig_width
+        else:
+            # send the group protobuffer
+            self._handle_update_command(cmd)
 
         # Handle node.rotation, node.translation, node.scale, node.matrix
         for child_id in node.children:
@@ -452,7 +613,16 @@ class GLBSession(dsg_server.DSGSession):
                         view_pb.fieldofview = camera.perspective.yfov
                         view_pb.aspectratio = camera.aspectratio.aspectRatio
                 self._handle_update_command(cmd)
-                for node_id in self._gltf.scenes[scene_idx].nodes:
+                # walk the scene nodes
+                scene = self._gltf.scenes[scene_idx]
+                try:
+                    if self._callback_handler._omni.line_width == 0.0:
+                        width = float(scene.extensions["ANSYS_linewidth"]["linewidth"])
+                        self._callback_handler._omni.line_width = width
+                except (KeyError, ValueError):
+                    # in the case where the extension does not exist or is mal-formed
+                    pass
+                for node_id in scene.nodes:
                     self._walk_node(node_id, view_pb.id)
                 self._finish_part()
 
@@ -490,11 +660,21 @@ class GLBSession(dsg_server.DSGSession):
         List[float]
             The computed timeline.
         """
-        # if ANSYS_scene_time is used, time ranges will come from there
-        if "ANSYS_scene_time" in self._gltf.scenes[scene_idx].extensions:
-            return self._gltf.scenes[scene_idx].extensions["ANSYS_scene_time"]
-        # if there is only one scene, then use the input timeline
         num_scenes = len(self._gltf.scenes)
+        # if ANSYS_scene_timevalue is used, time ranges will come from there
+        try:
+            t0 = self._gltf.scenes[scene_idx].extensions["ANSYS_scene_timevalue"]["timevalue"]
+            idx = scene_idx + 1
+            if idx < num_scenes:
+                t1 = self._gltf.scenes[idx].extensions["ANSYS_scene_timevalue"]["timevalue"]
+            else:
+                t1 = t0
+            return [t0, t1]
+        except KeyError:
+            # If we fail due to dictionary key issue, the extension does not exist or is
+            # improperly formatted.
+            pass
+        # if there is only one scene, then use the input timeline
         if num_scenes == 1:
             return input_timeline
         # if the timeline has zero length, we make it the number of scenes
@@ -502,10 +682,13 @@ class GLBSession(dsg_server.DSGSession):
         if timeline[1] - timeline[0] <= 0.0:
             timeline = [0.0, float(num_scenes - 1)]
         # carve time into the input timeline.
-        delta = (timeline[1] - timeline[0]) / float(num_scenes)
+        delta = (timeline[1] - timeline[0]) / float(num_scenes - 1)
         output: List[float] = []
         output.append(float(scene_idx) * delta + timeline[0])
-        output.append(output[0] + delta)
+        if scene_idx < num_scenes - 1:
+            output.append(output[0] + delta)
+        else:
+            output.append(output[0])
         return output
 
     @staticmethod

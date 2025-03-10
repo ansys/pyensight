@@ -102,14 +102,23 @@ class LocalLauncher(Launcher):
         """Type of app to launch. Options are ``ensight`` and ``envision``."""
         return self._application
 
-    def launch_webui(self, cpython, webui_script, popen_common):
-        cmd = [cpython]
-        cmd += [webui_script]
-        version = re.findall(r"nexus(\d+)", webui_script)[0]
+    def launch_webui(self, cpython, version, popen_common):
+        cmd = [cpython, "-m", "ansys.simba.plugin.post.simba_post"]
         path_to_webui = self._install_path
-        path_to_webui = os.path.join(
+        # Dev environment
+        path_to_webui_internal = os.path.join(
             path_to_webui, f"nexus{version}", f"ansys{version}", "ensight", "WebUI", "web", "ui"
         )
+        # Ansys environment
+        paths_to_webui_ansys = [
+            os.path.join(os.path.dirname(path_to_webui), "simcfd", "web", "ui"),
+            os.path.join(os.path.dirname(path_to_webui), "fluidsone", "web", "ui"),
+        ]
+        path_to_webui = path_to_webui_internal
+        for path in paths_to_webui_ansys:
+            if os.path.exists(path):
+                path_to_webui = path
+                break
         cmd += ["--server-listen-port", str(self._ports[5])]
         cmd += ["--server-web-roots", path_to_webui]
         cmd += ["--ensight-grpc-port", str(self._ports[0])]
@@ -117,6 +126,7 @@ class LocalLauncher(Launcher):
         cmd += ["--ensight-ws-port", str(self._ports[3])]
         cmd += ["--ensight-session-directory", self._session_directory]
         cmd += ["--ensight-secret-key", self._secret_key]
+        cmd += ["--main-show-gui", "'False'"]
         if "PYENSIGHT_DEBUG" in os.environ:
             try:
                 if int(os.environ["PYENSIGHT_DEBUG"]) > 0:
@@ -218,8 +228,16 @@ class LocalLauncher(Launcher):
                 cmd.append("-egl")
             if self._use_sos:
                 cmd.append("-sos")
-                cmd.append("-nservers")
-                cmd.append(str(int(self._use_sos)))
+                if not self._use_mpi:
+                    cmd.append("-nservers")
+                    cmd.append(str(int(self._use_sos)))
+                else:
+                    cmd.append(f"--np={int(self._use_sos)+1}")
+                    cmd.append(f"--mpi={self._use_mpi}")
+                    cmd.append(f"--ic={self._interconnect}")
+                    hosts = ",".join(self._server_hosts)
+                    cmd.append(f"--cnf={hosts}")
+
             # cmd.append("-minimize_console")
             logging.debug(f"Starting EnSight with : {cmd}\n")
             self._ensight_pid = subprocess.Popen(cmd, **popen_common).pid
@@ -247,7 +265,7 @@ class LocalLauncher(Launcher):
             except Exception:
                 pass
             websocket_script = found_scripts[idx]
-            webui_script = websocket_script.replace("websocketserver.py", "webui_launcher.py")
+            version = re.findall(r"nexus(\d+)", websocket_script)[0]
             # build the commandline
             cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
             if is_windows:
@@ -299,7 +317,7 @@ class LocalLauncher(Launcher):
         self._sessions.append(session)
 
         if self._launch_webui:
-            self.launch_webui(ensight_python, webui_script, popen_common)
+            self.launch_webui(ensight_python, version, popen_common)
         return session
 
     def stop(self) -> None:

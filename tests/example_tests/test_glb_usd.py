@@ -10,7 +10,7 @@ import requests
 def test_glb_usd():
     # Get the example files
     base_uri = "https://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
-    filenames = ["fluent_elbow.glb", "rwing_bsl_1.glb", "rwing_bsl_2.glb"]
+    filenames = ["fluent_elbow.glb", "rwing_bsl_1.glb", "rwing_bsl_2.glb", "ens_car_exts.glb"]
     with tempfile.TemporaryDirectory() as tmpdirname:
         for filename in filenames:
             outpath = os.path.join(tmpdirname, filename)
