@@ -325,6 +325,7 @@ class DockerLauncher(Launcher):
                         detach=True,
                         auto_remove=True,
                         remove=True,
+                        user="ensight:ensight",
                     )
             else:
                 logging.debug(f"Running container {self._image_name} with cmd {enshell_cmd}\n")
@@ -340,6 +341,7 @@ class DockerLauncher(Launcher):
                         detach=True,
                         auto_remove=True,
                         remove=True,
+                        user="ensight:ensight",
                     )
                 logging.debug(f"_container = {str(self._container)}\n")
         else:
@@ -357,6 +359,7 @@ class DockerLauncher(Launcher):
                         detach=True,
                         auto_remove=True,
                         remove=True,
+                        user="ensight:ensight",
                     )
             else:  # pragma: no cover
                 logging.debug(
@@ -373,6 +376,7 @@ class DockerLauncher(Launcher):
                         detach=True,
                         auto_remove=True,
                         remove=True,
+                        user="ensight:ensight",
                     )
                 # logging.debug(f"_container = {str(self._container)}\n")
         logging.debug("Container started.\n")
@@ -380,8 +384,7 @@ class DockerLauncher(Launcher):
 
     def launch_webui(self, container_env_str):
         # Run websocketserver
-        cmd = f"cpython /ansys_inc/v{self._ansys_version}/CEI/"
-        cmd += f"nexus{self._ansys_version}/nexus_launcher/webui_launcher.py"
+        cmd = "cpython -m ansys.simba.plugin.post.simba_post"
         # websocket port - this needs to come first since we now have
         # --add_header as a optional arg that can take an arbitrary
         # number of optional headers.
@@ -399,6 +402,7 @@ class DockerLauncher(Launcher):
         cmd += f" --ensight-ws-port {ws_port}"
         cmd += f" --ensight-session-directory {self._session_directory}"
         cmd += f" --ensight-secret-key {self._secret_key}"
+        cmd += "--main-show-gui 'False'"
         logging.debug(f"Starting WebUI: {cmd}\n")
         ret = self._enshell.start_other(cmd, extra_env=container_env_str)
         if ret[0] != 0:  # pragma: no cover
@@ -615,7 +619,7 @@ class DockerLauncher(Launcher):
                 pass
             try:
                 logging.debug("Removing the Docker Container.\n")
-                self._container.remove()
+                self._container.remove(force=True)
             except Exception:
                 pass
             self._container = None
