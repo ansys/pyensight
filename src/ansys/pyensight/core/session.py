@@ -213,6 +213,7 @@ class Session:
         # Because this session can have allocated significant external resources
         # we very much want a chance to close it up cleanly. It is legal to
         # call close() twice on this class if needed.
+        self._already_closed = False
         atexit.register(self.close)
 
         # Speed up subtype lookups:
@@ -1050,17 +1051,19 @@ class Session:
         Close the current session and its gRPC connection.
         """
         # if version 242 or higher, free any objects we have cached there
-        if self.cei_suffix >= "242":
-            try:
-                self._release_remote_objects()
-            except RuntimeError:  # pragma: no cover
-                # handle some intermediate EnSight builds.
-                pass
-        if self._launcher and self._halt_ensight_on_close:
-            self._launcher.close(self)
-        else:
-            # lightweight shtudown, just close the gRC connection
-            self._grpc.shutdown(stop_ensight=False)
+        if not self._already_closed:
+            if self.cei_suffix >= "242":
+                try:
+                    self._release_remote_objects()
+                except RuntimeError:  # pragma: no cover
+                    # handle some intermediate EnSight builds.
+                    pass
+            if self._launcher and self._halt_ensight_on_close:
+                self._launcher.close(self)
+            else:
+                # lightweight shtudown, just close the gRC connection
+                self._grpc.shutdown(stop_ensight=False)
+            self._already_closed = True
         self._launcher = None
 
     def _build_utils_interface(self) -> None:
