@@ -34,7 +34,7 @@ jobs:
           requires-xvfb: true
           pytest-extra-args: "-n 4 --reruns 3"
 
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v5
         name: 'Upload coverage to CodeCov'
 
   nightly_build:

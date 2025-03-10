@@ -6,11 +6,14 @@ import queue
 import sys
 import threading
 import time
-from typing import Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2
 from ansys.pyensight.core import ensight_grpc
 import numpy
+
+if TYPE_CHECKING:
+    from ansys.pyensight.core import Session
 
 
 class Part(object):
@@ -640,6 +643,7 @@ class DSGSession(object):
         vrmode: bool = False,
         time_scale: float = 1.0,
         handler: UpdateHandler = UpdateHandler(),
+        session: Optional["Session"] = None,
     ):
         """
         Manage a gRPC connection and link it to an UpdateHandler instance
@@ -678,6 +682,9 @@ class DSGSession(object):
         """
         super().__init__()
         self._grpc = ensight_grpc.EnSightGRPC(port=port, host=host, secret_key=security_code)
+        self._session = session
+        if self._session:
+            self._session.set_dsg_session(self)
         self._callback_handler = handler
         self._verbose = verbose
         self._thread: Optional[threading.Thread] = None
@@ -685,6 +692,9 @@ class DSGSession(object):
         self._dsg_queue: Optional[queue.SimpleQueue] = None  # Outgoing messages to EnSight
         self._shutdown = False
         self._dsg = None
+        # Prevent the protobuffer queue from growing w/o limits.  The payload chunking is
+        # around 4MB, so 200 buffers would be a bit less than 1GB.
+        self._max_dsg_queue_size = int(os.environ.get("ANSYS_OV_SERVER_MAX_GRPC_QUEUE_SIZE", "200"))
         self._normalize_geometry = normalize_geometry
         self._vrmode = vrmode
         self._time_scale = time_scale
@@ -702,6 +712,7 @@ class DSGSession(object):
         # log any status changes to this file.  external apps will be monitoring
         self._status_file = os.environ.get("ANSYS_OV_SERVER_STATUS_FILENAME", "")
         self._status = dict(status="idle", start_time=0.0, processed_buffers=0, total_buffers=0)
+        self._pyensight_grpc_coming = False
 
     @property
     def scene_bounds(self) -> Optional[List]:
@@ -710,6 +721,14 @@ class DSGSession(object):
     @property
     def mesh_block_count(self) -> int:
         return self._mesh_block_count
+
+    @property
+    def max_dsg_queue_size(self) -> int:
+        return self._max_dsg_queue_size
+
+    @max_dsg_queue_size.setter
+    def max_dsg_queue_size(self, value: int) -> None:
+        self._max_dsg_queue_size = value
 
     @property
     def vrmode(self) -> bool:
@@ -881,6 +900,13 @@ class DSGSession(object):
         cmd.init.maximum_chunk_size = 1024 * 1024
         self._dsg_queue.put(cmd)  # type:ignore
 
+    def _is_queue_full(self):
+        if not self.max_dsg_queue_size:
+            return False
+        if self._pyensight_grpc_coming:
+            return False
+        return self._message_queue.qsize() >= self.max_dsg_queue_size
+
     def _poll_messages(self) -> None:
         """Core interface to grab DSG events from gRPC and queue them for processing
 
@@ -891,6 +917,11 @@ class DSGSession(object):
         while not self._shutdown:
             try:
                 self._message_queue.put(next(self._dsg))  # type:ignore
+                # if the queue is getting too deep, wait a bit to avoid holding too
+                # many messages (filling up memory)
+                if self.max_dsg_queue_size:
+                    while self._is_queue_full():
+                        time.sleep(0.001)
             except Exception:
                 self._shutdown = True
                 self.log("DSG connection broken, calling exit")
@@ -1027,6 +1058,21 @@ class DSGSession(object):
         """
         self._finish_part()
         self._part.reset(part_cmd)
+
+    def find_group_pb(self, group_id: int) -> Any:
+        """Return the group command protobuffer for a specific group id.
+
+        Parameters
+        ----------
+        group_id: int
+            The group DSG protocol entity id.
+
+        Returns
+        -------
+        any
+            The group command protobuffer or None.
+        """
+        return self._groups.get(group_id, None)
 
     def _handle_group(self, group: Any) -> None:
         """Handle a DSG UPDATE_GROUP command
