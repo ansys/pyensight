@@ -925,7 +925,7 @@ class DSGSession(object):
             except Exception:
                 self._shutdown = True
                 self.log("DSG connection broken, calling exit")
-                os._exit(0)
+                sys.exit(0)
 
     def _get_next_message(self, wait: bool = True) -> Any:
         """Get the next queued up protobuffer message
