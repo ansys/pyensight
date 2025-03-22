@@ -1,0 +1,6 @@
+TIFFTAG\_IMAGEDESCRIPTION
+=========================
+
+.. currentmodule:: ansys.pyensight.core.utils.export
+
+.. autoattribute:: Export.TIFFTAG_IMAGEDESCRIPTION
