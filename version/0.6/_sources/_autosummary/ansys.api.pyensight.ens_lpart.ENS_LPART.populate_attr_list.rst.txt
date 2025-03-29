@@ -1,0 +1,6 @@
+populate\_attr\_list
+====================
+
+.. currentmodule:: ansys.api.pyensight.ens_lpart
+
+.. automethod:: ENS_LPART.populate_attr_list

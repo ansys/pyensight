@@ -1,0 +1,6 @@
+rgb
+===
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: lightsource.rgb

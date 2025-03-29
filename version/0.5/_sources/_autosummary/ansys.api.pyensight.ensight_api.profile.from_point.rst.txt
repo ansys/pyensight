@@ -1,0 +1,6 @@
+from\_point
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: profile.from_point

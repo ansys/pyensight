@@ -1,0 +1,6 @@
+offset\_vector
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: context_restore.offset_vector
