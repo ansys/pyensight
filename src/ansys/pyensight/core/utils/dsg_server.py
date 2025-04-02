@@ -11,10 +11,12 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional
 from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2
 from ansys.pyensight.core import ensight_grpc
 import numpy
+
 try:
     import dsgutils
+
     dsgutils_loaded = True
-except:
+except ModuleNotFoundError:
     dsgutils_loaded = False
 
 if TYPE_CHECKING:
@@ -244,7 +246,19 @@ class Part(object):
                 else:
                     new_normals = numpy.ndarray((num_prims * verts_per_prim * 3,), dtype="float32")
             if dsgutils_loaded:
-                dsgutils.build_nodal_surface_rep(verts_per_prim, self.normals_elem, self.tcoords_elem, conn, verts, normals, tcoords, new_conn, new_verts, new_normals, new_tcoords)
+                dsgutils.build_nodal_surface_rep(
+                    verts_per_prim,
+                    self.normals_elem,
+                    self.tcoords_elem,
+                    conn,
+                    verts,
+                    normals,
+                    tcoords,
+                    new_conn,
+                    new_verts,
+                    new_normals,
+                    new_tcoords,
+                )
             else:
                 j = 0
                 for i0 in range(num_prims):
