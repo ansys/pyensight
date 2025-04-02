@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\ansys",
+    "\\src\\ansys\\pyensight",
+    "\\src\\ansys\\pyensight\\core",
+    "\\src\\ansys\\pyensight\\core\\utils"
+  ],
+  "SelectedNode": "\\src\\ansys\\pyensight\\core\\utils\\dsg_server.py",
+  "PreviewInSolutionExplorer": false
+}

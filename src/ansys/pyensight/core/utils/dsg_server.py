@@ -11,6 +11,11 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional
 from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2
 from ansys.pyensight.core import ensight_grpc
 import numpy
+try:
+    import dsgutils
+    dsgutils_loaded = True
+except:
+    dsgutils_loaded = False
 
 if TYPE_CHECKING:
     from ansys.pyensight.core import Session
@@ -238,10 +243,9 @@ class Part(object):
                     self.session.log("Warning: zero length normals!")
                 else:
                     new_normals = numpy.ndarray((num_prims * verts_per_prim * 3,), dtype="float32")
-            try:
-                import dsgutils
+            if dsgutils_loaded:
                 dsgutils.build_nodal_surface_rep(verts_per_prim, self.normals_elem, self.tcoords_elem, conn, verts, normals, tcoords, new_conn, new_verts, new_normals, new_tcoords)
-            except Exception as e:
+            else:
                 j = 0
                 for i0 in range(num_prims):
                     for i1 in range(verts_per_prim):
@@ -353,10 +357,9 @@ class Part(object):
         var_minmax: List[float] = [v_min, v_max]  # type: ignore
         # build a power of two x 1 texture
         num_texels = len(var_cmd.texture) // 4
-        try:
-            import dsgutils
+        if dsgutils_loaded:
             tmp = dsgutils.build_st_coords(tcoords, v_min, v_max, num_texels)
-        except Exception as e:
+        else:
             half_texel = 1 / (num_texels * 2.0)
             tmp = numpy.ndarray((num_verts * 2,), dtype="float32")
             tmp.fill(0.5)  # fill in the T coordinate...
