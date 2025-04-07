@@ -234,7 +234,7 @@ class Launcher:
         for process in psutil.process_iter():
             try:
                 process_cmdline = process.cmdline()
-            except (psutil.AccessDenied, psutil.ZombieProcess, OSError):
+            except (psutil.AccessDenied, psutil.ZombieProcess, OSError, psutil.NoSuchProcess):
                 continue
             if not process_cmdline:
                 continue
