@@ -844,7 +844,8 @@ class OmniverseUpdateHandler(UpdateHandler):
         if part.cmd.render == part.cmd.CONNECTIVITY:
             has_triangles = False
             command, verts, conn, normals, tcoords, var_cmd = part.nodal_surface_rep()
-            verts = numpy.multiply(verts, self._omni._units_per_meter)
+            if verts is not None:
+                verts = numpy.multiply(verts, self._omni._units_per_meter)
             if command is not None:
                 has_triangles = True
                 # Generate the mesh block
@@ -865,7 +866,8 @@ class OmniverseUpdateHandler(UpdateHandler):
                     mat_info=mat_info,
                 )
             command, verts, tcoords, var_cmd = part.line_rep()
-            verts = numpy.multiply(verts, self._omni._units_per_meter)
+            if verts is not None:
+                verts = numpy.multiply(verts, self._omni._units_per_meter)
             if command is not None:
                 # If there are no triangle (ideally if these are not hidden line
                 # edges), then use the base color for the part.  If there are
@@ -921,8 +923,8 @@ class OmniverseUpdateHandler(UpdateHandler):
 
         elif part.cmd.render == part.cmd.NODES:
             command, verts, sizes, colors, var_cmd = part.point_rep()
-            verts = numpy.multiply(verts, self._omni._units_per_meter)
-
+            if verts is not None:
+                verts = numpy.multiply(verts, self._omni._units_per_meter)
             if sizes is not None:
                 sizes = numpy.multiply(sizes, self._omni._units_per_meter)
             if command is not None:
