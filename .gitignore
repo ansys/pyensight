@@ -54,4 +54,5 @@ pyensight_test_results.xml
 venv/
 .vscode/
 .venv/
+.vs/
 
