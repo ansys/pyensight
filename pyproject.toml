@@ -9,7 +9,7 @@ name = "ansys-pyensight-core"
 version = "0.10.0-dev0"
 description = "A python wrapper for Ansys EnSight"
 readme = "README.rst"
-requires-python = ">=3.9,<4"
+requires-python = ">=3.10;,<4"
 license = {file = "LICENSE"}
 authors = [{name = "ANSYS, Inc.", email = "pyansys.core@ansys.com"}]
 maintainers = [{name = "ANSYS, Inc.", email = "pyansys.core@ansys.com"}]
@@ -19,7 +19,6 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Information Analysis",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -161,7 +160,7 @@ recursive = true
 exclude = ["venv/*", "tests/*"]
 
 [tool.mypy]
-python_version = 3.9
+python_version = 3.10
 strict = false
 namespace_packages = true
 explicit_package_bases = true
