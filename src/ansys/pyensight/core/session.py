@@ -1058,6 +1058,11 @@ class Session:
                 except RuntimeError:  # pragma: no cover
                     # handle some intermediate EnSight builds.
                     pass
+                except IOError:  # pragma: no cover
+                    # The session might already have been closed via another
+                    # session object. If grpc is inactive, there's no sense
+                    # in raising an exception since we are closing it anyway
+                    pass
             if self._launcher and self._halt_ensight_on_close:
                 self._launcher.close(self)
             else:
