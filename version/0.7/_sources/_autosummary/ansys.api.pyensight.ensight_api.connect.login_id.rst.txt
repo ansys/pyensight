@@ -1,0 +1,6 @@
+login\_id
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: connect.login_id

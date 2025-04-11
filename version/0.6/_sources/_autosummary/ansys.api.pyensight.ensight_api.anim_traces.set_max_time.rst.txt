@@ -1,0 +1,6 @@
+set\_max\_time
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_traces.set_max_time
