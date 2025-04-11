@@ -31,7 +31,7 @@ jobs:
         run: docker pull ${{ env.ENSIGHT_IMAGE }}
 
       - name: Run Ansys documentation building action
-        uses: ansys/actions/doc-build@v8
+        uses: ansys/actions/doc-build@v9
         env:
           ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
         with:
@@ -43,7 +43,7 @@ jobs:
     steps:
 
       - name: Deploy development documentation
-        uses: ansys/actions/doc-deploy-dev@v8
+        uses: ansys/actions/doc-deploy-dev@v9
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
           token: ${{ secrets.GITHUB_TOKEN }}
