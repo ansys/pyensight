@@ -1084,6 +1084,21 @@ class DSGSession(object):
         self._finish_part()
         self._part.reset(part_cmd)
 
+    def find_group_pb(self, group_id: int) -> Any:
+        """Return the group command protobuffer for a specific group id.
+
+        Parameters
+        ----------
+        group_id: int
+            The group DSG protocol entity id.
+
+        Returns
+        -------
+        any
+            The group command protobuffer or None.
+        """
+        return self._groups.get(group_id, None)
+
     def _handle_group(self, group: Any) -> None:
         """Handle a DSG UPDATE_GROUP command
 
