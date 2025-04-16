@@ -68,6 +68,7 @@ class DVS:
         if monitor_new_timesteps:
             cmd += f'ensight.solution_time.monitor_for_new_steps("{monitor_new_timesteps}")\n'
         cmd += 'ensight.part.elt_representation("3D_feature_2D_full")\n'
+        cmd += 'ensight.data.format("DVS")\n'
         cmd += 'err = ensight.data.replace("notexisting.dvs")\n'
         return cmd
 
@@ -96,6 +97,7 @@ class DVS:
             cmd += f"{indent}dvsfile.write(f'SERVER_SECURITY_SECRET={secret_key}\\n')\n"
         cmd += f'ensight.solution_time.monitor_for_new_steps("{monitor_new_timesteps}")\n'
         cmd += 'ensight.part.elt_representation("3D_feature_2D_full")\n'
+        cmd += 'ensight.data.format("DVS")\n'
         cmd += "ensight.data.replace(path)\n"
         return cmd
 
@@ -154,6 +156,7 @@ class DVS:
                     raise RuntimeError(f"Couldn't write allocated DVS port to {filename}")
             ensight.part.elt_representation("3D_feature_2D_full")
             ensight.solution_time.monitor_for_new_steps(f"{monitor_new_timesteps}")
+            ensight.data.format("DVS")
             ensight.data.replace(path)
         else:
 
@@ -180,6 +183,7 @@ class DVS:
             ensight.objs.core.CURRENTCASE[0].client_command_callback(dvs_callback)
             ensight.solution_time.monitor_for_new_steps(f"{monitor_new_timesteps}")
             ensight.part.elt_representation("3D_feature_2D_full")
+            ensight.data.format("DVS")
             ensight.data.replace("notexisting.dvs")
 
     def launch_live_dvs(
