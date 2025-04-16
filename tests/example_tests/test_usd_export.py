@@ -49,8 +49,9 @@ def wait_for_idle(session):
 def test_usd_export(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
+    install_path = pytestconfig.getoption("install_path")
     if use_local:
-        launcher = LocalLauncher()
+        launcher = LocalLauncher(ansys_installation=install_path)
     else:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     session = launcher.start()
