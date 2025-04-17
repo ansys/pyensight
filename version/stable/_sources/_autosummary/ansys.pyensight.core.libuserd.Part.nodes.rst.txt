@@ -1,0 +1,6 @@
+nodes
+=====
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: Part.nodes

@@ -1,0 +1,6 @@
+nlevels
+=======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: function.nlevels

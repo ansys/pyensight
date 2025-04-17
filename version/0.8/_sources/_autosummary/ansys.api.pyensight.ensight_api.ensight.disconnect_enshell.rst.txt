@@ -1,0 +1,6 @@
+disconnect\_enshell
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.disconnect_enshell

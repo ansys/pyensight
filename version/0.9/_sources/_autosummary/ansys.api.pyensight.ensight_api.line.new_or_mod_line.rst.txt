@@ -1,0 +1,6 @@
+new\_or\_mod\_line
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: line.new_or_mod_line

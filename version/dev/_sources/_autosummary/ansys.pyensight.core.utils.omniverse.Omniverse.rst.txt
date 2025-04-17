@@ -1,0 +1,36 @@
+﻿Omniverse
+=========
+
+.. currentmodule:: ansys.pyensight.core.utils.omniverse
+
+.. autoclass:: Omniverse
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Omniverse.close_connection
+      
+      
+      Omniverse.create_connection
+      
+      
+      Omniverse.is_running_omniverse
+      
+      
+      Omniverse.read_status_file
+      
+      
+      Omniverse.update
+      
+   
+   
+
+   
+   
+   
