@@ -274,8 +274,23 @@ class Omniverse:
             if platform.system() == "Windows":
                 self._interpreter += ".bat"
             return
+        # Check if the python interpreter is kit itself
+        is_omni = False
+        try:
+            import omni  # noqa: F401
+
+            is_omni = "kit" in os.path.basename(sys.executable)
+        except ModuleNotFoundError:
+            pass
         # Using the python interpreter running this code
         self._interpreter = sys.executable
+        if is_omni:
+            kit_path = os.path.dirname(sys.executable)
+            self._interpreter = os.path.join(kit_path, "python")
+            if platform.system() == "Windows":
+                self._interpreter += ".bat"
+            else:
+                self._interpreter += ".sh"
 
         # in the future, these will be part of the pyensight wheel
         # dependencies, but for now we include this check.
