@@ -286,9 +286,11 @@ class Omniverse:
         self._interpreter = sys.executable
         if is_omni:
             kit_path = os.path.dirname(sys.executable)
-            self._interpreter = os.path.join(kit_path, "python", "python")
+            self._interpreter = os.path.join(kit_path, "python")
             if platform.system() == "Windows":
-                self._interpreter += ".exe"
+                self._interpreter += ".bat"
+            else:
+                self._interpreter += ".sh"
 
         # in the future, these will be part of the pyensight wheel
         # dependencies, but for now we include this check.
