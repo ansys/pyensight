@@ -22,6 +22,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 
 dependencies = [
@@ -34,7 +35,7 @@ dependencies = [
     "Pillow>=9.3.0",
     "pypng>=0.0.20",
     "psutil>=5.9.2",
-    "usd-core==24.8",
+    "usd-core==24.8; python_version < '3.13'",
     "pygltflib>=1.16.2"
 ]
 
