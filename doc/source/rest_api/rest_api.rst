@@ -137,7 +137,7 @@ attribute. All REST APIs expect that the token be specified in one of two ways:
 - The token can be passed as part of the URL path in this form:
   ``{LOCATION}/ensight/v1/{TOKEN}/{OPERATION}``.
 - The token can be passed in an ``Authorization: Bearer TOKEN`` header. When you use
-  this approach, you can pass any value in the URL path. So, the url could be formed like:
+  this approach, you can pass any value in the URL path. So, the URL could be formed like:
   ``{LOCATION}/ensight/v1/session/{OPERATION}``. In this example, the "session" string has been
   used, but any value would work as well.
 
