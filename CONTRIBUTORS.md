@@ -8,6 +8,7 @@
 
 * [Alex Fernandez](https://github.com/AlejandroFernandezLuces)
 * [Blanche Jérôme](https://github.com/jerome-blanche)
+* [bndunn](https://github.com/bndunn)
 * [David Bremer](https://github.com/david-bremer)
 * [Jorge Martínez](https://github.com/jorgepiloto)
 * [Kathy Pippert](https://github.com/PipKat)
@@ -16,6 +17,6 @@
 * [Mike Krogh](https://github.com/mfkrogh)
 * [Randy Frank](https://github.com/randallfrank)
 * [Roberto Pastor Muela](https://github.com/RobPasMue)
+* [Santosh Pratap Singh](https://github.com/spsingh-ansys)
 * [Visesh Rajendraprasad](https://github.com/viseshrp)
-* [bndunn](https://github.com/bndunn)
 * [vthiagar](https://github.com/vthiagar)
