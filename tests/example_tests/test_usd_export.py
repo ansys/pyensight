@@ -50,7 +50,7 @@ def wait_for_idle(session):
 def test_usd_export(tmpdir, pytestconfig: pytest.Config):
     if sys.version_info.minor >= 13:
         warnings.warn("Test not supported for Python >= 3.13")
-        sys.exit(0)
+        return
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
     install_path = pytestconfig.getoption("install_path")
