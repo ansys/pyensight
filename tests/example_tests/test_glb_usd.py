@@ -3,12 +3,16 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import warnings
 
 import requests
 
 
 def test_glb_usd():
     # Get the example files
+    if sys.version_info.minor >= 13:
+        warnings.warn("Test not supported for Python >= 3.13")
+        sys.exit(0)
     base_uri = "https://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
     filenames = ["fluent_elbow.glb", "rwing_bsl_1.glb", "rwing_bsl_2.glb", "ens_car_exts.glb"]
     with tempfile.TemporaryDirectory() as tmpdirname:
