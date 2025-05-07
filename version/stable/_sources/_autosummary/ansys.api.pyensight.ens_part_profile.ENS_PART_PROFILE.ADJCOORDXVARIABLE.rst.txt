@@ -1,0 +1,6 @@
+ADJCOORDXVARIABLE
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_profile
+
+.. autoproperty:: ENS_PART_PROFILE.ADJCOORDXVARIABLE
