@@ -12,12 +12,19 @@ from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2
 from ansys.pyensight.core import ensight_grpc
 import numpy
 
+original_stderr = sys.stderr
+original_stdout = sys.stdout
+sys.stderr = open(os.devnull, "w")
+sys.stdout = open(os.devnull, "w")
 try:
     import dsgutils
 
     dsgutils_loaded = True
-except ModuleNotFoundError:
+except (ModuleNotFoundError, ImportError, AttributeError):
     dsgutils_loaded = False
+finally:
+    sys.stderr = original_stderr
+    sys.stdout = original_stdout
 
 if TYPE_CHECKING:
     from ansys.pyensight.core import Session

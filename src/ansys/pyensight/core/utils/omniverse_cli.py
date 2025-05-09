@@ -5,14 +5,27 @@ import json
 import logging
 import os
 import pathlib
+import sys
 import time
 from typing import Any, List, Optional
 from urllib.parse import urlparse
 
 import ansys.pyensight.core
-import ansys.pyensight.core.utils.dsg_server as dsg_server
-import ansys.pyensight.core.utils.omniverse_dsg_server as ov_dsg_server
-import ansys.pyensight.core.utils.omniverse_glb_server as ov_glb_server
+
+original_stderr = sys.stderr
+original_stdout = sys.stdout
+sys.stderr = open(os.devnull, "w")
+sys.stdout = open(os.devnull, "w")
+try:
+    import ansys.pyensight.core.utils.dsg_server as dsg_server
+    import ansys.pyensight.core.utils.omniverse_dsg_server as ov_dsg_server
+    import ansys.pyensight.core.utils.omniverse_glb_server as ov_glb_server
+except AttributeError as exc:
+    if "_ARRAY_API" not in str(exc):
+        raise exc
+finally:
+    sys.stderr = original_stderr
+    sys.stdout = original_stdout
 
 
 def str2bool_type(v: Any) -> bool:
