@@ -92,8 +92,8 @@ From inside an EnSight session, the API is similar:
 
 Please note, the USD export is asynchronous. Without a proper routine to wait for the
 export to be complete, a script might exit before the export is actually finished.
-The two "monitor_export" routines propose a simple monitoring of the export that uses
-the read_status_file interface, which can read a status file that reports if the
+The two ``monitor_export`` routines propose a simple monitoring of the export that uses
+the ``read_status_file`` interface, which can read a status file that reports if the
 current export is complete or not.
 
 After running the script, the scene will appear in any Omniverse kit tree view
@@ -271,8 +271,12 @@ If the ``--oneshot`` option is not specified, the tool will run in server mode. 
 the DSG protocol or the directory specified by ``--monitor_directory`` option for geometry data.  In
 this mode, the USD scene in the ``destination`` will be updated to reflect the last scene pushed.
 Unused files will be removed and items that do not change will not be updated.  Thus, server
-mode is best suited for dynamic, interactive applications.  If server mode is initiated via the command line,
+mode is best suited for dynamic, interactive applications. If server mode is initiated via the command line,
 a single scene push will automatically be performed.
+If ``--oneshot`` is specified, only a single conversion is performed and the tool will not maintain
+a notion of the scene state.  This makes the operation simpler and avoids the need for extra processes,
+however old files from previous export operations will not be removed and the USD directory may need
+to be manually cleaned between export operations.
 
 
 General Options
