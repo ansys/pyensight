@@ -25,7 +25,8 @@ The API can be used directly from a local Python installation of the
 `ansys-pyensight-core <https://pypi.org/project/ansys-pyensight-core/>`_ module:
 
 .. code-block:: python
-    def wait_for_idle(session):
+
+    def monitor_export(session):
         found = False
         start = time.time()
         while not found and time.time() - start < 60:
@@ -36,17 +37,17 @@ The API can be used directly from a local Python installation of the
         return found
 
     from ansys.pyensight.core import LocalLauncher
-    s = LocalLauncher(batch=False).start()
-    s.load_example("waterbreak.ens")
+    session = LocalLauncher(batch=False).start()
+    session.load_example("waterbreak.ens")
     # The directory to save USD representation into
     usd_directory = "/omniverse/examples/water"
     # Start a new connection between EnSight and Omniverse
-    s.ensight.utils.omniverse.create_connection(usd_directory)
-    wait_for_idle(s)
+    session.ensight.utils.omniverse.create_connection(usd_directory)
+    monitor_export(session)
     # Do some work...
     # Push a scene update
-    s.ensight.utils.omniverse.update()
-    wait_for_idle(s)
+    session.ensight.utils.omniverse.update()
+    monitor_export(session)
 
 
 .. note::
@@ -64,8 +65,7 @@ From inside an EnSight session, the API is similar:
 
 .. code-block:: python
 
-    # Start a DSG server in EnSight first
-    def wait_for_idle():
+    def monitor_export():
         found = False
         start = time.time()
         while not found and time.time() - start < 60:
@@ -75,6 +75,7 @@ From inside an EnSight session, the API is similar:
             time.sleep(0.5)
         return found
 
+    # Start a DSG server in EnSight first
     (_, grpc_port, security) = ensight.objs.core.grpc_server(port=0, start=True)
     # Start a new connection between the EnSight DSG server and Omniverse
     options = {"host": "127.0.0.1", "port": str(grpc_port)}
@@ -82,16 +83,16 @@ From inside an EnSight session, the API is similar:
         options["security"] = security
     usd_directory = "/omniverse/examples/water"
     ensight.utils.omniverse.create_connection(usd_directory, options=options)
-    wait_for_idle()
+    monitor_export()
     # Do some more work...
     # Push a scene update
     ensight.utils.omniverse.update()
-    wait_for_idle()
+    monitor_export()
 
 
 Please note, the USD export is asynchronous. Without a proper routine to wait for the
 export to be complete, a script might exit before the export is actually finished.
-The two "wait_for_idle" routine propose a simple monitoring of the export that uses
+The two "monitor_export" routines propose a simple monitoring of the export that uses
 the read_status_file interface, which can read a status file that reports if the
 current export is complete or not.
 
