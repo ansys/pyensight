@@ -167,7 +167,22 @@ class DVS(dvs_base):
 
                 self._dvs_module = dynamic_visualization_store
             except (ModuleNotFoundError, ImportError):
-                warnings.warn("Cannot import DVS module from provided ansys installation folder.")
+                python_cei = os.path.join(apex_libs, "Python-CEI")
+                if os.path.isdir(python_cei):
+                    python_cei_lib_path = os.path.join(
+                        python_cei, "lib", f"python3.{apex_py_major_version}"
+                    )
+                    if self._is_windows():
+                        python_cei_lib_path = os.path.join(python_cei, "DLLs")
+                    sys.path.append(python_cei_lib_path)
+                try:
+                    import dynamic_visualization_store
+
+                    self._dvs_module = dynamic_visualization_store
+                except (ModuleNotFoundError, ImportError):
+                    warnings.warn(
+                        "Cannot import DVS module from provided ansys installation folder."
+                    )
 
     DVS_NULL_TRANSPORT = 0
     DVS_GRPC_TRANSPORT = 1
