@@ -155,7 +155,7 @@ class DVS(dvs_base):
             apex_path = apex_path[-1]
             arch = "win64" if self._is_windows() else "linux_2.6_64"
             apex_libs = os.path.join(apex_path, "machines", arch)
-            python_path = glob.glob(os.path.join(apex_libs, "Python-*"))[-1]
+            python_path = glob.glob(os.path.join(apex_libs, "Python-3.*"))[-1]
             apex_py_version = re.search("Python-3.([0-9]+).([0-9]+)", os.path.basename(python_path))
             apex_py_major_version = apex_py_version.group(1)
             lib_path = os.path.join(python_path, "lib", f"python3.{apex_py_major_version}")
