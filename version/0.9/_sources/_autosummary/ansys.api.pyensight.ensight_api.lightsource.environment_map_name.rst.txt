@@ -1,0 +1,6 @@
+environment\_map\_name
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: lightsource.environment_map_name

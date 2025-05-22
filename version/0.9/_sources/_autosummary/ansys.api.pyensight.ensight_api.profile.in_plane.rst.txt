@@ -1,0 +1,6 @@
+in\_plane
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: profile.in_plane

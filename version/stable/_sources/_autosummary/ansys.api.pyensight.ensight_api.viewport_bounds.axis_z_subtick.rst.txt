@@ -1,0 +1,6 @@
+axis\_z\_subtick
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport_bounds.axis_z_subtick

@@ -1,0 +1,6 @@
+imag
+====
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ErrorCodes.imag

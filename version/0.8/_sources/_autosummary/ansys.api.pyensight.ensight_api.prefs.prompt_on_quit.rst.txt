@@ -1,0 +1,6 @@
+prompt\_on\_quit
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.prompt_on_quit

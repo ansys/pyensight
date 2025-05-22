@@ -1,0 +1,6 @@
+massed\_rebound\_wallhits
+=========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.massed_rebound_wallhits
