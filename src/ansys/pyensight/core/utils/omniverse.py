@@ -47,12 +47,12 @@ class OmniverseKitInstance:
             if psutil.pid_exists(child.pid):
                 # This can be a race condition, so it is ok if the child is dead already
                 try:
-                    child.kill()
+                    child.terminate()
                 except psutil.NoSuchProcess:
                     pass
         # Same issue, this process might already be shutting down, so NoSuchProcess is ok.
         try:
-            proc.kill()
+            proc.terminate()
         except psutil.NoSuchProcess:
             pass
         self._pid = None
@@ -73,6 +73,7 @@ class OmniverseKitInstance:
         return False
 
 
+# Deprecated
 def find_kit_filename(fallback_directory: Optional[str] = None) -> Optional[str]:
     """
     Use a combination of the current omniverse application and the information
@@ -146,6 +147,7 @@ def find_kit_filename(fallback_directory: Optional[str] = None) -> Optional[str]
     return None
 
 
+# Deprecated
 def launch_kit_instance(
     kit_path: Optional[str] = None,
     extension_paths: Optional[List[str]] = None,
@@ -204,6 +206,99 @@ def launch_kit_instance(
     if log_file:
         cmd.append(f"--/log/file={log_file}")
         cmd.append("--/log/enabled=true")
+    # Launch the process
+    env_vars = os.environ.copy()
+    p = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env_vars)
+    return OmniverseKitInstance(p.pid)
+
+
+def find_app() -> Optional[str]:
+    dirs_to_check = []
+    if "PYENSIGHT_ANSYS_INSTALLATION" in os.environ:
+        env_inst = os.environ["PYENSIGHT_ANSYS_INSTALLATION"]
+        dirs_to_check.append(os.path.join(env_inst, "tp", "omni_viewer"))
+
+    # Look for most recent Ansys install, 25.2 or later
+    awp_roots = []
+    for env_name in dict(os.environ).keys():
+        if env_name.startswith("AWP_ROOT") and int(env_name[len("AWP_ROOT") :]) >= 252:
+            awp_roots.append(env_name)
+    awp_roots.sort(reverse=True)
+    for env_name in awp_roots:
+        dirs_to_check.append(os.path.join(os.environ[env_name], "tp", "omni_viewer"))
+
+    # check all the collected locations in order
+    for install_dir in dirs_to_check:
+        launch_file = os.path.join(install_dir, "ansys_tools_omni_core.py")
+        if os.path.isfile(launch_file):
+            return launch_file
+    return None
+
+
+def launch_app(
+    usd_file: Optional[str] = "",
+    layout: Optional[str] = "default",
+    streaming: Optional[bool] = False,
+    offscreen: Optional[bool] = False,
+    log_file: Optional[str] = None,
+    log_level: Optional[str] = "warn",
+    cli_options: Optional[List[str]] = None,
+) -> "OmniverseKitInstance":
+    """Launch the Ansys Omniverse application
+
+    Parameters
+    ----------
+    # usd_file : Optional[str]
+    #    A .usd file to open on startup
+    # layout : Optional[str]
+    #    A UI layout.  viewer, composer, or composer_slim
+    # streaming : Optional[bool]
+    #    Enable webrtc streaming to enable the window in a web page
+    # offscreen : Optional[str]
+    #    Run the app offscreen.  Useful when streaming.
+    # log_file : Optional[str]
+    #    The name of a text file where the logging information for the instance will be saved.
+    # log_level : Optional[str]
+    #    The level of the logging information to record: "verbose", "info", "warn", "error", "fatal",
+    #    the default is "warn".
+    # cli_options : Optional[List[str]]
+    #    Other command line options
+
+    Returns
+    -------
+    OmniverseKitInstance
+        The object interface for the launched instance
+
+    Examples
+    --------
+    Run the app with default options
+
+    >>> from ansys.pyensight.core.utils import omniverse
+    >>> ov = omniverse.launch_app()
+
+    """
+    cmd = [sys.executable]
+    app = find_app()
+    if not app:
+        raise RuntimeError("Unable to find the Ansys Omniverse app")
+    cmd.extend([app])
+    if usd_file:
+        cmd.extend(["-f", usd_file])
+    if layout:
+        cmd.extend(["-l", layout])
+    if streaming:
+        cmd.extend(["-s"])
+    if offscreen:
+        cmd.extend(["-o"])
+    if cli_options:
+        cmd.extend(cli_options)
+    if log_level:
+        if log_level not in ("verbose", "info", "warn", "error", "fatal"):
+            raise RuntimeError(f"Invalid logging level: {log_level}")
+        cmd.extend([f"--/log/level={log_level}"])
+    if log_file:
+        cmd.extend(["--/log/enabled=true", f"--/log/file={log_file}"])
+
     # Launch the process
     env_vars = os.environ.copy()
     p = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env_vars)
