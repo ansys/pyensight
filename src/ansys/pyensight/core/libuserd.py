@@ -1983,7 +1983,7 @@ class LibUserd(object):
         return output
 
     @staticmethod
-    def _download_files(uri: str, pathname: str, folder: bool = False):
+    def _download_files(uri: str, pathname: str, folder: bool = False, override_root: bool = False):
         """Download files from the input uri and save them on the input pathname.
 
         Parameters:
@@ -1996,14 +1996,20 @@ class LibUserd(object):
         folder : bool
             True if the uri will server files from a directory. In this case,
             pathname will be used as the directory were to save the files.
+        override_root: bool
+            True if the root has been overridden. So don't consider the case
+            of getting the download URL from the github API
         """
         if not folder:
-            correct_url = None
-            with requests.get(uri) as r:
-                data = r.json()
-                correct_url = data["download_url"]
-            if not correct_url:
-                raise RuntimeError("Couldn't retrieve download URL from github")
+            if override_root:
+                correct_url = uri
+            else:
+                correct_url = None
+                with requests.get(uri) as r:
+                    data = r.json()
+                    correct_url = data["download_url"]
+                if not correct_url:
+                    raise RuntimeError("Couldn't retrieve download URL from github")
             with requests.get(correct_url, stream=True) as r:
                 with open(pathname, "wb") as f:
                     shutil.copyfileobj(r.raw, f)
@@ -2061,9 +2067,11 @@ class LibUserd(object):
         >>> dat_file = l.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
         """
         base_uri = "https://api.github.com/repos/ansys/example-data/contents"
+        override_root = False
         if not folder:
             if root is not None:
                 base_uri = root
+                override_root = True
         uri = f"{base_uri}/{filename}"
         if directory:
             uri = f"{base_uri}/{directory}/{filename}"
@@ -2072,7 +2080,7 @@ class LibUserd(object):
         if self._container and self._data_directory:
             # Docker Image
             download_path = os.path.join(self._data_directory, filename)
-        self._download_files(uri, download_path, folder=folder)
+        self._download_files(uri, download_path, folder=folder, override_root=override_root)
         pathname = download_path
         if self._container:
             # Convert local path to Docker mounted volume path
