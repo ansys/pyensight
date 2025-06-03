@@ -1278,7 +1278,7 @@ class Session:
         >>> remote = session.show("remote")
         >>> remote.browser()
         """
-        base_uri = "https://github.com/ansys/example-data/raw/master"
+        base_uri = "https://raw.githubusercontent.com/ansys/example-data/master"
         base_api_uri = "https://api.github.com/repos/ansys/example-data/contents"
         if not folder:
             if root is not None:
