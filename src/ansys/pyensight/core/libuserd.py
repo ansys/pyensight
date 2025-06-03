@@ -1998,7 +1998,13 @@ class LibUserd(object):
             pathname will be used as the directory were to save the files.
         """
         if not folder:
-            with requests.get(uri, stream=True) as r:
+            correct_url = None
+            with requests.get(uri) as r:
+                data = r.json()
+                correct_url = data["download_url"]
+            if not correct_url:
+                raise RuntimeError("Couldn't retrieve download URL from github")
+            with requests.get(correct_url, stream=True) as r:
                 with open(pathname, "wb") as f:
                     shutil.copyfileobj(r.raw, f)
         else:
@@ -2054,13 +2060,10 @@ class LibUserd(object):
         >>> cas_file = l.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
         >>> dat_file = l.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
         """
-        base_uri = "https://raw.githubusercontent.com/ansys/example-data/main"
-        base_api_uri = "https://api.github.com/repos/ansys/example-data/contents"
+        base_uri = "https://api.github.com/repos/ansys/example-data/contents"
         if not folder:
             if root is not None:
                 base_uri = root
-        else:
-            base_uri = base_api_uri
         uri = f"{base_uri}/{filename}"
         if directory:
             uri = f"{base_uri}/{directory}/{filename}"
