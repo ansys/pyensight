@@ -2054,7 +2054,7 @@ class LibUserd(object):
         >>> cas_file = l.download_pyansys_example("mixing_elbow.cas.h5","pyfluent/mixing_elbow")
         >>> dat_file = l.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
         """
-        base_uri = "https://raw.githubusercontent.com/ansys/example-data/master"
+        base_uri = "https://raw.githubusercontent.com/ansys/example-data/main"
         base_api_uri = "https://api.github.com/repos/ansys/example-data/contents"
         if not folder:
             if root is not None:
