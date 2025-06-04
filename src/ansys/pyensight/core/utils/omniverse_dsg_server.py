@@ -26,6 +26,7 @@
 import logging
 import math
 import os
+import platform
 import shutil
 import sys
 import tempfile
@@ -41,6 +42,10 @@ try:
 except ModuleNotFoundError:
     if sys.version_info.minor >= 13:
         warnings.warn("USD Export not supported for Python >= 3.13")
+        sys.exit(1)
+    is_linux_arm64 = platform.system() == "Linux" and platform.machine() == "aarch64"
+    if is_linux_arm64:
+        warnings.warn("USD Export not supported on Linux ARM platforms")
         sys.exit(1)
 
 

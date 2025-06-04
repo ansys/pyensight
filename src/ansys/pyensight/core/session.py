@@ -1278,22 +1278,30 @@ class Session:
         >>> remote = session.show("remote")
         >>> remote.browser()
         """
-        base_uri = "https://github.com/ansys/example-data/raw/master"
-        base_api_uri = "https://api.github.com/repos/ansys/example-data/contents"
+        base_uri = "https://api.github.com/repos/ansys/example-data/contents"
+        override_root = False
         if not folder:
             if root is not None:
                 base_uri = root
-        else:
-            base_uri = base_api_uri
+                override_root = True
         uri = f"{base_uri}/{filename}"
         if directory:
             uri = f"{base_uri}/{directory}/{filename}"
         pathname = f"{self.launcher.session_directory}/{filename}"
         if not folder:
+            if override_root:
+                correct_url = uri
+            else:
+                correct_url = None
+                with requests.get(uri) as r:
+                    data = r.json()
+                    correct_url = data["download_url"]
+                if not correct_url:
+                    raise RuntimeError(f"Couldn't retrieve download URL from github uri {uri}")
             script = "import requests\n"
             script += "import shutil\n"
             script += "import os\n"
-            script += f'url = "{uri}"\n'
+            script += f'url = "{correct_url}"\n'
             script += f'outpath = r"""{pathname}"""\n'
             script += "with requests.get(url, stream=True) as r:\n"
             script += "    with open(outpath, 'wb') as f:\n"
