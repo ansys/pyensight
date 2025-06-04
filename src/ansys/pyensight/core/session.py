@@ -1297,7 +1297,7 @@ class Session:
                     data = r.json()
                     correct_url = data["download_url"]
                 if not correct_url:
-                    raise RuntimeError("Couldn't retrieve download URL from github")
+                    raise RuntimeError(f"Couldn't retrieve download URL from github uri {uri}")
             script = "import requests\n"
             script += "import shutil\n"
             script += "import os\n"
