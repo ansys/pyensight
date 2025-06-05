@@ -110,15 +110,10 @@ class LocalLauncher(Launcher):
             path_to_webui, f"nexus{version}", f"ansys{version}", "ensight", "WebUI", "web", "ui"
         )
         # Ansys environment
-        paths_to_webui_ansys = [
-            os.path.join(os.path.dirname(path_to_webui), "simcfd", "web", "ui"),
-            os.path.join(os.path.dirname(path_to_webui), "fluidsone", "web", "ui"),
-        ]
+        path_to_webui_ansys = os.path.join(os.path.dirname(path_to_webui), "FluidsOne", "web", "ui")
         path_to_webui = path_to_webui_internal
-        for path in paths_to_webui_ansys:
-            if os.path.exists(path):
-                path_to_webui = path
-                break
+        if os.path.exists(path_to_webui_ansys):
+            path_to_webui = path_to_webui_ansys
         cmd += ["--server-listen-port", str(self._ports[5])]
         cmd += ["--server-web-roots", path_to_webui]
         cmd += ["--ensight-grpc-port", str(self._ports[0])]
