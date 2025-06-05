@@ -1,0 +1,102 @@
+﻿ptrace\_emitr
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. autoclass:: ptrace_emitr
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ptrace_emitr.copy
+      
+      
+      ptrace_emitr.delete
+      
+      
+      ptrace_emitr.delta_time
+      
+      
+      ptrace_emitr.description
+      
+      
+      ptrace_emitr.elt_delete
+      
+      
+      ptrace_emitr.elt_net
+      
+      
+      ptrace_emitr.elt_part
+      
+      
+      ptrace_emitr.elt_point
+      
+      
+      ptrace_emitr.elt_rake
+      
+      
+      ptrace_emitr.elt_surface_net
+      
+      
+      ptrace_emitr.elt_surface_point
+      
+      
+      ptrace_emitr.elt_surface_rake
+      
+      
+      ptrace_emitr.modify_begin
+      
+      
+      ptrace_emitr.modify_end
+      
+      
+      ptrace_emitr.new
+      
+      
+      ptrace_emitr.replaceelt_net
+      
+      
+      ptrace_emitr.replaceelt_point
+      
+      
+      ptrace_emitr.replaceelt_rake
+      
+      
+      ptrace_emitr.restore
+      
+      
+      ptrace_emitr.rgb
+      
+      
+      ptrace_emitr.save
+      
+      
+      ptrace_emitr.save_all
+      
+      
+      ptrace_emitr.select_begin
+      
+      
+      ptrace_emitr.select_emitter_begin
+      
+      
+      ptrace_emitr.select_emitter_end
+      
+      
+      ptrace_emitr.start_time
+      
+      
+      ptrace_emitr.visible
+      
+   
+   
+
+   
+   
+   

@@ -1,0 +1,6 @@
+end\_simtime
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: solution_time.end_simtime

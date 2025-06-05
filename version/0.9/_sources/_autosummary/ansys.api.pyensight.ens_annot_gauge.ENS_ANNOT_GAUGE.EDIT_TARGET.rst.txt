@@ -1,0 +1,6 @@
+EDIT\_TARGET
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_annot_gauge
+
+.. autoproperty:: ENS_ANNOT_GAUGE.EDIT_TARGET
