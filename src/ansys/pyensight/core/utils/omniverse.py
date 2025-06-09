@@ -18,6 +18,14 @@ if TYPE_CHECKING:
         from ansys.api.pyensight import ensight_api
 
 
+def _handle_fluids_one(install_path):
+    cei_path = install_path
+    interpreter = os.path.join(cei_path, "bin", "cpython")
+    if platform.system() == "Windows":
+        interpreter += ".bat"
+    return interpreter
+
+
 class OmniverseKitInstance:
     """Interface to an Omniverse application instance
 
@@ -212,8 +220,17 @@ def launch_kit_instance(
     return OmniverseKitInstance(p.pid)
 
 
-def find_app() -> Optional[str]:
+def find_app(ansys_installation: Optional[str] = None) -> Optional[str]:
     dirs_to_check = []
+    if ansys_installation:
+        # Given a different Ansys install
+        local_tp = os.path.join(os.path.join(ansys_installation, "tp", "omni_viewer"))
+        if os.path.exists(local_tp):
+            dirs_to_check.append(local_tp)
+        # Dev Folder
+        local_dev_omni = os.path.join(os.path.join(ansys_installation, "omni_build", "omni_viewer"))
+        if os.path.exists(local_dev_omni):
+            dirs_to_check.append(local_dev_omni)
     if "PYENSIGHT_ANSYS_INSTALLATION" in os.environ:
         env_inst = os.environ["PYENSIGHT_ANSYS_INSTALLATION"]
         dirs_to_check.append(os.path.join(env_inst, "tp", "omni_viewer"))
@@ -243,6 +260,8 @@ def launch_app(
     log_file: Optional[str] = None,
     log_level: Optional[str] = "warn",
     cli_options: Optional[List[str]] = None,
+    ansys_installation: Optional[str] = None,
+    interpreter: Optional[str] = None,
 ) -> "OmniverseKitInstance":
     """Launch the Ansys Omniverse application
 
@@ -278,7 +297,9 @@ def launch_app(
 
     """
     cmd = [sys.executable]
-    app = find_app()
+    if interpreter:
+        cmd = [interpreter]
+    app = find_app(ansys_installation=ansys_installation)
     if not app:
         raise RuntimeError("Unable to find the Ansys Omniverse app")
     cmd.extend([app])
@@ -379,6 +400,8 @@ class Omniverse:
             pass
         # Using the python interpreter running this code
         self._interpreter = sys.executable
+        if "fluids_one" in self._interpreter:  # compiled simba-app
+            self._interpreter = _handle_fluids_one(self._ensight._session._install_path)
         if is_omni:
             kit_path = os.path.dirname(sys.executable)
             self._interpreter = os.path.join(kit_path, "python")
