@@ -170,7 +170,7 @@ def launch_libuserd_and_get_files(tmpdir, pytestconfig: pytest.Config):
                     file2_userd = libuserd.download_pyansys_example(filename2, filepath2)
                     file2_session = session.download_pyansys_example(filename2, filepath2)
                 break
-            except KeyError:
+            except (KeyError, ConnectionError):
                 count += 1
         if count == 5 and (not file1_userd or not file1_session):
             raise RuntimeError("Couldn't download files for test.")
