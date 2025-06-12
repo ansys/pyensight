@@ -157,16 +157,23 @@ def launch_libuserd_and_get_files(tmpdir, pytestconfig: pytest.Config):
 
         libuserd.initialize()
 
-        file1_userd = libuserd.download_pyansys_example(filename1, filepath1)
-        file1_session = session.download_pyansys_example(filename1, filepath1)
+        count = 0
+        while count < 5:
+            try:
+                file1_userd = libuserd.download_pyansys_example(filename1, filepath1)
+                file1_session = session.download_pyansys_example(filename1, filepath1)
 
-        if filename2 is None:
-            file2_userd = ""
-            file2_session = ""
-        else:
-            file2_userd = libuserd.download_pyansys_example(filename2, filepath2)
-            file2_session = session.download_pyansys_example(filename2, filepath2)
-
+                if filename2 is None:
+                    file2_userd = ""
+                    file2_session = ""
+                else:
+                    file2_userd = libuserd.download_pyansys_example(filename2, filepath2)
+                    file2_session = session.download_pyansys_example(filename2, filepath2)
+                break
+            except KeyError:
+                count += 1
+        if count == 5 and (not file1_userd or not file1_session):
+            raise RuntimeError("Couldn't download files for test.")
         return file1_userd, file2_userd, file1_session, file2_session, libuserd, session, data_dir
 
     return _files
