@@ -1,0 +1,6 @@
+optimize\_geometry
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.optimize_geometry

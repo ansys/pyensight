@@ -1,0 +1,6 @@
+save
+====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.save

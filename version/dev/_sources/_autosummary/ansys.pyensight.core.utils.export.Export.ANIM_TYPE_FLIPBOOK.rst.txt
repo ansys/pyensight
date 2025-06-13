@@ -1,0 +1,6 @@
+ANIM\_TYPE\_FLIPBOOK
+====================
+
+.. currentmodule:: ansys.pyensight.core.utils.export
+
+.. autoattribute:: Export.ANIM_TYPE_FLIPBOOK

@@ -1,0 +1,6 @@
+create\_node\_track
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.create_node_track
