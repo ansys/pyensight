@@ -384,7 +384,8 @@ class DockerLauncher(Launcher):
 
     def launch_webui(self, container_env_str):
         # Run websocketserver
-        cmd = "cpython -m ansys.simba.plugin.post.simba_post"
+        cmd = f"/ansys_inc/v{self._ansys_version}/FluidsOne/server/linx64/fluidsone"
+        cmd += " --main-run-mode post"
         # websocket port - this needs to come first since we now have
         # --add_header as a optional arg that can take an arbitrary
         # number of optional headers.
