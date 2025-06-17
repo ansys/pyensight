@@ -28,12 +28,34 @@ if TYPE_CHECKING:
         from ansys.api.pyensight import ensight_api
 
 
+VIEW_DICT = {
+    "x+": (1, 0, 0),
+    "x-": (-1, 0, 0),
+    "y+": (0, 1, 0),
+    "y-": (0, -1, 0),
+    "z+": (0, 0, 1),
+    "z-": (0, 0, -1),
+    "isometric": (1, 1, 1),
+}
+
+
 class Views:
     """Controls the view in the current EnSight ``Session`` instance."""
 
     def __init__(self, ensight: Union["ensight_api.ensight", "ensight"]):
         self.ensight = ensight
         self._views_dict: Dict[str, Tuple[int, List[float]]] = {}
+        self._original_look_at = None
+        self._original_look_from = None
+        self._original_parallel_scale = None
+
+    def initialize_simba_view(self):
+        vport = self.ensight.objs.core.VPORTS[0]
+        self._original_look_at = vport.LOOKATPOINT
+        self._original_look_from = vport.LOOKFROMPOINT
+        near_clip = vport.ZCLIPLIMITS[0]
+        view_angle = 2 * vport.PERSPECTIVEANGLE
+        self._original_parallel_scale = near_clip * math.tan(math.radians(view_angle) / 2)
 
     # Utilities
     @staticmethod
@@ -358,3 +380,100 @@ class Views:
     def reinitialize_view(self) -> None:
         """Reset the view."""
         self.ensight.view_transf.initialize_viewports()
+
+    def get_center_of_rotation(self):
+        """Get EnSight center of rotation."""
+        self.ensight.objs.core.VPORTS[0].TRANSFORMCENTER
+
+    def auto_scale(self):
+        """Auto scale view."""
+        self.ensight.view_transf.fit(0)
+
+    def set_perspective(self, value):
+        """Set perspective or ortographic."""
+        val = "OFF" if not value else "ON"
+        self.ensight.view.perspective(val)
+        self.ensight.objs.core.VPORTS[0].PERSPECTIVE = val == "ON"
+
+    def set_view(self, value):
+        """Set the view."""
+        view_tuple = VIEW_DICT.get(value)
+        self.set_view_direction(*view_tuple)
+
+    def _get_view_direction_from_quaternion(self, quaternion):
+        """Convert quaternion to view direction vector."""
+        x, y, z, w = quaternion
+        view_direction = [2 * x * z - 2 * y * w, 2 * y * z + 2 * x * w, 1 - 2 * x**2 - 2 * y**2]
+        return self._normalize_vector(view_direction)
+
+    def _get_view_up_from_quaternion(self, quaternion):
+        """Convert quaternion to view up vector."""
+        x, y, z, w = quaternion
+        view_up = [2 * x * y + 2 * z * w, 1 - 2 * x**2 - 2 * z**2, 2 * y * z - 2 * x * w]
+        return self._normalize_vector(view_up)
+
+    def get_camera(self):
+        """Get EnSight camera settings in VTK format."""
+        vport = self.ensight.objs.core.VPORTS[0]
+
+        position = vport.LOOKFROMPOINT
+        focal_point = vport.LOOKATPOINT
+        camera_dir = self._get_view_direction_from_quaternion(vport.ROTATION.copy())
+        camera_right = self._normalize_vector(self._cross_product([0, 1, 0], camera_dir))
+        view_up = self._normalize_vector(self._cross_product(camera_dir, camera_right))
+        near_clip = vport.ZCLIPLIMITS[0]
+        view_angle = 2 * vport.PERSPECTIVEANGLE
+        parallel_scale = None
+        if not vport.PERSPECTIVE:
+            parallel_scale = near_clip * math.tan(math.radians(view_angle) / 2)
+        return {
+            "orthographic": not vport.PERSPECTIVE,
+            "view_up": view_up,
+            "position": position,
+            "focal_point": focal_point,
+            "view_angle": view_angle,
+            "parallel_scale": parallel_scale,
+            "reset_focal_point": self._original_look_at,
+            "reset_position": self._original_look_from,
+            "reset_parallel_scale": self._original_parallel_scale,
+        }
+
+    def set_camera(
+        self,
+        orthographic,
+        view_up=None,
+        position=None,
+        focal_point=None,
+        view_angle=None,
+        parallel_scale=None,
+    ):
+        """Set the EnSight camera settings from the VTK input."""
+        perspective = "OFF" if orthographic else "ON"
+        if orthographic:
+            self.ensight.view.perspective(perspective)
+        vport = self.ensight.objs.core.VPORTS[0]
+        if focal_point:
+            vport.LOOKATPOINT = focal_point
+            # vport.TRANSFORMCENTER = focal_point
+        if position:
+            vport.LOOKFROMPOINT = position
+        if view_angle:
+            vport.PERSPECTIVEANGLE = view_angle / 2
+        if view_up and vport.PERSPECTIVE:
+            view_dir_list = self._get_view_direction_from_quaternion(vport.ROTATION.copy())
+            direction = self._normalize_vector([*view_dir_list])
+            right = self._cross_product(direction, view_up)
+            view_dir = self._normalize_vector(self._cross_product(view_up, right))
+            self.set_view_direction(*view_dir, not orthographic)
+        if parallel_scale and not vport.PERSPECTIVE:
+            old_limits = vport.ZCLIPLIMITS.copy()
+            new_znear = parallel_scale / math.tan(math.radians(vport.PERSPECTIVEANGLE))
+            vport.ZCLIPLIMITS = [new_znear, old_limits[1]]
+
+    def get_world_coordinates(self, mousex, mousey):
+        """Compute the world coordinates."""
+        mousex = int(mousex)
+        mousey = int(mousey)
+        return self.ensight._session.cmd(
+            f"ensight.objs.core.VPORTS[0].screen_to_coords({mousex}, {mousey})"
+        )
