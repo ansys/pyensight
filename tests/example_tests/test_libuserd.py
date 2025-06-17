@@ -39,7 +39,7 @@ def test_libuserd_basic(tmpdir, pytestconfig: pytest.Config):
     else:
         pyensight_test_data_path = os.path.join(
             os.path.dirname(os.path.dirname(libuserd._server_pathname)),
-            f"apex{libuserd.ansys_release_number}",
+            f"apex{libuserd.ansys_release_number()}",
             "machines",
             "common",
             "PyEnSightTestData",
