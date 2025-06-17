@@ -1,0 +1,6 @@
+pop
+===
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: ensobjlist.pop

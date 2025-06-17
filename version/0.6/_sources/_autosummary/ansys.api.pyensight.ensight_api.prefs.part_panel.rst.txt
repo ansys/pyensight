@@ -1,0 +1,6 @@
+part\_panel
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.part_panel

@@ -1,0 +1,6 @@
+hidden\_line
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.hidden_line
