@@ -38,7 +38,7 @@ import numpy
 import png
 
 try:
-    from pxr import Gf, Kind, Sdf, Usd, UsdGeom, UsdLux, UsdShade
+    from pxr import Gf, Vt, Kind, Sdf, Usd, UsdGeom, UsdLux, UsdShade
 except ModuleNotFoundError:
     if sys.version_info.minor >= 13:
         warnings.warn("USD Export not supported for Python >= 3.13")
@@ -62,7 +62,7 @@ class OmniverseWrapper(object):
         self._stage = None
         self._destinationPath: str = ""
         self._old_stages: list = []
-        self._stagename: str = "dsg_scene.usd"
+        self._stagename: str = "dsg_scene.usda"
         self._live_edit: bool = live_edit
         if self._live_edit:
             self._stagename = "dsg_scene.live"
@@ -278,6 +278,7 @@ class OmniverseWrapper(object):
 
     def create_dsg_mesh_block(
         self,
+        part: Part,
         name,
         id,
         part_hash,
@@ -295,18 +296,61 @@ class OmniverseWrapper(object):
     ):
         # 1D texture map for variables https://graphics.pixar.com/usd/release/tut_simple_shading.html
         # create the part usd object
-        partname = self.clean_name(name + part_hash.hexdigest())
-        stage_name = "/Parts/" + partname + ".usd"
-        part_stage_url = self.stage_url(os.path.join("Parts", partname + ".usd"))
+        print(name)
+        part_base_name = self.clean_name(name)
+        partname = part_base_name + part_hash.hexdigest()
+        stage_name = "/Parts/" + partname + ".usda"
+        part_stage_url = self.stage_url(os.path.join("Parts", partname + ".usda"))
         part_stage = None
+        # Make the manifest file
+        #part_manifest_url = self.stage_url(os.path.join("Parts", part_base_name+"_manifest.usda"))
+        part_manifest_url = self.stage_url(os.path.join(".", part_base_name+"_manifest.usda"))
+        if not os.path.exists(part_manifest_url):
+            print("ok")
+            manifest_stage = Usd.Stage.CreateNew(part_manifest_url)
 
+            xform_manifest1 = UsdGeom.Xform.Define(manifest_stage, "/Root")
+            matrixOp = xform_manifest1.AddXformOp(
+                UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
+            )
+
+            xform_manifest2 = UsdGeom.Xform.Define(manifest_stage, "/Root/Case_1")
+            matrixOp = xform_manifest2.AddXformOp(
+                UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
+            )
+
+            xform_manifest3 = UsdGeom.Xform.Define(manifest_stage, "/Root/Case_1/"+part_base_name)
+            matrixOp = xform_manifest3.AddXformOp(
+                UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
+            )
+            mesh_manifest = UsdGeom.Mesh.Define(manifest_stage, "/Root/Case_1/"+part_base_name + "/Mesh")
+            print("ok1")
+            manifest_stage.Save()
+            print("ok2")
+            #self._stage.GetRootLayer().subLayerPaths.append("./Parts/"+part_base_name+"_manifest.usda")
+            self._stage.GetRootLayer().subLayerPaths.append("./"+part_base_name+"_manifest.usda")
+
+        # Make the per-timestep file
         if not os.path.exists(part_stage_url):
             part_stage = Usd.Stage.CreateNew(part_stage_url)
             UsdGeom.SetStageUpAxis(part_stage, UsdGeom.Tokens.y)
             UsdGeom.SetStageMetersPerUnit(part_stage, 1.0 / self._units_per_meter)
             self._old_stages.append(part_stage_url)
-            xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
-            mesh = UsdGeom.Mesh.Define(part_stage, "/" + partname + "/Mesh")
+
+            xform_manifest1 = UsdGeom.Xform.Define(part_stage, "/Root")
+            matrixOp = xform_manifest1.AddXformOp(
+                UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
+            )
+
+            xform_manifest2 = UsdGeom.Xform.Define(part_stage, "/Root/Case_1")
+            matrixOp = xform_manifest2.AddXformOp(
+                UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
+            )
+
+
+
+            xform = UsdGeom.Xform.Define(part_stage, "/Root/Case_1/" + part_base_name)
+            mesh = UsdGeom.Mesh.Define(part_stage, "/Root/Case_1/" + part_base_name + "/Mesh")
             # mesh.CreateDisplayColorAttr()
             mesh.CreateDoubleSidedAttr().Set(True)
             mesh.CreatePointsAttr(verts)
@@ -320,7 +364,7 @@ class OmniverseWrapper(object):
                 )
                 texCoords.Set(tcoords)
                 texCoords.SetInterpolation("vertex")
-            part_prim = part_stage.GetPrimAtPath("/" + partname)
+            part_prim = part_stage.GetPrimAtPath("/Root/Case_1/" + part_base_name)
             part_stage.SetDefaultPrim(part_prim)
 
             # Currently, this will never happen, but it is a setup for rigid body transforms
@@ -333,23 +377,59 @@ class OmniverseWrapper(object):
             self.create_dsg_material(
                 part_stage,
                 mesh,
-                "/" + partname,
+                "/Root/Case_1/" + part_base_name,
                 diffuse=diffuse,
                 variable=variable,
                 mat_info=mat_info,
             )
 
-        timestep_prim = self.add_timestep_group(parent_prim, timeline, first_timestep)
+        self.add_timestep_valueclip(part, parent_prim, timeline, stage_name, "default", first_timestep)
+        #timestep_prim = self.add_timestep_group(parent_prim, timeline, first_timestep)
 
         # glue it into our stage
-        path = timestep_prim.GetPath().AppendChild("part_ref_" + partname)
-        part_ref = self._stage.OverridePrim(path)
-        part_ref.GetReferences().AddReference("." + stage_name)
-
+        #path = timestep_prim.GetPath().AppendChild("part_ref_" + partname)
+        #part_ref = self._stage.OverridePrim(path)
+        #part_ref.GetReferences().AddReference("." + stage_name)
+        print("ok4")
         if part_stage is not None:
             part_stage.GetRootLayer().Save()
 
         return part_stage_url
+
+    def add_timestep_valueclip(self, part: Part, part_prim: UsdGeom.Xform, timeline: List[float], stage_name: str, clip_set: str, first_timestep: bool) -> None:
+        print("add_timestep_valueclip "+stage_name+str(timeline[0]))
+        clips_api = Usd.ClipsAPI(part_prim)
+        clipdict = clips_api.GetClips()
+        asset_path = "."+stage_name
+        # Should always start with an empty dict, but if not, make one
+        if not isinstance(clipdict, dict):
+            clipdict = dict()
+        if clip_set not in clipdict:
+            clipdict[clip_set] = {"active": Vt.Vec2dArray(), "assetPaths": Sdf.AssetPathArray()}
+            clips_api.SetClips(clipdict)
+
+        if "active" not in clipdict[clip_set] or "assetPaths" not in clipdict[clip_set]:
+            # Internal error managing value clips
+            print("error out")
+            return
+
+        if len(part._time_files)==0 or part._time_files[-1][0] != asset_path:
+            part._time_files.append((asset_path, timeline[0]))
+            clips_api.SetClipAssetPaths( [time_file[0] for time_file in part._time_files] )
+            clips_api.SetClipActive( [ (time_file[1], ii) for ii, time_file in enumerate(part._time_files) ] )
+            clips_api.SetClipTimes( [ (time_file[1], time_file[1]) for ii, time_file in enumerate(part._time_files) ] )
+            clips_api.SetClipPrimPath("/Root/Case_1/Isosurface_part")
+            #clips_api.SetClipManifestAssetPath(Sdf.AssetPath("./Parts/Isosurface_part_manifest.usda"))
+            clips_api.SetClipManifestAssetPath(Sdf.AssetPath("./Isosurface_part_manifest.usda"))
+
+        #if len(clipdict[clip_set]["assetPaths"])==0 or clipdict[clip_set]["assetPaths"][-1] != asset_path:
+            #ii = len(clipdict[clip_set]["assetPaths"])
+
+            #clipdict[clip_set]["active"].append( Gf.Vec2d(timeline[0], len(clipdict[clip_set]["assetPaths"])) )
+            #clipdict[clip_set]["assetPaths"].append( Sdf.AssetPath(asset_path) )
+            #clips_api.SetClipAssetPaths( clipdict[clip_set]["assetPaths"].append( asset_path ), clip_set )
+            #clips_api.SetClipActive( clipdict[clip_set]["active"].append( (timeline[0], ii) ), clip_set )
+
 
     def add_timestep_group(
         self, parent_prim: UsdGeom.Xform, timeline: List[float], first_timestep: bool
@@ -693,6 +773,7 @@ class OmniverseWrapper(object):
             )
             matrix_op.Set(Gf.Matrix4d(*matrix).GetTranspose())
             # Map kinds
+            """
             kind = Kind.Tokens.group
             if obj_type == "ENS_CASE":
                 kind = Kind.Tokens.assembly
@@ -700,6 +781,7 @@ class OmniverseWrapper(object):
                 kind = Kind.Tokens.component
             Usd.ModelAPI(group_prim).SetKind(kind)
             logging.info(f"Created group:'{name}' {str(obj_type)}")
+            """
         return group_prim
 
     def uploadMaterial(self):
@@ -863,6 +945,7 @@ class OmniverseUpdateHandler(UpdateHandler):
                 has_triangles = True
                 # Generate the mesh block
                 _ = self._omni.create_dsg_mesh_block(
+                    part,
                     name,
                     obj_id,
                     part.hash,
