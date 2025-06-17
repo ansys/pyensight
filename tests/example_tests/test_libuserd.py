@@ -38,7 +38,7 @@ def test_libuserd_basic(tmpdir, pytestconfig: pytest.Config):
             raise RuntimeError("Couldn't download data from github")
     else:
         pyensight_test_data_path = os.path.join(
-            libuserd._cei_home,
+            os.path.dirname(os.path.dirname(libuserd._server_pathname)),
             f"apex{libuserd.ansys_release_number}",
             "machines",
             "common",
