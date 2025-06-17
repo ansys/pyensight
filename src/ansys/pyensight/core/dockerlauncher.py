@@ -394,10 +394,7 @@ class DockerLauncher(Launcher):
         http_port = self._service_host_port["http"][1]
         ws_port = self._service_host_port["ws"][1]
         cmd += f" --server-listen-port {webui_port}"
-        cmd += (
-            f" --server-web-roots /ansys_inc/v{self._ansys_version}/CEI/nexus{self._ansys_version}/"
-        )
-        cmd += f"ansys{self._ansys_version}/ensight/WebUI/web/ui/"
+        cmd += f" --server-web-roots /ansys_inc/v{self._ansys_version}/FluidsOne/web/ui"
         cmd += f" --ensight-grpc-port {grpc_port}"
         cmd += f" --ensight-html-port {http_port}"
         cmd += f" --ensight-ws-port {ws_port}"
