@@ -5,6 +5,7 @@ import platform
 import subprocess
 import sys
 import tempfile
+import threading
 from types import ModuleType
 from typing import TYPE_CHECKING, List, Optional, Union
 import uuid
@@ -35,8 +36,15 @@ class OmniverseKitInstance:
         The process id of the launched instance
     """
 
-    def __init__(self, pid: int) -> None:
-        self._pid: Optional[int] = pid
+    def __init__(self, proc: subprocess.Popen) -> None:
+        self._proc: subprocess.Popen = proc
+        self._returncode: Optional[int] = None
+        self._rendering = False
+        self._lines_read = 0
+        self._scanner_thread = threading.Thread(
+            target=OmniverseKitInstance._scan_stdout, args=(self,)
+        )
+        self._scanner_thread.start()
 
     def __del__(self) -> None:
         """Close down the instance on delete"""
@@ -50,7 +58,7 @@ class OmniverseKitInstance:
         """
         if not self.is_running():
             return
-        proc = psutil.Process(self._pid)
+        proc = psutil.Process(self._proc.pid)
         for child in proc.children(recursive=True):
             if psutil.pid_exists(child.pid):
                 # This can be a race condition, so it is ok if the child is dead already
@@ -63,7 +71,29 @@ class OmniverseKitInstance:
             proc.terminate()
         except psutil.NoSuchProcess:
             pass
-        self._pid = None
+        self._scanner_thread.join()
+
+        # On a forced close, set a return code of 0
+        self._returncode = 0
+
+    @staticmethod
+    def _scan_stdout(oki: "OmniverseKitInstance"):
+        while oki._proc and oki._proc.poll() is None:
+            if oki._proc.stdout is not None:
+                output_line = oki._proc.stdout.readline().decode("utf-8")
+                oki._lines_read = oki._lines_read + 1
+                if "RTX ready" in output_line:
+                    oki._rendering = True
+
+    def is_rendering(self) -> bool:
+        """Check if the instance has finished launching and is ready to render
+
+        Returns
+        -------
+        bool
+            True if the instance is ready to render.
+        """
+        return self.is_running() and self._rendering
 
     def is_running(self) -> bool:
         """Check if the instance is still running
@@ -73,12 +103,26 @@ class OmniverseKitInstance:
         bool
             True if the instance is still running.
         """
-        if not self._pid:
+        if self._proc is None:
             return False
-        if psutil.pid_exists(self._pid):
+        if self._proc.poll() is None:
             return True
-        self._pid = None
         return False
+
+    def returncode(self) -> Optional[int]:
+        """Get the return code if the process has stopped, or None if still running
+
+        Returns
+        -------
+        int or None
+            Get the return code if the process has stopped, or None if still running
+        """
+        if self._returncode is not None:
+            return self._returncode
+        if self.is_running():
+            return None
+        self._returncode = self._proc.returncode
+        return self._returncode
 
 
 # Deprecated
@@ -216,8 +260,8 @@ def launch_kit_instance(
         cmd.append("--/log/enabled=true")
     # Launch the process
     env_vars = os.environ.copy()
-    p = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env_vars)
-    return OmniverseKitInstance(p.pid)
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env_vars)
+    return OmniverseKitInstance(p)
 
 
 def find_app(ansys_installation: Optional[str] = None) -> Optional[str]:
@@ -322,8 +366,8 @@ def launch_app(
 
     # Launch the process
     env_vars = os.environ.copy()
-    p = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env_vars)
-    return OmniverseKitInstance(p.pid)
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env_vars)
+    return OmniverseKitInstance(p)
 
 
 class Omniverse:
