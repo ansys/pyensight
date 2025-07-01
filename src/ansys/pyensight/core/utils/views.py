@@ -18,6 +18,7 @@ Example to set an isometric view:
 
 """
 
+import itertools
 import math
 from typing import TYPE_CHECKING, Dict, List, Optional, Tuple, Union
 
@@ -395,36 +396,8 @@ class Views:
 
     def auto_scale(self):
         """Auto scale view."""
-        vport = self.ensight.objs.core.VPORTS[0]
-        bounds = vport.BOUNDINGBOX
-        xmax = bounds[3]
-        xmin = bounds[0]
-        ymax = bounds[4]
-        ymin = bounds[1]
-        zmax = bounds[5]
-        zmin = bounds[2]
-        low_left = [xmin, ymin, zmin]
-        up_right = [xmax, ymax, zmax]
-        dif_vec = [up_right[i] - low_left[i] for i in range(3)]
-        win_max = max(dif_vec)
-        look_at = [low_left[i] + dif_vec[i] * 0.5 for i in range(3)]
-        zdist = 3 * win_max / math.cos(math.radians(vport.PERSPECTIVEANGLE))
-        look_from = [look_at[0], look_at[1], look_at[2] + zdist]
-        near_clip = vport.ZCLIPLIMITS[0]
-        vport = self.ensight.objs.core.VPORTS[0]
-        view_angle = 2 * vport.PERSPECTIVEANGLE
-        parallel_scale = near_clip * math.tan(math.radians(view_angle) / 2)
-        self.set_camera(
-            not vport.PERSPECTIVE,
-            self._get_view_up_from_quaternion(vport.ROTATION),
-            look_from,
-            look_at,
-            view_angle,
-            parallel_scale,
-        )
-        # self.ensight.view_transf.center_of_transform(*look_from)
-        # self.ensight.view_transf.fit(0)
-        self._initialize_simba_view()
+        self.ensight.view_transf.fit(0)
+        # self._initialize_simba_view()
         return self.get_camera()
 
     def set_perspective(self, value):
@@ -496,6 +469,58 @@ class Views:
             "reset_view_angle": self._original_view_angle,
         }
 
+    @staticmethod
+    def identity_matrix():
+        return [
+            [1.0, 0.0, 0.0, 0.0],
+            [0.0, 1.0, 0.0, 0.0],
+            [0.0, 0.0, 1.0, 0.0],
+            [0.0, 0.0, 0.0, 1.0],
+        ]
+
+    def translation_matrix(self, tx, ty, tz):
+        m = self.identity_matrix()
+        m[3][0] = tx
+        m[3][1] = ty
+        m[3][2] = tz
+        return m
+
+    @staticmethod
+    def multiply_4x4(a, b):
+        result = [[0.0 for _ in range(4)] for _ in range(4)]
+        for i in range(4):
+            for j in range(4):
+                for k in range(4):
+                    result[i][j] += a[i][k] * b[k][j]
+        return result
+
+    def build_rotation_matrix(self, view_dir, view_up):
+        # Z axis (camera forward)
+        z = self._normalize_vector([-v for v in view_dir])  # camera looks along -Z
+
+        # X axis (right)
+        x = self._normalize_vector(self._cross_product(view_up, z))
+
+        # Y axis (true up)
+        y = self._cross_product(z, x)
+        # Build 4x4 rotation matrix (column-major)
+        rotation_matrix = [
+            [-x[0], y[0], -z[0], 0],
+            [-x[1], y[1], -z[1], 0],
+            [-x[2], y[2], -z[2], 0],
+            [0, 0, 0, 1],
+        ]
+
+        return rotation_matrix
+
+    def apply_transform_center_to_rotation(self, rot_matrix, trans_center):
+        tx, ty, tz = trans_center
+        T = self.translation_matrix(-tx, -ty, -tz)
+        T_inv = self.translation_matrix(tx, ty, tz)
+        temp = self.multiply_4x4(T, rot_matrix)
+        adjusted_rot = self.multiply_4x4(temp, T_inv)
+        return adjusted_rot
+
     def set_camera(
         self,
         orthographic,
@@ -520,7 +545,12 @@ class Views:
                 view_up = [0, 1, 0] if abs(direction[1]) < 0.99 else [1, 0, 0]
             right = self._cross_product(direction, view_up)
             view_dir = self._normalize_vector(self._cross_product(view_up, right))
-            self.set_view_direction(*view_dir, perspective=not orthographic)
+            coretransform = vport.CORETRANSFORM.copy()
+            rot_mat = self.build_rotation_matrix(view_dir, view_up)
+            rot_mat = self.apply_transform_center_to_rotation(rot_mat, vport.TRANSFORMCENTER)
+            coretransform[0:16] = itertools.chain(*rot_mat.copy())
+            vport.CORETRANSFORM = coretransform
+            # self.set_view_direction(*view_dir, perspective=not orthographic)
         if focal_point:
             self.ensight.view_transf.look_at(*focal_point)
         if position:
@@ -528,7 +558,5 @@ class Views:
         if parallel_scale:
             old_limits = vport.ZCLIPLIMITS.copy()
             new_znear = parallel_scale / math.tan(math.radians(vport.PERSPECTIVEANGLE))
-            self.ensight.view_transf.zclip_float("OFF")
             self.ensight.view_transf.zclip_front(new_znear)
             self.ensight.view_transf.zclip_back(old_limits[1])
-            self.ensight.view_transf.zclip_float("ON")
