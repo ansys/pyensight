@@ -767,7 +767,7 @@ class OmniverseUpdateHandler(UpdateHandler):
                     sc = Gf.Matrix4d(self._omni._units_per_meter)
                     cam.transform = c * m.GetInverse() * sc
 
-                    # Determine if the camera is prinicipally more Y, or Z up.  X up not supported.
+                    # Determine if the camera is principally more Y, or Z up.  X up not supported.
                     # Omniverse' built in navigator tries to keep this direction up
                     # If the view is principally -Y, there is no good choice.  +Y is least bad.
                     cam_upvec = Gf.Vec4d(0, 1, 0, 0) * cam.transform
