@@ -353,10 +353,21 @@ class OmniverseWrapper(object):
             mesh = UsdGeom.Mesh.Define(part_stage, "/Root/Case_1/" + part_base_name + "/Mesh")
             # mesh.CreateDisplayColorAttr()
             mesh.CreateDoubleSidedAttr().Set(True)
-            mesh.CreatePointsAttr(verts)
-            mesh.CreateNormalsAttr(normals)
-            mesh.CreateFaceVertexCountsAttr([3] * (conn.size // 3))
-            mesh.CreateFaceVertexIndicesAttr(conn)
+
+            #mesh.CreatePointsAttr(verts)
+            #mesh.CreateNormalsAttr(normals)
+            #mesh.CreateFaceVertexCountsAttr([3] * (conn.size // 3))
+            #mesh.CreateFaceVertexIndicesAttr(conn)
+
+            pt_attr = mesh.CreatePointsAttr()
+            pt_attr.Set(verts, 0)
+            norm_attr = mesh.CreateNormalsAttr()
+            norm_attr.Set(normals, 0)
+            fvc_attr = mesh.CreateFaceVertexCountsAttr()
+            fvc_attr.Set([3] * (conn.size // 3), 0)
+            fvi_attr = mesh.CreateFaceVertexIndicesAttr()
+            fvi_attr.Set(conn, 0)
+
             if (tcoords is not None) and variable:
                 primvarsAPI = UsdGeom.PrimvarsAPI(mesh)
                 texCoords = primvarsAPI.CreatePrimvar(
@@ -366,6 +377,13 @@ class OmniverseWrapper(object):
                 texCoords.SetInterpolation("vertex")
             part_prim = part_stage.GetPrimAtPath("/Root/Case_1/" + part_base_name)
             part_stage.SetDefaultPrim(part_prim)
+            #part_stage.SetStartTimeCode(int(timeline[0]))
+            #part_stage.SetEndTimeCode(int(timeline[1]))
+            part_stage.SetStartTimeCode(0)
+            part_stage.SetEndTimeCode(0)
+
+            self._stage.SetStartTimeCode(0)
+            self._stage.SetEndTimeCode(int(timeline[1]))
 
             # Currently, this will never happen, but it is a setup for rigid body transforms
             # At present, the group transforms have been cooked into the vertices so this is not needed
@@ -417,7 +435,7 @@ class OmniverseWrapper(object):
             part._time_files.append((asset_path, timeline[0]))
             clips_api.SetClipAssetPaths( [time_file[0] for time_file in part._time_files] )
             clips_api.SetClipActive( [ (time_file[1], ii) for ii, time_file in enumerate(part._time_files) ] )
-            clips_api.SetClipTimes( [ (time_file[1], time_file[1]) for ii, time_file in enumerate(part._time_files) ] )
+            clips_api.SetClipTimes( [ (time_file[1], 0) for ii, time_file in enumerate(part._time_files) ] )
             clips_api.SetClipPrimPath("/Root/Case_1/Isosurface_part")
             #clips_api.SetClipManifestAssetPath(Sdf.AssetPath("./Parts/Isosurface_part_manifest.usda"))
             clips_api.SetClipManifestAssetPath(Sdf.AssetPath("./Isosurface_part_manifest.usda"))
