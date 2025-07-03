@@ -1,0 +1,6 @@
+AXISXSUBTICK
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_vport
+
+.. autoproperty:: ENS_VPORT.AXISXSUBTICK

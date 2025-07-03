@@ -1,0 +1,6 @@
+seam\_vector
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: devsrf.seam_vector

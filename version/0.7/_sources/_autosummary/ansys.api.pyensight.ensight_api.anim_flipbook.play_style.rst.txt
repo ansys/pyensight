@@ -1,0 +1,6 @@
+play\_style
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_flipbook.play_style

@@ -1,0 +1,6 @@
+global\_axis\_xlabel
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport.global_axis_xlabel
