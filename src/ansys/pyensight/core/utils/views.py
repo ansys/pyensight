@@ -18,9 +18,12 @@ Example to set an isometric view:
 
 """
 
-import itertools
+
 import math
+from types import ModuleType
 from typing import TYPE_CHECKING, Dict, List, Optional, Tuple, Union
+
+import numpy as np
 
 if TYPE_CHECKING:
     try:
@@ -39,7 +42,228 @@ VIEW_DICT = {
     "isometric": (1, 1, 1),
 }
 
-DEF_CAMERA = "C0: -Z View"
+
+class _Simba:
+    """Hidden class to manage the interactor layer in simba"""
+
+    def __init__(self, ensight: Union["ensight_api.ensight", "ensight"], views: "Views"):
+        self.ensight = ensight
+        self.views = views
+        self._original_look_at = None
+        self._original_look_from = None
+        self._original_parallel_scale = None
+        self._original_view_angle = None
+        self._original_view_up = None
+
+    def _initialize_simba_view(self):
+        """Initialize the data for resetting the camera."""
+        vport = self.ensight.objs.core.VPORTS[0]
+        near_clip = vport.ZCLIPLIMITS[0]
+        view_angle = 2 * vport.PERSPECTIVEANGLE
+        self._original_parallel_scale = near_clip * math.tan(math.radians(view_angle) / 2)
+        self._original_view_angle = view_angle
+        (
+            self._original_look_from,
+            self._original_look_at,
+            self._original_view_up,
+        ) = self.compute_camera_from_model_quaternion()
+
+    def get_center_of_rotation(self):
+        """Get EnSight center of rotation."""
+        return self.ensight.objs.core.VPORTS[0].TRANSFORMCENTER
+
+    def auto_scale(self):
+        """Auto scale view."""
+        self.ensight.view_transf.fit()
+        self._initialize_simba_view()
+        return self.get_camera()
+
+    def set_perspective(self, value):
+        """Set perspective or ortographic."""
+        val = "OFF" if not value else "ON"
+        self.ensight.view.perspective(val)
+        self.ensight.objs.core.VPORTS[0].PERSPECTIVE = val == "ON"
+
+    def set_view(self, value: str):
+        """Set the view."""
+        if value != "isometric":
+            new_value = value[1].upper() + value[0]
+            self.ensight.view_transf.view_recall(new_value)
+        else:
+            self.views.set_view_direction(
+                1, 1, 1, perspective=self.ensight.objs.core.vports[0].PERSPECTIVE
+            )
+        self.auto_scale()
+        return self.get_camera()
+
+    def get_plane_clip(self):
+        """Get the depth of the current focal point."""
+        vport = self.ensight.objs.core.VPORTS[0]
+        focal_point = self.compute_camera_from_model_quaternion()[1]
+        plane_clip = (focal_point[2] - vport.ZCLIPLIMITS[0]) / vport.ZCLIPLIMITS[
+            1
+        ] - vport.ZCLIPLIMITS[0]
+        return plane_clip
+
+    def get_camera(self):
+        """Get EnSight camera settings in VTK format."""
+        vport = self.ensight.objs.core.VPORTS[0]
+        position, focal_point, view_up = self.compute_camera_from_model_quaternion()
+        near_clip = vport.ZCLIPLIMITS[0]
+        vport = self.ensight.objs.core.VPORTS[0]
+        view_angle = 2 * vport.PERSPECTIVEANGLE
+        parallel_scale = near_clip * math.tan(math.radians(view_angle) / 2)
+        return {
+            "orthographic": not vport.PERSPECTIVE,
+            "view_up": view_up,
+            "position": position,
+            "focal_point": focal_point,
+            "view_angle": view_angle,
+            "parallel_scale": parallel_scale,
+            "reset_focal_point": self._original_look_at,
+            "reset_position": self._original_look_from,
+            "reset_parallel_scale": self._original_parallel_scale,
+            "reset_view_up": self._original_view_up,
+            "reset_view_angle": self._original_view_angle,
+        }
+
+    @staticmethod
+    def normalize(v):
+        """Normalize a numpy vector."""
+        norm = np.linalg.norm(v)
+        return v / norm if norm > 0 else v
+
+    @staticmethod
+    def rotation_matrix_to_quaternion(m):
+        """Convert a numpy rotation matrix to a quaternion."""
+        trace = np.trace(m)
+        if trace > 0:
+            s = 0.5 / np.sqrt(trace + 1.0)
+            w = 0.25 / s
+            x = (m[2, 1] - m[1, 2]) * s
+            y = (m[0, 2] - m[2, 0]) * s
+            z = (m[1, 0] - m[0, 1]) * s
+        else:
+            if m[0, 0] > m[1, 1] and m[0, 0] > m[2, 2]:
+                s = 2.0 * np.sqrt(1.0 + m[0, 0] - m[1, 1] - m[2, 2])
+                w = (m[2, 1] - m[1, 2]) / s
+                x = 0.25 * s
+                y = (m[0, 1] + m[1, 0]) / s
+                z = (m[0, 2] + m[2, 0]) / s
+            elif m[1, 1] > m[2, 2]:
+                s = 2.0 * np.sqrt(1.0 + m[1, 1] - m[0, 0] - m[2, 2])
+                w = (m[0, 2] - m[2, 0]) / s
+                x = (m[0, 1] + m[1, 0]) / s
+                y = 0.25 * s
+                z = (m[1, 2] + m[2, 1]) / s
+            else:
+                s = 2.0 * np.sqrt(1.0 + m[2, 2] - m[0, 0] - m[1, 1])
+                w = (m[1, 0] - m[0, 1]) / s
+                x = (m[0, 2] + m[2, 0]) / s
+                y = (m[1, 2] + m[2, 1]) / s
+                z = 0.25 * s
+        return np.array([x, y, z, w])
+
+    def compute_model_rotation_quaternion(self, camera_position, focal_point, view_up):
+        """Compute the quaternion from the input camera."""
+        forward = self.normalize(np.array(focal_point) - np.array(camera_position))
+        right = self.normalize(np.cross(forward, view_up))
+        true_up = np.cross(right, forward)
+        camera_rotation = np.vstack([right, true_up, -forward]).T
+        model_rotation = camera_rotation.T
+        quat = self.rotation_matrix_to_quaternion(model_rotation)
+        return quat.tolist()
+
+    @staticmethod
+    def quaternion_to_rotation_matrix(q):
+        """Convert a quaternion to a numpy rotation matrix."""
+        x, y, z, w = q
+        return np.array(
+            [
+                [1 - 2 * y**2 - 2 * z**2, 2 * x * y - 2 * z * w, 2 * x * z + 2 * y * w],
+                [2 * x * y + 2 * z * w, 1 - 2 * x**2 - 2 * z**2, 2 * y * z - 2 * x * w],
+                [2 * x * z - 2 * y * w, 2 * y * z + 2 * x * w, 1 - 2 * x**2 - 2 * y**2],
+            ]
+        )
+
+    def rotate_vector(self, v, q):
+        """Rotate a vector with the current quaernion."""
+        R = self.quaternion_to_rotation_matrix(q)
+        return R @ v
+
+    def compute_camera_from_model_quaternion(self, default_view_up=[0, 1, 0]):
+        """Simulate a rotating camera using the current quaternion."""
+        vport = self.ensight.objs.core.VPORTS[0]
+        q = np.array(vport.ROTATION.copy())
+        q_inv = np.array([-q[0], -q[1], -q[2], q[3]])
+
+        R = self.quaternion_to_rotation_matrix(q_inv)
+        camera_position = R @ np.array(vport.LOOKFROMPOINT)
+        q_inv_up = R @ np.array(default_view_up)
+        focal_point = self.rotate_vector(np.array(vport.LOOKATPOINT), q_inv)
+        return camera_position.tolist(), focal_point.tolist(), q_inv_up.tolist()
+
+    def set_camera(
+        self,
+        orthographic,
+        view_up=None,
+        position=None,
+        focal_point=None,
+        view_angle=None,
+        parallel_scale=None,
+    ):
+        """Set the EnSight camera settings from the VTK input."""
+        perspective = "OFF" if orthographic else "ON"
+        if orthographic:
+            self.ensight.view.perspective(perspective)
+        vport = self.ensight.objs.core.VPORTS[0]
+        if view_angle:
+            vport.PERSPECTIVEANGLE = view_angle / 2
+        if view_up and position and focal_point:
+            rots = self.compute_model_rotation_quaternion(position, focal_point, view_up)
+            vport.ROTATION = rots
+        if parallel_scale:
+            new_znear = parallel_scale / math.tan(math.radians(vport.PERSPECTIVEANGLE))
+            self.ensight.view_transf.zclip_front(new_znear)
+
+    @staticmethod
+    def transform_coretransform_to_threejs(model_point, coretransform):
+        """Transforms a model-space point using the vport coretransform."""
+        coretransform = np.array(coretransform, dtype=np.float64)
+        model_point = np.array(list(model_point) + [1.0])
+        rotation_matrix = coretransform[0:16].reshape((4, 4))
+        translation_matrix = coretransform[16:32].reshape((4, 4))
+        scale_matrix = coretransform[32:48].reshape((4, 4))
+
+        model_matrix = translation_matrix @ rotation_matrix @ scale_matrix
+        world_point = model_matrix @ model_point
+        if world_point[3] != 1.0:
+            world_point[0] /= world_point[3]
+            world_point[1] /= world_point[3]
+            world_point[2] /= world_point[3]
+        world_point = world_point[:3]
+        world_point[2] *= -1
+
+        return world_point
+
+    def screen_to_world(self, x, y, depth_ndc, invert_y=False):
+        mousex = int(x)
+        mousey = int(y)
+        vport = self.ensight.objs.core.VPORTS[0]
+        if isinstance(self.ensight, ModuleType):
+            model_point = self.ensight.objs.core.VPORTS[0].screen_to_coords(
+                mousex, mousey, depth_ndc, invert_y
+            )
+        else:
+            model_point = self.ensight._session.cmd(
+                f"ensight.objs.core.VPORTS[0].screen_to_coords({mousex}, {mousey}, {depth_ndc}, {invert_y})"
+            )
+        self.ensight.tools.cursor("ON")
+        self.ensight.view_transf.cursor(*model_point.copy())
+        world_point = self.transform_coretransform_to_threejs(
+            model_point, vport.CORETRANSFORM.copy()
+        )
+        return world_point.tolist()
 
 
 class Views:
@@ -48,21 +272,7 @@ class Views:
     def __init__(self, ensight: Union["ensight_api.ensight", "ensight"]):
         self.ensight = ensight
         self._views_dict: Dict[str, Tuple[int, List[float]]] = {}
-        self._original_look_at = None
-        self._original_look_from = None
-        self._original_parallel_scale = None
-        self._original_view_angle = None
-        self._original_view_up = None
-
-    def _initialize_simba_view(self):
-        vport = self.ensight.objs.core.VPORTS[0]
-        self._original_look_at = vport.LOOKATPOINT
-        self._original_look_from = vport.LOOKFROMPOINT
-        near_clip = vport.ZCLIPLIMITS[0]
-        view_angle = 2 * vport.PERSPECTIVEANGLE
-        self._original_parallel_scale = near_clip * math.tan(math.radians(view_angle) / 2)
-        self._original_view_angle = view_angle
-        self._original_view_up = self._get_view_up_from_quaternion(vport.ROTATION)
+        self._simba = _Simba(ensight, self)
 
     @staticmethod
     def _normalize_vector(direction: List[float]) -> List[float]:
@@ -389,174 +599,3 @@ class Views:
     def reinitialize_view(self) -> None:
         """Reset the view."""
         self.ensight.view_transf.initialize_viewports()
-
-    def get_center_of_rotation(self):
-        """Get EnSight center of rotation."""
-        self.ensight.objs.core.VPORTS[0].TRANSFORMCENTER
-
-    def auto_scale(self):
-        """Auto scale view."""
-        self.ensight.view_transf.fit(0)
-        # self._initialize_simba_view()
-        return self.get_camera()
-
-    def set_perspective(self, value):
-        """Set perspective or ortographic."""
-        val = "OFF" if not value else "ON"
-        self.ensight.view.perspective(val)
-        self.ensight.objs.core.VPORTS[0].PERSPECTIVE = val == "ON"
-
-    def set_view(self, value: str):
-        """Set the view."""
-        if value != "isometric":
-            new_value = value[1].upper() + value[0]
-            self.ensight.view_transf.view_recall(new_value)
-        else:
-            self.set_view_direction(
-                1, 1, 1, perspective=self.ensight.objs.core.vports[0].PERSPECTIVE
-            )
-        self.auto_scale()
-        return self.get_camera()
-
-    def _get_view_direction_from_quaternion(self, quaternion):
-        """Convert quaternion to view direction vector."""
-        x, y, z, w = quaternion
-        view_direction = [2 * x * z - 2 * y * w, 2 * y * z + 2 * x * w, 1 - 2 * x**2 - 2 * y**2]
-        return self._normalize_vector(view_direction)
-
-    def _get_view_up_from_quaternion(self, quaternion):
-        """Convert quaternion to view up vector."""
-        x, y, z, w = quaternion
-        view_up = [2 * x * y + 2 * z * w, 1 - 2 * x**2 - 2 * z**2, 2 * y * z - 2 * x * w]
-        return self._normalize_vector(view_up)
-
-    @staticmethod
-    def _get_view_up_vtk_style(view_direction):
-        world_up = [0, 1, 0]
-        dot = sum(a * b for a, b in zip(view_direction, world_up))
-        if abs(dot) > 0.999:
-            return [0, 0, 1]
-        return world_up
-
-    def get_plane_clip(self):
-        vport = self.ensight.objs.core.VPORTS[0]
-        focal_point = vport.LOOKATPOINT
-        mid_point = (vport.ZCLIPLIMITS[1] - vport.ZCLIPLIMITS[0]) / 2
-        plane_clip = (focal_point[2] - mid_point) / abs(vport.ZCLIPLIMITS[0] - vport.ZCLIPLIMITS[1])
-        return plane_clip
-
-    def get_camera(self):
-        """Get EnSight camera settings in VTK format."""
-        vport = self.ensight.objs.core.VPORTS[0]
-        position = vport.LOOKFROMPOINT
-        focal_point = vport.LOOKATPOINT
-        view_up = self._get_view_up_from_quaternion(vport.ROTATION)
-        near_clip = vport.ZCLIPLIMITS[0]
-        vport = self.ensight.objs.core.VPORTS[0]
-        view_angle = 2 * vport.PERSPECTIVEANGLE
-        parallel_scale = near_clip * math.tan(math.radians(view_angle) / 2)
-        return {
-            "orthographic": not vport.PERSPECTIVE,
-            "view_up": view_up,
-            "position": position,
-            "focal_point": focal_point,
-            "view_angle": view_angle,
-            "parallel_scale": parallel_scale,
-            "reset_focal_point": self._original_look_at,
-            "reset_position": self._original_look_from,
-            "reset_parallel_scale": self._original_parallel_scale,
-            "reset_view_up": self._original_view_up,
-            "reset_view_angle": self._original_view_angle,
-        }
-
-    @staticmethod
-    def identity_matrix():
-        return [
-            [1.0, 0.0, 0.0, 0.0],
-            [0.0, 1.0, 0.0, 0.0],
-            [0.0, 0.0, 1.0, 0.0],
-            [0.0, 0.0, 0.0, 1.0],
-        ]
-
-    def translation_matrix(self, tx, ty, tz):
-        m = self.identity_matrix()
-        m[3][0] = tx
-        m[3][1] = ty
-        m[3][2] = tz
-        return m
-
-    @staticmethod
-    def multiply_4x4(a, b):
-        result = [[0.0 for _ in range(4)] for _ in range(4)]
-        for i in range(4):
-            for j in range(4):
-                for k in range(4):
-                    result[i][j] += a[i][k] * b[k][j]
-        return result
-
-    def build_rotation_matrix(self, view_dir, view_up):
-        # Z axis (camera forward)
-        z = self._normalize_vector([-v for v in view_dir])  # camera looks along -Z
-
-        # X axis (right)
-        x = self._normalize_vector(self._cross_product(view_up, z))
-
-        # Y axis (true up)
-        y = self._cross_product(z, x)
-        # Build 4x4 rotation matrix (column-major)
-        rotation_matrix = [
-            [-x[0], y[0], -z[0], 0],
-            [-x[1], y[1], -z[1], 0],
-            [-x[2], y[2], -z[2], 0],
-            [0, 0, 0, 1],
-        ]
-
-        return rotation_matrix
-
-    def apply_transform_center_to_rotation(self, rot_matrix, trans_center):
-        tx, ty, tz = trans_center
-        T = self.translation_matrix(-tx, -ty, -tz)
-        T_inv = self.translation_matrix(tx, ty, tz)
-        temp = self.multiply_4x4(T, rot_matrix)
-        adjusted_rot = self.multiply_4x4(temp, T_inv)
-        return adjusted_rot
-
-    def set_camera(
-        self,
-        orthographic,
-        view_up=None,
-        position=None,
-        focal_point=None,
-        view_angle=None,
-        parallel_scale=None,
-    ):
-        """Set the EnSight camera settings from the VTK input."""
-        perspective = "OFF" if orthographic else "ON"
-        if orthographic:
-            self.ensight.view.perspective(perspective)
-        vport = self.ensight.objs.core.VPORTS[0]
-        if view_angle:
-            vport.PERSPECTIVEANGLE = view_angle / 2
-        if view_up:
-            view_dir_list = self._get_view_direction_from_quaternion(vport.ROTATION.copy())
-            direction = self._normalize_vector([*view_dir_list])
-            dot = abs(sum([view_up[i] * direction[i] for i in range(3)]))
-            if dot > 0.999:
-                view_up = [0, 1, 0] if abs(direction[1]) < 0.99 else [1, 0, 0]
-            right = self._cross_product(direction, view_up)
-            view_dir = self._normalize_vector(self._cross_product(view_up, right))
-            coretransform = vport.CORETRANSFORM.copy()
-            rot_mat = self.build_rotation_matrix(view_dir, view_up)
-            rot_mat = self.apply_transform_center_to_rotation(rot_mat, vport.TRANSFORMCENTER)
-            coretransform[0:16] = itertools.chain(*rot_mat.copy())
-            vport.CORETRANSFORM = coretransform
-            # self.set_view_direction(*view_dir, perspective=not orthographic)
-        if focal_point:
-            self.ensight.view_transf.look_at(*focal_point)
-        if position:
-            self.ensight.view_transf.look_from(*position)
-        if parallel_scale:
-            old_limits = vport.ZCLIPLIMITS.copy()
-            new_znear = parallel_scale / math.tan(math.radians(vport.PERSPECTIVEANGLE))
-            self.ensight.view_transf.zclip_front(new_znear)
-            self.ensight.view_transf.zclip_back(old_limits[1])
