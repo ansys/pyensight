@@ -246,46 +246,7 @@ class _Simba:
         self.ensight.render()
         self.ensight.refresh(1)
 
-    @staticmethod
-    def transform_coretransform_to_threejs(model_point, coretransform):
-        """Transforms a model-space point using the vport coretransform."""
-        coretransform = np.array(coretransform, dtype=np.float64)
-        model_point = np.array(list(model_point) + [1.0])
-        rotation_matrix = coretransform[0:16].reshape((4, 4))
-        translation_matrix = coretransform[16:32].reshape((4, 4))
-        scale_matrix = coretransform[32:48].reshape((4, 4))
-
-        model_matrix = translation_matrix.T @ rotation_matrix.T @ scale_matrix.T
-        world_point = model_matrix @ model_point
-        if world_point[3] != 1.0:
-            world_point[0] /= world_point[3]
-            world_point[1] /= world_point[3]
-            world_point[2] /= world_point[3]
-        world_point = world_point[:3]
-
-        return world_point
-
-    @staticmethod
-    def transform_coretransform_to_threejs_inverse(model_point, coretransform):
-        """Transforms a model-space point using the vport coretransform."""
-        coretransform = np.array(coretransform, dtype=np.float64)
-        model_point = np.array(list(model_point) + [1.0])
-        rotation_matrix = coretransform[0:16].reshape((4, 4))
-        translation_matrix = coretransform[16:32].reshape((4, 4))
-        scale_matrix = coretransform[32:48].reshape((4, 4))
-
-        model_matrix = translation_matrix.T @ rotation_matrix.T @ scale_matrix.T
-        inverse = np.linalg.inv(model_matrix)
-        world_point = inverse @ model_point
-        if world_point[3] != 1.0:
-            world_point[0] /= world_point[3]
-            world_point[1] /= world_point[3]
-            world_point[2] /= world_point[3]
-        world_point = world_point[:3]
-
-        return world_point
-
-    def _common(self, x, y, depth_ndc, invert_y):
+    def screen_to_world(self, x, y, depth_ndc, invert_y=False):
         mousex = int(x)
         mousey = int(y)
         if isinstance(self.ensight, ModuleType):
@@ -298,72 +259,9 @@ class _Simba:
             )
         self.ensight.tools.cursor("ON")
         self.ensight.view_transf.cursor(*model_point.copy())
-        return model_point
-
-    def screen_to_world(self, x, y, depth_ndc, invert_y=False):
         model_point = self._common(x, y, depth_ndc, invert_y)
         self.ensight.view_transf.center_of_transform(*model_point)
         return {"model_point": model_point, "camera": self.get_camera()}
-
-    def screen_to_world2(self, x, y, depth_ndc, invert_y=False):
-        vport = self.ensight.objs.core.VPORTS[0]
-        model_point = self._common(x, y, depth_ndc, invert_y)
-        coretransform = vport.CORETRANSFORM.copy()
-        coretransform[48:51] = model_point.copy()
-        coretransform[51:54] = model_point.copy()
-        vport.CORETRANSFORM = coretransform
-        world_point = self.transform_coretransform_to_threejs_inverse(
-            model_point, vport.CORETRANSFORM.copy()
-        )
-        return world_point.tolist()
-
-    def screen_to_world3(self, x, y, invert_y=False):
-        position, focal_point, view_up = self.compute_camera_from_model_quaternion()
-        width, height = tuple(self.ensight.objs.core.WINDOWSIZE)
-        if invert_y:
-            y = height - y
-        model_point = self._common(x, y, 0, invert_y)
-        vport = self.ensight.objs.core.VPORTS[0]
-        depth = model_point[2]
-
-        def look_at(eye, center, up):
-            f = self.normalize(center - eye)
-            s = self.normalize(np.cross(f, up))
-            u = np.cross(s, f)
-            view = np.identity(4)
-            view[0, :3] = s
-            view[1, :3] = u
-            view[2, :3] = -f
-            view[:3, 3] = -view[:3, :3] @ eye
-            return view
-
-        def perspective(fov_y, aspect, near, far):
-            f = 1.0 / np.tan(np.radians(fov_y) / 2)
-            proj = np.zeros((4, 4))
-            proj[0, 0] = f / aspect
-            proj[1, 1] = f
-            proj[2, 2] = (far + near) / (near - far)
-            proj[2, 3] = (2 * far * near) / (near - far)
-            proj[3, 2] = -1.0
-            return proj
-
-        eye = np.array(position, dtype=np.float64)
-        center = np.array(focal_point, dtype=np.float64)
-        up = np.array(view_up, dtype=np.float64)
-        aspect = width / height
-        view_matrix = look_at(eye, center, up)
-        near, far = tuple(vport.ZCLIPLIMITS.copy())
-        projection_matrix = perspective(vport.PERSPECTIVEANGLE * 2, aspect, near, far)
-        inv_proj_view = np.linalg.inv(projection_matrix @ view_matrix)
-        x_ndc = (2.0 * x) / width - 1.0
-        y_ndc = 1.0 - (2.0 * y) / height  # flip Y
-        z_ndc = depth
-
-        ndc = np.array([x_ndc, y_ndc, z_ndc, 1.0])
-        world = inv_proj_view @ ndc
-        world /= world[3]
-
-        return world[:3]
 
     def render(self):
         self.ensight.render()
