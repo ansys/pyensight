@@ -261,7 +261,7 @@ class _Simba:
         self.ensight.view_transf.cursor(*model_point.copy())
         model_point = self._common(x, y, depth_ndc, invert_y)
         self.ensight.view_transf.center_of_transform(*model_point)
-        return {"model_point": model_point, "camera": self.get_camera()}
+        return model_point
 
     def render(self):
         self.ensight.render()
