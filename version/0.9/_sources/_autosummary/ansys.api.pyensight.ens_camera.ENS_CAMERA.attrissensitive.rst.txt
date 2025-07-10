@@ -1,0 +1,6 @@
+attrissensitive
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_camera
+
+.. automethod:: ENS_CAMERA.attrissensitive

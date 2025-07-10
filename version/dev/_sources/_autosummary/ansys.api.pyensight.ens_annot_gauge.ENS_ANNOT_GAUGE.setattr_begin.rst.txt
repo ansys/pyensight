@@ -1,0 +1,6 @@
+setattr\_begin
+==============
+
+.. currentmodule:: ansys.api.pyensight.ens_annot_gauge
+
+.. automethod:: ENS_ANNOT_GAUGE.setattr_begin
