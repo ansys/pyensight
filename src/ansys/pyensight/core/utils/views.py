@@ -66,7 +66,8 @@ class _Simba:
             self._original_look_from,
             self._original_look_at,
             self._original_view_up,
-        ) = self.compute_camera_from_model_quaternion()
+            self._original_parallel_scale,
+        ) = self.compute_camera_from_ensight_opengl()
 
     def get_center_of_rotation(self):
         """Get EnSight center of rotation."""
@@ -78,12 +79,6 @@ class _Simba:
         self._initialize_simba_view()
         self.render()
         return self.get_camera()
-
-    def set_perspective(self, value):
-        """Set perspective or ortographic."""
-        val = "OFF" if not value else "ON"
-        self.ensight.view.perspective(val)
-        self.ensight.objs.core.VPORTS[0].PERSPECTIVE = val == "ON"
 
     def set_view(self, value: str):
         """Set the view."""
@@ -97,23 +92,16 @@ class _Simba:
         self.auto_scale()
         return self.get_camera()
 
-    def get_plane_clip(self):
-        """Get the depth of the current focal point."""
-        vport = self.ensight.objs.core.VPORTS[0]
-        focal_point = self.compute_camera_from_model_quaternion()[1]
-        plane_clip = (focal_point[2] - vport.ZCLIPLIMITS[0]) / vport.ZCLIPLIMITS[
-            1
-        ] - vport.ZCLIPLIMITS[0]
-        return plane_clip
-
     def get_camera(self):
         """Get EnSight camera settings in VTK format."""
         vport = self.ensight.objs.core.VPORTS[0]
-        position, focal_point, view_up = self.compute_camera_from_model_quaternion()
-        near_clip = vport.ZCLIPLIMITS[0]
+        position, focal_point, view_up, parallel_scale = self.compute_camera_from_ensight_opengl()
         vport = self.ensight.objs.core.VPORTS[0]
         view_angle = 2 * vport.PERSPECTIVEANGLE
-        parallel_scale = near_clip * math.tan(math.radians(view_angle) / 2)
+        # The parameter parallel scale is the actual parallel scale only
+        # if the vport is in orthographic mode. If not, it is defined as the
+        # inverge of the tangent of half of the field of view
+        parallel_scale = parallel_scale
         return {
             "orthographic": not vport.PERSPECTIVE,
             "view_up": view_up,
@@ -203,7 +191,7 @@ class _Simba:
 
         return np.degrees([roll, pitch, yaw])
 
-    def compute_camera_from_model_quaternion(self):
+    def compute_camera_from_ensight_opengl(self):
         """Simulate a rotating camera using the current quaternion."""
         if isinstance(self.ensight, ModuleType):
             data = self.ensight.objs.core.VPORTS[0].simba_camera()
@@ -212,16 +200,11 @@ class _Simba:
         camera_position = [data[0], data[1], data[2]]
         focal_point = [data[3], data[4], data[5]]
         view_up = [data[6], data[7], data[8]]
-        return camera_position, focal_point, self.views._normalize_vector(view_up)
+        parallel_scale = 1 / data[9]
+        return camera_position, focal_point, self.views._normalize_vector(view_up), parallel_scale
 
     def set_camera(
-        self,
-        orthographic,
-        view_up=None,
-        position=None,
-        focal_point=None,
-        view_angle=None,
-        parallel_scale=None,
+        self, orthographic, view_up=None, position=None, focal_point=None, view_angle=None
     ):
         """Set the EnSight camera settings from the VTK input."""
         perspective = "OFF" if orthographic else "ON"
@@ -230,6 +213,7 @@ class _Simba:
         vport = self.ensight.objs.core.VPORTS[0]
         if view_angle:
             vport.PERSPECTIVEANGLE = view_angle / 2
+
         if view_up and position and focal_point:
             q_current = self.normalize(np.array(vport.ROTATION.copy()))
             q_target = self.normalize(
@@ -240,28 +224,30 @@ class _Simba:
             )
             angles = self.quaternion_to_euler(q_relative)
             self.ensight.view_transf.rotate(*angles)
-        if parallel_scale:
-            new_znear = parallel_scale / math.tan(math.radians(view_angle / 2))
-            self.ensight.view_transf.zclip_front(new_znear)
-        self.ensight.render()
-        self.ensight.refresh(1)
+        self.render()
 
-    def screen_to_world(self, x, y, depth_ndc, invert_y=False):
-        mousex = int(x)
-        mousey = int(y)
+    def set_perspective(self, value):
+        vport = self.ensight.objs.core.VPORTS[0]
+        self.ensight.view.perspective(value)
+        vport.PERSPECTIVE = value == "ON"
+        self.ensight.view_transf.zoom(1)
+        self.ensight.view_transf.rotate(0, 0, 0)
+        self.render()
+        return self.get_camera()
+
+    def screen_to_world(self, mousex, mousey, invert_y=False, set_center=False):
+        mousex = int(mousex)
+        mousey = int(mousey)
         if isinstance(self.ensight, ModuleType):
             model_point = self.ensight.objs.core.VPORTS[0].screen_to_coords(
-                mousex, mousey, depth_ndc, invert_y
+                mousex, mousey, invert_y, set_center
             )
         else:
             model_point = self.ensight._session.cmd(
-                f"ensight.objs.core.VPORTS[0].screen_to_coords({mousex}, {mousey}, {depth_ndc}, {invert_y})"
+                f"ensight.objs.core.VPORTS[0].screen_to_coords({mousex}, {mousey}, {invert_y}, {set_center})"
             )
-        self.ensight.tools.cursor("ON")
-        self.ensight.view_transf.cursor(*model_point.copy())
-        model_point = self._common(x, y, depth_ndc, invert_y)
-        self.ensight.view_transf.center_of_transform(*model_point)
-        return model_point
+        self.render()
+        return {"model_point": model_point, "camera": self.get_camera()}
 
     def render(self):
         self.ensight.render()
