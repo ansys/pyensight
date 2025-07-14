@@ -68,6 +68,9 @@ class _Simba:
             self._original_view_up,
             self._original_parallel_scale,
         ) = self.compute_camera_from_ensight_opengl()
+        self.ensight.annotation.axis_global("off")
+        self.ensight.annotation.axis_local("off")
+        self.ensight.annotation.axis_model("off")
 
     def get_center_of_rotation(self):
         """Get EnSight center of rotation."""
