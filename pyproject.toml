@@ -36,7 +36,8 @@ dependencies = [
     "pypng>=0.0.20",
     "psutil>=5.9.2",
     "usd-core==24.8; python_version < '3.13' and platform_machine != 'aarch64'",
-    "pygltflib>=1.16.2"
+    "pygltflib>=1.16.2",
+    "grpcio<1.68.0",
 ]
 
 [project.optional-dependencies]

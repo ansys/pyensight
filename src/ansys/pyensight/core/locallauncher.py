@@ -102,8 +102,16 @@ class LocalLauncher(Launcher):
         """Type of app to launch. Options are ``ensight`` and ``envision``."""
         return self._application
 
-    def launch_webui(self, cpython, version, popen_common):
-        cmd = [cpython, "-m", "ansys.simba.plugin.post.simba_post"]
+    def launch_webui(self, version, popen_common):
+        if os.environ.get("PYENSIGHT_FLUIDSONE_PATH"):
+            fluids_one_path = os.environ["PYENSIGHT_FLUIDSONE_PATH"]
+        else:
+            awp_path = os.path.dirname(self._install_path)
+            platf = "winx64" if self._is_windows() else "linx64"
+            fluids_one_path = os.path.join(awp_path, "FluidsOne", "server", platf, "fluids_one")
+            if self._is_windows():
+                fluids_one_path += ".exe"
+        cmd = [fluids_one_path, "--main-run-mode", "post"]
         path_to_webui = self._install_path
         # Dev environment
         path_to_webui_internal = os.path.join(
@@ -265,7 +273,6 @@ class LocalLauncher(Launcher):
             cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
             if is_windows:
                 cmd[0] += ".bat"
-            ensight_python = cmd[0]
             cmd.extend(["--http_directory", self.session_directory])
             # http port
             cmd.extend(["--http_port", str(self._ports[2])])
@@ -312,7 +319,7 @@ class LocalLauncher(Launcher):
         self._sessions.append(session)
 
         if self._launch_webui:
-            self.launch_webui(ensight_python, version, popen_common)
+            self.launch_webui(version, popen_common)
         return session
 
     def stop(self) -> None:
