@@ -1,5 +1,6 @@
-#
-# This file borrows heavily from the Omniverse Example Connector which
+# Copyright (C) 2022 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright 2020 NVIDIA Corporation
+
 # contains the following notice:
 #
 ###############################################################################
