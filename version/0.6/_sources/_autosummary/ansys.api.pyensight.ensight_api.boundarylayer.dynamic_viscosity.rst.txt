@@ -1,0 +1,6 @@
+dynamic\_viscosity
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: boundarylayer.dynamic_viscosity

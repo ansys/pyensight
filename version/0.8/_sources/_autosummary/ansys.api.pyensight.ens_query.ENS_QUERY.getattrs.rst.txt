@@ -1,0 +1,6 @@
+getattrs
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_query
+
+.. automethod:: ENS_QUERY.getattrs
