@@ -71,7 +71,7 @@ class OmniverseWrapper(object):
         self._time_codes_per_second: float = 120.0
         # Omniverse content currently only scales correctly for scenes in cm.  DJB, Feb 2025
         self._units_per_meter: float = 100.0
-
+        self._up_axis: str = UsdGeom.Tokens.y
         if destination:
             self.destination = destination
 
@@ -164,7 +164,7 @@ class OmniverseWrapper(object):
         self._stage = Usd.Stage.CreateNew(self.stage_url())
         # record the stage in the "_old_stages" list.
         self._old_stages.append(self.stage_url())
-        UsdGeom.SetStageUpAxis(self._stage, UsdGeom.Tokens.y)
+        UsdGeom.SetStageUpAxis(self._stage, self._up_axis)
         UsdGeom.SetStageMetersPerUnit(self._stage, 1.0 / self._units_per_meter)
         logging.info(f"Created stage: {self.stage_url()}")
 
@@ -303,7 +303,7 @@ class OmniverseWrapper(object):
 
         if not os.path.exists(part_stage_url):
             part_stage = Usd.Stage.CreateNew(part_stage_url)
-            UsdGeom.SetStageUpAxis(part_stage, UsdGeom.Tokens.y)
+            UsdGeom.SetStageUpAxis(part_stage, self._up_axis)
             UsdGeom.SetStageMetersPerUnit(part_stage, 1.0 / self._units_per_meter)
             self._old_stages.append(part_stage_url)
             xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
@@ -401,7 +401,7 @@ class OmniverseWrapper(object):
 
         if not os.path.exists(part_stage_url):
             part_stage = Usd.Stage.CreateNew(part_stage_url)
-            UsdGeom.SetStageUpAxis(part_stage, UsdGeom.Tokens.y)
+            UsdGeom.SetStageUpAxis(part_stage, self._up_axis)
             UsdGeom.SetStageMetersPerUnit(part_stage, 1.0 / self._units_per_meter)
             self._old_stages.append(part_stage_url)
             xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
@@ -486,7 +486,7 @@ class OmniverseWrapper(object):
 
         if not os.path.exists(part_stage_url):
             part_stage = Usd.Stage.CreateNew(part_stage_url)
-            UsdGeom.SetStageUpAxis(part_stage, UsdGeom.Tokens.y)
+            UsdGeom.SetStageUpAxis(part_stage, self._up_axis)
             UsdGeom.SetStageMetersPerUnit(part_stage, 1.0 / self._units_per_meter)
             self._old_stages.append(part_stage_url)
             xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
@@ -767,6 +767,17 @@ class OmniverseUpdateHandler(UpdateHandler):
                     # move the model transform to the camera transform
                     sc = Gf.Matrix4d(self._omni._units_per_meter)
                     cam.transform = c * m.GetInverse() * sc
+
+                    # Determine if the camera is principally more Y, or Z up.  X up not supported.
+                    # Omniverse' built in navigator tries to keep this direction up
+                    # If the view is principally -Y, there is no good choice.  +Y is least bad.
+                    cam_upvec = Gf.Vec4d(0, 1, 0, 0) * cam.transform
+                    if abs(cam_upvec[1]) >= abs(cam_upvec[2]):
+                        self._up_axis = UsdGeom.Tokens.y
+                    else:
+                        self._up_axis = UsdGeom.Tokens.z
+                    UsdGeom.SetStageUpAxis(self._omni._stage, self._up_axis)
+
                     # set the updated camera
                     geom_cam.SetFromCamera(cam)
                     # apply the inverse cam transform to move the center of interest
