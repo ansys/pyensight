@@ -161,7 +161,7 @@ recursive = true
 exclude = ["venv/*", "tests/*"]
 
 [tool.mypy]
-python_version = 3.10
+python_version = "3.10"
 strict = false
 namespace_packages = true
 explicit_package_bases = true
