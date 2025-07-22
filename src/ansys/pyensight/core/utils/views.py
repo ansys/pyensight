@@ -78,6 +78,7 @@ class _Simba:
 
     def auto_scale(self):
         """Auto scale view."""
+        self.ensight.view_transf.function("global")
         self.ensight.view_transf.fit()
         self._initialize_simba_view()
         self.render()
@@ -85,6 +86,7 @@ class _Simba:
 
     def set_view(self, value: str):
         """Set the view."""
+        self.ensight.view_transf.function("global")
         if value != "isometric":
             new_value = value[1].upper() + value[0]
             self.ensight.view_transf.view_recall(new_value)
@@ -210,6 +212,7 @@ class _Simba:
         self, orthographic, view_up=None, position=None, focal_point=None, view_angle=None
     ):
         """Set the EnSight camera settings from the VTK input."""
+        self.ensight.view_transf.function("global")
         perspective = "OFF" if orthographic else "ON"
         if orthographic:
             self.ensight.view.perspective(perspective)
@@ -230,6 +233,7 @@ class _Simba:
         self.render()
 
     def set_perspective(self, value):
+        self.ensight.view_transf.function("global")
         vport = self.ensight.objs.core.VPORTS[0]
         self.ensight.view.perspective(value)
         vport.PERSPECTIVE = value == "ON"
