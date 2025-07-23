@@ -396,7 +396,7 @@ class Omniverse:
     >>> from ansys.pyensight.core import LocalLauncher
     >>> session = LocalLauncher().start()
     >>> ov = session.ensight.utils.omniverse
-    >>> ov.create_connection(r"D:\Omniverse\Example")
+    >>> ov.create_connection("D:\\Omniverse\\Example")
     >>> ov.update()
     >>> ov.close_connection()
 

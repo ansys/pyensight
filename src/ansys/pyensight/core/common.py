@@ -97,7 +97,7 @@ def get_host_port(uri: str) -> Tuple[str, int]:
     port = (
         parse_results.port
         if parse_results.port
-        else (443 if re.search("^https|wss$", parse_results.scheme) else None)
+        else (443 if re.search(r"^https|wss$", parse_results.scheme) else None)
     )
     return (parse_results.host, port)
 
