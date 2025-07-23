@@ -1164,7 +1164,7 @@ class Session:
         --------
         >>> from ansys.pyensight.core import LocalLauncher
         >>> session = LocalLauncher().start()
-        >>> session.load_data(r'D:\data\CFX\example_data.res')
+        >>> session.load_data('D:\\data\\CFX\\example_data.res')
 
         """
         self._establish_connection()
@@ -1431,7 +1431,7 @@ class Session:
         >>> def cb(v: str):
         >>>     print("Event:", v)
         >>> s.add_callback("ensight.objs.core", "partlist", ["PARTS"], cb)
-        >>> s.load_data(r"D:\ANSYSDev\data\CFX\HeatingCoil_001.res")
+        >>> s.load_data("D:\\ANSYSDev\\data\\CFX\\HeatingCoil_001.res")
         """
         self._establish_connection()
         # shorten the tag up to the query block. Macros are only legal in the query block.
