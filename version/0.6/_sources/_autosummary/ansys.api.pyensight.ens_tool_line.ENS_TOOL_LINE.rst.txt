@@ -1,0 +1,99 @@
+﻿ENS\_TOOL\_LINE
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_line
+
+.. autoclass:: ENS_TOOL_LINE
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_TOOL_LINE.attrgroupinfo
+      
+      
+      ENS_TOOL_LINE.attrinfo
+      
+      
+      ENS_TOOL_LINE.attrissensitive
+      
+      
+      ENS_TOOL_LINE.attrtree
+      
+      
+      ENS_TOOL_LINE.destroy
+      
+      
+      ENS_TOOL_LINE.fit_to_selected
+      
+      
+      ENS_TOOL_LINE.getattr
+      
+      
+      ENS_TOOL_LINE.getattrs
+      
+      
+      ENS_TOOL_LINE.getmetatag
+      
+      
+      ENS_TOOL_LINE.hasmetatag
+      
+      
+      ENS_TOOL_LINE.populate_attr_list
+      
+      
+      ENS_TOOL_LINE.rawdata
+      
+      
+      ENS_TOOL_LINE.setattr
+      
+      
+      ENS_TOOL_LINE.setattr_begin
+      
+      
+      ENS_TOOL_LINE.setattr_end
+      
+      
+      ENS_TOOL_LINE.setattr_status
+      
+      
+      ENS_TOOL_LINE.setattrs
+      
+      
+      ENS_TOOL_LINE.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_TOOL_LINE.CENTROID
+      ENS_TOOL_LINE.CORE
+      ENS_TOOL_LINE.DESCRIPTION
+      ENS_TOOL_LINE.EDIT_TARGET
+      ENS_TOOL_LINE.HANDLES_ENABLED
+      ENS_TOOL_LINE.INDEX
+      ENS_TOOL_LINE.METADATA
+      ENS_TOOL_LINE.POINT1
+      ENS_TOOL_LINE.POINT2
+      ENS_TOOL_LINE.PROJECT_MASK
+      ENS_TOOL_LINE.SELECTED
+      ENS_TOOL_LINE.SNAP_NORM
+      ENS_TOOL_LINE.SNAP_SURF
+      ENS_TOOL_LINE.TOOLTYPE
+      ENS_TOOL_LINE.UUID
+      ENS_TOOL_LINE.VISIBLE
+      ENS_TOOL_LINE.__OBJID__
+      ENS_TOOL_LINE.objid
+   
+   

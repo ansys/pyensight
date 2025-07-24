@@ -1,0 +1,450 @@
+﻿ens\_calculator
+===============
+
+.. currentmodule:: ansys.api.pyensight.calc_funcs
+
+.. autoclass:: ens_calculator
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ens_calculator.area
+      
+      
+      ens_calculator.bl_agradofvelmag
+      
+      
+      ens_calculator.bl_cfedge
+      
+      
+      ens_calculator.bl_cfwall
+      
+      
+      ens_calculator.bl_cfwallcmp
+      
+      
+      ens_calculator.bl_cfwalltau
+      
+      
+      ens_calculator.bl_dispthick
+      
+      
+      ens_calculator.bl_disttovalue
+      
+      
+      ens_calculator.bl_momethick
+      
+      
+      ens_calculator.bl_recoverythick
+      
+      
+      ens_calculator.bl_scalar
+      
+      
+      ens_calculator.bl_thick
+      
+      
+      ens_calculator.bl_velocityatedge
+      
+      
+      ens_calculator.bl_y1plus
+      
+      
+      ens_calculator.bl_y1plusdist
+      
+      
+      ens_calculator.casemap
+      
+      
+      ens_calculator.casemapdiff
+      
+      
+      ens_calculator.casemapimage
+      
+      
+      ens_calculator.cmplx
+      
+      
+      ens_calculator.cmplxarg
+      
+      
+      ens_calculator.cmplxconj
+      
+      
+      ens_calculator.cmplximag
+      
+      
+      ens_calculator.cmplxmodu
+      
+      
+      ens_calculator.cmplxreal
+      
+      
+      ens_calculator.cmplxtransresp
+      
+      
+      ens_calculator.coeff
+      
+      
+      ens_calculator.constantperpart
+      
+      
+      ens_calculator.curl
+      
+      
+      ens_calculator.defect_bulkvolume
+      
+      
+      ens_calculator.defect_count
+      
+      
+      ens_calculator.defect_largestlinearextent
+      
+      
+      ens_calculator.defect_netvolume
+      
+      
+      ens_calculator.defect_shapefactor
+      
+      
+      ens_calculator.defect_surfacearea
+      
+      
+      ens_calculator.density
+      
+      
+      ens_calculator.densitylognorm
+      
+      
+      ens_calculator.densitynorm
+      
+      
+      ens_calculator.densitynormstag
+      
+      
+      ens_calculator.densitystag
+      
+      
+      ens_calculator.dist2nodes
+      
+      
+      ens_calculator.dist2part
+      
+      
+      ens_calculator.dist2partelem
+      
+      
+      ens_calculator.div
+      
+      
+      ens_calculator.elemetric
+      
+      
+      ens_calculator.elemtonode
+      
+      
+      ens_calculator.elemtonodeweighted
+      
+      
+      ens_calculator.elesize
+      
+      
+      ens_calculator.energyt
+      
+      
+      ens_calculator.enthalpy
+      
+      
+      ens_calculator.enthalpynorm
+      
+      
+      ens_calculator.enthalpynormstag
+      
+      
+      ens_calculator.enthalpystag
+      
+      
+      ens_calculator.entropy
+      
+      
+      ens_calculator.flow
+      
+      
+      ens_calculator.flowrate
+      
+      
+      ens_calculator.fluidshear
+      
+      
+      ens_calculator.fluidshearmax
+      
+      
+      ens_calculator.force
+      
+      
+      ens_calculator.force1d
+      
+      
+      ens_calculator.grad
+      
+      
+      ens_calculator.gradtensor
+      
+      
+      ens_calculator.helicitydensity
+      
+      
+      ens_calculator.helicityrelative
+      
+      
+      ens_calculator.helicityrelfilter
+      
+      
+      ens_calculator.iblankingvalues
+      
+      
+      ens_calculator.ijkvalues
+      
+      
+      ens_calculator.integralline
+      
+      
+      ens_calculator.integralsurface
+      
+      
+      ens_calculator.integralvolume
+      
+      
+      ens_calculator.kinen
+      
+      
+      ens_calculator.length
+      
+      
+      ens_calculator.linevectors
+      
+      
+      ens_calculator.mach
+      
+      
+      ens_calculator.makescalelem
+      
+      
+      ens_calculator.makescalelemid
+      
+      
+      ens_calculator.makescalnode
+      
+      
+      ens_calculator.makescalnodeid
+      
+      
+      ens_calculator.makevect
+      
+      
+      ens_calculator.massedparticle
+      
+      
+      ens_calculator.massfluxavg
+      
+      
+      ens_calculator.matspecies
+      
+      
+      ens_calculator.mattoscalar
+      
+      
+      ens_calculator.max
+      
+      
+      ens_calculator.min
+      
+      
+      ens_calculator.moment
+      
+      
+      ens_calculator.momentum
+      
+      
+      ens_calculator.momentvector
+      
+      
+      ens_calculator.nodecount
+      
+      
+      ens_calculator.nodetoelem
+      
+      
+      ens_calculator.normal
+      
+      
+      ens_calculator.normc
+      
+      
+      ens_calculator.normvect
+      
+      
+      ens_calculator.offsetfield
+      
+      
+      ens_calculator.offsetvar
+      
+      
+      ens_calculator.partnumber
+      
+      
+      ens_calculator.pres
+      
+      
+      ens_calculator.prescoef
+      
+      
+      ens_calculator.presdynam
+      
+      
+      ens_calculator.preslognorm
+      
+      
+      ens_calculator.presnorm
+      
+      
+      ens_calculator.presnormstag
+      
+      
+      ens_calculator.prespitot
+      
+      
+      ens_calculator.prespitotratio
+      
+      
+      ens_calculator.presstag
+      
+      
+      ens_calculator.presstagcoef
+      
+      
+      ens_calculator.prest
+      
+      
+      ens_calculator.radiograph_grid
+      
+      
+      ens_calculator.radiograph_mesh
+      
+      
+      ens_calculator.recttocyl
+      
+      
+      ens_calculator.servernumber
+      
+      
+      ens_calculator.shockplot3d
+      
+      
+      ens_calculator.smoothmesh
+      
+      
+      ens_calculator.sonicspeed
+      
+      
+      ens_calculator.spamean
+      
+      
+      ens_calculator.spameanweighted
+      
+      
+      ens_calculator.speed
+      
+      
+      ens_calculator.statmoment
+      
+      
+      ens_calculator.statregspa
+      
+      
+      ens_calculator.statregval1
+      
+      
+      ens_calculator.statregval2
+      
+      
+      ens_calculator.swirl
+      
+      
+      ens_calculator.temperature
+      
+      
+      ens_calculator.temperlognorm
+      
+      
+      ens_calculator.tempernorm
+      
+      
+      ens_calculator.tempernormstag
+      
+      
+      ens_calculator.temperstag
+      
+      
+      ens_calculator.tempmean
+      
+      
+      ens_calculator.tempminmaxfield
+      
+      
+      ens_calculator.tensorcomponent
+      
+      
+      ens_calculator.tensordeterminant
+      
+      
+      ens_calculator.tensoreigenvalue
+      
+      
+      ens_calculator.tensoreigenvector
+      
+      
+      ens_calculator.tensormake
+      
+      
+      ens_calculator.tensormakeasym
+      
+      
+      ens_calculator.tensortresca
+      
+      
+      ens_calculator.tensorvonmises
+      
+      
+      ens_calculator.vector1dprojection
+      
+      
+      ens_calculator.vectorcylprojection
+      
+      
+      ens_calculator.vectorrectprojection
+      
+      
+      ens_calculator.velo
+      
+      
+      ens_calculator.vol
+      
+      
+      ens_calculator.vort
+      
+      
+      ens_calculator.vortgamma
+      
+   
+   
+
+   
+   
+   

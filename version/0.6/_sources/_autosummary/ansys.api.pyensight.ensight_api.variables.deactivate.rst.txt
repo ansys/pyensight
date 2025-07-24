@@ -1,0 +1,6 @@
+deactivate
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: variables.deactivate

@@ -1,0 +1,6 @@
+setattrs
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_spec
+
+.. automethod:: ENS_SPEC.setattrs

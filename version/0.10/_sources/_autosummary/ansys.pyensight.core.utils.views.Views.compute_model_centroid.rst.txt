@@ -1,0 +1,6 @@
+compute\_model\_centroid
+========================
+
+.. currentmodule:: ansys.pyensight.core.utils.views
+
+.. automethod:: Views.compute_model_centroid

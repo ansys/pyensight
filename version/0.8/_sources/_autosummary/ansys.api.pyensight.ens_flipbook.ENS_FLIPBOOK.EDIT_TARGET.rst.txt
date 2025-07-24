@@ -1,0 +1,6 @@
+EDIT\_TARGET
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_flipbook
+
+.. autoproperty:: ENS_FLIPBOOK.EDIT_TARGET
