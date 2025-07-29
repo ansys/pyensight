@@ -209,7 +209,7 @@ class _Simba:
         return camera_position, focal_point, self.views._normalize_vector(view_up), parallel_scale
 
     def set_camera(
-        self, orthographic, view_up=None, position=None, focal_point=None, view_angle=None
+        self, orthographic, view_up=None, position=None, focal_point=None, view_angle=None, pan=None
     ):
         """Set the EnSight camera settings from the VTK input."""
         self.ensight.view_transf.function("global")
@@ -221,15 +221,18 @@ class _Simba:
             vport.PERSPECTIVEANGLE = view_angle / 2
 
         if view_up and position and focal_point:
-            q_current = self.normalize(np.array(vport.ROTATION.copy()))
-            q_target = self.normalize(
-                self.compute_model_rotation_quaternion(position, focal_point, view_up)
-            )
-            q_relative = self.quaternion_multiply(
-                q_target, np.array([-q_current[0], -q_current[1], -q_current[2], q_current[3]])
-            )
-            angles = self.quaternion_to_euler(q_relative)
-            self.ensight.view_transf.rotate(*angles)
+            if not pan:
+                q_current = self.normalize(np.array(vport.ROTATION.copy()))
+                q_target = self.normalize(
+                    self.compute_model_rotation_quaternion(position, focal_point, view_up)
+                )
+                q_relative = self.quaternion_multiply(
+                    q_target, np.array([-q_current[0], -q_current[1], -q_current[2], q_current[3]])
+                )
+                angles = self.quaternion_to_euler(q_relative)
+                self.ensight.view_transf.rotate(*angles)
+            else:
+                self.ensight.view_transf.translate(*pan)
         self.render()
 
     def set_perspective(self, value):
@@ -257,8 +260,34 @@ class _Simba:
         return {"model_point": model_point, "camera": self.get_camera()}
 
     def render(self):
+        """Force render update in EnSight."""
+        self.ensight.view_transf.zoom(1)
         self.ensight.render()
         self.ensight.refresh(1)
+
+    def drag_allowed(self, mousex, mousey, invert_y=False):
+        """Return True if the picked object is allowed dragging in the interactor."""
+        mousex = int(mousex)
+        mousey = int(mousey)
+        if isinstance(self.ensight, ModuleType):
+            part_id, tool_id = self.ensight.objs.core.VPORTS[0].simba_what_is_picked(
+                mousex, mousey, invert_y
+            )
+        else:
+            part_id, tool_id = self.ensight._session.cmd(
+                f"ensight.objs.core.VPORTS[0].simba_what_is_picked({mousex}, {mousey}, {invert_y})"
+            )
+        if tool_id > -1:
+            return True
+        part_types_allowed = [
+            self.ensight.objs.enums.PART_CLIP_PLANE,
+            self.ensight.objs.enums.PART_ISO_SURFACE,
+            self.ensight.objs.enums.PART_CONTOUR,
+        ]
+        if part_id > -1:
+            part_obj = self.ensight.objs.core.PARTS.find(part_id, "PARTNUMBER")[0]
+            return part_obj.PARTTYPE in part_types_allowed
+        return False
 
 
 class Views:
