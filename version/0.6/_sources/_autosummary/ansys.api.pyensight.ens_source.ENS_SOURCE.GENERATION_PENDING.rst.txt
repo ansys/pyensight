@@ -1,0 +1,6 @@
+GENERATION\_PENDING
+===================
+
+.. currentmodule:: ansys.api.pyensight.ens_source
+
+.. autoproperty:: ENS_SOURCE.GENERATION_PENDING

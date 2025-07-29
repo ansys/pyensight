@@ -1,0 +1,6 @@
+fit\_to\_selected
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_cone
+
+.. automethod:: ENS_TOOL_CONE.fit_to_selected

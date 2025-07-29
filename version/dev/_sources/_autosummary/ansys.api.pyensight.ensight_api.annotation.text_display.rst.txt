@@ -1,0 +1,6 @@
+text\_display
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: annotation.text_display
