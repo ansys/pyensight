@@ -265,7 +265,7 @@ class _Simba:
         self.ensight.render()
         self.ensight.refresh(1)
 
-    def drag_allowed(self, mousex, mousey, invert_y=False, probe=False):
+    def drag_allowed(self, mousex, mousey, invert_y=False, probe=False, get_data=False):
         """Return True if the picked object is allowed dragging in the interactor."""
         mousex = int(mousex)
         mousey = int(mousey)
@@ -281,9 +281,8 @@ class _Simba:
             mousex=mousex, mousey=mousey, invert_y=invert_y, set_center=False
         )
         coords = screen_to_world["model_point"]
-        camera = screen_to_world["camera"]
         if tool_id > -1:
-            return True, coords[0], coords[1], coords[2], False, None
+            return True, coords[0], coords[1], coords[2], False
         part_types_allowed = [
             self.ensight.objs.enums.PART_CLIP_PLANE,
             self.ensight.objs.enums.PART_ISO_SURFACE,
@@ -298,15 +297,8 @@ class _Simba:
                 self.ensight.query_interact.display_id("OFF")
                 self.ensight.query_interact.create(mousex / width, 1 - mousey / height)
                 self.ensight.query_interact.marker_size_normalized(2)
-            return (
-                part_obj.PARTTYPE in part_types_allowed,
-                coords[0],
-                coords[1],
-                coords[2],
-                True,
-                camera,
-            )
-        return False, coords[0], coords[1], coords[2], False, None
+            return (part_obj.PARTTYPE in part_types_allowed, coords[0], coords[1], coords[2], True)
+        return False, coords[0], coords[1], coords[2], False
 
 
 class Views:
