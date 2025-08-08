@@ -265,7 +265,7 @@ class _Simba:
         self.ensight.render()
         self.ensight.refresh(1)
 
-    def drag_allowed(self, mousex, mousey, invert_y=False, probe=False, get_data=False):
+    def drag_allowed(self, mousex, mousey, invert_y=False, probe=False, get_probe_data=False):
         """Return True if the picked object is allowed dragging in the interactor."""
         mousex = int(mousex)
         mousey = int(mousey)
@@ -295,8 +295,20 @@ class _Simba:
                 self.ensight.query_interact.number_displayed(100)
                 self.ensight.query_interact.query("surface")
                 self.ensight.query_interact.display_id("OFF")
+                if get_probe_data:
+                    if self.ensight.objs.core.VARIABLES.find("X"):
+                        variable_list = ["X", "Y", "Z"]
+                    else:
+                        variable_list = ["Coordinates[X]", "Coordinates[Y]", "Coordinates[Z]"]
+                    variable_name = part_obj.COLORBYPALETTE
+                    if variable_name:
+                        if isinstance(variable_name, list) and variable_name[0]:
+                            variable_name = variable_name[0].DESCRIPTION
+                        variable_list.append(variable_name)
+                    self.ensight.query_interact.select_varname_begin(variable_list)
                 self.ensight.query_interact.create(mousex / width, 1 - mousey / height)
                 self.ensight.query_interact.marker_size_normalized(2)
+                self.ensight.query_interact.query("node")
             return (part_obj.PARTTYPE in part_types_allowed, coords[0], coords[1], coords[2], True)
         return False, coords[0], coords[1], coords[2], False
 
