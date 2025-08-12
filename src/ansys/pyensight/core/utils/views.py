@@ -318,6 +318,7 @@ class _Simba:
         self.ensight.query_interact.number_displayed(100)
         self.ensight.query_interact.query("surface")
         self.ensight.query_interact.display_id("OFF")
+        self.ensight.query_interact.label_always_on_top("ON")
         self.ensight.query_interact.marker_size_normalized(2)
         if get_probe_data:
             variable_string = """Coordinates 'X' 'Y' 'Z'"""
@@ -355,10 +356,12 @@ class _Simba:
             part_id, tool_id = self.ensight._session.cmd(
                 f"ensight.objs.core.VPORTS[0].simba_what_is_picked({mousex}, {mousey}, {invert_y})"
             )
-        screen_to_world = self.screen_to_world(
-            mousex=mousex, mousey=mousey, invert_y=invert_y, set_center=False
-        )
-        coords = screen_to_world["model_point"]
+        coords = [None, None, None]
+        if probe:
+            screen_to_world = self.screen_to_world(
+                mousex=mousex, mousey=mousey, invert_y=invert_y, set_center=False
+            )
+            coords = screen_to_world["model_point"]
         if tool_id > -1:
             return True, coords[0], coords[1], coords[2], False
         part_types_allowed = [
