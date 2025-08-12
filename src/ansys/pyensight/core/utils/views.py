@@ -94,8 +94,7 @@ class _Simba:
             self.views.set_view_direction(
                 1, 1, 1, perspective=self.ensight.objs.core.vports[0].PERSPECTIVE
             )
-        self.auto_scale()
-        return self.get_camera()
+        return self.auto_scale()
 
     def get_camera(self):
         """Get EnSight camera settings in VTK format."""
@@ -208,8 +207,49 @@ class _Simba:
         parallel_scale = 1 / data[9]
         return camera_position, focal_point, self.views._normalize_vector(view_up), parallel_scale
 
+    def get_camera_axes(self):
+        """
+        Returns the camera's local axes: right, up, and forward vectors.
+        These are useful for applying transformations in view space.
+
+        Parameters:
+            camera (dict): A dictionary with keys 'position', 'focal_point', and 'view_up'.
+
+        Returns:
+            right (np.ndarray): Right vector (X axis in view space).
+            up (np.ndarray): Up vector (Y axis in view space).
+        forw    ard (np.ndarray): Forward vector (Z axis in view space, pointing from position to focal point).
+        """
+        camera = self.get_camera()
+        position = np.array(camera["position"])
+        focal_point = np.array(camera["focal_point"])
+        view_up = np.array(camera["view_up"])
+
+        # Forward vector: from camera position to focal point
+        forward = focal_point - position
+        forward /= np.linalg.norm(forward)
+
+        # Right vector: cross product of forward and view_up
+        right = np.cross(forward, view_up)
+        right /= np.linalg.norm(right)
+
+        # Recompute up vector to ensure orthogonality
+        up = np.cross(right, forward)
+        up /= np.linalg.norm(up)
+
+        return right, up, forward
+
     def set_camera(
-        self, orthographic, view_up=None, position=None, focal_point=None, view_angle=None, pan=None
+        self,
+        orthographic,
+        view_up=None,
+        position=None,
+        focal_point=None,
+        view_angle=None,
+        pan=None,
+        mousex=None,
+        mousey=None,
+        invert_y=False,
     ):
         """Set the EnSight camera settings from the VTK input."""
         self.ensight.view_transf.function("global")
@@ -219,7 +259,6 @@ class _Simba:
         vport = self.ensight.objs.core.VPORTS[0]
         if view_angle:
             vport.PERSPECTIVEANGLE = view_angle / 2
-
         if view_up and position and focal_point:
             if not pan:
                 q_current = self.normalize(np.array(vport.ROTATION.copy()))
@@ -232,7 +271,17 @@ class _Simba:
                 angles = self.quaternion_to_euler(q_relative)
                 self.ensight.view_transf.rotate(*angles)
             else:
-                self.ensight.view_transf.translate(*pan)
+                if mousex and mousey:
+                    self.screen_to_world(
+                        mousex=mousex, mousey=mousey, invert_y=invert_y, set_center=True
+                    )
+                current_camera = self.get_camera()
+                right, up, _ = self.get_camera_axes()
+                translation_vector = np.array(position) - np.array(current_camera["position"])
+                dx = np.dot(translation_vector, right)
+                dy = np.dot(translation_vector, up)
+                self.ensight.view_transf.translate(-dx, -dy, 0)
+
         self.render()
 
     def set_perspective(self, value):
@@ -265,6 +314,35 @@ class _Simba:
         self.ensight.render()
         self.ensight.refresh(1)
 
+    def _probe_setup(self, part_obj, get_probe_data=False):
+        self.ensight.query_interact.number_displayed(100)
+        self.ensight.query_interact.query("surface")
+        self.ensight.query_interact.display_id("OFF")
+        self.ensight.query_interact.marker_size_normalized(2)
+        if get_probe_data:
+            variable_string = """Coordinates 'X' 'Y' 'Z'"""
+            variable_list = [variable_string]
+            variable_name = part_obj.COLORBYPALETTE
+            if variable_name:
+                if isinstance(variable_name, str):
+                    variable_list.append(variable_name)
+                else:
+                    if isinstance(variable_name, list):
+                        if variable_name[0]:
+                            variable_name = variable_name[0].DESCRIPTION
+                            variable_list.append(variable_name)
+                        else:
+                            variable_name = None
+            if isinstance(self.ensight, ModuleType):
+                self.ensight.query_interact.select_varname_begin(*variable_list)
+            else:
+                command = "ensight.query_interact.select_varname_begin("
+                for var in variable_list:
+                    command += var + ","
+                command = command[:-1] + ")"
+                self.ensight._session.cmd(command)
+        self.render()
+
     def drag_allowed(self, mousex, mousey, invert_y=False, probe=False, get_probe_data=False):
         """Return True if the picked object is allowed dragging in the interactor."""
         mousex = int(mousex)
@@ -292,24 +370,19 @@ class _Simba:
             part_obj = self.ensight.objs.core.PARTS.find(part_id, "PARTNUMBER")[0]
             if probe:
                 width, height = tuple(self.ensight.objs.core.WINDOWSIZE)
+                if invert_y:
+                    mousey = height - mousey
                 self.ensight.query_interact.number_displayed(100)
                 self.ensight.query_interact.query("surface")
                 self.ensight.query_interact.display_id("OFF")
-                if get_probe_data:
-                    if self.ensight.objs.core.VARIABLES.find("X"):
-                        variable_list = ["X", "Y", "Z"]
-                    else:
-                        variable_list = ["Coordinates[X]", "Coordinates[Y]", "Coordinates[Z]"]
-                    variable_name = part_obj.COLORBYPALETTE
-                    if variable_name:
-                        if isinstance(variable_name, list) and variable_name[0]:
-                            variable_name = variable_name[0].DESCRIPTION
-                        variable_list.append(variable_name)
-                    self.ensight.query_interact.select_varname_begin(variable_list)
-                self.ensight.query_interact.create(mousex / width, 1 - mousey / height)
-                self.ensight.query_interact.marker_size_normalized(2)
-                self.ensight.query_interact.query("node")
-            return (part_obj.PARTTYPE in part_types_allowed, coords[0], coords[1], coords[2], True)
+                self.ensight.query_interact.create(mousex / width, mousey / height)
+                self._probe_setup(part_obj, get_probe_data=get_probe_data)
+            return part_obj.PARTTYPE in part_types_allowed, coords[0], coords[1], coords[2], True
+        if (
+            get_probe_data and self.ensight.objs.core.PROBES[0].PROBE_DATA
+        ):  # In case we have picked a probe point
+            for part in self.ensight.objs.core.PARTS:
+                self._probe_setup(part, get_probe_data=get_probe_data)
         return False, coords[0], coords[1], coords[2], False
 
 
