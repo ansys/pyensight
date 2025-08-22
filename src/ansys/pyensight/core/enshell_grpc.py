@@ -455,7 +455,7 @@ class EnShellGRPC(object):
                 "Error getting CEI_HOME env var from the Docker container.\n{ret}\n"
             )  # pragma: no cover
         self._cei_home = cei_home_line[equal_sign_loc + 1 :]
-        m = re.search("/v(\d\d\d)/", self._cei_home)
+        m = re.search(r"/v(\d\d\d)/", self._cei_home)
         if not m:  # pragma: no cover
             self.stop_server()  # pragma: no cover
             raise RuntimeError(

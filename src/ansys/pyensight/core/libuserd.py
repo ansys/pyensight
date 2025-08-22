@@ -1138,8 +1138,8 @@ class LibUserd(object):
     >>> from ansys.pyensight.core import libuserd
     >>> l = libuserd.LibUserd()
     >>> l.initialize()
-    >>> readers = l.query_format(r"D:\data\Axial_001.res")
-    >>> data = readers[0].read_dataset(r"D:\data\Axial_001.res")
+    >>> readers = l.query_format("D:\\data\\Axial_001.res")
+    >>> data = readers[0].read_dataset("D:\\data\\Axial_001.res")
     >>> part = data.parts[0]
     >>> print(part, part.nodes())
     >>> l.shutdown()
