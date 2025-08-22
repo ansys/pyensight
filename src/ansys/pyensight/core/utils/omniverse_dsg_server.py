@@ -26,12 +26,10 @@
 import logging
 import math
 import os
-from pickle import NONE
 import platform
 import shutil
 import sys
 import tempfile
-from types import NoneType
 from typing import Any, Dict, List, Optional
 import warnings
 
@@ -40,7 +38,7 @@ import numpy
 import png
 
 try:
-    from pxr import Gf, Kind, Sdf, Usd, UsdGeom, UsdLux, UsdShade, Vt
+    from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdShade
 except ModuleNotFoundError:
     if sys.version_info.minor >= 13:
         warnings.warn("USD Export not supported for Python >= 3.13")
@@ -80,7 +78,7 @@ class OmniverseWrapper(object):
 
         self._line_width = line_width
         # Record the files per timestep, per mesh type.  {part_name: {"surfaces": [], "lines": [], "points": []} }
-        self._time_files = dict()
+        self._time_files: dict = {}
 
     @property
     def destination(self) -> str:
@@ -286,15 +284,15 @@ class OmniverseWrapper(object):
     # Common code to create the part manifest file and the file per timestep
     def create_dsg_surfaces_file(
         self,
-        file_url: any,  # SdfPath, location on disk
+        file_url,  # SdfPath, location on disk
         part_path: str,  # base path name, such as "/Root/Case_1/Isosurface_part"
-        verts: any,
-        normals: any,
-        conn: any,
-        tcoords: any,
-        diffuse: any,
-        variable: any,
-        mat_info: any,
+        verts,
+        normals,
+        conn,
+        tcoords,
+        diffuse,
+        variable,
+        mat_info,
         is_manifest: bool,
     ):
         if is_manifest and file_url in self._old_stages:
@@ -310,9 +308,7 @@ class OmniverseWrapper(object):
         part_prim = stage.OverridePrim(part_path)
 
         surfaces_prim = UsdGeom.Xform.Define(stage, part_path + "/surfaces")
-        matrixOp = surfaces_prim.AddXformOp(
-            UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
-        )
+        surfaces_prim.AddXformOp(UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble)
         mesh = UsdGeom.Mesh.Define(stage, str(surfaces_prim.GetPath()) + "/Mesh")
         mesh.CreateDoubleSidedAttr().Set(True)
         pt_attr = mesh.CreatePointsAttr()
@@ -369,6 +365,9 @@ class OmniverseWrapper(object):
         first_timestep=False,
         mat_info={},
     ):
+        if self._stage is None:
+            return
+
         # 1D texture map for variables https://graphics.pixar.com/usd/release/tut_simple_shading.html
         # create the part usd object
         part_base_name = self.clean_name(name)
@@ -462,14 +461,14 @@ class OmniverseWrapper(object):
     # Common code to create the part manifest file and the file per timestep
     def create_dsg_lines_file(
         self,
-        file_url: any,  # SdfPath, location on disk
+        file_url,  # SdfPath, location on disk
         part_path: str,  # base path name, such as "/Root/Case_1/Isosurface_part"
-        verts: any,
+        verts,
         width: float,
-        tcoords: any,
-        diffuse: any,
-        var_cmd: any,
-        mat_info: any,
+        tcoords,
+        diffuse,
+        var_cmd,
+        mat_info,
         is_manifest: bool,
     ):
         if is_manifest and file_url in self._old_stages:
@@ -486,9 +485,7 @@ class OmniverseWrapper(object):
 
         lines_prim = UsdGeom.Xform.Define(stage, part_path + "/lines")
 
-        matrixOp = lines_prim.AddXformOp(
-            UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
-        )
+        lines_prim.AddXformOp(UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble)
         lines = UsdGeom.BasisCurves.Define(stage, str(lines_prim.GetPath()) + "/Lines")
         lines.CreateDoubleSidedAttr().Set(True)
         pt_attr = lines.CreatePointsAttr()
@@ -603,13 +600,13 @@ class OmniverseWrapper(object):
     # Common code to create the part manifest file and the file per timestep
     def create_dsg_points_file(
         self,
-        file_url: any,  # SdfPath, location on disk
+        file_url,  # SdfPath, location on disk
         part_path: str,  # base path name, such as "/Root/Case_1/Isosurface_part"
-        verts: any,
-        sizes: any,
-        colors: any,
+        verts,
+        sizes,
+        colors,
         default_size: float,
-        default_color: any,
+        default_color,
         is_manifest: bool,
     ):
         if is_manifest and file_url in self._old_stages:
