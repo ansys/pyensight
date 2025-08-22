@@ -40,7 +40,7 @@ import numpy
 import png
 
 try:
-    from pxr import Gf, Vt, Kind, Sdf, Usd, UsdGeom, UsdLux, UsdShade
+    from pxr import Gf, Kind, Sdf, Usd, UsdGeom, UsdLux, UsdShade, Vt
 except ModuleNotFoundError:
     if sys.version_info.minor >= 13:
         warnings.warn("USD Export not supported for Python >= 3.13")
@@ -66,7 +66,7 @@ class OmniverseWrapper(object):
         self._stage = None
         self._destinationPath: str = ""
         self._old_stages: list = []
-        self._stagename: str = "dsg_scene"+self._ext
+        self._stagename: str = "dsg_scene" + self._ext
         self._live_edit: bool = live_edit
         if self._live_edit:
             self._stagename = "dsg_scene.live"
@@ -154,7 +154,7 @@ class OmniverseWrapper(object):
                 else:
                     shutil.rmtree(stage, ignore_errors=True, onerror=None)
             except OSError:
-                if not stage.endswith("_manifest"+self._ext):
+                if not stage.endswith("_manifest" + self._ext):
                     stages_unremoved.append(stage)
         self._old_stages = stages_unremoved
 
@@ -283,12 +283,11 @@ class OmniverseWrapper(object):
         t = [t[0] * trans_convert, t[1] * trans_convert, t[2] * trans_convert]
         return s, r, t
 
-
     # Common code to create the part manifest file and the file per timestep
     def create_dsg_surfaces_file(
         self,
-        file_url: any,     # SdfPath, location on disk
-        part_path: str,    # base path name, such as "/Root/Case_1/Isosurface_part"
+        file_url: any,  # SdfPath, location on disk
+        part_path: str,  # base path name, such as "/Root/Case_1/Isosurface_part"
         verts: any,
         normals: any,
         conn: any,
@@ -310,9 +309,11 @@ class OmniverseWrapper(object):
 
         part_prim = stage.OverridePrim(part_path)
 
-        surfaces_prim = UsdGeom.Xform.Define(stage, part_path+"/surfaces")
-        matrixOp = surfaces_prim.AddXformOp(UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble)
-        mesh = UsdGeom.Mesh.Define(stage, str(surfaces_prim.GetPath())+"/Mesh")
+        surfaces_prim = UsdGeom.Xform.Define(stage, part_path + "/surfaces")
+        matrixOp = surfaces_prim.AddXformOp(
+            UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
+        )
+        mesh = UsdGeom.Mesh.Define(stage, str(surfaces_prim.GetPath()) + "/Mesh")
         mesh.CreateDoubleSidedAttr().Set(True)
         pt_attr = mesh.CreatePointsAttr()
         if verts is not None:
@@ -327,7 +328,9 @@ class OmniverseWrapper(object):
             fvi_attr.Set(conn, 0)
 
         primvarsAPI = UsdGeom.PrimvarsAPI(mesh)
-        texCoords = primvarsAPI.CreatePrimvar("st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying)
+        texCoords = primvarsAPI.CreatePrimvar(
+            "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+        )
         texCoords.SetInterpolation("vertex")
         if tcoords is not None and variable is not None:
             texCoords.Set(tcoords, 0)
@@ -371,55 +374,96 @@ class OmniverseWrapper(object):
         part_base_name = self.clean_name(name)
         partname = part_base_name + part_hash.hexdigest()
         stage_name = "/Parts/" + partname + self._ext
-        part_stage_url = self.stage_url(os.path.join("Parts", partname+self._ext))
+        part_stage_url = self.stage_url(os.path.join("Parts", partname + self._ext))
 
         # Make the manifest file - once for all timesteps
-        part_manifest_url_relative = "./Parts/"+part_base_name+"_manifest"+self._ext
+        part_manifest_url_relative = "./Parts/" + part_base_name + "_manifest" + self._ext
         part_manifest_url = self.stage_url(part_manifest_url_relative)
-        created_file = self.create_dsg_surfaces_file(part_manifest_url, str(parent_prim.GetPath()), None, None, None, None, diffuse, variable, mat_info, True)
+        created_file = self.create_dsg_surfaces_file(
+            part_manifest_url,
+            str(parent_prim.GetPath()),
+            None,
+            None,
+            None,
+            None,
+            diffuse,
+            variable,
+            mat_info,
+            True,
+        )
         if created_file:
             self._stage.GetRootLayer().subLayerPaths.append(part_manifest_url_relative)
 
         # Make the per-timestep file
-        created_file = self.create_dsg_surfaces_file(part_stage_url, str(parent_prim.GetPath()), verts, normals, conn, tcoords, diffuse, variable, mat_info, False)
+        created_file = self.create_dsg_surfaces_file(
+            part_stage_url,
+            str(parent_prim.GetPath()),
+            verts,
+            normals,
+            conn,
+            tcoords,
+            diffuse,
+            variable,
+            mat_info,
+            False,
+        )
 
         # Glue the file into the main stage
         path = parent_prim.GetPath().AppendChild("surfaces")
         surfaces_prim = self._stage.OverridePrim(path)
-        self.add_timestep_valueclip(part_base_name, "surfaces", surfaces_prim, part_manifest_url_relative, timeline, stage_name)
+        self.add_timestep_valueclip(
+            part_base_name,
+            "surfaces",
+            surfaces_prim,
+            part_manifest_url_relative,
+            timeline,
+            stage_name,
+        )
 
         return part_stage_url
-
 
     def get_time_files(self, part_name: str, mesh_type: str):
         if part_name not in self._time_files:
             self._time_files[part_name] = {"surfaces": [], "lines": [], "points": []}
         return self._time_files[part_name][mesh_type]
 
-    def add_timestep_valueclip(self, part_name: str, mesh_type: str, part_prim: UsdGeom.Xform, manifest_path: str, timeline: List[float], stage_name: str) -> None:
+    def add_timestep_valueclip(
+        self,
+        part_name: str,
+        mesh_type: str,
+        part_prim: UsdGeom.Xform,
+        manifest_path: str,
+        timeline: List[float],
+        stage_name: str,
+    ) -> None:
         clips_api = Usd.ClipsAPI(part_prim)
-        asset_path = "."+stage_name
+        asset_path = "." + stage_name
 
         time_files = self.get_time_files(part_name, mesh_type)
 
-        if len(time_files)==0 or time_files[-1][0] != asset_path:
+        if len(time_files) == 0 or time_files[-1][0] != asset_path:
             time_files.append((asset_path, timeline[0]))
-            clips_api.SetClipAssetPaths( [time_file[0] for time_file in time_files] )
-            clips_api.SetClipActive( [ (time_file[1]*self._time_codes_per_second, ii) for ii, time_file in enumerate(time_files) ] )
-            clips_api.SetClipTimes( [ (time_file[1]*self._time_codes_per_second, 0) for ii, time_file in enumerate(time_files) ] )
+            clips_api.SetClipAssetPaths([time_file[0] for time_file in time_files])
+            clips_api.SetClipActive(
+                [
+                    (time_file[1] * self._time_codes_per_second, ii)
+                    for ii, time_file in enumerate(time_files)
+                ]
+            )
+            clips_api.SetClipTimes(
+                [
+                    (time_file[1] * self._time_codes_per_second, 0)
+                    for ii, time_file in enumerate(time_files)
+                ]
+            )
             clips_api.SetClipPrimPath(str(part_prim.GetPath()))
             clips_api.SetClipManifestAssetPath(Sdf.AssetPath(manifest_path))
-
-
-
-
-
 
     # Common code to create the part manifest file and the file per timestep
     def create_dsg_lines_file(
         self,
-        file_url: any,     # SdfPath, location on disk
-        part_path: str,    # base path name, such as "/Root/Case_1/Isosurface_part"
+        file_url: any,  # SdfPath, location on disk
+        part_path: str,  # base path name, such as "/Root/Case_1/Isosurface_part"
         verts: any,
         width: float,
         tcoords: any,
@@ -440,10 +484,12 @@ class OmniverseWrapper(object):
 
         part_prim = stage.OverridePrim(part_path)
 
-        lines_prim = UsdGeom.Xform.Define(stage, part_path+"/lines")
+        lines_prim = UsdGeom.Xform.Define(stage, part_path + "/lines")
 
-        matrixOp = lines_prim.AddXformOp(UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble)
-        lines = UsdGeom.BasisCurves.Define(stage, str(lines_prim.GetPath())+"/Lines")
+        matrixOp = lines_prim.AddXformOp(
+            UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
+        )
+        lines = UsdGeom.BasisCurves.Define(stage, str(lines_prim.GetPath()) + "/Lines")
         lines.CreateDoubleSidedAttr().Set(True)
         pt_attr = lines.CreatePointsAttr()
         vc_attr = lines.CreateCurveVertexCountsAttr()
@@ -457,16 +503,22 @@ class OmniverseWrapper(object):
 
         # Rounded endpoint are a primvar
         primvarsAPI = UsdGeom.PrimvarsAPI(lines)
-        endCaps = primvarsAPI.CreatePrimvar("endcaps", Sdf.ValueTypeNames.Int, UsdGeom.Tokens.constant)
+        endCaps = primvarsAPI.CreatePrimvar(
+            "endcaps", Sdf.ValueTypeNames.Int, UsdGeom.Tokens.constant
+        )
         endCaps.Set(2)  # Rounded = 2
 
         prim = lines.GetPrim()
         wireframe = width == 0.0
-        prim.CreateAttribute("omni:scene:visualization:drawWireframe", Sdf.ValueTypeNames.Bool).Set(wireframe)
+        prim.CreateAttribute("omni:scene:visualization:drawWireframe", Sdf.ValueTypeNames.Bool).Set(
+            wireframe
+        )
 
         if (tcoords is not None) and var_cmd:
             primvarsAPI = UsdGeom.PrimvarsAPI(lines)
-            texCoords = primvarsAPI.CreatePrimvar("st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying)
+            texCoords = primvarsAPI.CreatePrimvar(
+                "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+            )
             if tcoords is not None and var_cmd is not None:
                 texCoords.Set(tcoords, 0)
             texCoords.SetInterpolation("vertex")
@@ -484,7 +536,6 @@ class OmniverseWrapper(object):
         )
         stage.Save()
         return True
-
 
     def create_dsg_lines(
         self,
@@ -511,28 +562,49 @@ class OmniverseWrapper(object):
         part_stage_url = self.stage_url(os.path.join("Parts", partname + self._ext))
 
         # Make the manifest file - once for all timesteps
-        part_manifest_url_relative = "./Parts/"+part_base_name+"_manifest"+self._ext
+        part_manifest_url_relative = "./Parts/" + part_base_name + "_manifest" + self._ext
         part_manifest_url = self.stage_url(part_manifest_url_relative)
-        created_file = self.create_dsg_lines_file(part_manifest_url, str(parent_prim.GetPath()), None, width, None, diffuse, variable, mat_info, True)
+        created_file = self.create_dsg_lines_file(
+            part_manifest_url,
+            str(parent_prim.GetPath()),
+            None,
+            width,
+            None,
+            diffuse,
+            variable,
+            mat_info,
+            True,
+        )
         if created_file:
             self._stage.GetRootLayer().subLayerPaths.append(part_manifest_url_relative)
 
         # Make the per-timestep file
-        created_file = self.create_dsg_lines_file(part_stage_url, str(parent_prim.GetPath()), verts, width, tcoords, diffuse, variable, mat_info, False)
+        created_file = self.create_dsg_lines_file(
+            part_stage_url,
+            str(parent_prim.GetPath()),
+            verts,
+            width,
+            tcoords,
+            diffuse,
+            variable,
+            mat_info,
+            False,
+        )
 
         # Glue the file into the main stage
         path = parent_prim.GetPath().AppendChild("lines")
         lines_prim = self._stage.OverridePrim(path)
-        self.add_timestep_valueclip(part_base_name, "lines", lines_prim, part_manifest_url_relative, timeline, stage_name)
+        self.add_timestep_valueclip(
+            part_base_name, "lines", lines_prim, part_manifest_url_relative, timeline, stage_name
+        )
 
         return part_stage_url
-
 
     # Common code to create the part manifest file and the file per timestep
     def create_dsg_points_file(
         self,
-        file_url: any,     # SdfPath, location on disk
-        part_path: str,    # base path name, such as "/Root/Case_1/Isosurface_part"
+        file_url: any,  # SdfPath, location on disk
+        part_path: str,  # base path name, such as "/Root/Case_1/Isosurface_part"
         verts: any,
         sizes: any,
         colors: any,
@@ -551,7 +623,7 @@ class OmniverseWrapper(object):
         self._old_stages.append(file_url)
 
         part_prim = stage.OverridePrim(part_path)
-        points = UsdGeom.Points.Define(stage, part_path+"/points")
+        points = UsdGeom.Points.Define(stage, part_path + "/points")
         pt_attr = points.CreatePointsAttr()
         w_attr = points.CreateWidthsAttr()
         if verts is not None:
@@ -576,7 +648,6 @@ class OmniverseWrapper(object):
         stage.Save()
         return True
 
-
     def create_dsg_points(
         self,
         name,
@@ -598,21 +669,39 @@ class OmniverseWrapper(object):
         part_stage_url = self.stage_url(os.path.join("Parts", partname + self._ext))
 
         # Make the manifest file - once for all timesteps
-        part_manifest_url_relative = "./Parts/"+part_base_name+"_manifest"+self._ext
+        part_manifest_url_relative = "./Parts/" + part_base_name + "_manifest" + self._ext
         part_manifest_url = self.stage_url(part_manifest_url_relative)
-        created_file = self.create_dsg_points_file(part_manifest_url, str(parent_prim.GetPath()), None, None, None, default_size, default_color, True)
+        created_file = self.create_dsg_points_file(
+            part_manifest_url,
+            str(parent_prim.GetPath()),
+            None,
+            None,
+            None,
+            default_size,
+            default_color,
+            True,
+        )
         if created_file:
             self._stage.GetRootLayer().subLayerPaths.append(part_manifest_url_relative)
 
         # Make the per-timestep file
-        created_file = self.create_dsg_points_file(part_stage_url, str(parent_prim.GetPath()), verts, sizes, colors, default_size, default_color, False)
+        created_file = self.create_dsg_points_file(
+            part_stage_url,
+            str(parent_prim.GetPath()),
+            verts,
+            sizes,
+            colors,
+            default_size,
+            default_color,
+            False,
+        )
 
         # Glue the file into the main stage
         path = parent_prim.GetPath().AppendChild("points")
         points_prim = self._stage.OverridePrim(path)
-        self.add_timestep_valueclip(part_base_name, "points", points_prim, part_manifest_url_relative, timeline, stage_name)
-
-
+        self.add_timestep_valueclip(
+            part_base_name, "points", points_prim, part_manifest_url_relative, timeline, stage_name
+        )
 
         return part_stage_url
 
