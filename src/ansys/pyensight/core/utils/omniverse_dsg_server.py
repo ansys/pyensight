@@ -304,7 +304,7 @@ class OmniverseWrapper(object):
             return False
 
         stage = Usd.Stage.CreateNew(file_url)
-        UsdGeom.SetStageUpAxis(stage, UsdGeom.Tokens.y)
+        UsdGeom.SetStageUpAxis(stage, self._up_axis)
         UsdGeom.SetStageMetersPerUnit(stage, 1.0 / self._units_per_meter)
         self._old_stages.append(file_url)
 
@@ -434,7 +434,7 @@ class OmniverseWrapper(object):
             return False
 
         stage = Usd.Stage.CreateNew(file_url)
-        UsdGeom.SetStageUpAxis(stage, UsdGeom.Tokens.y)
+        UsdGeom.SetStageUpAxis(stage, self._up_axis)
         UsdGeom.SetStageMetersPerUnit(stage, 1.0 / self._units_per_meter)
         self._old_stages.append(file_url)
 
@@ -546,7 +546,7 @@ class OmniverseWrapper(object):
             return False
 
         stage = Usd.Stage.CreateNew(file_url)
-        UsdGeom.SetStageUpAxis(stage, UsdGeom.Tokens.y)
+        UsdGeom.SetStageUpAxis(stage, self._up_axis)
         UsdGeom.SetStageMetersPerUnit(stage, 1.0 / self._units_per_meter)
         self._old_stages.append(file_url)
 
