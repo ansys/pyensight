@@ -57,7 +57,6 @@ class Part(object):
         self.cmd: Optional[Any] = None
         self.hash = hashlib.new("sha256")
         self._material: Optional[Any] = None
-        self._time_files: Optional[list] = []
         self.reset()
 
     def reset(self, cmd: Any = None) -> None:
