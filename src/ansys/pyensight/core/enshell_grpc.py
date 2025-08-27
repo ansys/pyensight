@@ -49,9 +49,11 @@ class EnShellGRPC(object):
         self._pid = None
         self._channel = None
         self._stub = None
+        self._grpc_use_tcp_sockets = False
+        self._grpc_disable_tls = False
         #
-        # self._security_token = str(random.randint(0, 1000000))
-        self._security_token: Optional[int] = None
+        self._security_token = str(random.randint(0, 1000000))
+        # self._security_token: Optional[int] = None
         #
         # values found from EnShell in the Container
         self._cei_home = None
@@ -111,6 +113,24 @@ class EnShellGRPC(object):
         """
         return self._security_token
 
+    def set_grpc_use_tcp_sockets(self,
+        use_sockets: bool):
+        """Set whether to use Unix Domain Sockets or TCP Sockets for gRPC"""
+        self._grpc_use_tcp_sockets = use_sockets
+
+    def grpc_use_tcp_sockets(self):
+        """Get whether to use Unix Domain Sockets or TCP Sockets for gRPC"""
+        return self._grpc_use_tcp_sockets
+
+    def set_grpc_disable_tls(self,
+        disable_tls: bool):
+        """Set whether to use TLS for TCP Sockets for gRPC"""
+        self._grpc_disable_tls = disable_tls
+
+    def grpc_disable_tls(self):
+        """Get whether to use TLS for TCP Sockets for gRPC"""
+        return self._grpc_disable_tls
+
     def shutdown(self):
         """shut down all gRPC connections.
 
@@ -140,6 +160,10 @@ class EnShellGRPC(object):
         if self._security_token:
             cmd.append("-security")
             cmd.append(self._security_token)
+        if self._grpc_use_tcp_sockets:
+            cmd.append("-grpc_use_tcp_sockets")
+        if self._grpc_disable_tls:
+            cmd.append("-grpc_disable_tls")
         if sys.platform in ("win32", "cygwin"):
             cmd[0] += ".bat"
             # cmd.append("-minimize_console")
@@ -203,14 +227,74 @@ class EnShellGRPC(object):
         """
         if self._channel is not None:
             return
-        self._channel = grpc.insecure_channel(
-            "{}:{}".format(self._host, self._port),
-            options=[
-                ("grpc.max_receive_message_length", -1),
-                ("grpc.max_send_message_length", -1),
-                ("grpc.testing.fixed_reconnect_backoff_ms", 1100),
-            ],
-        )
+        
+
+        address = "undefined"
+        if self._grpc_use_tcp_sockets:
+            # Using TCP Sockets
+            address = f"{self._host}:{self._port}"
+            if self._grpc_disable_tls:
+                pass
+        else:
+            # Using Unix Domain Sockets
+            if sys.platform == "win32":
+                homeDir = ""
+                if "USERPROFILE" in os.environ:
+                    homeDir = os.environ["USERPROFILE"]
+                elif "HOME" in os.environ:
+                    homeDir = os.environ["HOME"]
+                address = f"unix:{homeDir}/.conn/greeter.sock"
+            else:
+                address = "unix:/tmp/greeter.sock"
+
+        if (self._grpc_use_tcp_sockets and self._grpc_disable_tls) or (not self._grpc_use_tcp_sockets):
+            logging.debug(f"Creating insecure gRPC channel to: {address}\n")
+            self._channel = grpc.insecure_channel(address,
+                options=[
+                    ("grpc.max_receive_message_length", -1),
+                    ("grpc.max_send_message_length", -1),
+                    ("grpc.testing.fixed_reconnect_backoff_ms", 1100),
+                ])
+        else:
+            root_certificates = None
+            private_key = None
+            certificate_chain = None
+      
+            # TLS setup using environment variables
+            client_cert = os.environ.get("GRPC_CLIENT_CERT", "certs/client.crt")
+            client_key = os.environ.get("GRPC_CLIENT_KEY", "certs/client.key")
+            ca_cert = os.environ.get("GRPC_CA_CERT", "certs/server_ca.crt")
+
+            if not (client_cert and client_key and ca_cert):
+                raise RuntimeError("GRPC_CLIENT_CERT, GRPC_CLIENT_KEY, and GRPC_CA_CERT environment variables must be set for TLS.")
+
+            with open(client_cert, 'rb') as f:
+                certificate_chain = f.read()
+            with open(client_key, 'rb') as f:
+                private_key = f.read()
+            with open(ca_cert, 'rb') as f:
+                root_certificates = f.read()
+
+            creds = grpc.ssl_channel_credentials(root_certificates=root_certificates,
+                private_key=private_key, certificate_chain=certificate_chain)
+            logging.debug(f"Creating secure gRPC channel to: {address}\n")
+            self._channel = grpc.secure_channel(address, creds,
+                options=[
+                    ("grpc.max_receive_message_length", -1),
+                    ("grpc.max_send_message_length", -1),
+                    ("grpc.testing.fixed_reconnect_backoff_ms", 1100),
+                ])
+            logging.debug(f"  channel: {self._channel}\n")
+
+        try:
+            grpc.channel_ready_future(self._channel).result(timeout=timeout)
+        except grpc.FutureTimeoutError:
+            logging.debug(f"  channel timed out\n")
+            self._channel = None
+            return
+        logging.debug(f"  channel connected.\n\n")
+        self._stub = enshell_pb2_grpc.EnShellServiceStub(self._channel)
+
         try:
             grpc.channel_ready_future(self._channel).result(timeout=timeout)
         except grpc.FutureTimeoutError:  # pragma: no cover
@@ -347,6 +431,13 @@ class EnShellGRPC(object):
         self.connect()
 
         command_string = "start_app CLIENT -c 127.0.0.1 -enshell"
+        if self._security_token:
+            command_string += " -security "
+            command_string += str(self._security_token)
+        if self._grpc_use_tcp_sockets:
+            command_string += " -grpc_use_tcp_sockets"
+        if self._grpc_disable_tls:
+            command_string += " -grpc_disable_tls"
         if ensight_args and (ensight_args != ""):
             command_string += " " + ensight_args
 
@@ -379,6 +470,13 @@ class EnShellGRPC(object):
         command_string = (
             f"start_app OTHER /ansys_inc/v{self.ansys_version()}/CEI/bin/ensight_server"
         )
+        if self._security_token:
+            command_string += " -security "
+            command_string += str(self._security_token)
+        if self._grpc_use_tcp_sockets:
+            command_string += " -grpc_use_tcp_sockets"
+        if self._grpc_disable_tls:
+            command_string += " -grpc_disable_tls"
         if ensight_args and (ensight_args != ""):
             command_string += " " + ensight_args
 
