@@ -1,0 +1,6 @@
+fit\_current\_viewport
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.fit_current_viewport

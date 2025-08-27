@@ -1,0 +1,6 @@
+view\_center\_and\_direction
+============================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.view_center_and_direction

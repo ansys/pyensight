@@ -1,0 +1,6 @@
+TEMPORAL\_XYZ
+=============
+
+.. currentmodule:: ansys.pyensight.core.utils.query
+
+.. autoattribute:: Query.TEMPORAL_XYZ

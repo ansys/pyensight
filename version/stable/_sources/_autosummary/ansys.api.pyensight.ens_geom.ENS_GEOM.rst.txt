@@ -1,0 +1,87 @@
+﻿ENS\_GEOM
+=========
+
+.. currentmodule:: ansys.api.pyensight.ens_geom
+
+.. autoclass:: ENS_GEOM
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_GEOM.attrgroupinfo
+      
+      
+      ENS_GEOM.attrinfo
+      
+      
+      ENS_GEOM.attrissensitive
+      
+      
+      ENS_GEOM.attrtree
+      
+      
+      ENS_GEOM.create
+      
+      
+      ENS_GEOM.destroy
+      
+      
+      ENS_GEOM.getattr
+      
+      
+      ENS_GEOM.getattrs
+      
+      
+      ENS_GEOM.getmetatag
+      
+      
+      ENS_GEOM.hasmetatag
+      
+      
+      ENS_GEOM.setattr
+      
+      
+      ENS_GEOM.setattr_begin
+      
+      
+      ENS_GEOM.setattr_end
+      
+      
+      ENS_GEOM.setattr_status
+      
+      
+      ENS_GEOM.setattrs
+      
+      
+      ENS_GEOM.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_GEOM.CONNECTIVITY
+      ENS_GEOM.COORDINATES
+      ENS_GEOM.DESCRIPTION
+      ENS_GEOM.EDIT_TARGET
+      ENS_GEOM.HANDLES_ENABLED
+      ENS_GEOM.MESHTYPE
+      ENS_GEOM.METADATA
+      ENS_GEOM.PROJECT_MASK
+      ENS_GEOM.RADII
+      ENS_GEOM.UUID
+      ENS_GEOM.__OBJID__
+      ENS_GEOM.objid
+   
+   
