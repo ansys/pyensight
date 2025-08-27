@@ -38,7 +38,7 @@ import numpy
 import png
 
 try:
-    from pxr import Gf, Kind, Sdf, Usd, UsdGeom, UsdLux, UsdShade
+    from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdShade
 except ModuleNotFoundError:
     if sys.version_info.minor >= 13:
         warnings.warn("USD Export not supported for Python >= 3.13")
@@ -56,13 +56,15 @@ class OmniverseWrapper(object):
         destination: str = "",
         line_width: float = 0.0,
     ) -> None:
+        # File extension.  For debugging, .usda is sometimes helpful.
+        self._ext = ".usd"
         self._cleaned_index = 0
         self._cleaned_names: dict = {}
         self._connectionStatusSubscription = None
         self._stage = None
         self._destinationPath: str = ""
         self._old_stages: list = []
-        self._stagename: str = "dsg_scene.usd"
+        self._stagename: str = "dsg_scene" + self._ext
         self._live_edit: bool = live_edit
         if self._live_edit:
             self._stagename = "dsg_scene.live"
@@ -75,6 +77,8 @@ class OmniverseWrapper(object):
             self.destination = destination
 
         self._line_width = line_width
+        # Record the files per timestep, per mesh type.  {part_name: {"surfaces": [], "lines": [], "points": []} }
+        self._time_files: dict = {}
 
     @property
     def destination(self) -> str:
@@ -148,7 +152,8 @@ class OmniverseWrapper(object):
                 else:
                     shutil.rmtree(stage, ignore_errors=True, onerror=None)
             except OSError:
-                stages_unremoved.append(stage)
+                if not stage.endswith("_manifest" + self._ext):
+                    stages_unremoved.append(stage)
         self._old_stages = stages_unremoved
 
     def create_new_stage(self) -> None:
@@ -276,8 +281,75 @@ class OmniverseWrapper(object):
         t = [t[0] * trans_convert, t[1] * trans_convert, t[2] * trans_convert]
         return s, r, t
 
+    # Common code to create the part manifest file and the file per timestep
+    def create_dsg_surfaces_file(
+        self,
+        file_url,  # SdfPath, location on disk
+        part_path: str,  # base path name, such as "/Root/Case_1/Isosurface_part"
+        verts,
+        normals,
+        conn,
+        tcoords,
+        diffuse,
+        variable,
+        mat_info,
+        is_manifest: bool,
+    ):
+        if is_manifest and file_url in self._old_stages:
+            return False
+        if not is_manifest and os.path.exists(file_url):
+            return False
+
+        stage = Usd.Stage.CreateNew(file_url)
+        UsdGeom.SetStageUpAxis(stage, self._up_axis)
+        UsdGeom.SetStageMetersPerUnit(stage, 1.0 / self._units_per_meter)
+        self._old_stages.append(file_url)
+
+        part_prim = stage.OverridePrim(part_path)
+
+        surfaces_prim = UsdGeom.Xform.Define(stage, part_path + "/surfaces")
+        surfaces_prim.AddXformOp(UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble)
+        mesh = UsdGeom.Mesh.Define(stage, str(surfaces_prim.GetPath()) + "/Mesh")
+        mesh.CreateDoubleSidedAttr().Set(True)
+        pt_attr = mesh.CreatePointsAttr()
+        if verts is not None:
+            pt_attr.Set(verts, 0)
+        norm_attr = mesh.CreateNormalsAttr()
+        if normals is not None:
+            norm_attr.Set(normals, 0)
+        fvc_attr = mesh.CreateFaceVertexCountsAttr()
+        fvi_attr = mesh.CreateFaceVertexIndicesAttr()
+        if conn is not None:
+            fvc_attr.Set([3] * (conn.size // 3), 0)
+            fvi_attr.Set(conn, 0)
+
+        primvarsAPI = UsdGeom.PrimvarsAPI(mesh)
+        texCoords = primvarsAPI.CreatePrimvar(
+            "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+        )
+        texCoords.SetInterpolation("vertex")
+        if tcoords is not None and variable is not None:
+            texCoords.Set(tcoords, 0)
+
+        stage.SetDefaultPrim(part_prim)
+        stage.SetStartTimeCode(0)
+        stage.SetEndTimeCode(0)
+
+        self.create_dsg_material(
+            stage,
+            mesh,
+            str(surfaces_prim.GetPath()),
+            diffuse=diffuse,
+            variable=variable,
+            mat_info=mat_info,
+        )
+
+        stage.Save()
+        return True
+
     def create_dsg_mesh_block(
         self,
+        part: Part,
         name,
         id,
         part_hash,
@@ -293,82 +365,174 @@ class OmniverseWrapper(object):
         first_timestep=False,
         mat_info={},
     ):
+        if self._stage is None:
+            return
+
         # 1D texture map for variables https://graphics.pixar.com/usd/release/tut_simple_shading.html
         # create the part usd object
-        partname = self.clean_name(name + part_hash.hexdigest())
-        stage_name = "/Parts/" + partname + ".usd"
-        part_stage_url = self.stage_url(os.path.join("Parts", partname + ".usd"))
-        part_stage = None
+        part_base_name = self.clean_name(name)
+        partname = part_base_name + part_hash.hexdigest()
+        stage_name = "/Parts/" + partname + self._ext
+        part_stage_url = self.stage_url(os.path.join("Parts", partname + self._ext))
 
-        if not os.path.exists(part_stage_url):
-            part_stage = Usd.Stage.CreateNew(part_stage_url)
-            UsdGeom.SetStageUpAxis(part_stage, self._up_axis)
-            UsdGeom.SetStageMetersPerUnit(part_stage, 1.0 / self._units_per_meter)
-            self._old_stages.append(part_stage_url)
-            xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
-            mesh = UsdGeom.Mesh.Define(part_stage, "/" + partname + "/Mesh")
-            # mesh.CreateDisplayColorAttr()
-            mesh.CreateDoubleSidedAttr().Set(True)
-            mesh.CreatePointsAttr(verts)
-            mesh.CreateNormalsAttr(normals)
-            mesh.CreateFaceVertexCountsAttr([3] * (conn.size // 3))
-            mesh.CreateFaceVertexIndicesAttr(conn)
-            if (tcoords is not None) and variable:
-                primvarsAPI = UsdGeom.PrimvarsAPI(mesh)
-                texCoords = primvarsAPI.CreatePrimvar(
-                    "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
-                )
-                texCoords.Set(tcoords)
-                texCoords.SetInterpolation("vertex")
-            part_prim = part_stage.GetPrimAtPath("/" + partname)
-            part_stage.SetDefaultPrim(part_prim)
+        # Make the manifest file - once for all timesteps
+        part_manifest_url_relative = "./Parts/" + part_base_name + "_manifest" + self._ext
+        part_manifest_url = self.stage_url(part_manifest_url_relative)
+        created_file = self.create_dsg_surfaces_file(
+            part_manifest_url,
+            str(parent_prim.GetPath()),
+            None,
+            None,
+            None,
+            None,
+            diffuse,
+            variable,
+            mat_info,
+            True,
+        )
+        if created_file:
+            self._stage.GetRootLayer().subLayerPaths.append(part_manifest_url_relative)
 
-            # Currently, this will never happen, but it is a setup for rigid body transforms
-            # At present, the group transforms have been cooked into the vertices so this is not needed
-            matrixOp = xform.AddXformOp(
-                UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
-            )
-            matrixOp.Set(Gf.Matrix4d(*matrix).GetTranspose())
+        # Make the per-timestep file
+        created_file = self.create_dsg_surfaces_file(
+            part_stage_url,
+            str(parent_prim.GetPath()),
+            verts,
+            normals,
+            conn,
+            tcoords,
+            diffuse,
+            variable,
+            mat_info,
+            False,
+        )
 
-            self.create_dsg_material(
-                part_stage,
-                mesh,
-                "/" + partname,
-                diffuse=diffuse,
-                variable=variable,
-                mat_info=mat_info,
-            )
-
-        timestep_prim = self.add_timestep_group(parent_prim, timeline, first_timestep)
-
-        # glue it into our stage
-        path = timestep_prim.GetPath().AppendChild("part_ref_" + partname)
-        part_ref = self._stage.OverridePrim(path)
-        part_ref.GetReferences().AddReference("." + stage_name)
-
-        if part_stage is not None:
-            part_stage.GetRootLayer().Save()
+        # Glue the file into the main stage
+        path = parent_prim.GetPath().AppendChild("surfaces")
+        surfaces_prim = self._stage.OverridePrim(path)
+        self.add_timestep_valueclip(
+            part_base_name,
+            "surfaces",
+            surfaces_prim,
+            part_manifest_url_relative,
+            timeline,
+            stage_name,
+        )
 
         return part_stage_url
 
-    def add_timestep_group(
-        self, parent_prim: UsdGeom.Xform, timeline: List[float], first_timestep: bool
-    ) -> UsdGeom.Xform:
-        # add a layer in the group hierarchy for the timestep
-        timestep_group_path = parent_prim.GetPath().AppendChild(
-            self.clean_name("t" + str(timeline[0]), None)
+    def get_time_files(self, part_name: str, mesh_type: str):
+        if part_name not in self._time_files:
+            self._time_files[part_name] = {"surfaces": [], "lines": [], "points": []}
+        return self._time_files[part_name][mesh_type]
+
+    def add_timestep_valueclip(
+        self,
+        part_name: str,
+        mesh_type: str,
+        part_prim: UsdGeom.Xform,
+        manifest_path: str,
+        timeline: List[float],
+        stage_name: str,
+    ) -> None:
+        clips_api = Usd.ClipsAPI(part_prim)
+        asset_path = "." + stage_name
+
+        time_files = self.get_time_files(part_name, mesh_type)
+
+        if len(time_files) == 0 or time_files[-1][0] != asset_path:
+            time_files.append((asset_path, timeline[0]))
+            clips_api.SetClipAssetPaths([time_file[0] for time_file in time_files])
+            clips_api.SetClipActive(
+                [
+                    (time_file[1] * self._time_codes_per_second, ii)
+                    for ii, time_file in enumerate(time_files)
+                ]
+            )
+            clips_api.SetClipTimes(
+                [
+                    (time_file[1] * self._time_codes_per_second, 0)
+                    for ii, time_file in enumerate(time_files)
+                ]
+            )
+            clips_api.SetClipPrimPath(str(part_prim.GetPath()))
+            clips_api.SetClipManifestAssetPath(Sdf.AssetPath(manifest_path))
+
+    # Common code to create the part manifest file and the file per timestep
+    def create_dsg_lines_file(
+        self,
+        file_url,  # SdfPath, location on disk
+        part_path: str,  # base path name, such as "/Root/Case_1/Isosurface_part"
+        verts,
+        width: float,
+        tcoords,
+        diffuse,
+        var_cmd,
+        mat_info,
+        is_manifest: bool,
+    ):
+        if is_manifest and file_url in self._old_stages:
+            return False
+        if not is_manifest and os.path.exists(file_url):
+            return False
+
+        stage = Usd.Stage.CreateNew(file_url)
+        UsdGeom.SetStageUpAxis(stage, self._up_axis)
+        UsdGeom.SetStageMetersPerUnit(stage, 1.0 / self._units_per_meter)
+        self._old_stages.append(file_url)
+
+        part_prim = stage.OverridePrim(part_path)
+
+        lines_prim = UsdGeom.Xform.Define(stage, part_path + "/lines")
+
+        lines_prim.AddXformOp(UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble)
+        lines = UsdGeom.BasisCurves.Define(stage, str(lines_prim.GetPath()) + "/Lines")
+        lines.CreateDoubleSidedAttr().Set(True)
+        pt_attr = lines.CreatePointsAttr()
+        vc_attr = lines.CreateCurveVertexCountsAttr()
+        if verts is not None:
+            pt_attr.Set(verts, 0)
+            vc_attr.Set([2] * (verts.size // 6), 0)
+        lines.CreatePurposeAttr().Set("render")
+        lines.CreateTypeAttr().Set("linear")
+        lines.CreateWidthsAttr([width])
+        lines.SetWidthsInterpolation("constant")
+
+        # Rounded endpoint are a primvar
+        primvarsAPI = UsdGeom.PrimvarsAPI(lines)
+        endCaps = primvarsAPI.CreatePrimvar(
+            "endcaps", Sdf.ValueTypeNames.Int, UsdGeom.Tokens.constant
         )
-        timestep_prim = UsdGeom.Xform.Define(self._stage, timestep_group_path)
-        visibility_attr = UsdGeom.Imageable(timestep_prim).GetVisibilityAttr()
-        if first_timestep:
-            visibility_attr.Set("inherited", Usd.TimeCode.EarliestTime())
-        else:
-            visibility_attr.Set("invisible", Usd.TimeCode.EarliestTime())
-        visibility_attr.Set("inherited", timeline[0] * self._time_codes_per_second)
-        # Final timestep has timeline[0]==timeline[1].  Leave final timestep visible.
-        if timeline[0] < timeline[1]:
-            visibility_attr.Set("invisible", timeline[1] * self._time_codes_per_second)
-        return timestep_prim
+        endCaps.Set(2)  # Rounded = 2
+
+        prim = lines.GetPrim()
+        wireframe = width == 0.0
+        prim.CreateAttribute("omni:scene:visualization:drawWireframe", Sdf.ValueTypeNames.Bool).Set(
+            wireframe
+        )
+
+        if (tcoords is not None) and var_cmd:
+            primvarsAPI = UsdGeom.PrimvarsAPI(lines)
+            texCoords = primvarsAPI.CreatePrimvar(
+                "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+            )
+            if tcoords is not None and var_cmd is not None:
+                texCoords.Set(tcoords, 0)
+            texCoords.SetInterpolation("vertex")
+        stage.SetDefaultPrim(part_prim)
+        stage.SetStartTimeCode(0)
+        stage.SetEndTimeCode(0)
+
+        self.create_dsg_material(
+            stage,
+            lines,
+            str(lines_prim.GetPath()),
+            diffuse=diffuse,
+            variable=var_cmd,
+            mat_info=mat_info,
+        )
+        stage.Save()
+        return True
 
     def create_dsg_lines(
         self,
@@ -389,78 +553,97 @@ class OmniverseWrapper(object):
         # include the line width in the hash
         part_hash.update(str(self.line_width).encode("utf-8"))
 
-        # 1D texture map for variables https://graphics.pixar.com/usd/release/tut_simple_shading.html
-        # create the part usd object
-        partname = self.clean_name(name + part_hash.hexdigest()) + "_l"
-        stage_name = "/Parts/" + partname + ".usd"
-        part_stage_url = self.stage_url(os.path.join("Parts", partname + ".usd"))
-        part_stage = None
+        part_base_name = self.clean_name(name) + "_l"
+        partname = part_base_name + part_hash.hexdigest()
+        stage_name = "/Parts/" + partname + self._ext
+        part_stage_url = self.stage_url(os.path.join("Parts", partname + self._ext))
 
-        var_cmd = variable
+        # Make the manifest file - once for all timesteps
+        part_manifest_url_relative = "./Parts/" + part_base_name + "_manifest" + self._ext
+        part_manifest_url = self.stage_url(part_manifest_url_relative)
+        created_file = self.create_dsg_lines_file(
+            part_manifest_url,
+            str(parent_prim.GetPath()),
+            None,
+            width,
+            None,
+            diffuse,
+            variable,
+            mat_info,
+            True,
+        )
+        if created_file:
+            self._stage.GetRootLayer().subLayerPaths.append(part_manifest_url_relative)
 
-        if not os.path.exists(part_stage_url):
-            part_stage = Usd.Stage.CreateNew(part_stage_url)
-            UsdGeom.SetStageUpAxis(part_stage, self._up_axis)
-            UsdGeom.SetStageMetersPerUnit(part_stage, 1.0 / self._units_per_meter)
-            self._old_stages.append(part_stage_url)
-            xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
-            lines = UsdGeom.BasisCurves.Define(part_stage, "/" + partname + "/Lines")
-            lines.CreateDoubleSidedAttr().Set(True)
-            lines.CreatePointsAttr(verts)
-            lines.CreateCurveVertexCountsAttr([2] * (verts.size // 6))
-            lines.CreatePurposeAttr().Set("render")
-            lines.CreateTypeAttr().Set("linear")
-            lines.CreateWidthsAttr([width])
-            lines.SetWidthsInterpolation("constant")
-            # Rounded endpoint are a primvar
-            primvarsAPI = UsdGeom.PrimvarsAPI(lines)
-            endCaps = primvarsAPI.CreatePrimvar(
-                "endcaps", Sdf.ValueTypeNames.Int, UsdGeom.Tokens.constant
-            )
-            endCaps.Set(2)  # Rounded = 2
+        # Make the per-timestep file
+        created_file = self.create_dsg_lines_file(
+            part_stage_url,
+            str(parent_prim.GetPath()),
+            verts,
+            width,
+            tcoords,
+            diffuse,
+            variable,
+            mat_info,
+            False,
+        )
 
-            prim = lines.GetPrim()
-            wireframe = width == 0.0
-            prim.CreateAttribute(
-                "omni:scene:visualization:drawWireframe", Sdf.ValueTypeNames.Bool
-            ).Set(wireframe)
-            if (tcoords is not None) and var_cmd:
-                primvarsAPI = UsdGeom.PrimvarsAPI(lines)
-                texCoords = primvarsAPI.CreatePrimvar(
-                    "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
-                )
-                texCoords.Set(tcoords)
-                texCoords.SetInterpolation("vertex")
-            part_prim = part_stage.GetPrimAtPath("/" + partname)
-            part_stage.SetDefaultPrim(part_prim)
-
-            # Currently, this will never happen, but it is a setup for rigid body transforms
-            # At present, the group transforms have been cooked into the vertices so this is not needed
-            matrixOp = xform.AddXformOp(
-                UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
-            )
-            matrixOp.Set(Gf.Matrix4d(*matrix).GetTranspose())
-
-            self.create_dsg_material(
-                part_stage,
-                lines,
-                "/" + partname,
-                diffuse=diffuse,
-                variable=var_cmd,
-                mat_info=mat_info,
-            )
-
-        timestep_prim = self.add_timestep_group(parent_prim, timeline, first_timestep)
-
-        # glue it into our stage
-        path = timestep_prim.GetPath().AppendChild("part_ref_" + partname)
-        part_ref = self._stage.OverridePrim(path)
-        part_ref.GetReferences().AddReference("." + stage_name)
-
-        if part_stage is not None:
-            part_stage.GetRootLayer().Save()
+        # Glue the file into the main stage
+        path = parent_prim.GetPath().AppendChild("lines")
+        lines_prim = self._stage.OverridePrim(path)
+        self.add_timestep_valueclip(
+            part_base_name, "lines", lines_prim, part_manifest_url_relative, timeline, stage_name
+        )
 
         return part_stage_url
+
+    # Common code to create the part manifest file and the file per timestep
+    def create_dsg_points_file(
+        self,
+        file_url,  # SdfPath, location on disk
+        part_path: str,  # base path name, such as "/Root/Case_1/Isosurface_part"
+        verts,
+        sizes,
+        colors,
+        default_size: float,
+        default_color,
+        is_manifest: bool,
+    ):
+        if is_manifest and file_url in self._old_stages:
+            return False
+        if not is_manifest and os.path.exists(file_url):
+            return False
+
+        stage = Usd.Stage.CreateNew(file_url)
+        UsdGeom.SetStageUpAxis(stage, self._up_axis)
+        UsdGeom.SetStageMetersPerUnit(stage, 1.0 / self._units_per_meter)
+        self._old_stages.append(file_url)
+
+        part_prim = stage.OverridePrim(part_path)
+        points = UsdGeom.Points.Define(stage, part_path + "/points")
+        pt_attr = points.CreatePointsAttr()
+        w_attr = points.CreateWidthsAttr()
+        if verts is not None:
+            pt_attr.Set(verts, 0)
+            if sizes is not None and sizes.size == (verts.size // 3):
+                w_attr.Set(sizes, 0)
+            else:
+                w_attr.Set([default_size] * (verts.size // 3), 0)
+
+        colorAttr = points.GetPrim().GetAttribute("primvars:displayColor")
+        colorAttr.SetMetadata("interpolation", "vertex")
+        if verts is not None:
+            if colors is not None and colors.size == verts.size:
+                colorAttr.Set(colors, 0)
+            else:
+                colorAttr.Set([default_color[0:3]] * (verts.size // 3), 0)
+
+        stage.SetDefaultPrim(part_prim)
+        stage.SetStartTimeCode(0)
+        stage.SetEndTimeCode(0)
+
+        stage.Save()
+        return True
 
     def create_dsg_points(
         self,
@@ -477,53 +660,45 @@ class OmniverseWrapper(object):
         timeline=[0.0, 0.0],
         first_timestep=False,
     ):
-        # create the part usd object
-        partname = self.clean_name(name + part_hash.hexdigest())
-        stage_name = "/Parts/" + partname + ".usd"
-        part_stage_url = self.stage_url(os.path.join("Parts", partname + ".usd"))
-        part_stage = None
+        part_base_name = self.clean_name(name) + "_p"
+        partname = part_base_name + part_hash.hexdigest()
+        stage_name = "/Parts/" + partname + self._ext
+        part_stage_url = self.stage_url(os.path.join("Parts", partname + self._ext))
 
-        if not os.path.exists(part_stage_url):
-            part_stage = Usd.Stage.CreateNew(part_stage_url)
-            UsdGeom.SetStageUpAxis(part_stage, self._up_axis)
-            UsdGeom.SetStageMetersPerUnit(part_stage, 1.0 / self._units_per_meter)
-            self._old_stages.append(part_stage_url)
-            xform = UsdGeom.Xform.Define(part_stage, "/" + partname)
+        # Make the manifest file - once for all timesteps
+        part_manifest_url_relative = "./Parts/" + part_base_name + "_manifest" + self._ext
+        part_manifest_url = self.stage_url(part_manifest_url_relative)
+        created_file = self.create_dsg_points_file(
+            part_manifest_url,
+            str(parent_prim.GetPath()),
+            None,
+            None,
+            None,
+            default_size,
+            default_color,
+            True,
+        )
+        if created_file:
+            self._stage.GetRootLayer().subLayerPaths.append(part_manifest_url_relative)
 
-            points = UsdGeom.Points.Define(part_stage, "/" + partname + "/Points")
-            # points.GetPointsAttr().Set(Vt.Vec3fArray(verts.tolist()))
-            points.GetPointsAttr().Set(verts)
-            if sizes is not None and sizes.size == (verts.size // 3):
-                points.GetWidthsAttr().Set(sizes)
-            else:
-                points.GetWidthsAttr().Set([default_size] * (verts.size // 3))
+        # Make the per-timestep file
+        created_file = self.create_dsg_points_file(
+            part_stage_url,
+            str(parent_prim.GetPath()),
+            verts,
+            sizes,
+            colors,
+            default_size,
+            default_color,
+            False,
+        )
 
-            colorAttr = points.GetPrim().GetAttribute("primvars:displayColor")
-            colorAttr.SetMetadata("interpolation", "vertex")
-            if colors is not None and colors.size == verts.size:
-                colorAttr.Set(colors)
-            else:
-                colorAttr.Set([default_color[0:3]] * (verts.size // 3))
-
-            part_prim = part_stage.GetPrimAtPath("/" + partname)
-            part_stage.SetDefaultPrim(part_prim)
-
-            # Currently, this will never happen, but it is a setup for rigid body transforms
-            # At present, the group transforms have been cooked into the vertices so this is not needed
-            matrixOp = xform.AddXformOp(
-                UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
-            )
-            matrixOp.Set(Gf.Matrix4d(*matrix).GetTranspose())
-
-        timestep_prim = self.add_timestep_group(parent_prim, timeline, first_timestep)
-
-        # glue it into our stage
-        path = timestep_prim.GetPath().AppendChild("part_ref_" + partname)
-        part_ref = self._stage.OverridePrim(path)
-        part_ref.GetReferences().AddReference("." + stage_name)
-
-        if part_stage is not None:
-            part_stage.GetRootLayer().Save()
+        # Glue the file into the main stage
+        path = parent_prim.GetPath().AppendChild("points")
+        points_prim = self._stage.OverridePrim(path)
+        self.add_timestep_valueclip(
+            part_base_name, "points", points_prim, part_manifest_url_relative, timeline, stage_name
+        )
 
         return part_stage_url
 
@@ -693,6 +868,7 @@ class OmniverseWrapper(object):
             )
             matrix_op.Set(Gf.Matrix4d(*matrix).GetTranspose())
             # Map kinds
+            """
             kind = Kind.Tokens.group
             if obj_type == "ENS_CASE":
                 kind = Kind.Tokens.assembly
@@ -700,6 +876,7 @@ class OmniverseWrapper(object):
                 kind = Kind.Tokens.component
             Usd.ModelAPI(group_prim).SetKind(kind)
             logging.info(f"Created group:'{name}' {str(obj_type)}")
+            """
         return group_prim
 
     def uploadMaterial(self):
@@ -874,6 +1051,7 @@ class OmniverseUpdateHandler(UpdateHandler):
                 has_triangles = True
                 # Generate the mesh block
                 _ = self._omni.create_dsg_mesh_block(
+                    part,
                     name,
                     obj_id,
                     part.hash,
