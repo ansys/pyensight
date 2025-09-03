@@ -1,0 +1,6 @@
+query\_composite\_matrix
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.query_composite_matrix

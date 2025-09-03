@@ -1,0 +1,6 @@
+ENVMAP\_SAVEDINFO
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_scene
+
+.. autoproperty:: ENS_SCENE.ENVMAP_SAVEDINFO

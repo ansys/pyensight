@@ -1,0 +1,6 @@
+face\_ymin\_grid
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport_axis.face_ymin_grid

@@ -1,0 +1,6 @@
+predefined\_material
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.predefined_material

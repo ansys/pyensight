@@ -1,0 +1,6 @@
+sos
+===
+
+.. currentmodule:: ansys.pyensight.core
+
+.. autoproperty:: Session.sos

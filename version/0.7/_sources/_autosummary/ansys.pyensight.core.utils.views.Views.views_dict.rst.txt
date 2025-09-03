@@ -1,0 +1,6 @@
+views\_dict
+===========
+
+.. currentmodule:: ansys.pyensight.core.utils.views
+
+.. autoproperty:: Views.views_dict
