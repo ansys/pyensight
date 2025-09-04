@@ -238,12 +238,7 @@ class EnShellGRPC(object):
         else:
             # Using Unix Domain Sockets
             if sys.platform == "win32":
-                homeDir = ""
-                if "USERPROFILE" in os.environ:
-                    homeDir = os.environ["USERPROFILE"]
-                elif "HOME" in os.environ:
-                    homeDir = os.environ["HOME"]
-                address = f"unix:{homeDir}/.conn/greeter.sock"
+                address = f"127.0.0.1:{self._port}"
             else:
                 address = "unix:/tmp/greeter.sock"
 
@@ -261,12 +256,22 @@ class EnShellGRPC(object):
             certificate_chain = None
       
             # TLS setup using environment variables
-            client_cert = os.environ.get("GRPC_CLIENT_CERT", "certs/client.crt")
-            client_key = os.environ.get("GRPC_CLIENT_KEY", "certs/client.key")
-            ca_cert = os.environ.get("GRPC_CA_CERT", "certs/server_ca.crt")
+            client_cert = ""
+            client_key = ""
+            ca_cert = ""
+
+            ansys_cert_folder = os.environ.get("ANSYS_GRPC_CERTIFICATES", None)
+            if ansys_cert_folder != None:
+                client_cert = os.path.join(ansys_cert_folder, "client.crt")
+                client_key = os.path.join(ansys_cert_folder, "client.key")
+                ca_cert = os.path.join(ansys_cert_folder, "ca.crt")
+            else:
+                client_cert = os.environ.get("GRPC_CLIENT_CERT", "certs/client.crt")
+                client_key = os.environ.get("GRPC_CLIENT_KEY", "certs/client.key")
+                ca_cert = os.environ.get("GRPC_CA_CERT", "certs/ca.crt")
 
             if not (client_cert and client_key and ca_cert):
-                raise RuntimeError("GRPC_CLIENT_CERT, GRPC_CLIENT_KEY, and GRPC_CA_CERT environment variables must be set for TLS.")
+                raise RuntimeError("Either ANSYS_GRPC_CERTIFICATES or (GRPC_CLIENT_CERT, GRPC_CLIENT_KEY, and GRPC_CA_CERT) environment variables must be set for TLS.")
 
             with open(client_cert, 'rb') as f:
                 certificate_chain = f.read()
