@@ -54,6 +54,8 @@ class _Simba:
         self._original_parallel_scale = None
         self._original_view_angle = None
         self._original_view_up = None
+        self._original_transform_center = None
+        self._current_transform_center = None
 
     def _initialize_simba_view(self):
         """Initialize the data for resetting the camera."""
@@ -345,12 +347,14 @@ class _Simba:
         mousey = int(mousey)
         if isinstance(self.ensight, ModuleType):
             model_point = self.ensight.objs.core.VPORTS[0].screen_to_coords(
-                mousex, mousey, invert_y, set_center
+                mousex, mousey, invert_y, False
             )
         else:
             model_point = self.ensight._session.cmd(
-                f"ensight.objs.core.VPORTS[0].screen_to_coords({mousex}, {mousey}, {invert_y}, {set_center})"
+                f"ensight.objs.core.VPORTS[0].screen_to_coords({mousex}, {mousey}, {invert_y}, False)"
             )
+        if set_center:
+            self._current_transform_center = model_point.copy()
         self.render()
         return {"model_point": model_point, "camera": self.get_camera()}
 
