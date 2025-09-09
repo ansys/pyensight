@@ -102,23 +102,26 @@ class LocalLauncher(Launcher):
         """Type of app to launch. Options are ``ensight`` and ``envision``."""
         return self._application
 
-    def launch_webui(self, cpython, version, popen_common):
-        cmd = [cpython, "-m", "ansys.simba.plugin.post.simba_post"]
+    def launch_webui(self, version, popen_common):
+        if os.environ.get("PYENSIGHT_FLUIDSONE_PATH"):
+            fluids_one_path = os.environ["PYENSIGHT_FLUIDSONE_PATH"]
+        else:
+            awp_path = os.path.dirname(self._install_path)
+            platf = "winx64" if self._is_windows() else "linx64"
+            fluids_one_path = os.path.join(awp_path, "FluidsOne", "server", platf, "fluids_one")
+            if self._is_windows():
+                fluids_one_path += ".exe"
+        cmd = [fluids_one_path, "--main-run-mode", "post"]
         path_to_webui = self._install_path
         # Dev environment
         path_to_webui_internal = os.path.join(
             path_to_webui, f"nexus{version}", f"ansys{version}", "ensight", "WebUI", "web", "ui"
         )
         # Ansys environment
-        paths_to_webui_ansys = [
-            os.path.join(os.path.dirname(path_to_webui), "simcfd", "web", "ui"),
-            os.path.join(os.path.dirname(path_to_webui), "fluidsone", "web", "ui"),
-        ]
+        path_to_webui_ansys = os.path.join(os.path.dirname(path_to_webui), "FluidsOne", "web", "ui")
         path_to_webui = path_to_webui_internal
-        for path in paths_to_webui_ansys:
-            if os.path.exists(path):
-                path_to_webui = path
-                break
+        if os.path.exists(path_to_webui_ansys):
+            path_to_webui = path_to_webui_ansys
         cmd += ["--server-listen-port", str(self._ports[5])]
         cmd += ["--server-web-roots", path_to_webui]
         cmd += ["--ensight-grpc-port", str(self._ports[0])]
@@ -270,7 +273,6 @@ class LocalLauncher(Launcher):
             cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
             if is_windows:
                 cmd[0] += ".bat"
-            ensight_python = cmd[0]
             cmd.extend(["--http_directory", self.session_directory])
             # http port
             cmd.extend(["--http_port", str(self._ports[2])])
@@ -317,7 +319,7 @@ class LocalLauncher(Launcher):
         self._sessions.append(session)
 
         if self._launch_webui:
-            self.launch_webui(ensight_python, version, popen_common)
+            self.launch_webui(version, popen_common)
         return session
 
     def stop(self) -> None:

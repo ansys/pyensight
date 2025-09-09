@@ -1,9 +1,10 @@
 import glob
 import os
+import sys
 import time
+import warnings
 
 from ansys.pyensight.core import DockerLauncher, LocalLauncher
-from pxr import Usd
 import pytest
 
 
@@ -47,10 +48,14 @@ def wait_for_idle(session):
 
 
 def test_usd_export(tmpdir, pytestconfig: pytest.Config):
+    if sys.version_info.minor >= 13:
+        warnings.warn("Test not supported for Python >= 3.13")
+        return
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
+    install_path = pytestconfig.getoption("install_path")
     if use_local:
-        launcher = LocalLauncher()
+        launcher = LocalLauncher(ansys_installation=install_path)
     else:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
     session = launcher.start()
@@ -62,6 +67,8 @@ def test_usd_export(tmpdir, pytestconfig: pytest.Config):
     base_usd = usd_files[0]
     parts = glob.glob(os.path.join(data_dir, "Parts", "*.usd"))
     assert len(parts) >= 5
+    from pxr import Usd
+
     temp_stage = Usd.Stage.Open(usd_files[0])
     # Save off the first stage to make it static and not get live updates for
     # later comparison

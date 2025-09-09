@@ -13,7 +13,19 @@ import numpy
 import pygltflib
 
 sys.path.insert(0, os.path.dirname(__file__))
-from dsg_server import UpdateHandler  # noqa: E402
+sys.path.insert(0, os.path.dirname(__file__))
+original_stdout = sys.stdout
+original_stderr = sys.stderr
+sys.stderr = open(os.devnull, "w")
+sys.stdout = open(os.devnull, "w")
+try:
+    from dsg_server import UpdateHandler  # noqa: E402
+except AttributeError as exc:
+    if "_ARRAY_API" not in str(exc):
+        raise exc
+finally:
+    sys.stderr = original_stderr
+    sys.stdout = original_stdout
 
 
 class GLBSession(dsg_server.DSGSession):

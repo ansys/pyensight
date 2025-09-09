@@ -155,8 +155,10 @@ class DVS(dvs_base):
             apex_path = apex_path[-1]
             arch = "win64" if self._is_windows() else "linux_2.6_64"
             apex_libs = os.path.join(apex_path, "machines", arch)
-            python_path = glob.glob(os.path.join(apex_libs, "Python-*"))[-1]
-            apex_py_version = re.search("Python-3.([0-9]+).([0-9]+)", os.path.basename(python_path))
+            python_path = glob.glob(os.path.join(apex_libs, "Python-3.*"))[-1]
+            apex_py_version = re.search(
+                r"Python-3.([0-9]+).([0-9]+)", os.path.basename(python_path)
+            )
             apex_py_major_version = apex_py_version.group(1)
             lib_path = os.path.join(python_path, "lib", f"python3.{apex_py_major_version}")
             if self._is_windows():
@@ -167,7 +169,22 @@ class DVS(dvs_base):
 
                 self._dvs_module = dynamic_visualization_store
             except (ModuleNotFoundError, ImportError):
-                warnings.warn("Cannot import DVS module from provided ansys installation folder.")
+                python_cei = os.path.join(apex_libs, "Python-CEI")
+                if os.path.isdir(python_cei):
+                    python_cei_lib_path = os.path.join(
+                        python_cei, "lib", f"python3.{apex_py_major_version}"
+                    )
+                    if self._is_windows():
+                        python_cei_lib_path = os.path.join(python_cei, "DLLs")
+                    sys.path.append(python_cei_lib_path)
+                try:
+                    import dynamic_visualization_store
+
+                    self._dvs_module = dynamic_visualization_store
+                except (ModuleNotFoundError, ImportError):
+                    warnings.warn(
+                        "Cannot import DVS module from provided ansys installation folder."
+                    )
 
     DVS_NULL_TRANSPORT = 0
     DVS_GRPC_TRANSPORT = 1

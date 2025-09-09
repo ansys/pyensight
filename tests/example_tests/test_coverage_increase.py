@@ -12,9 +12,11 @@ import pytest
 def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
+    install_path = pytestconfig.getoption("install_path")
+    use_local_test_data = pytestconfig.getoption("use_local_test_data")
     root = None
     if use_local:
-        launcher = LocalLauncher()
+        launcher = LocalLauncher(ansys_installation=install_path)
         root = "http://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
     else:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
@@ -299,22 +301,29 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     if not use_local:
         launcher.enshell_log_contents()
     assert session.ensight.objs.core.PARTS[0] != session.ensight.objs.core.PARTS[1]
-    counter = 0
-    success = False
-    while not success and counter < 5:
-        try:
-            cas_file = session.download_pyansys_example(
-                "mixing_elbow.cas.h5", "pyfluent/mixing_elbow"
-            )
-            dat_file = session.download_pyansys_example(
-                "mixing_elbow.dat.h5", "pyfluent/mixing_elbow"
-            )
-            success = True
-        except Exception:
-            counter += 1
-            time.sleep(60)
-    if counter == 5 and not success:
-        raise RuntimeError("Couldn't download data from github")
+    if not use_local_test_data:
+        counter = 0
+        success = False
+        while not success and counter < 5:
+            try:
+                cas_file = session.download_pyansys_example(
+                    "mixing_elbow.cas.h5", "pyfluent/mixing_elbow"
+                )
+                dat_file = session.download_pyansys_example(
+                    "mixing_elbow.dat.h5", "pyfluent/mixing_elbow"
+                )
+                success = True
+            except Exception:
+                counter += 1
+                time.sleep(60)
+        if counter == 5 and not success:
+            raise RuntimeError("Couldn't download data from github")
+    else:
+        pyensight_test_data_path = os.path.join(
+            session.cei_home, f"apex{session.cei_suffix}", "machines", "common", "PyEnSightTestData"
+        )
+        cas_file = os.path.join(pyensight_test_data_path, "mixing_elbow.cas.h5")
+        dat_file = os.path.join(pyensight_test_data_path, "mixing_elbow.dat.h5")
     session.load_data(cas_file, result_file=dat_file)
     #
     assert session.ensight_version_check("2021 R1")

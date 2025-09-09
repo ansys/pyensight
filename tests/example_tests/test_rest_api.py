@@ -7,8 +7,9 @@ import requests
 def test_rest_apis(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
+    install_path = pytestconfig.getoption("install_path")
     if use_local:
-        launcher = LocalLauncher(enable_rest_api=True)
+        launcher = LocalLauncher(ansys_installation=install_path, enable_rest_api=True)
     else:
         launcher = DockerLauncher(data_directory=data_dir, use_dev=True, enable_rest_api=True)
 
