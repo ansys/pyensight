@@ -71,10 +71,11 @@ class _Simba:
         self.ensight.annotation.axis_global("off")
         self.ensight.annotation.axis_local("off")
         self.ensight.annotation.axis_model("off")
+        self.ensight.view_transf.zclip_float("OFF")
 
     def get_center_of_rotation(self):
         """Get EnSight center of rotation."""
-        return self.ensight.objs.core.VPORTS[0].TRANSFORMCENTER
+        return self.ensight.objs.core.VPORTS[0].TRANSFORMCENTER.copy()
 
     def auto_scale(self):
         """Auto scale view."""
@@ -106,6 +107,7 @@ class _Simba:
         # if the vport is in orthographic mode. If not, it is defined as the
         # inverge of the tangent of half of the field of view
         parallel_scale = parallel_scale
+        clipping_range = vport.ZCLIPLIMITS
         return {
             "orthographic": not vport.PERSPECTIVE,
             "view_up": view_up,
@@ -118,6 +120,8 @@ class _Simba:
             "reset_parallel_scale": self._original_parallel_scale,
             "reset_view_up": self._original_view_up,
             "reset_view_angle": self._original_view_angle,
+            "near_plane": clipping_range[0],
+            "far_plane": clipping_range[1],
         }
 
     @staticmethod
@@ -239,6 +243,13 @@ class _Simba:
 
         return right, up, forward
 
+    def _arbitrary_orthogonal(self, v):
+        if abs(v[0]) < abs(v[1]) and abs(v[0]) < abs(v[2]):
+            return self.normalize(np.array(self.views._cross_product(v.tolist(), [1, 0, 0])))
+        elif abs(v[1]) < abs(v[2]):
+            return self.normalize(np.array(self.views._cross_product(v.tolist(), [0, 1, 0])))
+        return self.normalize(np.array(self.views._cross_product(v.tolist(), [0, 0, 1])))
+
     def set_camera(
         self,
         orthographic,
@@ -260,29 +271,64 @@ class _Simba:
         if view_angle:
             vport.PERSPECTIVEANGLE = view_angle / 2
         if view_up and position and focal_point:
-            if not pan:
-                q_current = self.normalize(np.array(vport.ROTATION.copy()))
-                q_target = self.normalize(
-                    self.compute_model_rotation_quaternion(position, focal_point, view_up)
-                )
-                q_relative = self.quaternion_multiply(
-                    q_target, np.array([-q_current[0], -q_current[1], -q_current[2], q_current[3]])
-                )
-                angles = self.quaternion_to_euler(q_relative)
-                self.ensight.view_transf.rotate(*angles)
-            else:
-                if mousex and mousey:
-                    self.screen_to_world(
-                        mousex=mousex, mousey=mousey, invert_y=invert_y, set_center=True
-                    )
-                current_camera = self.get_camera()
-                right, up, _ = self.get_camera_axes()
-                translation_vector = np.array(position) - np.array(current_camera["position"])
-                dx = np.dot(translation_vector, right)
-                dy = np.dot(translation_vector, up)
-                self.ensight.view_transf.translate(-dx, -dy, 0)
+            # Compute relative rotation
+            q_current = self.normalize(np.array(vport.ROTATION.copy()))
+            q_target = self.normalize(
+                self.compute_model_rotation_quaternion(position, focal_point, view_up)
+            )
+            q_relative = self.quaternion_multiply(
+                q_target, np.array([-q_current[0], -q_current[1], -q_current[2], q_current[3]])
+            )
+            angles = self.quaternion_to_euler(q_relative)
+            self.ensight.view_transf.rotate(*angles)
+            # Decompose eventual translation from rotation
+            current_camera = self.get_camera()
+            center = vport.TRANSFORMCENTER.copy()
+            pos0, focal0, up0 = map(
+                np.array,
+                [
+                    current_camera["position"],
+                    current_camera["focal_point"],
+                    current_camera["view_up"],
+                ],
+            )
+            pos1, focal1, up1 = map(np.array, [position, focal_point, view_up])
+            dir0 = self.normalize(focal0 - pos0)
+            right0 = np.cross(dir0, up0)
+            norm = np.linalg.norm(right0)
+            if norm <= 1e-6:
+                right0 = self._arbitrary_orthogonal(dir0)
+            up0n = np.cross(right0, dir0)
+            dir1 = self.normalize(focal1 - pos1)
+            right1 = np.cross(dir1, up1)
+            norm = np.linalg.norm(right1)
+            if norm <= 1e-6:
+                right1 = self._arbitrary_orthogonal(dir1)
+            up1n = np.cross(right1, dir1)
+            # Now that orthonormal basis have been computed for the
+            # old and new camera, one can compute the rotation matrix
+            # that takes the old camera to the new one
+            A = np.stack([right0, up0n, dir0], axis=1)
+            B = np.stack([right1, up1n, dir1], axis=1)
+            R = B @ A.T
+            # Compute the rotated only vector from the old camera
+            # to the new camera direction
+            rotatedDistance = R @ (pos0 - center) + center
+            # Compute the view matrix for the rotated camera axes
+            rotated_focal = focal0 + (rotatedDistance - pos0)
+            rotated_dir = self.normalize(rotated_focal - rotatedDistance)
+            rotated_right = np.cross(rotated_dir, up0)
+            if np.linalg.norm(rotated_right) <= 1e-6:
+                rotated_right = self._arbitrary_orthogonal(rotated_dir)
+            rotated_up = np.cross(rotated_right, rotated_dir)
+            # Compute the world coordinates translation and move it to
+            # view space
+            offset = pos1 - rotatedDistance
+            translation = -np.stack([rotated_right, rotated_up, rotated_dir]) @ offset
+            self.ensight.view_transf.translate(translation[0], translation[1], 0)
 
         self.render()
+        return self.get_camera()
 
     def set_perspective(self, value):
         self.ensight.view_transf.function("global")
