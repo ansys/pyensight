@@ -40,8 +40,8 @@ import png
 try:
     from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdShade
 except ModuleNotFoundError:
-    if sys.version_info.minor >= 13:
-        warnings.warn("USD Export not supported for Python >= 3.13")
+    if sys.version_info.minor >= 14:
+        warnings.warn("USD Export not supported for Python >= 3.14")
         sys.exit(1)
     is_linux_arm64 = platform.system() == "Linux" and platform.machine() == "aarch64"
     if is_linux_arm64:
