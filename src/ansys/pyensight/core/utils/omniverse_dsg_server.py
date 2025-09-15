@@ -802,8 +802,10 @@ class OmniverseWrapper(object):
         if camera is not None:
             cam_name = "/Root/Cam"
             cam_prim = UsdGeom.Xform.Define(self._stage, cam_name)
-            cam_pos = Gf.Vec3d(camera.lookfrom[0], camera.lookfrom[1], camera.lookfrom[2])
-            target_pos = Gf.Vec3d(camera.lookat[0], camera.lookat[1], camera.lookat[2])
+            s = self._units_per_meter
+            cam_pos = Gf.Vec3d(camera.lookfrom[0], camera.lookfrom[1], camera.lookfrom[2]) * s
+            target_pos = Gf.Vec3d(camera.lookat[0], camera.lookat[1], camera.lookat[2]) * s
+
             up_vec = Gf.Vec3d(camera.upvector[0], camera.upvector[1], camera.upvector[2])
             cam_prim = self._stage.GetPrimAtPath(cam_name)
             geom_cam = UsdGeom.Camera(cam_prim)
@@ -822,7 +824,7 @@ class OmniverseWrapper(object):
             cam = geom_cam.GetCamera()
             # LOL, not sure why is might be correct, but so far it seems to work???
             cam.focalLength = camera.fieldofview
-            dist = (target_pos - cam_pos).GetLength() * self._units_per_meter
+            dist = (target_pos - cam_pos).GetLength()
             cam.clippingRange = Gf.Range1f(0.1 * dist, 1000.0 * dist)
             look_at = Gf.Matrix4d()
             look_at.SetLookAt(cam_pos, target_pos, up_vec)
@@ -909,6 +911,7 @@ class OmniverseUpdateHandler(UpdateHandler):
         self._group_prims: Dict[int, Any] = dict()
         self._root_prim = None
         self._sent_textures = False
+        self._case_xform_applied_to_camera = False
 
     def add_group(self, id: int, view: bool = False) -> None:
         super().add_group(id, view)
@@ -929,10 +932,11 @@ class OmniverseUpdateHandler(UpdateHandler):
             matrix = group.matrix4x4
             # Is this a "case" group (it will contain part of the camera view in the matrix)
             if obj_type == "ENS_CASE":
-                if not self.session.vrmode:
+                if not self.session.vrmode and not self._case_xform_applied_to_camera:
                     # if in camera mode, we need to update the camera matrix so we can
                     # use the identity matrix on this group.  The camera should have been
                     # created in the "view" handler
+                    self._case_xform_applied_to_camera = True
                     cam_name = "/Root/Cam"
                     cam_prim = self._omni._stage.GetPrimAtPath(cam_name)  # type: ignore
                     geom_cam = UsdGeom.Camera(cam_prim)
@@ -940,9 +944,12 @@ class OmniverseUpdateHandler(UpdateHandler):
                     cam = geom_cam.GetCamera()
                     c = cam.transform
                     m = Gf.Matrix4d(*matrix).GetTranspose()
+                    s = self._omni._units_per_meter
+                    trans = m.GetRow(3)
+                    trans = Gf.Vec4d(trans[0] * s, trans[1] * s, trans[2] * s, trans[3])
+                    m.SetRow(3, trans)
                     # move the model transform to the camera transform
-                    sc = Gf.Matrix4d(self._omni._units_per_meter)
-                    cam.transform = c * m.GetInverse() * sc
+                    cam.transform = c * m.GetInverse()
 
                     # Determine if the camera is principally more Y, or Z up.  X up not supported.
                     # Omniverse' built in navigator tries to keep this direction up
@@ -1158,6 +1165,7 @@ class OmniverseUpdateHandler(UpdateHandler):
         self._omni.clear_cleaned_names()
         # clear the group Omni prims list
         self._group_prims = dict()
+        self._case_xform_applied_to_camera = False
 
         self._omni.create_new_stage()
         self._root_prim = self._omni.create_dsg_root()
