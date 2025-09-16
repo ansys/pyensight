@@ -37,15 +37,45 @@ class EnSightGRPC(object):
         Port to make the gRPC connection to
     secret_key: str, optional
         Connection secret key
+    grpc_use_tcp_sockets: bool, optional
+        If using gRPC, and if True, then allow TCP Socket based connections
+        instead of only local connections.
+    grpc_allow_network_connections: bool, optional
+        If using gRPC and using TCP Socket based connections, listen on all networks.
+    grpc_disable_tls: bool, optional
+        If using gRPC and using TCP Socket based connections, disable TLS.
+    grpc_uds_pathname: str, optional
+        If using gRPC and using Unix Domain Socket based connections, explicitly
+        set the pathname to the shared UDS file instead of using the default.
+
+    WARNING:
+    Overriding the default values for these options: grpc_use_tcp_sockets, grpc_allow_network_connections,
+    and grpc_disable_tls
+    can possibly permit control of this computer and any data which resides on it.
+    Modification of this configuration is not recommended.  Please see the
+    documentation for your installed product for additional information.
     """
 
-    def __init__(self, host: str = "127.0.0.1", port: int = 12345, secret_key: str = ""):
+    def __init__(
+        self,
+        host: str = "127.0.0.1",
+        port: int = 12345,
+        secret_key: str = "",
+        grpc_use_tcp_sockets: bool = False,
+        grpc_allow_network_connections: bool = False,
+        grpc_disable_tls: bool = False,
+        grpc_uds_pathname: Optional[str] = None,
+    ):
         self._host = host
         self._port = port
         self._channel = None
         self._stub = None
         self._dsg_stub = None
         self._security_token = secret_key
+        self._grpc_use_tcp_sockets = grpc_use_tcp_sockets
+        self._grpc_allow_network_connections = grpc_allow_network_connections
+        self._grpc_disable_tls = grpc_disable_tls
+        self._grpc_uds_pathname = grpc_uds_pathname
         self._session_name: str = ""
         # Streaming APIs
         # Event (strings)
@@ -91,6 +121,46 @@ class EnSightGRPC(object):
     @security_token.setter
     def security_token(self, name: str) -> None:
         self._security_token = name  # pragma: no cover
+
+    @property
+    def grpc_use_tcp_sockets(self) -> bool:
+        """Get whether to use Unix Domain Sockets or TCP Sockets for gRPC"""
+        return self._grpc_use_tcp_sockets
+
+    @grpc_use_tcp_sockets.setter
+    def grpc_use_tcp_sockets(self, use_sockets: bool) -> None:
+        """Set whether to use Unix Domain Sockets or TCP Sockets for gRPC"""
+        self._grpc_use_tcp_sockets = use_sockets
+
+    @property
+    def grpc_allow_network_connections(self) -> bool:
+        """Get whether to allow listening on all networks if using TCP Sockets for gRPC"""
+        return self._grpc_use_tcp_sockets
+
+    @grpc_allow_network_connections.setter
+    def grpc_allow_network_connections(self, allow: bool) -> None:
+        """Set whether to allow listening on all networks if using TCP Sockets for gRPC"""
+        self._grpc_allow_network_connections = allow
+
+    @property
+    def grpc_disable_tls(self) -> bool:
+        """Get whether to use TLS for TCP Sockets for gRPC"""
+        return self._grpc_disable_tls
+
+    @grpc_disable_tls.setter
+    def grpc_disable_tls(self, disable_tls: bool) -> None:
+        """Set whether to use TLS for TCP Sockets for gRPC"""
+        self._grpc_disable_tls = disable_tls
+
+    @property
+    def grpc_uds_pathname(self) -> Optional[str]:
+        """Get the pathname for the UDS file if not using the default for gRPC"""
+        return self._grpc_uds_pathname
+
+    @grpc_uds_pathname.setter
+    def grpc_uds_pathname(self, uds_pathname: str) -> None:
+        """Set the pathname for the UDS file if not using the default for gRPC"""
+        self._grpc_uds_pathname = uds_pathname
 
     @property
     def session_name(self) -> str:
@@ -171,14 +241,79 @@ class EnSightGRPC(object):
         if self.is_connected():
             return
         # set up the channel
-        self._channel = grpc.insecure_channel(
-            "{}:{}".format(self._host, self._port),
-            options=[
-                ("grpc.max_receive_message_length", -1),
-                ("grpc.max_send_message_length", -1),
-                ("grpc.testing.fixed_reconnect_backoff_ms", 1100),
-            ],
-        )
+
+        address = "undefined"
+        if self._grpc_use_tcp_sockets:
+            # Using TCP Sockets
+            address = f"{self._host}:{self._port}"
+        else:
+            if sys.platform == "win32":
+                # Using WNUA
+                address = f"127.0.0.1:{self._port}"
+            else:
+                # Using Unix Domain Sockets
+                if self._grpc_uds_pathname:
+                    address = "unix:" + self._grpc_uds_pathname + ".sock"
+                else:
+                    address = "unix:/tmp/greeter.sock"
+
+        if (self._grpc_use_tcp_sockets and self._grpc_disable_tls) or (
+            not self._grpc_use_tcp_sockets
+        ):
+            self._channel = grpc.insecure_channel(
+                address,
+                options=[
+                    ("grpc.max_receive_message_length", -1),
+                    ("grpc.max_send_message_length", -1),
+                    ("grpc.testing.fixed_reconnect_backoff_ms", 1100),
+                ],
+            )
+        else:
+            root_certificates = None
+            private_key = None
+            certificate_chain = None
+
+            # TLS setup using environment variables
+            client_cert = ""
+            client_key = ""
+            ca_cert = ""
+
+            ansys_cert_folder = os.environ.get("ANSYS_GRPC_CERTIFICATES", None)
+            if ansys_cert_folder:
+                client_cert = os.path.join(ansys_cert_folder, "client.crt")
+                client_key = os.path.join(ansys_cert_folder, "client.key")
+                ca_cert = os.path.join(ansys_cert_folder, "ca.crt")
+            else:
+                client_cert = os.environ.get("GRPC_CLIENT_CERT", "certs/client.crt")
+                client_key = os.environ.get("GRPC_CLIENT_KEY", "certs/client.key")
+                ca_cert = os.environ.get("GRPC_CA_CERT", "certs/ca.crt")
+
+            if not (client_cert and client_key and ca_cert):
+                raise RuntimeError(
+                    "Either ANSYS_GRPC_CERTIFICATES or (GRPC_CLIENT_CERT, GRPC_CLIENT_KEY, and GRPC_CA_CERT) environment variables must be set for TLS."
+                )
+
+            with open(client_cert, "rb") as f:
+                certificate_chain = f.read()
+            with open(client_key, "rb") as f:
+                private_key = f.read()
+            with open(ca_cert, "rb") as f:
+                root_certificates = f.read()
+
+            creds = grpc.ssl_channel_credentials(
+                root_certificates=root_certificates,
+                private_key=private_key,
+                certificate_chain=certificate_chain,
+            )
+            self._channel = grpc.secure_channel(
+                address,
+                creds,
+                options=[
+                    ("grpc.max_receive_message_length", -1),
+                    ("grpc.max_send_message_length", -1),
+                    ("grpc.testing.fixed_reconnect_backoff_ms", 1100),
+                ],
+            )
         try:
             grpc.channel_ready_future(self._channel).result(timeout=timeout)
         except grpc.FutureTimeoutError:  # pragma: no cover

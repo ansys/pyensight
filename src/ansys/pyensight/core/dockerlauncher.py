@@ -74,6 +74,15 @@ class DockerLauncher(Launcher):
         Existing gRPC channel to a running ``EnShell`` instance provided by PIM.
     pim_instance :
         PyPIM instance if using PIM (internal). The default is ``None``.
+    grpc_use_tcp_sockets :
+        If using gRPC, and if True, then allow TCP Socket based connections
+        instead of only local connections.
+    grpc_allow_network_connections :
+        If using gRPC and using TCP Socket based connections, listen on all networks.
+    grpc_disable_tls :
+        If using gRPC and using TCP Socket based connections, disable TLS.
+    grpc_uds_pathname :
+        If using gRPC and using Unix Domain Socket based connections, explicitly
     timeout : float, optional
         Number of seconds to try a gRPC connection before giving up.
         This parameter is defined on the parent ``Launcher`` class,
@@ -98,6 +107,12 @@ class DockerLauncher(Launcher):
     >>> session = launcher.start()
     >>> session.close()
 
+    WARNING:
+    Overriding the default values for these options: grpc_use_tcp_sockets, grpc_allow_network_connections,
+    and grpc_disable_tls
+    can possibly permit control of this computer and any data which resides on it.
+    Modification of this configuration is not recommended.  Please see the
+    documentation for your installed product for additional information.
     """
 
     def __init__(
@@ -107,6 +122,10 @@ class DockerLauncher(Launcher):
         use_dev: bool = False,
         channel: Optional[grpc.Channel] = None,
         pim_instance: Optional[Any] = None,
+        grpc_use_tcp_sockets: Optional[bool] = False,
+        grpc_allow_network_connections: Optional[bool] = False,
+        grpc_disable_tls: Optional[bool] = False,
+        grpc_uds_pathname: Optional[str] = None,
         **kwargs,
     ) -> None:
         """Initialize DockerLauncher."""
@@ -114,6 +133,10 @@ class DockerLauncher(Launcher):
 
         self._data_directory = data_directory
         self._enshell_grpc_channel = channel
+        self._grpc_use_tcp_sockets = grpc_use_tcp_sockets
+        self._grpc_allow_network_connections = grpc_allow_network_connections
+        self._grpc_disable_tls = grpc_disable_tls
+        self._grpc_uds_pathname = grpc_uds_pathname
         self._service_uris: Dict[Any, str] = {}
         self._image_name: Optional[str] = None
         self._docker_client: Optional["DockerClient"] = None
@@ -305,6 +328,14 @@ class DockerLauncher(Launcher):
         # gRPC server as the command
         #
         enshell_cmd = "-app -v 3 -grpc_server " + str(grpc_port)
+        if self._grpc_use_tcp_sockets:
+            enshell_cmd += " -grpc_use_tcp_sockets"
+        if self._grpc_allow_network_connections:
+            enshell_cmd += " -grpc_allow_network_connections"
+        if self._grpc_disable_tls:
+            enshell_cmd += " -grpc_disable_tls"
+        if self._grpc_uds_pathname:
+            enshell_cmd += " -grpc_uds_pathname " + self._grpc_uds_pathname
 
         use_egl = self._use_egl()
 
@@ -513,6 +544,16 @@ class DockerLauncher(Launcher):
 
         ensight_args += " -grpc_server " + str(self._service_host_port["grpc_private"][1])
 
+        if self._grpc_use_tcp_sockets:
+            ensight_args += " -grpc_use_tcp_sockets"
+        if self._grpc_allow_network_connections:
+            ensight_args += " -grpc_allow_network_connections"
+        if self._grpc_disable_tls:
+            ensight_args += " -grpc_disable_tls"
+        # Can't specify the same name; the default ought to be fine within the Docker Image
+        # if self._grpc_uds_pathname:
+        #    enshell_cmd += " -grpc_uds_pathname "+self._grpc_uds_pathname
+
         vnc_url = "vnc://%%3Frfb_port=1999%%26use_auth=0"
         ensight_args += " -vnc " + vnc_url
         if self._additional_command_line_options:
@@ -581,6 +622,10 @@ class DockerLauncher(Launcher):
         session = ansys.pyensight.core.session.Session(
             host=self._service_host_port["grpc_private"][0],
             grpc_port=self._service_host_port["grpc_private"][1],
+            grpc_use_tcp_sockets=self._grpc_use_tcp_sockets,
+            grpc_allow_network_connections=self._grpc_allow_network_connections,
+            grpc_disable_tls=self._grpc_disable_tls,
+            grpc_uds_pathname=self._grpc_uds_pathname,
             html_hostname=self._service_host_port["http"][0],
             html_port=self._service_host_port["http"][1],
             ws_port=ws_port,
