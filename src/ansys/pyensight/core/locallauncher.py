@@ -301,14 +301,14 @@ class LocalLauncher(Launcher):
                 # grpc port
                 cmd.extend(["--grpc_port", str(self._ports[0])])
                 if self._grpc_use_tcp_sockets:
-                    cmd.append("-grpc_use_tcp_sockets")
+                    cmd.append("--grpc_use_tcp_sockets")
                 if self._grpc_allow_network_connections:
-                    cmd.append("-grpc_allow_network_connections")
+                    cmd.append("--grpc_allow_network_connections")
                 if self._grpc_disable_tls:
-                    cmd.append("-grpc_disable_tls")
-                # if self._grpc_uds_pathname:
-                #    cmd.append("-grpc_uds_pathname")
-                #    cmd.append(self._grpc_uds_pathname)
+                    cmd.append("--grpc_disable_tls")
+                if self._grpc_uds_pathname:
+                    cmd.append("--grpc_uds_pathname")
+                    cmd.append(self._grpc_uds_pathname)
             # EnVision sessions
             cmd.extend(["--local_session", "envision", "5"])
             # websocket port

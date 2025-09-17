@@ -168,10 +168,10 @@ def launch_enshell_interface(
     enshell_grpc_channel: Any,
     grpc_port: int,
     timeout: float,
-    grpc_use_tcp_sockets: bool,
-    grpc_allow_network_connections: bool,
-    grpc_disable_tls: bool,
-    grpc_uds_pathname: str,
+    grpc_use_tcp_sockets: bool = False,
+    grpc_allow_network_connections: bool = False,
+    grpc_disable_tls: bool = False,
+    grpc_uds_pathname: Optional[str] = None,
 ) -> enshell_grpc.EnShellGRPC:
     """Launch the EnShell gRPC Interface.
 
