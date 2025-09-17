@@ -1,0 +1,6 @@
+clear
+=====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: message_window.clear

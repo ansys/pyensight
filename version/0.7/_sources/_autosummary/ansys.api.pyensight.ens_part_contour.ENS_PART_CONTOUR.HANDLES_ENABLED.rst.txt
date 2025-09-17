@@ -1,0 +1,6 @@
+HANDLES\_ENABLED
+================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_contour
+
+.. autoproperty:: ENS_PART_CONTOUR.HANDLES_ENABLED

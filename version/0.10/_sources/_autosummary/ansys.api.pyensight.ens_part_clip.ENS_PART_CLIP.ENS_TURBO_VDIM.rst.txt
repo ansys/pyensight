@@ -1,0 +1,6 @@
+ENS\_TURBO\_VDIM
+================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_clip
+
+.. autoproperty:: ENS_PART_CLIP.ENS_TURBO_VDIM

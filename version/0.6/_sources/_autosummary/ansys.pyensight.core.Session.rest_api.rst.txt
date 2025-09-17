@@ -1,0 +1,6 @@
+rest\_api
+=========
+
+.. currentmodule:: ansys.pyensight.core
+
+.. autoproperty:: Session.rest_api

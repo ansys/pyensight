@@ -1,0 +1,6 @@
+elt\_shrink\_factor
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.elt_shrink_factor
