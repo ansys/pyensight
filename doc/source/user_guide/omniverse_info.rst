@@ -26,28 +26,16 @@ The API can be used directly from a local Python installation of the
 
 .. code-block:: python
 
-    def monitor_export(session):
-        found = False
-        start = time.time()
-        while not found and time.time() - start < 60:
-            status = session.ensight.utils.omniverse.read_status_file()
-            if status.get("status") == "idle":
-                found = True
-            time.sleep(0.5)
-        return found
-
     from ansys.pyensight.core import LocalLauncher
-    session = LocalLauncher(batch=False).start()
-    session.load_example("waterbreak.ens")
+    s = LocalLauncher(batch=False).start()
+    s.load_example("waterbreak.ens")
     # The directory to save USD representation into
     usd_directory = "/omniverse/examples/water"
     # Start a new connection between EnSight and Omniverse
-    session.ensight.utils.omniverse.create_connection(usd_directory)
-    monitor_export(session)
+    s.ensight.utils.omniverse.create_connection(usd_directory)
     # Do some work...
     # Push a scene update
-    session.ensight.utils.omniverse.update()
-    monitor_export(session)
+    s.ensight.utils.omniverse.update()
 
 
 .. note::
@@ -65,16 +53,6 @@ From inside an EnSight session, the API is similar:
 
 .. code-block:: python
 
-    def monitor_export():
-        found = False
-        start = time.time()
-        while not found and time.time() - start < 60:
-            status = ensight.utils.omniverse.read_status_file()
-            if status.get("status") == "idle":
-                found = True
-            time.sleep(0.5)
-        return found
-
     # Start a DSG server in EnSight first
     (_, grpc_port, security) = ensight.objs.core.grpc_server(port=0, start=True)
     # Start a new connection between the EnSight DSG server and Omniverse
@@ -83,18 +61,10 @@ From inside an EnSight session, the API is similar:
         options["security"] = security
     usd_directory = "/omniverse/examples/water"
     ensight.utils.omniverse.create_connection(usd_directory, options=options)
-    monitor_export()
     # Do some more work...
     # Push a scene update
     ensight.utils.omniverse.update()
-    monitor_export()
 
-
-Please note, the USD export is asynchronous. Without a proper routine to wait for the
-export to be complete, a script might exit before the export is actually finished.
-The two ``monitor_export`` routines propose a simple monitoring of the export that uses
-the ``read_status_file`` interface, which can read a status file that reports if the
-current export is complete or not.
 
 After running the script, the scene will appear in any Omniverse kit tree view
 under the specified directory.  The file ``dsg_scene.usd`` can be loaded into
@@ -117,6 +87,35 @@ when the "Export scene" button is clicked.
     Several of the options are locked in once the service is started.
     To change options like "Temporal", the service must often be stopped
     and restarted using this dialog.
+
+
+PyEnSight/Omniverse kit from an Omniverse Kit Application
+---------------------------------------------------------
+
+To install the service into an Omniverse application, one can install
+it via the third party extensions dialog. Select the ``Extensions`` option
+from the ``Window`` menu.  Select third party extensions and filter
+by ``ANSYS``.  Enabling the extension will install the kit extension.
+The kit extension will find the most recent Ansys install and use the
+version of the pyensight found in the install to perform export
+operations.
+
+.. image:: /_static/omniverse_extension.png
+
+The ``ansys.tools.omniverse.dsgui`` kit includes a GUI similar to the
+EnSight 2025 R1 user-defined tool.  It allows one to select a
+target directory and the details of a gRPC connection
+to a running EnSight.  For example, if one launches EnSight with
+``ensight.bat -grpc_server 2345``, then the uri:  ``grpc://127.0.0.1:2345``
+can to used to request a locally running EnSight to push the current
+scene to Omniverse.
+
+.. note::
+
+    If the ``ansys.tools.omniverse.core`` and ``ansys.tools.omniverse.dsgui``
+    do not show up in the Community extensions list in Omniverse, then
+    it can be added to the ``Extension Search Paths`` list as:
+    ``git://github.com/ansys/pyensight.git?branch=main&dir=exts``.
 
 
 Running the Scene Exporter via Command Line
@@ -271,8 +270,20 @@ If the ``--oneshot`` option is not specified, the tool will run in server mode. 
 the DSG protocol or the directory specified by ``--monitor_directory`` option for geometry data.  In
 this mode, the USD scene in the ``destination`` will be updated to reflect the last scene pushed.
 Unused files will be removed and items that do not change will not be updated.  Thus, server
-mode is best suited for dynamic, interactive applications. If server mode is initiated via the command line,
-a single scene push will automatically be performed.
+mode is best suited for dynamic, interactive applications.  If server mode is initiated via the command line,
+a single scene push will automatically be performed.  One can start subsequent push operations
+from the EnSight python interpreter with the following commands.
+
+
+.. code-block:: python
+
+    import enspyqtgui_int
+    # Current timestep
+    enspyqtgui_int.dynamic_scene_graph_command("dynamicscenegraph://localhost/client/update")
+    # All timesteps
+    enspyqtgui_int.dynamic_scene_graph_command("dynamicscenegraph://localhost/client/update?timesteps=1")
+
+
 If ``--oneshot`` is specified, only a single conversion is performed and the tool will not maintain
 a notion of the scene state.  This makes the operation simpler and avoids the need for extra processes,
 however old files from previous export operations will not be removed and the USD directory may need

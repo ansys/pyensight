@@ -27,13 +27,21 @@ import logging
 import math
 import os
 import shutil
+import sys
 import tempfile
 from typing import Any, Dict, List, Optional
+import warnings
 
 from ansys.pyensight.core.utils.dsg_server import Part, UpdateHandler
 import numpy
 import png
-from pxr import Gf, Kind, Sdf, Usd, UsdGeom, UsdLux, UsdShade
+
+try:
+    from pxr import Gf, Kind, Sdf, Usd, UsdGeom, UsdLux, UsdShade
+except ModuleNotFoundError:
+    if sys.version_info.minor >= 13:
+        warnings.warn("USD Export not supported for Python >= 3.13")
+        sys.exit(1)
 
 
 class OmniverseWrapper(object):
