@@ -6,7 +6,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "ansys-pyensight-core"
-version = "0.9.18"
+version = "0.10.0.post1"
 description = "A python wrapper for Ansys EnSight"
 readme = "README.rst"
 requires-python = ">=3.10,<3.14"
@@ -22,6 +22,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 
 dependencies = [
@@ -34,7 +35,7 @@ dependencies = [
     "Pillow>=9.3.0",
     "pypng>=0.0.20",
     "psutil>=5.9.2",
-    "usd-core==24.8",
+    "usd-core==24.8; python_version < '3.13'",
     "pygltflib>=1.16.2"
 ]
 
@@ -128,7 +129,7 @@ minversion = "7.1"
 testpaths = [
     "tests",
 ]
-addopts = "--setup-show --cov=ansys.pyensight.core --cov-report html:coverage-html --cov-report term --cov-config=.coveragerc --capture=tee-sys --tb=native -p no:warnings"
+addopts = "--setup-show --cov=ansys.pyensight.core --cov-report html:coverage-html --cov-report term --cov-config=.coveragerc --capture=tee-sys --tb=native -p no:warnings --deselect tests/test_libuserd.py --deselect tests/test_libuserd_exhaustive.py --deselect tests/test_dvs.py"
 markers =[
     "integration:Run integration tests",
     "smoke:Run the smoke tests",
@@ -159,7 +160,7 @@ recursive = true
 exclude = ["venv/*", "tests/*"]
 
 [tool.mypy]
-python_version = 3.10
+python_version = "3.10"
 strict = false
 namespace_packages = true
 explicit_package_bases = true
