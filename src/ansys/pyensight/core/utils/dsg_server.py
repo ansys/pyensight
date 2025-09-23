@@ -6,11 +6,14 @@ import queue
 import sys
 import threading
 import time
-from typing import Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2
 from ansys.pyensight.core import ensight_grpc
 import numpy
+
+if TYPE_CHECKING:
+    from ansys.pyensight.core.session import Session
 
 
 class Part(object):
@@ -640,6 +643,8 @@ class DSGSession(object):
         vrmode: bool = False,
         time_scale: float = 1.0,
         handler: UpdateHandler = UpdateHandler(),
+        session: Optional["Session"] = None,
+        uds_path: Optional[str] = None,
     ):
         """
         Manage a gRPC connection and link it to an UpdateHandler instance
@@ -675,9 +680,19 @@ class DSGSession(object):
             This is an UpdateHandler subclass that is called back when the state of
             a scene transfer changes.  For example, methods are called when the
             transfer begins or ends and when a Part (mesh block) is ready for processing.
+        uds_path: string
+            The unix domain socket path if required for the gRPC connection
         """
         super().__init__()
-        self._grpc = ensight_grpc.EnSightGRPC(port=port, host=host, secret_key=security_code)
+        if uds_path:
+            self._grpc = ensight_grpc.EnSightGRPC(
+                grpc_uds_pathname=uds_path, secret_key=security_code
+            )
+        else:
+            self._grpc = ensight_grpc.EnSightGRPC(port=port, host=host, secret_key=security_code)
+        self._session = session
+        if self._session:
+            self._session.set_dsg_session(self)
         self._callback_handler = handler
         self._verbose = verbose
         self._thread: Optional[threading.Thread] = None
