@@ -322,14 +322,6 @@ class EnShellGRPC(object):
             uds_dir=uds_dir,
             grpc_options=options,
         )
-        try:
-            grpc.channel_ready_future(self._channel).result(timeout=timeout)
-        except grpc.FutureTimeoutError:
-            logging.debug("  channel timed out\n")
-            self._channel = None
-            return
-        logging.debug("  channel connected.\n\n")
-        self._stub = enshell_pb2_grpc.EnShellServiceStub(self._channel)
 
         try:
             grpc.channel_ready_future(self._channel).result(timeout=timeout)
