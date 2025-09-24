@@ -185,7 +185,7 @@ class LocalLauncher(Launcher):
                 and not self._grpc_use_tcp_sockets
                 and not self._is_windows()
             ):
-                self._grpc_uds_pathname = self.session_directory
+                self._grpc_uds_pathname = os.path.join(self.session_directory, "pyensight")
 
             # gRPC port, VNC port, websocketserver ws, websocketserver html
             to_avoid = self._find_ports_used_by_other_pyensight_and_ensight()
