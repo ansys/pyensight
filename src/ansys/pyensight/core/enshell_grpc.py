@@ -10,6 +10,7 @@ This class provides an asynchronous interface to the EnShell
 core gRPC interface.
 """
 import logging
+import os
 import random
 import re
 import subprocess
