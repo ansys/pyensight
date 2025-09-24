@@ -269,15 +269,17 @@ class EnSightGRPC(object):
             else:
                 transport_mode = "uds"
                 uds_service = "pyensight" if self._grpc_uds_pathname else "greeter"
-                uds_dir = self._grpc_uds_pathname or "/tmp"
+                if not self._grpc_uds_pathname:
+                    uds_dir = "/tmp"
+                else:
+                    uds_dir = os.path.dirname(self._grpc_uds_pathname)
         self._channel = create_channel(
             host=host,
             port=port,
             transport_mode=transport_mode,
-            uds_service=uds_service,
             uds_dir=uds_dir,
             uds_service=uds_service,
-            options=options,
+            grpc_options=options,
         )
         try:
             grpc.channel_ready_future(self._channel).result(timeout=timeout)
