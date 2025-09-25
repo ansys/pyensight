@@ -38,7 +38,7 @@ import numpy
 import png
 
 try:
-    from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdShade, Kind
+    from pxr import Gf, Kind, Sdf, Usd, UsdGeom, UsdLux, UsdShade
 except ModuleNotFoundError:
     if sys.version_info.minor >= 14:
         warnings.warn("USD Export not supported for Python >= 3.14")
@@ -878,7 +878,7 @@ class OmniverseWrapper(object):
             Usd.ModelAPI(group_prim).SetKind(kind)
             group_prim.GetPrim().SetDisplayName(name)
             logging.info(f"Created group:'{name}' {str(obj_type)}")
-            
+
         return group_prim
 
     def uploadMaterial(self):
