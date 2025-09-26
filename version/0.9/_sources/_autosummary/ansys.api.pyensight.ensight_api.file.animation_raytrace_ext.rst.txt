@@ -1,0 +1,6 @@
+animation\_raytrace\_ext
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.animation_raytrace_ext

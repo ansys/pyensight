@@ -1,0 +1,6 @@
+AXISLINEWIDTH
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_plotter
+
+.. autoproperty:: ENS_PLOTTER.AXISLINEWIDTH

@@ -1,0 +1,6 @@
+POINT\_GHOST
+============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.POINT_GHOST

@@ -1,0 +1,6 @@
+scale\_factor
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: set_visenv.scale_factor
