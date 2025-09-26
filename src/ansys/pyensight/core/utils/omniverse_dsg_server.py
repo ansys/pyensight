@@ -38,7 +38,7 @@ import numpy
 import png
 
 try:
-    from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdShade
+    from pxr import Gf, Kind, Sdf, Usd, UsdGeom, UsdLux, UsdShade
 except ModuleNotFoundError:
     if sys.version_info.minor >= 14:
         warnings.warn("USD Export not supported for Python >= 3.14")
@@ -870,15 +870,15 @@ class OmniverseWrapper(object):
             )
             matrix_op.Set(Gf.Matrix4d(*matrix).GetTranspose())
             # Map kinds
-            """
             kind = Kind.Tokens.group
             if obj_type == "ENS_CASE":
                 kind = Kind.Tokens.assembly
             elif obj_type == "ENS_PART":
                 kind = Kind.Tokens.component
             Usd.ModelAPI(group_prim).SetKind(kind)
+            group_prim.GetPrim().SetDisplayName(name)
             logging.info(f"Created group:'{name}' {str(obj_type)}")
-            """
+
         return group_prim
 
     def uploadMaterial(self):
