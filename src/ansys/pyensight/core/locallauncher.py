@@ -283,6 +283,8 @@ class LocalLauncher(Launcher):
                 cmd.extend(["--grpc_port", str(self._ports[0])])
             # EnVision sessions
             cmd.extend(["--local_session", "envision", "5"])
+            if int(version) > 252:
+                cmd.append("--separate_loops")
             # websocket port
             cmd.append(str(self._ports[3]))
             logging.debug(f"Starting WSS: {cmd}\n")
