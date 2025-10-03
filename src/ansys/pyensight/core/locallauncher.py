@@ -328,7 +328,7 @@ class LocalLauncher(Launcher):
     def stop(self) -> None:
         """Release any additional resources allocated during launching."""
         websocket_process = psutil.Process(self._websocketserver_pid)
-        for proc in websocket_process.children():
+        for proc in websocket_process.children(recursive=True):
             try:
                 proc.kill()
             except (psutil.AccessDenied, psutil.ZombieProcess, OSError, psutil.NoSuchProcess):
