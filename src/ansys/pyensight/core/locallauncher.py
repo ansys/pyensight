@@ -24,6 +24,7 @@ import ansys.pyensight.core as pyensight
 from ansys.pyensight.core.common import find_unused_ports
 from ansys.pyensight.core.launcher import Launcher
 import ansys.pyensight.core.session
+import psutil
 
 
 class LocalLauncher(Launcher):
@@ -326,6 +327,16 @@ class LocalLauncher(Launcher):
 
     def stop(self) -> None:
         """Release any additional resources allocated during launching."""
+        websocket_process = psutil.Process(self._websocketserver_pid)
+        for proc in websocket_process.children():
+            try:
+                proc.kill()
+            except (psutil.AccessDenied, psutil.ZombieProcess, OSError, psutil.NoSuchProcess):
+                continue
+        try:
+            websocket_process.kill()
+        except (psutil.AccessDenied, psutil.ZombieProcess, OSError, psutil.NoSuchProcess):
+            pass
         maximum_wait_secs = 120.0
         start_time = time.time()
         while (time.time() - start_time) < maximum_wait_secs:
