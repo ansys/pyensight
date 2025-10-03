@@ -107,7 +107,6 @@ class _Simba:
         # if the vport is in orthographic mode. If not, it is defined as the
         # inverge of the tangent of half of the field of view
         parallel_scale = parallel_scale
-        clipping_range = vport.ZCLIPLIMITS
         return {
             "orthographic": not vport.PERSPECTIVE,
             "view_up": view_up,
@@ -120,8 +119,6 @@ class _Simba:
             "reset_parallel_scale": self._original_parallel_scale,
             "reset_view_up": self._original_view_up,
             "reset_view_angle": self._original_view_angle,
-            "near_plane": clipping_range[0],
-            "far_plane": clipping_range[1],
         }
 
     @staticmethod
@@ -161,44 +158,6 @@ class _Simba:
                 z = 0.25 * s
         return np.array([x, y, z, w])
 
-    def compute_model_rotation_quaternion(self, camera_position, focal_point, view_up):
-        """Compute the quaternion from the input camera."""
-        forward = self.normalize(np.array(focal_point) - np.array(camera_position))
-        right = self.normalize(np.cross(forward, view_up))
-        true_up = np.cross(right, forward)
-        camera_rotation = np.vstack([right, true_up, -forward]).T
-        model_rotation = camera_rotation.T
-        quat = self.rotation_matrix_to_quaternion(model_rotation)
-        return quat
-
-    @staticmethod
-    def quaternion_multiply(q1, q2):
-        x1, y1, z1, w1 = q1
-        x2, y2, z2, w2 = q2
-        w = w1 * w2 - x1 * x2 - y1 * y2 - z1 * z2
-        x = w1 * x2 + x1 * w2 + y1 * z2 - z1 * y2
-        y = w1 * y2 - x1 * z2 + y1 * w2 + z1 * x2
-        z = w1 * z2 + x1 * y2 - y1 * x2 + z1 * w2
-        return np.array([x, y, z, w])
-
-    def quaternion_to_euler(self, q):
-        q = self.normalize(q)
-        x, y, z, w = q
-        sinr_cosp = 2 * (w * x + y * z)
-        cosr_cosp = 1 - 2 * (x * x + y * y)
-        roll = np.arctan2(sinr_cosp, cosr_cosp)
-
-        sinp = 2 * (w * y - z * x)
-        if abs(sinp) >= 1:
-            pitch = np.pi / 2 * np.sign(sinp)
-        else:
-            pitch = np.arcsin(sinp)
-        siny_cosp = 2 * (w * z + x * y)
-        cosy_cosp = 1 - 2 * (y * y + z * z)
-        yaw = np.arctan2(siny_cosp, cosy_cosp)
-
-        return np.degrees([roll, pitch, yaw])
-
     def compute_camera_from_ensight_opengl(self):
         """Simulate a rotating camera using the current quaternion."""
         if isinstance(self.ensight, ModuleType):
@@ -211,45 +170,6 @@ class _Simba:
         parallel_scale = 1 / data[9]
         return camera_position, focal_point, self.views._normalize_vector(view_up), parallel_scale
 
-    def get_camera_axes(self):
-        """
-        Returns the camera's local axes: right, up, and forward vectors.
-        These are useful for applying transformations in view space.
-
-        Parameters:
-            camera (dict): A dictionary with keys 'position', 'focal_point', and 'view_up'.
-
-        Returns:
-            right (np.ndarray): Right vector (X axis in view space).
-            up (np.ndarray): Up vector (Y axis in view space).
-        forw    ard (np.ndarray): Forward vector (Z axis in view space, pointing from position to focal point).
-        """
-        camera = self.get_camera()
-        position = np.array(camera["position"])
-        focal_point = np.array(camera["focal_point"])
-        view_up = np.array(camera["view_up"])
-
-        # Forward vector: from camera position to focal point
-        forward = focal_point - position
-        forward /= np.linalg.norm(forward)
-
-        # Right vector: cross product of forward and view_up
-        right = np.cross(forward, view_up)
-        right /= np.linalg.norm(right)
-
-        # Recompute up vector to ensure orthogonality
-        up = np.cross(right, forward)
-        up /= np.linalg.norm(up)
-
-        return right, up, forward
-
-    def _arbitrary_orthogonal(self, v):
-        if abs(v[0]) < abs(v[1]) and abs(v[0]) < abs(v[2]):
-            return self.normalize(np.array(self.views._cross_product(v.tolist(), [1, 0, 0])))
-        elif abs(v[1]) < abs(v[2]):
-            return self.normalize(np.array(self.views._cross_product(v.tolist(), [0, 1, 0])))
-        return self.normalize(np.array(self.views._cross_product(v.tolist(), [0, 0, 1])))
-
     def set_camera(
         self,
         orthographic,
@@ -257,75 +177,38 @@ class _Simba:
         position=None,
         focal_point=None,
         view_angle=None,
-        pan=None,
-        mousex=None,
-        mousey=None,
-        invert_y=False,
     ):
         """Set the EnSight camera settings from the VTK input."""
         self.ensight.view_transf.function("global")
         perspective = "OFF" if orthographic else "ON"
-        if orthographic:
-            self.ensight.view.perspective(perspective)
+        self.ensight.view.perspective(perspective)
         vport = self.ensight.objs.core.VPORTS[0]
-        if view_angle:
-            vport.PERSPECTIVEANGLE = view_angle / 2
+        vport.PERSPECTIVEANGLE = view_angle / 2
         if view_up and position and focal_point:
-            # Compute relative rotation
-            q_current = self.normalize(np.array(vport.ROTATION.copy()))
-            q_target = self.normalize(
-                self.compute_model_rotation_quaternion(position, focal_point, view_up)
-            )
-            q_relative = self.quaternion_multiply(
-                q_target, np.array([-q_current[0], -q_current[1], -q_current[2], q_current[3]])
-            )
-            angles = self.quaternion_to_euler(q_relative)
-            self.ensight.view_transf.rotate(*angles)
-            # Decompose eventual translation from rotation
             current_camera = self.get_camera()
             center = vport.TRANSFORMCENTER.copy()
-            pos0, focal0, up0 = map(
-                np.array,
-                [
+            if isinstance(self.ensight, ModuleType):
+                data = self.ensight.objs.core.VPORTS[0].simba_set_camera_helper(
+                    position,
+                    focal_point,
+                    view_up,
                     current_camera["position"],
                     current_camera["focal_point"],
                     current_camera["view_up"],
-                ],
-            )
-            pos1, focal1, up1 = map(np.array, [position, focal_point, view_up])
-            dir0 = self.normalize(focal0 - pos0)
-            right0 = np.cross(dir0, up0)
-            norm = np.linalg.norm(right0)
-            if norm <= 1e-6:
-                right0 = self._arbitrary_orthogonal(dir0)
-            up0n = np.cross(right0, dir0)
-            dir1 = self.normalize(focal1 - pos1)
-            right1 = np.cross(dir1, up1)
-            norm = np.linalg.norm(right1)
-            if norm <= 1e-6:
-                right1 = self._arbitrary_orthogonal(dir1)
-            up1n = np.cross(right1, dir1)
-            # Now that orthonormal basis have been computed for the
-            # old and new camera, one can compute the rotation matrix
-            # that takes the old camera to the new one
-            A = np.stack([right0, up0n, dir0], axis=1)
-            B = np.stack([right1, up1n, dir1], axis=1)
-            R = B @ A.T
-            # Compute the rotated only vector from the old camera
-            # to the new camera direction
-            rotatedDistance = R @ (pos0 - center) + center
-            # Compute the view matrix for the rotated camera axes
-            rotated_focal = focal0 + (rotatedDistance - pos0)
-            rotated_dir = self.normalize(rotated_focal - rotatedDistance)
-            rotated_right = np.cross(rotated_dir, up0)
-            if np.linalg.norm(rotated_right) <= 1e-6:
-                rotated_right = self._arbitrary_orthogonal(rotated_dir)
-            rotated_up = np.cross(rotated_right, rotated_dir)
-            # Compute the world coordinates translation and move it to
-            # view space
-            offset = pos1 - rotatedDistance
-            translation = -np.stack([rotated_right, rotated_up, rotated_dir]) @ offset
-            self.ensight.view_transf.translate(translation[0], translation[1], 0)
+                    center,
+                    vport.ROTATION.copy(),
+                )
+            else:
+                current_position = current_camera["position"]
+                current_fp = current_camera["focal_point"]
+                current_up = current_camera["view_up"]
+                cmd = "ensight.objs.core.VPORTS[0].simba_set_camera_helper("
+                cmd += f"{position}, {focal_point}, {view_up}, {current_position}, "
+                cmd += f"{current_fp}, {current_up}, {center}, "
+                cmd += f"{vport.ROTATION.copy()})"
+                data = self.ensight._session.cmd(cmd)
+            self.ensight.view_transf.rotate(data[3], data[4], data[5])
+            self.ensight.view_transf.translate(data[0], data[1], 0)
 
         self.render()
         return self.get_camera()
