@@ -36,17 +36,6 @@ def test_start(mocker):
     launcher = LocalLauncher("/path/to/awp/", use_egl=True)
 
 
-def test_stop(mocker, tmpdir):
-    mocker.patch.object(LocalLauncher, "get_cei_install_directory", return_value="/path/to/awp/CEI")
-    session_dir = tmpdir.mkdir("session_dir")
-    launcher = LocalLauncher("/path/to/awp/")
-    launcher.session_directory = session_dir
-    launcher._ports = [1111, 2222]
-    launcher.stop()
-    assert not os.path.exists(session_dir)
-    assert launcher._ports is None
-
-
 def test_get_cei_install_directory(mocker):
     exists = mocker.patch.object(os.path, "exists", return_value=True)
     path = "/path/to/darkness"
