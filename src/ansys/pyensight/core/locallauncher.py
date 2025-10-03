@@ -325,18 +325,41 @@ class LocalLauncher(Launcher):
             self.launch_webui(version, popen_common)
         return session
 
-    def stop(self) -> None:
-        """Release any additional resources allocated during launching."""
-        websocket_process = psutil.Process(self._websocketserver_pid)
-        for proc in websocket_process.children(recursive=True):
-            try:
-                proc.kill()
-            except (psutil.AccessDenied, psutil.ZombieProcess, OSError, psutil.NoSuchProcess):
-                continue
+    @staticmethod
+    def _kill_process_unix(pid):
+        external_kill = ["kill", "-9", str(pid)]
+        process = psutil.Popen(external_kill, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        process.wait()
+
+    @staticmethod
+    def _kill_process_windows(pid):
+        external_kill = ["taskkill", "/F", "/PID", str(pid)]
+        process = psutil.Popen(external_kill, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        process.wait()
+
+    def _kill_process_by_pid(self, pid):
+        if self._is_windows():
+            self._kill_process_windows(pid)
+        else:
+            self._kill_process_unix(pid)
+
+    def _kill_process_tree(self, pid):
         try:
-            websocket_process.kill()
+            parent = psutil.Process(pid)
+            for child in parent.children(recursive=True):
+                try:
+                    self._kill_process_by_pid(child.pid)
+                    child.kill()
+                except (psutil.AccessDenied, psutil.ZombieProcess, OSError, psutil.NoSuchProcess):
+                    continue
+            self._kill_process_by_pid(parent.pid)
+            parent.kill()
         except (psutil.AccessDenied, psutil.ZombieProcess, OSError, psutil.NoSuchProcess):
             pass
+
+    def stop(self) -> None:
+        """Release any additional resources allocated during launching."""
+        self._kill_process_tree(self._websocketserver_pid)
         maximum_wait_secs = 120.0
         start_time = time.time()
         while (time.time() - start_time) < maximum_wait_secs:
