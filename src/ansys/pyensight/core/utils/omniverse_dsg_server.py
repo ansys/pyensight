@@ -796,12 +796,12 @@ class OmniverseWrapper(object):
         xform_node.AddScaleOp().Set((1, 1, 1))
         if self._centroid is not None:
             xform_api = UsdGeom.XformCommonAPI(xform_node.GetPrim())
-            xform_api.SetPivot(Gf.Vec3f(self._centroid)*self._units_per_meter)
+            xform_api.SetPivot(Gf.Vec3f(self._centroid) * self._units_per_meter)
         return xform_node
 
     def create_dsg_root(self):
         root_name = "/Root"
-        root_xform = self.create_xform_node(self._stage, root_name)
+        self.create_xform_node(self._stage, root_name)
 
         # Define the defaultPrim as the /Root prim
         root_prim = self._stage.GetPrimAtPath(root_name)
