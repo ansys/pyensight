@@ -24,6 +24,7 @@ import ansys.pyensight.core as pyensight
 from ansys.pyensight.core.common import find_unused_ports
 from ansys.pyensight.core.launcher import Launcher
 import ansys.pyensight.core.session
+import psutil
 
 
 class LocalLauncher(Launcher):
@@ -283,6 +284,8 @@ class LocalLauncher(Launcher):
                 cmd.extend(["--grpc_port", str(self._ports[0])])
             # EnVision sessions
             cmd.extend(["--local_session", "envision", "5"])
+            if int(version) > 252:
+                cmd.append("--separate_loops")
             # websocket port
             cmd.append(str(self._ports[3]))
             logging.debug(f"Starting WSS: {cmd}\n")
@@ -322,8 +325,41 @@ class LocalLauncher(Launcher):
             self.launch_webui(version, popen_common)
         return session
 
+    @staticmethod
+    def _kill_process_unix(pid):
+        external_kill = ["kill", "-9", str(pid)]
+        process = psutil.Popen(external_kill, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        process.wait()
+
+    @staticmethod
+    def _kill_process_windows(pid):
+        external_kill = ["taskkill", "/F", "/PID", str(pid)]
+        process = psutil.Popen(external_kill, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        process.wait()
+
+    def _kill_process_by_pid(self, pid):
+        if self._is_windows():
+            self._kill_process_windows(pid)
+        else:
+            self._kill_process_unix(pid)
+
+    def _kill_process_tree(self, pid):
+        try:
+            parent = psutil.Process(pid)
+            for child in parent.children(recursive=True):
+                try:
+                    self._kill_process_by_pid(child.pid)
+                    child.kill()
+                except (psutil.AccessDenied, psutil.ZombieProcess, OSError, psutil.NoSuchProcess):
+                    continue
+            self._kill_process_by_pid(parent.pid)
+            parent.kill()
+        except (psutil.AccessDenied, psutil.ZombieProcess, OSError, psutil.NoSuchProcess):
+            pass
+
     def stop(self) -> None:
         """Release any additional resources allocated during launching."""
+        self._kill_process_tree(self._websocketserver_pid)
         maximum_wait_secs = 120.0
         start_time = time.time()
         while (time.time() - start_time) < maximum_wait_secs:
