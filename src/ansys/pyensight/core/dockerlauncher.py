@@ -539,8 +539,8 @@ class DockerLauncher(Launcher):
         # http port
         wss_cmd += " --http_port " + str(self._service_host_port["http"][1])
         # vnc port
-        if int(self._ansys_version) > 252:
-            wss_cmd += " --separate_loops"
+        # if int(self._ansys_version) > 252:
+        #    wss_cmd += " --separate_loops"
         wss_cmd += f" --security_token {self._secret_key}"
         wss_cmd += " --client_port 1999"
         # optional PIM instance header
