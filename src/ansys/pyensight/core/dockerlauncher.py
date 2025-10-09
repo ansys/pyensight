@@ -601,6 +601,40 @@ class DockerLauncher(Launcher):
 
         return session
 
+    def close(self, session):
+        """Shut down the launched EnSight session.
+
+        This method closes all associated sessions and then stops the
+        launched EnSight instance.
+
+        Parameters
+        ----------
+        session : ``pyensight.Session``
+            Session to close.
+
+        Raises
+        ------
+        RuntimeError
+            If the session was not launched by this launcher.
+
+        """
+        if self._enshell:
+            if self._enshell.is_connected():  # pragma: no cover
+                logging.debug("Killing WSS\n")
+                command = 'pkill -f "websocketserver.py"'
+                kill_env_vars = None
+                container_env_str = ""
+                if self._pim_instance is not None:
+                    container_env = self._get_container_env()
+                    for i in container_env.items():
+                        container_env_str += f"{i[0]}={i[1]}\n"
+                if container_env_str:  # pragma: no cover
+                    kill_env_vars = container_env_str  # pragma: no cover
+                ret = self._enshell.start_other(command, extra_env=kill_env_vars)
+                if ret[0] != 0:  # pragma: no cover
+                    pass
+        return super().close(session)
+
     def stop(self) -> None:
         """Release any additional resources allocated during launching."""
         if self._enshell:

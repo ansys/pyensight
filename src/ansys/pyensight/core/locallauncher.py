@@ -360,7 +360,6 @@ class LocalLauncher(Launcher):
 
     def stop(self) -> None:
         """Release any additional resources allocated during launching."""
-        self._kill_process_tree(self._websocketserver_pid)
         maximum_wait_secs = 120.0
         start_time = time.time()
         while (time.time() - start_time) < maximum_wait_secs:
@@ -376,6 +375,26 @@ class LocalLauncher(Launcher):
             except Exception:
                 raise
         raise RuntimeError(f"Unable to remove {self.session_directory} in {maximum_wait_secs}s")
+
+    def close(self, session):
+        """Shut down the launched EnSight session.
+
+        This method closes all associated sessions and then stops the
+        launched EnSight instance.
+
+        Parameters
+        ----------
+        session : ``pyensight.Session``
+            Session to close.
+
+        Raises
+        ------
+        RuntimeError
+            If the session was not launched by this launcher.
+
+        """
+        self._kill_process_tree(self._websocketserver_pid)
+        return super().close(session)
 
     @staticmethod
     def get_cei_install_directory(ansys_installation: Optional[str]) -> str:
