@@ -4,6 +4,7 @@ import pytest
 import requests
 
 
+@pytest.mark.run_alone
 def test_rest_apis(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
