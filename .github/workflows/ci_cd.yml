@@ -83,19 +83,10 @@ jobs:
       - name: docker
         run: docker pull ${{ env.ENSIGHT_IMAGE }}
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        env:
-          ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
-
-      - name: Run isolated pytest tests
-        uses: ansys/actions/tests-pytest@v10
-        env:
-          ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
-        with:
-          python-version: ${{ matrix.python-version }}
-          requires-xvfb: true
-          pytest-extra-args: "-m run_alone"
+      #- name: Setup tmate session
+      #  uses: mxschmitt/action-tmate@v3
+      #  env:
+      #    ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
 
       - name: Run pytest
         uses: ansys/actions/tests-pytest@v10
@@ -104,7 +95,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           requires-xvfb: true
-          pytest-extra-args: "-n 4 --reruns 3  -m 'not run_alone'"
+          pytest-extra-args: "-n auto --reruns 3"
 
       - uses: codecov/codecov-action@v5
         name: 'Upload coverage to CodeCov'

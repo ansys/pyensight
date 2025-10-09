@@ -25,15 +25,6 @@ jobs:
       - name: Pull Docker image
         run: docker pull ${{ env.ENSIGHT_IMAGE }}
 
-      - name: Run isolated pytest tests
-        uses: ansys/actions/tests-pytest@v10
-        env:
-          ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
-        with:
-          python-version: ${{ matrix.python-version }}
-          requires-xvfb: true
-          pytest-extra-args: "-m run_alone"
-
       - name: Run pytest
         uses: ansys/actions/tests-pytest@v10
         env:
@@ -41,7 +32,7 @@ jobs:
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           requires-xvfb: true
-          pytest-extra-args: "-n 4 --reruns 3"
+          pytest-extra-args: "-n auto --reruns 3"
 
       - uses: codecov/codecov-action@v5
         name: 'Upload coverage to CodeCov'
