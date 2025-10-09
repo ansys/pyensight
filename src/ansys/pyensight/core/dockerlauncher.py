@@ -606,6 +606,19 @@ class DockerLauncher(Launcher):
         if self._enshell:
             if self._enshell.is_connected():  # pragma: no cover
                 try:
+                    logging.debug("Killing WSS\n")
+                    command = 'pkill -f "websocketserver.py"'
+                    kill_env_vars = None
+                    container_env_str = ""
+                    if self._pim_instance is not None:
+                        container_env = self._get_container_env()
+                        for i in container_env.items():
+                            container_env_str += f"{i[0]}={i[1]}\n"
+                    if container_env_str:  # pragma: no cover
+                        kill_env_vars = container_env_str  # pragma: no cover
+                    ret = self._enshell.start_other(command, extra_env=kill_env_vars)
+                    if ret[0] != 0:  # pragma: no cover
+                        pass
                     logging.debug("Stopping EnShell.\n")
                     self._enshell.stop_server()
                 except Exception:  # pragma: no cover

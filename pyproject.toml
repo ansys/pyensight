@@ -130,7 +130,7 @@ minversion = "7.1"
 testpaths = [
     "tests",
 ]
-addopts = "--setup-show --cov=ansys.pyensight.core --cov-report html:coverage-html --cov-report term --cov-config=.coveragerc --capture=tee-sys --tb=native -p no:warnings -m 'not run_alone'"
+addopts = "--setup-show --cov=ansys.pyensight.core --cov-report html:coverage-html --cov-report term --cov-config=.coveragerc --capture=tee-sys --tb=native -p no:warnings"
 markers =[
     "run_alone:Test that must run separately",
     "integration:Run integration tests",

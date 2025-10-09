@@ -88,15 +88,6 @@ jobs:
       #  env:
       #    ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
 
-      - name: Run pytest
-        uses: ansys/actions/tests-pytest@v10
-        env:
-          ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
-        with:
-          python-version: ${{ matrix.python-version }}
-          requires-xvfb: true
-          pytest-extra-args: "-n 4 --reruns 3"
-
       - name: Run isolated pytest tests
         uses: ansys/actions/tests-pytest@v10
         env:
@@ -105,6 +96,15 @@ jobs:
           python-version: ${{ matrix.python-version }}
           requires-xvfb: true
           pytest-extra-args: "-m run_alone"
+
+      - name: Run pytest
+        uses: ansys/actions/tests-pytest@v10
+        env:
+          ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
+        with:
+          python-version: ${{ matrix.python-version }}
+          requires-xvfb: true
+          pytest-extra-args: "-n 4 --reruns 3  -m 'not run_alone'"
 
       - uses: codecov/codecov-action@v5
         name: 'Upload coverage to CodeCov'
