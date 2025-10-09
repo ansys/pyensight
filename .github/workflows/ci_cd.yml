@@ -95,7 +95,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           requires-xvfb: true
-          pytest-extra-args: "-n 6 --reruns 3"
+          pytest-extra-args: "-n 4 --reruns 3"
 
       - uses: codecov/codecov-action@v5
         name: 'Upload coverage to CodeCov'
