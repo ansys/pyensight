@@ -268,16 +268,26 @@ def find_app(ansys_installation: Optional[str] = None) -> Optional[str]:
     dirs_to_check = []
     if ansys_installation:
         # Given a different Ansys install
-        local_tp = os.path.join(os.path.join(ansys_installation, "tp", "omni_viewer"))
+        local_tp = os.path.join(os.path.join(ansys_installation, "tp", "showcase"))
         if os.path.exists(local_tp):
             dirs_to_check.append(local_tp)
         # Dev Folder
-        local_dev_omni = os.path.join(ansys_installation, "omni_build")
+        omni_platform_dir = "linux-x86_64"
+        if sys.platform.startswith("win"):
+            omni_platform_dir = "windows-x86_64"
+        local_dev_omni = os.path.join(
+            ansys_installation,
+            "omni_build",
+            "kit-app-template",
+            "_build",
+            omni_platform_dir,
+            "release",
+        )
         if os.path.exists(local_dev_omni):
             dirs_to_check.append(local_dev_omni)
     if "PYENSIGHT_ANSYS_INSTALLATION" in os.environ:
         env_inst = os.environ["PYENSIGHT_ANSYS_INSTALLATION"]
-        dirs_to_check.append(os.path.join(env_inst, "tp", "omni_viewer"))
+        dirs_to_check.append(os.path.join(env_inst, "tp", "showcase"))
 
     # Look for most recent Ansys install, 25.2 or later
     awp_roots = []
@@ -286,7 +296,7 @@ def find_app(ansys_installation: Optional[str] = None) -> Optional[str]:
             awp_roots.append(env_name)
     awp_roots.sort(reverse=True)
     for env_name in awp_roots:
-        dirs_to_check.append(os.path.join(os.environ[env_name], "tp", "omni_viewer"))
+        dirs_to_check.append(os.path.join(os.environ[env_name], "tp", "showcase"))
 
     # check all the collected locations in order
     for install_dir in dirs_to_check:

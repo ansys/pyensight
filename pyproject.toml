@@ -35,7 +35,7 @@ dependencies = [
     "Pillow>=9.3.0",
     "pypng>=0.0.20",
     "psutil>=5.9.2",
-    "usd-core==24.8; python_version < '3.13' and platform_machine != 'aarch64'",
+    "usd-core==25.8; platform_machine != 'aarch64'",
     "pygltflib>=1.16.2",
     "grpcio<1.68.0",
 ]
@@ -73,7 +73,7 @@ doc = [
     "sphinxcontrib-openapi==0.8.4",
     "coverage-badge==1.1.2",
     "sphinxcontrib-video==0.2.1",
-    "usd-core>=24.8",
+    "usd-core>=25.8",
     "pygltflib>=1.16.2",
 ]
 
