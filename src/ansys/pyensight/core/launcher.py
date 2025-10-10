@@ -186,7 +186,10 @@ class Launcher:
         url = f"http://{session.hostname}:{session.html_port}/v1/stop"
         if session.secret_key:  # pragma: no cover
             url += f"?security_token={session.secret_key}"
-        _ = requests.get(url)
+        try:
+            _ = requests.get(url)
+        except requests.exceptions.ConnectionError:
+            pass
 
         # Stop the launcher instance
         self.stop()
