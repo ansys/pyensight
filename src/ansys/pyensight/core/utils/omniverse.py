@@ -272,7 +272,17 @@ def find_app(ansys_installation: Optional[str] = None) -> Optional[str]:
         if os.path.exists(local_tp):
             dirs_to_check.append(local_tp)
         # Dev Folder
-        local_dev_omni = os.path.join(ansys_installation, "omni_build")
+        omni_platform_dir = "linux-x86_64"
+        if sys.platform.startswith("win"):
+            omni_platform_dir = "windows-x86_64"
+        local_dev_omni = os.path.join(
+            ansys_installation,
+            "omni_build",
+            "kit-app-template",
+            "_build",
+            omni_platform_dir,
+            "release",
+        )
         if os.path.exists(local_dev_omni):
             dirs_to_check.append(local_dev_omni)
     if "PYENSIGHT_ANSYS_INSTALLATION" in os.environ:
