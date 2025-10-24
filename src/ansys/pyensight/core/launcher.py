@@ -107,6 +107,8 @@ class Launcher:
         use_mpi: Optional[str] = None,
         interconnect: Optional[str] = None,
         server_hosts: Optional[List[str]] = None,
+        rest_ws_separate_loops: bool = False,
+        do_not_start_ws: bool = False,
     ) -> None:
         self._timeout = timeout
         self._use_egl_param_val: bool = use_egl
@@ -141,6 +143,8 @@ class Launcher:
         self._query_parameters: Dict[str, str] = {}
         self._additional_command_line_options = additional_command_line_options
         self._launch_webui = launch_webui
+        self._do_not_start_ws = do_not_start_ws
+        self._rest_ws_separate_loops = rest_ws_separate_loops
 
     @property
     def session_directory(self) -> str:

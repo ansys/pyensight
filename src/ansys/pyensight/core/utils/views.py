@@ -240,7 +240,7 @@ class _Simba:
     def render(self):
         """Force render update in EnSight."""
         self.ensight.view_transf.zoom(1)
-        self.ensight.render()
+        # self.ensight.render()
         self.ensight.refresh(1)
 
     def _probe_setup(self, part_obj, get_probe_data=False):
