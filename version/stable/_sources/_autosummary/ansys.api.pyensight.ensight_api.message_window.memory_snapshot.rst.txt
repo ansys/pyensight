@@ -1,0 +1,6 @@
+memory\_snapshot
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: message_window.memory_snapshot

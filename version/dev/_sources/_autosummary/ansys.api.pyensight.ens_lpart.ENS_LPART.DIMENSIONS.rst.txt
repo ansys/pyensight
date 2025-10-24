@@ -1,0 +1,6 @@
+DIMENSIONS
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_lpart
+
+.. autoproperty:: ENS_LPART.DIMENSIONS

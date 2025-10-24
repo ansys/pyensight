@@ -1,0 +1,6 @@
+specify\_time\_as
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_flipbook.specify_time_as

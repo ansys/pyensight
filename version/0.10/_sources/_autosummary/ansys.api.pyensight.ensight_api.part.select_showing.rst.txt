@@ -1,0 +1,6 @@
+select\_showing
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.select_showing
