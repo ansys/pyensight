@@ -210,6 +210,4 @@ def setup(app):
     app.connect("autodoc-skip-member", lowercase_property_skip)
 
 # PyAnsys tags configuration
-html_context = {
-    "pyansys_tags": ['Fluids']
-}
+html_context = {"pyansys_tags": ["Fluids"]}
