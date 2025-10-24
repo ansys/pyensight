@@ -24,6 +24,7 @@ import ansys.pyensight.core as pyensight
 from ansys.pyensight.core.common import find_unused_ports
 from ansys.pyensight.core.launcher import Launcher
 import ansys.pyensight.core.session
+import psutil
 
 
 class LocalLauncher(Launcher):
@@ -102,23 +103,26 @@ class LocalLauncher(Launcher):
         """Type of app to launch. Options are ``ensight`` and ``envision``."""
         return self._application
 
-    def launch_webui(self, cpython, version, popen_common):
-        cmd = [cpython, "-m", "ansys.simba.plugin.post.simba_post"]
+    def launch_webui(self, version, popen_common):
+        if os.environ.get("PYENSIGHT_FLUIDSONE_PATH"):
+            fluids_one_path = os.environ["PYENSIGHT_FLUIDSONE_PATH"]
+        else:
+            awp_path = os.path.dirname(self._install_path)
+            platf = "winx64" if self._is_windows() else "linx64"
+            fluids_one_path = os.path.join(awp_path, "FluidsOne", "server", platf, "fluids_one")
+            if self._is_windows():
+                fluids_one_path += ".exe"
+        cmd = [fluids_one_path, "--main-run-mode", "post"]
         path_to_webui = self._install_path
         # Dev environment
         path_to_webui_internal = os.path.join(
             path_to_webui, f"nexus{version}", f"ansys{version}", "ensight", "WebUI", "web", "ui"
         )
         # Ansys environment
-        paths_to_webui_ansys = [
-            os.path.join(os.path.dirname(path_to_webui), "simcfd", "web", "ui"),
-            os.path.join(os.path.dirname(path_to_webui), "fluidsone", "web", "ui"),
-        ]
+        path_to_webui_ansys = os.path.join(os.path.dirname(path_to_webui), "FluidsOne", "web", "ui")
         path_to_webui = path_to_webui_internal
-        for path in paths_to_webui_ansys:
-            if os.path.exists(path):
-                path_to_webui = path
-                break
+        if os.path.exists(path_to_webui_ansys):
+            path_to_webui = path_to_webui_ansys
         cmd += ["--server-listen-port", str(self._ports[5])]
         cmd += ["--server-web-roots", path_to_webui]
         cmd += ["--ensight-grpc-port", str(self._ports[0])]
@@ -270,7 +274,6 @@ class LocalLauncher(Launcher):
             cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
             if is_windows:
                 cmd[0] += ".bat"
-            ensight_python = cmd[0]
             cmd.extend(["--http_directory", self.session_directory])
             # http port
             cmd.extend(["--http_port", str(self._ports[2])])
@@ -281,8 +284,14 @@ class LocalLauncher(Launcher):
                 cmd.extend(["--grpc_port", str(self._ports[0])])
             # EnVision sessions
             cmd.extend(["--local_session", "envision", "5"])
+            if int(version) > 252 and self._rest_ws_separate_loops:
+                cmd.append("--separate_loops")
+            cmd.extend(["--security_token", self._secret_key])
             # websocket port
-            cmd.append(str(self._ports[3]))
+            if int(version) > 252 and self._do_not_start_ws:
+                cmd.append("-1")
+            else:
+                cmd.append(str(self._ports[3]))
             logging.debug(f"Starting WSS: {cmd}\n")
             if is_windows:
                 startupinfo = subprocess.STARTUPINFO()
@@ -317,8 +326,40 @@ class LocalLauncher(Launcher):
         self._sessions.append(session)
 
         if self._launch_webui:
-            self.launch_webui(ensight_python, version, popen_common)
+            self.launch_webui(version, popen_common)
         return session
+
+    @staticmethod
+    def _kill_process_unix(pid):
+        external_kill = ["kill", "-9", str(pid)]
+        process = psutil.Popen(external_kill, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        process.wait()
+
+    @staticmethod
+    def _kill_process_windows(pid):
+        external_kill = ["taskkill", "/F", "/PID", str(pid)]
+        process = psutil.Popen(external_kill, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        process.wait()
+
+    def _kill_process_by_pid(self, pid):
+        if self._is_windows():
+            self._kill_process_windows(pid)
+        else:
+            self._kill_process_unix(pid)
+
+    def _kill_process_tree(self, pid):
+        try:
+            parent = psutil.Process(pid)
+            for child in parent.children(recursive=True):
+                try:
+                    self._kill_process_by_pid(child.pid)
+                    child.kill()
+                except (psutil.AccessDenied, psutil.ZombieProcess, OSError, psutil.NoSuchProcess):
+                    continue
+            self._kill_process_by_pid(parent.pid)
+            parent.kill()
+        except (psutil.AccessDenied, psutil.ZombieProcess, OSError, psutil.NoSuchProcess):
+            pass
 
     def stop(self) -> None:
         """Release any additional resources allocated during launching."""
@@ -337,6 +378,26 @@ class LocalLauncher(Launcher):
             except Exception:
                 raise
         raise RuntimeError(f"Unable to remove {self.session_directory} in {maximum_wait_secs}s")
+
+    def close(self, session):
+        """Shut down the launched EnSight session.
+
+        This method closes all associated sessions and then stops the
+        launched EnSight instance.
+
+        Parameters
+        ----------
+        session : ``pyensight.Session``
+            Session to close.
+
+        Raises
+        ------
+        RuntimeError
+            If the session was not launched by this launcher.
+
+        """
+        self._kill_process_tree(self._websocketserver_pid)
+        return super().close(session)
 
     @staticmethod
     def get_cei_install_directory(ansys_installation: Optional[str]) -> str:

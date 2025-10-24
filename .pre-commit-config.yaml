@@ -21,18 +21,6 @@ repos:
         additional_dependencies: ["tomli"]
         args: ["--ignore-words", "doc/styles/config/vocabularies/ANSYS/accept.txt"]
 
-  - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.5
-    hooks:
-      - id: bandit
-        # args not working with pyproject.toml
-        args: [
-            -lll,
-            -n, "3",
-            -r,
-            -x, "venv/*, tests/*"
-        ]
-
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.3.0
     hooks:

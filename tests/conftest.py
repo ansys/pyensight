@@ -2,6 +2,7 @@
 Global fixtures go here.
 """
 import atexit
+import os
 import subprocess
 from unittest import mock
 
@@ -23,6 +24,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
     """
     parser.addoption("--install-path", action="store")
     parser.addoption("--use-local-launcher", default=False, action="store_true")
+    parser.addoption("--use-local-test-data", default=False, action="store_true")
 
 
 @pytest.fixture
@@ -145,6 +147,7 @@ def launch_libuserd_and_get_files(tmpdir, pytestconfig: pytest.Config):
         data_dir = tmpdir.mkdir("datadir")
         use_local = pytestconfig.getoption("use_local_launcher")
         install_path = pytestconfig.getoption("install_path")
+        use_local_test_data = pytestconfig.getoption("use_local_test_data")
         session = None
         if use_local:
             # Launch locally
@@ -156,17 +159,40 @@ def launch_libuserd_and_get_files(tmpdir, pytestconfig: pytest.Config):
             session = DockerLauncher(use_dev=True, data_directory=data_dir).start()
 
         libuserd.initialize()
+        if not use_local_test_data:
+            count = 0
+            while count < 5:
+                try:
+                    file1_userd = libuserd.download_pyansys_example(filename1, filepath1)
+                    file1_session = session.download_pyansys_example(filename1, filepath1)
 
-        file1_userd = libuserd.download_pyansys_example(filename1, filepath1)
-        file1_session = session.download_pyansys_example(filename1, filepath1)
-
-        if filename2 is None:
-            file2_userd = ""
-            file2_session = ""
+                    if filename2 is None:
+                        file2_userd = ""
+                        file2_session = ""
+                    else:
+                        file2_userd = libuserd.download_pyansys_example(filename2, filepath2)
+                        file2_session = session.download_pyansys_example(filename2, filepath2)
+                    break
+                except (KeyError, ConnectionError):
+                    count += 1
+            if count == 5 and (not file1_userd or not file1_session):
+                raise RuntimeError("Couldn't download files for test.")
         else:
-            file2_userd = libuserd.download_pyansys_example(filename2, filepath2)
-            file2_session = session.download_pyansys_example(filename2, filepath2)
-
+            pyensight_test_data_path = os.path.join(
+                session.cei_home,
+                f"apex{session.cei_suffix}",
+                "machines",
+                "common",
+                "PyEnSightTestData",
+            )
+            file1_userd = os.path.join(pyensight_test_data_path, filename1)
+            file1_session = file1_userd
+            if not filename2:
+                file2_userd = ""
+                file2_session = ""
+            else:
+                file2_userd = os.path.join(pyensight_test_data_path, filename2)
+                file2_session = file2_userd
         return file1_userd, file2_userd, file1_session, file2_session, libuserd, session, data_dir
 
     return _files

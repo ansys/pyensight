@@ -384,7 +384,8 @@ class DockerLauncher(Launcher):
 
     def launch_webui(self, container_env_str):
         # Run websocketserver
-        cmd = "cpython -m ansys.simba.plugin.post.simba_post"
+        cmd = f"/ansys_inc/v{self._ansys_version}/FluidsOne/server/linx64/fluidsone"
+        cmd += " --main-run-mode post"
         # websocket port - this needs to come first since we now have
         # --add_header as a optional arg that can take an arbitrary
         # number of optional headers.
@@ -393,10 +394,7 @@ class DockerLauncher(Launcher):
         http_port = self._service_host_port["http"][1]
         ws_port = self._service_host_port["ws"][1]
         cmd += f" --server-listen-port {webui_port}"
-        cmd += (
-            f" --server-web-roots /ansys_inc/v{self._ansys_version}/CEI/nexus{self._ansys_version}/"
-        )
-        cmd += f"ansys{self._ansys_version}/ensight/WebUI/web/ui/"
+        cmd += f" --server-web-roots /ansys_inc/v{self._ansys_version}/FluidsOne/web/ui"
         cmd += f" --ensight-grpc-port {grpc_port}"
         cmd += f" --ensight-html-port {http_port}"
         cmd += f" --ensight-ws-port {ws_port}"
@@ -541,7 +539,14 @@ class DockerLauncher(Launcher):
         # http port
         wss_cmd += " --http_port " + str(self._service_host_port["http"][1])
         # vnc port
-        wss_cmd += " --client_port 1999"
+        if int(self._ansys_version) > 252 and self._rest_ws_separate_loops:
+            wss_cmd += " --separate_loops"
+        wss_cmd += f" --security_token {self._secret_key}"
+        wss_cmd += " --client_port "
+        if int(self._ansys_version) > 252 and self._do_not_start_ws:
+            wss_cmd += "-1"
+        else:
+            wss_cmd += "1999"
         # optional PIM instance header
         if self._pim_instance is not None:
             # Add the PIM instance header. wss needs to return this optional
@@ -600,11 +605,58 @@ class DockerLauncher(Launcher):
 
         return session
 
+    def close(self, session):
+        """Shut down the launched EnSight session.
+
+        This method closes all associated sessions and then stops the
+        launched EnSight instance.
+
+        Parameters
+        ----------
+        session : ``pyensight.Session``
+            Session to close.
+
+        Raises
+        ------
+        RuntimeError
+            If the session was not launched by this launcher.
+
+        """
+        if self._enshell:
+            if self._enshell.is_connected():  # pragma: no cover
+                logging.debug("Killing WSS\n")
+                command = 'pkill -f "websocketserver.py"'
+                kill_env_vars = None
+                container_env_str = ""
+                if self._pim_instance is not None:
+                    container_env = self._get_container_env()
+                    for i in container_env.items():
+                        container_env_str += f"{i[0]}={i[1]}\n"
+                if container_env_str:  # pragma: no cover
+                    kill_env_vars = container_env_str  # pragma: no cover
+                ret = self._enshell.start_other(command, extra_env=kill_env_vars)
+                if ret[0] != 0:  # pragma: no cover
+                    pass
+        return super().close(session)
+
     def stop(self) -> None:
         """Release any additional resources allocated during launching."""
         if self._enshell:
             if self._enshell.is_connected():  # pragma: no cover
                 try:
+                    logging.debug("Killing WSS\n")
+                    command = 'pkill -f "websocketserver.py"'
+                    kill_env_vars = None
+                    container_env_str = ""
+                    if self._pim_instance is not None:
+                        container_env = self._get_container_env()
+                        for i in container_env.items():
+                            container_env_str += f"{i[0]}={i[1]}\n"
+                    if container_env_str:  # pragma: no cover
+                        kill_env_vars = container_env_str  # pragma: no cover
+                    ret = self._enshell.start_other(command, extra_env=kill_env_vars)
+                    if ret[0] != 0:  # pragma: no cover
+                        pass
                     logging.debug("Stopping EnShell.\n")
                     self._enshell.stop_server()
                 except Exception:  # pragma: no cover
