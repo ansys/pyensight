@@ -1,0 +1,6 @@
+CHANGING\_COORDS
+================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: PartHints.CHANGING_COORDS

@@ -1,0 +1,6 @@
+delay\_refresh
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: command.delay_refresh
