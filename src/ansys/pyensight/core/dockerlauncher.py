@@ -533,7 +533,10 @@ class DockerLauncher(Launcher):
         # websocket port - this needs to come first since we now have
         # --add_header as a optional arg that can take an arbitrary
         # number of optional headers.
-        wss_cmd += " " + str(self._service_host_port["ws"][1])
+        if int(self._ansys_version) > 252 and self._do_not_start_ws:
+            wss_cmd += " -1"
+        else:
+            wss_cmd += " " + str(self._service_host_port["ws"][1])
         #
         wss_cmd += " --http_directory " + self._session_directory
         # http port
@@ -542,11 +545,7 @@ class DockerLauncher(Launcher):
         if int(self._ansys_version) > 252 and self._rest_ws_separate_loops:
             wss_cmd += " --separate_loops"
         wss_cmd += f" --security_token {self._secret_key}"
-        wss_cmd += " --client_port "
-        if int(self._ansys_version) > 252 and self._do_not_start_ws:
-            wss_cmd += "-1"
-        else:
-            wss_cmd += "1999"
+        wss_cmd += " --client_port 1999"
         # optional PIM instance header
         if self._pim_instance is not None:
             # Add the PIM instance header. wss needs to return this optional
