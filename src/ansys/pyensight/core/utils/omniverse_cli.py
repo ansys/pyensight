@@ -213,9 +213,16 @@ class OmniverseGeometryServer(object):
         logging.info("Omniverse connection established.")
 
         # parse the DSG URI
-        parsed = urlparse(self.dsg_uri)
-        port = parsed.port
-        host = parsed.hostname
+        uds_path = None
+        port = None
+        host = None
+        if self.dsg_uri.endswith(".sock"):
+            # The path is a uds path
+            uds_path = self.dsg_uri.replace("unix:", "").replace(".sock", "")
+        else:
+            parsed = urlparse(self.dsg_uri)
+            port = parsed.port
+            host = parsed.hostname
 
         # link it to a DSG session
         update_handler = ov_dsg_server.OmniverseUpdateHandler(omni_link)
@@ -228,6 +235,7 @@ class OmniverseGeometryServer(object):
             normalize_geometry=self.normalize_geometry,
             time_scale=self.time_scale,
             handler=update_handler,
+            uds_path=uds_path,
         )
 
         # Start the DSG link

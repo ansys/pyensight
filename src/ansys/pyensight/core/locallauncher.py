@@ -47,6 +47,16 @@ class LocalLauncher(Launcher):
     batch : bool, optional
         Whether to run EnSight (or EnVision) in batch mode. The default
         is ``True``, in which case the full GUI is not presented.
+    grpc_use_tcp_sockets :
+        If using gRPC, and if True, then allow TCP Socket based connections
+        instead of only local connections.
+    grpc_allow_network_connections :
+        If using gRPC and using TCP Socket based connections, listen on all networks.
+    grpc_disable_tls :
+        If using gRPC and using TCP Socket based connections, disable TLS.
+    grpc_uds_pathname :
+        If using gRPC and using Unix Domain Socket based connections, explicitly
+        set the pathname to the shared UDS file instead of using the default.
     timeout : float, optional
         Number of seconds to try a gRPC connection before giving up.
         This parameter is defined on the parent ``Launcher`` class,
@@ -70,6 +80,12 @@ class LocalLauncher(Launcher):
     >>> # Create a second session (a new LocalLauncher instance is required)
     >>> session2 = LocalLauncher(ansys_installation='/ansys_inc/v232').start()
 
+    WARNING:
+    Overriding the default values for these options: grpc_use_tcp_sockets, grpc_allow_network_connections,
+    and grpc_disable_tls
+    can possibly permit control of this computer and any data which resides on it.
+    Modification of this configuration is not recommended.  Please see the
+    documentation for your installed product for additional information.
     """
 
     def __init__(
@@ -77,6 +93,10 @@ class LocalLauncher(Launcher):
         ansys_installation: Optional[str] = None,
         application: Optional[str] = "ensight",
         batch: bool = True,
+        grpc_use_tcp_sockets: Optional[bool] = False,
+        grpc_allow_network_connections: Optional[bool] = False,
+        grpc_disable_tls: Optional[bool] = False,
+        grpc_uds_pathname: Optional[str] = None,
         **kwargs,
     ) -> None:
         super().__init__(**kwargs)
@@ -97,6 +117,10 @@ class LocalLauncher(Launcher):
         self._ports = None
         # Are we running the instance in batch
         self._batch = batch
+        self._grpc_use_tcp_sockets = grpc_use_tcp_sockets
+        self._grpc_allow_network_connections = grpc_allow_network_connections
+        self._grpc_disable_tls = grpc_disable_tls
+        self._grpc_uds_pathname = grpc_uds_pathname
 
     @property
     def application(self):
@@ -170,6 +194,12 @@ class LocalLauncher(Launcher):
             # session directory and UUID
             self._secret_key = str(uuid.uuid1())
             self.session_directory = tempfile.mkdtemp(prefix="pyensight_")
+            if (
+                not self._grpc_uds_pathname
+                and not self._grpc_use_tcp_sockets
+                and not self._is_windows()
+            ):
+                self._grpc_uds_pathname = os.path.join(self.session_directory, "pyensight")
 
             # gRPC port, VNC port, websocketserver ws, websocketserver html
             to_avoid = self._find_ports_used_by_other_pyensight_and_ensight()
@@ -203,6 +233,15 @@ class LocalLauncher(Launcher):
             else:
                 cmd.append("-no_start_screen")
             cmd.extend(["-grpc_server", str(self._ports[0])])
+            if self._grpc_use_tcp_sockets:
+                cmd.append("-grpc_use_tcp_sockets")
+            if self._grpc_allow_network_connections:
+                cmd.append("-grpc_allow_network_connections")
+            if self._grpc_disable_tls:
+                cmd.append("-grpc_disable_tls")
+            if self._grpc_uds_pathname:
+                cmd.append("-grpc_uds_pathname")
+                cmd.append(self._grpc_uds_pathname)
             vnc_url = f"vnc://%%3Frfb_port={self._ports[1]}%%26use_auth=0"
             cmd.extend(["-vnc", vnc_url])
             cmd.extend(["-ports", str(self._ports[4])])
@@ -282,6 +321,15 @@ class LocalLauncher(Launcher):
             if self._enable_rest_api:
                 # grpc port
                 cmd.extend(["--grpc_port", str(self._ports[0])])
+                if self._grpc_use_tcp_sockets:
+                    cmd.append("--grpc_use_tcp_sockets")
+                if self._grpc_allow_network_connections:
+                    cmd.append("--grpc_allow_network_connections")
+                if self._grpc_disable_tls:
+                    cmd.append("--grpc_disable_tls")
+                if self._grpc_uds_pathname:
+                    cmd.append("--grpc_uds_pathname")
+                    cmd.append(self._grpc_uds_pathname)
             # EnVision sessions
             cmd.extend(["--local_session", "envision", "5"])
             if int(version) > 252 and self._rest_ws_separate_loops:
@@ -313,6 +361,10 @@ class LocalLauncher(Launcher):
         session = ansys.pyensight.core.session.Session(
             host="127.0.0.1",
             grpc_port=self._ports[0],
+            grpc_use_tcp_sockets=self._grpc_use_tcp_sockets,
+            grpc_allow_network_connections=self._grpc_allow_network_connections,
+            grpc_disable_tls=self._grpc_disable_tls,
+            grpc_uds_pathname=self._grpc_uds_pathname,
             html_port=self._ports[2],
             ws_port=self._ports[3],
             install_path=self._install_path,

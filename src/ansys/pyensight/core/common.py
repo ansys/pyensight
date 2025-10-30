@@ -166,7 +166,13 @@ def populate_service_host_port(  # pragma: no cover
 
 
 def launch_enshell_interface(
-    enshell_grpc_channel: Any, grpc_port: int, timeout: float
+    enshell_grpc_channel: Any,
+    grpc_port: int,
+    timeout: float,
+    grpc_use_tcp_sockets: bool = False,
+    grpc_allow_network_connections: bool = False,
+    grpc_disable_tls: bool = False,
+    grpc_uds_pathname: Optional[str] = None,
 ) -> enshell_grpc.EnShellGRPC:
     """Launch the EnShell gRPC Interface.
 
@@ -178,17 +184,45 @@ def launch_enshell_interface(
         the gRPC port to connect to
     timeout: float
         a timeout to wait for the gRPC connection
+    grpc_use_tcp_sockets: bool
+        If using gRPC, and if True, then allow TCP Socket based connections
+        instead of only local connections.
+    grpc_allow_network_connections: bool
+        If using gRPC and using TCP Socket based connections, listen on all networks.
+    grpc_disable_tls: bool
+        If using gRPC and using TCP Socket based connections, disable TLS.
+    grpc_uds_pathname: bool
+        If using gRPC and using Unix Domain Socket based connections, explicitly
+        set the pathname to the shared UDS file instead of using the default.
 
     Returns
     -------
     enshell: enshell_grpc.EnShellGRPC
         the enshell gRPC interface
+
+    WARNING:
+    Overriding the default values for these options: grpc_use_tcp_sockets, grpc_allow_network_connections,
+    and grpc_disable_tls
+    can possibly permit control of this computer and any data which resides on it.
+    Modification of this configuration is not recommended.  Please see the
+    documentation for your installed product for additional information.
     """
     if enshell_grpc_channel:  # pragma: no cover
-        enshell = enshell_grpc.EnShellGRPC()  # pragma: no cover
+        enshell = enshell_grpc.EnShellGRPC(
+            grpc_use_tcp_sockets=grpc_use_tcp_sockets,
+            grpc_allow_network_connections=grpc_allow_network_connections,
+            grpc_disable_tls=grpc_disable_tls,
+            grpc_uds_pathname=grpc_uds_pathname,
+        )  # pragma: no cover
         enshell.connect_existing_channel(enshell_grpc_channel)  # pragma: no cover
     else:
-        enshell = enshell_grpc.EnShellGRPC(port=grpc_port)
+        enshell = enshell_grpc.EnShellGRPC(
+            port=grpc_port,
+            grpc_use_tcp_sockets=grpc_use_tcp_sockets,
+            grpc_allow_network_connections=grpc_allow_network_connections,
+            grpc_disable_tls=grpc_disable_tls,
+            grpc_uds_pathname=grpc_uds_pathname,
+        )
         time_start = time.time()
         while time.time() - time_start < timeout:  # pragma: no cover
             if enshell.is_connected():
