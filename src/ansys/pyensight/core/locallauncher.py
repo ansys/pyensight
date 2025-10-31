@@ -241,6 +241,8 @@ class LocalLauncher(Launcher):
                     cmd.append(f"--ic={self._interconnect}")
                     hosts = ",".join(self._server_hosts)
                     cmd.append(f"--cnf={hosts}")
+            if self._liben_ws_module:
+                cmd.extend(["-rest_server", str(self._ports[2])])
 
             # cmd.append("-minimize_console")
             logging.debug(f"Starting EnSight with : {cmd}\n")
@@ -271,33 +273,34 @@ class LocalLauncher(Launcher):
             websocket_script = found_scripts[idx]
             version = re.findall(r"nexus(\d+)", websocket_script)[0]
             # build the commandline
-            cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
-            if is_windows:
-                cmd[0] += ".bat"
-            cmd.extend(["--http_directory", self.session_directory])
-            # http port
-            cmd.extend(["--http_port", str(self._ports[2])])
-            # vnc port
-            cmd.extend(["--client_port", str(self._ports[1])])
-            if self._enable_rest_api:
-                # grpc port
-                cmd.extend(["--grpc_port", str(self._ports[0])])
-            # EnVision sessions
-            cmd.extend(["--local_session", "envision", "5"])
-            if int(version) > 252 and self._rest_ws_separate_loops:
-                cmd.append("--separate_loops")
-            cmd.extend(["--security_token", self._secret_key])
-            # websocket port
-            if int(version) > 252 and self._do_not_start_ws:
-                cmd.append("-1")
-            else:
-                cmd.append(str(self._ports[3]))
-            logging.debug(f"Starting WSS: {cmd}\n")
-            if is_windows:
-                startupinfo = subprocess.STARTUPINFO()
-                startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-                popen_common["startupinfo"] = startupinfo
-            self._websocketserver_pid = subprocess.Popen(cmd, **popen_common).pid
+            if not self._liben_ws_module:
+                cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
+                if is_windows:
+                    cmd[0] += ".bat"
+                cmd.extend(["--http_directory", self.session_directory])
+                # http port
+                cmd.extend(["--http_port", str(self._ports[2])])
+                # vnc port
+                cmd.extend(["--client_port", str(self._ports[1])])
+                if self._enable_rest_api:
+                    # grpc port
+                    cmd.extend(["--grpc_port", str(self._ports[0])])
+                # EnVision sessions
+                cmd.extend(["--local_session", "envision", "5"])
+                if int(version) > 252 and self._rest_ws_separate_loops:
+                    cmd.append("--separate_loops")
+                cmd.extend(["--security_token", self._secret_key])
+                # websocket port
+                if int(version) > 252 and self._do_not_start_ws:
+                    cmd.append("-1")
+                else:
+                    cmd.append(str(self._ports[3]))
+                logging.debug(f"Starting WSS: {cmd}\n")
+                if is_windows:
+                    startupinfo = subprocess.STARTUPINFO()
+                    startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+                    popen_common["startupinfo"] = startupinfo
+                self._websocketserver_pid = subprocess.Popen(cmd, **popen_common).pid
 
         # build the session instance
         logging.debug(
@@ -324,6 +327,8 @@ class LocalLauncher(Launcher):
         )
         session.launcher = self
         self._sessions.append(session)
+        # if self._liben_ws_module:
+        #    session._launch_ws_server()
 
         if self._launch_webui:
             self.launch_webui(version, popen_common)
