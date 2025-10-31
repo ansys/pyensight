@@ -8,6 +8,7 @@ import tempfile
 import threading
 from types import ModuleType
 from typing import TYPE_CHECKING, List, Optional, Union
+from urllib.parse import ParseResult, urlparse
 import uuid
 
 import psutil
@@ -45,6 +46,7 @@ class OmniverseKitInstance:
             target=OmniverseKitInstance._scan_stdout, args=(self,)
         )
         self._scanner_thread.start()
+        self._simba_url: Optional[ParseResult] = None
 
     def __del__(self) -> None:
         """Close down the instance on delete"""
@@ -75,6 +77,7 @@ class OmniverseKitInstance:
 
         # On a forced close, set a return code of 0
         self._returncode = 0
+        self._simba_url = None
 
     @staticmethod
     def _scan_stdout(oki: "OmniverseKitInstance"):
@@ -84,6 +87,9 @@ class OmniverseKitInstance:
                 oki._lines_read = oki._lines_read + 1
                 if "RTX ready" in output_line:
                     oki._rendering = True
+                if output_line.startswith("Server running on "):
+                    urlstr = output_line.removeprefix("Server running on ")
+                    oki._simba_url = urlparse(urlstr)
 
     def is_rendering(self) -> bool:
         """Check if the instance has finished launching and is ready to render
@@ -108,6 +114,16 @@ class OmniverseKitInstance:
         if self._proc.poll() is None:
             return True
         return False
+
+    def simba_url(self) -> Optional[ParseResult]:
+        """Return the URL for the Simba server
+
+        Returns
+        -------
+        ParseResult or None
+            URL for the Simba server, or None if it is not running
+        """
+        return self._simba_url
 
     def returncode(self) -> Optional[int]:
         """Get the return code if the process has stopped, or None if still running
