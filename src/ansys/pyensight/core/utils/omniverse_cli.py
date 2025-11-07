@@ -90,10 +90,12 @@ class OmniverseGeometryServer(object):
         time_scale: float = 1.0,
         normalize_geometry: bool = False,
         dsg_uri: str = "",
+        uds_path: str = "", #Unix tmp file for localhost grpc comm.  e.g. "/tmp/greeter"
         monitor_directory: str = "",
         line_width: float = 0.0,
     ) -> None:
         self._dsg_uri = dsg_uri
+        self._uds_path = uds_path
         self._destination = destination
         self._security_token = security_token
         if not self._security_token:
@@ -129,6 +131,15 @@ class OmniverseGeometryServer(object):
     @dsg_uri.setter
     def dsg_uri(self, uri: str) -> None:
         self._dsg_uri = uri
+
+    @property
+    def uds_path(self) -> str:
+        """The endpoint of a Dynamic Scene Graph service:  unix:{uds_path}.sock"""
+        return self._uds_path
+
+    @uds_path.setter
+    def uds_path(self, p: str) -> None:
+        self._uds_path = p
 
     @property
     def destination(self) -> str:
@@ -222,6 +233,7 @@ class OmniverseGeometryServer(object):
         dsg_link = dsg_server.DSGSession(
             port=port,
             host=host,
+            uds_path=self.uds_path,
             vrmode=self.vrmode,
             security_code=self.security_token,
             verbose=1,
@@ -433,6 +445,12 @@ if __name__ == "__main__":
         help="The URI of the EnSight Dynamic Scene Graph server.  Default: grpc://127.0.0.1:5234",
     )
     parser.add_argument(
+        "--grpc_uds_pathname",
+        default="",
+        type=str,
+        help="The UDS file name prefix for EnSight Dynamic Scene Graph server communication.  Default: none",
+    )
+    parser.add_argument(
         "--security_token",
         metavar="token",
         default="",
@@ -523,6 +541,7 @@ if __name__ == "__main__":
     server = OmniverseGeometryServer(
         destination=args.destination,
         dsg_uri=args.dsg_uri,
+        uds_path=args.grpc_uds_pathname,
         security_token=args.security_token,
         monitor_directory=args.monitor_directory,
         time_scale=args.time_scale,

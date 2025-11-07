@@ -669,6 +669,7 @@ class DSGSession(object):
         self,
         port: int = 12345,
         host: str = "127.0.0.1",
+        uds_path: str = "",
         security_code: str = "",
         verbose: int = 0,
         normalize_geometry: bool = False,
@@ -692,6 +693,8 @@ class DSGSession(object):
         host : str
             Name of the host that the EnSight gRPC service is running on.
             The default is ``"127.0.0.1"``, which is the localhost.
+        uds_path: str
+            Temp file name to use for gRPC communication, as an alternative to host:port
         security_code : str
             Shared security code for validating the gRPC communication.
             The default is ``""``.
@@ -713,7 +716,7 @@ class DSGSession(object):
             transfer begins or ends and when a Part (mesh block) is ready for processing.
         """
         super().__init__()
-        self._grpc = ensight_grpc.EnSightGRPC(port=port, host=host, secret_key=security_code)
+        self._grpc = ensight_grpc.EnSightGRPC(port=port, host=host, uds_path=uds_path, secret_key=security_code)
         self._session = session
         if self._session:
             self._session.set_dsg_session(self)

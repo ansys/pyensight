@@ -558,6 +558,7 @@ class Omniverse:
         self._check_modules()
         if self.is_running_omniverse():
             raise RuntimeError("An Omniverse server connection is already active.")
+        uds_path = None
         if not isinstance(self._ensight, ModuleType):
             # Make sure the internal ui module is loaded
             self._ensight._session.cmd("import enspyqtgui_int", do_eval=False)
@@ -569,6 +570,9 @@ class Omniverse:
             hostname = options.get("host", "127.0.0.1")
             port = options.get("port", 12345)
             token = options.get("security", "")
+            uds_path = options.get("uds_path", None)
+            if uds_path is None:
+                uds_path = os.environ.get("ENSIGHT_GRPC_UDS_PATHNAME", None)
 
         # Launch the server via the 'ansys.pyensight.core.utils.omniverse_cli' module
         dsg_uri = f"grpc://{hostname}:{port}"
@@ -589,7 +593,10 @@ class Omniverse:
             cmd.extend(["--line_width", str(line_width)])
         if not live:
             cmd.extend(["--oneshot", "1"])
-        cmd.extend(["--dsg_uri", dsg_uri])
+        if uds_path is not None:
+            cmd.extend(["--grpc_uds_pathname", uds_path])
+        else:
+            cmd.extend(["--dsg_uri", dsg_uri])
         env_vars = os.environ.copy()
         # we are launching the kit from EnSight or PyEnSight.  In these cases, we
         # inform the kit instance of:

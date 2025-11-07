@@ -39,9 +39,10 @@ class EnSightGRPC(object):
         Connection secret key
     """
 
-    def __init__(self, host: str = "127.0.0.1", port: int = 12345, secret_key: str = ""):
+    def __init__(self, host: str = "127.0.0.1", port: int = 12345, uds_path: str = "", secret_key: str = ""):
         self._host = host
         self._port = port
+        self._uds_path = uds_path
         self._channel = None
         self._stub = None
         self._dsg_stub = None
@@ -76,6 +77,10 @@ class EnSightGRPC(object):
     def port(self) -> int:
         """The gRPC server (EnSight) port number"""
         return self._port
+
+    def uds_path(self) -> str:
+        """The gRPC server (EnSight) UDS file, alternative to host:port"""
+        return self._uds_path
 
     @property
     def security_token(self) -> str:
@@ -171,8 +176,12 @@ class EnSightGRPC(object):
         if self.is_connected():
             return
         # set up the channel
+        if self._uds_path != "":
+            target = "unix:"+self._uds_path+".sock"
+        else:
+            target = "{}:{}".format(self._host, self._port)
         self._channel = grpc.insecure_channel(
-            "{}:{}".format(self._host, self._port),
+            target,
             options=[
                 ("grpc.max_receive_message_length", -1),
                 ("grpc.max_send_message_length", -1),
