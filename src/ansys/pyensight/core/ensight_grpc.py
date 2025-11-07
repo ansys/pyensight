@@ -39,7 +39,9 @@ class EnSightGRPC(object):
         Connection secret key
     """
 
-    def __init__(self, host: str = "127.0.0.1", port: int = 12345, uds_path: str = "", secret_key: str = ""):
+    def __init__(
+        self, host: str = "127.0.0.1", port: int = 12345, uds_path: str = "", secret_key: str = ""
+    ):
         self._host = host
         self._port = port
         self._uds_path = uds_path
@@ -177,7 +179,7 @@ class EnSightGRPC(object):
             return
         # set up the channel
         if self._uds_path != "":
-            target = "unix:"+self._uds_path+".sock"
+            target = "unix:" + self._uds_path + ".sock"
         else:
             target = "{}:{}".format(self._host, self._port)
         self._channel = grpc.insecure_channel(

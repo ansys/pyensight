@@ -90,7 +90,7 @@ class OmniverseGeometryServer(object):
         time_scale: float = 1.0,
         normalize_geometry: bool = False,
         dsg_uri: str = "",
-        uds_path: str = "", #Unix tmp file for localhost grpc comm.  e.g. "/tmp/greeter"
+        uds_path: str = "",  # Unix tmp file for localhost grpc comm.  e.g. "/tmp/greeter"
         monitor_directory: str = "",
         line_width: float = 0.0,
     ) -> None:

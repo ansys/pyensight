@@ -716,7 +716,9 @@ class DSGSession(object):
             transfer begins or ends and when a Part (mesh block) is ready for processing.
         """
         super().__init__()
-        self._grpc = ensight_grpc.EnSightGRPC(port=port, host=host, uds_path=uds_path, secret_key=security_code)
+        self._grpc = ensight_grpc.EnSightGRPC(
+            port=port, host=host, uds_path=uds_path, secret_key=security_code
+        )
         self._session = session
         if self._session:
             self._session.set_dsg_session(self)
