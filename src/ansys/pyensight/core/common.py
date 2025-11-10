@@ -186,9 +186,11 @@ def launch_enshell_interface(
     """
     if enshell_grpc_channel:  # pragma: no cover
         enshell = enshell_grpc.EnShellGRPC()  # pragma: no cover
+        enshell.set_random_security_token()
         enshell.connect_existing_channel(enshell_grpc_channel)  # pragma: no cover
     else:
         enshell = enshell_grpc.EnShellGRPC(port=grpc_port)
+        enshell.set_random_security_token()
         time_start = time.time()
         while time.time() - time_start < timeout:  # pragma: no cover
             if enshell.is_connected():
