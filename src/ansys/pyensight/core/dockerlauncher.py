@@ -221,6 +221,16 @@ class DockerLauncher(Launcher):
             "ENSIGHT_SECURITY_TOKEN": self._secret_key,
             "WEBSOCKETSERVER_SECURITY_TOKEN": self._secret_key,
             "ENSIGHT_SESSION_TEMPDIR": self._session_directory,
+            # Temporary workaround
+            "ENSIGHT_GRPC_USE_TCP_SOCKETS": "1",
+            "ENSIGHT_GRPC_ALLOW_ALL_NETWORKS": "1",
+            "ENSIGHT_GRPC_DISABLE_TLS": "1",
+            "ENSHELL_GRPC_USE_TCP_SOCKETS": "1",
+            "ENSHELL_GRPC_ALLOW_NETWORK_CONNECTIONS": "1",
+            "ENSHELL_GRPC_DISABLE_TLS": "1",
+            "DVS_USE_TCP_SOCKETS": "1",
+            "DVS_DISABLE_TLS": "1",
+            "DVS_LISTEN_ALL_NETWORKS": "1",
         }
 
         # If for some reason, the ENSIGHT_ANSYS_LAUNCH is set previously,
@@ -427,7 +437,10 @@ class DockerLauncher(Launcher):
         #
         # Start up the EnShell gRPC interface
         self._enshell = launch_enshell_interface(
-            self._enshell_grpc_channel, self._service_host_port["grpc"][1], self._timeout
+            self._enshell_grpc_channel,
+            self._service_host_port["grpc"][1],
+            self._timeout,
+            self._secret_key,
         )
         log_dir = "/data"
         if self._enshell_grpc_channel:  # pragma: no cover
