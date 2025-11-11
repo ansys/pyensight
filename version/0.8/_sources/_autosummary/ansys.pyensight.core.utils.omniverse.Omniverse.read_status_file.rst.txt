@@ -1,0 +1,6 @@
+read\_status\_file
+==================
+
+.. currentmodule:: ansys.pyensight.core.utils.omniverse
+
+.. automethod:: Omniverse.read_status_file

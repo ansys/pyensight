@@ -1,0 +1,6 @@
+halt\_ensight\_on\_close
+========================
+
+.. currentmodule:: ansys.pyensight.core
+
+.. autoproperty:: Session.halt_ensight_on_close

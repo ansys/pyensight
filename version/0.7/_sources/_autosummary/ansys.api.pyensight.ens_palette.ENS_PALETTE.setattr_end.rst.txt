@@ -1,0 +1,6 @@
+setattr\_end
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.setattr_end

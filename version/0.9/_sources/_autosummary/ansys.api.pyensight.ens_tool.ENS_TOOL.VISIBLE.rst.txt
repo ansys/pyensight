@@ -1,0 +1,6 @@
+VISIBLE
+=======
+
+.. currentmodule:: ansys.api.pyensight.ens_tool
+
+.. autoproperty:: ENS_TOOL.VISIBLE

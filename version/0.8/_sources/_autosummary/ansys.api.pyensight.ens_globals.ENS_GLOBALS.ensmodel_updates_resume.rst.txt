@@ -1,0 +1,6 @@
+ensmodel\_updates\_resume
+=========================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. automethod:: ENS_GLOBALS.ensmodel_updates_resume
