@@ -51,7 +51,7 @@ class EnShellGRPC(object):
         self._stub = None
         #
         # self._security_token = str(random.randint(0, 1000000))
-        self._security_token: Optional[int] = None
+        self._security_token: Optional[str] = None
         #
         # values found from EnShell in the Container
         self._cei_home = None
@@ -80,7 +80,7 @@ class EnShellGRPC(object):
         """
         return self._port
 
-    def set_security_token(self, n: Optional[int] = None):
+    def set_security_token(self, n: Optional[str] = None):
         """set the security token for the gRPC connection.
 
         EnShell supports a security token in either numeric (-security {int}) or
