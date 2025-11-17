@@ -79,6 +79,8 @@ class _Simba:
 
     def auto_scale(self):
         """Auto scale view."""
+        vport = self.ensight.objs.core.VPORTS[0]
+        vport.PERSPECTIVEANGLE = 14 # on fit we need to set a default angle. 
         self.ensight.view_transf.function("global")
         self.ensight.view_transf.fit()
         self._initialize_simba_view()
