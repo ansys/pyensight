@@ -109,7 +109,7 @@ class Launcher:
         server_hosts: Optional[List[str]] = None,
         rest_ws_separate_loops: bool = False,
         do_not_start_ws: bool = False,
-        liben_ws_module: bool = False,
+        liben_rest: bool = False,
     ) -> None:
         self._timeout = timeout
         self._use_egl_param_val: bool = use_egl
@@ -145,7 +145,7 @@ class Launcher:
         self._additional_command_line_options = additional_command_line_options
         self._launch_webui = launch_webui
         self._do_not_start_ws = do_not_start_ws
-        self._liben_ws_module = liben_ws_module
+        self._liben_rest = liben_rest
         self._rest_ws_separate_loops = rest_ws_separate_loops
 
     @property

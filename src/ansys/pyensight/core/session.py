@@ -276,17 +276,6 @@ class Session:
         s += f"ws_port={self.ws_port}, session_directory=r'{session_dir}')"
         return s
 
-    def _launch_ws_server(self):
-        text = "ensight.objs.core.simba_start_vnc_websocketserver("
-        if hasattr(self._launcher, "_enshell"):
-            ws = self._launcher._service_host_port["ws"][1]
-            text += f"'{self.hostname}', 1999,"
-            text += f" {ws})"
-        else:
-            text += f"'{self.hostname}', {self._launcher._ports[1]},"
-            text += f" {self.ws_port})"
-        self.cmd(text)
-
     def _establish_connection(self, validate: bool = False) -> None:
         """Establish a gRPC connection to the EnSight instance.
 

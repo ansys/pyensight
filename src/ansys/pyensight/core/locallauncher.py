@@ -241,7 +241,7 @@ class LocalLauncher(Launcher):
                     cmd.append(f"--ic={self._interconnect}")
                     hosts = ",".join(self._server_hosts)
                     cmd.append(f"--cnf={hosts}")
-            if self._liben_ws_module:
+            if self._liben_rest:
                 cmd.extend(["-rest_server", str(self._ports[2])])
 
             # cmd.append("-minimize_console")
@@ -273,7 +273,7 @@ class LocalLauncher(Launcher):
             websocket_script = found_scripts[idx]
             version = re.findall(r"nexus(\d+)", websocket_script)[0]
             # build the commandline
-            if not self._liben_ws_module:
+            if not self._liben_rest:
                 cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
                 if is_windows:
                     cmd[0] += ".bat"
@@ -327,9 +327,6 @@ class LocalLauncher(Launcher):
         )
         session.launcher = self
         self._sessions.append(session)
-        # if self._liben_ws_module:
-        #    session._launch_ws_server()
-
         if self._launch_webui:
             self.launch_webui(version, popen_common)
         return session
@@ -401,7 +398,8 @@ class LocalLauncher(Launcher):
             If the session was not launched by this launcher.
 
         """
-        self._kill_process_tree(self._websocketserver_pid)
+        if self._websocketserver_pid:
+            self._kill_process_tree(self._websocketserver_pid)
         return super().close(session)
 
     @staticmethod

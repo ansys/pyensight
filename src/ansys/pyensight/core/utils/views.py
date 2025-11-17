@@ -234,14 +234,11 @@ class _Simba:
             model_point = self.ensight._session.cmd(
                 f"ensight.objs.core.VPORTS[0].screen_to_coords({mousex}, {mousey}, {invert_y}, {set_center})"
             )
-        self.render()
         return {"model_point": model_point, "camera": self.get_camera()}
 
     def render(self):
         """Force render update in EnSight."""
-        self.ensight.view_transf.zoom(1)
-        # self.ensight.render()
-        self.ensight.refresh(1)
+        self.ensight.refresh()
 
     def _probe_setup(self, part_obj, get_probe_data=False):
         self.ensight.query_interact.number_displayed(100)
