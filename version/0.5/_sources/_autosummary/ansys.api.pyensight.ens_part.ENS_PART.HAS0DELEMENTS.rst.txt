@@ -1,0 +1,6 @@
+HAS0DELEMENTS
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_part
+
+.. autoproperty:: ENS_PART.HAS0DELEMENTS

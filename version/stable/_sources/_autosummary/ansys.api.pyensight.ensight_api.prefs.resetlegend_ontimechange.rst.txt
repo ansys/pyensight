@@ -1,0 +1,6 @@
+resetlegend\_ontimechange
+=========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.resetlegend_ontimechange

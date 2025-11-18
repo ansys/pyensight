@@ -1,0 +1,6 @@
+DIRECTION
+=========
+
+.. currentmodule:: ansys.api.pyensight.ens_lightsource
+
+.. autoproperty:: ENS_LIGHTSOURCE.DIRECTION
