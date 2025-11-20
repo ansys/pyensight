@@ -264,11 +264,12 @@ class EnSightGRPC(object):
                 port = self._port
             else:
                 transport_mode = "uds"
-                uds_service = "pyensight" if self._grpc_uds_pathname else "greeter"
-                if not self._grpc_uds_pathname:
-                    uds_dir = "/tmp"
-                else:
+                if self._grpc_uds_pathname:
+                    uds_service = os.path.basename(self._grpc_uds_pathname)
                     uds_dir = os.path.dirname(self._grpc_uds_pathname)
+                else:
+                    uds_dir = "/tmp"
+                    uds_service = "greeter"
         self._channel = create_channel(
             host=host,
             port=port,
