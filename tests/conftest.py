@@ -55,7 +55,7 @@ def cleanup_docker(request) -> None:
 def docker_launcher_session() -> "Session":
     cleanup_docker()
     launcher = DockerLauncher(
-        data_directory=".", use_dev=True, grpc_disable_tls=True, grpc_uds_pathname=True
+        data_directory=".", use_dev=True, grpc_disable_tls=True, grpc_use_tcp_sockets=True
     )
     launcher.pull()
     session = launcher.start()
@@ -160,7 +160,10 @@ def launch_libuserd_and_get_files(tmpdir, pytestconfig: pytest.Config):
             # Launch on docker otherwise
             libuserd = LibUserd(use_docker=True, use_dev=True, data_directory=data_dir)
             session = DockerLauncher(
-                use_dev=True, data_directory=data_dir, grpc_disable_tls=True, grpc_uds_pathname=True
+                use_dev=True,
+                data_directory=data_dir,
+                grpc_disable_tls=True,
+                grpc_use_tcp_sockets=True,
             ).start()
 
         libuserd.initialize()

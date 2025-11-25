@@ -20,7 +20,7 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
         root = "http://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
     else:
         launcher = DockerLauncher(
-            data_directory=data_dir, use_dev=True, grpc_disable_tls=True, grpc_uds_pathname=True
+            data_directory=data_dir, use_dev=True, grpc_disable_tls=True, grpc_use_tcp_sockets=True
         )
     session = launcher.start()
     if not use_local:
@@ -354,7 +354,7 @@ def test_particle_traces_and_geometry(tmpdir, pytestconfig: pytest.Config):
             use_dev=True,
             enable_rest_api=True,
             grpc_disable_tls=True,
-            grpc_uds_pathname=True,
+            grpc_use_tcp_sockets=True,
         )
     session = launcher.start()
     session.load_example("waterbreak.ens", root=root)
@@ -455,7 +455,7 @@ def test_sos(tmpdir, pytestconfig: pytest.Config):
             use_dev=True,
             use_sos=2,
             grpc_disable_tls=True,
-            grpc_uds_pathname=True,
+            grpc_use_tcp_sockets=True,
         )
     session = launcher.start()
     session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/cube/cube.case")

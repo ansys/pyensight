@@ -15,7 +15,7 @@ def test_designpoints(tmpdir, pytestconfig: pytest.Config):
         root = "http://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
     else:
         launcher = DockerLauncher(
-            data_directory=data_dir, use_dev=True, grpc_disable_tls=True, grpc_uds_pathname=True
+            data_directory=data_dir, use_dev=True, grpc_disable_tls=True, grpc_use_tcp_sockets=True
         )
     session = launcher.start()
     session.load_example("elbow_dp0_dp1.ens", root=root)
