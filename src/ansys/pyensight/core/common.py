@@ -168,6 +168,7 @@ def launch_enshell_interface(
     enshell_grpc_channel: Any,
     grpc_port: int,
     timeout: float,
+    secret_key: str,
     grpc_use_tcp_sockets: bool = False,
     grpc_allow_network_connections: bool = False,
     grpc_disable_tls: bool = False,
@@ -212,6 +213,7 @@ def launch_enshell_interface(
             grpc_disable_tls=grpc_disable_tls,
             grpc_uds_pathname=grpc_uds_pathname,
         )  # pragma: no cover
+        enshell.security_token = secret_key
         enshell.connect_existing_channel(enshell_grpc_channel)  # pragma: no cover
     else:
         enshell = enshell_grpc.EnShellGRPC(
@@ -221,6 +223,7 @@ def launch_enshell_interface(
             grpc_disable_tls=grpc_disable_tls,
             grpc_uds_pathname=grpc_uds_pathname,
         )
+        enshell.security_token = secret_key
         time_start = time.time()
         while time.time() - time_start < timeout:  # pragma: no cover
             if enshell.is_connected():
