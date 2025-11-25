@@ -33,7 +33,7 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
         timeout=5,
         use_sos=2,
         grpc_disable_tls=True,
-        grpc_uds_pathname=True,
+        grpc_use_tcp_sockets=True,
     )
     launcher.start()
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
@@ -44,7 +44,7 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
         docker_image_name="super_ensight",
         timeout=5,
         grpc_disable_tls=True,
-        grpc_uds_pathname=True,
+        grpc_use_tcp_sockets=True,
     )
     with caplog.at_level(logging.DEBUG):
         assert launcher.start() == mocked_session
@@ -71,7 +71,7 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
         timeout=5,
         use_egl=True,
         grpc_disable_tls=True,
-        grpc_uds_pathname=True,
+        grpc_use_tcp_sockets=True,
     )
     launcher.start()
     # No Data Volume + egl
@@ -83,7 +83,7 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
         timeout=5,
         use_egl=True,
         grpc_disable_tls=True,
-        grpc_uds_pathname=True,
+        grpc_use_tcp_sockets=True,
     )
     launcher.start()
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
@@ -98,7 +98,7 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
         docker_image_name="super_ensight",
         timeout=5,
         grpc_disable_tls=True,
-        grpc_uds_pathname=True,
+        grpc_use_tcp_sockets=True,
     )
     launcher.start()
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
@@ -110,9 +110,9 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
         timeout=5,
         use_sos=3,
         grpc_disable_tls=True,
-        grpc_uds_pathname=True,
+        grpc_use_tcp_sockets=True,
         grpc_disable_tls=True,
-        grpc_uds_pathname=True,
+        grpc_use_tcp_sockets=True,
     )
     launcher.start()
     values_run_command[0] = [1, "cannot set no reroute"]
@@ -137,7 +137,7 @@ def test_pull(mocker):
     docker_client.images.pull = mock.MagicMock("Pull")
     docker_client.images.pull = lambda unused: True
     mocker.patch.object(docker, "from_env", return_value=docker_client)
-    launcher = DockerLauncher(data_directory=".", grpc_disable_tls=True, grpc_uds_pathname=True)
+    launcher = DockerLauncher(data_directory=".", grpc_disable_tls=True, grpc_use_tcp_sockets=True)
     launcher.pull()
     docker_client.images.pull = simulate_network_issue
     with pytest.raises(RuntimeError) as exec_info:
