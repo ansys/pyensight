@@ -79,7 +79,6 @@ class OmniverseGeometryServer(object):
         dsg_uri: str = "",
         monitor_directory: str = "",
         line_width: float = 0.0,
-        use_lines: bool = False,
         grpc_use_tcp_sockets: bool = False,
         grpc_allow_network_connections: bool = False,
         grpc_disable_tls: bool = False,
@@ -99,7 +98,6 @@ class OmniverseGeometryServer(object):
         self._status_filename: str = ""
         self._monitor_directory: str = monitor_directory
         self._line_width = line_width
-        self._use_lines = use_lines
         self._grpc_allow_network_connections = grpc_allow_network_connections
         self._grpc_disable_tls = grpc_disable_tls
         self._grpc_use_tcp_sockets = grpc_use_tcp_sockets
@@ -231,6 +229,9 @@ class OmniverseGeometryServer(object):
             time_scale=self.time_scale,
             handler=update_handler,
             uds_path=uds_path,
+            grpc_disable_tls=self._grpc_disable_tls,
+            grpc_allow_network_connections=self._grpc_allow_network_connections,
+            grpc_use_tcp_sockets=self._grpc_use_tcp_sockets,
         )
 
         # Start the DSG link
@@ -574,6 +575,9 @@ if __name__ == "__main__":
         vrmode=not args.include_camera,
         temporal=args.temporal,
         line_width=line_width,
+        grpc_disable_tls=args.grpc_disable_tls,
+        grpc_allow_network_connections=args.grpc_allow_network_connections,
+        grpc_use_tcp_sockets=args.grpc_use_tcp_sockets,
     )
 
     # run the server
