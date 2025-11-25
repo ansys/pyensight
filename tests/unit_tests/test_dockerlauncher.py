@@ -26,13 +26,24 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
     launcher = DockerLauncher(
-        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5, use_sos=2
+        data_directory=".",
+        use_dev=True,
+        docker_image_name="super_ensight",
+        timeout=5,
+        use_sos=2,
+        grpc_disable_tls=True,
+        grpc_use_tcp_sockets=True,
     )
     launcher.start()
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
     launcher = DockerLauncher(
-        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5
+        data_directory=".",
+        use_dev=True,
+        docker_image_name="super_ensight",
+        timeout=5,
+        grpc_disable_tls=True,
+        grpc_use_tcp_sockets=True,
     )
     with caplog.at_level(logging.DEBUG):
         assert launcher.start() == mocked_session
@@ -53,30 +64,58 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
     launcher = DockerLauncher(
-        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5, use_egl=True
+        data_directory=".",
+        use_dev=True,
+        docker_image_name="super_ensight",
+        timeout=5,
+        use_egl=True,
+        grpc_disable_tls=True,
+        grpc_use_tcp_sockets=True,
     )
     launcher.start()
     # No Data Volume + egl
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
     launcher = DockerLauncher(
-        use_dev=True, docker_image_name="super_ensight", timeout=5, use_egl=True
-    )
-    launcher.start()
-    enshell_mock[0].run_command.side_effect = values_run_command.copy()
-    mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
-    launcher = DockerLauncher(use_dev=True, docker_image_name="super_ensight", timeout=5)
-    launcher.start()
-    enshell_mock[0].run_command.side_effect = values_run_command.copy()
-    mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
-    launcher = DockerLauncher(
-        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5
+        use_dev=True,
+        docker_image_name="super_ensight",
+        timeout=5,
+        use_egl=True,
+        grpc_disable_tls=True,
+        grpc_use_tcp_sockets=True,
     )
     launcher.start()
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
     launcher = DockerLauncher(
-        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5, use_sos=3
+        use_dev=True,
+        docker_image_name="super_ensight",
+        timeout=5,
+        grpc_disable_tls=True,
+        grpc_use_tcp_sockets=True,
+    )
+    launcher.start()
+    enshell_mock[0].run_command.side_effect = values_run_command.copy()
+    mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
+    launcher = DockerLauncher(
+        data_directory=".",
+        use_dev=True,
+        docker_image_name="super_ensight",
+        timeout=5,
+        grpc_disable_tls=True,
+        grpc_use_tcp_sockets=True,
+    )
+    launcher.start()
+    enshell_mock[0].run_command.side_effect = values_run_command.copy()
+    mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
+    launcher = DockerLauncher(
+        data_directory=".",
+        use_dev=True,
+        docker_image_name="super_ensight",
+        timeout=5,
+        use_sos=3,
+        grpc_disable_tls=True,
+        grpc_use_tcp_sockets=True,
     )
     launcher.start()
     values_run_command[0] = [1, "cannot set no reroute"]
@@ -93,11 +132,15 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
     dock = mocker.patch.object(docker, "from_env", return_value=docker_client)
     dock.side_effect = ModuleNotFoundError
     with pytest.raises(RuntimeError) as exec_info:
-        launcher = DockerLauncher(data_directory=".")
+        launcher = DockerLauncher(
+            data_directory=".", grpc_disable_tls=True, grpc_use_tcp_sockets=True
+        )
     assert "The docker module must be installed for DockerLauncher" in str(exec_info)
     dock.side_effect = KeyError
     with pytest.raises(RuntimeError) as exec_info:
-        launcher = DockerLauncher(data_directory=".")
+        launcher = DockerLauncher(
+            data_directory=".", grpc_disable_tls=True, grpc_use_tcp_sockets=True
+        )
     assert "Cannot initialize Docker" in str(exec_info)
 
 
@@ -110,7 +153,7 @@ def test_pull(mocker):
     docker_client.images.pull = mock.MagicMock("Pull")
     docker_client.images.pull = lambda unused: True
     mocker.patch.object(docker, "from_env", return_value=docker_client)
-    launcher = DockerLauncher(data_directory=".")
+    launcher = DockerLauncher(data_directory=".", grpc_disable_tls=True, grpc_use_tcp_sockets=True)
     launcher.pull()
     docker_client.images.pull = simulate_network_issue
     with pytest.raises(RuntimeError) as exec_info:

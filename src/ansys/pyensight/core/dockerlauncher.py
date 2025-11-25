@@ -443,6 +443,7 @@ class DockerLauncher(Launcher):
                 grpc_allow_network_connections=self._grpc_allow_network_connections,
                 grpc_disable_tls=self._grpc_disable_tls,
                 grpc_uds_pathname=self._grpc_uds_pathname,
+                secret_key=self._secret_key,
             )  # pragma: no cover
             self._enshell.connect_existing_channel(self._enshell_grpc_channel)
             log_dir = "/work"
@@ -456,6 +457,7 @@ class DockerLauncher(Launcher):
                 grpc_allow_network_connections=self._grpc_allow_network_connections,
                 grpc_disable_tls=self._grpc_disable_tls,
                 grpc_uds_pathname=self._grpc_uds_pathname,
+                secret_key=self._secret_key,
             )
             time_start = time.time()
             while time.time() - time_start < self._timeout:  # pragma: no cover
@@ -590,6 +592,15 @@ class DockerLauncher(Launcher):
         if self._enable_rest_api:
             # grpc port
             wss_cmd += " --grpc_port " + str(self._service_host_port["grpc_private"][1])
+            if self._grpc_use_tcp_sockets:
+                wss_cmd += " --grpc_use_tcp_sockets"
+            if self._grpc_allow_network_connections:
+                wss_cmd += " --grpc_allow_network_connections"
+            if self._grpc_disable_tls:
+                wss_cmd += " --grpc_disable_tls"
+            if self._grpc_uds_pathname:
+                wss_cmd += " --grpc_uds_pathname"
+                wss_cmd += self._grpc_uds_pathname
         # EnVision sessions
         wss_cmd += " --local_session envision 5"
 
