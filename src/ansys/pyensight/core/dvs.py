@@ -222,6 +222,14 @@ class DVS(dvs_base):
                     "SERVER_SECURITY_SECRET": secret_key,
                 }
             )
+            if self._session._grpc_allow_network_connections:
+                options["SERVER_LISTEN_ALL_NETWORKS"] = "1"
+            if self._session._grpc_disable_tls:
+                options["SERVER_DISABLE_TLS"] = "1"
+            if self._session._grpc_use_tcp_sockets:
+                options["SERVER_USE_TCP_SOCKETS"] = "1"
+            if self._session._grpc_uds_pathname:
+                options["SERVER_UNIX_DOMAIN_SOCKET_PATH"] = self._session._grpc_uds_pathname
         try:
             for n in range(0, num_servers):
                 # Assume ranks equally distributed
