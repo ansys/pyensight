@@ -160,7 +160,7 @@ class Omniverse:
         # Make sure the internal ui module is loaded
         self._ensight._session.cmd("import enspyqtgui_int", do_eval=False)
         # Get the gRPC connection details and use them to launch the service
-        port = self._ensight._session._grpc_port
+        port = self._ensight._session.grpc.port()
         hostname = self._ensight._session.grpc.host
         token = self._ensight._session.grpc.security_token
         script_name = "omniverse_dsg_server.py"
