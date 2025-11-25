@@ -385,7 +385,7 @@ class Omniverse:
                     dsg_uds_path = uds_path
                 dsg_uri = f"unix:{dsg_uds_path}.sock"
             else:
-                port = self._ensight._session.grpc.port()
+                port = self._ensight._session._grpc_port
                 hostname = self._ensight._session.grpc.host
                 token = self._ensight._session.grpc.security_token
                 dsg_uri = f"grpc://{hostname}:{port}"
