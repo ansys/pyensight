@@ -44,6 +44,8 @@ dev = [
     "ipdb>=0.9.4",
     "dill>=0.3.5.1",
     "pre-commit>=3.3.3",
+    "pytest-xdist==3.6.1",
+    "pytest-rerunfailures>=14,<16",
 ]
 tests = [
     "pytest==7.1.2",
