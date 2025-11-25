@@ -57,7 +57,9 @@ def test_usd_export(tmpdir, pytestconfig: pytest.Config):
     if use_local:
         launcher = LocalLauncher(ansys_installation=install_path)
     else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
+        launcher = DockerLauncher(
+            data_directory=data_dir, use_dev=True, grpc_disable_tls=True, grpc_uds_pathname=True
+        )
     session = launcher.start()
     session.load_example("waterbreak.ens")
     session.ensight.utils.omniverse.create_connection(data_dir)
