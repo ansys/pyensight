@@ -221,6 +221,16 @@ class DockerLauncher(Launcher):
             "ENSIGHT_SECURITY_TOKEN": self._secret_key,
             "WEBSOCKETSERVER_SECURITY_TOKEN": self._secret_key,
             "ENSIGHT_SESSION_TEMPDIR": self._session_directory,
+            # Temporary workaround
+            "ENSIGHT_GRPC_USE_TCP_SOCKETS": "1",
+            "ENSIGHT_GRPC_ALLOW_ALL_NETWORKS": "1",
+            "ENSIGHT_GRPC_DISABLE_TLS": "1",
+            "ENSHELL_GRPC_USE_TCP_SOCKETS": "1",
+            "ENSHELL_GRPC_ALLOW_NETWORK_CONNECTIONS": "1",
+            "ENSHELL_GRPC_DISABLE_TLS": "1",
+            "DVS_USE_TCP_SOCKETS": "1",
+            "DVS_DISABLE_TLS": "1",
+            "DVS_LISTEN_ALL_NETWORKS": "1",
         }
 
         # If for some reason, the ENSIGHT_ANSYS_LAUNCH is set previously,
@@ -427,7 +437,10 @@ class DockerLauncher(Launcher):
         #
         # Start up the EnShell gRPC interface
         self._enshell = launch_enshell_interface(
-            self._enshell_grpc_channel, self._service_host_port["grpc"][1], self._timeout
+            self._enshell_grpc_channel,
+            self._service_host_port["grpc"][1],
+            self._timeout,
+            self._secret_key,
         )
         log_dir = "/data"
         if self._enshell_grpc_channel:  # pragma: no cover
@@ -533,7 +546,10 @@ class DockerLauncher(Launcher):
         # websocket port - this needs to come first since we now have
         # --add_header as a optional arg that can take an arbitrary
         # number of optional headers.
-        wss_cmd += " " + str(self._service_host_port["ws"][1])
+        if int(self._ansys_version) > 252 and self._do_not_start_ws:
+            wss_cmd += " -1"
+        else:
+            wss_cmd += " " + str(self._service_host_port["ws"][1])
         #
         wss_cmd += " --http_directory " + self._session_directory
         # http port
@@ -542,11 +558,7 @@ class DockerLauncher(Launcher):
         if int(self._ansys_version) > 252 and self._rest_ws_separate_loops:
             wss_cmd += " --separate_loops"
         wss_cmd += f" --security_token {self._secret_key}"
-        wss_cmd += " --client_port "
-        if int(self._ansys_version) > 252 and self._do_not_start_ws:
-            wss_cmd += "-1"
-        else:
-            wss_cmd += "1999"
+        wss_cmd += " --client_port 1999"
         # optional PIM instance header
         if self._pim_instance is not None:
             # Add the PIM instance header. wss needs to return this optional
