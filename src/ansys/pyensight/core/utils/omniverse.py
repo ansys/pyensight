@@ -234,8 +234,14 @@ class Omniverse:
             raise RuntimeError("An Omniverse server connection is already active.")
         dsg_uri = None
         is_win = "Win" in platform.system()
+        grpc_use_tcp_sockets = False
+        grpc_allow_network_connectsion = False
+        grpc_disable_tls = False
         if not isinstance(self._ensight, ModuleType):
             # Make sure the internal ui module is loaded
+            grpc_use_tcp_sockets = self._ensight._session._grpc_use_tcp_sockets
+            grpc_allow_network_connectsion = self._ensight._session._grpc_allow_network_connections
+            grpc_disable_tls = self._ensight._session._grpc_disable_tls
             self._ensight._session.cmd("import enspyqtgui_int", do_eval=False)
             # Get the gRPC connection details and use them to launch the service
             use_tcp_sockets = self._ensight._session._grpc_use_tcp_sockets
@@ -277,6 +283,12 @@ class Omniverse:
             cmd.extend(["--time_scale", str(time_scale)])
         if not live:
             cmd.extend(["--oneshot", "1"])
+        if grpc_allow_network_connectsion:
+            cmd.extend(["--grpc_allow_network_connections", "1"])
+        if grpc_disable_tls:
+            cmd.extend(["--grpc_disable_tls", "1"])
+        if grpc_use_tcp_sockets:
+            cmd.extend(["--grpc_use_tcp_sockets", "1"])
         cmd.extend(["--dsg_uri", dsg_uri])
         env_vars = os.environ.copy()
         # we are launching the kit from EnSight or PyEnSight.  In these cases, we
