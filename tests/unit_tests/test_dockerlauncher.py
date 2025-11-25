@@ -93,11 +93,15 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
     dock = mocker.patch.object(docker, "from_env", return_value=docker_client)
     dock.side_effect = ModuleNotFoundError
     with pytest.raises(RuntimeError) as exec_info:
-        launcher = DockerLauncher(data_directory=".")
+        launcher = DockerLauncher(
+            data_directory=".", grpc_disable_tls=True, grpc_use_tcp_sockets=True
+        )
     assert "The docker module must be installed for DockerLauncher" in str(exec_info)
     dock.side_effect = KeyError
     with pytest.raises(RuntimeError) as exec_info:
-        launcher = DockerLauncher(data_directory=".")
+        launcher = DockerLauncher(
+            data_directory=".", grpc_disable_tls=True, grpc_use_tcp_sockets=True
+        )
     assert "Cannot initialize Docker" in str(exec_info)
 
 
@@ -110,7 +114,7 @@ def test_pull(mocker):
     docker_client.images.pull = mock.MagicMock("Pull")
     docker_client.images.pull = lambda unused: True
     mocker.patch.object(docker, "from_env", return_value=docker_client)
-    launcher = DockerLauncher(data_directory=".")
+    launcher = DockerLauncher(data_directory=".", grpc_disable_tls=True, grpc_use_tcp_sockets=True)
     launcher.pull()
     docker_client.images.pull = simulate_network_issue
     with pytest.raises(RuntimeError) as exec_info:

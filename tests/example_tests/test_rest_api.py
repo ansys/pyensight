@@ -10,7 +10,13 @@ def test_rest_apis(tmpdir, pytestconfig: pytest.Config):
     if use_local:
         launcher = LocalLauncher(enable_rest_api=True)
     else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True, enable_rest_api=True)
+        launcher = DockerLauncher(
+            data_directory=data_dir,
+            use_dev=True,
+            enable_rest_api=True,
+            grpc_disable_tls=True,
+            grpc_use_tcp_sockets=True,
+        )
 
     s = launcher.start()
     s.load_data(f"{s.cei_home}/ensight{s.cei_suffix}/data/cube/cube.case")
@@ -68,6 +74,6 @@ def test_rest_apis(tmpdir, pytestconfig: pytest.Config):
     assert ret.status_code == 200
     ret = requests.put(uri_base + "/call_func/rest_test/foo", json=dict(n=3)).json()
     assert len(ret) == 3
-    assert type(ret[0]) == float
+    assert isinstance(ret[0], float)
 
     s.close()

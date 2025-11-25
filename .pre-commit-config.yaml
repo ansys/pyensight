@@ -1,27 +1,27 @@
 repos:
   - repo: https://github.com/psf/black
-    rev: 23.3.0  # IF VERSION CHANGES --> MODIFY "blacken-docs" MANUALLY AS WELL!!
+    rev: 25.11.0  # IF VERSION CHANGES --> MODIFY "blacken-docs" MANUALLY AS WELL!!
     hooks:
       - id: black
 
   - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
+    rev: 7.0.0
     hooks:
       - id: isort
 
   - repo: https://github.com/PyCQA/flake8
-    rev: 6.0.0
+    rev: 7.3.0
     hooks:
       - id: flake8
 
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.2.4
+    rev: v2.4.1
     hooks:
       - id: codespell
         additional_dependencies: ["tomli"]
 
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.5
+    rev: 1.9.2
     hooks:
       - id: bandit
         # args not working with pyproject.toml
@@ -31,15 +31,16 @@ repos:
             -r,
             -x, "venv/*, tests/*"
         ]
+        additional_dependencies: [pbr]
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.3.0
+    rev: v1.18.2
     hooks:
     -   id: mypy
         # Exclude only works here, not in config files
         exclude: "tests/|doc/"
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v6.0.0
     hooks:
     - id: check-merge-conflict
     - id: debug-statements

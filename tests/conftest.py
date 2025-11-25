@@ -1,6 +1,7 @@
 """
 Global fixtures go here.
 """
+
 import atexit
 import subprocess
 from unittest import mock
@@ -55,7 +56,9 @@ def cleanup_docker(request) -> None:
 @pytest.fixture
 def docker_launcher_session() -> "Session":
     cleanup_docker()
-    launcher = DockerLauncher(data_directory=".", use_dev=True)
+    launcher = DockerLauncher(
+        data_directory=".", use_dev=True, grpc_disable_tls=True, grpc_use_tcp_sockets=True
+    )
     launcher.pull()
     session = launcher.start()
     yield session
