@@ -79,6 +79,7 @@ class OmniverseGeometryServer(object):
         dsg_uri: str = "",
         monitor_directory: str = "",
         line_width: float = 0.0,
+        use_lines: bool = False,
         grpc_use_tcp_sockets: bool = False,
         grpc_allow_network_connections: bool = False,
         grpc_disable_tls: bool = False,
@@ -98,6 +99,7 @@ class OmniverseGeometryServer(object):
         self._status_filename: str = ""
         self._monitor_directory: str = monitor_directory
         self._line_width = line_width
+        self._use_lines = use_lines
         self._grpc_allow_network_connections = grpc_allow_network_connections
         self._grpc_disable_tls = grpc_disable_tls
         self._grpc_use_tcp_sockets = grpc_use_tcp_sockets
@@ -494,6 +496,27 @@ if __name__ == "__main__":
         default=line_default,
         type=float,
         help=f"Width of lines: >0=absolute size. <0=fraction of diagonal. 0=none. Default: {line_default}",
+    )
+    parser.add_argument(
+        "--grpc_use_tcp_sockets",
+        metavar="yes|no|true|false|1|0",
+        default=False,
+        type=str2bool_type,
+        help="If using gRPC, and if True, then allow TCP Socket based connections instead of only local connections.",
+    )
+    parser.add_argument(
+        "--grpc_allow_network_connections",
+        metavar="yes|no|true|false|1|0",
+        default=False,
+        type=str2bool_type,
+        help="If using gRPC and using TCP Socket based connections, listen on all networks.",
+    )
+    parser.add_argument(
+        "--grpc_disable_tls",
+        metavar="yes|no|true|false|1|0",
+        default=False,
+        type=str2bool_type,
+        help="If using gRPC and using TCP Socket based connections, disable TLS.",
     )
     parser.add_argument(
         "--grpc_use_tcp_sockets",
