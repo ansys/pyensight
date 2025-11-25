@@ -645,6 +645,9 @@ class DSGSession(object):
         handler: UpdateHandler = UpdateHandler(),
         session: Optional["Session"] = None,
         uds_path: Optional[str] = None,
+        grpc_use_tcp_sockets: bool = False,
+        grpc_allow_network_connections: bool = False,
+        grpc_disable_tls: bool = False,
     ):
         """
         Manage a gRPC connection and link it to an UpdateHandler instance
@@ -682,14 +685,32 @@ class DSGSession(object):
             transfer begins or ends and when a Part (mesh block) is ready for processing.
         uds_path: string
             The unix domain socket path if required for the gRPC connection
+        grpc_use_tcp_sockets: bool, optional
+            If using gRPC, and if True, then allow TCP Socket based connections
+            instead of only local connections.
+        grpc_allow_network_connections: bool, optional
+            If using gRPC and using TCP Socket based connections, listen on all networks.
+        grpc_disable_tls: bool, optional
+            If using gRPC and using TCP Socket based connections, disable TLS.
         """
         super().__init__()
         if uds_path:
             self._grpc = ensight_grpc.EnSightGRPC(
-                grpc_uds_pathname=uds_path, secret_key=security_code
+                grpc_uds_pathname=uds_path,
+                secret_key=security_code,
+                grpc_use_tcp_sockets=grpc_use_tcp_sockets,
+                grpc_allow_network_connections=grpc_allow_network_connections,
+                grpc_disable_tls=grpc_disable_tls,
             )
         else:
-            self._grpc = ensight_grpc.EnSightGRPC(port=port, host=host, secret_key=security_code)
+            self._grpc = ensight_grpc.EnSightGRPC(
+                port=port,
+                host=host,
+                secret_key=security_code,
+                grpc_use_tcp_sockets=grpc_use_tcp_sockets,
+                grpc_allow_network_connections=grpc_allow_network_connections,
+                grpc_disable_tls=grpc_disable_tls,
+            )
         self._session = session
         if self._session:
             self._session.set_dsg_session(self)
