@@ -63,7 +63,9 @@ def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
     if use_local:
         launcher = LocalLauncher(ansys_installation=install_path)
     else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
+        launcher = DockerLauncher(
+            data_directory=data_dir, use_dev=True, grpc_use_tcp_sockets=True, grpc_disable_tls=True
+        )
     session = launcher.start()
     if not use_local_test_data:
         counter = 0
