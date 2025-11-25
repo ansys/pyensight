@@ -593,6 +593,15 @@ class DockerLauncher(Launcher):
         if self._enable_rest_api:
             # grpc port
             wss_cmd += " --grpc_port " + str(self._service_host_port["grpc_private"][1])
+            if self._grpc_use_tcp_sockets:
+                wss_cmd += " --grpc_use_tcp_sockets"
+            if self._grpc_allow_network_connections:
+                wss_cmd += " --grpc_allow_network_connections"
+            if self._grpc_disable_tls:
+                wss_cmd += " --grpc_disable_tls"
+            if self._grpc_uds_pathname:
+                wss_cmd += " --grpc_uds_pathname"
+                wss_cmd += self._grpc_uds_pathname
         # EnVision sessions
         wss_cmd += " --local_session envision 5"
 
