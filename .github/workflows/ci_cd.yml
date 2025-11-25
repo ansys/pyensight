@@ -28,7 +28,7 @@ jobs:
     name: "Code style"
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/code-style@v4
+      - uses: ansys/actions/code-style@v10
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
@@ -36,7 +36,7 @@ jobs:
     name: "Doc style"
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/doc-style@v4
+      - uses: ansys/actions/doc-style@v10
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
