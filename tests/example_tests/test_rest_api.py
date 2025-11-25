@@ -15,7 +15,7 @@ def test_rest_apis(tmpdir, pytestconfig: pytest.Config):
             use_dev=True,
             enable_rest_api=True,
             grpc_disable_tls=True,
-            grpc_uds_pathname=True,
+            grpc_use_tcp_sockets=True,
         )
 
     s = launcher.start()
