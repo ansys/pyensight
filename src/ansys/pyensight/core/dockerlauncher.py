@@ -460,7 +460,14 @@ class DockerLauncher(Launcher):
         #
         # Start up the EnShell gRPC interface
         self._enshell = launch_enshell_interface(
-            self._enshell_grpc_channel, self._service_host_port["grpc"][1], self._timeout
+            self._enshell_grpc_channel,
+            self._service_host_port["grpc"][1],
+            self._timeout,
+            self._secret_key,
+            grpc_allow_network_connections=self._grpc_allow_network_connections,
+            grpc_disable_tls=self._grpc_disable_tls,
+            grpc_uds_pathname=self._grpc_uds_pathname,
+            grpc_use_tcp_sockets=self._grpc_use_tcp_sockets,
         )
         log_dir = "/data"
         if self._enshell_grpc_channel:  # pragma: no cover
