@@ -50,7 +50,7 @@ def test_force_tool(tmpdir, pytestconfig: pytest.Config):
         launcher = LocalLauncher()
     else:
         launcher = DockerLauncher(
-            data_directory=data_dir, use_dev=True, grpc_disable_tls=True, grpc_uds_pathname=True
+            data_directory=data_dir, use_dev=True, grpc_disable_tls=True, grpc_use_tcp_sockets=True
         )
     session = launcher.start()
     path = None
