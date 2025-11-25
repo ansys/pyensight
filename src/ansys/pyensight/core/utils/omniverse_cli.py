@@ -223,6 +223,9 @@ class OmniverseGeometryServer(object):
             time_scale=self.time_scale,
             handler=update_handler,
             uds_path=uds_path,
+            grpc_disable_tls=self._grpc_disable_tls,
+            grpc_allow_network_connections=self._grpc_allow_network_connections,
+            grpc_use_tcp_sockets=self._grpc_use_tcp_sockets,
         )
 
         # Start the DSG link
@@ -543,6 +546,9 @@ if __name__ == "__main__":
         temporal=args.temporal,
         line_width=line_width,
         use_lines=use_lines,
+        grpc_disable_tls=args.grpc_disable_tls,
+        grpc_allow_network_connections=args.grpc_allow_network_connections,
+        grpc_use_tcp_sockets=args.grpc_use_tcp_sockets,
     )
 
     # run the server
