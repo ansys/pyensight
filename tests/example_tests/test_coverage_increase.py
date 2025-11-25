@@ -440,7 +440,13 @@ def test_sos(tmpdir, pytestconfig: pytest.Config):
     assert session.grpc.security_token == session._secret_key
     session.close()
     if is_docker:
-        session = launch_ensight(use_docker=True, use_dev=True, data_directory=data_dir)
+        session = launch_ensight(
+            use_docker=True,
+            use_dev=True,
+            data_directory=data_dir,
+            grpc_disable_tls=True,
+            grpc_use_tcp_sockets=True,
+        )
         assert session._launcher._enshell.host() == session._hostname
         session._launcher._enshell.port()
         session._launcher._enshell.metadata()
