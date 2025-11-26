@@ -156,6 +156,7 @@ jobs:
         with:
           library-name: ${{ env.PACKAGE_NAME }}
           twine-token: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
+          skip-existing: false
 
       - name: Release to the public PyPI repository
         uses: ansys/actions/release-pypi-public@v8
