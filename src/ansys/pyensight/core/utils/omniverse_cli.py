@@ -519,27 +519,6 @@ if __name__ == "__main__":
         type=str2bool_type,
         help="If using gRPC and using TCP Socket based connections, disable TLS.",
     )
-    parser.add_argument(
-        "--grpc_use_tcp_sockets",
-        metavar="yes|no|true|false|1|0",
-        default=False,
-        type=str2bool_type,
-        help="If using gRPC, and if True, then allow TCP Socket based connections instead of only local connections.",
-    )
-    parser.add_argument(
-        "--grpc_allow_network_connections",
-        metavar="yes|no|true|false|1|0",
-        default=False,
-        type=str2bool_type,
-        help="If using gRPC and using TCP Socket based connections, listen on all networks.",
-    )
-    parser.add_argument(
-        "--grpc_disable_tls",
-        metavar="yes|no|true|false|1|0",
-        default=False,
-        type=str2bool_type,
-        help="If using gRPC and using TCP Socket based connections, disable TLS.",
-    )
     # parse the command line
     args = parser.parse_args()
 
