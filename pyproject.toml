@@ -35,7 +35,7 @@ dependencies = [
     "Pillow>=9.3.0",
     "pypng>=0.0.20",
     "psutil>=5.9.2",
-    "usd-core==25.8; platform_machine != 'aarch64'",
+    "usd-core==25.11; platform_machine != 'aarch64'",
     "pygltflib>=1.16.2",
     "grpcio<1.68.0",
 ]
