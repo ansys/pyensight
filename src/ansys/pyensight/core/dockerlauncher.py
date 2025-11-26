@@ -89,6 +89,16 @@ class DockerLauncher(Launcher):
     additional_command_line_options: list, optional
         Additional command line options to be used to launch EnSight.
         Arguments that contain spaces are not supported.
+    grpc_use_tcp_sockets :
+        If using gRPC, and if True, then allow TCP Socket based connections
+        instead of only local connections.
+    grpc_allow_network_connections :
+        If using gRPC and using TCP Socket based connections, listen on all networks.
+    grpc_disable_tls :
+        If using gRPC and using TCP Socket based connections, disable TLS.
+    grpc_uds_pathname :
+        If using gRPC and using Unix Domain Socket based connections, explicitly
+        set the pathname to the shared UDS file instead of using the default.
 
     Examples
     --------
@@ -98,6 +108,12 @@ class DockerLauncher(Launcher):
     >>> session = launcher.start()
     >>> session.close()
 
+    WARNING:
+    Overriding the default values for these options: grpc_use_tcp_sockets, grpc_allow_network_connections,
+    and grpc_disable_tls
+    can possibly permit control of this computer and any data which resides on it.
+    Modification of this configuration is not recommended.  Please see the
+    documentation for your installed product for additional information.
     """
 
     def __init__(
@@ -107,6 +123,10 @@ class DockerLauncher(Launcher):
         use_dev: bool = False,
         channel: Optional[grpc.Channel] = None,
         pim_instance: Optional[Any] = None,
+        grpc_use_tcp_sockets: Optional[bool] = False,
+        grpc_allow_network_connections: Optional[bool] = False,
+        grpc_disable_tls: Optional[bool] = False,
+        grpc_uds_pathname: Optional[str] = None,
         **kwargs,
     ) -> None:
         """Initialize DockerLauncher."""
@@ -114,6 +134,10 @@ class DockerLauncher(Launcher):
 
         self._data_directory = data_directory
         self._enshell_grpc_channel = channel
+        self._grpc_use_tcp_sockets = grpc_use_tcp_sockets
+        self._grpc_allow_network_connections = grpc_allow_network_connections
+        self._grpc_disable_tls = grpc_disable_tls
+        self._grpc_uds_pathname = grpc_uds_pathname
         self._service_uris: Dict[Any, str] = {}
         self._image_name: Optional[str] = None
         self._docker_client: Optional["DockerClient"] = None
@@ -305,6 +329,14 @@ class DockerLauncher(Launcher):
         # gRPC server as the command
         #
         enshell_cmd = "-app -v 3 -grpc_server " + str(grpc_port)
+        if self._grpc_use_tcp_sockets:
+            enshell_cmd += " -grpc_use_tcp_sockets"
+        if self._grpc_allow_network_connections:
+            enshell_cmd += " -grpc_allow_network_connections"
+        if self._grpc_disable_tls:
+            enshell_cmd += " -grpc_disable_tls"
+        if self._grpc_uds_pathname:
+            enshell_cmd += " -grpc_uds_pathname " + self._grpc_uds_pathname
 
         use_egl = self._use_egl()
 
@@ -431,6 +463,10 @@ class DockerLauncher(Launcher):
             self._service_host_port["grpc"][1],
             self._timeout,
             self._secret_key,
+            grpc_allow_network_connections=self._grpc_allow_network_connections,
+            grpc_disable_tls=self._grpc_disable_tls,
+            grpc_uds_pathname=self._grpc_uds_pathname,
+            grpc_use_tcp_sockets=self._grpc_use_tcp_sockets,
         )
         log_dir = "/data"
         if self._enshell_grpc_channel:  # pragma: no cover
@@ -514,6 +550,16 @@ class DockerLauncher(Launcher):
 
         ensight_args += " -grpc_server " + str(self._service_host_port["grpc_private"][1])
 
+        if self._grpc_use_tcp_sockets:
+            ensight_args += " -grpc_use_tcp_sockets"
+        if self._grpc_allow_network_connections:
+            ensight_args += " -grpc_allow_network_connections"
+        if self._grpc_disable_tls:
+            ensight_args += " -grpc_disable_tls"
+        # Can't specify the same name; the default ought to be fine within the Docker Image
+        # if self._grpc_uds_pathname:
+        #    enshell_cmd += " -grpc_uds_pathname "+self._grpc_uds_pathname
+
         vnc_url = "vnc://%%3Frfb_port=1999%%26use_auth=0"
         ensight_args += " -vnc " + vnc_url
         if self._additional_command_line_options:
@@ -559,6 +605,15 @@ class DockerLauncher(Launcher):
         if self._enable_rest_api:
             # grpc port
             wss_cmd += " --grpc_port " + str(self._service_host_port["grpc_private"][1])
+            if self._grpc_use_tcp_sockets:
+                wss_cmd += " --grpc_use_tcp_sockets"
+            if self._grpc_allow_network_connections:
+                wss_cmd += " --grpc_allow_network_connections"
+            if self._grpc_disable_tls:
+                wss_cmd += " --grpc_disable_tls"
+            if self._grpc_uds_pathname:
+                wss_cmd += " --grpc_uds_pathname"
+                wss_cmd += " " + self._grpc_uds_pathname
         # EnVision sessions
         wss_cmd += " --local_session envision 5"
 
@@ -588,6 +643,10 @@ class DockerLauncher(Launcher):
         session = ansys.pyensight.core.session.Session(
             host=self._service_host_port["grpc_private"][0],
             grpc_port=self._service_host_port["grpc_private"][1],
+            grpc_use_tcp_sockets=self._grpc_use_tcp_sockets,
+            grpc_allow_network_connections=self._grpc_allow_network_connections,
+            grpc_disable_tls=self._grpc_disable_tls,
+            grpc_uds_pathname=self._grpc_uds_pathname,
             html_hostname=self._service_host_port["http"][0],
             html_port=self._service_host_port["http"][1],
             ws_port=ws_port,
