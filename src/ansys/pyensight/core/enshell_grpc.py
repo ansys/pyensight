@@ -19,7 +19,7 @@ from typing import Optional
 
 from ansys.api.pyensight.v0 import enshell_pb2, enshell_pb2_grpc
 from ansys.pyensight.core import DEFAULT_ANSYS_VERSION  # pylint: disable=import-outside-toplevel
-from ansys.pyensight.core.cyberchannel import create_channel
+from ansys.tools.common.cyberchannel import create_channel
 import grpc
 
 
