@@ -175,7 +175,7 @@ class Export:
         """
         if array is None:
             return None
-        return dict(shape=array.shape, dtype=array.dtype.str, data=array.tostring())
+        return dict(shape=array.shape, dtype=array.dtype.str, data=array.tobytes())
 
     @staticmethod
     def _numpy_from_dict(obj: Optional[dict]) -> Any:

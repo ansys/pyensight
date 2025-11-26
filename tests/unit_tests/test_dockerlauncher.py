@@ -111,8 +111,6 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
         use_sos=3,
         grpc_disable_tls=True,
         grpc_use_tcp_sockets=True,
-        grpc_disable_tls=True,
-        grpc_use_tcp_sockets=True,
     )
     launcher.start()
     values_run_command[0] = [1, "cannot set no reroute"]
