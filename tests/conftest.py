@@ -66,6 +66,7 @@ def docker_launcher_session() -> "Session":
 @pytest.fixture
 def enshell_mock():
     mocked_grpc = mock.MagicMock("GRPC")
+    mocked_grpc.set_security_token = lambda secret: True
     mocked_grpc.command = mock.MagicMock("command")
     mocked_grpc.is_connected = lambda: True
     mocked_grpc.connect = mock.MagicMock("execute_connection")
