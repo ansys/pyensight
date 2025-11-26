@@ -14,7 +14,7 @@ from typing import TYPE_CHECKING, Any, Callable, List, Optional, Tuple, Union
 import uuid
 
 from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2_grpc, ensight_pb2, ensight_pb2_grpc
-from ansys.pyensight.core.cyberchannel import create_channel
+from ansys.tools.common.cyberchannel import create_channel
 import grpc
 
 if TYPE_CHECKING:
