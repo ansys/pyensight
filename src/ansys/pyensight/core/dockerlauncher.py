@@ -572,12 +572,19 @@ class DockerLauncher(Launcher):
 
         vnc_url = "vnc://%%3Frfb_port=1999%%26use_auth=0"
         ensight_args += " -vnc " + vnc_url
+        if self._liben_rest:
+            ensight_args += " -rest_server " + str(self._service_host_port["http"][1])
         if self._additional_command_line_options:
             ensight_args += " "
             ensight_args += " ".join(self._additional_command_line_options)
 
         logging.debug(f"Starting EnSight with args: {ensight_args}\n")
-        ret = self._enshell.start_ensight(ensight_args, ensight_env_vars)
+        if self._liben_rest:
+            ensight_location = "/ansys_inc/v" + self._ansys_version + "/CEI/bin/ensight "
+            ensight_args = ensight_location + ensight_args
+            ret = self._enshell.start_other(ensight_args, extra_env=ensight_env_vars)
+        else:
+            ret = self._enshell.start_ensight(ensight_args, ensight_env_vars)
         if ret[0] != 0:  # pragma: no cover
             self.stop()  # pragma: no cover
             raise RuntimeError(
@@ -587,57 +594,61 @@ class DockerLauncher(Launcher):
         logging.debug("EnSight started.  Starting wss...\n")
 
         # Run websocketserver
-        wss_cmd = "cpython /ansys_inc/v" + self._ansys_version + "/CEI/nexus"
-        wss_cmd += self._ansys_version + "/nexus_launcher/websocketserver.py"
-        # websocket port - this needs to come first since we now have
-        # --add_header as a optional arg that can take an arbitrary
-        # number of optional headers.
-        if int(self._ansys_version) > 252 and self._do_not_start_ws:
-            wss_cmd += " -1"
-        else:
-            wss_cmd += " " + str(self._service_host_port["ws"][1])
-        #
-        wss_cmd += " --http_directory " + self._session_directory
-        # http port
-        wss_cmd += " --http_port " + str(self._service_host_port["http"][1])
-        # vnc port
-        if int(self._ansys_version) > 252 and self._rest_ws_separate_loops:
-            wss_cmd += " --separate_loops"
-        wss_cmd += f" --security_token {self._secret_key}"
-        wss_cmd += " --client_port 1999"
-        # optional PIM instance header
-        if self._pim_instance is not None:
-            # Add the PIM instance header. wss needs to return this optional
-            # header in each http response.  It's how the Ansys Lab proxy
-            # knows how to map back to this particular container's IP and port.
-            wss_cmd += " --add_header instance_name=" + self._pim_instance.name
-        # EnSight REST API
-        if self._enable_rest_api:
-            # grpc port
-            wss_cmd += " --grpc_port " + str(self._service_host_port["grpc_private"][1])
-            if self._grpc_use_tcp_sockets:
-                wss_cmd += " --grpc_use_tcp_sockets"
-            if self._grpc_allow_network_connections:
-                wss_cmd += " --grpc_allow_network_connections"
-            if self._grpc_disable_tls:
-                wss_cmd += " --grpc_disable_tls"
-            if self._grpc_uds_pathname:
-                wss_cmd += " --grpc_uds_pathname"
-                wss_cmd += " " + self._grpc_uds_pathname
-        # EnVision sessions
-        wss_cmd += " --local_session envision 5"
+        if not self._liben_rest:
+            logging.debug(
+                "WebSocketserver script not being launched. WS server must be launched manually.\n\n"
+            )
+            wss_cmd = "cpython /ansys_inc/v" + self._ansys_version + "/CEI/nexus"
+            wss_cmd += self._ansys_version + "/nexus_launcher/websocketserver.py"
+            # websocket port - this needs to come first since we now have
+            # --add_header as a optional arg that can take an arbitrary
+            # number of optional headers.
+            if int(self._ansys_version) > 252 and self._do_not_start_ws:
+                wss_cmd += " -1"
+            else:
+                wss_cmd += " " + str(self._service_host_port["ws"][1])
+            #
+            wss_cmd += " --http_directory " + self._session_directory
+            # http port
+            wss_cmd += " --http_port " + str(self._service_host_port["http"][1])
+            # vnc port
+            if int(self._ansys_version) > 252 and self._rest_ws_separate_loops:
+                wss_cmd += " --separate_loops"
+            wss_cmd += f" --security_token {self._secret_key}"
+            wss_cmd += " --client_port 1999"
+            # optional PIM instance header
+            if self._pim_instance is not None:
+                # Add the PIM instance header. wss needs to return this optional
+                # header in each http response.  It's how the Ansys Lab proxy
+                # knows how to map back to this particular container's IP and port.
+                wss_cmd += " --add_header instance_name=" + self._pim_instance.name
+            # EnSight REST API
+            if self._enable_rest_api:
+                # grpc port
+                wss_cmd += " --grpc_port " + str(self._service_host_port["grpc_private"][1])
+                if self._grpc_use_tcp_sockets:
+                    wss_cmd += " --grpc_use_tcp_sockets"
+                if self._grpc_allow_network_connections:
+                    wss_cmd += " --grpc_allow_network_connections"
+                if self._grpc_disable_tls:
+                    wss_cmd += " --grpc_disable_tls"
+                if self._grpc_uds_pathname:
+                    wss_cmd += " --grpc_uds_pathname"
+                    wss_cmd += " " + self._grpc_uds_pathname
+            # EnVision sessions
+            wss_cmd += " --local_session envision 5"
 
-        wss_env_vars = None
-        if container_env_str != "":  # pragma: no cover
-            wss_env_vars = container_env_str  # pragma: no cover
+            wss_env_vars = None
+            if container_env_str != "":  # pragma: no cover
+                wss_env_vars = container_env_str  # pragma: no cover
 
-        logging.debug(f"Starting WSS: {wss_cmd}\n")
-        ret = self._enshell.start_other(wss_cmd, extra_env=wss_env_vars)
-        if ret[0] != 0:  # pragma: no cover
-            self.stop()  # pragma: no cover
-            raise RuntimeError(f"Error starting WSS: {wss_cmd}\n")  # pragma: no cover
+            logging.debug(f"Starting WSS: {wss_cmd}\n")
+            ret = self._enshell.start_other(wss_cmd, extra_env=wss_env_vars)
+            if ret[0] != 0:  # pragma: no cover
+                self.stop()  # pragma: no cover
+                raise RuntimeError(f"Error starting WSS: {wss_cmd}\n")  # pragma: no cover
 
-        logging.debug("wss started.  Making session...\n")
+            logging.debug("wss started.  Making session...\n")
 
         # build the session instance
         # WARNING: assuming the host is the same for grpc_private, http, and ws
