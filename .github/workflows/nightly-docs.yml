@@ -35,7 +35,7 @@ jobs:
         env:
           ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
         with:
-          sphinxopts: '-j auto'
+          sphinxopts: '-j auto --linkcheck-timeout 30'
 
   docs_upload:
     needs: docs_build
