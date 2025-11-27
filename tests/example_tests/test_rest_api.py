@@ -11,7 +11,13 @@ def test_rest_apis(tmpdir, pytestconfig: pytest.Config):
     if use_local:
         launcher = LocalLauncher(ansys_installation=install_path, enable_rest_api=True)
     else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True, enable_rest_api=True)
+        launcher = DockerLauncher(
+            data_directory=data_dir,
+            use_dev=True,
+            enable_rest_api=True,
+            grpc_disable_tls=True,
+            grpc_use_tcp_sockets=True,
+        )
 
     s = launcher.start()
     s.load_data(f"{s.cei_home}/ensight{s.cei_suffix}/data/cube/cube.case")

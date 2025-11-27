@@ -14,6 +14,7 @@ from typing import TYPE_CHECKING, Any, Callable, List, Optional, Tuple, Union
 import uuid
 
 from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2_grpc, ensight_pb2, ensight_pb2_grpc
+from ansys.tools.common.cyberchannel import create_channel
 import grpc
 
 if TYPE_CHECKING:
@@ -37,15 +38,44 @@ class EnSightGRPC(object):
         Port to make the gRPC connection to
     secret_key: str, optional
         Connection secret key
+    grpc_use_tcp_sockets: bool, optional
+        If using gRPC, and if True, then allow TCP Socket based connections
+        instead of only local connections.
+    grpc_allow_network_connections: bool, optional
+        If using gRPC and using TCP Socket based connections, listen on all networks.
+    grpc_disable_tls: bool, optional
+        If using gRPC and using TCP Socket based connections, disable TLS.
+    grpc_uds_pathname: str, optional
+        If using gRPC and using Unix Domain Socket based connections, explicitly
+        set the pathname to the shared UDS file instead of using the default.
+    WARNING:
+    Overriding the default values for these options: grpc_use_tcp_sockets, grpc_allow_network_connections,
+    and grpc_disable_tls
+    can possibly permit control of this computer and any data which resides on it.
+    Modification of this configuration is not recommended.  Please see the
+    documentation for your installed product for additional information.
     """
 
-    def __init__(self, host: str = "127.0.0.1", port: int = 12345, secret_key: str = ""):
+    def __init__(
+        self,
+        host: str = "127.0.0.1",
+        port: int = 12345,
+        secret_key: str = "",
+        grpc_use_tcp_sockets: bool = False,
+        grpc_allow_network_connections: bool = False,
+        grpc_disable_tls: bool = False,
+        grpc_uds_pathname: Optional[str] = None,
+    ):
         self._host = host
         self._port = port
         self._channel = None
         self._stub = None
         self._dsg_stub = None
         self._security_token = secret_key
+        self._grpc_use_tcp_sockets = grpc_use_tcp_sockets
+        self._grpc_allow_network_connections = grpc_allow_network_connections
+        self._grpc_disable_tls = grpc_disable_tls
+        self._grpc_uds_pathname = grpc_uds_pathname
         self._session_name: str = ""
         # Streaming APIs
         # Event (strings)
@@ -91,6 +121,46 @@ class EnSightGRPC(object):
     @security_token.setter
     def security_token(self, name: str) -> None:
         self._security_token = name  # pragma: no cover
+
+    @property
+    def grpc_use_tcp_sockets(self) -> bool:
+        """Get whether to use Unix Domain Sockets or TCP Sockets for gRPC"""
+        return self._grpc_use_tcp_sockets
+
+    @grpc_use_tcp_sockets.setter
+    def grpc_use_tcp_sockets(self, use_sockets: bool) -> None:
+        """Set whether to use Unix Domain Sockets or TCP Sockets for gRPC"""
+        self._grpc_use_tcp_sockets = use_sockets
+
+    @property
+    def grpc_allow_network_connections(self) -> bool:
+        """Get whether to allow listening on all networks if using TCP Sockets for gRPC"""
+        return self._grpc_use_tcp_sockets
+
+    @grpc_allow_network_connections.setter
+    def grpc_allow_network_connections(self, allow: bool) -> None:
+        """Set whether to allow listening on all networks if using TCP Sockets for gRPC"""
+        self._grpc_allow_network_connections = allow
+
+    @property
+    def grpc_disable_tls(self) -> bool:
+        """Get whether to use TLS for TCP Sockets for gRPC"""
+        return self._grpc_disable_tls
+
+    @grpc_disable_tls.setter
+    def grpc_disable_tls(self, disable_tls: bool) -> None:
+        """Set whether to use TLS for TCP Sockets for gRPC"""
+        self._grpc_disable_tls = disable_tls
+
+    @property
+    def grpc_uds_pathname(self) -> Optional[str]:
+        """Get the pathname for the UDS file if not using the default for gRPC"""
+        return self._grpc_uds_pathname
+
+    @grpc_uds_pathname.setter
+    def grpc_uds_pathname(self, uds_pathname: str) -> None:
+        """Set the pathname for the UDS file if not using the default for gRPC"""
+        self._grpc_uds_pathname = uds_pathname
 
     @property
     def session_name(self) -> str:
@@ -171,13 +241,42 @@ class EnSightGRPC(object):
         if self.is_connected():
             return
         # set up the channel
-        self._channel = grpc.insecure_channel(
-            "{}:{}".format(self._host, self._port),
-            options=[
-                ("grpc.max_receive_message_length", -1),
-                ("grpc.max_send_message_length", -1),
-                ("grpc.testing.fixed_reconnect_backoff_ms", 1100),
-            ],
+        transport_mode = None
+        host = None
+        port = None
+        uds_service = None
+        uds_dir = None
+        options = [
+            ("grpc.max_receive_message_length", -1),
+            ("grpc.max_send_message_length", -1),
+            ("grpc.testing.fixed_reconnect_backoff_ms", 1100),
+        ]
+        if self._grpc_use_tcp_sockets:
+            host = self._host
+            transport_mode = "mtls"
+            if self._grpc_disable_tls:
+                transport_mode = "insecure"
+            port = self._port
+        else:
+            host = "127.0.0.1"
+            if sys.platform == "win32":
+                transport_mode = "wnua"
+                port = self._port
+            else:
+                transport_mode = "uds"
+                if self._grpc_uds_pathname:
+                    uds_service = os.path.basename(self._grpc_uds_pathname)
+                    uds_dir = os.path.dirname(self._grpc_uds_pathname)
+                else:
+                    uds_dir = "/tmp"
+                    uds_service = "greeter"
+        self._channel = create_channel(
+            host=host,
+            port=port,
+            transport_mode=transport_mode,
+            uds_dir=uds_dir,
+            uds_service=uds_service,
+            grpc_options=options,
         )
         try:
             grpc.channel_ready_future(self._channel).result(timeout=timeout)
