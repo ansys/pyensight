@@ -15,7 +15,7 @@ Examples:
 
 """
 import logging
-import os.path
+import os
 import subprocess
 from typing import TYPE_CHECKING, Any, Dict, Optional
 import uuid
