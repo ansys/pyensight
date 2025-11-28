@@ -15,12 +15,15 @@ import random
 import re
 import subprocess
 import sys
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 from ansys.api.pyensight.v0 import enshell_pb2, enshell_pb2_grpc
 from ansys.pyensight.core import DEFAULT_ANSYS_VERSION  # pylint: disable=import-outside-toplevel
 from ansys.tools.common.cyberchannel import create_channel
 import grpc
+
+if TYPE_CHECKING:
+    from ansys.pyensight.core import Session
 
 
 class EnShellGRPC(object):
@@ -50,6 +53,9 @@ class EnShellGRPC(object):
     grpc_uds_pathname :
         If using gRPC and using Unix Domain Socket based connections, explicitly
         set the pathname to the shared UDS file instead of using the default.
+    session: Session
+        The PyEnSight session for this connection. This is optional, and if set
+        it is used to check if the current install can handle the gRPC security options.
 
     WARNING:
     Overriding the default values for these options: grpc_use_tcp_sockets, grpc_allow_network_connections,
@@ -69,6 +75,7 @@ class EnShellGRPC(object):
         grpc_allow_network_connections: bool = False,
         grpc_disable_tls: bool = False,
         grpc_uds_pathname: Optional[str] = None,
+        session: Optional["Session"] = None,
     ):
         self._port = port
         self._host = host
@@ -93,6 +100,7 @@ class EnShellGRPC(object):
         # values found from EnShell in the Container
         self._cei_home = None
         self._ansys_version = None
+        self._pyensight_session = session
 
     def __del__(self):
         self.shutdown()
@@ -319,6 +327,12 @@ class EnShellGRPC(object):
                     uds_dir = "/tmp"
                 else:
                     uds_dir = os.path.dirname(self._grpc_uds_pathname)
+        # Ignore the security options if the version of EnSight cannot handle them
+        if self._pyensight_session and self._pyensight_session._launcher:
+            if not self._pyensight_session._launcher._has_grpc_changes:
+                transport_mode = "insecure"
+                host = self._host
+                port = self._port
         self._channel = create_channel(
             host=host,
             port=port,
