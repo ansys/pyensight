@@ -463,7 +463,7 @@ class DockerLauncher(Launcher):
             if re.fullmatch(r"v\d{3}", e):
                 vdir = e
                 break
-        path = f"/ansys/{vdir}/CEI/BUILDINFO.txt"
+        path = f"/ansys_inc/{vdir}/CEI/BUILDINFO.txt"
         res2 = self._container.exec_run(["cat", path])
         return res2.output.decode("utf-8", errors="replace")
 
