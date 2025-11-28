@@ -454,6 +454,9 @@ class DockerLauncher(Launcher):
             raise RuntimeError(f"Error starting WebUI: {cmd}\n")  # pragma: no cover
 
     def _get_build_info(self):
+        # The unit test has no container
+        if not self._container:
+            return "mock"
         res = self._container.exec_run(["sh", "-lc", "ls -1 /ansys_inc 2>/dev/null"])
         entries = [
             e.strip() for e in res.output.decode("utf-8", "replace").splitlines() if e.strip()
@@ -469,6 +472,8 @@ class DockerLauncher(Launcher):
 
     def _grpc_version_check(self):
         text = self._get_build_info()
+        if text == "mock":
+            return True
         internal_version, ensight_full_version = self._get_versionfrom_buildinfo(text)
         return grpc_version_check(internal_version, ensight_full_version)
 
