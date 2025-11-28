@@ -19,9 +19,10 @@ import tempfile
 import time
 from typing import Optional
 import uuid
+import warnings
 
 import ansys.pyensight.core as pyensight
-from ansys.pyensight.core.common import find_unused_ports
+from ansys.pyensight.core.common import GRPC_WARNING_MESSAGE, find_unused_ports, grpc_version_check
 from ansys.pyensight.core.launcher import Launcher
 import ansys.pyensight.core.session
 import psutil
@@ -170,6 +171,21 @@ class LocalLauncher(Launcher):
         )
         self._webui_pid = subprocess.Popen(cmd, **popen_common).pid
 
+    def _grpc_version_check(self):
+        """Check if the gRPC security options apply to the EnSight install."""
+        buildinfo = os.path.join(self._install_path, "BUILDINFO.txt")
+        if not os.path.exists(buildinfo):
+            if not os.path.exists(
+                os.path.join(os.path.dirname(self._install_path), "licensingclient")
+            ):
+                # Dev installation. Assume the gRPC security options are available
+                return True
+            raise RuntimeError("Couldn't find BUILDINFO file, cannot check installation.")
+        with open(buildinfo, "r") as buildinfo_file:
+            text = buildinfo_file.read()
+        internal_version, ensight_full_version = self._get_versionfrom_buildinfo(text)
+        return grpc_version_check(internal_version, ensight_full_version)
+
     def start(self) -> "pyensight.Session":
         """Start an EnSight session using the local EnSight installation.
 
@@ -187,6 +203,9 @@ class LocalLauncher(Launcher):
         RuntimeError:
             If the necessary number of ports could not be allocated.
         """
+        self._has_grpc_changes = self._grpc_version_check()
+        if not self._has_grpc_changes:
+            warnings.warn(GRPC_WARNING_MESSAGE)
         tmp_session = super().start()
         if tmp_session:
             return tmp_session
@@ -233,15 +252,16 @@ class LocalLauncher(Launcher):
             else:
                 cmd.append("-no_start_screen")
             cmd.extend(["-grpc_server", str(self._ports[0])])
-            if self._grpc_use_tcp_sockets:
-                cmd.append("-grpc_use_tcp_sockets")
-            if self._grpc_allow_network_connections:
-                cmd.append("-grpc_allow_network_connections")
-            if self._grpc_disable_tls:
-                cmd.append("-grpc_disable_tls")
-            if self._grpc_uds_pathname:
-                cmd.append("-grpc_uds_pathname")
-                cmd.append(self._grpc_uds_pathname)
+            if self._has_grpc_changes:
+                if self._grpc_use_tcp_sockets:
+                    cmd.append("-grpc_use_tcp_sockets")
+                if self._grpc_allow_network_connections:
+                    cmd.append("-grpc_allow_network_connections")
+                if self._grpc_disable_tls:
+                    cmd.append("-grpc_disable_tls")
+                if self._grpc_uds_pathname:
+                    cmd.append("-grpc_uds_pathname")
+                    cmd.append(self._grpc_uds_pathname)
             vnc_url = f"vnc://%%3Frfb_port={self._ports[1]}%%26use_auth=0"
             cmd.extend(["-vnc", vnc_url])
             cmd.extend(["-ports", str(self._ports[4])])
@@ -324,15 +344,16 @@ class LocalLauncher(Launcher):
                 if self._enable_rest_api:
                     # grpc port
                     cmd.extend(["--grpc_port", str(self._ports[0])])
-                    if self._grpc_use_tcp_sockets:
-                        cmd.append("--grpc_use_tcp_sockets")
-                    if self._grpc_allow_network_connections:
-                        cmd.append("--grpc_allow_network_connections")
-                    if self._grpc_disable_tls:
-                        cmd.append("--grpc_disable_tls")
-                    if self._grpc_uds_pathname:
-                        cmd.append("--grpc_uds_pathname")
-                        cmd.append(self._grpc_uds_pathname)
+                    if self._has_grpc_changes:
+                        if self._grpc_use_tcp_sockets:
+                            cmd.append("--grpc_use_tcp_sockets")
+                        if self._grpc_allow_network_connections:
+                            cmd.append("--grpc_allow_network_connections")
+                        if self._grpc_disable_tls:
+                            cmd.append("--grpc_disable_tls")
+                        if self._grpc_uds_pathname:
+                            cmd.append("--grpc_uds_pathname")
+                            cmd.append(self._grpc_uds_pathname)
                 # EnVision sessions
                 cmd.extend(["--local_session", "envision", "5"])
                 if int(version) > 252 and self._rest_ws_separate_loops:

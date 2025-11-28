@@ -15,10 +15,12 @@ Examples:
 
 """
 import logging
-import os.path
+import os
+import re
 import subprocess
 from typing import TYPE_CHECKING, Any, Dict, Optional
 import uuid
+import warnings
 
 try:
     import grpc
@@ -35,8 +37,10 @@ except Exception:  # pragma: no cover
     raise RuntimeError("Cannot initialize Docker")
 
 from ansys.pyensight.core.common import (
+    GRPC_WARNING_MESSAGE,
     find_unused_ports,
     get_file_service,
+    grpc_version_check,
     launch_enshell_interface,
     populate_service_host_port,
     pull_image,
@@ -449,6 +453,25 @@ class DockerLauncher(Launcher):
             self.stop()  # pragma: no cover
             raise RuntimeError(f"Error starting WebUI: {cmd}\n")  # pragma: no cover
 
+    def _get_build_info(self):
+        res = self._container.exec_run(["sh", "-lc", "ls -1 /ansys_inc 2>/dev/null"])
+        entries = [
+            e.strip() for e in res.output.decode("utf-8", "replace").splitlines() if e.strip()
+        ]
+        vdir = None
+        for e in entries:
+            if re.fullmatch(r"v\d{3}", e):
+                vdir = e
+                break
+        path = f"/ansys/{vdir}/CEI/BUILDINFO.txt"
+        res2 = self._container.exec_run(["cat", path])
+        return res2.output.decode("utf-8", errors="replace")
+
+    def _grpc_version_check(self):
+        text = self._get_build_info()
+        internal_version, ensight_full_version = self._get_versionfrom_buildinfo(text)
+        return grpc_version_check(internal_version, ensight_full_version)
+
     def connect(self):
         """Create and bind a :class:`Session<ansys.pyensight.core.Session>` instance
         to the created EnSight gRPC connection started by EnShell.
@@ -465,6 +488,9 @@ class DockerLauncher(Launcher):
         RuntimeError:
             Variety of error conditions.
         """
+        self._has_grpc_changes = self._grpc_version_check()
+        if not self._has_grpc_changes:
+            warnings.warn(GRPC_WARNING_MESSAGE)
         #
         #
         # Start up the EnShell gRPC interface
