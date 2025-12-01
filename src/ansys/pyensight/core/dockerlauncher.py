@@ -18,9 +18,12 @@ import logging
 import os
 import re
 import subprocess
-from typing import TYPE_CHECKING, Any, Dict, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 import uuid
 import warnings
+
+import requests
+import urllib3
 
 try:
     import grpc
@@ -443,11 +446,23 @@ class DockerLauncher(Launcher):
             self.stop()  # pragma: no cover
             raise RuntimeError(f"Error starting WebUI: {cmd}\n")  # pragma: no cover
 
+    def _exec_run(self, commands: Union[str, List[str]]):
+        """Wrapper around the container exec run to try up to 5 times."""
+        counter = 0
+        if not self._container:
+            raise RuntimeError("Exec run can be called only when the container is up.")
+        try:
+            return self._container.exec_run(commands)
+        except (requests.exceptions.ConnectionError, urllib3.exceptions.ProtocolError) as exc:
+            counter += 1
+            if counter == 5:
+                raise exc
+
     def _get_build_info(self):
         # The unit test has no container
         if not self._container:
             return "mock"
-        res = self._container.exec_run(["sh", "-lc", "ls -1 /ansys_inc 2>/dev/null"])
+        res = self._exec_run(["sh", "-lc", "ls -1 /ansys_inc 2>/dev/null"])
         entries = [
             e.strip() for e in res.output.decode("utf-8", "replace").splitlines() if e.strip()
         ]
@@ -457,7 +472,7 @@ class DockerLauncher(Launcher):
                 vdir = e
                 break
         path = f"/ansys_inc/{vdir}/CEI/BUILDINFO.txt"
-        res2 = self._container.exec_run(["cat", path])
+        res2 = self._exec_run(["cat", path])
         return res2.output.decode("utf-8", errors="replace")
 
     def _grpc_version_check(self):
