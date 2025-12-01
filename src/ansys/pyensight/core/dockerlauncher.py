@@ -625,12 +625,7 @@ class DockerLauncher(Launcher):
             ensight_args += " ".join(self._additional_command_line_options)
 
         logging.debug(f"Starting EnSight with args: {ensight_args}\n")
-        if self._liben_rest:
-            ensight_location = "/ansys_inc/v" + self._ansys_version + "/CEI/bin/ensight "
-            ensight_args = ensight_location + ensight_args
-            ret = self._enshell.start_other(ensight_args, extra_env=ensight_env_vars)
-        else:
-            ret = self._enshell.start_ensight(ensight_args, ensight_env_vars)
+        ret = self._enshell.start_ensight(ensight_args, ensight_env_vars)
         if ret[0] != 0:  # pragma: no cover
             self.stop()  # pragma: no cover
             raise RuntimeError(
