@@ -92,6 +92,9 @@ class OmniverseGeometryServer(object):
         dsg_uri: str = "",
         monitor_directory: str = "",
         line_width: float = 0.0,
+        grpc_use_tcp_sockets: bool = False,
+        grpc_allow_network_connections: bool = False,
+        grpc_disable_tls: bool = False,
     ) -> None:
         self._dsg_uri = dsg_uri
         self._destination = destination
@@ -108,6 +111,9 @@ class OmniverseGeometryServer(object):
         self._status_filename: str = ""
         self._monitor_directory: str = monitor_directory
         self._line_width = line_width
+        self._grpc_allow_network_connections = grpc_allow_network_connections
+        self._grpc_disable_tls = grpc_disable_tls
+        self._grpc_use_tcp_sockets = grpc_use_tcp_sockets
 
     @property
     def monitor_directory(self) -> Optional[str]:
@@ -213,9 +219,16 @@ class OmniverseGeometryServer(object):
         logging.info("Omniverse connection established.")
 
         # parse the DSG URI
-        parsed = urlparse(self.dsg_uri)
-        port = parsed.port
-        host = parsed.hostname
+        uds_path = None
+        port = None
+        host = None
+        if self.dsg_uri.endswith(".sock"):
+            # The path is a uds path
+            uds_path = self.dsg_uri.replace("unix:", "").replace(".sock", "")
+        else:
+            parsed = urlparse(self.dsg_uri)
+            port = parsed.port
+            host = parsed.hostname
 
         # link it to a DSG session
         update_handler = ov_dsg_server.OmniverseUpdateHandler(omni_link)
@@ -228,6 +241,10 @@ class OmniverseGeometryServer(object):
             normalize_geometry=self.normalize_geometry,
             time_scale=self.time_scale,
             handler=update_handler,
+            uds_path=uds_path,
+            grpc_disable_tls=self._grpc_disable_tls,
+            grpc_allow_network_connections=self._grpc_allow_network_connections,
+            grpc_use_tcp_sockets=self._grpc_use_tcp_sockets,
         )
 
         # Start the DSG link
@@ -494,7 +511,27 @@ if __name__ == "__main__":
         type=float,
         help=f"Width of lines: >0=absolute size. <0=fraction of diagonal. 0=none. Default: {line_default}",
     )
-
+    parser.add_argument(
+        "--grpc_use_tcp_sockets",
+        metavar="yes|no|true|false|1|0",
+        default=False,
+        type=str2bool_type,
+        help="If using gRPC, and if True, then allow TCP Socket based connections instead of only local connections.",
+    )
+    parser.add_argument(
+        "--grpc_allow_network_connections",
+        metavar="yes|no|true|false|1|0",
+        default=False,
+        type=str2bool_type,
+        help="If using gRPC and using TCP Socket based connections, listen on all networks.",
+    )
+    parser.add_argument(
+        "--grpc_disable_tls",
+        metavar="yes|no|true|false|1|0",
+        default=False,
+        type=str2bool_type,
+        help="If using gRPC and using TCP Socket based connections, disable TLS.",
+    )
     # parse the command line
     args = parser.parse_args()
 
@@ -530,6 +567,9 @@ if __name__ == "__main__":
         vrmode=not args.include_camera,
         temporal=args.temporal,
         line_width=line_width,
+        grpc_disable_tls=args.grpc_disable_tls,
+        grpc_allow_network_connections=args.grpc_allow_network_connections,
+        grpc_use_tcp_sockets=args.grpc_use_tcp_sockets,
     )
 
     # run the server

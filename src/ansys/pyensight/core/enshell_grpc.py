@@ -15,11 +15,15 @@ import random
 import re
 import subprocess
 import sys
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 from ansys.api.pyensight.v0 import enshell_pb2, enshell_pb2_grpc
 from ansys.pyensight.core import DEFAULT_ANSYS_VERSION  # pylint: disable=import-outside-toplevel
+from ansys.tools.common.cyberchannel import create_channel
 import grpc
+
+if TYPE_CHECKING:
+    from ansys.pyensight.core import Session
 
 
 class EnShellGRPC(object):
@@ -37,10 +41,41 @@ class EnShellGRPC(object):
         The hostname of the EnShell gRPC server
     version:
         A specific EnShell version number to run (e.g. '232' for 2023R2)
+    secret_key: str, optional
+        Connection secret key
+    grpc_use_tcp_sockets :
+        If using gRPC, and if True, then allow TCP Socket based connections
+        instead of only local connections.
+    grpc_allow_network_connections :
+        If using gRPC and using TCP Socket based connections, listen on all networks.
+    grpc_disable_tls :
+        If using gRPC and using TCP Socket based connections, disable TLS.
+    grpc_uds_pathname :
+        If using gRPC and using Unix Domain Socket based connections, explicitly
+        set the pathname to the shared UDS file instead of using the default.
+    session: Session
+        The PyEnSight session for this connection. This is optional, and if set
+        it is used to check if the current install can handle the gRPC security options.
+
+    WARNING:
+    Overriding the default values for these options: grpc_use_tcp_sockets, grpc_allow_network_connections,
+    and grpc_disable_tls
+    can possibly permit control of this computer and any data which resides on it.
+    Modification of this configuration is not recommended.  Please see the
+    documentation for your installed product for additional information.
     """
 
     def __init__(
-        self, port: int = 12345, host: str = "127.0.0.1", version: str = DEFAULT_ANSYS_VERSION
+        self,
+        port: int = 12345,
+        host: str = "127.0.0.1",
+        version: str = DEFAULT_ANSYS_VERSION,
+        secret_key: str = "",
+        grpc_use_tcp_sockets: bool = False,
+        grpc_allow_network_connections: bool = False,
+        grpc_disable_tls: bool = False,
+        grpc_uds_pathname: Optional[str] = None,
+        session: Optional["Session"] = None,
     ):
         self._port = port
         self._host = host
@@ -49,13 +84,23 @@ class EnShellGRPC(object):
         self._pid = None
         self._channel = None
         self._stub = None
+        self._grpc_use_tcp_sockets = grpc_use_tcp_sockets
+        self._grpc_allow_network_connections = grpc_allow_network_connections
+        self._grpc_disable_tls = grpc_disable_tls
+        self._grpc_uds_pathname = grpc_uds_pathname
         #
         # self._security_token = str(random.randint(0, 1000000))
         self._security_token: Optional[str] = None
+        if not secret_key:
+            self._security_token = str(random.randint(0, 1000000))
+        else:
+            self._security_token = secret_key
+        # self._security_token: Optional[int] = None
         #
         # values found from EnShell in the Container
         self._cei_home = None
         self._ansys_version = None
+        self._pyensight_session = session
 
     def __del__(self):
         self.shutdown()
@@ -80,7 +125,19 @@ class EnShellGRPC(object):
         """
         return self._port
 
-    def set_security_token(self, n: Optional[str] = None):
+    @property
+    def security_token(self):
+        """Return the security token for the gRPC connection.
+
+        Returns
+        -------
+        str
+            Returns the current connection security token
+        """
+        return self._security_token
+
+    @security_token.setter
+    def security_token(self, n: str):
         """set the security token for the gRPC connection.
 
         EnShell supports a security token in either numeric (-security {int}) or
@@ -97,19 +154,49 @@ class EnShellGRPC(object):
         """
         self._security_token = n  # pragma: no cover
 
+    @property
+    def grpc_use_tcp_sockets(self):
+        """Get whether to use Unix Domain Sockets or TCP Sockets for gRPC"""
+        return self._grpc_use_tcp_sockets
+
+    @grpc_use_tcp_sockets.setter
+    def grpc_use_tcp_sockets(self, use_sockets: bool):
+        """Set whether to use Unix Domain Sockets or TCP Sockets for gRPC"""
+        self._grpc_use_tcp_sockets = use_sockets
+
+    @property
+    def grpc_allow_network_connections(self):
+        """Get whether to allow listening on all networks if using TCP Sockets for gRPC"""
+        return self._grpc_allow_network_connections
+
+    @grpc_allow_network_connections.setter
+    def grpc_allow_network_connections(self, allow: bool):
+        """Set whether to allow listening on all networks if using TCP Sockets for gRPC"""
+        self._grpc_allow_network_connections = allow
+
+    @property
+    def grpc_disable_tls(self):
+        """Get whether to use TLS for TCP Sockets for gRPC"""
+        return self._grpc_disable_tls
+
+    @grpc_disable_tls.setter
+    def grpc_disable_tls(self, disable_tls: bool):
+        """Set whether to use TLS for TCP Sockets for gRPC"""
+        self._grpc_disable_tls = disable_tls
+
+    @property
+    def grpc_uds_pathname(self):
+        """Get the pathname for the UDS file if not using the default for gRPC"""
+        return self._grpc_uds_pathname
+
+    @grpc_uds_pathname.setter
+    def grpc_uds_pathname(self, uds_pathname: str):
+        """Set the pathname for the UDS file if not using the default for gRPC"""
+        self._grpc_uds_pathname = uds_pathname
+
     def set_random_security_token(self):
         """Set a random security token for the gRPC connection."""
         self._security_token = str(random.randint(0, 1000000))  # pragma: no cover
-
-    def security_token(self):
-        """Return the security token for the gRPC connection.
-
-        Returns
-        -------
-        str
-            Returns the current connection security token
-        """
-        return self._security_token
 
     def shutdown(self):
         """shut down all gRPC connections.
@@ -140,6 +227,15 @@ class EnShellGRPC(object):
         if self._security_token:
             cmd.append("-security")
             cmd.append(self._security_token)
+        if self._grpc_use_tcp_sockets:
+            cmd.append("-grpc_use_tcp_sockets")
+        if self._grpc_allow_network_connections:
+            cmd.append("-grpc_allow_network_connections")
+        if self._grpc_disable_tls:
+            cmd.append("-grpc_disable_tls")
+        if self._grpc_uds_pathname:
+            cmd.append("-grpc_uds_pathname")
+            cmd.append(self._grpc_uds_pathname)
         if sys.platform in ("win32", "cygwin"):
             cmd[0] += ".bat"
             # cmd.append("-minimize_console")
@@ -203,13 +299,47 @@ class EnShellGRPC(object):
         """
         if self._channel is not None:
             return
-        self._channel = grpc.insecure_channel(
-            "{}:{}".format(self._host, self._port),
-            options=[
-                ("grpc.max_receive_message_length", -1),
-                ("grpc.max_send_message_length", -1),
-                ("grpc.testing.fixed_reconnect_backoff_ms", 1100),
-            ],
+        transport_mode = None
+        host = None
+        port = None
+        uds_service = None
+        uds_dir = None
+        options = [
+            ("grpc.max_receive_message_length", -1),
+            ("grpc.max_send_message_length", -1),
+            ("grpc.testing.fixed_reconnect_backoff_ms", 1100),
+        ]
+        if self._grpc_use_tcp_sockets:
+            host = self._host
+            transport_mode = "mtls"
+            if self._grpc_disable_tls:
+                transport_mode = "insecure"
+            port = self._port
+        else:
+            host = "127.0.0.1"
+            if sys.platform == "win32":
+                transport_mode = "wnua"
+                port = self._port
+            else:
+                transport_mode = "uds"
+                uds_service = "pyensight" if self._grpc_uds_pathname else "greeter"
+                if not self._grpc_uds_pathname:
+                    uds_dir = "/tmp"
+                else:
+                    uds_dir = os.path.dirname(self._grpc_uds_pathname)
+        # Ignore the security options if the version of EnSight cannot handle them
+        if self._pyensight_session and self._pyensight_session._launcher:
+            if not self._pyensight_session._launcher._has_grpc_changes:
+                transport_mode = "insecure"
+                host = self._host
+                port = self._port
+        self._channel = create_channel(
+            host=host,
+            port=port,
+            transport_mode=transport_mode,
+            uds_dir=uds_dir,
+            uds_service=uds_service,
+            grpc_options=options,
         )
         try:
             grpc.channel_ready_future(self._channel).result(timeout=timeout)
@@ -347,6 +477,18 @@ class EnShellGRPC(object):
         self.connect()
 
         command_string = "start_app CLIENT -c 127.0.0.1 -enshell"
+        if self._security_token:
+            command_string += " -security "
+            command_string += str(self._security_token)
+        if self._grpc_use_tcp_sockets:
+            command_string += " -grpc_use_tcp_sockets"
+        if self._grpc_allow_network_connections:
+            command_string += " -grpc_allow_network_connections"
+        if self._grpc_disable_tls:
+            command_string += " -grpc_disable_tls"
+        # does not make sense to forward this option along
+        # if self._grpc_uds_pathname:
+        #    command_string += " -grpc_uds_pathname "+self._grpc_uds_pathname
         if ensight_args and (ensight_args != ""):
             command_string += " " + ensight_args
 
@@ -379,6 +521,18 @@ class EnShellGRPC(object):
         command_string = (
             f"start_app OTHER /ansys_inc/v{self.ansys_version()}/CEI/bin/ensight_server"
         )
+        if self._security_token:
+            command_string += " -security "
+            command_string += str(self._security_token)
+        if self._grpc_use_tcp_sockets:
+            command_string += " -grpc_use_tcp_sockets"
+        if self._grpc_allow_network_connections:
+            command_string += " -grpc_allow_network_connections"
+        if self._grpc_disable_tls:
+            command_string += " -grpc_disable_tls"
+        # does not make sense to forward this option along
+        # if self._grpc_uds_pathname:
+        #    command_string += " -grpc_uds_pathname "+self._grpc_uds_pathname
         if ensight_args and (ensight_args != ""):
             command_string += " " + ensight_args
 
