@@ -1022,7 +1022,7 @@ class OmniverseUpdateHandler(UpdateHandler):
             # Create a new root stage in Omniverse
 
             # Create or update the root group/camera
-            if not self.session.vrmode:
+            if not self.session.vrmode and not self._case_xform_applied_to_camera:
                 self._omni.update_camera(camera=group)
 
             # record

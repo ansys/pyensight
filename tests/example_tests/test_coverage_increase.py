@@ -19,7 +19,9 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
         launcher = LocalLauncher(ansys_installation=install_path)
         root = "http://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
     else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
+        launcher = DockerLauncher(
+            data_directory=data_dir, use_dev=True, grpc_disable_tls=True, grpc_use_tcp_sockets=True
+        )
     session = launcher.start()
     if not use_local:
         launcher._enshell.host
@@ -347,7 +349,13 @@ def test_particle_traces_and_geometry(tmpdir, pytestconfig: pytest.Config):
         launcher = LocalLauncher(enable_rest_api=True)
         root = "http://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
     else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True, enable_rest_api=True)
+        launcher = DockerLauncher(
+            data_directory=data_dir,
+            use_dev=True,
+            enable_rest_api=True,
+            grpc_disable_tls=True,
+            grpc_use_tcp_sockets=True,
+        )
     session = launcher.start()
     session.load_example("waterbreak.ens", root=root)
     session.show("webensight")
@@ -442,7 +450,13 @@ def test_sos(tmpdir, pytestconfig: pytest.Config):
         launcher = LocalLauncher(use_sos=2)
     else:
         is_docker = True
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True, use_sos=2)
+        launcher = DockerLauncher(
+            data_directory=data_dir,
+            use_dev=True,
+            use_sos=2,
+            grpc_disable_tls=True,
+            grpc_use_tcp_sockets=True,
+        )
     session = launcher.start()
     session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/cube/cube.case")
     assert session.grpc.port() == session._grpc_port
@@ -450,10 +464,15 @@ def test_sos(tmpdir, pytestconfig: pytest.Config):
     assert session.grpc.security_token == session._secret_key
     session.close()
     if is_docker:
-        session = launch_ensight(use_docker=True, use_dev=True, data_directory=data_dir)
+        session = launch_ensight(
+            use_docker=True,
+            use_dev=True,
+            data_directory=data_dir,
+            grpc_disable_tls=True,
+            grpc_use_tcp_sockets=True,
+        )
         assert session._launcher._enshell.host() == session._hostname
         session._launcher._enshell.port()
-        session._launcher._enshell.security_token()
         session._launcher._enshell.metadata()
         _parts = session.ensight.objs.core.PARTS
         session.ensight.utils.parts.get_part_id_obj_name(_parts, "id")
