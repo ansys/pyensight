@@ -70,8 +70,8 @@ def wait_for_idle(session):
 
 
 def test_usd_export(tmpdir, pytestconfig: pytest.Config):
-    if sys.version_info.minor >= 13:
-        warnings.warn("Test not supported for Python >= 3.13")
+    if sys.version_info.minor >= 14:
+        warnings.warn("Test not supported for Python >= 3.14")
         return
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
@@ -79,7 +79,9 @@ def test_usd_export(tmpdir, pytestconfig: pytest.Config):
     if use_local:
         launcher = LocalLauncher(ansys_installation=install_path)
     else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
+        launcher = DockerLauncher(
+            data_directory=data_dir, use_dev=True, grpc_disable_tls=True, grpc_use_tcp_sockets=True
+        )
     session = launcher.start()
     session.load_example("waterbreak.ens")
     session.ensight.utils.omniverse.create_connection(data_dir)

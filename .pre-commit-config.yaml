@@ -36,6 +36,7 @@ repos:
     - -r
     - -x
     - venv/*, tests/*
+    additional_dependencies: [pbr]
 
 - repo: https://github.com/pre-commit/mirrors-mypy
   rev: v1.3.0

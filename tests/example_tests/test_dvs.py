@@ -85,7 +85,9 @@ def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
     if use_local:
         launcher = LocalLauncher(ansys_installation=install_path)
     else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
+        launcher = DockerLauncher(
+            data_directory=data_dir, use_dev=True, grpc_use_tcp_sockets=True, grpc_disable_tls=True
+        )
     session = launcher.start()
     if not use_local_test_data:
         counter = 0
@@ -123,6 +125,9 @@ def test_dvs_data(tmpdir, pytestconfig: pytest.Config):
         security_code=session.secret_key,
         vrmode=False,
         handler=update_handler,
+        grpc_disable_tls=session._grpc_disable_tls,
+        grpc_allow_network_connections=session._grpc_allow_network_connections,
+        grpc_use_tcp_sockets=session._grpc_use_tcp_sockets,
     )
     dsg_thread = threading.Thread(target=handle_update, args=(link,))
     dsg_thread.start()

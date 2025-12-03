@@ -70,9 +70,9 @@ class ensobjlist(List[T]):  # noqa: N801
 
     Parameters
     ----------
-    \*args :
+    args :
         Superclass (list) arguments
-    \**kwargs :
+    kwargs :
         Superclass (list) keyword arguments
 
 
