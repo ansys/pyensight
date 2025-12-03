@@ -20,6 +20,12 @@ except Exception:
 if TYPE_CHECKING:
     from docker import DockerClient
 
+GRPC_VERSIONS = ["2025 R2.3", "2025 R1.4", "2024 R2.5"]
+GRPC_WARNING_MESSAGE = "The EnSight version being used uses an insecure gRPC connection."
+GRPC_WARNING_MESSAGE += "Consider upgrading to a version higher than 2026 R1, or "
+GRPC_WARNING_MESSAGE += "2024 R2.5 or higher service packs, or 2025 R1.4 or higher service packs "
+GRPC_WARNING_MESSAGE += "or 2025 R2.3 or higher service packs."
+
 
 def find_unused_ports(count: int, avoid: Optional[List[int]] = None) -> Optional[List[int]]:
     """Find "count" unused ports on the host system
@@ -97,7 +103,7 @@ def get_host_port(uri: str) -> Tuple[str, int]:
     port = (
         parse_results.port
         if parse_results.port
-        else (443 if re.search("^https|wss$", parse_results.scheme) else None)
+        else (443 if re.search(r"^https|wss$", parse_results.scheme) else None)
     )
     return (parse_results.host, port)
 
@@ -166,7 +172,14 @@ def populate_service_host_port(  # pragma: no cover
 
 
 def launch_enshell_interface(
-    enshell_grpc_channel: Any, grpc_port: int, timeout: float
+    enshell_grpc_channel: Any,
+    grpc_port: int,
+    timeout: float,
+    secret_key: str,
+    grpc_use_tcp_sockets: bool = False,
+    grpc_allow_network_connections: bool = False,
+    grpc_disable_tls: bool = False,
+    grpc_uds_pathname: Optional[str] = None,
 ) -> enshell_grpc.EnShellGRPC:
     """Launch the EnShell gRPC Interface.
 
@@ -178,17 +191,47 @@ def launch_enshell_interface(
         the gRPC port to connect to
     timeout: float
         a timeout to wait for the gRPC connection
+    grpc_use_tcp_sockets: bool
+        If using gRPC, and if True, then allow TCP Socket based connections
+        instead of only local connections.
+    grpc_allow_network_connections: bool
+        If using gRPC and using TCP Socket based connections, listen on all networks.
+    grpc_disable_tls: bool
+        If using gRPC and using TCP Socket based connections, disable TLS.
+    grpc_uds_pathname: bool
+        If using gRPC and using Unix Domain Socket based connections, explicitly
+        set the pathname to the shared UDS file instead of using the default.
 
     Returns
     -------
     enshell: enshell_grpc.EnShellGRPC
         the enshell gRPC interface
+
+    WARNING:
+    Overriding the default values for these options: grpc_use_tcp_sockets, grpc_allow_network_connections,
+    and grpc_disable_tls
+    can possibly permit control of this computer and any data which resides on it.
+    Modification of this configuration is not recommended.  Please see the
+    documentation for your installed product for additional information.
     """
     if enshell_grpc_channel:  # pragma: no cover
-        enshell = enshell_grpc.EnShellGRPC()  # pragma: no cover
+        enshell = enshell_grpc.EnShellGRPC(
+            grpc_use_tcp_sockets=grpc_use_tcp_sockets,
+            grpc_allow_network_connections=grpc_allow_network_connections,
+            grpc_disable_tls=grpc_disable_tls,
+            grpc_uds_pathname=grpc_uds_pathname,
+        )  # pragma: no cover
+        enshell.security_token = secret_key
         enshell.connect_existing_channel(enshell_grpc_channel)  # pragma: no cover
     else:
-        enshell = enshell_grpc.EnShellGRPC(port=grpc_port)
+        enshell = enshell_grpc.EnShellGRPC(
+            port=grpc_port,
+            grpc_use_tcp_sockets=grpc_use_tcp_sockets,
+            grpc_allow_network_connections=grpc_allow_network_connections,
+            grpc_disable_tls=grpc_disable_tls,
+            grpc_uds_pathname=grpc_uds_pathname,
+        )
+        enshell.security_token = secret_key
         time_start = time.time()
         while time.time() - time_start < timeout:  # pragma: no cover
             if enshell.is_connected():
@@ -231,3 +274,31 @@ def safe_extract(tar, path=".", members=None, *, numeric_owner=False):
         if not _is_within_directory(path, member_path):
             raise Exception("Attempted Path Traversal in Tar File")
     tar.extractall(path, members, numeric_owner=numeric_owner)
+
+
+def grpc_version_check(internal_version, ensight_full_version):
+    """Check if the gRPC security options apply to the EnSight install."""
+    if int(internal_version) < 242:
+        return False
+    # From 261 onward always available
+    if int(internal_version) >= 261:
+        return True
+    # Exactly matches one of the service pack that introduced the changes
+    if ensight_full_version in GRPC_VERSIONS:
+        return True
+    split_version = ensight_full_version.split(" ")
+    year = split_version[0]
+    # Not a service pack
+    if len(split_version[1].split(".")) == 1:
+        return False
+    r_version = split_version[1].split(".")[0]
+    dot_version = int(split_version[1].split(".")[1])
+    # Check service pack version
+    if year == "2024" and dot_version < 5:
+        return False
+    if year == "2025":
+        if r_version == "R1" and dot_version < 4:
+            return False
+        if r_version == "R2" and dot_version < 3:
+            return False
+    return True

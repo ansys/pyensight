@@ -15,10 +15,15 @@ Examples:
 
 """
 import logging
-import os.path
+import os
+import re
 import subprocess
-from typing import TYPE_CHECKING, Any, Dict, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 import uuid
+import warnings
+
+import requests
+import urllib3
 
 try:
     import grpc
@@ -35,8 +40,10 @@ except Exception:  # pragma: no cover
     raise RuntimeError("Cannot initialize Docker")
 
 from ansys.pyensight.core.common import (
+    GRPC_WARNING_MESSAGE,
     find_unused_ports,
     get_file_service,
+    grpc_version_check,
     launch_enshell_interface,
     populate_service_host_port,
     pull_image,
@@ -89,6 +96,16 @@ class DockerLauncher(Launcher):
     additional_command_line_options: list, optional
         Additional command line options to be used to launch EnSight.
         Arguments that contain spaces are not supported.
+    grpc_use_tcp_sockets :
+        If using gRPC, and if True, then allow TCP Socket based connections
+        instead of only local connections.
+    grpc_allow_network_connections :
+        If using gRPC and using TCP Socket based connections, listen on all networks.
+    grpc_disable_tls :
+        If using gRPC and using TCP Socket based connections, disable TLS.
+    grpc_uds_pathname :
+        If using gRPC and using Unix Domain Socket based connections, explicitly
+        set the pathname to the shared UDS file instead of using the default.
 
     Examples
     --------
@@ -98,6 +115,12 @@ class DockerLauncher(Launcher):
     >>> session = launcher.start()
     >>> session.close()
 
+    WARNING:
+    Overriding the default values for these options: grpc_use_tcp_sockets, grpc_allow_network_connections,
+    and grpc_disable_tls
+    can possibly permit control of this computer and any data which resides on it.
+    Modification of this configuration is not recommended.  Please see the
+    documentation for your installed product for additional information.
     """
 
     def __init__(
@@ -107,6 +130,10 @@ class DockerLauncher(Launcher):
         use_dev: bool = False,
         channel: Optional[grpc.Channel] = None,
         pim_instance: Optional[Any] = None,
+        grpc_use_tcp_sockets: Optional[bool] = False,
+        grpc_allow_network_connections: Optional[bool] = False,
+        grpc_disable_tls: Optional[bool] = False,
+        grpc_uds_pathname: Optional[str] = None,
         **kwargs,
     ) -> None:
         """Initialize DockerLauncher."""
@@ -114,6 +141,10 @@ class DockerLauncher(Launcher):
 
         self._data_directory = data_directory
         self._enshell_grpc_channel = channel
+        self._grpc_use_tcp_sockets = grpc_use_tcp_sockets
+        self._grpc_allow_network_connections = grpc_allow_network_connections
+        self._grpc_disable_tls = grpc_disable_tls
+        self._grpc_uds_pathname = grpc_uds_pathname
         self._service_uris: Dict[Any, str] = {}
         self._image_name: Optional[str] = None
         self._docker_client: Optional["DockerClient"] = None
@@ -221,6 +252,16 @@ class DockerLauncher(Launcher):
             "ENSIGHT_SECURITY_TOKEN": self._secret_key,
             "WEBSOCKETSERVER_SECURITY_TOKEN": self._secret_key,
             "ENSIGHT_SESSION_TEMPDIR": self._session_directory,
+            # Temporary workaround
+            "ENSIGHT_GRPC_USE_TCP_SOCKETS": "1",
+            "ENSIGHT_GRPC_ALLOW_ALL_NETWORKS": "1",
+            "ENSIGHT_GRPC_DISABLE_TLS": "1",
+            "ENSHELL_GRPC_USE_TCP_SOCKETS": "1",
+            "ENSHELL_GRPC_ALLOW_NETWORK_CONNECTIONS": "1",
+            "ENSHELL_GRPC_DISABLE_TLS": "1",
+            "DVS_USE_TCP_SOCKETS": "1",
+            "DVS_DISABLE_TLS": "1",
+            "DVS_LISTEN_ALL_NETWORKS": "1",
         }
 
         # If for some reason, the ENSIGHT_ANSYS_LAUNCH is set previously,
@@ -305,6 +346,14 @@ class DockerLauncher(Launcher):
         # gRPC server as the command
         #
         enshell_cmd = "-app -v 3 -grpc_server " + str(grpc_port)
+        if self._grpc_use_tcp_sockets:
+            enshell_cmd += " -grpc_use_tcp_sockets"
+        if self._grpc_allow_network_connections:
+            enshell_cmd += " -grpc_allow_network_connections"
+        if self._grpc_disable_tls:
+            enshell_cmd += " -grpc_disable_tls"
+        if self._grpc_uds_pathname:
+            enshell_cmd += " -grpc_uds_pathname " + self._grpc_uds_pathname
 
         use_egl = self._use_egl()
 
@@ -384,7 +433,8 @@ class DockerLauncher(Launcher):
 
     def launch_webui(self, container_env_str):
         # Run websocketserver
-        cmd = "cpython -m ansys.simba.plugin.post.simba_post"
+        cmd = f"/ansys_inc/v{self._ansys_version}/FluidsOne/server/linx64/fluidsone"
+        cmd += " --main-run-mode post"
         # websocket port - this needs to come first since we now have
         # --add_header as a optional arg that can take an arbitrary
         # number of optional headers.
@@ -393,21 +443,54 @@ class DockerLauncher(Launcher):
         http_port = self._service_host_port["http"][1]
         ws_port = self._service_host_port["ws"][1]
         cmd += f" --server-listen-port {webui_port}"
-        cmd += (
-            f" --server-web-roots /ansys_inc/v{self._ansys_version}/CEI/nexus{self._ansys_version}/"
-        )
-        cmd += f"ansys{self._ansys_version}/ensight/WebUI/web/ui/"
+        cmd += f" --server-web-roots /ansys_inc/v{self._ansys_version}/FluidsOne/web/ui"
         cmd += f" --ensight-grpc-port {grpc_port}"
         cmd += f" --ensight-html-port {http_port}"
         cmd += f" --ensight-ws-port {ws_port}"
         cmd += f" --ensight-session-directory {self._session_directory}"
         cmd += f" --ensight-secret-key {self._secret_key}"
-        cmd += "--main-show-gui 'False'"
+        cmd += " --main-show-gui 'False'"
         logging.debug(f"Starting WebUI: {cmd}\n")
         ret = self._enshell.start_other(cmd, extra_env=container_env_str)
         if ret[0] != 0:  # pragma: no cover
             self.stop()  # pragma: no cover
             raise RuntimeError(f"Error starting WebUI: {cmd}\n")  # pragma: no cover
+
+    def _exec_run(self, commands: Union[str, List[str]]):
+        """Wrapper around the container exec run to try up to 5 times."""
+        counter = 0
+        if not self._container:
+            raise RuntimeError("Exec run can be called only when the container is up.")
+        try:
+            return self._container.exec_run(commands)
+        except (requests.exceptions.ConnectionError, urllib3.exceptions.ProtocolError) as exc:
+            counter += 1
+            if counter == 5:
+                raise exc
+
+    def _get_build_info(self):
+        # The unit test has no container
+        if not self._container:
+            return "mock"
+        res = self._exec_run(["sh", "-lc", "ls -1 /ansys_inc 2>/dev/null"])
+        entries = [
+            e.strip() for e in res.output.decode("utf-8", "replace").splitlines() if e.strip()
+        ]
+        vdir = None
+        for e in entries:
+            if re.fullmatch(r"v\d{3}", e):
+                vdir = e
+                break
+        path = f"/ansys_inc/{vdir}/CEI/BUILDINFO.txt"
+        res2 = self._exec_run(["cat", path])
+        return res2.output.decode("utf-8", errors="replace")
+
+    def _grpc_version_check(self):
+        text = self._get_build_info()
+        if text == "mock":
+            return True
+        internal_version, ensight_full_version = self._get_versionfrom_buildinfo(text)
+        return grpc_version_check(internal_version, ensight_full_version)
 
     def connect(self):
         """Create and bind a :class:`Session<ansys.pyensight.core.Session>` instance
@@ -425,11 +508,21 @@ class DockerLauncher(Launcher):
         RuntimeError:
             Variety of error conditions.
         """
+        self._has_grpc_changes = self._grpc_version_check()
+        if not self._has_grpc_changes:
+            warnings.warn(GRPC_WARNING_MESSAGE)
         #
         #
         # Start up the EnShell gRPC interface
         self._enshell = launch_enshell_interface(
-            self._enshell_grpc_channel, self._service_host_port["grpc"][1], self._timeout
+            self._enshell_grpc_channel,
+            self._service_host_port["grpc"][1],
+            self._timeout,
+            self._secret_key,
+            grpc_allow_network_connections=self._grpc_allow_network_connections,
+            grpc_disable_tls=self._grpc_disable_tls,
+            grpc_uds_pathname=self._grpc_uds_pathname,
+            grpc_use_tcp_sockets=self._grpc_use_tcp_sockets,
         )
         log_dir = "/data"
         if self._enshell_grpc_channel:  # pragma: no cover
@@ -513,14 +606,31 @@ class DockerLauncher(Launcher):
 
         ensight_args += " -grpc_server " + str(self._service_host_port["grpc_private"][1])
 
+        if self._grpc_use_tcp_sockets:
+            ensight_args += " -grpc_use_tcp_sockets"
+        if self._grpc_allow_network_connections:
+            ensight_args += " -grpc_allow_network_connections"
+        if self._grpc_disable_tls:
+            ensight_args += " -grpc_disable_tls"
+        # Can't specify the same name; the default ought to be fine within the Docker Image
+        # if self._grpc_uds_pathname:
+        #    enshell_cmd += " -grpc_uds_pathname "+self._grpc_uds_pathname
+
         vnc_url = "vnc://%%3Frfb_port=1999%%26use_auth=0"
         ensight_args += " -vnc " + vnc_url
+        if self._liben_rest:
+            ensight_args += " -rest_server " + str(self._service_host_port["http"][1])
         if self._additional_command_line_options:
             ensight_args += " "
             ensight_args += " ".join(self._additional_command_line_options)
 
         logging.debug(f"Starting EnSight with args: {ensight_args}\n")
-        ret = self._enshell.start_ensight(ensight_args, ensight_env_vars)
+        if self._liben_rest:
+            ensight_location = "/ansys_inc/v" + self._ansys_version + "/CEI/bin/ensight "
+            ensight_args = ensight_location + ensight_args
+            ret = self._enshell.start_other(ensight_args, extra_env=ensight_env_vars)
+        else:
+            ret = self._enshell.start_ensight(ensight_args, ensight_env_vars)
         if ret[0] != 0:  # pragma: no cover
             self.stop()  # pragma: no cover
             raise RuntimeError(
@@ -530,42 +640,61 @@ class DockerLauncher(Launcher):
         logging.debug("EnSight started.  Starting wss...\n")
 
         # Run websocketserver
-        wss_cmd = "cpython /ansys_inc/v" + self._ansys_version + "/CEI/nexus"
-        wss_cmd += self._ansys_version + "/nexus_launcher/websocketserver.py"
-        # websocket port - this needs to come first since we now have
-        # --add_header as a optional arg that can take an arbitrary
-        # number of optional headers.
-        wss_cmd += " " + str(self._service_host_port["ws"][1])
-        #
-        wss_cmd += " --http_directory " + self._session_directory
-        # http port
-        wss_cmd += " --http_port " + str(self._service_host_port["http"][1])
-        # vnc port
-        wss_cmd += " --client_port 1999"
-        # optional PIM instance header
-        if self._pim_instance is not None:
-            # Add the PIM instance header. wss needs to return this optional
-            # header in each http response.  It's how the Ansys Lab proxy
-            # knows how to map back to this particular container's IP and port.
-            wss_cmd += " --add_header instance_name=" + self._pim_instance.name
-        # EnSight REST API
-        if self._enable_rest_api:
-            # grpc port
-            wss_cmd += " --grpc_port " + str(self._service_host_port["grpc_private"][1])
-        # EnVision sessions
-        wss_cmd += " --local_session envision 5"
+        if not self._liben_rest:
+            logging.debug(
+                "WebSocketserver script not being launched. WS server must be launched manually.\n\n"
+            )
+            wss_cmd = "cpython /ansys_inc/v" + self._ansys_version + "/CEI/nexus"
+            wss_cmd += self._ansys_version + "/nexus_launcher/websocketserver.py"
+            # websocket port - this needs to come first since we now have
+            # --add_header as a optional arg that can take an arbitrary
+            # number of optional headers.
+            if int(self._ansys_version) > 252 and self._do_not_start_ws:
+                wss_cmd += " -1"
+            else:
+                wss_cmd += " " + str(self._service_host_port["ws"][1])
+            #
+            wss_cmd += " --http_directory " + self._session_directory
+            # http port
+            wss_cmd += " --http_port " + str(self._service_host_port["http"][1])
+            # vnc port
+            if int(self._ansys_version) > 252 and self._rest_ws_separate_loops:
+                wss_cmd += " --separate_loops"
+            wss_cmd += f" --security_token {self._secret_key}"
+            wss_cmd += " --client_port 1999"
+            # optional PIM instance header
+            if self._pim_instance is not None:
+                # Add the PIM instance header. wss needs to return this optional
+                # header in each http response.  It's how the Ansys Lab proxy
+                # knows how to map back to this particular container's IP and port.
+                wss_cmd += " --add_header instance_name=" + self._pim_instance.name
+            # EnSight REST API
+            if self._enable_rest_api:
+                # grpc port
+                wss_cmd += " --grpc_port " + str(self._service_host_port["grpc_private"][1])
+                if self._grpc_use_tcp_sockets:
+                    wss_cmd += " --grpc_use_tcp_sockets"
+                if self._grpc_allow_network_connections:
+                    wss_cmd += " --grpc_allow_network_connections"
+                if self._grpc_disable_tls:
+                    wss_cmd += " --grpc_disable_tls"
+                if self._grpc_uds_pathname:
+                    wss_cmd += " --grpc_uds_pathname"
+                    wss_cmd += " " + self._grpc_uds_pathname
+            # EnVision sessions
+            wss_cmd += " --local_session envision 5"
 
-        wss_env_vars = None
-        if container_env_str != "":  # pragma: no cover
-            wss_env_vars = container_env_str  # pragma: no cover
+            wss_env_vars = None
+            if container_env_str != "":  # pragma: no cover
+                wss_env_vars = container_env_str  # pragma: no cover
 
-        logging.debug(f"Starting WSS: {wss_cmd}\n")
-        ret = self._enshell.start_other(wss_cmd, extra_env=wss_env_vars)
-        if ret[0] != 0:  # pragma: no cover
-            self.stop()  # pragma: no cover
-            raise RuntimeError(f"Error starting WSS: {wss_cmd}\n")  # pragma: no cover
+            logging.debug(f"Starting WSS: {wss_cmd}\n")
+            ret = self._enshell.start_other(wss_cmd, extra_env=wss_env_vars)
+            if ret[0] != 0:  # pragma: no cover
+                self.stop()  # pragma: no cover
+                raise RuntimeError(f"Error starting WSS: {wss_cmd}\n")  # pragma: no cover
 
-        logging.debug("wss started.  Making session...\n")
+            logging.debug("wss started.  Making session...\n")
 
         # build the session instance
         # WARNING: assuming the host is the same for grpc_private, http, and ws
@@ -581,6 +710,10 @@ class DockerLauncher(Launcher):
         session = ansys.pyensight.core.session.Session(
             host=self._service_host_port["grpc_private"][0],
             grpc_port=self._service_host_port["grpc_private"][1],
+            grpc_use_tcp_sockets=self._grpc_use_tcp_sockets,
+            grpc_allow_network_connections=self._grpc_allow_network_connections,
+            grpc_disable_tls=self._grpc_disable_tls,
+            grpc_uds_pathname=self._grpc_uds_pathname,
             html_hostname=self._service_host_port["http"][0],
             html_port=self._service_host_port["http"][1],
             ws_port=ws_port,
@@ -600,11 +733,58 @@ class DockerLauncher(Launcher):
 
         return session
 
+    def close(self, session):
+        """Shut down the launched EnSight session.
+
+        This method closes all associated sessions and then stops the
+        launched EnSight instance.
+
+        Parameters
+        ----------
+        session : ``pyensight.Session``
+            Session to close.
+
+        Raises
+        ------
+        RuntimeError
+            If the session was not launched by this launcher.
+
+        """
+        if self._enshell:
+            if self._enshell.is_connected():  # pragma: no cover
+                logging.debug("Killing WSS\n")
+                command = 'pkill -f "websocketserver.py"'
+                kill_env_vars = None
+                container_env_str = ""
+                if self._pim_instance is not None:
+                    container_env = self._get_container_env()
+                    for i in container_env.items():
+                        container_env_str += f"{i[0]}={i[1]}\n"
+                if container_env_str:  # pragma: no cover
+                    kill_env_vars = container_env_str  # pragma: no cover
+                ret = self._enshell.start_other(command, extra_env=kill_env_vars)
+                if ret[0] != 0:  # pragma: no cover
+                    pass
+        return super().close(session)
+
     def stop(self) -> None:
         """Release any additional resources allocated during launching."""
         if self._enshell:
             if self._enshell.is_connected():  # pragma: no cover
                 try:
+                    logging.debug("Killing WSS\n")
+                    command = 'pkill -f "websocketserver.py"'
+                    kill_env_vars = None
+                    container_env_str = ""
+                    if self._pim_instance is not None:
+                        container_env = self._get_container_env()
+                        for i in container_env.items():
+                            container_env_str += f"{i[0]}={i[1]}\n"
+                    if container_env_str:  # pragma: no cover
+                        kill_env_vars = container_env_str  # pragma: no cover
+                    ret = self._enshell.start_other(command, extra_env=kill_env_vars)
+                    if ret[0] != 0:  # pragma: no cover
+                        pass
                     logging.debug("Stopping EnShell.\n")
                     self._enshell.stop_server()
                 except Exception:  # pragma: no cover
