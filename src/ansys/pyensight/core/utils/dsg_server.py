@@ -12,6 +12,20 @@ from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2
 from ansys.pyensight.core import ensight_grpc
 import numpy
 
+original_stderr = sys.stderr
+original_stdout = sys.stdout
+sys.stderr = open(os.devnull, "w")
+sys.stdout = open(os.devnull, "w")
+try:
+    import dsgutils
+
+    dsgutils_loaded = True
+except (ModuleNotFoundError, ImportError, AttributeError):
+    dsgutils_loaded = False
+finally:
+    sys.stderr = original_stderr
+    sys.stdout = original_stdout
+
 if TYPE_CHECKING:
     from ansys.pyensight.core import Session
 
@@ -238,36 +252,51 @@ class Part(object):
                     self.session.log("Warning: zero length normals!")
                 else:
                     new_normals = numpy.ndarray((num_prims * verts_per_prim * 3,), dtype="float32")
-            j = 0
-            for i0 in range(num_prims):
-                for i1 in range(verts_per_prim):
-                    idx = conn[i0 * verts_per_prim + i1]
-                    # new connectivity (identity)
-                    new_conn[j] = j
-                    # copy the vertex
-                    new_verts[j * 3 + 0] = verts[idx * 3 + 0]
-                    new_verts[j * 3 + 1] = verts[idx * 3 + 1]
-                    new_verts[j * 3 + 2] = verts[idx * 3 + 2]
-                    if new_normals is not None:
-                        if self.normals_elem:
-                            # copy the normal associated with the face
-                            new_normals[j * 3 + 0] = normals[i0 * 3 + 0]
-                            new_normals[j * 3 + 1] = normals[i0 * 3 + 1]
-                            new_normals[j * 3 + 2] = normals[i0 * 3 + 2]
-                        else:
-                            # copy the same normal as the vertex
-                            new_normals[j * 3 + 0] = normals[idx * 3 + 0]
-                            new_normals[j * 3 + 1] = normals[idx * 3 + 1]
-                            new_normals[j * 3 + 2] = normals[idx * 3 + 2]
-                    if new_tcoords is not None:
-                        # remember, 1D texture coords at this point
-                        if self.tcoords_elem:
-                            # copy the texture coord associated with the face
-                            new_tcoords[j] = tcoords[i0]
-                        else:
-                            # copy the same texture coord as the vertex
-                            new_tcoords[j] = tcoords[idx]
-                    j += 1
+            if dsgutils_loaded:
+                dsgutils.build_nodal_surface_rep(
+                    verts_per_prim,
+                    self.normals_elem,
+                    self.tcoords_elem,
+                    conn,
+                    verts,
+                    normals,
+                    tcoords,
+                    new_conn,
+                    new_verts,
+                    new_normals,
+                    new_tcoords,
+                )
+            else:
+                j = 0
+                for i0 in range(num_prims):
+                    for i1 in range(verts_per_prim):
+                        idx = conn[i0 * verts_per_prim + i1]
+                        # new connectivity (identity)
+                        new_conn[j] = j
+                        # copy the vertex
+                        new_verts[j * 3 + 0] = verts[idx * 3 + 0]
+                        new_verts[j * 3 + 1] = verts[idx * 3 + 1]
+                        new_verts[j * 3 + 2] = verts[idx * 3 + 2]
+                        if new_normals is not None:
+                            if self.normals_elem:
+                                # copy the normal associated with the face
+                                new_normals[j * 3 + 0] = normals[i0 * 3 + 0]
+                                new_normals[j * 3 + 1] = normals[i0 * 3 + 1]
+                                new_normals[j * 3 + 2] = normals[i0 * 3 + 2]
+                            else:
+                                # copy the same normal as the vertex
+                                new_normals[j * 3 + 0] = normals[idx * 3 + 0]
+                                new_normals[j * 3 + 1] = normals[idx * 3 + 1]
+                                new_normals[j * 3 + 2] = normals[idx * 3 + 2]
+                        if new_tcoords is not None:
+                            # remember, 1D texture coords at this point
+                            if self.tcoords_elem:
+                                # copy the texture coord associated with the face
+                                new_tcoords[j] = tcoords[i0]
+                            else:
+                                # copy the same texture coord as the vertex
+                                new_tcoords[j] = tcoords[idx]
+                        j += 1
             # new arrays.
             verts = new_verts
             conn = new_conn
@@ -349,24 +378,27 @@ class Part(object):
         var_minmax: List[float] = [v_min, v_max]  # type: ignore
         # build a power of two x 1 texture
         num_texels = len(var_cmd.texture) // 4
-        half_texel = 1 / (num_texels * 2.0)
-        tmp = numpy.ndarray((num_verts * 2,), dtype="float32")
-        tmp.fill(0.5)  # fill in the T coordinate...
-        tex_width = half_texel * 2 * (num_texels - 1)  # center to center of num_texels
-        # if the range is 0, adjust the min by -1.   The result is that the texture
-        # coords will get mapped to S=1.0 which is what EnSight does in this situation
-        if (var_minmax[1] - var_minmax[0]) == 0.0:
-            var_minmax[0] = var_minmax[0] - 1.0
-        var_width = var_minmax[1] - var_minmax[0]
-        for idx in range(num_verts):
-            # normalized S coord value (clamp)
-            s = (tcoords[idx] - var_minmax[0]) / var_width
-            if s < 0.0:
-                s = 0.0
-            if s > 1.0:
-                s = 1.0
-            # map to the texture range and set the S value
-            tmp[idx * 2] = s * tex_width + half_texel
+        if dsgutils_loaded:
+            tmp = dsgutils.build_st_coords(tcoords, v_min, v_max, num_texels)
+        else:
+            half_texel = 1 / (num_texels * 2.0)
+            tmp = numpy.ndarray((num_verts * 2,), dtype="float32")
+            tmp.fill(0.5)  # fill in the T coordinate...
+            tex_width = half_texel * 2 * (num_texels - 1)  # center to center of num_texels
+            # if the range is 0, adjust the min by -1.   The result is that the texture
+            # coords will get mapped to S=1.0 which is what EnSight does in this situation
+            if (var_minmax[1] - var_minmax[0]) == 0.0:
+                var_minmax[0] = var_minmax[0] - 1.0
+            var_width = var_minmax[1] - var_minmax[0]
+            for idx in range(num_verts):
+                # normalized S coord value (clamp)
+                s = (tcoords[idx] - var_minmax[0]) / var_width
+                if s < 0.0:
+                    s = 0.0
+                if s > 1.0:
+                    s = 1.0
+                # map to the texture range and set the S value
+                tmp[idx * 2] = s * tex_width + half_texel
         return tmp, var_cmd
 
     def line_rep(self):
@@ -644,6 +676,10 @@ class DSGSession(object):
         time_scale: float = 1.0,
         handler: UpdateHandler = UpdateHandler(),
         session: Optional["Session"] = None,
+        uds_path: Optional[str] = None,
+        grpc_use_tcp_sockets: bool = False,
+        grpc_allow_network_connections: bool = False,
+        grpc_disable_tls: bool = False,
     ):
         """
         Manage a gRPC connection and link it to an UpdateHandler instance
@@ -679,9 +715,34 @@ class DSGSession(object):
             This is an UpdateHandler subclass that is called back when the state of
             a scene transfer changes.  For example, methods are called when the
             transfer begins or ends and when a Part (mesh block) is ready for processing.
+        uds_path: string
+            The unix domain socket path if required for the gRPC connection
+        grpc_use_tcp_sockets: bool, optional
+            If using gRPC, and if True, then allow TCP Socket based connections
+            instead of only local connections.
+        grpc_allow_network_connections: bool, optional
+            If using gRPC and using TCP Socket based connections, listen on all networks.
+        grpc_disable_tls: bool, optional
+            If using gRPC and using TCP Socket based connections, disable TLS.
         """
         super().__init__()
-        self._grpc = ensight_grpc.EnSightGRPC(port=port, host=host, secret_key=security_code)
+        if uds_path:
+            self._grpc = ensight_grpc.EnSightGRPC(
+                grpc_uds_pathname=uds_path,
+                secret_key=security_code,
+                grpc_use_tcp_sockets=grpc_use_tcp_sockets,
+                grpc_allow_network_connections=grpc_allow_network_connections,
+                grpc_disable_tls=grpc_disable_tls,
+            )
+        else:
+            self._grpc = ensight_grpc.EnSightGRPC(
+                port=port,
+                host=host,
+                secret_key=security_code,
+                grpc_use_tcp_sockets=grpc_use_tcp_sockets,
+                grpc_allow_network_connections=grpc_allow_network_connections,
+                grpc_disable_tls=grpc_disable_tls,
+            )
         self._session = session
         if self._session:
             self._session.set_dsg_session(self)
@@ -925,7 +986,7 @@ class DSGSession(object):
             except Exception:
                 self._shutdown = True
                 self.log("DSG connection broken, calling exit")
-                os._exit(0)
+                sys.exit(0)
 
     def _get_next_message(self, wait: bool = True) -> Any:
         """Get the next queued up protobuffer message

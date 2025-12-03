@@ -2388,11 +2388,10 @@ the *Sandia Verdict Library*.
 
 **References**
 
-For more information on individual metrics, see these references:
+For more information on individual metrics, see this reference:
 
 1. C. J. Stimpson, C. D. Ernst, P. Knupp, P. P. Pebay, & D.
    Thompson, The Verdict Library Reference Manual, May 8, 2007.
-2. The Verdict Library Reference Manual (http://www.vtk.org/Wiki/images/6/6b/VerdictManual-revA.pdf)
 
 
 

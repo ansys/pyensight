@@ -12,12 +12,16 @@ import pytest
 def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
+    install_path = pytestconfig.getoption("install_path")
+    use_local_test_data = pytestconfig.getoption("use_local_test_data")
     root = None
     if use_local:
-        launcher = LocalLauncher()
+        launcher = LocalLauncher(ansys_installation=install_path)
         root = "http://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
     else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
+        launcher = DockerLauncher(
+            data_directory=data_dir, use_dev=True, grpc_disable_tls=True, grpc_use_tcp_sockets=True
+        )
     session = launcher.start()
     if not use_local:
         launcher._enshell.host
@@ -299,22 +303,29 @@ def test_coverage_increase(tmpdir, pytestconfig: pytest.Config):
     if not use_local:
         launcher.enshell_log_contents()
     assert session.ensight.objs.core.PARTS[0] != session.ensight.objs.core.PARTS[1]
-    counter = 0
-    success = False
-    while not success and counter < 5:
-        try:
-            cas_file = session.download_pyansys_example(
-                "mixing_elbow.cas.h5", "pyfluent/mixing_elbow"
-            )
-            dat_file = session.download_pyansys_example(
-                "mixing_elbow.dat.h5", "pyfluent/mixing_elbow"
-            )
-            success = True
-        except Exception:
-            counter += 1
-            time.sleep(60)
-    if counter == 5 and not success:
-        raise RuntimeError("Couldn't download data from github")
+    if not use_local_test_data:
+        counter = 0
+        success = False
+        while not success and counter < 5:
+            try:
+                cas_file = session.download_pyansys_example(
+                    "mixing_elbow.cas.h5", "pyfluent/mixing_elbow"
+                )
+                dat_file = session.download_pyansys_example(
+                    "mixing_elbow.dat.h5", "pyfluent/mixing_elbow"
+                )
+                success = True
+            except Exception:
+                counter += 1
+                time.sleep(60)
+        if counter == 5 and not success:
+            raise RuntimeError("Couldn't download data from github")
+    else:
+        pyensight_test_data_path = os.path.join(
+            session.cei_home, f"apex{session.cei_suffix}", "machines", "common", "PyEnSightTestData"
+        )
+        cas_file = os.path.join(pyensight_test_data_path, "mixing_elbow.cas.h5")
+        dat_file = os.path.join(pyensight_test_data_path, "mixing_elbow.dat.h5")
     session.load_data(cas_file, result_file=dat_file)
     #
     assert session.ensight_version_check("2021 R1")
@@ -338,7 +349,13 @@ def test_particle_traces_and_geometry(tmpdir, pytestconfig: pytest.Config):
         launcher = LocalLauncher(enable_rest_api=True)
         root = "http://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
     else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True, enable_rest_api=True)
+        launcher = DockerLauncher(
+            data_directory=data_dir,
+            use_dev=True,
+            enable_rest_api=True,
+            grpc_disable_tls=True,
+            grpc_use_tcp_sockets=True,
+        )
     session = launcher.start()
     session.load_example("waterbreak.ens", root=root)
     session.show("webensight")
@@ -433,7 +450,13 @@ def test_sos(tmpdir, pytestconfig: pytest.Config):
         launcher = LocalLauncher(use_sos=2)
     else:
         is_docker = True
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True, use_sos=2)
+        launcher = DockerLauncher(
+            data_directory=data_dir,
+            use_dev=True,
+            use_sos=2,
+            grpc_disable_tls=True,
+            grpc_use_tcp_sockets=True,
+        )
     session = launcher.start()
     session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/cube/cube.case")
     assert session.grpc.port() == session._grpc_port
@@ -441,10 +464,15 @@ def test_sos(tmpdir, pytestconfig: pytest.Config):
     assert session.grpc.security_token == session._secret_key
     session.close()
     if is_docker:
-        session = launch_ensight(use_docker=True, use_dev=True, data_directory=data_dir)
+        session = launch_ensight(
+            use_docker=True,
+            use_dev=True,
+            data_directory=data_dir,
+            grpc_disable_tls=True,
+            grpc_use_tcp_sockets=True,
+        )
         assert session._launcher._enshell.host() == session._hostname
         session._launcher._enshell.port()
-        session._launcher._enshell.security_token()
         session._launcher._enshell.metadata()
         _parts = session.ensight.objs.core.PARTS
         session.ensight.utils.parts.get_part_id_obj_name(_parts, "id")

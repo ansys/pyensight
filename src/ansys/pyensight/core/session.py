@@ -84,6 +84,16 @@ class Session:
         The default is ``""``.
     grpc_port : int, optional
         Port number of the EnSight gRPC service. The default is ``12345``.
+    grpc_use_tcp_sockets : bool, optional
+        If using gRPC, and if True, then allow TCP Socket based connections
+        instead of only local connections.
+    grpc_allow_network_connections : bool, optional
+        If using gRPC and using TCP Socket based connections, listen on all networks.
+    grpc_disable_tls : bool, optional
+        If using gRPC and using TCP Socket based connections, disable TLS.
+    grpc_uds_pathname : str, optional
+        If using gRPC and using Unix Domain Socket based connections, explicitly
+        set the pathname to the shared UDS file instead of using the default.
     html_host : str, optional
         Optional hostname for html connections if different than host
         Used by Ansys Lab and reverse proxy servers
@@ -123,6 +133,12 @@ class Session:
     >>> # Create a second connection to the same EnSight instance
     >>> connected_session = eval(session_string)
 
+    WARNING:
+    Overriding the default values for these options: grpc_use_tcp_sockets, grpc_allow_network_connections,
+    and grpc_disable_tls
+    can possibly permit control of this computer and any data which resides on it.
+    Modification of this configuration is not recommended.  Please see the
+    documentation for your installed product for additional information.
     """
 
     def __init__(
@@ -131,6 +147,10 @@ class Session:
         install_path: Optional[str] = None,
         secret_key: str = "",
         grpc_port: int = 12345,
+        grpc_use_tcp_sockets: Optional[bool] = False,
+        grpc_allow_network_connections: Optional[bool] = False,
+        grpc_disable_tls: Optional[bool] = False,
+        grpc_uds_pathname: Optional[str] = None,
         html_hostname: Optional[str] = None,
         html_port: Optional[int] = None,
         ws_port: Optional[int] = None,
@@ -163,6 +183,10 @@ class Session:
         self._ws_port = ws_port
         self._secret_key = secret_key
         self._grpc_port = grpc_port
+        self._grpc_use_tcp_sockets = grpc_use_tcp_sockets
+        self._grpc_allow_network_connections = grpc_allow_network_connections
+        self._grpc_disable_tls = grpc_disable_tls
+        self._grpc_uds_pathname = grpc_uds_pathname
         self._halt_ensight_on_close = True
         self._callbacks: Dict[str, Tuple[int, Any]] = dict()
         self._webui_port = webui_port
@@ -188,7 +212,14 @@ class Session:
         self._ensight = ensight_api.ensight(self)
         self._build_utils_interface()
         self._grpc = ensight_grpc.EnSightGRPC(
-            host=self._hostname, port=self._grpc_port, secret_key=self._secret_key
+            host=self._hostname,
+            port=self._grpc_port,
+            secret_key=self._secret_key,
+            grpc_use_tcp_sockets=self._grpc_use_tcp_sockets,
+            grpc_allow_network_connections=self._grpc_allow_network_connections,
+            grpc_disable_tls=self._grpc_disable_tls,
+            grpc_uds_pathname=self._grpc_uds_pathname,
+            session=self,
         )
         self._grpc.session_name = self._session_name
 
@@ -273,7 +304,12 @@ class Session:
         s += f"sos={self.sos}, rest_api={self.rest_api}, "
         s += f"html_hostname='{self.html_hostname}', html_port={self.html_port}, "
         s += f"grpc_port={self._grpc_port}, "
-        s += f"ws_port={self.ws_port}, session_directory=r'{session_dir}')"
+        s += f"ws_port={self.ws_port}, session_directory=r'{session_dir}', "
+        s += f"webui_port={self._webui_port}, "
+        s += f"grpc_use_tcp_sockets={self._grpc_use_tcp_sockets}, "
+        s += f"grpc_allow_network_connections={self._grpc_allow_network_connections}, "
+        s += f"grpc_disable_tls={self._grpc_disable_tls}, "
+        s += f"grpc_uds_pathname='{self._grpc_uds_pathname}')"
         return s
 
     def _establish_connection(self, validate: bool = False) -> None:
@@ -1058,6 +1094,11 @@ class Session:
                 except RuntimeError:  # pragma: no cover
                     # handle some intermediate EnSight builds.
                     pass
+                except IOError:  # pragma: no cover
+                    # The session might already have been closed via another
+                    # session object. If grpc is inactive, there's no sense
+                    # in raising an exception since we are closing it anyway
+                    pass
             if self._launcher and self._halt_ensight_on_close:
                 self._launcher.close(self)
             else:
@@ -1159,7 +1200,7 @@ class Session:
         --------
         >>> from ansys.pyensight.core import LocalLauncher
         >>> session = LocalLauncher().start()
-        >>> session.load_data(r'D:\data\CFX\example_data.res')
+        >>> session.load_data('D:\\data\\CFX\\example_data.res')
 
         """
         self._establish_connection()
@@ -1273,22 +1314,30 @@ class Session:
         >>> remote = session.show("remote")
         >>> remote.browser()
         """
-        base_uri = "https://github.com/ansys/example-data/raw/master"
-        base_api_uri = "https://api.github.com/repos/ansys/example-data/contents"
+        base_uri = "https://api.github.com/repos/ansys/example-data/contents"
+        override_root = False
         if not folder:
             if root is not None:
                 base_uri = root
-        else:
-            base_uri = base_api_uri
+                override_root = True
         uri = f"{base_uri}/{filename}"
         if directory:
             uri = f"{base_uri}/{directory}/{filename}"
         pathname = f"{self.launcher.session_directory}/{filename}"
         if not folder:
+            if override_root:
+                correct_url = uri
+            else:
+                correct_url = None
+                with requests.get(uri) as r:
+                    data = r.json()
+                    correct_url = data["download_url"]
+                if not correct_url:
+                    raise RuntimeError(f"Couldn't retrieve download URL from github uri {uri}")
             script = "import requests\n"
             script += "import shutil\n"
             script += "import os\n"
-            script += f'url = "{uri}"\n'
+            script += f'url = "{correct_url}"\n'
             script += f'outpath = r"""{pathname}"""\n'
             script += "with requests.get(url, stream=True) as r:\n"
             script += "    with open(outpath, 'wb') as f:\n"
@@ -1418,7 +1467,7 @@ class Session:
         >>> def cb(v: str):
         >>>     print("Event:", v)
         >>> s.add_callback("ensight.objs.core", "partlist", ["PARTS"], cb)
-        >>> s.load_data(r"D:\ANSYSDev\data\CFX\HeatingCoil_001.res")
+        >>> s.load_data("D:\\ANSYSDev\\data\\CFX\\HeatingCoil_001.res")
         """
         self._establish_connection()
         # shorten the tag up to the query block. Macros are only legal in the query block.

@@ -5,8 +5,10 @@ import platform
 import subprocess
 import sys
 import tempfile
+import threading
 from types import ModuleType
 from typing import TYPE_CHECKING, List, Optional, Union
+from urllib.parse import ParseResult, urlparse
 import uuid
 
 import psutil
@@ -18,6 +20,14 @@ if TYPE_CHECKING:
         from ansys.api.pyensight import ensight_api
 
 
+def _handle_fluids_one(install_path):
+    cei_path = install_path
+    interpreter = os.path.join(cei_path, "bin", "cpython")
+    if platform.system() == "Windows":
+        interpreter += ".bat"
+    return interpreter
+
+
 class OmniverseKitInstance:
     """Interface to an Omniverse application instance
 
@@ -27,8 +37,16 @@ class OmniverseKitInstance:
         The process id of the launched instance
     """
 
-    def __init__(self, pid: int) -> None:
-        self._pid: Optional[int] = pid
+    def __init__(self, proc: subprocess.Popen) -> None:
+        self._proc: subprocess.Popen = proc
+        self._returncode: Optional[int] = None
+        self._rendering = False
+        self._lines_read = 0
+        self._scanner_thread = threading.Thread(
+            target=OmniverseKitInstance._scan_stdout, args=(self,)
+        )
+        self._scanner_thread.start()
+        self._simba_url: Optional[ParseResult] = None
 
     def __del__(self) -> None:
         """Close down the instance on delete"""
@@ -42,20 +60,46 @@ class OmniverseKitInstance:
         """
         if not self.is_running():
             return
-        proc = psutil.Process(self._pid)
+        proc = psutil.Process(self._proc.pid)
         for child in proc.children(recursive=True):
             if psutil.pid_exists(child.pid):
                 # This can be a race condition, so it is ok if the child is dead already
                 try:
-                    child.kill()
+                    child.terminate()
                 except psutil.NoSuchProcess:
                     pass
         # Same issue, this process might already be shutting down, so NoSuchProcess is ok.
         try:
-            proc.kill()
+            proc.terminate()
         except psutil.NoSuchProcess:
             pass
-        self._pid = None
+        self._scanner_thread.join()
+
+        # On a forced close, set a return code of 0
+        self._returncode = 0
+        self._simba_url = None
+
+    @staticmethod
+    def _scan_stdout(oki: "OmniverseKitInstance"):
+        while oki._proc and oki._proc.poll() is None:
+            if oki._proc.stdout is not None:
+                output_line = oki._proc.stdout.readline().decode("utf-8")
+                oki._lines_read = oki._lines_read + 1
+                if "RTX ready" in output_line:
+                    oki._rendering = True
+                if output_line.startswith("Server running on "):
+                    urlstr = output_line.removeprefix("Server running on ")
+                    oki._simba_url = urlparse(urlstr)
+
+    def is_rendering(self) -> bool:
+        """Check if the instance has finished launching and is ready to render
+
+        Returns
+        -------
+        bool
+            True if the instance is ready to render.
+        """
+        return self.is_running() and self._rendering
 
     def is_running(self) -> bool:
         """Check if the instance is still running
@@ -65,14 +109,39 @@ class OmniverseKitInstance:
         bool
             True if the instance is still running.
         """
-        if not self._pid:
+        if self._proc is None:
             return False
-        if psutil.pid_exists(self._pid):
+        if self._proc.poll() is None:
             return True
-        self._pid = None
         return False
 
+    def simba_url(self) -> Optional[ParseResult]:
+        """Return the URL for the Simba server
 
+        Returns
+        -------
+        ParseResult or None
+            URL for the Simba server, or None if it is not running
+        """
+        return self._simba_url
+
+    def returncode(self) -> Optional[int]:
+        """Get the return code if the process has stopped, or None if still running
+
+        Returns
+        -------
+        int or None
+            Get the return code if the process has stopped, or None if still running
+        """
+        if self._returncode is not None:
+            return self._returncode
+        if self.is_running():
+            return None
+        self._returncode = self._proc.returncode
+        return self._returncode
+
+
+# Deprecated
 def find_kit_filename(fallback_directory: Optional[str] = None) -> Optional[str]:
     """
     Use a combination of the current omniverse application and the information
@@ -146,6 +215,7 @@ def find_kit_filename(fallback_directory: Optional[str] = None) -> Optional[str]
     return None
 
 
+# Deprecated
 def launch_kit_instance(
     kit_path: Optional[str] = None,
     extension_paths: Optional[List[str]] = None,
@@ -206,8 +276,124 @@ def launch_kit_instance(
         cmd.append("--/log/enabled=true")
     # Launch the process
     env_vars = os.environ.copy()
-    p = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env_vars)
-    return OmniverseKitInstance(p.pid)
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env_vars)
+    return OmniverseKitInstance(p)
+
+
+def find_app(ansys_installation: Optional[str] = None) -> Optional[str]:
+    dirs_to_check = []
+    if ansys_installation:
+        # Given a different Ansys install
+        local_tp = os.path.join(os.path.join(ansys_installation, "tp", "showcase"))
+        if os.path.exists(local_tp):
+            dirs_to_check.append(local_tp)
+        # Dev Folder
+        omni_platform_dir = "linux-x86_64"
+        if sys.platform.startswith("win"):
+            omni_platform_dir = "windows-x86_64"
+        local_dev_omni = os.path.join(
+            ansys_installation,
+            "omni_build",
+            "kit-app-template",
+            "_build",
+            omni_platform_dir,
+            "release",
+        )
+        if os.path.exists(local_dev_omni):
+            dirs_to_check.append(local_dev_omni)
+    if "PYENSIGHT_ANSYS_INSTALLATION" in os.environ:
+        env_inst = os.environ["PYENSIGHT_ANSYS_INSTALLATION"]
+        dirs_to_check.append(os.path.join(env_inst, "tp", "showcase"))
+
+    # Look for most recent Ansys install, 25.2 or later
+    awp_roots = []
+    for env_name in dict(os.environ).keys():
+        if env_name.startswith("AWP_ROOT") and int(env_name[len("AWP_ROOT") :]) >= 252:
+            awp_roots.append(env_name)
+    awp_roots.sort(reverse=True)
+    for env_name in awp_roots:
+        dirs_to_check.append(os.path.join(os.environ[env_name], "tp", "showcase"))
+
+    # check all the collected locations in order
+    for install_dir in dirs_to_check:
+        launch_file = os.path.join(install_dir, "ansys_tools_omni_core.py")
+        if os.path.isfile(launch_file):
+            return launch_file
+    return None
+
+
+def launch_app(
+    usd_file: Optional[str] = "",
+    layout: Optional[str] = "default",
+    streaming: Optional[bool] = False,
+    offscreen: Optional[bool] = False,
+    log_file: Optional[str] = None,
+    log_level: Optional[str] = "warn",
+    cli_options: Optional[List[str]] = None,
+    ansys_installation: Optional[str] = None,
+    interpreter: Optional[str] = None,
+) -> "OmniverseKitInstance":
+    """Launch the Ansys Omniverse application
+
+    Parameters
+    ----------
+    # usd_file : Optional[str]
+    #    A .usd file to open on startup
+    # layout : Optional[str]
+    #    A UI layout.  viewer, composer, or composer_slim
+    # streaming : Optional[bool]
+    #    Enable webrtc streaming to enable the window in a web page
+    # offscreen : Optional[str]
+    #    Run the app offscreen.  Useful when streaming.
+    # log_file : Optional[str]
+    #    The name of a text file where the logging information for the instance will be saved.
+    # log_level : Optional[str]
+    #    The level of the logging information to record: "verbose", "info", "warn", "error", "fatal",
+    #    the default is "warn".
+    # cli_options : Optional[List[str]]
+    #    Other command line options
+
+    Returns
+    -------
+    OmniverseKitInstance
+        The object interface for the launched instance
+
+    Examples
+    --------
+    Run the app with default options
+
+    >>> from ansys.pyensight.core.utils import omniverse
+    >>> ov = omniverse.launch_app()
+
+    """
+    cmd = [sys.executable]
+    if interpreter:
+        cmd = [interpreter]
+    app = find_app(ansys_installation=ansys_installation)
+    if not app:
+        raise RuntimeError("Unable to find the Ansys Omniverse app")
+    cmd.extend([app])
+    if usd_file:
+        cmd.extend(["-f", usd_file])
+    if layout:
+        cmd.extend(["-l", layout])
+    if streaming:
+        cmd.extend(["-s"])
+    if offscreen:
+        cmd.extend(["-o"])
+    if cli_options:
+        cmd.extend(cli_options)
+    if log_level:
+        if log_level not in ("verbose", "info", "warn", "error", "fatal"):
+            raise RuntimeError(f"Invalid logging level: {log_level}")
+        cmd.extend([f"--/log/level={log_level}"])
+    if log_file:
+        cmd.extend(["--/log/enabled=true", f"--/log/file={log_file}"])
+
+    # Launch the process
+    env_vars = os.environ.copy()
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env_vars)
+    return OmniverseKitInstance(p)
 
 
 class Omniverse:
@@ -236,7 +422,7 @@ class Omniverse:
     >>> from ansys.pyensight.core import LocalLauncher
     >>> session = LocalLauncher().start()
     >>> ov = session.ensight.utils.omniverse
-    >>> ov.create_connection(r"D:\Omniverse\Example")
+    >>> ov.create_connection("D:\\Omniverse\\Example")
     >>> ov.update()
     >>> ov.close_connection()
 
@@ -274,8 +460,25 @@ class Omniverse:
             if platform.system() == "Windows":
                 self._interpreter += ".bat"
             return
+        # Check if the python interpreter is kit itself
+        is_omni = False
+        try:
+            import omni  # noqa: F401
+
+            is_omni = "kit" in os.path.basename(sys.executable)
+        except ModuleNotFoundError:
+            pass
         # Using the python interpreter running this code
         self._interpreter = sys.executable
+        if "fluids_one" in self._interpreter:  # compiled simba-app
+            self._interpreter = _handle_fluids_one(self._ensight._session._install_path)
+        if is_omni:
+            kit_path = os.path.dirname(sys.executable)
+            self._interpreter = os.path.join(kit_path, "python")
+            if platform.system() == "Windows":
+                self._interpreter += ".bat"
+            else:
+                self._interpreter += ".sh"
 
         # in the future, these will be part of the pyensight wheel
         # dependencies, but for now we include this check.
@@ -355,20 +558,43 @@ class Omniverse:
         self._check_modules()
         if self.is_running_omniverse():
             raise RuntimeError("An Omniverse server connection is already active.")
+        dsg_uri = None
+        is_win = "Win" in platform.system()
+        grpc_use_tcp_sockets = False
+        grpc_allow_network_connectsion = False
+        grpc_disable_tls = False
         if not isinstance(self._ensight, ModuleType):
             # Make sure the internal ui module is loaded
+            grpc_use_tcp_sockets = self._ensight._session._grpc_use_tcp_sockets
+            grpc_allow_network_connectsion = self._ensight._session._grpc_allow_network_connections
+            grpc_disable_tls = self._ensight._session._grpc_disable_tls
             self._ensight._session.cmd("import enspyqtgui_int", do_eval=False)
             # Get the gRPC connection details and use them to launch the service
-            port = self._ensight._session.grpc.port()
+            use_tcp_sockets = self._ensight._session._grpc_use_tcp_sockets
             hostname = self._ensight._session.grpc.host
             token = self._ensight._session.grpc.security_token
+            if not is_win and not use_tcp_sockets:
+                uds_path = self._ensight._session._grpc_uds_pathname
+                dsg_uds_path = "/tmp/greeter"
+                if uds_path:
+                    dsg_uds_path = uds_path
+                dsg_uri = f"unix:{dsg_uds_path}.sock"
+            else:
+                port = self._ensight._session._grpc_port
+                hostname = self._ensight._session.grpc.host
+                token = self._ensight._session.grpc.security_token
+                dsg_uri = f"grpc://{hostname}:{port}"
         else:
             hostname = options.get("host", "127.0.0.1")
             port = options.get("port", 12345)
+            uds_path = options.get("uds_path")
             token = options.get("security", "")
+            if uds_path and not is_win:
+                dsg_uri = f"unix:{uds_path}.sock"
+            else:
+                dsg_uri = f"grpc://{hostname}:{port}"
 
         # Launch the server via the 'ansys.pyensight.core.utils.omniverse_cli' module
-        dsg_uri = f"grpc://{hostname}:{port}"
         cmd = [self._interpreter]
         cmd.extend(["-m", "ansys.pyensight.core.utils.omniverse_cli"])
         cmd.append(omniverse_path)
@@ -386,6 +612,12 @@ class Omniverse:
             cmd.extend(["--line_width", str(line_width)])
         if not live:
             cmd.extend(["--oneshot", "1"])
+        if grpc_allow_network_connectsion:
+            cmd.extend(["--grpc_allow_network_connections", "1"])
+        if grpc_disable_tls:
+            cmd.extend(["--grpc_disable_tls", "1"])
+        if grpc_use_tcp_sockets:
+            cmd.extend(["--grpc_use_tcp_sockets", "1"])
         cmd.extend(["--dsg_uri", dsg_uri])
         env_vars = os.environ.copy()
         # we are launching the kit from EnSight or PyEnSight.  In these cases, we

@@ -72,7 +72,7 @@ Installation
 ------------
 To use PyEnSight, you must have a locally installed and licensed copy of
 Ansys EnSight 2022 R2 or later. The ``ansys-pyensight-core`` package supports
-Python 3.9 through Python 3.12 on Windows and Linux.
+Python 3.10 through Python 3.12 on Windows and Linux.
 
 Two modes of installation are available:
 

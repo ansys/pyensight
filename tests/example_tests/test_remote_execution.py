@@ -23,10 +23,13 @@ def test_remote_execution(tmpdir, pytestconfig: pytest.Config):
 
     data_dir = tmpdir.mkdir("datadir")
     use_local = pytestconfig.getoption("use_local_launcher")
+    install_path = pytestconfig.getoption("install_path")
     if use_local:
-        launcher = LocalLauncher()
+        launcher = LocalLauncher(ansys_installation=install_path)
     else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
+        launcher = DockerLauncher(
+            data_directory=data_dir, use_dev=True, grpc_disable_tls=True, grpc_use_tcp_sockets=True
+        )
     session = launcher.start()
     session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/guard_rail/crash.case")
     start = time.time()

@@ -107,6 +107,9 @@ class Launcher:
         use_mpi: Optional[str] = None,
         interconnect: Optional[str] = None,
         server_hosts: Optional[List[str]] = None,
+        rest_ws_separate_loops: bool = False,
+        do_not_start_ws: bool = False,
+        liben_rest: bool = False,
     ) -> None:
         self._timeout = timeout
         self._use_egl_param_val: bool = use_egl
@@ -141,6 +144,10 @@ class Launcher:
         self._query_parameters: Dict[str, str] = {}
         self._additional_command_line_options = additional_command_line_options
         self._launch_webui = launch_webui
+        self._do_not_start_ws = do_not_start_ws
+        self._liben_rest = liben_rest
+        self._rest_ws_separate_loops = rest_ws_separate_loops
+        self._has_grpc_changes = False
 
     @property
     def session_directory(self) -> str:
@@ -186,7 +193,10 @@ class Launcher:
         url = f"http://{session.hostname}:{session.html_port}/v1/stop"
         if session.secret_key:  # pragma: no cover
             url += f"?security_token={session.secret_key}"
-        _ = requests.get(url)
+        try:
+            _ = requests.get(url)
+        except requests.exceptions.ConnectionError:
+            pass
 
         # Stop the launcher instance
         self.stop()
@@ -234,7 +244,7 @@ class Launcher:
         for process in psutil.process_iter():
             try:
                 process_cmdline = process.cmdline()
-            except (psutil.AccessDenied, psutil.ZombieProcess, OSError):
+            except (psutil.AccessDenied, psutil.ZombieProcess, OSError, psutil.NoSuchProcess):
                 continue
             if not process_cmdline:
                 continue
@@ -340,3 +350,15 @@ class Launcher:
                 del self._query_parameters[item]  # pragma: no cover
             except Exception:  # pragma: no cover
                 pass  # pragma: no cover
+
+    def _get_versionfrom_buildinfo(self, buildinfo):
+        """Check if the gRPC security options apply to the EnSight install."""
+        version_match = re.search("Version:\s(.*)\n", buildinfo)
+        internal_version_match = re.search("Internal:\s(.*)\n", buildinfo)
+        if not internal_version_match:
+            raise RuntimeError("Couldn't parse EnSight internal version in BUILDINFO file.")
+        internal_version = internal_version_match.group(1)
+        if not version_match:
+            raise RuntimeError("Couldn't parse EnSight version in BUILDINFO file.")
+        ensight_full_version = version_match.group(1)
+        return internal_version, ensight_full_version
