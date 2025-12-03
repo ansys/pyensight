@@ -71,13 +71,17 @@ class _Simba:
         self.ensight.annotation.axis_global("off")
         self.ensight.annotation.axis_local("off")
         self.ensight.annotation.axis_model("off")
+        self.ensight.view_transf.zclip_float("OFF")
 
     def get_center_of_rotation(self):
         """Get EnSight center of rotation."""
-        return self.ensight.objs.core.VPORTS[0].TRANSFORMCENTER
+        return self.ensight.objs.core.VPORTS[0].TRANSFORMCENTER.copy()
 
     def auto_scale(self):
         """Auto scale view."""
+        vport = self.ensight.objs.core.VPORTS[0]
+        vport.PERSPECTIVEANGLE = 14  # on fit we need to set a default angle.
+        self.ensight.view_transf.function("global")
         self.ensight.view_transf.fit()
         self._initialize_simba_view()
         self.render()
@@ -85,6 +89,7 @@ class _Simba:
 
     def set_view(self, value: str):
         """Set the view."""
+        self.ensight.view_transf.function("global")
         if value != "isometric":
             new_value = value[1].upper() + value[0]
             self.ensight.view_transf.view_recall(new_value)
@@ -92,8 +97,7 @@ class _Simba:
             self.views.set_view_direction(
                 1, 1, 1, perspective=self.ensight.objs.core.vports[0].PERSPECTIVE
             )
-        self.auto_scale()
-        return self.get_camera()
+        return self.auto_scale()
 
     def get_camera(self):
         """Get EnSight camera settings in VTK format."""
@@ -156,44 +160,6 @@ class _Simba:
                 z = 0.25 * s
         return np.array([x, y, z, w])
 
-    def compute_model_rotation_quaternion(self, camera_position, focal_point, view_up):
-        """Compute the quaternion from the input camera."""
-        forward = self.normalize(np.array(focal_point) - np.array(camera_position))
-        right = self.normalize(np.cross(forward, view_up))
-        true_up = np.cross(right, forward)
-        camera_rotation = np.vstack([right, true_up, -forward]).T
-        model_rotation = camera_rotation.T
-        quat = self.rotation_matrix_to_quaternion(model_rotation)
-        return quat
-
-    @staticmethod
-    def quaternion_multiply(q1, q2):
-        x1, y1, z1, w1 = q1
-        x2, y2, z2, w2 = q2
-        w = w1 * w2 - x1 * x2 - y1 * y2 - z1 * z2
-        x = w1 * x2 + x1 * w2 + y1 * z2 - z1 * y2
-        y = w1 * y2 - x1 * z2 + y1 * w2 + z1 * x2
-        z = w1 * z2 + x1 * y2 - y1 * x2 + z1 * w2
-        return np.array([x, y, z, w])
-
-    def quaternion_to_euler(self, q):
-        q = self.normalize(q)
-        x, y, z, w = q
-        sinr_cosp = 2 * (w * x + y * z)
-        cosr_cosp = 1 - 2 * (x * x + y * y)
-        roll = np.arctan2(sinr_cosp, cosr_cosp)
-
-        sinp = 2 * (w * y - z * x)
-        if abs(sinp) >= 1:
-            pitch = np.pi / 2 * np.sign(sinp)
-        else:
-            pitch = np.arcsin(sinp)
-        siny_cosp = 2 * (w * z + x * y)
-        cosy_cosp = 1 - 2 * (y * y + z * z)
-        yaw = np.arctan2(siny_cosp, cosy_cosp)
-
-        return np.degrees([roll, pitch, yaw])
-
     def compute_camera_from_ensight_opengl(self):
         """Simulate a rotating camera using the current quaternion."""
         if isinstance(self.ensight, ModuleType):
@@ -207,29 +173,50 @@ class _Simba:
         return camera_position, focal_point, self.views._normalize_vector(view_up), parallel_scale
 
     def set_camera(
-        self, orthographic, view_up=None, position=None, focal_point=None, view_angle=None
+        self,
+        orthographic,
+        view_up=None,
+        position=None,
+        focal_point=None,
+        view_angle=None,
     ):
         """Set the EnSight camera settings from the VTK input."""
+        self.ensight.view_transf.function("global")
         perspective = "OFF" if orthographic else "ON"
-        if orthographic:
-            self.ensight.view.perspective(perspective)
+        self.ensight.view.perspective(perspective)
         vport = self.ensight.objs.core.VPORTS[0]
-        if view_angle:
-            vport.PERSPECTIVEANGLE = view_angle / 2
-
+        vport.PERSPECTIVEANGLE = view_angle / 2
         if view_up and position and focal_point:
-            q_current = self.normalize(np.array(vport.ROTATION.copy()))
-            q_target = self.normalize(
-                self.compute_model_rotation_quaternion(position, focal_point, view_up)
-            )
-            q_relative = self.quaternion_multiply(
-                q_target, np.array([-q_current[0], -q_current[1], -q_current[2], q_current[3]])
-            )
-            angles = self.quaternion_to_euler(q_relative)
-            self.ensight.view_transf.rotate(*angles)
+            current_camera = self.get_camera()
+            center = vport.TRANSFORMCENTER.copy()
+            if isinstance(self.ensight, ModuleType):
+                data = self.ensight.objs.core.VPORTS[0].simba_set_camera_helper(
+                    position,
+                    focal_point,
+                    view_up,
+                    current_camera["position"],
+                    current_camera["focal_point"],
+                    current_camera["view_up"],
+                    center,
+                    vport.ROTATION.copy(),
+                )
+            else:
+                current_position = current_camera["position"]
+                current_fp = current_camera["focal_point"]
+                current_up = current_camera["view_up"]
+                cmd = "ensight.objs.core.VPORTS[0].simba_set_camera_helper("
+                cmd += f"{position}, {focal_point}, {view_up}, {current_position}, "
+                cmd += f"{current_fp}, {current_up}, {center}, "
+                cmd += f"{vport.ROTATION.copy()})"
+                data = self.ensight._session.cmd(cmd)
+            self.ensight.view_transf.rotate(data[3], data[4], data[5])
+            self.ensight.view_transf.translate(data[0], data[1], 0)
+
         self.render()
+        return self.get_camera()
 
     def set_perspective(self, value):
+        self.ensight.view_transf.function("global")
         vport = self.ensight.objs.core.VPORTS[0]
         self.ensight.view.perspective(value)
         vport.PERSPECTIVE = value == "ON"
@@ -249,12 +236,85 @@ class _Simba:
             model_point = self.ensight._session.cmd(
                 f"ensight.objs.core.VPORTS[0].screen_to_coords({mousex}, {mousey}, {invert_y}, {set_center})"
             )
-        self.render()
         return {"model_point": model_point, "camera": self.get_camera()}
 
     def render(self):
-        self.ensight.render()
-        self.ensight.refresh(1)
+        """Force render update in EnSight."""
+        self.ensight.refresh()
+
+    def _probe_setup(self, part_obj, get_probe_data=False):
+        self.ensight.query_interact.number_displayed(100)
+        self.ensight.query_interact.query("surface")
+        self.ensight.query_interact.display_id("OFF")
+        self.ensight.query_interact.label_always_on_top("ON")
+        self.ensight.query_interact.marker_size_normalized(2)
+        if get_probe_data:
+            variable_string = """Coordinates 'X' 'Y' 'Z'"""
+            variable_list = [variable_string]
+            variable_name = part_obj.COLORBYPALETTE
+            if variable_name:
+                if isinstance(variable_name, str):
+                    variable_list.append(variable_name)
+                else:
+                    if isinstance(variable_name, list):
+                        if variable_name[0]:
+                            variable_name = variable_name[0].DESCRIPTION
+                            variable_list.append(variable_name)
+                        else:
+                            variable_name = None
+            if isinstance(self.ensight, ModuleType):
+                self.ensight.query_interact.select_varname_begin(*variable_list)
+            else:
+                command = "ensight.query_interact.select_varname_begin("
+                for var in variable_list:
+                    command += var + ","
+                command = command[:-1] + ")"
+                self.ensight._session.cmd(command)
+        self.render()
+
+    def drag_allowed(self, mousex, mousey, invert_y=False, probe=False, get_probe_data=False):
+        """Return True if the picked object is allowed dragging in the interactor."""
+        mousex = int(mousex)
+        mousey = int(mousey)
+        if isinstance(self.ensight, ModuleType):
+            part_id, tool_id = self.ensight.objs.core.VPORTS[0].simba_what_is_picked(
+                mousex, mousey, invert_y
+            )
+        else:
+            part_id, tool_id = self.ensight._session.cmd(
+                f"ensight.objs.core.VPORTS[0].simba_what_is_picked({mousex}, {mousey}, {invert_y})"
+            )
+        coords = [None, None, None]
+        if probe:
+            screen_to_world = self.screen_to_world(
+                mousex=mousex, mousey=mousey, invert_y=invert_y, set_center=False
+            )
+            coords = screen_to_world["model_point"]
+        if tool_id > -1:
+            return True, coords[0], coords[1], coords[2], False
+        part_types_allowed = [
+            self.ensight.objs.enums.PART_CLIP_PLANE,
+            self.ensight.objs.enums.PART_ISO_SURFACE,
+            self.ensight.objs.enums.PART_CONTOUR,
+        ]
+        if part_id > -1:
+            part_obj = self.ensight.objs.core.PARTS.find(part_id, "PARTNUMBER")[0]
+            if probe:
+                width, height = tuple(self.ensight.objs.core.WINDOWSIZE)
+                if invert_y:
+                    mousey = height - mousey
+                self.ensight.query_interact.number_displayed(100)
+                self.ensight.query_interact.query("surface")
+                self.ensight.query_interact.display_id("OFF")
+                self.ensight.query_interact.create(mousex / width, mousey / height)
+                self._probe_setup(part_obj, get_probe_data=get_probe_data)
+            return part_obj.PARTTYPE in part_types_allowed, coords[0], coords[1], coords[2], True
+        if (
+            get_probe_data and self.ensight.objs.core.PROBES[0].PROBE_DATA
+        ):  # In case we have picked a probe point
+            for part in self.ensight.objs.core.PARTS:
+                self._probe_setup(part, get_probe_data=get_probe_data)
+        return False, coords[0], coords[1], coords[2], False
 
 
 class Views:

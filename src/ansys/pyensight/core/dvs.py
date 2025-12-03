@@ -22,7 +22,7 @@ import warnings
 
 from ansys.api.pyensight.dvs_api import dvs_base
 from ansys.pyensight.core import DockerLauncher, LocalLauncher
-from ansys.pyensight.core.common import safe_extract
+from ansys.pyensight.core.common import GRPC_WARNING_MESSAGE, grpc_version_check, safe_extract
 import numpy
 
 if TYPE_CHECKING:
@@ -104,6 +104,10 @@ class DVS(dvs_base):
         use_egl=False,
         use_sos: Optional[int] = None,
         additional_command_line_options: Optional[List] = None,
+        grpc_use_tcp_sockets: Optional[bool] = False,
+        grpc_allow_network_connections: Optional[bool] = False,
+        grpc_disable_tls: Optional[bool] = False,
+        grpc_uds_pathname: Optional[str] = None,
     ):
         """Launch a local PyEnSight session.
 
@@ -122,15 +126,46 @@ class DVS(dvs_base):
             the default is ``None``, in which case SOS mode is not used.
         additional_command_line_options: list, optional
             Additional command line options to be used to launch EnSight.
+        grpc_use_tcp_sockets :
+            If using gRPC, and if True, then allow TCP Socket based connections
+            instead of only local connections.
+        grpc_allow_network_connections :
+            If using gRPC and using TCP Socket based connections, listen on all networks.
+        grpc_disable_tls :
+            If using gRPC and using TCP Socket based connections, disable TLS.
+        grpc_uds_pathname :
+            If using gRPC and using Unix Domain Socket based connections, explicitly
+            set the pathname to the shared UDS file instead of using the default.
         """
         launcher = LocalLauncher(
             ansys_installation=self._ansys_installation,
             use_sos=use_sos,
             use_egl=use_egl,
             additional_command_line_options=additional_command_line_options,
+            grpc_allow_network_connections=grpc_allow_network_connections,
+            grpc_use_tcp_sockets=grpc_use_tcp_sockets,
+            grpc_disable_tls=grpc_disable_tls,
+            grpc_uds_pathname=grpc_uds_pathname,
         )
         session = launcher.start()
         self._session = session
+
+    def _check_ansys_version_grpc(self):
+        """Check if the gRPC security options apply to the EnSight install."""
+        buildinfo_path = os.path.join(self._ansys_installation, "BUILDINFO.txt")
+        if not os.path.exists(buildinfo_path):
+            raise RuntimeError("Couldn't find BUILDINFO file, cannot check installation.")
+        with open(buildinfo_path, "r") as buildinfo_file:
+            buildinfo = buildinfo_file.read()
+        version_match = re.search("Version:\s(.*)\n", buildinfo)
+        internal_version_match = re.search("Internal:\s(.*)\n", buildinfo)
+        if not internal_version_match:
+            raise RuntimeError("Couldn't parse EnSight internal version in BUILDINFO file.")
+        internal_version = internal_version_match.group(1)
+        if not version_match:
+            raise RuntimeError("Couldn't parse EnSight version in BUILDINFO file.")
+        ensight_full_version = version_match.group(1)
+        return grpc_version_check(internal_version, ensight_full_version)
 
     def _attempt_dvs_python_bindings_import(self):
         """Attempt to load the actual DVS Python bindings.
@@ -148,6 +183,8 @@ class DVS(dvs_base):
                 raise RuntimeError("Cannot import DVS module from provided library folder.")
         if self._ansys_installation:
             # Check if you are inside of an ansys install
+            if not self._check_ansys_version_grpc():
+                warnings.warn(GRPC_WARNING_MESSAGE.replace("EnSight", "DVS"))
             apex_path = glob.glob(os.path.join(self._ansys_installation, "apex???"))
             if not apex_path:
                 # try dev path
@@ -156,7 +193,9 @@ class DVS(dvs_base):
             arch = "win64" if self._is_windows() else "linux_2.6_64"
             apex_libs = os.path.join(apex_path, "machines", arch)
             python_path = glob.glob(os.path.join(apex_libs, "Python-3.*"))[-1]
-            apex_py_version = re.search("Python-3.([0-9]+).([0-9]+)", os.path.basename(python_path))
+            apex_py_version = re.search(
+                r"Python-3.([0-9]+).([0-9]+)", os.path.basename(python_path)
+            )
             apex_py_major_version = apex_py_version.group(1)
             lib_path = os.path.join(python_path, "lib", f"python3.{apex_py_major_version}")
             if self._is_windows():
@@ -237,6 +276,15 @@ class DVS(dvs_base):
                     "SERVER_SECURITY_SECRET": secret_key,
                 }
             )
+            if self._session:
+                if self._session._grpc_allow_network_connections:
+                    options["SERVER_LISTEN_ALL_NETWORKS"] = "1"
+                if self._session._grpc_disable_tls:
+                    options["SERVER_DISABLE_TLS"] = "1"
+                if self._session._grpc_use_tcp_sockets:
+                    options["SERVER_USE_TCP_SOCKETS"] = "1"
+                if self._session._grpc_uds_pathname:
+                    options["SERVER_UNIX_DOMAIN_SOCKET_PATH"] = self._session._grpc_uds_pathname
         try:
             for n in range(0, num_servers):
                 # Assume ranks equally distributed

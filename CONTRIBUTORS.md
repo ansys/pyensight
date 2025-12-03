@@ -7,9 +7,11 @@
 ## Individual Contributors
 
 * [Alex Fernandez](https://github.com/AlejandroFernandezLuces)
+* [ansysbharatkumar](https://github.com/ansysbharatkumar)
 * [Blanche Jérôme](https://github.com/jerome-blanche)
 * [bndunn](https://github.com/bndunn)
 * [David Bremer](https://github.com/david-bremer)
+* [Ganesh Mundhe](https://github.com/ansganeshmundhe)
 * [Jorge Martínez](https://github.com/jorgepiloto)
 * [Kathy Pippert](https://github.com/PipKat)
 * [Kevin Colburn](https://github.com/kecolburn)
