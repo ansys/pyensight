@@ -219,6 +219,7 @@ class Session:
             grpc_allow_network_connections=self._grpc_allow_network_connections,
             grpc_disable_tls=self._grpc_disable_tls,
             grpc_uds_pathname=self._grpc_uds_pathname,
+            session=self,
         )
         self._grpc.session_name = self._session_name
 

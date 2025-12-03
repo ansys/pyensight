@@ -20,6 +20,12 @@ except Exception:
 if TYPE_CHECKING:
     from docker import DockerClient
 
+GRPC_VERSIONS = ["2025 R2.3", "2025 R1.4", "2024 R2.5"]
+GRPC_WARNING_MESSAGE = "The EnSight version being used uses an insecure gRPC connection."
+GRPC_WARNING_MESSAGE += "Consider upgrading to a version higher than 2026 R1, or "
+GRPC_WARNING_MESSAGE += "2024 R2.5 or higher service packs, or 2025 R1.4 or higher service packs "
+GRPC_WARNING_MESSAGE += "or 2025 R2.3 or higher service packs."
+
 
 def find_unused_ports(count: int, avoid: Optional[List[int]] = None) -> Optional[List[int]]:
     """Find "count" unused ports on the host system
@@ -268,3 +274,31 @@ def safe_extract(tar, path=".", members=None, *, numeric_owner=False):
         if not _is_within_directory(path, member_path):
             raise Exception("Attempted Path Traversal in Tar File")
     tar.extractall(path, members, numeric_owner=numeric_owner)
+
+
+def grpc_version_check(internal_version, ensight_full_version):
+    """Check if the gRPC security options apply to the EnSight install."""
+    if int(internal_version) < 242:
+        return False
+    # From 261 onward always available
+    if int(internal_version) >= 261:
+        return True
+    # Exactly matches one of the service pack that introduced the changes
+    if ensight_full_version in GRPC_VERSIONS:
+        return True
+    split_version = ensight_full_version.split(" ")
+    year = split_version[0]
+    # Not a service pack
+    if len(split_version[1].split(".")) == 1:
+        return False
+    r_version = split_version[1].split(".")[0]
+    dot_version = int(split_version[1].split(".")[1])
+    # Check service pack version
+    if year == "2024" and dot_version < 5:
+        return False
+    if year == "2025":
+        if r_version == "R1" and dot_version < 4:
+            return False
+        if r_version == "R2" and dot_version < 3:
+            return False
+    return True

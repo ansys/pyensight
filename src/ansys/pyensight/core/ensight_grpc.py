@@ -18,6 +18,7 @@ from ansys.tools.common.cyberchannel import create_channel
 import grpc
 
 if TYPE_CHECKING:
+    from ansys.pyensight.core import Session
     from ansys.pyensight.core.utils.dsg_server import DSGSession
 
 
@@ -48,6 +49,9 @@ class EnSightGRPC(object):
     grpc_uds_pathname: str, optional
         If using gRPC and using Unix Domain Socket based connections, explicitly
         set the pathname to the shared UDS file instead of using the default.
+    session: Session
+        The PyEnSight session for this connection. This is optional, and if set
+        it is used to check if the current install can handle the gRPC security options.
     WARNING:
     Overriding the default values for these options: grpc_use_tcp_sockets, grpc_allow_network_connections,
     and grpc_disable_tls
@@ -65,6 +69,7 @@ class EnSightGRPC(object):
         grpc_allow_network_connections: bool = False,
         grpc_disable_tls: bool = False,
         grpc_uds_pathname: Optional[str] = None,
+        session: Optional["Session"] = None,
     ):
         self._host = host
         self._port = port
@@ -94,6 +99,7 @@ class EnSightGRPC(object):
         self._image_number = 0
         self._sub_service = None
         self._dsg_session: Optional["DSGSession"] = None
+        self._pyensight_session = session
 
     def set_dsg_session(self, dsg_session: "DSGSession"):
         self._dsg_session = dsg_session
@@ -270,6 +276,12 @@ class EnSightGRPC(object):
                 else:
                     uds_dir = "/tmp"
                     uds_service = "greeter"
+        # Ignore the security options if the version of EnSight cannot handle them
+        if self._pyensight_session and self._pyensight_session._launcher:
+            if not self._pyensight_session._launcher._has_grpc_changes:
+                transport_mode = "insecure"
+                host = self._host
+                port = self._port
         self._channel = create_channel(
             host=host,
             port=port,
