@@ -18,7 +18,9 @@ def test_utils(tmpdir, pytestconfig: pytest.Config):
         launcher = LocalLauncher(ansys_installation=install_path)
         root = "http://s3.amazonaws.com/www3.ensight.com/PyEnSight/ExampleData"
     else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True)
+        launcher = DockerLauncher(
+            data_directory=data_dir, use_dev=True, grpc_disable_tls=True, grpc_use_tcp_sockets=True
+        )
     session = launcher.start()
     session2 = launcher.start()
     # Check that only one session is associated to a launcher

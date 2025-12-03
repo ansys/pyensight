@@ -38,7 +38,7 @@ import numpy
 import png
 
 try:
-    from pxr import Gf, Sdf, Usd, UsdGeom, UsdLux, UsdShade
+    from pxr import Gf, Kind, Sdf, Usd, UsdGeom, UsdLux, UsdShade
 except ModuleNotFoundError:
     if sys.version_info.minor >= 14:
         warnings.warn("USD Export not supported for Python >= 3.14")
@@ -77,6 +77,7 @@ class OmniverseWrapper(object):
             self.destination = destination
 
         self._line_width = line_width
+        self._centroid: Optional[list] = None
         # Record the files per timestep, per mesh type.  {part_name: {"surfaces": [], "lines": [], "points": []} }
         self._time_files: dict = {}
 
@@ -307,8 +308,7 @@ class OmniverseWrapper(object):
 
         part_prim = stage.OverridePrim(part_path)
 
-        surfaces_prim = UsdGeom.Xform.Define(stage, part_path + "/surfaces")
-        surfaces_prim.AddXformOp(UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble)
+        surfaces_prim = self.create_xform_node(stage, part_path + "/surfaces")
         mesh = UsdGeom.Mesh.Define(stage, str(surfaces_prim.GetPath()) + "/Mesh")
         mesh.CreateDoubleSidedAttr().Set(True)
         pt_attr = mesh.CreatePointsAttr()
@@ -483,9 +483,8 @@ class OmniverseWrapper(object):
 
         part_prim = stage.OverridePrim(part_path)
 
-        lines_prim = UsdGeom.Xform.Define(stage, part_path + "/lines")
+        lines_prim = self.create_xform_node(stage, part_path + "/lines")
 
-        lines_prim.AddXformOp(UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble)
         lines = UsdGeom.BasisCurves.Define(stage, str(lines_prim.GetPath()) + "/Lines")
         lines.CreateDoubleSidedAttr().Set(True)
         pt_attr = lines.CreatePointsAttr()
@@ -790,9 +789,20 @@ class OmniverseWrapper(object):
             shutil.rmtree(uriPath, ignore_errors=True, onerror=None)
             shutil.copytree(f"{tempdir}/scratch/Textures", uriPath)
 
+    def create_xform_node(self, stage, name):
+        xform_node = UsdGeom.Xform.Define(stage, name)
+        xform_node.AddTranslateOp().Set((0, 0, 0))
+        xform_node.AddRotateXYZOp().Set((0, 0, 0))
+        xform_node.AddScaleOp().Set((1, 1, 1))
+        if self._centroid is not None:
+            xform_api = UsdGeom.XformCommonAPI(xform_node.GetPrim())
+            xform_api.SetPivot(Gf.Vec3f(self._centroid) * self._units_per_meter)
+        return xform_node
+
     def create_dsg_root(self):
         root_name = "/Root"
-        root_prim = UsdGeom.Xform.Define(self._stage, root_name)
+        self.create_xform_node(self._stage, root_name)
+
         # Define the defaultPrim as the /Root prim
         root_prim = self._stage.GetPrimAtPath(root_name)
         self._stage.SetDefaultPrim(root_prim)
@@ -863,22 +873,18 @@ class OmniverseWrapper(object):
         path = parent_prim.GetPath().AppendChild(self.clean_name(name))
         group_prim = UsdGeom.Xform.Get(self._stage, path)
         if not group_prim:
-            group_prim = UsdGeom.Xform.Define(self._stage, path)
-            # At present, the group transforms have been cooked into the vertices so this is not needed
-            matrix_op = group_prim.AddXformOp(
-                UsdGeom.XformOp.TypeTransform, UsdGeom.XformOp.PrecisionDouble
-            )
-            matrix_op.Set(Gf.Matrix4d(*matrix).GetTranspose())
+            group_prim = self.create_xform_node(self._stage, path)
+
             # Map kinds
-            """
             kind = Kind.Tokens.group
             if obj_type == "ENS_CASE":
                 kind = Kind.Tokens.assembly
             elif obj_type == "ENS_PART":
                 kind = Kind.Tokens.component
             Usd.ModelAPI(group_prim).SetKind(kind)
+            group_prim.GetPrim().SetDisplayName(name)
             logging.info(f"Created group:'{name}' {str(obj_type)}")
-            """
+
         return group_prim
 
     def uploadMaterial(self):
@@ -932,6 +938,12 @@ class OmniverseUpdateHandler(UpdateHandler):
             matrix = group.matrix4x4
             # Is this a "case" group (it will contain part of the camera view in the matrix)
             if obj_type == "ENS_CASE":
+                if self.session.scene_bounds is not None:
+                    midx = (self.session.scene_bounds[3] + self.session.scene_bounds[0]) * 0.5
+                    midy = (self.session.scene_bounds[4] + self.session.scene_bounds[1]) * 0.5
+                    midz = (self.session.scene_bounds[5] + self.session.scene_bounds[2]) * 0.5
+                    self._omni._centroid = [midx, midy, midz]
+
                 if not self.session.vrmode and not self._case_xform_applied_to_camera:
                     # if in camera mode, we need to update the camera matrix so we can
                     # use the identity matrix on this group.  The camera should have been
@@ -1010,7 +1022,7 @@ class OmniverseUpdateHandler(UpdateHandler):
             # Create a new root stage in Omniverse
 
             # Create or update the root group/camera
-            if not self.session.vrmode:
+            if not self.session.vrmode and not self._case_xform_applied_to_camera:
                 self._omni.update_camera(camera=group)
 
             # record
