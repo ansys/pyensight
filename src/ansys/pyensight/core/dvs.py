@@ -179,8 +179,8 @@ class DVS(dvs_base):
             raise RuntimeError("Couldn't find BUILDINFO file, cannot check installation.")
         with open(buildinfo_path, "r") as buildinfo_file:
             buildinfo = buildinfo_file.read()
-        version_match = re.search("Version:\s(.*)\n", buildinfo)
-        internal_version_match = re.search("Internal:\s(.*)\n", buildinfo)
+        version_match = re.search("Version: (.*)\n", buildinfo)
+        internal_version_match = re.search("Internal: (.*)\n", buildinfo)
         if not internal_version_match:
             raise RuntimeError("Couldn't parse EnSight internal version in BUILDINFO file.")
         internal_version = internal_version_match.group(1)
