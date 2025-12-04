@@ -375,8 +375,8 @@ class Launcher:
 
     def _get_versionfrom_buildinfo(self, buildinfo):
         """Check if the gRPC security options apply to the EnSight install."""
-        version_match = re.search("Version:\s(.*)\n", buildinfo)
-        internal_version_match = re.search("Internal:\s(.*)\n", buildinfo)
+        version_match = re.search("Version: (.*)\n", buildinfo)
+        internal_version_match = re.search("Internal: (.*)\n", buildinfo)
         if not internal_version_match:
             raise RuntimeError("Couldn't parse EnSight internal version in BUILDINFO file.")
         internal_version = internal_version_match.group(1)
