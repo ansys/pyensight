@@ -44,9 +44,8 @@ if TYPE_CHECKING:
 
 GRPC_VERSIONS = ["2025 R2.3", "2025 R1.4", "2024 R2.5"]
 GRPC_WARNING_MESSAGE = "The EnSight version being used uses an insecure gRPC connection."
-GRPC_WARNING_MESSAGE += "Consider upgrading to a version higher than 2026 R1, or "
-GRPC_WARNING_MESSAGE += "2024 R2.5 or higher service packs, or 2025 R1.4 or higher service packs "
-GRPC_WARNING_MESSAGE += "or 2025 R2.3 or higher service packs."
+GRPC_WARNING_MESSAGE += "Consider upgrading to a version higher than 2025 R2.3, or "
+GRPC_WARNING_MESSAGE += "2024 R2.5 or higher service packs, or 2025 R1.4 or higher service packs."
 
 
 def find_unused_ports(count: int, avoid: Optional[List[int]] = None) -> Optional[List[int]]:
