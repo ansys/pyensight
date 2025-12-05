@@ -1,3 +1,25 @@
+# Copyright (C) 2022 - 2025 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: MIT
+#
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 """Local Launcher module.
 
 The Local Launcher module provides PyEnSight with the ability to launch an
@@ -19,9 +41,10 @@ import tempfile
 import time
 from typing import Optional
 import uuid
+import warnings
 
 import ansys.pyensight.core as pyensight
-from ansys.pyensight.core.common import find_unused_ports
+from ansys.pyensight.core.common import GRPC_WARNING_MESSAGE, find_unused_ports, grpc_version_check
 from ansys.pyensight.core.launcher import Launcher
 import ansys.pyensight.core.session
 import psutil
@@ -47,6 +70,16 @@ class LocalLauncher(Launcher):
     batch : bool, optional
         Whether to run EnSight (or EnVision) in batch mode. The default
         is ``True``, in which case the full GUI is not presented.
+    grpc_use_tcp_sockets :
+        If using gRPC, and if True, then allow TCP Socket based connections
+        instead of only local connections.
+    grpc_allow_network_connections :
+        If using gRPC and using TCP Socket based connections, listen on all networks.
+    grpc_disable_tls :
+        If using gRPC and using TCP Socket based connections, disable TLS.
+    grpc_uds_pathname :
+        If using gRPC and using Unix Domain Socket based connections, explicitly
+        set the pathname to the shared UDS file instead of using the default.
     timeout : float, optional
         Number of seconds to try a gRPC connection before giving up.
         This parameter is defined on the parent ``Launcher`` class,
@@ -70,6 +103,12 @@ class LocalLauncher(Launcher):
     >>> # Create a second session (a new LocalLauncher instance is required)
     >>> session2 = LocalLauncher(ansys_installation='/ansys_inc/v232').start()
 
+    WARNING:
+    Overriding the default values for these options: grpc_use_tcp_sockets, grpc_allow_network_connections,
+    and grpc_disable_tls
+    can possibly permit control of this computer and any data which resides on it.
+    Modification of this configuration is not recommended.  Please see the
+    documentation for your installed product for additional information.
     """
 
     def __init__(
@@ -77,6 +116,10 @@ class LocalLauncher(Launcher):
         ansys_installation: Optional[str] = None,
         application: Optional[str] = "ensight",
         batch: bool = True,
+        grpc_use_tcp_sockets: Optional[bool] = False,
+        grpc_allow_network_connections: Optional[bool] = False,
+        grpc_disable_tls: Optional[bool] = False,
+        grpc_uds_pathname: Optional[str] = None,
         **kwargs,
     ) -> None:
         super().__init__(**kwargs)
@@ -97,6 +140,10 @@ class LocalLauncher(Launcher):
         self._ports = None
         # Are we running the instance in batch
         self._batch = batch
+        self._grpc_use_tcp_sockets = grpc_use_tcp_sockets
+        self._grpc_allow_network_connections = grpc_allow_network_connections
+        self._grpc_disable_tls = grpc_disable_tls
+        self._grpc_uds_pathname = grpc_uds_pathname
 
     @property
     def application(self):
@@ -146,6 +193,21 @@ class LocalLauncher(Launcher):
         )
         self._webui_pid = subprocess.Popen(cmd, **popen_common).pid
 
+    def _grpc_version_check(self):
+        """Check if the gRPC security options apply to the EnSight install."""
+        buildinfo = os.path.join(self._install_path, "BUILDINFO.txt")
+        if not os.path.exists(buildinfo):
+            if not os.path.exists(
+                os.path.join(os.path.dirname(self._install_path), "licensingclient")
+            ):
+                # Dev installation. Assume the gRPC security options are available
+                return True
+            raise RuntimeError("Couldn't find BUILDINFO file, cannot check installation.")
+        with open(buildinfo, "r") as buildinfo_file:
+            text = buildinfo_file.read()
+        internal_version, ensight_full_version = self._get_versionfrom_buildinfo(text)
+        return grpc_version_check(internal_version, ensight_full_version)
+
     def start(self) -> "pyensight.Session":
         """Start an EnSight session using the local EnSight installation.
 
@@ -163,6 +225,9 @@ class LocalLauncher(Launcher):
         RuntimeError:
             If the necessary number of ports could not be allocated.
         """
+        self._has_grpc_changes = self._grpc_version_check()
+        if not self._has_grpc_changes:
+            warnings.warn(GRPC_WARNING_MESSAGE)
         tmp_session = super().start()
         if tmp_session:
             return tmp_session
@@ -170,6 +235,12 @@ class LocalLauncher(Launcher):
             # session directory and UUID
             self._secret_key = str(uuid.uuid1())
             self.session_directory = tempfile.mkdtemp(prefix="pyensight_")
+            if (
+                not self._grpc_uds_pathname
+                and not self._grpc_use_tcp_sockets
+                and not self._is_windows()
+            ):
+                self._grpc_uds_pathname = os.path.join(self.session_directory, "pyensight")
 
             # gRPC port, VNC port, websocketserver ws, websocketserver html
             to_avoid = self._find_ports_used_by_other_pyensight_and_ensight()
@@ -203,6 +274,16 @@ class LocalLauncher(Launcher):
             else:
                 cmd.append("-no_start_screen")
             cmd.extend(["-grpc_server", str(self._ports[0])])
+            if self._has_grpc_changes:
+                if self._grpc_use_tcp_sockets:
+                    cmd.append("-grpc_use_tcp_sockets")
+                if self._grpc_allow_network_connections:
+                    cmd.append("-grpc_allow_network_connections")
+                if self._grpc_disable_tls:
+                    cmd.append("-grpc_disable_tls")
+                if self._grpc_uds_pathname:
+                    cmd.append("-grpc_uds_pathname")
+                    cmd.append(self._grpc_uds_pathname)
             vnc_url = f"vnc://%%3Frfb_port={self._ports[1]}%%26use_auth=0"
             cmd.extend(["-vnc", vnc_url])
             cmd.extend(["-ports", str(self._ports[4])])
@@ -241,6 +322,8 @@ class LocalLauncher(Launcher):
                     cmd.append(f"--ic={self._interconnect}")
                     hosts = ",".join(self._server_hosts)
                     cmd.append(f"--cnf={hosts}")
+            if self._liben_rest:
+                cmd.extend(["-rest_server", str(self._ports[2])])
 
             # cmd.append("-minimize_console")
             logging.debug(f"Starting EnSight with : {cmd}\n")
@@ -271,33 +354,44 @@ class LocalLauncher(Launcher):
             websocket_script = found_scripts[idx]
             version = re.findall(r"nexus(\d+)", websocket_script)[0]
             # build the commandline
-            cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
-            if is_windows:
-                cmd[0] += ".bat"
-            cmd.extend(["--http_directory", self.session_directory])
-            # http port
-            cmd.extend(["--http_port", str(self._ports[2])])
-            # vnc port
-            cmd.extend(["--client_port", str(self._ports[1])])
-            if self._enable_rest_api:
-                # grpc port
-                cmd.extend(["--grpc_port", str(self._ports[0])])
-            # EnVision sessions
-            cmd.extend(["--local_session", "envision", "5"])
-            if int(version) > 252 and self._rest_ws_separate_loops:
-                cmd.append("--separate_loops")
-            cmd.extend(["--security_token", self._secret_key])
-            # websocket port
-            if int(version) > 252 and self._do_not_start_ws:
-                cmd.append("-1")
-            else:
-                cmd.append(str(self._ports[3]))
-            logging.debug(f"Starting WSS: {cmd}\n")
-            if is_windows:
-                startupinfo = subprocess.STARTUPINFO()
-                startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-                popen_common["startupinfo"] = startupinfo
-            self._websocketserver_pid = subprocess.Popen(cmd, **popen_common).pid
+            if not self._liben_rest:
+                cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
+                if is_windows:
+                    cmd[0] += ".bat"
+                cmd.extend(["--http_directory", self.session_directory])
+                # http port
+                cmd.extend(["--http_port", str(self._ports[2])])
+                # vnc port
+                cmd.extend(["--client_port", str(self._ports[1])])
+                if self._enable_rest_api:
+                    # grpc port
+                    cmd.extend(["--grpc_port", str(self._ports[0])])
+                    if self._has_grpc_changes:
+                        if self._grpc_use_tcp_sockets:
+                            cmd.append("--grpc_use_tcp_sockets")
+                        if self._grpc_allow_network_connections:
+                            cmd.append("--grpc_allow_network_connections")
+                        if self._grpc_disable_tls:
+                            cmd.append("--grpc_disable_tls")
+                        if self._grpc_uds_pathname:
+                            cmd.append("--grpc_uds_pathname")
+                            cmd.append(self._grpc_uds_pathname)
+                # EnVision sessions
+                cmd.extend(["--local_session", "envision", "5"])
+                if int(version) > 252 and self._rest_ws_separate_loops:
+                    cmd.append("--separate_loops")
+                cmd.extend(["--security_token", self._secret_key])
+                # websocket port
+                if int(version) > 252 and self._do_not_start_ws:
+                    cmd.append("-1")
+                else:
+                    cmd.append(str(self._ports[3]))
+                logging.debug(f"Starting WSS: {cmd}\n")
+                if is_windows:
+                    startupinfo = subprocess.STARTUPINFO()
+                    startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+                    popen_common["startupinfo"] = startupinfo
+                self._websocketserver_pid = subprocess.Popen(cmd, **popen_common).pid
 
         # build the session instance
         logging.debug(
@@ -313,6 +407,10 @@ class LocalLauncher(Launcher):
         session = ansys.pyensight.core.session.Session(
             host="127.0.0.1",
             grpc_port=self._ports[0],
+            grpc_use_tcp_sockets=self._grpc_use_tcp_sockets,
+            grpc_allow_network_connections=self._grpc_allow_network_connections,
+            grpc_disable_tls=self._grpc_disable_tls,
+            grpc_uds_pathname=self._grpc_uds_pathname,
             html_port=self._ports[2],
             ws_port=self._ports[3],
             install_path=self._install_path,
@@ -324,7 +422,6 @@ class LocalLauncher(Launcher):
         )
         session.launcher = self
         self._sessions.append(session)
-
         if self._launch_webui:
             self.launch_webui(version, popen_common)
         return session
@@ -396,7 +493,8 @@ class LocalLauncher(Launcher):
             If the session was not launched by this launcher.
 
         """
-        self._kill_process_tree(self._websocketserver_pid)
+        if self._websocketserver_pid:
+            self._kill_process_tree(self._websocketserver_pid)
         return super().close(session)
 
     @staticmethod

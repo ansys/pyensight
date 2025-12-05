@@ -1,3 +1,25 @@
+# Copyright (C) 2022 - 2025 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: MIT
+#
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 """Views module.
 
 The Views module allows PyEnSight to control the view in the EnSight session.
@@ -79,6 +101,8 @@ class _Simba:
 
     def auto_scale(self):
         """Auto scale view."""
+        vport = self.ensight.objs.core.VPORTS[0]
+        vport.PERSPECTIVEANGLE = 14  # on fit we need to set a default angle.
         self.ensight.view_transf.function("global")
         self.ensight.view_transf.fit()
         self._initialize_simba_view()
@@ -234,14 +258,11 @@ class _Simba:
             model_point = self.ensight._session.cmd(
                 f"ensight.objs.core.VPORTS[0].screen_to_coords({mousex}, {mousey}, {invert_y}, {set_center})"
             )
-        self.render()
         return {"model_point": model_point, "camera": self.get_camera()}
 
     def render(self):
         """Force render update in EnSight."""
-        self.ensight.view_transf.zoom(1)
-        # self.ensight.render()
-        self.ensight.refresh(1)
+        self.ensight.refresh()
 
     def _probe_setup(self, part_obj, get_probe_data=False):
         self.ensight.query_interact.number_displayed(100)

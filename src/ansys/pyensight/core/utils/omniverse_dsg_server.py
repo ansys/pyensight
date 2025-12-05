@@ -1,5 +1,6 @@
-#
-# This file borrows heavily from the Omniverse Example Connector which
+# Copyright (C) 2022 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright 2020 NVIDIA Corporation
+
 # contains the following notice:
 #
 ###############################################################################
@@ -1024,7 +1025,7 @@ class OmniverseUpdateHandler(UpdateHandler):
             # Create a new root stage in Omniverse
 
             # Create or update the root group/camera
-            if not self.session.vrmode:
+            if not self.session.vrmode and not self._case_xform_applied_to_camera:
                 self._omni.update_camera(camera=group)
 
             # record

@@ -1,19 +1,32 @@
+# Copyright (C) 2022 - 2025 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: MIT
+#
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 from ansys.pyensight.core.dockerlauncher import DockerLauncher
 from ansys.pyensight.core.locallauncher import LocalLauncher
 import pytest
 import requests
 
 
-def test_rest_apis(tmpdir, pytestconfig: pytest.Config):
-    data_dir = tmpdir.mkdir("datadir")
-    use_local = pytestconfig.getoption("use_local_launcher")
-    install_path = pytestconfig.getoption("install_path")
-    if use_local:
-        launcher = LocalLauncher(ansys_installation=install_path, enable_rest_api=True)
-    else:
-        launcher = DockerLauncher(data_directory=data_dir, use_dev=True, enable_rest_api=True)
-
-    s = launcher.start()
+def run_test(s):
     s.load_data(f"{s.cei_home}/ensight{s.cei_suffix}/data/cube/cube.case")
     uri_base = f"http://{s.hostname}:{s.html_port}/ensight/v1/{s.secret_key}"
 
@@ -72,3 +85,40 @@ def test_rest_apis(tmpdir, pytestconfig: pytest.Config):
     assert type(ret[0]) == float
 
     s.close()
+
+
+def test_rest_apis(tmpdir, pytestconfig: pytest.Config):
+    data_dir = tmpdir.mkdir("datadir")
+    use_local = pytestconfig.getoption("use_local_launcher")
+    install_path = pytestconfig.getoption("install_path")
+    if use_local:
+        launcher = LocalLauncher(ansys_installation=install_path, enable_rest_api=True)
+    else:
+        launcher = DockerLauncher(
+            data_directory=data_dir,
+            use_dev=True,
+            enable_rest_api=True,
+            grpc_disable_tls=True,
+            grpc_use_tcp_sockets=True,
+        )
+    s = launcher.start()
+    run_test(s)
+
+
+def test_rest_apis_liben(tmpdir, pytestconfig: pytest.Config):
+    data_dir = tmpdir.mkdir("datadir")
+    use_local = pytestconfig.getoption("use_local_launcher")
+    install_path = pytestconfig.getoption("install_path")
+    if use_local:
+        launcher = LocalLauncher(ansys_installation=install_path, enable_rest_api=True)
+    else:
+        launcher = DockerLauncher(
+            data_directory=data_dir,
+            use_dev=True,
+            enable_rest_api=True,
+            grpc_disable_tls=True,
+            grpc_use_tcp_sockets=True,
+            liben_rest=True,
+        )
+    s = launcher.start()
+    run_test(s)

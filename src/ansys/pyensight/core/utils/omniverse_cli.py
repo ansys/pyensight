@@ -1,3 +1,25 @@
+# Copyright (C) 2022 - 2025 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: MIT
+#
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 import argparse
 from functools import partial
 import glob
@@ -92,6 +114,9 @@ class OmniverseGeometryServer(object):
         dsg_uri: str = "",
         monitor_directory: str = "",
         line_width: float = 0.0,
+        grpc_use_tcp_sockets: bool = False,
+        grpc_allow_network_connections: bool = False,
+        grpc_disable_tls: bool = False,
     ) -> None:
         self._dsg_uri = dsg_uri
         self._destination = destination
@@ -108,6 +133,9 @@ class OmniverseGeometryServer(object):
         self._status_filename: str = ""
         self._monitor_directory: str = monitor_directory
         self._line_width = line_width
+        self._grpc_allow_network_connections = grpc_allow_network_connections
+        self._grpc_disable_tls = grpc_disable_tls
+        self._grpc_use_tcp_sockets = grpc_use_tcp_sockets
 
     @property
     def monitor_directory(self) -> Optional[str]:
@@ -213,9 +241,16 @@ class OmniverseGeometryServer(object):
         logging.info("Omniverse connection established.")
 
         # parse the DSG URI
-        parsed = urlparse(self.dsg_uri)
-        port = parsed.port
-        host = parsed.hostname
+        uds_path = None
+        port = None
+        host = None
+        if self.dsg_uri.endswith(".sock"):
+            # The path is a uds path
+            uds_path = self.dsg_uri.replace("unix:", "").replace(".sock", "")
+        else:
+            parsed = urlparse(self.dsg_uri)
+            port = parsed.port
+            host = parsed.hostname
 
         # link it to a DSG session
         update_handler = ov_dsg_server.OmniverseUpdateHandler(omni_link)
@@ -228,6 +263,10 @@ class OmniverseGeometryServer(object):
             normalize_geometry=self.normalize_geometry,
             time_scale=self.time_scale,
             handler=update_handler,
+            uds_path=uds_path,
+            grpc_disable_tls=self._grpc_disable_tls,
+            grpc_allow_network_connections=self._grpc_allow_network_connections,
+            grpc_use_tcp_sockets=self._grpc_use_tcp_sockets,
         )
 
         # Start the DSG link
@@ -494,7 +533,27 @@ if __name__ == "__main__":
         type=float,
         help=f"Width of lines: >0=absolute size. <0=fraction of diagonal. 0=none. Default: {line_default}",
     )
-
+    parser.add_argument(
+        "--grpc_use_tcp_sockets",
+        metavar="yes|no|true|false|1|0",
+        default=False,
+        type=str2bool_type,
+        help="If using gRPC, and if True, then allow TCP Socket based connections instead of only local connections.",
+    )
+    parser.add_argument(
+        "--grpc_allow_network_connections",
+        metavar="yes|no|true|false|1|0",
+        default=False,
+        type=str2bool_type,
+        help="If using gRPC and using TCP Socket based connections, listen on all networks.",
+    )
+    parser.add_argument(
+        "--grpc_disable_tls",
+        metavar="yes|no|true|false|1|0",
+        default=False,
+        type=str2bool_type,
+        help="If using gRPC and using TCP Socket based connections, disable TLS.",
+    )
     # parse the command line
     args = parser.parse_args()
 
@@ -530,6 +589,9 @@ if __name__ == "__main__":
         vrmode=not args.include_camera,
         temporal=args.temporal,
         line_width=line_width,
+        grpc_disable_tls=args.grpc_disable_tls,
+        grpc_allow_network_connections=args.grpc_allow_network_connections,
+        grpc_use_tcp_sockets=args.grpc_use_tcp_sockets,
     )
 
     # run the server

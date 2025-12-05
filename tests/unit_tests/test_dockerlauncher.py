@@ -1,3 +1,25 @@
+# Copyright (C) 2022 - 2025 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: MIT
+#
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 import logging
 import os
 from unittest import mock
@@ -27,13 +49,24 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
     launcher = DockerLauncher(
-        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5, use_sos=2
+        data_directory=".",
+        use_dev=True,
+        docker_image_name="super_ensight",
+        timeout=5,
+        use_sos=2,
+        grpc_disable_tls=True,
+        grpc_use_tcp_sockets=True,
     )
     launcher.start()
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
     launcher = DockerLauncher(
-        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5
+        data_directory=".",
+        use_dev=True,
+        docker_image_name="super_ensight",
+        timeout=5,
+        grpc_disable_tls=True,
+        grpc_use_tcp_sockets=True,
     )
     with caplog.at_level(logging.DEBUG):
         assert launcher.start() == mocked_session
@@ -54,14 +87,25 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
     launcher = DockerLauncher(
-        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5, use_egl=True
+        data_directory=".",
+        use_dev=True,
+        docker_image_name="super_ensight",
+        timeout=5,
+        use_egl=True,
+        grpc_disable_tls=True,
+        grpc_use_tcp_sockets=True,
     )
     launcher.start()
     # No Data Volume + egl
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
     launcher = DockerLauncher(
-        use_dev=True, docker_image_name="super_ensight", timeout=5, use_egl=True
+        use_dev=True,
+        docker_image_name="super_ensight",
+        timeout=5,
+        use_egl=True,
+        grpc_disable_tls=True,
+        grpc_use_tcp_sockets=True,
     )
     launcher.start()
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
@@ -71,13 +115,24 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
     launcher = DockerLauncher(
-        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5
+        data_directory=".",
+        use_dev=True,
+        docker_image_name="super_ensight",
+        timeout=5,
+        grpc_disable_tls=True,
+        grpc_use_tcp_sockets=True,
     )
     launcher.start()
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
     launcher = DockerLauncher(
-        data_directory=".", use_dev=True, docker_image_name="super_ensight", timeout=5, use_sos=3
+        data_directory=".",
+        use_dev=True,
+        docker_image_name="super_ensight",
+        timeout=5,
+        use_sos=3,
+        grpc_disable_tls=True,
+        grpc_use_tcp_sockets=True,
     )
     launcher.start()
     values_run_command[0] = [1, "cannot set no reroute"]
@@ -102,7 +157,7 @@ def test_pull(mocker):
     docker_client.images.pull = mock.MagicMock("Pull")
     docker_client.images.pull = lambda unused: True
     mocker.patch.object(docker, "from_env", return_value=docker_client)
-    launcher = DockerLauncher(data_directory=".")
+    launcher = DockerLauncher(data_directory=".", grpc_disable_tls=True, grpc_use_tcp_sockets=True)
     launcher.pull()
     docker_client.images.pull = simulate_network_issue
     with pytest.raises(RuntimeError) as exec_info:
