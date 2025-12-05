@@ -483,12 +483,13 @@ class DockerLauncher(Launcher):
         counter = 0
         if not self._container:
             raise RuntimeError("Exec run can be called only when the container is up.")
-        try:
-            return self._container.exec_run(commands)
-        except (requests.exceptions.ConnectionError, urllib3.exceptions.ProtocolError) as exc:
-            counter += 1
-            if counter == 5:
-                raise exc
+        while counter < 5:
+            try:
+                return self._container.exec_run(commands)
+            except (requests.exceptions.ConnectionError, urllib3.exceptions.ProtocolError) as exc:
+                counter += 1
+                if counter == 5:
+                    raise exc
 
     def _get_build_info(self):
         # The unit test has no container
