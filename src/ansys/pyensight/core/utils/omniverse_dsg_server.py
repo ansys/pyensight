@@ -188,6 +188,8 @@ class OmniverseWrapper(object):
         """
         self._cleaned_names = {}
         self._cleaned_index = 0
+        # Reset the list of files per timestep
+        self._time_files = {}
 
     def clean_name(self, name: str, id_name: Any = None) -> str:
         """Generate a valid USD name
