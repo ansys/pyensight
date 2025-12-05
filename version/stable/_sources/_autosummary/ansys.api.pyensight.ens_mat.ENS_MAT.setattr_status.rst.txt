@@ -1,0 +1,6 @@
+setattr\_status
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_mat
+
+.. automethod:: ENS_MAT.setattr_status
