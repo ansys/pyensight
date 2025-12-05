@@ -68,7 +68,7 @@ doc = [
     "sphinx-gallery==0.20.0",
     "sphinxcontrib-mermaid==1.2.3",
     "docker>=6.1.0",
-    "matplotlib==3.10.1",
+    "matplotlib==3.10.7",
     "requests>=2.28.2",
     "sphinxcontrib.jquery==4.1",
     "sphinxcontrib-openapi==0.8.4",
