@@ -20,5 +20,6 @@
 * [Randy Frank](https://github.com/randallfrank)
 * [Roberto Pastor Muela](https://github.com/RobPasMue)
 * [Santosh Pratap Singh](https://github.com/spsingh-ansys)
+* [Sébastien Morais](https://github.com/SMoraisAnsys)
 * [Visesh Rajendraprasad](https://github.com/viseshrp)
 * [vthiagar](https://github.com/vthiagar)
