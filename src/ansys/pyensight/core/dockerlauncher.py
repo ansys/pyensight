@@ -40,6 +40,7 @@ import logging
 import os
 import re
 import subprocess
+import time
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 import uuid
 import warnings
@@ -483,12 +484,13 @@ class DockerLauncher(Launcher):
         counter = 0
         if not self._container:
             raise RuntimeError("Exec run can be called only when the container is up.")
-        while counter < 5:
+        while counter < 10:
             try:
                 return self._container.exec_run(commands)
             except (requests.exceptions.ConnectionError, urllib3.exceptions.ProtocolError) as exc:
                 counter += 1
-                if counter == 5:
+                time.sleep(0.5)
+                if counter == 10:
                     raise exc
 
     def _get_build_info(self):
@@ -546,6 +548,7 @@ class DockerLauncher(Launcher):
             grpc_disable_tls=self._grpc_disable_tls,
             grpc_uds_pathname=self._grpc_uds_pathname,
             grpc_use_tcp_sockets=self._grpc_use_tcp_sockets,
+            disable_grpc_options=not self._has_grpc_changes,
         )
         log_dir = "/data"
         if self._enshell_grpc_channel:  # pragma: no cover
@@ -746,6 +749,7 @@ class DockerLauncher(Launcher):
             sos=use_sos,
             rest_api=self._enable_rest_api,
             webui_port=self._service_host_port["webui"][1] if self._launch_webui else None,
+            disable_grpc_options=not self._has_grpc_changes,
         )
         session.launcher = self
         self._sessions.append(session)

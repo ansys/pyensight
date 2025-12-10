@@ -419,6 +419,7 @@ class LocalLauncher(Launcher):
             sos=use_sos,
             rest_api=self._enable_rest_api,
             webui_port=self._ports[5] if self._launch_webui else None,
+            disable_grpc_options=not self._has_grpc_changes,
         )
         session.launcher = self
         self._sessions.append(session)
