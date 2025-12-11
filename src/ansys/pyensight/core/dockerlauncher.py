@@ -157,6 +157,7 @@ class DockerLauncher(Launcher):
         grpc_allow_network_connections: Optional[bool] = False,
         grpc_disable_tls: Optional[bool] = False,
         grpc_uds_pathname: Optional[str] = None,
+        vtk_ws: bool = False,
         **kwargs,
     ) -> None:
         """Initialize DockerLauncher."""
@@ -174,6 +175,7 @@ class DockerLauncher(Launcher):
         self._container: Optional["Container"] = None
         self._enshell: Optional[Any] = None
         self._pim_instance: Optional[Any] = pim_instance
+        self._vtk_ws_port = vtk_ws
 
         # EnSight session secret key
         self._secret_key: str = str(uuid.uuid1())
@@ -221,7 +223,9 @@ class DockerLauncher(Launcher):
         # skip 1999 as that internal to the container is used to the container for the VNC connection
         num_ports = 4
         if self._launch_webui:
-            num_ports = 5
+            num_ports += 1
+        if self._vtk_ws_port:
+            num_ports += 1
         ports = find_unused_ports(num_ports, avoid=[1999])
         if ports is None:  # pragma: no cover
             raise RuntimeError(
@@ -234,6 +238,10 @@ class DockerLauncher(Launcher):
         self._service_host_port["ws"] = ("127.0.0.1", ports[3])
         if self._launch_webui:
             self._service_host_port["webui"] = ("127.0.0.1", ports[4])
+        # This option for the moment is only needed for testing purposes
+        if self._vtk_ws_port:
+            port = ports[5] if self._launch_webui else ports[4]
+            self._service_host_port["vtk_ws"] = ("127.0.0.1", port)
 
         # get the optional user-specified image name
         # Note: the default name needs to change over time...  TODO
@@ -358,6 +366,13 @@ class DockerLauncher(Launcher):
                 {
                     str(self._service_host_port["webui"][1])
                     + "/tcp": str(self._service_host_port["webui"][1])
+                }
+            )
+        if self._service_host_port.get("vtk_ws"):
+            ports_to_map.update(
+                {
+                    str(self._service_host_port["vtk_ws"][1])
+                    + "/tcp": str(self._service_host_port["vtk_ws"][1])
                 }
             )
         # The data directory to map into the container
