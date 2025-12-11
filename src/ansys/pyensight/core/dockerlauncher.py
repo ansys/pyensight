@@ -157,7 +157,6 @@ class DockerLauncher(Launcher):
         grpc_allow_network_connections: Optional[bool] = False,
         grpc_disable_tls: Optional[bool] = False,
         grpc_uds_pathname: Optional[str] = None,
-        vtk_ws: bool = False,
         **kwargs,
     ) -> None:
         """Initialize DockerLauncher."""
@@ -175,7 +174,6 @@ class DockerLauncher(Launcher):
         self._container: Optional["Container"] = None
         self._enshell: Optional[Any] = None
         self._pim_instance: Optional[Any] = pim_instance
-        self._vtk_ws_port = vtk_ws
 
         # EnSight session secret key
         self._secret_key: str = str(uuid.uuid1())
