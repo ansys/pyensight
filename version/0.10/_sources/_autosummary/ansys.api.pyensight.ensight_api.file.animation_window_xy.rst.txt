@@ -1,0 +1,6 @@
+animation\_window\_xy
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.animation_window_xy

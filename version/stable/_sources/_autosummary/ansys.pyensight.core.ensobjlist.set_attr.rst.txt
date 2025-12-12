@@ -1,0 +1,6 @@
+set\_attr
+=========
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: ensobjlist.set_attr

@@ -1,0 +1,6 @@
+METADATA
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_probe
+
+.. autoproperty:: ENS_PROBE.METADATA

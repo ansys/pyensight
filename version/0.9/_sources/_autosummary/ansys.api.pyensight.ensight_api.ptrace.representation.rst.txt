@@ -1,0 +1,6 @@
+representation
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.representation
