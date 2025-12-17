@@ -57,6 +57,7 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
         grpc_disable_tls=True,
         grpc_use_tcp_sockets=True,
     )
+    mocker.patch.object(launcher, "_grpc_version_check", return_value=True)
     launcher.start()
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
@@ -68,6 +69,7 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
         grpc_disable_tls=True,
         grpc_use_tcp_sockets=True,
     )
+    mocker.patch.object(launcher, "_grpc_version_check", return_value=True)
     with caplog.at_level(logging.DEBUG):
         assert launcher.start() == mocked_session
         out, err = capsys.readouterr()
@@ -95,6 +97,7 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
         grpc_disable_tls=True,
         grpc_use_tcp_sockets=True,
     )
+    mocker.patch.object(launcher, "_grpc_version_check", return_value=True)
     launcher.start()
     # No Data Volume + egl
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
@@ -107,10 +110,12 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
         grpc_disable_tls=True,
         grpc_use_tcp_sockets=True,
     )
+    mocker.patch.object(launcher, "_grpc_version_check", return_value=True)
     launcher.start()
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
     launcher = DockerLauncher(use_dev=True, docker_image_name="super_ensight", timeout=5)
+    mocker.patch.object(launcher, "_grpc_version_check", return_value=True)
     launcher.start()
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
@@ -122,6 +127,7 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
         grpc_disable_tls=True,
         grpc_use_tcp_sockets=True,
     )
+    mocker.patch.object(launcher, "_grpc_version_check", return_value=True)
     launcher.start()
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
@@ -134,6 +140,7 @@ def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
         grpc_disable_tls=True,
         grpc_use_tcp_sockets=True,
     )
+    mocker.patch.object(launcher, "_grpc_version_check", return_value=True)
     launcher.start()
     values_run_command[0] = [1, "cannot set no reroute"]
     enshell_mock[0].run_command.side_effect = values_run_command.copy()
