@@ -1,0 +1,6 @@
+total\_rotation
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: extrude.total_rotation

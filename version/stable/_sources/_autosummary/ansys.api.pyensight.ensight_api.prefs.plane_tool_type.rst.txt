@@ -1,0 +1,6 @@
+plane\_tool\_type
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.plane_tool_type

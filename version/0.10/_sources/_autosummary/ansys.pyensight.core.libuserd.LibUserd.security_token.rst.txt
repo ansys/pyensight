@@ -1,0 +1,6 @@
+security\_token
+===============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoproperty:: LibUserd.security_token

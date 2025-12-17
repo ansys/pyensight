@@ -1,0 +1,114 @@
+﻿ENS\_GROUP
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_group
+
+.. autoclass:: ENS_GROUP
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_GROUP.addchild
+      
+      
+      ENS_GROUP.attrgroupinfo
+      
+      
+      ENS_GROUP.attrinfo
+      
+      
+      ENS_GROUP.attrissensitive
+      
+      
+      ENS_GROUP.attrtree
+      
+      
+      ENS_GROUP.creategroup
+      
+      
+      ENS_GROUP.destroy
+      
+      
+      ENS_GROUP.getattr
+      
+      
+      ENS_GROUP.getattrs
+      
+      
+      ENS_GROUP.getmetatag
+      
+      
+      ENS_GROUP.hasmetatag
+      
+      
+      ENS_GROUP.populate_attr_list
+      
+      
+      ENS_GROUP.refreshgui
+      
+      
+      ENS_GROUP.removechild
+      
+      
+      ENS_GROUP.setattr
+      
+      
+      ENS_GROUP.setattr_begin
+      
+      
+      ENS_GROUP.setattr_end
+      
+      
+      ENS_GROUP.setattr_status
+      
+      
+      ENS_GROUP.setattrs
+      
+      
+      ENS_GROUP.setchildattr
+      
+      
+      ENS_GROUP.setchildattrs
+      
+      
+      ENS_GROUP.setmetatag
+      
+      
+      ENS_GROUP.transform
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_GROUP.CHILDREN
+      ENS_GROUP.DESCRIPTION
+      ENS_GROUP.EDIT_TARGET
+      ENS_GROUP.HANDLES_ENABLED
+      ENS_GROUP.METADATA
+      ENS_GROUP.OFFSET
+      ENS_GROUP.PARENT
+      ENS_GROUP.PATHNAME
+      ENS_GROUP.POLYGON_OFFSET
+      ENS_GROUP.PROJECT_MASK
+      ENS_GROUP.ROTATION
+      ENS_GROUP.SCALE
+      ENS_GROUP.SELECTIONS
+      ENS_GROUP.TRANSLATION
+      ENS_GROUP.UNIQUENAME
+      ENS_GROUP.UUID
+      ENS_GROUP.__OBJID__
+      ENS_GROUP.objid
+   
+   

@@ -1,0 +1,6 @@
+mcfile\_begin
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data.mcfile_begin
