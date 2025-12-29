@@ -245,8 +245,10 @@ class LocalLauncher(Launcher):
             # gRPC port, VNC port, websocketserver ws, websocketserver html
             to_avoid = self._find_ports_used_by_other_pyensight_and_ensight()
             num_ports = 5
-            if self._launch_webui:
-                num_ports = 6
+            if self._launch_webui:  # port 6
+                num_ports += 1
+            if self._vtk_ws_port:  # port 6 or 7 depending on launch_webui
+                num_ports += 1
             self._ports = find_unused_ports(num_ports, avoid=to_avoid)
             if self._ports is None:
                 raise RuntimeError("Unable to allocate local ports for EnSight session")
@@ -419,6 +421,7 @@ class LocalLauncher(Launcher):
             sos=use_sos,
             rest_api=self._enable_rest_api,
             webui_port=self._ports[5] if self._launch_webui else None,
+            disable_grpc_options=not self._has_grpc_changes,
         )
         session.launcher = self
         self._sessions.append(session)

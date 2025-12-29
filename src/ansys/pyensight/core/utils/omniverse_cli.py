@@ -117,6 +117,7 @@ class OmniverseGeometryServer(object):
         grpc_use_tcp_sockets: bool = False,
         grpc_allow_network_connections: bool = False,
         grpc_disable_tls: bool = False,
+        disable_grpc_options: bool = False,
     ) -> None:
         self._dsg_uri = dsg_uri
         self._destination = destination
@@ -136,6 +137,7 @@ class OmniverseGeometryServer(object):
         self._grpc_allow_network_connections = grpc_allow_network_connections
         self._grpc_disable_tls = grpc_disable_tls
         self._grpc_use_tcp_sockets = grpc_use_tcp_sockets
+        self._disable_grpc_options = disable_grpc_options
 
     @property
     def monitor_directory(self) -> Optional[str]:
@@ -267,6 +269,7 @@ class OmniverseGeometryServer(object):
             grpc_disable_tls=self._grpc_disable_tls,
             grpc_allow_network_connections=self._grpc_allow_network_connections,
             grpc_use_tcp_sockets=self._grpc_use_tcp_sockets,
+            disable_grpc_options=self._disable_grpc_options,
         )
 
         # Start the DSG link
@@ -554,6 +557,13 @@ if __name__ == "__main__":
         type=str2bool_type,
         help="If using gRPC and using TCP Socket based connections, disable TLS.",
     )
+    parser.add_argument(
+        "--disable_grpc_options",
+        metavar="yes|no|true|false|1|0",
+        default=False,
+        type=str2bool_type,
+        help="Disable all the gRPC options check and allow to run older versions of EnSight.",
+    )
     # parse the command line
     args = parser.parse_args()
 
@@ -592,6 +602,7 @@ if __name__ == "__main__":
         grpc_disable_tls=args.grpc_disable_tls,
         grpc_allow_network_connections=args.grpc_allow_network_connections,
         grpc_use_tcp_sockets=args.grpc_use_tcp_sockets,
+        disable_grpc_options=args.disable_grpc_options,
     )
 
     # run the server

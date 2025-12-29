@@ -137,6 +137,11 @@ class Session:
     sos : bool, optional
         Whether the remote EnSight instance is to use the SOS (Server
         of Servers) feature. The default is ``False``.
+    webui_port : int, optional
+        Port number of the webui. The default is ``None``.
+    disable_grpc_options: bool, optional
+        Whether to disable the gRPC options check, and allow to run older
+        versions of EnSight
 
     Examples
     --------
@@ -181,6 +186,7 @@ class Session:
         rest_api: bool = False,
         sos: bool = False,
         webui_port: Optional[int] = None,
+        disable_grpc_options: bool = False,
     ) -> None:
         # every session instance needs a unique name that can be used as a cache key
         self._dsg_session: Optional["DSGSession"] = None
@@ -212,6 +218,7 @@ class Session:
         self._halt_ensight_on_close = True
         self._callbacks: Dict[str, Tuple[int, Any]] = dict()
         self._webui_port = webui_port
+        self._disable_grpc_options = disable_grpc_options
         # if the caller passed a session directory we will assume they are
         # creating effectively a proxy Session and create a (stub) launcher
         if session_directory is not None:
@@ -241,7 +248,7 @@ class Session:
             grpc_allow_network_connections=self._grpc_allow_network_connections,
             grpc_disable_tls=self._grpc_disable_tls,
             grpc_uds_pathname=self._grpc_uds_pathname,
-            session=self,
+            disable_grpc_options=self._disable_grpc_options,
         )
         self._grpc.session_name = self._session_name
 

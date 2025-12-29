@@ -201,6 +201,7 @@ def launch_enshell_interface(
     grpc_allow_network_connections: bool = False,
     grpc_disable_tls: bool = False,
     grpc_uds_pathname: Optional[str] = None,
+    disable_grpc_options: bool = False,
 ) -> enshell_grpc.EnShellGRPC:
     """Launch the EnShell gRPC Interface.
 
@@ -222,6 +223,9 @@ def launch_enshell_interface(
     grpc_uds_pathname: bool
         If using gRPC and using Unix Domain Socket based connections, explicitly
         set the pathname to the shared UDS file instead of using the default.
+    disable_grpc_options: bool, optional
+        Whether to disable the gRPC options check, and allow to run older
+        versions of EnSight
 
     Returns
     -------
@@ -241,8 +245,14 @@ def launch_enshell_interface(
             grpc_allow_network_connections=grpc_allow_network_connections,
             grpc_disable_tls=grpc_disable_tls,
             grpc_uds_pathname=grpc_uds_pathname,
+            disable_grpc_options=disable_grpc_options,
         )  # pragma: no cover
-        enshell.security_token = secret_key
+        # If disable_grpc_options is True, it means that in the launcher
+        # the ensight version was checked and it hasn't got the new
+        # grpc options. This means that enshell doesn't accept a string
+        # as security token
+        if not disable_grpc_options:
+            enshell.security_token = secret_key
         enshell.connect_existing_channel(enshell_grpc_channel)  # pragma: no cover
     else:
         enshell = enshell_grpc.EnShellGRPC(
@@ -251,8 +261,14 @@ def launch_enshell_interface(
             grpc_allow_network_connections=grpc_allow_network_connections,
             grpc_disable_tls=grpc_disable_tls,
             grpc_uds_pathname=grpc_uds_pathname,
+            disable_grpc_options=disable_grpc_options,
         )
-        enshell.security_token = secret_key
+        # If disable_grpc_options is True, it means that in the launcher
+        # the ensight version was checked and it hasn't got the new
+        # grpc options. This means that enshell doesn't accept a string
+        # as security token
+        if not disable_grpc_options:
+            enshell.security_token = secret_key
         time_start = time.time()
         while time.time() - time_start < timeout:  # pragma: no cover
             if enshell.is_connected():

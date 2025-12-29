@@ -36,10 +36,13 @@ Examples:
         session.close()
 
 """
+import io
 import logging
 import os
 import re
 import subprocess
+import tarfile
+import time
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 import uuid
 import warnings
@@ -77,6 +80,115 @@ from ansys.pyensight.core.session import Session
 if TYPE_CHECKING:
     from docker import DockerClient
     from docker.models.containers import Container
+
+
+def _iter_tar_members_from_stream(stream_iter):
+    """
+    Wrap docker-py's stream iterator into a file-like object that tarfile can read
+    in streaming mode ('r|*'). This prevents buffering the entire archive.
+    """
+
+    class _GenReader(io.RawIOBase):
+        def __init__(self, chunks_iter):
+            self._iter = iter(chunks_iter)
+            self._buf = bytearray()
+            self._closed = False
+
+        def readable(self):
+            return True
+
+        def readinto(self, b):
+            # Fill 'b' with data from internal buffer; fetch from iterator if needed.
+            if self._closed:
+                return 0
+            while len(self._buf) < len(b):
+                try:
+                    next_chunk = next(self._iter)
+                    if not next_chunk:
+                        break
+                    self._buf.extend(next_chunk)
+                except StopIteration:
+                    break
+            n = min(len(b), len(self._buf))
+            if n:
+                b[:n] = self._buf[:n]
+                del self._buf[:n]
+                return n
+            return 0
+
+        def close(self):
+            self._closed = True
+            super().close()
+
+    gen_reader = _GenReader(stream_iter)
+    # Tarfile in stream mode; yields members one-by-one
+    tf = tarfile.open(fileobj=gen_reader, mode="r|*")
+    return tf, gen_reader
+
+
+def find_ansys_version_dir(container) -> str:
+    """
+    Stream the /ansys_inc archive until we find a path matching:
+      ansys_inc/v###/CEI/BUILDINFO.txt
+    Returns 'v###' or None if not found.
+    """
+    try:
+        stream, stat = container.get_archive("/ansys_inc")
+    except docker.errors.APIError:
+        # /ansys_inc might not exist
+        return ""
+
+    tf, gen_reader = _iter_tar_members_from_stream(stream)
+
+    version_dir = ""
+    version_re = re.compile(r"^ansys_inc/(v\d{3})")
+
+    try:
+        while True:
+            member = tf.next()
+            if member is None:
+                break  # end of stream
+            # Tar headers use forward slashes; names are relative to the requested path
+            name = member.name
+            m = version_re.match(name)
+            if m:
+                version_dir = str(m.group(1))
+                break  # we can stop early
+    finally:
+        # Close the streaming reader to avoid pulling the remainder of the archive
+        try:
+            tf.close()
+        except Exception:
+            pass
+        try:
+            gen_reader.close()
+        except Exception:
+            pass
+
+    return version_dir
+
+
+def read_buildinfo(container, version_dir: str) -> bytes:
+    """
+    Fetch just the BUILDINFO.txt file as a small tar and extract its bytes.
+    """
+    target_path = f"/ansys_inc/{version_dir}/CEI/BUILDINFO.txt"
+    stream, stat = container.get_archive(target_path)
+
+    # The returned tar contains the single file; extract into memory
+    file_bytes = io.BytesIO()
+    # Accumulate minimally; typically tiny
+    for chunk in stream:
+        file_bytes.write(chunk)
+    file_bytes.seek(0)
+    text = b""
+    with tarfile.open(fileobj=file_bytes, mode="r:*") as tf:
+        for member in tf.getmembers():
+            if member.isfile():
+                f = tf.extractfile(member)
+                if f:
+                    text = f.read()
+    return text
 
 
 class DockerLauncher(Launcher):
@@ -220,7 +332,9 @@ class DockerLauncher(Launcher):
         # skip 1999 as that internal to the container is used to the container for the VNC connection
         num_ports = 4
         if self._launch_webui:
-            num_ports = 5
+            num_ports += 1
+        if self._vtk_ws_port:
+            num_ports += 1
         ports = find_unused_ports(num_ports, avoid=[1999])
         if ports is None:  # pragma: no cover
             raise RuntimeError(
@@ -233,6 +347,10 @@ class DockerLauncher(Launcher):
         self._service_host_port["ws"] = ("127.0.0.1", ports[3])
         if self._launch_webui:
             self._service_host_port["webui"] = ("127.0.0.1", ports[4])
+        # This option for the moment is only needed for testing purposes
+        if self._vtk_ws_port:
+            port = ports[5] if self._launch_webui else ports[4]
+            self._service_host_port["vtk_ws"] = ("127.0.0.1", port)
 
         # get the optional user-specified image name
         # Note: the default name needs to change over time...  TODO
@@ -274,16 +392,6 @@ class DockerLauncher(Launcher):
             "ENSIGHT_SECURITY_TOKEN": self._secret_key,
             "WEBSOCKETSERVER_SECURITY_TOKEN": self._secret_key,
             "ENSIGHT_SESSION_TEMPDIR": self._session_directory,
-            # Temporary workaround
-            "ENSIGHT_GRPC_USE_TCP_SOCKETS": "1",
-            "ENSIGHT_GRPC_ALLOW_ALL_NETWORKS": "1",
-            "ENSIGHT_GRPC_DISABLE_TLS": "1",
-            "ENSHELL_GRPC_USE_TCP_SOCKETS": "1",
-            "ENSHELL_GRPC_ALLOW_NETWORK_CONNECTIONS": "1",
-            "ENSHELL_GRPC_DISABLE_TLS": "1",
-            "DVS_USE_TCP_SOCKETS": "1",
-            "DVS_DISABLE_TLS": "1",
-            "DVS_LISTEN_ALL_NETWORKS": "1",
         }
 
         # If for some reason, the ENSIGHT_ANSYS_LAUNCH is set previously,
@@ -357,6 +465,13 @@ class DockerLauncher(Launcher):
                 {
                     str(self._service_host_port["webui"][1])
                     + "/tcp": str(self._service_host_port["webui"][1])
+                }
+            )
+        if self._service_host_port.get("vtk_ws"):
+            ports_to_map.update(
+                {
+                    str(self._service_host_port["vtk_ws"][1])
+                    + "/tcp": str(self._service_host_port["vtk_ws"][1])
                 }
             )
         # The data directory to map into the container
@@ -451,7 +566,109 @@ class DockerLauncher(Launcher):
                     )
                 # logging.debug(f"_container = {str(self._container)}\n")
         logging.debug("Container started.\n")
+        self._has_grpc_changes = self._grpc_version_check()
+        if not self._has_grpc_changes:
+            warnings.warn(GRPC_WARNING_MESSAGE)
         return self.connect()
+
+    def _list_ansys_versions_from_image(self) -> List[str]:
+        """List available Ansys version directories from the image using archives only.
+
+        Returns
+        -------
+        list of str
+            Version numbers like ["261", "260"]. Empty list if none found.
+        """
+        # Stream the tar headers and avoid downloading file contents
+        if not self._container:
+            return []
+        try:
+            bits, _ = self._container.get_archive("/ansys_inc")
+
+            class _ChunkStream:
+                def __init__(self, gen):
+                    self._gen = gen
+                    self._buf = b""
+                    self._closed = False
+
+                def read(self, size=-1):
+                    if self._closed:
+                        return b""
+                    if size is None or size < 0:
+                        # tarfile may request large reads; provide buffered then next chunk
+                        if self._buf:
+                            data = self._buf
+                            self._buf = b""
+                            return data
+                        try:
+                            return next(self._gen)
+                        except StopIteration:
+                            self._closed = True
+                            return b""
+                    # ensure at least size bytes
+                    while len(self._buf) < size and not self._closed:
+                        try:
+                            self._buf += next(self._gen)
+                        except StopIteration:
+                            self._closed = True
+                            break
+                    data, self._buf = self._buf[:size], self._buf[size:]
+                    return data
+
+                def close(self):
+                    self._closed = True
+
+            stream = _ChunkStream(bits)
+            # Use streaming mode to iterate headers only
+            import tarfile
+
+            tar = tarfile.open(mode="r|*", fileobj=stream)  # type: ignore[arg-type]
+            versions: List[str] = []
+            prefix = "ansys_inc/"
+            for m in tar:  # streamed iteration over members
+                # Only consider directory entries at top-level under ansys_inc
+                name = m.name
+                if not name.startswith(prefix):
+                    continue
+                rel = name[len(prefix) :]
+                if not rel:
+                    continue
+                # Normalize to have trailing slash for dirs
+                is_dir = m.isdir() or name.endswith("/")
+                if not is_dir:
+                    # Skip files; we don't want file payloads (stream mode avoids reading them)
+                    continue
+                # Immediate children have exactly one '/'
+                if rel.count("/") == 1 and re.fullmatch(r"v\d{3}/", rel):
+                    versions.append(rel[1:4])
+                # If we have collected a reasonable number, we can optionally break
+                # but generally keep scanning headers; no file bodies are read.
+            tar.close()
+            stream.close()
+            return sorted(set(versions), key=lambda s: int(s), reverse=True)
+        except Exception:
+            return []
+
+    def _get_buildinfo_from_image(self) -> str:
+        """Read /ansys_inc/vXXX/CEI/BUILDINFO.txt from the image using archives only.
+
+        Returns
+        -------
+        str | None
+            The file content, or None if unavailable.
+        """
+
+        version_dir = find_ansys_version_dir(self._container)
+        if not version_dir:
+            return ""
+        content = read_buildinfo(self._container, version_dir)
+        if not content:
+            return ""
+        try:
+            text = content.decode("utf-8", errors="replace")
+        except Exception:
+            text = content.decode("latin1", errors="replace")
+        return text
 
     def launch_webui(self, container_env_str):
         # Run websocketserver
@@ -483,12 +700,13 @@ class DockerLauncher(Launcher):
         counter = 0
         if not self._container:
             raise RuntimeError("Exec run can be called only when the container is up.")
-        while counter < 5:
+        while counter < 10:
             try:
                 return self._container.exec_run(commands)
             except (requests.exceptions.ConnectionError, urllib3.exceptions.ProtocolError) as exc:
                 counter += 1
-                if counter == 5:
+                time.sleep(0.5)
+                if counter == 10:
                     raise exc
 
     def _get_build_info(self):
@@ -509,7 +727,7 @@ class DockerLauncher(Launcher):
         return res2.output.decode("utf-8", errors="replace")
 
     def _grpc_version_check(self):
-        text = self._get_build_info()
+        text = self._get_buildinfo_from_image()
         if text == "mock":
             return True
         internal_version, ensight_full_version = self._get_versionfrom_buildinfo(text)
@@ -531,9 +749,6 @@ class DockerLauncher(Launcher):
         RuntimeError:
             Variety of error conditions.
         """
-        self._has_grpc_changes = self._grpc_version_check()
-        if not self._has_grpc_changes:
-            warnings.warn(GRPC_WARNING_MESSAGE)
         #
         #
         # Start up the EnShell gRPC interface
@@ -546,6 +761,7 @@ class DockerLauncher(Launcher):
             grpc_disable_tls=self._grpc_disable_tls,
             grpc_uds_pathname=self._grpc_uds_pathname,
             grpc_use_tcp_sockets=self._grpc_use_tcp_sockets,
+            disable_grpc_options=not self._has_grpc_changes,
         )
         log_dir = "/data"
         if self._enshell_grpc_channel:  # pragma: no cover
@@ -746,6 +962,7 @@ class DockerLauncher(Launcher):
             sos=use_sos,
             rest_api=self._enable_rest_api,
             webui_port=self._service_host_port["webui"][1] if self._launch_webui else None,
+            disable_grpc_options=not self._has_grpc_changes,
         )
         session.launcher = self
         self._sessions.append(session)
