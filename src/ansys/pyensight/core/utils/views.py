@@ -45,6 +45,7 @@ import math
 from types import ModuleType
 from typing import TYPE_CHECKING, Dict, List, Optional, Tuple, Union
 
+import numpy
 import numpy as np
 
 if TYPE_CHECKING:
@@ -79,17 +80,12 @@ class _Simba:
 
     def _initialize_simba_view(self):
         """Initialize the data for resetting the camera."""
-        vport = self.ensight.objs.core.VPORTS[0]
-        near_clip = vport.ZCLIPLIMITS[0]
-        view_angle = 2 * vport.PERSPECTIVEANGLE
-        self._original_parallel_scale = near_clip * math.tan(math.radians(view_angle) / 2)
-        self._original_view_angle = view_angle
-        (
-            self._original_look_from,
-            self._original_look_at,
-            self._original_view_up,
-            self._original_parallel_scale,
-        ) = self.compute_camera_from_ensight_opengl()
+        reset_camera = self.reset_camera()
+        self._original_parallel_scale = reset_camera["parallel_scale"]
+        self._original_view_angle = reset_camera["view_angle"]
+        self._original_look_at = reset_camera["position"]
+        self._original_look_from = reset_camera["focal_point"]
+        self._original_view_up = reset_camera["view_up"]
         self.ensight.annotation.axis_global("off")
         self.ensight.annotation.axis_local("off")
         self.ensight.annotation.axis_model("off")
@@ -101,13 +97,17 @@ class _Simba:
 
     def auto_scale(self):
         """Auto scale view."""
-        vport = self.ensight.objs.core.VPORTS[0]
-        vport.PERSPECTIVEANGLE = 14  # on fit we need to set a default angle.
-        self.ensight.view_transf.function("global")
-        self.ensight.view_transf.fit()
+        reset_camera = self.reset_camera()
+        new_camera = self.set_camera(
+            reset_camera["orthographic"],
+            reset_camera["view_up"],
+            reset_camera["position"],
+            reset_camera["focal_point"],
+            reset_camera["view_angle"],
+        )
         self._initialize_simba_view()
         self.render()
-        return self.get_camera()
+        return new_camera
 
     def set_view(self, value: str):
         """Set the view."""
@@ -146,7 +146,7 @@ class _Simba:
         }
 
     @staticmethod
-    def normalize(v):
+    def normalize(v) -> numpy.ndarray:
         """Normalize a numpy vector."""
         norm = np.linalg.norm(v)
         return v / norm if norm > 0 else v
@@ -232,10 +232,49 @@ class _Simba:
                 cmd += f"{vport.ROTATION.copy()})"
                 data = self.ensight._session.cmd(cmd)
             self.ensight.view_transf.rotate(data[3], data[4], data[5])
-            self.ensight.view_transf.translate(data[0], data[1], 0)
+            self.ensight.view_transf.translate(data[0], data[1], -data[2])
 
         self.render()
         return self.get_camera()
+
+    def reset_camera(self):
+        vport = self.ensight.objs.core.VPORTS[0]
+        vport.PERSPECTIVEANGLE = 14  # on fit we need to set a default angle.
+        self.ensight.view_transf.function("global")
+        bounds = vport.BOUNDINGBOX
+        xmax = bounds[3]
+        xmin = bounds[0]
+        ymax = bounds[4]
+        ymin = bounds[1]
+        zmax = bounds[5]
+        zmin = bounds[2]
+        center = [(xmax + xmin) / 2, (ymax + ymin) / 2, (zmax + zmin) / 2]
+        xdiff = xmax - xmin
+        ydiff = ymax - ymin
+        zdiff = zmax - zmin
+        radius = math.sqrt(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff)
+        if numpy.isclose(radius, 0, 1e-9, 0.0):
+            radius = 1.0
+        radius = radius / 2
+        angle = math.radians(vport.PERSPECTIVEANGLE * 2)
+        distance = radius / math.sin(angle / 2)
+        camera = self.get_camera()
+        view_up = numpy.array(camera["view_up"])
+        plane_normal = self.normalize(
+            numpy.array([camera["position"][i] - camera["focal_point"][i] for i in range(3)])
+        )
+        position = [center[i] + distance * plane_normal[i] for i in range(3)]
+        prod = numpy.dot(view_up, plane_normal)
+        if abs(prod) > 0.999:
+            view_up = numpy.array([-view_up[2], view_up[0], view_up[1]])
+        return {
+            "orthographic": camera["orthographic"],
+            "view_up": view_up.tolist(),
+            "position": position,
+            "focal_point": center,
+            "view_angle": 28,
+            "parallel_scale": radius,
+        }
 
     def set_perspective(self, value):
         self.ensight.view_transf.function("global")
