@@ -45,7 +45,6 @@ import math
 from types import ModuleType
 from typing import TYPE_CHECKING, Dict, List, Optional, Tuple, Union
 
-import numpy
 import numpy as np
 
 if TYPE_CHECKING:
@@ -155,7 +154,7 @@ class _Simba:
         }
 
     @staticmethod
-    def normalize(v) -> numpy.ndarray:
+    def normalize(v) -> np.ndarray:
         """Normalize a numpy vector."""
         norm = np.linalg.norm(v)
         return v / norm if norm > 0 else v
@@ -269,19 +268,19 @@ class _Simba:
         ydiff = ymax - ymin
         zdiff = zmax - zmin
         radius = math.sqrt(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff)
-        if numpy.isclose(radius, 0, 1e-9, 0.0):
+        if np.isclose(radius, 0, 1e-9, 0.0):
             radius = 1.0
         radius = radius / 2
         angle = math.radians(14)
         distance = radius / math.sin(angle)
-        plane_normal = self.normalize(numpy.array([position[i] - focal_point[i] for i in range(3)]))
+        plane_normal = self.normalize(np.array([position[i] - focal_point[i] for i in range(3)]))
         position = [center[i] + distance * plane_normal[i] for i in range(3)]
         width, height = tuple(self.ensight.objs.core.WINDOWSIZE)
         aspect = width / height
         parallel_scale = radius / aspect
-        prod = numpy.dot(view_up, plane_normal)
+        prod = np.dot(view_up, plane_normal)
         if abs(prod) > 0.999:
-            view_up = numpy.array([-view_up[2], view_up[0], view_up[1]])
+            view_up = np.array([-view_up[2], view_up[0], view_up[1]])
         return {
             "orthographic": not vport.PERSPECTIVE,
             "view_up": view_up,
