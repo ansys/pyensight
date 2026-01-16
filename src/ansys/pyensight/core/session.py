@@ -37,6 +37,7 @@ import importlib.util
 from os import listdir
 import os.path
 import platform
+import socket
 import sys
 import textwrap
 import time
@@ -1921,3 +1922,9 @@ class Session:
             a DSGSession object
         """
         self._dsg_session = dsg_session
+
+    def machine_host(self):
+        """Return the IP of the machine EnSight is running on."""
+        if self.hostname != "127.0.0.1":
+            return socket.gethostbyname(self.hostname)
+        return socket.gethostbyname(socket.gethostname())
