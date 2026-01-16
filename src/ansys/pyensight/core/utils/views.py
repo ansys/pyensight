@@ -79,8 +79,15 @@ class _Simba:
         self._original_view_up = None
 
     def _initialize_simba_view(self):
-        """Initialize the data for resetting the camera."""
-        reset_camera = self.reset_camera()
+        """Initialize the data for resetting the camera.
+
+        Accepts an optional precomputed `reset_camera` dict to keep initialization
+        deterministic (avoid recomputing bounds/camera after `set_camera`).
+        """
+        current_camera = self.get_camera()
+        reset_camera = self.reset_camera(
+            current_camera["position"], current_camera["focal_point"], current_camera["view_up"]
+        )
         self._original_parallel_scale = reset_camera["parallel_scale"]
         self._original_view_angle = reset_camera["view_angle"]
         self._original_look_at = reset_camera["position"]
@@ -97,7 +104,10 @@ class _Simba:
 
     def auto_scale(self):
         """Auto scale view."""
-        reset_camera = self.reset_camera()
+        current_camera = self.get_camera()
+        reset_camera = self.reset_camera(
+            current_camera["position"], current_camera["focal_point"], current_camera["view_up"]
+        )
         new_camera = self.set_camera(
             reset_camera["orthographic"],
             reset_camera["view_up"],
@@ -105,7 +115,6 @@ class _Simba:
             reset_camera["focal_point"],
             reset_camera["view_angle"],
         )
-        self._initialize_simba_view()
         self.render()
         return new_camera
 
@@ -182,16 +191,56 @@ class _Simba:
                 z = 0.25 * s
         return np.array([x, y, z, w])
 
+    @staticmethod
+    def _rotation_matrix_from_quaternion(qx: float, qy: float, qz: float, qw: float) -> np.ndarray:
+        """Create a 3x3 rotation matrix from quaternion (qx,qy,qz,qw).
+
+        Assumes quaternion is normalized or near-normalized.
+        """
+        x, y, z, w = qx, qy, qz, qw
+        xx = x * x
+        yy = y * y
+        zz = z * z
+        xy = x * y
+        xz = x * z
+        yz = y * z
+        xw = x * w
+        yw = y * w
+        zw = z * w
+
+        R = np.array(
+            [
+                [1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw)],
+                [2 * (xy + zw), 1 - 2 * (xx + zz), 2 * (yz - xw)],
+                [2 * (xz - yw), 2 * (yz + xw), 1 - 2 * (xx + yy)],
+            ],
+            dtype=float,
+        )
+        return R
+
     def compute_camera_from_ensight_opengl(self):
         """Simulate a rotating camera using the current quaternion."""
         if isinstance(self.ensight, ModuleType):
             data = self.ensight.objs.core.VPORTS[0].simba_camera()
         else:
-            data = self.ensight._session.cmd("ensight.objs.core.VPORTS[0].simba_camera())")
+            # call the remote command; ensure correct parentheses
+            try:
+                data = self.ensight._session.cmd("ensight.objs.core.VPORTS[0].simba_camera()")
+            except Exception:
+                # If remote call fails, re-raise with more context
+                raise
         camera_position = [data[0], data[1], data[2]]
         focal_point = [data[3], data[4], data[5]]
         view_up = [data[6], data[7], data[8]]
-        parallel_scale = 1 / data[9]
+        # data[9] may be zero — guard against division-by-zero
+        denom = data[9]
+        try:
+            if numpy.isclose(denom, 0.0):
+                parallel_scale = float("inf")
+            else:
+                parallel_scale = 1.0 / denom
+        except Exception:
+            parallel_scale = 1.0
         return camera_position, focal_point, self.views._normalize_vector(view_up), parallel_scale
 
     def set_camera(
@@ -207,9 +256,12 @@ class _Simba:
         perspective = "OFF" if orthographic else "ON"
         self.ensight.view.perspective(perspective)
         vport = self.ensight.objs.core.VPORTS[0]
-        vport.PERSPECTIVEANGLE = view_angle / 2
-        if view_up and position and focal_point:
-            current_camera = self.get_camera()
+        if view_angle is not None:
+            vport.PERSPECTIVEANGLE = view_angle / 2
+        current_camera = self.get_camera()
+        if position is not None and focal_point is not None:
+            if view_up is None:
+                view_up = current_camera["view_up"]
             center = vport.TRANSFORMCENTER.copy()
             if isinstance(self.ensight, ModuleType):
                 data = self.ensight.objs.core.VPORTS[0].simba_set_camera_helper(
@@ -234,20 +286,19 @@ class _Simba:
             self.ensight.view_transf.rotate(data[3], data[4], data[5])
             self.ensight.view_transf.translate(data[0], data[1], -data[2])
 
-        self.render()
+            self.render()
         return self.get_camera()
 
-    def reset_camera(self):
+    def reset_camera(self, position, focal_point, view_up):
         vport = self.ensight.objs.core.VPORTS[0]
-        vport.PERSPECTIVEANGLE = 14  # on fit we need to set a default angle.
         self.ensight.view_transf.function("global")
         bounds = vport.BOUNDINGBOX
-        xmax = bounds[3]
         xmin = bounds[0]
-        ymax = bounds[4]
         ymin = bounds[1]
-        zmax = bounds[5]
         zmin = bounds[2]
+        xmax = bounds[3]
+        ymax = bounds[4]
+        zmax = bounds[5]
         center = [(xmax + xmin) / 2, (ymax + ymin) / 2, (zmax + zmin) / 2]
         xdiff = xmax - xmin
         ydiff = ymax - ymin
@@ -256,20 +307,16 @@ class _Simba:
         if numpy.isclose(radius, 0, 1e-9, 0.0):
             radius = 1.0
         radius = radius / 2
-        angle = math.radians(vport.PERSPECTIVEANGLE * 2)
-        distance = radius / math.sin(angle / 2)
-        camera = self.get_camera()
-        view_up = numpy.array(camera["view_up"])
-        plane_normal = self.normalize(
-            numpy.array([camera["position"][i] - camera["focal_point"][i] for i in range(3)])
-        )
+        angle = math.radians(14)
+        distance = radius / math.sin(angle)
+        plane_normal = self.normalize(numpy.array([position[i] - focal_point[i] for i in range(3)]))
         position = [center[i] + distance * plane_normal[i] for i in range(3)]
         prod = numpy.dot(view_up, plane_normal)
         if abs(prod) > 0.999:
             view_up = numpy.array([-view_up[2], view_up[0], view_up[1]])
         return {
-            "orthographic": camera["orthographic"],
-            "view_up": view_up.tolist(),
+            "orthographic": not vport.PERSPECTIVE,
+            "view_up": view_up,
             "position": position,
             "focal_point": center,
             "view_angle": 28,
