@@ -311,6 +311,9 @@ class _Simba:
         distance = radius / math.sin(angle)
         plane_normal = self.normalize(numpy.array([position[i] - focal_point[i] for i in range(3)]))
         position = [center[i] + distance * plane_normal[i] for i in range(3)]
+        width, height = tuple(self.ensight.objs.core.WINDOWSIZE)
+        aspect = width / height
+        parallel_scale = radius / aspect
         prod = numpy.dot(view_up, plane_normal)
         if abs(prod) > 0.999:
             view_up = numpy.array([-view_up[2], view_up[0], view_up[1]])
@@ -320,7 +323,7 @@ class _Simba:
             "position": position,
             "focal_point": center,
             "view_angle": 28,
-            "parallel_scale": radius,
+            "parallel_scale": parallel_scale,
         }
 
     def set_perspective(self, value):
