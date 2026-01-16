@@ -195,12 +195,7 @@ class _Simba:
         if isinstance(self.ensight, ModuleType):
             data = self.ensight.objs.core.VPORTS[0].simba_camera()
         else:
-            # call the remote command; ensure correct parentheses
-            try:
-                data = self.ensight._session.cmd("ensight.objs.core.VPORTS[0].simba_camera()")
-            except Exception:
-                # If remote call fails, re-raise with more context
-                raise
+            data = self.ensight._session.cmd("ensight.objs.core.VPORTS[0].simba_camera()")
         camera_position = [data[0], data[1], data[2]]
         focal_point = [data[3], data[4], data[5]]
         view_up = [data[6], data[7], data[8]]
