@@ -191,33 +191,6 @@ class _Simba:
                 z = 0.25 * s
         return np.array([x, y, z, w])
 
-    @staticmethod
-    def _rotation_matrix_from_quaternion(qx: float, qy: float, qz: float, qw: float) -> np.ndarray:
-        """Create a 3x3 rotation matrix from quaternion (qx,qy,qz,qw).
-
-        Assumes quaternion is normalized or near-normalized.
-        """
-        x, y, z, w = qx, qy, qz, qw
-        xx = x * x
-        yy = y * y
-        zz = z * z
-        xy = x * y
-        xz = x * z
-        yz = y * z
-        xw = x * w
-        yw = y * w
-        zw = z * w
-
-        R = np.array(
-            [
-                [1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw)],
-                [2 * (xy + zw), 1 - 2 * (xx + zz), 2 * (yz - xw)],
-                [2 * (xz - yw), 2 * (yz + xw), 1 - 2 * (xx + yy)],
-            ],
-            dtype=float,
-        )
-        return R
-
     def compute_camera_from_ensight_opengl(self):
         """Simulate a rotating camera using the current quaternion."""
         if isinstance(self.ensight, ModuleType):
@@ -232,15 +205,7 @@ class _Simba:
         camera_position = [data[0], data[1], data[2]]
         focal_point = [data[3], data[4], data[5]]
         view_up = [data[6], data[7], data[8]]
-        # data[9] may be zero — guard against division-by-zero
-        denom = data[9]
-        try:
-            if numpy.isclose(denom, 0.0):
-                parallel_scale = float("inf")
-            else:
-                parallel_scale = 1.0 / denom
-        except Exception:
-            parallel_scale = 1.0
+        parallel_scale = 1 / data[9]
         return camera_position, focal_point, self.views._normalize_vector(view_up), parallel_scale
 
     def set_camera(
