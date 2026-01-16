@@ -245,7 +245,7 @@ class _Simba:
             self.ensight.view_transf.rotate(data[3], data[4], data[5])
             self.ensight.view_transf.translate(data[0], data[1], -data[2])
 
-            self.render()
+        self.render()
         return self.get_camera()
 
     def reset_camera(self, position, focal_point, view_up):
