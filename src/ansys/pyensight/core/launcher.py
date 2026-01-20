@@ -1,4 +1,4 @@
-# Copyright (C) 2022 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2022 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -145,7 +145,7 @@ class Launcher:
         if self._use_mpi and not self._interconnect:
             self._interconnect = "ethernet"
         if self._interconnect:
-            if self._interconnect not in list(INTERCONNECT_MAP.values()):
+            if self._interconnect not in list(INTERCONNECT_MAP.keys()):
                 raise RuntimeError(f"{self._interconnect} is not a valid MPI interconnect option.")
             self._interconnect = INTERCONNECT_MAP.get(self._interconnect)
         self._server_hosts = server_hosts
