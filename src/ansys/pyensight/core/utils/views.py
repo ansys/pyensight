@@ -262,7 +262,7 @@ class _Simba:
         parallel_scale = radius / aspect
         prod = np.dot(view_up, plane_normal)
         if abs(prod) > 0.999:
-            view_up = np.array([-view_up[2], view_up[0], view_up[1]])
+            view_up = [-view_up[2], view_up[0], view_up[1]]
         return {
             "orthographic": not vport.PERSPECTIVE,
             "view_up": view_up,
