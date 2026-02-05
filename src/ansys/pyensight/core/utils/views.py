@@ -260,7 +260,7 @@ class _Simba:
         width, height = tuple(self.ensight.objs.core.WINDOWSIZE)
         aspect = width / height
         parallel_scale = radius / aspect
-        prod = np.dot(view_up, plane_normal)
+        prod = np.dot(np.array(view_up), plane_normal)
         if abs(prod) > 0.999:
             view_up = [-view_up[2], view_up[0], view_up[1]]
         return {
