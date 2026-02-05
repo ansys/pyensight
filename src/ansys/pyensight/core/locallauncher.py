@@ -243,13 +243,12 @@ class LocalLauncher(Launcher):
                 self._grpc_uds_pathname = os.path.join(self.session_directory, "pyensight")
 
             # gRPC port, VNC port, websocketserver ws, websocketserver html
-            to_avoid = self._find_ports_used_by_other_pyensight_and_ensight()
             num_ports = 5
             if self._launch_webui:  # port 6
                 num_ports += 1
             if self._vtk_ws_port:  # port 6 or 7 depending on launch_webui
                 num_ports += 1
-            self._ports = find_unused_ports(num_ports, avoid=to_avoid)
+            self._ports = find_unused_ports(num_ports, avoid=None)
             if self._ports is None:
                 raise RuntimeError("Unable to allocate local ports for EnSight session")
             is_windows = self._is_windows()
