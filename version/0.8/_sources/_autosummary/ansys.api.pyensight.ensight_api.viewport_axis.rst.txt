@@ -1,0 +1,330 @@
+﻿viewport\_axis
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. autoclass:: viewport_axis
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      viewport_axis.auto_size
+      
+      
+      viewport_axis.axis_height
+      
+      
+      viewport_axis.axis_linewidth
+      
+      
+      viewport_axis.axis_rgb
+      
+      
+      viewport_axis.axis_width
+      
+      
+      viewport_axis.axis_x_displayonedge
+      
+      
+      viewport_axis.axis_x_format
+      
+      
+      viewport_axis.axis_x_gridextentloc
+      
+      
+      viewport_axis.axis_x_gridtype
+      
+      
+      viewport_axis.axis_x_labelaxisloc
+      
+      
+      viewport_axis.axis_x_labelextentloc
+      
+      
+      viewport_axis.axis_x_labelfilter
+      
+      
+      viewport_axis.axis_x_labelrgb
+      
+      
+      viewport_axis.axis_x_max
+      
+      
+      viewport_axis.axis_x_min
+      
+      
+      viewport_axis.axis_x_numgrid
+      
+      
+      viewport_axis.axis_x_numsubgrid
+      
+      
+      viewport_axis.axis_x_orig
+      
+      
+      viewport_axis.axis_x_sgridtype
+      
+      
+      viewport_axis.axis_x_subtick
+      
+      
+      viewport_axis.axis_x_tick
+      
+      
+      viewport_axis.axis_x_title
+      
+      
+      viewport_axis.axis_x_titlesize
+      
+      
+      viewport_axis.axis_x_ymaxzmax
+      
+      
+      viewport_axis.axis_x_ymaxzmin
+      
+      
+      viewport_axis.axis_x_yminzmax
+      
+      
+      viewport_axis.axis_x_yminzmin
+      
+      
+      viewport_axis.axis_y_displayonedge
+      
+      
+      viewport_axis.axis_y_format
+      
+      
+      viewport_axis.axis_y_gridextentloc
+      
+      
+      viewport_axis.axis_y_gridtype
+      
+      
+      viewport_axis.axis_y_labelaxisloc
+      
+      
+      viewport_axis.axis_y_labelextentloc
+      
+      
+      viewport_axis.axis_y_labelfilter
+      
+      
+      viewport_axis.axis_y_labelrgb
+      
+      
+      viewport_axis.axis_y_max
+      
+      
+      viewport_axis.axis_y_min
+      
+      
+      viewport_axis.axis_y_numgrid
+      
+      
+      viewport_axis.axis_y_numsubgrid
+      
+      
+      viewport_axis.axis_y_orig
+      
+      
+      viewport_axis.axis_y_sgridtype
+      
+      
+      viewport_axis.axis_y_subtick
+      
+      
+      viewport_axis.axis_y_tick
+      
+      
+      viewport_axis.axis_y_title
+      
+      
+      viewport_axis.axis_y_titlesize
+      
+      
+      viewport_axis.axis_y_ymaxzmax
+      
+      
+      viewport_axis.axis_y_ymaxzmin
+      
+      
+      viewport_axis.axis_y_yminzmax
+      
+      
+      viewport_axis.axis_y_yminzmin
+      
+      
+      viewport_axis.axis_z_displayonedge
+      
+      
+      viewport_axis.axis_z_format
+      
+      
+      viewport_axis.axis_z_gridextentloc
+      
+      
+      viewport_axis.axis_z_gridtype
+      
+      
+      viewport_axis.axis_z_labelaxisloc
+      
+      
+      viewport_axis.axis_z_labelextentloc
+      
+      
+      viewport_axis.axis_z_labelfilter
+      
+      
+      viewport_axis.axis_z_labelrgb
+      
+      
+      viewport_axis.axis_z_max
+      
+      
+      viewport_axis.axis_z_min
+      
+      
+      viewport_axis.axis_z_numgrid
+      
+      
+      viewport_axis.axis_z_numsubgrid
+      
+      
+      viewport_axis.axis_z_sgridtype
+      
+      
+      viewport_axis.axis_z_subtick
+      
+      
+      viewport_axis.axis_z_tick
+      
+      
+      viewport_axis.axis_z_title
+      
+      
+      viewport_axis.axis_z_titlesize
+      
+      
+      viewport_axis.axis_z_ymaxzmax
+      
+      
+      viewport_axis.axis_z_ymaxzmin
+      
+      
+      viewport_axis.axis_z_yminzmax
+      
+      
+      viewport_axis.axis_z_yminzmin
+      
+      
+      viewport_axis.dimension
+      
+      
+      viewport_axis.face_xmax_grid
+      
+      
+      viewport_axis.face_xmax_gridfilter
+      
+      
+      viewport_axis.face_xmax_subgrid
+      
+      
+      viewport_axis.face_xmin_grid
+      
+      
+      viewport_axis.face_xmin_gridfilter
+      
+      
+      viewport_axis.face_xmin_subgrid
+      
+      
+      viewport_axis.face_ymax_grid
+      
+      
+      viewport_axis.face_ymax_gridfilter
+      
+      
+      viewport_axis.face_ymax_subgrid
+      
+      
+      viewport_axis.face_ymin_grid
+      
+      
+      viewport_axis.face_ymin_gridfilter
+      
+      
+      viewport_axis.face_ymin_subgrid
+      
+      
+      viewport_axis.face_zmax_grid
+      
+      
+      viewport_axis.face_zmax_gridfilter
+      
+      
+      viewport_axis.face_zmax_subgrid
+      
+      
+      viewport_axis.face_zmin_grid
+      
+      
+      viewport_axis.face_zmin_gridfilter
+      
+      
+      viewport_axis.face_zmin_subgrid
+      
+      
+      viewport_axis.grid_linetype
+      
+      
+      viewport_axis.grid_linewidth
+      
+      
+      viewport_axis.grid_rgb
+      
+      
+      viewport_axis.label_size
+      
+      
+      viewport_axis.label_size_2d
+      
+      
+      viewport_axis.label_size_3d
+      
+      
+      viewport_axis.length
+      
+      
+      viewport_axis.subgrid_linetype
+      
+      
+      viewport_axis.subgrid_linewidth
+      
+      
+      viewport_axis.subgrid_rgb
+      
+      
+      viewport_axis.subtick_scale_factor
+      
+      
+      viewport_axis.tick_scale_factor
+      
+      
+      viewport_axis.transparency
+      
+      
+      viewport_axis.visible
+      
+   
+   
+
+   
+   
+   

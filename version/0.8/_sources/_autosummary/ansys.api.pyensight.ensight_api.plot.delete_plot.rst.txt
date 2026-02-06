@@ -1,0 +1,6 @@
+delete\_plot
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.delete_plot

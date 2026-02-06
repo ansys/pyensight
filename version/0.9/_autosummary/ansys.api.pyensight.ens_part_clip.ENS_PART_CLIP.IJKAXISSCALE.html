@@ -1,0 +1,1066 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>IJKAXISSCALE &#8212; PyEnSight</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys_sphinx_theme.css?v=e7c4c341" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/breadcrumbs.css?v=37397a7f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  
+    <link href="../_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=e131e316"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=49e1bf35"></script>
+    <script src="../_static/js/table.js?v=b64f5182"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_autosummary/ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.IJKAXISSCALE';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.9';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <script src="../_static/js/mermaid.js?v=cf64ff96"></script>
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <link rel="icon" href="../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="IJKSCALE" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.IJKSCALE.html" />
+    <link rel="prev" title="IJKAXIS" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.IJKAXIS.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <link rel="canonical" href="https://ensight.docs.pyansys.com/version/stable/_autosummary/ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.IJKAXISSCALE.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="PyEnSight - Home"/>
+    <script>document.write(`<img src="../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark" alt="PyEnSight - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<div class="search-bar" id="search-bar">
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+         aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+         autocapitalize="off" spellcheck="false"/>
+  <span class="search-button__kbd-shortcut">
+    <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+  </span>
+</form>
+<!-- Search results container -->
+<div id="results" class="results" style="display: none;" tabindex="0">
+</div>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<div class="search-bar" id="search-bar">
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+         aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+         autocapitalize="off" spellcheck="false"/>
+  <span class="search-button__kbd-shortcut">
+    <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+  </span>
+</form>
+<!-- Search results container -->
+<div id="results" class="results" style="display: none;" tabindex="0">
+</div>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../native_documentation.html">Native API reference</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../object_documentation.html">Object API reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.ensobj.ENSOBJ.html">ENSOBJ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.ensobjlist.html">ensobjlist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.html">ens_calculator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot.ENS_ANNOT.html">ENS_ANNOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_text.ENS_ANNOT_TEXT.html">ENS_ANNOT_TEXT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_line.ENS_ANNOT_LINE.html">ENS_ANNOT_LINE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_logo.ENS_ANNOT_LOGO.html">ENS_ANNOT_LOGO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_lgnd.ENS_ANNOT_LGND.html">ENS_ANNOT_LGND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_marker.ENS_ANNOT_MARKER.html">ENS_ANNOT_MARKER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_arrow.ENS_ANNOT_ARROW.html">ENS_ANNOT_ARROW</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_dial.ENS_ANNOT_DIAL.html">ENS_ANNOT_DIAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_gauge.ENS_ANNOT_GAUGE.html">ENS_ANNOT_GAUGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_shape.ENS_ANNOT_SHAPE.html">ENS_ANNOT_SHAPE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_camera.ENS_CAMERA.html">ENS_CAMERA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_case.ENS_CASE.html">ENS_CASE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_flipbook.ENS_FLIPBOOK.html">ENS_FLIPBOOK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_frame.ENS_FRAME.html">ENS_FRAME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_geom.ENS_GEOM.html">ENS_GEOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.html">ENS_GLOBALS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_group.ENS_GROUP.html">ENS_GROUP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_lightsource.ENS_LIGHTSOURCE.html">ENS_LIGHTSOURCE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_lpart.ENS_LPART.html">ENS_LPART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_mat.ENS_MAT.html">ENS_MAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_palette.ENS_PALETTE.html">ENS_PALETTE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part.ENS_PART.html">ENS_PART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_model.ENS_PART_MODEL.html">ENS_PART_MODEL</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.html">ENS_PART_CLIP</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.addchild.html">addchild</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.attrgroupinfo.html">attrgroupinfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.attrinfo.html">attrinfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.attrissensitive.html">attrissensitive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.attrtree.html">attrtree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.cmdlang_rec_info.html">cmdlang_rec_info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.createpart.html">createpart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.destroy.html">destroy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.get_values.html">get_values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.getattr.html">getattr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.getattrs.html">getattrs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.getmetatag.html">getmetatag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.hasmetatag.html">hasmetatag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.realtimemode.html">realtimemode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.removechild.html">removechild</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.setattr.html">setattr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.setattr_begin.html">setattr_begin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.setattr_end.html">setattr_end</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.setattr_status.html">setattr_status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.setattrs.html">setattrs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.setmetatag.html">setmetatag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.simba_tracepaths.html">simba_tracepaths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.tracepaths.html">tracepaths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ACTIVE.html">ACTIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ADJCOORDSCALEFACTOR.html">ADJCOORDSCALEFACTOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ADJCOORDTRANSVEC.html">ADJCOORDTRANSVEC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ADJCOORDVARSCALEFACTOR.html">ADJCOORDVARSCALEFACTOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ADJCOORDXVARIABLE.html">ADJCOORDXVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ADJCOORDYVARIABLE.html">ADJCOORDYVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ADJCOORDZVARIABLE.html">ADJCOORDZVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ALPHABY.html">ALPHABY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ALPHABYPALETTE.html">ALPHABYPALETTE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ANGLE.html">ANGLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.AXIS.html">AXIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.BOUNDINGREP.html">BOUNDINGREP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.BOXAXISX.html">BOXAXISX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.BOXAXISY.html">BOXAXISY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.BOXAXISZ.html">BOXAXISZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.BOXLENGTH.html">BOXLENGTH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.BOXORIGIN.html">BOXORIGIN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.CASENUMBER.html">CASENUMBER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.CHILDREN.html">CHILDREN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.CLIP.html">CLIP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.CLIPLINEPT1.html">CLIPLINEPT1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.CLIPLINEPT2.html">CLIPLINEPT2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.CLIPPLANEPT1.html">CLIPPLANEPT1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.CLIPPLANEPT2.html">CLIPPLANEPT2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.CLIPPLANEPT3.html">CLIPPLANEPT3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.COLORBYPALETTE.html">COLORBYPALETTE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.COLORBYRGB.html">COLORBYRGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.CONEANGLE.html">CONEANGLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.CONEAXISVECT.html">CONEAXISVECT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.CONEENDPOINT.html">CONEENDPOINT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.CONEORIGIN.html">CONEORIGIN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.CULLELEMENTS.html">CULLELEMENTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.CYLDAXISVECT.html">CYLDAXISVECT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.CYLDENDPOINT.html">CYLDENDPOINT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.CYLDORIGIN.html">CYLDORIGIN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.CYLDRADIUS.html">CYLDRADIUS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.DESCRIPTION.html">DESCRIPTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.DIMENSION2.html">DIMENSION2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.DIMENSION2STEP.html">DIMENSION2STEP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.DIMENSION3.html">DIMENSION3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.DIMENSION3STEP.html">DIMENSION3STEP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.DISPLACEBY.html">DISPLACEBY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.DISPLACEFACTOR.html">DISPLACEFACTOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.DOMAIN.html">DOMAIN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.DOMAINBOX.html">DOMAINBOX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.DOMAINXYZRTZLINE.html">DOMAINXYZRTZLINE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.DOUBLESIDED.html">DOUBLESIDED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.DTA_BLOCK.html">DTA_BLOCK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.EDIT_TARGET.html">EDIT_TARGET</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTBLANKING.html">ELTBLANKING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTDEFINEDBY.html">ELTDEFINEDBY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFEATUREANGLE.html">ELTFEATUREANGLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER1ACTIVE.html">ELTFILTER1ACTIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER1TESTOP.html">ELTFILTER1TESTOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER1TESTVALUE.html">ELTFILTER1TESTVALUE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER1TESTVARCOMP.html">ELTFILTER1TESTVARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER1TESTVARIABLE.html">ELTFILTER1TESTVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER1VARCOMP.html">ELTFILTER1VARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER1VARIABLE.html">ELTFILTER1VARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER2ACTIVE.html">ELTFILTER2ACTIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER2LOGICALOP.html">ELTFILTER2LOGICALOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER2TESTOP.html">ELTFILTER2TESTOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER2TESTVALUE.html">ELTFILTER2TESTVALUE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER2TESTVARCOMP.html">ELTFILTER2TESTVARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER2TESTVARIABLE.html">ELTFILTER2TESTVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER2VARCOMP.html">ELTFILTER2VARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER2VARIABLE.html">ELTFILTER2VARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER3ACTIVE.html">ELTFILTER3ACTIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER3LOGICALOP.html">ELTFILTER3LOGICALOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER3TESTOP.html">ELTFILTER3TESTOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER3TESTVALUE.html">ELTFILTER3TESTVALUE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER3TESTVARCOMP.html">ELTFILTER3TESTVARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER3TESTVARIABLE.html">ELTFILTER3TESTVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER3VARCOMP.html">ELTFILTER3VARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER3VARIABLE.html">ELTFILTER3VARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER4ACTIVE.html">ELTFILTER4ACTIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER4LOGICALOP.html">ELTFILTER4LOGICALOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER4TESTOP.html">ELTFILTER4TESTOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER4TESTVALUE.html">ELTFILTER4TESTVALUE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER4TESTVARCOMP.html">ELTFILTER4TESTVARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER4TESTVARIABLE.html">ELTFILTER4TESTVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER4VARCOMP.html">ELTFILTER4VARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER4VARIABLE.html">ELTFILTER4VARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER5ACTIVE.html">ELTFILTER5ACTIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER5LOGICALOP.html">ELTFILTER5LOGICALOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER5TESTOP.html">ELTFILTER5TESTOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER5TESTVALUE.html">ELTFILTER5TESTVALUE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER5TESTVARCOMP.html">ELTFILTER5TESTVARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER5TESTVARIABLE.html">ELTFILTER5TESTVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER5VARCOMP.html">ELTFILTER5VARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER5VARIABLE.html">ELTFILTER5VARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER6ACTIVE.html">ELTFILTER6ACTIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER6LOGICALOP.html">ELTFILTER6LOGICALOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER6TESTOP.html">ELTFILTER6TESTOP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER6TESTVALUE.html">ELTFILTER6TESTVALUE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER6TESTVARCOMP.html">ELTFILTER6TESTVARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER6TESTVARIABLE.html">ELTFILTER6TESTVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER6VARCOMP.html">ELTFILTER6VARCOMP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTFILTER6VARIABLE.html">ELTFILTER6VARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTREPPOINTSNORMALS.html">ELTREPPOINTSNORMALS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTREPRESENTATION.html">ELTREPRESENTATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ELTSHRINKFACTOR.html">ELTSHRINKFACTOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENDPOINT.html">ENDPOINT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_DETAILS.html">ENS_DETAILS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_KIND.html">ENS_KIND</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_MATERIAL.html">ENS_MATERIAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_PARENT_PART.html">ENS_PARENT_PART</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_PLIST_KEY_SEL_0.html">ENS_PLIST_KEY_SEL_0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_PLIST_KEY_SEL_1.html">ENS_PLIST_KEY_SEL_1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_PLIST_KEY_SEL_2.html">ENS_PLIST_KEY_SEL_2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_PLIST_KEY_SEL_3.html">ENS_PLIST_KEY_SEL_3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_PLIST_KEY_SEL_4.html">ENS_PLIST_KEY_SEL_4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_PLIST_KEY_SEL_5.html">ENS_PLIST_KEY_SEL_5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_PLIST_KEY_SEL_6.html">ENS_PLIST_KEY_SEL_6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_PLIST_KEY_SEL_7.html">ENS_PLIST_KEY_SEL_7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_PLIST_KEY_SEL_8.html">ENS_PLIST_KEY_SEL_8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_PLIST_KEY_SEL_9.html">ENS_PLIST_KEY_SEL_9</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_SYMMETRY_AXIS.html">ENS_SYMMETRY_AXIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_SYMMETRY_COUNT.html">ENS_SYMMETRY_COUNT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_TURBO_STAGE.html">ENS_TURBO_STAGE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_TURBO_VDIM.html">ENS_TURBO_VDIM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_TURBO_VIEW.html">ENS_TURBO_VIEW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENS_UNITS_LABEL.html">ENS_UNITS_LABEL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENTITYLABELELT.html">ENTITYLABELELT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ENTITYLABELNODE.html">ENTITYLABELNODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.EQUATION.html">EQUATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.EXTENTS.html">EXTENTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.FILLPATTERN.html">FILLPATTERN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.GRIDPTS.html">GRIDPTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.HANDLES_ENABLED.html">HANDLES_ENABLED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.HAS0DELEMENTS.html">HAS0DELEMENTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.HAS1DELEMENTS.html">HAS1DELEMENTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.HAS2DELEMENTS.html">HAS2DELEMENTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.HAS3DELEMENTS.html">HAS3DELEMENTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.HIDDENLINE.html">HIDDENLINE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.HIDDENSURFACE.html">HIDDENSURFACE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.IJKAXIS.html">IJKAXIS</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">IJKAXISSCALE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.IJKSCALE.html">IJKSCALE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ISGROUP.html">ISGROUP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.LIGHTAMBIENT.html">LIGHTAMBIENT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.LIGHTDIFFUSE.html">LIGHTDIFFUSE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.LIGHTEMISSIVE.html">LIGHTEMISSIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.LIGHTREFRACTION.html">LIGHTREFRACTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.LIGHTSPECULARINTENSITY.html">LIGHTSPECULARINTENSITY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.LIGHTSPECULARREFLECTION.html">LIGHTSPECULARREFLECTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.LIGHTSPECULARSHINE.html">LIGHTSPECULARSHINE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.LIGHTSPECULARTINT.html">LIGHTSPECULARTINT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.LINESTYLE.html">LINESTYLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.LINEWIDTH.html">LINEWIDTH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.LPARTPARENT.html">LPARTPARENT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.MATERIALBASETYPE.html">MATERIALBASETYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.MATERIALDESCRIPTION.html">MATERIALDESCRIPTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.MESHPLANE.html">MESHPLANE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.MESHPLANEIJK.html">MESHPLANEIJK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.MESHPLANERTZ.html">MESHPLANERTZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.MESHPLANEXYZ.html">MESHPLANEXYZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.MESHTYPE.html">MESHTYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.METADATA.html">METADATA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.MIRRORORIGINAL.html">MIRRORORIGINAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.NODEDETAIL.html">NODEDETAIL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.NODEORIENTATIONANGLE.html">NODEORIENTATIONANGLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.NODEORIENTATIONAXIS.html">NODEORIENTATIONAXIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.NODERANGESTEPI.html">NODERANGESTEPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.NODERANGESTEPJ.html">NODERANGESTEPJ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.NODERANGESTEPK.html">NODERANGESTEPK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.NODESCALE.html">NODESCALE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.NODESIZEBY.html">NODESIZEBY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.NODETYPE.html">NODETYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.NODEVARIABLE.html">NODEVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.OPAQUENESS.html">OPAQUENESS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.ORIGIN.html">ORIGIN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.PARENT.html">PARENT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.PARTNUMBER.html">PARTNUMBER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.PARTNUMELE.html">PARTNUMELE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.PARTNUMELECLIENT.html">PARTNUMELECLIENT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.PARTTYPE.html">PARTTYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.PARTTYPEENUM.html">PARTTYPEENUM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.PATHNAME.html">PATHNAME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.PERIODICSECTIONS.html">PERIODICSECTIONS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.PREDEFINEDMATERIAL.html">PREDEFINEDMATERIAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.PROJECT_MASK.html">PROJECT_MASK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.RADIUS.html">RADIUS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REDUCEPOLYGONS.html">REDUCEPOLYGONS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REDUCEPOLYGONSFACTOR.html">REDUCEPOLYGONSFACTOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REFFRAME.html">REFFRAME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.RENDERINGREFLECTIONID.html">RENDERINGREFLECTIONID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REV1DAXISVECT.html">REV1DAXISVECT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REV1DORIGIN.html">REV1DORIGIN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVERSENORMAL.html">REVERSENORMAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVOLVEPART.html">REVOLVEPART</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTDISTANCE1.html">REVPOINTDISTANCE1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTDISTANCE10.html">REVPOINTDISTANCE10</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTDISTANCE2.html">REVPOINTDISTANCE2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTDISTANCE3.html">REVPOINTDISTANCE3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTDISTANCE4.html">REVPOINTDISTANCE4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTDISTANCE5.html">REVPOINTDISTANCE5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTDISTANCE6.html">REVPOINTDISTANCE6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTDISTANCE7.html">REVPOINTDISTANCE7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTDISTANCE8.html">REVPOINTDISTANCE8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTDISTANCE9.html">REVPOINTDISTANCE9</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTRADII1.html">REVPOINTRADII1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTRADII10.html">REVPOINTRADII10</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTRADII2.html">REVPOINTRADII2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTRADII3.html">REVPOINTRADII3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTRADII4.html">REVPOINTRADII4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTRADII5.html">REVPOINTRADII5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTRADII6.html">REVPOINTRADII6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTRADII7.html">REVPOINTRADII7</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTRADII8.html">REVPOINTRADII8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVPOINTRADII9.html">REVPOINTRADII9</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVTOOLAXIS.html">REVTOOLAXIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVTOOLNUMPTS.html">REVTOOLNUMPTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.REVTOOLORIGIN.html">REVTOOLORIGIN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.RTZAXIS.html">RTZAXIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SAMPLEPOINTSLINE.html">SAMPLEPOINTSLINE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SAMPLEPOINTSSPLINE.html">SAMPLEPOINTSSPLINE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SAMPLETYPE.html">SAMPLETYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SAMPLEXYZ.html">SAMPLEXYZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SELECTED.html">SELECTED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SHADING.html">SHADING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SHOWSFT.html">SHOWSFT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SLIDERRANGEIJK.html">SLIDERRANGEIJK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SLIDERSTEP.html">SLIDERSTEP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SLIDERSTEPIJK.html">SLIDERSTEPIJK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SLIDERX.html">SLIDERX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SLIDERY.html">SLIDERY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SLIDERZ.html">SLIDERZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SOURCES.html">SOURCES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SPECIFYSYMMETRYORIGIN.html">SPECIFYSYMMETRYORIGIN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SPHRAXISENDPOINT1.html">SPHRAXISENDPOINT1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SPHRAXISENDPOINT2.html">SPHRAXISENDPOINT2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SPHRAXISVECT.html">SPHRAXISVECT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SPHRORIGIN.html">SPHRORIGIN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SPHRRADIUS.html">SPHRRADIUS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SPLINEID.html">SPLINEID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SYMMETRYANGLE.html">SYMMETRYANGLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SYMMETRYAXIS.html">SYMMETRYAXIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SYMMETRYDELTA.html">SYMMETRYDELTA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SYMMETRYMIRRORX.html">SYMMETRYMIRRORX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SYMMETRYMIRRORXY.html">SYMMETRYMIRRORXY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SYMMETRYMIRRORXYZ.html">SYMMETRYMIRRORXYZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SYMMETRYMIRRORXZ.html">SYMMETRYMIRRORXZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SYMMETRYMIRRORY.html">SYMMETRYMIRRORY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SYMMETRYMIRRORYZ.html">SYMMETRYMIRRORYZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SYMMETRYMIRRORZ.html">SYMMETRYMIRRORZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SYMMETRYORIGIN.html">SYMMETRYORIGIN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SYMMETRYRINSTANCES.html">SYMMETRYRINSTANCES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.SYMMETRYTYPE.html">SYMMETRYTYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.TEXTURECOORDTYPE.html">TEXTURECOORDTYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.TEXTUREINTERPOLATION.html">TEXTUREINTERPOLATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.TEXTUREMODE.html">TEXTUREMODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.TEXTUREOBJECT.html">TEXTUREOBJECT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.TEXTUREORIGIN.html">TEXTUREORIGIN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.TEXTUREORIGINNODEID.html">TEXTUREORIGINNODEID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.TEXTUREORIGINUSE.html">TEXTUREORIGINUSE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.TEXTUREREPEATMODE.html">TEXTUREREPEATMODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.TEXTURESORIGINNODEID.html">TEXTURESORIGINNODEID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.TEXTURESVARIABLE.html">TEXTURESVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.TEXTURESVECTOR.html">TEXTURESVECTOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.TEXTURETORIGINNODEID.html">TEXTURETORIGINNODEID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.TEXTURETVARIABLE.html">TEXTURETVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.TEXTURETVECTOR.html">TEXTURETVECTOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.TOOL.html">TOOL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.TYPE.html">TYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.UUID.html">UUID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.VALUE.html">VALUE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.VALUEIJK.html">VALUEIJK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.VALUERTZ.html">VALUERTZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.VALUESPLINE.html">VALUESPLINE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.VALUEXYZ.html">VALUEXYZ</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.VIEWPORTVIS.html">VIEWPORTVIS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.VISIBILITYELT.html">VISIBILITYELT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.VISIBILITYLINE.html">VISIBILITYLINE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.VISIBILITYNODE.html">VISIBILITYNODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.VISIBLE.html">VISIBLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.VOLUMEQUALITY.html">VOLUMEQUALITY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.VOLUMERENDERINGTYPE.html">VOLUMERENDERINGTYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.__OBJID__.html">__OBJID__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.objid.html">objid</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_contour.ENS_PART_CONTOUR.html">ENS_PART_CONTOUR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_discrete_particle.ENS_PART_DISCRETE_PARTICLE.html">ENS_PART_DISCRETE_PARTICLE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_frame.ENS_PART_FRAME.html">ENS_PART_FRAME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_isosurface.ENS_PART_ISOSURFACE.html">ENS_PART_ISOSURFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE.html">ENS_PART_PARTICLE_TRACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_profile.ENS_PART_PROFILE.html">ENS_PART_PROFILE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_vector_arrow.ENS_PART_VECTOR_ARROW.html">ENS_PART_VECTOR_ARROW</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_elevated_surface.ENS_PART_ELEVATED_SURFACE.html">ENS_PART_ELEVATED_SURFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_developed_surface.ENS_PART_DEVELOPED_SURFACE.html">ENS_PART_DEVELOPED_SURFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_built_up.ENS_PART_BUILT_UP.html">ENS_PART_BUILT_UP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_tensor_glyph.ENS_PART_TENSOR_GLYPH.html">ENS_PART_TENSOR_GLYPH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_fx_vortex_core.ENS_PART_FX_VORTEX_CORE.html">ENS_PART_FX_VORTEX_CORE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_fx_shock.ENS_PART_FX_SHOCK.html">ENS_PART_FX_SHOCK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_fx_sep_att.ENS_PART_FX_SEP_ATT.html">ENS_PART_FX_SEP_ATT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_mat_interface.ENS_PART_MAT_INTERFACE.html">ENS_PART_MAT_INTERFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_point.ENS_PART_POINT.html">ENS_PART_POINT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_axisymmetric.ENS_PART_AXISYMMETRIC.html">ENS_PART_AXISYMMETRIC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_vof.ENS_PART_VOF.html">ENS_PART_VOF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_aux_geom.ENS_PART_AUX_GEOM.html">ENS_PART_AUX_GEOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_filter.ENS_PART_FILTER.html">ENS_PART_FILTER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_plotter.ENS_PLOTTER.html">ENS_PLOTTER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_polyline.ENS_POLYLINE.html">ENS_POLYLINE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_probe.ENS_PROBE.html">ENS_PROBE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_query.ENS_QUERY.html">ENS_QUERY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_scene.ENS_SCENE.html">ENS_SCENE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_source.ENS_SOURCE.html">ENS_SOURCE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_spec.ENS_SPEC.html">ENS_SPEC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_state.ENS_STATE.html">ENS_STATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_texture.ENS_TEXTURE.html">ENS_TEXTURE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool.ENS_TOOL.html">ENS_TOOL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_cursor.ENS_TOOL_CURSOR.html">ENS_TOOL_CURSOR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_line.ENS_TOOL_LINE.html">ENS_TOOL_LINE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_plane.ENS_TOOL_PLANE.html">ENS_TOOL_PLANE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_box.ENS_TOOL_BOX.html">ENS_TOOL_BOX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_cylinder.ENS_TOOL_CYLINDER.html">ENS_TOOL_CYLINDER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_cone.ENS_TOOL_CONE.html">ENS_TOOL_CONE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_sphere.ENS_TOOL_SPHERE.html">ENS_TOOL_SPHERE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_revolution.ENS_TOOL_REVOLUTION.html">ENS_TOOL_REVOLUTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_var.ENS_VAR.html">ENS_VAR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_vport.ENS_VPORT.html">ENS_VPORT</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../calc_functions.html">Calculator functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest_api/rest_api.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libuserd_documentation.html">LibUserd API reference</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.enscontext.EnsContext.html">EnsContext</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.LocalLauncher.html">LocalLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.DockerLauncher.html">DockerLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.renderable.Renderable.html">Renderable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.Session.html">Session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.export.Export.html">Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.parts.Parts.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.query.Query.html">Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.support.Support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.views.Views.html">Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.variables.Variables.html">Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.omniverse.Omniverse.html">Omniverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.readers.Readers.html">Readers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.readers.DVS.html">DVS</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+     
+    <li class="breadcrumb-item breadcrumb-home">
+      <a
+        href="../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../class_documentation.html" class="nav-link">API reference</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../object_documentation.html" class="nav-link">Object API reference</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.html" class="nav-link">ENS_PART_CLIP</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page">IJKAXISSCALE</li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ijkaxisscale">
+<h1>IJKAXISSCALE<a class="headerlink" href="#ijkaxisscale" title="Link to this heading">#</a></h1>
+<dl class="py property">
+<dt class="sig sig-object py" id="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.IJKAXISSCALE">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ENS_PART_CLIP.</span></span><span class="sig-name descname"><span class="pre">IJKAXISSCALE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.IJKAXISSCALE" title="Link to this definition">#</a></dt>
+<dd><p>IJKAXISSCALE property</p>
+<p>IJK axis scale</p>
+<dl class="simple">
+<dt>Supported operations:</dt><dd><p>getattr, setattr</p>
+</dd>
+<dt>Datatype:</dt><dd><p>Float, scalar</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.IJKAXISSCALE"><code class="docutils literal notranslate"><span class="pre">ENS_PART_CLIP.IJKAXISSCALE</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/_autosummary/ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.IJKAXISSCALE.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+<link rel="stylesheet" href="../_static/css/fuse-search.css">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+
+
+
+
+
+
+
+<script>
+var theme_static_search = JSON.parse('{"ignoreLocation": "False", "keys": ["title", "text"], "shouldSort": "True", "threshold": 0.5, "useExtendedSearch": "True"}');
+var theme_limit = "10";
+var min_chars_for_search = "1";
+var searchPath = "../_static/search.json";
+
+</script>
+
+<script src="../_static/js/fuse_search.js"></script>
+<script src="../_static/js/fuse_extension.js"></script>
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2025 ANSYS, Inc. Unauthorized use, distribution, or duplication is prohibited..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  1.1.1. <br />Last updated on
+  <span id="date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var lastModifiedDate = new Date(document.lastModified);
+  var date = lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("date").innerHTML = date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

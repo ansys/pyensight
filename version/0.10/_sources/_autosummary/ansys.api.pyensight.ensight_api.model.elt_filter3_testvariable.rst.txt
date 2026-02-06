@@ -1,0 +1,6 @@
+elt\_filter3\_testvariable
+==========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: model.elt_filter3_testvariable

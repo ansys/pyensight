@@ -1,0 +1,6 @@
+BAR02\_GHOST
+============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.BAR02_GHOST

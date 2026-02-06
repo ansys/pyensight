@@ -1,0 +1,54 @@
+﻿connect
+=======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. autoclass:: connect
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      connect.backend
+      
+      
+      connect.connect
+      
+      
+      connect.default
+      
+      
+      connect.directory
+      
+      
+      connect.executable
+      
+      
+      connect.login_id
+      
+      
+      connect.machine
+      
+      
+      connect.plotter
+      
+      
+      connect.port
+      
+      
+      connect.ports
+      
+      
+      connect.type
+      
+   
+   
+
+   
+   
+   
