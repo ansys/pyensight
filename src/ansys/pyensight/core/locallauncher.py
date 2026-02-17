@@ -38,6 +38,7 @@ import re
 import shutil
 import subprocess
 import tempfile
+import threading
 import time
 from typing import Optional
 import uuid
@@ -462,21 +463,46 @@ class LocalLauncher(Launcher):
 
     def stop(self) -> None:
         """Release any additional resources allocated during launching."""
-        maximum_wait_secs = 120.0
-        start_time = time.time()
-        while (time.time() - start_time) < maximum_wait_secs:
-            try:
-                shutil.rmtree(self.session_directory)
-                self._ports = None
-                super().stop()
-                return
-            except PermissionError:
-                pass
-            except FileNotFoundError:
-                pass
-            except Exception:
-                raise
-        raise RuntimeError(f"Unable to remove {self.session_directory} in {maximum_wait_secs}s")
+
+        # Perform directory removal asynchronously to avoid blocking callers.
+        def _remove_session_dir(path: str) -> None:
+            maximum_wait_secs = 120.0
+            start_time = time.time()
+            while (time.time() - start_time) < maximum_wait_secs:
+                try:
+                    shutil.rmtree(path)
+                    return
+                except PermissionError:
+                    # likely files still held open; retry briefly
+                    time.sleep(0.5)
+                except FileNotFoundError:
+                    return
+                except Exception:
+                    return
+
+        try:
+            t = threading.Thread(
+                target=_remove_session_dir, args=(self.session_directory,), daemon=True
+            )
+            t.start()
+        except Exception:
+            # If threading fails for any reason, fall back to synchronous removal
+            maximum_wait_secs = 120.0
+            start_time = time.time()
+            while (time.time() - start_time) < maximum_wait_secs:
+                try:
+                    shutil.rmtree(self.session_directory)
+                    break
+                except PermissionError:
+                    time.sleep(0.5)
+                except FileNotFoundError:
+                    break
+                except Exception:
+                    break
+
+        # Clear port allocation and let base class perform any remaining cleanup.
+        self._ports = None
+        super().stop()
 
     def close(self, session):
         """Shut down the launched EnSight session.
