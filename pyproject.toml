@@ -37,7 +37,7 @@ dependencies = [
     "psutil>=5.9.2",
     "usd-core==25.11; platform_machine != 'aarch64'",
     "pygltflib>=1.16.2",
-    "grpcio<1.68.0",
+    "grpcio<1.79.0",
     "ansys-tools-common>=0.3.0"
 ]
 
