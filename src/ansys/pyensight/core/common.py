@@ -70,6 +70,51 @@ def find_unused_ports(count: int, avoid: Optional[List[int]] = None) -> Optional
     """
     if avoid is None:
         avoid = []
+
+    # Fast path: ask the OS for ephemeral ports by binding to port 0.
+    # This is much faster than scanning large port ranges. We attempt
+    # a small number of retries to avoid races; if unsuccessful we fall
+    # back to the original scanning algorithm.
+    max_attempts = 8
+    for _ in range(max_attempts):
+        socks = []
+        ports = []
+        failed = False
+        try:
+            for _ in range(count):
+                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                # allow quick reuse while we hold sockets
+                try:
+                    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                except Exception:
+                    pass
+                s.bind(("127.0.0.1", 0))
+                port = s.getsockname()[1]
+                # sanity checks
+                if port in avoid or port < 1024:
+                    failed = True
+                    break
+                socks.append(s)
+                ports.append(port)
+            if not failed and len(ports) == count:
+                # Close sockets and return ports. There is a small race here
+                # where another process can take the port before the caller
+                # starts listening, but this approach is substantially
+                # faster than scanning and acceptable in most environments.
+                for s in socks:
+                    s.close()
+                return ports
+        except Exception:
+            failed = True
+        finally:
+            # ensure sockets are closed on failure as well
+            for s in socks:
+                try:
+                    s.close()
+                except Exception:
+                    pass
+
+    # Fallback: original scanning approach (slower but conservative)
     ports = list()
 
     # pick a starting port number
