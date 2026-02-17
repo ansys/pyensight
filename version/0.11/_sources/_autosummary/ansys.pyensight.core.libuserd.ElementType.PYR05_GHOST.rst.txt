@@ -1,0 +1,6 @@
+PYR05\_GHOST
+============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.PYR05_GHOST

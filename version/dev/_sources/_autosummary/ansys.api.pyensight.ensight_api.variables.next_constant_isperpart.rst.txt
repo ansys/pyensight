@@ -1,0 +1,6 @@
+next\_constant\_isperpart
+=========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: variables.next_constant_isperpart

@@ -1,0 +1,6 @@
+show
+====
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.show

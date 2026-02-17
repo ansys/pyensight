@@ -1,0 +1,6 @@
+add\_custom\_label
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: contour.add_custom_label

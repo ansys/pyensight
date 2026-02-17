@@ -1,0 +1,6 @@
+subgrid\_rgb
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport_axis.subgrid_rgb

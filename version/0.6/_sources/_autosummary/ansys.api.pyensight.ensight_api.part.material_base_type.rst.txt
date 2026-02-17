@@ -1,0 +1,6 @@
+material\_base\_type
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.material_base_type

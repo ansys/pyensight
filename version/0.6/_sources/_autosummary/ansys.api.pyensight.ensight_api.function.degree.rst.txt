@@ -1,0 +1,6 @@
+degree
+======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: function.degree

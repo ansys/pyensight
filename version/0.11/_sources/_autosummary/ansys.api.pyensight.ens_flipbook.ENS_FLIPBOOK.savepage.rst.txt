@@ -1,0 +1,6 @@
+savepage
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_flipbook
+
+.. automethod:: ENS_FLIPBOOK.savepage

@@ -1,0 +1,6 @@
+rename\_all
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: views.rename_all

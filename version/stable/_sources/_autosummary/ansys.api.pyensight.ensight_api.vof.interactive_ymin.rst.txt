@@ -1,0 +1,6 @@
+interactive\_ymin
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: vof.interactive_ymin

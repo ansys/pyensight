@@ -1,0 +1,6 @@
+is\_geometry\_changing
+======================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: Reader.is_geometry_changing

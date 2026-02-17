@@ -1,0 +1,6 @@
+element\_threshold\_high
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: annot_entlbl.element_threshold_high

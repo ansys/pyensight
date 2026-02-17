@@ -1,0 +1,6 @@
+legend\_minmax\_visible
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.legend_minmax_visible

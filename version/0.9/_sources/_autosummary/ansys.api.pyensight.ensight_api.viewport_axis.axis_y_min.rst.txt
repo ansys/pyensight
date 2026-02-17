@@ -1,0 +1,6 @@
+axis\_y\_min
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport_axis.axis_y_min

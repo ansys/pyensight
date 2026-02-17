@@ -1,0 +1,6 @@
+update\_to\_current
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: solution_time.update_to_current

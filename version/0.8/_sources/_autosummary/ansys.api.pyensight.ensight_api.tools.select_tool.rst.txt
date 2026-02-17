@@ -1,0 +1,6 @@
+select\_tool
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: tools.select_tool

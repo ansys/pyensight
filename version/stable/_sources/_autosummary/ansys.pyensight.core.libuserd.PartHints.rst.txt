@@ -1,0 +1,53 @@
+﻿PartHints
+=========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoclass:: PartHints
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      PartHints.conjugate
+      
+      
+      PartHints.bit_length
+      
+      
+      PartHints.bit_count
+      
+      
+      PartHints.to_bytes
+      
+      
+      PartHints.from_bytes
+      
+      
+      PartHints.as_integer_ratio
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      PartHints.real
+      PartHints.imag
+      PartHints.numerator
+      PartHints.denominator
+      PartHints.UNDEFINED
+      PartHints.STATIC_COORDS
+      PartHints.CHANGING_COORDS
+      PartHints.CHANGING_CONNECTIVITY
+   
+   

@@ -1,0 +1,6 @@
+shortpath\_interpolation
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_keyframe.shortpath_interpolation

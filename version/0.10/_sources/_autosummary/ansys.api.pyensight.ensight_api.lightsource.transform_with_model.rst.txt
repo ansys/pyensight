@@ -1,0 +1,6 @@
+transform\_with\_model
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: lightsource.transform_with_model

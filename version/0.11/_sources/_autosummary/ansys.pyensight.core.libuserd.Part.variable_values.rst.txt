@@ -1,0 +1,6 @@
+variable\_values
+================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: Part.variable_values

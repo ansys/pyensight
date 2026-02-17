@@ -1,0 +1,1072 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>User guide &#8212; PyEnSight</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/ansys-sphinx-theme.css?v=9e79609d" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/ansys-sphinx-theme.css?v=9e79609d" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/breadcrumbs.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+
+  <!-- Include desired assets -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+
+  
+    <link href="../_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=e75092db"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=49e1bf35"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/index';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script src="../_static/js/mermaid.js?v=cf64ff96"></script>
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <link rel="icon" href="../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="EnSight Python scripts: Running and debugging" href="ensight_scripts.html" />
+    <link rel="prev" title="Getting started" href="../getting_started/index.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.12.0.dev0" />
+  <meta property="og:site_name" content="PyAnsys" />
+  <meta name="physics" content="Fluids" />
+  <link rel="canonical" href="https://ensight.docs.pyansys.com/version/stable/user_guide/index.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="PyEnSight - Home"/>
+    <img src="../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark pst-js-only" alt="PyEnSight - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../index.html" title="PyEnSight home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../index.html" title="PyEnSight home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ensight_scripts.html">EnSight Python scripts: Running and debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cmdlang_native.html">EnSight command language native Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_api.html">EnSight object API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_differences.html">Python API differences in EnSight versus PyEnSight</a></li>
+<li class="toctree-l1"><a class="reference internal" href="omniverse_info.html">PyEnSight/ANSYS Omniverse Interface</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+     
+    <li class="breadcrumb-item breadcrumb-home">
+      <a
+        href="../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">User guide</span></li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="user-guide">
+<span id="id1"></span><h1>User guide<a class="headerlink" href="#user-guide" title="Link to this heading">#</a></h1>
+<p>This section explains the relationship between the various EnSight Python
+interfaces and the EnSight core.</p>
+<div class="toctree-wrapper compound">
+</div>
+<section id="ensight-and-pyensight-interfaces">
+<h2>EnSight and PyEnSight interfaces<a class="headerlink" href="#ensight-and-pyensight-interfaces" title="Link to this heading">#</a></h2>
+<p>There is a Python interpreter embedded in the EnSight desktop app. In
+general, this interpreter is referred to as EnSight or the <em>embedded interpreter</em>.
+This interface is based on a built-in <code class="docutils literal notranslate"><span class="pre">ensight</span></code> module that cannot be imported
+into any other interpreter. It is the fastest Python interface to EnSight, and
+much of EnSight itself is written in Python running in this interpreter.</p>
+<p>The other interface is PyEnSight. This interface is implemented as a portable
+wheel and can be installed in most any Python interpreter. The interface provided
+by this component resides in the <code class="docutils literal notranslate"><span class="pre">ansys.pyensight</span></code> module. It is a <em>remote</em> interface
+in that it actually starts an independent EnSight instance in another process and
+connects to it. Over this connection, the PyEnSight interface makes it possible
+to execute Python commands in the embedded interpreter and return results.
+Because the PyEnSight interface has a nearly identical API to the embedded interface,
+code written for one interface basically works in the other interface, providing
+that the code is structured properly. For information on API differences, see
+<a class="reference internal" href="api_differences.html#api-differences"><span class="std std-ref">Python API differences in EnSight versus PyEnSight</span></a>.</p>
+</section>
+<section id="history-native-and-object-apis">
+<h2>History: Native and object APIs<a class="headerlink" href="#history-native-and-object-apis" title="Link to this heading">#</a></h2>
+<p>EnSight has always had a journaling language, often referred to
+as the <em>command language</em> or <em>cmdlang</em>. This journaling language makes
+it possible to view and review every interaction in EnSight as a command
+stream. You can play back the journal streams to automate tasks.</p>
+<p>The EnSight 9.x release introduced an embedded Python interpreter into the
+EnSight core. The initial language binding to EnSight was via the <em>native API</em>. The
+native API is derived from the EnSight journaling language. It is basically a direct
+Python mapping with object-specific conversion operations to simplify the interface.
+For more information, see <a class="reference internal" href="cmdlang_native.html#ref-cmdlang-native"><span class="std std-ref">EnSight command language native Python API</span></a>. This interface is the most
+complete interface to EnSight. The EnSight script editor provides tools for the
+conversion of blocks of command language into this Python API.</p>
+<p>As the sophistication of Python scripts increased, limitations in the
+journal-based interface were exposed. In response, the <em>object API</em> was developed.
+The object API is a direct interface to the core C++ EnSight objects. It is a
+proxy interface that exposes C++ object attribute interfaces as Python
+properties. The advantages of the object API is support for fine-grained
+queries and event handling. For more information, see <a class="reference internal" href="object_api.html#ref-object-api"><span class="std std-ref">EnSight object API</span></a>.
+This API does not yet cover everything the native API does, but it
+allows for using more interactive and reactive component interfaces.
+Because of this, a significant portion of the EnSight GUI is written using
+the EnSight object API.</p>
+</section>
+<section id="ensight-architecture">
+<span id="id2"></span><h2>EnSight architecture<a class="headerlink" href="#ensight-architecture" title="Link to this heading">#</a></h2>
+<p>The EnSight Python APIs reflect the core EnSight architecture. Specifically,
+they reflect the various objects inside of EnSight and their relationships.
+The interface to these objects is largely a collection of properties. Note
+that these are properties in the PyEnSight interface. The documentation for
+the core interface refers to them as attributes and properties almost
+interchangeably.</p>
+<p>There are two types of objects in EnSight. The first set are parts of the code
+that are generally created automatically at startup.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following sections briefly describe many of the core classes. They do
+not describe all core classes but rather only commonly used objects.</p>
+</div>
+<p>There are two unique concepts in the EnSight architecture that are important
+to explaining core EnSight behavior.</p>
+<ul class="simple">
+<li><p>The first is the idea of hierarchical property filtering.</p></li>
+<li><p>The second is the concept of default objects.</p></li>
+</ul>
+<section id="hierarchical-property-filters">
+<h3>Hierarchical property filters<a class="headerlink" href="#hierarchical-property-filters" title="Link to this heading">#</a></h3>
+<p>A number of properties have <em>global</em> versions as well as <em>per-object</em> versions.
+Often a specific visual property must be enabled globally before the
+object-specific value can be applied. This can happen at different levels in
+the visible object tree. Consider the <code class="docutils literal notranslate"><span class="pre">HIDDENLINE</span></code> property.
+This property can be set on these levels: <code class="docutils literal notranslate"><span class="pre">ENS_PART</span></code>, <code class="docutils literal notranslate"><span class="pre">ENS_VPORT</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">ENS_GLOBAL</span></code>.</p>
+<p>Here is an example in the object API:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">HIDDENLINE</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">VPORTS</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">HIDDENLINE</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">PARTS</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">HIDDENLINE</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>If the <code class="docutils literal notranslate"><span class="pre">HIDDENLINE</span></code> property is set to <code class="docutils literal notranslate"><span class="pre">False</span></code> at the <code class="docutils literal notranslate"><span class="pre">ENS_PART</span></code> level, hidden
+lines are never shown on this part.</p></li>
+<li><p>If the <code class="docutils literal notranslate"><span class="pre">HIDDENLINE</span></code> property is set to <code class="docutils literal notranslate"><span class="pre">False</span></code> at the <code class="docutils literal notranslate"><span class="pre">ENS_VPORT</span></code> level, no
+hidden lines are shown on any parts that might be viable (and have the <code class="docutils literal notranslate"><span class="pre">HIDDENLINE</span></code>
+property set to <code class="docutils literal notranslate"><span class="pre">True</span></code>) in the specific <code class="docutils literal notranslate"><span class="pre">ENS_VPORT</span></code> level.</p></li>
+<li><p>If the <code class="docutils literal notranslate"><span class="pre">HIDDENLINE</span></code> property is set to <code class="docutils literal notranslate"><span class="pre">False</span></code> at the <code class="docutils literal notranslate"><span class="pre">ENS_GLOBAL</span></code> level
+(<code class="docutils literal notranslate"><span class="pre">ensight.objs.core</span></code>), no hidden lines are shown on any parts in any viewports.</p></li>
+</ul>
+</section>
+<section id="default-objects">
+<h3>Default objects<a class="headerlink" href="#default-objects" title="Link to this heading">#</a></h3>
+<p>The default object is a key concept for EnSight. To create an object in EnSight,
+you often set up the properties on a fake <em>default</em> object and then make a <em>create</em>
+call to realize a new object of this type. The new object has the same properties
+as the current default object properties. For examples, see <a class="reference internal" href="object_api.html#ref-object-api"><span class="std std-ref">EnSight object API</span></a>
+and <a class="reference internal" href="cmdlang_native.html#ref-cmdlang-native"><span class="std std-ref">EnSight command language native Python API</span></a>.</p>
+</section>
+<section id="common-static-objects">
+<h3>Common static objects<a class="headerlink" href="#common-static-objects" title="Link to this heading">#</a></h3>
+<p>There are a fixed number of each of the common static objects that are all allocated
+statically at startup. The Python API allows you to modify the attributes on these objects
+and query their statuses. The key object is <code class="docutils literal notranslate"><span class="pre">ENS_GLOBAL</span></code>, which is accessed via
+<code class="docutils literal notranslate"><span class="pre">ensight.objs.core</span></code>. Properties on the <code class="docutils literal notranslate"><span class="pre">ENS_GLOBAL</span></code> object can generally
+access all of the other objects in the system. For descriptions of the properties on
+these objects, see <a class="reference internal" href="../class_documentation.html#ref-api-docs"><span class="std std-ref">API reference</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Class</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_camera.ENS_CAMERA.html#ansys.api.pyensight.ens_camera.ENS_CAMERA" title="ansys.api.pyensight.ens_camera.ENS_CAMERA"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_CAMERA</span></code></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CAMERA</span></code> objects are used to set up views of the current
+scene. They can be associated with viewports and attached to
+polylines, nodes, and other graphics entities.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_case.ENS_CASE.html#ansys.api.pyensight.ens_case.ENS_CASE" title="ansys.api.pyensight.ens_case.ENS_CASE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_CASE</span></code></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CASE</span></code> objects are used to read a dataset. There are a
+fixed number of <code class="docutils literal notranslate"><span class="pre">CASE</span></code> objects that can be active.
+Each <code class="docutils literal notranslate"><span class="pre">CASE</span></code> object can load a dataset in a different format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_globals.ENS_GLOBALS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_GLOBALS</span></code></a></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">GLOBALS</span></code> object provides an interface to the
+core EnSight state. All objects can be accessed via
+the properties on the <code class="docutils literal notranslate"><span class="pre">GLOBALS</span></code> object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_lightsource.ENS_LIGHTSOURCE.html#ansys.api.pyensight.ens_lightsource.ENS_LIGHTSOURCE" title="ansys.api.pyensight.ens_lightsource.ENS_LIGHTSOURCE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_LIGHTSOURCE</span></code></a></p></td>
+<td><p>The EnSight scene supports a finite number of
+preallocated lighting sources. <code class="docutils literal notranslate"><span class="pre">LIGHTSOURCE</span></code> objects
+provide the interface to the light properties.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_probe.ENS_PROBE.html#ansys.api.pyensight.ens_probe.ENS_PROBE" title="ansys.api.pyensight.ens_probe.ENS_PROBE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PROBE</span></code></a></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">PROBE</span></code> object allows for creation of spatial data
+probes. The result of probe queries can be
+accessed via the <code class="docutils literal notranslate"><span class="pre">PROBE</span></code> object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_texture.ENS_TEXTURE.html#ansys.api.pyensight.ens_texture.ENS_TEXTURE" title="ansys.api.pyensight.ens_texture.ENS_TEXTURE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_TEXTURE</span></code></a></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">TEXTURE</span></code> object maintains the pixel arrays that can
+be applied via projective or explicit texture coordinates.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_tool.ENS_TOOL.html#ansys.api.pyensight.ens_tool.ENS_TOOL" title="ansys.api.pyensight.ens_tool.ENS_TOOL"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_TOOL</span></code></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Tool</span></code> objects are spatial input devices in the scene. They
+allow for the selection of points, regions of space,
+reference lines or planes, and more. There are several
+unique tool types. The PyEnSight API uses these
+subclasses for each tool singleton.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Subclass</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_tool_box.ENS_TOOL_BOX.html#ansys.api.pyensight.ens_tool_box.ENS_TOOL_BOX" title="ansys.api.pyensight.ens_tool_box.ENS_TOOL_BOX"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_TOOL_BOX</span></code></a></p></td>
+<td><p>Box.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_tool_cone.ENS_TOOL_CONE.html#ansys.api.pyensight.ens_tool_cone.ENS_TOOL_CONE" title="ansys.api.pyensight.ens_tool_cone.ENS_TOOL_CONE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_TOOL_CONE</span></code></a></p></td>
+<td><p>Line segment with a base radius.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_tool_sphere.ENS_TOOL_SPHERE.html#ansys.api.pyensight.ens_tool_sphere.ENS_TOOL_SPHERE" title="ansys.api.pyensight.ens_tool_sphere.ENS_TOOL_SPHERE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_TOOL_SPHERE</span></code></a></p></td>
+<td><p>Sphere.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_tool_cursor.ENS_TOOL_CURSOR.html#ansys.api.pyensight.ens_tool_cursor.ENS_TOOL_CURSOR" title="ansys.api.pyensight.ens_tool_cursor.ENS_TOOL_CURSOR"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_TOOL_CURSOR</span></code></a></p></td>
+<td><p>Single point.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_tool_cylinder.ENS_TOOL_CYLINDER.html#ansys.api.pyensight.ens_tool_cylinder.ENS_TOOL_CYLINDER" title="ansys.api.pyensight.ens_tool_cylinder.ENS_TOOL_CYLINDER"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_TOOL_CYLINDER</span></code></a></p></td>
+<td><p>Line segment with a fixed radius.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_tool_line.ENS_TOOL_LINE.html#ansys.api.pyensight.ens_tool_line.ENS_TOOL_LINE" title="ansys.api.pyensight.ens_tool_line.ENS_TOOL_LINE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_TOOL_LINE</span></code></a></p></td>
+<td><p>Line segment.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_tool_plane.ENS_TOOL_PLANE.html#ansys.api.pyensight.ens_tool_plane.ENS_TOOL_PLANE" title="ansys.api.pyensight.ens_tool_plane.ENS_TOOL_PLANE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_TOOL_PLANE</span></code></a></p></td>
+<td><p>Bounded plane.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_tool_revolution.ENS_TOOL_REVOLUTION.html#ansys.api.pyensight.ens_tool_revolution.ENS_TOOL_REVOLUTION" title="ansys.api.pyensight.ens_tool_revolution.ENS_TOOL_REVOLUTION"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_TOOL_REVOLUTION</span></code></a></p></td>
+<td><p>Line segment with a list of radii.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_vport.ENS_VPORT.html#ansys.api.pyensight.ens_vport.ENS_VPORT" title="ansys.api.pyensight.ens_vport.ENS_VPORT"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_VPORT</span></code></a></p></td>
+<td><p>There are a fixed number of independent viewports.
+Each <code class="docutils literal notranslate"><span class="pre">VPORT</span></code> object has an independent camera or projection.
+The visibility of all 3D objects can be specified
+independently for each viewport.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="common-dynamic-objects">
+<h3>Common dynamic objects<a class="headerlink" href="#common-dynamic-objects" title="Link to this heading">#</a></h3>
+<p>There are a fixed number of each common dynamic object that are all allocated
+statically at startup. The Python API allows you to modify attributes on these
+objects and query their statuses.</p>
+<p>Many of the dynamically created objects are created implicitly through other
+objects. For example, part objects are created from lpart objects and legend
+objects are created automatically when variable objects are created. Other
+objects (such as annotation objects and derived part objects like clips) are
+created using <em>default</em> objects. For descriptions of the properties on
+these objects, see <a class="reference internal" href="../class_documentation.html#ref-api-docs"><span class="std std-ref">API reference</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Class</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_annot.ENS_ANNOT.html#ansys.api.pyensight.ens_annot.ENS_ANNOT" title="ansys.api.pyensight.ens_annot.ENS_ANNOT"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_ANNOT</span></code></a></p></td>
+<td><p>Provides the base class for annotation. Annotations are mostly
+2D objects that overlay the 3D scene, such as text blocks and lines.
+However, there are more complex types. For example, a legend annotation
+is used to display the palette associated with a variable.
+The PyEnSight API uses specific subclasses for each annotation
+type.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Subclass</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_annot_arrow.ENS_ANNOT_ARROW.html#ansys.api.pyensight.ens_annot_arrow.ENS_ANNOT_ARROW" title="ansys.api.pyensight.ens_annot_arrow.ENS_ANNOT_ARROW"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_ANNOT_ARROW</span></code></a></p></td>
+<td><p>3D arrow pointing at a location in data space.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_annot_dial.ENS_ANNOT_DIAL.html#ansys.api.pyensight.ens_annot_dial.ENS_ANNOT_DIAL" title="ansys.api.pyensight.ens_annot_dial.ENS_ANNOT_DIAL"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_ANNOT_DIAL</span></code></a></p></td>
+<td><p>Display of a constant variable as a dial.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_annot_gauge.ENS_ANNOT_GAUGE.html#ansys.api.pyensight.ens_annot_gauge.ENS_ANNOT_GAUGE" title="ansys.api.pyensight.ens_annot_gauge.ENS_ANNOT_GAUGE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_ANNOT_GAUGE</span></code></a></p></td>
+<td><p>Display of a constant variable as a linear gauge.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_annot_lgnd.ENS_ANNOT_LGND.html#ansys.api.pyensight.ens_annot_lgnd.ENS_ANNOT_LGND" title="ansys.api.pyensight.ens_annot_lgnd.ENS_ANNOT_LGND"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_ANNOT_LGND</span></code></a></p></td>
+<td><p>Legend representation of a variable palette that
+are only created by <code class="docutils literal notranslate"><span class="pre">ENS_VAR</span></code> objects.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_annot_line.ENS_ANNOT_LINE.html#ansys.api.pyensight.ens_annot_line.ENS_ANNOT_LINE" title="ansys.api.pyensight.ens_annot_line.ENS_ANNOT_LINE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_ANNOT_LINE</span></code></a></p></td>
+<td><p>Single line.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_annot_logo.ENS_ANNOT_LOGO.html#ansys.api.pyensight.ens_annot_logo.ENS_ANNOT_LOGO" title="ansys.api.pyensight.ens_annot_logo.ENS_ANNOT_LOGO"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_ANNOT_LOGO</span></code></a></p></td>
+<td><p>Image annotation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_annot_shape.ENS_ANNOT_SHAPE.html#ansys.api.pyensight.ens_annot_shape.ENS_ANNOT_SHAPE" title="ansys.api.pyensight.ens_annot_shape.ENS_ANNOT_SHAPE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_ANNOT_SHAPE</span></code></a></p></td>
+<td><p>Generic 2D shapes, such as boxes, circles, and 2D arrows.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_annot_text.ENS_ANNOT_TEXT.html#ansys.api.pyensight.ens_annot_text.ENS_ANNOT_TEXT" title="ansys.api.pyensight.ens_annot_text.ENS_ANNOT_TEXT"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_ANNOT_TEXT</span></code></a></p></td>
+<td><p>Block of 2D overlay text.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_group.ENS_GROUP.html#ansys.api.pyensight.ens_group.ENS_GROUP" title="ansys.api.pyensight.ens_group.ENS_GROUP"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_GROUP</span></code></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">GROUP</span></code> objects play two roles. First, they provide a
+hierarchical interface to collections of <code class="docutils literal notranslate"><span class="pre">ENS_PART</span></code> and <code class="docutils literal notranslate"><span class="pre">ENS_LPART</span></code>
+objects for display in the GUI or general organization. Second,
+<code class="docutils literal notranslate"><span class="pre">GROUP</span></code> objects can be the output of a find operation, which can be handy
+because they support fast, recursive, bulk property changes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_lpart.ENS_LPART.html#ansys.api.pyensight.ens_lpart.ENS_LPART" title="ansys.api.pyensight.ens_lpart.ENS_LPART"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_LPART</span></code></a></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">LPART</span></code> object represents an unloaded mesh object in a dataset.
+These objects are created by <code class="docutils literal notranslate"><span class="pre">ENS_CASE</span></code> objects when a case loads a
+dataset. The <code class="docutils literal notranslate"><span class="pre">LPART</span></code> object is used to create <code class="docutils literal notranslate"><span class="pre">ENS_PART</span></code> objects
+from a dataset. In most cases, these objects are automatically leveraged
+when a dataset is loaded.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_palette.ENS_PALETTE.html#ansys.api.pyensight.ens_palette.ENS_PALETTE" title="ansys.api.pyensight.ens_palette.ENS_PALETTE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PALETTE</span></code></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PALETTE</span></code> objects are allocated dynamically, but only indirectly under user
+control. Every <code class="docutils literal notranslate"><span class="pre">ENS_VARIABLE</span></code> object has one or more <code class="docutils literal notranslate"><span class="pre">ENS_PALETTE</span></code>
+objects. For example, a <code class="docutils literal notranslate"><span class="pre">ENS_VARIABLE</span></code> object has one <code class="docutils literal notranslate"><span class="pre">ENS_PALETTE</span></code> object
+for scalars and four <code class="docutils literal notranslate"><span class="pre">ENS_PALETTE</span></code> objects for vectors ([X],[Y],[Z],mag).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part.ENS_PART.html#ansys.api.pyensight.ens_part.ENS_PART" title="ansys.api.pyensight.ens_part.ENS_PART"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART</span></code></a></p></td>
+<td><p>A <code class="docutils literal notranslate"><span class="pre">PART</span></code> object represents a block of geometry in the current scene. The
+geometry can come from the dataset on disk (via an <code class="docutils literal notranslate"><span class="pre">LPART</span></code> object), or it
+can come from part <em>creation</em> methods. For example, a geometry can come
+from creating such parts as iso-contours, clips, profiles, and vortex cores.
+The PyEnSight API uses specific subclasses for each annotation
+type. They all represent a mesh consisting of a collection of elements.
+Usually these are located on the EnSight server, but in some cases they
+are realized on the client.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Subclass</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part_aux_geom.ENS_PART_AUX_GEOM.html#ansys.api.pyensight.ens_part_aux_geom.ENS_PART_AUX_GEOM" title="ansys.api.pyensight.ens_part_aux_geom.ENS_PART_AUX_GEOM"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART_AUX_GEOM</span></code></a></p></td>
+<td><p>An auxiliary geometry part allows for scripted creation
+of objects like boxes that can be used in other
+calculations or to enhance visualizations. A backdrop
+is an example.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part_built_up.ENS_PART_BUILT_UP.html#ansys.api.pyensight.ens_part_built_up.ENS_PART_BUILT_UP" title="ansys.api.pyensight.ens_part_built_up.ENS_PART_BUILT_UP"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART_BUILT_UP</span></code></a></p></td>
+<td><p>This part is more commonly known as a <em>subset</em> part. It
+allows for collections of elements and nodes to be selected
+from a set of input parts. This collection is merged into
+this subset part.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.html#ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP" title="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART_CLIP</span></code></a></p></td>
+<td><p>This part is created by clipping a parent set of parts.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part_contour.ENS_PART_CONTOUR.html#ansys.api.pyensight.ens_part_contour.ENS_PART_CONTOUR" title="ansys.api.pyensight.ens_part_contour.ENS_PART_CONTOUR"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART_CONTOUR</span></code></a></p></td>
+<td><p>The part is a result of contouring a parent set of parts.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part_developed_surface.ENS_PART_DEVELOPED_SURFACE.html#ansys.api.pyensight.ens_part_developed_surface.ENS_PART_DEVELOPED_SURFACE" title="ansys.api.pyensight.ens_part_developed_surface.ENS_PART_DEVELOPED_SURFACE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART_DEVELOPED_SURFACE</span></code></a></p></td>
+<td><p>A developed surface is generated by treating any
+2D part (or parent part) as a surface of revolution
+and mapping specific curvilinear coordinates of the
+revolved surface into a planar representation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part_elevated_surface.ENS_PART_ELEVATED_SURFACE.html#ansys.api.pyensight.ens_part_elevated_surface.ENS_PART_ELEVATED_SURFACE" title="ansys.api.pyensight.ens_part_elevated_surface.ENS_PART_ELEVATED_SURFACE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART_ELEVATED_SURFACE</span></code></a></p></td>
+<td><p>For a given collection of 2D parent parts, this
+part presents a displacement of the surface of the
+parents based on a specific variable and various
+parameters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part_filter.ENS_PART_FILTER.html#ansys.api.pyensight.ens_part_filter.ENS_PART_FILTER" title="ansys.api.pyensight.ens_part_filter.ENS_PART_FILTER"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART_FILTER</span></code></a></p></td>
+<td><p>A filter part is created by applying a collection of
+variable range filters to a collection of parent parts.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part_fx_sep_att.ENS_PART_FX_SEP_ATT.html#ansys.api.pyensight.ens_part_fx_sep_att.ENS_PART_FX_SEP_ATT" title="ansys.api.pyensight.ens_part_fx_sep_att.ENS_PART_FX_SEP_ATT"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART_FX_SEP_ATT</span></code></a></p></td>
+<td><p>Separation and attachment lines can be created on
+2D surfaces. These help visualize areas where flow
+abruptly leaves or returns to the 2D surface in 3D flow
+fields.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part_fx_shock.ENS_PART_FX_SHOCK.html#ansys.api.pyensight.ens_part_fx_shock.ENS_PART_FX_SHOCK" title="ansys.api.pyensight.ens_part_fx_shock.ENS_PART_FX_SHOCK"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART_FX_SHOCK</span></code></a></p></td>
+<td><p>Shock region parts help visualize shock waves in a 3D
+flow field. Shock waves are characterized by an abrupt
+increase in density, energy, and pressure gradients,
+as well as a simultaneous sudden decrease in the
+velocity gradient.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part_fx_vortex_core.ENS_PART_FX_VORTEX_CORE.html#ansys.api.pyensight.ens_part_fx_vortex_core.ENS_PART_FX_VORTEX_CORE" title="ansys.api.pyensight.ens_part_fx_vortex_core.ENS_PART_FX_VORTEX_CORE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART_FX_VORTEX_CORE</span></code></a></p></td>
+<td><p>Vortex cores help visualize the centers of swirling
+flow in a flow field. EnSight creates vortex core
+segments from the velocity gradient tensor of 3D flow
+field parts.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part_isosurface.ENS_PART_ISOSURFACE.html#ansys.api.pyensight.ens_part_isosurface.ENS_PART_ISOSURFACE" title="ansys.api.pyensight.ens_part_isosurface.ENS_PART_ISOSURFACE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART_ISOSURFACE</span></code></a></p></td>
+<td><p>This part is created by applying isosurfacing to a parent
+set of parts.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part_model.ENS_PART_MODEL.html#ansys.api.pyensight.ens_part_model.ENS_PART_MODEL" title="ansys.api.pyensight.ens_part_model.ENS_PART_MODEL"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART_MODEL</span></code></a></p></td>
+<td><p>This part is read from a dataset via an <code class="docutils literal notranslate"><span class="pre">LPART</span></code> object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE.html#ansys.api.pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE" title="ansys.api.pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART_PARTICLE_TRACE</span></code></a></p></td>
+<td><p>Particle traces generated by integrating points
+through a vector field defined on a collection of
+parent parts.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part_point.ENS_PART_POINT.html#ansys.api.pyensight.ens_part_point.ENS_PART_POINT" title="ansys.api.pyensight.ens_part_point.ENS_PART_POINT"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART_POINT</span></code></a></p></td>
+<td><p>This part can be created via the API or from a file. It is
+a list of points. Commonly, the point tool is used to
+generate the list of points for the part.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part_profile.ENS_PART_PROFILE.html#ansys.api.pyensight.ens_part_profile.ENS_PART_PROFILE" title="ansys.api.pyensight.ens_part_profile.ENS_PART_PROFILE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART_PROFILE</span></code></a></p></td>
+<td><p>Profile parts are created by combining a 1D entity
+(such as a line clip, contour, or particle trace) with a
+surface part. The profile of a specific variable, sampled
+over the 1D entity, is captured in a profile part.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part_tensor_glyph.ENS_PART_TENSOR_GLYPH.html#ansys.api.pyensight.ens_part_tensor_glyph.ENS_PART_TENSOR_GLYPH" title="ansys.api.pyensight.ens_part_tensor_glyph.ENS_PART_TENSOR_GLYPH"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART_TENSOR_GLYPH</span></code></a></p></td>
+<td><p>A part representing a tensor field on a collection of
+parts as a collection of orientated and colored glyphs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_part_vector_arrow.ENS_PART_VECTOR_ARROW.html#ansys.api.pyensight.ens_part_vector_arrow.ENS_PART_VECTOR_ARROW" title="ansys.api.pyensight.ens_part_vector_arrow.ENS_PART_VECTOR_ARROW"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PART_VECTOR_ARROW</span></code></a></p></td>
+<td><p>A part representing a vector field on a collection of
+parts as a collection of orientated and colored arrows.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_plotter.ENS_PLOTTER.html#ansys.api.pyensight.ens_plotter.ENS_PLOTTER" title="ansys.api.pyensight.ens_plotter.ENS_PLOTTER"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_PLOTTER</span></code></a></p></td>
+<td><p>A <code class="docutils literal notranslate"><span class="pre">PLOTTER</span></code> object is a visual frame for displaying one or more <code class="docutils literal notranslate"><span class="pre">ENS_QUERY</span></code>
+objects. It includes axes, titles, backgrounds, borders, and legends.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_polyline.ENS_POLYLINE.html#ansys.api.pyensight.ens_polyline.ENS_POLYLINE" title="ansys.api.pyensight.ens_polyline.ENS_POLYLINE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_POLYLINE</span></code></a></p></td>
+<td><p>In EnSight, <code class="docutils literal notranslate"><span class="pre">POLYLINE</span></code> objects are called splines. They can be used to set up
+things like camera paths.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_query.ENS_QUERY.html#ansys.api.pyensight.ens_query.ENS_QUERY" title="ansys.api.pyensight.ens_query.ENS_QUERY"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_QUERY</span></code></a></p></td>
+<td><p>A <code class="docutils literal notranslate"><span class="pre">QUERY</span></code> object represents <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">f(x)</span></code> data. This data can come directly from a
+dataset, created when the <code class="docutils literal notranslate"><span class="pre">ENS_CASE</span></code> object loads a dataset. Or, queries can be
+created using loaded or computed data. For example, you could query the values of
+pressure along a line segment through a <code class="docutils literal notranslate"><span class="pre">PART</span></code> object of volumetric elements.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="../_autosummary/ansys.api.pyensight.ens_var.ENS_VAR.html#ansys.api.pyensight.ens_var.ENS_VAR" title="ansys.api.pyensight.ens_var.ENS_VAR"><code class="xref py py-class docutils literal notranslate"><span class="pre">ENS_VAR</span></code></a></p></td>
+<td><p>A <code class="docutils literal notranslate"><span class="pre">VAR</span></code> object represents a specific field variable, case, or part constant.
+The base object contains the metadata associated with the variable, such as
+ranges. Variables can be introduced directly from datasets, but they
+can also be created using calculator functions.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ensight-and-pyensight-interfaces">EnSight and PyEnSight interfaces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#history-native-and-object-apis">History: Native and object APIs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ensight-architecture">EnSight architecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hierarchical-property-filters">Hierarchical property filters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-objects">Default objects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-static-objects">Common static objects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-dynamic-objects">Common dynamic objects</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <ul class="this-page-menu">
+      <li><a href="../_sources/user_guide/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+
+  <!-- Include desired assets -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"></script>
+
+<script>
+// Passing the search options to the search.js file
+const SEARCH_OPTIONS = JSON.parse('{"keys": ["title", "text", "objectID"], "limit": 10, "threshold": 0.2}');
+const SEARCH_FILE = "../_static/search.json";
+const ADVANCE_SEARCH_PATH = "../search.html";
+const EXTRA_SOURCES = JSON.parse('""');
+</script>
+
+
+<script src="../_static/js/search.js"></script>
+
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2026 ANSYS, Inc. Unauthorized use, distribution, or duplication is prohibited..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  1.6.4. <br />Last updated on
+  <span id="ast_build_date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var ast_lastModifiedDate = new Date(document.lastModified);
+  var ast_build_date = ast_lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("ast_build_date").innerHTML = ast_build_date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

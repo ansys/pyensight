@@ -1,0 +1,6 @@
+query\_object\_atwindowxy
+=========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.query_object_atwindowxy

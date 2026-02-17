@@ -1,0 +1,6 @@
+use\_cont\_for\_elem\_vars
+==========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: function.use_cont_for_elem_vars

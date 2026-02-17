@@ -1,0 +1,6 @@
+scale\_min\_value
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: arrow.scale_min_value

@@ -1,0 +1,6 @@
+OUT\_OF\_MEMORY
+===============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ErrorCodes.OUT_OF_MEMORY

@@ -1,0 +1,6 @@
+visible
+=======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: line.visible

@@ -1,0 +1,6 @@
+NOT\_FOUND
+==========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ErrorCodes.NOT_FOUND

@@ -1,0 +1,6 @@
+FILL
+====
+
+.. currentmodule:: ansys.api.pyensight.ens_annot_shape
+
+.. autoproperty:: ENS_ANNOT_SHAPE.FILL

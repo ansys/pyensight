@@ -1,0 +1,6 @@
+select\_all\_invisible
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: nvc.select_all_invisible

@@ -1,0 +1,93 @@
+﻿define
+======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. autoclass:: define
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      define.delete
+      
+      
+      define.description
+      
+      
+      define.deselect_all
+      
+      
+      define.location_x
+      
+      
+      define.location_y
+      
+      
+      define.modify_begin
+      
+      
+      define.modify_end
+      
+      
+      define.new_logo
+      
+      
+      define.new_or_mod_logo
+      
+      
+      define.normalized_width
+      
+      
+      define.query_count
+      
+      
+      define.query_display_attributes
+      
+      
+      define.query_selected_objects
+      
+      
+      define.read
+      
+      
+      define.rgb
+      
+      
+      define.scale
+      
+      
+      define.select_all
+      
+      
+      define.select_all_invisible
+      
+      
+      define.select_all_visible
+      
+      
+      define.select_begin
+      
+      
+      define.select_default
+      
+      
+      define.show_raytraced_image
+      
+      
+      define.use_normalized_width
+      
+      
+      define.visible
+      
+   
+   
+
+   
+   
+   

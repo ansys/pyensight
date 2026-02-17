@@ -1,0 +1,6 @@
+select\_parts\_invert
+=====================
+
+.. currentmodule:: ansys.pyensight.core.utils.parts
+
+.. automethod:: Parts.select_parts_invert

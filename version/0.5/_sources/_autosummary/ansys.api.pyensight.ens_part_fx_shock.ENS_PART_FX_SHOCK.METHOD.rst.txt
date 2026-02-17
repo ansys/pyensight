@@ -1,0 +1,6 @@
+METHOD
+======
+
+.. currentmodule:: ansys.api.pyensight.ens_part_fx_shock
+
+.. autoproperty:: ENS_PART_FX_SHOCK.METHOD

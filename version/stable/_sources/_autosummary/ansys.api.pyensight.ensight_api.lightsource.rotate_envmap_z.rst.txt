@@ -1,0 +1,6 @@
+rotate\_envmap\_z
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: lightsource.rotate_envmap_z

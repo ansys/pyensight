@@ -1,0 +1,724 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Design point comparison &#8212; PyEnSight</title>
+    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/ansys_sphinx_theme.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/breadcrumbs.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    
+        <link href="../../_static/css/breadcrumbs.css" rel="stylesheet">
+    
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/table.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_examples/25-intermediate/00-designpoints';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.6';
+        </script>
+    <script src="../../_static/js/mermaid.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <link rel="icon" href="../../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Queries" href="01-queries.html" />
+    <link rel="prev" title="Intermediate examples" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <link rel="canonical" href="https://ensight.docs.pyansys.com/version/stable/_examples/25-intermediate/00-designpoints.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container"><!-- Debugging: html_theme_options =  -->
+
+  <!-- If there is no MiliSearch enabled, use the PyData search -->
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+</div>
+  </div>
+  
+    
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/pyansys-logo-black-cropped.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/pyansys-logo-black-cropped.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/index.html">
+                        Getting started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../user_guide/index.html">
+                        User guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../class_documentation.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributing.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      0.6  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+
+    
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(text => document.getElementById("announcement_msg").innerHTML = text)
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+    
+
+    
+    <div class="container-xl">
+    <div class="row">
+        <div class="col-12 col-md-3" id="breadcrumbs-spacer"></div>
+        <div class="col-12 col-md-11 col-xl-9" id="breadcrumbs">
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+    
+    
+        <li class="nav-item nav-item-0"><a href="../../index.html">PyEnSight</a> » </li>
+    
+
+          <li class="nav-item nav-item-1"><a href="../index.html" >Examples</a> » </li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Intermediate examples</a> » </li>
+        <li class="nav-item nav-item-this"><a href="">Design point comparison</a></li> 
+      </ul>
+    </div>
+        </div>
+  </div>
+</div>
+    
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../getting_started/index.html">
+                        Getting started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../user_guide/index.html">
+                        User guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../class_documentation.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributing.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      0.6  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00-basic/index.html">Basic examples</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Intermediate examples</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Design point comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01-queries.html">Queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02-utils.html">EnSight Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../50-advanced/index.html">Advanced examples</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-examples-25-intermediate-00-designpoints-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code</p>
+</div>
+<section class="sphx-glr-example-title" id="design-point-comparison">
+<span id="ref-design-points"></span><span id="sphx-glr-examples-25-intermediate-00-designpoints-py"></span><h1>Design point comparison<a class="headerlink" href="#design-point-comparison" title="Permalink to this heading">#</a></h1>
+<p>A common operation is to load two different datasets, usually design points,
+into the same EnSight session using separate cases. This example loads two Fluent
+design points and displays them in different viewports. It then computes the difference
+between the temperature fields and displays the result in a third viewport.</p>
+<section id="start-an-ensight-session">
+<h2>Start an EnSight session<a class="headerlink" href="#start-an-ensight-session" title="Permalink to this heading">#</a></h2>
+<p>Launch and connect to an instance of EnSight.
+This example uses a local EnSight installation.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansys.pyensight.core</span> <span class="kn">import</span> <span class="n">LocalLauncher</span>
+
+<span class="n">session</span> <span class="o">=</span> <span class="n">LocalLauncher</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="load-the-data">
+<h2>Load the data<a class="headerlink" href="#load-the-data" title="Permalink to this heading">#</a></h2>
+<p>Use a remote session to load the two datasets into different cases.
+Downloading the data can take a minute or more. Note the names of the parts
+that are loaded. The parts are shown on top of each other.</p>
+<img alt="../../_images/00_compare_0.png" src="../../_images/00_compare_0.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">session</span><span class="o">.</span><span class="n">load_example</span><span class="p">(</span><span class="s2">&quot;elbow_dp0_dp1.ens&quot;</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">([</span><span class="n">p</span><span class="o">.</span><span class="n">PATHNAME</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">PARTS</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+<section id="create-a-trio-of-viewports">
+<h2>Create a trio of viewports<a class="headerlink" href="#create-a-trio-of-viewports" title="Permalink to this heading">#</a></h2>
+<p>This code constructs a pair of viewports at the top for case 0 and case 1.
+It then creates a third viewport, which fill the lower half of the window,
+for the difference field.</p>
+<img alt="../../_images/00_compare_1.png" src="../../_images/00_compare_1.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create two more viewports. (There is always one viewport.)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">DEFAULTVPORT</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">createviewport</span><span class="p">()</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">DEFAULTVPORT</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">createviewport</span><span class="p">()</span>
+<span class="c1"># Make these viewports visible and grab references to the viewport objects.</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">VPORTS</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">enums</span><span class="o">.</span><span class="n">VISIBLE</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">vp0</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">VPORTS</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">vp1</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">VPORTS</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">vp2</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">VPORTS</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="c1"># Position the viewports by setting their WIDTH, HEIGHT, ORIGINX, and ORIGINY attributes.</span>
+<span class="n">vp0</span><span class="o">.</span><span class="n">WIDTH</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">vp1</span><span class="o">.</span><span class="n">WIDTH</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">vp2</span><span class="o">.</span><span class="n">WIDTH</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">VPORTS</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">enums</span><span class="o">.</span><span class="n">HEIGHT</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">vp0</span><span class="o">.</span><span class="n">ORIGINX</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">vp0</span><span class="o">.</span><span class="n">ORIGINY</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">vp0</span><span class="o">.</span><span class="n">BORDERVISIBLE</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">vp1</span><span class="o">.</span><span class="n">ORIGINX</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">vp1</span><span class="o">.</span><span class="n">ORIGINY</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">vp2</span><span class="o">.</span><span class="n">ORIGINX</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">vp2</span><span class="o">.</span><span class="n">ORIGINY</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="c1"># Link the transforms of all the viewports to each other.</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">VPORTS</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">enums</span><span class="o">.</span><span class="n">LINKED</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Hide all but the &quot;fluid&quot; parts</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">PARTS</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">enums</span><span class="o">.</span><span class="n">VISIBLE</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">PARTS</span><span class="p">[</span><span class="s2">&quot;fluid&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">enums</span><span class="o">.</span><span class="n">VISIBLE</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">PARTS</span><span class="p">[</span><span class="s2">&quot;fluid&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">enums</span><span class="o">.</span><span class="n">ELTREPRESENTATION</span><span class="p">,</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">enums</span><span class="o">.</span><span class="n">BORD_FULL</span>
+<span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="color-and-assign-parts-to-specific-viewports">
+<h2>Color and assign parts to specific viewports<a class="headerlink" href="#color-and-assign-parts-to-specific-viewports" title="Permalink to this heading">#</a></h2>
+<p>This code colors the “fluid” parts using the <code class="docutils literal notranslate"><span class="pre">Static_Temperature</span></code> variable
+and assigns specific parts to specific viewports. It then loads the
+dataset-created fluid parts for both loaded cases.</p>
+<p>Because another part is needed to display the temperature difference variable
+in the lower pane, the code uses the <code class="docutils literal notranslate"><span class="pre">LPART</span></code> (part loader part) to create a
+second instance of the fluid part in the first case. The code then computes
+the difference field on this part to make it easier to display all three
+at the same time.</p>
+<img alt="../../_images/00_compare_2.png" src="../../_images/00_compare_2.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fluid0</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">PARTS</span><span class="p">[</span><span class="s2">&quot;fluid&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">fluid1</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">PARTS</span><span class="p">[</span><span class="s2">&quot;fluid&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Using ``LPART``, find the ``ENS_LPART`` instance in the first case</span>
+<span class="c1"># for the part named &quot;fluid&quot;.  Load this object to get a</span>
+<span class="c1"># new instance of the case 0 &quot;fluid&quot; mesh.</span>
+<span class="n">fluid0_diff</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">CASES</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">LPARTS</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;fluid&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="n">fluid0_diff</span><span class="o">.</span><span class="n">ELTREPRESENTATION</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">enums</span><span class="o">.</span><span class="n">BORD_FULL</span>
+
+<span class="c1"># Get the temperature variable and color the fluid parts by it.</span>
+<span class="n">temperature</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">VARIABLES</span><span class="p">[</span><span class="s2">&quot;Static_Temperature&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">fluid0_diff</span><span class="o">.</span><span class="n">COLORBYPALETTE</span> <span class="o">=</span> <span class="n">temperature</span>
+<span class="n">fluid0</span><span class="o">.</span><span class="n">COLORBYPALETTE</span> <span class="o">=</span> <span class="n">temperature</span>
+<span class="n">fluid1</span><span class="o">.</span><span class="n">COLORBYPALETTE</span> <span class="o">=</span> <span class="n">temperature</span>
+
+<span class="c1"># Each of the three parts should only be visible in one viewport.</span>
+<span class="n">fluid0</span><span class="o">.</span><span class="n">VIEWPORTVIS</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">enums</span><span class="o">.</span><span class="n">VIEWPORT00</span>
+<span class="n">fluid1</span><span class="o">.</span><span class="n">VIEWPORTVIS</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">enums</span><span class="o">.</span><span class="n">VIEWPORT01</span>
+<span class="n">fluid0_diff</span><span class="o">.</span><span class="n">VIEWPORTVIS</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">enums</span><span class="o">.</span><span class="n">VIEWPORT02</span>
+<span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="compute-difference-field">
+<h2>Compute difference field<a class="headerlink" href="#compute-difference-field" title="Permalink to this heading">#</a></h2>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">CaseMapDiff</span></code> calculator function to compute the difference between the
+<code class="docutils literal notranslate"><span class="pre">Static_Temperature</span></code> fields between the two design points. This defines a new
+field, <code class="docutils literal notranslate"><span class="pre">Temperature_Difference</span></code>, on the <code class="docutils literal notranslate"><span class="pre">fluid0_diff</span></code> part. Color that part
+by the resulting variable.</p>
+<img alt="../../_images/00_compare_3.png" src="../../_images/00_compare_3.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">temperature_diff</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">create_variable</span><span class="p">(</span>
+    <span class="s2">&quot;Temperature_Difference&quot;</span><span class="p">,</span>
+    <span class="n">value</span><span class="o">=</span><span class="s2">&quot;CaseMapDiff(plist, 2, Static_Temperature, 0, 1)&quot;</span><span class="p">,</span>
+    <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="n">fluid0_diff</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">fluid0_diff</span><span class="o">.</span><span class="n">COLORBYPALETTE</span> <span class="o">=</span> <span class="n">temperature_diff</span>
+<span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="adjust-palette-limits">
+<h2>Adjust palette limits<a class="headerlink" href="#adjust-palette-limits" title="Permalink to this heading">#</a></h2>
+<p>To make the visualization a bit easier to interpret, adjust the palette limits
+to the nearest factor of five. To improve visual appeal of the imagery, you could
+make also make adjustments to rotation, palette location, and more.</p>
+<img alt="../../_images/00_compare_4.png" src="../../_images/00_compare_4.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">limits</span> <span class="o">=</span> <span class="p">[(</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span> <span class="o">/</span> <span class="mf">5.0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">temperature_diff</span><span class="o">.</span><span class="n">MINMAX</span><span class="p">]</span>
+<span class="n">temperature_diff</span><span class="o">.</span><span class="n">PALETTE</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">MINMAX</span> <span class="o">=</span> <span class="n">limits</span>
+<span class="n">remote</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;remote&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="close-the-session">
+<h2>Close the session<a class="headerlink" href="#close-the-session" title="Permalink to this heading">#</a></h2>
+<p>Close the connection and shut down the EnSight instance.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># sphinx_gallery_thumbnail_path = &#39;_static/00_compare_4.png&#39;</span>
+<span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-examples-25-intermediate-00-designpoints-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/116a15c63e04f0214f5ee25849218530/00-designpoints.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">00-designpoints.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/ed1b1f15fc332b32f1e2b6b6a459763c/00-designpoints.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">00-designpoints.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-an-ensight-session">Start an EnSight session</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-the-data">Load the data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-trio-of-viewports">Create a trio of viewports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#color-and-assign-parts-to-specific-viewports">Color and assign parts to specific viewports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-difference-field">Compute difference field</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adjust-palette-limits">Adjust palette limits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#close-the-session">Close the session</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/_examples/25-intermediate/00-designpoints.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright (c) 2023 ANSYS, Inc. Unauthorized use, distribution, or duplication is prohibited..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+    Built with the <a href="https://sphinxdocs.ansys.com/version/stable/index.html">Ansys Sphinx Theme</a> 0.9.9.
+    <br>Last updated on <span id="date"></span></br>
+</p>
+<script>
+  var options = { day: 'numeric', month: 'long', year: 'numeric' };
+  var lastModifiedDate = new Date(document.lastModified);
+  var date = lastModifiedDate.toLocaleDateString('en-US', options);
+  document.getElementById("date").innerHTML = date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

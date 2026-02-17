@@ -1,0 +1,6 @@
+component\_num\_in\_cell
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: vof.component_num_in_cell

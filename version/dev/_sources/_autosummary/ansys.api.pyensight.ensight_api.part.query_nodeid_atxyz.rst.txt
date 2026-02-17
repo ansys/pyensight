@@ -1,0 +1,6 @@
+query\_nodeid\_atxyz
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.query_nodeid_atxyz

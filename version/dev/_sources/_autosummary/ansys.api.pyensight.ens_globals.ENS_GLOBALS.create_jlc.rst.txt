@@ -1,0 +1,6 @@
+create\_jlc
+===========
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. automethod:: ENS_GLOBALS.create_jlc

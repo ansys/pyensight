@@ -1,0 +1,6 @@
+ENS\_DETAILS
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_case
+
+.. autoproperty:: ENS_CASE.ENS_DETAILS

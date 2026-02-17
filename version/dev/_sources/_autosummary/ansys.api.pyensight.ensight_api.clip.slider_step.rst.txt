@@ -1,0 +1,6 @@
+slider\_step
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: clip.slider_step

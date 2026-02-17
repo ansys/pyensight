@@ -1,0 +1,6 @@
+timeline\_new
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_keyframe.timeline_new

@@ -1,0 +1,6 @@
+rtz\_axis
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: clip.rtz_axis

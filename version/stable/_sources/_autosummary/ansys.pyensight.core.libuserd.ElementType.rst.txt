@@ -1,0 +1,84 @@
+﻿ElementType
+===========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoclass:: ElementType
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ElementType.conjugate
+      
+      
+      ElementType.bit_length
+      
+      
+      ElementType.bit_count
+      
+      
+      ElementType.to_bytes
+      
+      
+      ElementType.from_bytes
+      
+      
+      ElementType.as_integer_ratio
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ElementType.real
+      ElementType.imag
+      ElementType.numerator
+      ElementType.denominator
+      ElementType.POINT
+      ElementType.POINT_GHOST
+      ElementType.BAR02
+      ElementType.BAR02_GHOST
+      ElementType.BAR03
+      ElementType.BAR03_GHOST
+      ElementType.TRI03
+      ElementType.TRI03_GHOST
+      ElementType.TRI06
+      ElementType.TRI06_GHOST
+      ElementType.QUAD04
+      ElementType.QUAD04_GHOST
+      ElementType.QUAD08
+      ElementType.QUAD08_GHOST
+      ElementType.TET04
+      ElementType.TET04_GHOST
+      ElementType.TET10
+      ElementType.TET10_GHOST
+      ElementType.PYR05
+      ElementType.PYR05_GHOST
+      ElementType.PYR13
+      ElementType.PYR13_GHOST
+      ElementType.PENT6
+      ElementType.PENT6_GHOST
+      ElementType.PENT15
+      ElementType.PENT15_GHOST
+      ElementType.HEX08
+      ElementType.HEX08_GHOST
+      ElementType.HEX20
+      ElementType.HEX20_GHOST
+      ElementType.NSIDED
+      ElementType.NSIDED_GHOST
+      ElementType.NFACED
+      ElementType.NFACED_GHOST
+      ElementType.MAX_ELEMENT_TYPE
+   
+   

@@ -1,0 +1,6 @@
+ANSYS\_DRAW\_LOGO
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.ANSYS_DRAW_LOGO

@@ -1,0 +1,6 @@
+fast\_display
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view.fast_display

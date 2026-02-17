@@ -1,0 +1,6 @@
+undo\_redo\_history\_count
+==========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.undo_redo_history_count

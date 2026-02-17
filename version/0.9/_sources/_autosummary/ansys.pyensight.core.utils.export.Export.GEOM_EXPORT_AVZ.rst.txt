@@ -1,0 +1,6 @@
+GEOM\_EXPORT\_AVZ
+=================
+
+.. currentmodule:: ansys.pyensight.core.utils.export
+
+.. autoattribute:: Export.GEOM_EXPORT_AVZ

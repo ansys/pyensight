@@ -1,0 +1,6 @@
+query\_information
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: variables.query_information

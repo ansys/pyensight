@@ -1,0 +1,6 @@
+timeline\_end\_type
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_keyframe.timeline_end_type

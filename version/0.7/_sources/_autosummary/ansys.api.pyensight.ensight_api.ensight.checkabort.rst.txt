@@ -1,0 +1,6 @@
+checkabort
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.checkabort

@@ -1,0 +1,6 @@
+usageLog
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.usageLog

@@ -1,0 +1,6 @@
+parameters
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: savegeom.parameters

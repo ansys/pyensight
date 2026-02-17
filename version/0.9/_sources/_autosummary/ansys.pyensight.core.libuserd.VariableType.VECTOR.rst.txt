@@ -1,0 +1,6 @@
+VECTOR
+======
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: VariableType.VECTOR

@@ -1,0 +1,6 @@
+ENS\_TURBO\_VIEW
+================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_isosurface
+
+.. autoproperty:: ENS_PART_ISOSURFACE.ENS_TURBO_VIEW

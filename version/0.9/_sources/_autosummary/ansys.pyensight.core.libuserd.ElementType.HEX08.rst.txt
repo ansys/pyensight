@@ -1,0 +1,6 @@
+HEX08
+=====
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.HEX08

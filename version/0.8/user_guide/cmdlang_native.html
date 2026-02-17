@@ -1,0 +1,886 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>EnSight command language native Python API &#8212; PyEnSight</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys_sphinx_theme.css?v=e7c4c341" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/breadcrumbs.css?v=37397a7f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  
+    <link href="../_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=1222c2e3"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=49e1bf35"></script>
+    <script src="../_static/js/table.js?v=b64f5182"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/cmdlang_native';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <script src="../_static/js/mermaid.js?v=cf64ff96"></script>
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <link rel="icon" href="../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="EnSight object API" href="object_api.html" />
+    <link rel="prev" title="EnSight Python scripts: Running and debugging" href="ensight_scripts.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <link rel="canonical" href="https://ensight.docs.pyansys.com/version/stable/user_guide/cmdlang_native.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="PyEnSight - Home"/>
+    <script>document.write(`<img src="../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark" alt="PyEnSight - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<div class="search-bar" id="search-bar">
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+         aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+         autocapitalize="off" spellcheck="false"/>
+  <span class="search-button__kbd-shortcut">
+    <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+  </span>
+</form>
+<!-- Search results container -->
+<div id="results" class="results" style="display: none;" tabindex="0">
+</div>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<div class="search-bar" id="search-bar">
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+         aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+         autocapitalize="off" spellcheck="false"/>
+  <span class="search-button__kbd-shortcut">
+    <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+  </span>
+</form>
+<!-- Search results container -->
+<div id="results" class="results" style="display: none;" tabindex="0">
+</div>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ensight_scripts.html">EnSight Python scripts: Running and debugging</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">EnSight command language native Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_api.html">EnSight object API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_differences.html">Python API differences in EnSight versus PyEnSight</a></li>
+<li class="toctree-l1"><a class="reference internal" href="omniverse_info.html">PyEnSight/ANSYS Omniverse Interface</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+     
+    <li class="breadcrumb-item breadcrumb-home">
+      <a
+        href="../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="index.html" class="nav-link">User guide</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page">EnSight command language native Python API</li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ensight-command-language-native-python-api">
+<span id="ref-cmdlang-native"></span><h1>EnSight command language native Python API<a class="headerlink" href="#ensight-command-language-native-python-api" title="Link to this heading">#</a></h1>
+<p>Since its inception, EnSight has had a journaling language, commonly referred to as
+the <em>command language</em>. Every operation in EnSight can be captured in command language.
+Scripts can be generated using this language and played back in the GUI or in batch mode.
+Furthermore, features like context files (that capture a session state) do so using
+a command language variant. Command language is not documented, but it roughly follows
+the <a class="reference internal" href="index.html#ensight-architecture"><span class="std std-ref">EnSight architecture</span></a>. The :ref: <cite>native Python API &lt;native_api_docs&gt;</cite>
+is a binding to this command language interface.</p>
+<section id="command-language-overview">
+<h2>Command language overview<a class="headerlink" href="#command-language-overview" title="Link to this heading">#</a></h2>
+<p>A command language call has this general form: <code class="samp docutils literal notranslate"><em><span class="pre">class</span></em><span class="pre">:</span> <em><span class="pre">command</span></em> <span class="pre">[values...]</span></code>.
+For example, <code class="samp docutils literal notranslate"><span class="pre">view_transf:</span> <span class="pre">rotate</span> <span class="pre">-4.</span> <span class="pre">24.</span> <span class="pre">0.</span></code> rotates the current view, and
+<code class="samp docutils literal notranslate"><span class="pre">data:</span> <span class="pre">replace</span> <span class="pre">data.case</span></code> loads a dataset into the current case.</p>
+<p>Commands may also follow a <em>begin/end</em> or <em>modify begin/end</em> structure, where commands
+of the same class are used between the begin and end commands. This form is used to <em>batch</em>
+a collection of changes into a single update operation. Finally, there is a
+<em>select begin/end</em> form for expanding values onto multiple lines.</p>
+<p>The language separates the specification of target objects and attribute changes into
+separate commands. Thus, there is always a <em>current selection</em> of all objects of
+a specific type, and many commands operate on the current selection. For example,
+this code sets the current part selection to part number 1 and then modifies the
+line width and part color:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">part</span><span class="p">:</span> <span class="n">select_begin</span>
+ <span class="mi">1</span>
+<span class="n">part</span><span class="p">:</span> <span class="n">select_end</span>
+<span class="n">part</span><span class="p">:</span> <span class="n">modify_begin</span>
+<span class="n">part</span><span class="p">:</span> <span class="n">line_width</span> <span class="mi">2</span>
+<span class="n">part</span><span class="p">:</span> <span class="n">colorby_rgb</span> <span class="mf">1.0</span> <span class="mf">0.0</span> <span class="mf">0.0</span>
+<span class="n">part</span><span class="p">:</span> <span class="n">modify_end</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While most of the command language follows these two command forms, there are
+some commands that do not follow this form.</p>
+</div>
+<p>As noted previously, EnSight maintains a <em>default</em> object of every type. You can
+use commands to modify most attributes on the default object. For example, you can
+use the <code class="docutils literal notranslate"><span class="pre">create</span></code> command to create a new object instance. The following code creates
+a clip by selecting the default clip object and then setting up the type and clip position
+value on the default clip. It then changes the current part selection to what parts should
+become the parent of the clip and calls the <code class="samp docutils literal notranslate"><span class="pre">clip:</span> <span class="pre">create</span></code> command to create the clip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clip</span><span class="p">:</span> <span class="n">select_default</span>
+<span class="n">clip</span><span class="p">:</span> <span class="n">begin</span>
+<span class="n">clip</span><span class="p">:</span> <span class="n">domain</span> <span class="n">intersect</span>
+<span class="n">clip</span><span class="p">:</span> <span class="n">tool</span> <span class="n">xyz</span>
+<span class="n">clip</span><span class="p">:</span> <span class="n">value</span> <span class="mf">0.5</span>
+<span class="n">clip</span><span class="p">:</span> <span class="n">end</span>
+<span class="n">part</span><span class="p">:</span> <span class="n">select_begin</span>
+ <span class="mi">1</span>
+ <span class="mi">2</span>
+<span class="n">part</span><span class="p">:</span> <span class="n">select_end</span>
+<span class="n">clip</span><span class="p">:</span> <span class="n">create</span>
+</pre></div>
+</div>
+</section>
+<section id="pyensight-command-language-binding">
+<h2>PyEnSight command language binding<a class="headerlink" href="#pyensight-command-language-binding" title="Link to this heading">#</a></h2>
+<p>The native Python API binding is a simple syntax conversion from command language
+into Python syntax. The <code class="docutils literal notranslate"><span class="pre">command</span></code> class is a module in Python under the <code class="docutils literal notranslate"><span class="pre">session.ensight</span></code>
+module. All values are passed as native Python parameters. For the <em>select/begin/end</em>
+command form, only the <code class="docutils literal notranslate"><span class="pre">begin</span></code> command is used. All of the value lines can be specified
+as Python parameters or a list. The previous example becomes this Python script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">clip</span><span class="o">.</span><span class="n">select_default</span><span class="p">()</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">clip</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">clip</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="s2">&quot;intersect&quot;</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">clip</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="s2">&quot;xyz&quot;</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">clip</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">clip</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">select_begin</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">clip</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Lists of objects can be used where multiple values are specified
+as parameters, which means that this syntax is also valid:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">select_begin</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">modify_begin</span><span class="p">()</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">colorby_rgb</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">modify_end</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="native-api-debugging">
+<h3>Native API debugging<a class="headerlink" href="#native-api-debugging" title="Link to this heading">#</a></h3>
+<p>Every command also returns an error code, which is <code class="docutils literal notranslate"><span class="pre">0</span></code> on success. For example,
+<code class="samp docutils literal notranslate"><span class="pre">err</span> <span class="pre">=</span> <span class="pre">session.ensight.part.colorby_rgb([0.0,0.0,&quot;sad&quot;])</span></code> sets <code class="docutils literal notranslate"><span class="pre">err</span></code> to <code class="docutils literal notranslate"><span class="pre">-1</span></code>.
+You can use the <a class="reference internal" href="../_autosummary/ansys.api.pyensight.ensight_api.ensight.sendmesgoptions.html#ansys.api.pyensight.ensight_api.ensight.sendmesgoptions" title="ansys.api.pyensight.ensight_api.ensight.sendmesgoptions"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrtree</span></code></a>
+method to enable Python exception handling instead of returning an error code. You should
+use the <a class="reference internal" href="../_autosummary/ansys.api.pyensight.ensight_api.ensight.sendmesgoptions.html#ansys.api.pyensight.ensight_api.ensight.sendmesgoptions" title="ansys.api.pyensight.ensight_api.ensight.sendmesgoptions"><code class="xref py py-func docutils literal notranslate"><span class="pre">attrtree</span></code></a>
+method when debugging native API scripts.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Because the exception setting is global, care should be taken to reset the error
+handling status on an error to ensure proper EnSight operation.</p>
+</div>
+<p>This example shows how you can convert error return values into exceptions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">sendmesgoptions</span><span class="p">(</span><span class="n">exception</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">select_begin</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">colorby_rgb</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="s2">&quot;sad&quot;</span><span class="p">])</span>
+<span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">sendmesgoptions</span><span class="p">(</span><span class="n">exception</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The code prints this error:</p>
+<p><code class="samp docutils literal notranslate"><span class="pre">RuntimeError:</span> <span class="pre">Command:</span> <span class="pre">(part:</span> <span class="pre">colorby_rgb</span> <span class="pre">0.0</span> <span class="pre">0.0</span> <span class="pre">sad</span> <span class="pre">)</span> <span class="pre">returned:</span> <span class="pre">RGB</span> <span class="pre">color:</span> <span class="pre">bad</span> <span class="pre">parameter</span></code></p>
+</section>
+</section>
+<section id="gui-conversion">
+<h2>GUI conversion<a class="headerlink" href="#gui-conversion" title="Link to this heading">#</a></h2>
+<p>There is a built-in mechanism to convert code in command language into Python. To do this,
+you first paste the command language into the Python editor. On EnSight’s <strong>Execution</strong> tab,
+you can use the right-mouse button menu to select and copy lines of command language.</p>
+<p>Next, select the text in the editor and use the <strong>Edit</strong> menu to select either
+the <strong>Convert selection to sendmesg()</strong> or <strong>Convert selection to native Python</strong>
+option. In general, the native Python conversion results in much more readable Python code
+that is far easier to edit than the <strong>Convert selection to sendmesg()</strong> option. You should
+use the <strong>Convert selection to native Python</strong> option for all but legacy development.</p>
+<p>The <strong>File</strong> menu provides two items to execute the current file text in the EnSight Python
+interpreter. The <strong>Run script</strong> option causes the file contents to be executed in the global
+namespace (for example, like the <code class="docutils literal notranslate"><span class="pre">execfile()</span></code> function). The <strong>Import script as module</strong>
+option first saves the current file to disk and then executes a Python import operation on the
+file, which executes in a private namespace. Both options verify the syntax of the current
+file and allow for rapid prototyping.</p>
+</section>
+<section id="special-cases">
+<h2>Special cases<a class="headerlink" href="#special-cases" title="Link to this heading">#</a></h2>
+<p>There are a number of commands in the EnSight command language that are not valid
+Python names. Here are a few examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">function</span><span class="p">:</span> <span class="c1">#_of_levels 5</span>
+<span class="n">annotation</span><span class="p">:</span> <span class="mi">3</span><span class="n">d_label_size</span> <span class="mf">10.0</span>
+<span class="n">command</span><span class="p">:</span> <span class="nb">print</span> <span class="s2">&quot;hello&quot;</span>
+<span class="n">viewport</span><span class="p">:</span> <span class="k">raise</span>
+</pre></div>
+</div>
+<p>Here are some reasons that a name might be invalid:</p>
+<ul class="simple">
+<li><p>Name contains an invalid character (such as <code class="docutils literal notranslate"><span class="pre">#</span></code>).</p></li>
+<li><p>Name begins with a digit (such as <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p></li>
+<li><p>Name is a Python-reserved word (such as <code class="docutils literal notranslate"><span class="pre">raise</span></code>).</p></li>
+</ul>
+<p>Invalid names are transformed using these rules:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#</span></code> characters are replaced with the text <em>number</em>.</p></li>
+<li><p>Names that start with a digit are prefixed with an underscore (_).</p></li>
+<li><p>Names that are the same as a Python-reserved word are prefixed with an underscore (_).</p></li>
+</ul>
+<p>The previous examples are transformed as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">number_of_levels</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">annotation</span><span class="o">.</span><span class="n">_3d_label_size</span><span class="p">(</span><span class="mf">10.0</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">viewport</span><span class="o">.</span><span class="n">_raise</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="selection-and-the-object-api">
+<span id="selection-transfer"></span><h2>Selection and the object API<a class="headerlink" href="#selection-and-the-object-api" title="Link to this heading">#</a></h2>
+<p>The native API maintains a notion of a <em>current selection</em> with a collection
+of commands to manipulate it, such as :func: <cite>select_begin()&lt;ansys.api.pyensight.ensight_api.part.select_begin&gt;</cite>.
+The object API reflects the EnSight GUI via SELECTED attributes and selection <code class="docutils literal notranslate"><span class="pre">ENS_GROUP</span></code> objects.
+Due to the implicit nature of the native API, until it is used, the native selection
+is not reflected in EnSight objects. When using both APIs in a single script, it can
+become necessary to synchronize the two notions of selection. This is done with the
+the <a class="reference internal" href="../_autosummary/ansys.api.pyensight.ensight_api.part.get_mainpartlist_select.html#ansys.api.pyensight.ensight_api.part.get_mainpartlist_select" title="ansys.api.pyensight.ensight_api.part.get_mainpartlist_select"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_mainpartlist_select()</span></code></a>
+command. This command sets the native selection to match the object selection. For example, this
+code allows the object selection mechanisms to be used to set up the part selection for
+subsequent native commands:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">PARTS</span><span class="p">[</span><span class="s2">&quot;rear body&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">selection</span><span class="p">()</span><span class="o">.</span><span class="n">addchild</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">get_mainpartlist_select</span><span class="p">()</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">modify_begin</span><span class="p">()</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">colorby_rgb</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">part</span><span class="o">.</span><span class="n">modify_end</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="convert-existing-ensight-scripts-to-pyensight">
+<span id="ensight-to-pyensight"></span><h2>Convert existing EnSight scripts to PyEnSight<a class="headerlink" href="#convert-existing-ensight-scripts-to-pyensight" title="Link to this heading">#</a></h2>
+<p>PyEnSight has been designed to be fully compatible with the existing EnSight Python language,
+supporting both the <em>native</em> Python API and the <em>object</em> API. Indeed, the <code class="docutils literal notranslate"><span class="pre">ensight</span></code> attribute
+of a PyEnSight <code class="docutils literal notranslate"><span class="pre">session</span></code> object is a <em>clone</em> of the <code class="docutils literal notranslate"><span class="pre">ensight</span></code> module generated via
+introspection. This means that any attribute, object, instance, variable, and more
+available in the <code class="docutils literal notranslate"><span class="pre">ensight</span></code> module is also available in PyEnSight, which manages the
+communication with EnSight and the conversion of a command to its corresponding EnSight counterpart.
+However, you must make a few adjustments to port an existing EnSight script into
+PyEnSight. Here is a list of operations to perform to make the conversion:</p>
+<ul class="simple">
+<li><p>All the calls to the <code class="docutils literal notranslate"><span class="pre">ensight</span></code> module and its attributes must be pre-fixed
+with the current session instance. For example:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Old syntax</span>
+<span class="c1"># ensight.objs.core.PARTS</span>
+<span class="c1"># New syntax</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">PARTS</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ensight</span></code> module cannot be imported anymore because it is an attribute of the PyEnSight <code class="docutils literal notranslate"><span class="pre">session</span></code> object.
+However, you can use the <code class="docutils literal notranslate"><span class="pre">scoped_name</span></code> utility to mimic the syntax that you would obtain importing a module
+or a submodule:</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove previous imports</span>
+<span class="c1"># import ensight</span>
+<span class="c1"># from ensight.objs import *</span>
+<span class="c1"># from ensight.objs import core</span>
+
+<span class="c1"># Create a ``scoped_name`` instance</span>
+<span class="n">sn</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">support</span><span class="o">.</span><span class="n">scoped_name</span>
+
+<span class="c1"># Create a context manager with the ``scoped_name`` instance, where you can</span>
+<span class="c1"># use the old syntax</span>
+
+<span class="k">with</span> <span class="n">sn</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="p">)</span> <span class="k">as</span> <span class="n">ensight</span><span class="p">,</span> <span class="n">sn</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="p">)</span> <span class="k">as</span> <span class="n">core</span><span class="p">:</span>
+    <span class="n">core</span><span class="o">.</span><span class="n">PARTS</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">DESCRIPTION</span>
+    <span class="n">ensight</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">bounds</span><span class="p">(</span><span class="s2">&quot;ON&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The main advantage of using the <code class="docutils literal notranslate"><span class="pre">scoped_Name</span></code> instance is that the new syntax is also
+supported directly in EnSight. This greatly simplifies the porting of a PyEnSight script
+into EnSight.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-language-overview">Command language overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyensight-command-language-binding">PyEnSight command language binding</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#native-api-debugging">Native API debugging</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gui-conversion">GUI conversion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#special-cases">Special cases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selection-and-the-object-api">Selection and the object API</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-existing-ensight-scripts-to-pyensight">Convert existing EnSight scripts to PyEnSight</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/user_guide/cmdlang_native.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+<link rel="stylesheet" href="../_static/css/fuse-search.css">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+
+
+
+
+
+
+
+<script>
+var theme_static_search = JSON.parse('{"ignoreLocation": "False", "keys": ["title", "text"], "shouldSort": "True", "threshold": 0.5, "useExtendedSearch": "True"}');
+var theme_limit = "10";
+var min_chars_for_search = "1";
+var searchPath = "../_static/search.json";
+
+</script>
+
+<script src="../_static/js/fuse_search.js"></script>
+<script src="../_static/js/fuse_extension.js"></script>
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2025 ANSYS, Inc. Unauthorized use, distribution, or duplication is prohibited..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  1.1.1. <br />Last updated on
+  <span id="date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var lastModifiedDate = new Date(document.lastModified);
+  var date = lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("date").innerHTML = date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

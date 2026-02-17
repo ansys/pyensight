@@ -1,0 +1,6 @@
+value
+=====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: isos.value

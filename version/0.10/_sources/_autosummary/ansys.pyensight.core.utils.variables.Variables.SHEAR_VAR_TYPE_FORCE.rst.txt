@@ -1,0 +1,6 @@
+SHEAR\_VAR\_TYPE\_FORCE
+=======================
+
+.. currentmodule:: ansys.pyensight.core.utils.variables
+
+.. autoattribute:: Variables.SHEAR_VAR_TYPE_FORCE

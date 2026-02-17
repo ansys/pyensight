@@ -1,0 +1,6 @@
+override\_gt\_rgb
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: variables.override_gt_rgb

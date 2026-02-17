@@ -1,0 +1,6 @@
+initialize\_viewports
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.initialize_viewports

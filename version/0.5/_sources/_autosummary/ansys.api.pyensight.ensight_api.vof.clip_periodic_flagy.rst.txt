@@ -1,0 +1,6 @@
+clip\_periodic\_flagy
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: vof.clip_periodic_flagy

@@ -1,0 +1,6 @@
+geometry
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data.geometry

@@ -1,0 +1,6 @@
+load\_dir
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: views.load_dir

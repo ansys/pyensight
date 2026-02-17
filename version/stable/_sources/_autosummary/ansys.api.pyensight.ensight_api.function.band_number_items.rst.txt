@@ -1,0 +1,6 @@
+band\_number\_items
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: function.band_number_items

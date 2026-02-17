@@ -1,0 +1,6 @@
+dummy\_chng\_slot
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: subset.dummy_chng_slot

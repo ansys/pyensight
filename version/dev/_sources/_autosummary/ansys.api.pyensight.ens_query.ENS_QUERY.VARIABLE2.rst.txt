@@ -1,0 +1,6 @@
+VARIABLE2
+=========
+
+.. currentmodule:: ansys.api.pyensight.ens_query
+
+.. autoproperty:: ENS_QUERY.VARIABLE2

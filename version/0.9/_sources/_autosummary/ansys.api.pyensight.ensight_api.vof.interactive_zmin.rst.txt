@@ -1,0 +1,6 @@
+interactive\_zmin
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: vof.interactive_zmin

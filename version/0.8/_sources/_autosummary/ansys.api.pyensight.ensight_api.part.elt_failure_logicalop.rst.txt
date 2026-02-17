@@ -1,0 +1,6 @@
+elt\_failure\_logicalop
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.elt_failure_logicalop

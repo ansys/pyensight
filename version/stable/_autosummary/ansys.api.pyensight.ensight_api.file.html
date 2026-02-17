@@ -1,0 +1,1157 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>file &#8212; PyEnSight</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/ansys-sphinx-theme.css?v=9e79609d" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/ansys-sphinx-theme.css?v=9e79609d" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/breadcrumbs.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+
+  <!-- Include desired assets -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+
+  
+    <link href="../_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=d209c570"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=49e1bf35"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_autosummary/ansys.api.pyensight.ensight_api.file';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.11';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script src="../_static/js/mermaid.js?v=cf64ff96"></script>
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <link rel="icon" href="../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="animation_color_type" href="ansys.api.pyensight.ensight_api.file.animation_color_type.html" />
+    <link rel="prev" title="type" href="ansys.api.pyensight.ensight_api.extrude.type.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.11.4" />
+  <meta property="og:site_name" content="PyAnsys" />
+  <meta name="physics" content="Fluids" />
+  <link rel="canonical" href="https://ensight.docs.pyansys.com/version/stable/_autosummary/ansys.api.pyensight.ensight_api.file.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="PyEnSight - Home"/>
+    <img src="../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark pst-js-only" alt="PyEnSight - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../index.html" title="PyEnSight home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../index.html" title="PyEnSight home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../native_documentation.html">Native API reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.html">ansys.api.pyensight.ensight_api</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim.html">anim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_flipbook.html">anim_flipbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_keyframe.html">anim_keyframe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_quick.html">anim_quick</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_recorders.html">anim_recorders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_screens.html">anim_screens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_traces.html">anim_traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annot_backgr.html">annot_backgr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annot_entlbl.html">annot_entlbl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annotation.html">annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.arrow.html">arrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.auxgeom.html">auxgeom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.boundarylayer.html">boundarylayer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.case.html">case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.html">clip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.collab.html">collab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.command.html">command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.connect.html">connect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.context_restore.html">context_restore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.contour.html">contour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.curve.html">curve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.data.html">data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.data_partbuild.html">data_partbuild</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.define.html">define</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.devsrf.html">devsrf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.dial.html">dial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.dpart.html">dpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.elevsurf.html">elevsurf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.html">ensight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.extrude.html">extrude</a></li>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">file</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_color_type.html">animation_color_type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_file.html">animation_file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_format.html">animation_format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_format_options.html">animation_format_options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_frame_rate.html">animation_frame_rate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_frames.html">animation_frames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_gamma.html">animation_gamma</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_multiple_images.html">animation_multiple_images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_numpasses.html">animation_numpasses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_play_flipbook.html">animation_play_flipbook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_play_keyframe.html">animation_play_keyframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_play_time.html">animation_play_time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_raytrace_ext.html">animation_raytrace_ext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_raytrace_it.html">animation_raytrace_it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_rend_offscreen.html">animation_rend_offscreen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_reset_flipbook.html">animation_reset_flipbook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_reset_keyframe.html">animation_reset_keyframe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_reset_time.html">animation_reset_time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_reset_traces.html">animation_reset_traces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_saturation.html">animation_saturation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_screen_tiling.html">animation_screen_tiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_start_number.html">animation_start_number</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_stereo.html">animation_stereo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_window_size.html">animation_window_size</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_window_xy.html">animation_window_xy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.context_restore_rescale.html">context_restore_rescale</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_avi_type.html">image_avi_type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_bit_rate.html">image_bit_rate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_color_type.html">image_color_type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_convert.html">image_convert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_encapsulated.html">image_encapsulated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_envideo_type.html">image_envideo_type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_file.html">image_file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_format.html">image_format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_format_options.html">image_format_options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_frame_rate.html">image_frame_rate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_gamma.html">image_gamma</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_mpeg_type.html">image_mpeg_type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_numpasses.html">image_numpasses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_orientation.html">image_orientation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_plot_only.html">image_plot_only</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_postscript_cull.html">image_postscript_cull</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_postscript_prev.html">image_postscript_prev</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_postscript_subd.html">image_postscript_subd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_postscript_type.html">image_postscript_type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_printer_command.html">image_printer_command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_printer_model.html">image_printer_model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_quality.html">image_quality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_raytrace_external.html">image_raytrace_external</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_raytrace_it.html">image_raytrace_it</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_rend_offscreen.html">image_rend_offscreen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_saturation.html">image_saturation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_scale_factor.html">image_scale_factor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_screen_tiling.html">image_screen_tiling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_stereo.html">image_stereo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_to_file.html">image_to_file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_to_printer.html">image_to_printer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_transparent_back.html">image_transparent_back</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_window_size.html">image_window_size</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_window_xy.html">image_window_xy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.raytracer.html">raytracer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.raytracer_options.html">raytracer_options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.restore_context.html">restore_context</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.restore_full_backup.html">restore_full_backup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_animation.html">save_animation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_cmd_file.html">save_cmd_file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_context.html">save_context</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_context_type.html">save_context_type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_full_backup.html">save_full_backup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_geometric_entities.html">save_geometric_entities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_image.html">save_image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_multiple_images.html">save_multiple_images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario.html">save_scenario</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario_file.html">save_scenario_file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario_fileslct.html">save_scenario_fileslct</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario_png_file.html">save_scenario_png_file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario_png_format.html">save_scenario_png_format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario_project.html">save_scenario_project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario_projslct.html">save_scenario_projslct</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario_view.html">save_scenario_view</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario_which_parts.html">save_scenario_which_parts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_screen_to_clipboard.html">save_screen_to_clipboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_screen_to_file.html">save_screen_to_file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_desc_begin.html">scenario_desc_begin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_desc_end.html">scenario_desc_end</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_flipbook_anim.html">scenario_flipbook_anim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_format.html">scenario_format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_keyframe_anim.html">scenario_keyframe_anim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_simtime_anim.html">scenario_simtime_anim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_steptime_anim.html">scenario_steptime_anim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_trace_anim.html">scenario_trace_anim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_transient_anim.html">scenario_transient_anim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.select_begin.html">select_begin</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.filterpart.html">filterpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.format.html">format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.frame.html">frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.function.html">function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.html">gauge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.help.html">help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.isos.html">isos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.legend.html">legend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.lightsource.html">lightsource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.line.html">line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.logo.html">logo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.material.html">material</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.message_window.html">message_window</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.model.html">model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.nplot.html">nplot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.nvc.html">nvc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.objs.html">objs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.html">part</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.plot.html">plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.pointpart.html">pointpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.prefs.html">prefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.profile.html">profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ptrace.html">ptrace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ptrace_emitr.html">ptrace_emitr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.query_ent_var.html">query_ent_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.query_interact.html">query_interact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.savegeom.html">savegeom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.scene.html">scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.sepattach.html">sepattach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.set_tdata.html">set_tdata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.set_visenv.html">set_visenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shape.html">shape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shell.html">shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shock.html">shock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.show_info.html">show_info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.solution_time.html">solution_time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.species.html">species</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.subset.html">subset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.tensor.html">tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.text.html">text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.texture.html">texture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.tools.html">tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.user.html">user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.varextcfd.html">varextcfd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.variables.html">variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vctarrow.html">vctarrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.view.html">view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.view_transf.html">view_transf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport.html">viewport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport_axis.html">viewport_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport_bounds.html">viewport_bounds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.views.html">views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vof.html">vof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vortexcore.html">vortexcore</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../object_documentation.html">Object API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calc_functions.html">Calculator functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest_api/rest_api.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libuserd_documentation.html">LibUserd API reference</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.enscontext.EnsContext.html">EnsContext</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.LocalLauncher.html">LocalLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.DockerLauncher.html">DockerLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.renderable.Renderable.html">Renderable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.Session.html">Session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.export.Export.html">Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.parts.Parts.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.query.Query.html">Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.support.Support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.views.Views.html">Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.variables.Variables.html">Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.omniverse.Omniverse.html">Omniverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.readers.Readers.html">Readers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.readers.DVS.html">DVS</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+     
+    <li class="breadcrumb-item breadcrumb-home">
+      <a
+        href="../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../class_documentation.html" class="nav-link">API reference</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../native_documentation.html" class="nav-link">Native API reference</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">file</span></li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="file">
+<h1>file<a class="headerlink" href="#file" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="ansys.api.pyensight.ensight_api.file">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ansys.api.pyensight.ensight_api.</span></span><span class="sig-name descname"><span class="pre">file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ansys.pyensight.core.Session.html#ansys.pyensight.core.Session" title="ansys.pyensight.core.session.Session"><span class="pre">Session</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ansys.api.pyensight.ensight_api.file" title="Link to this definition">#</a></dt>
+<dd><p>Class wrapper for EnSight file module</p>
+<p>This class acts as a proxy for the EnSight Python module ensight.file</p>
+<p class="rubric">Methods</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_color_type.html#ansys.api.pyensight.ensight_api.file.animation_color_type" title="ansys.api.pyensight.ensight_api.file.animation_color_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_color_type</span></code></a>(p0)</p></td>
+<td><p>File: animation_color_type</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_file.html#ansys.api.pyensight.ensight_api.file.animation_file" title="ansys.api.pyensight.ensight_api.file.animation_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_file</span></code></a>(p0)</p></td>
+<td><p>Specify the name of the animation file when recording.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_format.html#ansys.api.pyensight.ensight_api.file.animation_format" title="ansys.api.pyensight.ensight_api.file.animation_format"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_format</span></code></a>(p0)</p></td>
+<td><p>File: animation_format</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_format_options.html#ansys.api.pyensight.ensight_api.file.animation_format_options" title="ansys.api.pyensight.ensight_api.file.animation_format_options"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_format_options</span></code></a>(p0)</p></td>
+<td><p>File: animation_format_options</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_frame_rate.html#ansys.api.pyensight.ensight_api.file.animation_frame_rate" title="ansys.api.pyensight.ensight_api.file.animation_frame_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_frame_rate</span></code></a>(p0)</p></td>
+<td><p>File: animation_frame_rate</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_frames.html#ansys.api.pyensight.ensight_api.file.animation_frames" title="ansys.api.pyensight.ensight_api.file.animation_frames"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_frames</span></code></a>(p0)</p></td>
+<td><p>Specify the number of frames to save when recording an animation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_gamma.html#ansys.api.pyensight.ensight_api.file.animation_gamma" title="ansys.api.pyensight.ensight_api.file.animation_gamma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_gamma</span></code></a>(p0)</p></td>
+<td><p>File: animation_gamma</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_multiple_images.html#ansys.api.pyensight.ensight_api.file.animation_multiple_images" title="ansys.api.pyensight.ensight_api.file.animation_multiple_images"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_multiple_images</span></code></a>(p0)</p></td>
+<td><p>Specify whether to save multiple images when recording an animation (if you are displaying on multiple detached displays).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_numpasses.html#ansys.api.pyensight.ensight_api.file.animation_numpasses" title="ansys.api.pyensight.ensight_api.file.animation_numpasses"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_numpasses</span></code></a>(p0)</p></td>
+<td><p>File: animation_numpasses</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_play_flipbook.html#ansys.api.pyensight.ensight_api.file.animation_play_flipbook" title="ansys.api.pyensight.ensight_api.file.animation_play_flipbook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_play_flipbook</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_play_keyframe.html#ansys.api.pyensight.ensight_api.file.animation_play_keyframe" title="ansys.api.pyensight.ensight_api.file.animation_play_keyframe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_play_keyframe</span></code></a>(p0)</p></td>
+<td><p>File: animation_play_keyframe</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_play_time.html#ansys.api.pyensight.ensight_api.file.animation_play_time" title="ansys.api.pyensight.ensight_api.file.animation_play_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_play_time</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_raytrace_ext.html#ansys.api.pyensight.ensight_api.file.animation_raytrace_ext" title="ansys.api.pyensight.ensight_api.file.animation_raytrace_ext"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_raytrace_ext</span></code></a>(p0)</p></td>
+<td><p>File: animation_raytrace_ext</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_raytrace_it.html#ansys.api.pyensight.ensight_api.file.animation_raytrace_it" title="ansys.api.pyensight.ensight_api.file.animation_raytrace_it"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_raytrace_it</span></code></a>(p0)</p></td>
+<td><p>File: animation_raytrace_it</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_rend_offscreen.html#ansys.api.pyensight.ensight_api.file.animation_rend_offscreen" title="ansys.api.pyensight.ensight_api.file.animation_rend_offscreen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_rend_offscreen</span></code></a>(p0)</p></td>
+<td><p>File: animation_rend_offscreen</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_reset_flipbook.html#ansys.api.pyensight.ensight_api.file.animation_reset_flipbook" title="ansys.api.pyensight.ensight_api.file.animation_reset_flipbook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_reset_flipbook</span></code></a>(p0)</p></td>
+<td><p>Specify whether to reset the flipbook as the animation is saved.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_reset_keyframe.html#ansys.api.pyensight.ensight_api.file.animation_reset_keyframe" title="ansys.api.pyensight.ensight_api.file.animation_reset_keyframe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_reset_keyframe</span></code></a>(p0)</p></td>
+<td><p>File: animation_reset_keyframe</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_reset_time.html#ansys.api.pyensight.ensight_api.file.animation_reset_time" title="ansys.api.pyensight.ensight_api.file.animation_reset_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_reset_time</span></code></a>(p0)</p></td>
+<td><p>Specify whether to reset the solution time as the animation is saved.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_reset_traces.html#ansys.api.pyensight.ensight_api.file.animation_reset_traces" title="ansys.api.pyensight.ensight_api.file.animation_reset_traces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_reset_traces</span></code></a>(p0)</p></td>
+<td><p>Specify whether to reset the animated particle traces as the animation is saved.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_saturation.html#ansys.api.pyensight.ensight_api.file.animation_saturation" title="ansys.api.pyensight.ensight_api.file.animation_saturation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_saturation</span></code></a>(p0)</p></td>
+<td><p>File: animation_saturation</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_screen_tiling.html#ansys.api.pyensight.ensight_api.file.animation_screen_tiling" title="ansys.api.pyensight.ensight_api.file.animation_screen_tiling"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_screen_tiling</span></code></a>(p0, p1)</p></td>
+<td><p>File: animation_screen_tiling</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_start_number.html#ansys.api.pyensight.ensight_api.file.animation_start_number" title="ansys.api.pyensight.ensight_api.file.animation_start_number"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_start_number</span></code></a>(p0)</p></td>
+<td><p>File: animation_start_number</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_stereo.html#ansys.api.pyensight.ensight_api.file.animation_stereo" title="ansys.api.pyensight.ensight_api.file.animation_stereo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_stereo</span></code></a>(p0)</p></td>
+<td><p>File: animation_stereo</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_window_size.html#ansys.api.pyensight.ensight_api.file.animation_window_size" title="ansys.api.pyensight.ensight_api.file.animation_window_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_window_size</span></code></a>(p0)</p></td>
+<td><p>Specify type (and thus in most cases the size) of the animation window to save when recording.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.animation_window_xy.html#ansys.api.pyensight.ensight_api.file.animation_window_xy" title="ansys.api.pyensight.ensight_api.file.animation_window_xy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.animation_window_xy</span></code></a>(p0, p1)</p></td>
+<td><p>Specify resolution of the animation window to save - when using user_defined type.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.context_restore_rescale.html#ansys.api.pyensight.ensight_api.file.context_restore_rescale" title="ansys.api.pyensight.ensight_api.file.context_restore_rescale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.context_restore_rescale</span></code></a>(p0)</p></td>
+<td><p>File: context_restore_rescale</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_avi_type.html#ansys.api.pyensight.ensight_api.file.image_avi_type" title="ansys.api.pyensight.ensight_api.file.image_avi_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_avi_type</span></code></a>(p0)</p></td>
+<td><p>File: image_avi_type</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_bit_rate.html#ansys.api.pyensight.ensight_api.file.image_bit_rate" title="ansys.api.pyensight.ensight_api.file.image_bit_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_bit_rate</span></code></a>(p0)</p></td>
+<td><p>File: image_bit_rate</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_color_type.html#ansys.api.pyensight.ensight_api.file.image_color_type" title="ansys.api.pyensight.ensight_api.file.image_color_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_color_type</span></code></a>(p0)</p></td>
+<td><p>Specify that the image will be printed in color or black and white</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_convert.html#ansys.api.pyensight.ensight_api.file.image_convert" title="ansys.api.pyensight.ensight_api.file.image_convert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_convert</span></code></a>(p0)</p></td>
+<td><p>Change black backgrounds to white and change any white objects (geometry, plotters, annotations, etc.) to black.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_encapsulated.html#ansys.api.pyensight.ensight_api.file.image_encapsulated" title="ansys.api.pyensight.ensight_api.file.image_encapsulated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_encapsulated</span></code></a>(p0)</p></td>
+<td><p>Turn on/off encapsulation for postscript output</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_envideo_type.html#ansys.api.pyensight.ensight_api.file.image_envideo_type" title="ansys.api.pyensight.ensight_api.file.image_envideo_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_envideo_type</span></code></a>(p0)</p></td>
+<td><p>Set the envideo format compression scheme.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_file.html#ansys.api.pyensight.ensight_api.file.image_file" title="ansys.api.pyensight.ensight_api.file.image_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_file</span></code></a>(p0)</p></td>
+<td><p>Specify the filename to be used for image printing.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_format.html#ansys.api.pyensight.ensight_api.file.image_format" title="ansys.api.pyensight.ensight_api.file.image_format"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_format</span></code></a>(p0)</p></td>
+<td><p>Specifies the file format to be used when an image is created.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_format_options.html#ansys.api.pyensight.ensight_api.file.image_format_options" title="ansys.api.pyensight.ensight_api.file.image_format_options"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_format_options</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_frame_rate.html#ansys.api.pyensight.ensight_api.file.image_frame_rate" title="ansys.api.pyensight.ensight_api.file.image_frame_rate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_frame_rate</span></code></a>(p0)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_gamma.html#ansys.api.pyensight.ensight_api.file.image_gamma" title="ansys.api.pyensight.ensight_api.file.image_gamma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_gamma</span></code></a>(p0)</p></td>
+<td><p>Set gamma correction value for PCL image files.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_mpeg_type.html#ansys.api.pyensight.ensight_api.file.image_mpeg_type" title="ansys.api.pyensight.ensight_api.file.image_mpeg_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_mpeg_type</span></code></a>(p0)</p></td>
+<td><p>File: image_mpeg_type</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_numpasses.html#ansys.api.pyensight.ensight_api.file.image_numpasses" title="ansys.api.pyensight.ensight_api.file.image_numpasses"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_numpasses</span></code></a>(p0)</p></td>
+<td><p>Specify the number of rendering passes for anti-aliasing.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_orientation.html#ansys.api.pyensight.ensight_api.file.image_orientation" title="ansys.api.pyensight.ensight_api.file.image_orientation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_orientation</span></code></a>(p0)</p></td>
+<td><p>Sets the image orientation for PCL and Postscript image formats</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_plot_only.html#ansys.api.pyensight.ensight_api.file.image_plot_only" title="ansys.api.pyensight.ensight_api.file.image_plot_only"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_plot_only</span></code></a>(p0)</p></td>
+<td><p>When printing an image will turn invisible everything except for plotters.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_postscript_cull.html#ansys.api.pyensight.ensight_api.file.image_postscript_cull" title="ansys.api.pyensight.ensight_api.file.image_postscript_cull"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_postscript_cull</span></code></a>(p0)</p></td>
+<td><p>For postscript format move-draw images turns on/off the removal of hidden geometry.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_postscript_prev.html#ansys.api.pyensight.ensight_api.file.image_postscript_prev" title="ansys.api.pyensight.ensight_api.file.image_postscript_prev"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_postscript_prev</span></code></a>(p0)</p></td>
+<td><p>Include a windows preview image in an encapsulated postscript (eps) file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_postscript_subd.html#ansys.api.pyensight.ensight_api.file.image_postscript_subd" title="ansys.api.pyensight.ensight_api.file.image_postscript_subd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_postscript_subd</span></code></a>(p0)</p></td>
+<td><p>For postscript format move-draw images turns on/off the subdivision of polygons for better shading.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_postscript_type.html#ansys.api.pyensight.ensight_api.file.image_postscript_type" title="ansys.api.pyensight.ensight_api.file.image_postscript_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_postscript_type</span></code></a>(p0)</p></td>
+<td><p>Set the postscript output to move-draw or bitmap.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_printer_command.html#ansys.api.pyensight.ensight_api.file.image_printer_command" title="ansys.api.pyensight.ensight_api.file.image_printer_command"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_printer_command</span></code></a>(p0)</p></td>
+<td><p>Specify the printer command to use when printing an image to a printer</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_printer_model.html#ansys.api.pyensight.ensight_api.file.image_printer_model" title="ansys.api.pyensight.ensight_api.file.image_printer_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_printer_model</span></code></a>(p0)</p></td>
+<td><p>Set the target printer for a PCL image file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_quality.html#ansys.api.pyensight.ensight_api.file.image_quality" title="ansys.api.pyensight.ensight_api.file.image_quality"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_quality</span></code></a>(p0)</p></td>
+<td><p>Sets the quality for JPEG images.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_raytrace_external.html#ansys.api.pyensight.ensight_api.file.image_raytrace_external" title="ansys.api.pyensight.ensight_api.file.image_raytrace_external"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_raytrace_external</span></code></a>(p0)</p></td>
+<td><p>File: image_raytrace_external</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_raytrace_it.html#ansys.api.pyensight.ensight_api.file.image_raytrace_it" title="ansys.api.pyensight.ensight_api.file.image_raytrace_it"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_raytrace_it</span></code></a>(p0)</p></td>
+<td><p>File: image_raytrace_it</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_rend_offscreen.html#ansys.api.pyensight.ensight_api.file.image_rend_offscreen" title="ansys.api.pyensight.ensight_api.file.image_rend_offscreen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_rend_offscreen</span></code></a>(p0)</p></td>
+<td><p>File: image_rend_offscreen</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_saturation.html#ansys.api.pyensight.ensight_api.file.image_saturation" title="ansys.api.pyensight.ensight_api.file.image_saturation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_saturation</span></code></a>(p0)</p></td>
+<td><p>Desaturate color when saving an image to disk or printer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_scale_factor.html#ansys.api.pyensight.ensight_api.file.image_scale_factor" title="ansys.api.pyensight.ensight_api.file.image_scale_factor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_scale_factor</span></code></a>(p0)</p></td>
+<td><p>To scale a postscript image for the page size.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_screen_tiling.html#ansys.api.pyensight.ensight_api.file.image_screen_tiling" title="ansys.api.pyensight.ensight_api.file.image_screen_tiling"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_screen_tiling</span></code></a>(p0, p1)</p></td>
+<td><p>Create a multi-tile image suitable for display via EnVideo to a multi-tile (i.e., powerwall) display device.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_stereo.html#ansys.api.pyensight.ensight_api.file.image_stereo" title="ansys.api.pyensight.ensight_api.file.image_stereo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_stereo</span></code></a>(p0)</p></td>
+<td><p>Set stereo/mono output for the image file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_to_file.html#ansys.api.pyensight.ensight_api.file.image_to_file" title="ansys.api.pyensight.ensight_api.file.image_to_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_to_file</span></code></a>(p0)</p></td>
+<td><p>Specifies if the image should be saved to a disk file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_to_printer.html#ansys.api.pyensight.ensight_api.file.image_to_printer" title="ansys.api.pyensight.ensight_api.file.image_to_printer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_to_printer</span></code></a>(p0)</p></td>
+<td><p>Specifies if the image should be printed directly to a printer.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_transparent_back.html#ansys.api.pyensight.ensight_api.file.image_transparent_back" title="ansys.api.pyensight.ensight_api.file.image_transparent_back"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_transparent_back</span></code></a>(p0)</p></td>
+<td><p>File: image_transparent_back</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_window_size.html#ansys.api.pyensight.ensight_api.file.image_window_size" title="ansys.api.pyensight.ensight_api.file.image_window_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_window_size</span></code></a>(p0)</p></td>
+<td><p>When printing image based images sets the window (and thus image) size.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.image_window_xy.html#ansys.api.pyensight.ensight_api.file.image_window_xy" title="ansys.api.pyensight.ensight_api.file.image_window_xy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.image_window_xy</span></code></a>(p0, p1)</p></td>
+<td><p>Sets the image width and height if the user has specified a user_defined image size.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.raytracer.html#ansys.api.pyensight.ensight_api.file.raytracer" title="ansys.api.pyensight.ensight_api.file.raytracer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.raytracer</span></code></a>(p0)</p></td>
+<td><p>File: raytracer</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.raytracer_options.html#ansys.api.pyensight.ensight_api.file.raytracer_options" title="ansys.api.pyensight.ensight_api.file.raytracer_options"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.raytracer_options</span></code></a>(p0)</p></td>
+<td><p>File: raytracer_options</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.restore_context.html#ansys.api.pyensight.ensight_api.file.restore_context" title="ansys.api.pyensight.ensight_api.file.restore_context"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.restore_context</span></code></a>(p0)</p></td>
+<td><p>Restore a context file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.restore_full_backup.html#ansys.api.pyensight.ensight_api.file.restore_full_backup" title="ansys.api.pyensight.ensight_api.file.restore_full_backup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.restore_full_backup</span></code></a>(p0)</p></td>
+<td><p>Restore an EnSight archive (restart) file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_animation.html#ansys.api.pyensight.ensight_api.file.save_animation" title="ansys.api.pyensight.ensight_api.file.save_animation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_animation</span></code></a>()</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_cmd_file.html#ansys.api.pyensight.ensight_api.file.save_cmd_file" title="ansys.api.pyensight.ensight_api.file.save_cmd_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_cmd_file</span></code></a>(p0)</p></td>
+<td><p>File: save_cmd_file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_context.html#ansys.api.pyensight.ensight_api.file.save_context" title="ansys.api.pyensight.ensight_api.file.save_context"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_context</span></code></a>(p0)</p></td>
+<td><p>Save a context file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_context_type.html#ansys.api.pyensight.ensight_api.file.save_context_type" title="ansys.api.pyensight.ensight_api.file.save_context_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_context_type</span></code></a>(p0)</p></td>
+<td><p>Can specify the desired case to use, or all cases, when saving a context file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_full_backup.html#ansys.api.pyensight.ensight_api.file.save_full_backup" title="ansys.api.pyensight.ensight_api.file.save_full_backup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_full_backup</span></code></a>(p0)</p></td>
+<td><p>Create an EnSight archive (restart) file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_geometric_entities.html#ansys.api.pyensight.ensight_api.file.save_geometric_entities" title="ansys.api.pyensight.ensight_api.file.save_geometric_entities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_geometric_entities</span></code></a>(p0)</p></td>
+<td><p>File: save_geometric_entities</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_image.html#ansys.api.pyensight.ensight_api.file.save_image" title="ansys.api.pyensight.ensight_api.file.save_image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_image</span></code></a>()</p></td>
+<td><p>Save an image to a disk file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_multiple_images.html#ansys.api.pyensight.ensight_api.file.save_multiple_images" title="ansys.api.pyensight.ensight_api.file.save_multiple_images"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_multiple_images</span></code></a>(p0)</p></td>
+<td><p>Option to save a single image or multiple images for a flat-wall detached display.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario.html#ansys.api.pyensight.ensight_api.file.save_scenario" title="ansys.api.pyensight.ensight_api.file.save_scenario"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_scenario</span></code></a>(p0)</p></td>
+<td><p>File: save_scenario</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario_file.html#ansys.api.pyensight.ensight_api.file.save_scenario_file" title="ansys.api.pyensight.ensight_api.file.save_scenario_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_scenario_file</span></code></a>(p0)</p></td>
+<td><p>Save a scenario file using all parts.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario_fileslct.html#ansys.api.pyensight.ensight_api.file.save_scenario_fileslct" title="ansys.api.pyensight.ensight_api.file.save_scenario_fileslct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_scenario_fileslct</span></code></a>(p0)</p></td>
+<td><p>Save a scenario file using selected parts only.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario_png_file.html#ansys.api.pyensight.ensight_api.file.save_scenario_png_file" title="ansys.api.pyensight.ensight_api.file.save_scenario_png_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_scenario_png_file</span></code></a>(p0)</p></td>
+<td><p>Creates an executable by name of &lt;pathname&gt; containing the CEI application Reveal along with the currently specified scenario file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario_png_format.html#ansys.api.pyensight.ensight_api.file.save_scenario_png_format" title="ansys.api.pyensight.ensight_api.file.save_scenario_png_format"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_scenario_png_format</span></code></a>(p0)</p></td>
+<td><p>Specifies the architecture for the 'file: save_scenario_png_format' command.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario_project.html#ansys.api.pyensight.ensight_api.file.save_scenario_project" title="ansys.api.pyensight.ensight_api.file.save_scenario_project"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_scenario_project</span></code></a>(p0)</p></td>
+<td><p>Save a scenario project using all parts.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario_projslct.html#ansys.api.pyensight.ensight_api.file.save_scenario_projslct" title="ansys.api.pyensight.ensight_api.file.save_scenario_projslct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_scenario_projslct</span></code></a>(p0)</p></td>
+<td><p>Save a scenario project using selected parts only.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario_view.html#ansys.api.pyensight.ensight_api.file.save_scenario_view" title="ansys.api.pyensight.ensight_api.file.save_scenario_view"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_scenario_view</span></code></a>(p0, p1)</p></td>
+<td><p>Save a view as part of an existing scenario file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_scenario_which_parts.html#ansys.api.pyensight.ensight_api.file.save_scenario_which_parts" title="ansys.api.pyensight.ensight_api.file.save_scenario_which_parts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_scenario_which_parts</span></code></a>(p0)</p></td>
+<td><p>Save a view as part of an existing scenario file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_screen_to_clipboard.html#ansys.api.pyensight.ensight_api.file.save_screen_to_clipboard" title="ansys.api.pyensight.ensight_api.file.save_screen_to_clipboard"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_screen_to_clipboard</span></code></a>(p0)</p></td>
+<td><p>File: save_screen_to_clipboard</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.save_screen_to_file.html#ansys.api.pyensight.ensight_api.file.save_screen_to_file" title="ansys.api.pyensight.ensight_api.file.save_screen_to_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.save_screen_to_file</span></code></a>(p0)</p></td>
+<td><p>File: save_screen_to_file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_desc_begin.html#ansys.api.pyensight.ensight_api.file.scenario_desc_begin" title="ansys.api.pyensight.ensight_api.file.scenario_desc_begin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.scenario_desc_begin</span></code></a>(args)</p></td>
+<td><p>Delimit the description for a scenario project.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_desc_end.html#ansys.api.pyensight.ensight_api.file.scenario_desc_end" title="ansys.api.pyensight.ensight_api.file.scenario_desc_end"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.scenario_desc_end</span></code></a>(p0)</p></td>
+<td><p>Delimit the description for a scenario project.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_flipbook_anim.html#ansys.api.pyensight.ensight_api.file.scenario_flipbook_anim" title="ansys.api.pyensight.ensight_api.file.scenario_flipbook_anim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.scenario_flipbook_anim</span></code></a>(p0)</p></td>
+<td><p>When a scenario file/project is saved will determine if flipbook animation (if defined) will be included.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_format.html#ansys.api.pyensight.ensight_api.file.scenario_format" title="ansys.api.pyensight.ensight_api.file.scenario_format"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.scenario_format</span></code></a>(p0)</p></td>
+<td><p>Sets the type of scenario format to use.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_keyframe_anim.html#ansys.api.pyensight.ensight_api.file.scenario_keyframe_anim" title="ansys.api.pyensight.ensight_api.file.scenario_keyframe_anim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.scenario_keyframe_anim</span></code></a>(p0)</p></td>
+<td><p>When a scenario file/project is saved will determine if keyframe animation (if defined) will be included.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_simtime_anim.html#ansys.api.pyensight.ensight_api.file.scenario_simtime_anim" title="ansys.api.pyensight.ensight_api.file.scenario_simtime_anim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.scenario_simtime_anim</span></code></a>(p0, p1, p2, p3)</p></td>
+<td><p>File: scenario_simtime_anim</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_steptime_anim.html#ansys.api.pyensight.ensight_api.file.scenario_steptime_anim" title="ansys.api.pyensight.ensight_api.file.scenario_steptime_anim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.scenario_steptime_anim</span></code></a>(p0, p1, p2, p3)</p></td>
+<td><p>File: scenario_steptime_anim</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_trace_anim.html#ansys.api.pyensight.ensight_api.file.scenario_trace_anim" title="ansys.api.pyensight.ensight_api.file.scenario_trace_anim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.scenario_trace_anim</span></code></a>(p0)</p></td>
+<td><p>When a scenario file/project is saved will determine if particle trace animation (if defined) will be included.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.scenario_transient_anim.html#ansys.api.pyensight.ensight_api.file.scenario_transient_anim" title="ansys.api.pyensight.ensight_api.file.scenario_transient_anim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.scenario_transient_anim</span></code></a>(p0, p1, p2, p3)</p></td>
+<td><p>When a scenario csf file is saved, will determine if transient data (if available) will be included.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.select_begin.html#ansys.api.pyensight.ensight_api.file.select_begin" title="ansys.api.pyensight.ensight_api.file.select_begin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file.select_begin</span></code></a>(*args, **kwargs)</p></td>
+<td><p>File: select_begin</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ansys.api.pyensight.ensight_api.file"><code class="docutils literal notranslate"><span class="pre">file</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <ul class="this-page-menu">
+      <li><a href="../_sources/_autosummary/ansys.api.pyensight.ensight_api.file.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+
+  <!-- Include desired assets -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"></script>
+
+<script>
+// Passing the search options to the search.js file
+const SEARCH_OPTIONS = JSON.parse('{"keys": ["title", "text", "objectID"], "limit": 10, "threshold": 0.2}');
+const SEARCH_FILE = "../_static/search.json";
+const ADVANCE_SEARCH_PATH = "../search.html";
+const EXTRA_SOURCES = JSON.parse('""');
+</script>
+
+
+<script src="../_static/js/search.js"></script>
+
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2026 ANSYS, Inc. Unauthorized use, distribution, or duplication is prohibited..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  1.6.3. <br />Last updated on
+  <span id="ast_build_date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var ast_lastModifiedDate = new Date(document.lastModified);
+  var ast_build_date = ast_lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("ast_build_date").innerHTML = ast_build_date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

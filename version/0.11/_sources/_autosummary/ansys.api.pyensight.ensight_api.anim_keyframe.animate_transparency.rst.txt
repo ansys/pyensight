@@ -1,0 +1,6 @@
+animate\_transparency
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_keyframe.animate_transparency

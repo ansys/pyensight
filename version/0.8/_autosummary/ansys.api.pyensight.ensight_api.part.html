@@ -1,0 +1,1471 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>part &#8212; PyEnSight</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys_sphinx_theme.css?v=e7c4c341" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/breadcrumbs.css?v=37397a7f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  
+    <link href="../_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=1222c2e3"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=49e1bf35"></script>
+    <script src="../_static/js/table.js?v=b64f5182"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_autosummary/ansys.api.pyensight.ensight_api.part';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <script src="../_static/js/mermaid.js?v=cf64ff96"></script>
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <link rel="icon" href="../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="active" href="ansys.api.pyensight.ensight_api.part.active.html" />
+    <link rel="prev" title="wrap_id" href="ansys.api.pyensight.ensight_api.objs.wrap_id.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <link rel="canonical" href="https://ensight.docs.pyansys.com/version/stable/_autosummary/ansys.api.pyensight.ensight_api.part.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="PyEnSight - Home"/>
+    <script>document.write(`<img src="../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark" alt="PyEnSight - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<div class="search-bar" id="search-bar">
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+         aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+         autocapitalize="off" spellcheck="false"/>
+  <span class="search-button__kbd-shortcut">
+    <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+  </span>
+</form>
+<!-- Search results container -->
+<div id="results" class="results" style="display: none;" tabindex="0">
+</div>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<div class="search-bar" id="search-bar">
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+         aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+         autocapitalize="off" spellcheck="false"/>
+  <span class="search-button__kbd-shortcut">
+    <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+  </span>
+</form>
+<!-- Search results container -->
+<div id="results" class="results" style="display: none;" tabindex="0">
+</div>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../native_documentation.html">Native API reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.html">ansys.api.pyensight.ensight_api</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim.html">anim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_flipbook.html">anim_flipbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_keyframe.html">anim_keyframe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_quick.html">anim_quick</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_recorders.html">anim_recorders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_screens.html">anim_screens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_traces.html">anim_traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annot_backgr.html">annot_backgr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annot_entlbl.html">annot_entlbl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annotation.html">annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.arrow.html">arrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.auxgeom.html">auxgeom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.boundarylayer.html">boundarylayer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.case.html">case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.html">clip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.collab.html">collab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.command.html">command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.connect.html">connect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.context_restore.html">context_restore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.contour.html">contour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.curve.html">curve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.data.html">data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.data_partbuild.html">data_partbuild</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.define.html">define</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.devsrf.html">devsrf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.dial.html">dial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.dpart.html">dpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.elevsurf.html">elevsurf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.html">ensight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.extrude.html">extrude</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.html">file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.filterpart.html">filterpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.format.html">format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.frame.html">frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.function.html">function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.html">gauge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.help.html">help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.isos.html">isos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.legend.html">legend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.lightsource.html">lightsource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.line.html">line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.logo.html">logo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.material.html">material</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.message_window.html">message_window</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.model.html">model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.nplot.html">nplot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.nvc.html">nvc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.objs.html">objs</a></li>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">part</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.active.html">active</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.allow_default_editing.html">allow_default_editing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.alpha_by.html">alpha_by</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.alpha_by_palette.html">alpha_by_palette</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.alpha_by_subpalette.html">alpha_by_subpalette</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.begin.html">begin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.blank_elts.html">blank_elts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.bounding_rep.html">bounding_rep</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.clear_blanked_elts.html">clear_blanked_elts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.clearall_blanked_elts.html">clearall_blanked_elts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.clip.html">clip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.clone.html">clone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.clone_byname.html">clone_byname</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.collect.html">collect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.colorby_palette.html">colorby_palette</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.colorby_rgb.html">colorby_rgb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.colorby_selected_var.html">colorby_selected_var</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.colorby_subpalette.html">colorby_subpalette</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.copy.html">copy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.copy_noframecreate.html">copy_noframecreate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.create_assign_viewport.html">create_assign_viewport</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.create_assign_viewports.html">create_assign_viewports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.cull_elements.html">cull_elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.cut_remove.html">cut_remove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.cut_split.html">cut_split</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.delete.html">delete</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.description.html">description</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.displace_by.html">displace_by</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.displace_factor.html">displace_factor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.double_sided.html">double_sided</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_blanking.html">elt_blanking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_failure_logicalop.html">elt_failure_logicalop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_failure_op1.html">elt_failure_op1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_failure_op1value.html">elt_failure_op1value</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_failure_op2.html">elt_failure_op2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_failure_op2value.html">elt_failure_op2value</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_failure_variable.html">elt_failure_variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_feature_angle.html">elt_feature_angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_rep_pointsnormals.html">elt_rep_pointsnormals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_representation.html">elt_representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_shrink_factor.html">elt_shrink_factor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.end.html">end</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.entity_label_elt.html">entity_label_elt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.entity_label_node.html">entity_label_node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.entity_label_part.html">entity_label_part</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.extract.html">extract</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.fill_pattern.html">fill_pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.get_mainpartlist_select.html">get_mainpartlist_select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.get_mouseclick_select.html">get_mouseclick_select</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.group.html">group</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.hidden_line.html">hidden_line</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.hidden_surface.html">hidden_surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.ijk_axis.html">ijk_axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.ijk_axis_scale.html">ijk_axis_scale</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_ambient.html">light_ambient</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_diff.html">light_diff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_diffuse.html">light_diffuse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_emissive.html">light_emissive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_h_int.html">light_h_int</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_refraction.html">light_refraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_shin.html">light_shin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_specular_intensity.html">light_specular_intensity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_specular_reflection.html">light_specular_reflection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_specular_shine.html">light_specular_shine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_specular_tint.html">light_specular_tint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.line_hidden_line.html">line_hidden_line</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.line_style.html">line_style</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.line_width.html">line_width</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.material_base_type.html">material_base_type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.merge.html">merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.mirror_original.html">mirror_original</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.mirror_x.html">mirror_x</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.mirror_xy.html">mirror_xy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.mirror_xyz.html">mirror_xyz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.mirror_xz.html">mirror_xz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.mirror_y.html">mirror_y</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.mirror_yz.html">mirror_yz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.mirror_z.html">mirror_z</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.modify_begin.html">modify_begin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.modify_end.html">modify_end</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.node_detail.html">node_detail</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.node_orientation_angle.html">node_orientation_angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.node_orientation_axis.html">node_orientation_axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.node_scale.html">node_scale</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.node_size_by.html">node_size_by</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.node_type.html">node_type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.node_variable.html">node_variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.opacity.html">opacity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.opaqueness.html">opaqueness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.periodic_sections.html">periodic_sections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.predefined_material.html">predefined_material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.query_display_attributes.html">query_display_attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.query_eltid_atwindowxy.html">query_eltid_atwindowxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.query_eltid_atxyz.html">query_eltid_atxyz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.query_nodeid_atwindowxy.html">query_nodeid_atwindowxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.query_nodeid_atxyz.html">query_nodeid_atxyz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.query_object_atwindowxy.html">query_object_atwindowxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.query_objects.html">query_objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.query_selected_objects.html">query_selected_objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.recompute_cancel.html">recompute_cancel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.recompute_pending.html">recompute_pending</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.record_selected.html">record_selected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.record_selected_ifchanged.html">record_selected_ifchanged</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.reduce_polygons.html">reduce_polygons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.reduce_polygons_factor.html">reduce_polygons_factor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.ref_frame.html">ref_frame</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.rendering_reflection_id.html">rendering_reflection_id</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.restore_selected.html">restore_selected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.reverse_normal.html">reverse_normal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_all.html">select_all</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_all_case.html">select_all_case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_all_default.html">select_all_default</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_begin.html">select_begin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_byexpr_begin.html">select_byexpr_begin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_byexpr_end.html">select_byexpr_end</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_byname_begin.html">select_byname_begin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_byname_end.html">select_byname_end</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_default.html">select_default</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_invert.html">select_invert</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_invisible.html">select_invisible</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_lastcreatedpart.html">select_lastcreatedpart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_lastonecreated.html">select_lastonecreated</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_mainpartlist_all.html">select_mainpartlist_all</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_partexpr_begin.html">select_partexpr_begin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_partexpr_end.html">select_partexpr_end</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_partname_begin.html">select_partname_begin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_partname_end.html">select_partname_end</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_showing.html">select_showing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_visible.html">select_visible</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.shading.html">shading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.show_selection_inmainlist.html">show_selection_inmainlist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.show_sft.html">show_sft</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.specify_symmetry_origin.html">specify_symmetry_origin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.store_selected.html">store_selected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.surface_fill_pattern.html">surface_fill_pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.surface_hidden_surface.html">surface_hidden_surface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.surface_type.html">surface_type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_angle.html">symmetry_angle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_axis.html">symmetry_axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_delta.html">symmetry_delta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_mirror_x.html">symmetry_mirror_x</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_mirror_xy.html">symmetry_mirror_xy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_mirror_xyz.html">symmetry_mirror_xyz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_mirror_xz.html">symmetry_mirror_xz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_mirror_y.html">symmetry_mirror_y</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_mirror_yz.html">symmetry_mirror_yz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_mirror_z.html">symmetry_mirror_z</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_origin.html">symmetry_origin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_rinstances.html">symmetry_rinstances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_type.html">symmetry_type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_coord_type.html">texture_coord_type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_interpolation.html">texture_interpolation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_mode.html">texture_mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_object.html">texture_object</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_origin.html">texture_origin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_origin_nodeid.html">texture_origin_nodeid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_origin_use.html">texture_origin_use</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_repeat_mode.html">texture_repeat_mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_sorigin_nodeid.html">texture_sorigin_nodeid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_svariable.html">texture_svariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_svector.html">texture_svector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_torigin_nodeid.html">texture_torigin_nodeid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_tvariable.html">texture_tvariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_tvector.html">texture_tvector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.transparency.html">transparency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.ungroup.html">ungroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.updtparts.html">updtparts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.viewport_vis.html">viewport_vis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.visibility_elt.html">visibility_elt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.visibility_line.html">visibility_line</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.visibility_node.html">visibility_node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.visible.html">visible</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.volume_quality.html">volume_quality</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.plot.html">plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.pointpart.html">pointpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.prefs.html">prefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.profile.html">profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ptrace.html">ptrace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ptrace_emitr.html">ptrace_emitr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.query_ent_var.html">query_ent_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.query_interact.html">query_interact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.savegeom.html">savegeom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.scene.html">scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.sepattach.html">sepattach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.set_tdata.html">set_tdata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.set_visenv.html">set_visenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shape.html">shape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shell.html">shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shock.html">shock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.show_info.html">show_info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.solution_time.html">solution_time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.species.html">species</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.subset.html">subset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.tensor.html">tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.text.html">text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.texture.html">texture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.tools.html">tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.user.html">user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.varextcfd.html">varextcfd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.variables.html">variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vctarrow.html">vctarrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.view.html">view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.view_transf.html">view_transf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport.html">viewport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport_axis.html">viewport_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport_bounds.html">viewport_bounds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.views.html">views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vof.html">vof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vortexcore.html">vortexcore</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../object_documentation.html">Object API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calc_functions.html">Calculator functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest_api/rest_api.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libuserd_documentation.html">LibUserd API reference</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.enscontext.EnsContext.html">EnsContext</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.LocalLauncher.html">LocalLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.DockerLauncher.html">DockerLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.renderable.Renderable.html">Renderable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.Session.html">Session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.export.Export.html">Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.parts.Parts.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.query.Query.html">Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.support.Support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.views.Views.html">Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.variables.Variables.html">Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.omniverse.Omniverse.html">Omniverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.readers.Readers.html">Readers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.readers.DVS.html">DVS</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+     
+    <li class="breadcrumb-item breadcrumb-home">
+      <a
+        href="../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../class_documentation.html" class="nav-link">API reference</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../native_documentation.html" class="nav-link">Native API reference</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page">part</li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="part">
+<h1>part<a class="headerlink" href="#part" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="ansys.api.pyensight.ensight_api.part">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ansys.api.pyensight.ensight_api.</span></span><span class="sig-name descname"><span class="pre">part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ansys.pyensight.core.Session.html#ansys.pyensight.core.Session" title="ansys.pyensight.core.session.Session"><span class="pre">Session</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ansys.api.pyensight.ensight_api.part" title="Link to this definition">#</a></dt>
+<dd><p>Class wrapper for EnSight part module</p>
+<p>This class acts as a proxy for the EnSight Python module ensight.part</p>
+<p class="rubric">Methods</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.active.html#ansys.api.pyensight.ensight_api.part.active" title="ansys.api.pyensight.ensight_api.part.active"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.active</span></code></a>(p0)</p></td>
+<td><p>Activates or deactivates the currently selected part(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.allow_default_editing.html#ansys.api.pyensight.ensight_api.part.allow_default_editing" title="ansys.api.pyensight.ensight_api.part.allow_default_editing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.allow_default_editing</span></code></a>()</p></td>
+<td><p>Allow or disallow editing of part defaults.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.alpha_by.html#ansys.api.pyensight.ensight_api.part.alpha_by" title="ansys.api.pyensight.ensight_api.part.alpha_by"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.alpha_by</span></code></a>(p0)</p></td>
+<td><p>Part: alpha_by</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.alpha_by_palette.html#ansys.api.pyensight.ensight_api.part.alpha_by_palette" title="ansys.api.pyensight.ensight_api.part.alpha_by_palette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.alpha_by_palette</span></code></a>(args)</p></td>
+<td><p>Part: alpha_by_palette</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.alpha_by_subpalette.html#ansys.api.pyensight.ensight_api.part.alpha_by_subpalette" title="ansys.api.pyensight.ensight_api.part.alpha_by_subpalette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.alpha_by_subpalette</span></code></a>(args)</p></td>
+<td><p>Part: alpha_by_subpalette</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.begin.html#ansys.api.pyensight.ensight_api.part.begin" title="ansys.api.pyensight.ensight_api.part.begin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.begin</span></code></a>()</p></td>
+<td><p>Part: begin</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.blank_elts.html#ansys.api.pyensight.ensight_api.part.blank_elts" title="ansys.api.pyensight.ensight_api.part.blank_elts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.blank_elts</span></code></a>(p0, p1, p2, p3)</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.bounding_rep.html#ansys.api.pyensight.ensight_api.part.bounding_rep" title="ansys.api.pyensight.ensight_api.part.bounding_rep"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.bounding_rep</span></code></a>(p0)</p></td>
+<td><p>Specifies the type of fast-display representation used to for the currently selected part(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.clear_blanked_elts.html#ansys.api.pyensight.ensight_api.part.clear_blanked_elts" title="ansys.api.pyensight.ensight_api.part.clear_blanked_elts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.clear_blanked_elts</span></code></a>()</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.clearall_blanked_elts.html#ansys.api.pyensight.ensight_api.part.clearall_blanked_elts" title="ansys.api.pyensight.ensight_api.part.clearall_blanked_elts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.clearall_blanked_elts</span></code></a>()</p></td>
+<td><p>This command has not yet been documented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.clip.html#ansys.api.pyensight.ensight_api.part.clip" title="ansys.api.pyensight.ensight_api.part.clip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.clip</span></code></a>(p0)</p></td>
+<td><p>Turns auxiliary clipping on or off for the currently selected part(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.clone.html#ansys.api.pyensight.ensight_api.part.clone" title="ansys.api.pyensight.ensight_api.part.clone"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.clone</span></code></a>(p0, p1)</p></td>
+<td><p>Part: clone</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.clone_byname.html#ansys.api.pyensight.ensight_api.part.clone_byname" title="ansys.api.pyensight.ensight_api.part.clone_byname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.clone_byname</span></code></a>(p0, p1)</p></td>
+<td><p>Part: clone_byname</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.collect.html#ansys.api.pyensight.ensight_api.part.collect" title="ansys.api.pyensight.ensight_api.part.collect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.collect</span></code></a>(p0)</p></td>
+<td><p>Part: collect</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.colorby_palette.html#ansys.api.pyensight.ensight_api.part.colorby_palette" title="ansys.api.pyensight.ensight_api.part.colorby_palette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.colorby_palette</span></code></a>(args)</p></td>
+<td><p>Colors the currently selected part(s) based on the value of the specified variable at each node or element (depending on whether data is node or element based)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.colorby_rgb.html#ansys.api.pyensight.ensight_api.part.colorby_rgb" title="ansys.api.pyensight.ensight_api.part.colorby_rgb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.colorby_rgb</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Colors the currently selected part(s) using the specified rgb value.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.colorby_selected_var.html#ansys.api.pyensight.ensight_api.part.colorby_selected_var" title="ansys.api.pyensight.ensight_api.part.colorby_selected_var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.colorby_selected_var</span></code></a>()</p></td>
+<td><p>Colors a part by the palette tied to the variable selected in the main variable list.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.colorby_subpalette.html#ansys.api.pyensight.ensight_api.part.colorby_subpalette" title="ansys.api.pyensight.ensight_api.part.colorby_subpalette"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.colorby_subpalette</span></code></a>(args)</p></td>
+<td><p>Part: colorby_subpalette</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.copy.html#ansys.api.pyensight.ensight_api.part.copy" title="ansys.api.pyensight.ensight_api.part.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.copy</span></code></a>()</p></td>
+<td><p>Creates a copy of the currently selected part(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.copy_noframecreate.html#ansys.api.pyensight.ensight_api.part.copy_noframecreate" title="ansys.api.pyensight.ensight_api.part.copy_noframecreate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.copy_noframecreate</span></code></a>()</p></td>
+<td><p>Part: copy_noframecreate</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.create_assign_viewport.html#ansys.api.pyensight.ensight_api.part.create_assign_viewport" title="ansys.api.pyensight.ensight_api.part.create_assign_viewport"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.create_assign_viewport</span></code></a>()</p></td>
+<td><p>Creates a new viewport and assigns the currently selected part(s) to it.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.create_assign_viewports.html#ansys.api.pyensight.ensight_api.part.create_assign_viewports" title="ansys.api.pyensight.ensight_api.part.create_assign_viewports"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.create_assign_viewports</span></code></a>()</p></td>
+<td><p>Creates a new viewport for each of the currently selected part(s) and assigns one part to each viewport.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.cull_elements.html#ansys.api.pyensight.ensight_api.part.cull_elements" title="ansys.api.pyensight.ensight_api.part.cull_elements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.cull_elements</span></code></a>(p0)</p></td>
+<td><p>Part: cull_elements</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.cut_remove.html#ansys.api.pyensight.ensight_api.part.cut_remove" title="ansys.api.pyensight.ensight_api.part.cut_remove"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.cut_remove</span></code></a>()</p></td>
+<td><p>Part: cut_remove</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.cut_split.html#ansys.api.pyensight.ensight_api.part.cut_split" title="ansys.api.pyensight.ensight_api.part.cut_split"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.cut_split</span></code></a>()</p></td>
+<td><p>Part: cut_split</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.delete.html#ansys.api.pyensight.ensight_api.part.delete" title="ansys.api.pyensight.ensight_api.part.delete"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.delete</span></code></a>()</p></td>
+<td><p>Deletes the currently selected part(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.description.html#ansys.api.pyensight.ensight_api.part.description" title="ansys.api.pyensight.ensight_api.part.description"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.description</span></code></a>(p0)</p></td>
+<td><p>Specifies a description string for the currently selected part.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.displace_by.html#ansys.api.pyensight.ensight_api.part.displace_by" title="ansys.api.pyensight.ensight_api.part.displace_by"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.displace_by</span></code></a>(p0)</p></td>
+<td><p>Specifies the variable to be used to displace the nodes and elements of the currently selected part(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.displace_factor.html#ansys.api.pyensight.ensight_api.part.displace_factor" title="ansys.api.pyensight.ensight_api.part.displace_factor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.displace_factor</span></code></a>(p0)</p></td>
+<td><p>Specifies the displacement factor to be applied to the source variable to calculate displacement for the currently selected part(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.double_sided.html#ansys.api.pyensight.ensight_api.part.double_sided" title="ansys.api.pyensight.ensight_api.part.double_sided"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.double_sided</span></code></a>(p0)</p></td>
+<td><p>Part: double_sided</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_blanking.html#ansys.api.pyensight.ensight_api.part.elt_blanking" title="ansys.api.pyensight.ensight_api.part.elt_blanking"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.elt_blanking</span></code></a>(p0)</p></td>
+<td><p>Specifies whether element blanking is allowed for the part.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_failure_logicalop.html#ansys.api.pyensight.ensight_api.part.elt_failure_logicalop" title="ansys.api.pyensight.ensight_api.part.elt_failure_logicalop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.elt_failure_logicalop</span></code></a>(p0)</p></td>
+<td><p>Specifies the logical operation to use for element failure.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_failure_op1.html#ansys.api.pyensight.ensight_api.part.elt_failure_op1" title="ansys.api.pyensight.ensight_api.part.elt_failure_op1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.elt_failure_op1</span></code></a>(p0)</p></td>
+<td><p>Specifies the relational operation to use for element failure.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_failure_op1value.html#ansys.api.pyensight.ensight_api.part.elt_failure_op1value" title="ansys.api.pyensight.ensight_api.part.elt_failure_op1value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.elt_failure_op1value</span></code></a>(p0)</p></td>
+<td><p>Specifies the values for the operations for element failure.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_failure_op2.html#ansys.api.pyensight.ensight_api.part.elt_failure_op2" title="ansys.api.pyensight.ensight_api.part.elt_failure_op2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.elt_failure_op2</span></code></a>(p0)</p></td>
+<td><p>Specifies the relational operation to use for element failure.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_failure_op2value.html#ansys.api.pyensight.ensight_api.part.elt_failure_op2value" title="ansys.api.pyensight.ensight_api.part.elt_failure_op2value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.elt_failure_op2value</span></code></a>(p0)</p></td>
+<td><p>Specifies the values for the operations for element failure.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_failure_variable.html#ansys.api.pyensight.ensight_api.part.elt_failure_variable" title="ansys.api.pyensight.ensight_api.part.elt_failure_variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.elt_failure_variable</span></code></a>(p0)</p></td>
+<td><p>Specifies the variable to use for element failure.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_feature_angle.html#ansys.api.pyensight.ensight_api.part.elt_feature_angle" title="ansys.api.pyensight.ensight_api.part.elt_feature_angle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.elt_feature_angle</span></code></a>(p0)</p></td>
+<td><p>Specifies the angle to be used in feature angle element representation for the currently selected part(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_rep_pointsnormals.html#ansys.api.pyensight.ensight_api.part.elt_rep_pointsnormals" title="ansys.api.pyensight.ensight_api.part.elt_rep_pointsnormals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.elt_rep_pointsnormals</span></code></a>(p0)</p></td>
+<td><p>Allow option to load the given element representation as points + normals.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_representation.html#ansys.api.pyensight.ensight_api.part.elt_representation" title="ansys.api.pyensight.ensight_api.part.elt_representation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.elt_representation</span></code></a>(p0)</p></td>
+<td><p>Specifies the type of element representation used for the currently selected part(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.elt_shrink_factor.html#ansys.api.pyensight.ensight_api.part.elt_shrink_factor" title="ansys.api.pyensight.ensight_api.part.elt_shrink_factor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.elt_shrink_factor</span></code></a>(p0)</p></td>
+<td><p>Specifies a scaling factor (fraction) by which to shrink every element toward its centroid.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.end.html#ansys.api.pyensight.ensight_api.part.end" title="ansys.api.pyensight.ensight_api.part.end"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.end</span></code></a>()</p></td>
+<td><p>Part: end</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.entity_label_elt.html#ansys.api.pyensight.ensight_api.part.entity_label_elt" title="ansys.api.pyensight.ensight_api.part.entity_label_elt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.entity_label_elt</span></code></a>(p0)</p></td>
+<td><p>Turns element labeling on or off for the currently selected part(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.entity_label_node.html#ansys.api.pyensight.ensight_api.part.entity_label_node" title="ansys.api.pyensight.ensight_api.part.entity_label_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.entity_label_node</span></code></a>(p0)</p></td>
+<td><p>Turns node labeling on or off for the currently selected part(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.entity_label_part.html#ansys.api.pyensight.ensight_api.part.entity_label_part" title="ansys.api.pyensight.ensight_api.part.entity_label_part"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.entity_label_part</span></code></a>(p0)</p></td>
+<td><p>Part: entity_label_part</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.extract.html#ansys.api.pyensight.ensight_api.part.extract" title="ansys.api.pyensight.ensight_api.part.extract"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.extract</span></code></a>()</p></td>
+<td><p>Creates an extract of the currently selected part(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.fill_pattern.html#ansys.api.pyensight.ensight_api.part.fill_pattern" title="ansys.api.pyensight.ensight_api.part.fill_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.fill_pattern</span></code></a>(p0)</p></td>
+<td><p>Specifies a fill pattern of variable transparency to be used on the surfaces of the currently selected part(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.get_mainpartlist_select.html#ansys.api.pyensight.ensight_api.part.get_mainpartlist_select" title="ansys.api.pyensight.ensight_api.part.get_mainpartlist_select"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.get_mainpartlist_select</span></code></a>()</p></td>
+<td><p>Causes the parts highlighted in the main part list to become the currently selected parts.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.get_mouseclick_select.html#ansys.api.pyensight.ensight_api.part.get_mouseclick_select" title="ansys.api.pyensight.ensight_api.part.get_mouseclick_select"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.get_mouseclick_select</span></code></a>()</p></td>
+<td><p>Part: get_mouseclick_select</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.group.html#ansys.api.pyensight.ensight_api.part.group" title="ansys.api.pyensight.ensight_api.part.group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.group</span></code></a>(p0)</p></td>
+<td><p>Groups the currently selected parts into a group with the specified name.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.hidden_line.html#ansys.api.pyensight.ensight_api.part.hidden_line" title="ansys.api.pyensight.ensight_api.part.hidden_line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.hidden_line</span></code></a>(p0)</p></td>
+<td><p>Causes lines which are behind any portion of the currently selected part(s) to not be drawn.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.hidden_surface.html#ansys.api.pyensight.ensight_api.part.hidden_surface" title="ansys.api.pyensight.ensight_api.part.hidden_surface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.hidden_surface</span></code></a>(p0)</p></td>
+<td><p>Causes the currently selected part(s) to be drawn with shaded surfaces.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.ijk_axis.html#ansys.api.pyensight.ensight_api.part.ijk_axis" title="ansys.api.pyensight.ensight_api.part.ijk_axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.ijk_axis</span></code></a>(p0)</p></td>
+<td><p>Part: ijk_axis</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.ijk_axis_scale.html#ansys.api.pyensight.ensight_api.part.ijk_axis_scale" title="ansys.api.pyensight.ensight_api.part.ijk_axis_scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.ijk_axis_scale</span></code></a>(p0)</p></td>
+<td><p>Part: ijk_axis_scale</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_ambient.html#ansys.api.pyensight.ensight_api.part.light_ambient" title="ansys.api.pyensight.ensight_api.part.light_ambient"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.light_ambient</span></code></a>(p0)</p></td>
+<td><p>Part: light_ambient</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_diff.html#ansys.api.pyensight.ensight_api.part.light_diff" title="ansys.api.pyensight.ensight_api.part.light_diff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.light_diff</span></code></a>(p0)</p></td>
+<td><p>Specifies the lighting diffusion value used in shading the surfaces of the currently selected part(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_diffuse.html#ansys.api.pyensight.ensight_api.part.light_diffuse" title="ansys.api.pyensight.ensight_api.part.light_diffuse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.light_diffuse</span></code></a>(p0)</p></td>
+<td><p>Part: light_diffuse</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_emissive.html#ansys.api.pyensight.ensight_api.part.light_emissive" title="ansys.api.pyensight.ensight_api.part.light_emissive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.light_emissive</span></code></a>(p0)</p></td>
+<td><p>Part: light_emissive</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_h_int.html#ansys.api.pyensight.ensight_api.part.light_h_int" title="ansys.api.pyensight.ensight_api.part.light_h_int"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.light_h_int</span></code></a>(p0)</p></td>
+<td><p>Specifies the highlight intensity value used in shading the surfaces of the currently selected part(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_refraction.html#ansys.api.pyensight.ensight_api.part.light_refraction" title="ansys.api.pyensight.ensight_api.part.light_refraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.light_refraction</span></code></a>(p0)</p></td>
+<td><p>Part: light_refraction</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_shin.html#ansys.api.pyensight.ensight_api.part.light_shin" title="ansys.api.pyensight.ensight_api.part.light_shin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.light_shin</span></code></a>(p0)</p></td>
+<td><p>Specifies the &quot;shinyness&quot; value used in shading the surfaces of the currently selected part(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_specular_intensity.html#ansys.api.pyensight.ensight_api.part.light_specular_intensity" title="ansys.api.pyensight.ensight_api.part.light_specular_intensity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.light_specular_intensity</span></code></a>(p0)</p></td>
+<td><p>Part: light_specular_intensity</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_specular_reflection.html#ansys.api.pyensight.ensight_api.part.light_specular_reflection" title="ansys.api.pyensight.ensight_api.part.light_specular_reflection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.light_specular_reflection</span></code></a>(p0)</p></td>
+<td><p>Part: light_specular_reflection</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_specular_shine.html#ansys.api.pyensight.ensight_api.part.light_specular_shine" title="ansys.api.pyensight.ensight_api.part.light_specular_shine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.light_specular_shine</span></code></a>(p0)</p></td>
+<td><p>Part: light_specular_shine</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.light_specular_tint.html#ansys.api.pyensight.ensight_api.part.light_specular_tint" title="ansys.api.pyensight.ensight_api.part.light_specular_tint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.light_specular_tint</span></code></a>(p0)</p></td>
+<td><p>Part: light_specular_tint</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.line_hidden_line.html#ansys.api.pyensight.ensight_api.part.line_hidden_line" title="ansys.api.pyensight.ensight_api.part.line_hidden_line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.line_hidden_line</span></code></a>(p0)</p></td>
+<td><p>Part: line_hidden_line</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.line_style.html#ansys.api.pyensight.ensight_api.part.line_style" title="ansys.api.pyensight.ensight_api.part.line_style"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.line_style</span></code></a>(p0)</p></td>
+<td><p>Specifies the line style used to draw the currently selected part(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.line_width.html#ansys.api.pyensight.ensight_api.part.line_width" title="ansys.api.pyensight.ensight_api.part.line_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.line_width</span></code></a>(p0)</p></td>
+<td><p>Specifies the line width in pixels used to draw the currently selected part(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.material_base_type.html#ansys.api.pyensight.ensight_api.part.material_base_type" title="ansys.api.pyensight.ensight_api.part.material_base_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.material_base_type</span></code></a>(p0)</p></td>
+<td><p>Part: material_base_type</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.merge.html#ansys.api.pyensight.ensight_api.part.merge" title="ansys.api.pyensight.ensight_api.part.merge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.merge</span></code></a>()</p></td>
+<td><p>Merges the currently selected parts into a single part.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.mirror_original.html#ansys.api.pyensight.ensight_api.part.mirror_original" title="ansys.api.pyensight.ensight_api.part.mirror_original"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.mirror_original</span></code></a>(p0)</p></td>
+<td><p>Turns visibility of the non-mirrored currently selected parts on or off.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.mirror_x.html#ansys.api.pyensight.ensight_api.part.mirror_x" title="ansys.api.pyensight.ensight_api.part.mirror_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.mirror_x</span></code></a>(p0)</p></td>
+<td><p>Part: mirror_x</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.mirror_xy.html#ansys.api.pyensight.ensight_api.part.mirror_xy" title="ansys.api.pyensight.ensight_api.part.mirror_xy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.mirror_xy</span></code></a>(p0)</p></td>
+<td><p>Part: mirror_xy</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.mirror_xyz.html#ansys.api.pyensight.ensight_api.part.mirror_xyz" title="ansys.api.pyensight.ensight_api.part.mirror_xyz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.mirror_xyz</span></code></a>(p0)</p></td>
+<td><p>Part: mirror_xyz</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.mirror_xz.html#ansys.api.pyensight.ensight_api.part.mirror_xz" title="ansys.api.pyensight.ensight_api.part.mirror_xz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.mirror_xz</span></code></a>(p0)</p></td>
+<td><p>Part: mirror_xz</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.mirror_y.html#ansys.api.pyensight.ensight_api.part.mirror_y" title="ansys.api.pyensight.ensight_api.part.mirror_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.mirror_y</span></code></a>(p0)</p></td>
+<td><p>Part: mirror_y</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.mirror_yz.html#ansys.api.pyensight.ensight_api.part.mirror_yz" title="ansys.api.pyensight.ensight_api.part.mirror_yz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.mirror_yz</span></code></a>(p0)</p></td>
+<td><p>Part: mirror_yz</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.mirror_z.html#ansys.api.pyensight.ensight_api.part.mirror_z" title="ansys.api.pyensight.ensight_api.part.mirror_z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.mirror_z</span></code></a>(p0)</p></td>
+<td><p>Part: mirror_z</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.modify_begin.html#ansys.api.pyensight.ensight_api.part.modify_begin" title="ansys.api.pyensight.ensight_api.part.modify_begin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.modify_begin</span></code></a>()</p></td>
+<td><p>These commands are used to demarcate part attribute changing commands.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.modify_end.html#ansys.api.pyensight.ensight_api.part.modify_end" title="ansys.api.pyensight.ensight_api.part.modify_end"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.modify_end</span></code></a>()</p></td>
+<td><p>These commands are used to demarcate part attribute changing commands.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.node_detail.html#ansys.api.pyensight.ensight_api.part.node_detail" title="ansys.api.pyensight.ensight_api.part.node_detail"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.node_detail</span></code></a>(p0)</p></td>
+<td><p>Sets the detail level for drawing spherical nodes in the currently selected part(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.node_orientation_angle.html#ansys.api.pyensight.ensight_api.part.node_orientation_angle" title="ansys.api.pyensight.ensight_api.part.node_orientation_angle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.node_orientation_angle</span></code></a>(p0)</p></td>
+<td><p>Part: node_orientation_angle</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.node_orientation_axis.html#ansys.api.pyensight.ensight_api.part.node_orientation_axis" title="ansys.api.pyensight.ensight_api.part.node_orientation_axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.node_orientation_axis</span></code></a>(p0)</p></td>
+<td><p>Part: node_orientation_axis</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.node_scale.html#ansys.api.pyensight.ensight_api.part.node_scale" title="ansys.api.pyensight.ensight_api.part.node_scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.node_scale</span></code></a>(p0)</p></td>
+<td><p>Sets the scale factor used to determine node size for the currently selected part(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.node_size_by.html#ansys.api.pyensight.ensight_api.part.node_size_by" title="ansys.api.pyensight.ensight_api.part.node_size_by"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.node_size_by</span></code></a>(p0)</p></td>
+<td><p>Selects the source for calculating node size in the currently selected part(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.node_type.html#ansys.api.pyensight.ensight_api.part.node_type" title="ansys.api.pyensight.ensight_api.part.node_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.node_type</span></code></a>(p0)</p></td>
+<td><p>Selects the node representation mode for the currently selected part(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.node_variable.html#ansys.api.pyensight.ensight_api.part.node_variable" title="ansys.api.pyensight.ensight_api.part.node_variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.node_variable</span></code></a>(p0)</p></td>
+<td><p>Specifies the variable to be used in calculating the size of spherical nodes in the currently  selected part(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.opacity.html#ansys.api.pyensight.ensight_api.part.opacity" title="ansys.api.pyensight.ensight_api.part.opacity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.opacity</span></code></a>(p0)</p></td>
+<td><p>Part: opacity</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.opaqueness.html#ansys.api.pyensight.ensight_api.part.opaqueness" title="ansys.api.pyensight.ensight_api.part.opaqueness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.opaqueness</span></code></a>(p0)</p></td>
+<td><p>Specifies the opaqueness of the currently selected part(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.periodic_sections.html#ansys.api.pyensight.ensight_api.part.periodic_sections" title="ansys.api.pyensight.ensight_api.part.periodic_sections"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.periodic_sections</span></code></a>(args)</p></td>
+<td><p>Part: periodic_sections</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.predefined_material.html#ansys.api.pyensight.ensight_api.part.predefined_material" title="ansys.api.pyensight.ensight_api.part.predefined_material"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.predefined_material</span></code></a>(args)</p></td>
+<td><p>Part: predefined_material</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.query_display_attributes.html#ansys.api.pyensight.ensight_api.part.query_display_attributes" title="ansys.api.pyensight.ensight_api.part.query_display_attributes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.query_display_attributes</span></code></a>(args)</p></td>
+<td><p>Part: query_display_attributes</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.query_eltid_atwindowxy.html#ansys.api.pyensight.ensight_api.part.query_eltid_atwindowxy" title="ansys.api.pyensight.ensight_api.part.query_eltid_atwindowxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.query_eltid_atwindowxy</span></code></a>(args)</p></td>
+<td><p>Part: query_eltid_atwindowxy</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.query_eltid_atxyz.html#ansys.api.pyensight.ensight_api.part.query_eltid_atxyz" title="ansys.api.pyensight.ensight_api.part.query_eltid_atxyz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.query_eltid_atxyz</span></code></a>(args)</p></td>
+<td><p>Part: query_eltid_atxyz</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.query_nodeid_atwindowxy.html#ansys.api.pyensight.ensight_api.part.query_nodeid_atwindowxy" title="ansys.api.pyensight.ensight_api.part.query_nodeid_atwindowxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.query_nodeid_atwindowxy</span></code></a>(args)</p></td>
+<td><p>Part: query_nodeid_atwindowxy</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.query_nodeid_atxyz.html#ansys.api.pyensight.ensight_api.part.query_nodeid_atxyz" title="ansys.api.pyensight.ensight_api.part.query_nodeid_atxyz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.query_nodeid_atxyz</span></code></a>(args)</p></td>
+<td><p>Part: query_nodeid_atxyz</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.query_object_atwindowxy.html#ansys.api.pyensight.ensight_api.part.query_object_atwindowxy" title="ansys.api.pyensight.ensight_api.part.query_object_atwindowxy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.query_object_atwindowxy</span></code></a>(args)</p></td>
+<td><p>Part: query_object_atwindowxy</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.query_objects.html#ansys.api.pyensight.ensight_api.part.query_objects" title="ansys.api.pyensight.ensight_api.part.query_objects"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.query_objects</span></code></a>(args)</p></td>
+<td><p>Part: query_objects</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.query_selected_objects.html#ansys.api.pyensight.ensight_api.part.query_selected_objects" title="ansys.api.pyensight.ensight_api.part.query_selected_objects"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.query_selected_objects</span></code></a>(args)</p></td>
+<td><p>Part: query_selected_objects</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.recompute_cancel.html#ansys.api.pyensight.ensight_api.part.recompute_cancel" title="ansys.api.pyensight.ensight_api.part.recompute_cancel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.recompute_cancel</span></code></a>(p0)</p></td>
+<td><p>Part: recompute_cancel</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.recompute_pending.html#ansys.api.pyensight.ensight_api.part.recompute_pending" title="ansys.api.pyensight.ensight_api.part.recompute_pending"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.recompute_pending</span></code></a>(p0)</p></td>
+<td><p>Part: recompute_pending</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.record_selected.html#ansys.api.pyensight.ensight_api.part.record_selected" title="ansys.api.pyensight.ensight_api.part.record_selected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.record_selected</span></code></a>()</p></td>
+<td><p>Part: record_selected</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.record_selected_ifchanged.html#ansys.api.pyensight.ensight_api.part.record_selected_ifchanged" title="ansys.api.pyensight.ensight_api.part.record_selected_ifchanged"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.record_selected_ifchanged</span></code></a>()</p></td>
+<td><p>Part: record_selected_ifchanged</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.reduce_polygons.html#ansys.api.pyensight.ensight_api.part.reduce_polygons" title="ansys.api.pyensight.ensight_api.part.reduce_polygons"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.reduce_polygons</span></code></a>(p0)</p></td>
+<td><p>Reduce the number of polygons for display.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.reduce_polygons_factor.html#ansys.api.pyensight.ensight_api.part.reduce_polygons_factor" title="ansys.api.pyensight.ensight_api.part.reduce_polygons_factor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.reduce_polygons_factor</span></code></a>(p0)</p></td>
+<td><p>Set the polygon reduction factor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.ref_frame.html#ansys.api.pyensight.ensight_api.part.ref_frame" title="ansys.api.pyensight.ensight_api.part.ref_frame"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.ref_frame</span></code></a>(p0)</p></td>
+<td><p>Assigns the currently selected part(s) to the specified reference frame.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.rendering_reflection_id.html#ansys.api.pyensight.ensight_api.part.rendering_reflection_id" title="ansys.api.pyensight.ensight_api.part.rendering_reflection_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.rendering_reflection_id</span></code></a>(p0)</p></td>
+<td><p>Part: rendering_reflection_id</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.restore_selected.html#ansys.api.pyensight.ensight_api.part.restore_selected" title="ansys.api.pyensight.ensight_api.part.restore_selected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.restore_selected</span></code></a>()</p></td>
+<td><p>Restores the selected parts from a previous seleciton using the store_selected command.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.reverse_normal.html#ansys.api.pyensight.ensight_api.part.reverse_normal" title="ansys.api.pyensight.ensight_api.part.reverse_normal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.reverse_normal</span></code></a>(p0)</p></td>
+<td><p>Part: reverse_normal</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_all.html#ansys.api.pyensight.ensight_api.part.select_all" title="ansys.api.pyensight.ensight_api.part.select_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_all</span></code></a>()</p></td>
+<td><p>Selects all parts as the target for future part: commands.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_all_case.html#ansys.api.pyensight.ensight_api.part.select_all_case" title="ansys.api.pyensight.ensight_api.part.select_all_case"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_all_case</span></code></a>()</p></td>
+<td><p>Selects all parts in the current case as the target for future part: commands.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_all_default.html#ansys.api.pyensight.ensight_api.part.select_all_default" title="ansys.api.pyensight.ensight_api.part.select_all_default"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_all_default</span></code></a>()</p></td>
+<td><p>Causes any following part editing commands to affect the default settings for all parts of any type.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_begin.html#ansys.api.pyensight.ensight_api.part.select_begin" title="ansys.api.pyensight.ensight_api.part.select_begin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_begin</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Selects one or more parts as the target for future part: commands</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_byexpr_begin.html#ansys.api.pyensight.ensight_api.part.select_byexpr_begin" title="ansys.api.pyensight.ensight_api.part.select_byexpr_begin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_byexpr_begin</span></code></a>(args)</p></td>
+<td><p>Selects parts using an expression.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_byexpr_end.html#ansys.api.pyensight.ensight_api.part.select_byexpr_end" title="ansys.api.pyensight.ensight_api.part.select_byexpr_end"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_byexpr_end</span></code></a>()</p></td>
+<td><p>Selects parts using an expression.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_byname_begin.html#ansys.api.pyensight.ensight_api.part.select_byname_begin" title="ansys.api.pyensight.ensight_api.part.select_byname_begin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_byname_begin</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Selects parts by name.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_byname_end.html#ansys.api.pyensight.ensight_api.part.select_byname_end" title="ansys.api.pyensight.ensight_api.part.select_byname_end"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_byname_end</span></code></a>()</p></td>
+<td><p>Selects parts by name.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_default.html#ansys.api.pyensight.ensight_api.part.select_default" title="ansys.api.pyensight.ensight_api.part.select_default"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_default</span></code></a>()</p></td>
+<td><p>Causes any following part editing commands to affect the default settings for all parts belonging to the part type of the next edit command.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_invert.html#ansys.api.pyensight.ensight_api.part.select_invert" title="ansys.api.pyensight.ensight_api.part.select_invert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_invert</span></code></a>()</p></td>
+<td><p>Part: select_invert</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_invisible.html#ansys.api.pyensight.ensight_api.part.select_invisible" title="ansys.api.pyensight.ensight_api.part.select_invisible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_invisible</span></code></a>()</p></td>
+<td><p>Causes all parts invisible parts to be highlighted.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_lastcreatedpart.html#ansys.api.pyensight.ensight_api.part.select_lastcreatedpart" title="ansys.api.pyensight.ensight_api.part.select_lastcreatedpart"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_lastcreatedpart</span></code></a>()</p></td>
+<td><p>Selects all of the parts created in the last part-creating operation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_lastonecreated.html#ansys.api.pyensight.ensight_api.part.select_lastonecreated" title="ansys.api.pyensight.ensight_api.part.select_lastonecreated"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_lastonecreated</span></code></a>()</p></td>
+<td><p>Selects the last single part from the last part-creating operation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_mainpartlist_all.html#ansys.api.pyensight.ensight_api.part.select_mainpartlist_all" title="ansys.api.pyensight.ensight_api.part.select_mainpartlist_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_mainpartlist_all</span></code></a>()</p></td>
+<td><p>Causes all parts in the main part list to be highlighted.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_partexpr_begin.html#ansys.api.pyensight.ensight_api.part.select_partexpr_begin" title="ansys.api.pyensight.ensight_api.part.select_partexpr_begin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_partexpr_begin</span></code></a>(args)</p></td>
+<td><p>Part: select_partexpr_begin</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_partexpr_end.html#ansys.api.pyensight.ensight_api.part.select_partexpr_end" title="ansys.api.pyensight.ensight_api.part.select_partexpr_end"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_partexpr_end</span></code></a>()</p></td>
+<td><p>Part: select_partexpr_end</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_partname_begin.html#ansys.api.pyensight.ensight_api.part.select_partname_begin" title="ansys.api.pyensight.ensight_api.part.select_partname_begin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_partname_begin</span></code></a>(args)</p></td>
+<td><p>Part: select_partname_begin</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_partname_end.html#ansys.api.pyensight.ensight_api.part.select_partname_end" title="ansys.api.pyensight.ensight_api.part.select_partname_end"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_partname_end</span></code></a>()</p></td>
+<td><p>Part: select_partname_end</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_showing.html#ansys.api.pyensight.ensight_api.part.select_showing" title="ansys.api.pyensight.ensight_api.part.select_showing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_showing</span></code></a>()</p></td>
+<td><p>Causes all parts showing parts to be highlighted.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.select_visible.html#ansys.api.pyensight.ensight_api.part.select_visible" title="ansys.api.pyensight.ensight_api.part.select_visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.select_visible</span></code></a>()</p></td>
+<td><p>Causes all parts visible parts to be highlighted.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.shading.html#ansys.api.pyensight.ensight_api.part.shading" title="ansys.api.pyensight.ensight_api.part.shading"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.shading</span></code></a>(p0)</p></td>
+<td><p>Specifies the type of surface shading used on the currently selected part(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.show_selection_inmainlist.html#ansys.api.pyensight.ensight_api.part.show_selection_inmainlist" title="ansys.api.pyensight.ensight_api.part.show_selection_inmainlist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.show_selection_inmainlist</span></code></a>()</p></td>
+<td><p>Updates the Part List GUI menu to reflect the currently selected part(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.show_sft.html#ansys.api.pyensight.ensight_api.part.show_sft" title="ansys.api.pyensight.ensight_api.part.show_sft"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.show_sft</span></code></a>(p0)</p></td>
+<td><p>Part: show_sft</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.specify_symmetry_origin.html#ansys.api.pyensight.ensight_api.part.specify_symmetry_origin" title="ansys.api.pyensight.ensight_api.part.specify_symmetry_origin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.specify_symmetry_origin</span></code></a>(p0)</p></td>
+<td><p>Part: specify_symmetry_origin</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.store_selected.html#ansys.api.pyensight.ensight_api.part.store_selected" title="ansys.api.pyensight.ensight_api.part.store_selected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.store_selected</span></code></a>()</p></td>
+<td><p>Stores the selected parts to be used later using the restore_selected command.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.surface_fill_pattern.html#ansys.api.pyensight.ensight_api.part.surface_fill_pattern" title="ansys.api.pyensight.ensight_api.part.surface_fill_pattern"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.surface_fill_pattern</span></code></a>(p0)</p></td>
+<td><p>Part: surface_fill_pattern</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.surface_hidden_surface.html#ansys.api.pyensight.ensight_api.part.surface_hidden_surface" title="ansys.api.pyensight.ensight_api.part.surface_hidden_surface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.surface_hidden_surface</span></code></a>(p0)</p></td>
+<td><p>Part: surface_hidden_surface</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.surface_type.html#ansys.api.pyensight.ensight_api.part.surface_type" title="ansys.api.pyensight.ensight_api.part.surface_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.surface_type</span></code></a>(p0)</p></td>
+<td><p>Part: surface_type</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_angle.html#ansys.api.pyensight.ensight_api.part.symmetry_angle" title="ansys.api.pyensight.ensight_api.part.symmetry_angle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.symmetry_angle</span></code></a>(p0)</p></td>
+<td><p>Specifies the rotational symmetry angle.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_axis.html#ansys.api.pyensight.ensight_api.part.symmetry_axis" title="ansys.api.pyensight.ensight_api.part.symmetry_axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.symmetry_axis</span></code></a>(p0)</p></td>
+<td><p>Specifies the rotational symmetry axis.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_delta.html#ansys.api.pyensight.ensight_api.part.symmetry_delta" title="ansys.api.pyensight.ensight_api.part.symmetry_delta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.symmetry_delta</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Part: symmetry_delta</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_mirror_x.html#ansys.api.pyensight.ensight_api.part.symmetry_mirror_x" title="ansys.api.pyensight.ensight_api.part.symmetry_mirror_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.symmetry_mirror_x</span></code></a>(p0)</p></td>
+<td><p>Set the flag for visual symmetry mirror images of currently selected parts in the x / y / z / xy / yz / xz / xyz directions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_mirror_xy.html#ansys.api.pyensight.ensight_api.part.symmetry_mirror_xy" title="ansys.api.pyensight.ensight_api.part.symmetry_mirror_xy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.symmetry_mirror_xy</span></code></a>(p0)</p></td>
+<td><p>Set the flag for visual symmetry mirror images of currently selected parts in the x / y / z / xy / yz / xz / xyz directions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_mirror_xyz.html#ansys.api.pyensight.ensight_api.part.symmetry_mirror_xyz" title="ansys.api.pyensight.ensight_api.part.symmetry_mirror_xyz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.symmetry_mirror_xyz</span></code></a>(p0)</p></td>
+<td><p>Set the flag for visual symmetry mirror images of currently selected parts in the x / y / z / xy / yz / xz / xyz directions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_mirror_xz.html#ansys.api.pyensight.ensight_api.part.symmetry_mirror_xz" title="ansys.api.pyensight.ensight_api.part.symmetry_mirror_xz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.symmetry_mirror_xz</span></code></a>(p0)</p></td>
+<td><p>Set the flag for visual symmetry mirror images of currently selected parts in the x / y / z / xy / yz / xz / xyz directions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_mirror_y.html#ansys.api.pyensight.ensight_api.part.symmetry_mirror_y" title="ansys.api.pyensight.ensight_api.part.symmetry_mirror_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.symmetry_mirror_y</span></code></a>(p0)</p></td>
+<td><p>Set the flag for visual symmetry mirror images of currently selected parts in the x / y / z / xy / yz / xz / xyz directions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_mirror_yz.html#ansys.api.pyensight.ensight_api.part.symmetry_mirror_yz" title="ansys.api.pyensight.ensight_api.part.symmetry_mirror_yz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.symmetry_mirror_yz</span></code></a>(p0)</p></td>
+<td><p>Set the flag for visual symmetry mirror images of currently selected parts in the x / y / z / xy / yz / xz / xyz directions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_mirror_z.html#ansys.api.pyensight.ensight_api.part.symmetry_mirror_z" title="ansys.api.pyensight.ensight_api.part.symmetry_mirror_z"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.symmetry_mirror_z</span></code></a>(p0)</p></td>
+<td><p>Set the flag for visual symmetry mirror images of currently selected parts in the x / y / z / xy / yz / xz / xyz directions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_origin.html#ansys.api.pyensight.ensight_api.part.symmetry_origin" title="ansys.api.pyensight.ensight_api.part.symmetry_origin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.symmetry_origin</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Part: symmetry_origin</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_rinstances.html#ansys.api.pyensight.ensight_api.part.symmetry_rinstances" title="ansys.api.pyensight.ensight_api.part.symmetry_rinstances"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.symmetry_rinstances</span></code></a>(p0)</p></td>
+<td><p>Specifies the rotational instances.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.symmetry_type.html#ansys.api.pyensight.ensight_api.part.symmetry_type" title="ansys.api.pyensight.ensight_api.part.symmetry_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.symmetry_type</span></code></a>(p0)</p></td>
+<td><p>Turn on symmetry display.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_coord_type.html#ansys.api.pyensight.ensight_api.part.texture_coord_type" title="ansys.api.pyensight.ensight_api.part.texture_coord_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.texture_coord_type</span></code></a>(p0)</p></td>
+<td><p>Sets the texture mapping to use a projection or to use two variables describing the s and t vector values.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_interpolation.html#ansys.api.pyensight.ensight_api.part.texture_interpolation" title="ansys.api.pyensight.ensight_api.part.texture_interpolation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.texture_interpolation</span></code></a>(p0)</p></td>
+<td><p>Sets the texture interpolation mode to use the nearest texture pixel or interpolate.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_mode.html#ansys.api.pyensight.ensight_api.part.texture_mode" title="ansys.api.pyensight.ensight_api.part.texture_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.texture_mode</span></code></a>(p0)</p></td>
+<td><p>Set the texture mode to be used for the part coloring.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_object.html#ansys.api.pyensight.ensight_api.part.texture_object" title="ansys.api.pyensight.ensight_api.part.texture_object"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.texture_object</span></code></a>(p0)</p></td>
+<td><p>Color the selected part by a texture.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_origin.html#ansys.api.pyensight.ensight_api.part.texture_origin" title="ansys.api.pyensight.ensight_api.part.texture_origin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.texture_origin</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Sets the texture origin offset in model space.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_origin_nodeid.html#ansys.api.pyensight.ensight_api.part.texture_origin_nodeid" title="ansys.api.pyensight.ensight_api.part.texture_origin_nodeid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.texture_origin_nodeid</span></code></a>(p0)</p></td>
+<td><p>Sets the texture origin offset relative to this node id.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_origin_use.html#ansys.api.pyensight.ensight_api.part.texture_origin_use" title="ansys.api.pyensight.ensight_api.part.texture_origin_use"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.texture_origin_use</span></code></a>(p0)</p></td>
+<td><p>Sets how the texture origin and orientation will be defined.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_repeat_mode.html#ansys.api.pyensight.ensight_api.part.texture_repeat_mode" title="ansys.api.pyensight.ensight_api.part.texture_repeat_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.texture_repeat_mode</span></code></a>(p0)</p></td>
+<td><p>Indicates that a texture repeats outside of the defined target area or uses the border color.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_sorigin_nodeid.html#ansys.api.pyensight.ensight_api.part.texture_sorigin_nodeid" title="ansys.api.pyensight.ensight_api.part.texture_sorigin_nodeid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.texture_sorigin_nodeid</span></code></a>(p0)</p></td>
+<td><p>Sets the s and t vector orientation according to the node ids described</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_svariable.html#ansys.api.pyensight.ensight_api.part.texture_svariable" title="ansys.api.pyensight.ensight_api.part.texture_svariable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.texture_svariable</span></code></a>(p0)</p></td>
+<td><p>For texture_coord_type set to variable these describe the variables to use for the s/t texture color</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_svector.html#ansys.api.pyensight.ensight_api.part.texture_svector" title="ansys.api.pyensight.ensight_api.part.texture_svector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.texture_svector</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Sets the texture s-vector orientation and size.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_torigin_nodeid.html#ansys.api.pyensight.ensight_api.part.texture_torigin_nodeid" title="ansys.api.pyensight.ensight_api.part.texture_torigin_nodeid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.texture_torigin_nodeid</span></code></a>(p0)</p></td>
+<td><p>Sets the s and t vector orientation according to the node ids described</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_tvariable.html#ansys.api.pyensight.ensight_api.part.texture_tvariable" title="ansys.api.pyensight.ensight_api.part.texture_tvariable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.texture_tvariable</span></code></a>(p0)</p></td>
+<td><p>For texture_coord_type set to variable these describe the variables to use for the s/t texture color</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.texture_tvector.html#ansys.api.pyensight.ensight_api.part.texture_tvector" title="ansys.api.pyensight.ensight_api.part.texture_tvector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.texture_tvector</span></code></a>(p0, p1, p2)</p></td>
+<td><p>Sets the texture t-vector orientation and size.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.transparency.html#ansys.api.pyensight.ensight_api.part.transparency" title="ansys.api.pyensight.ensight_api.part.transparency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.transparency</span></code></a>(p0)</p></td>
+<td><p>Part: transparency</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.ungroup.html#ansys.api.pyensight.ensight_api.part.ungroup" title="ansys.api.pyensight.ensight_api.part.ungroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.ungroup</span></code></a>()</p></td>
+<td><p>Ungroups the currently selected (grouped) parts.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.updtparts.html#ansys.api.pyensight.ensight_api.part.updtparts" title="ansys.api.pyensight.ensight_api.part.updtparts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.updtparts</span></code></a>(p0)</p></td>
+<td><p>Updates the parent part for the currently selected part(s)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.viewport_vis.html#ansys.api.pyensight.ensight_api.part.viewport_vis" title="ansys.api.pyensight.ensight_api.part.viewport_vis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.viewport_vis</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Controls visibility of the currently selected part(s) in the specified viewport(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.visibility_elt.html#ansys.api.pyensight.ensight_api.part.visibility_elt" title="ansys.api.pyensight.ensight_api.part.visibility_elt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.visibility_elt</span></code></a>(p0)</p></td>
+<td><p>Turns element visibility on or off for the currently selected part(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.visibility_line.html#ansys.api.pyensight.ensight_api.part.visibility_line" title="ansys.api.pyensight.ensight_api.part.visibility_line"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.visibility_line</span></code></a>(p0)</p></td>
+<td><p>Turns line visibility on or off for the currently selected part(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.visibility_node.html#ansys.api.pyensight.ensight_api.part.visibility_node" title="ansys.api.pyensight.ensight_api.part.visibility_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.visibility_node</span></code></a>(p0)</p></td>
+<td><p>Turns node visibility on or off for the currently selected part(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.visible.html#ansys.api.pyensight.ensight_api.part.visible" title="ansys.api.pyensight.ensight_api.part.visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.visible</span></code></a>(p0)</p></td>
+<td><p>Controls the visibility of  the currently selected part(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.volume_quality.html#ansys.api.pyensight.ensight_api.part.volume_quality" title="ansys.api.pyensight.ensight_api.part.volume_quality"><code class="xref py py-obj docutils literal notranslate"><span class="pre">part.volume_quality</span></code></a>(p0)</p></td>
+<td><p>Part: volume_quality</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ansys.api.pyensight.ensight_api.part"><code class="docutils literal notranslate"><span class="pre">part</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/_autosummary/ansys.api.pyensight.ensight_api.part.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+<link rel="stylesheet" href="../_static/css/fuse-search.css">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+
+
+
+
+
+
+
+<script>
+var theme_static_search = JSON.parse('{"ignoreLocation": "False", "keys": ["title", "text"], "shouldSort": "True", "threshold": 0.5, "useExtendedSearch": "True"}');
+var theme_limit = "10";
+var min_chars_for_search = "1";
+var searchPath = "../_static/search.json";
+
+</script>
+
+<script src="../_static/js/fuse_search.js"></script>
+<script src="../_static/js/fuse_extension.js"></script>
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2025 ANSYS, Inc. Unauthorized use, distribution, or duplication is prohibited..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  1.1.1. <br />Last updated on
+  <span id="date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var lastModifiedDate = new Date(document.lastModified);
+  var date = lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("date").innerHTML = date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

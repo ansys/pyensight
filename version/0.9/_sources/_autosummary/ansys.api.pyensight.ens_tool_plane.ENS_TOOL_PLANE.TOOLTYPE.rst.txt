@@ -1,0 +1,6 @@
+TOOLTYPE
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_plane
+
+.. autoproperty:: ENS_TOOL_PLANE.TOOLTYPE

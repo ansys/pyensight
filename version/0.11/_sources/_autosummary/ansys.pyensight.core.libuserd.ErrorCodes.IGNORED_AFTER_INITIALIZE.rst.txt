@@ -1,0 +1,6 @@
+IGNORED\_AFTER\_INITIALIZE
+==========================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ErrorCodes.IGNORED_AFTER_INITIALIZE

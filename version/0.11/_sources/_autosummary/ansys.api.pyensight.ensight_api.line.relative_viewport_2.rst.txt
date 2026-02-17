@@ -1,0 +1,6 @@
+relative\_viewport\_2
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: line.relative_viewport_2

@@ -1,0 +1,6 @@
+LIGHT\_ENV\_TEXNUM
+==================
+
+.. currentmodule:: ansys.api.pyensight.ens_scene
+
+.. autoproperty:: ENS_SCENE.LIGHT_ENV_TEXNUM

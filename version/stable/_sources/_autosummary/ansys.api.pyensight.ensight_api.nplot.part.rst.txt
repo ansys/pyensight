@@ -1,0 +1,6 @@
+part
+====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: nplot.part

@@ -1,0 +1,6 @@
+destroy
+=======
+
+.. currentmodule:: ansys.pyensight.core.ensobj
+
+.. automethod:: ENSOBJ.destroy

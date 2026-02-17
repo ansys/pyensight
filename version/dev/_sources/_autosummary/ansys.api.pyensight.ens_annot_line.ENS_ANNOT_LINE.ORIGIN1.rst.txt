@@ -1,0 +1,6 @@
+ORIGIN1
+=======
+
+.. currentmodule:: ansys.api.pyensight.ens_annot_line
+
+.. autoproperty:: ENS_ANNOT_LINE.ORIGIN1

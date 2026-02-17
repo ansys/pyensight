@@ -1,0 +1,6 @@
+spline\_delete
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.spline_delete

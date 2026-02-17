@@ -1,0 +1,6 @@
+reinitialize\_view
+==================
+
+.. currentmodule:: ansys.pyensight.core.utils.views
+
+.. automethod:: Views.reinitialize_view

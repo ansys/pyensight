@@ -1,0 +1,81 @@
+﻿tensor
+======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. autoclass:: tensor
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      tensor.begin
+      
+      
+      tensor.color_by
+      
+      
+      tensor.compression_line_width
+      
+      
+      tensor.compression_rgb
+      
+      
+      tensor.create
+      
+      
+      tensor.display_compression
+      
+      
+      tensor.display_major
+      
+      
+      tensor.display_middle
+      
+      
+      tensor.display_minor
+      
+      
+      tensor.display_tension
+      
+      
+      tensor.end
+      
+      
+      tensor.line_width_by
+      
+      
+      tensor.scale_factor
+      
+      
+      tensor.select_default
+      
+      
+      tensor.tension_line_width
+      
+      
+      tensor.tension_rgb
+      
+      
+      tensor.tip_shape
+      
+      
+      tensor.tip_size
+      
+      
+      tensor.tip_size_rep
+      
+      
+      tensor.variable
+      
+   
+   
+
+   
+   
+   

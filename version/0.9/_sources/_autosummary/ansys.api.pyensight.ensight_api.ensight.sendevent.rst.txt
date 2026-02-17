@@ -1,0 +1,6 @@
+sendevent
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.sendevent

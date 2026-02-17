@@ -1,0 +1,6 @@
+save\_image
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.save_image

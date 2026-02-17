@@ -1,0 +1,6 @@
+sendmesg
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.sendmesg

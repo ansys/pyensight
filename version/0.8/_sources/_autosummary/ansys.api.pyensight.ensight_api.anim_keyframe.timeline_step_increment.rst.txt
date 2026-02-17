@@ -1,0 +1,6 @@
+timeline\_step\_increment
+=========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_keyframe.timeline_step_increment

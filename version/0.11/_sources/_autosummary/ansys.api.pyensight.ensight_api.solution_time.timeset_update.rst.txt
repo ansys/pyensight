@@ -1,0 +1,6 @@
+timeset\_update
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: solution_time.timeset_update

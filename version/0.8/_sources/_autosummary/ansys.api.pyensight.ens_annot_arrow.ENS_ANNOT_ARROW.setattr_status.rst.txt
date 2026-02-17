@@ -1,0 +1,6 @@
+setattr\_status
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_annot_arrow
+
+.. automethod:: ENS_ANNOT_ARROW.setattr_status

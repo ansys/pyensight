@@ -1,0 +1,6 @@
+new\_or\_mod
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport.new_or_mod

@@ -1,0 +1,6 @@
+PREF\_DATAFILEFILTER
+====================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.PREF_DATAFILEFILTER

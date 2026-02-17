@@ -1,0 +1,6 @@
+setattr\_begin
+==============
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_revolution
+
+.. automethod:: ENS_TOOL_REVOLUTION.setattr_begin

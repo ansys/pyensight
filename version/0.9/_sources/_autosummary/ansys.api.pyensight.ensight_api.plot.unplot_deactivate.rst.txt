@@ -1,0 +1,6 @@
+unplot\_deactivate
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.unplot_deactivate

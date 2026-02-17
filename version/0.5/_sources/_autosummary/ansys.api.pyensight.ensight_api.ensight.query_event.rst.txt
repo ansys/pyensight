@@ -1,0 +1,6 @@
+query\_event
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.query_event

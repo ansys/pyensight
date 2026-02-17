@@ -1,0 +1,6 @@
+show\_outline
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: auxgeom.show_outline

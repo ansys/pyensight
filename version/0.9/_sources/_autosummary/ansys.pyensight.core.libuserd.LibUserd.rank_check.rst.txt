@@ -1,0 +1,6 @@
+rank\_check
+===========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: LibUserd.rank_check

@@ -1,0 +1,6 @@
+initialize
+==========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: LibUserd.initialize

@@ -1,0 +1,6 @@
+varsize\_toggle
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view.varsize_toggle

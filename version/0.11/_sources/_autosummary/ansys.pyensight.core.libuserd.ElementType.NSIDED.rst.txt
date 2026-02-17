@@ -1,0 +1,6 @@
+NSIDED
+======
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.NSIDED

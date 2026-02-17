@@ -1,0 +1,6 @@
+PYR05
+=====
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.PYR05

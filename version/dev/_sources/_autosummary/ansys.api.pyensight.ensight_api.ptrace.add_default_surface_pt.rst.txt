@@ -1,0 +1,6 @@
+add\_default\_surface\_pt
+=========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.add_default_surface_pt

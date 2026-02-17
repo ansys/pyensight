@@ -1,0 +1,6 @@
+HEX20
+=====
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.HEX20

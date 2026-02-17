@@ -1,0 +1,827 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Session &#8212; PyEnSight</title>
+    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=61a4c737" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=e5fbc548" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys_sphinx_theme.css?v=eed9ad61" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/breadcrumbs.css?v=012f8338" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    
+        <link href="../_static/css/breadcrumbs.css" rel="stylesheet">
+    
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=6ca3b63c"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=49e1bf35"></script>
+    <script src="../_static/js/table.js?v=71e46913"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_autosummary/ansys.pyensight.core.Session';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.7';
+        </script>
+    <script src="../_static/js/mermaid.js?v=cf64ff96"></script>
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <link rel="icon" href="../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="add_callback" href="ansys.pyensight.core.Session.add_callback.html" />
+    <link rel="prev" title="url" href="ansys.pyensight.core.renderable.Renderable.url.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <link rel="canonical" href="https://ensight.docs.pyansys.com/version/stable/_autosummary/ansys.pyensight.core.Session.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container"><!-- Debugging: html_theme_options =  -->
+
+  <!-- If there is no MiliSearch enabled, use the PyData search -->
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+</div>
+  </div>
+  
+    
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pyansys-logo-black-cropped.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/pyansys-logo-black-cropped.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../getting_started/index.html">
+                        Getting started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../user_guide/index.html">
+                        User guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../class_documentation.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_examples/index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../contributing.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      0.7  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+
+    
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(text => document.getElementById("announcement_msg").innerHTML = text)
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+    
+
+    
+    <div class="container-xl">
+    <div class="row">
+        <div class="col-12 col-md-3" id="breadcrumbs-spacer"></div>
+        <div class="col-12 col-md-11 col-xl-9" id="breadcrumbs">
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+    
+    
+        <li class="nav-item nav-item-0"><a href="../index.html">PyEnSight</a> » </li>
+    
+
+          <li class="nav-item nav-item-1"><a href="../class_documentation.html" accesskey="U">API reference</a> » </li>
+        <li class="nav-item nav-item-this"><a href="">Session</a></li> 
+      </ul>
+    </div>
+        </div>
+  </div>
+</div>
+    
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../getting_started/index.html">
+                        Getting started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../user_guide/index.html">
+                        User guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../class_documentation.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_examples/index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../contributing.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      0.7  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../native_documentation.html">Native API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../object_documentation.html">Object API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calc_functions.html">Calculator functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest_api/rest_api.html">REST API</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.enscontext.EnsContext.html">EnsContext</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.LocalLauncher.html">LocalLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.DockerLauncher.html">DockerLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.renderable.Renderable.html">Renderable</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Session</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.add_callback.html">add_callback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.add_ensobj_instance.html">add_ensobj_instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.capture_context.html">capture_context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.close.html">close</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.cmd.html">cmd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.copy_from_session.html">copy_from_session</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.copy_to_session.html">copy_to_session</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.download_pyansys_example.html">download_pyansys_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.ensight_version_check.html">ensight_version_check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.exec.html">exec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.geometry.html">geometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.help.html">help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.load_data.html">load_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.load_example.html">load_example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.obj_instance.html">obj_instance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.remote_obj.html">remote_obj</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.remove_callback.html">remove_callback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.render.html">render</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.restore_context.html">restore_context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.run_script.html">run_script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.show.html">show</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.MONITOR_NEW_TIMESTEPS_JUMP_TO_END.html">MONITOR_NEW_TIMESTEPS_JUMP_TO_END</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.MONITOR_NEW_TIMESTEPS_OFF.html">MONITOR_NEW_TIMESTEPS_OFF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT.html">MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.cei_home.html">cei_home</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.cei_suffix.html">cei_suffix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.ensight.html">ensight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.grpc.html">grpc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.halt_ensight_on_close.html">halt_ensight_on_close</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.hostname.html">hostname</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.html_hostname.html">html_hostname</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.html_port.html">html_port</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.jupyter_notebook.html">jupyter_notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.language.html">language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.launcher.html">launcher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.name.html">name</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.rest_api.html">rest_api</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.secret_key.html">secret_key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.sos.html">sos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.timeout.html">timeout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.Session.ws_port.html">ws_port</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.export.Export.html">Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.parts.Parts.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.query.Query.html">Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.support.Support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.views.Views.html">Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.variables.Variables.html">Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.omniverse.Omniverse.html">Omniverse</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="session">
+<h1>Session<a class="headerlink" href="#session" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="ansys.pyensight.core.Session">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ansys.pyensight.core.</span></span><span class="sig-name descname"><span class="pre">Session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'127.0.0.1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">install_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secret_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grpc_port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12345</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">html_hostname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">html_port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ws_port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session_directory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.12)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">120.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rest_api</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.12)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ansys.pyensight.core.Session" title="Link to this definition">#</a></dt>
+<dd><p>Provides for accessing an EnSight <code class="docutils literal notranslate"><span class="pre">Session</span></code> instance.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Session</span></code> object wraps the various connections to an EnSight instance. It includes
+the location of the installation and the gRPC, HTML and WS ports used to talk to the
+EnSight session. In most cases, a <code class="docutils literal notranslate"><span class="pre">Session</span></code> instance is created using Launcher
+class methods, but if the EnSight session is already running, an instance can be
+created directly to wrap this running EnSight session.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">Session</span></code> object is created via a Launcher <code class="docutils literal notranslate"><span class="pre">start()</span></code> method call, when the
+session object is garbage collected, the EnSight instance is automatically stopped.
+To prevent this behavior (and leave the EnSight instance running), set the
+<code class="docutils literal notranslate"><span class="pre">halt_ensight_on_close</span></code> property to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<p>A gRPC connection is required to interact with an EnSight session. The host, gRPC
+port number, and secret key must be specified. The HTML and WS ports, which are used to
+enable the <a class="reference internal" href="ansys.pyensight.core.Session.show.html#ansys.pyensight.core.Session.show" title="ansys.pyensight.core.Session.show"><code class="xref py py-func docutils literal notranslate"><span class="pre">show</span></code></a>) method, also require that
+an instance of the websocket server is running.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>host</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Name of the host that the EnSight gRPC service is running on.
+The default is <code class="docutils literal notranslate"><span class="pre">&quot;127.0.0.1&quot;</span></code>, which is the localhost.</p>
+</dd>
+<dt><strong>install_path</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Path to the CEI directory to launch EnSight from.
+The default is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd>
+<dt><strong>secret_key</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Shared session secret key for validating the gRPC communication.
+The default is <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code>.</p>
+</dd>
+<dt><strong>grpc_port</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Port number of the EnSight gRPC service. The default is <code class="docutils literal notranslate"><span class="pre">12345</span></code>.</p>
+</dd>
+<dt><strong>html_host</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Optional hostname for html connections if different than host
+Used by Ansys Lab and reverse proxy servers</p>
+</dd>
+<dt><strong>html_port</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Port number of the websocket server’s HTTP server. The default is
+<code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd>
+<dt><strong>ws_port</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.12)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Port number of the websocket server’s WS server. The default is
+<code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd>
+<dt><strong>session_directory</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.12)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Directory on the server for local data storage. The default is
+<code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd>
+<dt><strong>timeout</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.12)"><code class="docutils literal notranslate"><span class="pre">float</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Number of seconds to try a gRPC connection before giving up.
+The default is <code class="docutils literal notranslate"><span class="pre">120</span></code>.</p>
+</dd>
+<dt><strong>rest_api</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bltin-boolean-values" title="(in Python v3.12)"><span class="xref std std-ref">bool</span></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Whether to enable the EnSight REST API for the remote EnSight instance.
+The default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</dd>
+<dt><strong>sos</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bltin-boolean-values" title="(in Python v3.12)"><span class="xref std std-ref">bool</span></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Whether the remote EnSight instance is to use the SOS (Server
+of Servers) feature. The default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.pyensight.core</span> <span class="kn">import</span> <span class="n">Session</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">grpc_port</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span> <span class="n">http_port</span><span class="o">=</span><span class="mi">8000</span><span class="p">,</span> <span class="n">ws_port</span><span class="o">=</span><span class="mi">8100</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.pyensight.core</span> <span class="kn">import</span> <span class="n">LocalLauncher</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">LocalLauncher</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Launch an instance of EnSight, then create a second connection to the instance</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ansys.pyensight.core</span> <span class="kn">import</span> <span class="n">LocalLauncher</span><span class="p">,</span> <span class="n">Session</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">launched_session</span> <span class="o">=</span> <span class="n">LocalLauncher</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get a string that can be used to create a second connection</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">session_string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">launched_session</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a second connection to the same EnSight instance</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">connected_session</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">session_string</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.add_callback.html#ansys.pyensight.core.Session.add_callback" title="ansys.pyensight.core.Session.add_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.add_callback</span></code></a>(target, tag, attr_list, ...)</p></td>
+<td><p>Register a callback with an event tuple.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.add_ensobj_instance.html#ansys.pyensight.core.Session.add_ensobj_instance" title="ansys.pyensight.core.Session.add_ensobj_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.add_ensobj_instance</span></code></a>(obj)</p></td>
+<td><p>Add a new <code class="docutils literal notranslate"><span class="pre">ENSOBJ</span></code> object instance to the hash table.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.capture_context.html#ansys.pyensight.core.Session.capture_context" title="ansys.pyensight.core.Session.capture_context"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.capture_context</span></code></a>([full_context])</p></td>
+<td><p>Capture the current EnSight instance state.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.close.html#ansys.pyensight.core.Session.close" title="ansys.pyensight.core.Session.close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.close</span></code></a>()</p></td>
+<td><p>Close the session.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.cmd.html#ansys.pyensight.core.Session.cmd" title="ansys.pyensight.core.Session.cmd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.cmd</span></code></a>(value[, do_eval])</p></td>
+<td><p>Run a command in EnSight and return the results.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.copy_from_session.html#ansys.pyensight.core.Session.copy_from_session" title="ansys.pyensight.core.Session.copy_from_session"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.copy_from_session</span></code></a>(local_prefix, filelist)</p></td>
+<td><p>Copy a collection of files out of the EnSight session.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.copy_to_session.html#ansys.pyensight.core.Session.copy_to_session" title="ansys.pyensight.core.Session.copy_to_session"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.copy_to_session</span></code></a>(local_prefix, filelist)</p></td>
+<td><p>Copy a collection of files into the EnSight session.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.download_pyansys_example.html#ansys.pyensight.core.Session.download_pyansys_example" title="ansys.pyensight.core.Session.download_pyansys_example"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.download_pyansys_example</span></code></a>(filename[, ...])</p></td>
+<td><p>Download an example dataset from the ansys/example-data repository.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.ensight_version_check.html#ansys.pyensight.core.Session.ensight_version_check" title="ansys.pyensight.core.Session.ensight_version_check"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.ensight_version_check</span></code></a>(version[, ...])</p></td>
+<td><p>Check if the session is a specific version.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.exec.html#ansys.pyensight.core.Session.exec" title="ansys.pyensight.core.Session.exec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.exec</span></code></a>(function, *args[, remote])</p></td>
+<td><p>Run a function containing EnSight API calls locally or in the EnSight interpreter.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.geometry.html#ansys.pyensight.core.Session.geometry" title="ansys.pyensight.core.Session.geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.geometry</span></code></a>([what])</p></td>
+<td><p>Return the current EnSight scene as a geometry file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.help.html#ansys.pyensight.core.Session.help" title="ansys.pyensight.core.Session.help"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.help</span></code></a>()</p></td>
+<td><p>Open the documentation for PyEnSight in a web browser.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.load_data.html#ansys.pyensight.core.Session.load_data" title="ansys.pyensight.core.Session.load_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.load_data</span></code></a>(data_file[, result_file, ...])</p></td>
+<td><p>Load a dataset into the EnSight instance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.load_example.html#ansys.pyensight.core.Session.load_example" title="ansys.pyensight.core.Session.load_example"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.load_example</span></code></a>(example_name[, ...])</p></td>
+<td><p>Load an example dataset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.obj_instance.html#ansys.pyensight.core.Session.obj_instance" title="ansys.pyensight.core.Session.obj_instance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.obj_instance</span></code></a>(ensobjid)</p></td>
+<td><p>Get any existing proxy object associated with an ID.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.remote_obj.html#ansys.pyensight.core.Session.remote_obj" title="ansys.pyensight.core.Session.remote_obj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.remote_obj</span></code></a>(ensobjid)</p></td>
+<td><p>Generate a string that, for a given <code class="docutils literal notranslate"><span class="pre">ENSOBJ</span></code> object ID, returns a proxy object instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.remove_callback.html#ansys.pyensight.core.Session.remove_callback" title="ansys.pyensight.core.Session.remove_callback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.remove_callback</span></code></a>(tag)</p></td>
+<td><p>Remove a callback that the :func`add_callback&lt;ansys.pyensight.core.Session.add_callback&gt;` method started.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.render.html#ansys.pyensight.core.Session.render" title="ansys.pyensight.core.Session.render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.render</span></code></a>(width, height[, aa])</p></td>
+<td><p>Render the current EnSight scene and return a PNG image.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.restore_context.html#ansys.pyensight.core.Session.restore_context" title="ansys.pyensight.core.Session.restore_context"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.restore_context</span></code></a>(context)</p></td>
+<td><p>Restore the current EnSight instance state.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.run_script.html#ansys.pyensight.core.Session.run_script" title="ansys.pyensight.core.Session.run_script"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.run_script</span></code></a>(filename)</p></td>
+<td><p>Run an EnSight Python script file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.show.html#ansys.pyensight.core.Session.show" title="ansys.pyensight.core.Session.show"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.show</span></code></a>([what, width, height, ...])</p></td>
+<td><p>Capture the current EnSight scene or otherwise make it available for display in a web browser.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.MONITOR_NEW_TIMESTEPS_JUMP_TO_END.html#ansys.pyensight.core.Session.MONITOR_NEW_TIMESTEPS_JUMP_TO_END" title="ansys.pyensight.core.Session.MONITOR_NEW_TIMESTEPS_JUMP_TO_END"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.MONITOR_NEW_TIMESTEPS_JUMP_TO_END</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.MONITOR_NEW_TIMESTEPS_OFF.html#ansys.pyensight.core.Session.MONITOR_NEW_TIMESTEPS_OFF" title="ansys.pyensight.core.Session.MONITOR_NEW_TIMESTEPS_OFF"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.MONITOR_NEW_TIMESTEPS_OFF</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT.html#ansys.pyensight.core.Session.MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT" title="ansys.pyensight.core.Session.MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.cei_home.html#ansys.pyensight.core.Session.cei_home" title="ansys.pyensight.core.Session.cei_home"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.cei_home</span></code></a></p></td>
+<td><p>Value of <code class="docutils literal notranslate"><span class="pre">CEI_HOME</span></code> for the connected EnSight session.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.cei_suffix.html#ansys.pyensight.core.Session.cei_suffix" title="ansys.pyensight.core.Session.cei_suffix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.cei_suffix</span></code></a></p></td>
+<td><p>Suffix string of the connected EnSight session.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.ensight.html#ansys.pyensight.core.Session.ensight" title="ansys.pyensight.core.Session.ensight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.ensight</span></code></a></p></td>
+<td><p>Core EnSight API wrapper.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.grpc.html#ansys.pyensight.core.Session.grpc" title="ansys.pyensight.core.Session.grpc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.grpc</span></code></a></p></td>
+<td><p>The gRPC wrapper instance used by this session to access EnSight.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.halt_ensight_on_close.html#ansys.pyensight.core.Session.halt_ensight_on_close" title="ansys.pyensight.core.Session.halt_ensight_on_close"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.halt_ensight_on_close</span></code></a></p></td>
+<td><p>Flag for indicating whether to halt EnSight on close.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.hostname.html#ansys.pyensight.core.Session.hostname" title="ansys.pyensight.core.Session.hostname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.hostname</span></code></a></p></td>
+<td><p>Hostname of the system hosting the EnSight instance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.html_hostname.html#ansys.pyensight.core.Session.html_hostname" title="ansys.pyensight.core.Session.html_hostname"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.html_hostname</span></code></a></p></td>
+<td><p>Hostname of the system hosting the EnSight web server instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.html_port.html#ansys.pyensight.core.Session.html_port" title="ansys.pyensight.core.Session.html_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.html_port</span></code></a></p></td>
+<td><p>Port supporting HTML interaction with EnSight.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.jupyter_notebook.html#ansys.pyensight.core.Session.jupyter_notebook" title="ansys.pyensight.core.Session.jupyter_notebook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.jupyter_notebook</span></code></a></p></td>
+<td><p>Flag indicating if the session is running in a Jupyter notebook and should use the display features of that interface.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.language.html#ansys.pyensight.core.Session.language" title="ansys.pyensight.core.Session.language"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.language</span></code></a></p></td>
+<td><p>Current language specification for the EnSight session.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.launcher.html#ansys.pyensight.core.Session.launcher" title="ansys.pyensight.core.Session.launcher"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.launcher</span></code></a></p></td>
+<td><p>Reference to the launcher instance if a launcher was used to instantiate the session.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.name.html#ansys.pyensight.core.Session.name" title="ansys.pyensight.core.Session.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.name</span></code></a></p></td>
+<td><p>The session name is a unique identifier for this Session instance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.rest_api.html#ansys.pyensight.core.Session.rest_api" title="ansys.pyensight.core.Session.rest_api"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.rest_api</span></code></a></p></td>
+<td><p>Flag indicating if the remote EnSight session supports the REST API.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.secret_key.html#ansys.pyensight.core.Session.secret_key" title="ansys.pyensight.core.Session.secret_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.secret_key</span></code></a></p></td>
+<td><p>Secret key used for communication validation in the gRPC instance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.sos.html#ansys.pyensight.core.Session.sos" title="ansys.pyensight.core.Session.sos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.sos</span></code></a></p></td>
+<td><p>Flag indicating if the remote EnSight session is running in SOS (Server of Server) mode.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.timeout.html#ansys.pyensight.core.Session.timeout" title="ansys.pyensight.core.Session.timeout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.timeout</span></code></a></p></td>
+<td><p>Amount of time in seconds to try a gRPC connection before giving up.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.pyensight.core.Session.ws_port.html#ansys.pyensight.core.Session.ws_port" title="ansys.pyensight.core.Session.ws_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Session.ws_port</span></code></a></p></td>
+<td><p>Port supporting WS interaction with EnSight.</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ansys.pyensight.core.Session"><code class="docutils literal notranslate"><span class="pre">Session</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../_sources/_autosummary/ansys.pyensight.core.Session.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright (c) 2024 ANSYS, Inc. Unauthorized use, distribution, or duplication is prohibited..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+    Built with the <a href="https://sphinxdocs.ansys.com/version/stable/index.html">Ansys Sphinx Theme</a> 0.9.9.
+    <br>Last updated on <span id="date"></span></br>
+</p>
+<script>
+  var options = { day: 'numeric', month: 'long', year: 'numeric' };
+  var lastModifiedDate = new Date(document.lastModified);
+  var date = lastModifiedDate.toLocaleDateString('en-US', options);
+  document.getElementById("date").innerHTML = date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

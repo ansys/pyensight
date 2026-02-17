@@ -1,0 +1,6 @@
+new\_static\_done
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data.new_static_done

@@ -1,0 +1,6 @@
+big\_hand\_range
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: dial.big_hand_range

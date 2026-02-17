@@ -1,0 +1,6 @@
+stereo
+======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view.stereo

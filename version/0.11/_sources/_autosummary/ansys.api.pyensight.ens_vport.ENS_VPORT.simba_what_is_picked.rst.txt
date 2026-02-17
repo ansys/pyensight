@@ -1,0 +1,6 @@
+simba\_what\_is\_picked
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ens_vport
+
+.. automethod:: ENS_VPORT.simba_what_is_picked

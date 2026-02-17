@@ -1,0 +1,6 @@
+boundary
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data.boundary

@@ -1,0 +1,6 @@
+revolution\_origin
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.revolution_origin

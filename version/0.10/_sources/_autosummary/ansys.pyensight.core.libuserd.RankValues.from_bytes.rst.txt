@@ -1,0 +1,6 @@
+from\_bytes
+===========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: RankValues.from_bytes

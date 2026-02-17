@@ -1,0 +1,6 @@
+user\_defined\_input
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.user_defined_input

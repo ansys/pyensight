@@ -1,0 +1,6 @@
+exchange\_with\_largest
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport.exchange_with_largest

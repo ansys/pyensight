@@ -1,0 +1,99 @@
+﻿scene
+=====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. autoclass:: scene
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      scene.active
+      
+      
+      scene.axis_visible
+      
+      
+      scene.environment_map_name
+      
+      
+      scene.ground_plane_blendscale
+      
+      
+      scene.ground_plane_color
+      
+      
+      scene.ground_plane_color1
+      
+      
+      scene.ground_plane_color2
+      
+      
+      scene.ground_plane_gridcolora
+      
+      
+      scene.ground_plane_gridcolora1
+      
+      
+      scene.ground_plane_gridcolora2
+      
+      
+      scene.ground_plane_gridcolorb
+      
+      
+      scene.ground_plane_gridcolorb1
+      
+      
+      scene.ground_plane_gridcolorb2
+      
+      
+      scene.ground_plane_gridscale
+      
+      
+      scene.ground_plane_lockplane
+      
+      
+      scene.ground_plane_normal
+      
+      
+      scene.ground_plane_reflection
+      
+      
+      scene.ground_plane_shadow
+      
+      
+      scene.ground_plane_texscale
+      
+      
+      scene.ground_plane_visible
+      
+      
+      scene.modify_begin
+      
+      
+      scene.modify_end
+      
+      
+      scene.origin
+      
+      
+      scene.radius
+      
+      
+      scene.scale
+      
+      
+      scene.shadow
+      
+   
+   
+
+   
+   
+   

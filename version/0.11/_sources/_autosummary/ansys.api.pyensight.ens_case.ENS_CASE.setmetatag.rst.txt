@@ -1,0 +1,6 @@
+setmetatag
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_case
+
+.. automethod:: ENS_CASE.setmetatag

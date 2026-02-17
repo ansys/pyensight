@@ -1,0 +1,6 @@
+QUERY\_PROBE\_DATA
+==================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.QUERY_PROBE_DATA

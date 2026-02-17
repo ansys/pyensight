@@ -1,0 +1,6 @@
+select\_varname\_begin
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: variables.select_varname_begin

@@ -1,0 +1,6 @@
+camera\_view\_angle
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.camera_view_angle

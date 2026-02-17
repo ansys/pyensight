@@ -1,0 +1,6 @@
+domain
+======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: clip.domain

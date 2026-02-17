@@ -1,0 +1,6 @@
+border\_rgb
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: texture.border_rgb

@@ -1,0 +1,6 @@
+HISTO\_SCALE
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. autoproperty:: ENS_PALETTE.HISTO_SCALE

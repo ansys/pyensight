@@ -1,0 +1,6 @@
+tick\_marks
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: dial.tick_marks

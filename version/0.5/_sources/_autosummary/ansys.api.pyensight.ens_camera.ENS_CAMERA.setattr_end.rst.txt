@@ -1,0 +1,6 @@
+setattr\_end
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_camera
+
+.. automethod:: ENS_CAMERA.setattr_end

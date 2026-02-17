@@ -1,0 +1,6 @@
+step\_increment
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_flipbook.step_increment

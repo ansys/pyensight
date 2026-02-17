@@ -1,0 +1,6 @@
+camera\_direction\_xyz
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.camera_direction_xyz

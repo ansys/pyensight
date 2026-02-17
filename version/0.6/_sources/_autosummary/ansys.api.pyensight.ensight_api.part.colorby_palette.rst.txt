@@ -1,0 +1,6 @@
+colorby\_palette
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.colorby_palette

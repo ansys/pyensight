@@ -1,0 +1,6 @@
+setattr\_status
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_texture
+
+.. automethod:: ENS_TEXTURE.setattr_status

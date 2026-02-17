@@ -1,0 +1,6 @@
+scale
+=====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: nvc.scale

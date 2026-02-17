@@ -1,0 +1,6 @@
+dsg\_new\_stream
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.dsg_new_stream

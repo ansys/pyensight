@@ -1,0 +1,6 @@
+PICKANDGO\_PARTS
+================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.PICKANDGO_PARTS

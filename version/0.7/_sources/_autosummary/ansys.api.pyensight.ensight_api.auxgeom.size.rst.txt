@@ -1,0 +1,6 @@
+size
+====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: auxgeom.size

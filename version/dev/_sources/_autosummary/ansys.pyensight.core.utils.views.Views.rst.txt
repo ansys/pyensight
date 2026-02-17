@@ -1,0 +1,49 @@
+﻿Views
+=====
+
+.. currentmodule:: ansys.pyensight.core.utils.views
+
+.. autoclass:: Views
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Views.compute_model_centroid
+      
+      
+      Views.reinitialize_view
+      
+      
+      Views.restore_center_of_transform
+      
+      
+      Views.restore_view
+      
+      
+      Views.save_current_view
+      
+      
+      Views.set_center_of_transform
+      
+      
+      Views.set_view_direction
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      Views.views_dict
+   
+   

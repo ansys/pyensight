@@ -1,0 +1,6 @@
+trace\_direction
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.trace_direction
