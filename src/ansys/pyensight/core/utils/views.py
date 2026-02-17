@@ -42,7 +42,6 @@ Example to set an isometric view:
 
 
 import math
-from types import ModuleType
 from typing import TYPE_CHECKING, Dict, List, Optional, Tuple, Union
 
 import numpy as np
@@ -96,6 +95,7 @@ class _Simba:
         self.ensight.annotation.axis_local("off")
         self.ensight.annotation.axis_model("off")
         self.ensight.view_transf.zclip_float("OFF")
+        self.ensight.objs.core.simbamousemode()
 
     def get_center_of_rotation(self):
         """Get EnSight center of rotation."""
@@ -192,10 +192,7 @@ class _Simba:
 
     def compute_camera_from_ensight_opengl(self):
         """Simulate a rotating camera using the current quaternion."""
-        if isinstance(self.ensight, ModuleType):
-            data = self.ensight.objs.core.VPORTS[0].simba_camera()
-        else:
-            data = self.ensight._session.cmd("ensight.objs.core.VPORTS[0].simba_camera()")
+        data = self.ensight.objs.core.VPORTS[0].simba_camera()
         camera_position = [data[0], data[1], data[2]]
         focal_point = [data[3], data[4], data[5]]
         view_up = [data[6], data[7], data[8]]
@@ -222,26 +219,16 @@ class _Simba:
             if view_up is None:
                 view_up = current_camera["view_up"]
             center = vport.TRANSFORMCENTER.copy()
-            if isinstance(self.ensight, ModuleType):
-                data = self.ensight.objs.core.VPORTS[0].simba_set_camera_helper(
-                    position,
-                    focal_point,
-                    view_up,
-                    current_camera["position"],
-                    current_camera["focal_point"],
-                    current_camera["view_up"],
-                    center,
-                    vport.ROTATION.copy(),
-                )
-            else:
-                current_position = current_camera["position"]
-                current_fp = current_camera["focal_point"]
-                current_up = current_camera["view_up"]
-                cmd = "ensight.objs.core.VPORTS[0].simba_set_camera_helper("
-                cmd += f"{position}, {focal_point}, {view_up}, {current_position}, "
-                cmd += f"{current_fp}, {current_up}, {center}, "
-                cmd += f"{vport.ROTATION.copy()})"
-                data = self.ensight._session.cmd(cmd)
+            data = self.ensight.objs.core.VPORTS[0].simba_set_camera_helper(
+                position,
+                focal_point,
+                view_up,
+                current_camera["position"],
+                current_camera["focal_point"],
+                current_camera["view_up"],
+                center,
+                vport.ROTATION.copy(),
+            )
             self.ensight.view_transf.rotate(data[3], data[4], data[5])
             self.ensight.view_transf.translate(data[0], data[1], -data[2])
 
@@ -273,9 +260,9 @@ class _Simba:
         width, height = tuple(self.ensight.objs.core.WINDOWSIZE)
         aspect = width / height
         parallel_scale = radius / aspect
-        prod = np.dot(view_up, plane_normal)
+        prod = np.dot(np.array(view_up), plane_normal)
         if abs(prod) > 0.999:
-            view_up = np.array([-view_up[2], view_up[0], view_up[1]])
+            view_up = [-view_up[2], view_up[0], view_up[1]]
         return {
             "orthographic": not vport.PERSPECTIVE,
             "view_up": view_up,
@@ -298,14 +285,9 @@ class _Simba:
     def screen_to_world(self, mousex, mousey, invert_y=False, set_center=False):
         mousex = int(mousex)
         mousey = int(mousey)
-        if isinstance(self.ensight, ModuleType):
-            model_point = self.ensight.objs.core.VPORTS[0].screen_to_coords(
-                mousex, mousey, invert_y, set_center
-            )
-        else:
-            model_point = self.ensight._session.cmd(
-                f"ensight.objs.core.VPORTS[0].screen_to_coords({mousex}, {mousey}, {invert_y}, {set_center})"
-            )
+        model_point = self.ensight.objs.core.VPORTS[0].screen_to_coords(
+            mousex, mousey, invert_y, set_center
+        )
         return {"model_point": model_point, "camera": self.get_camera()}
 
     def render(self):
@@ -332,28 +314,16 @@ class _Simba:
                             variable_list.append(variable_name)
                         else:
                             variable_name = None
-            if isinstance(self.ensight, ModuleType):
-                self.ensight.query_interact.select_varname_begin(*variable_list)
-            else:
-                command = "ensight.query_interact.select_varname_begin("
-                for var in variable_list:
-                    command += var + ","
-                command = command[:-1] + ")"
-                self.ensight._session.cmd(command)
+            self.ensight.query_interact.select_varname_begin(*variable_list)
         self.render()
 
     def drag_allowed(self, mousex, mousey, invert_y=False, probe=False, get_probe_data=False):
         """Return True if the picked object is allowed dragging in the interactor."""
         mousex = int(mousex)
         mousey = int(mousey)
-        if isinstance(self.ensight, ModuleType):
-            part_id, tool_id = self.ensight.objs.core.VPORTS[0].simba_what_is_picked(
-                mousex, mousey, invert_y
-            )
-        else:
-            part_id, tool_id = self.ensight._session.cmd(
-                f"ensight.objs.core.VPORTS[0].simba_what_is_picked({mousex}, {mousey}, {invert_y})"
-            )
+        part_id, tool_id = self.ensight.objs.core.VPORTS[0].simba_what_is_picked(
+            mousex, mousey, invert_y
+        )
         coords = [None, None, None]
         if probe:
             screen_to_world = self.screen_to_world(
