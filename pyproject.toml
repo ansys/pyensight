@@ -73,7 +73,7 @@ doc = [
     "sphinxcontrib.jquery==4.1",
     "sphinxcontrib-openapi==0.8.4",
     "coverage-badge==1.1.2",
-    "sphinxcontrib-video==0.4.1",
+    "sphinxcontrib-video==0.4.2",
     "usd-core>=25.8",
     "pygltflib>=1.16.2",
 ]
