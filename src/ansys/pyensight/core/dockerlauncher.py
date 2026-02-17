@@ -1,4 +1,4 @@
-# Copyright (C) 2022 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2022 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -1033,15 +1033,23 @@ class DockerLauncher(Launcher):
         #
         if self._container:
             try:
-                logging.debug("Stopping the Docker Container.\n")
-                self._container.stop()
+                logging.debug("Stopping the Docker Container (graceful, timeout=5).\n")
+                try:
+                    # try a short graceful stop
+                    self._container.stop(timeout=5)
+                except Exception:
+                    try:
+                        logging.debug("Graceful stop failed, killing container.\n")
+                        self._container.kill()
+                    except Exception:
+                        logging.debug("Container kill failed.\n")
             except Exception:
-                pass
+                logging.debug("Error while stopping/killing container.\n")
             try:
                 logging.debug("Removing the Docker Container.\n")
                 self._container.remove(force=True)
             except Exception:
-                pass
+                logging.debug("Error removing container.\n")
             self._container = None
 
         if self._pim_instance is not None:

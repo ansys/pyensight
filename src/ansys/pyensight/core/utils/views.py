@@ -1,4 +1,4 @@
-# Copyright (C) 2022 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2022 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -42,7 +42,6 @@ Example to set an isometric view:
 
 
 import math
-from types import ModuleType
 from typing import TYPE_CHECKING, Dict, List, Optional, Tuple, Union
 
 import numpy as np
@@ -78,22 +77,25 @@ class _Simba:
         self._original_view_up = None
 
     def _initialize_simba_view(self):
-        """Initialize the data for resetting the camera."""
-        vport = self.ensight.objs.core.VPORTS[0]
-        near_clip = vport.ZCLIPLIMITS[0]
-        view_angle = 2 * vport.PERSPECTIVEANGLE
-        self._original_parallel_scale = near_clip * math.tan(math.radians(view_angle) / 2)
-        self._original_view_angle = view_angle
-        (
-            self._original_look_from,
-            self._original_look_at,
-            self._original_view_up,
-            self._original_parallel_scale,
-        ) = self.compute_camera_from_ensight_opengl()
+        """Initialize the data for resetting the camera.
+
+        Accepts an optional precomputed `reset_camera` dict to keep initialization
+        deterministic (avoid recomputing bounds/camera after `set_camera`).
+        """
+        current_camera = self.get_camera()
+        reset_camera = self.reset_camera(
+            current_camera["position"], current_camera["focal_point"], current_camera["view_up"]
+        )
+        self._original_parallel_scale = reset_camera["parallel_scale"]
+        self._original_view_angle = reset_camera["view_angle"]
+        self._original_look_at = reset_camera["position"]
+        self._original_look_from = reset_camera["focal_point"]
+        self._original_view_up = reset_camera["view_up"]
         self.ensight.annotation.axis_global("off")
         self.ensight.annotation.axis_local("off")
         self.ensight.annotation.axis_model("off")
         self.ensight.view_transf.zclip_float("OFF")
+        self.ensight.objs.core.simbamousemode()
 
     def get_center_of_rotation(self):
         """Get EnSight center of rotation."""
@@ -101,13 +103,19 @@ class _Simba:
 
     def auto_scale(self):
         """Auto scale view."""
-        vport = self.ensight.objs.core.VPORTS[0]
-        vport.PERSPECTIVEANGLE = 14  # on fit we need to set a default angle.
-        self.ensight.view_transf.function("global")
-        self.ensight.view_transf.fit()
-        self._initialize_simba_view()
+        current_camera = self.get_camera()
+        reset_camera = self.reset_camera(
+            current_camera["position"], current_camera["focal_point"], current_camera["view_up"]
+        )
+        new_camera = self.set_camera(
+            reset_camera["orthographic"],
+            reset_camera["view_up"],
+            reset_camera["position"],
+            reset_camera["focal_point"],
+            reset_camera["view_angle"],
+        )
         self.render()
-        return self.get_camera()
+        return new_camera
 
     def set_view(self, value: str):
         """Set the view."""
@@ -146,7 +154,7 @@ class _Simba:
         }
 
     @staticmethod
-    def normalize(v):
+    def normalize(v) -> np.ndarray:
         """Normalize a numpy vector."""
         norm = np.linalg.norm(v)
         return v / norm if norm > 0 else v
@@ -184,10 +192,7 @@ class _Simba:
 
     def compute_camera_from_ensight_opengl(self):
         """Simulate a rotating camera using the current quaternion."""
-        if isinstance(self.ensight, ModuleType):
-            data = self.ensight.objs.core.VPORTS[0].simba_camera()
-        else:
-            data = self.ensight._session.cmd("ensight.objs.core.VPORTS[0].simba_camera())")
+        data = self.ensight.objs.core.VPORTS[0].simba_camera()
         camera_position = [data[0], data[1], data[2]]
         focal_point = [data[3], data[4], data[5]]
         view_up = [data[6], data[7], data[8]]
@@ -207,35 +212,65 @@ class _Simba:
         perspective = "OFF" if orthographic else "ON"
         self.ensight.view.perspective(perspective)
         vport = self.ensight.objs.core.VPORTS[0]
-        vport.PERSPECTIVEANGLE = view_angle / 2
-        if view_up and position and focal_point:
-            current_camera = self.get_camera()
+        if view_angle is not None:
+            vport.PERSPECTIVEANGLE = view_angle / 2
+        current_camera = self.get_camera()
+        if position is not None and focal_point is not None:
+            if view_up is None:
+                view_up = current_camera["view_up"]
             center = vport.TRANSFORMCENTER.copy()
-            if isinstance(self.ensight, ModuleType):
-                data = self.ensight.objs.core.VPORTS[0].simba_set_camera_helper(
-                    position,
-                    focal_point,
-                    view_up,
-                    current_camera["position"],
-                    current_camera["focal_point"],
-                    current_camera["view_up"],
-                    center,
-                    vport.ROTATION.copy(),
-                )
-            else:
-                current_position = current_camera["position"]
-                current_fp = current_camera["focal_point"]
-                current_up = current_camera["view_up"]
-                cmd = "ensight.objs.core.VPORTS[0].simba_set_camera_helper("
-                cmd += f"{position}, {focal_point}, {view_up}, {current_position}, "
-                cmd += f"{current_fp}, {current_up}, {center}, "
-                cmd += f"{vport.ROTATION.copy()})"
-                data = self.ensight._session.cmd(cmd)
+            data = self.ensight.objs.core.VPORTS[0].simba_set_camera_helper(
+                position,
+                focal_point,
+                view_up,
+                current_camera["position"],
+                current_camera["focal_point"],
+                current_camera["view_up"],
+                center,
+                vport.ROTATION.copy(),
+            )
             self.ensight.view_transf.rotate(data[3], data[4], data[5])
-            self.ensight.view_transf.translate(data[0], data[1], 0)
+            self.ensight.view_transf.translate(data[0], data[1], -data[2])
 
         self.render()
         return self.get_camera()
+
+    def reset_camera(self, position, focal_point, view_up):
+        vport = self.ensight.objs.core.VPORTS[0]
+        self.ensight.view_transf.function("global")
+        bounds = vport.BOUNDINGBOX
+        xmin = bounds[0]
+        ymin = bounds[1]
+        zmin = bounds[2]
+        xmax = bounds[3]
+        ymax = bounds[4]
+        zmax = bounds[5]
+        center = [(xmax + xmin) / 2, (ymax + ymin) / 2, (zmax + zmin) / 2]
+        xdiff = xmax - xmin
+        ydiff = ymax - ymin
+        zdiff = zmax - zmin
+        radius = math.sqrt(xdiff * xdiff + ydiff * ydiff + zdiff * zdiff)
+        if np.isclose(radius, 0, 1e-9, 0.0):
+            radius = 1.0
+        radius = radius / 2
+        angle = math.radians(14)
+        distance = radius / math.sin(angle)
+        plane_normal = self.normalize(np.array([position[i] - focal_point[i] for i in range(3)]))
+        position = [center[i] + distance * plane_normal[i] for i in range(3)]
+        width, height = tuple(self.ensight.objs.core.WINDOWSIZE)
+        aspect = width / height
+        parallel_scale = radius / aspect
+        prod = np.dot(np.array(view_up), plane_normal)
+        if abs(prod) > 0.999:
+            view_up = [-view_up[2], view_up[0], view_up[1]]
+        return {
+            "orthographic": not vport.PERSPECTIVE,
+            "view_up": view_up,
+            "position": position,
+            "focal_point": center,
+            "view_angle": 28,
+            "parallel_scale": parallel_scale,
+        }
 
     def set_perspective(self, value):
         self.ensight.view_transf.function("global")
@@ -250,14 +285,9 @@ class _Simba:
     def screen_to_world(self, mousex, mousey, invert_y=False, set_center=False):
         mousex = int(mousex)
         mousey = int(mousey)
-        if isinstance(self.ensight, ModuleType):
-            model_point = self.ensight.objs.core.VPORTS[0].screen_to_coords(
-                mousex, mousey, invert_y, set_center
-            )
-        else:
-            model_point = self.ensight._session.cmd(
-                f"ensight.objs.core.VPORTS[0].screen_to_coords({mousex}, {mousey}, {invert_y}, {set_center})"
-            )
+        model_point = self.ensight.objs.core.VPORTS[0].screen_to_coords(
+            mousex, mousey, invert_y, set_center
+        )
         return {"model_point": model_point, "camera": self.get_camera()}
 
     def render(self):
@@ -284,28 +314,16 @@ class _Simba:
                             variable_list.append(variable_name)
                         else:
                             variable_name = None
-            if isinstance(self.ensight, ModuleType):
-                self.ensight.query_interact.select_varname_begin(*variable_list)
-            else:
-                command = "ensight.query_interact.select_varname_begin("
-                for var in variable_list:
-                    command += var + ","
-                command = command[:-1] + ")"
-                self.ensight._session.cmd(command)
+            self.ensight.query_interact.select_varname_begin(*variable_list)
         self.render()
 
     def drag_allowed(self, mousex, mousey, invert_y=False, probe=False, get_probe_data=False):
         """Return True if the picked object is allowed dragging in the interactor."""
         mousex = int(mousex)
         mousey = int(mousey)
-        if isinstance(self.ensight, ModuleType):
-            part_id, tool_id = self.ensight.objs.core.VPORTS[0].simba_what_is_picked(
-                mousex, mousey, invert_y
-            )
-        else:
-            part_id, tool_id = self.ensight._session.cmd(
-                f"ensight.objs.core.VPORTS[0].simba_what_is_picked({mousex}, {mousey}, {invert_y})"
-            )
+        part_id, tool_id = self.ensight.objs.core.VPORTS[0].simba_what_is_picked(
+            mousex, mousey, invert_y
+        )
         coords = [None, None, None]
         if probe:
             screen_to_world = self.screen_to_world(
