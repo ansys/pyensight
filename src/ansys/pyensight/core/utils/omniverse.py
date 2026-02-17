@@ -1,4 +1,4 @@
-# Copyright (C) 2022 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2022 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -33,6 +33,7 @@ from typing import TYPE_CHECKING, List, Optional, Union
 from urllib.parse import ParseResult, urlparse
 import uuid
 
+from ansys.pyensight.core.common import grpc_version_check
 import psutil
 
 if TYPE_CHECKING:
@@ -585,17 +586,19 @@ class Omniverse:
         grpc_use_tcp_sockets = False
         grpc_allow_network_connectsion = False
         grpc_disable_tls = False
+        disable_grpc_options = False
         if not isinstance(self._ensight, ModuleType):
             # Make sure the internal ui module is loaded
             grpc_use_tcp_sockets = self._ensight._session._grpc_use_tcp_sockets
             grpc_allow_network_connectsion = self._ensight._session._grpc_allow_network_connections
             grpc_disable_tls = self._ensight._session._grpc_disable_tls
+            disable_grpc_options = self._ensight._session._disable_grpc_options
             self._ensight._session.cmd("import enspyqtgui_int", do_eval=False)
             # Get the gRPC connection details and use them to launch the service
             use_tcp_sockets = self._ensight._session._grpc_use_tcp_sockets
             hostname = self._ensight._session.grpc.host
             token = self._ensight._session.grpc.security_token
-            if not is_win and not use_tcp_sockets:
+            if not is_win and not use_tcp_sockets and not disable_grpc_options:
                 uds_path = self._ensight._session._grpc_uds_pathname
                 dsg_uds_path = "/tmp/greeter"
                 if uds_path:
@@ -607,6 +610,13 @@ class Omniverse:
                 token = self._ensight._session.grpc.security_token
                 dsg_uri = f"grpc://{hostname}:{port}"
         else:
+            import ceiversion
+
+            ensight_full_version = ceiversion.ensight_full
+            ensight_internal_version = ceiversion.ensight
+            disable_grpc_options = not grpc_version_check(
+                ensight_full_version=ensight_full_version, internal_version=ensight_internal_version
+            )
             hostname = options.get("host", "127.0.0.1")
             port = options.get("port", 12345)
             uds_path = options.get("uds_path")
@@ -640,6 +650,8 @@ class Omniverse:
             cmd.extend(["--grpc_disable_tls", "1"])
         if grpc_use_tcp_sockets:
             cmd.extend(["--grpc_use_tcp_sockets", "1"])
+        if disable_grpc_options:
+            cmd.extend(["--disable_grpc_options", "1"])
         cmd.extend(["--dsg_uri", dsg_uri])
         env_vars = os.environ.copy()
         # we are launching the kit from EnSight or PyEnSight.  In these cases, we

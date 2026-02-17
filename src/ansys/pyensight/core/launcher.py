@@ -1,4 +1,4 @@
-# Copyright (C) 2022 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2022 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -132,18 +132,20 @@ class Launcher:
         rest_ws_separate_loops: bool = False,
         do_not_start_ws: bool = False,
         liben_rest: bool = False,
+        vtk_ws: bool = False,
     ) -> None:
         self._timeout = timeout
         self._use_egl_param_val: bool = use_egl
         self._use_sos = use_sos
         self._use_mpi = use_mpi
         self._interconnect = interconnect
+        self._vtk_ws_port = vtk_ws
         if self._use_mpi and self._use_mpi not in MPI_TYPES:
             raise RuntimeError(f"{self._use_mpi} is not a valid MPI option.")
         if self._use_mpi and not self._interconnect:
             self._interconnect = "ethernet"
         if self._interconnect:
-            if self._interconnect not in list(INTERCONNECT_MAP.values()):
+            if self._interconnect not in list(INTERCONNECT_MAP.keys()):
                 raise RuntimeError(f"{self._interconnect} is not a valid MPI interconnect option.")
             self._interconnect = INTERCONNECT_MAP.get(self._interconnect)
         self._server_hosts = server_hosts

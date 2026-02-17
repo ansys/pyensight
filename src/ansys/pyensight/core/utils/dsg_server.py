@@ -1,4 +1,4 @@
-# Copyright (C) 2022 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2022 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -702,6 +702,7 @@ class DSGSession(object):
         grpc_use_tcp_sockets: bool = False,
         grpc_allow_network_connections: bool = False,
         grpc_disable_tls: bool = False,
+        disable_grpc_options: bool = False,
     ):
         """
         Manage a gRPC connection and link it to an UpdateHandler instance
@@ -746,6 +747,9 @@ class DSGSession(object):
             If using gRPC and using TCP Socket based connections, listen on all networks.
         grpc_disable_tls: bool, optional
             If using gRPC and using TCP Socket based connections, disable TLS.
+        disable_grpc_options: bool, optional
+            Whether to disable the gRPC options check, and allow to run older
+            versions of EnSight
         """
         super().__init__()
         if uds_path:
@@ -755,6 +759,7 @@ class DSGSession(object):
                 grpc_use_tcp_sockets=grpc_use_tcp_sockets,
                 grpc_allow_network_connections=grpc_allow_network_connections,
                 grpc_disable_tls=grpc_disable_tls,
+                disable_grpc_options=disable_grpc_options,
             )
         else:
             self._grpc = ensight_grpc.EnSightGRPC(
@@ -764,6 +769,7 @@ class DSGSession(object):
                 grpc_use_tcp_sockets=grpc_use_tcp_sockets,
                 grpc_allow_network_connections=grpc_allow_network_connections,
                 grpc_disable_tls=grpc_disable_tls,
+                disable_grpc_options=disable_grpc_options,
             )
         self._session = session
         if self._session:

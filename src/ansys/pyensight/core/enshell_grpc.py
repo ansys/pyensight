@@ -1,4 +1,4 @@
-# Copyright (C) 2022 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2022 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -75,9 +75,9 @@ class EnShellGRPC(object):
     grpc_uds_pathname :
         If using gRPC and using Unix Domain Socket based connections, explicitly
         set the pathname to the shared UDS file instead of using the default.
-    session: Session
-        The PyEnSight session for this connection. This is optional, and if set
-        it is used to check if the current install can handle the gRPC security options.
+    disable_grpc_options: bool, optional
+        Whether to disable the gRPC options check, and allow to run older
+        versions of EnSight
 
     WARNING:
     Overriding the default values for these options: grpc_use_tcp_sockets, grpc_allow_network_connections,
@@ -98,6 +98,7 @@ class EnShellGRPC(object):
         grpc_disable_tls: bool = False,
         grpc_uds_pathname: Optional[str] = None,
         session: Optional["Session"] = None,
+        disable_grpc_options: bool = False,
     ):
         self._port = port
         self._host = host
@@ -113,7 +114,7 @@ class EnShellGRPC(object):
         #
         # self._security_token = str(random.randint(0, 1000000))
         self._security_token: Optional[str] = None
-        if not secret_key:
+        if not secret_key and not disable_grpc_options:
             self._security_token = str(random.randint(0, 1000000))
         else:
             self._security_token = secret_key
@@ -123,6 +124,7 @@ class EnShellGRPC(object):
         self._cei_home = None
         self._ansys_version = None
         self._pyensight_session = session
+        self._disable_grpc_options = disable_grpc_options
 
     def __del__(self):
         self.shutdown()
@@ -350,11 +352,10 @@ class EnShellGRPC(object):
                 else:
                     uds_dir = os.path.dirname(self._grpc_uds_pathname)
         # Ignore the security options if the version of EnSight cannot handle them
-        if self._pyensight_session and self._pyensight_session._launcher:
-            if not self._pyensight_session._launcher._has_grpc_changes:
-                transport_mode = "insecure"
-                host = self._host
-                port = self._port
+        if self._disable_grpc_options:
+            transport_mode = "insecure"
+            host = self._host
+            port = self._port
         self._channel = create_channel(
             host=host,
             port=port,

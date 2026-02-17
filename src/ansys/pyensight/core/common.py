@@ -1,4 +1,4 @@
-# Copyright (C) 2022 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2022 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -70,6 +70,51 @@ def find_unused_ports(count: int, avoid: Optional[List[int]] = None) -> Optional
     """
     if avoid is None:
         avoid = []
+
+    # Fast path: ask the OS for ephemeral ports by binding to port 0.
+    # This is much faster than scanning large port ranges. We attempt
+    # a small number of retries to avoid races; if unsuccessful we fall
+    # back to the original scanning algorithm.
+    max_attempts = 8
+    for _ in range(max_attempts):
+        socks = []
+        ports = []
+        failed = False
+        try:
+            for _ in range(count):
+                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                # allow quick reuse while we hold sockets
+                try:
+                    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                except Exception:
+                    pass
+                s.bind(("127.0.0.1", 0))
+                port = s.getsockname()[1]
+                # sanity checks
+                if port in avoid or port < 1024:
+                    failed = True
+                    break
+                socks.append(s)
+                ports.append(port)
+            if not failed and len(ports) == count:
+                # Close sockets and return ports. There is a small race here
+                # where another process can take the port before the caller
+                # starts listening, but this approach is substantially
+                # faster than scanning and acceptable in most environments.
+                for s in socks:
+                    s.close()
+                return ports
+        except Exception:
+            failed = True
+        finally:
+            # ensure sockets are closed on failure as well
+            for s in socks:
+                try:
+                    s.close()
+                except Exception:
+                    pass
+
+    # Fallback: original scanning approach (slower but conservative)
     ports = list()
 
     # pick a starting port number
@@ -201,6 +246,7 @@ def launch_enshell_interface(
     grpc_allow_network_connections: bool = False,
     grpc_disable_tls: bool = False,
     grpc_uds_pathname: Optional[str] = None,
+    disable_grpc_options: bool = False,
 ) -> enshell_grpc.EnShellGRPC:
     """Launch the EnShell gRPC Interface.
 
@@ -222,6 +268,9 @@ def launch_enshell_interface(
     grpc_uds_pathname: bool
         If using gRPC and using Unix Domain Socket based connections, explicitly
         set the pathname to the shared UDS file instead of using the default.
+    disable_grpc_options: bool, optional
+        Whether to disable the gRPC options check, and allow to run older
+        versions of EnSight
 
     Returns
     -------
@@ -241,8 +290,14 @@ def launch_enshell_interface(
             grpc_allow_network_connections=grpc_allow_network_connections,
             grpc_disable_tls=grpc_disable_tls,
             grpc_uds_pathname=grpc_uds_pathname,
+            disable_grpc_options=disable_grpc_options,
         )  # pragma: no cover
-        enshell.security_token = secret_key
+        # If disable_grpc_options is True, it means that in the launcher
+        # the ensight version was checked and it hasn't got the new
+        # grpc options. This means that enshell doesn't accept a string
+        # as security token
+        if not disable_grpc_options:
+            enshell.security_token = secret_key
         enshell.connect_existing_channel(enshell_grpc_channel)  # pragma: no cover
     else:
         enshell = enshell_grpc.EnShellGRPC(
@@ -251,8 +306,14 @@ def launch_enshell_interface(
             grpc_allow_network_connections=grpc_allow_network_connections,
             grpc_disable_tls=grpc_disable_tls,
             grpc_uds_pathname=grpc_uds_pathname,
+            disable_grpc_options=disable_grpc_options,
         )
-        enshell.security_token = secret_key
+        # If disable_grpc_options is True, it means that in the launcher
+        # the ensight version was checked and it hasn't got the new
+        # grpc options. This means that enshell doesn't accept a string
+        # as security token
+        if not disable_grpc_options:
+            enshell.security_token = secret_key
         time_start = time.time()
         while time.time() - time_start < timeout:  # pragma: no cover
             if enshell.is_connected():
