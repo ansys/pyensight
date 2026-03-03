@@ -1,0 +1,6 @@
+CASE\_LINKING\_LABELS
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.CASE_LINKING_LABELS

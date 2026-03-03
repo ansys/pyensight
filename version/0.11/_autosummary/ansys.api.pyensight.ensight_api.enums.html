@@ -1,0 +1,4654 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>enums &#8212; PyEnSight</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/ansys-sphinx-theme.css?v=9e79609d" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/ansys-sphinx-theme.css?v=9e79609d" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/breadcrumbs.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+
+  <!-- Include desired assets -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+
+  
+    <link href="../_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=d209c570"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=49e1bf35"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_autosummary/ansys.api.pyensight.ensight_api.enums';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.11';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script src="../_static/js/mermaid.js?v=cf64ff96"></script>
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <link rel="icon" href="../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="extrude" href="ansys.api.pyensight.ensight_api.extrude.html" />
+    <link rel="prev" title="version" href="ansys.api.pyensight.ensight_api.ensight.version.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.11.4" />
+  <meta property="og:site_name" content="PyAnsys" />
+  <meta name="physics" content="Fluids" />
+  <link rel="canonical" href="https://ensight.docs.pyansys.com/version/stable/_autosummary/ansys.api.pyensight.ensight_api.enums.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="PyEnSight - Home"/>
+    <img src="../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark pst-js-only" alt="PyEnSight - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../index.html" title="PyEnSight home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../index.html" title="PyEnSight home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../native_documentation.html">Native API reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.html">ansys.api.pyensight.ensight_api</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim.html">anim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_flipbook.html">anim_flipbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_keyframe.html">anim_keyframe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_quick.html">anim_quick</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_recorders.html">anim_recorders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_screens.html">anim_screens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_traces.html">anim_traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annot_backgr.html">annot_backgr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annot_entlbl.html">annot_entlbl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annotation.html">annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.arrow.html">arrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.auxgeom.html">auxgeom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.boundarylayer.html">boundarylayer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.case.html">case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.html">clip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.collab.html">collab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.command.html">command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.connect.html">connect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.context_restore.html">context_restore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.contour.html">contour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.curve.html">curve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.data.html">data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.data_partbuild.html">data_partbuild</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.define.html">define</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.devsrf.html">devsrf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.dial.html">dial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.dpart.html">dpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.elevsurf.html">elevsurf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.html">ensight</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.extrude.html">extrude</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.html">file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.filterpart.html">filterpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.format.html">format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.frame.html">frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.function.html">function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.html">gauge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.help.html">help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.isos.html">isos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.legend.html">legend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.lightsource.html">lightsource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.line.html">line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.logo.html">logo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.material.html">material</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.message_window.html">message_window</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.model.html">model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.nplot.html">nplot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.nvc.html">nvc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.objs.html">objs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.html">part</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.plot.html">plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.pointpart.html">pointpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.prefs.html">prefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.profile.html">profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ptrace.html">ptrace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ptrace_emitr.html">ptrace_emitr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.query_ent_var.html">query_ent_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.query_interact.html">query_interact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.savegeom.html">savegeom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.scene.html">scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.sepattach.html">sepattach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.set_tdata.html">set_tdata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.set_visenv.html">set_visenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shape.html">shape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shell.html">shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shock.html">shock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.show_info.html">show_info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.solution_time.html">solution_time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.species.html">species</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.subset.html">subset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.tensor.html">tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.text.html">text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.texture.html">texture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.tools.html">tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.user.html">user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.varextcfd.html">varextcfd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.variables.html">variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vctarrow.html">vctarrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.view.html">view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.view_transf.html">view_transf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport.html">viewport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport_axis.html">viewport_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport_bounds.html">viewport_bounds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.views.html">views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vof.html">vof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vortexcore.html">vortexcore</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../object_documentation.html">Object API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calc_functions.html">Calculator functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest_api/rest_api.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libuserd_documentation.html">LibUserd API reference</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.enscontext.EnsContext.html">EnsContext</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.LocalLauncher.html">LocalLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.DockerLauncher.html">DockerLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.renderable.Renderable.html">Renderable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.Session.html">Session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.export.Export.html">Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.parts.Parts.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.query.Query.html">Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.support.Support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.views.Views.html">Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.variables.Variables.html">Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.omniverse.Omniverse.html">Omniverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.readers.Readers.html">Readers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.readers.DVS.html">DVS</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+     
+    <li class="breadcrumb-item breadcrumb-home">
+      <a
+        href="../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../class_documentation.html" class="nav-link">API reference</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../native_documentation.html" class="nav-link">Native API reference</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">enums</span></li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="enums">
+<h1>enums<a class="headerlink" href="#enums" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="ansys.api.pyensight.ensight_api.enums">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ansys.api.pyensight.ensight_api.</span></span><span class="sig-name descname"><span class="pre">enums</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ansys.pyensight.core.Session.html#ansys.pyensight.core.Session" title="ansys.pyensight.core.session.Session"><span class="pre">Session</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ansys.api.pyensight.ensight_api.enums" title="Link to this definition">#</a></dt>
+<dd><p>Class wrapper for EnSight enums module</p>
+<p>This class acts as a proxy for the EnSight Python module ensight.objs.enums</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>ACTIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ADJCOORDSCALEFACTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ADJCOORDTRANSVEC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ADJCOORDVARSCALEFACTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ADJCOORDXVARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ADJCOORDYVARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ADJCOORDZVARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ALLOW_MRU_UPDATE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ALPHABY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ALPHABYPALETTE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ALPHA_VOLUME_SCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AMBIENT_COMPONENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANGLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANIMATE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANIMATECURVES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANIMATING (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANIMDELTA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANIMOBJS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNOTATIONTEXTID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNOTINDEX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNOTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNOTTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNOT_2D_SPACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNOT_3D_SPACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNOT_SHAPE_ARROW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNOT_SHAPE_CIRCLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNOT_SHAPE_RECT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNO_ARROW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNO_DIAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNO_GAUGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNO_LGND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNO_LINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNO_LOGO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNO_SHAPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNO_TEXT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANSYS_DRAW_LOGO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANSYS_FLAG_ALPHA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANSYS_FLAG_BETA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANSYS_VERSION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANSYS_VERSION_STRING (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANTIALIAS_FILTER_ALGORITHM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANTIALIAS_MODE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANTIALIAS_NUM_SAMPLES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANTIALIAS_PARAM_COMPRESSION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANTIALIAS_PARAM_GAMMA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANTIALIAS_PARAM_SMOOTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>APPENDLOCATIONVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARLOC_ELTC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARLOC_NODE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARLOC_VERT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROWATTACH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROWHEAD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROWLOCATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROWS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROWSIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROWTIPLENGTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROWTIPSIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROWTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROWWIDTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROW_3D_FORCES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROW_3D_MOMENTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROW_3D_QUERY_LOCAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROW_3D_XYZ_LOCAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROW_ALL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROW_COMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROW_NORM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROW_SHAFT_LINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROW_SHAFT_SOLID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROW_TAIL_AT_POINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROW_TANG (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROW_TIP_AT_POINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARRW_CURV (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARRW_FIXD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARRW_RECT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ASSIGNED_CURVE_TO_YLEFT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ASSIGNED_CURVE_TO_YRIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ASSIGNTOYAXIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ATRACE_COLBY_CALC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ATRACE_COLBY_CONST (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ATRACE_HEAD_ARROW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ATRACE_HEAD_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ATRACE_HEAD_SPHERE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ATRACE_SIZE_CONST (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ATRACE_SIZE_SCALAR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ATRACE_SIZE_VEC_MAG (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ATRACE_SIZE_VEC_X (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ATRACE_SIZE_VEC_Y (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ATRACE_SIZE_VEC_Z (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AUTOSCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AUTOSIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AUXCLIPPING (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AUX_GEOM_NORMAL_INWARD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AUX_GEOM_NORMAL_OUTWARD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AUX_GEOM_SHAPE_BOX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXESVISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXIS2AUTOSCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXIS2LABELFORMAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXIS2LABELRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXIS2LABELSIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXIS2LABELTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXIS2MAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXIS2MIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXIS2TITLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXIS2TITLERGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXIS2TITLESIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXIS2VISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISAUTOLAYOUT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISAUTOUPDATE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISGLOBAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISHEIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISLINEWIDTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISLOCAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISMODEL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISMODEL_ANIMATE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISMODEL_LOCATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISSWAP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISWIDTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXAUTOSCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXDISPLAYONEDGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXFORMAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXGRIDEXTENTLOC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXGRIDTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXLABELAXISLOC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXLABELEXTENTLOC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXLABELFILTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXLABELFORMAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXLABELRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXLABELSIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXLABELTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXNUMGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXNUMGRIDLOG (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXNUMSUBGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXNUMSUBGRIDLOG (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXORIG (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXSCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXSGRIDTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXSIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXSUBTICK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXTICK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXTITLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXTITLERGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXTITLESIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXVISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXYMAXZMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXYMAXZMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXYMINZMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISXYMINZMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYAUTOSCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYDISPLAYONEDGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYFORMAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYGRIDEXTENTLOC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYGRIDTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYLABELAXISLOC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYLABELEXTENTLOC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYLABELFILTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYLABELFORMAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYLABELRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYLABELSIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYLABELTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYNUMGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYNUMGRIDLOG (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYNUMSUBGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYNUMSUBGRIDLOG (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYORIG (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYSCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYSGRIDTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYSIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYSUBTICK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYTICK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYTITLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYTITLERGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYTITLESIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYVISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYYMAXZMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYYMAXZMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYYMINZMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISYYMINZMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZDISPLAYONEDGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZFORMAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZGRIDEXTENTLOC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZGRIDTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZLABELAXISLOC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZLABELEXTENTLOC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZLABELFILTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZLABELRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZNUMGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZNUMSUBGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZSGRIDTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZSUBTICK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZTICK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZTITLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZTITLESIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZYMAXZMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZYMAXZMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZYMINZMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXISZYMINZMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXI_TYPE_EXTRUDE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>AXI_TYPE_ROTATE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BACKGROUND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BACKGROUNDIMAGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BACKGROUNDIMAGENAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BACKGROUNDRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BACKGROUNDTRANSPARENCY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BACKGROUNDTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BEGINSIMTIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BIGHANDRANGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BIGHANDRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BLANKINGALGORITHM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BLANKINGCLIPALG (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BLANKINGTHRESHOLD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BLANKINGVARIABLE1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BLANKINGVARIABLE2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BLENDLEVELS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BLENDPOSITION2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BLENDPOSITION3 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BLENDPOSITION4 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BLENDRGB1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BLENDRGB2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BLENDRGB3 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BLENDRGB4 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BLENDRGB5 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BORDER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BORDERCOLOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BORDERREP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BORDERRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BORDERVISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BORD_FULL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOTH_ARRW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOUNDARYFLAGXMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOUNDARYFLAGXMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOUNDARYFLAGYMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOUNDARYFLAGYMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOUNDARYFLAGZMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOUNDARYFLAGZMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOUNDINGBOX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOUNDINGREP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOUNDING_BOX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOUNDS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOXAXISX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOXAXISY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOXAXISZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOXLENGTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOXORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOX_DRAW_BOX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOX_DRAW_MODEL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOX_DRAW_NOTHING (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOX_DRAW_POINTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOX_DRAW_REDUCED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BOX_DRAW_SPARSE_MODEL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>C1_POINTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>C2_POINTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>C3_POINTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>C4_POINTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_0D (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_1D (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_2D (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_3D (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_CASEID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_COMPONENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_HINTS_MASK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_MASS_PTRACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_NODEID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_PARTID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_TIMESTEP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAL_BOOLEAN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAL_ENUM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAL_FLOAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAL_INT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAL_MASK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_ACTIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_CONST (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_CONSTPPART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_CONSTPPOPT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_COORDS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_ELEMENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_MASK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_MATERIAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_NODAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_NONEOK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_OBJECT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_PARTLIST (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_SCALAR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_SCLCLPX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_SPECIES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_TENSOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_TIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_VECCLPX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VAR_VECTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CALC_VIEWPORT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CAMERAS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CAMERA_LENS_NORMAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CAMERA_LENS_VIEW_PYRAMID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CAMERA_LOOK_AT_FORWARD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CAMERA_LOOK_AT_NODE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CAMERA_LOOK_AT_PLANE_TOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CAMERA_LOOK_AT_SPLINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CAMERA_LOOK_AT_XYZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CAMERA_LOOK_FROM_NODE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CAMERA_LOOK_FROM_PLANE_TOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CAMERA_LOOK_FROM_SPLINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CAMERA_LOOK_FROM_XYZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CASELINKING (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CASENUMBER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CASES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CASE_LINKING_LABELS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CASTS_SHADOWS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CELLCOMPNUM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CELLTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CELLVOLUMEFRACTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CENTROID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CFD_VAR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CHANGEALLOWED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CHILDREN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLICKNGO_HANDLE_VISIBILITY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIPBLANKINGVARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIPLCTW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIPLINEPT1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIPLINEPT2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIPPERIODICFLAGX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIPPERIODICFLAGY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIPPLANEPT1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIPPLANEPT2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIPPLANEPT3 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIPTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIP_CHOICE_BETWEEN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIP_CHOICE_GREATER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIP_CHOICE_LESS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIP_DOMAIN_CRINKLY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIP_DOMAIN_IN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIP_DOMAIN_INOUT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIP_DOMAIN_INTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIP_DOMAIN_OUT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIP_DOMAIN_RECT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIP_DOMAIN_VOLUME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIP_PLANE_FINITE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CLIP_PLANE_INFINITE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CMDLANG_REFERENCE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COLOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COLORBY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COLORBYPALETTE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COLORBYPROJECTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COLORBYRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COLORS_PER_LEVEL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COLOR_SPACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COMPONENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COMPONENTNUMINCELL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COMPOSITEMATRIX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COMPRESSION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COMPRESSIONLINEWIDTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COMPRESSIONRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COMPRESSION_GZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COMPRESSION_JPEG (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COMPRESSION_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COMPRESSION_RLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COMPUTED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COMPUTEUSINGPERIODICITY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CONEANGLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CONEAXISVECT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CONEENDPOINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CONEORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CONNECTIVITY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CONNECT_TIMEOUT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CONSTANTRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CONSTANT_VALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CONSTRAINDISTANCE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CONSTRAINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CONSTRAINTIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CONTOUR_LABEL_HORIZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CONTOUR_LABEL_TANGN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CONTROLPOINTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COOLINGCHANNELCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>COORDINATES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CORE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CORE2DTRANSFORM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CORETRANSFORM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CREATE_REPORT_TEMPLATE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CT_BOX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CT_CONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CT_CYLD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CT_GENQ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CT_IJK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CT_LINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CT_PART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CT_PLNE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CT_REVO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CT_RTZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CT_SPHR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CT_SPLINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CT_XYZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CULLELEMENTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CULL_BACK_FACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CULL_FRONT_FACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CULL_NO_FACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CURRENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CURRENTCASE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CURRENTFRAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CURRENTGUI (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CURRENTVIEWPORTID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CURSORLOC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CURVE_LINE_CONNECT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CURVE_LINE_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CURVE_LINE_SMOOTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CURVE_MARKER_CIRCLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CURVE_MARKER_DOT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CURVE_MARKER_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CURVE_MARKER_SQUARE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CURVE_MARKER_TRIANGLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTRDEP_CHAIN_AND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTRDEP_CHAIN_MASK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTRDEP_CHAIN_OR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTRDEP_CHAIN_XOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTRDEP_LEN_FOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTRDEP_LEN_OF (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTRDEP_MASK_OP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTRDEP_SENS_AND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTRDEP_SENS_EQ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTRDEP_SENS_GT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTRDEP_SENS_LT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTRDEP_SENS_MASK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTRDEP_SENS_NOT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTRDEP_SENS_OR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTRDEP_SENS_VALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTRDEP_SENS_XOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_BIT_FLAGS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_BOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_COLOR_RGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_COLOR_RGBA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_ENUM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_FLOAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_FONT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_GREATER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_HAS_ENUMS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_HAS_RANGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_IMAGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_INT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_INT64 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_LESS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_NO_MAXIMUM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_NO_MINIMUM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_OBJPTR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_PSTRING (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_PTR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_READONLY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_SOBJPTR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_STRING (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_USERFLG_MASK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ATTR_VARID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_CP_UTF8 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_FONT_BOLD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_FONT_DEMILIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_FONT_ITALIC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_FONT_LIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_FONT_NARROW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_FONT_OBLIQUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_FONT_REGULAR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_FONT_ROMAN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_FONT_THIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_GFX_RAM_UNKNOWN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_HILITE_METHOD_GEOMETRY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_HILITE_METHOD_IMAGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_JLC_APPCMDLINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_JLC_CWD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_JLC_HOSTNAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_JLC_LAUNCHCFGNAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_JLC_LAUNCHMETHOD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_JLC_LAUNCHOPT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_JLC_NAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_JLC_NNODES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_JLC_RSH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_JLC_RSHOPT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_JLC_RSHPORT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_JLC_RUSERNAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_JLC_TIMEOUT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_LANG_UNKNOWN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_PALETTE_UNDEFINED_AS_ZERO_VALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_PALETTE_UNDEFINED_BY_INVISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_PALETTE_UNDEFINED_BY_PART_COLOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_PALETTE_UNDEFINED_BY_UNDEF_COLOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CYLDAXISVECT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CYLDENDPOINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CYLDORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CYLDRADIUS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CYLINDERS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DATA_BIGENDIAN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DATA_LITTLEENDIAN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DATA_NATIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULTANNOTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULTPARTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULTPLOT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULTPOLYLINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULTQUERY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULTREADERID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULTVARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULTVPORT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULT_3DANNOT_FONTSIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULT_ANNOT_FONTFAMILY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULT_ANNOT_FONTSTYLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULT_CORE_FONTFAMILY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULT_CORE_FONTSCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULT_CORE_FONTSTYLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULT_JLC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULT_SYMBOL_FONTFAMILY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULT_SYMBOL_FONTSTYLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEFAULT_VALUE (float):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DEGREE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DELAY_REFRESH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DELTA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DELTATIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DENSITY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DESCRIPTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIAMETER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIFFUSE_COMPONENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIMENSION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIMENSION2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIMENSION2STEP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIMENSION3 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIMENSION3STEP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIMENSIONS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIRECTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIRECTIONVECTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIRENTRY_DIR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIRENTRY_READABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIRENTRY_SYMLINK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIRENTRY_WRITABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DISPLACEBY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DISPLACEFACTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DISPLAYCOMPRESSION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DISPLAYMAJOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DISPLAYMIDDLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DISPLAYMINOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DISPLAYOFFSET (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DISPLAYTENSION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DISPLAYUNDEFINED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DISPLAY_THEME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DISPLAY_THEME_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DISPLAY_THEME_PRINTCOLORS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DISTANCE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DISTANCE_SCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DISTRIBUTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DOMAIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DOMAINBOX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DOMAINXYZRTZLINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DOUBLESIDED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DTA_BLOCK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>EDIT_TARGET (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELEMCOUNT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELEMID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELE_FAILED_EQUAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELE_FAILED_GREATER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELE_FAILED_LESS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELE_FAILED_LOGIC_AND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELE_FAILED_LOGIC_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELE_FAILED_LOGIC_OR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELE_FAILED_NOT_EQUAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTBLANKING (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTDEFINEDBY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFEATUREANGLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER1ACTIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER1TESTOP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER1TESTVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER1TESTVARCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER1TESTVARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER1VARCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER1VARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER2ACTIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER2LOGICALOP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER2TESTOP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER2TESTVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER2TESTVARCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER2TESTVARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER2VARCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER2VARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER3ACTIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER3LOGICALOP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER3TESTOP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER3TESTVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER3TESTVARCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER3TESTVARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER3VARCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER3VARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER4ACTIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER4LOGICALOP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER4TESTOP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER4TESTVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER4TESTVARCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER4TESTVARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER4VARCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER4VARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER5ACTIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER5LOGICALOP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER5TESTOP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER5TESTVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER5TESTVARCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER5TESTVARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER5VARCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER5VARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER6ACTIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER6LOGICALOP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER6TESTOP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER6TESTVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER6TESTVARCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER6TESTVARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER6VARCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTFILTER6VARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTREPPOINTSNORMALS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTREPRESENTATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ELTSHRINKFACTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>EMISSIVE_COMPONENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>EMITATCURRENTTIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>EMITTERS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENDPOINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENDSIMTIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSHELL_LOG (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSJLC_DR_EPILOGUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSJLC_DR_NAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSJLC_DR_PROLOGUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSJLC_HUB_EPILOGUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSJLC_HUB_NAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSJLC_HUB_PROLOGUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSJLC_SERVER_EPILOGUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSJLC_SERVER_NAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSJLC_SERVER_PROLOGUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSJLC_SOS_EPILOGUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSJLC_SOS_NAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSJLC_SOS_PROLOGUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_FLUSH_ALL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_FLUSH_FEATURES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_FLUSH_MODELS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_FLUSH_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_SHOW_ANNOTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_SHOW_ANY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_SHOW_CALCTOOLS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_SHOW_CASES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_SHOW_FRAMES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_SHOW_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_SHOW_PLOTTERS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_SHOW_QUERIES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_SHOW_VARS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_SHOW_VIEWPORTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_UPDATE_ATTR_UPDATE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_UPDATE_CTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_UPDATE_DTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_UPDATE_SELECTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENSMODEL_UPDATE_SELECTION_FED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_EMITTERLIST (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_ENSLEGENDOBJ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_ENSPARTOBJ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_ENSPLOTOBJ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_ENSVARCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_ENSVAROBJ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_MATRIX44 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_METADATATYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_METATAG_BASE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_OBJECT_DTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_PALETTEOBJ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_PYDICTIONARY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_PYDICTLIST (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_PYOBJECT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_QUATERNION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_SOURCEOBJ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_STATEOBJ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_TEXTUREOBJ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_USERDEF_BASE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_VAR_CONST (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_VAR_CONST_PER_PART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_VAR_COORD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_VAR_ELEM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_VAR_FILTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_VAR_MODEL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_VAR_NODE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_VAR_NONE_ILLEGAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_VAR_SCALAR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_VAR_SCLCOMPLEX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_VAR_TENSOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_VAR_TIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_VAR_VCTCOMPLEX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_ATTR_VAR_VECTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_DEFPATH_CMDPLY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_DEFPATH_CMDREC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_DEFPATH_GBLMACRO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_DEFPATH_IMAGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_DEFPATH_LCLMACRO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_DEFPATH_MISC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_DEFPATH_PYEDIT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_DEFPATH_REMOTE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_DEFPATH_SCENARIO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_DEFPATH_TEXTURE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_DEFPATH_VIDEO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_DETAILS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_FEATURE_ACTIONBAR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_FEATURE_FDEWIDGET (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_FEATURE_FEATUREBAR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_KIND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_MAINWIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_MAINWINMENUS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_MATERIAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_PANELPARENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_PARENT_PART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_PLIST_KEY_SEL_0 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_PLIST_KEY_SEL_1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_PLIST_KEY_SEL_2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_PLIST_KEY_SEL_3 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_PLIST_KEY_SEL_4 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_PLIST_KEY_SEL_5 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_PLIST_KEY_SEL_6 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_PLIST_KEY_SEL_7 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_PLIST_KEY_SEL_8 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_PLIST_KEY_SEL_9 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_SYMMETRY_AXIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_SYMMETRY_COUNT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_TURBO_ANNO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_TURBO_STAGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_TURBO_VDIM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_TURBO_VIEW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_TURBO_VPORT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_UNITS_DIMS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_UNITS_LABEL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_UNITS_SYSTEM_NAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_VAR_CASE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_VAR_CONSTANT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_VAR_CONSTANT_PER_PART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_VAR_COORDS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_VAR_ELEM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_VAR_ENOD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_VAR_NODE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_VAR_SCALAR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_VAR_SCALAR_COMPLEX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_VAR_TENSOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_VAR_TIME_FUNC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_VAR_UNKNOWN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_VAR_VECTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_VAR_VECTOR_COMPLEX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENTHALPY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENTITYLABELELT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENTITYLABELNODE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENVMAP_SAVEDINFO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>EPSILON (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>EQUATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>EXIST_CASE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>EXPRESSION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>EXTENTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>E_FORMAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEAREAFRACTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEXMAXGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEXMAXGRIDFILTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEXMAXSUBGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEXMINGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEXMINGRIDFILTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEXMINSUBGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEYMAXGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEYMAXGRIDFILTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEYMAXSUBGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEYMINGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEYMINGRIDFILTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEYMINSUBGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEZMAXGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEZMAXGRIDFILTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEZMAXSUBGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEZMINGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEZMINGRIDFILTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FACEZMINSUBGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FALSE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FASTDISPLAY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FEATURE_ANGLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FEATURE_FULL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FEA_VAR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FILENAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FILL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FILLPATTERN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FLIPBOOKS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FLOATINGZCLIP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FLOW3DINFO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FLUENTTEXTUREAXIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FLUENTTEXTUREROTANGLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FLUENTTEXTURESCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FNC_BAND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FNC_CONST (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FNC_CONTIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FNC_LIMCOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FNC_LIMVIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FNC_LINEAR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FNC_LOG (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FNC_NOLIMIT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FNC_QUAD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FONTFAMILIES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FORMAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FRAMES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FRAME_DURATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FRST_ARRW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FULL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FULLSCREEN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FX_SEPNATT_PARALLEL_VECTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FX_SEPNATT_PHASE_PLANE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FX_SHOCK_REGION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FX_SHOCK_SURFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FX_VCORE_EIGENANALYSIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FX_VCORE_VORTICITY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>F_FORMAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GASCONSTANT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GENERATEOVER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GENERATION_PENDING (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GEOMETRICTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GEOMETRY_FORM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GEOMS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GEOM_CONN_CHANGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GEOM_COORD_CHANGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GEOM_NO_CHANGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GLASS_MATERIAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GLOBALAXISLOCATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GLOBALAXISVISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GLOBALAXISXLABEL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GLOBALAXISYLABEL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GLOBALAXISZLABEL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GRIDLINETYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GRIDLINEWIDTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GRIDPTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GRIDRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GROUND_ACTIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GROUND_BLENDSCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GROUND_COLOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GROUND_GRIDCOLORA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GROUND_GRIDCOLORB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GROUND_GRIDSCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GROUND_HASGRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GROUND_HASREFL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GROUND_HASSHADOW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GROUND_HASTEXTURE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GROUND_HEIGHTOFFSET (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GROUND_LOCK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GROUND_SAVEDINFO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GROUND_TEXSCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GROUND_UPDIR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GROUPS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GRPC_UDS_PATHNAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GRP_COLLAPSE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GRP_EXPAND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HANDLES_ENABLED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HANDLE_UNDEFINED_VALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HAS0DELEMENTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HAS1DELEMENTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HAS2DELEMENTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HAS3DELEMENTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HASTRANSPARENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HEADDETAIL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HEADSCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HEADSIZEBY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HEADTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HEADVARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HEIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HIDDENLINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HIDDENLINE_RGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HIDDENLINE_USE_RGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HIDDENLINE_WEIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HIDDENSURFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HILITE_BACK_COLOR_FILL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HILITE_METHOD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HILITE_SELECT_COLOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HILITE_SELECT_COLOR_FILL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HILITE_TARGET_COLOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HILITE_TARGET_COLOR_FILL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HISTO_SCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>HTML (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ICON_SIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>IJK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>IJKAXIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>IJKAXISSCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>IJKSCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>IMAGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INDEX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INPLANE1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INPLANE2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INPLANE3 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INTENSITY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INTERACTIVEAUTODELTA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INTERACTIVERANGEMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INTERACTIVERANGEMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INTERACTIVESTEP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INTERACTIVEXMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INTERACTIVEXMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INTERACTIVEYMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INTERACTIVEYMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INTERACTIVEZMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INTERACTIVEZMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INTERP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INT_QUERY_ELEMID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INT_QUERY_EXACT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INT_QUERY_IJK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INT_QUERY_MAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INT_QUERY_MIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INT_QUERY_NODE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INT_QUERY_NODEID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INT_QUERY_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INT_QUERY_POINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INT_QUERY_SURFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>INT_QUERY_XYZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ISGROUP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ISO_SURF_SOLID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ISO_SURF_SURFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>JLCS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>JOBINFO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>JUSTIFICATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>KEYFRAMEDATA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LABELALWAYSONTOP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LABELAUTOVISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LABELCOUNT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LABELCUSTOMVISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LABELDECIMALPLACES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LABELFORMAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LABELOFFSET (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LABELORIENTATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LABELRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LABELSIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LABELSIZE2D (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LABELSIZE3D (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LABELSPACING (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LABELTEXT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LABELTEXTID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LABELVISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LANGUAGE_INFO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LAST_DATA_RELOAD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGEND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGENDCOLORBY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGENDMINMAXORIGINX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGENDMINMAXORIGINY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGENDMINMAXTEXTSIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGENDMINMAXVISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGENDORIGINX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGENDORIGINY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGENDRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGENDTEXTSIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGENDTITLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGENDTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGENDVISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGEND_CONT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGEND_DISC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGEND_LEFT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGEND_RIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGEND_TITLE_BOTTOM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGEND_TITLE_TOP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGEND_TITLE_VISOFF (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGEND_TXT_VISOFF (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LENGTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LENS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEVELRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEVELS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEVELSVISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEVELS_AND_COLORS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEVELS_LOCK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHT1AZIMUTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHT1ELEVATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHT1POSITION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHT2INTENSITY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHTAMBIENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHTDIFF (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHTDIFFUSE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHTEMISSIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHTHINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHTREFRACTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHTSHIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHTSOURCES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHTSPECULARINTENSITY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHTSPECULARREFLECTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHTSPECULARSHINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHTSPECULARTINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHT_AREA_ENV (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHT_AREA_QUAD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHT_AT_CAMERA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHT_DIRECTIONAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHT_ENV_TEXNUM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHT_POINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHT_QUAD_SIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHT_QUAD_XDIR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHT_SOURCE_ABSOLUTE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHT_SOURCE_RELATIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHT_SPOT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIGHT_TYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIMITFRINGES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LIMIT_FRINGES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LINES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LINESTYLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LINETYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LINEWIDTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LINEWIDTHBY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LINE_DOTDSH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LINE_DOTTED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LINE_SOLID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LINKED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LINK_GROUP1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LITTLEHAND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LITTLEHANDRANGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LITTLEHANDRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOCATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOCATIONX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOCATIONX1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOCATIONX2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOCATIONY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOCATIONY1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOCATIONY2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOCK_DIRECTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOGO_DATA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOOKATPOINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOOKAT_NODE_ID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOOKAT_OPTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOOKAT_PART_ID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOOKAT_SPLINE_ID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOOKAT_SPLINE_VALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOOKAT_XYZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOOKFROMPOINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LPARTNUMELE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LPARTPARENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LPARTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LPARTS_OFF (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LPARTS_ON (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LPARTS_SELECTIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MACH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MACHINEARCH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKERRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKERSCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKERSIZENORMALIZED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKERVISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKER_COLOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKER_CROSS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKER_DOT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKER_SCREENSPACE_SURFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKER_SIZE_CONSTANT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKER_SIZE_SCALAR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKER_SIZE_VECMAG (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKER_SIZE_VECXCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKER_SIZE_VECYCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKER_SIZE_VECZCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKER_SPHER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKER_USER_DEFINED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MARKER_WIDTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDBALLISTICCOEF (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDBUOYANCY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDCOEFFRICTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDCOEFRESTITUTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDDRAG (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDDRAGCOEFFICIENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDDRAGCOEFFICIENTVAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDFLUIDDENSITY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDFLUIDDENSITYVAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDFLUIDVISCOSITY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDFLUIDVISCOSITYVAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDGRAVITY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDGRAVITYVECTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDINITIALUSEFLUID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDINITIALVELOCITY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDPARTICLEDENSITY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDPARTICLEDIAMETER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDPARTICLES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDPRESSURE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDPRESSUREGRADIENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDREBOUND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDREBOUNDFRACTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDREBOUNDWALLHITS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MASSEDUSEBALLISTIC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MATERIALBASETYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MATERIALDESCRIPTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MATERIALS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MATRIX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MATTE_MATERIAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MAXANGLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MAXIMUM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MAXTIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MAX_MARKERS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MAX_TRACK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESHPLANE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESHPLANEIJK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESHPLANERTZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESHPLANEXYZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESHRESOLUTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESHTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESH_2D (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESH_2D_X (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESH_2D_Y (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESH_2D_Z (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESH_3D (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESH_LINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESH_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESH_SLICEI (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESH_SLICEJ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESH_SLICEK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESH_SLICE_RTZ_R (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESH_SLICE_RTZ_T (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESH_SLICE_RTZ_Z (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESH_SLICE_X (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESH_SLICE_Y (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESH_SLICE_Z (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESH_TRIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>METADATA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>METALLICPAINT_MATERIAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>METAL_MATERIAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>METHOD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MFNTS_JUMP_TO_END (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MFNTS_OFF (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MFNTS_STAY_AT_CURRENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MINANGLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MINIMUM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MINMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MINMAXCONST (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MINSTEPS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MIN_TRACK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MIRRORORIGINAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MIRROR_MATERIAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MI_ALG_SMOOTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MI_ALG_YOUNGS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MI_TYPE_DOMAIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MI_TYPE_INTERFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MODEL_RECORD_CMD_LANG_GLOBAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MODEL_RECORD_CMD_LANG_HONOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MODEL_RECORD_CMD_LANG_OFF (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MODEL_RECORD_CMD_LANG_ON (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOMENTUM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_ACTION_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_BTN_ALL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_BTN_LEFT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_BTN_LEFT_MIDDLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_BTN_LEFT_RIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_BTN_MIDDLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_BTN_RIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_BTN_RIGHT_MIDDLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_NORMAL_ACTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_PICK_ACTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_PICK_BLANK_ELEMENTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_PICK_CURSOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_PICK_PART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_PICK_PART_OPTIONS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_PICK_TRANSFORM_CENTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_ROTATE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_SELECT_TOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_TRANSLATE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_USER_DEFINED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_ZOOM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_ZOOMBAND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MRU (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MULTIPLEPULSES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MULTIPLESEGMENTSBY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NEGATIVE_SURFACE_DIRECTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NEG_TIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NLEVELS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NODEDETAIL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NODEID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NODEMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NODEMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NODEORIENTATIONANGLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NODEORIENTATIONAXIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NODERANGESTEPI (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NODERANGESTEPJ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NODERANGESTEPK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NODESCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NODESIZEBY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NODESTEP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NODETYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NODEVARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NODE_LOCK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NODE_TRACKS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NORMAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NORMALIZEDWIDTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NORMALIZEX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NORMALIZEY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NORMALSPOINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NOTLOAD_FULL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NOT_LOADED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NO_ARRW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NO_TRACKING (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NUMCONTROLPOINTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NUMDISPLAYED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NUMFRAMES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NUMOFARROWS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NUMOFLEVELS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NUMOFSAMPLEPTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NUMOFSLICES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>NUMPOINTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OBJECTFOCUS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OBJECT_API_JOURNAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OBJECT_DTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OFFSET (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OFFSETFROMPART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OFFSETSCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OFFSETVECTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OPAQUENESS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OPERATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OPERATIONFACTOR1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OPERATIONFACTOR2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OPERATIONQUERY1BYNAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OPERATIONQUERY2BYNAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OPTION_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORDER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORIENTATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORIGIN1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORIGIN2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORIGINBY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORIGINBY1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORIGINBY2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORIGINBYPARTCENTROID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORIGINFRAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORIGINX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORIGINY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORIGIN_NODE_ID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORIGIN_OPTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORIGIN_PART_ID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORIGIN_SPLINE_ID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORIGIN_SPLINE_VALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ORIGIN_XYZ_DELTA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OVERRIDEGTACTIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OVERRIDEGTMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OVERRIDEGTRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OVERRIDEGTUSEABS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OVERRIDELTACTIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OVERRIDELTMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OVERRIDELTRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OVERRIDELTUSEABS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OVERRIDERANGEACTIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OVERRIDERANGEMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OVERRIDERANGEMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OVERRIDERANGERGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>OVERRIDERANGEUSEABS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PAGE_DETAILS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_ALPHA_BY_COLOR_PALETTE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_ALPHA_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_BANDED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_CONSTANT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_CONTINUOUS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_HSV (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_LIMIT_FRINGES_INVISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_LIMIT_FRINGES_NO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_LIMIT_FRINGES_PART_COLOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_LINEAR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_NODE_LOCK_ALL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_NODE_LOCK_COLOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_NODE_LOCK_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_RGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_SCALE_LINEAR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_SCALE_LOG (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_SCALE_QUADRATIC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_SPLINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_UNDEFINED_AS_ZERO_VALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_UNDEFINED_BY_INVISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_UNDEFINED_BY_PART_COLOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALETTE_UNDEFINED_BY_UNDEF_COLOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PALMISC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PARENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PARTDELTAVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PARTHIGHLIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PARTICLETIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PARTID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PARTMAXVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PARTMINVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PARTNUMBER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PARTNUMELE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PARTNUMELECLIENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PARTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PARTTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PARTTYPEENUM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_AUX_GEOM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_AXI_SYMMETRIC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_BUILT_UP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_CLIP_PLANE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_CONTOUR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_DEVELOPED_SURFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_DISCRETE_PARTICLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_ELEVATED_SURFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_FILTER_PART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_FRAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_FX_SEP_ATT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_FX_SHOCK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_FX_VORTEX_CORE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_ISO_SURFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_ISO_VOLUME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_MATERIAL_INTERFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_MODEL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_MODEL_BOUNDARY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_MODEL_CUT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_MODEL_EXTRACT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_MODEL_MERGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_MULT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_PARTICLE_TRACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_POINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_PROFILE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_TENSOR_GLYPH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_VECTOR_ARROW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_VOF (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PATHLINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PATHLINE_SYNC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PATHNAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PERIODICSECTIONS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PERSPECTIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PERSPECTIVEANGLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICKANDGO_PARTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_SELECTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PLASTIC_MATERIAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PLAYING_COMMAND_FILE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PLOTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PLOTTER_LEGEND_COLOR_RGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PLOTTER_LEGEND_COLOR_USE_CURVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PLOTTER_TIME_CLIPPING (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PLOTTITLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PLOT_BG_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PLOT_BG_SOLID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PL_TYPE_GRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PL_TYPE_GRID_FULL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PL_TYPE_MESH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POINT1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POINT2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POINTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POINTSIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POINTVISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POLYGON_OFFSET (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POLYLINES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POSITIVE_SURFACE_DIRECTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POS_NEG_TIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POS_TIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PREDEFINEDMATERIAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PREDEFINEDPALETTES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PREF_DATADIR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PREF_DATAFILEFILTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PREF_DATAFORMAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PRESETS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PRESSURE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PRIVATE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PROBENUMBER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PROBES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PROBE_DATA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PROJECTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PROJECTION_AXIS_MATERIAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PROJECTION_AXIS_X (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PROJECTION_AXIS_Y (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PROJECTION_AXIS_Z (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PROJECT_CREATION_MASK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PROJECT_MASK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PROJECT_VISIBLE_MASK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PROJ_M_R (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PROJ_M_THETA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PROJ_R_Z (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PROJ_THETA_R (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PROJ_THETA_Z (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PULSEINTERVAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_ASSIGN_TO_Y_AXIS_AUTO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_ASSIGN_TO_Y_LEFT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_ASSIGN_TO_Y_RIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_CONS_BY_NODE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_CONS_BY_PART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_CONS_BY_POINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_CONS_ELEM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_CONS_IJK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_CONS_LINE_TOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_CONS_MAX_VALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_CONS_MIN_VALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_CONS_NO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_CONS_NODE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_CONS_PART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_CONS_POINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_CONS_SCALAR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_CONS_SCATTER_ON_PART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_CONS_SPLINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_DIST_ALL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_DIST_ALL_ORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_DIST_X (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_DIST_X_ORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_DIST_Y (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_DIST_Y_ORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_DIST_Z (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_DIST_Z_ORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_EXTERNAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_FFT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_GENERATED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_MSEG_ACCUMU (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_MSEG_RESET (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_OPERATE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_PART_VS_CONSTANT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_SCATTER_GEN_OVER_DISTANCE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_SCATTER_GEN_OVER_TIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_VALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_VARIABLE_DIST (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_VARIABLE_TIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_VARIABLE_UNKNOWN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QRY_VARIABLE_VAR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QUADS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QUERIES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QUERY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QUERYLINETOOLPOINT1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QUERYLINETOOLPOINT2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QUERYTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QUERY_DATA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QUERY_PROBE_DATA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QY_CMB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QY_DIF (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QY_DIV (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QY_INT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QY_MLT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RADII (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RADIUS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RADIUS_SCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RANGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RATIOOFSPECHEAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RAY_END (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REALTIME_AUTO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REALTIME_AUTO_CYCLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REALTIME_CLIPS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REALTIME_ISOS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REALTIME_MANUAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REALTIME_OFF (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RECORDING (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REDUCEPOLYGONS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REDUCEPOLYGONSFACTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REFFRAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REFLECTIVE_COMPONENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REFRACTONINDEX_COMPONENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RELATIVETO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RELATIVEVIEWPORT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RELATIVEVIEWPORT1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RELATIVEVIEWPORT2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RELOAD_DATA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RELOAD_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RELOAD_PARTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RELOAD_QUERIES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RELOAD_TIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RELOAD_VARS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REMOTEHOST (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RENDERINGREFLECTIONID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REPRESENTATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REQUESTMETHOD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RESET_RANGE_ON_TIME_CHANGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REV1DAXISVECT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REV1DORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVERSENORMAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVOLVEPART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTDISTANCE1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTDISTANCE10 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTDISTANCE2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTDISTANCE3 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTDISTANCE4 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTDISTANCE5 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTDISTANCE6 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTDISTANCE7 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTDISTANCE8 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTDISTANCE9 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTRADII1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTRADII10 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTRADII2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTRADII3 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTRADII4 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTRADII5 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTRADII6 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTRADII7 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTRADII8 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVPOINTRADII9 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVTOOLAXIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVTOOLNUMPTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>REVTOOLORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ROP_GTEQ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ROP_LTEQ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ROTANGLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ROTATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ROTATIONALANGLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ROT_SYMM_X_AXIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ROT_SYMM_Y_AXIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ROT_SYMM_Z_AXIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>RTZAXIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SAMPLEBY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SAMPLEPOINTSLINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SAMPLEPOINTSSPLINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SAMPLETYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SAMPLEXYZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SAMPLE_UNIFORM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SCALARVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SCALARVARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SCALEBYLOCATIONVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SCALEFACTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SCALEFACTORU (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SCALEFACTORV (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SCALEMAXFACTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SCALEMAXVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SCALEMINFACTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SCALEMINVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SCALE_METHOD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SCENE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SCND_ARRW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SEAMVECTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SEARCH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SECURITY_TOKEN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SELECTED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SELECTIONS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SEQUENCE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SERVERBYTESWAP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SERVERCEIHOME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SERVERCWD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SERVERDIR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SERVERINFO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SERVERXML (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SETMAXTIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SEVEN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SFTBRIGHTNESS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SFTCONTRAST (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SFTDENSITY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SFTINTEGRATIONSTEP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SFTLENGTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SFTNORMALIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SFTNORMINTEGRATIONSTEP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SFTNORMLENGTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SFTVARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHADING (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHADOWINTENSITY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHADOWOFFSET (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHAD_FLAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHAD_GOURAUD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHAD_SMOOTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHAD_SMOOTH_REFINED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHINYMETAL_MATERIAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHOWAS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHOWBACKGROUND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHOWMINMAXMARKER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHOWOUTLINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHOWPLANEXMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHOWPLANEXMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHOWPLANEYMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHOWPLANEYMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHOWPLANEZMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHOWPLANEZMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHOWRAYTRACEDIMAGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHOWSFT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHOW_LOCATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHP_CONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHP_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHP_NORM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHP_TIP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHP_TRI (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SIDEWALL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SIZ_FIXED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SIZ_PROP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SLIDERRANGEIJK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SLIDERSTEP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SLIDERSTEPIJK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SLIDERX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SLIDERY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SLIDERZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SLIM_TIMEOUT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SMOOTHSUBPOINTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SNAP_NORM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SNAP_SURF (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SOLUTIONTIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SOLUTIONTIME_LIMITS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SOLUTIONTIME_MONITOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SOURCE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SOURCES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPECIES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPECIFYCELLCOMPNUM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPECIFYLABELCOUNT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPECIFYSYMMETRYORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPECULARSHINE_COMPONENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPECULARTINT_COMPONENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPECULAR_COMPONENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPHERES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPHRAXISENDPOINT1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPHRAXISENDPOINT2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPHRAXISVECT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPHRORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPHRRADIUS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPLINEID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPOT_ANGLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPOT_FALLOFF (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>STACKING_ORDER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>STAGE_LABEL_BACK_FACES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>STAGE_LABEL_FRONT_AND_BACK_FACES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>STAGE_LABEL_FRONT_FACES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>STAGE_SHOW_STUFF_MAXIMUM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>STAGE_SHOW_STUFF_MINANDMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>STAGE_SHOW_STUFF_MINIMUM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>STARTTIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>STATES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>STATUS_STRING (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>STEREO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>STEREO_CAPABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>STEREO_SEPARATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>STREAMLINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SUBGRIDLINETYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SUBGRIDLINEWIDTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SUBGRIDRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SUBLEVELS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SUBLEVELSVISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SUBSTRATE_MATERIAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SUBTICKSCALEFACTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SURFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SURFACERESTRICTED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYMMETRY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYMMETRYANGLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYMMETRYAXIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYMMETRYDELTA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYMMETRYMIRRORX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYMMETRYMIRRORXY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYMMETRYMIRRORXYZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYMMETRYMIRRORXZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYMMETRYMIRRORY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYMMETRYMIRRORYZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYMMETRYMIRRORZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYMMETRYORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYMMETRYRINSTANCES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYMMETRYTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYNCTOPALETTE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYNCTOTRANSIENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYNTHETIC_MENU (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TAGS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TARGETS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEMPERATURE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEMPLATE_NAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEMPORAL_XY_QUERIES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TENSIONLINEWIDTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TENSIONRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TENSOR_COLBY_DRCT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TENSOR_COLBY_PART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TENSOR_LINEWBY_DRCT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TENSOR_LINEWBY_PART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTPOSITION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTSIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURECOORDTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTUREINTERPOLATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTUREMODE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTUREOBJECT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTUREORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTUREORIGINNODEID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTUREORIGINUSE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTUREREPEATMODE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURESORIGINNODEID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURESVARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURESVECTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURETORIGINNODEID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURETVARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURETVECTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURE_COORDS_BY_PROJECTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURE_COORDS_BY_TWOSCALARS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURE_INTERPOLATE_LINEAR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURE_INTERPOLATE_NEAREST (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURE_MODE_DECAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURE_MODE_MODULATE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURE_MODE_REPLACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURE_REPEAT_CLAMPED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURE_REPEAT_CLAMPTEXTURE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURE_REPEAT_REPEAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>THRESHOLD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>THRESHOLDFILTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>THRESHOLDHIGH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>THRESHOLDLOW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>THRESHOLDMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>THRESHOLDMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>THRESHOLDS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>THRESHOLDVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>THRS_BAND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>THRS_HIGH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>THRS_LOHI (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>THRS_LOW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>THRS_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TICKMARKS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TICKSCALEFACTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIMEMARKER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIMEMARKERRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIMEMARKERSTYLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIMEMARKERVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIMEMARKERWIDTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIMES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIMESETS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIMESTEP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIMESTEPBEGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIMESTEPEND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIMESTEP_LIMITS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIMETRACK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIMEVALUES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIME_RANGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIPLENGTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIPRADIUS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIPRGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIPSHAFT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIPSHAPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIPSIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIPSIZEFIXED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIPSIZEPROPORTIONAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIPSIZEREP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TITLELOCATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TITLERGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TITLETEXTSIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOLS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOLTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_BOX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_CONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_CURSOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_CYLINDER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_LINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_ORIENTATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_PLANE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_REVOLUTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_SPHERE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_USERDEFINED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOTALENERGY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOTALROTATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOTALTIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOTALTRANSLATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRACEDIRECTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRACE_LINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRACE_RIBBON (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRACE_SQUBE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRACE_TUBE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRACK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRACKINGNODEID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRACKINGPARTID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRACK_NODE_NUMBER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRACK_PART_CENTROID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRACK_PART_XMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRACK_PART_XMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRACK_PART_YMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRACK_PART_YMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRACK_PART_ZMAX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRACK_PART_ZMIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSFORMATION_DELTA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSFORMCENTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSFORM_WITH_MODEL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSLATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSLUCENT_MATERIAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSMITIVE_COMPONENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSPARENCY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSPARENT_METHOD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSPARENT_NUMPEELS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSP_SORT_DELAYED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSP_SORT_DEPTHPEEL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSP_SORT_INTERACTIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRIANGLES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TS_CENTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TS_LEFT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TS_RIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TS_SCREEN_RELATIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TS_VIEWPORT_RELATIVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TYPE_ELEVATED_SURFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TYPE_OFFSET_SURFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>UBER_MATERIAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>UNDEFINEDCOLOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>UNDEFINED_COLOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>UNIQUENAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>UPDATEWITHNEWTIMESTEPS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>UPVEC_NX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>UPVEC_NY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>UPVEC_NZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>UPVEC_X (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>UPVEC_Y (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>UPVEC_Z (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>USEANNOTATIONTEXT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>USEDOUBLESIDEDWALLS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>USENORMALIZEDWIDTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>USESURFACENORMALS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>USE_CONTINUOUS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>USE_LOGO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>UUID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VALUEDECIMALPLACES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VALUEFORMAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VALUEIJK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VALUELOCATION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VALUERGB (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VALUERTZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VALUESIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VALUESPLINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VALUEXYZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VARCOMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VARIABLE1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VARIABLE2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VARIABLEOFFSET (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VARIABLES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VARIABLETREE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VARTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VARTYPEENUM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VAR_XAXIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VAR_XAXIS_OBJ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VAR_YAXIS_LEFT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VAR_YAXIS_LEFT_OBJ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VAR_YAXIS_RIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VAR_YAXIS_RIGHT_OBJ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VECTOR_MAGNITUDE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VECTOR_X_COMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VECTOR_Y_COMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VECTOR_Z_COMP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VELOCITY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWDIMENSION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT00 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT01 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT02 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT03 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT04 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT05 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT06 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT07 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT08 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT09 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT10 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT11 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT12 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT13 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT14 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT15 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT16 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT17 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT18 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT19 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT20 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT21 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT22 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT23 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT24 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT25 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT26 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT27 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT28 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT29 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT30 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT31 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORTVIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT_USE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VISIBILITYELT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VISIBILITYLINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VISIBILITYNODE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VISIBLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VISUAL_SYMM_MIRROR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VISUAL_SYMM_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VISUAL_SYMM_ROTATE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VISUAL_SYMM_TRANSLATE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFCLIPVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFCLIPZTEST (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFCLIP_CONTOURS_PLUS_OBSTACLES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFCLIP_INCREASE_RESOLUTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFCLIP_OBSTACLES_ONLY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFCLIP_USE_CELL_CENTER_VALUES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFISOVALUE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFISOZTEST (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFISO_BLANK_ALGORITHM1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFISO_BLANK_ALGORITHM2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFISO_FLUID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFISO_FLUID_AND_OBSTACLES_OPEN_VOLUME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFISO_FLUID_AND_OBSTACLE_SOLID_VOLUME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFISO_FLUID_FRACTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFISO_LIQUID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFISO_OPEN_VOLUME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFISO_SHALLOW_WATER_3D_SURFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFISO_SHALLOW_WATER_OPEN_VOLUME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFISO_SHALLOW_WATER_SOLID_VOLUME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFISO_SOLIDIFIED_LIQUID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFISO_SOLID_VOLUME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFISO_VOID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOFISO_VOLUME_FRACTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOF_TYPE_CLIP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOF_TYPE_ISO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOLREND_STRUCTURED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOLREND_UNSTRUCTURED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOLUME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOLUMEQUALITY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOLUMERENDERINGTYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOLUME_CHUNKING_NUM_TETS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOLUME_NUM_PASSES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOL_RENDER_QUALITY_BEST (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOL_RENDER_QUALITY_HIGH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOL_RENDER_QUALITY_LOW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VOL_RENDER_QUALITY_MEDIUM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_0 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_10 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_11 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_12 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_13 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_14 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_15 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_3 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_4 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_5 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_6 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_7 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_8 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_9 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_BLEND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_CONS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_IMAGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_SET (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VPORT_TRANSPARENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VR_ANNOT_CENTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VR_ANNOT_NORMAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VR_ANNOT_SCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VR_ANNOT_UP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VR_CAVE_CENTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VR_CAVE_DIAGONAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VR_CAVE_SCALE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>WALLTHICKNESS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>WATERMARK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>WHICH_HISTOGRAM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>WIDTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>WIDTHSCALEFACTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>WINDOWSIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>XAXIS_TYPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>XY_GRID_GRID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>XY_GRID_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>XY_GRID_TICK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>XY_LABEL_ALL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>XY_LABEL_BEG_END (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>XY_LABEL_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ZCLIPLIMITS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ZERO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ZONES_BOTH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ZONES_DEF (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ZONES_EXT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ZONES_INT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ansys.api.pyensight.ensight_api.enums"><code class="docutils literal notranslate"><span class="pre">enums</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <ul class="this-page-menu">
+      <li><a href="../_sources/_autosummary/ansys.api.pyensight.ensight_api.enums.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+
+  <!-- Include desired assets -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"></script>
+
+<script>
+// Passing the search options to the search.js file
+const SEARCH_OPTIONS = JSON.parse('{"keys": ["title", "text", "objectID"], "limit": 10, "threshold": 0.2}');
+const SEARCH_FILE = "../_static/search.json";
+const ADVANCE_SEARCH_PATH = "../search.html";
+const EXTRA_SOURCES = JSON.parse('""');
+</script>
+
+
+<script src="../_static/js/search.js"></script>
+
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2026 ANSYS, Inc. Unauthorized use, distribution, or duplication is prohibited..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  1.6.3. <br />Last updated on
+  <span id="ast_build_date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var ast_lastModifiedDate = new Date(document.lastModified);
+  var ast_build_date = ast_lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("ast_build_date").innerHTML = ast_build_date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

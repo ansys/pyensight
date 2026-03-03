@@ -1,0 +1,6 @@
+origin\_by
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: arrow.origin_by

@@ -1,0 +1,1796 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ensight &#8212; PyEnSight</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/ansys-sphinx-theme.css?v=9e79609d" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/ansys-sphinx-theme.css?v=9e79609d" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/breadcrumbs.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+
+  <!-- Include desired assets -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+
+  
+    <link href="../_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=d209c570"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=49e1bf35"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_autosummary/ansys.api.pyensight.ensight_api.ensight';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.11';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script src="../_static/js/mermaid.js?v=cf64ff96"></script>
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <link rel="icon" href="../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="addcallback" href="ansys.api.pyensight.ensight_api.ensight.addcallback.html" />
+    <link rel="prev" title="variable" href="ansys.api.pyensight.ensight_api.elevsurf.variable.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.11.4" />
+  <meta property="og:site_name" content="PyAnsys" />
+  <meta name="physics" content="Fluids" />
+  <link rel="canonical" href="https://ensight.docs.pyansys.com/version/stable/_autosummary/ansys.api.pyensight.ensight_api.ensight.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="PyEnSight - Home"/>
+    <img src="../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark pst-js-only" alt="PyEnSight - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../index.html" title="PyEnSight home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../index.html" title="PyEnSight home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../native_documentation.html">Native API reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.html">ansys.api.pyensight.ensight_api</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim.html">anim</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_flipbook.html">anim_flipbook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_keyframe.html">anim_keyframe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_quick.html">anim_quick</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_recorders.html">anim_recorders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_screens.html">anim_screens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.anim_traces.html">anim_traces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annot_backgr.html">annot_backgr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annot_entlbl.html">annot_entlbl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.annotation.html">annotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.arrow.html">arrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.auxgeom.html">auxgeom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.boundarylayer.html">boundarylayer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.case.html">case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.clip.html">clip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.collab.html">collab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.command.html">command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.connect.html">connect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.context_restore.html">context_restore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.contour.html">contour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.curve.html">curve</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.data.html">data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.data_partbuild.html">data_partbuild</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.define.html">define</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.devsrf.html">devsrf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.dial.html">dial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.dpart.html">dpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.elevsurf.html">elevsurf</a></li>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">ensight</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.addcallback.html">addcallback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.batch.html">batch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.case_replace.html">case_replace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.checkabort.html">checkabort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.command_enshell.html">command_enshell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.connect_enshell.html">connect_enshell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.disconnect_enshell.html">disconnect_enshell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.dsg_close_stream.html">dsg_close_stream</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.dsg_new_stream.html">dsg_new_stream</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.dsg_save_update.html">dsg_save_update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.ensvariable.html">ensvariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.exit.html">exit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.idle.html">idle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.modify.html">modify</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.parts_showing.html">parts_showing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.pick_points.html">pick_points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.play.html">play</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query.html">query</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_cases.html">query_cases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_elems.html">query_elems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_event.html">query_event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_nodes.html">query_nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_parts.html">query_parts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_pixelbuffer.html">query_pixelbuffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_points.html">query_points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_trace_paths.html">query_trace_paths</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_xy_create.html">query_xy_create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_xy_update.html">query_xy_update</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.refresh.html">refresh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.register_cmd.html">register_cmd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.remap_cmdlang_name.html">remap_cmdlang_name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.removecallback.html">removecallback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.render.html">render</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.replace_case.html">replace_case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.save_command_file.html">save_command_file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.scalar_variable_pick_begin.html">scalar_variable_pick_begin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.scalar_variable_pick_end.html">scalar_variable_pick_end</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.sendevent.html">sendevent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.sendmesg.html">sendmesg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.sendmesgoptions.html">sendmesgoptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.update_userdefined_material.html">update_userdefined_material</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.usageLog.html">usageLog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.using_enshell.html">using_enshell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.version.html">version</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.enums.html">enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.extrude.html">extrude</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.file.html">file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.filterpart.html">filterpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.format.html">format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.frame.html">frame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.function.html">function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.gauge.html">gauge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.help.html">help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.isos.html">isos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.legend.html">legend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.lightsource.html">lightsource</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.line.html">line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.logo.html">logo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.material.html">material</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.message_window.html">message_window</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.model.html">model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.nplot.html">nplot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.nvc.html">nvc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.objs.html">objs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.part.html">part</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.plot.html">plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.pointpart.html">pointpart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.prefs.html">prefs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.profile.html">profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ptrace.html">ptrace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ptrace_emitr.html">ptrace_emitr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.query_ent_var.html">query_ent_var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.query_interact.html">query_interact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.savegeom.html">savegeom</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.scene.html">scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.sepattach.html">sepattach</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.set_tdata.html">set_tdata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.set_visenv.html">set_visenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shape.html">shape</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shell.html">shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.shock.html">shock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.show_info.html">show_info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.solution_time.html">solution_time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.species.html">species</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.subset.html">subset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.tensor.html">tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.text.html">text</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.texture.html">texture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.tools.html">tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.user.html">user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.varextcfd.html">varextcfd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.variables.html">variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vctarrow.html">vctarrow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.view.html">view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.view_transf.html">view_transf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport.html">viewport</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport_axis.html">viewport_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.viewport_bounds.html">viewport_bounds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.views.html">views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vof.html">vof</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ensight_api.vortexcore.html">vortexcore</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../object_documentation.html">Object API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calc_functions.html">Calculator functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest_api/rest_api.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libuserd_documentation.html">LibUserd API reference</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.enscontext.EnsContext.html">EnsContext</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.LocalLauncher.html">LocalLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.DockerLauncher.html">DockerLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.renderable.Renderable.html">Renderable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.Session.html">Session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.export.Export.html">Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.parts.Parts.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.query.Query.html">Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.support.Support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.views.Views.html">Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.variables.Variables.html">Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.omniverse.Omniverse.html">Omniverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.readers.Readers.html">Readers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.readers.DVS.html">DVS</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+     
+    <li class="breadcrumb-item breadcrumb-home">
+      <a
+        href="../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../class_documentation.html" class="nav-link">API reference</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../native_documentation.html" class="nav-link">Native API reference</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">ensight</span></li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ensight">
+<h1>ensight<a class="headerlink" href="#ensight" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="ansys.api.pyensight.ensight_api.ensight">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ansys.api.pyensight.ensight_api.</span></span><span class="sig-name descname"><span class="pre">ensight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ansys.pyensight.core.Session.html#ansys.pyensight.core.Session" title="ansys.pyensight.core.session.Session"><span class="pre">Session</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ansys.api.pyensight.ensight_api.ensight" title="Link to this definition">#</a></dt>
+<dd><p>Class wrapper for EnSight ensight module</p>
+<p>This class acts as a proxy for the EnSight Python module ensight</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><dl class="simple">
+<dt>ANNOT_ARROW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNOT_DIAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNOT_GAUGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNOT_LEGEND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNOT_LINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNOT_LOGO (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNOT_SHAPE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ANNOT_TEXT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROW_COUNT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROW_DISPLAY_ATTRIBUTES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROW_LABEL_TEXT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ARROW_SELECTED_OBJECTS (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>BUILDINFO (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CMDLANG_VERSION (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CMDLANG_VERSION_FLT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CORE_TS_XML (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_2D_STAGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_3D_ARROW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_3D_STAGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ANNOT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_AXIS_TRIAD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_BOX_TOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_CAMERA_TOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_CONE_TOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_CURSOR_TOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_CYLINDER_TOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_DIAL_ANNOT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_ELEMENT_BLANK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_EVENT_LOCAT_END1 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_EVENT_LOCAT_END2 (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_EVENT_LOCAT_LOWER_LEFT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_EVENT_LOCAT_LOWER_RIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_EVENT_LOCAT_MID (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_EVENT_LOCAT_RADIUS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_EVENT_LOCAT_UPPER_LEFT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_EVENT_LOCAT_UPPER_RIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_EVENT_LOCAT_XAXIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_EVENT_LOCAT_YAXIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_EVENT_LOCAT_ZAXIS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_FRAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_GAUGE_ANNOT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_HUM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_IQ_QUERY_PROBE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_LEGEND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_LINE_ANNOT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_LINE_TOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_LOGO_ANNOT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_PALETTE_BANDS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_PART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_PART_CONTOUR_LABEL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_PICK_UNKNOWN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_PLANE_TOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_PLOTTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_POLYLINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_QUERY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_QUERY_MARKER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_REALTIME_TRACES (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_REVO_TOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_SELECTION_TOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_SHAPE_ANNOT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_SPHERE_TOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_TEXT_ANNOT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_TRANSFORM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_TRANSFORM_LOCAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_TRANSFORM_MODE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_TRANSFORM_PICK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_USERDEF_TOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_VARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>CVF_VIEWPORT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DATARATES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DATASET (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIALOG_INFO_ANIMSAVE (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIALOG_INFO_IMAGESAVE (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIAL_COUNT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIAL_DISPLAY_ATTRIBUTES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DIAL_SELECTED_OBJECTS (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DISPLAY_MATERIALS_INFO (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DR_FRAME_STATS (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>DR_INFO (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_BUTTON_LEFT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_BUTTON_MIDDLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_BUTTON_RIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_BUTTON_WHEEL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_6D_BUTTON_DOWN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_6D_BUTTON_UP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_6D_MOTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_6D_VALUATOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_ALL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_CASE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_CTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_CURRENT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_DRAWABLE_ENTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_DRAWABLE_EXPOSE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_DRAWABLE_FOCUSIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_DRAWABLE_FOCUSOUT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_DRAWABLE_HIDE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_DRAWABLE_LEAVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_DRAWABLE_RESIZE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_DRAWABLE_RESTORE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_DRAWABLE_SAVE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_DRAWABLE_SHOW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_DSG_PROGRESS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_DTOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_HIDE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_KEY_DOWN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_KEY_UP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_MOUSE_BUTTON_DOWN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_MOUSE_BUTTON_UP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_MOUSE_DOUBLE_CLICK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_MOUSE_MOTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_NEW_TIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_PART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_PARTSELECT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_POSTCOMMAND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_POSTRENDER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_PRECOMMAND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_PRERENDER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_PYTHON (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_QUERY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_QUERY_DATA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_QUERY_PROBE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_QUERY_SCALARS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_QUIT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_RENAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_SHOW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_SOLUTION_TIME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_TIMEOUT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_VARIABLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_WHEEL_MOTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_WINDOW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_EVENT_WINDOW_PLOTTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_MODIFIER_ALT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_MODIFIER_CTRL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>ENS_MODIFIER_SHIFT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FEEDBACK_CURSOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FEEDBACK_MESSAGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FLIPBOOK_ATTRIBUTES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FLIPBOOK_INFORMATION (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FLIPBOOK_LOADED (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FLIPBOOK_RUNNING (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FRAME_COUNT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FRAME_LOCATION (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FSI_TRACE_LIMIT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>FULLSCREEN (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GAUGE_COUNT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GAUGE_DISPLAY_ATTRIBUTES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GAUGE_SELECTED_OBJECTS (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>GLCONFIG (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGEND_COUNT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGEND_DISPLAY_ATTRIBUTES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LEGEND_SELECTED_OBJECTS (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LINE_COUNT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LINE_DISPLAY_ATTRIBUTES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LINE_SELECTED_OBJECTS (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOGO_COUNT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOGO_DISPLAY_ATTRIBUTES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>LOGO_SELECTED_OBJECTS (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MESSAGES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_ACTION_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_BTN_ALL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_BTN_LEFT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_BTN_LEFT_MIDDLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_BTN_LEFT_RIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_BTN_MIDDLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_BTN_RIGHT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_BTN_RIGHT_MIDDLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_NORMAL_ACTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_PICK_ACTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_PICK_BLANK_ELEMENTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_PICK_CURSOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_PICK_PART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_PICK_PART_OPTIONS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_PICK_TRANSFORM_CENTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_ROTATE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_SELECT_TOOL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_TRANSLATE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_USER_DEFINED (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_ZOOM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>MOUSE_ZOOMBAND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PARTS_WITH_SCALARVALUE (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_AUX_GEOM (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_AXI_SYMMETRIC (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_BUILT_UP (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_CLIP_PLANE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_CONTOUR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_DEVELOPED_SURFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_DISCRETE_PARTICLE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_DISPLAY_ATTRIBUTES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_ELEMENT_PICKEDBYWINXY (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_ELEMENT_PICKEDBYWORLDXYZ (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_ELEVATED_SURFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_FILTER_PART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_FRAME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_FX_SEP_ATT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_FX_SHOCK (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_FX_VORTEX_CORE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_ISO_SURFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_ISO_VOLUME (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_MATERIAL_INTERFACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_MODEL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_MODEL_BOUNDARY (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_MODEL_CUT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_MODEL_EXTRACT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_MODEL_MERGE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_MULT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_NODE_PICKEDBYWINXY (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_NODE_PICKEDBYWORLDXYZ (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_OBJECTS (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_PARTICLE_TRACE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_PICKED (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_POINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_PROFILE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_SELECTED_OBJECTS (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_TENSOR_GLYPH (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_VECTOR_ARROW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PART_VOF (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_BLANK_ELEMENTS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_CAMERA_DIRECTION_NODE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_CAMERA_DIRECTION_XYZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_CAMERA_LOCATION_NODE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_CAMERA_LOCATION_XYZ (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_CENTER_VIEW (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_CENTER_VIEW_PLUS_NORMAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_CYLINDER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_ELEMENT_TYPE_ALL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_ELEMENT_TYPE_BAR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_ELEMENT_TYPE_PNT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_ELEMENT_TYPE_QUAD (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_ELEMENT_TYPE_TRIA (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_FRAME_ORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_LINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_LINE_NODEIDS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_LINE_SURFACE_NORMAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_LOOKAT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_PALETTE_BAND (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_PART (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_PLANE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_PLANE2PT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_PLANE_NODEIDS (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_PLANE_NORMAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_PLANE_ORIGIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_PLANE_ORIGIN_AND_NORMAL (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_POINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_POLYLINE_POINT (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_POLYLINE_POINT_PART_CENTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_SIMULATE_MENU (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PICK_TRANSFORM_CENTER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PLOT_COUNT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PLOT_DISPLAY_ATTRIBUTES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PLOT_PICKED (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POS_CLAMP_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POS_CLAMP_SCREEN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POS_CLAMP_SCREEN_STRONG (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POS_TGT_CURSOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POS_TGT_CURSORSCN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POS_TGT_MAINWIN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POS_TGT_MAINWINSCN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POS_TGT_NONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POS_TGT_PRIMARYSCN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POS_TGT_WIDGET (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>POS_TGT_WIDGETSCN (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>PREFERENCESPATH (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QUERY_COUNT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QUERY_CREATE_ATTRIBUTES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QUERY_DATA (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QUERY_DISPLAY_ATTRIBUTES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QUERY_PICKED (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QUERY_PROBE_ATTRIBUTES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QUERY_PROBE_COUNT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QUERY_PROBE_DATA (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>QUERY_PROBE_OUTPUT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SCALAR_VARIABLE_PICK (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SENDMESG_DISPLAY (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SENDMESG_FEEDBACK (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SENDMESG_NOEXEC (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SENDMESG_RAISE (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SENDMESG_RECORD (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHAPE_COUNT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHAPE_DISPLAY_ATTRIBUTES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SHAPE_SELECTED_OBJECTS (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPLINE_COUNT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SPLINE_DATA (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYMBOLGLYPHTABLE (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>SYSINFO (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TESTHOOK (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURE_BORDER_COLOR (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURE_COUNT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXTURE_IMAGE (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXT_COUNT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXT_DISPLAY_ATTRIBUTES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXT_DISPLAY_TEXT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TEXT_SELECTED_OBJECTS (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TIMEVALS (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_BOX (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_CONE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_CURSOR (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_CYLINDER (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_LINE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_PARAMS (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_PLANE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_REVOLUTION (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TOOL_SPHERE (int):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSFORMATION_CENTER_OF (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSFORMATION_COMPOSITE_MATRIX (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSFORMATION_LOOKAT_POSITION (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSFORMATION_LOOKFROM_POSITION (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSFORMATION_PERANG (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSFORMATION_PROJ_MATRIX (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSFORMATION_ROTATE_MATRIX (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSFORMATION_SCALE_MATRIX (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSFORMATION_TRANSLATE_MATRIX (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>TRANSFORMATION_ZCLIP_LOCATIONS (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>UNIQUE_ID (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>Undefined (float):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VARIABLE_HISTOGRAM (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VARIABLE_INFORMATION (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VARIABLE_OBJECTS (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VARIABLE_PALETTE (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT_COUNT (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT_DISPLAY_ATTRIBUTES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT_LOCATION (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT_PICKED (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEWPORT_SIZE (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>VIEW_MODE (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>WINDOW_DEPTH_VALUES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>WINDOW_MOUSECURRENT_INFO (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>WINDOW_MOUSELASTPRESS_INFO (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>WINDOW_RGBA_VALUES (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>WINDOW_SIZE (str):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>anim:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>anim_flipbook:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>anim_keyframe:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>anim_quick:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>anim_recorders:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>anim_screens:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>anim_traces:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>annot_backgr:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>annot_entlbl:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>annotation:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>argv (list):</dt><dd><p>Instance specific constant</p>
+</dd>
+<dt>arrow:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>auxgeom:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>boundarylayer:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>case:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>clip:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>collab:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>command:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>connect:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>context_restore:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>contour:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>core:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>curve:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>data:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>data_partbuild:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>define:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>devsrf:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>dial:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>dpart:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>elevsurf:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>extrude:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>file:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>filterpart:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>format:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>frame:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>function:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>gauge:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>help:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>isos:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>legend:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>lightsource:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>line:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>logo:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>material:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>message_window:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>model:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>nplot:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>nvc:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>objs:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>part:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>plot:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>pointpart:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>prefs:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>profile:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>ptrace:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>ptrace_emitr:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>query_ent_var:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>query_interact:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>savegeom:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>scene:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>sepattach:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>set_tdata:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>set_visenv:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>shape:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>shell:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>shock:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>show_info:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>solution_time:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>species:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>subset:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>tensor:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>text:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>texture:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>tools:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>user:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>varextcfd:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>variables:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>vctarrow:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>view:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>view_transf:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>viewport:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>viewport_axis:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>viewport_bounds:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>views:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>vof:</dt><dd><p>EnSight module instance class</p>
+</dd>
+<dt>vortexcore:</dt><dd><p>EnSight module instance class</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.addcallback.html#ansys.api.pyensight.ensight_api.ensight.addcallback" title="ansys.api.pyensight.ensight_api.ensight.addcallback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.addcallback</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Add an event callback to EnSight</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.batch.html#ansys.api.pyensight.ensight_api.ensight.batch" title="ansys.api.pyensight.ensight_api.ensight.batch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.batch</span></code></a>()</p></td>
+<td><p>Detect if EnSight is running in batch mode</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.case_replace.html#ansys.api.pyensight.ensight_api.ensight.case_replace" title="ansys.api.pyensight.ensight_api.ensight.case_replace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.case_replace</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Initiate case replace in the EnSight core</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.checkabort.html#ansys.api.pyensight.ensight_api.ensight.checkabort" title="ansys.api.pyensight.ensight_api.ensight.checkabort"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.checkabort</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Check to see if a Python abort has been requested</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.command_enshell.html#ansys.api.pyensight.ensight_api.ensight.command_enshell" title="ansys.api.pyensight.ensight_api.ensight.command_enshell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.command_enshell</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Send a command to the enshell network</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.connect_enshell.html#ansys.api.pyensight.ensight_api.ensight.connect_enshell" title="ansys.api.pyensight.ensight_api.ensight.connect_enshell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.connect_enshell</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Connect to a enshell instance</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.disconnect_enshell.html#ansys.api.pyensight.ensight_api.ensight.disconnect_enshell" title="ansys.api.pyensight.ensight_api.ensight.disconnect_enshell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.disconnect_enshell</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Kill the current connection to enshell</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.dsg_close_stream.html#ansys.api.pyensight.ensight_api.ensight.dsg_close_stream" title="ansys.api.pyensight.ensight_api.ensight.dsg_close_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.dsg_close_stream</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Delete a DSG stream</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.dsg_new_stream.html#ansys.api.pyensight.ensight_api.ensight.dsg_new_stream" title="ansys.api.pyensight.ensight_api.ensight.dsg_new_stream"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.dsg_new_stream</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Create a new DSG stream ID</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.dsg_save_update.html#ansys.api.pyensight.ensight_api.ensight.dsg_save_update" title="ansys.api.pyensight.ensight_api.ensight.dsg_save_update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.dsg_save_update</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Perform a stream update and write a geometry file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.ensvariable.html#ansys.api.pyensight.ensight_api.ensight.ensvariable" title="ansys.api.pyensight.ensight_api.ensight.ensvariable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.ensvariable</span></code></a>(varname)</p></td>
+<td><p>This method will query EnSight command language variable values and return a tuple containing the value, its type and the scope it was found in (similar to the command language $ functionality), allowing access to variables defined directly in command language or computed constants.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.exit.html#ansys.api.pyensight.ensight_api.ensight.exit" title="ansys.api.pyensight.ensight_api.ensight.exit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.exit</span></code></a>()</p></td>
+<td><p>Terminate the EnSight instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.idle.html#ansys.api.pyensight.ensight_api.ensight.idle" title="ansys.api.pyensight.ensight_api.ensight.idle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.idle</span></code></a>([yield_cpu])</p></td>
+<td><p>Execute EnSight idle processing</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.modify.html#ansys.api.pyensight.ensight_api.ensight.modify" title="ansys.api.pyensight.ensight_api.ensight.modify"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.modify</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Modify the state of various EnSight objects</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.parts_showing.html#ansys.api.pyensight.ensight_api.ensight.parts_showing" title="ansys.api.pyensight.ensight_api.ensight.parts_showing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.parts_showing</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Return a list of parts showing in the viewport</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.pick_points.html#ansys.api.pyensight.ensight_api.ensight.pick_points" title="ansys.api.pyensight.ensight_api.ensight.pick_points"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.pick_points</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Pick nearest visible nodes or elements</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.play.html#ansys.api.pyensight.ensight_api.ensight.play" title="ansys.api.pyensight.ensight_api.ensight.play"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.play</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Play a command or Python file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query.html#ansys.api.pyensight.ensight_api.ensight.query" title="ansys.api.pyensight.ensight_api.ensight.query"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.query</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Query the state of various EnSight objects</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_cases.html#ansys.api.pyensight.ensight_api.ensight.query_cases" title="ansys.api.pyensight.ensight_api.ensight.query_cases"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.query_cases</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Query case information</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_elems.html#ansys.api.pyensight.ensight_api.ensight.query_elems" title="ansys.api.pyensight.ensight_api.ensight.query_elems"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.query_elems</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Query element values on the server</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_event.html#ansys.api.pyensight.ensight_api.ensight.query_event" title="ansys.api.pyensight.ensight_api.ensight.query_event"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.query_event</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Query the currently dispatching events to see if more are coming.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_nodes.html#ansys.api.pyensight.ensight_api.ensight.query_nodes" title="ansys.api.pyensight.ensight_api.ensight.query_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.query_nodes</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Query node values on the server</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_parts.html#ansys.api.pyensight.ensight_api.ensight.query_parts" title="ansys.api.pyensight.ensight_api.ensight.query_parts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.query_parts</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Query part information on the server</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_pixelbuffer.html#ansys.api.pyensight.ensight_api.ensight.query_pixelbuffer" title="ansys.api.pyensight.ensight_api.ensight.query_pixelbuffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.query_pixelbuffer</span></code></a>(x, y[, x2, y2, ...])</p></td>
+<td><p>Find the EnSight objects under a point or for all the points in a rectangle.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_points.html#ansys.api.pyensight.ensight_api.ensight.query_points" title="ansys.api.pyensight.ensight_api.ensight.query_points"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.query_points</span></code></a>(*args, **kwargs)</p></td>
+<td><p>This function is a basic variable and mesh query mechanism.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_trace_paths.html#ansys.api.pyensight.ensight_api.ensight.query_trace_paths" title="ansys.api.pyensight.ensight_api.ensight.query_trace_paths"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.query_trace_paths</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Query particle trace paths</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_xy_create.html#ansys.api.pyensight.ensight_api.ensight.query_xy_create" title="ansys.api.pyensight.ensight_api.ensight.query_xy_create"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.query_xy_create</span></code></a>(title, xtitle, ...)</p></td>
+<td><p>Create an ENS_QUERY instance</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.query_xy_update.html#ansys.api.pyensight.ensight_api.ensight.query_xy_update" title="ansys.api.pyensight.ensight_api.ensight.query_xy_update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.query_xy_update</span></code></a>(id, data[, segments])</p></td>
+<td><p>Update the data values in a query</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.refresh.html#ansys.api.pyensight.ensight_api.ensight.refresh" title="ansys.api.pyensight.ensight_api.ensight.refresh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.refresh</span></code></a>([force])</p></td>
+<td><p>Refresh the EnSight rendering window</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.register_cmd.html#ansys.api.pyensight.ensight_api.ensight.register_cmd" title="ansys.api.pyensight.ensight_api.ensight.register_cmd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.register_cmd</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Internal EnSight function &lt;should not be called by users&gt;</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.remap_cmdlang_name.html#ansys.api.pyensight.ensight_api.ensight.remap_cmdlang_name" title="ansys.api.pyensight.ensight_api.ensight.remap_cmdlang_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.remap_cmdlang_name</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Remap a command language verb to a valid Python verb</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.removecallback.html#ansys.api.pyensight.ensight_api.ensight.removecallback" title="ansys.api.pyensight.ensight_api.ensight.removecallback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.removecallback</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Remove an event callback from EnSight</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.render.html#ansys.api.pyensight.ensight_api.ensight.render" title="ansys.api.pyensight.ensight_api.ensight.render"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.render</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Render image at arbitrary resolution</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.replace_case.html#ansys.api.pyensight.ensight_api.ensight.replace_case" title="ansys.api.pyensight.ensight_api.ensight.replace_case"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.replace_case</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Initiate case replace in the EnSight core</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.save_command_file.html#ansys.api.pyensight.ensight_api.ensight.save_command_file" title="ansys.api.pyensight.ensight_api.ensight.save_command_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.save_command_file</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Save commands from the current session to the given filename</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.scalar_variable_pick_begin.html#ansys.api.pyensight.ensight_api.ensight.scalar_variable_pick_begin" title="ansys.api.pyensight.ensight_api.ensight.scalar_variable_pick_begin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.scalar_variable_pick_begin</span></code></a>(*args, ...)</p></td>
+<td><p>Begin scalar variable part selection mode</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.scalar_variable_pick_end.html#ansys.api.pyensight.ensight_api.ensight.scalar_variable_pick_end" title="ansys.api.pyensight.ensight_api.ensight.scalar_variable_pick_end"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.scalar_variable_pick_end</span></code></a>(*args, **kwargs)</p></td>
+<td><p>End scalar variable part selection mode</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.sendevent.html#ansys.api.pyensight.ensight_api.ensight.sendevent" title="ansys.api.pyensight.ensight_api.ensight.sendevent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.sendevent</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Send a Python object as an event to other Python event listeners.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.sendmesg.html#ansys.api.pyensight.ensight_api.ensight.sendmesg" title="ansys.api.pyensight.ensight_api.ensight.sendmesg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.sendmesg</span></code></a>(command[, record, display, ...])</p></td>
+<td><p>Executes one or more command language commands</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.sendmesgoptions.html#ansys.api.pyensight.ensight_api.ensight.sendmesgoptions" title="ansys.api.pyensight.ensight_api.ensight.sendmesgoptions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.sendmesgoptions</span></code></a>([record, display, ...])</p></td>
+<td><p>Control the operation of EnSight native API and sendmesg() calls</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.update_userdefined_material.html#ansys.api.pyensight.ensight_api.ensight.update_userdefined_material" title="ansys.api.pyensight.ensight_api.ensight.update_userdefined_material"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.update_userdefined_material</span></code></a>(*args, ...)</p></td>
+<td><p>Adds/removes/updates a user-defined material.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.usageLog.html#ansys.api.pyensight.ensight_api.ensight.usageLog" title="ansys.api.pyensight.ensight_api.ensight.usageLog"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.usageLog</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Log feature usage</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.using_enshell.html#ansys.api.pyensight.ensight_api.ensight.using_enshell" title="ansys.api.pyensight.ensight_api.ensight.using_enshell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.using_enshell</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Returns non-zero if application is connected to a enshell</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.version.html#ansys.api.pyensight.ensight_api.ensight.version" title="ansys.api.pyensight.ensight_api.ensight.version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensight.version</span></code></a>([element])</p></td>
+<td><p>EnSight version information</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ansys.api.pyensight.ensight_api.ensight"><code class="docutils literal notranslate"><span class="pre">ensight</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <ul class="this-page-menu">
+      <li><a href="../_sources/_autosummary/ansys.api.pyensight.ensight_api.ensight.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+
+  <!-- Include desired assets -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"></script>
+
+<script>
+// Passing the search options to the search.js file
+const SEARCH_OPTIONS = JSON.parse('{"keys": ["title", "text", "objectID"], "limit": 10, "threshold": 0.2}');
+const SEARCH_FILE = "../_static/search.json";
+const ADVANCE_SEARCH_PATH = "../search.html";
+const EXTRA_SOURCES = JSON.parse('""');
+</script>
+
+
+<script src="../_static/js/search.js"></script>
+
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2026 ANSYS, Inc. Unauthorized use, distribution, or duplication is prohibited..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  1.6.3. <br />Last updated on
+  <span id="ast_build_date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var ast_lastModifiedDate = new Date(document.lastModified);
+  var ast_build_date = ast_lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("ast_build_date").innerHTML = ast_build_date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

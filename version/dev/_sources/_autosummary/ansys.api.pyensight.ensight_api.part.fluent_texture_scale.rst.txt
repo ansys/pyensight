@@ -1,0 +1,6 @@
+fluent\_texture\_scale
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.fluent_texture_scale
