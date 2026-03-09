@@ -354,7 +354,7 @@ class LocalLauncher(Launcher):
             except Exception:
                 pass
             websocket_script = found_scripts[idx]
-            version = re.findall(r"nexus(\d+)", websocket_script)[0]
+            version = re.findall(r"nexus([0-9]+)", websocket_script)[0]
             # build the commandline
             if not self._liben_rest:
                 cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]

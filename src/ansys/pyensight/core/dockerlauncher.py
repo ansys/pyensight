@@ -141,7 +141,7 @@ def find_ansys_version_dir(container) -> str:
     tf, gen_reader = _iter_tar_members_from_stream(stream)
 
     version_dir = ""
-    version_re = re.compile(r"^ansys_inc/(v\d{3})")
+    version_re = re.compile(r"^ansys_inc/(v[0-9]{3})")
 
     try:
         while True:
@@ -639,7 +639,7 @@ class DockerLauncher(Launcher):
                     # Skip files; we don't want file payloads (stream mode avoids reading them)
                     continue
                 # Immediate children have exactly one '/'
-                if rel.count("/") == 1 and re.fullmatch(r"v\d{3}/", rel):
+                if rel.count("/") == 1 and re.fullmatch(r"v[0-9]{3}/", rel):
                     versions.append(rel[1:4])
                 # If we have collected a reasonable number, we can optionally break
                 # but generally keep scanning headers; no file bodies are read.
@@ -719,7 +719,7 @@ class DockerLauncher(Launcher):
         ]
         vdir = None
         for e in entries:
-            if re.fullmatch(r"v\d{3}", e):
+            if re.fullmatch(r"v[0-9]{3}", e):
                 vdir = e
                 break
         path = f"/ansys_inc/{vdir}/CEI/BUILDINFO.txt"

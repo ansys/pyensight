@@ -67,7 +67,7 @@ autoapi_options = [
 
 # Intersphinx mapping
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/3", None),
+    "python": ("https://docs.python.org/3.14", None),
     # kept here as an example
     # "scipy": ("https://docs.scipy.org/doc/scipy/reference", None),
     # "numpy": ("https://numpy.org/devdocs", None),
@@ -81,7 +81,7 @@ numpydoc_show_class_members = False
 numpydoc_xref_param_type = True
 
 linkcheck_ignore = [
-    r"http://localhost:\d+/",
+    r"http://localhost:[0-9]+/",
     r"https://cubit.sandia.gov/public/verdict.html",
     r"https://github.com/ansys/pyensight/issues",
 ]
