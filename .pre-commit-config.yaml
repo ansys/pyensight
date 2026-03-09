@@ -45,6 +45,8 @@ repos:
   hooks:
   - id: mypy
     exclude: tests/|doc/|src/ansys/pyensight/core/exts/|exts/
+    additional_dependencies:
+    - typed-ast
 
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.4.0
