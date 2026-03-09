@@ -9,7 +9,7 @@ name = "ansys-pyensight-core"
 version = "0.12.0-dev0"
 description = "A python wrapper for Ansys EnSight"
 readme = "README.rst"
-requires-python = ">=3.10,<3.14"
+requires-python = ">=3.10,<3.15"
 license = {file = "LICENSE"}
 authors = [{name = "ANSYS, Inc.", email = "pyansys.core@ansys.com"}]
 maintainers = [{name = "ANSYS, Inc.", email = "pyansys.core@ansys.com"}]
@@ -23,6 +23,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 
 dependencies = [
@@ -35,7 +36,7 @@ dependencies = [
     "Pillow>=9.3.0",
     "pypng>=0.0.20",
     "psutil>=5.9.2",
-    "usd-core==25.11; platform_machine != 'aarch64'",
+    "usd-core==25.11; python_version < '3.14' platform_machine != 'aarch64'",
     "pygltflib>=1.16.2",
     "grpcio<1.68.0",
     "ansys-tools-common>=0.3.0"
