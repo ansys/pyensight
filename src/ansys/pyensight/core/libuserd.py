@@ -40,6 +40,7 @@ Examples
 >>> userd.shutdown()
 
 """
+
 import enum
 import logging
 import os

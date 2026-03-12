@@ -40,7 +40,6 @@ Example to set an isometric view:
 
 """
 
-
 import math
 from typing import TYPE_CHECKING, Dict, List, Optional, Tuple, Union
 
@@ -317,6 +316,26 @@ class _Simba:
             self.ensight.query_interact.select_varname_begin(*variable_list)
         self.render()
 
+    def _build_simba_api_path(self, part_name, case_num):
+        part_obj = self.ensight.objs.core.PARTS.find(case_num, "CASENUMBER")
+        part_obj = part_obj.find(part_name)[0]
+        part_type = part_obj.PARTTYPE
+        if part_type == self.ensight.objs.enums.PART_MODEL:
+            return f"ens_cases/case_{case_num+1}/model_parts/{part_name}"
+        if part_type == self.ensight.objs.enums.PART_CLIP_PLANE:
+            simba_type = part_obj.METADATA.get("ENS_SIMBA_PART_TYPE")
+            if simba_type:
+                return f"results/locations/{simba_type}/{part_name}"
+        if part_type == self.ensight.objs.enums.PART_ISO_SURFACE:
+            return f"results/locations/isosurfaces/{part_name}"
+        if part_type == self.ensight.objs.enums.PART_ISO_VOLUME:
+            return f"results/locations/isosurfaces/{part_name}"
+        if part_type == self.ensight.objs.enums.PART_VECTOR_ARROW:
+            return f"results/locations/vectors/{part_name}"
+        if part_type == self.ensight.objs.enums.PART_PARTICLE_TRACE:
+            return f"results/locations/streamlines/{part_name}"
+        return part_name
+
     def drag_allowed(self, mousex, mousey, invert_y=False, probe=False, get_probe_data=False):
         """Return True if the picked object is allowed dragging in the interactor."""
         mousex = int(mousex)
@@ -324,6 +343,8 @@ class _Simba:
         part_id, tool_id = self.ensight.objs.core.VPORTS[0].simba_what_is_picked(
             mousex, mousey, invert_y
         )
+        part_name = None
+        part_selection_map = None
         coords = [None, None, None]
         if probe:
             screen_to_world = self.screen_to_world(
@@ -331,7 +352,7 @@ class _Simba:
             )
             coords = screen_to_world["model_point"]
         if tool_id > -1:
-            return True, coords[0], coords[1], coords[2], False
+            return True, coords[0], coords[1], coords[2], False, part_name, part_selection_map
         part_types_allowed = [
             self.ensight.objs.enums.PART_CLIP_PLANE,
             self.ensight.objs.enums.PART_ISO_SURFACE,
@@ -339,6 +360,15 @@ class _Simba:
         ]
         if part_id > -1:
             part_obj = self.ensight.objs.core.PARTS.find(part_id, "PARTNUMBER")[0]
+            part_name = self._build_simba_api_path(part_obj.DESCRIPTION, part_obj.CASENUMBER)
+            part_select = self.ensight.objs.core.PARTS.get_attr("SELECTED")
+            part_names = self.ensight.objs.core.PARTS.get_attr("DESCRIPTION")
+            case_nums = self.ensight.objs.core.PARTS.get_attr("CASENUMBER")
+            full_paths = []
+            for idx, p in enumerate(part_names):
+                case_num = case_nums[idx]
+                full_paths.append(self._build_simba_api_path(p, case_num))
+            part_selection_map = {k: v for k, v in zip(full_paths, part_select)}
             if probe:
                 width, height = tuple(self.ensight.objs.core.WINDOWSIZE)
                 if invert_y:
@@ -348,13 +378,21 @@ class _Simba:
                 self.ensight.query_interact.display_id("OFF")
                 self.ensight.query_interact.create(mousex / width, mousey / height)
                 self._probe_setup(part_obj, get_probe_data=get_probe_data)
-            return part_obj.PARTTYPE in part_types_allowed, coords[0], coords[1], coords[2], True
+            return (
+                part_obj.PARTTYPE in part_types_allowed,
+                coords[0],
+                coords[1],
+                coords[2],
+                True,
+                part_name,
+                part_selection_map,
+            )
         if (
             get_probe_data and self.ensight.objs.core.PROBES[0].PROBE_DATA
         ):  # In case we have picked a probe point
             for part in self.ensight.objs.core.PARTS:
                 self._probe_setup(part, get_probe_data=get_probe_data)
-        return False, coords[0], coords[1], coords[2], False
+        return False, coords[0], coords[1], coords[2], False, part_name, part_selection_map
 
 
 class Views:
