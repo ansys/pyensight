@@ -32,6 +32,7 @@ Examples:
 ansys.pyensight.Session
 
 """
+
 import atexit
 import importlib.util
 from os import listdir
@@ -590,15 +591,13 @@ class Session:
             raise RuntimeError("Only the file:// protocol is supported for the local_prefix")
         localdir = url2pathname(uri.path)
 
-        remote_functions = textwrap.dedent(
-            """\
+        remote_functions = textwrap.dedent("""\
                 import os
                 def copy_write_function__(filename: str, data: bytes) -> None:
                     os.makedirs(os.path.dirname(filename), exist_ok=True)
                     with open(filename, "ab") as fp:
                         fp.write(data)
-            """
-        )
+            """)
 
         self.cmd(remote_functions, do_eval=False)
 
@@ -698,8 +697,7 @@ class Session:
             raise RuntimeError("Only the file:// protocol is supported for the local_prefix")
         localdir = url2pathname(uri.path)
 
-        remote_functions = textwrap.dedent(
-            """\
+        remote_functions = textwrap.dedent("""\
                 import os
                 def copy_walk_function__(remotedir: str, filelist: list) -> None:
                     out = []
@@ -725,8 +723,7 @@ class Session:
                         fp.seek(offset)
                         data = fp.read(numbytes)
                     return data
-            """
-        )
+            """)
 
         self.cmd(remote_functions, do_eval=False)
 

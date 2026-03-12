@@ -25,6 +25,7 @@
 This module provides simplified interface to compute specific variables via PyEnSight
 
 """
+
 import math
 import os
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
@@ -860,7 +861,7 @@ class Variables:
                     )
             return ret_val
         # the legacy way using the interface manual ch 6
-        (val, type_val, scope_val) = self.ensight.ensvariable(const_name)
+        val, type_val, scope_val = self.ensight.ensvariable(const_name)
 
         # type = 0 if the value is an integer, 1 if the value is a float and 2 if the value is a string
         # scope =  -1 if it is a constant computed in EnSight, and
