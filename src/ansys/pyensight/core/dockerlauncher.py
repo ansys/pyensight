@@ -36,6 +36,7 @@ Examples:
         session.close()
 
 """
+
 import io
 import logging
 import os

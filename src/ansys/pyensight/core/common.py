@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-""" This module provides a list of common utilities shared between different PyEnSight modules."""
+"""This module provides a list of common utilities shared between different PyEnSight modules."""
 
 import os
 import random

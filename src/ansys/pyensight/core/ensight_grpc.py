@@ -26,6 +26,7 @@ This package defines the EnSightGRPC class which provides a simpler
 interface to the EnSight gRPC interface, including event streams.
 
 """
+
 from concurrent import futures
 import os
 import platform

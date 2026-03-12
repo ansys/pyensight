@@ -185,9 +185,9 @@ class Part(object):
         elif cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.LINES:
             if self.conn_lines.size != cmd.total_array_size:
                 self.conn_lines = numpy.resize(self.conn_lines, cmd.total_array_size)
-            self.conn_lines[
-                cmd.chunk_offset : cmd.chunk_offset + len(cmd.int_array)
-            ] = cmd.int_array
+            self.conn_lines[cmd.chunk_offset : cmd.chunk_offset + len(cmd.int_array)] = (
+                cmd.int_array
+            )
         elif (cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.ELEM_NORMALS) or (
             cmd.payload_type == dynamic_scene_graph_pb2.UpdateGeom.NODE_NORMALS
         ):
@@ -207,9 +207,9 @@ class Part(object):
                     )
                     if self.tcoords.size != cmd.total_array_size:
                         self.tcoords = numpy.resize(self.tcoords, cmd.total_array_size)
-                    self.tcoords[
-                        cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)
-                    ] = cmd.flt_array
+                    self.tcoords[cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)] = (
+                        cmd.flt_array
+                    )
 
                     # Add the variable hash to the Part's hash, to pick up palette changes
                     var_cmd = self.session.variables.get(cmd.variable_id, None)
@@ -220,9 +220,9 @@ class Part(object):
                     # Receive the node size var values
                     if self.node_sizes.size != cmd.total_array_size:
                         self.node_sizes = numpy.resize(self.node_sizes, cmd.total_array_size)
-                    self.node_sizes[
-                        cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)
-                    ] = cmd.flt_array
+                    self.node_sizes[cmd.chunk_offset : cmd.chunk_offset + len(cmd.flt_array)] = (
+                        cmd.flt_array
+                    )
         # Combine the hashes for the UpdatePart and all UpdateGeom messages
         self.hash.update(cmd.hash.encode("utf-8"))
 
@@ -913,7 +913,7 @@ class DSGSession(object):
             return 0
         self._dsg_queue = queue.SimpleQueue()
         self._dsg = self._grpc.dynamic_scene_graph_stream(
-            iter(self._dsg_queue.get, None)  # type:ignore
+            iter(self._dsg_queue.get, None)  # type: ignore
         )
         self._thread = threading.Thread(target=self._poll_messages)
         if self._thread is not None:
@@ -987,7 +987,7 @@ class DSGSession(object):
         cmd.init.include_temporal_geometry = animation
         cmd.init.allow_incremental_updates = False
         cmd.init.maximum_chunk_size = 1024 * 1024
-        self._dsg_queue.put(cmd)  # type:ignore
+        self._dsg_queue.put(cmd)  # type: ignore
 
     def _is_queue_full(self):
         if not self.max_dsg_queue_size:
@@ -1005,7 +1005,7 @@ class DSGSession(object):
         """
         while not self._shutdown:
             try:
-                self._message_queue.put(next(self._dsg))  # type:ignore
+                self._message_queue.put(next(self._dsg))  # type: ignore
                 # if the queue is getting too deep, wait a bit to avoid holding too
                 # many messages (filling up memory)
                 if self.max_dsg_queue_size:
