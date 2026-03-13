@@ -333,7 +333,7 @@ class EnSightGRPC(object):
         s: Union[str, bytes]
         if self._security_token:  # pragma: no cover
             s = self._security_token
-            if type(s) == str:  # pragma: no cover
+            if isinstance(s, str):  # pragma: no cover
                 s = s.encode("utf-8")
             ret.append((b"shared_secret", s))
         if self.session_name:  # pragma: no cover

@@ -116,7 +116,7 @@ class EnsContext:
             context zip file.
 
         """
-        if type(data) != bytes:
+        if not isinstance(data, bytes):
             data = base64.b64decode(data)
         self._buffer = io.BytesIO(data)
         the_file = zipfile.ZipFile(self._buffer, "r")

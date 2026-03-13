@@ -282,7 +282,7 @@ class Launcher:
         ports = []
         for command_line in pyensight_found:
             for command in command_line:
-                if re.match(r"^\d{4,5}$", command):
+                if re.match(r"^[0-9]{4,5}$", command):
                     ports.append(int(command))
         for command_line in ensight_found:
             idx = command_line.index("-ports") + 1
