@@ -29,6 +29,7 @@ Three types of content are supported:
     #. Simple context: an EnSight context file without any data loading reference.
 
 """
+
 import base64
 import io
 import os

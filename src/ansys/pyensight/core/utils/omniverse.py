@@ -624,7 +624,10 @@ class Omniverse:
             if uds_path and not is_win:
                 dsg_uri = f"unix:{uds_path}.sock"
             else:
-                dsg_uri = f"grpc://{hostname}:{port}"
+                if "address" in options:
+                    dsg_uri = f"grpc://{options['address']}"
+                else:
+                    dsg_uri = f"grpc://{hostname}:{port}"
 
         # Launch the server via the 'ansys.pyensight.core.utils.omniverse_cli' module
         cmd = [self._interpreter]

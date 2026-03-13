@@ -367,10 +367,8 @@ class Export:
             num_frames = frames
 
         if num_frames < 1:  # pragma: no cover
-            raise RuntimeError(  # pragma: no cover
-                "No frames selected. Perhaps a static dataset SOLUTIONTIME request \
-                 or no FLIPBOOK/KEYFRAME defined."
-            )
+            raise RuntimeError("No frames selected. Perhaps a static dataset SOLUTIONTIME request \
+                 or no FLIPBOOK/KEYFRAME defined.")  # pragma: no cover
 
         if isinstance(self._ensight, ModuleType):  # pragma: no cover
             raw_mpeg4 = self._animation_remote(  # pragma: no cover

@@ -119,15 +119,13 @@ def docs(target: str = "html", skip_api: bool = False):
 
 
 if __name__ == "__main__":
-    operation_help = textwrap.dedent(
-        """\
+    operation_help = textwrap.dedent("""\
 'clean' : Clean build directories.
 'install' : Install the wheel.
 'precommit' : Run linting tools.
 'build' : Build the wheel.
 'docs' : Generate documentation.
-"""
-    )
+""")
 
     parser = argparse.ArgumentParser(
         description="Build pyensight docs",
