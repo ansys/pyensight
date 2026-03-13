@@ -321,7 +321,7 @@ class _Simba:
         part_obj = part_obj.find(part_name)[0]
         part_type = part_obj.PARTTYPE
         if part_type == self.ensight.objs.enums.PART_MODEL:
-            return f"ens_cases/case_{case_num+1}/model_parts/{part_name}"
+            return f"ens_cases/case_{case_num + 1}/model_parts/{part_name}"
         if part_type == self.ensight.objs.enums.PART_CLIP_PLANE:
             simba_type = part_obj.METADATA.get("ENS_SIMBA_PART_TYPE")
             if simba_type:

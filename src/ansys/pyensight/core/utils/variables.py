@@ -339,9 +339,10 @@ class Variables:
         if _shear_var_obj.LOCATION != self.ensight.objs.enums.ENS_VAR_ELEM:  # pragma: no cover
             # tricks for mypy
             values = self._move_var_to_elem(_pobj_list, _shear_var_obj)
-            ensvar_values = [v for v in values]
-            new_shear_var_obj = ensvar_values[0]
-            shear_var_name = new_shear_var_obj.DESCRIPTION
+            if values:
+                ensvar_values = [v for v in values]
+                new_shear_var_obj = ensvar_values[0]
+                shear_var_name = new_shear_var_obj.DESCRIPTION
         else:  # pragma: no cover
             shear_var_name = _shear_var_obj.DESCRIPTION  # pragma: no cover
 
@@ -979,9 +980,10 @@ class Variables:
         if _press_var_obj.LOCATION != self.ensight.objs.enums.ENS_VAR_ELEM:  # pragma: no cover
             # tricks for mypy
             values = self._move_var_to_elem(_pobj_list, _press_var_obj)
-            ensvar_values = [v for v in values]
-            new_pres_var_obj = ensvar_values[0]
-            press_var_name = new_pres_var_obj.DESCRIPTION
+            if values:
+                ensvar_values = [v for v in values]
+                new_pres_var_obj = ensvar_values[0]
+                press_var_name = new_pres_var_obj.DESCRIPTION
         else:
             press_var_name = _press_var_obj.DESCRIPTION  # pragma: no cover
 
