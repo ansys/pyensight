@@ -166,12 +166,19 @@ def get_host_port(uri: str) -> Tuple[str, int]:
         A tuple containing the host and the port of the input uri
     """
     parse_results = urllib3.util.parse_url(uri)
-    port = (
-        parse_results.port
-        if parse_results.port
-        else (443 if re.search(r"^https|wss$", parse_results.scheme) else None)
-    )
-    return (parse_results.host, port)
+    # Ensure we always return a concrete host string and integer port
+    host = parse_results.host or ""
+    scheme = (parse_results.scheme or "").lower()
+    if parse_results.port:
+        port = int(parse_results.port)
+    elif re.fullmatch(r"https|wss", scheme):
+        port = 443
+    elif re.fullmatch(r"http|ws", scheme):
+        port = 80
+    else:
+        # Unknown scheme or missing port: use -1 as sentinel
+        port = -1
+    return (host, port)
 
 
 def get_file_service(pim_instance: Any) -> Optional[Any]:  # pragma: no cover

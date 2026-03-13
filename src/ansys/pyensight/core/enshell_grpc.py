@@ -398,7 +398,7 @@ class EnShellGRPC(object):
         ret = list()
         if self._security_token is not None:
             s = self._security_token
-            if type(s) == str:
+            if isinstance(s, str):
                 s = s.encode("utf-8")
             ret.append((b"shared_secret", s))
         return ret

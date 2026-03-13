@@ -320,7 +320,7 @@ class LocalLauncher(Launcher):
                     cmd.append("-nservers")
                     cmd.append(str(int(self._use_sos)))
                 else:
-                    cmd.append(f"--np={int(self._use_sos)+1}")
+                    cmd.append(f"--np={int(self._use_sos) + 1}")
                     cmd.append(f"--mpi={self._use_mpi}")
                     cmd.append(f"--ic={self._interconnect}")
                     hosts = ",".join(self._server_hosts)

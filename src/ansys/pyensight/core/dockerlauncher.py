@@ -623,7 +623,7 @@ class DockerLauncher(Launcher):
             # Use streaming mode to iterate headers only
             import tarfile
 
-            tar = tarfile.open(mode="r|*", fileobj=stream)  # type: ignore[arg-type]
+            tar = tarfile.open(mode="r|*", fileobj=stream)  # type: ignore[call-overload]
             versions: List[str] = []
             prefix = "ansys_inc/"
             for m in tar:  # streamed iteration over members

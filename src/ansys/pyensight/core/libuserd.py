@@ -1536,7 +1536,7 @@ class LibUserd(object):
         s: Union[str, bytes]
         if self._security_token:  # pragma: no cover
             s = self._security_token
-            if type(s) == str:  # pragma: no cover
+            if isinstance(s, str):  # pragma: no cover
                 s = s.encode("utf-8")
             ret.append((b"shared_secret", s))
         return ret
@@ -1621,7 +1621,7 @@ class LibUserd(object):
             return 0
         if int(rank) < 0 or int(rank) >= self._number_of_ranks:
             raise RuntimeError(
-                f"Invalid rank number specified: {rank}.  Valid range:[0, {self._number_of_ranks-1}]"
+                f"Invalid rank number specified: {rank}.  Valid range:[0, {self._number_of_ranks - 1}]"
             )
         return int(rank)
 
