@@ -905,7 +905,9 @@ class OmniverseWrapper(object):
 
         # Set rotation on domelight
         if self._stage is not None and UsdGeom.GetStageUpAxis(self._stage) == UsdGeom.Tokens.y:
-            rotateOp = newLight.AddXformOp(UsdGeom.XformOp.TypeRotateZYX, UsdGeom.XformOp.PrecisionFloat)
+            rotateOp = newLight.AddXformOp(
+                UsdGeom.XformOp.TypeRotateZYX, UsdGeom.XformOp.PrecisionFloat
+            )
             rotateOp.Set(Gf.Vec3f(270, 0, 0))
 
 
