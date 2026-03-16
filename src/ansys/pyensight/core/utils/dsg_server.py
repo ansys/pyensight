@@ -1011,9 +1011,9 @@ class DSGSession(object):
                 if self.max_dsg_queue_size:
                     while self._is_queue_full():
                         time.sleep(0.001)
-            except Exception:
+            except Exception as e:
                 self._shutdown = True
-                self.log("DSG connection broken, calling exit")
+                self.log(f"DSG connection broken {str(e)}, calling exit")
                 sys.exit(0)
 
     def _get_next_message(self, wait: bool = True) -> Any:
