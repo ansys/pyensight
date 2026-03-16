@@ -1184,13 +1184,29 @@ class OmniverseUpdateHandler(UpdateHandler):
 
         self._omni.create_new_stage()
         self._root_prim = self._omni.create_dsg_root()
-        # Create a distance and dome light in the scene
-        self._omni.createDomeLight("./Materials/000_sky.exr")
         # Upload a material to the Omniverse server
         self._omni.uploadMaterial()
         self._sent_textures = False
 
     def end_update(self) -> None:
+        # Create a dome light in the scene, after stage's Y-up/Z-up is known.
+        self._omni.createDomeLight("./Materials/000_sky.exr")
+
+        # Translate the scene so its (X center, Y min, Z center) or (X center, Y center, Z min) is at (0,0,0),
+        # where Omniverse's environments are centered
+        if self.session.scene_bounds is not None and self._stage is not None:
+            if UsdGeom.GetStageUpAxis(self._stage) == UsdGeom.Tokens.y:
+                session_origin = [(self.session.scene_bounds[0] + self.session.scene_bounds[3]) * 0.5,
+                                   self.session.scene_bounds[1],
+                                  (self.session.scene_bounds[2] + self.session.scene_bounds[5]) * 0.5]
+            else:
+                session_origin = [(self.session.scene_bounds[0] + self.session.scene_bounds[3]) * 0.5,
+                                  (self.session.scene_bounds[1] + self.session.scene_bounds[4]) * 0.5,
+                                   self.session.scene_bounds[2]]
+
+            xform_api = UsdGeom.XformCommonAPI(self._root_prim)
+            xform_api.SetTranslate(Gf.Vec3d(session_origin) * -1.0 * self._omni._units_per_meter)
+
         super().end_update()
         # Stage update complete
         self._omni.save_stage()
