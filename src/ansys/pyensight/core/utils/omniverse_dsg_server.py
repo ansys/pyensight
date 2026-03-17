@@ -904,9 +904,11 @@ class OmniverseWrapper(object):
         newLight.CreateTextureFormatAttr("latlong")
 
         # Set rotation on domelight
-        xForm = newLight
-        rotateOp = xForm.AddXformOp(UsdGeom.XformOp.TypeRotateZYX, UsdGeom.XformOp.PrecisionFloat)
-        rotateOp.Set(Gf.Vec3f(270, 0, 0))
+        if self._stage is not None and UsdGeom.GetStageUpAxis(self._stage) == UsdGeom.Tokens.y:
+            rotateOp = newLight.AddXformOp(
+                UsdGeom.XformOp.TypeRotateZYX, UsdGeom.XformOp.PrecisionFloat
+            )
+            rotateOp.Set(Gf.Vec3f(270, 0, 0))
 
 
 class OmniverseUpdateHandler(UpdateHandler):
@@ -1184,13 +1186,14 @@ class OmniverseUpdateHandler(UpdateHandler):
 
         self._omni.create_new_stage()
         self._root_prim = self._omni.create_dsg_root()
-        # Create a distance and dome light in the scene
-        self._omni.createDomeLight("./Materials/000_sky.exr")
         # Upload a material to the Omniverse server
         self._omni.uploadMaterial()
         self._sent_textures = False
 
     def end_update(self) -> None:
+        # Create a dome light in the scene, after stage's Y-up/Z-up is known.
+        self._omni.createDomeLight("./Materials/000_sky.exr")
+
         super().end_update()
         # Stage update complete
         self._omni.save_stage()
