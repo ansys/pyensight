@@ -180,7 +180,7 @@ class OmniverseWrapper(object):
 
         Presently, live connections are disabled.
         """
-        self._stage.GetRootLayer().Save()  # type:ignore
+        self._stage.GetRootLayer().Save()  # type: ignore
 
     def clear_cleaned_names(self) -> None:
         """

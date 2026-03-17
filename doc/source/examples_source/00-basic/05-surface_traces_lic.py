@@ -13,7 +13,6 @@ This example works with EnSight version 24.2 or later.
 
 """
 
-
 ###############################################################################
 # Start an EnSight session
 # ------------------------

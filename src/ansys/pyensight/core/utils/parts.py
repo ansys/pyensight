@@ -37,6 +37,7 @@ Example for selecting all 3D parts:
 >>> parts.select_by_dimension(3)
 
 """
+
 from types import ModuleType
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
 
@@ -339,7 +340,7 @@ class Parts:
                     )
                 else:
                     new_emitters.append(
-                        f"ensight.utils.parts._EnSEmitterPart(ensight, part={convert_part(self.ensight ,p)}, num_points={num_points}, part_kind={part_distribution_type})"
+                        f"ensight.utils.parts._EnSEmitterPart(ensight, part={convert_part(self.ensight , p)}, num_points={num_points}, part_kind={part_distribution_type})"
                     )
         else:
             raise RuntimeError(

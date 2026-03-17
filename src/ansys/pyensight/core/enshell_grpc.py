@@ -31,6 +31,7 @@ Python binding for the EnShell gRPC API
 This class provides an asynchronous interface to the EnShell
 core gRPC interface.
 """
+
 import logging
 import os
 import random
@@ -397,7 +398,7 @@ class EnShellGRPC(object):
         ret = list()
         if self._security_token is not None:
             s = self._security_token
-            if type(s) == str:
+            if isinstance(s, str):
                 s = s.encode("utf-8")
             ret.append((b"shared_secret", s))
         return ret
@@ -632,7 +633,7 @@ class EnShellGRPC(object):
                 "Error getting CEI_HOME env var from the Docker container.\n{ret}\n"
             )  # pragma: no cover
         self._cei_home = cei_home_line[equal_sign_loc + 1 :]
-        m = re.search(r"/v(\d\d\d)/", self._cei_home)
+        m = re.search(r"/v([0-9]{3})/", self._cei_home)
         if not m:  # pragma: no cover
             self.stop_server()  # pragma: no cover
             raise RuntimeError(
