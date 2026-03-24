@@ -1198,13 +1198,17 @@ class OmniverseUpdateHandler(UpdateHandler):
         # where Omniverse's environments are centered
         if self.session.scene_bounds is not None and self._stage is not None:
             if UsdGeom.GetStageUpAxis(self._stage) == UsdGeom.Tokens.y:
-                session_origin = [(self.session.scene_bounds[0] + self.session.scene_bounds[3]) * 0.5,
-                                   self.session.scene_bounds[1],
-                                  (self.session.scene_bounds[2] + self.session.scene_bounds[5]) * 0.5]
+                session_origin = [
+                    (self.session.scene_bounds[0] + self.session.scene_bounds[3]) * 0.5,
+                    self.session.scene_bounds[1],
+                    (self.session.scene_bounds[2] + self.session.scene_bounds[5]) * 0.5,
+                ]
             else:
-                session_origin = [(self.session.scene_bounds[0] + self.session.scene_bounds[3]) * 0.5,
-                                  (self.session.scene_bounds[1] + self.session.scene_bounds[4]) * 0.5,
-                                   self.session.scene_bounds[2]]
+                session_origin = [
+                    (self.session.scene_bounds[0] + self.session.scene_bounds[3]) * 0.5,
+                    (self.session.scene_bounds[1] + self.session.scene_bounds[4]) * 0.5,
+                    self.session.scene_bounds[2],
+                ]
 
             xform_api = UsdGeom.XformCommonAPI(self._root_prim)
             xform_api.SetTranslate(Gf.Vec3d(session_origin) * -1.0 * self._omni._units_per_meter)
