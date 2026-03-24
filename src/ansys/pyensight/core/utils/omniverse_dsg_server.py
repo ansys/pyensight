@@ -904,9 +904,11 @@ class OmniverseWrapper(object):
         newLight.CreateTextureFormatAttr("latlong")
 
         # Set rotation on domelight
-        xForm = newLight
-        rotateOp = xForm.AddXformOp(UsdGeom.XformOp.TypeRotateZYX, UsdGeom.XformOp.PrecisionFloat)
-        rotateOp.Set(Gf.Vec3f(270, 0, 0))
+        if self._stage is not None and UsdGeom.GetStageUpAxis(self._stage) == UsdGeom.Tokens.y:
+            rotateOp = newLight.AddXformOp(
+                UsdGeom.XformOp.TypeRotateZYX, UsdGeom.XformOp.PrecisionFloat
+            )
+            rotateOp.Set(Gf.Vec3f(270, 0, 0))
 
 
 class OmniverseUpdateHandler(UpdateHandler):
