@@ -1011,7 +1011,7 @@ class DSGSession(object):
                 if self.max_dsg_queue_size:
                     while self._is_queue_full():
                         time.sleep(0.001)
-            except Exception as e:
+            except Exception:
                 self._shutdown = True
                 self.log("DSG connection broken, exiting")
                 # Put a sentinel value to wake up the main thread
