@@ -1196,8 +1196,8 @@ class OmniverseUpdateHandler(UpdateHandler):
 
         # Translate the scene so its (X center, Y min, Z center) or (X center, Y center, Z min) is at (0,0,0),
         # where Omniverse's environments are centered
-        if self.session.scene_bounds is not None and self._stage is not None:
-            if UsdGeom.GetStageUpAxis(self._stage) == UsdGeom.Tokens.y:
+        if self.session.scene_bounds is not None and self._omni._stage is not None:
+            if UsdGeom.GetStageUpAxis(self._omni._stage) == UsdGeom.Tokens.y:
                 session_origin = [
                     (self.session.scene_bounds[0] + self.session.scene_bounds[3]) * 0.5,
                     self.session.scene_bounds[1],
