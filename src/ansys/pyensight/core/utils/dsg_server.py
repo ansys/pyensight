@@ -1013,8 +1013,10 @@ class DSGSession(object):
                         time.sleep(0.001)
             except Exception:
                 self._shutdown = True
-                self.log("DSG connection broken, calling exit")
-                sys.exit(0)
+                self.log("DSG connection broken, exiting")
+                # Put a sentinel value to wake up the main thread
+                self._message_queue.put(None)
+                break
 
     def _get_next_message(self, wait: bool = True) -> Any:
         """Get the next queued up protobuffer message
@@ -1050,6 +1052,9 @@ class DSGSession(object):
         ):
             # Look for a begin command
             cmd = self._get_next_message()
+        # On a clean disconnect, None is enqueued to signal shutdown
+        if self.is_shutdown() or cmd is None:
+            return
 
         # Start anew
         self._reset()
