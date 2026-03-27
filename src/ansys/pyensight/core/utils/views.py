@@ -394,6 +394,28 @@ class _Simba:
                 self._probe_setup(part, get_probe_data=get_probe_data)
         return False, coords[0], coords[1], coords[2], False, part_name, part_selection_map
 
+    def rubber_band_selection(self, x1, y1, x2, y2, left_to_rigth, top_to_bottom):
+        """Select the parts inside of a specific rectangle."""
+        deep_check = not top_to_bottom
+        if left_to_rigth:
+            data = self.ensight.query_pixelbuffer(x1, y1, x2, y2, True, deep_check)
+        else:
+            data = self.ensight.query_pixelbuffer(x2, y2, x1, y1, True, deep_check)
+        part_names = []
+        case_nums = []
+        if data:
+            for d in data:
+                d.SELECTED = True
+        part_select = self.ensight.objs.core.PARTS.get_attr("SELECTED")
+        part_names = self.ensight.objs.core.PARTS.get_attr("DESCRIPTION")
+        case_nums = self.ensight.objs.core.PARTS.get_attr("CASENUMBER")
+        full_paths = []
+        for idx, p in enumerate(part_names):
+            case_num = case_nums[idx]
+            full_paths.append(self._build_simba_api_path(p, case_num))
+        part_selection_map = {k: v for k, v in zip(full_paths, part_select)}
+        return part_selection_map
+
 
 class Views:
     """Controls the view in the current EnSight ``Session`` instance."""
