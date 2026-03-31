@@ -227,3 +227,9 @@ def launch_libuserd_and_get_files(tmpdir, pytestconfig: pytest.Config):
         return file1_userd, file2_userd, file1_session, file2_session, libuserd, session, data_dir
 
     return _files
+
+
+def pytest_sessionfinish(session, exitstatus):
+    import grpc._common
+
+    grpc._common.CYTHON_CHANNEL_CLOSE = True  # Force close (internal, use with caution)
