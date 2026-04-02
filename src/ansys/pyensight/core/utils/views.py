@@ -347,9 +347,17 @@ class _Simba:
         """Return True if the picked object is allowed dragging in the interactor."""
         mousex = int(mousex)
         mousey = int(mousey)
-        part_id, tool_id = self.ensight.objs.core.VPORTS[idx].simba_what_is_picked(
-            mousex, mousey, invert_y
-        )
+        part_id = -1
+        tool_id = -1
+        annot_id = -1
+        current_pick = self.ensight.objs.core.PICK_SELECTION
+        if current_pick:
+            if hasattr(current_pick[0], "PARTNUMBER"):
+                part_id = current_pick[0].PARTNUMBER
+            if hasattr(current_pick[0], "TOOLTYPE"):
+                tool_id = current_pick[0].TOOLTYPE
+            if hasattr(current_pick[0], "ANNOTTYPE"):
+                annot_id = current_pick[0].ANNOTTYPE
         part_name = None
         part_selection_map = None
         coords = [None, None, None]
@@ -358,13 +366,8 @@ class _Simba:
                 mousex=mousex, mousey=mousey, invert_y=invert_y, set_center=False, idx=idx
             )
             coords = screen_to_world["model_point"]
-        if tool_id > -1:
+        if tool_id > -1 or annot_id > -1:
             return True, coords[0], coords[1], coords[2], False, part_name, part_selection_map
-        part_types_allowed = [
-            self.ensight.objs.enums.PART_CLIP_PLANE,
-            self.ensight.objs.enums.PART_ISO_SURFACE,
-            self.ensight.objs.enums.PART_CONTOUR,
-        ]
         if part_id > -1:
             part_obj = self.ensight.objs.core.PARTS.find(part_id, "PARTNUMBER")[0]
             part_name = self._build_simba_api_path(part_obj.DESCRIPTION, part_obj.CASENUMBER)
@@ -385,8 +388,9 @@ class _Simba:
                 self.ensight.query_interact.display_id("OFF")
                 self.ensight.query_interact.create(mousex / width, mousey / height)
                 self._probe_setup(part_obj, get_probe_data=get_probe_data)
+            _drag = hasattr(part_obj, "VALUE") or hasattr(part_obj, "OFFSET")
             return (
-                part_obj.PARTTYPE in part_types_allowed,
+                _drag,
                 coords[0],
                 coords[1],
                 coords[2],
