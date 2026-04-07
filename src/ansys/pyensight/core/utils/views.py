@@ -115,7 +115,7 @@ class _Simba:
             reset_camera["position"],
             reset_camera["focal_point"],
             reset_camera["view_angle"],
-            idx=id,
+            idx=idx,
         )
         self.render()
         return new_camera
