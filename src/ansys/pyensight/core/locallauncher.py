@@ -381,8 +381,6 @@ class LocalLauncher(Launcher):
                             cmd.append(self._grpc_uds_pathname)
                 # EnVision sessions
                 cmd.extend(["--local_session", "envision", "5"])
-                if int(version) > 252 and self._rest_ws_separate_loops:
-                    cmd.append("--separate_loops")
                 cmd.extend(["--security_token", self._secret_key])
                 # websocket port
                 cmd.append(str(self._ports[3]))
