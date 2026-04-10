@@ -256,6 +256,13 @@ class Session:
 
         # establish the connection with retry
         self._establish_connection(validate=True)
+        if self._launcher and self._launcher._liben_rest:
+            vnc_port = 1999
+            if hasattr(self._launcher, "_ports"):  # locallauncher
+                vnc_port = self._launcher._ports[1]
+            self.ensight.objs.core.simba_start_vnc_websocketserver(
+                self.hostname, vnc_port, self.ws_port
+            )
 
         # update the enums to match current EnSight instance
         cmd = "{key: getattr(ensight.objs.enums, key) for key in dir(ensight.objs.enums)}"

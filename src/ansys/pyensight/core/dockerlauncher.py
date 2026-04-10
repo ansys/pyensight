@@ -889,10 +889,7 @@ class DockerLauncher(Launcher):
             # websocket port - this needs to come first since we now have
             # --add_header as a optional arg that can take an arbitrary
             # number of optional headers.
-            if int(self._ansys_version) > 252 and self._do_not_start_ws:
-                wss_cmd += " -1"
-            else:
-                wss_cmd += " " + str(self._service_host_port["ws"][1])
+            wss_cmd += " " + str(self._service_host_port["ws"][1])
             #
             wss_cmd += " --http_directory " + self._session_directory
             # http port

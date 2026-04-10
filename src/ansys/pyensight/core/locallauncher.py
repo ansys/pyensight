@@ -385,10 +385,7 @@ class LocalLauncher(Launcher):
                     cmd.append("--separate_loops")
                 cmd.extend(["--security_token", self._secret_key])
                 # websocket port
-                if int(version) > 252 and self._do_not_start_ws:
-                    cmd.append("-1")
-                else:
-                    cmd.append(str(self._ports[3]))
+                cmd.append(str(self._ports[3]))
                 logging.debug(f"Starting WSS: {cmd}\n")
                 if is_windows:
                     startupinfo = subprocess.STARTUPINFO()
