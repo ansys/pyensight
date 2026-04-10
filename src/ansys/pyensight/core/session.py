@@ -256,14 +256,6 @@ class Session:
 
         # establish the connection with retry
         self._establish_connection(validate=True)
-        if self._launcher and self._launcher._liben_rest:
-            vnc_port = 1999
-            if hasattr(self._launcher, "_ports"):  # locallauncher
-                vnc_port = self._launcher._ports[1]
-            self.ensight.objs.core.simba_start_vnc_websocketserver(
-                self.hostname, vnc_port, self.ws_port
-            )
-
         # update the enums to match current EnSight instance
         cmd = "{key: getattr(ensight.objs.enums, key) for key in dir(ensight.objs.enums)}"
         new_enums = self.cmd(cmd)
@@ -332,6 +324,11 @@ class Session:
         tool_lookup_dict[6] = "ENS_TOOL_SPHERE"
         tool_lookup_dict[7] = "ENS_TOOL_REVOLUTION"
         self._subtype_tables["ENS_TOOL"] = tool_lookup_dict
+
+    def _build_liben_vnc_ws(self, vnc_port):
+        self.ensight.objs.core.simba_start_vnc_websocketserver(
+            self.hostname, vnc_port, self.ws_port
+        )
 
     def __repr__(self):
         # if this is called from in the ctor, self.launcher might be None.

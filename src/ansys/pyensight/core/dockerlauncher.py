@@ -965,6 +965,8 @@ class DockerLauncher(Launcher):
 
         if self._launch_webui:
             self.launch_webui(container_env_str)
+        if self._liben_rest:
+            session._build_liben_vnc_ws(1999)
         logging.debug("Return session.\n")
 
         return session

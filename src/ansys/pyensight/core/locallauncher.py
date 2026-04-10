@@ -423,6 +423,8 @@ class LocalLauncher(Launcher):
         self._sessions.append(session)
         if self._launch_webui:
             self.launch_webui(version, popen_common)
+        if self._liben_rest:
+            session._build_liben_vnc_ws(self._ports[1])
         return session
 
     @staticmethod
