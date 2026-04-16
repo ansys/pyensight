@@ -70,6 +70,7 @@ class OmniverseKitInstance:
         )
         self._scanner_thread.start()
         self._simba_url: Optional[ParseResult] = None
+        self._exit_messages: Optional[dict] = None
 
     def __del__(self) -> None:
         """Close down the instance on delete"""
@@ -148,6 +149,24 @@ class OmniverseKitInstance:
         """
         return self._simba_url
 
+    def launch_progress(self) -> float:
+        """Return the progress toward launching, in [0, 1]
+
+        Returns
+        -------
+        float
+            1 means it is rendering and the simba server is running, or it has started and exited.
+            [0, .99] is based on a count of the number of lines of output / total lines of output
+        """
+        approx_output_lines = 500
+        if self.returncode() is not None:
+            # Process is no longer running
+            return 1
+        elif self.is_rendering() and self.simba_url() is not None:
+            return 1
+        else:
+            return 0.99 * (min(self._lines_read, approx_output_lines) / approx_output_lines)
+
     def returncode(self) -> Optional[int]:
         """Get the return code if the process has stopped, or None if still running
 
@@ -162,6 +181,9 @@ class OmniverseKitInstance:
             return None
         self._returncode = self._proc.returncode
         return self._returncode
+
+    def exit_messages(self) -> Optional[dict]:
+        return self._exit_messages
 
 
 # Deprecated
@@ -345,11 +367,37 @@ def find_app(ansys_installation: Optional[str] = None) -> Optional[str]:
     return None
 
 
+def get_app_exit_messages(app_file: str) -> Optional[dict]:
+    """
+    Load the Omniverse python launch script as a module.
+    Return the attribute EXIT_MESSAGES that maps
+    launch script exit codes to human readable explanations.
+    """
+    try:
+        import importlib.util
+
+        module_name = "ansys_tools_omni_core"
+        spec = importlib.util.spec_from_file_location(module_name, app_file)
+        if spec is None or spec.loader is None:
+            return None
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[module_name] = module
+        spec.loader.exec_module(module)
+        exit_msgs = getattr(module, "EXIT_MESSAGES", None)
+        if isinstance(exit_msgs, dict):
+            return exit_msgs
+    except (ImportError, ModuleNotFoundError, AttributeError, SyntaxError, FileNotFoundError):
+        pass
+    # Older builds of the Omniverse launcher do not have the EXIT_MESSAGES attr
+    return None
+
+
 def launch_app(
     usd_file: Optional[str] = "",
     layout: Optional[str] = "default",
     streaming: Optional[bool] = False,
     offscreen: Optional[bool] = False,
+    dry_run: Optional[bool] = False,
     log_file: Optional[str] = None,
     log_level: Optional[str] = "warn",
     cli_options: Optional[List[str]] = None,
@@ -368,6 +416,8 @@ def launch_app(
     #    Enable webrtc streaming to enable the window in a web page
     # offscreen : Optional[str]
     #    Run the app offscreen.  Useful when streaming.
+    # dry_run : Optional[str]
+    #    Do only the validation checks.  Examine the return code to learn whether the app could run.
     # log_file : Optional[str]
     #    The name of a text file where the logging information for the instance will be saved.
     # log_level : Optional[str]
@@ -395,6 +445,12 @@ def launch_app(
     app = find_app(ansys_installation=ansys_installation)
     if not app:
         raise RuntimeError("Unable to find the Ansys Omniverse app")
+    exit_msgs = get_app_exit_messages(app)
+    if dry_run and exit_msgs is None:
+        raise RuntimeError(
+            "The installed Ansys Omniverse app is too old to support dry-run mode.  Please update to a newer version."
+        )
+
     cmd.extend([app])
     if usd_file:
         cmd.extend(["-f", usd_file])
@@ -404,6 +460,8 @@ def launch_app(
         cmd.extend(["-s"])
     if offscreen:
         cmd.extend(["-o"])
+    if dry_run:
+        cmd.extend(["--dry-run"])
     if cli_options:
         cmd.extend(cli_options)
     if log_level:
@@ -416,7 +474,11 @@ def launch_app(
     # Launch the process
     env_vars = os.environ.copy()
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env_vars)
-    return OmniverseKitInstance(p)
+
+    omni_kit = OmniverseKitInstance(p)
+    omni_kit._exit_messages = exit_msgs
+
+    return omni_kit
 
 
 class Omniverse:
