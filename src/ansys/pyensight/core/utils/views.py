@@ -40,8 +40,9 @@ Example to set an isometric view:
 
 """
 
+from functools import wraps
 import math
-from typing import TYPE_CHECKING, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING, Callable, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 
@@ -69,37 +70,39 @@ class _Simba:
     def __init__(self, ensight: Union["ensight_api.ensight", "ensight"], views: "Views"):
         self.ensight = ensight
         self.views = views
-        self._original_look_at = None
-        self._original_look_from = None
-        self._original_parallel_scale = None
-        self._original_view_angle = None
-        self._original_view_up = None
 
+    @staticmethod
+    def _logger_wrapper(func: Callable):
+        @wraps(func)
+        def inner(self, *args, **kwargs):
+            try:
+                return func(self, *args, **kwargs)
+            except Exception:
+                import traceback
+
+                print(f"Interactor error: {traceback.format_exc()}")
+
+        return inner
+
+    @_logger_wrapper
     def _initialize_simba_view(self):
         """Initialize the data for resetting the camera.
 
         Accepts an optional precomputed `reset_camera` dict to keep initialization
         deterministic (avoid recomputing bounds/camera after `set_camera`).
         """
-        current_camera = self.get_camera()
-        reset_camera = self.reset_camera(
-            current_camera["position"], current_camera["focal_point"], current_camera["view_up"]
-        )
-        self._original_parallel_scale = reset_camera["parallel_scale"]
-        self._original_view_angle = reset_camera["view_angle"]
-        self._original_look_at = reset_camera["position"]
-        self._original_look_from = reset_camera["focal_point"]
-        self._original_view_up = reset_camera["view_up"]
         self.ensight.annotation.axis_global("off")
         self.ensight.annotation.axis_local("off")
         self.ensight.annotation.axis_model("off")
         self.ensight.view_transf.zclip_float("OFF")
         self.ensight.objs.core.simbamousemode()
 
+    @_logger_wrapper
     def get_center_of_rotation(self, idx=0):
         """Get EnSight center of rotation."""
-        return self.ensight.objs.core.VPORTS[idx].TRANSFORMCENTER.copy()
+        return self.ensight.objs.core.VPORTS.find(idx, "ID")[0].TRANSFORMCENTER.copy()
 
+    @_logger_wrapper
     def auto_scale(self, idx=0):
         """Auto scale view."""
         current_camera = self.get_camera(idx)
@@ -120,6 +123,7 @@ class _Simba:
         self.render()
         return new_camera
 
+    @_logger_wrapper
     def set_view(self, value: str, idx=0):
         """Set the view."""
         self.ensight.view_transf.function("global")
@@ -129,13 +133,18 @@ class _Simba:
             self.ensight.view_transf.view_recall(new_value)
         else:
             self.views.set_view_direction(
-                1, 1, 1, perspective=self.ensight.objs.core.vports[idx].PERSPECTIVE, vportindex=idx
+                1,
+                1,
+                1,
+                perspective=self.ensight.objs.core.vports.find(idx, "ID")[0].PERSPECTIVE,
+                vportindex=idx,
             )
         return self.auto_scale(idx=idx)
 
+    @_logger_wrapper
     def get_camera(self, idx=0):
         """Get EnSight camera settings in VTK format."""
-        vport = self.ensight.objs.core.VPORTS[idx]
+        vport = self.ensight.objs.core.VPORTS.find(idx, "ID")[0]
         position, focal_point, view_up, parallel_scale = self.compute_camera_from_ensight_opengl(
             idx
         )
@@ -151,11 +160,6 @@ class _Simba:
             "focal_point": focal_point,
             "view_angle": view_angle,
             "parallel_scale": parallel_scale,
-            "reset_focal_point": self._original_look_at,
-            "reset_position": self._original_look_from,
-            "reset_parallel_scale": self._original_parallel_scale,
-            "reset_view_up": self._original_view_up,
-            "reset_view_angle": self._original_view_angle,
         }
 
     @staticmethod
@@ -195,31 +199,34 @@ class _Simba:
                 z = 0.25 * s
         return np.array([x, y, z, w])
 
+    @_logger_wrapper
     def compute_camera_from_ensight_opengl(self, idx=0):
         """Simulate a rotating camera using the current quaternion."""
-        data = self.ensight.objs.core.VPORTS[idx].simba_camera()
+        data = self.ensight.objs.core.VPORTS.find(idx, "ID")[0].simba_camera()
         camera_position = [data[0], data[1], data[2]]
         focal_point = [data[3], data[4], data[5]]
         view_up = [data[6], data[7], data[8]]
         parallel_scale = 1 / data[9]
         return camera_position, focal_point, self.views._normalize_vector(view_up), parallel_scale
 
+    @_logger_wrapper
     def set_camera(
         self, orthographic, view_up=None, position=None, focal_point=None, view_angle=None, idx=0
     ):
         """Set the EnSight camera settings from the VTK input."""
+        self.ensight.viewport.select_begin(idx)
         self.ensight.view_transf.function("global")
         perspective = "OFF" if orthographic else "ON"
         self.ensight.view.perspective(perspective)
-        vport = self.ensight.objs.core.VPORTS[idx]
+        vport = self.ensight.objs.core.VPORTS.find(idx, "ID")[0]
         if view_angle is not None:
             vport.PERSPECTIVEANGLE = view_angle / 2
-        current_camera = self.get_camera()
+        current_camera = self.get_camera(idx)
         if position is not None and focal_point is not None:
             if view_up is None:
                 view_up = current_camera["view_up"]
             center = vport.TRANSFORMCENTER.copy()
-            data = self.ensight.objs.core.VPORTS[idx].simba_set_camera_helper(
+            data = vport.simba_set_camera_helper(
                 position,
                 focal_point,
                 view_up,
@@ -236,8 +243,9 @@ class _Simba:
         self.render()
         return self.get_camera(idx)
 
+    @_logger_wrapper
     def reset_camera(self, position, focal_point, view_up, idx=0):
-        vport = self.ensight.objs.core.VPORTS[idx]
+        vport = self.ensight.objs.core.VPORTS.find(idx, "ID")[0]
         self.ensight.viewport.select_begin(idx)
         self.ensight.view_transf.function("global")
         bounds = vport.BOUNDINGBOX
@@ -274,10 +282,11 @@ class _Simba:
             "parallel_scale": parallel_scale,
         }
 
+    @_logger_wrapper
     def set_perspective(self, value, idx=0):
         self.ensight.viewport.select_begin(idx)
         self.ensight.view_transf.function("global")
-        vport = self.ensight.objs.core.VPORTS[idx]
+        vport = self.ensight.objs.core.VPORTS.find(idx, "ID")[0]
         self.ensight.view.perspective(value)
         vport.PERSPECTIVE = value == "ON"
         self.ensight.viewport.select_begin(idx)
@@ -286,14 +295,16 @@ class _Simba:
         self.render()
         return self.get_camera(idx)
 
+    @_logger_wrapper
     def screen_to_world(self, mousex, mousey, invert_y=False, set_center=False, idx=0):
         mousex = int(mousex)
         mousey = int(mousey)
-        model_point = self.ensight.objs.core.VPORTS[idx].screen_to_coords(
+        model_point = self.ensight.objs.core.VPORTS.find(idx, "ID")[0].screen_to_coords(
             mousex, mousey, invert_y, set_center
         )
         return {"model_point": model_point, "camera": self.get_camera(idx)}
 
+    @_logger_wrapper
     def render(self):
         """Force render update in EnSight."""
         self.ensight.refresh()
@@ -341,6 +352,7 @@ class _Simba:
             return f"results/locations/streamlines/{part_name}"
         return part_name
 
+    @_logger_wrapper
     def drag_allowed(
         self, mousex, mousey, invert_y=False, probe=False, get_probe_data=False, idx=0
     ):
@@ -405,6 +417,7 @@ class _Simba:
                 self._probe_setup(part, get_probe_data=get_probe_data)
         return False, coords[0], coords[1], coords[2], False, part_name, part_selection_map
 
+    @_logger_wrapper
     def rubber_band_selection(self, x1, y1, x2, y2, left_to_rigth, top_to_bottom):
         """Select the parts inside of a specific rectangle."""
         deep_check = not top_to_bottom

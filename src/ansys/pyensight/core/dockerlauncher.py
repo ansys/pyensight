@@ -43,6 +43,7 @@ import os
 import re
 import subprocess
 import tarfile
+from threading import Thread
 import time
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 import uuid
@@ -414,6 +415,23 @@ class DockerLauncher(Launcher):
             container_env["FLUENT_WEBSERVER_TOKEN"] = self._secret_key
 
         return container_env
+
+    def _fill_std_handle(self):
+        """Periodically read enshell log contents and incrementally append to std_handle."""
+        bytes_written = 0
+        while self._enshell and self._enshell.is_connected():
+            try:
+                content = self.enshell_log_contents()
+                if content and len(content) > bytes_written:
+                    new_content = content[bytes_written:]
+                    if isinstance(new_content, str):
+                        new_content = new_content.encode("utf-8")
+                    self._std_handle.write(new_content)
+                    self._std_handle.flush()
+                    bytes_written = len(content)
+            except Exception:
+                pass
+            time.sleep(2)
 
     def start(self) -> "Session":
         """Start EnShell by running a local Docker EnSight image.
@@ -969,6 +987,9 @@ class DockerLauncher(Launcher):
             session._build_liben_vnc_ws(1999)
         logging.debug("Return session.\n")
 
+        if self._std_handle:
+            self._std_thread = Thread(target=self._fill_std_handle, daemon=True)
+            self._std_thread.start()
         return session
 
     def close(self, session):
