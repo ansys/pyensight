@@ -187,6 +187,9 @@ class LocalLauncher(Launcher):
                     del popen_common["stderr"]
             except (ValueError, KeyError):
                 pass
+        if self._std_handle:
+            popen_common["stdout"] = self._std_handle
+            popen_common["stderr"] = self._std_handle
         popen_common["env"].update(
             {
                 "SIMBA_WEBSERVER_TOKEN": self._secret_key,
@@ -309,7 +312,9 @@ class LocalLauncher(Launcher):
                         del popen_common["stderr"]
                 except ValueError:
                     pass
-
+            if self._std_handle:
+                popen_common["stdout"] = self._std_handle
+                popen_common["stderr"] = self._std_handle
             if is_windows:
                 cmd[0] += ".bat"
             if use_egl:
