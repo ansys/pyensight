@@ -33,6 +33,7 @@ import pytest
 
 def test_start(mocker, capsys, caplog, enshell_mock, tmpdir):
     mocked_session = mock.MagicMock("MockedSession")
+    mocked_session._build_liben_vnc_ws = mock.MagicMock("mocked_liben_vnc_ws")
     mocker.patch.object(ansys.pyensight.core.session, "Session", return_value=mocked_session)
     values_run_command = enshell_mock[1].copy()
     mocker.patch.object(enshell_grpc, "EnShellGRPC", return_value=enshell_mock[0])
