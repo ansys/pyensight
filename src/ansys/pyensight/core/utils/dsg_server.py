@@ -942,10 +942,12 @@ class DSGSession(object):
         following json object, stored as: self._status
 
         {
-        'status' : "working|idle",
+        'status' : "idle|working|complete",
         'start_time' : timestamp_of_update_begin,
         'processed_buffers' : number_of_protobuffers_processed,
         'total_buffers' : number_of_protobuffers_total,
+        'timestep' : timestep/flipbook page currently being process, if transient
+        'num_timesteps' : total number of timesteps/flipbook pages, if transient
         }
 
         Parameters
