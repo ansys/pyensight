@@ -117,6 +117,12 @@ class Launcher:
         A list of hostnames where the server processes should be spawned on when MPI is selected.
         If use_mpi is set and server_hosts not, it will default to "localhost".
         This option is valid only if a LocalLauncher is used.
+    liben_rest: bool
+        If True, the EnSight REST server and VNC WS servers are launched as part of
+        EnSight, without using the external websocketserver.py. It defaults to True
+    std_hanle: FileHandle
+        A file handle like input where, if provided, the stdout and stderr from EnSight
+        are reported. It must have interfaces like open, read, flush and write.
     """
 
     def __init__(
@@ -132,13 +138,14 @@ class Launcher:
         server_hosts: Optional[List[str]] = None,
         liben_rest: bool = True,
         vtk_ws: bool = False,
+        std_handle=None,
     ) -> None:
         self._timeout = timeout
         self._use_egl_param_val: bool = use_egl
         self._use_sos = use_sos
         self._use_mpi = use_mpi
         self._interconnect = interconnect
-        self._vtk_ws_port = vtk_ws
+        self._vtk_ws_port = vtk_ws  # Undocumented, needed only by Simba
         if self._use_mpi and self._use_mpi not in MPI_TYPES:
             raise RuntimeError(f"{self._use_mpi} is not a valid MPI option.")
         if self._use_mpi and not self._interconnect:
@@ -169,6 +176,7 @@ class Launcher:
         self._launch_webui = launch_webui
         self._liben_rest = liben_rest
         self._has_grpc_changes = False
+        self._std_handle = std_handle
 
     @property
     def session_directory(self) -> str:
