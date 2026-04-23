@@ -1294,7 +1294,10 @@ class Session:
         ]
         if reader_options:
             for key, value in reader_options.items():
-                option = f"""ensight.data.reader_option("{repr(key)} {repr(value)}")"""
+                text_value = value
+                if text_value != "ON" and text_value != "OFF":
+                    text_value = repr(value)
+                option = f"""ensight.data.reader_option("{repr(key)} {text_value}")"""
                 cmds.append(option)
         if result_file:
             cmds.append(f'ensight.data.result(r"""{result_file}""")')
