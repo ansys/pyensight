@@ -942,10 +942,12 @@ class DSGSession(object):
         following json object, stored as: self._status
 
         {
-        'status' : "working|idle",
+        'status' : "idle|working|complete",
         'start_time' : timestamp_of_update_begin,
         'processed_buffers' : number_of_protobuffers_processed,
         'total_buffers' : number_of_protobuffers_total,
+        'timestep' : timestep/flipbook page currently being process, if transient
+        'num_timesteps' : total number of timesteps/flipbook pages, if transient
         }
 
         Parameters
@@ -1072,6 +1074,13 @@ class DSGSession(object):
             cmd.command_type != dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_SCENE_END
         ):
             self._handle_update_command(cmd)
+
+            if cmd.command_type == dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_VIEW:
+                if hasattr(cmd.update_view, "num_timesteps") and cmd.update_view.num_timesteps > 0:
+                    # Older protocol is missing num_timesteps, so it will be 0
+                    self._status["timestep"] = cmd.update_view.timestep  # type: ignore
+                    self._status["num_timesteps"] = cmd.update_view.num_timesteps  # type: ignore
+
             self._status["processed_buffers"] += 1  # type: ignore
             self._status["total_buffers"] = self._status["processed_buffers"] + self._message_queue.qsize()  # type: ignore
             self._update_status_file(timed=True)
@@ -1083,7 +1092,7 @@ class DSGSession(object):
         self._callback_handler.end_update()
 
         # Update our status
-        self._status = dict(status="idle", start_time=0.0, processed_buffers=0, total_buffers=0)
+        self._status = dict(status="complete", start_time=0.0, processed_buffers=0, total_buffers=0)
         self._update_status_file()
 
     def _handle_update_command(self, cmd: dynamic_scene_graph_pb2.SceneUpdateCommand) -> None:

@@ -58,12 +58,12 @@ def compare_usd_files(stage1, stage2):
     return True
 
 
-def wait_for_idle(session):
+def wait_for_complete(session):
     found = False
     start = time.time()
     while not found and time.time() - start < 60:
         status = session.ensight.utils.omniverse.read_status_file()
-        if status.get("status") == "idle":
+        if status.get("status") == "complete":
             found = True
         time.sleep(0.5)
     return found
@@ -85,7 +85,7 @@ def test_usd_export(tmpdir, pytestconfig: pytest.Config):
     session = launcher.start()
     session.load_example("waterbreak.ens")
     session.ensight.utils.omniverse.create_connection(data_dir)
-    assert wait_for_idle(session)
+    assert wait_for_complete(session)
     usd_files = glob.glob(os.path.join(data_dir, "*.usd"))
     assert len(usd_files) == 1
     base_usd = usd_files[0]
@@ -100,14 +100,14 @@ def test_usd_export(tmpdir, pytestconfig: pytest.Config):
     stage1 = Usd.Stage.Open(os.path.join(data_dir, "stage1.usd"))
     session.ensight.objs.core.PARTS.set_attr("COLORBYPALETTE", "alpha1")
     session.ensight.utils.omniverse.update()
-    assert wait_for_idle(session)
+    assert wait_for_complete(session)
     stage2 = Usd.Stage.Open(base_usd)
     diff = compare_usd_files(stage1, stage2)
     assert diff is False
     diff = compare_usd_files(temp_stage, stage2)
     assert diff is True
     session.ensight.utils.omniverse.update(temporal=True)
-    assert wait_for_idle(session)
+    assert wait_for_complete(session)
     parts = glob.glob(os.path.join(data_dir, "Parts", "*.usd"))
     # Considering deduplication, at the end of the export there will be 39 items
     # not 100 (5*20)

@@ -31,7 +31,7 @@ The API can be used directly from a local Python installation of the
         start = time.time()
         while not found and time.time() - start < 60:
             status = session.ensight.utils.omniverse.read_status_file()
-            if status.get("status") == "idle":
+            if status.get("status") == "complete":
                 found = True
             time.sleep(0.5)
         return found
@@ -70,7 +70,7 @@ From inside an EnSight session, the API is similar:
         start = time.time()
         while not found and time.time() - start < 60:
             status = ensight.utils.omniverse.read_status_file()
-            if status.get("status") == "idle":
+            if status.get("status") == "complete":
                 found = True
             time.sleep(0.5)
         return found
