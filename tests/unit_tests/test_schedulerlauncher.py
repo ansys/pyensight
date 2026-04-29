@@ -73,7 +73,10 @@ def _make_scheduler_launcher(mocker, **overrides):
         submission_host="127.0.0.1",
     )
     defaults.update(overrides)
-    return SchedulerLauncher(**defaults)
+    scheduler = SchedulerLauncher(**defaults)
+    scheduler._future = mock.MagicMock()
+    scheduler._future.cancel = mock.MagicMock()
+    return scheduler
 
 
 # ---------------------------------------------------------------------------
@@ -720,6 +723,7 @@ class TestSchedulerLauncher:
         original_cwd = os.getcwd()
         os.chdir(tmp_path)
         try:
+            mocker.patch("ansys.pyensight.core.schedulerlauncher.atexit.register")
             launcher = _make_scheduler_launcher(
                 mocker,
                 queue="batch",
@@ -730,6 +734,10 @@ class TestSchedulerLauncher:
                 launcher._scheduler_instance,
                 "submit_job",
                 return_value=42,
+            )
+            mocker.patch(
+                "ansys.pyensight.core.schedulerlauncher._SlurmWrapper.get_state",
+                return_value="",
             )
             mocker.patch.object(launcher, "_launch", return_value=mock.MagicMock())
             future = launcher.start()
@@ -822,6 +830,8 @@ class TestSchedulerLauncher:
         mock_scheduler.is_available.return_value = True
         mocker.patch.dict(SCHEDULER_MAP, {"SLURM": lambda *a, **kw: mock_scheduler})
         launcher = SchedulerLauncher(ansys_installation="/remote/install")
+        launcher._future = mock.MagicMock()
+        launcher._future.cancel = mock.MagicMock()
         assert launcher._server_ansys_installation == "/remote/install"
 
     def test_validate_server_ansys_installation_with_cei_subfolder(self, mocker):
@@ -836,6 +846,8 @@ class TestSchedulerLauncher:
         mock_scheduler.is_available.return_value = True
         mocker.patch.dict(SCHEDULER_MAP, {"SLURM": lambda *a, **kw: mock_scheduler})
         launcher = SchedulerLauncher(ansys_installation="/remote/install")
+        launcher._future = mock.MagicMock()
+        launcher._future.cancel = mock.MagicMock()
         assert launcher._server_ansys_installation == "/remote/install/CEI"
 
     def test_validate_server_ansys_installation_fails(self, mocker):
@@ -849,7 +861,9 @@ class TestSchedulerLauncher:
         mock_scheduler.is_available.return_value = True
         mocker.patch.dict(SCHEDULER_MAP, {"SLURM": lambda *a, **kw: mock_scheduler})
         with pytest.raises(RuntimeError, match="Cannot find Ansys installation"):
-            SchedulerLauncher(ansys_installation="/bad/path")
+            scheduler = SchedulerLauncher(ansys_installation="/bad/path")
+            scheduler._future = mock.MagicMock()
+            scheduler._future.cancel = mock.MagicMock()
 
     def test_start_internal_launcher(self, mocker):
         def _mock_set_local_ports(self_):
