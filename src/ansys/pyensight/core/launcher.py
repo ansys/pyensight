@@ -119,7 +119,8 @@ class Launcher:
         This option is valid only if a LocalLauncher is used.
     liben_rest: bool
         If True, the EnSight REST server and VNC WS servers are launched as part of
-        EnSight, without using the external websocketserver.py. It defaults to True
+        EnSight, without using the external websocketserver.py. It defaults to True.
+        If True, the REST api is enabled.
     std_hanle: FileHandle
         A file handle like input where, if provided, the stdout and stderr from EnSight
         are reported. It must have interfaces like open, read, flush and write.
@@ -175,6 +176,8 @@ class Launcher:
         self._additional_command_line_options = additional_command_line_options
         self._launch_webui = launch_webui
         self._liben_rest = liben_rest
+        if liben_rest:
+            self._enable_rest_api = True
         self._has_grpc_changes = False
         self._std_handle = std_handle
 

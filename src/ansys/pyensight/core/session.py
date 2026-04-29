@@ -324,6 +324,7 @@ class Session:
         tool_lookup_dict[6] = "ENS_TOOL_SPHERE"
         tool_lookup_dict[7] = "ENS_TOOL_REVOLUTION"
         self._subtype_tables["ENS_TOOL"] = tool_lookup_dict
+        self._scheduler_session = False
 
     def _build_liben_vnc_ws(self, vnc_port):
         self.ensight.objs.core.simba_start_vnc_websocketserver(
@@ -1117,25 +1118,13 @@ class Session:
 
         Close the current session and its gRPC connection.
         """
-        # if version 242 or higher, free any objects we have cached there
         if not self._already_closed:
-            if self.cei_suffix >= "242":
-                try:
-                    self._release_remote_objects()
-                except RuntimeError:  # pragma: no cover
-                    # handle some intermediate EnSight builds.
-                    pass
-                except IOError:  # pragma: no cover
-                    # The session might already have been closed via another
-                    # session object. If grpc is inactive, there's no sense
-                    # in raising an exception since we are closing it anyway
-                    pass
+            self._already_closed = True
             if self._launcher and self._halt_ensight_on_close:
                 self._launcher.close(self)
             else:
-                # lightweight shtudown, just close the gRC connection
+                # lightweight shutdown, just close the gRPC connection
                 self._grpc.shutdown(stop_ensight=False)
-            self._already_closed = True
         self._launcher = None
 
     def _build_utils_interface(self) -> None:
@@ -1252,8 +1241,9 @@ class Session:
         ]
         for cmd in cmds:
             self.cmd(cmd, do_eval=False)
-
         if new_case:
+            if self._scheduler_session:
+                raise RuntimeError("Loading multiple cases via scheduler is not supported.")
             # New case
             new_case_name = None
             for case in self.ensight.objs.core.CASES:
@@ -1268,11 +1258,12 @@ class Session:
             self.cmd(cmd, do_eval=False)
         else:
             # Case replace
-            current_case_name = self.ensight.objs.core.CURRENTCASE[0].DESCRIPTION
-            cmd = f'ensight.case.replace("{current_case_name}", "{current_case_name}")'
-            self.cmd(cmd, do_eval=False)
-            cmd = f'ensight.case.select("{current_case_name}")'
-            self.cmd(cmd, do_eval=False)
+            if not self._scheduler_session:
+                current_case_name = self.ensight.objs.core.CURRENTCASE[0].DESCRIPTION
+                cmd = f'ensight.case.replace("{current_case_name}", "{current_case_name}")'
+                self.cmd(cmd, do_eval=False)
+                cmd = f'ensight.case.select("{current_case_name}")'
+                self.cmd(cmd, do_eval=False)
 
         # Attempt to find the file format if none is specified
         if file_format is None:

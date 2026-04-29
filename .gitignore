@@ -13,6 +13,8 @@
 *.whl
 .pytest_cache/
 */__pycache__
+*.slurm
+launch_pyensight_slurm*.py
 
 # OS generated files #
 ######################
