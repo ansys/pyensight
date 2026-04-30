@@ -1,0 +1,6 @@
+OVERRIDERANGEMIN
+================
+
+.. currentmodule:: ansys.api.pyensight.ens_var
+
+.. autoproperty:: ENS_VAR.OVERRIDERANGEMIN

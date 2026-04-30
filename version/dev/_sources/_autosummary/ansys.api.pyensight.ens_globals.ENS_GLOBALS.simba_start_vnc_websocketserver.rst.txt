@@ -1,0 +1,6 @@
+simba\_start\_vnc\_websocketserver
+==================================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. automethod:: ENS_GLOBALS.simba_start_vnc_websocketserver

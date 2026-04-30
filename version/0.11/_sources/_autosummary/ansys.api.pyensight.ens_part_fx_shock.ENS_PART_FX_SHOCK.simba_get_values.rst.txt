@@ -1,0 +1,6 @@
+simba\_get\_values
+==================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_fx_shock
+
+.. automethod:: ENS_PART_FX_SHOCK.simba_get_values

@@ -1,0 +1,95 @@
+﻿ENS\_TOOL\_BOX
+==============
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_box
+
+.. autoclass:: ENS_TOOL_BOX
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_TOOL_BOX.attrgroupinfo
+      
+      
+      ENS_TOOL_BOX.attrinfo
+      
+      
+      ENS_TOOL_BOX.attrissensitive
+      
+      
+      ENS_TOOL_BOX.attrtree
+      
+      
+      ENS_TOOL_BOX.destroy
+      
+      
+      ENS_TOOL_BOX.fit_to_selected
+      
+      
+      ENS_TOOL_BOX.getattr
+      
+      
+      ENS_TOOL_BOX.getattrs
+      
+      
+      ENS_TOOL_BOX.getmetatag
+      
+      
+      ENS_TOOL_BOX.hasmetatag
+      
+      
+      ENS_TOOL_BOX.rawdata
+      
+      
+      ENS_TOOL_BOX.setattr
+      
+      
+      ENS_TOOL_BOX.setattr_begin
+      
+      
+      ENS_TOOL_BOX.setattr_end
+      
+      
+      ENS_TOOL_BOX.setattr_status
+      
+      
+      ENS_TOOL_BOX.setattrs
+      
+      
+      ENS_TOOL_BOX.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_TOOL_BOX.CENTROID
+      ENS_TOOL_BOX.CORE
+      ENS_TOOL_BOX.DESCRIPTION
+      ENS_TOOL_BOX.EDIT_TARGET
+      ENS_TOOL_BOX.HANDLES_ENABLED
+      ENS_TOOL_BOX.INDEX
+      ENS_TOOL_BOX.METADATA
+      ENS_TOOL_BOX.NORMAL
+      ENS_TOOL_BOX.PROJECT_MASK
+      ENS_TOOL_BOX.ROTATION
+      ENS_TOOL_BOX.SELECTED
+      ENS_TOOL_BOX.SIZE
+      ENS_TOOL_BOX.TOOLTYPE
+      ENS_TOOL_BOX.UUID
+      ENS_TOOL_BOX.VISIBLE
+      ENS_TOOL_BOX.__OBJID__
+      ENS_TOOL_BOX.objid
+   
+   

@@ -1,0 +1,98 @@
+﻿ENS\_POLYLINE
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_polyline
+
+.. autoclass:: ENS_POLYLINE
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_POLYLINE.attrgroupinfo
+      
+      
+      ENS_POLYLINE.attrinfo
+      
+      
+      ENS_POLYLINE.attrissensitive
+      
+      
+      ENS_POLYLINE.attrtree
+      
+      
+      ENS_POLYLINE.createpolyline
+      
+      
+      ENS_POLYLINE.destroy
+      
+      
+      ENS_POLYLINE.getattr
+      
+      
+      ENS_POLYLINE.getattrs
+      
+      
+      ENS_POLYLINE.getmetatag
+      
+      
+      ENS_POLYLINE.hasmetatag
+      
+      
+      ENS_POLYLINE.interpolate
+      
+      
+      ENS_POLYLINE.populate_attr_list
+      
+      
+      ENS_POLYLINE.setattr
+      
+      
+      ENS_POLYLINE.setattr_begin
+      
+      
+      ENS_POLYLINE.setattr_end
+      
+      
+      ENS_POLYLINE.setattr_status
+      
+      
+      ENS_POLYLINE.setattrs
+      
+      
+      ENS_POLYLINE.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_POLYLINE.COLOR
+      ENS_POLYLINE.CONTROLPOINTS
+      ENS_POLYLINE.DESCRIPTION
+      ENS_POLYLINE.EDIT_TARGET
+      ENS_POLYLINE.HANDLES_ENABLED
+      ENS_POLYLINE.ID
+      ENS_POLYLINE.LINEWIDTH
+      ENS_POLYLINE.METADATA
+      ENS_POLYLINE.NUMCONTROLPOINTS
+      ENS_POLYLINE.POINTSIZE
+      ENS_POLYLINE.POINTVISIBLE
+      ENS_POLYLINE.PROJECT_MASK
+      ENS_POLYLINE.SELECTED
+      ENS_POLYLINE.UUID
+      ENS_POLYLINE.VISIBLE
+      ENS_POLYLINE.__OBJID__
+      ENS_POLYLINE.objid
+   
+   
