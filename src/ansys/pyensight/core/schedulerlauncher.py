@@ -306,7 +306,7 @@ class _SlurmWrapper(_SchedulerWrapper):
         if not queues:
             return []
         queues_split = queues.strip().split()
-        queues_split = [q.removesuffix("*") for q in queues]
+        queues_split = [q.removesuffix("*") for q in queues_split]
         return queues_split
 
     def get_state(self, job_id: int) -> Optional[str]:
