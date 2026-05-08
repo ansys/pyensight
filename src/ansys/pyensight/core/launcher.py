@@ -174,6 +174,11 @@ class Launcher:
         # a dict of any optional launcher specific query parameters for URLs
         self._query_parameters: Dict[str, str] = {}
         self._additional_command_line_options = additional_command_line_options
+        if os.environ.get("PYENSIGHT_FORCE_SOFTWARE_RENDERING"):
+            if not self._additional_command_line_options:
+                self._additional_command_line_options = ["-X"]
+            elif "-X" not in self._additional_command_line_options:
+                self._additional_command_line_options.append("-X")
         self._launch_webui = launch_webui
         self._liben_rest = liben_rest
         if liben_rest:
