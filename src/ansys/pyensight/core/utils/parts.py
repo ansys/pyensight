@@ -871,7 +871,7 @@ class Parts:
         >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
         >>> s.load_data(cas_file, result_file=dat_file)
         >>> parts = s.ensight.utils.parts
-        >>> parts.create_particle_trace_from_parts("mytraces", "Velocity", parts=["hot-inlet", "cold-inlet"], num_points=100 source_parts=parts.select_parts_by_dimension(3))
+        >>> parts.create_particle_trace_from_parts("mytraces", "Velocity", parts=["hot-inlet", "cold-inlet"], num_points=100, source_parts=parts.select_parts_by_dimension(3))
         """
         emitter_type = self._EMIT_PART
         direction, converted_source_parts = self._prepare_particle_creation(
