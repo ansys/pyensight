@@ -382,6 +382,9 @@ class _Simba:
             return True, coords[0], coords[1], coords[2], False, part_name, part_selection_map
         if part_id > -1:
             part_obj = self.ensight.objs.core.PARTS.find(part_id, "PARTNUMBER")[0]
+            if part_obj.METADATA.get("ENS_IMPLICIT_COPY"):
+                part_id = int(part_obj.METADATA["ENS_IMPLICIT_COPY"])
+                part_obj = self.ensight.objs.core.PARTS.find(part_id, "PARTNUMBER")[0]
             part_name = self._build_simba_api_path(part_obj.DESCRIPTION, part_obj.CASENUMBER)
             part_select = self.ensight.objs.core.PARTS.get_attr("SELECTED")
             part_names = self.ensight.objs.core.PARTS.get_attr("DESCRIPTION")
