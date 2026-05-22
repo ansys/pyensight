@@ -441,6 +441,7 @@ class _Simba:
             case_num = case_nums[idx]
             full_paths.append(self._build_simba_api_path(p, case_num))
         part_selection_map = {k: v for k, v in zip(full_paths, part_select)}
+        self.ensight.refresh()
         return part_selection_map
 
 
