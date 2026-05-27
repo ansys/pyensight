@@ -501,8 +501,8 @@ def launch_app(
     # Close the file descriptor in the parent process
     # The child process has its own copy and can continue writing
     os.close(output_log_fd)
-
-    print(f"Showcase output logged to {output_log_path}")
+    if not dry_run:
+        print(f"Showcase output logged to {output_log_path}")
     omni_kit = OmniverseKitInstance(p, log_file=output_log_path)
     omni_kit._exit_messages = exit_msgs
 
