@@ -227,13 +227,14 @@ class Launcher:
         session.grpc.shutdown(stop_ensight=True, force=True)
 
         # stop the websocketserver instance
-        url = f"http://{session.hostname}:{session.html_port}/v1/stop"
-        if session.secret_key:  # pragma: no cover
-            url += f"?security_token={session.secret_key}"
-        try:
-            _ = requests.get(url)
-        except requests.exceptions.ConnectionError:
-            pass
+        if not self._liben_rest:  # No need to stop the rest server if EnSight is already closed
+            url = f"http://{session.hostname}:{session.html_port}/v1/stop"
+            if session.secret_key:  # pragma: no cover
+                url += f"?security_token={session.secret_key}"
+            try:
+                _ = requests.get(url)
+            except requests.exceptions.ConnectionError:
+                pass
 
         # Stop the launcher instance
         self.stop()
