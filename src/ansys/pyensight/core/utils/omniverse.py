@@ -28,6 +28,7 @@ import subprocess
 import sys
 import tempfile
 import threading
+import time
 from types import ModuleType
 from typing import TYPE_CHECKING, List, Optional, Union
 from urllib.parse import ParseResult, urlparse
@@ -60,11 +61,12 @@ class OmniverseKitInstance:
         The process id of the launched instance
     """
 
-    def __init__(self, proc: subprocess.Popen) -> None:
+    def __init__(self, proc: subprocess.Popen, log_file: Optional[str] = None) -> None:
         self._proc: subprocess.Popen = proc
         self._returncode: Optional[int] = None
         self._rendering = False
         self._lines_read = 0
+        self._log_file = log_file
         self._scanner_thread = threading.Thread(
             target=OmniverseKitInstance._scan_stdout, args=(self,)
         )
@@ -105,15 +107,28 @@ class OmniverseKitInstance:
 
     @staticmethod
     def _scan_stdout(oki: "OmniverseKitInstance"):
-        while oki._proc and oki._proc.poll() is None:
-            if oki._proc.stdout is not None:
-                output_line = oki._proc.stdout.readline().decode("utf-8")
-                oki._lines_read = oki._lines_read + 1
-                if "RTX ready" in output_line:
-                    oki._rendering = True
-                if output_line.startswith("Server running on "):
-                    urlstr = output_line.removeprefix("Server running on ")
-                    oki._simba_url = urlparse(urlstr)
+        if oki._log_file:
+            with open(oki._log_file, "r", encoding="utf-8", errors="replace") as f:
+                while oki._proc and oki._proc.poll() is None:
+                    output_line = f.readline()
+                    if output_line:
+                        OmniverseKitInstance._handle_line(oki, output_line)
+                    else:
+                        time.sleep(0.1)
+        else:
+            while oki._proc and oki._proc.poll() is None:
+                if oki._proc.stdout is not None:
+                    output_line = oki._proc.stdout.readline().decode("utf-8")
+                    OmniverseKitInstance._handle_line(oki, output_line)
+
+    @staticmethod
+    def _handle_line(oki: "OmniverseKitInstance", output_line: str):
+        oki._lines_read = oki._lines_read + 1
+        if "RTX ready" in output_line:
+            oki._rendering = True
+        if output_line.startswith("Server running on "):
+            urlstr = output_line.removeprefix("Server running on ")
+            oki._simba_url = urlparse(urlstr)
 
     def is_rendering(self) -> bool:
         """Check if the instance has finished launching and is ready to render
@@ -353,8 +368,11 @@ def find_app(ansys_installation: Optional[str] = None) -> Optional[str]:
     # Look for most recent Ansys install, 25.2 or later
     awp_roots = []
     for env_name in dict(os.environ).keys():
-        if env_name.startswith("AWP_ROOT") and int(env_name[len("AWP_ROOT") :]) >= 252:
-            awp_roots.append(env_name)
+        try:
+            if env_name.startswith("AWP_ROOT") and int(env_name[len("AWP_ROOT") :]) >= 252:
+                awp_roots.append(env_name)
+        except ValueError:
+            continue
     awp_roots.sort(reverse=True)
     for env_name in awp_roots:
         dirs_to_check.append(os.path.join(os.environ[env_name], "tp", "showcase"))
@@ -444,11 +462,11 @@ def launch_app(
         cmd = [interpreter]
     app = find_app(ansys_installation=ansys_installation)
     if not app:
-        raise RuntimeError("Unable to find the Ansys Omniverse app")
+        raise RuntimeError("Unable to find the Showcase launch script.")
     exit_msgs = get_app_exit_messages(app)
     if dry_run and exit_msgs is None:
         raise RuntimeError(
-            "The installed Ansys Omniverse app is too old to support dry-run mode.  Please update to a newer version."
+            "The installed Showcase app is too old to support dry-run mode.  Please update to a newer version."
         )
 
     cmd.extend([app])
@@ -471,11 +489,21 @@ def launch_app(
     if log_file:
         cmd.extend(["--/log/enabled=true", f"--/log/file={log_file}"])
 
-    # Launch the process
-    env_vars = os.environ.copy()
-    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env_vars)
+    # Create temp file for monitoring output
+    output_log_fd, output_log_path = tempfile.mkstemp(
+        prefix="showcase_", suffix=".log", dir=tempfile.gettempdir(), text=False
+    )
 
-    omni_kit = OmniverseKitInstance(p)
+    # Launch the process with the file descriptor
+    env_vars = os.environ.copy()
+    p = subprocess.Popen(cmd, stdout=output_log_fd, stderr=subprocess.STDOUT, env=env_vars)
+
+    # Close the file descriptor in the parent process
+    # The child process has its own copy and can continue writing
+    os.close(output_log_fd)
+    if not dry_run:
+        print(f"Showcase output logged to {output_log_path}")
+    omni_kit = OmniverseKitInstance(p, log_file=output_log_path)
     omni_kit._exit_messages = exit_msgs
 
     return omni_kit
