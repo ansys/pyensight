@@ -1068,12 +1068,38 @@ class DSGSession(object):
         )
         self._update_status_file()
 
+        tmp_ts = None
+
         # handle the various commands until UPDATE_SCENE_END
         cmd = self._get_next_message()
         while (cmd is not None) and (
             cmd.command_type != dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_SCENE_END
         ):
             self._handle_update_command(cmd)
+
+            # Check for a time_scale option, attached to the group attrs.
+            # It overrides the time_scale used as a launch option
+            if (
+                tmp_ts is None
+                and cmd.command_type == dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_GROUP
+            ):
+                group = self._groups[cmd.update_group.id]
+                if self._callback_handler and hasattr(
+                    self._callback_handler, "get_dsg_cmd_attribute"
+                ):
+                    ts_str = self._callback_handler.get_dsg_cmd_attribute(group, "time_scale")
+                    if ts_str is None:
+                        tmp_ts = self._time_scale
+                    else:
+                        try:
+                            tmp_ts = float(ts_str)
+                        except ValueError:
+                            tmp_ts = self._time_scale
+                    if self._time_scale != tmp_ts:
+                        if self._time_scale != 0.0:
+                            self.cur_timeline[0] = tmp_ts * self.cur_timeline[0] / self._time_scale
+                            self.cur_timeline[1] = tmp_ts * self.cur_timeline[1] / self._time_scale
+                        self._time_scale = tmp_ts
 
             if cmd.command_type == dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_VIEW:
                 if hasattr(cmd.update_view, "num_timesteps") and cmd.update_view.num_timesteps > 0:
@@ -1092,7 +1118,7 @@ class DSGSession(object):
         self._callback_handler.end_update()
 
         # Update our status
-        self._status = dict(status="complete", start_time=0.0, processed_buffers=0, total_buffers=0)
+        self._status["status"] = "complete"
         self._update_status_file()
 
     def _handle_update_command(self, cmd: dynamic_scene_graph_pb2.SceneUpdateCommand) -> None:
