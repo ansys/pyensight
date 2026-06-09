@@ -38,6 +38,7 @@ import uuid
 
 from ansys.api.pyensight.v0 import dynamic_scene_graph_pb2_grpc, ensight_pb2, ensight_pb2_grpc
 from ansys.tools.common.cyberchannel import create_channel
+from google.protobuf import empty_pb2
 import grpc
 
 if TYPE_CHECKING:
@@ -229,8 +230,8 @@ class EnSightGRPC(object):
                         pass  # pragma: no cover
                 else:
                     if self._stub:  # pragma: no cover
-                        _ = self._stub.Exit(
-                            ensight_pb2.ExitRequest(), metadata=self._metadata()
+                        _ = self._stub.ExitCleanly(
+                            empty_pb2.Empty(), metadata=self._metadata()
                         )  # pragma: no cover
             # clean up control objects
             self._stub = None
