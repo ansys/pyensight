@@ -820,7 +820,9 @@ class Omniverse:
         self._server_pid = None
         self._new_status_file(new=False)
 
-    def update(self, temporal: bool = False, line_width: float = 0.0) -> None:
+    def update(
+        self, temporal: bool = False, line_width: float = 0.0, time_scale: Optional[float] = None
+    ) -> None:
         """Update the geometry in Omniverse
 
         Export the current EnSight scene to the current Omniverse connection.
@@ -849,6 +851,10 @@ class Omniverse:
             if add_linewidth:
                 update_cmd += f"{prefix}ANSYS_linewidth={line_width}"
                 prefix = "&"
+        if time_scale is not None:
+            update_cmd += f"{prefix}time_scale={time_scale}"
+            prefix = "&"
+
         self._check_modules()
         if not self.is_running_omniverse():
             raise RuntimeError("No Omniverse server connection is currently active.")
