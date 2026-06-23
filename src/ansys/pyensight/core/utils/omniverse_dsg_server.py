@@ -892,9 +892,18 @@ class OmniverseWrapper(object):
 
     def uploadMaterial(self):
         uriPath = self._destinationPath + "/Materials"
-        shutil.rmtree(uriPath, ignore_errors=True, onerror=None)
         fullpath = os.path.join(os.path.dirname(__file__), "resources", "Materials")
-        shutil.copytree(fullpath, uriPath)
+        if not os.path.isdir(uriPath):
+            shutil.copytree(fullpath, uriPath)
+            return
+        # Sync: add new files, remove deleted files, skip existing files untouched
+        # (avoids overwriting files that Kit may have open, e.g. 000_sky.exr)
+        src_files = set(os.listdir(fullpath))
+        dst_files = set(os.listdir(uriPath))
+        for name in src_files - dst_files:
+            shutil.copy2(os.path.join(fullpath, name), os.path.join(uriPath, name))
+        for name in dst_files - src_files:
+            os.remove(os.path.join(uriPath, name))
 
     # Create a dome light in the scene.
     def createDomeLight(self, texturePath):
