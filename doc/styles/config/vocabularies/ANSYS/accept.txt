@@ -95,7 +95,9 @@ SciPy
 SOSConstant
 Stimpson
 subpackage
+Synopsys
 te
+THIRDPARTY
 timestep1
 timestep2
 Tij
