@@ -1010,7 +1010,7 @@ class DockerLauncher(Launcher):
 
         """
         if self._enshell:
-            if self._enshell.is_connected():  # pragma: no cover
+            if self._enshell.is_connected() and not self._liben_rest:  # pragma: no cover
                 logging.debug("Killing WSS\n")
                 command = 'pkill -f "websocketserver.py"'
                 kill_env_vars = None
