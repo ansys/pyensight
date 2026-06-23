@@ -556,7 +556,7 @@ class SchedulerLauncher(LocalLauncher):
     The default option is to launch the client and the servers on the allocated nodes,
     with the client running on the first allocated node.
     Alternatively, the client can be launched on the host from which the SchedulerLauncher
-    is started, that might be the submittion host itself, or a client machine submitting to
+    is started, that might be the submission host itself, or a client machine submitting to
     a remote submission host. Right now only SLURM is supported.
     The server ansys installation path must be provided via the ansys_installation argument.
     There is also a separate argument called client_ansys_installation. This is equivalent to passing
