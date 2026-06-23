@@ -113,8 +113,9 @@ class AnsysToolsOmniverseDSGUIExtension(omni.ext.IExt):
         else:
             self._connect_w.text = "Connect to DSG Server"
             self._label_w.text = "No connected DSG server" + self._error_msg
-        self._update_w.enabled = self._connected and (status.get("status", "idle") == "idle")
-        self._connect_w.enabled = status.get("status", "idle") == "idle"
+        st = status.get("status", "idle")
+        self._update_w.enabled = self._connected and (st == "idle" or st == "complete")
+        self._connect_w.enabled = st == "idle" or st == "complete"
         self._temporal_w.enabled = True
         self._vrmode_w.enabled = not self._connected
         self._normalize_w.enabled = not self._connected

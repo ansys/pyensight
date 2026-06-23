@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
@@ -34,7 +34,7 @@ jobs:
           requires-xvfb: true
           pytest-extra-args: "-n 4 --reruns 3"
 
-      - uses: codecov/codecov-action@v5
+      - uses: codecov/codecov-action@v6
         name: 'Upload coverage to CodeCov'
 
   nightly_build:

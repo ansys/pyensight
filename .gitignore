@@ -13,6 +13,8 @@
 *.whl
 .pytest_cache/
 */__pycache__
+*.slurm
+launch_pyensight_slurm*.py
 
 # OS generated files #
 ######################
@@ -55,4 +57,6 @@ venv/
 .vscode/
 .venv/
 .vs/
+*.slurm
+launch_pyensight_slurm_*.py
 
