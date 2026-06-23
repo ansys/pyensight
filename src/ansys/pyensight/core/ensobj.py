@@ -25,6 +25,7 @@
 The ensobj module provides the base class to all EnSight proxy objects
 
 """
+
 from typing import TYPE_CHECKING, Any, Optional, no_type_check
 
 if TYPE_CHECKING:
@@ -92,7 +93,7 @@ class ENSOBJ(object):
         # release the session to allow for garbage collection
         tmp_session = self._session
         self._session = None
-        if self._is_owned:
+        if self._is_owned and tmp_session is not None and not tmp_session._already_closed:
             try:
                 cmd = f"ensight.objs.release_id('{tmp_session.name}', {self.__OBJID__})"
                 tmp_session.cmd(cmd, do_eval=False)

@@ -56,7 +56,7 @@ def test_remote_execution(tmpdir, pytestconfig: pytest.Config):
     session.load_data(f"{session.cei_home}/ensight{session.cei_suffix}/data/guard_rail/crash.case")
     start = time.time()
     names = myfunc(session.ensight)
-    print(f"Remote: {time.time()-start}")
+    print(f"Remote: {time.time() - start}")
     print(names)
 
     cmd = "def myfunc():\n"
@@ -67,7 +67,7 @@ def test_remote_execution(tmpdir, pytestconfig: pytest.Config):
     session.cmd(cmd, do_eval=False)
     start = time.time()
     names = session.cmd("myfunc()")
-    print(f"Remote: {time.time()-start}")
+    print(f"Remote: {time.time() - start}")
     print(names)
     print(count(session.ensight, "VISIBLE", True))
     _grpc = session.exec(count, "VISIBLE", True)

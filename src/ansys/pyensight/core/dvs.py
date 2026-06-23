@@ -26,6 +26,7 @@ It also provides a collection of utilities to starts DVS servers, clients,
 launch a local PyEnSight session, or connect to an existing one, and finally
 to send data from the clients to the servers.
 """
+
 import glob
 import io
 import logging
@@ -402,7 +403,7 @@ class DVS(dvs_base):
         # Need to implement SOS support in session.ensight.utils.readers.dvs.launch_live_dvs
         for n in range(num_servers):
             # Just create a server but not start it
-            server_id = self.server_create(uri=base_uri + f":{port+n}")
+            server_id = self.server_create(uri=base_uri + f":{port + n}")
             self._server_ids.append(server_id)
             self._servers[n] = {
                 "server_uri": base_uri + ":{}".format(port + n),

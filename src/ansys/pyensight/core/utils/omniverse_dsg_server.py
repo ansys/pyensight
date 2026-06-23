@@ -180,7 +180,7 @@ class OmniverseWrapper(object):
 
         Presently, live connections are disabled.
         """
-        self._stage.GetRootLayer().Save()  # type:ignore
+        self._stage.GetRootLayer().Save()  # type: ignore
 
     def clear_cleaned_names(self) -> None:
         """
@@ -892,9 +892,18 @@ class OmniverseWrapper(object):
 
     def uploadMaterial(self):
         uriPath = self._destinationPath + "/Materials"
-        shutil.rmtree(uriPath, ignore_errors=True, onerror=None)
         fullpath = os.path.join(os.path.dirname(__file__), "resources", "Materials")
-        shutil.copytree(fullpath, uriPath)
+        if not os.path.isdir(uriPath):
+            shutil.copytree(fullpath, uriPath)
+            return
+        # Sync: add new files, remove deleted files, skip existing files untouched
+        # (avoids overwriting files that Kit may have open, e.g. 000_sky.exr)
+        src_files = set(os.listdir(fullpath))
+        dst_files = set(os.listdir(uriPath))
+        for name in src_files - dst_files:
+            shutil.copy2(os.path.join(fullpath, name), os.path.join(uriPath, name))
+        for name in dst_files - src_files:
+            os.remove(os.path.join(uriPath, name))
 
     # Create a dome light in the scene.
     def createDomeLight(self, texturePath):
@@ -904,9 +913,11 @@ class OmniverseWrapper(object):
         newLight.CreateTextureFormatAttr("latlong")
 
         # Set rotation on domelight
-        xForm = newLight
-        rotateOp = xForm.AddXformOp(UsdGeom.XformOp.TypeRotateZYX, UsdGeom.XformOp.PrecisionFloat)
-        rotateOp.Set(Gf.Vec3f(270, 0, 0))
+        if self._stage is not None and UsdGeom.GetStageUpAxis(self._stage) == UsdGeom.Tokens.y:
+            rotateOp = newLight.AddXformOp(
+                UsdGeom.XformOp.TypeRotateZYX, UsdGeom.XformOp.PrecisionFloat
+            )
+            rotateOp.Set(Gf.Vec3f(270, 0, 0))
 
 
 class OmniverseUpdateHandler(UpdateHandler):
@@ -1184,13 +1195,33 @@ class OmniverseUpdateHandler(UpdateHandler):
 
         self._omni.create_new_stage()
         self._root_prim = self._omni.create_dsg_root()
-        # Create a distance and dome light in the scene
-        self._omni.createDomeLight("./Materials/000_sky.exr")
         # Upload a material to the Omniverse server
         self._omni.uploadMaterial()
         self._sent_textures = False
 
     def end_update(self) -> None:
+        # Create a dome light in the scene, after stage's Y-up/Z-up is known.
+        self._omni.createDomeLight("./Materials/000_sky.exr")
+
+        # Translate the scene so its (X center, Y min, Z center) or (X center, Y center, Z min) is at (0,0,0),
+        # where Omniverse's environments are centered
+        if self.session.scene_bounds is not None and self._omni._stage is not None:
+            if UsdGeom.GetStageUpAxis(self._omni._stage) == UsdGeom.Tokens.y:
+                session_origin = [
+                    (self.session.scene_bounds[0] + self.session.scene_bounds[3]) * 0.5,
+                    self.session.scene_bounds[1],
+                    (self.session.scene_bounds[2] + self.session.scene_bounds[5]) * 0.5,
+                ]
+            else:
+                session_origin = [
+                    (self.session.scene_bounds[0] + self.session.scene_bounds[3]) * 0.5,
+                    (self.session.scene_bounds[1] + self.session.scene_bounds[4]) * 0.5,
+                    self.session.scene_bounds[2],
+                ]
+
+            xform_api = UsdGeom.XformCommonAPI(self._root_prim)
+            xform_api.SetTranslate(Gf.Vec3d(session_origin) * -1.0 * self._omni._units_per_meter)
+
         super().end_update()
         # Stage update complete
         self._omni.save_stage()

@@ -30,16 +30,14 @@ Examples:
 >>> from ansys.pyensight.core import LocalLauncher
 >>> session = LocalLauncher().start()
 """
+
 import glob
 import logging
 import os.path
 import platform
 import re
-import shutil
 import subprocess
 import tempfile
-import threading
-import time
 from typing import Optional
 import uuid
 import warnings
@@ -139,6 +137,7 @@ class LocalLauncher(Launcher):
         self._webui_pid = None
         # and ports
         self._ports = None
+        self._bypass_ports = False
         # Are we running the instance in batch
         self._batch = batch
         self._grpc_use_tcp_sockets = grpc_use_tcp_sockets
@@ -186,6 +185,9 @@ class LocalLauncher(Launcher):
                     del popen_common["stderr"]
             except (ValueError, KeyError):
                 pass
+        if self._std_handle:
+            popen_common["stdout"] = self._std_handle
+            popen_common["stderr"] = self._std_handle
         popen_common["env"].update(
             {
                 "SIMBA_WEBSERVER_TOKEN": self._secret_key,
@@ -208,6 +210,16 @@ class LocalLauncher(Launcher):
             text = buildinfo_file.read()
         internal_version, ensight_full_version = self._get_versionfrom_buildinfo(text)
         return grpc_version_check(internal_version, ensight_full_version)
+
+    def _set_local_ports(self):
+        num_ports = 5
+        if self._launch_webui:  # port 6
+            num_ports += 1
+        if self._vtk_ws_port:  # port 6 or 7 depending on launch_webui
+            num_ports += 1
+        self._ports = find_unused_ports(num_ports, avoid=None)
+        if self._ports is None:
+            raise RuntimeError("Unable to allocate local ports for EnSight session")
 
     def start(self) -> "pyensight.Session":
         """Start an EnSight session using the local EnSight installation.
@@ -232,9 +244,10 @@ class LocalLauncher(Launcher):
         tmp_session = super().start()
         if tmp_session:
             return tmp_session
-        if self._ports is None:
+        if self._ports is None or self._bypass_ports:
             # session directory and UUID
-            self._secret_key = str(uuid.uuid1())
+            if not self._bypass_ports:
+                self._secret_key = str(uuid.uuid1())
             self.session_directory = tempfile.mkdtemp(prefix="pyensight_")
             if (
                 not self._grpc_uds_pathname
@@ -244,14 +257,10 @@ class LocalLauncher(Launcher):
                 self._grpc_uds_pathname = os.path.join(self.session_directory, "pyensight")
 
             # gRPC port, VNC port, websocketserver ws, websocketserver html
-            num_ports = 5
-            if self._launch_webui:  # port 6
-                num_ports += 1
-            if self._vtk_ws_port:  # port 6 or 7 depending on launch_webui
-                num_ports += 1
-            self._ports = find_unused_ports(num_ports, avoid=None)
-            if self._ports is None:
-                raise RuntimeError("Unable to allocate local ports for EnSight session")
+            if not self._bypass_ports:
+                self._set_local_ports()
+            if not self._ports:
+                raise RuntimeError("Ports have not been allocated.")
             is_windows = self._is_windows()
 
             # Launch EnSight
@@ -308,7 +317,9 @@ class LocalLauncher(Launcher):
                         del popen_common["stderr"]
                 except ValueError:
                     pass
-
+            if self._std_handle:
+                popen_common["stdout"] = self._std_handle
+                popen_common["stderr"] = self._std_handle
             if is_windows:
                 cmd[0] += ".bat"
             if use_egl:
@@ -319,7 +330,7 @@ class LocalLauncher(Launcher):
                     cmd.append("-nservers")
                     cmd.append(str(int(self._use_sos)))
                 else:
-                    cmd.append(f"--np={int(self._use_sos)+1}")
+                    cmd.append(f"--np={int(self._use_sos) + 1}")
                     cmd.append(f"--mpi={self._use_mpi}")
                     cmd.append(f"--ic={self._interconnect}")
                     hosts = ",".join(self._server_hosts)
@@ -354,7 +365,7 @@ class LocalLauncher(Launcher):
             except Exception:
                 pass
             websocket_script = found_scripts[idx]
-            version = re.findall(r"nexus(\d+)", websocket_script)[0]
+            version = re.findall(r"nexus([0-9]+)", websocket_script)[0]
             # build the commandline
             if not self._liben_rest:
                 cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
@@ -380,14 +391,9 @@ class LocalLauncher(Launcher):
                             cmd.append(self._grpc_uds_pathname)
                 # EnVision sessions
                 cmd.extend(["--local_session", "envision", "5"])
-                if int(version) > 252 and self._rest_ws_separate_loops:
-                    cmd.append("--separate_loops")
                 cmd.extend(["--security_token", self._secret_key])
                 # websocket port
-                if int(version) > 252 and self._do_not_start_ws:
-                    cmd.append("-1")
-                else:
-                    cmd.append(str(self._ports[3]))
+                cmd.append(str(self._ports[3]))
                 logging.debug(f"Starting WSS: {cmd}\n")
                 if is_windows:
                     startupinfo = subprocess.STARTUPINFO()
@@ -427,6 +433,8 @@ class LocalLauncher(Launcher):
         self._sessions.append(session)
         if self._launch_webui:
             self.launch_webui(version, popen_common)
+        if self._liben_rest:
+            session._build_liben_vnc_ws(self._ports[1])
         return session
 
     @staticmethod
@@ -463,43 +471,6 @@ class LocalLauncher(Launcher):
 
     def stop(self) -> None:
         """Release any additional resources allocated during launching."""
-
-        # Perform directory removal asynchronously to avoid blocking callers.
-        def _remove_session_dir(path: str) -> None:
-            maximum_wait_secs = 120.0
-            start_time = time.time()
-            while (time.time() - start_time) < maximum_wait_secs:
-                try:
-                    shutil.rmtree(path)
-                    return
-                except PermissionError:
-                    # likely files still held open; retry briefly
-                    time.sleep(0.5)
-                except FileNotFoundError:
-                    return
-                except Exception:
-                    return
-
-        try:
-            t = threading.Thread(
-                target=_remove_session_dir, args=(self.session_directory,), daemon=True
-            )
-            t.start()
-        except Exception:
-            # If threading fails for any reason, fall back to synchronous removal
-            maximum_wait_secs = 120.0
-            start_time = time.time()
-            while (time.time() - start_time) < maximum_wait_secs:
-                try:
-                    shutil.rmtree(self.session_directory)
-                    break
-                except PermissionError:
-                    time.sleep(0.5)
-                except FileNotFoundError:
-                    break
-                except Exception:
-                    break
-
         # Clear port allocation and let base class perform any remaining cleanup.
         self._ports = None
         super().stop()

@@ -32,6 +32,7 @@ Examples:
 ansys.pyensight.Session
 
 """
+
 import atexit
 import importlib.util
 from os import listdir
@@ -255,7 +256,6 @@ class Session:
 
         # establish the connection with retry
         self._establish_connection(validate=True)
-
         # update the enums to match current EnSight instance
         cmd = "{key: getattr(ensight.objs.enums, key) for key in dir(ensight.objs.enums)}"
         new_enums = self.cmd(cmd)
@@ -324,6 +324,12 @@ class Session:
         tool_lookup_dict[6] = "ENS_TOOL_SPHERE"
         tool_lookup_dict[7] = "ENS_TOOL_REVOLUTION"
         self._subtype_tables["ENS_TOOL"] = tool_lookup_dict
+        self._scheduler_session = False
+
+    def _build_liben_vnc_ws(self, vnc_port):
+        self.ensight.objs.core.simba_start_vnc_websocketserver(
+            self.hostname, vnc_port, self.ws_port
+        )
 
     def __repr__(self):
         # if this is called from in the ctor, self.launcher might be None.
@@ -590,15 +596,13 @@ class Session:
             raise RuntimeError("Only the file:// protocol is supported for the local_prefix")
         localdir = url2pathname(uri.path)
 
-        remote_functions = textwrap.dedent(
-            """\
+        remote_functions = textwrap.dedent("""\
                 import os
                 def copy_write_function__(filename: str, data: bytes) -> None:
                     os.makedirs(os.path.dirname(filename), exist_ok=True)
                     with open(filename, "ab") as fp:
                         fp.write(data)
-            """
-        )
+            """)
 
         self.cmd(remote_functions, do_eval=False)
 
@@ -698,8 +702,7 @@ class Session:
             raise RuntimeError("Only the file:// protocol is supported for the local_prefix")
         localdir = url2pathname(uri.path)
 
-        remote_functions = textwrap.dedent(
-            """\
+        remote_functions = textwrap.dedent("""\
                 import os
                 def copy_walk_function__(remotedir: str, filelist: list) -> None:
                     out = []
@@ -725,8 +728,7 @@ class Session:
                         fp.seek(offset)
                         data = fp.read(numbytes)
                     return data
-            """
-        )
+            """)
 
         self.cmd(remote_functions, do_eval=False)
 
@@ -1116,25 +1118,13 @@ class Session:
 
         Close the current session and its gRPC connection.
         """
-        # if version 242 or higher, free any objects we have cached there
         if not self._already_closed:
-            if self.cei_suffix >= "242":
-                try:
-                    self._release_remote_objects()
-                except RuntimeError:  # pragma: no cover
-                    # handle some intermediate EnSight builds.
-                    pass
-                except IOError:  # pragma: no cover
-                    # The session might already have been closed via another
-                    # session object. If grpc is inactive, there's no sense
-                    # in raising an exception since we are closing it anyway
-                    pass
+            self._already_closed = True
             if self._launcher and self._halt_ensight_on_close:
                 self._launcher.close(self)
             else:
-                # lightweight shtudown, just close the gRC connection
+                # lightweight shutdown, just close the gRPC connection
                 self._grpc.shutdown(stop_ensight=False)
-            self._already_closed = True
         self._launcher = None
 
     def _build_utils_interface(self) -> None:
@@ -1251,8 +1241,9 @@ class Session:
         ]
         for cmd in cmds:
             self.cmd(cmd, do_eval=False)
-
         if new_case:
+            if self._scheduler_session:
+                raise RuntimeError("Loading multiple cases via scheduler is not supported.")
             # New case
             new_case_name = None
             for case in self.ensight.objs.core.CASES:
@@ -1267,11 +1258,12 @@ class Session:
             self.cmd(cmd, do_eval=False)
         else:
             # Case replace
-            current_case_name = self.ensight.objs.core.CURRENTCASE[0].DESCRIPTION
-            cmd = f'ensight.case.replace("{current_case_name}", "{current_case_name}")'
-            self.cmd(cmd, do_eval=False)
-            cmd = f'ensight.case.select("{current_case_name}")'
-            self.cmd(cmd, do_eval=False)
+            if not self._scheduler_session:
+                current_case_name = self.ensight.objs.core.CURRENTCASE[0].DESCRIPTION
+                cmd = f'ensight.case.replace("{current_case_name}", "{current_case_name}")'
+                self.cmd(cmd, do_eval=False)
+                cmd = f'ensight.case.select("{current_case_name}")'
+                self.cmd(cmd, do_eval=False)
 
         # Attempt to find the file format if none is specified
         if file_format is None:
@@ -1293,7 +1285,10 @@ class Session:
         ]
         if reader_options:
             for key, value in reader_options.items():
-                option = f"""ensight.data.reader_option("{repr(key)} {repr(value)}")"""
+                text_value = value
+                if text_value != "ON" and text_value != "OFF":
+                    text_value = repr(value)
+                option = f"""ensight.data.reader_option("{repr(key)} {text_value}")"""
                 cmds.append(option)
         if result_file:
             cmds.append(f'ensight.data.result(r"""{result_file}""")')

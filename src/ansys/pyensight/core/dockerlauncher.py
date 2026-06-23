@@ -36,12 +36,14 @@ Examples:
         session.close()
 
 """
+
 import io
 import logging
 import os
 import re
 import subprocess
 import tarfile
+from threading import Thread
 import time
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 import uuid
@@ -141,7 +143,7 @@ def find_ansys_version_dir(container) -> str:
     tf, gen_reader = _iter_tar_members_from_stream(stream)
 
     version_dir = ""
-    version_re = re.compile(r"^ansys_inc/(v\d{3})")
+    version_re = re.compile(r"^ansys_inc/(v[0-9]{3})")
 
     try:
         while True:
@@ -414,6 +416,23 @@ class DockerLauncher(Launcher):
 
         return container_env
 
+    def _fill_std_handle(self):
+        """Periodically read enshell log contents and incrementally append to std_handle."""
+        bytes_written = 0
+        while self._enshell and self._enshell.is_connected():
+            try:
+                content = self.enshell_log_contents()
+                if content and len(content) > bytes_written:
+                    new_content = content[bytes_written:]
+                    if isinstance(new_content, str):
+                        new_content = new_content.encode("utf-8")
+                    self._std_handle.write(new_content)
+                    self._std_handle.flush()
+                    bytes_written = len(content)
+            except Exception:
+                pass
+            time.sleep(2)
+
     def start(self) -> "Session":
         """Start EnShell by running a local Docker EnSight image.
 
@@ -622,7 +641,7 @@ class DockerLauncher(Launcher):
             # Use streaming mode to iterate headers only
             import tarfile
 
-            tar = tarfile.open(mode="r|*", fileobj=stream)  # type: ignore[arg-type]
+            tar = tarfile.open(mode="r|*", fileobj=stream)  # type: ignore[call-overload]
             versions: List[str] = []
             prefix = "ansys_inc/"
             for m in tar:  # streamed iteration over members
@@ -639,7 +658,7 @@ class DockerLauncher(Launcher):
                     # Skip files; we don't want file payloads (stream mode avoids reading them)
                     continue
                 # Immediate children have exactly one '/'
-                if rel.count("/") == 1 and re.fullmatch(r"v\d{3}/", rel):
+                if rel.count("/") == 1 and re.fullmatch(r"v[0-9]{3}/", rel):
                     versions.append(rel[1:4])
                 # If we have collected a reasonable number, we can optionally break
                 # but generally keep scanning headers; no file bodies are read.
@@ -719,7 +738,7 @@ class DockerLauncher(Launcher):
         ]
         vdir = None
         for e in entries:
-            if re.fullmatch(r"v\d{3}", e):
+            if re.fullmatch(r"v[0-9]{3}", e):
                 vdir = e
                 break
         path = f"/ansys_inc/{vdir}/CEI/BUILDINFO.txt"
@@ -888,17 +907,12 @@ class DockerLauncher(Launcher):
             # websocket port - this needs to come first since we now have
             # --add_header as a optional arg that can take an arbitrary
             # number of optional headers.
-            if int(self._ansys_version) > 252 and self._do_not_start_ws:
-                wss_cmd += " -1"
-            else:
-                wss_cmd += " " + str(self._service_host_port["ws"][1])
+            wss_cmd += " " + str(self._service_host_port["ws"][1])
             #
             wss_cmd += " --http_directory " + self._session_directory
             # http port
             wss_cmd += " --http_port " + str(self._service_host_port["http"][1])
             # vnc port
-            if int(self._ansys_version) > 252 and self._rest_ws_separate_loops:
-                wss_cmd += " --separate_loops"
             wss_cmd += f" --security_token {self._secret_key}"
             wss_cmd += " --client_port 1999"
             # optional PIM instance header
@@ -969,8 +983,13 @@ class DockerLauncher(Launcher):
 
         if self._launch_webui:
             self.launch_webui(container_env_str)
+        if self._liben_rest:
+            session._build_liben_vnc_ws(1999)
         logging.debug("Return session.\n")
 
+        if self._std_handle:
+            self._std_thread = Thread(target=self._fill_std_handle, daemon=True)
+            self._std_thread.start()
         return session
 
     def close(self, session):
@@ -991,7 +1010,7 @@ class DockerLauncher(Launcher):
 
         """
         if self._enshell:
-            if self._enshell.is_connected():  # pragma: no cover
+            if self._enshell.is_connected() and not self._liben_rest:  # pragma: no cover
                 logging.debug("Killing WSS\n")
                 command = 'pkill -f "websocketserver.py"'
                 kill_env_vars = None

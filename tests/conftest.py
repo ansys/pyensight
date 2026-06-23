@@ -23,6 +23,7 @@
 """
 Global fixtures go here.
 """
+
 import atexit
 import os
 import subprocess

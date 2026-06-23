@@ -119,7 +119,7 @@ def myfunc(ensight):
 
 start = time.time()
 names = myfunc(session.ensight)
-print(f"Remote: {time.time()-start}")
+print(f"Remote: {time.time() - start}")
 print(names)
 
 cmd = "def myfunc():\n"
@@ -130,7 +130,7 @@ cmd += "    return names.__repr__()\n"
 session.cmd(cmd, do_eval=False)
 start = time.time()
 names = session.cmd("myfunc()")
-print(f"Remote: {time.time()-start}")
+print(f"Remote: {time.time() - start}")
 print(names)
 
 

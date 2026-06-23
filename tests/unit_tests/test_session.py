@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 """Unit tests for session.py"""
+
 import fnmatch
 import platform
 from unittest import mock

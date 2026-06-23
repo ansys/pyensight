@@ -37,6 +37,7 @@ Example for selecting all 3D parts:
 >>> parts.select_by_dimension(3)
 
 """
+
 from types import ModuleType
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
 
@@ -339,7 +340,7 @@ class Parts:
                     )
                 else:
                     new_emitters.append(
-                        f"ensight.utils.parts._EnSEmitterPart(ensight, part={convert_part(self.ensight ,p)}, num_points={num_points}, part_kind={part_distribution_type})"
+                        f"ensight.utils.parts._EnSEmitterPart(ensight, part={convert_part(self.ensight , p)}, num_points={num_points}, part_kind={part_distribution_type})"
                     )
         else:
             raise RuntimeError(
@@ -870,7 +871,7 @@ class Parts:
         >>> dat_file = s.download_pyansys_example("mixing_elbow.dat.h5","pyfluent/mixing_elbow")
         >>> s.load_data(cas_file, result_file=dat_file)
         >>> parts = s.ensight.utils.parts
-        >>> parts.create_particle_trace_from_parts("mytraces", "Velocity", parts=["hot-inlet", "cold-inlet"], num_points=100 source_parts=parts.select_parts_by_dimension(3))
+        >>> parts.create_particle_trace_from_parts("mytraces", "Velocity", parts=["hot-inlet", "cold-inlet"], num_points=100, source_parts=parts.select_parts_by_dimension(3))
         """
         emitter_type = self._EMIT_PART
         direction, converted_source_parts = self._prepare_particle_creation(

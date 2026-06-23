@@ -75,14 +75,14 @@ def run_test(s):
     assert ret is True
 
     # Simple remote function test
-    foo_src = "def foo(n:int = 1):\n return list(numpy.random.rand(n))\n"
+    foo_src = "def foo(n:int = 1):\n return numpy.random.rand(n).tolist()\n"
     ret = requests.put(
         f"{uri_base}/def_func/rest_test/foo", json=foo_src, params=dict(imports="numpy")
     )
     assert ret.status_code == 200
     ret = requests.put(uri_base + "/call_func/rest_test/foo", json=dict(n=3)).json()
     assert len(ret) == 3
-    assert type(ret[0]) == float
+    assert isinstance(ret[0], float)
 
     s.close()
 

@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os
 from unittest import mock
 
 from ansys.pyensight.core.common import find_unused_ports
@@ -57,3 +58,15 @@ def test_close(mocked_session, mocker):
     launcher.close(mock1)
     mock2.secret_key = "abcd1234"
     launcher.close(mock2)
+
+
+def test_additional_command_line_options_software_rendering():
+    launcher = Launcher()
+    assert not launcher._additional_command_line_options
+    launcher = Launcher(additional_command_line_options=["-X"])
+    assert launcher._additional_command_line_options == ["-X"]
+    os.environ["PYENSIGHT_FORCE_SOFTWARE_RENDERING"] = "1"
+    launcher = Launcher()
+    assert launcher._additional_command_line_options == ["-X"]
+    launcher = Launcher(additional_command_line_options=["-X"])
+    assert launcher._additional_command_line_options == ["-X"]
