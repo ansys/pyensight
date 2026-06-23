@@ -24,6 +24,8 @@ repos:
     args:
     - --ignore-words
     - doc/styles/config/vocabularies/ANSYS/accept.txt
+    - --skip
+    - doc/styles/config/vocabularies/ANSYS/accept.txt
 
 - repo: https://github.com/PyCQA/bandit
   rev: 1.7.5

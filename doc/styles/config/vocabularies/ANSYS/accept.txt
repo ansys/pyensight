@@ -95,6 +95,7 @@ SciPy
 SOSConstant
 Stimpson
 subpackage
+Synopsys
 te
 timestep1
 timestep2

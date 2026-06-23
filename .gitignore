@@ -55,4 +55,6 @@ venv/
 .vscode/
 .venv/
 .vs/
+*.slurm
+launch_pyensight_slurm_*.py
 
