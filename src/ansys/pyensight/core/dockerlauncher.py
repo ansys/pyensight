@@ -43,6 +43,7 @@ import os
 import re
 import subprocess
 import tarfile
+from threading import Thread
 import time
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 import uuid
@@ -414,6 +415,23 @@ class DockerLauncher(Launcher):
             container_env["FLUENT_WEBSERVER_TOKEN"] = self._secret_key
 
         return container_env
+
+    def _fill_std_handle(self):
+        """Periodically read enshell log contents and incrementally append to std_handle."""
+        bytes_written = 0
+        while self._enshell and self._enshell.is_connected():
+            try:
+                content = self.enshell_log_contents()
+                if content and len(content) > bytes_written:
+                    new_content = content[bytes_written:]
+                    if isinstance(new_content, str):
+                        new_content = new_content.encode("utf-8")
+                    self._std_handle.write(new_content)
+                    self._std_handle.flush()
+                    bytes_written = len(content)
+            except Exception:
+                pass
+            time.sleep(2)
 
     def start(self) -> "Session":
         """Start EnShell by running a local Docker EnSight image.
@@ -889,17 +907,12 @@ class DockerLauncher(Launcher):
             # websocket port - this needs to come first since we now have
             # --add_header as a optional arg that can take an arbitrary
             # number of optional headers.
-            if int(self._ansys_version) > 252 and self._do_not_start_ws:
-                wss_cmd += " -1"
-            else:
-                wss_cmd += " " + str(self._service_host_port["ws"][1])
+            wss_cmd += " " + str(self._service_host_port["ws"][1])
             #
             wss_cmd += " --http_directory " + self._session_directory
             # http port
             wss_cmd += " --http_port " + str(self._service_host_port["http"][1])
             # vnc port
-            if int(self._ansys_version) > 252 and self._rest_ws_separate_loops:
-                wss_cmd += " --separate_loops"
             wss_cmd += f" --security_token {self._secret_key}"
             wss_cmd += " --client_port 1999"
             # optional PIM instance header
@@ -970,8 +983,13 @@ class DockerLauncher(Launcher):
 
         if self._launch_webui:
             self.launch_webui(container_env_str)
+        if self._liben_rest:
+            session._build_liben_vnc_ws(1999)
         logging.debug("Return session.\n")
 
+        if self._std_handle:
+            self._std_thread = Thread(target=self._fill_std_handle, daemon=True)
+            self._std_thread.start()
         return session
 
     def close(self, session):
@@ -992,7 +1010,7 @@ class DockerLauncher(Launcher):
 
         """
         if self._enshell:
-            if self._enshell.is_connected():  # pragma: no cover
+            if self._enshell.is_connected() and not self._liben_rest:  # pragma: no cover
                 logging.debug("Killing WSS\n")
                 command = 'pkill -f "websocketserver.py"'
                 kill_env_vars = None

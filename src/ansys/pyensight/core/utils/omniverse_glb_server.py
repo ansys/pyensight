@@ -168,6 +168,60 @@ class GLBSession(dsg_server.DSGSession):
             The name of the GROUP parent of the meshes.
         """
         mesh = self._gltf.meshes[meshid]
+
+        # Walk mesh.primitives, count total size of arrays
+        vertices_totalsize = 0  # num triples of 3 floats
+        tris_totalsize = 0  # num indices
+        lines_totalsize = 0  # num indices
+
+        for prim_idx, prim in enumerate(mesh.primitives):
+            # LINES, TRIANGLES, LINE_LOOP, LINE_STRIP, TRIANGLE_STRIP, TRIANGLE_FAN
+            mode = prim.mode
+            if mode not in (
+                pygltflib.TRIANGLES,
+                pygltflib.LINES,
+                pygltflib.LINE_LOOP,
+                pygltflib.LINE_STRIP,
+                pygltflib.TRIANGLE_STRIP,
+                pygltflib.TRIANGLE_FAN,
+            ):
+                continue
+            vert_len = 0
+            if prim.attributes.POSITION is not None:
+                verts = self._get_data(prim.attributes.POSITION)
+                if len(verts) == 0:
+                    continue
+                vert_len = len(verts) // 3
+                vertices_totalsize = vertices_totalsize + vert_len
+            else:
+                continue
+
+            conn_len = 0
+            if prim.indices is not None:
+                conn = self._get_data(prim.indices, 0)
+                conn_len = len(conn)
+            else:
+                conn_len = vert_len
+
+            if mode == pygltflib.TRIANGLES and conn_len >= 3:
+                tris_totalsize = tris_totalsize + conn_len
+            elif mode == pygltflib.TRIANGLE_STRIP and conn_len >= 3:
+                tris_totalsize = tris_totalsize + (conn_len - 2) * 3
+            elif mode == pygltflib.TRIANGLE_FAN and conn_len >= 3:
+                tris_totalsize = tris_totalsize + (conn_len - 2) * 3
+            elif mode == pygltflib.LINES and conn_len >= 2:
+                lines_totalsize = lines_totalsize + conn_len
+            elif mode == pygltflib.LINE_LOOP and conn_len >= 2:
+                lines_totalsize = lines_totalsize + (conn_len - 1) * 2
+            elif mode == pygltflib.LINE_STRIP and conn_len >= 2:
+                lines_totalsize = lines_totalsize + (conn_len - 1) * 2
+
+        # Count numbers of verts and tris sent, as offsets for chunked geometry updates
+        vertices_size = 0  # num triples of 3 floats
+        tris_size = 0  # num indices
+        lines_size = 0  # num indices
+
+        sent_part_cmd: bool = False
         for prim_idx, prim in enumerate(mesh.primitives):
             # POINTS, LINES, TRIANGLES, LINE_LOOP, LINE_STRIP, TRIANGLE_STRIP, TRIANGLE_FAN
             mode = prim.mode
@@ -183,21 +237,20 @@ class GLBSession(dsg_server.DSGSession):
                 self.warn(f"Unhandled connectivity detected: {mode}.  Geometry skipped.")
                 continue
             glb_materialid = prim.material
-            line_width = self._callback_handler._omni.line_width
 
-            # GLB Prim -> DSG Part
-            part_name = f"{parentname}_prim{prim_idx}_"
-            cmd, part_pb = self._create_pb("PART", parent_id=parentid, name=part_name)
-            if mode == pygltflib.POINTS:
-                part_pb.render = dynamic_scene_graph_pb2.UpdatePart.RenderingMode.NODES
-                # Size of the spheres
-                part_pb.node_size_default = line_width
-            else:
+            # Make one DSG part, under which all prims are attached
+            if not sent_part_cmd:
+                part_name = f"{parentname}"
+                cmd, part_pb = self._create_pb("PART", parent_id=parentid, name=part_name)
                 part_pb.render = dynamic_scene_graph_pb2.UpdatePart.RenderingMode.CONNECTIVITY
-            part_pb.shading = dynamic_scene_graph_pb2.UpdatePart.ShadingMode.NODAL
-            self._map_material(glb_materialid, part_pb)
-            part_dsg_id = part_pb.id
-            self._handle_update_command(cmd)
+                part_pb.shading = dynamic_scene_graph_pb2.UpdatePart.ShadingMode.NODAL
+                # TODO: material mapping is done for first prim's material.
+                # Probably correct for all cases except, possibly, a part with mixed triangle
+                # and line types, which might be colored differently.
+                self._map_material(glb_materialid, part_pb)
+                part_dsg_id = part_pb.id
+                self._handle_update_command(cmd)
+                sent_part_cmd = True
 
             # GLB Attributes -> DSG Geom
             # Verts
@@ -208,36 +261,41 @@ class GLBSession(dsg_server.DSGSession):
                 cmd, verts_pb = self._create_pb("GEOM", parent_id=part_dsg_id)
                 verts_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.COORDINATES
                 verts_pb.flt_array.extend(verts)
-                verts_pb.chunk_offset = 0
-                verts_pb.total_array_size = len(verts)
+                verts_pb.chunk_offset = vertices_size * 3
+                verts_pb.total_array_size = vertices_totalsize * 3
                 self._handle_update_command(cmd)
 
             # Connectivity
             if num_verts and (mode != pygltflib.POINTS):
                 if prim.indices is not None:
-                    conn = self._get_data(prim.indices, 0)
+                    conn = self._get_data(prim.indices, 0) + vertices_size
                 else:
-                    conn = numpy.array(list(range(num_verts)), dtype=numpy.uint32)
+                    conn = numpy.array(list(range(num_verts)), dtype=numpy.uint32) + vertices_size
                 cmd, conn_pb = self._create_pb("GEOM", parent_id=part_dsg_id)
-                if mode == pygltflib.TRIANGLES:
+
+                if mode in [pygltflib.TRIANGLES, pygltflib.TRIANGLE_STRIP, pygltflib.TRIANGLE_FAN]:
                     conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.TRIANGLES
-                elif mode == pygltflib.TRIANGLE_STRIP:
-                    conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.TRIANGLES
-                    conn = self._tri_strip_to_tris(conn)
-                elif mode == pygltflib.TRIANGLE_FAN:
-                    conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.TRIANGLES
-                    conn = self._tri_fan_to_tris(conn)
-                elif mode == pygltflib.LINES:
+                    if mode == pygltflib.TRIANGLE_STRIP:
+                        conn = self._tri_strip_to_tris(conn)
+                    elif mode == pygltflib.TRIANGLE_FAN:
+                        conn = self._tri_fan_to_tris(conn)
+
+                    conn_pb.chunk_offset = tris_size
+                    conn_pb.total_array_size = tris_totalsize
+                    tris_size = tris_size + len(conn)
+
+                else:
                     conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.LINES
-                elif mode == pygltflib.LINE_LOOP:
-                    conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.LINES
-                    conn = self._line_loop_to_lines(conn)
-                elif mode == pygltflib.LINE_STRIP:
-                    conn_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.LINES
-                    conn = self._line_strip_to_lines(conn)
+                    if mode == pygltflib.LINE_LOOP:
+                        conn = self._line_loop_to_lines(conn)
+                    elif mode == pygltflib.LINE_STRIP:
+                        conn = self._line_strip_to_lines(conn)
+
+                    conn_pb.chunk_offset = lines_size
+                    conn_pb.total_array_size = lines_totalsize
+                    lines_size = lines_size + len(conn)
+
                 conn_pb.int_array.extend(conn)
-                conn_pb.chunk_offset = 0
-                conn_pb.total_array_size = len(conn)
                 self._handle_update_command(cmd)
 
             # Normals
@@ -246,8 +304,8 @@ class GLBSession(dsg_server.DSGSession):
                 cmd, normals_pb = self._create_pb("GEOM", parent_id=part_dsg_id)
                 normals_pb.payload_type = dynamic_scene_graph_pb2.UpdateGeom.ArrayType.NODE_NORMALS
                 normals_pb.flt_array.extend(normals)
-                normals_pb.chunk_offset = 0
-                normals_pb.total_array_size = len(normals)
+                normals_pb.chunk_offset = vertices_size * 3
+                normals_pb.total_array_size = vertices_totalsize * 3
                 self._handle_update_command(cmd)
 
             # Texture coords
@@ -261,12 +319,14 @@ class GLBSession(dsg_server.DSGSession):
                     dynamic_scene_graph_pb2.UpdateGeom.ArrayType.NODE_VARIABLE
                 )
                 texcoords_pb.flt_array.extend(texcoords)
-                texcoords_pb.chunk_offset = 0
-                texcoords_pb.total_array_size = len(texcoords)
+                texcoords_pb.chunk_offset = vertices_size
+                texcoords_pb.total_array_size = vertices_totalsize
                 glb_varid = self._find_variable_from_glb_mat(glb_materialid)
                 if glb_varid:
                     texcoords_pb.variable_id = glb_varid
                 self._handle_update_command(cmd)
+
+            vertices_size = vertices_size + num_verts
 
     @staticmethod
     def _tri_strip_to_tris(conn: numpy.ndarray) -> numpy.ndarray:

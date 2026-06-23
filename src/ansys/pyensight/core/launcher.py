@@ -117,6 +117,13 @@ class Launcher:
         A list of hostnames where the server processes should be spawned on when MPI is selected.
         If use_mpi is set and server_hosts not, it will default to "localhost".
         This option is valid only if a LocalLauncher is used.
+    liben_rest: bool
+        If True, the EnSight REST server and VNC WS servers are launched as part of
+        EnSight, without using the external websocketserver.py. It defaults to True.
+        If True, the REST api is enabled.
+    std_hanle: FileHandle
+        A file handle like input where, if provided, the stdout and stderr from EnSight
+        are reported. It must have interfaces like open, read, flush and write.
     """
 
     def __init__(
@@ -130,17 +137,16 @@ class Launcher:
         use_mpi: Optional[str] = None,
         interconnect: Optional[str] = None,
         server_hosts: Optional[List[str]] = None,
-        rest_ws_separate_loops: bool = False,
-        do_not_start_ws: bool = False,
-        liben_rest: bool = False,
+        liben_rest: bool = True,
         vtk_ws: bool = False,
+        std_handle=None,
     ) -> None:
         self._timeout = timeout
         self._use_egl_param_val: bool = use_egl
         self._use_sos = use_sos
         self._use_mpi = use_mpi
         self._interconnect = interconnect
-        self._vtk_ws_port = vtk_ws
+        self._vtk_ws_port = vtk_ws  # Undocumented, needed only by Simba
         if self._use_mpi and self._use_mpi not in MPI_TYPES:
             raise RuntimeError(f"{self._use_mpi} is not a valid MPI option.")
         if self._use_mpi and not self._interconnect:
@@ -168,11 +174,17 @@ class Launcher:
         # a dict of any optional launcher specific query parameters for URLs
         self._query_parameters: Dict[str, str] = {}
         self._additional_command_line_options = additional_command_line_options
+        if os.environ.get("PYENSIGHT_FORCE_SOFTWARE_RENDERING"):
+            if not self._additional_command_line_options:
+                self._additional_command_line_options = ["-X"]
+            elif "-X" not in self._additional_command_line_options:
+                self._additional_command_line_options.append("-X")
         self._launch_webui = launch_webui
-        self._do_not_start_ws = do_not_start_ws
         self._liben_rest = liben_rest
-        self._rest_ws_separate_loops = rest_ws_separate_loops
+        if liben_rest:
+            self._enable_rest_api = True
         self._has_grpc_changes = False
+        self._std_handle = std_handle
 
     @property
     def session_directory(self) -> str:
@@ -215,13 +227,14 @@ class Launcher:
         session.grpc.shutdown(stop_ensight=True, force=True)
 
         # stop the websocketserver instance
-        url = f"http://{session.hostname}:{session.html_port}/v1/stop"
-        if session.secret_key:  # pragma: no cover
-            url += f"?security_token={session.secret_key}"
-        try:
-            _ = requests.get(url)
-        except requests.exceptions.ConnectionError:
-            pass
+        if not self._liben_rest:  # No need to stop the rest server if EnSight is already closed
+            url = f"http://{session.hostname}:{session.html_port}/v1/stop"
+            if session.secret_key:  # pragma: no cover
+                url += f"?security_token={session.secret_key}"
+            try:
+                _ = requests.get(url)
+            except requests.exceptions.ConnectionError:
+                pass
 
         # Stop the launcher instance
         self.stop()
