@@ -260,15 +260,15 @@ class _Simba:
                     self.ensight.viewport.select_begin(vid)
                     self.ensight.view_transf.rotate(data[3], data[4], data[5])
                     self.ensight.view_transf.translate(data[0], data[1], -data[2])
-                    camera = self.get_camera(vid)
+                    current_camera = self.get_camera(vid)
                     if not force:
                         pclose = True
                         vupclose = True
                         fpclose = True
                     else:
-                        pclose = self._numpy_close(camera["position"], position)
-                        vupclose = self._numpy_close(camera["view_up"], view_up)
-                        fpclose = self._numpy_close(camera["focal_point"], focal_point)
+                        pclose = self._numpy_close(current_camera["position"], position)
+                        vupclose = self._numpy_close(current_camera["view_up"], view_up)
+                        fpclose = self._numpy_close(current_camera["focal_point"], focal_point)
                     attempts += 1
                     self.render()
         return self.get_camera(idx)
