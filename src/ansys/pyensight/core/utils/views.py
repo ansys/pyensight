@@ -245,8 +245,22 @@ class _Simba:
                 vupclose = self._numpy_close(current_camera["view_up"], view_up)
                 fpclose = self._numpy_close(current_camera["focal_point"], focal_point)
                 center = vport.TRANSFORMCENTER.copy()
-                attempts = 0
-                while any([not v for v in [pclose, vupclose, fpclose]]) and attempts < 20:
+                data = vport.simba_set_camera_helper(
+                    position,
+                    focal_point,
+                    view_up,
+                    current_camera["position"],
+                    current_camera["focal_point"],
+                    current_camera["view_up"],
+                    center,
+                    vport.ROTATION.copy(),
+                )
+                self.ensight.viewport.select_begin(vid)
+                self.ensight.view_transf.rotate(data[3], data[4], data[5])
+                self.ensight.view_transf.translate(data[0], data[1], -data[2])
+                current_camera = self.get_camera(vid)
+                attempts = 1
+                while any([not v for v in [pclose, vupclose, fpclose]]) and attempts < 20 and force:
                     data = vport.simba_set_camera_helper(
                         position,
                         focal_point,
@@ -260,17 +274,13 @@ class _Simba:
                     self.ensight.viewport.select_begin(vid)
                     self.ensight.view_transf.rotate(data[3], data[4], data[5])
                     self.ensight.view_transf.translate(data[0], data[1], -data[2])
-                    camera = self.get_camera(vid)
-                    if not force:
-                        pclose = True
-                        vupclose = True
-                        fpclose = True
-                    else:
-                        pclose = self._numpy_close(camera["position"], position)
-                        vupclose = self._numpy_close(camera["view_up"], view_up)
-                        fpclose = self._numpy_close(camera["focal_point"], focal_point)
+                    current_camera = self.get_camera(vid)
+                    pclose = self._numpy_close(current_camera["position"], position)
+                    vupclose = self._numpy_close(current_camera["view_up"], view_up)
+                    fpclose = self._numpy_close(current_camera["focal_point"], focal_point)
                     attempts += 1
                     self.render()
+        self.render()
         return self.get_camera(idx)
 
     @_logger_wrapper
