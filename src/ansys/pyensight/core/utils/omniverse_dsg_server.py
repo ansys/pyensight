@@ -932,6 +932,7 @@ class OmniverseUpdateHandler(UpdateHandler):
         self._root_prim = None
         self._sent_textures = False
         self._case_xform_applied_to_camera = False
+        self._added_dome_light = False
 
     def add_group(self, id: int, view: bool = False) -> None:
         super().add_group(id, view)
@@ -1027,13 +1028,39 @@ class OmniverseUpdateHandler(UpdateHandler):
                     0.0,
                     1.0,
                 ]
+                if not self._added_dome_light:
+                    self._added_dome_light = True
+                    # Create a dome light in the scene, after stage's Y-up/Z-up is known.
+                    self._omni.createDomeLight("./Materials/000_sky.exr")
+
+                    # Translate the scene so its (X center, Y min, Z center) or (X center, Y center, Z min) is at (0,0,0),
+                    # where Omniverse's environments are centered
+                    if self.session.scene_bounds is not None and self._omni._stage is not None:
+                        if UsdGeom.GetStageUpAxis(self._omni._stage) == UsdGeom.Tokens.y:
+                            session_origin = [
+                                (self.session.scene_bounds[0] + self.session.scene_bounds[3]) * 0.5,
+                                self.session.scene_bounds[1],
+                                (self.session.scene_bounds[2] + self.session.scene_bounds[5]) * 0.5,
+                            ]
+                        else:
+                            session_origin = [
+                                (self.session.scene_bounds[0] + self.session.scene_bounds[3]) * 0.5,
+                                (self.session.scene_bounds[1] + self.session.scene_bounds[4]) * 0.5,
+                                self.session.scene_bounds[2],
+                            ]
+
+                        xform_api = UsdGeom.XformCommonAPI(self._root_prim)
+                        xform_api.SetTranslate(
+                            Gf.Vec3d(session_origin) * -1.0 * self._omni._units_per_meter
+                        )
+
             prim = self._omni.create_dsg_group(
                 group.name, parent_prim, matrix=matrix, obj_type=obj_type
             )
             self._group_prims[id] = prim
         else:
             # Map a view command into a new Omniverse stage and populate it with materials/lights.
-            # Create a new root stage in Omniverse
+            self._omni.save_stage()
 
             # Create or update the root group/camera
             if not self.session.vrmode and not self._case_xform_applied_to_camera:
@@ -1192,6 +1219,7 @@ class OmniverseUpdateHandler(UpdateHandler):
         # clear the group Omni prims list
         self._group_prims = dict()
         self._case_xform_applied_to_camera = False
+        self._added_dome_light = False
 
         self._omni.create_new_stage()
         self._root_prim = self._omni.create_dsg_root()
@@ -1200,28 +1228,6 @@ class OmniverseUpdateHandler(UpdateHandler):
         self._sent_textures = False
 
     def end_update(self) -> None:
-        # Create a dome light in the scene, after stage's Y-up/Z-up is known.
-        self._omni.createDomeLight("./Materials/000_sky.exr")
-
-        # Translate the scene so its (X center, Y min, Z center) or (X center, Y center, Z min) is at (0,0,0),
-        # where Omniverse's environments are centered
-        if self.session.scene_bounds is not None and self._omni._stage is not None:
-            if UsdGeom.GetStageUpAxis(self._omni._stage) == UsdGeom.Tokens.y:
-                session_origin = [
-                    (self.session.scene_bounds[0] + self.session.scene_bounds[3]) * 0.5,
-                    self.session.scene_bounds[1],
-                    (self.session.scene_bounds[2] + self.session.scene_bounds[5]) * 0.5,
-                ]
-            else:
-                session_origin = [
-                    (self.session.scene_bounds[0] + self.session.scene_bounds[3]) * 0.5,
-                    (self.session.scene_bounds[1] + self.session.scene_bounds[4]) * 0.5,
-                    self.session.scene_bounds[2],
-                ]
-
-            xform_api = UsdGeom.XformCommonAPI(self._root_prim)
-            xform_api.SetTranslate(Gf.Vec3d(session_origin) * -1.0 * self._omni._units_per_meter)
-
         super().end_update()
         # Stage update complete
         self._omni.save_stage()
