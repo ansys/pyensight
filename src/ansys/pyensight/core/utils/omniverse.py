@@ -601,7 +601,7 @@ class Omniverse:
         except Exception:
             raise RuntimeError("Unable to detect omniverse dependencies: usd-core, pygltflib.")
 
-    def is_running_omniverse(self) -> bool:
+    def is_dsg_server_running(self) -> bool:
         """Check that an Omniverse connection is active
 
         Returns
@@ -669,8 +669,11 @@ class Omniverse:
         if not isinstance(self._ensight, ModuleType):
             self._ensight._session.ensight_version_check("2023 R2")
         self._check_modules()
-        if self.is_running_omniverse():
-            raise RuntimeError("An Omniverse server connection is already active.")
+        if self.is_dsg_server_running():
+            # Close the existing connection so a fresh export can be started.
+            # This allows USD export to be repeated without requiring the caller
+            # to explicitly close the previous connection first.
+            self.close_connection()
         dsg_uri = None
         is_win = "Win" in platform.system()
         grpc_use_tcp_sockets = False
@@ -802,7 +805,7 @@ class Omniverse:
 
         """
         self._check_modules()
-        if not self.is_running_omniverse():
+        if not self.is_dsg_server_running():
             return
         proc = psutil.Process(self._server_pid)
         for child in proc.children(recursive=True):
@@ -856,7 +859,7 @@ class Omniverse:
             prefix = "&"
 
         self._check_modules()
-        if not self.is_running_omniverse():
+        if not self.is_dsg_server_running():
             raise RuntimeError("No Omniverse server connection is currently active.")
         if not isinstance(self._ensight, ModuleType):
             self._ensight._session.ensight_version_check("2023 R2")
