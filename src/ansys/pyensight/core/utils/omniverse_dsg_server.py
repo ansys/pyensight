@@ -497,7 +497,7 @@ class OmniverseWrapper(object):
             vc_attr.Set([2] * (verts.size // 6), 0)
         lines.CreatePurposeAttr().Set("render")
         lines.CreateTypeAttr().Set("linear")
-        lines.CreateWidthsAttr([width])
+        lines.CreateWidthsAttr([float(width)])
         lines.SetWidthsInterpolation("constant")
 
         # Rounded endpoint are a primvar
@@ -506,12 +506,6 @@ class OmniverseWrapper(object):
             "endcaps", Sdf.ValueTypeNames.Int, UsdGeom.Tokens.constant
         )
         endCaps.Set(2)  # Rounded = 2
-
-        prim = lines.GetPrim()
-        wireframe = width == 0.0
-        prim.CreateAttribute("omni:scene:visualization:drawWireframe", Sdf.ValueTypeNames.Bool).Set(
-            wireframe
-        )
 
         if (tcoords is not None) and var_cmd:
             primvarsAPI = UsdGeom.PrimvarsAPI(lines)
@@ -838,7 +832,7 @@ class OmniverseWrapper(object):
             # LOL, not sure why is might be correct, but so far it seems to work???
             cam.focalLength = camera.fieldofview
             dist = (target_pos - cam_pos).GetLength()
-            cam.clippingRange = Gf.Range1f(0.1 * dist, 1000.0 * dist)
+            cam.clippingRange = Gf.Range1f(0.01 * dist, 1000.0 * dist)
             look_at = Gf.Matrix4d()
             look_at.SetLookAt(cam_pos, target_pos, up_vec)
             trans_row = look_at.GetRow(3)
@@ -1131,7 +1125,7 @@ class OmniverseUpdateHandler(UpdateHandler):
             if verts is not None:
                 verts = numpy.multiply(verts, self._omni._units_per_meter)
             if command is not None:
-                # If there are no triangle (ideally if these are not hidden line
+                # If there are no triangles (ideally if these are not hidden line
                 # edges), then use the base color for the part.  If there are
                 # triangles, then assume these are hidden line edges and use the
                 # line_color.
@@ -1155,7 +1149,20 @@ class OmniverseUpdateHandler(UpdateHandler):
                         width = float(group.attributes.get("ANSYS_linewidth", str(width)))
                     except ValueError:
                         pass
-                if width < 0.0:
+
+                if width == -1.0:
+                    # Generate a line width proportional to the median line segment length.
+                    line_width_proportion = 0.05
+                    tmp = verts.reshape(-1, 2, 3)
+                    seg_lengths = numpy.linalg.norm(tmp[:, 1, :] - tmp[:, 0, :], axis=1)
+                    width = (
+                        float(numpy.median(seg_lengths) * line_width_proportion)
+                        / self._omni._units_per_meter
+                    )
+                    if self._omni.line_width < 0.0:
+                        self._omni.line_width = width
+
+                elif width < 0.0:
                     tmp = verts.reshape(-1, 3)
                     mins = numpy.min(tmp, axis=0)
                     maxs = numpy.max(tmp, axis=0)
