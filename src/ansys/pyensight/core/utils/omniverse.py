@@ -737,7 +737,7 @@ class Omniverse:
         if time_scale != 1.0:
             cmd.extend(["--time_scale", str(time_scale)])
         if line_width != 0.0:
-            cmd.extend(["--line_width", str(line_width)])
+            cmd.extend(["--line_width=" + str(line_width)])
         if not live:
             cmd.extend(["--oneshot", "1"])
         if grpc_allow_network_connectsion:
