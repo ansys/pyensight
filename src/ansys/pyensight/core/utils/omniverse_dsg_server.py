@@ -1150,7 +1150,8 @@ class OmniverseUpdateHandler(UpdateHandler):
                     except ValueError:
                         pass
 
-                if width == -1.0:
+                LINE_WIDTH_AUTO = -1.2345e-10
+                if math.isclose(width, LINE_WIDTH_AUTO, rel_tol=1e-6, abs_tol=1e-15):
                     # Generate a line width proportional to the median line segment length.
                     line_width_proportion = 0.05
                     tmp = verts.reshape(-1, 2, 3)
@@ -1173,6 +1174,10 @@ class OmniverseUpdateHandler(UpdateHandler):
                     width = diagonal * math.fabs(width) / self._omni._units_per_meter
                     if self._omni.line_width < 0.0:
                         self._omni.line_width = width
+                # Pass the computed line width out through the status file.
+                if isinstance(self.session._status, dict):
+                    self.session._status["line_width"] = width
+
                 width = width * self._omni._units_per_meter
                 # Generate the lines
                 _ = self._omni.create_dsg_lines(
