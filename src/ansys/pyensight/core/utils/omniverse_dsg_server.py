@@ -1155,7 +1155,21 @@ class OmniverseUpdateHandler(UpdateHandler):
                         width = float(group.attributes.get("ANSYS_linewidth", str(width)))
                     except ValueError:
                         pass
-                if width < 0.0:
+
+                LINE_WIDTH_AUTO = -1.2345e-10
+                if math.isclose(width, LINE_WIDTH_AUTO, rel_tol=1e-6, abs_tol=1e-15):
+                    # Generate a line width proportional to the median line segment length.
+                    line_width_proportion = 0.05
+                    tmp = verts.reshape(-1, 2, 3)
+                    seg_lengths = numpy.linalg.norm(tmp[:, 1, :] - tmp[:, 0, :], axis=1)
+                    width = (
+                        float(numpy.median(seg_lengths) * line_width_proportion)
+                        / self._omni._units_per_meter
+                    )
+                    if self._omni.line_width < 0.0:
+                        self._omni.line_width = width
+
+                elif width < 0.0:
                     tmp = verts.reshape(-1, 3)
                     mins = numpy.min(tmp, axis=0)
                     maxs = numpy.max(tmp, axis=0)
@@ -1166,6 +1180,10 @@ class OmniverseUpdateHandler(UpdateHandler):
                     width = diagonal * math.fabs(width) / self._omni._units_per_meter
                     if self._omni.line_width < 0.0:
                         self._omni.line_width = width
+                # Pass the computed line width out through the status file.
+                if isinstance(self.session._status, dict):
+                    self.session._status["line_width"] = width
+
                 width = width * self._omni._units_per_meter
                 # Generate the lines
                 _ = self._omni.create_dsg_lines(
