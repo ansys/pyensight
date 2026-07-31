@@ -1180,6 +1180,7 @@ class Session:
         new_case: bool = False,
         representation: str = "3D_feature_2D_full",
         monitor_new_timesteps: str = MONITOR_NEW_TIMESTEPS_OFF,
+        replace_specific_case: Optional[str] = None,
     ) -> None:
         """Load a dataset into the EnSight instance.
 
@@ -1260,6 +1261,8 @@ class Session:
             # Case replace
             if not self._scheduler_session:
                 current_case_name = self.ensight.objs.core.CURRENTCASE[0].DESCRIPTION
+                if replace_specific_case:
+                    current_case_name = replace_specific_case
                 cmd = f'ensight.case.replace("{current_case_name}", "{current_case_name}")'
                 self.cmd(cmd, do_eval=False)
                 cmd = f'ensight.case.select("{current_case_name}")'
