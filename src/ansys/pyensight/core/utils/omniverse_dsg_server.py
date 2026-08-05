@@ -24,6 +24,7 @@
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 ###############################################################################
+import ctypes
 import logging
 import math
 import os
@@ -89,9 +90,14 @@ class OmniverseWrapper(object):
 
     @destination.setter
     def destination(self, directory: str) -> None:
-        self._destinationPath = directory
-        if not self.is_valid_destination(directory):
-            logging.warning(f"Invalid destination path: {directory}")
+        """Sets the destination directory. Creates dir and parents as needed.
+        Converts dir to short path, to mitigate USD library limitations with long paths.
+        Throws exceptions if the directory cannot be created -
+        for example, if a parent dir is not writable, or 'directory' exists and is a file."""
+        os.makedirs(directory, exist_ok=True)
+        self._destinationPath = self.short_path(directory)
+        if not self.is_valid_destination(self._destinationPath):
+            logging.warning(f"Invalid destination path: {self._destinationPath}")
 
     @property
     def line_width(self) -> float:
@@ -122,6 +128,27 @@ class OmniverseWrapper(object):
             True if the path is a writeable directory, False otherwise.
         """
         return os.access(path, os.W_OK)
+
+    @staticmethod
+    def short_path(path: str) -> str:
+        """Return the Windows 8.3 short path form. Falls back to the original path."""
+        if not path or "win" not in platform.system().lower():
+            return path
+        try:
+            GetShortPathNameW = ctypes.windll.kernel32.GetShortPathNameW
+            GetShortPathNameW.argtypes = [ctypes.c_wchar_p, ctypes.c_wchar_p, ctypes.c_uint32]
+            GetShortPathNameW.restype = ctypes.c_uint32
+
+            # First call: query required buffer size (including terminating NUL).
+            needed = GetShortPathNameW(path, None, 0)
+            if needed == 0:
+                return path
+            buf = ctypes.create_unicode_buffer(needed)
+            if GetShortPathNameW(path, buf, needed) == 0:
+                return path
+            return buf.value
+        except Exception:
+            return path
 
     def stage_url(self, name: Optional[str] = None) -> str:
         """
