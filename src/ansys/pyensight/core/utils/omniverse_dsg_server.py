@@ -135,7 +135,7 @@ class OmniverseWrapper(object):
         if not path or "win" not in platform.system().lower():
             return path
         try:
-            GetShortPathNameW = ctypes.windll.kernel32.GetShortPathNameW
+            GetShortPathNameW = getattr(ctypes, "windll").kernel32.GetShortPathNameW
             GetShortPathNameW.argtypes = [ctypes.c_wchar_p, ctypes.c_wchar_p, ctypes.c_uint32]
             GetShortPathNameW.restype = ctypes.c_uint32
 
