@@ -1,0 +1,6 @@
+tool
+====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: clip.tool

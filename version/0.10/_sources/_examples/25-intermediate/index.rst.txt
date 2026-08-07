@@ -1,0 +1,86 @@
+
+
+.. _sphx_glr__examples_25-intermediate:
+
+.. _intermediate-gallery:
+
+Intermediate examples
+=====================
+
+These intermediate examples use the PyEnSight API for more
+complex workflows that employ calculator functions, queries, viewports,
+and annotations.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A common operation is to load two different datasets, usually design points, into the same EnSight session using separate cases. This example loads two Fluent design points and displays them in different viewports. It then computes the difference between the temperature fields and displays the result in a third viewport.">
+
+.. only:: html
+
+  .. image:: /_examples/25-intermediate/images/thumb/sphx_glr_00-designpoints_thumb.png
+    :alt:
+
+  :doc:`/_examples/25-intermediate/00-designpoints`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Design point comparison</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A query is basically a collection of x,y values. In addition to the raw values, each point is potentially a location in 3D space and a notion of &quot;gaps&quot; between values. In most cases, a query is drawn as a line on an EnSight plotter object. It can also be drawn as points and, using the &quot;gaps&quot;, as a collection of independent line groups.">
+
+.. only:: html
+
+  .. image:: /_examples/25-intermediate/images/thumb/sphx_glr_01-queries_thumb.png
+    :alt:
+
+  :doc:`/_examples/25-intermediate/01-queries`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Queries</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="EnSight Utilities">
+
+.. only:: html
+
+  .. image:: /_examples/25-intermediate/images/thumb/sphx_glr_02-utils_thumb.png
+    :alt:
+
+  :doc:`/_examples/25-intermediate/02-utils`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">EnSight Utilities</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /_examples/25-intermediate/00-designpoints
+   /_examples/25-intermediate/01-queries
+   /_examples/25-intermediate/02-utils
+

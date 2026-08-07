@@ -1,0 +1,6 @@
+data03
+======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: extrude.data03

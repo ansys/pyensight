@@ -1,0 +1,6 @@
+PROJECT\_MASK
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_annot_text
+
+.. autoproperty:: ENS_ANNOT_TEXT.PROJECT_MASK

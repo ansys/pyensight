@@ -1,0 +1,6 @@
+ANSYS\_FLAG\_ALPHA
+==================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.ANSYS_FLAG_ALPHA

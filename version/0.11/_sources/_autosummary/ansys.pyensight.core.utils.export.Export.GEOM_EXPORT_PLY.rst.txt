@@ -1,0 +1,6 @@
+GEOM\_EXPORT\_PLY
+=================
+
+.. currentmodule:: ansys.pyensight.core.utils.export
+
+.. autoattribute:: Export.GEOM_EXPORT_PLY

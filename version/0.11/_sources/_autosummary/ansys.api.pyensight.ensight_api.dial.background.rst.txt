@@ -1,0 +1,6 @@
+background
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: dial.background

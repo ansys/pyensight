@@ -1,0 +1,6 @@
+view\_dimension
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport.view_dimension

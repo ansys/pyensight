@@ -1,0 +1,6 @@
+find\_objs
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. automethod:: ENS_GLOBALS.find_objs

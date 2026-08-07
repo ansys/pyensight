@@ -1,0 +1,6 @@
+EDIT\_TARGET
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_sphere
+
+.. autoproperty:: ENS_TOOL_SPHERE.EDIT_TARGET

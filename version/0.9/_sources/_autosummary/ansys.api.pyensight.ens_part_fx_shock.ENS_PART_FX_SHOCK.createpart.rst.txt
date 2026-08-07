@@ -1,0 +1,6 @@
+createpart
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_part_fx_shock
+
+.. automethod:: ENS_PART_FX_SHOCK.createpart

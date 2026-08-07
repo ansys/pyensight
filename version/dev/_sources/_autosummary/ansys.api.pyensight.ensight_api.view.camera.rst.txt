@@ -1,0 +1,6 @@
+camera
+======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view.camera

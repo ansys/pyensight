@@ -1,0 +1,6 @@
+ENS\_PLIST\_KEY\_SEL\_2
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ens_part
+
+.. autoproperty:: ENS_PART.ENS_PLIST_KEY_SEL_2

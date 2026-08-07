@@ -1,0 +1,6 @@
+getattrs
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_part
+
+.. automethod:: ENS_PART.getattrs

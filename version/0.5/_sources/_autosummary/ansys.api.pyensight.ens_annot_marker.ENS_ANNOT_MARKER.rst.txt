@@ -1,0 +1,103 @@
+﻿ENS\_ANNOT\_MARKER
+==================
+
+.. currentmodule:: ansys.api.pyensight.ens_annot_marker
+
+.. autoclass:: ENS_ANNOT_MARKER
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_ANNOT_MARKER.attrgroupinfo
+      
+      
+      ENS_ANNOT_MARKER.attrinfo
+      
+      
+      ENS_ANNOT_MARKER.attrissensitive
+      
+      
+      ENS_ANNOT_MARKER.attrtree
+      
+      
+      ENS_ANNOT_MARKER.createannot
+      
+      
+      ENS_ANNOT_MARKER.destroy
+      
+      
+      ENS_ANNOT_MARKER.getattr
+      
+      
+      ENS_ANNOT_MARKER.getattrs
+      
+      
+      ENS_ANNOT_MARKER.getmetatag
+      
+      
+      ENS_ANNOT_MARKER.hasmetatag
+      
+      
+      ENS_ANNOT_MARKER.populate_attr_list
+      
+      
+      ENS_ANNOT_MARKER.setattr
+      
+      
+      ENS_ANNOT_MARKER.setattr_begin
+      
+      
+      ENS_ANNOT_MARKER.setattr_end
+      
+      
+      ENS_ANNOT_MARKER.setattr_status
+      
+      
+      ENS_ANNOT_MARKER.setattrs
+      
+      
+      ENS_ANNOT_MARKER.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_ANNOT_MARKER.ANNOTINDEX
+      ENS_ANNOT_MARKER.ANNOTTYPE
+      ENS_ANNOT_MARKER.DESCRIPTION
+      ENS_ANNOT_MARKER.EDIT_TARGET
+      ENS_ANNOT_MARKER.HANDLES_ENABLED
+      ENS_ANNOT_MARKER.JUSTIFICATION
+      ENS_ANNOT_MARKER.LOCATIONX
+      ENS_ANNOT_MARKER.LOCATIONY
+      ENS_ANNOT_MARKER.METADATA
+      ENS_ANNOT_MARKER.ORIGIN
+      ENS_ANNOT_MARKER.ORIGINBY
+      ENS_ANNOT_MARKER.ORIGINFRAME
+      ENS_ANNOT_MARKER.PROJECT_MASK
+      ENS_ANNOT_MARKER.RELATIVETO
+      ENS_ANNOT_MARKER.RELATIVEVIEWPORT
+      ENS_ANNOT_MARKER.RGB
+      ENS_ANNOT_MARKER.ROTATIONALANGLE
+      ENS_ANNOT_MARKER.SELECTED
+      ENS_ANNOT_MARKER.SHADOWINTENSITY
+      ENS_ANNOT_MARKER.SHADOWOFFSET
+      ENS_ANNOT_MARKER.SIZE
+      ENS_ANNOT_MARKER.UUID
+      ENS_ANNOT_MARKER.VISIBLE
+      ENS_ANNOT_MARKER.__OBJID__
+      ENS_ANNOT_MARKER.objid
+   
+   

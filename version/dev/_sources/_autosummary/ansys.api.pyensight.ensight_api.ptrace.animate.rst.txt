@@ -1,0 +1,6 @@
+animate
+=======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.animate

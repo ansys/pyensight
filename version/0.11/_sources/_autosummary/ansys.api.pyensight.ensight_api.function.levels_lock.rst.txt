@@ -1,0 +1,6 @@
+levels\_lock
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: function.levels_lock

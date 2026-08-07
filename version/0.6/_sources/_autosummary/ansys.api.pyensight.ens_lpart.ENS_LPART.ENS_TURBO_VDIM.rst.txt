@@ -1,0 +1,6 @@
+ENS\_TURBO\_VDIM
+================
+
+.. currentmodule:: ansys.api.pyensight.ens_lpart
+
+.. autoproperty:: ENS_LPART.ENS_TURBO_VDIM

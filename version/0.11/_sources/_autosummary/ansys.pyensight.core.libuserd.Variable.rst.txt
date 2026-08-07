@@ -1,0 +1,15 @@
+﻿Variable
+========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoclass:: Variable
+
+   
+
+   
+   
+
+   
+   
+   

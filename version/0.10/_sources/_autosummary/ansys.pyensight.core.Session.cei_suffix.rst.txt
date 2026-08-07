@@ -1,0 +1,6 @@
+cei\_suffix
+===========
+
+.. currentmodule:: ansys.pyensight.core
+
+.. autoproperty:: Session.cei_suffix

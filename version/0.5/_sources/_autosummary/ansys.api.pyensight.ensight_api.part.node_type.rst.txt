@@ -1,0 +1,6 @@
+node\_type
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.node_type

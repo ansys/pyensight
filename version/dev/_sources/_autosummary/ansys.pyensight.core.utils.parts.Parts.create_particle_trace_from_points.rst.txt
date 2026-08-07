@@ -1,0 +1,6 @@
+create\_particle\_trace\_from\_points
+=====================================
+
+.. currentmodule:: ansys.pyensight.core.utils.parts
+
+.. automethod:: Parts.create_particle_trace_from_points

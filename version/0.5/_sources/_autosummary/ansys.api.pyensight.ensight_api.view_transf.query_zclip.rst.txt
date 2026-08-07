@@ -1,0 +1,6 @@
+query\_zclip
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.query_zclip

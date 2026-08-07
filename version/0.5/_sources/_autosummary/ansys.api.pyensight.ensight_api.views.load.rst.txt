@@ -1,0 +1,6 @@
+load
+====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: views.load

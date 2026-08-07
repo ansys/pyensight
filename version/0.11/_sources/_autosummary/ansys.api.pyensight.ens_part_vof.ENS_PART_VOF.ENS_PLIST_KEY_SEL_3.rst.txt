@@ -1,0 +1,6 @@
+ENS\_PLIST\_KEY\_SEL\_3
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_vof
+
+.. autoproperty:: ENS_PART_VOF.ENS_PLIST_KEY_SEL_3

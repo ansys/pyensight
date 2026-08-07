@@ -1,0 +1,6 @@
+VAR\_YAXIS\_RIGHT\_OBJ
+======================
+
+.. currentmodule:: ansys.api.pyensight.ens_plotter
+
+.. autoproperty:: ENS_PLOTTER.VAR_YAXIS_RIGHT_OBJ

@@ -1,0 +1,6 @@
+ANTIALIAS\_NUM\_SAMPLES
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.ANTIALIAS_NUM_SAMPLES

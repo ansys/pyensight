@@ -1,0 +1,6 @@
+sft\_contrast
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: case.sft_contrast

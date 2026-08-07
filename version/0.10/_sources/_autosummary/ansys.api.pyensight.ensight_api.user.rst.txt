@@ -1,0 +1,27 @@
+﻿user
+====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. autoclass:: user
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      user.replace
+      
+      
+      user.type
+      
+   
+   
+
+   
+   
+   

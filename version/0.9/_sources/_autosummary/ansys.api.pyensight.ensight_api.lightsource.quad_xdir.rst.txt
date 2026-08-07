@@ -1,0 +1,6 @@
+quad\_xdir
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: lightsource.quad_xdir

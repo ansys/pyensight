@@ -1,0 +1,6 @@
+offset\_from\_part
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: elevsurf.offset_from_part

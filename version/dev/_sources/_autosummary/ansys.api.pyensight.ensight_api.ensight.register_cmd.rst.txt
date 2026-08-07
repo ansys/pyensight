@@ -1,0 +1,6 @@
+register\_cmd
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.register_cmd

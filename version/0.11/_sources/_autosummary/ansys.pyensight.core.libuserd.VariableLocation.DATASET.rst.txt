@@ -1,0 +1,6 @@
+DATASET
+=======
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: VariableLocation.DATASET

@@ -1,0 +1,6 @@
+auto\_legend\_replace
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.auto_legend_replace

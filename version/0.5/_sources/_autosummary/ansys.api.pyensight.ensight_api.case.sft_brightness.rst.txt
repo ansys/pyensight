@@ -1,0 +1,6 @@
+sft\_brightness
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: case.sft_brightness

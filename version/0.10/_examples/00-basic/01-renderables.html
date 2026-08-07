@@ -1,0 +1,881 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Renderables &#8212; PyEnSight</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/ansys-sphinx-theme.css?v=9e79609d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/ansys-sphinx-theme.css?v=9e79609d" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/breadcrumbs.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+
+  <!-- Include desired assets -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+
+  
+    <link href="../../_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../../_static/documentation_options.js?v=cf63a115"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=49e1bf35"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_examples/00-basic/01-renderables';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.10';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script src="../../_static/js/mermaid.js?v=cf64ff96"></script>
+    <script src="../../_static/jquery.js?v=5d32c60e"></script>
+    <link rel="icon" href="../../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Calculator usage" href="02-calc.html" />
+    <link rel="prev" title="Basic usage" href="00-basic_example.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.10.26" />
+  <meta property="og:site_name" content="PyAnsys" />
+  <meta name="physics" content="Fluids" />
+  <link rel="canonical" href="https://ensight.docs.pyansys.com/version/stable/_examples/00-basic/01-renderables.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="PyEnSight - Home"/>
+    <img src="../../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark pst-js-only" alt="PyEnSight - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html" title="PyEnSight home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Examples
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../contributing.html">
+    Contribute
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html" title="PyEnSight home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../contributing.html">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Basic examples</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="00-basic_example.html">Basic usage</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Renderables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02-calc.html">Calculator usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="03-ptrace.html">Particle Trace (Streamline/Pathline) usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="04-ptrace_pathline.html">Pathline (transient streamline) Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="05-surface_traces_lic.html">Surface Restricted Traces and Line Integral Convolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="06-aero_forces.html">Calculate the Net Aerodynamic Forces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="07-volume_render.html">Volume Rendering to Visualize Flow</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../25-intermediate/index.html">Intermediate examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../50-advanced/index.html">Advanced examples</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+     
+    <li class="breadcrumb-item breadcrumb-home">
+      <a
+        href="../../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../index.html" class="nav-link">Examples</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="index.html" class="nav-link">Basic examples</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Renderables</span></li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-examples-00-basic-01-renderables-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="renderables">
+<span id="ref-renderables"></span><span id="sphx-glr-examples-00-basic-01-renderables-py"></span><h1>Renderables<a class="headerlink" href="#renderables" title="Link to this heading">#</a></h1>
+<p>EnSight is a simulation results postprocessing engine with an advanced rendering
+and display component. PyEnSight provides direct, Jupyter Notebook/Juptyer
+lab-aware access to the rendering component through renderables. This example
+explores the variety of renderables that available.</p>
+<section id="start-an-ensight-session">
+<h2>Start an EnSight session<a class="headerlink" href="#start-an-ensight-session" title="Link to this heading">#</a></h2>
+<p>Launch and connect to an instance of EnSight.
+This example uses a local EnSight installation.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ansys.pyensight.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalLauncher</span>
+
+<span class="n">session</span> <span class="o">=</span> <span class="n">LocalLauncher</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="load-a-time-varying-dataset">
+<h2>Load a time-varying dataset<a class="headerlink" href="#load-a-time-varying-dataset" title="Link to this heading">#</a></h2>
+<p>Load some data included in the EnSight installation,
+apply a displacement variable to the parts, and color
+them by a measure of plastic deformation.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">session</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">cei_home</span><span class="si">}</span><span class="s2">/ensight</span><span class="si">{</span><span class="n">session</span><span class="o">.</span><span class="n">cei_suffix</span><span class="si">}</span><span class="s2">/data/guard_rail/crash.case&quot;</span><span class="p">)</span>
+<span class="c1"># Apply displacements</span>
+<span class="n">displacement</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">VARIABLES</span><span class="p">[</span><span class="s2">&quot;displacement&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">PARTS</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="s2">&quot;DISPLACEBY&quot;</span><span class="p">,</span> <span class="n">displacement</span><span class="p">)</span>
+<span class="c1"># Color by the variable &quot;plastic&quot;</span>
+<span class="n">plastic</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">VARIABLES</span><span class="p">[</span><span class="s2">&quot;plastic&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">PARTS</span><span class="o">.</span><span class="n">set_attr</span><span class="p">(</span><span class="s2">&quot;COLORBYPALETTE&quot;</span><span class="p">,</span> <span class="n">plastic</span><span class="p">)</span>
+<span class="c1"># Adjust the palette range</span>
+<span class="n">plastic</span><span class="o">.</span><span class="n">LEGEND</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">RANGE</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.007</span><span class="p">]</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">view_transf</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="o">-</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">23.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">view_transf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="show-an-image-renderable">
+<h2>Show an image renderable<a class="headerlink" href="#show-an-image-renderable" title="Link to this heading">#</a></h2>
+<p>Show an image renderable. This renders the image at 800x600 pixels using four
+antialiasing passes. If this code is being run in a Jupyter IDE, the cell
+displays the PNG image.</p>
+<img alt="../../_images/01_renderable_0.png" src="../../_images/01_renderable_0.png" />
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">image</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">aa</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="update-renderable">
+<h3>Update renderable<a class="headerlink" href="#update-renderable" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Renderables</span></code> class include several useful methods. The first is the
+<a class="reference internal" href="../../_autosummary/ansys.pyensight.core.renderable.Renderable.update.html#ansys.pyensight.core.renderable.Renderable.update" title="ansys.pyensight.core.renderable.Renderable.update"><code class="xref py py-func docutils literal notranslate"><span class="pre">update</span></code></a> method,
+which regenerates the renderable.</p>
+<p>This code adjusts the scene rotation and updates the display of the image
+in the scene.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">session</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">view_transf</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">image</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="display-renderable-in-a-browser">
+<h3>Display renderable in a browser<a class="headerlink" href="#display-renderable-in-a-browser" title="Link to this heading">#</a></h3>
+<p>All renderables display their results on web pages. The URL to the web page
+is stored in the renderable URL property. You call the
+<a class="reference internal" href="../../_autosummary/ansys.pyensight.core.renderable.Renderable.browser.html#ansys.pyensight.core.renderable.Renderable.browser" title="ansys.pyensight.core.renderable.Renderable.browser"><code class="xref py py-func docutils literal notranslate"><span class="pre">browser</span></code></a> method
+to display the result of the renderable on a new browser tab.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+<span class="n">image</span><span class="o">.</span><span class="n">browser</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="download-renderable">
+<h3>Download renderable<a class="headerlink" href="#download-renderable" title="Link to this heading">#</a></h3>
+<p>The physical files that make up the display of the renderable reside in the
+container/system running the EnSight instance. You can download these files
+to the local system using the
+<a class="reference internal" href="../../_autosummary/ansys.pyensight.core.renderable.Renderable.download.html#ansys.pyensight.core.renderable.Renderable.download" title="ansys.pyensight.core.renderable.Renderable.download"><code class="xref py py-func docutils literal notranslate"><span class="pre">download</span></code></a> method.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For an image renderable, this is a PNG file. But, depending on the type
+of the renderable, the file format could be some other type, such as
+TIFF, AVZ, or EVSN.</p>
+</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">local_directory_pathname</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
+<span class="n">image</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">local_directory_pathname</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="show-a-deep-pixel-image-renderable">
+<h2>Show a deep pixel image renderable<a class="headerlink" href="#show-a-deep-pixel-image-renderable" title="Link to this heading">#</a></h2>
+<p>A deep pixel image is a TIFF file that has the part names and
+currently displayed variable values included at each pixel. For full effect,
+you must view a deep pixel image renderable on a web page.</p>
+<img alt="../../_images/01_renderable_1.png" src="../../_images/01_renderable_1.png" />
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">deep_image</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;deep_pixel&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">aa</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="show-an-animation-renderable">
+<h2>Show an animation renderable<a class="headerlink" href="#show-an-animation-renderable" title="Link to this heading">#</a></h2>
+<p>An animation renderable is generated by rendering all the timesteps of the
+currently loaded dataset into an MPEG4 container. You can set the size of
+the animation and the playback rate in frames per second in the call to
+the <a class="reference internal" href="../../_autosummary/ansys.pyensight.core.Session.show.html#ansys.pyensight.core.Session.show" title="ansys.pyensight.core.Session.show"><code class="xref py py-func docutils literal notranslate"><span class="pre">show</span></code></a> method.</p>
+<img alt="../../_images/01_renderable_2.png" src="../../_images/01_renderable_2.png" />
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">animation</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;animation&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">aa</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="show-a-webgl-3d-scene-renderable">
+<h2>Show a WebGL 3D scene renderable<a class="headerlink" href="#show-a-webgl-3d-scene-renderable" title="Link to this heading">#</a></h2>
+<p>Create a 3D scene renderable and render it interactively in the web browser.
+The scene is generated in AVZ format, which is what the
+<a class="reference internal" href="../../_autosummary/ansys.pyensight.core.renderable.Renderable.download.html#ansys.pyensight.core.renderable.Renderable.download" title="ansys.pyensight.core.renderable.Renderable.download"><code class="xref py py-func docutils literal notranslate"><span class="pre">download</span></code></a> method
+would pull. By default, only the current timestep is captured, but if
+you set the <code class="docutils literal notranslate"><span class="pre">temporal</span></code> parameter, it can be over all timesteps.
+datasets.</p>
+<img alt="../../_images/01_renderable_3.png" src="../../_images/01_renderable_3.png" />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Because the geometry is generated in the EnSight session and downloaded
+to the browser for display, be careful when using this method with larger
+datasets.</p>
+</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">webgl</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;webgl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="interact-directly-with-ensight">
+<h2>Interact directly with EnSight<a class="headerlink" href="#interact-directly-with-ensight" title="Link to this heading">#</a></h2>
+<p>Use remote rendering with dynamic pixel transport to interact directly with
+the EnSight session. The keyboard and mouse interactions are sent directly
+to EnSight in this mode.</p>
+<img alt="../../_images/01_renderable_4.png" src="../../_images/01_renderable_4.png" />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This renderable relies on a persistent, low-latency web socket connection
+to the EnSight session. It is most useful when the EnSight session container
+has access to hardware-accelerated rendering and when datasets/geometry get
+larger. Multiple connections can be made to the same renderable (via HTTP).
+Those renderables are “shared” between all the viewers.</p>
+</div>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">remote</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;remote&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="interact-directly-with-a-remote-scene">
+<h2>Interact directly with a remote scene<a class="headerlink" href="#interact-directly-with-a-remote-scene" title="Link to this heading">#</a></h2>
+<p>A remote scene is a renderable that is basically a wrapper around an EnSight
+scenario file. The current scene is exported and includes all active parts/variables.
+The viewer is the EnVision app accessed through the same remote rendering
+system as the “remote” renderable. It shares many of the same benefits as
+the remote renderable, without the overhead of an EnSight server process.
+If downloaded, the saved file is an EnVision EVSN file.</p>
+<img alt="../../_images/01_renderable_5.png" src="../../_images/01_renderable_5.png" />
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">remote_scene</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s2">&quot;remote_scene&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">temporal</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="export-raw-content">
+<h2>Export raw content<a class="headerlink" href="#export-raw-content" title="Link to this heading">#</a></h2>
+<p>The <a class="reference internal" href="../../_autosummary/ansys.pyensight.core.Session.render.html#ansys.pyensight.core.Session.render" title="ansys.pyensight.core.Session.render"><code class="xref py py-func docutils literal notranslate"><span class="pre">render</span></code></a> and
+<a class="reference internal" href="../../_autosummary/ansys.pyensight.core.Session.geometry.html#ansys.pyensight.core.Session.geometry" title="ansys.pyensight.core.Session.geometry"><code class="xref py py-func docutils literal notranslate"><span class="pre">geometry</span></code></a> methods are capable
+of returning the raw file data directly, without the use of a web browser.</p>
+<p>This example exports the raw file data for a PNG file and a GLB file.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">pngdata</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="mi">1920</span><span class="p">,</span> <span class="mi">1080</span><span class="p">,</span> <span class="n">aa</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;simple_example.png&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pngdata</span><span class="p">)</span>
+<span class="n">glbdata</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;simple_example.glb&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">glbdata</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="close-the-session">
+<h2>Close the session<a class="headerlink" href="#close-the-session" title="Link to this heading">#</a></h2>
+<p>Close the connection and shut down the EnSight instance.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># sphinx_gallery_thumbnail_path = &#39;_static/01_renderable_1.png&#39;</span>
+<span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-examples-00-basic-01-renderables-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/05909f9813590e6c5df10f9aa8b2bcdf/01-renderables.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">01-renderables.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/df5828288a540bd722e4c62e9ae155bb/01-renderables.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">01-renderables.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/60848006bf81b357990715a5e0aba1e3/01-renderables.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">01-renderables.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#start-an-ensight-session">Start an EnSight session</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-a-time-varying-dataset">Load a time-varying dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#show-an-image-renderable">Show an image renderable</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#update-renderable">Update renderable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#display-renderable-in-a-browser">Display renderable in a browser</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#download-renderable">Download renderable</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#show-a-deep-pixel-image-renderable">Show a deep pixel image renderable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#show-an-animation-renderable">Show an animation renderable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#show-a-webgl-3d-scene-renderable">Show a WebGL 3D scene renderable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interact-directly-with-ensight">Interact directly with EnSight</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interact-directly-with-a-remote-scene">Interact directly with a remote scene</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#export-raw-content">Export raw content</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#close-the-session">Close the session</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/_examples/00-basic/01-renderables.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+
+  <!-- Include desired assets -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"></script>
+
+<script>
+// Passing the search options to the search.js file
+const SEARCH_OPTIONS = JSON.parse('{"keys": ["title", "text", "objectID"], "limit": 10, "threshold": 0.2}');
+const SEARCH_FILE = "../../_static/search.json";
+const ADVANCE_SEARCH_PATH = "../../search.html";
+const EXTRA_SOURCES = JSON.parse('""');
+</script>
+
+
+<script src="../../_static/js/search.js"></script>
+
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2025 ANSYS, Inc. Unauthorized use, distribution, or duplication is prohibited..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  1.6.3. <br />Last updated on
+  <span id="ast_build_date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var ast_lastModifiedDate = new Date(document.lastModified);
+  var ast_build_date = ast_lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("ast_build_date").innerHTML = ast_build_date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+LIGHT\_QUAD\_SIZE
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_lightsource
+
+.. autoproperty:: ENS_LIGHTSOURCE.LIGHT_QUAD_SIZE

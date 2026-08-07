@@ -1,0 +1,6 @@
+image
+=====
+
+.. currentmodule:: ansys.pyensight.core.utils.export
+
+.. automethod:: Export.image

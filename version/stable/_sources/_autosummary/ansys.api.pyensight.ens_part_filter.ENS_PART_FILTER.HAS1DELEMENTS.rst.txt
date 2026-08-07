@@ -1,0 +1,6 @@
+HAS1DELEMENTS
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_part_filter
+
+.. autoproperty:: ENS_PART_FILTER.HAS1DELEMENTS

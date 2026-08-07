@@ -1,0 +1,6 @@
+auto\_plot\_queries
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: query_ent_var.auto_plot_queries

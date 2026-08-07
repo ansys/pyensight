@@ -1,0 +1,6 @@
+HANDLES\_ENABLED
+================
+
+.. currentmodule:: ansys.api.pyensight.ens_frame
+
+.. autoproperty:: ENS_FRAME.HANDLES_ENABLED

@@ -1,0 +1,6 @@
+session\_directory
+==================
+
+.. currentmodule:: ansys.pyensight.core
+
+.. autoproperty:: LocalLauncher.session_directory

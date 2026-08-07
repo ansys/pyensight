@@ -1,0 +1,6 @@
+cameratoview\_readfile
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.cameratoview_readfile

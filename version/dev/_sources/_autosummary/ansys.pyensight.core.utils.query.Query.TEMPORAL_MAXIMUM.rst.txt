@@ -1,0 +1,6 @@
+TEMPORAL\_MAXIMUM
+=================
+
+.. currentmodule:: ansys.pyensight.core.utils.query
+
+.. autoattribute:: Query.TEMPORAL_MAXIMUM

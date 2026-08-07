@@ -1,0 +1,6 @@
+POLYGON\_OFFSET
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_group
+
+.. autoproperty:: ENS_GROUP.POLYGON_OFFSET

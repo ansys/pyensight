@@ -1,0 +1,6 @@
+hostname
+========
+
+.. currentmodule:: ansys.pyensight.core
+
+.. autoproperty:: Session.hostname

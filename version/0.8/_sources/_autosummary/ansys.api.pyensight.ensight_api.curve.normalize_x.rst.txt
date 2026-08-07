@@ -1,0 +1,6 @@
+normalize\_x
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: curve.normalize_x

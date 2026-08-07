@@ -1,0 +1,143 @@
+﻿ENS\_QUERY
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_query
+
+.. autoclass:: ENS_QUERY
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_QUERY.addtoplot
+      
+      
+      ENS_QUERY.attrgroupinfo
+      
+      
+      ENS_QUERY.attrinfo
+      
+      
+      ENS_QUERY.attrissensitive
+      
+      
+      ENS_QUERY.attrtree
+      
+      
+      ENS_QUERY.destroy
+      
+      
+      ENS_QUERY.getattr
+      
+      
+      ENS_QUERY.getattrs
+      
+      
+      ENS_QUERY.getmetatag
+      
+      
+      ENS_QUERY.hasmetatag
+      
+      
+      ENS_QUERY.removefromplot
+      
+      
+      ENS_QUERY.setattr
+      
+      
+      ENS_QUERY.setattr_begin
+      
+      
+      ENS_QUERY.setattr_end
+      
+      
+      ENS_QUERY.setattr_status
+      
+      
+      ENS_QUERY.setattrs
+      
+      
+      ENS_QUERY.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_QUERY.ASSIGNTOYAXIS
+      ENS_QUERY.BEGINSIMTIME
+      ENS_QUERY.CASES
+      ENS_QUERY.CONSTRAINDISTANCE
+      ENS_QUERY.CONSTRAINTIME
+      ENS_QUERY.CURSORLOC
+      ENS_QUERY.DESCRIPTION
+      ENS_QUERY.DISTANCE
+      ENS_QUERY.EDIT_TARGET
+      ENS_QUERY.ELEMID
+      ENS_QUERY.ENDSIMTIME
+      ENS_QUERY.GENERATEOVER
+      ENS_QUERY.HANDLES_ENABLED
+      ENS_QUERY.ID
+      ENS_QUERY.IJK
+      ENS_QUERY.INDEX
+      ENS_QUERY.LEGENDTITLE
+      ENS_QUERY.LINESTYLE
+      ENS_QUERY.LINETYPE
+      ENS_QUERY.LINEWIDTH
+      ENS_QUERY.MARKER
+      ENS_QUERY.MARKERRGB
+      ENS_QUERY.MARKERSCALE
+      ENS_QUERY.MARKERSIZENORMALIZED
+      ENS_QUERY.MARKERVISIBLE
+      ENS_QUERY.METADATA
+      ENS_QUERY.MULTIPLESEGMENTSBY
+      ENS_QUERY.NODEID
+      ENS_QUERY.NORMALIZEX
+      ENS_QUERY.NORMALIZEY
+      ENS_QUERY.NUMOFSAMPLEPTS
+      ENS_QUERY.OFFSET
+      ENS_QUERY.OPERATION
+      ENS_QUERY.OPERATIONFACTOR1
+      ENS_QUERY.OPERATIONFACTOR2
+      ENS_QUERY.OPERATIONQUERY1BYNAME
+      ENS_QUERY.OPERATIONQUERY2BYNAME
+      ENS_QUERY.ORIGIN
+      ENS_QUERY.PARTDELTAVALUE
+      ENS_QUERY.PARTID
+      ENS_QUERY.PARTMAXVALUE
+      ENS_QUERY.PARTMINVALUE
+      ENS_QUERY.PARTS
+      ENS_QUERY.PLOTS
+      ENS_QUERY.PROJECT_MASK
+      ENS_QUERY.QUERYLINETOOLPOINT1
+      ENS_QUERY.QUERYLINETOOLPOINT2
+      ENS_QUERY.QUERYTYPE
+      ENS_QUERY.QUERY_DATA
+      ENS_QUERY.RGB
+      ENS_QUERY.SAMPLEBY
+      ENS_QUERY.SCALARVALUE
+      ENS_QUERY.SCALARVARIABLE
+      ENS_QUERY.SCALE
+      ENS_QUERY.SELECTED
+      ENS_QUERY.SMOOTHSUBPOINTS
+      ENS_QUERY.SPLINEID
+      ENS_QUERY.UPDATEWITHNEWTIMESTEPS
+      ENS_QUERY.UUID
+      ENS_QUERY.VARIABLE1
+      ENS_QUERY.VARIABLE2
+      ENS_QUERY.VISIBLE
+      ENS_QUERY.XAXIS_TYPE
+      ENS_QUERY.__OBJID__
+      ENS_QUERY.objid
+   
+   

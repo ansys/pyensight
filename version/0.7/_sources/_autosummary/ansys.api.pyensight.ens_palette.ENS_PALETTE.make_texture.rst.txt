@@ -1,0 +1,6 @@
+make\_texture
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.make_texture

@@ -1,0 +1,6 @@
+ENS\_PARENT\_PART
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_lpart
+
+.. autoproperty:: ENS_LPART.ENS_PARENT_PART

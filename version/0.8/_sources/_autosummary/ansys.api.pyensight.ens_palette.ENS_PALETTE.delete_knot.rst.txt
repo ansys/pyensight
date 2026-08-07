@@ -1,0 +1,6 @@
+delete\_knot
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.delete_knot

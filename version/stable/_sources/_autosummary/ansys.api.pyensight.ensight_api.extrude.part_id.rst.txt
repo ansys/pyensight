@@ -1,0 +1,6 @@
+part\_id
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: extrude.part_id

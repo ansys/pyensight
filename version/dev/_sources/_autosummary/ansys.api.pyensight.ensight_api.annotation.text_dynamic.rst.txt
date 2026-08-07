@@ -1,0 +1,6 @@
+text\_dynamic
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: annotation.text_dynamic

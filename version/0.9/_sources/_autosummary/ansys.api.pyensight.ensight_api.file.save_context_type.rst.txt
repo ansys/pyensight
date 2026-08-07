@@ -1,0 +1,6 @@
+save\_context\_type
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.save_context_type

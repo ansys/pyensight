@@ -1,0 +1,6 @@
+AXIS2AUTOSCALE
+==============
+
+.. currentmodule:: ansys.api.pyensight.ens_plotter
+
+.. autoproperty:: ENS_PLOTTER.AXIS2AUTOSCALE

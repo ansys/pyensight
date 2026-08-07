@@ -1,0 +1,6 @@
+setattr\_begin
+==============
+
+.. currentmodule:: ansys.api.pyensight.ens_lightsource
+
+.. automethod:: ENS_LIGHTSOURCE.setattr_begin

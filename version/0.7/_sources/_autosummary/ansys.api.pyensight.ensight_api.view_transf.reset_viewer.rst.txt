@@ -1,0 +1,6 @@
+reset\_viewer
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.reset_viewer

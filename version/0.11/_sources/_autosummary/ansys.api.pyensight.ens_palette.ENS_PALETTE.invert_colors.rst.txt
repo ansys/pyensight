@@ -1,0 +1,6 @@
+invert\_colors
+==============
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.invert_colors

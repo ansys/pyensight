@@ -1,0 +1,1329 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ens_calculator &#8212; PyEnSight</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys_sphinx_theme.css?v=e7c4c341" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/breadcrumbs.css?v=37397a7f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  
+    <link href="../_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=1222c2e3"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=49e1bf35"></script>
+    <script src="../_static/js/table.js?v=b64f5182"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_autosummary/ansys.api.pyensight.calc_funcs.ens_calculator';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <script src="../_static/js/mermaid.js?v=cf64ff96"></script>
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <link rel="icon" href="../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="area" href="ansys.api.pyensight.calc_funcs.ens_calculator.area.html" />
+    <link rel="prev" title="sort" href="ansys.pyensight.core.ensobjlist.sort.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <link rel="canonical" href="https://ensight.docs.pyansys.com/version/stable/_autosummary/ansys.api.pyensight.calc_funcs.ens_calculator.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="PyEnSight - Home"/>
+    <script>document.write(`<img src="../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark" alt="PyEnSight - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<div class="search-bar" id="search-bar">
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+         aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+         autocapitalize="off" spellcheck="false"/>
+  <span class="search-button__kbd-shortcut">
+    <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+  </span>
+</form>
+<!-- Search results container -->
+<div id="results" class="results" style="display: none;" tabindex="0">
+</div>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<div class="search-bar" id="search-bar">
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+         aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+         autocapitalize="off" spellcheck="false"/>
+  <span class="search-button__kbd-shortcut">
+    <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+  </span>
+</form>
+<!-- Search results container -->
+<div id="results" class="results" style="display: none;" tabindex="0">
+</div>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../native_documentation.html">Native API reference</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../object_documentation.html">Object API reference</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.ensobj.ENSOBJ.html">ENSOBJ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.ensobjlist.html">ensobjlist</a></li>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">ens_calculator</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.area.html">area</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_agradofvelmag.html">bl_agradofvelmag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_cfedge.html">bl_cfedge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_cfwall.html">bl_cfwall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_cfwallcmp.html">bl_cfwallcmp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_cfwalltau.html">bl_cfwalltau</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_dispthick.html">bl_dispthick</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_disttovalue.html">bl_disttovalue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_momethick.html">bl_momethick</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_recoverythick.html">bl_recoverythick</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_scalar.html">bl_scalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_thick.html">bl_thick</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_velocityatedge.html">bl_velocityatedge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_y1plus.html">bl_y1plus</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_y1plusdist.html">bl_y1plusdist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.casemap.html">casemap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.casemapdiff.html">casemapdiff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.casemapimage.html">casemapimage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.cmplx.html">cmplx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.cmplxarg.html">cmplxarg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.cmplxconj.html">cmplxconj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.cmplximag.html">cmplximag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.cmplxmodu.html">cmplxmodu</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.cmplxreal.html">cmplxreal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.cmplxtransresp.html">cmplxtransresp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.coeff.html">coeff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.constantperpart.html">constantperpart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.curl.html">curl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.defect_bulkvolume.html">defect_bulkvolume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.defect_count.html">defect_count</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.defect_largestlinearextent.html">defect_largestlinearextent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.defect_netvolume.html">defect_netvolume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.defect_shapefactor.html">defect_shapefactor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.defect_surfacearea.html">defect_surfacearea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.density.html">density</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.densitylognorm.html">densitylognorm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.densitynorm.html">densitynorm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.densitynormstag.html">densitynormstag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.densitystag.html">densitystag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.dist2nodes.html">dist2nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.dist2part.html">dist2part</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.dist2partelem.html">dist2partelem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.div.html">div</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.elemetric.html">elemetric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.elemtonode.html">elemtonode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.elemtonodeweighted.html">elemtonodeweighted</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.elesize.html">elesize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.energyt.html">energyt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.enthalpy.html">enthalpy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.enthalpynorm.html">enthalpynorm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.enthalpynormstag.html">enthalpynormstag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.enthalpystag.html">enthalpystag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.entropy.html">entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.flow.html">flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.flowrate.html">flowrate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.fluidshear.html">fluidshear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.fluidshearmax.html">fluidshearmax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.force.html">force</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.force1d.html">force1d</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.grad.html">grad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.gradtensor.html">gradtensor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.helicitydensity.html">helicitydensity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.helicityrelative.html">helicityrelative</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.helicityrelfilter.html">helicityrelfilter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.iblankingvalues.html">iblankingvalues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.ijkvalues.html">ijkvalues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.integralline.html">integralline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.integralsurface.html">integralsurface</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.integralvolume.html">integralvolume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.kinen.html">kinen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.length.html">length</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.linevectors.html">linevectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.mach.html">mach</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.makescalelem.html">makescalelem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.makescalelemid.html">makescalelemid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.makescalnode.html">makescalnode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.makescalnodeid.html">makescalnodeid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.makevect.html">makevect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.massedparticle.html">massedparticle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.massfluxavg.html">massfluxavg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.matspecies.html">matspecies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.mattoscalar.html">mattoscalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.max.html">max</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.min.html">min</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.moment.html">moment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.momentum.html">momentum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.momentvector.html">momentvector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.nodecount.html">nodecount</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.nodetoelem.html">nodetoelem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.normal.html">normal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.normc.html">normc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.normvect.html">normvect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.offsetfield.html">offsetfield</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.offsetvar.html">offsetvar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.partnumber.html">partnumber</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.pres.html">pres</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.prescoef.html">prescoef</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.presdynam.html">presdynam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.preslognorm.html">preslognorm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.presnorm.html">presnorm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.presnormstag.html">presnormstag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.prespitot.html">prespitot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.prespitotratio.html">prespitotratio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.presstag.html">presstag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.presstagcoef.html">presstagcoef</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.prest.html">prest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.radiograph_grid.html">radiograph_grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.radiograph_mesh.html">radiograph_mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.recttocyl.html">recttocyl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.servernumber.html">servernumber</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.shockplot3d.html">shockplot3d</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.smoothmesh.html">smoothmesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.sonicspeed.html">sonicspeed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.spamean.html">spamean</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.spameanweighted.html">spameanweighted</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.speed.html">speed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.statmoment.html">statmoment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.statregspa.html">statregspa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.statregval1.html">statregval1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.statregval2.html">statregval2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.swirl.html">swirl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.temperature.html">temperature</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.temperlognorm.html">temperlognorm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tempernorm.html">tempernorm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tempernormstag.html">tempernormstag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.temperstag.html">temperstag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tempmean.html">tempmean</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tempminmaxfield.html">tempminmaxfield</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tensorcomponent.html">tensorcomponent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tensordeterminant.html">tensordeterminant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tensoreigenvalue.html">tensoreigenvalue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tensoreigenvector.html">tensoreigenvector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tensormake.html">tensormake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tensormakeasym.html">tensormakeasym</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tensortresca.html">tensortresca</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tensorvonmises.html">tensorvonmises</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.vector1dprojection.html">vector1dprojection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.vectorcylprojection.html">vectorcylprojection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.vectorrectprojection.html">vectorrectprojection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.velo.html">velo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.vol.html">vol</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.vort.html">vort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.vortgamma.html">vortgamma</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot.ENS_ANNOT.html">ENS_ANNOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_text.ENS_ANNOT_TEXT.html">ENS_ANNOT_TEXT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_line.ENS_ANNOT_LINE.html">ENS_ANNOT_LINE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_logo.ENS_ANNOT_LOGO.html">ENS_ANNOT_LOGO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_lgnd.ENS_ANNOT_LGND.html">ENS_ANNOT_LGND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_marker.ENS_ANNOT_MARKER.html">ENS_ANNOT_MARKER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_arrow.ENS_ANNOT_ARROW.html">ENS_ANNOT_ARROW</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_dial.ENS_ANNOT_DIAL.html">ENS_ANNOT_DIAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_gauge.ENS_ANNOT_GAUGE.html">ENS_ANNOT_GAUGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_shape.ENS_ANNOT_SHAPE.html">ENS_ANNOT_SHAPE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_camera.ENS_CAMERA.html">ENS_CAMERA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_case.ENS_CASE.html">ENS_CASE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_flipbook.ENS_FLIPBOOK.html">ENS_FLIPBOOK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_frame.ENS_FRAME.html">ENS_FRAME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_geom.ENS_GEOM.html">ENS_GEOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.html">ENS_GLOBALS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_group.ENS_GROUP.html">ENS_GROUP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_lightsource.ENS_LIGHTSOURCE.html">ENS_LIGHTSOURCE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_lpart.ENS_LPART.html">ENS_LPART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_mat.ENS_MAT.html">ENS_MAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_palette.ENS_PALETTE.html">ENS_PALETTE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part.ENS_PART.html">ENS_PART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_model.ENS_PART_MODEL.html">ENS_PART_MODEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.html">ENS_PART_CLIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_contour.ENS_PART_CONTOUR.html">ENS_PART_CONTOUR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_discrete_particle.ENS_PART_DISCRETE_PARTICLE.html">ENS_PART_DISCRETE_PARTICLE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_frame.ENS_PART_FRAME.html">ENS_PART_FRAME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_isosurface.ENS_PART_ISOSURFACE.html">ENS_PART_ISOSURFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE.html">ENS_PART_PARTICLE_TRACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_profile.ENS_PART_PROFILE.html">ENS_PART_PROFILE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_vector_arrow.ENS_PART_VECTOR_ARROW.html">ENS_PART_VECTOR_ARROW</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_elevated_surface.ENS_PART_ELEVATED_SURFACE.html">ENS_PART_ELEVATED_SURFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_developed_surface.ENS_PART_DEVELOPED_SURFACE.html">ENS_PART_DEVELOPED_SURFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_built_up.ENS_PART_BUILT_UP.html">ENS_PART_BUILT_UP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_tensor_glyph.ENS_PART_TENSOR_GLYPH.html">ENS_PART_TENSOR_GLYPH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_fx_vortex_core.ENS_PART_FX_VORTEX_CORE.html">ENS_PART_FX_VORTEX_CORE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_fx_shock.ENS_PART_FX_SHOCK.html">ENS_PART_FX_SHOCK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_fx_sep_att.ENS_PART_FX_SEP_ATT.html">ENS_PART_FX_SEP_ATT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_mat_interface.ENS_PART_MAT_INTERFACE.html">ENS_PART_MAT_INTERFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_point.ENS_PART_POINT.html">ENS_PART_POINT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_axisymmetric.ENS_PART_AXISYMMETRIC.html">ENS_PART_AXISYMMETRIC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_vof.ENS_PART_VOF.html">ENS_PART_VOF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_aux_geom.ENS_PART_AUX_GEOM.html">ENS_PART_AUX_GEOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_filter.ENS_PART_FILTER.html">ENS_PART_FILTER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_plotter.ENS_PLOTTER.html">ENS_PLOTTER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_polyline.ENS_POLYLINE.html">ENS_POLYLINE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_probe.ENS_PROBE.html">ENS_PROBE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_query.ENS_QUERY.html">ENS_QUERY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_scene.ENS_SCENE.html">ENS_SCENE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_source.ENS_SOURCE.html">ENS_SOURCE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_spec.ENS_SPEC.html">ENS_SPEC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_state.ENS_STATE.html">ENS_STATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_texture.ENS_TEXTURE.html">ENS_TEXTURE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool.ENS_TOOL.html">ENS_TOOL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_cursor.ENS_TOOL_CURSOR.html">ENS_TOOL_CURSOR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_line.ENS_TOOL_LINE.html">ENS_TOOL_LINE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_plane.ENS_TOOL_PLANE.html">ENS_TOOL_PLANE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_box.ENS_TOOL_BOX.html">ENS_TOOL_BOX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_cylinder.ENS_TOOL_CYLINDER.html">ENS_TOOL_CYLINDER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_cone.ENS_TOOL_CONE.html">ENS_TOOL_CONE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_sphere.ENS_TOOL_SPHERE.html">ENS_TOOL_SPHERE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_revolution.ENS_TOOL_REVOLUTION.html">ENS_TOOL_REVOLUTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_var.ENS_VAR.html">ENS_VAR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_vport.ENS_VPORT.html">ENS_VPORT</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../calc_functions.html">Calculator functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest_api/rest_api.html">REST API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../libuserd_documentation.html">LibUserd API reference</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.enscontext.EnsContext.html">EnsContext</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.LocalLauncher.html">LocalLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.DockerLauncher.html">DockerLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.renderable.Renderable.html">Renderable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.Session.html">Session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.export.Export.html">Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.parts.Parts.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.query.Query.html">Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.support.Support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.views.Views.html">Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.variables.Variables.html">Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.omniverse.Omniverse.html">Omniverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.readers.Readers.html">Readers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.readers.DVS.html">DVS</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+     
+    <li class="breadcrumb-item breadcrumb-home">
+      <a
+        href="../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../class_documentation.html" class="nav-link">API reference</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../object_documentation.html" class="nav-link">Object API reference</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page">ens_calculator</li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ens-calculator">
+<h1>ens_calculator<a class="headerlink" href="#ens-calculator" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="ansys.api.pyensight.calc_funcs.ens_calculator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ansys.api.pyensight.calc_funcs.</span></span><span class="sig-name descname"><span class="pre">ens_calculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ensight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.html#ansys.api.pyensight.ensight_api.ensight" title="ansys.api.pyensight.ensight_api.ensight"><span class="pre">ensight_api.ensight</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="ansys.api.pyensight.ensight_api.ensight.html#ansys.api.pyensight.ensight_api.ensight" title="ansys.api.pyensight.ensight_api.ensight"><span class="pre">ensight</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ansys.api.pyensight.calc_funcs.ens_calculator" title="Link to this definition">#</a></dt>
+<dd><p class="rubric">Methods</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.area.html#ansys.api.pyensight.calc_funcs.ens_calculator.area" title="ansys.api.pyensight.calc_funcs.ens_calculator.area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.area</span></code></a>(source_parts[, ...])</p></td>
+<td><p>Computes a constant variable defined as the sum of the area of the specified parts plus the surface area if any 3D elements exist.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_agradofvelmag.html#ansys.api.pyensight.calc_funcs.ens_calculator.bl_agradofvelmag" title="ansys.api.pyensight.calc_funcs.ens_calculator.bl_agradofvelmag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.bl_agradofvelmag</span></code></a>(...[, ...])</p></td>
+<td><p>Computes a vector variable defined as the gradient of the magnitude of the specified velocity variable on the specified boundary part(s)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_cfedge.html#ansys.api.pyensight.calc_funcs.ens_calculator.bl_cfedge" title="ansys.api.pyensight.calc_funcs.ens_calculator.bl_cfedge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.bl_cfedge</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the edge skin-friction coefficient</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_cfwall.html#ansys.api.pyensight.calc_funcs.ens_calculator.bl_cfwall" title="ansys.api.pyensight.calc_funcs.ens_calculator.bl_cfwall"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.bl_cfwall</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the skin-friction coefficient</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_cfwallcmp.html#ansys.api.pyensight.calc_funcs.ens_calculator.bl_cfwallcmp" title="ansys.api.pyensight.calc_funcs.ens_calculator.bl_cfwallcmp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.bl_cfwallcmp</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the component of the skin-friction coefficient tangent or parallel to the wall in either the steam-wise or cross-flow direction</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_cfwalltau.html#ansys.api.pyensight.calc_funcs.ens_calculator.bl_cfwalltau" title="ansys.api.pyensight.calc_funcs.ens_calculator.bl_cfwalltau"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.bl_cfwalltau</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the fluid's shear-stress at the wall or in its stream-wise or cross-flow component direction</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_dispthick.html#ansys.api.pyensight.calc_funcs.ens_calculator.bl_dispthick" title="ansys.api.pyensight.calc_funcs.ens_calculator.bl_dispthick"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.bl_dispthick</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the boundary-layer displacement thickness</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_disttovalue.html#ansys.api.pyensight.calc_funcs.ens_calculator.bl_disttovalue" title="ansys.api.pyensight.calc_funcs.ens_calculator.bl_disttovalue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.bl_disttovalue</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the distance from the wall to the specified value</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_momethick.html#ansys.api.pyensight.calc_funcs.ens_calculator.bl_momethick" title="ansys.api.pyensight.calc_funcs.ens_calculator.bl_momethick"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.bl_momethick</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the boundary momentum thickness</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_recoverythick.html#ansys.api.pyensight.calc_funcs.ens_calculator.bl_recoverythick" title="ansys.api.pyensight.calc_funcs.ens_calculator.bl_recoverythick"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.bl_recoverythick</span></code></a>(...[, ...])</p></td>
+<td><p>Computes a scalar variable defined as the boundary layer recovery thickness</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_scalar.html#ansys.api.pyensight.calc_funcs.ens_calculator.bl_scalar" title="ansys.api.pyensight.calc_funcs.ens_calculator.bl_scalar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.bl_scalar</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the scalar value of the corresponding scalar field at the edge of the boundary layer.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_thick.html#ansys.api.pyensight.calc_funcs.ens_calculator.bl_thick" title="ansys.api.pyensight.calc_funcs.ens_calculator.bl_thick"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.bl_thick</span></code></a>(source_parts, ...[, ...])</p></td>
+<td><p>Computes a scalar variable defined as the boundary layer thickness</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_velocityatedge.html#ansys.api.pyensight.calc_funcs.ens_calculator.bl_velocityatedge" title="ansys.api.pyensight.calc_funcs.ens_calculator.bl_velocityatedge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.bl_velocityatedge</span></code></a>(...[, ...])</p></td>
+<td><p>Computes a vector variable defined as one of Ve, Vn, or Vp where Ve = velocity vector at edge of boundary layer, Vn = decomposed velocity vector normal to the wall at the edge of the boundary layer, or Vp = the decomposed velocity vector parallel to the wall at the edge of the boundary layer.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_y1plus.html#ansys.api.pyensight.calc_funcs.ens_calculator.bl_y1plus" title="ansys.api.pyensight.calc_funcs.ens_calculator.bl_y1plus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.bl_y1plus</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the coefficient-off-the-wall to the 1st field cell centroid</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.bl_y1plusdist.html#ansys.api.pyensight.calc_funcs.ens_calculator.bl_y1plusdist" title="ansys.api.pyensight.calc_funcs.ens_calculator.bl_y1plusdist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.bl_y1plusdist</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the off-the-wall distance to the 1st field cell centroid.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.casemap.html#ansys.api.pyensight.calc_funcs.ens_calculator.casemap" title="ansys.api.pyensight.calc_funcs.ens_calculator.casemap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.casemap</span></code></a>(source_parts, ...[, ...])</p></td>
+<td><p>Computes a field variable (scalar, vector, or tensor) on the selected parts by searching for the node/element location in the case specified.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.casemapdiff.html#ansys.api.pyensight.calc_funcs.ens_calculator.casemapdiff" title="ansys.api.pyensight.calc_funcs.ens_calculator.casemapdiff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.casemapdiff</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a field variable (scalar, vector, or tensor) on the selected parts by searching for the node/element location in the case specified.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.casemapimage.html#ansys.api.pyensight.calc_funcs.ens_calculator.casemapimage" title="ansys.api.pyensight.calc_funcs.ens_calculator.casemapimage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.casemapimage</span></code></a>(part, variable, ...)</p></td>
+<td><p>Computes a scalar variable by projecting a 2d image to a 3d geometry given the view in a specific viewport</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.cmplx.html#ansys.api.pyensight.calc_funcs.ens_calculator.cmplx" title="ansys.api.pyensight.calc_funcs.ens_calculator.cmplx"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.cmplx</span></code></a>(source_parts, ...[, ...])</p></td>
+<td><p>Computes a complex scalar or vector from two scalar or vector variables, Z = A + Bi.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.cmplxarg.html#ansys.api.pyensight.calc_funcs.ens_calculator.cmplxarg" title="ansys.api.pyensight.calc_funcs.ens_calculator.cmplxarg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.cmplxarg</span></code></a>(source_parts, ...[, ...])</p></td>
+<td><p>Computes a scalar in range -180 to 180 degrees defined as the argument of a complex scalar or vector:  Arg = atan(Vi/Vr).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.cmplxconj.html#ansys.api.pyensight.calc_funcs.ens_calculator.cmplxconj" title="ansys.api.pyensight.calc_funcs.ens_calculator.cmplxconj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.cmplxconj</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a complex scalar or vector defined as the conjugate of a given complex scalar or vector variable:  Nr = Vr, Ni = -Vi</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.cmplximag.html#ansys.api.pyensight.calc_funcs.ens_calculator.cmplximag" title="ansys.api.pyensight.calc_funcs.ens_calculator.cmplximag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.cmplximag</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar or vector variable defined as the imaginary portion of a complex scalar/vector</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.cmplxmodu.html#ansys.api.pyensight.calc_funcs.ens_calculator.cmplxmodu" title="ansys.api.pyensight.calc_funcs.ens_calculator.cmplxmodu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.cmplxmodu</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar or vector variable defined as the modulus of a complex scalar/vector</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.cmplxreal.html#ansys.api.pyensight.calc_funcs.ens_calculator.cmplxreal" title="ansys.api.pyensight.calc_funcs.ens_calculator.cmplxreal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.cmplxreal</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar or vector variable defined as the real portion of a complex scalar/vector</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.cmplxtransresp.html#ansys.api.pyensight.calc_funcs.ens_calculator.cmplxtransresp" title="ansys.api.pyensight.calc_funcs.ens_calculator.cmplxtransresp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.cmplxtransresp</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar or vector variable defined as the real transient response of a complex scalar/vector variable given a transient phase angle.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.coeff.html#ansys.api.pyensight.calc_funcs.ens_calculator.coeff" title="ansys.api.pyensight.calc_funcs.ens_calculator.coeff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.coeff</span></code></a>(source_parts, scalar[, ...])</p></td>
+<td><p>Computes a constant variable defined as the surface integral of a scalar variable multiplied by the x, y, or z component of the surface normal</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.constantperpart.html#ansys.api.pyensight.calc_funcs.ens_calculator.constantperpart" title="ansys.api.pyensight.calc_funcs.ens_calculator.constantperpart"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.constantperpart</span></code></a>(source_parts, ...)</p></td>
+<td><p>Assigns a constant value as a constant per part variable</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.curl.html#ansys.api.pyensight.calc_funcs.ens_calculator.curl" title="ansys.api.pyensight.calc_funcs.ens_calculator.curl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.curl</span></code></a>(source_parts, vector[, ...])</p></td>
+<td><p>Computes a vector variable defined as the curl of the vector variable specified</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.defect_bulkvolume.html#ansys.api.pyensight.calc_funcs.ens_calculator.defect_bulkvolume" title="ansys.api.pyensight.calc_funcs.ens_calculator.defect_bulkvolume"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.defect_bulkvolume</span></code></a>(source_parts)</p></td>
+<td><p>Computes a per element scalar variable defined as the bulk volume of defect cells that share a face.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.defect_count.html#ansys.api.pyensight.calc_funcs.ens_calculator.defect_count" title="ansys.api.pyensight.calc_funcs.ens_calculator.defect_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.defect_count</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a constant variable defined as the count of the defects that exist between a specifed min and max value of any of the computed Defect scalar variables.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.defect_largestlinearextent.html#ansys.api.pyensight.calc_funcs.ens_calculator.defect_largestlinearextent" title="ansys.api.pyensight.calc_funcs.ens_calculator.defect_largestlinearextent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.defect_largestlinearextent</span></code></a>(...)</p></td>
+<td><p>Computes a per element scalar variable defined as the largest linear extent of the defect.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.defect_netvolume.html#ansys.api.pyensight.calc_funcs.ens_calculator.defect_netvolume" title="ansys.api.pyensight.calc_funcs.ens_calculator.defect_netvolume"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.defect_netvolume</span></code></a>(...[, ...])</p></td>
+<td><p>Computes a per element scalar variable defined as the sum of the product of cell volumes with the specified scalar variable of the cells comprising the defect.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.defect_shapefactor.html#ansys.api.pyensight.calc_funcs.ens_calculator.defect_shapefactor" title="ansys.api.pyensight.calc_funcs.ens_calculator.defect_shapefactor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.defect_shapefactor</span></code></a>(source_parts)</p></td>
+<td><p>Computes a per node scalar variable defined as the largest linear extent divided by the diameter of the sphere whose volume equals the bulk volume of cells comprising the defect.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.defect_surfacearea.html#ansys.api.pyensight.calc_funcs.ens_calculator.defect_surfacearea" title="ansys.api.pyensight.calc_funcs.ens_calculator.defect_surfacearea"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.defect_surfacearea</span></code></a>(source_parts)</p></td>
+<td><p>Computes a per element scalar variable defined as the surface area of the defect.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.density.html#ansys.api.pyensight.calc_funcs.ens_calculator.density" title="ansys.api.pyensight.calc_funcs.ens_calculator.density"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.density</span></code></a>(source_parts, ...[, ...])</p></td>
+<td><p>Computes a scalar variable defined as the density as a function of pressure, temperature, and gas constant</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.densitylognorm.html#ansys.api.pyensight.calc_funcs.ens_calculator.densitylognorm" title="ansys.api.pyensight.calc_funcs.ens_calculator.densitylognorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.densitylognorm</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the natural log of the normalized density</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.densitynorm.html#ansys.api.pyensight.calc_funcs.ens_calculator.densitynorm" title="ansys.api.pyensight.calc_funcs.ens_calculator.densitynorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.densitynorm</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the normalized density</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.densitynormstag.html#ansys.api.pyensight.calc_funcs.ens_calculator.densitynormstag" title="ansys.api.pyensight.calc_funcs.ens_calculator.densitynormstag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.densitynormstag</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the normalized stagnation density</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.densitystag.html#ansys.api.pyensight.calc_funcs.ens_calculator.densitystag" title="ansys.api.pyensight.calc_funcs.ens_calculator.densitystag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.densitystag</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the stagnation density</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.dist2nodes.html#ansys.api.pyensight.calc_funcs.ens_calculator.dist2nodes" title="ansys.api.pyensight.calc_funcs.ens_calculator.dist2nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.dist2nodes</span></code></a>(source_parts, number)</p></td>
+<td><p>Computes a constant variable defined as the Euclidean distance between the two node IDs specified</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.dist2part.html#ansys.api.pyensight.calc_funcs.ens_calculator.dist2part" title="ansys.api.pyensight.calc_funcs.ens_calculator.dist2part"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.dist2part</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a nodal scalar variable defined as the smallest Euclidean distance from the nodes of the origin part to the nodes of the parts specified.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.dist2partelem.html#ansys.api.pyensight.calc_funcs.ens_calculator.dist2partelem" title="ansys.api.pyensight.calc_funcs.ens_calculator.dist2partelem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.dist2partelem</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a nodal scalar variable defined as the smallest Euclidean distance from the elements of the origin part to the nodes of the parts specified.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.div.html#ansys.api.pyensight.calc_funcs.ens_calculator.div" title="ansys.api.pyensight.calc_funcs.ens_calculator.div"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.div</span></code></a>(source_parts, vector[, ...])</p></td>
+<td><p>Computes a scalar variable defined as the divergence of the vector specified.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.elemetric.html#ansys.api.pyensight.calc_funcs.ens_calculator.elemetric" title="ansys.api.pyensight.calc_funcs.ens_calculator.elemetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.elemetric</span></code></a>(source_parts[, ...])</p></td>
+<td><p>Computes a per-element scalar variable on any parts, whose value is one of a collection of element quality metric functions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.elemtonode.html#ansys.api.pyensight.calc_funcs.ens_calculator.elemtonode" title="ansys.api.pyensight.calc_funcs.ens_calculator.elemtonode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.elemtonode</span></code></a>(source_parts, ...)</p></td>
+<td><p>Compute a node based variable from a element based scalar or vector by simple nodal averaging.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.elemtonodeweighted.html#ansys.api.pyensight.calc_funcs.ens_calculator.elemtonodeweighted" title="ansys.api.pyensight.calc_funcs.ens_calculator.elemtonodeweighted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.elemtonodeweighted</span></code></a>(...[, ...])</p></td>
+<td><p>Compute a node based variable from a element based scalar or vector by weighted nodal averaging.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.elesize.html#ansys.api.pyensight.calc_funcs.ens_calculator.elesize" title="ansys.api.pyensight.calc_funcs.ens_calculator.elesize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.elesize</span></code></a>(source_parts[, ...])</p></td>
+<td><p>Compute an element based scalar variable defined as the length/Area/Volume of 1d/2d/3d elements in the parts specified.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.energyt.html#ansys.api.pyensight.calc_funcs.ens_calculator.energyt" title="ansys.api.pyensight.calc_funcs.ens_calculator.energyt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.energyt</span></code></a>(source_parts, ...[, ...])</p></td>
+<td><p>Compute a scalar variable defined as the total energy per unit volume given density, pressure, velocity, and ratio of specific heats.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.enthalpy.html#ansys.api.pyensight.calc_funcs.ens_calculator.enthalpy" title="ansys.api.pyensight.calc_funcs.ens_calculator.enthalpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.enthalpy</span></code></a>(source_parts, ...[, ...])</p></td>
+<td><p>Compute a scalar variable defined as the enthalpy given total energy, density, velocity, and ratio of specific heats.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.enthalpynorm.html#ansys.api.pyensight.calc_funcs.ens_calculator.enthalpynorm" title="ansys.api.pyensight.calc_funcs.ens_calculator.enthalpynorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.enthalpynorm</span></code></a>(source_parts, ...)</p></td>
+<td><p>Compute a scalar variable defined as the normalized enthalpy given total energy, density, velocity, ratio of specific heats, and freestream density and speed of sound</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.enthalpynormstag.html#ansys.api.pyensight.calc_funcs.ens_calculator.enthalpynormstag" title="ansys.api.pyensight.calc_funcs.ens_calculator.enthalpynormstag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.enthalpynormstag</span></code></a>(...[, ...])</p></td>
+<td><p>Compute a scalar variable defined as the normalized stagnation enthalpy given total energy, density, velocity, ratio of specific heats, and freestream values</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.enthalpystag.html#ansys.api.pyensight.calc_funcs.ens_calculator.enthalpystag" title="ansys.api.pyensight.calc_funcs.ens_calculator.enthalpystag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.enthalpystag</span></code></a>(source_parts, ...)</p></td>
+<td><p>Compute a scalar variable defined as the stagnation enthalpy given total energy, density, velocity, and ratio of specific heats</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.entropy.html#ansys.api.pyensight.calc_funcs.ens_calculator.entropy" title="ansys.api.pyensight.calc_funcs.ens_calculator.entropy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.entropy</span></code></a>(source_parts, ...[, ...])</p></td>
+<td><p>Computes a scalar variable defined as the entropy given total energy, density, velocity, ratio of specific heats, gas constant, and freestream values</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.flow.html#ansys.api.pyensight.calc_funcs.ens_calculator.flow" title="ansys.api.pyensight.calc_funcs.ens_calculator.flow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.flow</span></code></a>(source_parts, velocity)</p></td>
+<td><p>Computes a constant variable defined as the volume flow rate, i.e., the surface integral of the velocity in the surface normal direction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.flowrate.html#ansys.api.pyensight.calc_funcs.ens_calculator.flowrate" title="ansys.api.pyensight.calc_funcs.ens_calculator.flowrate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.flowrate</span></code></a>(source_parts, velocity)</p></td>
+<td><p>Computes a scalar variable defined as the component of velocity in the surface normal direction.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.fluidshear.html#ansys.api.pyensight.calc_funcs.ens_calculator.fluidshear" title="ansys.api.pyensight.calc_funcs.ens_calculator.fluidshear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.fluidshear</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the shear stress multiplied by the velocity gradient in the surface normal direction</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.fluidshearmax.html#ansys.api.pyensight.calc_funcs.ens_calculator.fluidshearmax" title="ansys.api.pyensight.calc_funcs.ens_calculator.fluidshearmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.fluidshearmax</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the turbulent plus laminar viscosity multiplied by the local strain</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.force.html#ansys.api.pyensight.calc_funcs.ens_calculator.force" title="ansys.api.pyensight.calc_funcs.ens_calculator.force"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.force</span></code></a>(source_parts, pressure)</p></td>
+<td><p>Computes a vector variable defined as the pressure*area force acting in the surface normal direction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.force1d.html#ansys.api.pyensight.calc_funcs.ens_calculator.force1d" title="ansys.api.pyensight.calc_funcs.ens_calculator.force1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.force1d</span></code></a>(source_parts, ...[, ...])</p></td>
+<td><p>Computes a vector variable defined as the pressure*length force acting in the normal direction given</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.grad.html#ansys.api.pyensight.calc_funcs.ens_calculator.grad" title="ansys.api.pyensight.calc_funcs.ens_calculator.grad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.grad</span></code></a>(source_parts, ...[, ...])</p></td>
+<td><p>Computes a vector variable defined as the gradient of a scalar or vector magnitude</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.gradtensor.html#ansys.api.pyensight.calc_funcs.ens_calculator.gradtensor" title="ansys.api.pyensight.calc_funcs.ens_calculator.gradtensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.gradtensor</span></code></a>(source_parts, vector)</p></td>
+<td><p>Computes a tensor variable defined as the gradient of a vector variable</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.helicitydensity.html#ansys.api.pyensight.calc_funcs.ens_calculator.helicitydensity" title="ansys.api.pyensight.calc_funcs.ens_calculator.helicitydensity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.helicitydensity</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the helicity computed by dotting the velocity with vorticity</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.helicityrelative.html#ansys.api.pyensight.calc_funcs.ens_calculator.helicityrelative" title="ansys.api.pyensight.calc_funcs.ens_calculator.helicityrelative"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.helicityrelative</span></code></a>(...[, ...])</p></td>
+<td><p>Computes a scalar variable defined as the relative helicity computed by dotting the velocity with vorticity and dividing by the velocity and vorticity magnitudes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.helicityrelfilter.html#ansys.api.pyensight.calc_funcs.ens_calculator.helicityrelfilter" title="ansys.api.pyensight.calc_funcs.ens_calculator.helicityrelfilter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.helicityrelfilter</span></code></a>(...[, ...])</p></td>
+<td><p>Computes a scalar variable defined as the relative filtered helicity = the relative helicity if the helicity density is greater or equal to the filter value and = 0 if the helicity density is less than the filter value.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.iblankingvalues.html#ansys.api.pyensight.calc_funcs.ens_calculator.iblankingvalues" title="ansys.api.pyensight.calc_funcs.ens_calculator.iblankingvalues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.iblankingvalues</span></code></a>(source_parts)</p></td>
+<td><p>Computes a scalar variable defined as the iblanking value.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.ijkvalues.html#ansys.api.pyensight.calc_funcs.ens_calculator.ijkvalues" title="ansys.api.pyensight.calc_funcs.ens_calculator.ijkvalues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.ijkvalues</span></code></a>(source_parts[, ...])</p></td>
+<td><p>Computes a vector variable defined as the I,J,K values.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.integralline.html#ansys.api.pyensight.calc_funcs.ens_calculator.integralline" title="ansys.api.pyensight.calc_funcs.ens_calculator.integralline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.integralline</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a constant variable defined as the integral of the variable specified over the length of the part(s)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.integralsurface.html#ansys.api.pyensight.calc_funcs.ens_calculator.integralsurface" title="ansys.api.pyensight.calc_funcs.ens_calculator.integralsurface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.integralsurface</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a constant variable defined as the integral of the variable specified over the surface of the part(s)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.integralvolume.html#ansys.api.pyensight.calc_funcs.ens_calculator.integralvolume" title="ansys.api.pyensight.calc_funcs.ens_calculator.integralvolume"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.integralvolume</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a constant variable defined as the integral of the variable specified over the volume of the part(s)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.kinen.html#ansys.api.pyensight.calc_funcs.ens_calculator.kinen" title="ansys.api.pyensight.calc_funcs.ens_calculator.kinen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.kinen</span></code></a>(source_parts, velocity, ...)</p></td>
+<td><p>Computes a scalar variable defined as the kinetic energy 0.5*rho*V^2</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.length.html#ansys.api.pyensight.calc_funcs.ens_calculator.length" title="ansys.api.pyensight.calc_funcs.ens_calculator.length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.length</span></code></a>(source_parts[, ...])</p></td>
+<td><p>Computes a constant variable defined as the sum of the length of all 1D elements.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.linevectors.html#ansys.api.pyensight.calc_funcs.ens_calculator.linevectors" title="ansys.api.pyensight.calc_funcs.ens_calculator.linevectors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.linevectors</span></code></a>(source_parts[, ...])</p></td>
+<td><p>Computes a nodal vector variable defined as the vector from the first to the last node of each 1d element of the part(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.mach.html#ansys.api.pyensight.calc_funcs.ens_calculator.mach" title="ansys.api.pyensight.calc_funcs.ens_calculator.mach"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.mach</span></code></a>(source_parts, density, ...)</p></td>
+<td><p>Computes a scalar variable defined as Speed/Speed_of_sound where Speed_of_sound is computed from the ratio of specific heats, pressure, and density</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.makescalelem.html#ansys.api.pyensight.calc_funcs.ens_calculator.makescalelem" title="ansys.api.pyensight.calc_funcs.ens_calculator.makescalelem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.makescalelem</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar per element variable defined as a specified value or constant variable</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.makescalelemid.html#ansys.api.pyensight.calc_funcs.ens_calculator.makescalelemid" title="ansys.api.pyensight.calc_funcs.ens_calculator.makescalelemid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.makescalelemid</span></code></a>(source_parts)</p></td>
+<td><p>Computes a scalar per element variable defined as the element ids for the part</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.makescalnode.html#ansys.api.pyensight.calc_funcs.ens_calculator.makescalnode" title="ansys.api.pyensight.calc_funcs.ens_calculator.makescalnode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.makescalnode</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar per node variable defined as a specified value or constant variable</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.makescalnodeid.html#ansys.api.pyensight.calc_funcs.ens_calculator.makescalnodeid" title="ansys.api.pyensight.calc_funcs.ens_calculator.makescalnodeid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.makescalnodeid</span></code></a>(source_parts)</p></td>
+<td><p>Computes a scalar per node variable defined as the node ids for the part</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.makevect.html#ansys.api.pyensight.calc_funcs.ens_calculator.makevect" title="ansys.api.pyensight.calc_funcs.ens_calculator.makevect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.makevect</span></code></a>(source_parts, scalar)</p></td>
+<td><p>Computes a vector variable using three scalar/constant variables or constant values for the x, y, and z components.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.massedparticle.html#ansys.api.pyensight.calc_funcs.ens_calculator.massedparticle" title="ansys.api.pyensight.calc_funcs.ens_calculator.massedparticle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.massedparticle</span></code></a>([output_varname])</p></td>
+<td><p>Computes a per element scalar variable defined as the total mass of massed particles that collide with a surface</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.massfluxavg.html#ansys.api.pyensight.calc_funcs.ens_calculator.massfluxavg" title="ansys.api.pyensight.calc_funcs.ens_calculator.massfluxavg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.massfluxavg</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a constant variable defined as the mass flux average</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.matspecies.html#ansys.api.pyensight.calc_funcs.ens_calculator.matspecies" title="ansys.api.pyensight.calc_funcs.ens_calculator.matspecies"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.matspecies</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a per element scalar variable defined as the sum of all specified materials and species combinations multiplied by the specific element variable.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.mattoscalar.html#ansys.api.pyensight.calc_funcs.ens_calculator.mattoscalar" title="ansys.api.pyensight.calc_funcs.ens_calculator.mattoscalar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.mattoscalar</span></code></a>(source_parts[, ...])</p></td>
+<td><p>Computes a per element scalar variable defined as the material fraction</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.max.html#ansys.api.pyensight.calc_funcs.ens_calculator.max" title="ansys.api.pyensight.calc_funcs.ens_calculator.max"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.max</span></code></a>(source_parts, variable[, ...])</p></td>
+<td><p>Computes a constant variable defined to be the maximum of the variable specified.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.min.html#ansys.api.pyensight.calc_funcs.ens_calculator.min" title="ansys.api.pyensight.calc_funcs.ens_calculator.min"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.min</span></code></a>(source_parts, variable[, ...])</p></td>
+<td><p>Computes a constant variable defined to be the minimum of the variable specified.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.moment.html#ansys.api.pyensight.calc_funcs.ens_calculator.moment" title="ansys.api.pyensight.calc_funcs.ens_calculator.moment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.moment</span></code></a>(source_parts, vector)</p></td>
+<td><p>Computes a constant variable defined to be the x, y, or z moment about the cursor tool location given a force vector</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.momentum.html#ansys.api.pyensight.calc_funcs.ens_calculator.momentum" title="ansys.api.pyensight.calc_funcs.ens_calculator.momentum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.momentum</span></code></a>(source_parts, ...[, ...])</p></td>
+<td><p>Computes a vector variable defined as density*Velocity</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.momentvector.html#ansys.api.pyensight.calc_funcs.ens_calculator.momentvector" title="ansys.api.pyensight.calc_funcs.ens_calculator.momentvector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.momentvector</span></code></a>(source_parts, force)</p></td>
+<td><p>Computes a nodal vector variables defined as the x, y, or z moment about each node given a force vector</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.nodecount.html#ansys.api.pyensight.calc_funcs.ens_calculator.nodecount" title="ansys.api.pyensight.calc_funcs.ens_calculator.nodecount"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.nodecount</span></code></a>(source_parts[, ...])</p></td>
+<td><p>Computes a constant variable defined as the number of nodes in the part(s) selected</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.nodetoelem.html#ansys.api.pyensight.calc_funcs.ens_calculator.nodetoelem" title="ansys.api.pyensight.calc_funcs.ens_calculator.nodetoelem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.nodetoelem</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes an element based variable from a node based variable</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.normal.html#ansys.api.pyensight.calc_funcs.ens_calculator.normal" title="ansys.api.pyensight.calc_funcs.ens_calculator.normal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.normal</span></code></a>(source_parts[, ...])</p></td>
+<td><p>Computes an element based vector variable defined as the surface normal for the parts selected</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.normc.html#ansys.api.pyensight.calc_funcs.ens_calculator.normc" title="ansys.api.pyensight.calc_funcs.ens_calculator.normc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.normc</span></code></a>(source_parts, pressure, ...)</p></td>
+<td><p>Computes a constant variable defined as the normal constraint defined as the surface integral as a function of pressure, velocity, and viscosity</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.normvect.html#ansys.api.pyensight.calc_funcs.ens_calculator.normvect" title="ansys.api.pyensight.calc_funcs.ens_calculator.normvect"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.normvect</span></code></a>(source_parts, vector)</p></td>
+<td><p>Computes a vector variable defined as the normalized unit vector for the vector specified</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.offsetfield.html#ansys.api.pyensight.calc_funcs.ens_calculator.offsetfield" title="ansys.api.pyensight.calc_funcs.ens_calculator.offsetfield"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.offsetfield</span></code></a>(source_parts[, ...])</p></td>
+<td><p>Computes a scalar variable defined as the offset in the surface normal direction (from the border if 3D)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.offsetvar.html#ansys.api.pyensight.calc_funcs.ens_calculator.offsetvar" title="ansys.api.pyensight.calc_funcs.ens_calculator.offsetvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.offsetvar</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a variable defined as the variable value offset in the surface normal direction into a field.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.partnumber.html#ansys.api.pyensight.calc_funcs.ens_calculator.partnumber" title="ansys.api.pyensight.calc_funcs.ens_calculator.partnumber"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.partnumber</span></code></a>(source_parts[, ...])</p></td>
+<td><p>Computes a part or case constant variable defined as the part id number.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.pres.html#ansys.api.pyensight.calc_funcs.ens_calculator.pres" title="ansys.api.pyensight.calc_funcs.ens_calculator.pres"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.pres</span></code></a>(source_parts, density, ...)</p></td>
+<td><p>Computes a scalar variable defined as Pressure where Pressure is computed from the density, total energy, velocity, and ratio of specific heats</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.prescoef.html#ansys.api.pyensight.calc_funcs.ens_calculator.prescoef" title="ansys.api.pyensight.calc_funcs.ens_calculator.prescoef"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.prescoef</span></code></a>(source_parts, ...[, ...])</p></td>
+<td><p>Computes a scalar variable defined as the Pressure-Coefficient as a function of density, total energy, velocity, ratio of specific heats, and the freestream values</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.presdynam.html#ansys.api.pyensight.calc_funcs.ens_calculator.presdynam" title="ansys.api.pyensight.calc_funcs.ens_calculator.presdynam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.presdynam</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the dynamic pressure as a function of the density and velocity)</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.preslognorm.html#ansys.api.pyensight.calc_funcs.ens_calculator.preslognorm" title="ansys.api.pyensight.calc_funcs.ens_calculator.preslognorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.preslognorm</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the log (ln) of the pressure divided by the freestream pressure as a function of density, total energy, velocity, ratio of specific heats, and the freestream values</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.presnorm.html#ansys.api.pyensight.calc_funcs.ens_calculator.presnorm" title="ansys.api.pyensight.calc_funcs.ens_calculator.presnorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.presnorm</span></code></a>(source_parts, ...[, ...])</p></td>
+<td><p>Computes a scalar variable defined as the normalized pressure = pressure divided by freestream pressure as a function of density, total energy, velocity, ratio of specific heats, and the freestream values</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.presnormstag.html#ansys.api.pyensight.calc_funcs.ens_calculator.presnormstag" title="ansys.api.pyensight.calc_funcs.ens_calculator.presnormstag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.presnormstag</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the normalized stagnation pressure = stagnation pressure divided by freestream stagnation pressure as a function of density, total energy, velocity, ratio of specific heats, and the freestream values</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.prespitot.html#ansys.api.pyensight.calc_funcs.ens_calculator.prespitot" title="ansys.api.pyensight.calc_funcs.ens_calculator.prespitot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.prespitot</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the pitot pressure as a function of density, total energy, velocity, ratio of specific heats</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.prespitotratio.html#ansys.api.pyensight.calc_funcs.ens_calculator.prespitotratio" title="ansys.api.pyensight.calc_funcs.ens_calculator.prespitotratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.prespitotratio</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the pitot pressure ratio as a function of density, total energy, velocity, ratio of specific heats, and the freestream values</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.presstag.html#ansys.api.pyensight.calc_funcs.ens_calculator.presstag" title="ansys.api.pyensight.calc_funcs.ens_calculator.presstag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.presstag</span></code></a>(source_parts, ...[, ...])</p></td>
+<td><p>Computes a scalar variable defined as the stagnation pressure as a function of density, total energy, velocity, and ratio of specific heats</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.presstagcoef.html#ansys.api.pyensight.calc_funcs.ens_calculator.presstagcoef" title="ansys.api.pyensight.calc_funcs.ens_calculator.presstagcoef"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.presstagcoef</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the stagnation pressure coefficient as a function of density, total energy, velocity, ratio of specific heats, and the freestream values</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.prest.html#ansys.api.pyensight.calc_funcs.ens_calculator.prest" title="ansys.api.pyensight.calc_funcs.ens_calculator.prest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.prest</span></code></a>(source_parts, pressure, ...)</p></td>
+<td><p>Computes a scalar variable defined as the total pressure = pressure + density*velocity^2/2</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.radiograph_grid.html#ansys.api.pyensight.calc_funcs.ens_calculator.radiograph_grid" title="ansys.api.pyensight.calc_funcs.ens_calculator.radiograph_grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.radiograph_grid</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a per element scalar variable defined as the integration of a variable in the direction specified through the model given a specified integration step</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.radiograph_mesh.html#ansys.api.pyensight.calc_funcs.ens_calculator.radiograph_mesh" title="ansys.api.pyensight.calc_funcs.ens_calculator.radiograph_mesh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.radiograph_mesh</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a per element scalar variable defined as the integration of the variable in the direction specified through the model given</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.recttocyl.html#ansys.api.pyensight.calc_funcs.ens_calculator.recttocyl" title="ansys.api.pyensight.calc_funcs.ens_calculator.recttocyl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.recttocyl</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a vector variable defined as the radial, tangential, and z component according to specified frame.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.servernumber.html#ansys.api.pyensight.calc_funcs.ens_calculator.servernumber" title="ansys.api.pyensight.calc_funcs.ens_calculator.servernumber"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.servernumber</span></code></a>(source_parts[, ...])</p></td>
+<td><p>Computes a per element scalar defined as the server number that contains the element.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.shockplot3d.html#ansys.api.pyensight.calc_funcs.ens_calculator.shockplot3d" title="ansys.api.pyensight.calc_funcs.ens_calculator.shockplot3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.shockplot3d</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as shock using the plot3d definition.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.smoothmesh.html#ansys.api.pyensight.calc_funcs.ens_calculator.smoothmesh" title="ansys.api.pyensight.calc_funcs.ens_calculator.smoothmesh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.smoothmesh</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a per node vector when applied as a displacement to the part will produce a smoother surface.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.sonicspeed.html#ansys.api.pyensight.calc_funcs.ens_calculator.sonicspeed" title="ansys.api.pyensight.calc_funcs.ens_calculator.sonicspeed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.sonicspeed</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the sonic speed.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.spamean.html#ansys.api.pyensight.calc_funcs.ens_calculator.spamean" title="ansys.api.pyensight.calc_funcs.ens_calculator.spamean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.spamean</span></code></a>(source_parts, variable)</p></td>
+<td><p>Computes a constant variable defined as the volume (or area) weighted mean of the variable specified</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.spameanweighted.html#ansys.api.pyensight.calc_funcs.ens_calculator.spameanweighted" title="ansys.api.pyensight.calc_funcs.ens_calculator.spameanweighted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.spameanweighted</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a constant variable defined as the volume (or area) weighted mean of the variable specified.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.speed.html#ansys.api.pyensight.calc_funcs.ens_calculator.speed" title="ansys.api.pyensight.calc_funcs.ens_calculator.speed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.speed</span></code></a>(source_parts, velocity)</p></td>
+<td><p>Computes a scalar variable defined as speed = square root of the sum of the velocity components squared</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.statmoment.html#ansys.api.pyensight.calc_funcs.ens_calculator.statmoment" title="ansys.api.pyensight.calc_funcs.ens_calculator.statmoment"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.statmoment</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a constant variable defined as the statistics function over all nodes or elements of the parts selected.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.statregspa.html#ansys.api.pyensight.calc_funcs.ens_calculator.statregspa" title="ansys.api.pyensight.calc_funcs.ens_calculator.statregspa"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.statregspa</span></code></a>(source_parts, y, ...)</p></td>
+<td><p>Computes a constant value defined as the multi-variate linear regression statistics for the variable selected</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.statregval1.html#ansys.api.pyensight.calc_funcs.ens_calculator.statregval1" title="ansys.api.pyensight.calc_funcs.ens_calculator.statregval1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.statregval1</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a constant value defined as the statistics from a StatReg linear regression.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.statregval2.html#ansys.api.pyensight.calc_funcs.ens_calculator.statregval2" title="ansys.api.pyensight.calc_funcs.ens_calculator.statregval2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.statregval2</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a constant value defined as the statistics from a StatReg linear regression given a specified coefficient.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.swirl.html#ansys.api.pyensight.calc_funcs.ens_calculator.swirl" title="ansys.api.pyensight.calc_funcs.ens_calculator.swirl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.swirl</span></code></a>(source_parts, density, ...)</p></td>
+<td><p>Computes a scalar variable defined as the swirl.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.temperature.html#ansys.api.pyensight.calc_funcs.ens_calculator.temperature" title="ansys.api.pyensight.calc_funcs.ens_calculator.temperature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.temperature</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as temperature.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.temperlognorm.html#ansys.api.pyensight.calc_funcs.ens_calculator.temperlognorm" title="ansys.api.pyensight.calc_funcs.ens_calculator.temperlognorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.temperlognorm</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the natural log of the normalized temperature.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tempernorm.html#ansys.api.pyensight.calc_funcs.ens_calculator.tempernorm" title="ansys.api.pyensight.calc_funcs.ens_calculator.tempernorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.tempernorm</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the normalized temperature = temperature/freestream temperature.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tempernormstag.html#ansys.api.pyensight.calc_funcs.ens_calculator.tempernormstag" title="ansys.api.pyensight.calc_funcs.ens_calculator.tempernormstag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.tempernormstag</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the normalized stagnation temperature = stagnation temperature/freestream stagnation temperature.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.temperstag.html#ansys.api.pyensight.calc_funcs.ens_calculator.temperstag" title="ansys.api.pyensight.calc_funcs.ens_calculator.temperstag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.temperstag</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the stagnation temperature.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tempmean.html#ansys.api.pyensight.calc_funcs.ens_calculator.tempmean" title="ansys.api.pyensight.calc_funcs.ens_calculator.tempmean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.tempmean</span></code></a>(source_parts, ...[, ...])</p></td>
+<td><p>Computes a variable defined as the temporal mean of the specified variable at the nodes/elements given a range of timesteps</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tempminmaxfield.html#ansys.api.pyensight.calc_funcs.ens_calculator.tempminmaxfield" title="ansys.api.pyensight.calc_funcs.ens_calculator.tempminmaxfield"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.tempminmaxfield</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a variable defined as the minimum or maximum (user choice) of the specified variable at the nodes/elements given a range of timesteps</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tensorcomponent.html#ansys.api.pyensight.calc_funcs.ens_calculator.tensorcomponent" title="ansys.api.pyensight.calc_funcs.ens_calculator.tensorcomponent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.tensorcomponent</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the specified component of a tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tensordeterminant.html#ansys.api.pyensight.calc_funcs.ens_calculator.tensordeterminant" title="ansys.api.pyensight.calc_funcs.ens_calculator.tensordeterminant"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.tensordeterminant</span></code></a>(...[, ...])</p></td>
+<td><p>Computes a scalar variable defined as the determinant of a tensor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tensoreigenvalue.html#ansys.api.pyensight.calc_funcs.ens_calculator.tensoreigenvalue" title="ansys.api.pyensight.calc_funcs.ens_calculator.tensoreigenvalue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.tensoreigenvalue</span></code></a>(...[, ...])</p></td>
+<td><p>Computes a scalar variable defined as the eigenvalue (1 to 3) of the specified tensor</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tensoreigenvector.html#ansys.api.pyensight.calc_funcs.ens_calculator.tensoreigenvector" title="ansys.api.pyensight.calc_funcs.ens_calculator.tensoreigenvector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.tensoreigenvector</span></code></a>(...[, ...])</p></td>
+<td><p>Computes a vector variable defined as the first, second, or third eigenvector of the specified tensor</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tensormake.html#ansys.api.pyensight.calc_funcs.ens_calculator.tensormake" title="ansys.api.pyensight.calc_funcs.ens_calculator.tensormake"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.tensormake</span></code></a>(source_parts, scalar)</p></td>
+<td><p>Computes a symmetric tensor variable from six scalars.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tensormakeasym.html#ansys.api.pyensight.calc_funcs.ens_calculator.tensormakeasym" title="ansys.api.pyensight.calc_funcs.ens_calculator.tensormakeasym"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.tensormakeasym</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes an asymmetric tensor variable from nine scalars.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tensortresca.html#ansys.api.pyensight.calc_funcs.ens_calculator.tensortresca" title="ansys.api.pyensight.calc_funcs.ens_calculator.tensortresca"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.tensortresca</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the tresca of the given tensor, three principals, or six tensor components.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.tensorvonmises.html#ansys.api.pyensight.calc_funcs.ens_calculator.tensorvonmises" title="ansys.api.pyensight.calc_funcs.ens_calculator.tensorvonmises"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.tensorvonmises</span></code></a>(source_parts, ...)</p></td>
+<td><p>Computes a scalar variable defined as the von-mises of the  given tensor, three principals, or six tensor components.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.vector1dprojection.html#ansys.api.pyensight.calc_funcs.ens_calculator.vector1dprojection" title="ansys.api.pyensight.calc_funcs.ens_calculator.vector1dprojection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.vector1dprojection</span></code></a>(...[, ...])</p></td>
+<td><p>Computes a vector variable defined as the specified vector variable projected into the 1D part's tangent or normal direction</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.vectorcylprojection.html#ansys.api.pyensight.calc_funcs.ens_calculator.vectorcylprojection" title="ansys.api.pyensight.calc_funcs.ens_calculator.vectorcylprojection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.vectorcylprojection</span></code></a>(...[, ...])</p></td>
+<td><p>Computes a vector variable defined as the specified vector variable projected onto a frame's axis, radial, or theta direction</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.vectorrectprojection.html#ansys.api.pyensight.calc_funcs.ens_calculator.vectorrectprojection" title="ansys.api.pyensight.calc_funcs.ens_calculator.vectorrectprojection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.vectorrectprojection</span></code></a>(...[, ...])</p></td>
+<td><p>Computes a vector variable defined as the specified vector variable projected onto a frame's x, y, or z direction</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.velo.html#ansys.api.pyensight.calc_funcs.ens_calculator.velo" title="ansys.api.pyensight.calc_funcs.ens_calculator.velo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.velo</span></code></a>(source_parts, momentum, ...)</p></td>
+<td><p>Computes a vector variable defined as velocity = momentum/density</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.vol.html#ansys.api.pyensight.calc_funcs.ens_calculator.vol" title="ansys.api.pyensight.calc_funcs.ens_calculator.vol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.vol</span></code></a>(source_parts[, ...])</p></td>
+<td><p>Computes the volume of the parts specified</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.vort.html#ansys.api.pyensight.calc_funcs.ens_calculator.vort" title="ansys.api.pyensight.calc_funcs.ens_calculator.vort"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.vort</span></code></a>(source_parts, velocity)</p></td>
+<td><p>Computes a vector variable defined as the vorticity as a function of velocity</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.calc_funcs.ens_calculator.vortgamma.html#ansys.api.pyensight.calc_funcs.ens_calculator.vortgamma" title="ansys.api.pyensight.calc_funcs.ens_calculator.vortgamma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ens_calculator.vortgamma</span></code></a>(source_parts, velocity)</p></td>
+<td><p>Computes a dimensionless scalar variable on a 2D clip part, whose value is the vorticity-gamma function</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ansys.api.pyensight.calc_funcs.ens_calculator"><code class="docutils literal notranslate"><span class="pre">ens_calculator</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/_autosummary/ansys.api.pyensight.calc_funcs.ens_calculator.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+<link rel="stylesheet" href="../_static/css/fuse-search.css">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+
+
+
+
+
+
+
+<script>
+var theme_static_search = JSON.parse('{"ignoreLocation": "False", "keys": ["title", "text"], "shouldSort": "True", "threshold": 0.5, "useExtendedSearch": "True"}');
+var theme_limit = "10";
+var min_chars_for_search = "1";
+var searchPath = "../_static/search.json";
+
+</script>
+
+<script src="../_static/js/fuse_search.js"></script>
+<script src="../_static/js/fuse_extension.js"></script>
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2025 ANSYS, Inc. Unauthorized use, distribution, or duplication is prohibited..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  1.1.1. <br />Last updated on
+  <span id="date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var lastModifiedDate = new Date(document.lastModified);
+  var date = lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("date").innerHTML = date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

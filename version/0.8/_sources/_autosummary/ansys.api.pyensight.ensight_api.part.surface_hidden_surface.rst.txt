@@ -1,0 +1,6 @@
+surface\_hidden\_surface
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.surface_hidden_surface

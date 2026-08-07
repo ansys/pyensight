@@ -1,0 +1,6 @@
+origin\_1
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: line.origin_1

@@ -1,0 +1,6 @@
+ELTFILTER4VARCOMP
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_point
+
+.. autoproperty:: ENS_PART_POINT.ELTFILTER4VARCOMP

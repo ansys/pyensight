@@ -1,0 +1,6 @@
+release\_id
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: objs.release_id

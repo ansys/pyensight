@@ -1,0 +1,6 @@
+get\_part\_id\_obj\_name
+========================
+
+.. currentmodule:: ansys.pyensight.core.utils.parts
+
+.. automethod:: Parts.get_part_id_obj_name

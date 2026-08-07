@@ -1,0 +1,6 @@
+sos\_decompose\_type
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data.sos_decompose_type

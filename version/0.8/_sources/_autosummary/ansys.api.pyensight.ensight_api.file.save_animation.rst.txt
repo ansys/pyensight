@@ -1,0 +1,6 @@
+save\_animation
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.save_animation

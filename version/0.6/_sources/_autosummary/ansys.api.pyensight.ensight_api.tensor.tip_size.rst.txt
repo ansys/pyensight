@@ -1,0 +1,6 @@
+tip\_size
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: tensor.tip_size

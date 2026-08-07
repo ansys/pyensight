@@ -1,0 +1,6 @@
+ELTFILTER1TESTOP
+================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_elevated_surface
+
+.. autoproperty:: ENS_PART_ELEVATED_SURFACE.ELTFILTER1TESTOP

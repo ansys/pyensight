@@ -1,0 +1,6 @@
+display\_undefined
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: function.display_undefined

@@ -1,0 +1,6 @@
+update
+======
+
+.. currentmodule:: ansys.pyensight.core.renderable
+
+.. automethod:: Renderable.update

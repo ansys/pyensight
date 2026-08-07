@@ -1,0 +1,6 @@
+current\_step
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: solution_time.current_step

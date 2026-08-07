@@ -1,0 +1,6 @@
+delete\_full\_palet
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: function.delete_full_palet

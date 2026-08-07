@@ -1,0 +1,6 @@
+distance\_in
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: query_ent_var.distance_in

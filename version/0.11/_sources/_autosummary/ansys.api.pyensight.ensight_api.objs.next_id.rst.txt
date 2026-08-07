@@ -1,0 +1,6 @@
+next\_id
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: objs.next_id

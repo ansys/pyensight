@@ -1,0 +1,6 @@
+description
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: dial.description

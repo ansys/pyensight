@@ -1,0 +1,6 @@
+spline\_save
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.spline_save

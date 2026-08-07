@@ -1,0 +1,6 @@
+grpc\_port
+==========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoproperty:: LibUserd.grpc_port
