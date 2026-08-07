@@ -407,12 +407,12 @@ class RenderableDeepPixel(Renderable):
             html = fp.read()
         # copy some files from Nexus
         cmd = "import shutil, enve, ceiversion, os.path\n"
-        base_name = "os.path.join(enve.home(), f'nexus{ceiversion.nexus_suffix}', 'django', "
+        base_name = "os.path.join(os.path.dirname(enve.home()), 'ADR', f'nexus{ceiversion.nexus_suffix}', 'django', "
         base_name += "'website', 'static', 'website', 'scripts', "
         for script in ["geotiff.js", "geotiff_nexus.js", "bootstrap.min.js"]:
             name = base_name + f"'{script}')"
             cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
-        name = "os.path.join(enve.home(), f'nexus{ceiversion.nexus_suffix}', 'django', "
+        name = "os.path.join(os.path.dirname(enve.home()), 'ADR', f'nexus{ceiversion.nexus_suffix}', 'django', "
         name += "'website', 'static', 'website', 'content', 'bootstrap.min.css')"
         cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
         self._session.cmd(cmd, do_eval=False)
@@ -429,7 +429,7 @@ class RenderableDeepPixel(Renderable):
         cmd += f'    shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
         cmd += "except Exception:"
         cmd += "    pass"
-        name = "os.path.join(enve.home(), f'nexus{ceiversion.nexus_suffix}', 'django', "
+        name = "os.path.join(os.path.dirname(enve.home()), 'ADR', f'nexus{ceiversion.nexus_suffix}', 'django', "
         name += "'website', 'static', 'website', 'content', 'bootstrap.min.css')"
         cmd += f'shutil.copy({name}, r"""{self._session.launcher.session_directory}""")\n'
         self._session.cmd(cmd, do_eval=False)
