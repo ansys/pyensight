@@ -74,8 +74,8 @@ def test_renderables(tmpdir, pytestconfig: pytest.Config):
     glb_local = [x for x in local_files if ".glb" in x]
     tif_local = [x for x in local_files if ".tif" in x]
     avz_local = [x for x in local_files if ".avz" in x]
-    assert len(png_local) == 2
+    assert len(png_local) == 3  # 2 image + deeppixel defaulting to image
     assert len(glb_local) == 1
-    assert len(tif_local) == 1
+    assert len(tif_local) == 0
     assert len(avz_local) == 1
     session.close()
