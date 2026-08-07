@@ -438,6 +438,13 @@ class LocalLauncher(Launcher):
             self.launch_webui(internal_version, popen_common)
         if self._liben_rest:
             session._build_liben_vnc_ws(self._ports[1])
+        cmd = "def check_adr():\n"
+        cmd += "    import os\n"
+        cmd += "    path=os.path.join(os.path.dirname(ensight.version('CEI_HOME')), 'ADR')\n"
+        cmd += "    return os.path.exists(path)"
+        session.cmd(cmd, do_eval=False)
+        if session.cmd("check_adr()"):
+            session._deeppixel_supported = True
         return session
 
     @staticmethod
