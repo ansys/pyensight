@@ -35,7 +35,6 @@ import glob
 import logging
 import os.path
 import platform
-import re
 import subprocess
 import tempfile
 from typing import Optional
@@ -209,7 +208,7 @@ class LocalLauncher(Launcher):
         with open(buildinfo, "r") as buildinfo_file:
             text = buildinfo_file.read()
         internal_version, ensight_full_version = self._get_versionfrom_buildinfo(text)
-        return grpc_version_check(internal_version, ensight_full_version)
+        return grpc_version_check(internal_version, ensight_full_version), internal_version
 
     def _set_local_ports(self):
         num_ports = 5
@@ -220,6 +219,63 @@ class LocalLauncher(Launcher):
         self._ports = find_unused_ports(num_ports, avoid=None)
         if self._ports is None:
             raise RuntimeError("Unable to allocate local ports for EnSight session")
+
+    def _find_websocketserver_script_and_launch(self, popen_common):
+        # Launch websocketserver
+
+        found_scripts = glob.glob(
+            os.path.join(self._install_path, "nexus*", "nexus_launcher", "websocketserver.py")
+        )
+        if not found_scripts:
+            raise RuntimeError("Unable to find websocketserver script")
+        # If more than one nexus directory is found, find the one that corresponds
+        # to the version that should be used. Otherwise, just take the first one found.
+        # This is likely to only happen for developer installations or build areas.
+        idx = 0
+        try:
+            found_scripts_len = len(found_scripts)
+            if found_scripts_len > 1:
+                version_str = str(pyensight.__ansys_version__)
+                for i in range(found_scripts_len):
+                    if version_str in found_scripts[i]:
+                        idx = i
+                        break
+        except Exception:
+            pass
+        websocket_script = found_scripts[idx]
+        # build the commandline
+        cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
+        if self._is_windows:
+            cmd[0] += ".bat"
+        cmd.extend(["--http_directory", self.session_directory])
+        # http port
+        cmd.extend(["--http_port", str(self._ports[2])])
+        # vnc port
+        cmd.extend(["--client_port", str(self._ports[1])])
+        if self._enable_rest_api:
+            # grpc port
+            cmd.extend(["--grpc_port", str(self._ports[0])])
+            if self._has_grpc_changes:
+                if self._grpc_use_tcp_sockets:
+                    cmd.append("--grpc_use_tcp_sockets")
+                if self._grpc_allow_network_connections:
+                    cmd.append("--grpc_allow_network_connections")
+                if self._grpc_disable_tls:
+                    cmd.append("--grpc_disable_tls")
+                if self._grpc_uds_pathname:
+                    cmd.append("--grpc_uds_pathname")
+                    cmd.append(self._grpc_uds_pathname)
+        # EnVision sessions
+        cmd.extend(["--local_session", "envision", "5"])
+        cmd.extend(["--security_token", self._secret_key])
+        # websocket port
+        cmd.append(str(self._ports[3]))
+        logging.debug(f"Starting WSS: {cmd}\n")
+        if self._is_windows:
+            startupinfo = subprocess.STARTUPINFO()
+            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+            popen_common["startupinfo"] = startupinfo
+        self._websocketserver_pid = subprocess.Popen(cmd, **popen_common).pid
 
     def start(self) -> "pyensight.Session":
         """Start an EnSight session using the local EnSight installation.
@@ -238,7 +294,9 @@ class LocalLauncher(Launcher):
         RuntimeError:
             If the necessary number of ports could not be allocated.
         """
-        self._has_grpc_changes = self._grpc_version_check()
+        self._has_grpc_changes, internal_version = self._grpc_version_check()
+        if int(internal_version) < 271:
+            self._liben_rest = False
         if not self._has_grpc_changes:
             warnings.warn(GRPC_WARNING_MESSAGE)
         tmp_session = super().start()
@@ -342,65 +400,8 @@ class LocalLauncher(Launcher):
             logging.debug(f"Starting EnSight with : {cmd}\n")
             self._ensight_pid = subprocess.Popen(cmd, **popen_common).pid
 
-            # Launch websocketserver
-
-            # find websocketserver script
-            found_scripts = glob.glob(
-                os.path.join(self._install_path, "nexus*", "nexus_launcher", "websocketserver.py")
-            )
-            if not found_scripts:
-                raise RuntimeError("Unable to find websocketserver script")
-            # If more than one nexus directory is found, find the one that corresponds
-            # to the version that should be used. Otherwise, just take the first one found.
-            # This is likely to only happen for developer installations or build areas.
-            idx = 0
-            try:
-                found_scripts_len = len(found_scripts)
-                if found_scripts_len > 1:
-                    version_str = str(pyensight.__ansys_version__)
-                    for i in range(found_scripts_len):
-                        if version_str in found_scripts[i]:
-                            idx = i
-                            break
-            except Exception:
-                pass
-            websocket_script = found_scripts[idx]
-            version = re.findall(r"nexus([0-9]+)", websocket_script)[0]
-            # build the commandline
-            if not self._liben_rest:
-                cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
-                if is_windows:
-                    cmd[0] += ".bat"
-                cmd.extend(["--http_directory", self.session_directory])
-                # http port
-                cmd.extend(["--http_port", str(self._ports[2])])
-                # vnc port
-                cmd.extend(["--client_port", str(self._ports[1])])
-                if self._enable_rest_api:
-                    # grpc port
-                    cmd.extend(["--grpc_port", str(self._ports[0])])
-                    if self._has_grpc_changes:
-                        if self._grpc_use_tcp_sockets:
-                            cmd.append("--grpc_use_tcp_sockets")
-                        if self._grpc_allow_network_connections:
-                            cmd.append("--grpc_allow_network_connections")
-                        if self._grpc_disable_tls:
-                            cmd.append("--grpc_disable_tls")
-                        if self._grpc_uds_pathname:
-                            cmd.append("--grpc_uds_pathname")
-                            cmd.append(self._grpc_uds_pathname)
-                # EnVision sessions
-                cmd.extend(["--local_session", "envision", "5"])
-                cmd.extend(["--security_token", self._secret_key])
-                # websocket port
-                cmd.append(str(self._ports[3]))
-                logging.debug(f"Starting WSS: {cmd}\n")
-                if is_windows:
-                    startupinfo = subprocess.STARTUPINFO()
-                    startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-                    popen_common["startupinfo"] = startupinfo
-                self._websocketserver_pid = subprocess.Popen(cmd, **popen_common).pid
-
+        if not self._liben_rest:
+            self._find_websocketserver_script_and_launch(popen_common)
         # build the session instance
         logging.debug(
             f"Creating session with ports for grpc:{self._ports[0]}\n"
@@ -432,7 +433,7 @@ class LocalLauncher(Launcher):
         session.launcher = self
         self._sessions.append(session)
         if self._launch_webui:
-            self.launch_webui(version, popen_common)
+            self.launch_webui(internal_version, popen_common)
         if self._liben_rest:
             session._build_liben_vnc_ws(self._ports[1])
         return session
