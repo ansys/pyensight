@@ -77,7 +77,8 @@ class Part(object):
         self.tcoords_elem = False
         self.node_sizes = numpy.array([], dtype="float32")
         self.cmd: Optional[Any] = None
-        self.hash = hashlib.new("sha256")
+        # digest_size==12 means 96 bit hash size.  Decodes to 24 hex characters.
+        self.hash = hashlib.blake2b(digest_size=12)
         self._material: Optional[Any] = None
         self.reset()
 
@@ -103,7 +104,7 @@ class Part(object):
         self.tcoords_var_id = None
         self.tcoords_elem = False
         self.node_sizes = numpy.array([], dtype="float32")
-        self.hash = hashlib.new("sha256")
+        self.hash = hashlib.blake2b(digest_size=12)
         if cmd is not None:
             self.hash.update(cmd.hash.encode("utf-8"))
         self.cmd = cmd
