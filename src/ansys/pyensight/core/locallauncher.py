@@ -271,7 +271,7 @@ class LocalLauncher(Launcher):
         # websocket port
         cmd.append(str(self._ports[3]))
         logging.debug(f"Starting WSS: {cmd}\n")
-        if self._is_windows:
+        if self._is_windows():
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
             popen_common["startupinfo"] = startupinfo
