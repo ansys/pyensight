@@ -180,7 +180,6 @@ class Launcher:
                 self._additional_command_line_options.append("-X")
         self._launch_webui = launch_webui
         self._liben_rest = True
-        self._enable_rest_api = True
         self._has_grpc_changes = False
         self._std_handle = std_handle
 

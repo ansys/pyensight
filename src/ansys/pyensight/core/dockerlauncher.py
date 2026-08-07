@@ -590,6 +590,8 @@ class DockerLauncher(Launcher):
             warnings.warn(GRPC_WARNING_MESSAGE)
         if int(internal_version) < 271:
             self._liben_rest = False
+        else:
+            self._enable_rest_api = True
         return self.connect()
 
     def _list_ansys_versions_from_image(self) -> List[str]:
@@ -750,7 +752,7 @@ class DockerLauncher(Launcher):
     def _grpc_version_check(self):
         text = self._get_buildinfo_from_image()
         if text == "mock":
-            return True
+            return True, 345
         internal_version, ensight_full_version = self._get_versionfrom_buildinfo(text)
         return grpc_version_check(internal_version, ensight_full_version), internal_version
 

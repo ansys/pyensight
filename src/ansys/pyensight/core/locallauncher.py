@@ -203,7 +203,7 @@ class LocalLauncher(Launcher):
                 os.path.join(os.path.dirname(self._install_path), "licensingclient")
             ):
                 # Dev installation. Assume the gRPC security options are available
-                return True
+                return True, None
             raise RuntimeError("Couldn't find BUILDINFO file, cannot check installation.")
         with open(buildinfo, "r") as buildinfo_file:
             text = buildinfo_file.read()
@@ -297,6 +297,8 @@ class LocalLauncher(Launcher):
         self._has_grpc_changes, internal_version = self._grpc_version_check()
         if int(internal_version) < 271:
             self._liben_rest = False
+        else:
+            self._enable_rest_api = True
         if not self._has_grpc_changes:
             warnings.warn(GRPC_WARNING_MESSAGE)
         tmp_session = super().start()
