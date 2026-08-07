@@ -137,7 +137,6 @@ class Launcher:
         use_mpi: Optional[str] = None,
         interconnect: Optional[str] = None,
         server_hosts: Optional[List[str]] = None,
-        liben_rest: bool = True,
         vtk_ws: bool = False,
         std_handle=None,
     ) -> None:
@@ -180,9 +179,7 @@ class Launcher:
             elif "-X" not in self._additional_command_line_options:
                 self._additional_command_line_options.append("-X")
         self._launch_webui = launch_webui
-        self._liben_rest = liben_rest
-        if liben_rest:
-            self._enable_rest_api = True
+        self._liben_rest = True
         self._has_grpc_changes = False
         self._std_handle = std_handle
 
