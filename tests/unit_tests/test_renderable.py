@@ -29,6 +29,7 @@ import requests
 
 
 def test_generate_filename(mocked_session):
+    mocked_session.ensight_version_check = mock.MagicMock(return_value=True)
     render = renderable.Renderable(mocked_session)
     render._url = "http://ansys.com"
     assert repr(render) == f"Renderable( url='{render.url}' )"
@@ -39,6 +40,7 @@ def test_generate_filename(mocked_session):
 
 
 def test_browser(mocked_session, mocker):
+    mocked_session.ensight_version_check = mock.MagicMock(return_value=True)
     render = renderable.Renderable(mocked_session)
     render._url = "http://ansys.com"
     web = mocker.patch.object(webbrowser, "open")
@@ -47,6 +49,7 @@ def test_browser(mocked_session, mocker):
 
 
 def test_download(mocked_session, mocker):
+    mocked_session.ensight_version_check = mock.MagicMock(return_value=True)
     render = renderable.Renderable(mocked_session)
     render._url = "http://ansys.com"
     render._download_names = ["John", "Doe"]
