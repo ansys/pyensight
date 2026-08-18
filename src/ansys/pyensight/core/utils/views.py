@@ -230,11 +230,11 @@ class _Simba:
         if linked_ids:
             vids.extend(linked_ids)
         for vid in vids:
+            perspective = "OFF" if orthographic else "ON"
+            self.set_perspective(perspective, vid)
+            vport = self.ensight.objs.core.VPORTS.find(vid, "ID")[0]
             self.ensight.viewport.select_begin(vid)
             self.ensight.view_transf.function("global")
-            perspective = "OFF" if orthographic else "ON"
-            self.ensight.view.perspective(perspective)
-            vport = self.ensight.objs.core.VPORTS.find(vid, "ID")[0]
             if view_angle is not None:
                 vport.PERSPECTIVEANGLE = view_angle / 2
             current_camera = self.get_camera(vid)
@@ -324,15 +324,9 @@ class _Simba:
 
     @_logger_wrapper
     def set_perspective(self, value, idx=0):
-        self.ensight.viewport.select_begin(idx)
-        self.ensight.view_transf.function("global")
         vport = self.ensight.objs.core.VPORTS.find(idx, "ID")[0]
-        self.ensight.view.perspective(value)
         vport.PERSPECTIVE = value == "ON"
-        self.ensight.viewport.select_begin(idx)
-        self.ensight.view_transf.zoom(1)
-        self.ensight.view_transf.rotate(0, 0, 0)
-        self.render()
+        self.ensight.refresh(1)
         return self.get_camera(idx)
 
     @_logger_wrapper
