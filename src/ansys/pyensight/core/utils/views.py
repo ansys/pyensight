@@ -341,7 +341,7 @@ class _Simba:
     @_logger_wrapper
     def render(self):
         """Force render update in EnSight."""
-        self.ensight.refresh(1)
+        self.ensight.refresh()
 
     def _probe_setup(self, part_obj, get_probe_data=False):
         self.ensight.query_interact.number_displayed(100)
