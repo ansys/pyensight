@@ -60,3 +60,4 @@ venv/
 *.slurm
 launch_pyensight_slurm_*.py
 
+*__pycache__/

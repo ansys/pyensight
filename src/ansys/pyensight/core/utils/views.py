@@ -42,6 +42,7 @@ Example to set an isometric view:
 
 from functools import wraps
 import math
+import os
 from typing import TYPE_CHECKING, Callable, Dict, List, Optional, Tuple, Union
 
 import numpy as np
@@ -70,6 +71,7 @@ class _Simba:
     def __init__(self, ensight: Union["ensight_api.ensight", "ensight"], views: "Views"):
         self.ensight = ensight
         self.views = views
+        self._smooth_render = False
 
     @staticmethod
     def _logger_wrapper(func: Callable):
@@ -209,37 +211,38 @@ class _Simba:
         parallel_scale = 1 / data[9]
         return camera_position, focal_point, self.views._normalize_vector(view_up), parallel_scale
 
+    @staticmethod
+    def _numpy_close(input, output):
+        return np.allclose(np.array(input), np.array(output), 1e-2, 1e-2)
+
     @_logger_wrapper
     def set_camera(
-        self, orthographic, view_up=None, position=None, focal_point=None, view_angle=None, idx=0
+        self,
+        orthographic,
+        view_up=None,
+        position=None,
+        focal_point=None,
+        view_angle=None,
+        idx=0,
+        linked_ids=None,
+        force=False,
     ):
         """Set the EnSight camera settings from the VTK input."""
-        self.ensight.viewport.select_begin(idx)
-        self.ensight.view_transf.function("global")
-        perspective = "OFF" if orthographic else "ON"
-        self.ensight.view.perspective(perspective)
-        vport = self.ensight.objs.core.VPORTS.find(idx, "ID")[0]
-        if view_angle is not None:
-            vport.PERSPECTIVEANGLE = view_angle / 2
-        current_camera = self.get_camera(idx)
-        if position is not None and focal_point is not None:
-            if view_up is None:
-                view_up = current_camera["view_up"]
-            center = vport.TRANSFORMCENTER.copy()
-            data = vport.simba_set_camera_helper(
-                position,
-                focal_point,
-                view_up,
-                current_camera["position"],
-                current_camera["focal_point"],
-                current_camera["view_up"],
-                center,
-                vport.ROTATION.copy(),
-            )
-            self.ensight.viewport.select_begin(idx)
-            self.ensight.view_transf.rotate(data[3], data[4], data[5])
-            self.ensight.view_transf.translate(data[0], data[1], -data[2])
-
+        vids = [idx]
+        if linked_ids:
+            vids.extend(linked_ids)
+        for vid in vids:
+            perspective = "OFF" if orthographic else "ON"
+            self.set_perspective(perspective, vid)
+            vport = self.ensight.objs.core.VPORTS.find(vid, "ID")[0]
+            self.ensight.viewport.select_begin(vid)
+            if view_angle is not None:
+                vport.PERSPECTIVEANGLE = view_angle / 2
+            if position is not None and focal_point is not None:
+                if view_up is None:
+                    current_camera = self.get_camera(vid)
+                    view_up = current_camera["view_up"]
+                vport.simba_set_camera_helper(position, focal_point, view_up)
         self.render()
         return self.get_camera(idx)
 
@@ -284,15 +287,9 @@ class _Simba:
 
     @_logger_wrapper
     def set_perspective(self, value, idx=0):
-        self.ensight.viewport.select_begin(idx)
-        self.ensight.view_transf.function("global")
         vport = self.ensight.objs.core.VPORTS.find(idx, "ID")[0]
-        self.ensight.view.perspective(value)
         vport.PERSPECTIVE = value == "ON"
-        self.ensight.viewport.select_begin(idx)
-        self.ensight.view_transf.zoom(1)
-        self.ensight.view_transf.rotate(0, 0, 0)
-        self.render()
+        self.ensight.refresh(1)
         return self.get_camera(idx)
 
     @_logger_wrapper
@@ -307,7 +304,12 @@ class _Simba:
     @_logger_wrapper
     def render(self):
         """Force render update in EnSight."""
-        self.ensight.refresh()
+        if self._smooth_render:
+            self.ensight.refresh(1)
+        elif os.environ.get("SIMBA_VISUALIZE_SMOOTH_RENDER"):
+            self.ensight.refresh(1)
+        else:
+            self.ensight.refresh()
 
     def _probe_setup(self, part_obj, get_probe_data=False):
         self.ensight.query_interact.number_displayed(100)

@@ -24,6 +24,7 @@
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 ###############################################################################
+import ctypes
 import logging
 import math
 import os
@@ -89,9 +90,14 @@ class OmniverseWrapper(object):
 
     @destination.setter
     def destination(self, directory: str) -> None:
-        self._destinationPath = directory
-        if not self.is_valid_destination(directory):
-            logging.warning(f"Invalid destination path: {directory}")
+        """Sets the destination directory. Creates dir and parents as needed.
+        Converts dir to short path, to mitigate USD library limitations with long paths.
+        Throws exceptions if the directory cannot be created -
+        for example, if a parent dir is not writable, or 'directory' exists and is a file."""
+        os.makedirs(directory, exist_ok=True)
+        self._destinationPath = self.short_path(directory)
+        if not self.is_valid_destination(self._destinationPath):
+            logging.warning(f"Invalid destination path: {self._destinationPath}")
 
     @property
     def line_width(self) -> float:
@@ -122,6 +128,27 @@ class OmniverseWrapper(object):
             True if the path is a writeable directory, False otherwise.
         """
         return os.access(path, os.W_OK)
+
+    @staticmethod
+    def short_path(path: str) -> str:
+        """Return the Windows 8.3 short path form. Falls back to the original path."""
+        if not path or "win" not in platform.system().lower():
+            return path
+        try:
+            GetShortPathNameW = getattr(ctypes, "windll").kernel32.GetShortPathNameW
+            GetShortPathNameW.argtypes = [ctypes.c_wchar_p, ctypes.c_wchar_p, ctypes.c_uint32]
+            GetShortPathNameW.restype = ctypes.c_uint32
+
+            # First call: query required buffer size (including terminating NUL).
+            needed = GetShortPathNameW(path, None, 0)
+            if needed == 0:
+                return path
+            buf = ctypes.create_unicode_buffer(needed)
+            if GetShortPathNameW(path, buf, needed) == 0:
+                return path
+            return buf.value
+        except Exception:
+            return path
 
     def stage_url(self, name: Optional[str] = None) -> str:
         """
@@ -497,7 +524,7 @@ class OmniverseWrapper(object):
             vc_attr.Set([2] * (verts.size // 6), 0)
         lines.CreatePurposeAttr().Set("render")
         lines.CreateTypeAttr().Set("linear")
-        lines.CreateWidthsAttr([width])
+        lines.CreateWidthsAttr([float(width)])
         lines.SetWidthsInterpolation("constant")
 
         # Rounded endpoint are a primvar
@@ -506,12 +533,6 @@ class OmniverseWrapper(object):
             "endcaps", Sdf.ValueTypeNames.Int, UsdGeom.Tokens.constant
         )
         endCaps.Set(2)  # Rounded = 2
-
-        prim = lines.GetPrim()
-        wireframe = width == 0.0
-        prim.CreateAttribute("omni:scene:visualization:drawWireframe", Sdf.ValueTypeNames.Bool).Set(
-            wireframe
-        )
 
         if (tcoords is not None) and var_cmd:
             primvarsAPI = UsdGeom.PrimvarsAPI(lines)
@@ -838,7 +859,7 @@ class OmniverseWrapper(object):
             # LOL, not sure why is might be correct, but so far it seems to work???
             cam.focalLength = camera.fieldofview
             dist = (target_pos - cam_pos).GetLength()
-            cam.clippingRange = Gf.Range1f(0.1 * dist, 1000.0 * dist)
+            cam.clippingRange = Gf.Range1f(0.01 * dist, 1000.0 * dist)
             look_at = Gf.Matrix4d()
             look_at.SetLookAt(cam_pos, target_pos, up_vec)
             trans_row = look_at.GetRow(3)
@@ -932,6 +953,7 @@ class OmniverseUpdateHandler(UpdateHandler):
         self._root_prim = None
         self._sent_textures = False
         self._case_xform_applied_to_camera = False
+        self._added_dome_light = False
 
     def add_group(self, id: int, view: bool = False) -> None:
         super().add_group(id, view)
@@ -1027,13 +1049,39 @@ class OmniverseUpdateHandler(UpdateHandler):
                     0.0,
                     1.0,
                 ]
+                if not self._added_dome_light:
+                    self._added_dome_light = True
+                    # Create a dome light in the scene, after stage's Y-up/Z-up is known.
+                    self._omni.createDomeLight("./Materials/000_sky.exr")
+
+                    # Translate the scene so its (X center, Y min, Z center) or (X center, Y center, Z min) is at (0,0,0),
+                    # where Omniverse's environments are centered
+                    if self.session.scene_bounds is not None and self._omni._stage is not None:
+                        if UsdGeom.GetStageUpAxis(self._omni._stage) == UsdGeom.Tokens.y:
+                            session_origin = [
+                                (self.session.scene_bounds[0] + self.session.scene_bounds[3]) * 0.5,
+                                self.session.scene_bounds[1],
+                                (self.session.scene_bounds[2] + self.session.scene_bounds[5]) * 0.5,
+                            ]
+                        else:
+                            session_origin = [
+                                (self.session.scene_bounds[0] + self.session.scene_bounds[3]) * 0.5,
+                                (self.session.scene_bounds[1] + self.session.scene_bounds[4]) * 0.5,
+                                self.session.scene_bounds[2],
+                            ]
+
+                        xform_api = UsdGeom.XformCommonAPI(self._root_prim)
+                        xform_api.SetTranslate(
+                            Gf.Vec3d(session_origin) * -1.0 * self._omni._units_per_meter
+                        )
+
             prim = self._omni.create_dsg_group(
                 group.name, parent_prim, matrix=matrix, obj_type=obj_type
             )
             self._group_prims[id] = prim
         else:
             # Map a view command into a new Omniverse stage and populate it with materials/lights.
-            # Create a new root stage in Omniverse
+            self._omni.save_stage()
 
             # Create or update the root group/camera
             if not self.session.vrmode and not self._case_xform_applied_to_camera:
@@ -1104,7 +1152,7 @@ class OmniverseUpdateHandler(UpdateHandler):
             if verts is not None:
                 verts = numpy.multiply(verts, self._omni._units_per_meter)
             if command is not None:
-                # If there are no triangle (ideally if these are not hidden line
+                # If there are no triangles (ideally if these are not hidden line
                 # edges), then use the base color for the part.  If there are
                 # triangles, then assume these are hidden line edges and use the
                 # line_color.
@@ -1128,7 +1176,21 @@ class OmniverseUpdateHandler(UpdateHandler):
                         width = float(group.attributes.get("ANSYS_linewidth", str(width)))
                     except ValueError:
                         pass
-                if width < 0.0:
+
+                LINE_WIDTH_AUTO = -1.2345e-10
+                if math.isclose(width, LINE_WIDTH_AUTO, rel_tol=1e-6, abs_tol=1e-15):
+                    # Generate a line width proportional to the median line segment length.
+                    line_width_proportion = 0.05
+                    tmp = verts.reshape(-1, 2, 3)
+                    seg_lengths = numpy.linalg.norm(tmp[:, 1, :] - tmp[:, 0, :], axis=1)
+                    width = (
+                        float(numpy.median(seg_lengths) * line_width_proportion)
+                        / self._omni._units_per_meter
+                    )
+                    if self._omni.line_width < 0.0:
+                        self._omni.line_width = width
+
+                elif width < 0.0:
                     tmp = verts.reshape(-1, 3)
                     mins = numpy.min(tmp, axis=0)
                     maxs = numpy.max(tmp, axis=0)
@@ -1139,6 +1201,10 @@ class OmniverseUpdateHandler(UpdateHandler):
                     width = diagonal * math.fabs(width) / self._omni._units_per_meter
                     if self._omni.line_width < 0.0:
                         self._omni.line_width = width
+                # Pass the computed line width out through the status file.
+                if isinstance(self.session._status, dict):
+                    self.session._status["line_width"] = width
+
                 width = width * self._omni._units_per_meter
                 # Generate the lines
                 _ = self._omni.create_dsg_lines(
@@ -1192,6 +1258,7 @@ class OmniverseUpdateHandler(UpdateHandler):
         # clear the group Omni prims list
         self._group_prims = dict()
         self._case_xform_applied_to_camera = False
+        self._added_dome_light = False
 
         self._omni.create_new_stage()
         self._root_prim = self._omni.create_dsg_root()
@@ -1200,28 +1267,6 @@ class OmniverseUpdateHandler(UpdateHandler):
         self._sent_textures = False
 
     def end_update(self) -> None:
-        # Create a dome light in the scene, after stage's Y-up/Z-up is known.
-        self._omni.createDomeLight("./Materials/000_sky.exr")
-
-        # Translate the scene so its (X center, Y min, Z center) or (X center, Y center, Z min) is at (0,0,0),
-        # where Omniverse's environments are centered
-        if self.session.scene_bounds is not None and self._omni._stage is not None:
-            if UsdGeom.GetStageUpAxis(self._omni._stage) == UsdGeom.Tokens.y:
-                session_origin = [
-                    (self.session.scene_bounds[0] + self.session.scene_bounds[3]) * 0.5,
-                    self.session.scene_bounds[1],
-                    (self.session.scene_bounds[2] + self.session.scene_bounds[5]) * 0.5,
-                ]
-            else:
-                session_origin = [
-                    (self.session.scene_bounds[0] + self.session.scene_bounds[3]) * 0.5,
-                    (self.session.scene_bounds[1] + self.session.scene_bounds[4]) * 0.5,
-                    self.session.scene_bounds[2],
-                ]
-
-            xform_api = UsdGeom.XformCommonAPI(self._root_prim)
-            xform_api.SetTranslate(Gf.Vec3d(session_origin) * -1.0 * self._omni._units_per_meter)
-
         super().end_update()
         # Stage update complete
         self._omni.save_stage()

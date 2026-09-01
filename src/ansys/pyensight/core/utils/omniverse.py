@@ -601,7 +601,7 @@ class Omniverse:
         except Exception:
             raise RuntimeError("Unable to detect omniverse dependencies: usd-core, pygltflib.")
 
-    def is_running_omniverse(self) -> bool:
+    def is_dsg_server_running(self) -> bool:
         """Check that an Omniverse connection is active
 
         Returns
@@ -669,8 +669,11 @@ class Omniverse:
         if not isinstance(self._ensight, ModuleType):
             self._ensight._session.ensight_version_check("2023 R2")
         self._check_modules()
-        if self.is_running_omniverse():
-            raise RuntimeError("An Omniverse server connection is already active.")
+        if self.is_dsg_server_running():
+            # Close the existing connection so a fresh export can be started.
+            # This allows USD export to be repeated without requiring the caller
+            # to explicitly close the previous connection first.
+            self.close_connection()
         dsg_uri = None
         is_win = "Win" in platform.system()
         grpc_use_tcp_sockets = False
@@ -734,7 +737,7 @@ class Omniverse:
         if time_scale != 1.0:
             cmd.extend(["--time_scale", str(time_scale)])
         if line_width != 0.0:
-            cmd.extend(["--line_width", str(line_width)])
+            cmd.extend(["--line_width=" + str(line_width)])
         if not live:
             cmd.extend(["--oneshot", "1"])
         if grpc_allow_network_connectsion:
@@ -802,7 +805,7 @@ class Omniverse:
 
         """
         self._check_modules()
-        if not self.is_running_omniverse():
+        if not self.is_dsg_server_running():
             return
         proc = psutil.Process(self._server_pid)
         for child in proc.children(recursive=True):
@@ -840,23 +843,22 @@ class Omniverse:
         if temporal:
             update_cmd += f"{prefix}timesteps=1"
             prefix = "&"
-        if line_width != 0.0:
-            add_linewidth = False
-            if isinstance(self._ensight, ModuleType):
+        add_linewidth = False
+        if isinstance(self._ensight, ModuleType):
+            add_linewidth = True
+        else:
+            # only in 2025 R2 and beyond
+            if self._ensight._session.ensight_version_check("2025 R2", exception=False):
                 add_linewidth = True
-            else:
-                # only in 2025 R2 and beyond
-                if self._ensight._session.ensight_version_check("2025 R2", exception=False):
-                    add_linewidth = True
-            if add_linewidth:
-                update_cmd += f"{prefix}ANSYS_linewidth={line_width}"
-                prefix = "&"
+        if add_linewidth:
+            update_cmd += f"{prefix}ANSYS_linewidth={line_width}"
+            prefix = "&"
         if time_scale is not None:
             update_cmd += f"{prefix}time_scale={time_scale}"
             prefix = "&"
 
         self._check_modules()
-        if not self.is_running_omniverse():
+        if not self.is_dsg_server_running():
             raise RuntimeError("No Omniverse server connection is currently active.")
         if not isinstance(self._ensight, ModuleType):
             self._ensight._session.ensight_version_check("2023 R2")
