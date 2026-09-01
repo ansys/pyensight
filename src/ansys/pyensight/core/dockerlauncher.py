@@ -585,9 +585,13 @@ class DockerLauncher(Launcher):
                     )
                 # logging.debug(f"_container = {str(self._container)}\n")
         logging.debug("Container started.\n")
-        self._has_grpc_changes = self._grpc_version_check()
+        self._has_grpc_changes, internal_version = self._grpc_version_check()
         if not self._has_grpc_changes:
             warnings.warn(GRPC_WARNING_MESSAGE)
+        if int(internal_version) < 271:
+            self._liben_rest = False
+        else:
+            self._enable_rest_api = True
         return self.connect()
 
     def _list_ansys_versions_from_image(self) -> List[str]:
@@ -748,9 +752,9 @@ class DockerLauncher(Launcher):
     def _grpc_version_check(self):
         text = self._get_buildinfo_from_image()
         if text == "mock":
-            return True
+            return True, 345
         internal_version, ensight_full_version = self._get_versionfrom_buildinfo(text)
-        return grpc_version_check(internal_version, ensight_full_version)
+        return grpc_version_check(internal_version, ensight_full_version), internal_version
 
     def connect(self):
         """Create and bind a :class:`Session<ansys.pyensight.core.Session>` instance
