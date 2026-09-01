@@ -47,6 +47,7 @@ from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Tuple, Un
 from urllib.parse import urlparse
 from urllib.request import url2pathname
 import uuid
+import warnings
 import webbrowser
 
 from ansys.pyensight.core.enscontext import EnsContext
@@ -60,7 +61,6 @@ from ansys.pyensight.core.renderable import (
     RenderableMP4,
     RenderableSGEO,
     RenderableVNC,
-    RenderableVNCAngular,
     RenderableWebGL,
 )
 import requests
@@ -221,6 +221,7 @@ class Session:
         self._callbacks: Dict[str, Tuple[int, Any]] = dict()
         self._webui_port = webui_port
         self._disable_grpc_options = disable_grpc_options
+        self._deeppixel_supported = False
         # if the caller passed a session directory we will assume they are
         # creating effectively a proxy Session and create a (stub) launcher
         if session_directory is not None:
@@ -983,7 +984,11 @@ class Session:
         if what == "image":
             render = RenderableImage(self, **kwargs)
         elif what == "deep_pixel":
-            render = RenderableDeepPixel(self, **kwargs)
+            if self._deeppixel_supported:
+                render = RenderableDeepPixel(self, **kwargs)
+            else:
+                warnings.warn("The ADR folder could not be found. Defaulting to image renderable.")
+                render = RenderableImage(self, **kwargs)
         elif what == "animation":
             render = RenderableMP4(self, **kwargs)
         elif what == "webgl":
@@ -1000,9 +1005,6 @@ class Session:
             render = RenderableVNC(self, **kwargs)
         elif what == "remote_scene":
             render = RenderableEVSN(self, **kwargs)
-        # Undocumented. Available only internally
-        elif what == "webensight":
-            render = RenderableVNCAngular(self, **kwargs)
         elif what == "webui":
             render = RenderableFluidsWebUI(self, **kwargs)
 
@@ -1180,6 +1182,7 @@ class Session:
         new_case: bool = False,
         representation: str = "3D_feature_2D_full",
         monitor_new_timesteps: str = MONITOR_NEW_TIMESTEPS_OFF,
+        replace_specific_case: Optional[str] = None,
     ) -> None:
         """Load a dataset into the EnSight instance.
 
@@ -1260,6 +1263,8 @@ class Session:
             # Case replace
             if not self._scheduler_session:
                 current_case_name = self.ensight.objs.core.CURRENTCASE[0].DESCRIPTION
+                if replace_specific_case:
+                    current_case_name = replace_specific_case
                 cmd = f'ensight.case.replace("{current_case_name}", "{current_case_name}")'
                 self.cmd(cmd, do_eval=False)
                 cmd = f'ensight.case.select("{current_case_name}")'
