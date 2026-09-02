@@ -44,6 +44,7 @@ from functools import wraps
 import math
 import os
 from typing import TYPE_CHECKING, Callable, Dict, List, Optional, Tuple, Union
+from types import ModuleType
 
 import numpy as np
 
@@ -114,6 +115,10 @@ class _Simba:
             current_camera["view_up"],
             idx=idx,
         )
+        # Force perspective angle since it can be ignored in
+        # orthographic mode
+        vport = self.ensight.objs.core.VPORTS[idx]
+        vport.PERSPECTIVEANGLE = reset_camera["view_angle"]/2
         new_camera = self.set_camera(
             reset_camera["orthographic"],
             reset_camera["view_up"],
@@ -121,6 +126,8 @@ class _Simba:
             reset_camera["focal_point"],
             reset_camera["view_angle"],
             idx=idx,
+            linked_ids=[],
+            parallel_scale=reset_camera["parallel_scale"]
         )
         self.render()
         return new_camera
@@ -225,26 +232,41 @@ class _Simba:
         view_angle=None,
         idx=0,
         linked_ids=None,
-        force=False,
+        parallel_scale=None,
     ):
         """Set the EnSight camera settings from the VTK input."""
-        vids = [idx]
-        if linked_ids:
-            vids.extend(linked_ids)
-        for vid in vids:
-            perspective = "OFF" if orthographic else "ON"
-            self.set_perspective(perspective, vid)
-            vport = self.ensight.objs.core.VPORTS.find(vid, "ID")[0]
-            self.ensight.viewport.select_begin(vid)
-            if view_angle is not None:
-                vport.PERSPECTIVEANGLE = view_angle / 2
-            if position is not None and focal_point is not None:
-                if view_up is None:
-                    current_camera = self.get_camera(vid)
-                    view_up = current_camera["view_up"]
-                vport.simba_set_camera_helper(position, focal_point, view_up)
-        self.render()
-        return self.get_camera(idx)
+        try:
+            vids = [idx]
+            if linked_ids:
+                vids.extend(linked_ids)
+            for vid in vids:
+                perspective = "OFF" if orthographic else "ON"
+                self.set_perspective(perspective, vid)
+                vport = self.ensight.objs.core.VPORTS.find(vid, "ID")[0]
+                self.ensight.viewport.select_begin(vid)
+                if view_angle is not None and not orthographic:
+                    vport.PERSPECTIVEANGLE = view_angle / 2
+                if parallel_scale is not None and orthographic:
+                    zdist = parallel_scale / math.tan(vport.PERSPECTIVEANGLE * math.pi/180)
+                    if isinstance(self.ensight, ModuleType):
+                        vport.simba_zoom_camera_helper(zdist)
+                    else:
+                        self.ensight._session.cmd(
+                            (
+                                f"ensight.objs.core.VPORTS.find({vid}, 'ID')[0]."
+                                f"simba_zoom_camera_helper({zdist})"
+                            ), do_eval=False
+                        )
+                if position is not None and focal_point is not None:
+                    if view_up is None:
+                        current_camera = self.get_camera(vid)
+                        view_up = current_camera["view_up"]
+                    vport.simba_set_camera_helper(position, focal_point, view_up)
+            self.render()
+            return self.get_camera(idx)
+        except Exception as err:
+            import traceback
+            print(f"Error in set_camera: \n{traceback.format_exc()}")
 
     @_logger_wrapper
     def reset_camera(self, position, focal_point, view_up, idx=0):
@@ -266,13 +288,18 @@ class _Simba:
         if np.isclose(radius, 0, 1e-9, 0.0):
             radius = 1.0
         radius = radius / 2
-        angle = math.radians(14)
-        distance = radius / math.sin(angle)
-        plane_normal = self.normalize(np.array([position[i] - focal_point[i] for i in range(3)]))
-        position = [center[i] + distance * plane_normal[i] for i in range(3)]
         width, height = tuple(self.ensight.objs.core.WINDOWSIZE)
         aspect = width / height
-        parallel_scale = radius / aspect
+        plane_normal = self.normalize(np.array([position[i] - focal_point[i] for i in range(3)]))
+        if vport.PERSPECTIVE:
+            angle = math.radians(14)
+            distance = radius / math.sin(angle)
+            position = [center[i] + distance * plane_normal[i] for i in range(3)]
+            parallel_scale = radius / aspect
+        else:
+            parallel_scale = radius if aspect >= 1.0 else radius / aspect
+            ortho_distance = radius * 2 
+            position = [center[i] + ortho_distance * plane_normal[i] for i in range(3)]
         prod = np.dot(np.array(view_up), plane_normal)
         if abs(prod) > 0.999:
             view_up = [-view_up[2], view_up[0], view_up[1]]
