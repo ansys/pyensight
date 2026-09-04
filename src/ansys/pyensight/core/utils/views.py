@@ -397,7 +397,6 @@ class _Simba:
             if hasattr(current_pick[0], "ANNOTTYPE"):
                 annot_id = current_pick[0].ANNOTTYPE
         part_name = None
-        part_selection_map = None
         coords = [None, None, None]
         if probe:
             screen_to_world = self.screen_to_world(
@@ -405,21 +404,13 @@ class _Simba:
             )
             coords = screen_to_world["model_point"]
         if tool_id > -1 or annot_id > -1:
-            return True, coords[0], coords[1], coords[2], False, part_name, part_selection_map
+            return True, coords[0], coords[1], coords[2], False, part_name
         if part_id > -1:
             part_obj = self.ensight.objs.core.PARTS.find(part_id, "PARTNUMBER")[0]
             if part_obj.METADATA.get("ENS_IMPLICIT_COPY"):
                 part_id = int(part_obj.METADATA["ENS_IMPLICIT_COPY"])
                 part_obj = self.ensight.objs.core.PARTS.find(part_id, "PARTNUMBER")[0]
             part_name = self._build_simba_api_path(part_obj.DESCRIPTION, part_obj.CASENUMBER)
-            part_select = self.ensight.objs.core.PARTS.get_attr("SELECTED")
-            part_names = self.ensight.objs.core.PARTS.get_attr("DESCRIPTION")
-            case_nums = self.ensight.objs.core.PARTS.get_attr("CASENUMBER")
-            full_paths = []
-            for idx, p in enumerate(part_names):
-                case_num = case_nums[idx]
-                full_paths.append(self._build_simba_api_path(p, case_num))
-            part_selection_map = {k: v for k, v in zip(full_paths, part_select)}
             if probe:
                 width, height = tuple(self.ensight.objs.core.WINDOWSIZE)
                 if invert_y:
@@ -437,14 +428,13 @@ class _Simba:
                 coords[2],
                 True,
                 part_name,
-                part_selection_map,
             )
         if (
             get_probe_data and self.ensight.objs.core.PROBES[0].PROBE_DATA
         ):  # In case we have picked a probe point
             for part in self.ensight.objs.core.PARTS:
                 self._probe_setup(part, get_probe_data=get_probe_data)
-        return False, coords[0], coords[1], coords[2], False, part_name, part_selection_map
+        return False, coords[0], coords[1], coords[2], False, part_name
 
     @_logger_wrapper
     def rubber_band_selection(self, x1, y1, x2, y2, left_to_rigth, top_to_bottom):
