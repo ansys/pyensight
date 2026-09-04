@@ -1,0 +1,6 @@
+viewport\_state\_copy
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.viewport_state_copy

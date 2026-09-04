@@ -1,0 +1,6 @@
+alpha\_by\_subpalette
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.alpha_by_subpalette

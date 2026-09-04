@@ -1,0 +1,6 @@
+server\_pathname
+================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoproperty:: LibUserd.server_pathname

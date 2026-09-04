@@ -1,0 +1,6 @@
+ws\_port
+========
+
+.. currentmodule:: ansys.pyensight.core
+
+.. autoproperty:: Session.ws_port

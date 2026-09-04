@@ -1,0 +1,6 @@
+use\_surface\_normals
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: context_restore.use_surface_normals

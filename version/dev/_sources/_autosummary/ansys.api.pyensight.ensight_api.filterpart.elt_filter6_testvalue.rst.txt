@@ -1,0 +1,6 @@
+elt\_filter6\_testvalue
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: filterpart.elt_filter6_testvalue

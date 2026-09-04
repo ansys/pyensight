@@ -1,0 +1,6 @@
+image\_postscript\_type
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.image_postscript_type

@@ -1,0 +1,6 @@
+reset\_tool\_constrain
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.reset_tool_constrain

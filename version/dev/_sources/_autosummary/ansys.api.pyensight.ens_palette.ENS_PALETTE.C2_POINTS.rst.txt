@@ -1,0 +1,6 @@
+C2\_POINTS
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. autoproperty:: ENS_PALETTE.C2_POINTS

@@ -1,0 +1,6 @@
+setattr\_status
+===============
+
+.. currentmodule:: ansys.pyensight.core.ensobj
+
+.. automethod:: ENSOBJ.setattr_status

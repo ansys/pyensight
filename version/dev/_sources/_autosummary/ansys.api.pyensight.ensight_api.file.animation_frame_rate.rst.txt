@@ -1,0 +1,6 @@
+animation\_frame\_rate
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.animation_frame_rate

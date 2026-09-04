@@ -1,0 +1,6 @@
+createpart
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_part_contour
+
+.. automethod:: ENS_PART_CONTOUR.createpart

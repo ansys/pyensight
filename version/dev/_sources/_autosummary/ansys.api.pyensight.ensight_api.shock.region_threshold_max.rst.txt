@@ -1,0 +1,6 @@
+region\_threshold\_max
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: shock.region_threshold_max

@@ -1,0 +1,6 @@
+EDIT\_TARGET
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_part_mat_interface
+
+.. autoproperty:: ENS_PART_MAT_INTERFACE.EDIT_TARGET

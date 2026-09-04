@@ -1,0 +1,6 @@
+find\_kit\_filename
+===================
+
+.. currentmodule:: ansys.pyensight.core.utils.omniverse
+
+.. automethod:: Omniverse.find_kit_filename

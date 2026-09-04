@@ -1,0 +1,6 @@
+subgrid\_linetype
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport_bounds.subgrid_linetype

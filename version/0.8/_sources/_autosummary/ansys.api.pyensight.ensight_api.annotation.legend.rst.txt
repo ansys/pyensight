@@ -1,0 +1,6 @@
+legend
+======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: annotation.legend

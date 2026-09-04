@@ -1,0 +1,6 @@
+ENS\_KIND
+=========
+
+.. currentmodule:: ansys.api.pyensight.ens_part_point
+
+.. autoproperty:: ENS_PART_POINT.ENS_KIND

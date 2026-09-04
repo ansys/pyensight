@@ -1,0 +1,71 @@
+﻿Parts
+=====
+
+.. currentmodule:: ansys.pyensight.core.utils.parts
+
+.. autoclass:: Parts
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Parts.add_emitter_line_to_particle_trace_part
+      
+      
+      Parts.add_emitter_parts_to_particle_trace_part
+      
+      
+      Parts.add_emitter_plane_to_particle_trace_part
+      
+      
+      Parts.add_emitter_points_to_particle_trace_part
+      
+      
+      Parts.create_particle_trace_from_line
+      
+      
+      Parts.create_particle_trace_from_parts
+      
+      
+      Parts.create_particle_trace_from_plane
+      
+      
+      Parts.create_particle_trace_from_points
+      
+      
+      Parts.get_part_id_obj_name
+      
+      
+      Parts.select_parts
+      
+      
+      Parts.select_parts_by_dimension
+      
+      
+      Parts.select_parts_by_tag
+      
+      
+      Parts.select_parts_invert
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      Parts.PART_EMIT_FROM_AREA
+      Parts.PART_EMIT_FROM_NODES
+      Parts.PT_NEG_TIME
+      Parts.PT_POS_NEG_TIME
+      Parts.PT_POS_TIME
+   
+   

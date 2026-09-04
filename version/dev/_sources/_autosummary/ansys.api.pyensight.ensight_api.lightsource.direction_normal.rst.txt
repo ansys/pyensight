@@ -1,0 +1,6 @@
+direction\_normal
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: lightsource.direction_normal

@@ -1,0 +1,6 @@
+face\_xmax\_grid
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport_bounds.face_xmax_grid

@@ -1,0 +1,68 @@
+
+
+.. _sphx_glr__examples_50-advanced:
+
+.. _advanced-gallery:
+
+Advanced examples
+=================
+
+These advanced examples use more sophisticated features of the
+PyEnSight API, including events, parallelism, direct data access, and techniques
+that improve performance.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Every attribute change may have an event callback associated with it. This example explores different connection mechanisms and different mechanisms for getting data values.">
+
+.. only:: html
+
+  .. image:: /_examples/50-advanced/images/thumb/sphx_glr_00-events_thumb.png
+    :alt:
+
+  :ref:`sphx_glr__examples_50-advanced_00-events.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Asynchronous event support</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The PyEnsight interface relies very heavily on the performance of communication between the PyEnSight interpreter and the EnSight instance.  This communication, while fast, is not nearly as fast as running Python directly within the EnSight instance.  In this example, some (unexpected) performance bottlenecks will be discussed along with methods that can be used to assert finer-grained control over Python code execution.">
+
+.. only:: html
+
+  .. image:: /_examples/50-advanced/images/thumb/sphx_glr_01-remote_exec_thumb.png
+    :alt:
+
+  :ref:`sphx_glr__examples_50-advanced_01-remote_exec.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Remote Function Execution</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /_examples/50-advanced/00-events
+   /_examples/50-advanced/01-remote_exec
+

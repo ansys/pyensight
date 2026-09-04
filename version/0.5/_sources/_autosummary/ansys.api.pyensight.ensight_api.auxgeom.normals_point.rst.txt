@@ -1,0 +1,6 @@
+normals\_point
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: auxgeom.normals_point

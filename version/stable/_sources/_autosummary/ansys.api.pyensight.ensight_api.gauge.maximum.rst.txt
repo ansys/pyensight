@@ -1,0 +1,6 @@
+maximum
+=======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: gauge.maximum

@@ -1,0 +1,6 @@
+get\_quad\_fromplanetool
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: lightsource.get_quad_fromplanetool

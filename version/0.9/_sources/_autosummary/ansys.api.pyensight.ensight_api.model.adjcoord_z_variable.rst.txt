@@ -1,0 +1,6 @@
+adjcoord\_z\_variable
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: model.adjcoord_z_variable

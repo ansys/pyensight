@@ -1,0 +1,6 @@
+attrinfo
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_probe
+
+.. automethod:: ENS_PROBE.attrinfo

@@ -1,0 +1,6 @@
+HILITE\_BACK\_COLOR\_FILL
+=========================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.HILITE_BACK_COLOR_FILL

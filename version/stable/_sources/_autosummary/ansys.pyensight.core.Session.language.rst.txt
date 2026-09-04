@@ -1,0 +1,6 @@
+language
+========
+
+.. currentmodule:: ansys.pyensight.core
+
+.. autoproperty:: Session.language

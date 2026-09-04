@@ -1,0 +1,6 @@
+simba\_tracepaths
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_elevated_surface
+
+.. automethod:: ENS_PART_ELEVATED_SURFACE.simba_tracepaths

@@ -1,0 +1,6 @@
+value\_format
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: gauge.value_format

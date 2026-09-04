@@ -1,0 +1,6 @@
+select\_byexpr\_end
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data_partbuild.select_byexpr_end

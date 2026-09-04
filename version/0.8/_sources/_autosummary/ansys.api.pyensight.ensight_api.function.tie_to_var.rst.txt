@@ -1,0 +1,6 @@
+tie\_to\_var
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: function.tie_to_var

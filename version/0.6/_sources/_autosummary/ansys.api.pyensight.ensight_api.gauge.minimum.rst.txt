@@ -1,0 +1,6 @@
+minimum
+=======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: gauge.minimum

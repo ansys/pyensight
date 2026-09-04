@@ -1,0 +1,6 @@
+getattr
+=======
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_cylinder
+
+.. automethod:: ENS_TOOL_CYLINDER.getattr

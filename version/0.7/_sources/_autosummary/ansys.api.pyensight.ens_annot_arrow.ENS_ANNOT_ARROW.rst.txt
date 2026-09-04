@@ -1,0 +1,123 @@
+﻿ENS\_ANNOT\_ARROW
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_annot_arrow
+
+.. autoclass:: ENS_ANNOT_ARROW
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_ANNOT_ARROW.attrgroupinfo
+      
+      
+      ENS_ANNOT_ARROW.attrinfo
+      
+      
+      ENS_ANNOT_ARROW.attrissensitive
+      
+      
+      ENS_ANNOT_ARROW.attrtree
+      
+      
+      ENS_ANNOT_ARROW.createannot
+      
+      
+      ENS_ANNOT_ARROW.destroy
+      
+      
+      ENS_ANNOT_ARROW.getattr
+      
+      
+      ENS_ANNOT_ARROW.getattrs
+      
+      
+      ENS_ANNOT_ARROW.getmetatag
+      
+      
+      ENS_ANNOT_ARROW.hasmetatag
+      
+      
+      ENS_ANNOT_ARROW.setattr
+      
+      
+      ENS_ANNOT_ARROW.setattr_begin
+      
+      
+      ENS_ANNOT_ARROW.setattr_end
+      
+      
+      ENS_ANNOT_ARROW.setattr_status
+      
+      
+      ENS_ANNOT_ARROW.setattrs
+      
+      
+      ENS_ANNOT_ARROW.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_ANNOT_ARROW.ANNOTATIONTEXTID
+      ENS_ANNOT_ARROW.ANNOTINDEX
+      ENS_ANNOT_ARROW.ANNOTTYPE
+      ENS_ANNOT_ARROW.APPENDLOCATIONVALUE
+      ENS_ANNOT_ARROW.DESCRIPTION
+      ENS_ANNOT_ARROW.EDIT_TARGET
+      ENS_ANNOT_ARROW.HANDLES_ENABLED
+      ENS_ANNOT_ARROW.JUSTIFICATION
+      ENS_ANNOT_ARROW.LABELOFFSET
+      ENS_ANNOT_ARROW.LABELRGB
+      ENS_ANNOT_ARROW.LABELSIZE
+      ENS_ANNOT_ARROW.LABELTEXT
+      ENS_ANNOT_ARROW.LIGHTDIFF
+      ENS_ANNOT_ARROW.LIGHTHINT
+      ENS_ANNOT_ARROW.LIGHTSHIN
+      ENS_ANNOT_ARROW.LOCATION
+      ENS_ANNOT_ARROW.LOCATIONX
+      ENS_ANNOT_ARROW.LOCATIONY
+      ENS_ANNOT_ARROW.METADATA
+      ENS_ANNOT_ARROW.NORMAL
+      ENS_ANNOT_ARROW.OFFSET
+      ENS_ANNOT_ARROW.ORIGIN
+      ENS_ANNOT_ARROW.ORIGINBY
+      ENS_ANNOT_ARROW.ORIGINFRAME
+      ENS_ANNOT_ARROW.PROBENUMBER
+      ENS_ANNOT_ARROW.PROJECT_MASK
+      ENS_ANNOT_ARROW.RADIUS
+      ENS_ANNOT_ARROW.RELATIVETO
+      ENS_ANNOT_ARROW.RELATIVEVIEWPORT
+      ENS_ANNOT_ARROW.RGB
+      ENS_ANNOT_ARROW.ROTATIONALANGLE
+      ENS_ANNOT_ARROW.SCALEBYLOCATIONVALUE
+      ENS_ANNOT_ARROW.SCALEMAXFACTOR
+      ENS_ANNOT_ARROW.SCALEMAXVALUE
+      ENS_ANNOT_ARROW.SCALEMINFACTOR
+      ENS_ANNOT_ARROW.SCALEMINVALUE
+      ENS_ANNOT_ARROW.SELECTED
+      ENS_ANNOT_ARROW.SHADOWINTENSITY
+      ENS_ANNOT_ARROW.SHADOWOFFSET
+      ENS_ANNOT_ARROW.SIZE
+      ENS_ANNOT_ARROW.TIPLENGTH
+      ENS_ANNOT_ARROW.TIPRADIUS
+      ENS_ANNOT_ARROW.USEANNOTATIONTEXT
+      ENS_ANNOT_ARROW.UUID
+      ENS_ANNOT_ARROW.VIEWPORTVIS
+      ENS_ANNOT_ARROW.VISIBLE
+      ENS_ANNOT_ARROW.__OBJID__
+      ENS_ANNOT_ARROW.objid
+   
+   

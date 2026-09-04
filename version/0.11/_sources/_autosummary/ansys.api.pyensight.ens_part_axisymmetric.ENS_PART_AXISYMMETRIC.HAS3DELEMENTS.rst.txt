@@ -1,0 +1,6 @@
+HAS3DELEMENTS
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_part_axisymmetric
+
+.. autoproperty:: ENS_PART_AXISYMMETRIC.HAS3DELEMENTS

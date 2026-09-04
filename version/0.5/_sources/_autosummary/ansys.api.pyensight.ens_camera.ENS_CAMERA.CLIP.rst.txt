@@ -1,0 +1,6 @@
+CLIP
+====
+
+.. currentmodule:: ansys.api.pyensight.ens_camera
+
+.. autoproperty:: ENS_CAMERA.CLIP

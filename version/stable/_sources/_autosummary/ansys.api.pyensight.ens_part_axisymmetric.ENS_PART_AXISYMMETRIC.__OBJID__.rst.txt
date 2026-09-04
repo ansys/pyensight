@@ -1,0 +1,6 @@
+\_\_OBJID\_\_
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_part_axisymmetric
+
+.. autoproperty:: ENS_PART_AXISYMMETRIC.__OBJID__

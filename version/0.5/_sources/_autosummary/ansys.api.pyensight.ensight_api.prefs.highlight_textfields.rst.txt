@@ -1,0 +1,6 @@
+highlight\_textfields
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.highlight_textfields

@@ -1,0 +1,6 @@
+grpc\_server
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. automethod:: ENS_GLOBALS.grpc_server

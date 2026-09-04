@@ -1,0 +1,100 @@
+﻿ENS\_ANNOT
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_annot
+
+.. autoclass:: ENS_ANNOT
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_ANNOT.attrgroupinfo
+      
+      
+      ENS_ANNOT.attrinfo
+      
+      
+      ENS_ANNOT.attrissensitive
+      
+      
+      ENS_ANNOT.attrtree
+      
+      
+      ENS_ANNOT.createannot
+      
+      
+      ENS_ANNOT.destroy
+      
+      
+      ENS_ANNOT.getattr
+      
+      
+      ENS_ANNOT.getattrs
+      
+      
+      ENS_ANNOT.getmetatag
+      
+      
+      ENS_ANNOT.hasmetatag
+      
+      
+      ENS_ANNOT.setattr
+      
+      
+      ENS_ANNOT.setattr_begin
+      
+      
+      ENS_ANNOT.setattr_end
+      
+      
+      ENS_ANNOT.setattr_status
+      
+      
+      ENS_ANNOT.setattrs
+      
+      
+      ENS_ANNOT.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_ANNOT.ANNOTINDEX
+      ENS_ANNOT.ANNOTTYPE
+      ENS_ANNOT.DESCRIPTION
+      ENS_ANNOT.EDIT_TARGET
+      ENS_ANNOT.HANDLES_ENABLED
+      ENS_ANNOT.JUSTIFICATION
+      ENS_ANNOT.LOCATIONX
+      ENS_ANNOT.LOCATIONY
+      ENS_ANNOT.METADATA
+      ENS_ANNOT.ORIGIN
+      ENS_ANNOT.ORIGINBY
+      ENS_ANNOT.ORIGINFRAME
+      ENS_ANNOT.PROJECT_MASK
+      ENS_ANNOT.RELATIVETO
+      ENS_ANNOT.RELATIVEVIEWPORT
+      ENS_ANNOT.RGB
+      ENS_ANNOT.ROTATIONALANGLE
+      ENS_ANNOT.SELECTED
+      ENS_ANNOT.SHADOWINTENSITY
+      ENS_ANNOT.SHADOWOFFSET
+      ENS_ANNOT.SIZE
+      ENS_ANNOT.UUID
+      ENS_ANNOT.VISIBLE
+      ENS_ANNOT.__OBJID__
+      ENS_ANNOT.objid
+   
+   

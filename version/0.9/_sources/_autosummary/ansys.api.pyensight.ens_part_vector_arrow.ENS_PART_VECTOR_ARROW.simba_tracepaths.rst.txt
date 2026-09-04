@@ -1,0 +1,6 @@
+simba\_tracepaths
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_vector_arrow
+
+.. automethod:: ENS_PART_VECTOR_ARROW.simba_tracepaths

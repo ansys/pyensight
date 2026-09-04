@@ -1,0 +1,6 @@
+libuserd\_exception
+===================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: LibUserd.libuserd_exception

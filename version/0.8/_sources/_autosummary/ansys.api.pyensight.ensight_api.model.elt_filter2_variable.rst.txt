@@ -1,0 +1,6 @@
+elt\_filter2\_variable
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: model.elt_filter2_variable

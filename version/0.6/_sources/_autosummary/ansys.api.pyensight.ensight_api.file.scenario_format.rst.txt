@@ -1,0 +1,6 @@
+scenario\_format
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.scenario_format

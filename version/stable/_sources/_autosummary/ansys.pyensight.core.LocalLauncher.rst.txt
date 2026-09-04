@@ -1,0 +1,44 @@
+﻿LocalLauncher
+=============
+
+.. currentmodule:: ansys.pyensight.core
+
+.. autoclass:: LocalLauncher
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      LocalLauncher.close
+      
+      
+      LocalLauncher.get_cei_install_directory
+      
+      
+      LocalLauncher.launch_webui
+      
+      
+      LocalLauncher.start
+      
+      
+      LocalLauncher.stop
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      LocalLauncher.application
+      LocalLauncher.session_directory
+   
+   

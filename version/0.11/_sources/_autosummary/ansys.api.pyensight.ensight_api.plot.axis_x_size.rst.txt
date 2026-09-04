@@ -1,0 +1,6 @@
+axis\_x\_size
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.axis_x_size

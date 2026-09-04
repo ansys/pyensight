@@ -1,0 +1,6 @@
+TOOLTYPE
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_box
+
+.. autoproperty:: ENS_TOOL_BOX.TOOLTYPE

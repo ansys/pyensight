@@ -1,0 +1,6 @@
+reader\_option
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data.reader_option

@@ -1,0 +1,936 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PyEnSight/ANSYS Omniverse Interface &#8212; PyEnSight</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys_sphinx_theme.css?v=e7c4c341" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/breadcrumbs.css?v=37397a7f" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  
+    <link href="../_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+    <script src="../_static/documentation_options.js?v=1222c2e3"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=49e1bf35"></script>
+    <script src="../_static/js/table.js?v=b64f5182"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/omniverse_info';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.15.4';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.8';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner = false;
+        </script>
+    <script src="../_static/js/mermaid.js?v=cf64ff96"></script>
+    <script src="../_static/jquery.js?v=5d32c60e"></script>
+    <link rel="icon" href="../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API reference" href="../class_documentation.html" />
+    <link rel="prev" title="Python API differences in EnSight versus PyEnSight" href="api_differences.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <link rel="canonical" href="https://ensight.docs.pyansys.com/version/stable/user_guide/omniverse_info.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="PyEnSight - Home"/>
+    <script>document.write(`<img src="../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark" alt="PyEnSight - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<div class="search-bar" id="search-bar">
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+         aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+         autocapitalize="off" spellcheck="false"/>
+  <span class="search-button__kbd-shortcut">
+    <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+  </span>
+</form>
+<!-- Search results container -->
+<div id="results" class="results" style="display: none;" tabindex="0">
+</div>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-2"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-2"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-2"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-2">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<div class="search-bar" id="search-bar">
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+         aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+         autocapitalize="off" spellcheck="false"/>
+  <span class="search-button__kbd-shortcut">
+    <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+  </span>
+</form>
+<!-- Search results container -->
+<div id="results" class="results" style="display: none;" tabindex="0">
+</div>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../class_documentation.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../_examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contribute
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button id="pst-version-switcher-button-3"
+      type="button"
+      class="version-switcher__button btn btn-sm dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="listbox"
+      aria-controls="pst-version-switcher-list-3"
+      aria-label="Version switcher list"
+    >
+      Choose version  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div id="pst-version-switcher-list-3"
+      class="version-switcher__menu dropdown-menu list-group-flush py-0"
+      role="listbox" aria-labelledby="pst-version-switcher-button-3">
+      <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ensight_scripts.html">EnSight Python scripts: Running and debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cmdlang_native.html">EnSight command language native Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="object_api.html">EnSight object API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_differences.html">Python API differences in EnSight versus PyEnSight</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">PyEnSight/ANSYS Omniverse Interface</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+     
+    <li class="breadcrumb-item breadcrumb-home">
+      <a
+        href="../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="index.html" class="nav-link">User guide</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page">PyEnSight/ANSYS Omniverse Interface</li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="pyensight-ansys-omniverse-interface">
+<span id="omniverse-info"></span><h1>PyEnSight/ANSYS Omniverse Interface<a class="headerlink" href="#pyensight-ansys-omniverse-interface" title="Link to this heading">#</a></h1>
+<p>PyEnSight includes an interface to export geometry representing the
+current EnSight scene to an Omniverse server.  The interface supports
+EnSight 2023 R2 or later.  It leverages the EnSight Dynamic Scene Graph
+gRPC interface to access the scene.  It is also possible to export
+EnSight scene as glTF (GLB) format files and convert them into USD
+format.</p>
+<p>The API is available through a PyEnSight session instance, from EnSight
+Python directly as (ensight.utils.omniverse for 2025 R1 and later) and
+from within Omniverse applications via the ansys.tools.omniverse.core and
+ansys.tools.omniverse.dsgui kit extensions.</p>
+<p>The Python API is defined here: <a class="reference internal" href="../_autosummary/ansys.pyensight.core.utils.omniverse.Omniverse.html#ansys.pyensight.core.utils.omniverse.Omniverse" title="ansys.pyensight.core.utils.omniverse.Omniverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">Omniverse</span></code></a>.</p>
+<section id="pyensight-and-ensight-python-api">
+<h2>PyEnSight and EnSight Python API<a class="headerlink" href="#pyensight-and-ensight-python-api" title="Link to this heading">#</a></h2>
+<p>The API can be used directly from a local Python installation of the
+<a class="reference external" href="https://pypi.org/project/ansys-pyensight-core/">ansys-pyensight-core</a> module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ansys.pyensight.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">LocalLauncher</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">LocalLauncher</span><span class="p">(</span><span class="n">batch</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">s</span><span class="o">.</span><span class="n">load_example</span><span class="p">(</span><span class="s2">&quot;waterbreak.ens&quot;</span><span class="p">)</span>
+<span class="c1"># The directory to save USD representation into</span>
+<span class="n">usd_directory</span> <span class="o">=</span> <span class="s2">&quot;/omniverse/examples/water&quot;</span>
+<span class="c1"># Start a new connection between EnSight and Omniverse</span>
+<span class="n">s</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">omniverse</span><span class="o">.</span><span class="n">create_connection</span><span class="p">(</span><span class="n">usd_directory</span><span class="p">)</span>
+<span class="c1"># Do some work...</span>
+<span class="c1"># Push a scene update</span>
+<span class="n">s</span><span class="o">.</span><span class="n">ensight</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">omniverse</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">batch=False</span></code> option used in the examples causes the EnSight
+GUI to be displayed together with the Omniverse Composer GUI.</p>
+<p>It is possible to run a pyensight script from inside of an Omniverse
+kit application.  In this case, care must be taken to close the EnSight
+session before exiting the Omniverse application hosting the PyEnSight
+session or is it possible to leave the EnSight instance running.</p>
+</div>
+<p>From inside an EnSight session, the API is similar:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start a DSG server in EnSight first</span>
+<span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">grpc_port</span><span class="p">,</span> <span class="n">security</span><span class="p">)</span> <span class="o">=</span> <span class="n">ensight</span><span class="o">.</span><span class="n">objs</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">grpc_server</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Start a new connection between the EnSight DSG server and Omniverse</span>
+<span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;host&quot;</span><span class="p">:</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="s2">&quot;port&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">grpc_port</span><span class="p">)}</span>
+<span class="k">if</span> <span class="n">security</span><span class="p">:</span>
+    <span class="n">options</span><span class="p">[</span><span class="s2">&quot;security&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">security</span>
+<span class="n">usd_directory</span> <span class="o">=</span> <span class="s2">&quot;/omniverse/examples/water&quot;</span>
+<span class="n">ensight</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">omniverse</span><span class="o">.</span><span class="n">create_connection</span><span class="p">(</span><span class="n">usd_directory</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+<span class="c1"># Do some more work...</span>
+<span class="c1"># Push a scene update</span>
+<span class="n">ensight</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">omniverse</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>After running the script, the scene will appear in any Omniverse kit tree view
+under the specified directory.  The file <code class="docutils literal notranslate"><span class="pre">dsg_scene.usd</span></code> can be loaded into
+Omniverse applications such as Create.  The <code class="docutils literal notranslate"><span class="pre">ensight.utils.omniverse.update()</span></code> command
+may be used to update the USD data in Omniverse, reflecting any recent changes in
+the EnSight scene.</p>
+<p>Starting with 2025 R1, one can also access Omniverse via an EnSight
+user-defined tool:</p>
+<img alt="../_images/omniverse_tool.png" src="../_images/omniverse_tool.png" />
+<p>Clicking on “Start export service” executes something
+similar to the previous Python snippet and the button will change to
+a mode where it just executes <code class="docutils literal notranslate"><span class="pre">ensight.utils.omniverse.update()</span></code>
+when the “Export scene” button is clicked.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Several of the options are locked in once the service is started.
+To change options like “Temporal”, the service must often be stopped
+and restarted using this dialog.</p>
+</div>
+</section>
+<section id="pyensight-omniverse-kit-from-an-omniverse-kit-application">
+<h2>PyEnSight/Omniverse kit from an Omniverse Kit Application<a class="headerlink" href="#pyensight-omniverse-kit-from-an-omniverse-kit-application" title="Link to this heading">#</a></h2>
+<p>To install the service into an Omniverse application, one can install
+it via the third party extensions dialog. Select the <code class="docutils literal notranslate"><span class="pre">Extensions</span></code> option
+from the <code class="docutils literal notranslate"><span class="pre">Window</span></code> menu.  Select third party extensions and filter
+by <code class="docutils literal notranslate"><span class="pre">ANSYS</span></code>.  Enabling the extension will install the kit extension.
+The kit extension will find the most recent Ansys install and use the
+version of the pyensight found in the install to perform export
+operations.</p>
+<img alt="../_images/omniverse_extension.png" src="../_images/omniverse_extension.png" />
+<p>The <code class="docutils literal notranslate"><span class="pre">ansys.tools.omniverse.dsgui</span></code> kit includes a GUI similar to the
+EnSight 2025 R1 user-defined tool.  It allows one to select a
+target directory and the details of a gRPC connection
+to a running EnSight.  For example, if one launches EnSight with
+<code class="docutils literal notranslate"><span class="pre">ensight.bat</span> <span class="pre">-grpc_server</span> <span class="pre">2345</span></code>, then the uri:  <code class="docutils literal notranslate"><span class="pre">grpc://127.0.0.1:2345</span></code>
+can to used to request a locally running EnSight to push the current
+scene to Omniverse.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">ansys.tools.omniverse.core</span></code> and <code class="docutils literal notranslate"><span class="pre">ansys.tools.omniverse.dsgui</span></code>
+do not show up in the Community extensions list in Omniverse, then
+it can be added to the <code class="docutils literal notranslate"><span class="pre">Extension</span> <span class="pre">Search</span> <span class="pre">Paths</span></code> list as:
+<code class="docutils literal notranslate"><span class="pre">git://github.com/ansys/pyensight.git?branch=main&amp;dir=exts</span></code>.</p>
+</div>
+</section>
+<section id="running-the-scene-exporter-via-command-line">
+<h2>Running the Scene Exporter via Command Line<a class="headerlink" href="#running-the-scene-exporter-via-command-line" title="Link to this heading">#</a></h2>
+<p>A pyensight install includes the omniverse_cli module which
+may be used to execute an export operation from the
+command line or launch the export service.  The Python included
+in the EnSight distribution includes this module as well. Assuming
+the pyensight repository has been cloned to: <code class="docutils literal notranslate"><span class="pre">D:\repos\pyensight</span></code> the
+following can be run in the Python virtual environment that was
+used to build the module and the module installed:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">cd</span> <span class="s2">&quot;D:\repos\pyensight&quot;</span>
+.\venv\Scripts\activate.ps1
+python -m build
+python -m pip uninstall ansys.pyensight.core -y
+python -m pip install .\dist\ansys_pyensight_core-0.9.0.dev0-py3-none-any.whl
+python -m ansys.pyensight.core.utils.omniverse_cli -h
+</pre></div>
+</div>
+<p>The following help output will be generated:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">omniverse_cli</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">verbose</span> <span class="n">verbose_level</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">log_file</span> <span class="n">log_filename</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">dsg_uri</span> <span class="n">DSG_URI</span><span class="p">]</span>
+                        <span class="p">[</span><span class="o">--</span><span class="n">security_token</span> <span class="n">token</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">monitor_directory</span> <span class="n">glb_directory</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">time_scale</span> <span class="n">time_scale</span><span class="p">]</span>
+                        <span class="p">[</span><span class="o">--</span><span class="n">normalize_geometry</span> <span class="n">yes</span><span class="o">|</span><span class="n">no</span><span class="o">|</span><span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="o">|</span><span class="mi">1</span><span class="o">|</span><span class="mi">0</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">include_camera</span> <span class="n">yes</span><span class="o">|</span><span class="n">no</span><span class="o">|</span><span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="o">|</span><span class="mi">1</span><span class="o">|</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="p">[</span><span class="o">--</span><span class="n">temporal</span> <span class="n">yes</span><span class="o">|</span><span class="n">no</span><span class="o">|</span><span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="o">|</span><span class="mi">1</span><span class="o">|</span><span class="mi">0</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">oneshot</span> <span class="n">yes</span><span class="o">|</span><span class="n">no</span><span class="o">|</span><span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="o">|</span><span class="mi">1</span><span class="o">|</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="p">[</span><span class="o">--</span><span class="n">line_width</span> <span class="n">line_width</span><span class="p">]</span>
+                        <span class="n">destination</span>
+
+<span class="n">PyEnSight</span> <span class="n">Omniverse</span> <span class="n">Geometry</span> <span class="n">Service</span>
+
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="n">destination</span>           <span class="n">The</span> <span class="n">directory</span> <span class="n">to</span> <span class="n">save</span> <span class="n">the</span> <span class="n">USD</span> <span class="n">scene</span> <span class="n">graph</span> <span class="n">into</span><span class="o">.</span>
+
+<span class="n">options</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">--</span><span class="n">verbose</span> <span class="n">verbose_level</span>
+                        <span class="n">Enable</span> <span class="n">logging</span> <span class="n">information</span> <span class="p">(</span><span class="mi">0</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span> <span class="n">Default</span><span class="p">:</span> <span class="mi">0</span>
+  <span class="o">--</span><span class="n">log_file</span> <span class="n">log_filename</span>
+                        <span class="n">Save</span> <span class="n">logging</span> <span class="n">output</span> <span class="n">to</span> <span class="n">the</span> <span class="n">named</span> <span class="n">log</span> <span class="n">file</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">stdout</span><span class="o">.</span>
+  <span class="o">--</span><span class="n">dsg_uri</span> <span class="n">DSG_URI</span>     <span class="n">The</span> <span class="n">URI</span> <span class="n">of</span> <span class="n">the</span> <span class="n">EnSight</span> <span class="n">Dynamic</span> <span class="n">Scene</span> <span class="n">Graph</span> <span class="n">server</span><span class="o">.</span> <span class="n">Default</span><span class="p">:</span> <span class="n">grpc</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0.0.1</span><span class="p">:</span><span class="mi">5234</span>
+  <span class="o">--</span><span class="n">security_token</span> <span class="n">token</span>
+                        <span class="n">Dynamic</span> <span class="n">scene</span> <span class="n">graph</span> <span class="n">API</span> <span class="n">security</span> <span class="n">token</span><span class="o">.</span> <span class="n">Default</span><span class="p">:</span> <span class="n">none</span>
+  <span class="o">--</span><span class="n">monitor_directory</span> <span class="n">glb_directory</span>
+                        <span class="n">Monitor</span> <span class="n">specified</span> <span class="n">directory</span> <span class="k">for</span> <span class="n">GLB</span> <span class="n">files</span> <span class="n">to</span> <span class="n">be</span> <span class="n">exported</span><span class="o">.</span> <span class="n">Default</span><span class="p">:</span> <span class="n">none</span>
+  <span class="o">--</span><span class="n">time_scale</span> <span class="n">time_scale</span>
+                        <span class="n">Scaling</span> <span class="n">factor</span> <span class="n">to</span> <span class="n">be</span> <span class="n">applied</span> <span class="n">to</span> <span class="nb">input</span> <span class="n">time</span> <span class="n">values</span><span class="o">.</span> <span class="n">Default</span><span class="p">:</span> <span class="mf">1.0</span>
+  <span class="o">--</span><span class="n">normalize_geometry</span> <span class="n">yes</span><span class="o">|</span><span class="n">no</span><span class="o">|</span><span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="o">|</span><span class="mi">1</span><span class="o">|</span><span class="mi">0</span>
+                        <span class="n">Enable</span> <span class="n">mapping</span> <span class="n">of</span> <span class="n">geometry</span> <span class="n">to</span> <span class="n">a</span> <span class="n">normalized</span> <span class="n">Cartesian</span> <span class="n">space</span><span class="o">.</span> <span class="n">Default</span><span class="p">:</span> <span class="n">false</span>
+  <span class="o">--</span><span class="n">include_camera</span> <span class="n">yes</span><span class="o">|</span><span class="n">no</span><span class="o">|</span><span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="o">|</span><span class="mi">1</span><span class="o">|</span><span class="mi">0</span>
+                        <span class="n">Include</span> <span class="n">the</span> <span class="n">camera</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">output</span> <span class="n">USD</span> <span class="n">scene</span> <span class="n">graph</span><span class="o">.</span> <span class="n">Default</span><span class="p">:</span> <span class="n">true</span>
+  <span class="o">--</span><span class="n">temporal</span> <span class="n">yes</span><span class="o">|</span><span class="n">no</span><span class="o">|</span><span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="o">|</span><span class="mi">1</span><span class="o">|</span><span class="mi">0</span>
+                        <span class="n">Export</span> <span class="n">a</span> <span class="n">temporal</span> <span class="n">scene</span> <span class="n">graph</span><span class="o">.</span> <span class="n">Default</span><span class="p">:</span> <span class="n">false</span>
+  <span class="o">--</span><span class="n">oneshot</span> <span class="n">yes</span><span class="o">|</span><span class="n">no</span><span class="o">|</span><span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="o">|</span><span class="mi">1</span><span class="o">|</span><span class="mi">0</span>
+                        <span class="n">Convert</span> <span class="n">a</span> <span class="n">single</span> <span class="n">geometry</span> <span class="n">into</span> <span class="n">USD</span> <span class="ow">and</span> <span class="n">exit</span><span class="o">.</span> <span class="n">Default</span><span class="p">:</span> <span class="n">false</span>
+  <span class="o">--</span><span class="n">line_width</span> <span class="n">line_width</span>
+                        <span class="n">Width</span> <span class="n">of</span> <span class="n">lines</span><span class="p">:</span> <span class="o">&gt;</span><span class="mi">0</span><span class="o">=</span><span class="n">absolute</span> <span class="n">size</span><span class="o">.</span> <span class="o">&lt;</span><span class="mi">0</span><span class="o">=</span><span class="n">fraction</span> <span class="n">of</span> <span class="n">diagonal</span><span class="o">.</span> <span class="mi">0</span><span class="o">=</span><span class="n">wireframe</span><span class="o">.</span> <span class="n">Default</span><span class="p">:</span> <span class="kc">None</span>
+</pre></div>
+</div>
+<p>Listing the various command line options.</p>
+<p>The core operation of this CLI tool is to convert a scene into USD format.  The resulting USD data
+can be read into Omniverse, Blender and other DCC asset pipelines.  The input data for this
+conversion can come from one of two sources: the EnSight Dynamic Scene Graph gRPC server or
+via GLB files.</p>
+<p>The command line tool can be run in two different modes: <em>server</em> and <em>one-shot</em>.  In <em>one-shot</em> mode,
+a single conversion, export is performed and the CLI tool exits.  In server mode, an initial
+conversion is performed and the server continues to run, either monitoring a directory for
+scene updates or listening for DSG scene push operations.  The advantage of the latter
+approach is that it is possible for the tool to push incremental updates to the USD scene
+which can be faster and may result in cleaner output over time.</p>
+<section id="scene-source-dsg-connection">
+<h3>Scene Source: DSG Connection<a class="headerlink" href="#scene-source-dsg-connection" title="Link to this heading">#</a></h3>
+<p>This is the default scene source.  It is selected by the <code class="docutils literal notranslate"><span class="pre">--dsg_uri</span></code> command line option which
+defaults to: <code class="docutils literal notranslate"><span class="pre">grpc://127.0.0.1:5234</span></code>.  In this mode, the tool will attempt to connect to an
+EnSight session via the DSG protocol.  EnSight run with the command line option <code class="docutils literal notranslate"><span class="pre">-grpc_server</span> <span class="pre">5234</span></code>
+will start the DSG server.  The port number may be varied as needed by the deployment and the
+EnSight session can run on an entirely different system (e.g. remote PyEnSight session) by supplying
+the hostname in the grpc URI specification.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If using remote connections, it is strongly suggested that <code class="docutils literal notranslate"><span class="pre">--security_token</span></code> be used to
+prevent the scene from being observed by other applications.
+Additionally, if EnSight is not started with a gRPC server option specified, the server
+can be started later using the EnSight Python APIs.</p>
+</div>
+<p>Once the EnSight session has been established, the following command line may be used to start
+a server:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>python -m ansys.pyensight.core.utils.omniverse_cli --dsg_uri grpc://127.0.0.1:12342 d:\save\usd_files
+</pre></div>
+</div>
+<p>The server will cause an initial scene push and will then wait, pushing geometry as requested until the
+EnSight DSG session ends.</p>
+</section>
+<section id="scene-source-glb-files">
+<h3>Scene Source: GLB Files<a class="headerlink" href="#scene-source-glb-files" title="Link to this heading">#</a></h3>
+<p>The GLB file support is restricted to specially formatted GLB files written using the Ansys GLTFWriter
+library from Ansys applications like EnSight and Fluent.  These files contain additional, Ansys specific
+hints that are used to enhance and accelerate the conversions.   The GLB conversion mode is selected
+using the <code class="docutils literal notranslate"><span class="pre">--monitor_directory</span></code> command line option.  In server mode, it should point to a directory
+into which <code class="docutils literal notranslate"><span class="pre">.glb</span></code> files are copied. The server watches for a file of the same base name as the GLB file,
+but the extension <code class="docutils literal notranslate"><span class="pre">.upload</span></code>.  The server will then convert the file into USD form and delete both the
+GLB file and the upload file.</p>
+<p>For example, if one has a GLB file named: <code class="docutils literal notranslate"><span class="pre">car_body.glb</span></code>, one should first copy the file into the
+directory specified by <code class="docutils literal notranslate"><span class="pre">--monitor_directory</span></code> and once the copy is complete, an empty file
+named: <code class="docutils literal notranslate"><span class="pre">car_body.upload</span></code> should be created in the directory as well (the server will not attempt to
+read the GLB file until the <code class="docutils literal notranslate"><span class="pre">.upload</span></code> file exists). Once the conversion is complete, the two files
+will be deleted by the server.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">.upload</span></code> file can also be a JSON description of the scene which allows for importing
+of multiple GLB files and setting other options.  This format will be documented in a future
+release.</p>
+</div>
+<p>If the tool is being run in <em>one-shot</em> mode, the single GLB file that should be specified using
+<code class="docutils literal notranslate"><span class="pre">--monitor_directory</span></code> along with the <code class="docutils literal notranslate"><span class="pre">--oneshot</span></code> options. For example:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>python -m ansys.pyensight.core.utils.omniverse_cli --monitor_directory d:\source\in_file.glb --oneshot 1 d:\save\usd_files
+</pre></div>
+</div>
+<p>Will convert the single GLB file into USD format and then exit.</p>
+</section>
+<section id="server-vs-one-shot-mode">
+<span id="oneshotmode"></span><h3>Server vs One-Shot Mode<a class="headerlink" href="#server-vs-one-shot-mode" title="Link to this heading">#</a></h3>
+<p>If the <code class="docutils literal notranslate"><span class="pre">--oneshot</span></code> option is not specified, the tool will run in server mode.  It will monitor either
+the DSG protocol or the directory specified by <code class="docutils literal notranslate"><span class="pre">--monitor_directory</span></code> option for geometry data.  In
+this mode, the USD scene in the <code class="docutils literal notranslate"><span class="pre">destination</span></code> will be updated to reflect the last scene pushed.
+Unused files will be removed and items that do not change will not be updated.  Thus, server
+mode is best suited for dynamic, interactive applications.  If server mode is initiated via the command line,
+a single scene push will automatically be performed.  One can start subsequent push operations
+from the EnSight python interpreter with the following commands.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">enspyqtgui_int</span>
+<span class="c1"># Current timestep</span>
+<span class="n">enspyqtgui_int</span><span class="o">.</span><span class="n">dynamic_scene_graph_command</span><span class="p">(</span><span class="s2">&quot;dynamicscenegraph://localhost/client/update&quot;</span><span class="p">)</span>
+<span class="c1"># All timesteps</span>
+<span class="n">enspyqtgui_int</span><span class="o">.</span><span class="n">dynamic_scene_graph_command</span><span class="p">(</span><span class="s2">&quot;dynamicscenegraph://localhost/client/update?timesteps=1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">--oneshot</span></code> is specified, only a single conversion is performed and the tool will not maintain
+a notion of the scene state.  This makes the operation simpler and avoids the need for extra processes,
+however old files from previous export operations will not be removed and the USD directory may need
+to be manually cleaned between export operations.</p>
+</section>
+<section id="general-options">
+<h3>General Options<a class="headerlink" href="#general-options" title="Link to this heading">#</a></h3>
+<p>Output options:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--verbose</span> <span class="pre">verbose_level</span></code> - Controls the amount of progress and debug information that will be
+generated.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--log_file</span> <span class="pre">log_filename</span></code> - If specified, the verbose output will be saved to the named file
+instead of stdout.</p></li>
+</ul>
+<p>Several options can be used to customize the scaling of various aspects of the generated output.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--time_scale</span> <span class="pre">time_scale</span></code> - If specified, the timestep values in the input geometry stream will be
+multiplied by this value before being sent into the USD file.  This can be used to do things like
+transform solution times into video time lines.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--normalize_geometry</span> <span class="pre">yes|no|true|false|1|0</span></code> - If enabled, the largest axis in the input geometry
+will be scaled to a unit cube and the other axis will be scaled by the same ratio.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--line_width</span> <span class="pre">line_width</span></code> - Input scenes may include lines.  If this option is specified, those
+lines will be include in the USD output.  The size of the lines are specified in the scene geometry
+space units by this option.  If this option is negative, the size of the lines will be set to the
+diagonal of the first geometry block with lines, multiplied by the absolute value of the option.
+The environmental variable <code class="docutils literal notranslate"><span class="pre">ANSYS_OV_LINE_WIDTH</span></code> can be used to specify the default value for
+this option.</p></li>
+</ul>
+<p>Miscellaneous features:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--include_camera</span> <span class="pre">yes|no|true|false|1|0</span></code> - By default, the tool will attempt to include
+the input scene camera in the USD output.  This can be useful when trying to reproduce a
+specific view.  However, when exporting assets that will be combined later or in
+interactive/VR/AR use-cases the camera specification can be disabled using this option.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--temporal</span> <span class="pre">yes|no|true|false|1|0</span></code> - When using the DSG geometry source, this option can
+be used to force time-varying export from EnSight.  The default is to export only the
+the current timestep.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--oneshot</span> <span class="pre">yes|no|true|false|1|0</span></code> - As discussed earlier, this option is used to disable
+server mode.  See <a class="reference internal" href="#oneshotmode"><span class="std std-ref">Server vs One-Shot Mode</span></a> for details.</p></li>
+</ul>
+</section>
+<section id="material-conversions">
+<h3>Material Conversions<a class="headerlink" href="#material-conversions" title="Link to this heading">#</a></h3>
+<p>A mechanism for semi-automated mapping of materials is currently a work in progress.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyensight-and-ensight-python-api">PyEnSight and EnSight Python API</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pyensight-omniverse-kit-from-an-omniverse-kit-application">PyEnSight/Omniverse kit from an Omniverse Kit Application</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-scene-exporter-via-command-line">Running the Scene Exporter via Command Line</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scene-source-dsg-connection">Scene Source: DSG Connection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scene-source-glb-files">Scene Source: GLB Files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#server-vs-one-shot-mode">Server vs One-Shot Mode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-options">General Options</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#material-conversions">Material Conversions</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../_sources/user_guide/omniverse_info.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+<link rel="stylesheet" href="../_static/css/fuse-search.css">
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+
+
+
+
+
+
+
+<script>
+var theme_static_search = JSON.parse('{"ignoreLocation": "False", "keys": ["title", "text"], "shouldSort": "True", "threshold": 0.5, "useExtendedSearch": "True"}');
+var theme_limit = "10";
+var min_chars_for_search = "1";
+var searchPath = "../_static/search.json";
+
+</script>
+
+<script src="../_static/js/fuse_search.js"></script>
+<script src="../_static/js/fuse_extension.js"></script>
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2025 ANSYS, Inc. Unauthorized use, distribution, or duplication is prohibited..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  1.1.1. <br />Last updated on
+  <span id="date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var lastModifiedDate = new Date(document.lastModified);
+  var date = lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("date").innerHTML = date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

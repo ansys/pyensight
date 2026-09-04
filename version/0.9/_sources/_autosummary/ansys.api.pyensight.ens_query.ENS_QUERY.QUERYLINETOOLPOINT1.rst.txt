@@ -1,0 +1,6 @@
+QUERYLINETOOLPOINT1
+===================
+
+.. currentmodule:: ansys.api.pyensight.ens_query
+
+.. autoproperty:: ENS_QUERY.QUERYLINETOOLPOINT1

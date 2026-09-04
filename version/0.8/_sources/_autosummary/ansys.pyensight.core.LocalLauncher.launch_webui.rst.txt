@@ -1,0 +1,6 @@
+launch\_webui
+=============
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: LocalLauncher.launch_webui

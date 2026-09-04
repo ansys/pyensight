@@ -1,0 +1,6 @@
+getattr
+=======
+
+.. currentmodule:: ansys.api.pyensight.ens_part_developed_surface
+
+.. automethod:: ENS_PART_DEVELOPED_SURFACE.getattr

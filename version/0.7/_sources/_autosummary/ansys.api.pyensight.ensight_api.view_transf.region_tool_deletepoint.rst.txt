@@ -1,0 +1,6 @@
+region\_tool\_deletepoint
+=========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.region_tool_deletepoint

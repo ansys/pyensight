@@ -1,0 +1,6 @@
+ENS\_DETAILS
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_part_built_up
+
+.. autoproperty:: ENS_PART_BUILT_UP.ENS_DETAILS

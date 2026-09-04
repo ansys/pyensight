@@ -1,0 +1,6 @@
+sft\_norm\_length
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: case.sft_norm_length

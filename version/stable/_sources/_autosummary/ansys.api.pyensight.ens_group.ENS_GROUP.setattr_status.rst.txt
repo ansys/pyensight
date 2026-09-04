@@ -1,0 +1,6 @@
+setattr\_status
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_group
+
+.. automethod:: ENS_GROUP.setattr_status

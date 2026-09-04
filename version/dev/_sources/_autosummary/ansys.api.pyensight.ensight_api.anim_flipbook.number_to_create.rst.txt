@@ -1,0 +1,6 @@
+number\_to\_create
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_flipbook.number_to_create

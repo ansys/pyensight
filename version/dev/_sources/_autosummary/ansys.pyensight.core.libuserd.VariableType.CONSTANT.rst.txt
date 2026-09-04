@@ -1,0 +1,6 @@
+CONSTANT
+========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: VariableType.CONSTANT

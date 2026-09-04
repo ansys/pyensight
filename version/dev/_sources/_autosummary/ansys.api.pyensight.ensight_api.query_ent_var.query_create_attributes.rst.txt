@@ -1,0 +1,6 @@
+query\_create\_attributes
+=========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: query_ent_var.query_create_attributes

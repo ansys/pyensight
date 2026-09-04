@@ -1,0 +1,127 @@
+﻿ENS\_VAR
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_var
+
+.. autoclass:: ENS_VAR
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_VAR.attrgroupinfo
+      
+      
+      ENS_VAR.attrinfo
+      
+      
+      ENS_VAR.attrissensitive
+      
+      
+      ENS_VAR.attrtree
+      
+      
+      ENS_VAR.dependent_vars
+      
+      
+      ENS_VAR.destroy
+      
+      
+      ENS_VAR.getattr
+      
+      
+      ENS_VAR.getattrs
+      
+      
+      ENS_VAR.getmetatag
+      
+      
+      ENS_VAR.hasmetatag
+      
+      
+      ENS_VAR.histogram
+      
+      
+      ENS_VAR.realize
+      
+      
+      ENS_VAR.setattr
+      
+      
+      ENS_VAR.setattr_begin
+      
+      
+      ENS_VAR.setattr_end
+      
+      
+      ENS_VAR.setattr_status
+      
+      
+      ENS_VAR.setattrs
+      
+      
+      ENS_VAR.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_VAR.ACTIVE
+      ENS_VAR.CFD_VAR
+      ENS_VAR.COMPUTED
+      ENS_VAR.CONSTANT_VALUE
+      ENS_VAR.DESCRIPTION
+      ENS_VAR.EDIT_TARGET
+      ENS_VAR.ENS_UNITS_DIMS
+      ENS_VAR.ENS_UNITS_LABEL
+      ENS_VAR.EXIST_CASE
+      ENS_VAR.EXPRESSION
+      ENS_VAR.FEA_VAR
+      ENS_VAR.HANDLES_ENABLED
+      ENS_VAR.ID
+      ENS_VAR.LEGEND
+      ENS_VAR.LOCATION
+      ENS_VAR.METADATA
+      ENS_VAR.MINMAX
+      ENS_VAR.MINMAXCONST
+      ENS_VAR.ORDER
+      ENS_VAR.OVERRIDEGTACTIVE
+      ENS_VAR.OVERRIDEGTMIN
+      ENS_VAR.OVERRIDEGTRGB
+      ENS_VAR.OVERRIDEGTUSEABS
+      ENS_VAR.OVERRIDELTACTIVE
+      ENS_VAR.OVERRIDELTMIN
+      ENS_VAR.OVERRIDELTRGB
+      ENS_VAR.OVERRIDELTUSEABS
+      ENS_VAR.OVERRIDERANGEACTIVE
+      ENS_VAR.OVERRIDERANGEMAX
+      ENS_VAR.OVERRIDERANGEMIN
+      ENS_VAR.OVERRIDERANGERGB
+      ENS_VAR.OVERRIDERANGEUSEABS
+      ENS_VAR.PALETTE
+      ENS_VAR.PALID
+      ENS_VAR.PARENT
+      ENS_VAR.PARTS
+      ENS_VAR.PATHNAME
+      ENS_VAR.PRIVATE
+      ENS_VAR.PROJECT_MASK
+      ENS_VAR.SEQUENCE
+      ENS_VAR.UUID
+      ENS_VAR.VARTYPE
+      ENS_VAR.VARTYPEENUM
+      ENS_VAR.WHICH_HISTOGRAM
+      ENS_VAR.__OBJID__
+      ENS_VAR.objid
+   
+   

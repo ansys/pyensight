@@ -1,0 +1,6 @@
+run
+===
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_flipbook.run

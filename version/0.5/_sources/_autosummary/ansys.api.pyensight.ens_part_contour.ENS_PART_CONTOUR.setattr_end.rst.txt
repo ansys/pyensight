@@ -1,0 +1,6 @@
+setattr\_end
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_part_contour
+
+.. automethod:: ENS_PART_CONTOUR.setattr_end

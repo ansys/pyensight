@@ -1,0 +1,6 @@
+create\_varmin\_track
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.create_varmin_track

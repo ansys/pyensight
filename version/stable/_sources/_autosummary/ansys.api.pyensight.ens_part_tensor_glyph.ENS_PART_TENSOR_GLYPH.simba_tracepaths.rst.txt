@@ -1,0 +1,6 @@
+simba\_tracepaths
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_tensor_glyph
+
+.. automethod:: ENS_PART_TENSOR_GLYPH.simba_tracepaths

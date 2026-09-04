@@ -1,0 +1,6 @@
+threshold\_filter
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: vortexcore.threshold_filter

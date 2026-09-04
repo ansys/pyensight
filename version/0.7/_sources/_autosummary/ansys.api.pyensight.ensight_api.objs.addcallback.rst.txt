@@ -1,0 +1,6 @@
+addcallback
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: objs.addcallback

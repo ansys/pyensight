@@ -1,0 +1,6 @@
+node\_scale
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.node_scale

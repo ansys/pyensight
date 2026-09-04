@@ -1,0 +1,6 @@
+select\_all\_rectangles
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: shape.select_all_rectangles

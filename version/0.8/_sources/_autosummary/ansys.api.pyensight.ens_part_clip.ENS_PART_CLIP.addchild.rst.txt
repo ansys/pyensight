@@ -1,0 +1,6 @@
+addchild
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_part_clip
+
+.. automethod:: ENS_PART_CLIP.addchild

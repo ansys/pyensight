@@ -1,0 +1,6 @@
+head\_detail
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_traces.head_detail

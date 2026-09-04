@@ -1,0 +1,6 @@
+title\_location
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: legend.title_location
