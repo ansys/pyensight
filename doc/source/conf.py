@@ -85,6 +85,7 @@ linkcheck_ignore = [
     r"http://localhost:[0-9]+/",
     r"https://cubit.sandia.gov/public/verdict.html",
     r"https://github.com/ansys/pyensight/issues",
+    r"https://nexusdemo.ensight.com",
 ]
 
 
