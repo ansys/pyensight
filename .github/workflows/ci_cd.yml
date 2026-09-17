@@ -123,7 +123,6 @@ jobs:
           ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
         with:
           sphinxopts: '-j auto'
-          check-links: false
 
   build-library:
     name: "Build library"
