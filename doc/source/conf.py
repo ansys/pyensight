@@ -65,10 +65,12 @@ autoapi_options = [
     "show-module-summary",
     "imported-members",
 ]
-suppress_warnings = ["intersphinx.external"]
+
 # Intersphinx mapping
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3.14", None),
+    # Point the fallback path to an already existing file in the directory
+    "ensight": ("https://nexusdemo.ensight.com", "conf.py"),
     # kept here as an example
     # "scipy": ("https://docs.scipy.org/doc/scipy/reference", None),
     # "numpy": ("https://numpy.org/devdocs", None),
