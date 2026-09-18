@@ -69,8 +69,6 @@ autoapi_options = [
 # Intersphinx mapping
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3.14", None),
-    # Point the fallback path to an already existing file in the directory
-    "ensight": ("https://nexusdemo.ensight.com", "conf.py"),
     # kept here as an example
     # "scipy": ("https://docs.scipy.org/doc/scipy/reference", None),
     # "numpy": ("https://numpy.org/devdocs", None),
@@ -87,8 +85,6 @@ linkcheck_ignore = [
     r"http://localhost:[0-9]+/",
     r"https://cubit.sandia.gov/public/verdict.html",
     r"https://github.com/ansys/pyensight/issues",
-    r"https://nexusdemo.ensight.com/docs/python/html/ENS_UNITSSchema.html",
-    r"https://nexusdemo\.ensight\.com/.*",
 ]
 
 

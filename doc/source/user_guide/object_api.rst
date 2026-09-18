@@ -131,9 +131,3 @@ In cases where one would like to use both APIs in a single script, it can become
 necessary to synchronize these two selections. See: :ref:`selection_transfer` for details
 on how this can be done.
 
-
-Tips and tricks
----------------
-
-You can access an additional collection of EnSight-specific Python notes in the
-`Python and EnSight documentation <https://nexusdemo.ensight.com/docs/python/html/Python.html>`_.
