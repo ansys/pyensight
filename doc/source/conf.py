@@ -86,7 +86,7 @@ linkcheck_ignore = [
     r"https://cubit.sandia.gov/public/verdict.html",
     r"https://github.com/ansys/pyensight/issues",
     r"https://nexusdemo.ensight.com/docs/python/html/ENS_UNITSSchema.html",
-    r"https://nexusdemo.ensight.com/docs/python/html/Python.html",
+    r"https://nexusdemo\.ensight\.com/.*",
 ]
 
 
