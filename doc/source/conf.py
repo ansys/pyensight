@@ -65,7 +65,7 @@ autoapi_options = [
     "show-module-summary",
     "imported-members",
 ]
-
+suppress_warnings = ["intersphinx.external"]
 # Intersphinx mapping
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3.14", None),
