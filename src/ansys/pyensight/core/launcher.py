@@ -397,3 +397,7 @@ class Launcher:
             raise RuntimeError("Couldn't parse EnSight version in BUILDINFO file.")
         ensight_full_version = version_match.group(1)
         return internal_version, ensight_full_version
+
+    def __del__(self):
+        """Cleanup called when Launcher about to being killed."""
+        self.close()
