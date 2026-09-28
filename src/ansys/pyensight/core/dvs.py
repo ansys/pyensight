@@ -546,9 +546,9 @@ class DVS(dvs_base):
         location: int
             The variable location. Check the LOCATION enums available with this module
         unit: str
-            The variable units. See https://nexusdemo.ensight.com/docs/python/html/ENS_UNITSSchema.html
+            The variable units.
         unit_label: str
-            The label for the variable units. See https://nexusdemo.ensight.com/docs/python/html/ENS_UNITSSchema.html
+            The label for the variable units.
         metadata: dict
             An optional dictionary of metadata to attach to the var.
         """
