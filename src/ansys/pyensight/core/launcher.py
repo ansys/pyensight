@@ -400,4 +400,5 @@ class Launcher:
 
     def __del__(self):
         """Cleanup called when Launcher about to being killed."""
-        self.close()
+        for session in self._sessions:
+            self.close(session)
