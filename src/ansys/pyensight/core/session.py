@@ -380,7 +380,9 @@ class Session:
         """
         if not self.rest_api:
             return
-        if self._already_closed:
+        if not hasattr(self, "_already_closed"):
+            return
+        if not self._already_closed:
             return
         #
         #
