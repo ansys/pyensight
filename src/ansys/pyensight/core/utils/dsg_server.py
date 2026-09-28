@@ -258,7 +258,34 @@ class Part(object):
         normals = self.normals
         tcoords = None
         if self.tcoords.size:
-            tcoords = self.tcoords
+            var_dsg_id = self.cmd.color_variableid  # type: ignore
+            var_cmd = self.session.variables[var_dsg_id]
+            # If all values in tcoords are undef, handle them specially.
+            # EnSight sends nan instead of undefined_value, so check for both.
+            if (
+                numpy.all(self.tcoords == var_cmd.undefined_value)
+                or numpy.isnan(self.tcoords).all()
+            ):
+                if var_cmd.undefined_display == var_cmd.USE_PART_COLOR:
+                    tcoords = None
+                elif var_cmd.undefined_display == var_cmd.USE_UNDEF_COLOR:
+                    self.cmd.fill_color[0] = var_cmd.undefined_color[0]
+                    self.cmd.fill_color[1] = var_cmd.undefined_color[1]
+                    self.cmd.fill_color[2] = var_cmd.undefined_color[2]
+
+                    mat: dict = self.material()
+                    if "diffuse" in mat:
+                        mat["diffuse"][0] = var_cmd.undefined_color[0] * self.cmd.diffuse
+                        mat["diffuse"][1] = var_cmd.undefined_color[1] * self.cmd.diffuse
+                        mat["diffuse"][2] = var_cmd.undefined_color[2] * self.cmd.diffuse
+
+                    tcoords = None
+                elif var_cmd.undefined_display == var_cmd.AS_INVISIBLE:
+                    return None, None, None, None, None, None
+                elif var_cmd.undefined_display == var_cmd.AS_ZERO:
+                    tcoords = numpy.zeros(self.tcoords.size, dtype=numpy.float32)
+            else:
+                tcoords = self.tcoords
         if self.tcoords_elem or self.normals_elem:
             verts_per_prim = 3
             num_prims = conn.size // verts_per_prim
@@ -514,61 +541,95 @@ class Part(object):
         colors = None
         var_cmd = None
 
-        if self.tcoords.size and self.tcoords.size == num_verts:
-            var_dsg_id = self.cmd.color_variableid
+        var_dsg_id = self.cmd.color_variableid
+        if var_dsg_id in self.session.variables:
             var_cmd = self.session.variables[var_dsg_id]
-            if len(var_cmd.levels) == 0:
-                self.session.log(
-                    f"Note: Node rep not created for part '{self.cmd.name}'.  It has var values, but a palette with 0 levels."
-                )
-                return None, None, None, None, None
 
-            p_min = None
-            p_max = None
-            for lvl in var_cmd.levels:
-                if (p_min is None) or (p_min > lvl.value):
-                    p_min = lvl.value
-                if (p_max is None) or (p_max < lvl.value):
-                    p_max = lvl.value
+            # If all values in tcoords are undef, handle them specially
+            # For points, when all values are undef, EnSight doesn't send tcoords when all values are undef
+            # To be safe, also check for undefined_value or nan on all points
+            if (
+                self.tcoords.size == 0
+                or numpy.all(self.tcoords == var_cmd.undefined_value)
+                or numpy.isnan(self.tcoords).all()
+            ):
+                if var_cmd.undefined_display == var_cmd.USE_PART_COLOR:
+                    mat: dict = self.material()
+                    c = [self.cmd.fill_color[0], self.cmd.fill_color[1], self.cmd.fill_color[2]]
+                    if "diffuse" in mat:
+                        c = [mat["diffuse"][0], mat["diffuse"][1], mat["diffuse"][2]]
+                    colors = numpy.tile(c, num_verts).astype("float32")
 
-            num_texels = int(len(var_cmd.texture) / 4)
+                elif var_cmd.undefined_display == var_cmd.USE_UNDEF_COLOR:
+                    c = [
+                        var_cmd.undefined_color[0],
+                        var_cmd.undefined_color[1],
+                        var_cmd.undefined_color[2],
+                    ]
+                    colors = numpy.tile(c, num_verts).astype("float32")
 
-            colors = numpy.ndarray((num_verts * 3,), dtype="float32")
-            low_color = [c / 255.0 for c in var_cmd.texture[0:3]]
-            high_color = [
-                c / 255.0 for c in var_cmd.texture[4 * (num_texels - 1) : 4 * (num_texels - 1) + 3]
-            ]
-            if p_min == p_max:
-                # Special case where palette min == palette max
-                mid_color = var_cmd[4 * (num_texels // 2) : 4 * (num_texels // 2) + 3]
-                for idx in range(num_verts):
-                    val = self.tcoords[idx]
-                    if val == p_min:
-                        colors[idx * 3 : idx * 3 + 3] = mid_color
-                    elif val < p_min:
-                        colors[idx * 3 : idx * 3 + 3] = low_color
-                    elif val > p_min:
-                        colors[idx * 3 : idx * 3 + 3] = high_color
-            else:
-                for idx in range(num_verts):
-                    val = self.tcoords[idx]
-                    if val <= p_min:
-                        colors[idx * 3 : idx * 3 + 3] = low_color
-                    else:
-                        pal_pos = (num_texels - 1) * (val - p_min) / (p_max - p_min)
-                        pal_idx, pal_sub = divmod(pal_pos, 1)
-                        pal_idx = int(pal_idx)
+                elif var_cmd.undefined_display == var_cmd.AS_INVISIBLE:
+                    # Not an error case.  All points have the undef value, and geometry with undef is hidden
+                    return None, None, None, None, None
 
-                        if pal_idx >= num_texels - 1:
+                elif var_cmd.undefined_display == var_cmd.AS_ZERO:
+                    self.tcoords = numpy.zeros(num_verts, dtype=numpy.float32)
+
+            if self.tcoords.size and self.tcoords.size == num_verts and colors is None:
+                if len(var_cmd.levels) == 0:
+                    self.session.log(
+                        f"Note: Node rep not created for part '{self.cmd.name}'.  It has var values, but a palette with 0 levels."
+                    )
+                    return None, None, None, None, None
+
+                p_min = None
+                p_max = None
+                for lvl in var_cmd.levels:
+                    if (p_min is None) or (p_min > lvl.value):
+                        p_min = lvl.value
+                    if (p_max is None) or (p_max < lvl.value):
+                        p_max = lvl.value
+
+                num_texels = int(len(var_cmd.texture) / 4)
+
+                colors = numpy.ndarray((num_verts * 3,), dtype="float32")
+                low_color = [c / 255.0 for c in var_cmd.texture[0:3]]
+                high_color = [
+                    c / 255.0
+                    for c in var_cmd.texture[4 * (num_texels - 1) : 4 * (num_texels - 1) + 3]
+                ]
+                if p_min == p_max:
+                    # Special case where palette min == palette max
+                    mid_color = var_cmd[4 * (num_texels // 2) : 4 * (num_texels // 2) + 3]
+                    for idx in range(num_verts):
+                        val = self.tcoords[idx]
+                        if val == p_min:
+                            colors[idx * 3 : idx * 3 + 3] = mid_color
+                        elif val < p_min:
+                            colors[idx * 3 : idx * 3 + 3] = low_color
+                        elif val > p_min:
                             colors[idx * 3 : idx * 3 + 3] = high_color
+                else:
+                    for idx in range(num_verts):
+                        val = self.tcoords[idx]
+                        if val <= p_min:
+                            colors[idx * 3 : idx * 3 + 3] = low_color
                         else:
-                            col0 = var_cmd.texture[pal_idx * 4 : pal_idx * 4 + 3]
-                            col1 = var_cmd.texture[4 + pal_idx * 4 : 4 + pal_idx * 4 + 3]
-                            for ii in range(0, 3):
-                                colors[idx * 3 + ii] = (
-                                    col0[ii] * pal_sub + col1[ii] * (1.0 - pal_sub)
-                                ) / 255.0
-            self.session.log(f"Part '{self.cmd.name}' defined: {self.coords.size // 3} points.")
+                            pal_pos = (num_texels - 1) * (val - p_min) / (p_max - p_min)
+                            pal_idx, pal_sub = divmod(pal_pos, 1)
+                            pal_idx = int(pal_idx)
+
+                            if pal_idx >= num_texels - 1:
+                                colors[idx * 3 : idx * 3 + 3] = high_color
+                            else:
+                                col0 = var_cmd.texture[pal_idx * 4 : pal_idx * 4 + 3]
+                                col1 = var_cmd.texture[4 + pal_idx * 4 : 4 + pal_idx * 4 + 3]
+                                for ii in range(0, 3):
+                                    colors[idx * 3 + ii] = (
+                                        col0[ii] * pal_sub + col1[ii] * (1.0 - pal_sub)
+                                    ) / 255.0
+                colors *= self.cmd.diffuse
+                self.session.log(f"Part '{self.cmd.name}' defined: {self.coords.size // 3} points.")
 
         node_sizes = None
         if self.node_sizes.size and self.node_sizes.size == num_verts:

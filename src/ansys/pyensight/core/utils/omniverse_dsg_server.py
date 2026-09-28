@@ -1115,12 +1115,6 @@ class OmniverseUpdateHandler(UpdateHandler):
         obj_id = self.session.mesh_block_count
         matrix = part.cmd.matrix4x4
         name = part.cmd.name
-        color = [
-            part.cmd.fill_color[0] * part.cmd.diffuse,
-            part.cmd.fill_color[1] * part.cmd.diffuse,
-            part.cmd.fill_color[2] * part.cmd.diffuse,
-            part.cmd.fill_color[3],
-        ]
 
         mat_info = part.material()
         if part.cmd.render == part.cmd.CONNECTIVITY:
@@ -1129,6 +1123,13 @@ class OmniverseUpdateHandler(UpdateHandler):
             if verts is not None:
                 verts = numpy.multiply(verts, self._omni._units_per_meter)
             if command is not None:
+                # command.fill_color can be modified by part.nodal_surface_rep() to handle undef values
+                color = [
+                    command.fill_color[0] * part.cmd.diffuse,
+                    command.fill_color[1] * part.cmd.diffuse,
+                    command.fill_color[2] * part.cmd.diffuse,
+                    command.fill_color[3],
+                ]
                 has_triangles = True
                 # Generate the mesh block
                 _ = self._omni.create_dsg_mesh_block(
@@ -1152,11 +1153,18 @@ class OmniverseUpdateHandler(UpdateHandler):
             if verts is not None:
                 verts = numpy.multiply(verts, self._omni._units_per_meter)
             if command is not None:
+                # command.fill_color can be modified by part.line_rep() to handle undef values
+
                 # If there are no triangles (ideally if these are not hidden line
                 # edges), then use the base color for the part.  If there are
                 # triangles, then assume these are hidden line edges and use the
                 # line_color.
-                line_color = color
+                line_color = [
+                    command.fill_color[0] * part.cmd.diffuse,
+                    command.fill_color[1] * part.cmd.diffuse,
+                    command.fill_color[2] * part.cmd.diffuse,
+                    command.fill_color[3],
+                ]
                 if has_triangles:
                     line_color = [
                         part.cmd.line_color[0] * part.cmd.diffuse,
@@ -1229,6 +1237,12 @@ class OmniverseUpdateHandler(UpdateHandler):
             if sizes is not None:
                 sizes = numpy.multiply(sizes, self._omni._units_per_meter)
             if command is not None:
+                color = [
+                    command.fill_color[0] * part.cmd.diffuse,
+                    command.fill_color[1] * part.cmd.diffuse,
+                    command.fill_color[2] * part.cmd.diffuse,
+                    command.fill_color[3],
+                ]
                 _ = self._omni.create_dsg_points(
                     name,
                     obj_id,
