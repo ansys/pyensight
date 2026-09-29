@@ -380,6 +380,10 @@ class Session:
         """
         if not self.rest_api:
             return
+        if not hasattr(self, "_already_closed"):
+            return
+        if not self._already_closed:
+            return
         #
         #
         # even when using PIM and a proxy server (Ansys Lab) this connects
@@ -1928,3 +1932,7 @@ class Session:
         if self.hostname != "127.0.0.1":
             return socket.gethostbyname(self.hostname)
         return socket.gethostbyname(socket.gethostname())
+
+    def __del__(self):
+        """Cleanup called when Session about to being killed."""
+        self.close()
