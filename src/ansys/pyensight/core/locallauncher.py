@@ -245,7 +245,7 @@ class LocalLauncher(Launcher):
         websocket_script = found_scripts[idx]
         # build the commandline
         cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
-        if self._is_windows:
+        if self._is_windows():
             cmd[0] += ".bat"
         cmd.extend(["--http_directory", self.session_directory])
         # http port
