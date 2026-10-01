@@ -118,6 +118,7 @@ class LocalLauncher(Launcher):
         grpc_allow_network_connections: Optional[bool] = False,
         grpc_disable_tls: Optional[bool] = False,
         grpc_uds_pathname: Optional[str] = None,
+        disable_parent_stdin=False,
         **kwargs,
     ) -> None:
         super().__init__(**kwargs)
@@ -143,6 +144,7 @@ class LocalLauncher(Launcher):
         self._grpc_allow_network_connections = grpc_allow_network_connections
         self._grpc_disable_tls = grpc_disable_tls
         self._grpc_uds_pathname = grpc_uds_pathname
+        self._disable_parent_stdin = disable_parent_stdin
 
     @property
     def application(self):
@@ -370,6 +372,8 @@ class LocalLauncher(Launcher):
                 cwd=self.session_directory,
                 env=local_env,
             )
+            if self._disable_parent_stdin:
+                popen_common["stdin"] = subprocess.DEVNULL
             if "PYENSIGHT_DEBUG" in os.environ:
                 try:
                     if int(os.environ["PYENSIGHT_DEBUG"]) > 0:
