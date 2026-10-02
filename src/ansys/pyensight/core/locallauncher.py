@@ -92,6 +92,10 @@ class LocalLauncher(Launcher):
         the default is ``None``, in which case SOS mode is not used.
     additional_command_line_options: list, optional
         Additional command line options to be used to launch EnSight.
+    disable_parent_stdin: bool, optional
+        If True, ignore the caller stdin. This can help in environments
+        where there is a parent application that uses a non standard stdin,
+        and needs to be ignored by the EnSight subprocess.
 
     Examples
     --------
@@ -118,6 +122,7 @@ class LocalLauncher(Launcher):
         grpc_allow_network_connections: Optional[bool] = False,
         grpc_disable_tls: Optional[bool] = False,
         grpc_uds_pathname: Optional[str] = None,
+        disable_parent_stdin=False,
         **kwargs,
     ) -> None:
         super().__init__(**kwargs)
@@ -143,6 +148,7 @@ class LocalLauncher(Launcher):
         self._grpc_allow_network_connections = grpc_allow_network_connections
         self._grpc_disable_tls = grpc_disable_tls
         self._grpc_uds_pathname = grpc_uds_pathname
+        self._disable_parent_stdin = disable_parent_stdin
 
     @property
     def application(self):
@@ -245,7 +251,7 @@ class LocalLauncher(Launcher):
         websocket_script = found_scripts[idx]
         # build the commandline
         cmd = [os.path.join(self._install_path, "bin", "cpython"), websocket_script]
-        if self._is_windows:
+        if self._is_windows():
             cmd[0] += ".bat"
         cmd.extend(["--http_directory", self.session_directory])
         # http port
@@ -370,6 +376,8 @@ class LocalLauncher(Launcher):
                 cwd=self.session_directory,
                 env=local_env,
             )
+            if self._disable_parent_stdin:
+                popen_common["stdin"] = subprocess.DEVNULL
             if "PYENSIGHT_DEBUG" in os.environ:
                 try:
                     if int(os.environ["PYENSIGHT_DEBUG"]) > 0:
