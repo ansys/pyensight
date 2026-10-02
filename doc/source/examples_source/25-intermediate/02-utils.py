@@ -130,7 +130,7 @@ session.show("image", width=800, height=600)
 ###############################################################################
 # Restore a view
 # --------------
-# This code chances the model orientation, position, and zoom. It then restores
+# This code changes the model orientation, position, and zoom. It then restores
 # the isometric view. While restoring a context restores the orientation,
 # position, zoom level, and the objects available at the time that the context
 # was saved, restoring a view only restores the orientation and
