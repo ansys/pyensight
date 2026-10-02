@@ -118,9 +118,9 @@ def _iter_tar_members_from_stream(stream_iter):
                 return n
             return 0
 
-        def close(self):
+        def close(self, session):
             self._closed = True
-            super().close()
+            super().close(session)
 
     gen_reader = _GenReader(stream_iter)
     # Tarfile in stream mode; yields members one-by-one
