@@ -92,6 +92,10 @@ class LocalLauncher(Launcher):
         the default is ``None``, in which case SOS mode is not used.
     additional_command_line_options: list, optional
         Additional command line options to be used to launch EnSight.
+    disable_parent_stdin: bool, optional
+        If True, ignore the caller stdin. This can help in environments
+        where there is a parent application that uses a non standard stdin,
+        and needs to be ignored by the EnSight subprocess.
 
     Examples
     --------
