@@ -1,0 +1,6 @@
+updtparts
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.updtparts

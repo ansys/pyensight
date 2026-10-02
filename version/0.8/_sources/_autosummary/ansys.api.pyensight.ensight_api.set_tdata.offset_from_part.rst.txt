@@ -1,0 +1,6 @@
+offset\_from\_part
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: set_tdata.offset_from_part

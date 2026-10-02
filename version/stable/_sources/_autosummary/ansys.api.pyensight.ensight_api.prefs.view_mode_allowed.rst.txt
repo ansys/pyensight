@@ -1,0 +1,6 @@
+view\_mode\_allowed
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.view_mode_allowed

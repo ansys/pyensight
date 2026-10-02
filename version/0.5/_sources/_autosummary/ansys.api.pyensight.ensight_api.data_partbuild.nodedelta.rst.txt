@@ -1,0 +1,6 @@
+nodedelta
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data_partbuild.nodedelta

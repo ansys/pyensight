@@ -1,0 +1,6 @@
+time\_marker\_rgb
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.time_marker_rgb

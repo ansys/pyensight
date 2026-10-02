@@ -1,0 +1,6 @@
+CURSORLOC
+=========
+
+.. currentmodule:: ansys.api.pyensight.ens_query
+
+.. autoproperty:: ENS_QUERY.CURSORLOC

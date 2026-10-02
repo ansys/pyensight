@@ -1,0 +1,6 @@
+image\_avi\_type
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.image_avi_type

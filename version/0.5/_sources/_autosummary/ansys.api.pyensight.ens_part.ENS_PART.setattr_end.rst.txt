@@ -1,0 +1,6 @@
+setattr\_end
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_part
+
+.. automethod:: ENS_PART.setattr_end

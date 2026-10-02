@@ -1,0 +1,6 @@
+ELTFILTER1TESTVARIABLE
+======================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_vof
+
+.. autoproperty:: ENS_PART_VOF.ELTFILTER1TESTVARIABLE

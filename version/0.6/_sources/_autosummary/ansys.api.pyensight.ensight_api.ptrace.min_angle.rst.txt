@@ -1,0 +1,6 @@
+min\_angle
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.min_angle

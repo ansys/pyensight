@@ -1,0 +1,6 @@
+viewport\_vis
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.viewport_vis

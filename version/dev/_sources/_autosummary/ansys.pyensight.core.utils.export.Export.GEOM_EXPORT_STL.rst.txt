@@ -1,0 +1,6 @@
+GEOM\_EXPORT\_STL
+=================
+
+.. currentmodule:: ansys.pyensight.core.utils.export
+
+.. autoattribute:: Export.GEOM_EXPORT_STL

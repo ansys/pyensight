@@ -1,0 +1,6 @@
+select\_invert
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.select_invert

@@ -1,0 +1,6 @@
+modify\_partemit\_byname
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.modify_partemit_byname

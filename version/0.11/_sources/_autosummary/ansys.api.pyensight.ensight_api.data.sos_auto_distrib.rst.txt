@@ -1,0 +1,6 @@
+sos\_auto\_distrib
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data.sos_auto_distrib

@@ -1,0 +1,6 @@
+begin
+=====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data_partbuild.begin

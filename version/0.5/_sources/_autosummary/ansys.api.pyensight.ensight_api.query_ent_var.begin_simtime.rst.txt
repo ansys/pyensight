@@ -1,0 +1,6 @@
+begin\_simtime
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: query_ent_var.begin_simtime

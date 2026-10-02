@@ -1,0 +1,6 @@
+query\_selected\_objects
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: gauge.query_selected_objects

@@ -1,0 +1,6 @@
+bit\_length
+===========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: ErrorCodes.bit_length

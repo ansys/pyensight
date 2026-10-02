@@ -1,0 +1,6 @@
+document
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: help.document

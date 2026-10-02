@@ -1,0 +1,6 @@
+restore\_palette\_named
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.restore_palette_named

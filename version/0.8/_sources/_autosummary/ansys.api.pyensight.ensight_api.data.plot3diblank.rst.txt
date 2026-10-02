@@ -1,0 +1,6 @@
+plot3diblank
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data.plot3diblank

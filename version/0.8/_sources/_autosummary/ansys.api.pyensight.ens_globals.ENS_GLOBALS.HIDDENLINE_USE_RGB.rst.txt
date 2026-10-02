@@ -1,0 +1,6 @@
+HIDDENLINE\_USE\_RGB
+====================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.HIDDENLINE_USE_RGB

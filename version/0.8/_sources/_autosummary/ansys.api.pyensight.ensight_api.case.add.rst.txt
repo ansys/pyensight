@@ -1,0 +1,6 @@
+add
+===
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: case.add

@@ -1,0 +1,6 @@
+select\_partname\_end
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.select_partname_end

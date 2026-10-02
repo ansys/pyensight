@@ -1,0 +1,6 @@
+find\_remote\_unused\_ports
+===========================
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.find_remote_unused_ports

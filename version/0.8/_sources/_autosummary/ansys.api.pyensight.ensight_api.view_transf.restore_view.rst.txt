@@ -1,0 +1,6 @@
+restore\_view
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.restore_view

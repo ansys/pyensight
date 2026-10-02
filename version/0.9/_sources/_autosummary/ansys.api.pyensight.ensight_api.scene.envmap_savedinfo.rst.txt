@@ -1,0 +1,6 @@
+envmap\_savedinfo
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: scene.envmap_savedinfo

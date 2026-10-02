@@ -1,0 +1,6 @@
+operation\_query2byname
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: query_ent_var.operation_query2byname

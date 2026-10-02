@@ -1,0 +1,6 @@
+new\_gauge
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: gauge.new_gauge

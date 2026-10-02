@@ -1,0 +1,6 @@
+node\_detail
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.node_detail

@@ -1,0 +1,6 @@
+USE\_LOGO
+=========
+
+.. currentmodule:: ansys.api.pyensight.ens_state
+
+.. autoproperty:: ENS_STATE.USE_LOGO

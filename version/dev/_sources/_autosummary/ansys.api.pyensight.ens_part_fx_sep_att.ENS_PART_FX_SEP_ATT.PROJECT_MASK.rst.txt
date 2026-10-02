@@ -1,0 +1,6 @@
+PROJECT\_MASK
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_part_fx_sep_att
+
+.. autoproperty:: ENS_PART_FX_SEP_ATT.PROJECT_MASK

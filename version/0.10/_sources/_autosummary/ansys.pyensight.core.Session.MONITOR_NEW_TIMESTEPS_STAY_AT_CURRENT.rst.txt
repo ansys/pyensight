@@ -1,0 +1,6 @@
+MONITOR\_NEW\_TIMESTEPS\_STAY\_AT\_CURRENT
+==========================================
+
+.. currentmodule:: ansys.pyensight.core
+
+.. autoattribute:: Session.MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT

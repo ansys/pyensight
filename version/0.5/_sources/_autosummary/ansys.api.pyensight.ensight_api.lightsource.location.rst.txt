@@ -1,0 +1,6 @@
+location
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: lightsource.location

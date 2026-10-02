@@ -1,0 +1,22 @@
+﻿Readers
+=======
+
+.. currentmodule:: ansys.pyensight.core.utils.readers
+
+.. autoclass:: Readers
+
+   
+
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      Readers.dvs
+   
+   

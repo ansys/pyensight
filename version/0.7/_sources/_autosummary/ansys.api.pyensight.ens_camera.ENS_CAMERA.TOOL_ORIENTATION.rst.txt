@@ -1,0 +1,6 @@
+TOOL\_ORIENTATION
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_camera
+
+.. autoproperty:: ENS_CAMERA.TOOL_ORIENTATION

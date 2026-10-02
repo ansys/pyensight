@@ -1,0 +1,6 @@
+LABELSIZE2D
+===========
+
+.. currentmodule:: ansys.api.pyensight.ens_vport
+
+.. autoproperty:: ENS_VPORT.LABELSIZE2D

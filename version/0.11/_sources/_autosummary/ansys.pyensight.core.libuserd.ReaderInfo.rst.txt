@@ -1,0 +1,24 @@
+﻿ReaderInfo
+==========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoclass:: ReaderInfo
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ReaderInfo.read_dataset
+      
+   
+   
+
+   
+   
+   

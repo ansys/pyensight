@@ -1,0 +1,6 @@
+ENS\_KIND
+=========
+
+.. currentmodule:: ansys.api.pyensight.ens_lpart
+
+.. autoproperty:: ENS_LPART.ENS_KIND

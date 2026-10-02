@@ -1,0 +1,6 @@
+DTA\_BLOCK
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_part
+
+.. autoproperty:: ENS_PART.DTA_BLOCK

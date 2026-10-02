@@ -1,0 +1,6 @@
+element\_conn\_nsided
+=====================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: Part.element_conn_nsided

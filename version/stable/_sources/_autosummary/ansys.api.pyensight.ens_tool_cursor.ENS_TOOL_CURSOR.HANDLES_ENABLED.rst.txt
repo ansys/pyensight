@@ -1,0 +1,6 @@
+HANDLES\_ENABLED
+================
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_cursor
+
+.. autoproperty:: ENS_TOOL_CURSOR.HANDLES_ENABLED

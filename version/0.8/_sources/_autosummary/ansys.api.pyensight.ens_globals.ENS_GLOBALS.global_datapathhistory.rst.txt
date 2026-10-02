@@ -1,0 +1,6 @@
+global\_datapathhistory
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. automethod:: ENS_GLOBALS.global_datapathhistory

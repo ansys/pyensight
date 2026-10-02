@@ -1,0 +1,6 @@
+setattr\_end
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_part_aux_geom
+
+.. automethod:: ENS_PART_AUX_GEOM.setattr_end

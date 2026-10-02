@@ -1,0 +1,6 @@
+perspective
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport.perspective

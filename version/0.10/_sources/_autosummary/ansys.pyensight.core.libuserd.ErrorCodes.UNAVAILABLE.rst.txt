@@ -1,0 +1,6 @@
+UNAVAILABLE
+===========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ErrorCodes.UNAVAILABLE

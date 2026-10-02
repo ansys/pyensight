@@ -1,0 +1,6 @@
+generate\_report
+================
+
+.. currentmodule:: ansys.api.pyensight.ens_state
+
+.. automethod:: ENS_STATE.generate_report

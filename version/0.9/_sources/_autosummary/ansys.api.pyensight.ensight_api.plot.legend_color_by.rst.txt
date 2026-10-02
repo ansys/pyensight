@@ -1,0 +1,6 @@
+legend\_color\_by
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.legend_color_by

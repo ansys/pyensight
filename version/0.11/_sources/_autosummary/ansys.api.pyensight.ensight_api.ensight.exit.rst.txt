@@ -1,0 +1,6 @@
+exit
+====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.exit

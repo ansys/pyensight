@@ -1,0 +1,6 @@
+position
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: annot_backgr.position

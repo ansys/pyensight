@@ -1,0 +1,6 @@
+EDIT\_TARGET
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_annot_logo
+
+.. autoproperty:: ENS_ANNOT_LOGO.EDIT_TARGET

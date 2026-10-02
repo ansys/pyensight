@@ -1,0 +1,6 @@
+setattr\_status
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_scene
+
+.. automethod:: ENS_SCENE.setattr_status

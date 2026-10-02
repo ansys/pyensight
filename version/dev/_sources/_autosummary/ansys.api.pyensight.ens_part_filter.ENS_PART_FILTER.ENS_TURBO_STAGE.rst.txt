@@ -1,0 +1,6 @@
+ENS\_TURBO\_STAGE
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_filter
+
+.. autoproperty:: ENS_PART_FILTER.ENS_TURBO_STAGE

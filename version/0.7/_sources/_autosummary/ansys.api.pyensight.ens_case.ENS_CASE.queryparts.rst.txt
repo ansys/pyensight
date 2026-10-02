@@ -1,0 +1,6 @@
+queryparts
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_case
+
+.. automethod:: ENS_CASE.queryparts

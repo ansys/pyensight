@@ -1,0 +1,6 @@
+vr\_view\_scale
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.vr_view_scale

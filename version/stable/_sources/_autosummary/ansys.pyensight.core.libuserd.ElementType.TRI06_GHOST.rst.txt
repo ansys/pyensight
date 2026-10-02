@@ -1,0 +1,6 @@
+TRI06\_GHOST
+============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.TRI06_GHOST

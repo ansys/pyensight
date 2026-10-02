@@ -1,0 +1,6 @@
+axis\_y\_labelextentloc
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport_bounds.axis_y_labelextentloc

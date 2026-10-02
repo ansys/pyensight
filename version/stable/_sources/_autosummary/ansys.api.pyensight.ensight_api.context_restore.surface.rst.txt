@@ -1,0 +1,6 @@
+surface
+=======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: context_restore.surface

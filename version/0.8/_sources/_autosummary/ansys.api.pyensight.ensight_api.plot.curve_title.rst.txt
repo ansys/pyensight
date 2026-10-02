@@ -1,0 +1,6 @@
+curve\_title
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.curve_title

@@ -1,0 +1,6 @@
+threshold\_max
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: sepattach.threshold_max

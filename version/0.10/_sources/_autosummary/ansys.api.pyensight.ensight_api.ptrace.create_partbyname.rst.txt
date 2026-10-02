@@ -1,0 +1,6 @@
+create\_partbyname
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.create_partbyname

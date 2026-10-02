@@ -1,0 +1,6 @@
+time\_annotation
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: solution_time.time_annotation

@@ -1,0 +1,6 @@
+dynamic\_line
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_flipbook.dynamic_line

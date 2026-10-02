@@ -1,0 +1,6 @@
+GRPC\_UDS\_PATHNAME
+===================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.GRPC_UDS_PATHNAME

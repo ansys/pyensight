@@ -1,0 +1,6 @@
+action
+======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: query_interact.action

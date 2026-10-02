@@ -1,0 +1,6 @@
+blanking\_threshold
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: vof.blanking_threshold

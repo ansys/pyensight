@@ -1,0 +1,6 @@
+transparency\_resort
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.transparency_resort

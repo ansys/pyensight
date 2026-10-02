@@ -1,0 +1,6 @@
+load
+====
+
+.. currentmodule:: ansys.api.pyensight.ens_lpart
+
+.. automethod:: ENS_LPART.load
