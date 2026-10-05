@@ -1,0 +1,6 @@
+TENSOR9
+=======
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: VariableType.TENSOR9

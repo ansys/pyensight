@@ -1,0 +1,6 @@
+delete\_gpucache
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_flipbook.delete_gpucache

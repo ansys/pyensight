@@ -1,0 +1,6 @@
+PROBE\_DATA
+===========
+
+.. currentmodule:: ansys.api.pyensight.ens_probe
+
+.. autoproperty:: ENS_PROBE.PROBE_DATA

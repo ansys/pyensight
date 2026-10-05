@@ -1,0 +1,6 @@
+delete
+======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: nvc.delete

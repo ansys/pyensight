@@ -1,0 +1,6 @@
+CLIPPLANEPT2
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_part_clip
+
+.. autoproperty:: ENS_PART_CLIP.CLIPPLANEPT2

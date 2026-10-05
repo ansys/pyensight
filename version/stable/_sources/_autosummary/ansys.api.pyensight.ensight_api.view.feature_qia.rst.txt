@@ -1,0 +1,6 @@
+feature\_qia
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view.feature_qia

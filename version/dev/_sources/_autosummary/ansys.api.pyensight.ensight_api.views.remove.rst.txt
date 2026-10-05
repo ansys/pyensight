@@ -1,0 +1,6 @@
+remove
+======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: views.remove

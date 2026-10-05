@@ -1,0 +1,6 @@
+color\_emission
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.color_emission

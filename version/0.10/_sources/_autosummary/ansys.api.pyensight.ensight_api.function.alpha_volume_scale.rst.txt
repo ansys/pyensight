@@ -1,0 +1,6 @@
+alpha\_volume\_scale
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: function.alpha_volume_scale

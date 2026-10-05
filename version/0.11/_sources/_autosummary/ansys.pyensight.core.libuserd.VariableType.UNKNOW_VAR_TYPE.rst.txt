@@ -1,0 +1,6 @@
+UNKNOW\_VAR\_TYPE
+=================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: VariableType.UNKNOW_VAR_TYPE

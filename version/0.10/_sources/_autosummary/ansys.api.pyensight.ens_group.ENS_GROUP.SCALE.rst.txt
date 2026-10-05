@@ -1,0 +1,6 @@
+SCALE
+=====
+
+.. currentmodule:: ansys.api.pyensight.ens_group
+
+.. autoproperty:: ENS_GROUP.SCALE

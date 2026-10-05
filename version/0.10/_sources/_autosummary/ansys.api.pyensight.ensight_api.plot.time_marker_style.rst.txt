@@ -1,0 +1,6 @@
+time\_marker\_style
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.time_marker_style

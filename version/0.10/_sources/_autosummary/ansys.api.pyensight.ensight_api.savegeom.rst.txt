@@ -1,0 +1,75 @@
+﻿savegeom
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. autoclass:: savegeom
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      savegeom.begin_step
+      
+      
+      savegeom.binary
+      
+      
+      savegeom.brick_format
+      
+      
+      savegeom.compression_quality
+      
+      
+      savegeom.end_step
+      
+      
+      savegeom.format
+      
+      
+      savegeom.maximum_file_size
+      
+      
+      savegeom.parameters
+      
+      
+      savegeom.quadrics_quality
+      
+      
+      savegeom.resolution
+      
+      
+      savegeom.save_geometric_entities
+      
+      
+      savegeom.select_all_steps
+      
+      
+      savegeom.select_all_timesteps
+      
+      
+      savegeom.select_begin
+      
+      
+      savegeom.single_file
+      
+      
+      savegeom.step_by
+      
+      
+      savegeom.undefined
+      
+      
+      savegeom.variable
+      
+   
+   
+
+   
+   
+   

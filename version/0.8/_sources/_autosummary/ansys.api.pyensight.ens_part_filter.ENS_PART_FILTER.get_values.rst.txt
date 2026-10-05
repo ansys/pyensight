@@ -1,0 +1,6 @@
+get\_values
+===========
+
+.. currentmodule:: ansys.api.pyensight.ens_part_filter
+
+.. automethod:: ENS_PART_FILTER.get_values

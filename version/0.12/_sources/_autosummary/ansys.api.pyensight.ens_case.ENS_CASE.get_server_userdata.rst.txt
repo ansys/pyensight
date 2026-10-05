@@ -1,0 +1,6 @@
+get\_server\_userdata
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ens_case
+
+.. automethod:: ENS_CASE.get_server_userdata

@@ -1,0 +1,6 @@
+HANDLES\_ENABLED
+================
+
+.. currentmodule:: ansys.api.pyensight.ens_geom
+
+.. autoproperty:: ENS_GEOM.HANDLES_ENABLED

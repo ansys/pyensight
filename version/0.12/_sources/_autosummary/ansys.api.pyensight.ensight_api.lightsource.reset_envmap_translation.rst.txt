@@ -1,0 +1,6 @@
+reset\_envmap\_translation
+==========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: lightsource.reset_envmap_translation

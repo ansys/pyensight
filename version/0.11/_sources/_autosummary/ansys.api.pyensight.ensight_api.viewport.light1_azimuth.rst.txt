@@ -1,0 +1,6 @@
+light1\_azimuth
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport.light1_azimuth

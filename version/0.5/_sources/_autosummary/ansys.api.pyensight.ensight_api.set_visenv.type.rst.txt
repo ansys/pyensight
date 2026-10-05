@@ -1,0 +1,6 @@
+type
+====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: set_visenv.type

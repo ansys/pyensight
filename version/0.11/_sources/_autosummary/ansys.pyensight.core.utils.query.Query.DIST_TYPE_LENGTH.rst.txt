@@ -1,0 +1,6 @@
+DIST\_TYPE\_LENGTH
+==================
+
+.. currentmodule:: ansys.pyensight.core.utils.query
+
+.. autoattribute:: Query.DIST_TYPE_LENGTH

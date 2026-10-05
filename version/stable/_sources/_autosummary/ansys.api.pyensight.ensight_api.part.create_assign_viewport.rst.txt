@@ -1,0 +1,6 @@
+create\_assign\_viewport
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.create_assign_viewport

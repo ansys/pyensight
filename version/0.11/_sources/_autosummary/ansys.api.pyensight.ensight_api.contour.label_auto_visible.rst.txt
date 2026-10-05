@@ -1,0 +1,6 @@
+label\_auto\_visible
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: contour.label_auto_visible

@@ -1,0 +1,6 @@
+PT\_POS\_TIME
+=============
+
+.. currentmodule:: ansys.pyensight.core.utils.parts
+
+.. autoattribute:: Parts.PT_POS_TIME

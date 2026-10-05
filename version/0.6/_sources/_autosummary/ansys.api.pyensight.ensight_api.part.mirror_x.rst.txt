@@ -1,0 +1,6 @@
+mirror\_x
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.mirror_x

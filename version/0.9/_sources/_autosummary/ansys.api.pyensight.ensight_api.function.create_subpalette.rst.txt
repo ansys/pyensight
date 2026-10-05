@@ -1,0 +1,6 @@
+create\_subpalette
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: function.create_subpalette

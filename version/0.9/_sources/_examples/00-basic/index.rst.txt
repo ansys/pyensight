@@ -1,0 +1,174 @@
+
+
+.. _sphx_glr__examples_00-basic:
+
+.. _basic-gallery:
+
+Basic examples
+==============
+
+These basic examples use the PyEnSight API to produce simple scenes.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This most basic EnSight processing example loads some data from an EnSight installation and generates a simplistic scene.">
+
+.. only:: html
+
+  .. image:: /_examples/00-basic/images/thumb/sphx_glr_00-basic_example_thumb.png
+    :alt:
+
+  :ref:`sphx_glr__examples_00-basic_00-basic_example.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Basic usage</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="EnSight is a simulation results postprocessing engine with an advanced rendering and display component. PyEnSight provides direct, Jupyter Notebook/Juptyer lab-aware access to the rendering component through renderables. This example explores the variety of renderables that available.">
+
+.. only:: html
+
+  .. image:: /_examples/00-basic/images/thumb/sphx_glr_01-renderables_thumb.png
+    :alt:
+
+  :ref:`sphx_glr__examples_00-basic_01-renderables.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Renderables</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Utilize EnSight Calculator to compute the Spatial Mean of a field variable. Display this constant value, and the create graph over time.">
+
+.. only:: html
+
+  .. image:: /_examples/00-basic/images/thumb/sphx_glr_02-calc_thumb.png
+    :alt:
+
+  :ref:`sphx_glr__examples_00-basic_02-calc.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Calculator usage</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Utilize EnSight Particle Trace (aka Streamline/Pathline) to visualize a vector through the domain. Create Streamline, animate, allow for dynamic change.">
+
+.. only:: html
+
+  .. image:: /_examples/00-basic/images/thumb/sphx_glr_03-ptrace_thumb.png
+    :alt:
+
+  :ref:`sphx_glr__examples_00-basic_03-ptrace.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Particle Trace (Streamline/Pathline) usage</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Utilize EnSight Particle Trace for Pathline (transient streamline). Create a Pathline and Animate it.">
+
+.. only:: html
+
+  .. image:: /_examples/00-basic/images/thumb/sphx_glr_04-ptrace_pathline_thumb.png
+    :alt:
+
+  :ref:`sphx_glr__examples_00-basic_04-ptrace_pathline.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Pathline (transient streamline) Creation</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Utilize EnSight to investigate two types of surface streamlines:">
+
+.. only:: html
+
+  .. image:: /_examples/00-basic/images/thumb/sphx_glr_05-surface_traces_lic_thumb.png
+    :alt:
+
+  :ref:`sphx_glr__examples_00-basic_05-surface_traces_lic.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Surface Restricted Traces and Line Integral Convolution</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Utilize EnSight Net Force Tool in order to Calculate the Net Aerodynamic Forces">
+
+.. only:: html
+
+  .. image:: /_examples/00-basic/images/thumb/sphx_glr_06-aero_forces_thumb.png
+    :alt:
+
+  :ref:`sphx_glr__examples_00-basic_06-aero_forces.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Calculate the Net Aerodynamic Forces</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Utilize EnSight to demonstrate the value of Volume Rendering as a tool to visualize flow in 3D">
+
+.. only:: html
+
+  .. image:: /_examples/00-basic/images/thumb/sphx_glr_07-volume_render_thumb.png
+    :alt:
+
+  :ref:`sphx_glr__examples_00-basic_07-volume_render.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Volume Rendering to Visualize Flow</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /_examples/00-basic/00-basic_example
+   /_examples/00-basic/01-renderables
+   /_examples/00-basic/02-calc
+   /_examples/00-basic/03-ptrace
+   /_examples/00-basic/04-ptrace_pathline
+   /_examples/00-basic/05-surface_traces_lic
+   /_examples/00-basic/06-aero_forces
+   /_examples/00-basic/07-volume_render
+

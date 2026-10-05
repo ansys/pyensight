@@ -1,0 +1,6 @@
+cameratoview\_compute
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.cameratoview_compute

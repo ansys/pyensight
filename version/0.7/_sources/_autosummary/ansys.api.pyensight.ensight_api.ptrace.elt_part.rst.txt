@@ -1,0 +1,6 @@
+elt\_part
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.elt_part

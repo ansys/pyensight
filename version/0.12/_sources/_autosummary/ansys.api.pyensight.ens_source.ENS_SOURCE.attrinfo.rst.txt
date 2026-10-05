@@ -1,0 +1,6 @@
+attrinfo
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_source
+
+.. automethod:: ENS_SOURCE.attrinfo

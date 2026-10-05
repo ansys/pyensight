@@ -1,0 +1,6 @@
+SUCCESS
+=======
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ErrorCodes.SUCCESS

@@ -1,0 +1,6 @@
+PROJECT\_MASK
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_plotter
+
+.. autoproperty:: ENS_PLOTTER.PROJECT_MASK

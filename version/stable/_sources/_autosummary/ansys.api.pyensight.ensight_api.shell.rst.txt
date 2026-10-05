@@ -1,0 +1,27 @@
+﻿shell
+=====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. autoclass:: shell
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      shell.replace
+      
+      
+      shell.type
+      
+   
+   
+
+   
+   
+   

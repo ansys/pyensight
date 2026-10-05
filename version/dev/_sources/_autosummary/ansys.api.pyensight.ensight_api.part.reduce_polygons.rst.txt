@@ -1,0 +1,6 @@
+reduce\_polygons
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.reduce_polygons

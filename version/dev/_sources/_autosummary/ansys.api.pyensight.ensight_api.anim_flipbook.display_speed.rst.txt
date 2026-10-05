@@ -1,0 +1,6 @@
+display\_speed
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_flipbook.display_speed

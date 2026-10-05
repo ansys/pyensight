@@ -1,0 +1,6 @@
+setattr\_status
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_part_tensor_glyph
+
+.. automethod:: ENS_PART_TENSOR_GLYPH.setattr_status

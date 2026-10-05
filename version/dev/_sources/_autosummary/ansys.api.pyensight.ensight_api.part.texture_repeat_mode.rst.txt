@@ -1,0 +1,6 @@
+texture\_repeat\_mode
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.texture_repeat_mode

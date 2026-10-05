@@ -1,0 +1,6 @@
+create
+======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: shock.create

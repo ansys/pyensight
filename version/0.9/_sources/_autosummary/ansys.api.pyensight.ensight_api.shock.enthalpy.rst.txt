@@ -1,0 +1,6 @@
+enthalpy
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: shock.enthalpy

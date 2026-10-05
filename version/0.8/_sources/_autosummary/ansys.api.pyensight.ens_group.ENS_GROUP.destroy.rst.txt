@@ -1,0 +1,6 @@
+destroy
+=======
+
+.. currentmodule:: ansys.api.pyensight.ens_group
+
+.. automethod:: ENS_GROUP.destroy

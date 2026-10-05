@@ -1,0 +1,6 @@
+autoscale
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: texture.autoscale

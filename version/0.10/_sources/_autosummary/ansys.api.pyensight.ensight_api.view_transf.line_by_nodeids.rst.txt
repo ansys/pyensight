@@ -1,0 +1,6 @@
+line\_by\_nodeids
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.line_by_nodeids

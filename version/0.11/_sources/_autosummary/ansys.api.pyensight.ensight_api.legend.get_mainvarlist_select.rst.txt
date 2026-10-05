@@ -1,0 +1,6 @@
+get\_mainvarlist\_select
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: legend.get_mainvarlist_select

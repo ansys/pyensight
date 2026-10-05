@@ -1,0 +1,6 @@
+set\_dsg\_session
+=================
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.set_dsg_session

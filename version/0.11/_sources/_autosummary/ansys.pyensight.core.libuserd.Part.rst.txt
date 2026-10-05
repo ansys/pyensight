@@ -1,0 +1,42 @@
+﻿Part
+====
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoclass:: Part
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Part.element_conn
+      
+      
+      Part.element_conn_nfaced
+      
+      
+      Part.element_conn_nsided
+      
+      
+      Part.nodes
+      
+      
+      Part.num_elements
+      
+      
+      Part.rigid_body_transform
+      
+      
+      Part.variable_values
+      
+   
+   
+
+   
+   
+   

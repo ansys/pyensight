@@ -1,0 +1,6 @@
+setattr\_begin
+==============
+
+.. currentmodule:: ansys.api.pyensight.ens_lpart
+
+.. automethod:: ENS_LPART.setattr_begin

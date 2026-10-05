@@ -1,0 +1,6 @@
+url
+===
+
+.. currentmodule:: ansys.pyensight.core.renderable
+
+.. autoproperty:: Renderable.url

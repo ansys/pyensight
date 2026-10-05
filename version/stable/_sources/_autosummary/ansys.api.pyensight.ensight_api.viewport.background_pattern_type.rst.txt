@@ -1,0 +1,6 @@
+background\_pattern\_type
+=========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport.background_pattern_type

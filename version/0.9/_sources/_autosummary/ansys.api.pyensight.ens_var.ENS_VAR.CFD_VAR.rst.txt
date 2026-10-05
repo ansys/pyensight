@@ -1,0 +1,6 @@
+CFD\_VAR
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_var
+
+.. autoproperty:: ENS_VAR.CFD_VAR

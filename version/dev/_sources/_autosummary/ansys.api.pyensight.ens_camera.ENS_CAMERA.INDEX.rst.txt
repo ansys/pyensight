@@ -1,0 +1,6 @@
+INDEX
+=====
+
+.. currentmodule:: ansys.api.pyensight.ens_camera
+
+.. autoproperty:: ENS_CAMERA.INDEX

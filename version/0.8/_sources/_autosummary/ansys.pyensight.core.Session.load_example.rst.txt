@@ -1,0 +1,6 @@
+load\_example
+=============
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.load_example

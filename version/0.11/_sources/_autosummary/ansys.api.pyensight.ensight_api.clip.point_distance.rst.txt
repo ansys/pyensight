@@ -1,0 +1,6 @@
+point\_distance
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: clip.point_distance

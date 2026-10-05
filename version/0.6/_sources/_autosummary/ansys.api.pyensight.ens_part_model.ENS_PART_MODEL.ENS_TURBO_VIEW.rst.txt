@@ -1,0 +1,6 @@
+ENS\_TURBO\_VIEW
+================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_model
+
+.. autoproperty:: ENS_PART_MODEL.ENS_TURBO_VIEW

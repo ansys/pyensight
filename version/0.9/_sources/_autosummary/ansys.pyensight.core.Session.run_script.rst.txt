@@ -1,0 +1,6 @@
+run\_script
+===========
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.run_script

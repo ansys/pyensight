@@ -1,0 +1,6 @@
+ENS\_UNITS\_LABEL
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_tensor_glyph
+
+.. autoproperty:: ENS_PART_TENSOR_GLYPH.ENS_UNITS_LABEL

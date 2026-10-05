@@ -1,0 +1,6 @@
+UNDEFINED
+=========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: PartHints.UNDEFINED

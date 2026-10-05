@@ -1,0 +1,6 @@
+pattern\_rgb1
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport.pattern_rgb1

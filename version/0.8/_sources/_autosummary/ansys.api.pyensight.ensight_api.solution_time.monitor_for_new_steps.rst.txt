@@ -1,0 +1,6 @@
+monitor\_for\_new\_steps
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: solution_time.monitor_for_new_steps

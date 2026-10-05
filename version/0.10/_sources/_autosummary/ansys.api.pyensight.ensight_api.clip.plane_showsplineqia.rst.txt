@@ -1,0 +1,6 @@
+plane\_showsplineqia
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: clip.plane_showsplineqia

@@ -1,0 +1,6 @@
+number\_of\_simple\_element\_types
+==================================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: LibUserd.number_of_simple_element_types

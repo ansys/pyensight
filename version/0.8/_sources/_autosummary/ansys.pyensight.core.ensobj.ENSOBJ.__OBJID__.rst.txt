@@ -1,0 +1,6 @@
+\_\_OBJID\_\_
+=============
+
+.. currentmodule:: ansys.pyensight.core.ensobj
+
+.. autoproperty:: ENSOBJ.__OBJID__

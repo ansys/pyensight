@@ -1,0 +1,6 @@
+elt\_filter2\_testop
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: model.elt_filter2_testop

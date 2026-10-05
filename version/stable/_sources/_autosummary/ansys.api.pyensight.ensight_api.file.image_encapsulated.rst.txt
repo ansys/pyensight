@@ -1,0 +1,6 @@
+image\_encapsulated
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.image_encapsulated

@@ -1,0 +1,6 @@
+save\_scenario
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.save_scenario

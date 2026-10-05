@@ -1,0 +1,6 @@
+BAR03
+=====
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.BAR03

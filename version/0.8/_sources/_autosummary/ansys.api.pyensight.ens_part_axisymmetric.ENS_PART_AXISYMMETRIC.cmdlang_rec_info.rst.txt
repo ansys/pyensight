@@ -1,0 +1,6 @@
+cmdlang\_rec\_info
+==================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_axisymmetric
+
+.. automethod:: ENS_PART_AXISYMMETRIC.cmdlang_rec_info

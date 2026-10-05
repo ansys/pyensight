@@ -1,0 +1,6 @@
+createplotter
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_plotter
+
+.. automethod:: ENS_PLOTTER.createplotter

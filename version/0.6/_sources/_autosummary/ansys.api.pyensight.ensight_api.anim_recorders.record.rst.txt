@@ -1,0 +1,6 @@
+record
+======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_recorders.record

@@ -1,0 +1,6 @@
+massed\_gravity
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.massed_gravity

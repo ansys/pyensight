@@ -1,0 +1,6 @@
+create\_temporal
+================
+
+.. currentmodule:: ansys.pyensight.core.utils.query
+
+.. automethod:: Query.create_temporal

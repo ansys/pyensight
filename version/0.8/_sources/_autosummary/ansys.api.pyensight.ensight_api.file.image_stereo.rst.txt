@@ -1,0 +1,6 @@
+image\_stereo
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.image_stereo

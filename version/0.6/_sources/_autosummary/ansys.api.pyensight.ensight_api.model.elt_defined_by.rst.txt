@@ -1,0 +1,6 @@
+elt\_defined\_by
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: model.elt_defined_by

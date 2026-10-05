@@ -1,0 +1,6 @@
+MONITOR\_NEW\_TIMESTEPS\_STAY\_AT\_CURRENT
+==========================================
+
+.. currentmodule:: ansys.pyensight.core.utils.readers
+
+.. autoattribute:: DVS.MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT
