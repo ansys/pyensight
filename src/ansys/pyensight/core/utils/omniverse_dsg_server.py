@@ -355,7 +355,7 @@ class OmniverseWrapper(object):
 
         primvar_name = "st"
         if variable is not None:
-            primvar_name = "st_" + variable.name
+            primvar_name = "st_" + self.clean_name(variable.name)
         primvarsAPI = UsdGeom.PrimvarsAPI(mesh)
         texCoords = primvarsAPI.CreatePrimvar(
             primvar_name, Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
@@ -542,7 +542,7 @@ class OmniverseWrapper(object):
         primvar_name = "st"
         if (tcoords is not None) and var_cmd:
             primvarsAPI = UsdGeom.PrimvarsAPI(lines)
-            primvar_name = "st_" + var_cmd.name
+            primvar_name = "st_" + self.clean_name(var_cmd.name)
 
             texCoords = primvarsAPI.CreatePrimvar(
                 primvar_name, Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.vertex
