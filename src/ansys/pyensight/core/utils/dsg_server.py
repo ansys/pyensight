@@ -511,6 +511,55 @@ class Part(object):
 
         return command, verts, tcoords, var_cmd
 
+    # Map each var value in tcoords to the color in var_cmd's texture, and return the array of colors
+    def tcoords_to_colors(self, tcoords, var_cmd):
+        p_min = None
+        p_max = None
+        for lvl in var_cmd.levels:
+            if (p_min is None) or (p_min > lvl.value):
+                p_min = lvl.value
+            if (p_max is None) or (p_max < lvl.value):
+                p_max = lvl.value
+
+        num_texels = int(len(var_cmd.texture) / 4)
+
+        colors = numpy.ndarray((tcoords.size * 3,), dtype="float32")
+        low_color = [c / 255.0 for c in var_cmd.texture[0:3]]
+        high_color = [
+            c / 255.0 for c in var_cmd.texture[4 * (num_texels - 1) : 4 * (num_texels - 1) + 3]
+        ]
+        if p_min == p_max:
+            # Special case where palette min == palette max
+            mid_color = var_cmd[4 * (num_texels // 2) : 4 * (num_texels // 2) + 3]
+            for idx in range(tcoords.size):
+                val = tcoords[idx]
+                if val == p_min:
+                    colors[idx * 3 : idx * 3 + 3] = mid_color
+                elif val < p_min:
+                    colors[idx * 3 : idx * 3 + 3] = low_color
+                elif val > p_min:
+                    colors[idx * 3 : idx * 3 + 3] = high_color
+        else:
+            for idx in range(tcoords.size):
+                val = tcoords[idx]
+                if val <= p_min:
+                    colors[idx * 3 : idx * 3 + 3] = low_color
+                else:
+                    pal_pos = (num_texels - 1) * (val - p_min) / (p_max - p_min)
+                    pal_idx, pal_sub = divmod(pal_pos, 1)
+                    pal_idx = int(pal_idx)
+
+                    if pal_idx >= num_texels - 1:
+                        colors[idx * 3 : idx * 3 + 3] = high_color
+                    else:
+                        col0 = var_cmd.texture[pal_idx * 4 : pal_idx * 4 + 3]
+                        col1 = var_cmd.texture[4 + pal_idx * 4 : 4 + pal_idx * 4 + 3]
+                        for ii in range(0, 3):
+                            colors[idx * 3 + ii] = (
+                                col0[ii] * pal_sub + col1[ii] * (1.0 - pal_sub)
+                            ) / 255.0
+        return colors
+
     def point_rep(self):
         """
         This function processes the geometry arrays and returns values to represent point data
@@ -582,52 +631,7 @@ class Part(object):
                     )
                     return None, None, None, None, None
 
-                p_min = None
-                p_max = None
-                for lvl in var_cmd.levels:
-                    if (p_min is None) or (p_min > lvl.value):
-                        p_min = lvl.value
-                    if (p_max is None) or (p_max < lvl.value):
-                        p_max = lvl.value
-
-                num_texels = int(len(var_cmd.texture) / 4)
-
-                colors = numpy.ndarray((num_verts * 3,), dtype="float32")
-                low_color = [c / 255.0 for c in var_cmd.texture[0:3]]
-                high_color = [
-                    c / 255.0
-                    for c in var_cmd.texture[4 * (num_texels - 1) : 4 * (num_texels - 1) + 3]
-                ]
-                if p_min == p_max:
-                    # Special case where palette min == palette max
-                    mid_color = var_cmd[4 * (num_texels // 2) : 4 * (num_texels // 2) + 3]
-                    for idx in range(num_verts):
-                        val = self.tcoords[idx]
-                        if val == p_min:
-                            colors[idx * 3 : idx * 3 + 3] = mid_color
-                        elif val < p_min:
-                            colors[idx * 3 : idx * 3 + 3] = low_color
-                        elif val > p_min:
-                            colors[idx * 3 : idx * 3 + 3] = high_color
-                else:
-                    for idx in range(num_verts):
-                        val = self.tcoords[idx]
-                        if val <= p_min:
-                            colors[idx * 3 : idx * 3 + 3] = low_color
-                        else:
-                            pal_pos = (num_texels - 1) * (val - p_min) / (p_max - p_min)
-                            pal_idx, pal_sub = divmod(pal_pos, 1)
-                            pal_idx = int(pal_idx)
-
-                            if pal_idx >= num_texels - 1:
-                                colors[idx * 3 : idx * 3 + 3] = high_color
-                            else:
-                                col0 = var_cmd.texture[pal_idx * 4 : pal_idx * 4 + 3]
-                                col1 = var_cmd.texture[4 + pal_idx * 4 : 4 + pal_idx * 4 + 3]
-                                for ii in range(0, 3):
-                                    colors[idx * 3 + ii] = (
-                                        col0[ii] * pal_sub + col1[ii] * (1.0 - pal_sub)
-                                    ) / 255.0
+                colors = self.tcoords_to_colors(self.tcoords, var_cmd)
                 colors *= self.cmd.diffuse
                 self.session.log(f"Part '{self.cmd.name}' defined: {self.coords.size // 3} points.")
 
