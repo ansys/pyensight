@@ -353,12 +353,15 @@ class OmniverseWrapper(object):
             fvc_attr.Set([3] * (conn.size // 3), 0)
             fvi_attr.Set(conn, 0)
 
+        primvar_name = "st"
+        if variable is not None:
+            primvar_name = "st_" + self.clean_name(variable.name)
         primvarsAPI = UsdGeom.PrimvarsAPI(mesh)
         texCoords = primvarsAPI.CreatePrimvar(
-            "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+            primvar_name, Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
         )
         texCoords.SetInterpolation("vertex")
-        if tcoords is not None and variable is not None:
+        if tcoords is not None and variable is not None and not is_manifest:
             texCoords.Set(tcoords, 0)
 
         stage.SetDefaultPrim(part_prim)
@@ -371,6 +374,7 @@ class OmniverseWrapper(object):
             str(surfaces_prim.GetPath()),
             diffuse=diffuse,
             variable=variable,
+            primvar_name=primvar_name,
             mat_info=mat_info,
         )
 
@@ -519,10 +523,11 @@ class OmniverseWrapper(object):
         lines.CreateDoubleSidedAttr().Set(True)
         pt_attr = lines.CreatePointsAttr()
         vc_attr = lines.CreateCurveVertexCountsAttr()
-        if verts is not None:
+        if verts is not None and not is_manifest:
             pt_attr.Set(verts, 0)
             vc_attr.Set([2] * (verts.size // 6), 0)
-        lines.CreatePurposeAttr().Set("render")
+        # For kit 110, which does not draw curves if purpose is "render"
+        lines.CreatePurposeAttr().Set("default")
         lines.CreateTypeAttr().Set("linear")
         lines.CreateWidthsAttr([float(width)])
         lines.SetWidthsInterpolation("constant")
@@ -534,14 +539,17 @@ class OmniverseWrapper(object):
         )
         endCaps.Set(2)  # Rounded = 2
 
+        primvar_name = "st"
         if (tcoords is not None) and var_cmd:
             primvarsAPI = UsdGeom.PrimvarsAPI(lines)
+            primvar_name = "st_" + self.clean_name(var_cmd.name)
+
             texCoords = primvarsAPI.CreatePrimvar(
-                "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+                primvar_name, Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.vertex
             )
-            if tcoords is not None and var_cmd is not None:
+            if not is_manifest:
                 texCoords.Set(tcoords, 0)
-            texCoords.SetInterpolation("vertex")
+                texCoords.SetInterpolation("vertex")
         stage.SetDefaultPrim(part_prim)
         stage.SetStartTimeCode(0)
         stage.SetEndTimeCode(0)
@@ -552,6 +560,7 @@ class OmniverseWrapper(object):
             str(lines_prim.GetPath()),
             diffuse=diffuse,
             variable=var_cmd,
+            primvar_name=primvar_name,
             mat_info=mat_info,
         )
         stage.Save()
@@ -589,7 +598,7 @@ class OmniverseWrapper(object):
             str(parent_prim.GetPath()),
             None,
             width,
-            None,
+            tcoords,
             diffuse,
             variable,
             mat_info,
@@ -726,7 +735,14 @@ class OmniverseWrapper(object):
         return part_stage_url
 
     def create_dsg_material(
-        self, stage, mesh, root_name, diffuse=[1.0, 1.0, 1.0, 1.0], variable=None, mat_info={}
+        self,
+        stage,
+        mesh,
+        root_name,
+        diffuse=[1.0, 1.0, 1.0, 1.0],
+        variable=None,
+        primvar_name="st",
+        mat_info={},
     ):
         # https://graphics.pixar.com/usd/release/spec_usdpreviewsurface.html
         # Use ior==1.0 to be more like EnSight - rays of light do not bend when passing through transparent objs
@@ -759,7 +775,7 @@ class OmniverseWrapper(object):
                 diffuseTextureSampler.ConnectableAPI(), "rgb"
             )
             stInput = material.CreateInput("frame:stPrimvarName", Sdf.ValueTypeNames.Token)
-            stInput.Set("st")
+            stInput.Set(primvar_name)
             stReader.CreateInput("varname", Sdf.ValueTypeNames.Token).ConnectToSource(stInput)
         else:
             # The colors are a mixture of content from the DSG PART protocol buffer
@@ -1165,16 +1181,17 @@ class OmniverseUpdateHandler(UpdateHandler):
                     command.fill_color[2] * part.cmd.diffuse,
                     command.fill_color[3],
                 ]
-                if has_triangles:
+                if has_triangles and len(part.cmd.line_color) == 4:
                     line_color = [
                         part.cmd.line_color[0] * part.cmd.diffuse,
                         part.cmd.line_color[1] * part.cmd.diffuse,
                         part.cmd.line_color[2] * part.cmd.diffuse,
                         part.cmd.line_color[3],
                     ]
-                # TODO: texture coordinates on lines are currently invalid in Omniverse
-                var_cmd = None
-                tcoords = None
+                    # Assume that the variable is meant for the triangles, not the lines
+                    # The DSG protocol could use another flag to distinguish these.
+                    var_cmd = None
+                    tcoords = None
                 # line info can come from self or our parent group
                 width = self._omni.line_width
                 # Allow the group to override
