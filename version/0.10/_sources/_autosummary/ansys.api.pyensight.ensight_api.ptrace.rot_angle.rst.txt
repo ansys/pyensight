@@ -1,0 +1,6 @@
+rot\_angle
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.rot_angle

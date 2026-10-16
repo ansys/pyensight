@@ -1,0 +1,6 @@
+ENS\_PLIST\_KEY\_SEL\_4
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_axisymmetric
+
+.. autoproperty:: ENS_PART_AXISYMMETRIC.ENS_PLIST_KEY_SEL_4

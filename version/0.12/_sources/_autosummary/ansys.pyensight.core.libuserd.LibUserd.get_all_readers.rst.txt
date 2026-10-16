@@ -1,0 +1,6 @@
+get\_all\_readers
+=================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: LibUserd.get_all_readers

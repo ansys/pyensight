@@ -1,0 +1,6 @@
+embed\_cmd
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: command.embed_cmd

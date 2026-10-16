@@ -1,0 +1,6 @@
+query\_label\_text
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: arrow.query_label_text

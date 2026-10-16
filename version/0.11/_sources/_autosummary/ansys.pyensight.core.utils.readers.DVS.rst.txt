@@ -1,0 +1,32 @@
+﻿DVS
+===
+
+.. currentmodule:: ansys.pyensight.core.utils.readers
+
+.. autoclass:: DVS
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      DVS.launch_live_dvs
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      DVS.MONITOR_NEW_TIMESTEPS_JUMP_TO_END
+      DVS.MONITOR_NEW_TIMESTEPS_STAY_AT_CURRENT
+   
+   

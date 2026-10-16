@@ -1,0 +1,6 @@
+quadrics\_quality
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: savegeom.quadrics_quality

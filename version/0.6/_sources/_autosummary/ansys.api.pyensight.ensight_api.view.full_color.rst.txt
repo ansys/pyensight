@@ -1,0 +1,6 @@
+full\_color
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view.full_color

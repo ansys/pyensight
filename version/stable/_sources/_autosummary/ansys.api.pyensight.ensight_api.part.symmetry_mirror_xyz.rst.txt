@@ -1,0 +1,6 @@
+symmetry\_mirror\_xyz
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.symmetry_mirror_xyz

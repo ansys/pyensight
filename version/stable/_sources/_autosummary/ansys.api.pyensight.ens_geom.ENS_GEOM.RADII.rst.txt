@@ -1,0 +1,6 @@
+RADII
+=====
+
+.. currentmodule:: ansys.api.pyensight.ens_geom
+
+.. autoproperty:: ENS_GEOM.RADII

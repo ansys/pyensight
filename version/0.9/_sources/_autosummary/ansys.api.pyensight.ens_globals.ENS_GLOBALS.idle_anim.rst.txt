@@ -1,0 +1,6 @@
+idle\_anim
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. automethod:: ENS_GLOBALS.idle_anim

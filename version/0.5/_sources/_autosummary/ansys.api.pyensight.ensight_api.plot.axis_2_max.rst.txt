@@ -1,0 +1,6 @@
+axis\_2\_max
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.axis_2_max

@@ -1,0 +1,6 @@
+UNKNOWN
+=======
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ErrorCodes.UNKNOWN

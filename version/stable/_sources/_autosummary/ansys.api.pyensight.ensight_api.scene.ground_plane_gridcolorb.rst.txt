@@ -1,0 +1,6 @@
+ground\_plane\_gridcolorb
+=========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: scene.ground_plane_gridcolorb

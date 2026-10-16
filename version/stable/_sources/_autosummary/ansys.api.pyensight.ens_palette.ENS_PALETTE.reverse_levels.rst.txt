@@ -1,0 +1,6 @@
+reverse\_levels
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.reverse_levels

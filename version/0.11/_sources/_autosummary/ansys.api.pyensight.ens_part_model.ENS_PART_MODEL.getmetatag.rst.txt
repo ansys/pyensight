@@ -1,0 +1,6 @@
+getmetatag
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_part_model
+
+.. automethod:: ENS_PART_MODEL.getmetatag

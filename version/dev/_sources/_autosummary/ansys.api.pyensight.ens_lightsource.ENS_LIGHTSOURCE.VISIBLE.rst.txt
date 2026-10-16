@@ -1,0 +1,6 @@
+VISIBLE
+=======
+
+.. currentmodule:: ansys.api.pyensight.ens_lightsource
+
+.. autoproperty:: ENS_LIGHTSOURCE.VISIBLE

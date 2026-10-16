@@ -1,0 +1,6 @@
+dsg\_save\_update
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.dsg_save_update

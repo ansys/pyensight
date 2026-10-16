@@ -1,0 +1,6 @@
+desc
+====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: curve.desc

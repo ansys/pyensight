@@ -1,0 +1,6 @@
+camera\_focus\_forwardxyz
+=========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.camera_focus_forwardxyz

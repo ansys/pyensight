@@ -1,0 +1,6 @@
+freestream\_mach
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: varextcfd.freestream_mach

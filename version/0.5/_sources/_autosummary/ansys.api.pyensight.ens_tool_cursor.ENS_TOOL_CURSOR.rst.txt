@@ -1,0 +1,95 @@
+﻿ENS\_TOOL\_CURSOR
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_cursor
+
+.. autoclass:: ENS_TOOL_CURSOR
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_TOOL_CURSOR.attrgroupinfo
+      
+      
+      ENS_TOOL_CURSOR.attrinfo
+      
+      
+      ENS_TOOL_CURSOR.attrissensitive
+      
+      
+      ENS_TOOL_CURSOR.attrtree
+      
+      
+      ENS_TOOL_CURSOR.destroy
+      
+      
+      ENS_TOOL_CURSOR.fit_to_selected
+      
+      
+      ENS_TOOL_CURSOR.getattr
+      
+      
+      ENS_TOOL_CURSOR.getattrs
+      
+      
+      ENS_TOOL_CURSOR.getmetatag
+      
+      
+      ENS_TOOL_CURSOR.hasmetatag
+      
+      
+      ENS_TOOL_CURSOR.populate_attr_list
+      
+      
+      ENS_TOOL_CURSOR.rawdata
+      
+      
+      ENS_TOOL_CURSOR.setattr
+      
+      
+      ENS_TOOL_CURSOR.setattr_begin
+      
+      
+      ENS_TOOL_CURSOR.setattr_end
+      
+      
+      ENS_TOOL_CURSOR.setattr_status
+      
+      
+      ENS_TOOL_CURSOR.setattrs
+      
+      
+      ENS_TOOL_CURSOR.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_TOOL_CURSOR.CENTROID
+      ENS_TOOL_CURSOR.CORE
+      ENS_TOOL_CURSOR.DESCRIPTION
+      ENS_TOOL_CURSOR.EDIT_TARGET
+      ENS_TOOL_CURSOR.HANDLES_ENABLED
+      ENS_TOOL_CURSOR.INDEX
+      ENS_TOOL_CURSOR.METADATA
+      ENS_TOOL_CURSOR.PROJECT_MASK
+      ENS_TOOL_CURSOR.SELECTED
+      ENS_TOOL_CURSOR.TOOLTYPE
+      ENS_TOOL_CURSOR.UUID
+      ENS_TOOL_CURSOR.VISIBLE
+      ENS_TOOL_CURSOR.__OBJID__
+      ENS_TOOL_CURSOR.objid
+   
+   

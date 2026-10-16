@@ -1,0 +1,6 @@
+simba\_get\_values
+==================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_filter
+
+.. automethod:: ENS_PART_FILTER.simba_get_values

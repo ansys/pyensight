@@ -1,0 +1,6 @@
+begin\_step
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: savegeom.begin_step

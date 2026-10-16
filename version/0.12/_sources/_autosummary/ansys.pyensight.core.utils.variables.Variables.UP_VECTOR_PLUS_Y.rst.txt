@@ -1,0 +1,6 @@
+UP\_VECTOR\_PLUS\_Y
+===================
+
+.. currentmodule:: ansys.pyensight.core.utils.variables
+
+.. autoattribute:: Variables.UP_VECTOR_PLUS_Y

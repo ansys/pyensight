@@ -1,0 +1,6 @@
+from\_bytes
+===========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: VariableLocation.from_bytes

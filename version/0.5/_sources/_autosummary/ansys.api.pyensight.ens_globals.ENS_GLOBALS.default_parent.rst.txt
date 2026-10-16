@@ -1,0 +1,6 @@
+default\_parent
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. automethod:: ENS_GLOBALS.default_parent

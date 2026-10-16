@@ -1,0 +1,6 @@
+direction\_intersect
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: lightsource.direction_intersect

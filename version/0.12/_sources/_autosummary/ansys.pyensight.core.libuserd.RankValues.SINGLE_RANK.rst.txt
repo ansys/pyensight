@@ -1,0 +1,6 @@
+SINGLE\_RANK
+============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: RankValues.SINGLE_RANK

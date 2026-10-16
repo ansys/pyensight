@@ -1,0 +1,6 @@
+DEFAULTPARTS
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.DEFAULTPARTS

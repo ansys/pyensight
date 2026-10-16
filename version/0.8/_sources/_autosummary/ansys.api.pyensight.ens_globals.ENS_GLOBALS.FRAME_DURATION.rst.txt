@@ -1,0 +1,6 @@
+FRAME\_DURATION
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.FRAME_DURATION

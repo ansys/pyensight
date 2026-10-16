@@ -1,0 +1,6 @@
+emit\_density
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.emit_density

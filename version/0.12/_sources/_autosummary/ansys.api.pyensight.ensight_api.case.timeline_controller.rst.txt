@@ -1,0 +1,6 @@
+timeline\_controller
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: case.timeline_controller

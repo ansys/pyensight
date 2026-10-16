@@ -1,0 +1,6 @@
+HANDLES\_ENABLED
+================
+
+.. currentmodule:: ansys.api.pyensight.ens_camera
+
+.. autoproperty:: ENS_CAMERA.HANDLES_ENABLED

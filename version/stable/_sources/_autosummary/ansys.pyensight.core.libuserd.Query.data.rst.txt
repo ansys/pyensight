@@ -1,0 +1,6 @@
+data
+====
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: Query.data

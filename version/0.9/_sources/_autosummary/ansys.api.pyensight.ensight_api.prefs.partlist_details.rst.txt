@@ -1,0 +1,6 @@
+partlist\_details
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.partlist_details

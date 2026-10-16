@@ -1,0 +1,6 @@
+HAS1DELEMENTS
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_part_aux_geom
+
+.. autoproperty:: ENS_PART_AUX_GEOM.HAS1DELEMENTS

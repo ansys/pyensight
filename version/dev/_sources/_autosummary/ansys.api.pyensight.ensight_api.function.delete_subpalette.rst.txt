@@ -1,0 +1,6 @@
+delete\_subpalette
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: function.delete_subpalette

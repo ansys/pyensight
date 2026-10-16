@@ -1,0 +1,6 @@
+destroy
+=======
+
+.. currentmodule:: ansys.api.pyensight.ens_scene
+
+.. automethod:: ENS_SCENE.destroy

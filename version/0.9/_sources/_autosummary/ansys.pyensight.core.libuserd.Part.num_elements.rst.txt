@@ -1,0 +1,6 @@
+num\_elements
+=============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: Part.num_elements

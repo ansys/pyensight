@@ -1,0 +1,6 @@
+animation\_reset\_time
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.animation_reset_time

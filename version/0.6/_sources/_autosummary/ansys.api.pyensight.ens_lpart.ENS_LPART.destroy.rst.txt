@@ -1,0 +1,6 @@
+destroy
+=======
+
+.. currentmodule:: ansys.api.pyensight.ens_lpart
+
+.. automethod:: ENS_LPART.destroy

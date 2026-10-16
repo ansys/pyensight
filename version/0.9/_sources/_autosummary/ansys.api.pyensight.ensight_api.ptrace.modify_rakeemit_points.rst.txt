@@ -1,0 +1,6 @@
+modify\_rakeemit\_points
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.modify_rakeemit_points

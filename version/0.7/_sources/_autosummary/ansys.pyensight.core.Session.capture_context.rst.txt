@@ -1,0 +1,6 @@
+capture\_context
+================
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.capture_context

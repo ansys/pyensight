@@ -1,0 +1,6 @@
+splinepoint\_select\_all
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.splinepoint_select_all

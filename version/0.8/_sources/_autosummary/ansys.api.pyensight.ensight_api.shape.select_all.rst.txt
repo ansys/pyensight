@@ -1,0 +1,6 @@
+select\_all
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: shape.select_all

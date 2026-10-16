@@ -1,0 +1,6 @@
+code
+====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: text.code

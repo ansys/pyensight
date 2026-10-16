@@ -1,0 +1,6 @@
+group
+=====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data_partbuild.group

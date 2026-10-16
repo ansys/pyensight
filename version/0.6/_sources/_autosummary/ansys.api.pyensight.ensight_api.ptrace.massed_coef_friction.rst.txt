@@ -1,0 +1,6 @@
+massed\_coef\_friction
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.massed_coef_friction

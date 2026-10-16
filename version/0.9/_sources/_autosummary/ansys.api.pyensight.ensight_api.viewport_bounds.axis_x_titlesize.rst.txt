@@ -1,0 +1,6 @@
+axis\_x\_titlesize
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport_bounds.axis_x_titlesize

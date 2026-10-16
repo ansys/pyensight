@@ -1,0 +1,6 @@
+PENT15\_GHOST
+=============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.PENT15_GHOST

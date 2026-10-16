@@ -1,0 +1,1476 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ENS_GLOBALS &#8212; PyEnSight</title>
+    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys_sphinx_theme.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/ansys-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/breadcrumbs.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    
+        <link href="../_static/css/breadcrumbs.css" rel="stylesheet">
+    
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/table.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_autosummary/ansys.api.pyensight.ens_globals.ENS_GLOBALS';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://ensight.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.6';
+        </script>
+    <script src="../_static/js/mermaid.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <link rel="icon" href="../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="add_case" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.add_case.html" />
+    <link rel="prev" title="objid" href="ansys.api.pyensight.ens_frame.ENS_FRAME.objid.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <link rel="canonical" href="https://ensight.docs.pyansys.com/version/stable/_autosummary/ansys.api.pyensight.ens_globals.ENS_GLOBALS.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container"><!-- Debugging: html_theme_options =  -->
+
+  <!-- If there is no MiliSearch enabled, use the PyData search -->
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+</div>
+  </div>
+  
+    
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pyansys-logo-black-cropped.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/pyansys-logo-black-cropped.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../getting_started/index.html">
+                        Getting started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../user_guide/index.html">
+                        User guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../class_documentation.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_examples/index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../contributing.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      0.6  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+
+    
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(text => document.getElementById("announcement_msg").innerHTML = text)
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+    
+
+    
+    <div class="container-xl">
+    <div class="row">
+        <div class="col-12 col-md-3" id="breadcrumbs-spacer"></div>
+        <div class="col-12 col-md-11 col-xl-9" id="breadcrumbs">
+          
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+    
+    
+        <li class="nav-item nav-item-0"><a href="../index.html">PyEnSight</a> » </li>
+    
+
+          <li class="nav-item nav-item-1"><a href="../class_documentation.html" >API reference</a> » </li>
+          <li class="nav-item nav-item-2"><a href="../object_documentation.html" accesskey="U">Object API reference</a> » </li>
+        <li class="nav-item nav-item-this"><a href="">ENS_GLOBALS</a></li> 
+      </ul>
+    </div>
+        </div>
+  </div>
+</div>
+    
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../getting_started/index.html">
+                        Getting started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../user_guide/index.html">
+                        User guide
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../class_documentation.html">
+                        API reference
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../_examples/index.html">
+                        Examples
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../contributing.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <div class="version-switcher__container dropdown">
+    <button type="button" class="version-switcher__button btn btn-sm navbar-btn dropdown-toggle" data-bs-toggle="dropdown">
+      0.6  <!-- this text may get changed later by javascript -->
+      <span class="caret"></span>
+    </button>
+    <div class="version-switcher__menu dropdown-menu list-group-flush py-0">
+    <!-- dropdown will be populated by javascript on page load -->
+    </div>
+  </div>
+`);
+</script></div>
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyensight" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../native_documentation.html">Native API reference</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../object_documentation.html">Object API reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.ensobj.ENSOBJ.html">ENSOBJ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.pyensight.core.ensobjlist.html">ensobjlist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot.ENS_ANNOT.html">ENS_ANNOT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_text.ENS_ANNOT_TEXT.html">ENS_ANNOT_TEXT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_line.ENS_ANNOT_LINE.html">ENS_ANNOT_LINE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_logo.ENS_ANNOT_LOGO.html">ENS_ANNOT_LOGO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_lgnd.ENS_ANNOT_LGND.html">ENS_ANNOT_LGND</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_marker.ENS_ANNOT_MARKER.html">ENS_ANNOT_MARKER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_arrow.ENS_ANNOT_ARROW.html">ENS_ANNOT_ARROW</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_dial.ENS_ANNOT_DIAL.html">ENS_ANNOT_DIAL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_gauge.ENS_ANNOT_GAUGE.html">ENS_ANNOT_GAUGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_annot_shape.ENS_ANNOT_SHAPE.html">ENS_ANNOT_SHAPE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_camera.ENS_CAMERA.html">ENS_CAMERA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_case.ENS_CASE.html">ENS_CASE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_flipbook.ENS_FLIPBOOK.html">ENS_FLIPBOOK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_frame.ENS_FRAME.html">ENS_FRAME</a></li>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">ENS_GLOBALS</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.add_case.html">add_case</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.add_docs_path.html">add_docs_path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.alloc_userdef_attr.html">alloc_userdef_attr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.anim_control.html">anim_control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.attrgroupinfo.html">attrgroupinfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.attrinfo.html">attrinfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.attrissensitive.html">attrissensitive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.attrtree.html">attrtree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.calculator_function_units_info.html">calculator_function_units_info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.create_jlc.html">create_jlc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.create_variable.html">create_variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.default_parent.html">default_parent</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.destroy.html">destroy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ensmodel_updates_resume.html">ensmodel_updates_resume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ensmodel_updates_suspend.html">ensmodel_updates_suspend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.find_objs.html">find_objs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.generate_uuid.html">generate_uuid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.get_unit_conversion.html">get_unit_conversion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.get_unit_dimensions.html">get_unit_dimensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.get_units.html">get_units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.getattr.html">getattr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.getattrs.html">getattrs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.getmetatag.html">getmetatag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.global_datapathhistory.html">global_datapathhistory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.global_datapathhistory_add.html">global_datapathhistory_add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.grpc_server.html">grpc_server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.hasmetatag.html">hasmetatag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.idle_anim.html">idle_anim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.mouseactionget.html">mouseactionget</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.mouseactionset.html">mouseactionset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.path_cache.html">path_cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.pick_operation.html">pick_operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.populate_attr_list.html">populate_attr_list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.post_event.html">post_event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.querydatareadermapinfo.html">querydatareadermapinfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.recordselected.html">recordselected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.region_tool.html">region_tool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.selection.html">selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattr.html">setattr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattr_begin.html">setattr_begin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattr_end.html">setattr_end</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattr_status.html">setattr_status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattrs.html">setattrs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setchildattrs.html">setchildattrs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setmetatag.html">setmetatag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.unit_system.html">unit_system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ALLOW_MRU_UPDATE.html">ALLOW_MRU_UPDATE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANIMATING.html">ANIMATING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANIMOBJS.html">ANIMOBJS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANNOTS.html">ANNOTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_DRAW_LOGO.html">ANSYS_DRAW_LOGO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_FLAG_ALPHA.html">ANSYS_FLAG_ALPHA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_FLAG_BETA.html">ANSYS_FLAG_BETA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_VERSION.html">ANSYS_VERSION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_VERSION_STRING.html">ANSYS_VERSION_STRING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_FILTER_ALGORITHM.html">ANTIALIAS_FILTER_ALGORITHM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_MODE.html">ANTIALIAS_MODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_NUM_SAMPLES.html">ANTIALIAS_NUM_SAMPLES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_PARAM_COMPRESSION.html">ANTIALIAS_PARAM_COMPRESSION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_PARAM_GAMMA.html">ANTIALIAS_PARAM_GAMMA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_PARAM_SMOOTH.html">ANTIALIAS_PARAM_SMOOTH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AUXCLIPPING.html">AUXCLIPPING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISGLOBAL.html">AXISGLOBAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISLOCAL.html">AXISLOCAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISMODEL.html">AXISMODEL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISMODEL_ANIMATE.html">AXISMODEL_ANIMATE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISMODEL_LOCATION.html">AXISMODEL_LOCATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.BOUNDS.html">BOUNDS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CAMERAS.html">CAMERAS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CASELINKING.html">CASELINKING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CASES.html">CASES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CASE_LINKING_LABELS.html">CASE_LINKING_LABELS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CLICKNGO_HANDLE_VISIBILITY.html">CLICKNGO_HANDLE_VISIBILITY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.COLORBY.html">COLORBY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CONNECT_TIMEOUT.html">CONNECT_TIMEOUT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CURRENTCASE.html">CURRENTCASE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CURRENTGUI.html">CURRENTGUI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTANNOTS.html">DEFAULTANNOTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTPARTS.html">DEFAULTPARTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTPLOT.html">DEFAULTPLOT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTPOLYLINE.html">DEFAULTPOLYLINE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTQUERY.html">DEFAULTQUERY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTVARIABLE.html">DEFAULTVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTVPORT.html">DEFAULTVPORT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_3DANNOT_FONTSIZE.html">DEFAULT_3DANNOT_FONTSIZE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_ANNOT_FONTFAMILY.html">DEFAULT_ANNOT_FONTFAMILY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_ANNOT_FONTSTYLE.html">DEFAULT_ANNOT_FONTSTYLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_CORE_FONTFAMILY.html">DEFAULT_CORE_FONTFAMILY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_CORE_FONTSCALE.html">DEFAULT_CORE_FONTSCALE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_CORE_FONTSTYLE.html">DEFAULT_CORE_FONTSTYLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_JLC.html">DEFAULT_JLC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_SYMBOL_FONTFAMILY.html">DEFAULT_SYMBOL_FONTFAMILY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_SYMBOL_FONTSTYLE.html">DEFAULT_SYMBOL_FONTSTYLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DELAY_REFRESH.html">DELAY_REFRESH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DELTATIME.html">DELTATIME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DISPLAY_THEME.html">DISPLAY_THEME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.EDIT_TARGET.html">EDIT_TARGET</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ENSHELL_LOG.html">ENSHELL_LOG</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FASTDISPLAY.html">FASTDISPLAY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FLIPBOOKS.html">FLIPBOOKS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FLOATINGZCLIP.html">FLOATINGZCLIP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FONTFAMILIES.html">FONTFAMILIES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FRAMES.html">FRAMES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FRAME_DURATION.html">FRAME_DURATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FULLSCREEN.html">FULLSCREEN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.GROUPS.html">GROUPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HANDLES_ENABLED.html">HANDLES_ENABLED</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADDETAIL.html">HEADDETAIL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADSCALE.html">HEADSCALE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADSIZEBY.html">HEADSIZEBY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADTYPE.html">HEADTYPE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADVARIABLE.html">HEADVARIABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HIDDENLINE.html">HIDDENLINE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HIDDENLINE_RGB.html">HIDDENLINE_RGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HIDDENLINE_USE_RGB.html">HIDDENLINE_USE_RGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_BACK_COLOR_FILL.html">HILITE_BACK_COLOR_FILL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_METHOD.html">HILITE_METHOD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_SELECT_COLOR.html">HILITE_SELECT_COLOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_SELECT_COLOR_FILL.html">HILITE_SELECT_COLOR_FILL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_TARGET_COLOR.html">HILITE_TARGET_COLOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_TARGET_COLOR_FILL.html">HILITE_TARGET_COLOR_FILL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.JLCS.html">JLCS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.KEYFRAMEDATA.html">KEYFRAMEDATA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.LANGUAGE_INFO.html">LANGUAGE_INFO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.LIGHTSOURCES.html">LIGHTSOURCES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.LINEWIDTH.html">LINEWIDTH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.MATERIALS.html">MATERIALS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.MAXTIME.html">MAXTIME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.METADATA.html">METADATA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.MRU.html">MRU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.MULTIPLEPULSES.html">MULTIPLEPULSES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.OBJECTFOCUS.html">OBJECTFOCUS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.OBJECT_API_JOURNAL.html">OBJECT_API_JOURNAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.OBJECT_DTOR.html">OBJECT_DTOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PALETTES.html">PALETTES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PARTHIGHLIGHT.html">PARTHIGHLIGHT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PARTICLETIME.html">PARTICLETIME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PARTS.html">PARTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PATHLINE_SYNC.html">PATHLINE_SYNC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PERSPECTIVE.html">PERSPECTIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PICKANDGO_PARTS.html">PICKANDGO_PARTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PICK_SELECTION.html">PICK_SELECTION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PLAYING_COMMAND_FILE.html">PLAYING_COMMAND_FILE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PLOTS.html">PLOTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PLOTTER_TIME_CLIPPING.html">PLOTTER_TIME_CLIPPING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.POLYLINES.html">POLYLINES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PREDEFINEDPALETTES.html">PREDEFINEDPALETTES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PREF_DATADIR.html">PREF_DATADIR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PREF_DATAFILEFILTER.html">PREF_DATAFILEFILTER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PREF_DATAFORMAT.html">PREF_DATAFORMAT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PROBES.html">PROBES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PROJECT_CREATION_MASK.html">PROJECT_CREATION_MASK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PROJECT_MASK.html">PROJECT_MASK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PROJECT_VISIBLE_MASK.html">PROJECT_VISIBLE_MASK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PULSEINTERVAL.html">PULSEINTERVAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.QUERIES.html">QUERIES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.QUERY_PROBE_DATA.html">QUERY_PROBE_DATA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.REALTIME_CLIPS.html">REALTIME_CLIPS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.REALTIME_ISOS.html">REALTIME_ISOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.RECORDING.html">RECORDING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.RGB.html">RGB</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SCENE.html">SCENE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SECURITY_TOKEN.html">SECURITY_TOKEN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SETMAXTIME.html">SETMAXTIME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SHADING.html">SHADING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SLIM_TIMEOUT.html">SLIM_TIMEOUT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SOLUTIONTIME.html">SOLUTIONTIME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SOLUTIONTIME_LIMITS.html">SOLUTIONTIME_LIMITS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SOLUTIONTIME_MONITOR.html">SOLUTIONTIME_MONITOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SPECIES.html">SPECIES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STARTTIME.html">STARTTIME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STATES.html">STATES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STATUS_STRING.html">STATUS_STRING</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STEREO.html">STEREO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STEREO_CAPABLE.html">STEREO_CAPABLE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STEREO_SEPARATION.html">STEREO_SEPARATION</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SYNCTOTRANSIENT.html">SYNCTOTRANSIENT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SYNTHETIC_MENU.html">SYNTHETIC_MENU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TEXTURES.html">TEXTURES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TIMESTEP.html">TIMESTEP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TIMESTEP_LIMITS.html">TIMESTEP_LIMITS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TIMEVALUES.html">TIMEVALUES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TOOLS.html">TOOLS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TRANSPARENT_METHOD.html">TRANSPARENT_METHOD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TRANSPARENT_NUMPEELS.html">TRANSPARENT_NUMPEELS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.UUID.html">UUID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VARIABLES.html">VARIABLES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VARIABLETREE.html">VARIABLETREE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VOLUME_CHUNKING_NUM_TETS.html">VOLUME_CHUNKING_NUM_TETS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VOLUME_NUM_PASSES.html">VOLUME_NUM_PASSES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VPORTS.html">VPORTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_ANNOT_CENTER.html">VR_ANNOT_CENTER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_ANNOT_NORMAL.html">VR_ANNOT_NORMAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_ANNOT_SCALE.html">VR_ANNOT_SCALE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_ANNOT_UP.html">VR_ANNOT_UP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_CAVE_CENTER.html">VR_CAVE_CENTER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_CAVE_DIAGONAL.html">VR_CAVE_DIAGONAL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_CAVE_SCALE.html">VR_CAVE_SCALE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.WATERMARK.html">WATERMARK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.WINDOWSIZE.html">WINDOWSIZE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.__OBJID__.html">__OBJID__</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.objid.html">objid</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_group.ENS_GROUP.html">ENS_GROUP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_lightsource.ENS_LIGHTSOURCE.html">ENS_LIGHTSOURCE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_lpart.ENS_LPART.html">ENS_LPART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_mat.ENS_MAT.html">ENS_MAT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_palette.ENS_PALETTE.html">ENS_PALETTE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part.ENS_PART.html">ENS_PART</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_model.ENS_PART_MODEL.html">ENS_PART_MODEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_clip.ENS_PART_CLIP.html">ENS_PART_CLIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_contour.ENS_PART_CONTOUR.html">ENS_PART_CONTOUR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_discrete_particle.ENS_PART_DISCRETE_PARTICLE.html">ENS_PART_DISCRETE_PARTICLE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_frame.ENS_PART_FRAME.html">ENS_PART_FRAME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_isosurface.ENS_PART_ISOSURFACE.html">ENS_PART_ISOSURFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_particle_trace.ENS_PART_PARTICLE_TRACE.html">ENS_PART_PARTICLE_TRACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_profile.ENS_PART_PROFILE.html">ENS_PART_PROFILE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_vector_arrow.ENS_PART_VECTOR_ARROW.html">ENS_PART_VECTOR_ARROW</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_elevated_surface.ENS_PART_ELEVATED_SURFACE.html">ENS_PART_ELEVATED_SURFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_developed_surface.ENS_PART_DEVELOPED_SURFACE.html">ENS_PART_DEVELOPED_SURFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_built_up.ENS_PART_BUILT_UP.html">ENS_PART_BUILT_UP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_tensor_glyph.ENS_PART_TENSOR_GLYPH.html">ENS_PART_TENSOR_GLYPH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_fx_vortex_core.ENS_PART_FX_VORTEX_CORE.html">ENS_PART_FX_VORTEX_CORE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_fx_shock.ENS_PART_FX_SHOCK.html">ENS_PART_FX_SHOCK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_fx_sep_att.ENS_PART_FX_SEP_ATT.html">ENS_PART_FX_SEP_ATT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_mat_interface.ENS_PART_MAT_INTERFACE.html">ENS_PART_MAT_INTERFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_point.ENS_PART_POINT.html">ENS_PART_POINT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_axisymmetric.ENS_PART_AXISYMMETRIC.html">ENS_PART_AXISYMMETRIC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_vof.ENS_PART_VOF.html">ENS_PART_VOF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_aux_geom.ENS_PART_AUX_GEOM.html">ENS_PART_AUX_GEOM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_part_filter.ENS_PART_FILTER.html">ENS_PART_FILTER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_plotter.ENS_PLOTTER.html">ENS_PLOTTER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_polyline.ENS_POLYLINE.html">ENS_POLYLINE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_probe.ENS_PROBE.html">ENS_PROBE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_query.ENS_QUERY.html">ENS_QUERY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_source.ENS_SOURCE.html">ENS_SOURCE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_spec.ENS_SPEC.html">ENS_SPEC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_state.ENS_STATE.html">ENS_STATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_texture.ENS_TEXTURE.html">ENS_TEXTURE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool.ENS_TOOL.html">ENS_TOOL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_cursor.ENS_TOOL_CURSOR.html">ENS_TOOL_CURSOR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_line.ENS_TOOL_LINE.html">ENS_TOOL_LINE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_plane.ENS_TOOL_PLANE.html">ENS_TOOL_PLANE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_box.ENS_TOOL_BOX.html">ENS_TOOL_BOX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_cylinder.ENS_TOOL_CYLINDER.html">ENS_TOOL_CYLINDER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_cone.ENS_TOOL_CONE.html">ENS_TOOL_CONE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_sphere.ENS_TOOL_SPHERE.html">ENS_TOOL_SPHERE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_tool_revolution.ENS_TOOL_REVOLUTION.html">ENS_TOOL_REVOLUTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_var.ENS_VAR.html">ENS_VAR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ansys.api.pyensight.ens_vport.ENS_VPORT.html">ENS_VPORT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../calc_functions.html">Calculator functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rest_api/rest_api.html">REST API</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.enscontext.EnsContext.html">EnsContext</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.LocalLauncher.html">LocalLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.DockerLauncher.html">DockerLauncher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.renderable.Renderable.html">Renderable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.Session.html">Session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.export.Export.html">Export</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.parts.Parts.html">Parts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.query.Query.html">Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.support.Support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ansys.pyensight.core.utils.views.Views.html">Views</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="ens-globals">
+<h1>ENS_GLOBALS<a class="headerlink" href="#ens-globals" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="ansys.api.pyensight.ens_globals.ENS_GLOBALS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ansys.api.pyensight.ens_globals.</span></span><span class="sig-name descname"><span class="pre">ENS_GLOBALS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ansys.api.pyensight.ens_globals.ENS_GLOBALS" title="Permalink to this definition">#</a></dt>
+<dd><p>This class acts as a proxy for the EnSight Python class ensight.objs.ENS_GLOBALS</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>*args:</dt><dd><p>Superclass (ENSOBJ) arguments</p>
+</dd>
+<dt>**kwargs:</dt><dd><p>Superclass (ENSOBJ) keyword arguments</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.add_case.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.add_case" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.add_case"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.add_case</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Add a new case</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.add_docs_path.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.add_docs_path" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.add_docs_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.add_docs_path</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Add a directory to check for i18n docs</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.alloc_userdef_attr.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.alloc_userdef_attr" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.alloc_userdef_attr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.alloc_userdef_attr</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Allocate a user-defined attribute</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.anim_control.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.anim_control" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.anim_control"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.anim_control</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Control animation playback</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.attrgroupinfo.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.attrgroupinfo" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.attrgroupinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.attrgroupinfo</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Get information about GUI groups for object attributes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.attrinfo.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.attrinfo" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.attrinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.attrinfo</span></code></a>([attrid])</p></td>
+<td><p>For a given attribute id, return type information</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.attrissensitive.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.attrissensitive" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.attrissensitive"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.attrissensitive</span></code></a>(attrid)</p></td>
+<td><p>Check to see if a given attribute is 'sensitive'</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.attrtree.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.attrtree" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.attrtree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.attrtree</span></code></a>([all, filter, exclude, ...])</p></td>
+<td><p>Get detailed GUI information for attributes of this object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.calculator_function_units_info.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.calculator_function_units_info" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.calculator_function_units_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.calculator_function_units_info</span></code></a>(...)</p></td>
+<td><p>Get information about the unit transformations for calculator functions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.create_jlc.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.create_jlc" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.create_jlc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.create_jlc</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Add a new launch configuration</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.create_variable.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.create_variable" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.create_variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.create_variable</span></code></a>(name, value[, ...])</p></td>
+<td><p>This method creates a new EnSight variable.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.default_parent.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.default_parent" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.default_parent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.default_parent</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Set the default parent for part creation by partype</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.destroy.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.destroy" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.destroy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.destroy</span></code></a>()</p></td>
+<td><p>Destroy the EnSight object associated with this proxy object</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ensmodel_updates_resume.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ensmodel_updates_resume" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ensmodel_updates_resume"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ensmodel_updates_resume</span></code></a>(*args, ...)</p></td>
+<td><p>Resume EnsModel event processing</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ensmodel_updates_suspend.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ensmodel_updates_suspend" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ensmodel_updates_suspend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ensmodel_updates_suspend</span></code></a>(*args, ...)</p></td>
+<td><p>Suspend EnsModel event processing</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.find_objs.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.find_objs" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.find_objs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.find_objs</span></code></a>([list, filter, group, ...])</p></td>
+<td><p>Search an object (tree) for objects that match a specific criteria.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.generate_uuid.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.generate_uuid" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.generate_uuid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.generate_uuid</span></code></a>()</p></td>
+<td><p>Generate a new UUID.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.get_unit_conversion.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.get_unit_conversion" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.get_unit_conversion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.get_unit_conversion</span></code></a>(from_system, ...)</p></td>
+<td><p>Return the linear conversion parameters for converting a variable from one unit system to another.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.get_unit_dimensions.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.get_unit_dimensions" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.get_unit_dimensions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.get_unit_dimensions</span></code></a>(obj[, ...])</p></td>
+<td><p>This method will return the units dimension string for a given variable object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.get_units.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.get_units" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.get_units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.get_units</span></code></a>(obj[, format, utf8, ...])</p></td>
+<td><p>Generate a string that represents the appropriate label for a given object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.getattr.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.getattr" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.getattr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.getattr</span></code></a>(attrid)</p></td>
+<td><p>Query the value of the specified attribute</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.getattrs.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.getattrs" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.getattrs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.getattrs</span></code></a>([attrid, text])</p></td>
+<td><p>Query the value of a collection of attributes</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.getmetatag.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.getmetatag" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.getmetatag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.getmetatag</span></code></a>(tag)</p></td>
+<td><p>Get the value of a tag in the METADATA attribute</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.global_datapathhistory.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.global_datapathhistory" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.global_datapathhistory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.global_datapathhistory</span></code></a>(*args, ...)</p></td>
+<td><p>Get data reader path history cache.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.global_datapathhistory_add.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.global_datapathhistory_add" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.global_datapathhistory_add"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.global_datapathhistory_add</span></code></a>(...)</p></td>
+<td><p>Add to data reader path history cache.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.grpc_server.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.grpc_server" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.grpc_server"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.grpc_server</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Control the gRPC server.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.hasmetatag.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.hasmetatag" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.hasmetatag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.hasmetatag</span></code></a>(tag)</p></td>
+<td><p>Check to see if a tag exists in the METADATA attribute</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.idle_anim.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.idle_anim" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.idle_anim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.idle_anim</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Query or set internal animations</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.mouseactionget.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.mouseactionget" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.mouseactionget"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.mouseactionget</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Get a mouse button combination's graphics window action for single click or drag.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.mouseactionset.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.mouseactionset" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.mouseactionset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.mouseactionset</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Set a mouse button combination to a graphics window action for single click or drag.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.path_cache.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.path_cache" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.path_cache"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.path_cache</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Cache indexed paths for shared defaults</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.pick_operation.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.pick_operation" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.pick_operation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.pick_operation</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Perform pick operation</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.populate_attr_list.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.populate_attr_list" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.populate_attr_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.populate_attr_list</span></code></a>()</p></td>
+<td><p>Populates a list with attributes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.post_event.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.post_event" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.post_event"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.post_event</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Post synthetic GUI events.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.querydatareadermapinfo.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.querydatareadermapinfo" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.querydatareadermapinfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.querydatareadermapinfo</span></code></a>(*args, ...)</p></td>
+<td><p>Get data reader info provided by the mapping file (i.e., ensight_reader_extension.map)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.recordselected.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.recordselected" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.recordselected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.recordselected</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Record selected objects</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.region_tool.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.region_tool" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.region_tool"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.region_tool</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Interaction with the region tool</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.selection.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.selection" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.selection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.selection</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Access the EnSight selection objects.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattr.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattr" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.setattr</span></code></a>(attrid, value)</p></td>
+<td><p>Set the value of the specified attribute</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattr_begin.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattr_begin" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattr_begin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.setattr_begin</span></code></a>()</p></td>
+<td><p>Signal bulk attribute update begin</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattr_end.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattr_end" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattr_end"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.setattr_end</span></code></a>()</p></td>
+<td><p>Signal bulk attribute update end</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattr_status.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattr_status" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattr_status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.setattr_status</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattrs.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattrs" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setattrs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.setattrs</span></code></a>(values[, all_errors])</p></td>
+<td><p>Set the values of a collection of attributes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setchildattrs.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.setchildattrs" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setchildattrs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.setchildattrs</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Set attributes on children list</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setmetatag.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.setmetatag" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.setmetatag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.setmetatag</span></code></a>(tag, value)</p></td>
+<td><p>Change a value in the METADATA attribute</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.unit_system.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.unit_system" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.unit_system"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.unit_system</span></code></a>([name, silent, ...])</p></td>
+<td><p>Get/set the current unit system to the named value (see ENS_UNITS_SYSTEM).</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ALLOW_MRU_UPDATE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ALLOW_MRU_UPDATE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ALLOW_MRU_UPDATE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ALLOW_MRU_UPDATE</span></code></a></p></td>
+<td><p>ALLOW_MRU_UPDATE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANIMATING.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANIMATING" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANIMATING"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ANIMATING</span></code></a></p></td>
+<td><p>ANIMATING property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANIMOBJS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANIMOBJS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANIMOBJS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ANIMOBJS</span></code></a></p></td>
+<td><p>ANIMOBJS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANNOTS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANNOTS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANNOTS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ANNOTS</span></code></a></p></td>
+<td><p>ANNOTS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_DRAW_LOGO.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_DRAW_LOGO" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_DRAW_LOGO"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ANSYS_DRAW_LOGO</span></code></a></p></td>
+<td><p>ANSYS_DRAW_LOGO property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_FLAG_ALPHA.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_FLAG_ALPHA" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_FLAG_ALPHA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ANSYS_FLAG_ALPHA</span></code></a></p></td>
+<td><p>ANSYS_FLAG_ALPHA property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_FLAG_BETA.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_FLAG_BETA" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_FLAG_BETA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ANSYS_FLAG_BETA</span></code></a></p></td>
+<td><p>ANSYS_FLAG_BETA property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_VERSION.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_VERSION" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_VERSION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ANSYS_VERSION</span></code></a></p></td>
+<td><p>ANSYS_VERSION property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_VERSION_STRING.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_VERSION_STRING" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANSYS_VERSION_STRING"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ANSYS_VERSION_STRING</span></code></a></p></td>
+<td><p>ANSYS_VERSION_STRING property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_FILTER_ALGORITHM.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_FILTER_ALGORITHM" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_FILTER_ALGORITHM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ANTIALIAS_FILTER_ALGORITHM</span></code></a></p></td>
+<td><p>ANTIALIAS_FILTER_ALGORITHM property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_MODE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_MODE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_MODE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ANTIALIAS_MODE</span></code></a></p></td>
+<td><p>ANTIALIAS_MODE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_NUM_SAMPLES.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_NUM_SAMPLES" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_NUM_SAMPLES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ANTIALIAS_NUM_SAMPLES</span></code></a></p></td>
+<td><p>ANTIALIAS_NUM_SAMPLES property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_PARAM_COMPRESSION.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_PARAM_COMPRESSION" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_PARAM_COMPRESSION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ANTIALIAS_PARAM_COMPRESSION</span></code></a></p></td>
+<td><p>ANTIALIAS_PARAM_COMPRESSION property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_PARAM_GAMMA.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_PARAM_GAMMA" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_PARAM_GAMMA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ANTIALIAS_PARAM_GAMMA</span></code></a></p></td>
+<td><p>ANTIALIAS_PARAM_GAMMA property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_PARAM_SMOOTH.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_PARAM_SMOOTH" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ANTIALIAS_PARAM_SMOOTH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ANTIALIAS_PARAM_SMOOTH</span></code></a></p></td>
+<td><p>ANTIALIAS_PARAM_SMOOTH property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AUXCLIPPING.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.AUXCLIPPING" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AUXCLIPPING"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.AUXCLIPPING</span></code></a></p></td>
+<td><p>AUXCLIPPING property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISGLOBAL.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISGLOBAL" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISGLOBAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.AXISGLOBAL</span></code></a></p></td>
+<td><p>AXISGLOBAL property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISLOCAL.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISLOCAL" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISLOCAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.AXISLOCAL</span></code></a></p></td>
+<td><p>AXISLOCAL property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISMODEL.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISMODEL" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISMODEL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.AXISMODEL</span></code></a></p></td>
+<td><p>AXISMODEL property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISMODEL_ANIMATE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISMODEL_ANIMATE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISMODEL_ANIMATE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.AXISMODEL_ANIMATE</span></code></a></p></td>
+<td><p>AXISMODEL_ANIMATE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISMODEL_LOCATION.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISMODEL_LOCATION" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.AXISMODEL_LOCATION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.AXISMODEL_LOCATION</span></code></a></p></td>
+<td><p>AXISMODEL_LOCATION property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.BOUNDS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.BOUNDS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.BOUNDS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.BOUNDS</span></code></a></p></td>
+<td><p>BOUNDS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CAMERAS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.CAMERAS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CAMERAS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.CAMERAS</span></code></a></p></td>
+<td><p>CAMERAS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CASELINKING.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.CASELINKING" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CASELINKING"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.CASELINKING</span></code></a></p></td>
+<td><p>CASELINKING property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CASES.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.CASES" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CASES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.CASES</span></code></a></p></td>
+<td><p>CASES property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CASE_LINKING_LABELS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.CASE_LINKING_LABELS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CASE_LINKING_LABELS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.CASE_LINKING_LABELS</span></code></a></p></td>
+<td><p>CASE_LINKING_LABELS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CLICKNGO_HANDLE_VISIBILITY.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.CLICKNGO_HANDLE_VISIBILITY" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CLICKNGO_HANDLE_VISIBILITY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.CLICKNGO_HANDLE_VISIBILITY</span></code></a></p></td>
+<td><p>CLICKNGO_HANDLE_VISIBILITY property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.COLORBY.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.COLORBY" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.COLORBY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.COLORBY</span></code></a></p></td>
+<td><p>COLORBY property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CONNECT_TIMEOUT.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.CONNECT_TIMEOUT" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CONNECT_TIMEOUT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.CONNECT_TIMEOUT</span></code></a></p></td>
+<td><p>CONNECT_TIMEOUT property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CURRENTCASE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.CURRENTCASE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CURRENTCASE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.CURRENTCASE</span></code></a></p></td>
+<td><p>CURRENTCASE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CURRENTGUI.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.CURRENTGUI" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.CURRENTGUI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.CURRENTGUI</span></code></a></p></td>
+<td><p>CURRENTGUI property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTANNOTS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTANNOTS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTANNOTS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DEFAULTANNOTS</span></code></a></p></td>
+<td><p>DEFAULTANNOTS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTPARTS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTPARTS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTPARTS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DEFAULTPARTS</span></code></a></p></td>
+<td><p>DEFAULTPARTS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTPLOT.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTPLOT" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTPLOT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DEFAULTPLOT</span></code></a></p></td>
+<td><p>DEFAULTPLOT property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTPOLYLINE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTPOLYLINE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTPOLYLINE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DEFAULTPOLYLINE</span></code></a></p></td>
+<td><p>DEFAULTPOLYLINE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTQUERY.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTQUERY" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTQUERY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DEFAULTQUERY</span></code></a></p></td>
+<td><p>DEFAULTQUERY property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTVARIABLE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTVARIABLE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTVARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DEFAULTVARIABLE</span></code></a></p></td>
+<td><p>DEFAULTVARIABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTVPORT.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTVPORT" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULTVPORT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DEFAULTVPORT</span></code></a></p></td>
+<td><p>DEFAULTVPORT property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_3DANNOT_FONTSIZE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_3DANNOT_FONTSIZE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_3DANNOT_FONTSIZE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DEFAULT_3DANNOT_FONTSIZE</span></code></a></p></td>
+<td><p>DEFAULT_3DANNOT_FONTSIZE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_ANNOT_FONTFAMILY.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_ANNOT_FONTFAMILY" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_ANNOT_FONTFAMILY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DEFAULT_ANNOT_FONTFAMILY</span></code></a></p></td>
+<td><p>DEFAULT_ANNOT_FONTFAMILY property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_ANNOT_FONTSTYLE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_ANNOT_FONTSTYLE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_ANNOT_FONTSTYLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DEFAULT_ANNOT_FONTSTYLE</span></code></a></p></td>
+<td><p>DEFAULT_ANNOT_FONTSTYLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_CORE_FONTFAMILY.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_CORE_FONTFAMILY" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_CORE_FONTFAMILY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DEFAULT_CORE_FONTFAMILY</span></code></a></p></td>
+<td><p>DEFAULT_CORE_FONTFAMILY property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_CORE_FONTSCALE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_CORE_FONTSCALE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_CORE_FONTSCALE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DEFAULT_CORE_FONTSCALE</span></code></a></p></td>
+<td><p>DEFAULT_CORE_FONTSCALE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_CORE_FONTSTYLE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_CORE_FONTSTYLE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_CORE_FONTSTYLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DEFAULT_CORE_FONTSTYLE</span></code></a></p></td>
+<td><p>DEFAULT_CORE_FONTSTYLE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_JLC.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_JLC" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_JLC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DEFAULT_JLC</span></code></a></p></td>
+<td><p>DEFAULT_JLC property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_SYMBOL_FONTFAMILY.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_SYMBOL_FONTFAMILY" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_SYMBOL_FONTFAMILY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DEFAULT_SYMBOL_FONTFAMILY</span></code></a></p></td>
+<td><p>DEFAULT_SYMBOL_FONTFAMILY property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_SYMBOL_FONTSTYLE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_SYMBOL_FONTSTYLE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DEFAULT_SYMBOL_FONTSTYLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DEFAULT_SYMBOL_FONTSTYLE</span></code></a></p></td>
+<td><p>DEFAULT_SYMBOL_FONTSTYLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DELAY_REFRESH.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DELAY_REFRESH" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DELAY_REFRESH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DELAY_REFRESH</span></code></a></p></td>
+<td><p>DELAY_REFRESH property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DELTATIME.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DELTATIME" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DELTATIME"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DELTATIME</span></code></a></p></td>
+<td><p>DELTATIME property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DISPLAY_THEME.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.DISPLAY_THEME" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.DISPLAY_THEME"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.DISPLAY_THEME</span></code></a></p></td>
+<td><p>DISPLAY_THEME property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.EDIT_TARGET.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.EDIT_TARGET" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.EDIT_TARGET"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.EDIT_TARGET</span></code></a></p></td>
+<td><p>EDIT_TARGET property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ENSHELL_LOG.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.ENSHELL_LOG" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.ENSHELL_LOG"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.ENSHELL_LOG</span></code></a></p></td>
+<td><p>ENSHELL_LOG property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FASTDISPLAY.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.FASTDISPLAY" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FASTDISPLAY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.FASTDISPLAY</span></code></a></p></td>
+<td><p>FASTDISPLAY property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FLIPBOOKS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.FLIPBOOKS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FLIPBOOKS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.FLIPBOOKS</span></code></a></p></td>
+<td><p>FLIPBOOKS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FLOATINGZCLIP.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.FLOATINGZCLIP" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FLOATINGZCLIP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.FLOATINGZCLIP</span></code></a></p></td>
+<td><p>FLOATINGZCLIP property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FONTFAMILIES.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.FONTFAMILIES" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FONTFAMILIES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.FONTFAMILIES</span></code></a></p></td>
+<td><p>FONTFAMILIES property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FRAMES.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.FRAMES" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FRAMES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.FRAMES</span></code></a></p></td>
+<td><p>FRAMES property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FRAME_DURATION.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.FRAME_DURATION" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FRAME_DURATION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.FRAME_DURATION</span></code></a></p></td>
+<td><p>FRAME_DURATION property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FULLSCREEN.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.FULLSCREEN" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.FULLSCREEN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.FULLSCREEN</span></code></a></p></td>
+<td><p>FULLSCREEN property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.GROUPS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.GROUPS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.GROUPS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.GROUPS</span></code></a></p></td>
+<td><p>GROUPS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HANDLES_ENABLED.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.HANDLES_ENABLED" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HANDLES_ENABLED"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.HANDLES_ENABLED</span></code></a></p></td>
+<td><p>Control the display and use of EnSight click and go handles for an object</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADDETAIL.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADDETAIL" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADDETAIL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.HEADDETAIL</span></code></a></p></td>
+<td><p>HEADDETAIL property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADSCALE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADSCALE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADSCALE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.HEADSCALE</span></code></a></p></td>
+<td><p>HEADSCALE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADSIZEBY.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADSIZEBY" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADSIZEBY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.HEADSIZEBY</span></code></a></p></td>
+<td><p>HEADSIZEBY property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADTYPE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADTYPE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADTYPE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.HEADTYPE</span></code></a></p></td>
+<td><p>HEADTYPE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADVARIABLE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADVARIABLE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HEADVARIABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.HEADVARIABLE</span></code></a></p></td>
+<td><p>HEADVARIABLE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HIDDENLINE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.HIDDENLINE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HIDDENLINE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.HIDDENLINE</span></code></a></p></td>
+<td><p>HIDDENLINE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HIDDENLINE_RGB.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.HIDDENLINE_RGB" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HIDDENLINE_RGB"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.HIDDENLINE_RGB</span></code></a></p></td>
+<td><p>HIDDENLINE_RGB property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HIDDENLINE_USE_RGB.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.HIDDENLINE_USE_RGB" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HIDDENLINE_USE_RGB"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.HIDDENLINE_USE_RGB</span></code></a></p></td>
+<td><p>HIDDENLINE_USE_RGB property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_BACK_COLOR_FILL.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_BACK_COLOR_FILL" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_BACK_COLOR_FILL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.HILITE_BACK_COLOR_FILL</span></code></a></p></td>
+<td><p>HILITE_BACK_COLOR_FILL property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_METHOD.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_METHOD" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_METHOD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.HILITE_METHOD</span></code></a></p></td>
+<td><p>HILITE_METHOD property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_SELECT_COLOR.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_SELECT_COLOR" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_SELECT_COLOR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.HILITE_SELECT_COLOR</span></code></a></p></td>
+<td><p>HILITE_SELECT_COLOR property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_SELECT_COLOR_FILL.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_SELECT_COLOR_FILL" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_SELECT_COLOR_FILL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.HILITE_SELECT_COLOR_FILL</span></code></a></p></td>
+<td><p>HILITE_SELECT_COLOR_FILL property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_TARGET_COLOR.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_TARGET_COLOR" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_TARGET_COLOR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.HILITE_TARGET_COLOR</span></code></a></p></td>
+<td><p>HILITE_TARGET_COLOR property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_TARGET_COLOR_FILL.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_TARGET_COLOR_FILL" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.HILITE_TARGET_COLOR_FILL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.HILITE_TARGET_COLOR_FILL</span></code></a></p></td>
+<td><p>HILITE_TARGET_COLOR_FILL property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.JLCS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.JLCS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.JLCS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.JLCS</span></code></a></p></td>
+<td><p>JLCS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.KEYFRAMEDATA.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.KEYFRAMEDATA" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.KEYFRAMEDATA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.KEYFRAMEDATA</span></code></a></p></td>
+<td><p>KEYFRAMEDATA property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.LANGUAGE_INFO.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.LANGUAGE_INFO" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.LANGUAGE_INFO"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.LANGUAGE_INFO</span></code></a></p></td>
+<td><p>LANGUAGE_INFO property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.LIGHTSOURCES.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.LIGHTSOURCES" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.LIGHTSOURCES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.LIGHTSOURCES</span></code></a></p></td>
+<td><p>LIGHTSOURCES property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.LINEWIDTH.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.LINEWIDTH" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.LINEWIDTH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.LINEWIDTH</span></code></a></p></td>
+<td><p>LINEWIDTH property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.MATERIALS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.MATERIALS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.MATERIALS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.MATERIALS</span></code></a></p></td>
+<td><p>MATERIALS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.MAXTIME.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.MAXTIME" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.MAXTIME"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.MAXTIME</span></code></a></p></td>
+<td><p>MAXTIME property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.METADATA.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.METADATA" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.METADATA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.METADATA</span></code></a></p></td>
+<td><p>METADATA property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.MRU.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.MRU" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.MRU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.MRU</span></code></a></p></td>
+<td><p>MRU property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.MULTIPLEPULSES.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.MULTIPLEPULSES" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.MULTIPLEPULSES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.MULTIPLEPULSES</span></code></a></p></td>
+<td><p>MULTIPLEPULSES property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.OBJECTFOCUS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.OBJECTFOCUS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.OBJECTFOCUS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.OBJECTFOCUS</span></code></a></p></td>
+<td><p>OBJECTFOCUS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.OBJECT_API_JOURNAL.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.OBJECT_API_JOURNAL" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.OBJECT_API_JOURNAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.OBJECT_API_JOURNAL</span></code></a></p></td>
+<td><p>OBJECT_API_JOURNAL property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.OBJECT_DTOR.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.OBJECT_DTOR" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.OBJECT_DTOR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.OBJECT_DTOR</span></code></a></p></td>
+<td><p>OBJECT_DTOR property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PALETTES.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PALETTES" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PALETTES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PALETTES</span></code></a></p></td>
+<td><p>PALETTES property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PARTHIGHLIGHT.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PARTHIGHLIGHT" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PARTHIGHLIGHT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PARTHIGHLIGHT</span></code></a></p></td>
+<td><p>PARTHIGHLIGHT property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PARTICLETIME.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PARTICLETIME" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PARTICLETIME"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PARTICLETIME</span></code></a></p></td>
+<td><p>PARTICLETIME property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PARTS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PARTS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PARTS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PARTS</span></code></a></p></td>
+<td><p>PARTS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PATHLINE_SYNC.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PATHLINE_SYNC" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PATHLINE_SYNC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PATHLINE_SYNC</span></code></a></p></td>
+<td><p>PATHLINE_SYNC property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PERSPECTIVE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PERSPECTIVE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PERSPECTIVE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PERSPECTIVE</span></code></a></p></td>
+<td><p>PERSPECTIVE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PICKANDGO_PARTS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PICKANDGO_PARTS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PICKANDGO_PARTS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PICKANDGO_PARTS</span></code></a></p></td>
+<td><p>PICKANDGO_PARTS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PICK_SELECTION.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PICK_SELECTION" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PICK_SELECTION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PICK_SELECTION</span></code></a></p></td>
+<td><p>PICK_SELECTION property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PLAYING_COMMAND_FILE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PLAYING_COMMAND_FILE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PLAYING_COMMAND_FILE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PLAYING_COMMAND_FILE</span></code></a></p></td>
+<td><p>PLAYING_COMMAND_FILE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PLOTS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PLOTS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PLOTS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PLOTS</span></code></a></p></td>
+<td><p>PLOTS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PLOTTER_TIME_CLIPPING.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PLOTTER_TIME_CLIPPING" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PLOTTER_TIME_CLIPPING"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PLOTTER_TIME_CLIPPING</span></code></a></p></td>
+<td><p>PLOTTER_TIME_CLIPPING property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.POLYLINES.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.POLYLINES" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.POLYLINES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.POLYLINES</span></code></a></p></td>
+<td><p>POLYLINES property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PREDEFINEDPALETTES.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PREDEFINEDPALETTES" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PREDEFINEDPALETTES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PREDEFINEDPALETTES</span></code></a></p></td>
+<td><p>PREDEFINEDPALETTES property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PREF_DATADIR.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PREF_DATADIR" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PREF_DATADIR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PREF_DATADIR</span></code></a></p></td>
+<td><p>PREF_DATADIR property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PREF_DATAFILEFILTER.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PREF_DATAFILEFILTER" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PREF_DATAFILEFILTER"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PREF_DATAFILEFILTER</span></code></a></p></td>
+<td><p>PREF_DATAFILEFILTER property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PREF_DATAFORMAT.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PREF_DATAFORMAT" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PREF_DATAFORMAT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PREF_DATAFORMAT</span></code></a></p></td>
+<td><p>PREF_DATAFORMAT property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PROBES.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PROBES" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PROBES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PROBES</span></code></a></p></td>
+<td><p>PROBES property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PROJECT_CREATION_MASK.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PROJECT_CREATION_MASK" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PROJECT_CREATION_MASK"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PROJECT_CREATION_MASK</span></code></a></p></td>
+<td><p>PROJECT_CREATION_MASK property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PROJECT_MASK.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PROJECT_MASK" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PROJECT_MASK"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PROJECT_MASK</span></code></a></p></td>
+<td><p>PROJECT_MASK property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PROJECT_VISIBLE_MASK.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PROJECT_VISIBLE_MASK" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PROJECT_VISIBLE_MASK"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PROJECT_VISIBLE_MASK</span></code></a></p></td>
+<td><p>PROJECT_VISIBLE_MASK property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PULSEINTERVAL.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.PULSEINTERVAL" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.PULSEINTERVAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.PULSEINTERVAL</span></code></a></p></td>
+<td><p>PULSEINTERVAL property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.QUERIES.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.QUERIES" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.QUERIES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.QUERIES</span></code></a></p></td>
+<td><p>QUERIES property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.QUERY_PROBE_DATA.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.QUERY_PROBE_DATA" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.QUERY_PROBE_DATA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.QUERY_PROBE_DATA</span></code></a></p></td>
+<td><p>QUERY_PROBE_DATA property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.REALTIME_CLIPS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.REALTIME_CLIPS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.REALTIME_CLIPS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.REALTIME_CLIPS</span></code></a></p></td>
+<td><p>REALTIME_CLIPS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.REALTIME_ISOS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.REALTIME_ISOS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.REALTIME_ISOS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.REALTIME_ISOS</span></code></a></p></td>
+<td><p>REALTIME_ISOS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.RECORDING.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.RECORDING" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.RECORDING"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.RECORDING</span></code></a></p></td>
+<td><p>RECORDING property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.RGB.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.RGB" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.RGB"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.RGB</span></code></a></p></td>
+<td><p>RGB property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SCENE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.SCENE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SCENE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.SCENE</span></code></a></p></td>
+<td><p>SCENE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SECURITY_TOKEN.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.SECURITY_TOKEN" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SECURITY_TOKEN"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.SECURITY_TOKEN</span></code></a></p></td>
+<td><p>SECURITY_TOKEN property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SETMAXTIME.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.SETMAXTIME" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SETMAXTIME"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.SETMAXTIME</span></code></a></p></td>
+<td><p>SETMAXTIME property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SHADING.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.SHADING" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SHADING"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.SHADING</span></code></a></p></td>
+<td><p>SHADING property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SLIM_TIMEOUT.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.SLIM_TIMEOUT" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SLIM_TIMEOUT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.SLIM_TIMEOUT</span></code></a></p></td>
+<td><p>SLIM_TIMEOUT property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SOLUTIONTIME.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.SOLUTIONTIME" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SOLUTIONTIME"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.SOLUTIONTIME</span></code></a></p></td>
+<td><p>SOLUTIONTIME property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SOLUTIONTIME_LIMITS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.SOLUTIONTIME_LIMITS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SOLUTIONTIME_LIMITS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.SOLUTIONTIME_LIMITS</span></code></a></p></td>
+<td><p>SOLUTIONTIME_LIMITS property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SOLUTIONTIME_MONITOR.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.SOLUTIONTIME_MONITOR" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SOLUTIONTIME_MONITOR"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.SOLUTIONTIME_MONITOR</span></code></a></p></td>
+<td><p>SOLUTIONTIME_MONITOR property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SPECIES.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.SPECIES" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SPECIES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.SPECIES</span></code></a></p></td>
+<td><p>SPECIES property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STARTTIME.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.STARTTIME" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STARTTIME"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.STARTTIME</span></code></a></p></td>
+<td><p>STARTTIME property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STATES.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.STATES" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STATES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.STATES</span></code></a></p></td>
+<td><p>STATES property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STATUS_STRING.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.STATUS_STRING" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STATUS_STRING"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.STATUS_STRING</span></code></a></p></td>
+<td><p>STATUS_STRING property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STEREO.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.STEREO" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STEREO"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.STEREO</span></code></a></p></td>
+<td><p>STEREO property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STEREO_CAPABLE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.STEREO_CAPABLE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STEREO_CAPABLE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.STEREO_CAPABLE</span></code></a></p></td>
+<td><p>STEREO_CAPABLE property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STEREO_SEPARATION.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.STEREO_SEPARATION" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.STEREO_SEPARATION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.STEREO_SEPARATION</span></code></a></p></td>
+<td><p>STEREO_SEPARATION property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SYNCTOTRANSIENT.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.SYNCTOTRANSIENT" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SYNCTOTRANSIENT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.SYNCTOTRANSIENT</span></code></a></p></td>
+<td><p>SYNCTOTRANSIENT property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SYNTHETIC_MENU.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.SYNTHETIC_MENU" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.SYNTHETIC_MENU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.SYNTHETIC_MENU</span></code></a></p></td>
+<td><p>SYNTHETIC_MENU property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TEXTURES.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.TEXTURES" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TEXTURES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.TEXTURES</span></code></a></p></td>
+<td><p>TEXTURES property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TIMESTEP.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.TIMESTEP" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TIMESTEP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.TIMESTEP</span></code></a></p></td>
+<td><p>TIMESTEP property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TIMESTEP_LIMITS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.TIMESTEP_LIMITS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TIMESTEP_LIMITS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.TIMESTEP_LIMITS</span></code></a></p></td>
+<td><p>TIMESTEP_LIMITS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TIMEVALUES.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.TIMEVALUES" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TIMEVALUES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.TIMEVALUES</span></code></a></p></td>
+<td><p>TIMEVALUES property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TOOLS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.TOOLS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TOOLS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.TOOLS</span></code></a></p></td>
+<td><p>TOOLS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TRANSPARENT_METHOD.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.TRANSPARENT_METHOD" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TRANSPARENT_METHOD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.TRANSPARENT_METHOD</span></code></a></p></td>
+<td><p>TRANSPARENT_METHOD property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TRANSPARENT_NUMPEELS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.TRANSPARENT_NUMPEELS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.TRANSPARENT_NUMPEELS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.TRANSPARENT_NUMPEELS</span></code></a></p></td>
+<td><p>TRANSPARENT_NUMPEELS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.UUID.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.UUID" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.UUID"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.UUID</span></code></a></p></td>
+<td><p>UUID property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VARIABLES.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.VARIABLES" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VARIABLES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.VARIABLES</span></code></a></p></td>
+<td><p>VARIABLES property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VARIABLETREE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.VARIABLETREE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VARIABLETREE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.VARIABLETREE</span></code></a></p></td>
+<td><p>VARIABLETREE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VOLUME_CHUNKING_NUM_TETS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.VOLUME_CHUNKING_NUM_TETS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VOLUME_CHUNKING_NUM_TETS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.VOLUME_CHUNKING_NUM_TETS</span></code></a></p></td>
+<td><p>VOLUME_CHUNKING_NUM_TETS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VOLUME_NUM_PASSES.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.VOLUME_NUM_PASSES" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VOLUME_NUM_PASSES"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.VOLUME_NUM_PASSES</span></code></a></p></td>
+<td><p>VOLUME_NUM_PASSES property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VPORTS.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.VPORTS" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VPORTS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.VPORTS</span></code></a></p></td>
+<td><p>VPORTS property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_ANNOT_CENTER.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_ANNOT_CENTER" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_ANNOT_CENTER"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.VR_ANNOT_CENTER</span></code></a></p></td>
+<td><p>VR_ANNOT_CENTER property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_ANNOT_NORMAL.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_ANNOT_NORMAL" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_ANNOT_NORMAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.VR_ANNOT_NORMAL</span></code></a></p></td>
+<td><p>VR_ANNOT_NORMAL property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_ANNOT_SCALE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_ANNOT_SCALE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_ANNOT_SCALE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.VR_ANNOT_SCALE</span></code></a></p></td>
+<td><p>VR_ANNOT_SCALE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_ANNOT_UP.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_ANNOT_UP" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_ANNOT_UP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.VR_ANNOT_UP</span></code></a></p></td>
+<td><p>VR_ANNOT_UP property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_CAVE_CENTER.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_CAVE_CENTER" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_CAVE_CENTER"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.VR_CAVE_CENTER</span></code></a></p></td>
+<td><p>VR_CAVE_CENTER property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_CAVE_DIAGONAL.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_CAVE_DIAGONAL" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_CAVE_DIAGONAL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.VR_CAVE_DIAGONAL</span></code></a></p></td>
+<td><p>VR_CAVE_DIAGONAL property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_CAVE_SCALE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_CAVE_SCALE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.VR_CAVE_SCALE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.VR_CAVE_SCALE</span></code></a></p></td>
+<td><p>VR_CAVE_SCALE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.WATERMARK.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.WATERMARK" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.WATERMARK"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.WATERMARK</span></code></a></p></td>
+<td><p>WATERMARK property</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.WINDOWSIZE.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.WINDOWSIZE" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.WINDOWSIZE"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.WINDOWSIZE</span></code></a></p></td>
+<td><p>WINDOWSIZE property</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.__OBJID__.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.__OBJID__" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.__OBJID__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.__OBJID__</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="ansys.api.pyensight.ens_globals.ENS_GLOBALS.objid.html#ansys.api.pyensight.ens_globals.ENS_GLOBALS.objid" title="ansys.api.pyensight.ens_globals.ENS_GLOBALS.objid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ENS_GLOBALS.objid</span></code></a></p></td>
+<td><p>Return the EnSight object proxy ID (__OBJID__).</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ansys.api.pyensight.ens_globals.ENS_GLOBALS"><code class="docutils literal notranslate"><span class="pre">ENS_GLOBALS</span></code></a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="../_sources/_autosummary/ansys.api.pyensight.ens_globals.ENS_GLOBALS.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright (c) 2023 ANSYS, Inc. Unauthorized use, distribution, or duplication is prohibited..
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+    Built with the <a href="https://sphinxdocs.ansys.com/version/stable/index.html">Ansys Sphinx Theme</a> 0.9.9.
+    <br>Last updated on <span id="date"></span></br>
+</p>
+<script>
+  var options = { day: 'numeric', month: 'long', year: 'numeric' };
+  var lastModifiedDate = new Date(document.lastModified);
+  var date = lastModifiedDate.toLocaleDateString('en-US', options);
+  document.getElementById("date").innerHTML = date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

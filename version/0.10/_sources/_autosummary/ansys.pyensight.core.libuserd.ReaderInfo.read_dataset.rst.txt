@@ -1,0 +1,6 @@
+read\_dataset
+=============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: ReaderInfo.read_dataset

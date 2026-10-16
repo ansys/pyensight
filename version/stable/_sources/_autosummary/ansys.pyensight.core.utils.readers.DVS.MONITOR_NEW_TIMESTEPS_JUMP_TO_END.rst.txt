@@ -1,0 +1,6 @@
+MONITOR\_NEW\_TIMESTEPS\_JUMP\_TO\_END
+======================================
+
+.. currentmodule:: ansys.pyensight.core.utils.readers
+
+.. autoattribute:: DVS.MONITOR_NEW_TIMESTEPS_JUMP_TO_END

@@ -1,0 +1,6 @@
+VIEWPORT\_USE
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_camera
+
+.. autoproperty:: ENS_CAMERA.VIEWPORT_USE

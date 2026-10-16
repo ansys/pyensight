@@ -1,0 +1,6 @@
+add\_marker\_at\_value
+======================
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.add_marker_at_value

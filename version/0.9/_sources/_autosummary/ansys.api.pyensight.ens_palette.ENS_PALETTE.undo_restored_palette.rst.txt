@@ -1,0 +1,6 @@
+undo\_restored\_palette
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.undo_restored_palette

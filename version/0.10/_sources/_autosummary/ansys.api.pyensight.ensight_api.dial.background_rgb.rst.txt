@@ -1,0 +1,6 @@
+background\_rgb
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: dial.background_rgb

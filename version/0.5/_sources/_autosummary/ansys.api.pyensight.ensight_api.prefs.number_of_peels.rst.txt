@@ -1,0 +1,6 @@
+number\_of\_peels
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.number_of_peels

@@ -1,0 +1,6 @@
+restore\_context
+================
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.restore_context

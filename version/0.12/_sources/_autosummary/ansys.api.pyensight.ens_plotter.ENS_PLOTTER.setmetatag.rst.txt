@@ -1,0 +1,6 @@
+setmetatag
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_plotter
+
+.. automethod:: ENS_PLOTTER.setmetatag

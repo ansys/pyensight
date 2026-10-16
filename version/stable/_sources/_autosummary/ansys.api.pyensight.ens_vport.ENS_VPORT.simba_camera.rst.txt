@@ -1,0 +1,6 @@
+simba\_camera
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_vport
+
+.. automethod:: ENS_VPORT.simba_camera

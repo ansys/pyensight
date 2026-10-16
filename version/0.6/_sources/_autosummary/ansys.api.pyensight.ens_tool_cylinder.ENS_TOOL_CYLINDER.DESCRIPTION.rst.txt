@@ -1,0 +1,6 @@
+DESCRIPTION
+===========
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_cylinder
+
+.. autoproperty:: ENS_TOOL_CYLINDER.DESCRIPTION

@@ -1,0 +1,6 @@
+setattrs
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_part_particle_trace
+
+.. automethod:: ENS_PART_PARTICLE_TRACE.setattrs

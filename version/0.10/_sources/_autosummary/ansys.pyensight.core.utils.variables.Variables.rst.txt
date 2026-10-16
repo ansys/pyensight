@@ -1,0 +1,48 @@
+﻿Variables
+=========
+
+.. currentmodule:: ansys.pyensight.core.utils.variables
+
+.. autoclass:: Variables
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Variables.compute_forces
+      
+      
+      Variables.get_const_val
+      
+      
+      Variables.get_const_var_names
+      
+      
+      Variables.get_const_vars
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      Variables.SHEAR_VAR_TYPE_FORCE
+      Variables.SHEAR_VAR_TYPE_STRESS
+      Variables.UP_VECTOR_MINUS_X
+      Variables.UP_VECTOR_MINUS_Y
+      Variables.UP_VECTOR_MINUS_Z
+      Variables.UP_VECTOR_PLUS_X
+      Variables.UP_VECTOR_PLUS_Y
+      Variables.UP_VECTOR_PLUS_Z
+      Variables.calculator
+   
+   

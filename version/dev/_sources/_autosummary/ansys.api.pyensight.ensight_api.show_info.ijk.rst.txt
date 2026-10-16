@@ -1,0 +1,6 @@
+ijk
+===
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: show_info.ijk

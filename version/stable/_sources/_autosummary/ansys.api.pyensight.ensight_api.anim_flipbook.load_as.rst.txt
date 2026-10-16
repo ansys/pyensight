@@ -1,0 +1,6 @@
+load\_as
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_flipbook.load_as

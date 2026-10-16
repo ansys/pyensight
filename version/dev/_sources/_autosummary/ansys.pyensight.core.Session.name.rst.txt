@@ -1,0 +1,6 @@
+name
+====
+
+.. currentmodule:: ansys.pyensight.core
+
+.. autoproperty:: Session.name

@@ -1,0 +1,6 @@
+adjcoord\_scale\_factor
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: model.adjcoord_scale_factor

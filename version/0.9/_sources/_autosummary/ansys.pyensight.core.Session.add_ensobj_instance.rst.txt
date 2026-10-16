@@ -1,0 +1,6 @@
+add\_ensobj\_instance
+=====================
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.add_ensobj_instance

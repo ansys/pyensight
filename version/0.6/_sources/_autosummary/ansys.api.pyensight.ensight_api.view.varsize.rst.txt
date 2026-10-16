@@ -1,0 +1,6 @@
+varsize
+=======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view.varsize

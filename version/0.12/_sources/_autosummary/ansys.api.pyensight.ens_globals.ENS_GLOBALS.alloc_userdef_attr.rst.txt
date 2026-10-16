@@ -1,0 +1,6 @@
+alloc\_userdef\_attr
+====================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. automethod:: ENS_GLOBALS.alloc_userdef_attr

@@ -1,0 +1,6 @@
+attrinfo
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_mat
+
+.. automethod:: ENS_MAT.attrinfo

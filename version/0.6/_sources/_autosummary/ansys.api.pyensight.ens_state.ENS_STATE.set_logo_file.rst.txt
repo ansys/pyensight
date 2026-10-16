@@ -1,0 +1,6 @@
+set\_logo\_file
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_state
+
+.. automethod:: ENS_STATE.set_logo_file

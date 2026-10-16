@@ -1,0 +1,6 @@
+add\_emitter\_points\_to\_particle\_trace\_part
+===============================================
+
+.. currentmodule:: ansys.pyensight.core.utils.parts
+
+.. automethod:: Parts.add_emitter_points_to_particle_trace_part

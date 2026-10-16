@@ -1,0 +1,6 @@
+translate\_envmap\_originy
+==========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: lightsource.translate_envmap_originy

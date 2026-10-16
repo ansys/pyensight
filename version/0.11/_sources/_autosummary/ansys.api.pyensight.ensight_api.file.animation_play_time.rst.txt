@@ -1,0 +1,6 @@
+animation\_play\_time
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.animation_play_time

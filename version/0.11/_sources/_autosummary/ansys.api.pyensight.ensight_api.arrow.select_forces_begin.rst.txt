@@ -1,0 +1,6 @@
+select\_forces\_begin
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: arrow.select_forces_begin

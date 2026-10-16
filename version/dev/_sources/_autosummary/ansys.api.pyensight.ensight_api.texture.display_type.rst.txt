@@ -1,0 +1,6 @@
+display\_type
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: texture.display_type

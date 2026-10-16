@@ -1,0 +1,6 @@
+datapath\_history
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_case
+
+.. automethod:: ENS_CASE.datapath_history

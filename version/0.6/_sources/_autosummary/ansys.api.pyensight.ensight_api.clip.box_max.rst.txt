@@ -1,0 +1,6 @@
+box\_max
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: clip.box_max

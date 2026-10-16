@@ -1,0 +1,6 @@
+destroy
+=======
+
+.. currentmodule:: ansys.api.pyensight.ens_lightsource
+
+.. automethod:: ENS_LIGHTSOURCE.destroy

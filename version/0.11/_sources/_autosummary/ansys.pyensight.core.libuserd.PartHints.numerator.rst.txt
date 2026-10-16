@@ -1,0 +1,6 @@
+numerator
+=========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: PartHints.numerator

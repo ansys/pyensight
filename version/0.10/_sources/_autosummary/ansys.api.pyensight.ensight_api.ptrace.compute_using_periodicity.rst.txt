@@ -1,0 +1,6 @@
+compute\_using\_periodicity
+===========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.compute_using_periodicity

@@ -1,0 +1,6 @@
+MAXANGLE
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_part_particle_trace
+
+.. autoproperty:: ENS_PART_PARTICLE_TRACE.MAXANGLE

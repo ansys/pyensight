@@ -1,0 +1,6 @@
+PART
+====
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: VariableLocation.PART

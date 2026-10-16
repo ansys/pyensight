@@ -1,0 +1,6 @@
+PROJECT\_MASK
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_camera
+
+.. autoproperty:: ENS_CAMERA.PROJECT_MASK

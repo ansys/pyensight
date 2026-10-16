@@ -1,0 +1,6 @@
+DEFAULT\_3DANNOT\_FONTSIZE
+==========================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.DEFAULT_3DANNOT_FONTSIZE

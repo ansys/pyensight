@@ -1,0 +1,6 @@
+bit\_length
+===========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: UpdateHints.bit_length

@@ -1,0 +1,6 @@
+RADIUS
+======
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_revolution
+
+.. autoproperty:: ENS_TOOL_REVOLUTION.RADIUS
