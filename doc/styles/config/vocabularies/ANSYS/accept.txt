@@ -96,6 +96,7 @@ SOSConstant
 Stimpson
 subpackage
 Synopsys
+synopsys
 te
 THIRDPARTY
 timestep1

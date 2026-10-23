@@ -115,10 +115,8 @@ def test_rest_apis_liben(tmpdir, pytestconfig: pytest.Config):
         launcher = DockerLauncher(
             data_directory=data_dir,
             use_dev=True,
-            enable_rest_api=True,
             grpc_disable_tls=True,
             grpc_use_tcp_sockets=True,
-            liben_rest=True,
         )
     s = launcher.start()
     run_test(s)

@@ -33,6 +33,7 @@ import pytest
 
 def test_start(mocker):
     mocker.patch.object(LocalLauncher, "get_cei_install_directory", return_value="/path/to/awp/CEI")
+    mocker.patch.object(LocalLauncher, "_grpc_version_check", return_value=(True, 345))
     launcher = LocalLauncher("/path/to/awp/")
     # Mocking Popen breaks platform.system, so the function is mocked
     mocker.patch.object(platform, "system", return_value=str(platform.system()))
@@ -45,6 +46,10 @@ def test_start(mocker):
     mocker.patch.object(glob, "glob", glob_mock)
     mocker.patch.object(ansys.pyensight.core.session, "Session")
     launcher.start()
+    assert launcher._liben_rest
+    mocker.patch.object(LocalLauncher, "_grpc_version_check", return_value=(True, 245))
+    launcher.start()
+    assert not launcher._liben_rest
     glob_mock.side_effect = [["/path/to/awp/CEI/nexus345/websocketserver.py"]]
     launcher = LocalLauncher("/path/to/awp/", batch=False)
     launcher.start()

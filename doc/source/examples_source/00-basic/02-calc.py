@@ -5,7 +5,7 @@ Calculator usage
 ================
 
 Utilize EnSight Calculator to compute the Spatial Mean of a field variable.
-Display this constant value, and the create graph over time.
+Display this constant value, and create graph over time.
 
 """
 
@@ -91,7 +91,7 @@ text.setattrs(dict(LOCATIONX=0.5, LOCATIONY=0.95))
 session.show("image", width=800, height=600)
 
 ###############################################################################
-# Create an Graph of Ave_Value Over Time
+# Create a Graph of Ave_Value Over Time
 # --------------------------------------
 # Create a query, showing Ave_Value over timestep.
 # When querying a constant, you can choose min or max of the constant to obtain its value.
@@ -117,7 +117,7 @@ line_query = eoutil.query.create_temporal(
 # Display the query on a plotter
 # ------------------------------
 # Queries can be shown on a "plotter". The plotter defines a set of axes
-# and various display features. This code creates a plotter is adds the query
+# and various display features. This code creates a plotter and adds the query
 # to this plotter. It then override many of the plotter visual features.
 # For example, it sets the axes scaling explicitly, creates a background grid,
 # and adjusts the display of the axis text.

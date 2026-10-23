@@ -36,7 +36,7 @@ over Python code execution.
 #
 # In general, locally run PyEnSight code is much easier to develop and debug.
 # It is strongly suggested that initial development be done with local code
-# execution and only use switch to remote code execution if necessary to
+# execution and only switch to remote code execution if necessary to
 # meet performance requirements.
 #
 
@@ -140,7 +140,7 @@ print(names)
 #
 # Note: this feature requires that the version of the EnSight Python interpreter
 # and the PyEnSight interpreter must be the same.  PyEnSight makes a check for
-# this when the such execution is requested.
+# this when such execution is requested.
 #
 # In this configuration, a function defined is in the PyEnSight interpreter
 # is captured and passed as byte code over the EnSight Python interpreter

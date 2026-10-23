@@ -34,6 +34,7 @@ import pytest
 
 
 def test_show(mocked_session, mocker):
+    mocked_session.ensight_version_check = mock.MagicMock(return_value=True)
     session = mocked_session
     session.ensight.objs.core.TIMESTEP = 1
     session.ensight.objs.core.TIMESTEP_LIMITS = [0, 5]

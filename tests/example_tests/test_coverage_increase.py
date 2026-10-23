@@ -380,7 +380,6 @@ def test_particle_traces_and_geometry(tmpdir, pytestconfig: pytest.Config):
         )
     session = launcher.start()
     session.load_example("waterbreak.ens", root=root)
-    session.show("webensight")
     session.show("webgl")
     session.show("remote")._update_2023R2_or_less()
     parts = session.ensight.utils.parts
