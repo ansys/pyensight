@@ -1,0 +1,6 @@
+create\_connection
+==================
+
+.. currentmodule:: ansys.pyensight.core.utils.omniverse
+
+.. automethod:: Omniverse.create_connection

@@ -1,0 +1,6 @@
+axis\_auto\_layout
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.axis_auto_layout

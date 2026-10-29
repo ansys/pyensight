@@ -1,0 +1,6 @@
+LOGO\_DATA
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_state
+
+.. autoproperty:: ENS_STATE.LOGO_DATA

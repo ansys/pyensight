@@ -1,0 +1,6 @@
+NSIDED\_GHOST
+=============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.NSIDED_GHOST

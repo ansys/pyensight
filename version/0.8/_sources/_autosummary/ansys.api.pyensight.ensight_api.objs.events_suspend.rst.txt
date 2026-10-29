@@ -1,0 +1,6 @@
+events\_suspend
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: objs.events_suspend

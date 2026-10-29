@@ -1,0 +1,6 @@
+show\_selection\_inmainlist
+===========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.show_selection_inmainlist

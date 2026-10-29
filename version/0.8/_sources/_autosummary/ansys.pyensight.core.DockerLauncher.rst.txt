@@ -1,0 +1,55 @@
+﻿DockerLauncher
+==============
+
+.. currentmodule:: ansys.pyensight.core
+
+.. autoclass:: DockerLauncher
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      DockerLauncher.ansys_version
+      
+      
+      DockerLauncher.close
+      
+      
+      DockerLauncher.connect
+      
+      
+      DockerLauncher.enshell_log_contents
+      
+      
+      DockerLauncher.file_service
+      
+      
+      DockerLauncher.launch_webui
+      
+      
+      DockerLauncher.pull
+      
+      
+      DockerLauncher.start
+      
+      
+      DockerLauncher.stop
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      DockerLauncher.session_directory
+   
+   

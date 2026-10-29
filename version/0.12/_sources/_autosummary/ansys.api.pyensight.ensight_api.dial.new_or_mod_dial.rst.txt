@@ -1,0 +1,6 @@
+new\_or\_mod\_dial
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: dial.new_or_mod_dial

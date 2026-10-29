@@ -1,0 +1,6 @@
+default\_emit\_net
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.default_emit_net

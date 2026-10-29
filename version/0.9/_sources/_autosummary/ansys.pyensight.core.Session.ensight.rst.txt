@@ -1,0 +1,6 @@
+ensight
+=======
+
+.. currentmodule:: ansys.pyensight.core
+
+.. autoproperty:: Session.ensight

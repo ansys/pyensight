@@ -1,0 +1,6 @@
+timeset\_leftof
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: solution_time.timeset_leftof

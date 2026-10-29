@@ -1,0 +1,6 @@
+launch\_webui
+=============
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: DockerLauncher.launch_webui

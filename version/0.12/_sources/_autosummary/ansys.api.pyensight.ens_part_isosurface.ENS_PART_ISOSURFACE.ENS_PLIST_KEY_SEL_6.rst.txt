@@ -1,0 +1,6 @@
+ENS\_PLIST\_KEY\_SEL\_6
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_isosurface
+
+.. autoproperty:: ENS_PART_ISOSURFACE.ENS_PLIST_KEY_SEL_6

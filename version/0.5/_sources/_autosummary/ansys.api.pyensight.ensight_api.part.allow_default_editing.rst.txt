@@ -1,0 +1,6 @@
+allow\_default\_editing
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.allow_default_editing

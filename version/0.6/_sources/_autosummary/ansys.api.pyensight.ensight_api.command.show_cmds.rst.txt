@@ -1,0 +1,6 @@
+show\_cmds
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: command.show_cmds

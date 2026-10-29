@@ -1,0 +1,6 @@
+TRI06
+=====
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.TRI06

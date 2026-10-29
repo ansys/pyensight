@@ -1,0 +1,53 @@
+﻿UpdateHints
+===========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoclass:: UpdateHints
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      UpdateHints.conjugate
+      
+      
+      UpdateHints.bit_length
+      
+      
+      UpdateHints.bit_count
+      
+      
+      UpdateHints.to_bytes
+      
+      
+      UpdateHints.from_bytes
+      
+      
+      UpdateHints.as_integer_ratio
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      UpdateHints.real
+      UpdateHints.imag
+      UpdateHints.numerator
+      UpdateHints.denominator
+      UpdateHints.NONE
+      UpdateHints.TIME
+      UpdateHints.STRUCTURE
+      UpdateHints.DATA
+   
+   

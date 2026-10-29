@@ -1,0 +1,54 @@
+﻿VariableLocation
+================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoclass:: VariableLocation
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      VariableLocation.conjugate
+      
+      
+      VariableLocation.bit_length
+      
+      
+      VariableLocation.bit_count
+      
+      
+      VariableLocation.to_bytes
+      
+      
+      VariableLocation.from_bytes
+      
+      
+      VariableLocation.as_integer_ratio
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      VariableLocation.real
+      VariableLocation.imag
+      VariableLocation.numerator
+      VariableLocation.denominator
+      VariableLocation.DATASET
+      VariableLocation.PART
+      VariableLocation.NODE
+      VariableLocation.ELEMENT
+      VariableLocation.UNKNOWN_LOCATION
+   
+   

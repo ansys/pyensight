@@ -1,0 +1,6 @@
+connect
+=======
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: DockerLauncher.connect

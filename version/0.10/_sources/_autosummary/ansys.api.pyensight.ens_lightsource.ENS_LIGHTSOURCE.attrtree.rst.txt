@@ -1,0 +1,6 @@
+attrtree
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_lightsource
+
+.. automethod:: ENS_LIGHTSOURCE.attrtree

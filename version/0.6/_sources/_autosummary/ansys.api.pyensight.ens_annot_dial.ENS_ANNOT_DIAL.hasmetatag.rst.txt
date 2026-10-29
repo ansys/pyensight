@@ -1,0 +1,6 @@
+hasmetatag
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_annot_dial
+
+.. automethod:: ENS_ANNOT_DIAL.hasmetatag

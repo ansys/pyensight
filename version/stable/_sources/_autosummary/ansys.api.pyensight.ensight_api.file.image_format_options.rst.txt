@@ -1,0 +1,6 @@
+image\_format\_options
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.image_format_options

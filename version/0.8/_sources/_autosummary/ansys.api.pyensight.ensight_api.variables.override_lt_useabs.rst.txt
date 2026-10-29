@@ -1,0 +1,6 @@
+override\_lt\_useabs
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: variables.override_lt_useabs

@@ -1,0 +1,83 @@
+
+
+.. _sphx_glr__examples_25-intermediate:
+
+.. _intermediate-gallery:
+
+Intermediate examples
+=====================
+
+These intermediate examples use the PyEnSight API for more
+complex workflows that employ calculator functions, queries, viewports,
+and annotations.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A common operation is to load two different datasets, usually design points, into the same EnSi...">
+
+.. only:: html
+
+  .. image:: /_examples/25-intermediate/images/thumb/sphx_glr_00-designpoints_thumb.png
+    :alt:
+
+  :ref:`sphx_glr__examples_25-intermediate_00-designpoints.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Design point comparison</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="A query is basically a collection of x,y values. In addition to the raw values, each point is p...">
+
+.. only:: html
+
+  .. image:: /_examples/25-intermediate/images/thumb/sphx_glr_01-queries_thumb.png
+    :alt:
+
+  :ref:`sphx_glr__examples_25-intermediate_01-queries.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Queries</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="EnSight Utilities">
+
+.. only:: html
+
+  .. image:: /_examples/25-intermediate/images/thumb/sphx_glr_02-utils_thumb.png
+    :alt:
+
+  :ref:`sphx_glr__examples_25-intermediate_02-utils.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">EnSight Utilities</div>
+    </div>
+
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /_examples/25-intermediate/00-designpoints
+   /_examples/25-intermediate/01-queries
+   /_examples/25-intermediate/02-utils
+

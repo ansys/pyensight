@@ -1,0 +1,6 @@
+noderangestep\_k
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: model.noderangestep_k

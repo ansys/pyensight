@@ -1,0 +1,6 @@
+VOLUME\_CHUNKING\_NUM\_TETS
+===========================
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.VOLUME_CHUNKING_NUM_TETS

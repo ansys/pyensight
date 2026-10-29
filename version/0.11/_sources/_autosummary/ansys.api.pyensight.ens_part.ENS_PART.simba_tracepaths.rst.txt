@@ -1,0 +1,6 @@
+simba\_tracepaths
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_part
+
+.. automethod:: ENS_PART.simba_tracepaths

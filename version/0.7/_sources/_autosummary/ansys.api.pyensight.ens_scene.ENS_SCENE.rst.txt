@@ -1,0 +1,101 @@
+﻿ENS\_SCENE
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_scene
+
+.. autoclass:: ENS_SCENE
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_SCENE.attrgroupinfo
+      
+      
+      ENS_SCENE.attrinfo
+      
+      
+      ENS_SCENE.attrissensitive
+      
+      
+      ENS_SCENE.attrtree
+      
+      
+      ENS_SCENE.destroy
+      
+      
+      ENS_SCENE.getattr
+      
+      
+      ENS_SCENE.getattrs
+      
+      
+      ENS_SCENE.getmetatag
+      
+      
+      ENS_SCENE.hasmetatag
+      
+      
+      ENS_SCENE.setattr
+      
+      
+      ENS_SCENE.setattr_begin
+      
+      
+      ENS_SCENE.setattr_end
+      
+      
+      ENS_SCENE.setattr_status
+      
+      
+      ENS_SCENE.setattrs
+      
+      
+      ENS_SCENE.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_SCENE.ACTIVE
+      ENS_SCENE.EDIT_TARGET
+      ENS_SCENE.ENVMAP_SAVEDINFO
+      ENS_SCENE.GROUND_ACTIVE
+      ENS_SCENE.GROUND_BLENDSCALE
+      ENS_SCENE.GROUND_COLOR
+      ENS_SCENE.GROUND_GRIDCOLORA
+      ENS_SCENE.GROUND_GRIDCOLORB
+      ENS_SCENE.GROUND_GRIDSCALE
+      ENS_SCENE.GROUND_HASGRID
+      ENS_SCENE.GROUND_HASREFL
+      ENS_SCENE.GROUND_HASSHADOW
+      ENS_SCENE.GROUND_HASTEXTURE
+      ENS_SCENE.GROUND_HEIGHTOFFSET
+      ENS_SCENE.GROUND_LOCK
+      ENS_SCENE.GROUND_SAVEDINFO
+      ENS_SCENE.GROUND_TEXSCALE
+      ENS_SCENE.GROUND_UPDIR
+      ENS_SCENE.HANDLES_ENABLED
+      ENS_SCENE.LIGHT_ENV_TEXNUM
+      ENS_SCENE.LOCATION
+      ENS_SCENE.METADATA
+      ENS_SCENE.PROJECT_MASK
+      ENS_SCENE.RADIUS
+      ENS_SCENE.RADIUS_SCALE
+      ENS_SCENE.SHOW_LOCATION
+      ENS_SCENE.UUID
+      ENS_SCENE.__OBJID__
+      ENS_SCENE.objid
+   
+   

@@ -1,0 +1,6 @@
+QUAD04\_GHOST
+=============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.QUAD04_GHOST

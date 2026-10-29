@@ -1,0 +1,6 @@
+offset\_scale
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: set_visenv.offset_scale

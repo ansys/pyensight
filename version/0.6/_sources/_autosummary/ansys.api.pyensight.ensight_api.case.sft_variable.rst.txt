@@ -1,0 +1,6 @@
+sft\_variable
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: case.sft_variable

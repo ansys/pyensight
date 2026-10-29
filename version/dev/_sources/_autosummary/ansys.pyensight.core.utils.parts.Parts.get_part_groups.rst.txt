@@ -1,0 +1,6 @@
+get\_part\_groups
+=================
+
+.. currentmodule:: ansys.pyensight.core.utils.parts
+
+.. automethod:: Parts.get_part_groups

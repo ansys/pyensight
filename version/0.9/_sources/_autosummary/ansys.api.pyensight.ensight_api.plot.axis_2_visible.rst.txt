@@ -1,0 +1,6 @@
+axis\_2\_visible
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.axis_2_visible

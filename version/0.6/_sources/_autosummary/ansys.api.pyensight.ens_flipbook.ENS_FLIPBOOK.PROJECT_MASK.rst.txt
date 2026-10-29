@@ -1,0 +1,6 @@
+PROJECT\_MASK
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_flipbook
+
+.. autoproperty:: ENS_FLIPBOOK.PROJECT_MASK

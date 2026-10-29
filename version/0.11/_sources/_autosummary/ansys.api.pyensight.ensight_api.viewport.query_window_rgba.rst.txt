@@ -1,0 +1,6 @@
+query\_window\_rgba
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport.query_window_rgba

@@ -1,0 +1,6 @@
+EDIT\_TARGET
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_group
+
+.. autoproperty:: ENS_GROUP.EDIT_TARGET

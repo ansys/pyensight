@@ -1,0 +1,6 @@
+RESET\_RANGE\_ON\_TIME\_CHANGE
+==============================
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. autoproperty:: ENS_PALETTE.RESET_RANGE_ON_TIME_CHANGE

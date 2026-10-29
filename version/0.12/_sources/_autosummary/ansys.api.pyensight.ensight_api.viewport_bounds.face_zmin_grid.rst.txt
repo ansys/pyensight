@@ -1,0 +1,6 @@
+face\_zmin\_grid
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport_bounds.face_zmin_grid

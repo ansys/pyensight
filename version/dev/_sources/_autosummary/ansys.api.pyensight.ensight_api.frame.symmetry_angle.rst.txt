@@ -1,0 +1,6 @@
+symmetry\_angle
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: frame.symmetry_angle

@@ -1,0 +1,6 @@
+library\_version
+================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: LibUserd.library_version

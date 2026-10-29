@@ -1,0 +1,6 @@
+select\_palette\_begin
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: legend.select_palette_begin

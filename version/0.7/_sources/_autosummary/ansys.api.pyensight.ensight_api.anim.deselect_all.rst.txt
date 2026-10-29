@@ -1,0 +1,6 @@
+deselect\_all
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim.deselect_all

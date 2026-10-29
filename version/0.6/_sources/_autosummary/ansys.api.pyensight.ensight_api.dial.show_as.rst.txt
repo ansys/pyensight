@@ -1,0 +1,6 @@
+show\_as
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: dial.show_as

@@ -1,0 +1,6 @@
+GROUND\_HASGRID
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_scene
+
+.. autoproperty:: ENS_SCENE.GROUND_HASGRID

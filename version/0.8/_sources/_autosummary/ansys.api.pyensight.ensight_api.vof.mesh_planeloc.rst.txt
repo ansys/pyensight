@@ -1,0 +1,6 @@
+mesh\_planeloc
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: vof.mesh_planeloc

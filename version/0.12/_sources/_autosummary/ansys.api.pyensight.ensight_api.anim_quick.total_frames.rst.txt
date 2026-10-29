@@ -1,0 +1,6 @@
+total\_frames
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_quick.total_frames

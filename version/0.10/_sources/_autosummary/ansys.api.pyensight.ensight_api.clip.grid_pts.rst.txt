@@ -1,0 +1,6 @@
+grid\_pts
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: clip.grid_pts

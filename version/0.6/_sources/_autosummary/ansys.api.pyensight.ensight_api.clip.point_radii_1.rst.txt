@@ -1,0 +1,6 @@
+point\_radii\_1
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: clip.point_radii_1

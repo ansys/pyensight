@@ -1,0 +1,6 @@
+scale\_factor\_u
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: devsrf.scale_factor_u

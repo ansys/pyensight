@@ -1,0 +1,6 @@
+animation\_numpasses
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.animation_numpasses

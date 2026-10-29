@@ -1,0 +1,6 @@
+update\_with\_timechange
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: case.update_with_timechange

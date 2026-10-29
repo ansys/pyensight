@@ -1,0 +1,6 @@
+evaluate
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: variables.evaluate

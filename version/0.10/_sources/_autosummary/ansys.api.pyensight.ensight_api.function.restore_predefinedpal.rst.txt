@@ -1,0 +1,6 @@
+restore\_predefinedpal
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: function.restore_predefinedpal

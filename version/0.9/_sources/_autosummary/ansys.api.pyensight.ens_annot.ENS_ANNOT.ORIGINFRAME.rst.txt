@@ -1,0 +1,6 @@
+ORIGINFRAME
+===========
+
+.. currentmodule:: ansys.api.pyensight.ens_annot
+
+.. autoproperty:: ENS_ANNOT.ORIGINFRAME

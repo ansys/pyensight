@@ -1,0 +1,6 @@
+machine\_host
+=============
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.machine_host

@@ -1,0 +1,6 @@
+remap\_cmdlang\_name
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.remap_cmdlang_name

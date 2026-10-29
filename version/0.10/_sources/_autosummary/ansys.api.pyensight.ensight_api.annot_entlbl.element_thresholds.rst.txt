@@ -1,0 +1,6 @@
+element\_thresholds
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: annot_entlbl.element_thresholds

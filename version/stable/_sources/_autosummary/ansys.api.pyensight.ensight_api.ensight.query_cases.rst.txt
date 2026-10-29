@@ -1,0 +1,6 @@
+query\_cases
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.query_cases

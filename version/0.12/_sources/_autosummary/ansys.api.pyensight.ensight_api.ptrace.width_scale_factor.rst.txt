@@ -1,0 +1,6 @@
+width\_scale\_factor
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.width_scale_factor

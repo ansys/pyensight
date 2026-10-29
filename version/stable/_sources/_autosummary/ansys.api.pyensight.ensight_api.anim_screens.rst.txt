@@ -1,0 +1,39 @@
+﻿anim\_screens
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. autoclass:: anim_screens
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      anim_screens.save_multiple_images
+      
+      
+      anim_screens.type
+      
+      
+      anim_screens.x_max
+      
+      
+      anim_screens.x_min
+      
+      
+      anim_screens.y_max
+      
+      
+      anim_screens.y_min
+      
+   
+   
+
+   
+   
+   

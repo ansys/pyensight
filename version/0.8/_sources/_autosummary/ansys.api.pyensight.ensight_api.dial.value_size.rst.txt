@@ -1,0 +1,6 @@
+value\_size
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: dial.value_size

@@ -1,0 +1,6 @@
+ORIGIN
+======
+
+.. currentmodule:: ansys.api.pyensight.ens_annot_gauge
+
+.. autoproperty:: ENS_ANNOT_GAUGE.ORIGIN

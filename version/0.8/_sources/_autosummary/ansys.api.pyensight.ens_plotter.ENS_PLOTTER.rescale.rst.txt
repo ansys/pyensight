@@ -1,0 +1,6 @@
+rescale
+=======
+
+.. currentmodule:: ansys.api.pyensight.ens_plotter
+
+.. automethod:: ENS_PLOTTER.rescale

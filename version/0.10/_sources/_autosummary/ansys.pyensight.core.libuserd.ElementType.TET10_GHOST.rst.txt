@@ -1,0 +1,6 @@
+TET10\_GHOST
+============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.TET10_GHOST

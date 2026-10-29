@@ -1,0 +1,39 @@
+﻿nplot
+=====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. autoclass:: nplot
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      nplot.cursor
+      
+      
+      nplot.element
+      
+      
+      nplot.ijk
+      
+      
+      nplot.node
+      
+      
+      nplot.part
+      
+      
+      nplot.point
+      
+   
+   
+
+   
+   
+   

@@ -1,0 +1,6 @@
+pick\_method
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view.pick_method

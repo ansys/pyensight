@@ -1,0 +1,6 @@
+destroy
+=======
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.destroy

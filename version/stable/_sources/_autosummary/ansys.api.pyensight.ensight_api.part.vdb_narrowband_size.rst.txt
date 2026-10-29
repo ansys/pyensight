@@ -1,0 +1,6 @@
+vdb\_narrowband\_size
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.vdb_narrowband_size

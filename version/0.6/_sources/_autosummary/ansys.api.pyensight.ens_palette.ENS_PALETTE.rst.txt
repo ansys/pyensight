@@ -1,0 +1,191 @@
+﻿ENS\_PALETTE
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. autoclass:: ENS_PALETTE
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_PALETTE.add_knot
+      
+      
+      ENS_PALETTE.add_marker_at_value
+      
+      
+      ENS_PALETTE.add_markers_at_levels
+      
+      
+      ENS_PALETTE.add_nuniform_markers
+      
+      
+      ENS_PALETTE.attrgroupinfo
+      
+      
+      ENS_PALETTE.attrinfo
+      
+      
+      ENS_PALETTE.attrissensitive
+      
+      
+      ENS_PALETTE.attrtree
+      
+      
+      ENS_PALETTE.clear_all_markers
+      
+      
+      ENS_PALETTE.clear_last_marker
+      
+      
+      ENS_PALETTE.cmd_record
+      
+      
+      ENS_PALETTE.delete_knot
+      
+      
+      ENS_PALETTE.destroy
+      
+      
+      ENS_PALETTE.get_end_point_colors
+      
+      
+      ENS_PALETTE.get_histogram
+      
+      
+      ENS_PALETTE.get_natural_texture_size
+      
+      
+      ENS_PALETTE.get_point
+      
+      
+      ENS_PALETTE.get_predefined_palettes
+      
+      
+      ENS_PALETTE.get_time_step_range
+      
+      
+      ENS_PALETTE.getattr
+      
+      
+      ENS_PALETTE.getattrs
+      
+      
+      ENS_PALETTE.getmetatag
+      
+      
+      ENS_PALETTE.hasmetatag
+      
+      
+      ENS_PALETTE.invert_colors
+      
+      
+      ENS_PALETTE.make_texture
+      
+      
+      ENS_PALETTE.populate_attr_list
+      
+      
+      ENS_PALETTE.reset_range_on_time_change_all
+      
+      
+      ENS_PALETTE.restore_palette_named
+      
+      
+      ENS_PALETTE.reverse_levels
+      
+      
+      ENS_PALETTE.save_palette_named
+      
+      
+      ENS_PALETTE.set_minmax
+      
+      
+      ENS_PALETTE.set_point
+      
+      
+      ENS_PALETTE.set_range_to_over_time_minmax
+      
+      
+      ENS_PALETTE.set_range_to_part_minmax
+      
+      
+      ENS_PALETTE.set_range_to_viewport_minmax
+      
+      
+      ENS_PALETTE.setattr
+      
+      
+      ENS_PALETTE.setattr_begin
+      
+      
+      ENS_PALETTE.setattr_end
+      
+      
+      ENS_PALETTE.setattr_status
+      
+      
+      ENS_PALETTE.setattrs
+      
+      
+      ENS_PALETTE.setmetatag
+      
+      
+      ENS_PALETTE.undo_restored_palette
+      
+      
+      ENS_PALETTE.use_continuous_all
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_PALETTE.ALPHA_VOLUME_SCALE
+      ENS_PALETTE.C1_POINTS
+      ENS_PALETTE.C2_POINTS
+      ENS_PALETTE.C3_POINTS
+      ENS_PALETTE.C4_POINTS
+      ENS_PALETTE.COLORS_PER_LEVEL
+      ENS_PALETTE.COLOR_SPACE
+      ENS_PALETTE.DEGREE
+      ENS_PALETTE.DESCRIPTION
+      ENS_PALETTE.EDIT_TARGET
+      ENS_PALETTE.HANDLES_ENABLED
+      ENS_PALETTE.HANDLE_UNDEFINED_VALUE
+      ENS_PALETTE.HISTO_SCALE
+      ENS_PALETTE.INTERP
+      ENS_PALETTE.LEVELS_AND_COLORS
+      ENS_PALETTE.LEVELS_LOCK
+      ENS_PALETTE.LIMIT_FRINGES
+      ENS_PALETTE.MARKER_COLOR
+      ENS_PALETTE.MARKER_WIDTH
+      ENS_PALETTE.MAX_MARKERS
+      ENS_PALETTE.METADATA
+      ENS_PALETTE.MINMAX
+      ENS_PALETTE.NLEVELS
+      ENS_PALETTE.NODE_LOCK
+      ENS_PALETTE.PALMISC
+      ENS_PALETTE.PROJECT_MASK
+      ENS_PALETTE.RESET_RANGE_ON_TIME_CHANGE
+      ENS_PALETTE.SCALE_METHOD
+      ENS_PALETTE.TIME_RANGE
+      ENS_PALETTE.UNDEFINED_COLOR
+      ENS_PALETTE.USE_CONTINUOUS
+      ENS_PALETTE.UUID
+      ENS_PALETTE.VARIABLE
+      ENS_PALETTE.__OBJID__
+      ENS_PALETTE.objid
+   
+   
