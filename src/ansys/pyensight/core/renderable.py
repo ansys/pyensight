@@ -592,6 +592,10 @@ class RenderableVNC(Renderable):
         self._rendertype = "remote"
         self.update()
 
+    def browser(self):
+        super().browser()
+        self._session.ensight.refresh(1)
+
     def _update_2023R2_or_less(self):
         """Update the remote rendering widget and display it for
         backend EnSight of version earlier than 2024R1

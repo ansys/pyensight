@@ -22,7 +22,7 @@
 
 from copy import copy
 from types import ModuleType
-from typing import TYPE_CHECKING, Any, Dict, List, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Union, cast
 from uuid import uuid1
 import xml.etree.ElementTree as et
 
@@ -32,8 +32,11 @@ if TYPE_CHECKING:
     except ImportError:
         from ansys.api.pyensight import ensight_api
     from ansys.api.pyensight.ens_part import ENS_PART
+    from ansys.pyensight.core.ensobj import ENSOBJ
 
 SPAN_EPS = 1e-5
+
+TURBO_TYPES = ["INLET", "OUTLET", "HUB", "SHROUD", "FLUID"]
 
 
 class Turbosurfaces:
@@ -57,6 +60,15 @@ class Turbosurfaces:
         self.spanwise_vport = "Spanwise"
         self.meridional_vport = "Meridional"
         self._progress_bar_method = None
+        self.preferences: Dict[str, List[str]] = {
+            "SHROUD": [],
+            "BLADE": [],
+            "INLET": [],
+            "OUTLET": [],
+            "PERIODIC1": [],
+            "PERIODIC2": [],
+        }
+        self.turbo_part_match: Dict[str, List[str]] = {}
 
     def hide_text_annotation(self):
         """
@@ -183,11 +195,15 @@ class Turbosurfaces:
             # Set visibility. Needs to be done after setting the displacement
             for threedvports in threed_vports:
                 if part.VIEWPORTVIS & 2**threedvports.ID:
-                    part.setattr("VIEWPORTVIS", part.VIEWPORTVIS - 2**threedvports.ID, record=0)
+                    self._setattr_internal(
+                        part, "VIEWPORTVIS", part.VIEWPORTVIS - 2**threedvports.ID
+                    )
             if part.VIEWPORTVIS & 2**vport_spanwise.ID == 0:
-                part.setattr("VIEWPORTVIS", part.VIEWPORTVIS + 2**vport_spanwise.ID, record=0)
+                self._setattr_internal(part, "VIEWPORTVIS", part.VIEWPORTVIS + 2**vport_spanwise.ID)
             if part.VIEWPORTVIS & 2**vport_meridional.ID > 0:
-                part.setattr("VIEWPORTVIS", part.VIEWPORTVIS - 2**vport_meridional.ID, record=0)
+                self._setattr_internal(
+                    part, "VIEWPORTVIS", part.VIEWPORTVIS - 2**vport_meridional.ID
+                )
         elif threed == 1:
             part.HANDLES_ENABLED = 1
             # turn off displacement
@@ -195,7 +211,9 @@ class Turbosurfaces:
             # Set the part visible on all 3D viewports
             for threedvports in threed_vports:
                 if not (part.VIEWPORTVIS & 2**threedvports.ID):
-                    part.setattr("VIEWPORTVIS", part.VIEWPORTVIS + 2**threedvports.ID, record=0)
+                    self._setattr_internal(
+                        part, "VIEWPORTVIS", part.VIEWPORTVIS + 2**threedvports.ID
+                    )
             # Turn off visibility on 2D viewports, if they exist
             vport_spanwise_list = [
                 x
@@ -205,7 +223,9 @@ class Turbosurfaces:
             if vport_spanwise_list:
                 vport_spanwise = vport_spanwise_list[0]
                 if part.VIEWPORTVIS & 2**vport_spanwise.ID > 0:
-                    part.setattr("VIEWPORTVIS", part.VIEWPORTVIS - 2**vport_spanwise.ID, record=0)
+                    self._setattr_internal(
+                        part, "VIEWPORTVIS", part.VIEWPORTVIS - 2**vport_spanwise.ID
+                    )
             vport_meridional_list = [
                 x
                 for x in self.ensight.objs.core.VPORTS
@@ -214,7 +234,7 @@ class Turbosurfaces:
             if vport_meridional_list:
                 vport_meridional = vport_meridional_list[0]
                 if part.VIEWPORTVIS & 2**vport_meridional.ID > 0:
-                    part.setattr("VIEWPORTVIS", part.VIEWPORTVIS - 2**vport_meridional.ID, record=0)
+                    self._setattr_internal("VIEWPORTVIS", part.VIEWPORTVIS - 2**vport_meridional.ID)
 
     @staticmethod
     def ret_obj(p):
@@ -253,7 +273,7 @@ class Turbosurfaces:
             # Hide all parts on the 2D viewport
             for p in self.ensight.objs.core.PARTS:
                 if p.VIEWPORTVIS & 2**vport.ID:
-                    p.setattr("VIEWPORTVIS", p.VIEWPORTVIS - 2**vport.ID, record=0)
+                    self._setattr_internal(p, "VIEWPORTVIS", p.VIEWPORTVIS - 2**vport.ID)
         elif vtype == self.meridional_str:
             self.ensight.viewport.view_dimension("3D")
             self.ensight.view_transf.initialize_viewports()
@@ -268,7 +288,7 @@ class Turbosurfaces:
             for p in self.ensight.objs.core.PARTS:
                 if self.meridional_metatag not in p.METADATA.get("ENS_TURBO_VIEW", ""):
                     if p.VIEWPORTVIS & 2**vport.ID:
-                        p.setattr("VIEWPORTVIS", p.VIEWPORTVIS - 2**vport.ID, record=0)
+                        self._setattr_internal(p, "VIEWPORTVIS", p.VIEWPORTVIS - 2**vport.ID)
         return twodparts
 
     def check_viewports(self):
@@ -395,12 +415,12 @@ class Turbosurfaces:
                 vtype=self.spanwise_str, vport=vspanwise[0]
             )
             if len(part_spanwise) > 0:
-                part_spanwise[0].setattr("VIEWPORTVIS", (1 << vspanwise[0].ID), record=0)
+                self._setattr_internal(part_spanwise[0], "VIEWPORTVIS", (1 << vspanwise[0].ID))
                 # If a part was set to be visible on the 2D Spanwise vport, and if it's a child of the
                 # spanwise part, then reset it to have per vport visibility on
                 for tmp_p in vis_parts:
                     if part_spanwise[0] in tmp_p.SOURCES:
-                        tmp_p.setattr("VIEWPORTVIS", (1 << vspanwise[0].ID), record=0)
+                        self._setattr_internal(tmp_p, "VIEWPORTVIS", (1 << vspanwise[0].ID))
                 # Make sure the text annotation for 2D Spanwise part is on
                 self.show_text_annotation(part_spanwise[0])
             # Changing part visibility per viewport messes up the viewport orientation
@@ -425,8 +445,10 @@ class Turbosurfaces:
                 # Step two: make sure all these parts have visibility per viewport set to be ON in the 2D span vport
                 for varrow_part in varrowlist_displ:
                     if not (varrow_part.VIEWPORTVIS & 2 ** vspanwise[0].ID):
-                        varrow_part.setattr(
-                            "VIEWPORTVIS", varrow_part.VIEWPORTVIS + 2 ** vspanwise[0].ID, record=0
+                        self._setattr_internal(
+                            varrow_part,
+                            "VIEWPORTVIS",
+                            varrow_part.VIEWPORTVIS + 2 ** vspanwise[0].ID,
                         )
         vmeridional = [
             x
@@ -454,12 +476,12 @@ class Turbosurfaces:
                     ):
                         part_mer.append(p)
             if len(part_mer) > 0:
-                part_mer[0].setattr("VIEWPORTVIS", (1 << vmeridional[0].ID), record=0)
+                self._setattr_internal(part_mer[0], "VIEWPORTVIS", (1 << vmeridional[0].ID))
                 # If a part was set to be visible on the 2D Meridional vport, and if it's a child of the
                 # meridional part, then reset it to have per vport visibility on
                 for tmp_p in vis_parts:
                     if part_mer[0] in tmp_p.SOURCES:
-                        tmp_p.setattr("VIEWPORTVIS", (1 << vmeridional[0].ID), record=0)
+                        self._setattr_internal(tmp_p, "VIEWPORTVIS", (1 << vmeridional[0].ID))
             self.reset_meridional_vport()
             vmeridional[0].SELECTED = False
 
@@ -532,7 +554,7 @@ class Turbosurfaces:
             vport.SELECTED = True
             # Set the view in vport
             _ = self.set_twodviewport_properties(vtype=self.spanwise_str, vport=vport)
-            part.setattr("VIEWPORTVIS", (1 << vport.ID), record=0)
+            self._setattr_internal(part, "VIEWPORTVIS", (1 << vport.ID))
             self.reset_spanwise_vport()
         else:
             part.VISIBLE = True
@@ -543,11 +565,11 @@ class Turbosurfaces:
             ][0]
             # Set the view in vport
             vis_parts = self.set_twodviewport_properties(vtype=self.meridional_str, vport=vport)
-            part.setattr("VIEWPORTVIS", (1 << vport.ID), record=0)
+            self._setattr_internal(part, "VIEWPORTVIS", (1 << vport.ID))
             # Reset visibility for 2D children of part on the meridional vport
             for tmp_p in vis_parts:
                 if part in tmp_p.SOURCES:
-                    tmp_p.setattr("VIEWPORTVIS", (1 << vport.ID), record=0)
+                    self._setattr_internal(tmp_p, "VIEWPORTVIS", (1 << vport.ID))
             self.ensight.view_transf.function("global")
             self.ensight.view_transf.cameratoview_direction(0.000000, 0.000000, 1.0)
             self.ensight.view_transf.cameratoview_compute()
@@ -643,8 +665,8 @@ class Turbosurfaces:
             newpart.VIEWPORTVIS = 0
             for threedvports in threed_vports:
                 if not (newpart.VIEWPORTVIS & 2**threedvports.ID):
-                    newpart.setattr(
-                        "VIEWPORTVIS", newpart.VIEWPORTVIS + 2**threedvports.ID, record=0
+                    self._setattr_internal(
+                        newpart, "VIEWPORTVIS", newpart.VIEWPORTVIS + 2**threedvports.ID
                     )
             newpart.HANDLES_ENABLED = 1
         self.ensight.objs.core.ensmodel_updates_resume(
@@ -720,7 +742,9 @@ class Turbosurfaces:
         newpart.VIEWPORTVIS = 0
         for threedvports in threed_vports:
             if not (newpart.VIEWPORTVIS & 2**threedvports.ID):
-                newpart.setattr("VIEWPORTVIS", newpart.VIEWPORTVIS + 2**threedvports.ID, record=0)
+                self._setattr_internal(
+                    newpart, "VIEWPORTVIS", newpart.VIEWPORTVIS + 2**threedvports.ID
+                )
         newpart.HANDLES_ENABLED = 1
 
         self.ensight.objs.core.ensmodel_updates_resume(
@@ -796,7 +820,9 @@ class Turbosurfaces:
         newpart.VIEWPORTVIS = 0
         for threedvports in threed_vports:
             if not (newpart.VIEWPORTVIS & 2**threedvports.ID):
-                newpart.setattr("VIEWPORTVIS", newpart.VIEWPORTVIS + 2**threedvports.ID, record=0)
+                self._setattr_internal(
+                    newpart, "VIEWPORTVIS", newpart.VIEWPORTVIS + 2**threedvports.ID
+                )
 
         self.ensight.objs.core.ensmodel_updates_resume(
             modelfilter=self.ensight.objs.enums.ENSMODEL_SHOW_ANY,
@@ -1033,7 +1059,7 @@ class Turbosurfaces:
         except Exception:
             if is_ensight_module:
                 return False, component
-            raise RuntimeError(f"Cannot find intel component {component}")
+            raise RuntimeError(f"Cannot find inlet component {component}")
 
     def set_outlet_parts(self, part_dict={}):
         """
@@ -2119,3 +2145,438 @@ class Turbosurfaces:
         for part_mer in part_mer_dict.values():
             self.change_visibility(part=part_mer, turbotype="meridional")
         self.reset_meridional_vport()
+
+    def set_turbo_match_preference_string(self, component, values):
+        if component not in self.preferences:
+            raise RuntimeError(f"Component tag {component} not valid")
+        self.preferences[component] = [v.replace(" ", "") for v in values]
+        self.read_turbo_match()
+
+    def _create_component_list(self):
+        """
+        Cycle through all the parts and use the ENS_TURBO_STAGE
+        metadata to build the list of components
+        """
+        component_list = []
+        for p in self.ensight.objs.core.CURRENTCASE[0].LPARTS:
+            if p.ENS_TURBO_STAGE:
+                component_name = p.ENS_TURBO_STAGE.split(",")[0]
+                if component_name not in component_list and len(component_name) > 0:
+                    component_list.append(component_name)
+        return component_list
+
+    def _set_component_order_after_trb(self):
+        tmp_component_list = self._create_component_list()
+        component_list = []
+        current_case = self.ensight.objs.core.CURRENTCASE[0]
+        meta = current_case.METADATA
+        if len(meta.get("ENS_COMPONENT_ORDER", "")) > 0:
+            for i_component in meta.get("ENS_COMPONENT_ORDER", "").split(","):
+                if len(i_component) > 0:
+                    component_list.append(i_component)
+        else:
+            tmp_component_list.sort()
+            component_list = copy(tmp_component_list)
+        self.total_component_number = max(1, len(component_list))
+        # Make sure you have some components. If not, artificially create at least one:
+        while len(component_list) < self.total_component_number:
+            component_list.append("Component" + " " + str(len(self.component_list)))
+        self.component_list = component_list
+
+    def _set_part_type(self, part, part_type):
+        """
+        Given a part, check if its name matches any of the settings in the preferences
+        for the passed turbomachinery type and if yes, then set the metedata accordingly
+        """
+        turbo_split = part.ENS_TURBO_STAGE.split(",")
+        p_component = turbo_split[0]
+        ptype = ""
+        if len(turbo_split) > 1:
+            ptype = turbo_split[1]
+        if len(turbo_split) < 2 or ptype == "":
+            for match_name in self.turbo_part_match.get(part_type, []):
+                if len(match_name) > 1 and (match_name.lower() in part.DESCRIPTION.lower()):
+                    part.setmetatag("ENS_TURBO_STAGE", p_component + "," + part_type)
+                    return
+
+    def _initialize_turbo_parts(self, use_ids=False):
+        lparts_turbo_types = {}  # Bookkeeping: store the turbo types for each component to check
+        # if the reader provided all the turbo part type information necessary
+        for component_name in self.component_list:
+            lparts_turbo_types[component_name] = {}
+        for p in self.ensight.objs.core.CURRENTCASE[0].LPARTS:
+            p_component_name = ""
+            if p.ENS_TURBO_STAGE:
+                p_component_name = p.ENS_TURBO_STAGE.split(",")[0]
+            if len(p_component_name) > 0 and p_component_name in self.component_list:
+                if len(p.ENS_TURBO_STAGE.split(",")) == 2:
+                    component_type = p.ENS_TURBO_STAGE.split(",")[1]
+                    for i_type in TURBO_TYPES:
+                        if component_type == i_type:
+                            lparts_turbo_types[p_component_name][i_type] = [p]
+        inlet_parts_values = {}
+        outlet_parts_values = {}
+        shroud_parts_values = {}
+        hub_parts_values = {}
+        fluid_parts_values = {}
+        total_component_number = 1
+        for component_name in self.component_list:
+            inlet_parts_values[component_name] = list()
+            outlet_parts_values[component_name] = list()
+            shroud_parts_values[component_name] = list()
+            hub_parts_values[component_name] = list()
+            fluid_parts_values[component_name] = list()
+        # If no parts had a component set on it, then set total number of components to one and return
+        # Skip all the section on matching the parts with the turbo type
+        empty_turbo = True
+        for k in lparts_turbo_types.keys():
+            if len(k) > 0:
+                empty_turbo = False
+        if empty_turbo:
+            total_component_number = 1
+            return {
+                "total_component_number": total_component_number,
+                "outlet_parts_values": outlet_parts_values,
+                "inlet_parts_values": inlet_parts_values,
+                "shroud_parts_values": shroud_parts_values,
+                "hub_parts_values": hub_parts_values,
+                "fluid_parts_values": fluid_parts_values,
+            }
+        # Copy the metadata from the LPART onto the PART for all available PARTs in the current case
+        # Use that information to fill in the self.*_parts_values dictionaries
+        # Store parts that could be outlets to use later. See next loop
+        lparts_meta = self.ensight.objs.core.CURRENTCASE[0].LPARTS[0].METADATA
+        possible_outlets = []
+        asked_init = lparts_meta.get("turbo_askedInit", "")
+        current_case_id = self.ensight.objs.core.CURRENTCASE[0].CASENUMBER
+        for p in self.ensight.objs.core.PARTS:
+            if p.CASENUMBER == current_case_id:
+                if p.LPARTPARENT[0] is not None and len(asked_init) == 0:
+                    # Copy ENS_TURBO_STAGE only if it's not already defined.
+                    # It might come from a previous initialization
+                    if len(p.ENS_TURBO_STAGE.split(",")) <= 1:
+                        p.ENS_TURBO_STAGE = p.LPARTPARENT[0].ENS_TURBO_STAGE
+                for turbo_component in p.ENS_TURBO_STAGE.split(";"):
+                    # If the part has a component associated with it but no turbo type, then  check
+                    # if the part name fits with any of the settings from the preferences
+                    if len(turbo_component.split(",")) == 1 or (
+                        len(turbo_component.split(",")) == 2
+                        and len(turbo_component.split(",")[1]) == 0
+                    ):
+                        for i_type in TURBO_TYPES:
+                            # Exclude the parts whose name includes BLADE, BLD, TIP, PER
+                            if (
+                                p.DESCRIPTION.upper().find("BLADE") < 0
+                                and p.DESCRIPTION.upper().find("BLD") < 0
+                                and p.DESCRIPTION.upper().find("TIP") < 0
+                                and p.DESCRIPTION.upper().find("PER") < 0
+                            ):
+                                self._set_part_type(p, i_type)
+                for turbo_component in p.ENS_TURBO_STAGE.split(";"):
+                    if len(turbo_component.split(",")) == 2:
+                        component_type = turbo_component.split(",")[1]
+                        if component_type == "INLET":
+                            if turbo_component.split(",")[0] not in inlet_parts_values:
+                                inlet_parts_values[turbo_component.split(",")[0]] = [p]
+                            else:
+                                inlet_parts_values[turbo_component.split(",")[0]].append(p)
+                            # If the part is a merged part, check if its parent parts are already
+                            # in the dictionary and if yes, remove them
+                            if p.SOURCES:
+                                for orig_p in p.SOURCES:
+                                    if orig_p in inlet_parts_values[turbo_component.split(",")[0]]:
+                                        inlet_parts_values[turbo_component.split(",")[0]].remove(
+                                            orig_p
+                                        )
+                                        orig_p.setmetatag("ENS_TURBO_STAGE", "")
+                        elif component_type == "OUTLET":
+                            if turbo_component.split(",")[0] not in outlet_parts_values:
+                                outlet_parts_values[turbo_component.split(",")[0]] = [p]
+                            else:
+                                outlet_parts_values[turbo_component.split(",")[0]].append(p)
+                            # If the part is a merged part, check if its parent parts are already
+                            # in the dictionary and if yes, remove them
+                            if p.SOURCES:
+                                for orig_p in p.SOURCES:
+                                    if orig_p in outlet_parts_values[turbo_component.split(",")[0]]:
+                                        outlet_parts_values[turbo_component.split(",")[0]].remove(
+                                            orig_p
+                                        )
+                                        orig_p.setmetatag("ENS_TURBO_STAGE", "")
+                        elif component_type == "HUB":
+                            if turbo_component.split(",")[0] not in hub_parts_values:
+                                hub_parts_values[turbo_component.split(",")[0]] = [p]
+                            else:
+                                hub_parts_values[turbo_component.split(",")[0]].append(p)
+                            # If the part is a merged part, check if its parent parts are already
+                            # in the dictionary and if yes, remove them
+                            if p.SOURCES:
+                                for orig_p in p.SOURCES:
+                                    if orig_p in hub_parts_values[turbo_component.split(",")[0]]:
+                                        hub_parts_values[turbo_component.split(",")[0]].remove(
+                                            orig_p
+                                        )
+                                        orig_p.setmetatag("ENS_TURBO_STAGE", "")
+                        elif component_type == "SHROUD":
+                            if turbo_component.split(",")[0] not in shroud_parts_values:
+                                shroud_parts_values[turbo_component.split(",")[0]] = [p]
+                            else:
+                                shroud_parts_values[turbo_component.split(",")[0]].append(p)
+                            # If the part is a merged part, check if its parent parts are already
+                            # in the dictionary and if yes, remove them
+                            if p.SOURCES:
+                                for orig_p in p.SOURCES:
+                                    if orig_p in shroud_parts_values[turbo_component.split(",")[0]]:
+                                        shroud_parts_values[turbo_component.split(",")[0]].remove(
+                                            orig_p
+                                        )
+                                        orig_p.setmetatag("ENS_TURBO_STAGE", "")
+                        elif component_type == "FLUID":
+                            if turbo_component.split(",")[0] not in fluid_parts_values:
+                                fluid_parts_values[turbo_component.split(",")[0]] = [p]
+                            else:
+                                fluid_parts_values[turbo_component.split(",")[0]].append(p)
+                        if (" Side 2" in p.DESCRIPTION) and ("Periodic" not in p.DESCRIPTION):
+                            possible_outlets.append(p)
+        # CFX specific fall back.
+        # Looking at some CFX example datasets, it appears that the CFX reader often does not
+        # return the OUTLET for each component, in multiple component cases.
+        # But, the name of the parts that are actually the OUTLETs is always of the
+        # form:
+        # "old component name" to "new component name" Side 2
+        # This check takes advantage of that to fill in the missing OUTLETs parts
+        for p in possible_outlets:
+            for turbo_component in p.ENS_TURBO_STAGE.split(";"):
+                if "to " in p.DESCRIPTION:
+                    new_component = p.DESCRIPTION.split("to ")[1].replace(" Side 2", "")
+                    if new_component in outlet_parts_values.keys():
+                        if len(outlet_parts_values[new_component]) == 0:
+                            outlet_parts_values[new_component] = [p]
+        if use_ids:
+            outlet_parts_values = self.dict_part_to_id(outlet_parts_values)
+            inlet_parts_values = self.dict_part_to_id(inlet_parts_values)
+            hub_parts_values = self.dict_part_to_id(hub_parts_values)
+            shroud_parts_values = self.dict_part_to_id(shroud_parts_values)
+            fluid_parts_values = self.dict_part_to_id(fluid_parts_values)
+        return {
+            "total_component_number": total_component_number,
+            "outlet_parts_values": outlet_parts_values,
+            "inlet_parts_values": inlet_parts_values,
+            "shroud_parts_values": shroud_parts_values,
+            "hub_parts_values": hub_parts_values,
+            "fluid_parts_values": fluid_parts_values,
+        }
+
+    def dict_part_to_id(self, part_dict):
+        tmp_ids = {}
+        for k in part_dict.keys():
+            tmp_ids[k] = [p.PARTNUMBER for p in part_dict[k]]
+        return tmp_ids
+
+    def _set_and_check_parts(self, key, values):
+        method = getattr(self, f"set_{key}_parts")
+        success = method(values)
+        if not success:
+            raise RuntimeError(f"Cannot initialize {key} parts from trb file.")
+
+    def _set_npassages_after_trb(self, full_wheel=False):
+        npassages_list = []
+        for cname in self.component_list:
+            if full_wheel:
+                n_symmetry = -1
+            else:
+                current_case_id = self.ensight.objs.core.CURRENTCASE[0].CASENUMBER
+                parts = self.ensight.objs.core.PARTS
+                all_parts = [p for p in parts if p.CASENUMBER == current_case_id]
+                all_parts_for_component = []
+                for p in all_parts:
+                    turbo_split = p.ENS_TURBO_STAGE.split(",")
+                    p_component = turbo_split[0].replace(";", "")
+                    if len(turbo_split) > 1:
+                        if turbo_split[1].upper() in TURBO_TYPES:
+                            if p_component == cname:
+                                all_parts_for_component.append(p)
+                if len(all_parts_for_component) > 0:
+                    n_symmetry = max(
+                        [
+                            int(x.METADATA.get("ENS_SYMMETRY_COUNT", 0) or 0)
+                            for x in all_parts_for_component
+                        ]
+                    )
+                else:
+                    n_symmetry = 0
+            npassages_list.append(n_symmetry)
+        self.set_number_passages(npassages_list)
+        return npassages_list
+
+    def _set_rotation_axis_after_trb(self):
+        current_case = self.ensight.objs.core.CURRENTCASE[0]
+        metadata = current_case.METADATA
+        origin = metadata.get("ENS_TURBO_ORIGIN", "0.0, 0.0, 0.0")
+        rot_x = origin.split(",")[0]
+        rot_y = origin.split(",")[1]
+        rot_z = origin.split(",")[2]
+        axis = metadata.get("ENS_TURBO_AXIS", "0.0, 0.0, 1.0")
+        rot_x2 = axis.split(",")[0]
+        rot_y2 = axis.split(",")[1]
+        rot_z2 = axis.split(",")[2]
+        self.set_origin_axis([rot_x, rot_y, rot_z, rot_x2, rot_y2, rot_z2])
+        return rot_x, rot_y, rot_z, rot_z2, rot_y2, rot_x2
+
+    def _set_components_after_trb(self):
+        metadata = self._initialize_turbo_parts(use_ids=True)
+        fluid_parts_values = metadata["fluid_parts_values"]
+        outlet_parts_values = metadata["outlet_parts_values"]
+        inlet_parts_values = metadata["inlet_parts_values"]
+        shroud_parts_values = metadata["shroud_parts_values"]
+        hub_parts_values = metadata["hub_parts_values"]
+        self._set_and_check_parts("inlet", inlet_parts_values)
+        self._set_and_check_parts("outlet", outlet_parts_values)
+        self._set_and_check_parts("hub", hub_parts_values)
+        self._set_and_check_parts("shroud", shroud_parts_values)
+        self._set_and_check_parts("fluid", fluid_parts_values)
+
+    def initialize_from_trb_file(self, filename):
+        """Initialize the turbo functions from a trb file.
+
+        The trb file is read, and the components are built using its data.
+
+        Parameters
+        ----------
+        filename: str
+            The trb location
+        """
+        self.read_turbo_match()
+        self.reinit_settings()
+        success, full_wheel = self.restore_initialization(filename)
+        if not success:
+            raise RuntimeError(f"Couldn't restore trb file {filename}")
+        self._set_component_order_after_trb()
+        self.set_component_order(self.component_list)
+        self._set_components_after_trb()
+        self._set_npassages_after_trb(full_wheel)
+        self._set_rotation_axis_after_trb()
+        self.call_turbo_functions()
+
+    def _setattr_internal(self, obj: "ENSOBJ", key: str, value: Union[str, float, int]):
+        if isinstance(self.ensight, ModuleType):
+            obj.setattr(key, value, record=0)
+        else:
+            obj.setattr(key, value)
+
+    def _convert_part_names_or_objs_to_ids(
+        self, data: Dict[str, List[Union[str, int, "ENS_PART"]]]
+    ):
+        new_data = {}
+        for key, part_list in data.items():
+            if isinstance(part_list[0], int):
+                new_data[key] = part_list
+            elif isinstance(part_list[0], str):
+                new_data[key] = self.ensight.objs.core.PARTS.find(part_list).get_attr("PARTNUMBER")
+            else:
+                if hasattr(part_list, "get_attr"):  # ensobjlist:
+                    new_data[key] = part_list.get_attr("PARTNUMBER")
+                else:
+                    typed_part_list = cast(List["ENS_PART"], part_list)
+                    part_ids = [p.PARTUMBER for p in typed_part_list]
+                    new_data[key] = part_ids
+        return new_data
+
+    def initialize_from_dictionary(self, data):
+        """Initialize the turbo functions from a dictionary containing the turbo settings.
+
+        The data are used to initialize the components.
+        In order, it will execute set_component_order, set_inlet_parts, set_outlet_parts,
+        set_hub_parts, set_shroud_parts, set_fluid_parts, set_number_of_passages, set_origin_axis.
+
+        Parameters
+        ----------
+        data: dict
+            The data containing the turbo settings.
+            The dictionary must contain the following keys:
+            - components_order (list): a list of the components name.
+                The order must be the model order of the components.
+            - inlet_parts (dict): A dictionary containing the inlet parts for each component.
+                The keys of the dictionary are the component names, the values are list.
+                The list can be a list of part IDs, a list of part Objects or a list
+                of part names.
+            - outlet_parts (dict): A dictionary containing the outlet parts for each component.
+                The keys of the dictionary are the component names, the values are list.
+                The list can be a list of part IDs, a list of part Objects or a list
+                of part names.
+            - hub_parts (dict): A dictionary containing the hub parts for each component.
+                The keys of the dictionary are the component names, the values are list.
+                The list can be a list of part IDs, a list of part Objects or a list
+                of part names.
+            - shroud_parts (dict): A dictionary containing the shroud parts for each component.
+                The keys of the dictionary are the component names, the values are list.
+                The list can be a list of part IDs, a list of part Objects or a list
+                of part names.
+            - fluid_parts (dict): A dictionary containing the fluid parts for each component.
+                The keys of the dictionary are the component names, the values are list.
+                The list can be a list of part IDs, a list of part Objects or a list
+                of part names.
+            - number_of_passages (list): A list containing the number of passages.
+                The list must follow the same order of the components.
+            - origin_axis (list): A list of 6 float values.
+                The first tree are the axis origin, while the second tree
+                represent the axis direction.
+        """
+        self.read_turbo_match()
+        self.reinit_settings()
+        if not data.get("components_order"):
+            raise RuntimeError("Components in order required for initialization.")
+        if not data.get("inlet_parts"):
+            raise RuntimeError("Inlet parts required for initialization")
+        if not data.get("outlet_parts"):
+            raise RuntimeError("Outlet parts required for initialization")
+        if not data.get("hub_parts"):
+            raise RuntimeError("Hub parts required for initialization")
+        if not data.get("shroud_parts"):
+            raise RuntimeError("Shroud parts required for initialization")
+        if not data.get("fluid_parts"):
+            raise RuntimeError("Fluid parts required for initialization")
+        if not data.get("number_of_passages"):
+            raise RuntimeError("Number of passages required for initialization")
+        if not data.get("origin_axis"):
+            raise RuntimeError("Origin and axis direction required for initializatio")
+        data["inlet_parts"] = self._convert_part_names_or_objs_to_ids(data["inlet_parts"])
+        data["outlet_parts"] = self._convert_part_names_or_objs_to_ids(data["outlet_parts"])
+        data["hub_parts"] = self._convert_part_names_or_objs_to_ids(data["hub_parts"])
+        data["shroud_parts"] = self._convert_part_names_or_objs_to_ids(data["shroud_parts"])
+        data["fluid_parts"] = self._convert_part_names_or_objs_to_ids(data["fluid_parts"])
+        self.set_component_order(data["components_order"])
+        self.set_inlet_parts(data["inlet_parts"])
+        self.set_outlet_parts(data["outlet_parts"])
+        self.set_shroud_parts(data["shroud_parts"])
+        self.set_hub_parts(data["hub_parts"])
+        self.set_fluid_parts(data["fluid_parts"])
+        self.set_number_passages(data["number_of_passages"])
+        self.set_origin_axis(data["origin_axis"])
+        self.call_turbo_functions()
+
+    def read_turbo_match(self):
+        """
+        Read the preferences to match the part name with the turbo type
+        """
+        self.turbo_part_match["HUB"] = ["hub"]
+        for name_value in self.read_preferences("HUB", "").split(","):
+            self.turbo_part_match["HUB"].append(name_value.replace(" ", ""))
+        self.turbo_part_match["SHROUD"] = ["shroud"]
+        for name_value in self.read_preferences("SHROUD", "").split(","):
+            self.turbo_part_match["SHROUD"].append(name_value.replace(" ", ""))
+        self.turbo_part_match["BLADE"] = ["blade"]
+        for name_value in self.read_preferences("BLADE", "").split(","):
+            self.turbo_part_match["BLADE"].append(name_value.replace(" ", ""))
+        self.turbo_part_match["INLET"] = ["inlet"]
+        for name_value in self.read_preferences("INLET", "").split(","):
+            self.turbo_part_match["INLET"].append(name_value.replace(" ", ""))
+        self.turbo_part_match["OUTLET"] = ["outlet"]
+        for name_value in self.read_preferences("OUTLET", "").split(","):
+            self.turbo_part_match["OUTLET"].append(name_value.replace(" ", ""))
+        self.turbo_part_match["PERIODIC1"] = ["periodic 1", "per1"]
+        for name_value in self.read_preferences("PERIODIC1", "").split(","):
+            self.turbo_part_match["PERIODIC1"].append(name_value.replace(" ", ""))
+        self.turbo_part_match["PERIODIC2"] = ["periodic 2", "per2"]
+        for name_value in self.read_preferences("PERIODIC2", "").split(","):
+            self.turbo_part_match["PERIODIC2"].append(name_value.replace(" ", ""))
