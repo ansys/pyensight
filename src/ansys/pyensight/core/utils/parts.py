@@ -1220,3 +1220,270 @@ class Parts:
             return val_objs
         val_ints = [int(p.PARTNUMBER) for p in pobj_list]
         return val_ints
+
+    def get_part_groups(self, which_case=None):
+        """
+        return a list of ENS_GROUPS from the which_case
+        Parameters
+        ----------
+        which_case = is the case to search for the groups. This can be
+                    None (default), an integer (1-32) or a string case name "Case 1"
+                    None (default) - return list of ENS_GROUPs in the current case
+                                (current case can be changed in the EnSight Case Menu)
+                    1  - return a list of groups in the case number (1-32)
+                    "Case 1" - return a list of groups in the Case named "Case 1"
+        """
+        gg_list = []
+        eu_core = self.ensight.objs.core
+        if not which_case:
+            gg_list = eu_core.find_objs(
+                eu_core.CURRENTCASE, types=[ensight.objs.ENS_GROUP], recurse=1
+            )
+        else:
+            cur_case = eu_core.CURRENTCASE[0]
+            sel_flag = self.select_case(which_case)
+            if sel_flag:
+                gg_list = eu_core.find_objs(
+                    eu_core.CURRENTCASE, types=[ensight.objs.ENS_GROUP], recurse=1
+                )
+            # restore selection back
+            self.ensight.case.select(cur_case.DESCRIPTION)
+        return gg_list
+
+    def get_part_group_names(self, which_case=None):
+        """
+        return a list of strings that are the part group names in the chosen case
+
+        Parameters
+        ----------
+        which_case = is the case to search for the groups. This can be
+                    None (default), an integer (1-32) or a string case name "Case 1"
+                    None (default) - return list of group names in the current case
+                                (current case can be changed in the EnSight Case Menu)
+                    1  - return a list of groups using the 1-based case number (1-32)
+                    "Case 1" - return a list of groups in the Case named "Case 1"
+        """
+        glist = self.get_part_groups(which_case)
+        name_list = []
+        if glist:
+            for grp in glist:
+                name_list.append(grp.DESCRIPTION)
+        return name_list
+
+    def select_case(self, which_case=None):
+        """
+        makes the case active
+        Parameters
+        ----------
+        which_case - case number (int from 1-32) or case name (str) or None
+
+        Return
+        True if successful in selecting case
+        False if not successful in selecting case (number out of bounds, case not a loaded, active case)
+        """
+        ens_routine = " 'select_case' "
+        success_flag = False
+        eu_core = self.ensight.objs.core
+        if which_case is not None:
+            if isinstance(which_case, str):
+                for cse in eu_core.CASES:
+                    if cse.DESCRIPTION == which_case and cse.ACTIVE:
+                        self.ensight.case.select(which_case)
+                        success_flag = True
+                if not success_flag:
+                    print(
+                        "Error {} creating new group by name, failed to find ACTIVE, loaded case by name '{}'".format(
+                            ens_routine, which_case
+                        )
+                    )
+            elif isinstance(which_case, int):
+                if which_case > 0 and which_case < len(eu_core.CASES) + 1:  # which_case 1-based
+                    if eu_core.CASES[which_case - 1].ACTIVE:
+                        self.ensight.case.select(eu_core.CASES[which_case - 1].DESCRIPTION)
+                        success_flag = True
+                    else:
+                        print(
+                            "Error {} creating new group by number, Case number {} is not loaded".format(
+                                ens_routine, which_case
+                            )
+                        )
+                        success_flag = False
+                else:
+                    print(
+                        "Error {} creating new group by number, Case number is out of bounds (1-32): {}".format(
+                            ens_routine, which_case
+                        )
+                    )
+                    success_flag = False
+            else:
+                print(
+                    "Error {} which_case variable is neither a string or an int, and is not empty".format(
+                        ens_routine
+                    )
+                )
+                print("  Type = {}".format(type(which_case)))
+                success_flag = False
+        else:
+            success_flag = True
+        return success_flag
+
+    def create_part_group(self, name, which_case=None):
+        """
+        create a part group in the current case using string name and return the ENS_GROUP
+        if the group already exists, the existing ENS_GROUP
+        if it fails then None is returned
+
+        Parameters
+        ----------
+        name - a string that is the name of the new group to create
+        which_case = is the case to create the group in. This can be
+                    None (default), an integer (1-32) or a string case name "Case 1"
+                    None (default) - create a group using the current case
+                                (which can be changed in the EnSight Case Menu)
+                    1  - create a group in the first case
+                    "Case 1" - create a group in the Case named "Case 1"
+        Return
+            Returns an ENS_GROUP
+            None if Case name not found, case number out of bounds, case number has no data loaded
+        """
+        ens_routine = " 'create_part_group' "
+        ret_grp = None
+        eu_core = self.ensight.objs.core
+        if isinstance(name, str) and len(name) > 0:
+            cur_case = eu_core.CURRENTCASE[0]
+            doit = self.select_case(which_case)
+            if doit:  # which_case either None, or found name or case number is active
+                gn_list = self.get_part_group_names()
+                if name in gn_list:  # does it already exist?
+                    g_list = self.get_part_groups()
+                    for gg in g_list:
+                        if gg.DESCRIPTION == name:
+                            ret_grp = gg
+                            break
+                else:
+                    # create a new group in the current case
+                    ret_grp = eu_core.CURRENTCASE[0].creategroup(name)
+                self.ensight.case.select(cur_case.DESCRIPTION)
+        else:
+            print("Error {} must supply a name (string) of a group to create".format(ens_routine))
+        return ret_grp
+
+    def get_parts_by_name(self, part_name, flag="all", case_sensitive=True, return_as_group=False):
+        """
+        get EnSight parts using a text name (no asterisks needed and return as list or group
+
+        Parameters
+        ----------
+        part_name - part name string
+        optional flag = 'all' (default) finds all matches with part_name in it
+                flag = 'start' finds all partnames that start with part_name
+                flag = 'end' finds all part names ending with part_name
+
+        return_as_group = True will return the part list as a group so
+                        that you can use the group.setchildattr(enum,value) on it
+                        and change the value of that enum for all parts in the group.
+                        Otherwise will return a list
+
+        Note
+        all the ensight objects have a find, so this will work with
+        core.QUERIES etc as well.
+
+        """
+        eu_core = self.ensight.objs.core
+        if case_sensitive:
+            wc = 1
+        else:
+            wc = 2
+        if return_as_group:
+            rg = 1
+        else:
+            rg = 0
+        if flag == "start":
+            plist = eu_core.PARTS.find(part_name + "*", wildcard=wc, group=rg)
+        elif flag == "end":
+            plist = eu_core.PARTS.find("*" + part_name, wildcard=wc, group=rg)
+        elif flag == "all":
+            plist = eu_core.PARTS.find("*" + part_name + "*", wildcard=wc, group=rg)
+        else:
+            plist = eu_core.PARTS.find(part_name, wildcard=wc, group=rg)
+        return plist
+
+    def move_part_to_group(self, grp, part, which_case=None):
+        """
+        moves part(s) into an existing group
+
+        Parameters
+        ----------
+        grp is a group name or an ENS_GROUP
+        part is a part name (string) or an ENS_PART
+            or a list or ensobjlist of one of the above.
+        which_case = is the case to look for the existing group
+                    None (default) use current case, an integer (1-32) or a string case name "Case 1"
+                    None (default) - return list of ENS_GROUPs in the current case
+                                (Note: current case can be changed in the EnSight Case Menu)
+
+        Return ENS_GROUP if success or None if failure
+        """
+        ens_routine = " 'move_part_to_group' "
+
+        # check out the group
+        if isinstance(grp, self.ensight.objs.ENS_GROUP):
+            group = grp
+        elif isinstance(grp, str):
+            glist = self.get_part_groups(which_case)
+            group = None
+            for gg in glist:
+                if gg.DESCRIPTION == grp:
+                    group = gg
+                    break
+            if not group:
+                print("Error, Group name '{}' not found".format(grp))
+                return None
+        else:
+            print("Error, {} group must be either an ENS_GROUP or a string".format(ens_routine))
+            return None
+
+        # check out the part
+        if isinstance(part, list) or isinstance(part, ensight.objs.ensobjlist):
+            for prt in part:
+                if isinstance(prt, ensight.objs.ENS_PART):
+                    group.addchild(prt)
+                elif isinstance(prt, str):
+                    prt2 = self.get_parts_by_name(prt)
+                    if prt2:
+                        group.addchild(prt2)
+                    else:
+                        print(
+                            "Error {} move_part_to_group, failed to find any parts matching {}".format(
+                                ens_routine, prt
+                            )
+                        )
+                        return None
+                else:
+                    print("Error, {} part in list must be either an ENS_PART or a string").format(
+                        ens_routine
+                    )
+                    print("list: {}".format(part))
+                    print("part: {}".format(prt))
+                    return None
+        else:
+            prt = part
+            if isinstance(prt, ensight.objs.ENS_PART):
+                group.addchild(prt)
+            elif isinstance(prt, str):
+                prt2 = self.get_parts_by_name(prt)
+                if prt2:
+                    group.addchild(prt2)
+                else:
+                    print("Error, {} failed to find a part by name {}".format(ens_routine, prt))
+            else:
+                print(
+                    "Error, {} part must be either an ENS_PART or a string or a list of these".format(
+                        ens_routine
+                    )
+                )
+                print("part: {}".format(prt))
+                print("type of part: {}".format(type(prt)))
+                return None
+
+        return group
