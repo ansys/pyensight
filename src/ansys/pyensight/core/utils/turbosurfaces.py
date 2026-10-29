@@ -60,15 +60,7 @@ class Turbosurfaces:
         self.spanwise_vport = "Spanwise"
         self.meridional_vport = "Meridional"
         self._progress_bar_method = None
-        self.preferences: Dict[str, List[str]] = {
-            "SHROUD": [],
-            "BLADE": [],
-            "INLET": [],
-            "OUTLET": [],
-            "PERIODIC1": [],
-            "PERIODIC2": [],
-        }
-        self.turbo_part_match: Dict[str, List[str]] = {}
+        self._turbo_part_match: Dict[str, List[str]] = {}  # used by the extension
 
     def hide_text_annotation(self):
         """
@@ -2146,12 +2138,6 @@ class Turbosurfaces:
             self.change_visibility(part=part_mer, turbotype="meridional")
         self.reset_meridional_vport()
 
-    def set_turbo_match_preference_string(self, component, values):
-        if component not in self.preferences:
-            raise RuntimeError(f"Component tag {component} not valid")
-        self.preferences[component] = [v.replace(" ", "") for v in values]
-        self.read_turbo_match()
-
     def _create_component_list(self):
         """
         Cycle through all the parts and use the ENS_TURBO_STAGE
@@ -2194,7 +2180,7 @@ class Turbosurfaces:
         if len(turbo_split) > 1:
             ptype = turbo_split[1]
         if len(turbo_split) < 2 or ptype == "":
-            for match_name in self.turbo_part_match.get(part_type, []):
+            for match_name in self._turbo_part_match.get(part_type, []):
                 if len(match_name) > 1 and (match_name.lower() in part.DESCRIPTION.lower()):
                     part.setmetatag("ENS_TURBO_STAGE", p_component + "," + part_type)
                     return
@@ -2446,7 +2432,6 @@ class Turbosurfaces:
         filename: str
             The trb location
         """
-        self.read_turbo_match()
         self.reinit_settings()
         success, full_wheel = self.restore_initialization(filename)
         if not success:
@@ -2522,7 +2507,6 @@ class Turbosurfaces:
                 The first tree are the axis origin, while the second tree
                 represent the axis direction.
         """
-        self.read_turbo_match()
         self.reinit_settings()
         if not data.get("components_order"):
             raise RuntimeError("Components in order required for initialization.")
@@ -2554,29 +2538,3 @@ class Turbosurfaces:
         self.set_number_passages(data["number_of_passages"])
         self.set_origin_axis(data["origin_axis"])
         self.call_turbo_functions()
-
-    def read_turbo_match(self):
-        """
-        Read the preferences to match the part name with the turbo type
-        """
-        self.turbo_part_match["HUB"] = ["hub"]
-        for name_value in self.read_preferences("HUB", "").split(","):
-            self.turbo_part_match["HUB"].append(name_value.replace(" ", ""))
-        self.turbo_part_match["SHROUD"] = ["shroud"]
-        for name_value in self.read_preferences("SHROUD", "").split(","):
-            self.turbo_part_match["SHROUD"].append(name_value.replace(" ", ""))
-        self.turbo_part_match["BLADE"] = ["blade"]
-        for name_value in self.read_preferences("BLADE", "").split(","):
-            self.turbo_part_match["BLADE"].append(name_value.replace(" ", ""))
-        self.turbo_part_match["INLET"] = ["inlet"]
-        for name_value in self.read_preferences("INLET", "").split(","):
-            self.turbo_part_match["INLET"].append(name_value.replace(" ", ""))
-        self.turbo_part_match["OUTLET"] = ["outlet"]
-        for name_value in self.read_preferences("OUTLET", "").split(","):
-            self.turbo_part_match["OUTLET"].append(name_value.replace(" ", ""))
-        self.turbo_part_match["PERIODIC1"] = ["periodic 1", "per1"]
-        for name_value in self.read_preferences("PERIODIC1", "").split(","):
-            self.turbo_part_match["PERIODIC1"].append(name_value.replace(" ", ""))
-        self.turbo_part_match["PERIODIC2"] = ["periodic 2", "per2"]
-        for name_value in self.read_preferences("PERIODIC2", "").split(","):
-            self.turbo_part_match["PERIODIC2"].append(name_value.replace(" ", ""))
