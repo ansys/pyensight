@@ -567,14 +567,30 @@ class Turbosurfaces:
             self.ensight.view_transf.cameratoview_compute()
             self.ensight.view_transf.rotate(0, 0, 270)
 
-    def create_spanwise_part(self, partname="Spanwise", partvalue="0.5", twod=0, threed=0, link=0):
+    def create_spanwise_part(
+        self, partname="Spanwise", partvalue=0.5, twod=True, threed=False, link=False
+    ):
         """
         Create a Turbo Surface of the type: Spanwise
-        """
 
+        Parameters
+        ----------
+        partname (str): The part name of the new surface
+        partvalue (float): The value of the spanwise isosurface
+        twod (bool): True if the spanwise is to be displayed on the 2D morphed viewport.
+            Defaults to True
+        threed (bool): True if the spanwise is to be displayed on the 3D space. Defaults to False.
+        link (bool): True if this surface should be linked to another spanwise surface.
+            The surfaces, to be linked, must be one on the 3D viewport, one on the 2D viewport,
+            and both need to be linked.
+            If linked, moving the surface to the 3D space, changing its isovalue, will change
+            also the 2D isosurface value, and vice-versa.
+        """
         if twod == threed:
-            # Error: only one of these options can be ON
-            return
+            if isinstance(self.ensight, ModuleType):
+                # Error: only one of these options can be ON
+                return
+            raise RuntimeError("Either 2D or 3D can be selected.")
 
         # If part value is an extreme value (0 or 1), the isosurface will appear broken
         # Change the value to not be one of the extremes
@@ -668,15 +684,15 @@ class Turbosurfaces:
         )
         return newpart
 
-    def create_thetacut_part(self, partname="ThetaCut", partvalue="0.5", twod=0, threed=0):
+    def create_thetacut_part(self, partname="ThetaCut", partvalue="0.5"):
         """
         Create a Turbo Surface of the type: ThetaCut
+
+        Parameters
+        ----------
+        partname (str): The part name of the new surface
+        partvalue (float): The value of the thetacut isosurface
         """
-
-        if twod == threed or twod == 1:
-            # Error: only one of these options can be ON
-            return
-
         # Make all the parts not visible on the new viewport
         self.ensight.objs.core.ensmodel_updates_suspend(
             modelfilter=self.ensight.objs.enums.ENSMODEL_SHOW_ANY,
@@ -746,15 +762,15 @@ class Turbosurfaces:
         )
         return newpart
 
-    def create_streamwise_part(self, partname="Streamwise", partvalue="0.5", twod=0, threed=1):
+    def create_streamwise_part(self, partname="Streamwise", partvalue="0.5"):
         """
-        Create a Turbo Surface part of the type: Streamwise
+        Create a Turbo Surface of the type: Streamwise
+
+        Parameters
+        ----------
+        partname (str): The part name of the new surface
+        partvalue (float): The value of the thetacut isosurface
         """
-
-        if twod == threed or twod == 1:
-            # Error: only one of these options can be ON
-            return
-
         # Make all the parts not visible on the new viewport
         self.ensight.objs.core.ensmodel_updates_suspend(
             modelfilter=self.ensight.objs.enums.ENSMODEL_SHOW_ANY,
@@ -1846,16 +1862,29 @@ class Turbosurfaces:
             num_vars = len(new_new_var_list)
             new_var_list = new_new_var_list
 
-    def create_meridional(self, n_stream=10, n_span=10, var="None", avg=0, density="", velocity=""):
+    MERIDIONAL_AVERAGE = 0
+    MERIDIONAL_MASS = 1
+
+    def create_meridional(
+        self, n_stream=10, n_span=10, var="None", avg=MERIDIONAL_AVERAGE, density="", velocity=""
+    ):
         """
         Create / modify a meridional part
-        Input:
-        n_stream: number of points in stream direction
-        n_span: number of points in span direction
-        var: variable to average and color the meridional part(s) by
-        avg: type of averaging to perform. 0 = Area. 1 = Mass
-        density: name of density variable to use for Mass avaraging
-        velocity: name of velocity variable to use for Mass averaging
+
+        Parameters
+        ----------
+        n_stream (int): number of points in stream direction
+        n_span (int): number of points in span direction
+        var (str): variable to average and color the meridional part(s) by
+        avg (int): type of averaging to perform.
+            ================== ===================================================
+            Name               Query type
+            ================== ===================================================
+            MERIDIONAL_AVERAGE  Create a meridional surface using a simple average
+            MERIDIONAL_MASS     Create a merdional surface using a mass average
+            ================== ===================================================
+        density (str): name of density variable to use for Mass avaraging
+        velocity (str): name of velocity variable to use for Mass averaging
         """
         # If we're coming from a ctx file restore, set_component_order has not been called directly so we have to
         # manually recalculate self.component_list from the metadata
