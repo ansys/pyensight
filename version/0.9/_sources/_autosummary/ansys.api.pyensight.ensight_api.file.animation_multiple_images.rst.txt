@@ -1,0 +1,6 @@
+animation\_multiple\_images
+===========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.animation_multiple_images

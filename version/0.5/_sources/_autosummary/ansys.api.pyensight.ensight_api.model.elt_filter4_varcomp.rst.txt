@@ -1,0 +1,6 @@
+elt\_filter4\_varcomp
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: model.elt_filter4_varcomp

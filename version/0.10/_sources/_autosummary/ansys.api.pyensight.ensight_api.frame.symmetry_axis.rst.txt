@@ -1,0 +1,6 @@
+symmetry\_axis
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: frame.symmetry_axis

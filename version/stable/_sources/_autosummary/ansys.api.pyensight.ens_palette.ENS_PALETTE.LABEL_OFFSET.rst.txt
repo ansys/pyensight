@@ -1,0 +1,6 @@
+LABEL\_OFFSET
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. autoproperty:: ENS_PALETTE.LABEL_OFFSET

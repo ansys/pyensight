@@ -1,0 +1,6 @@
+default
+=======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: connect.default

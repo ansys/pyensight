@@ -1,0 +1,6 @@
+measured
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data.measured

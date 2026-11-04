@@ -1,0 +1,6 @@
+close\_connection
+=================
+
+.. currentmodule:: ansys.pyensight.core.utils.omniverse
+
+.. automethod:: Omniverse.close_connection

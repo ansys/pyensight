@@ -1,0 +1,6 @@
+hasmetatag
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_polyline
+
+.. automethod:: ENS_POLYLINE.hasmetatag

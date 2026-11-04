@@ -1,0 +1,6 @@
+large\_parts\_list
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.large_parts_list

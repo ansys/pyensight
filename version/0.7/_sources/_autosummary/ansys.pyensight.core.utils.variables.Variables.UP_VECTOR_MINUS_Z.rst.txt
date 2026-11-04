@@ -1,0 +1,6 @@
+UP\_VECTOR\_MINUS\_Z
+====================
+
+.. currentmodule:: ansys.pyensight.core.utils.variables
+
+.. autoattribute:: Variables.UP_VECTOR_MINUS_Z

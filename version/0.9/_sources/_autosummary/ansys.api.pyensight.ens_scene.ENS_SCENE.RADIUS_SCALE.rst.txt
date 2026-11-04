@@ -1,0 +1,6 @@
+RADIUS\_SCALE
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_scene
+
+.. autoproperty:: ENS_SCENE.RADIUS_SCALE

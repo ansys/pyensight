@@ -1,0 +1,6 @@
+delete\_emitter
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.delete_emitter

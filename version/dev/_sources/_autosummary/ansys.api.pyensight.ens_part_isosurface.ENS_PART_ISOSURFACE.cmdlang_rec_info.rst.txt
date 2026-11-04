@@ -1,0 +1,6 @@
+cmdlang\_rec\_info
+==================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_isosurface
+
+.. automethod:: ENS_PART_ISOSURFACE.cmdlang_rec_info

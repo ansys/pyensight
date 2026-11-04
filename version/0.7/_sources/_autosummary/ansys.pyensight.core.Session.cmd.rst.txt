@@ -1,0 +1,6 @@
+cmd
+===
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.cmd

@@ -1,0 +1,6 @@
+auto\_size
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport_axis.auto_size

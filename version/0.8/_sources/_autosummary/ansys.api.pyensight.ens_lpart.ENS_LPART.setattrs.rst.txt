@@ -1,0 +1,6 @@
+setattrs
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_lpart
+
+.. automethod:: ENS_LPART.setattrs

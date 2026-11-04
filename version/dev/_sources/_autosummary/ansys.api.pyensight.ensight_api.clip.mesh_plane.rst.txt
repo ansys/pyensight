@@ -1,0 +1,6 @@
+mesh\_plane
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: clip.mesh_plane

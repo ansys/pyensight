@@ -1,0 +1,6 @@
+delete\_back\_to
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_keyframe.delete_back_to

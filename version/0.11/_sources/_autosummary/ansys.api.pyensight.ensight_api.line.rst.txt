@@ -1,0 +1,135 @@
+﻿line
+====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. autoclass:: line
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      line.arrowhead
+      
+      
+      line.color
+      
+      
+      line.delete
+      
+      
+      line.description
+      
+      
+      line.deselect_all
+      
+      
+      line.label_text_id
+      
+      
+      line.location_x
+      
+      
+      line.location_x_1
+      
+      
+      line.location_x_2
+      
+      
+      line.location_y
+      
+      
+      line.location_y_1
+      
+      
+      line.location_y_2
+      
+      
+      line.mix_rgb
+      
+      
+      line.modify_begin
+      
+      
+      line.modify_end
+      
+      
+      line.new_line
+      
+      
+      line.new_or_mod_line
+      
+      
+      line.origin
+      
+      
+      line.origin_1
+      
+      
+      line.origin_2
+      
+      
+      line.origin_by
+      
+      
+      line.origin_by_1
+      
+      
+      line.origin_by_2
+      
+      
+      line.origin_frame
+      
+      
+      line.query_count
+      
+      
+      line.query_display_attributes
+      
+      
+      line.query_selected_objects
+      
+      
+      line.relative_viewport
+      
+      
+      line.relative_viewport_1
+      
+      
+      line.relative_viewport_2
+      
+      
+      line.rgb
+      
+      
+      line.select_all
+      
+      
+      line.select_all_invisible
+      
+      
+      line.select_all_visible
+      
+      
+      line.select_begin
+      
+      
+      line.select_default
+      
+      
+      line.visible
+      
+      
+      line.width
+      
+   
+   
+
+   
+   
+   

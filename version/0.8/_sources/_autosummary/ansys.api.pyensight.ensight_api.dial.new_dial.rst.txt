@@ -1,0 +1,6 @@
+new\_dial
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: dial.new_dial

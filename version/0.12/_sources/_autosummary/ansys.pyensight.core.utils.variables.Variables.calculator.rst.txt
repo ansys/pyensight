@@ -1,0 +1,6 @@
+calculator
+==========
+
+.. currentmodule:: ansys.pyensight.core.utils.variables
+
+.. autoproperty:: Variables.calculator

@@ -1,0 +1,6 @@
+LOCATION
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_scene
+
+.. autoproperty:: ENS_SCENE.LOCATION

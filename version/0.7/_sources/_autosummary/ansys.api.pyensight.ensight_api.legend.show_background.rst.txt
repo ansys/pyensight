@@ -1,0 +1,6 @@
+show\_background
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: legend.show_background

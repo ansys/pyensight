@@ -1,0 +1,6 @@
+TRANSFORMATION\_DELTA
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ens_vport
+
+.. autoproperty:: ENS_VPORT.TRANSFORMATION_DELTA

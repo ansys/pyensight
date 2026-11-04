@@ -1,0 +1,6 @@
+pick\_mode
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view.pick_mode

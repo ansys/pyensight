@@ -1,0 +1,6 @@
+axis\_2\_autoscale
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.axis_2_autoscale

@@ -1,0 +1,6 @@
+query\_loaded
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_flipbook.query_loaded

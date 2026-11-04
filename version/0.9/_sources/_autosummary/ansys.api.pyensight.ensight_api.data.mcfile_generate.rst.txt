@@ -1,0 +1,6 @@
+mcfile\_generate
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data.mcfile_generate

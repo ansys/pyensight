@@ -1,0 +1,6 @@
+TIMES
+=====
+
+.. currentmodule:: ansys.api.pyensight.ens_texture
+
+.. autoproperty:: ENS_TEXTURE.TIMES

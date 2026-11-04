@@ -1,0 +1,6 @@
+pulse\_interval
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_traces.pulse_interval

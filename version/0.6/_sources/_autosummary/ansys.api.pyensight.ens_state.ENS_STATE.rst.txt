@@ -1,0 +1,131 @@
+﻿ENS\_STATE
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_state
+
+.. autoclass:: ENS_STATE
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_STATE.add_source
+      
+      
+      ENS_STATE.add_state
+      
+      
+      ENS_STATE.apply
+      
+      
+      ENS_STATE.attrgroupinfo
+      
+      
+      ENS_STATE.attrinfo
+      
+      
+      ENS_STATE.attrissensitive
+      
+      
+      ENS_STATE.attrtree
+      
+      
+      ENS_STATE.capture
+      
+      
+      ENS_STATE.create_state
+      
+      
+      ENS_STATE.destroy
+      
+      
+      ENS_STATE.generate_report
+      
+      
+      ENS_STATE.getattr
+      
+      
+      ENS_STATE.getattrs
+      
+      
+      ENS_STATE.getmetatag
+      
+      
+      ENS_STATE.hasmetatag
+      
+      
+      ENS_STATE.move
+      
+      
+      ENS_STATE.populate_attr_list
+      
+      
+      ENS_STATE.read
+      
+      
+      ENS_STATE.save
+      
+      
+      ENS_STATE.set_logo_file
+      
+      
+      ENS_STATE.setattr
+      
+      
+      ENS_STATE.setattr_begin
+      
+      
+      ENS_STATE.setattr_end
+      
+      
+      ENS_STATE.setattr_status
+      
+      
+      ENS_STATE.setattrs
+      
+      
+      ENS_STATE.setmetatag
+      
+      
+      ENS_STATE.undo
+      
+      
+      ENS_STATE.update_tags
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_STATE.CHILDREN
+      ENS_STATE.CMDLANG_REFERENCE
+      ENS_STATE.CREATE_REPORT_TEMPLATE
+      ENS_STATE.CURRENT
+      ENS_STATE.DESCRIPTION
+      ENS_STATE.EDIT_TARGET
+      ENS_STATE.GENERATION_PENDING
+      ENS_STATE.HANDLES_ENABLED
+      ENS_STATE.HTML
+      ENS_STATE.LOGO_DATA
+      ENS_STATE.METADATA
+      ENS_STATE.PROJECT_MASK
+      ENS_STATE.TAGS
+      ENS_STATE.TARGETS
+      ENS_STATE.TEMPLATE_NAME
+      ENS_STATE.TIMETRACK
+      ENS_STATE.USE_LOGO
+      ENS_STATE.UUID
+      ENS_STATE.__OBJID__
+      ENS_STATE.objid
+   
+   

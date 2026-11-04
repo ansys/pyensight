@@ -1,0 +1,6 @@
+animation\_color\_type
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.animation_color_type

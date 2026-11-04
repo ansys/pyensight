@@ -1,0 +1,6 @@
+title\_textsize
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.title_textsize

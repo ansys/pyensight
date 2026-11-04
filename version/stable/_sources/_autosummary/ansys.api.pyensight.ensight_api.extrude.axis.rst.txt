@@ -1,0 +1,6 @@
+axis
+====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: extrude.axis

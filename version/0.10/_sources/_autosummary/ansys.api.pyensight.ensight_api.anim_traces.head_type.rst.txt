@@ -1,0 +1,6 @@
+head\_type
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_traces.head_type

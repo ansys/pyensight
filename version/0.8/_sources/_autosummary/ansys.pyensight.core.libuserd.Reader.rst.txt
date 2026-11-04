@@ -1,0 +1,48 @@
+﻿Reader
+======
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoclass:: Reader
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Reader.get_number_of_time_sets
+      
+      
+      Reader.is_geometry_changing
+      
+      
+      Reader.parts
+      
+      
+      Reader.queries
+      
+      
+      Reader.set_timestep
+      
+      
+      Reader.set_timevalue
+      
+      
+      Reader.timevalues
+      
+      
+      Reader.variable_value
+      
+      
+      Reader.variables
+      
+   
+   
+
+   
+   
+   

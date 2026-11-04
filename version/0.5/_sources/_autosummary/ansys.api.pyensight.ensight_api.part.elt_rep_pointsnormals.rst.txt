@@ -1,0 +1,6 @@
+elt\_rep\_pointsnormals
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.elt_rep_pointsnormals

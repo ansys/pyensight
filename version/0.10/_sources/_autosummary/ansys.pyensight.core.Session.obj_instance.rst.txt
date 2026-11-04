@@ -1,0 +1,6 @@
+obj\_instance
+=============
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.obj_instance

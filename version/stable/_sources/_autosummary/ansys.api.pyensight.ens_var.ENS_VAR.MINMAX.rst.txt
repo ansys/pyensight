@@ -1,0 +1,6 @@
+MINMAX
+======
+
+.. currentmodule:: ansys.api.pyensight.ens_var
+
+.. autoproperty:: ENS_VAR.MINMAX

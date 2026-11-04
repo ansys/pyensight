@@ -1,0 +1,6 @@
+compute\_forces
+===============
+
+.. currentmodule:: ansys.pyensight.core.utils.variables
+
+.. automethod:: Variables.compute_forces

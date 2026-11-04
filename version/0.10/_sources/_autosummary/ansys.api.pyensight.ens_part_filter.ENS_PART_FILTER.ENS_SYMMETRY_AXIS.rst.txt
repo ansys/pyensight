@@ -1,0 +1,6 @@
+ENS\_SYMMETRY\_AXIS
+===================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_filter
+
+.. autoproperty:: ENS_PART_FILTER.ENS_SYMMETRY_AXIS

@@ -1,0 +1,6 @@
+increment
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: clip.increment

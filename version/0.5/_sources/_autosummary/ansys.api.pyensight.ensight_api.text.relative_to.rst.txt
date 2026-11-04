@@ -1,0 +1,6 @@
+relative\_to
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: text.relative_to

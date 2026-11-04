@@ -1,0 +1,6 @@
+LABELSIZE3D
+===========
+
+.. currentmodule:: ansys.api.pyensight.ens_vport
+
+.. autoproperty:: ENS_VPORT.LABELSIZE3D

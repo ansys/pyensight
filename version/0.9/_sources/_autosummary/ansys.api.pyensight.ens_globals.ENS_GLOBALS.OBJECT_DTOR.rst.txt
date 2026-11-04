@@ -1,0 +1,6 @@
+OBJECT\_DTOR
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.OBJECT_DTOR

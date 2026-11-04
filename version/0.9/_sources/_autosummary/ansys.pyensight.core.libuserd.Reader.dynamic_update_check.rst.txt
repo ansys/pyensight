@@ -1,0 +1,6 @@
+dynamic\_update\_check
+======================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: Reader.dynamic_update_check

@@ -1,0 +1,6 @@
+launcher
+========
+
+.. currentmodule:: ansys.pyensight.core
+
+.. autoproperty:: Session.launcher

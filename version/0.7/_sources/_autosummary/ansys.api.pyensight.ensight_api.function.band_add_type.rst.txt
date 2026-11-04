@@ -1,0 +1,6 @@
+band\_add\_type
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: function.band_add_type

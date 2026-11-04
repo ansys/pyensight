@@ -1,0 +1,6 @@
+cmdlang\_rec\_info
+==================
+
+.. currentmodule:: ansys.api.pyensight.ens_part
+
+.. automethod:: ENS_PART.cmdlang_rec_info

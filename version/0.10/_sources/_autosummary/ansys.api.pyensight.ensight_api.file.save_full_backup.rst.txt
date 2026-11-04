@@ -1,0 +1,6 @@
+save\_full\_backup
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.save_full_backup

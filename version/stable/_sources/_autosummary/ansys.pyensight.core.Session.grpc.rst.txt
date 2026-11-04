@@ -1,0 +1,6 @@
+grpc
+====
+
+.. currentmodule:: ansys.pyensight.core
+
+.. autoproperty:: Session.grpc

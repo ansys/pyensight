@@ -1,0 +1,6 @@
+start\_time
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace_emitr.start_time

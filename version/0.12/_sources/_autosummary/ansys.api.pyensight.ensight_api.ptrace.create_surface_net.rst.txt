@@ -1,0 +1,6 @@
+create\_surface\_net
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.create_surface_net

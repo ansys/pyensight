@@ -1,0 +1,6 @@
+location\_y
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: gauge.location_y

@@ -1,0 +1,6 @@
+shadow\_intensity
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: text.shadow_intensity

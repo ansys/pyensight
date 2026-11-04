@@ -1,0 +1,6 @@
+update\_userdefined\_material
+=============================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.update_userdefined_material

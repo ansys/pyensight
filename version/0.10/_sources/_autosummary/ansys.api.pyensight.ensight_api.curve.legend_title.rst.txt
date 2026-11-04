@@ -1,0 +1,6 @@
+legend\_title
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: curve.legend_title

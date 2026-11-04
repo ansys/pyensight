@@ -1,0 +1,6 @@
+zoomout
+=======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: solution_time.zoomout

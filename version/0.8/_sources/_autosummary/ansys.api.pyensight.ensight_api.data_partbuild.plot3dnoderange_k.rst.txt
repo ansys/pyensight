@@ -1,0 +1,6 @@
+plot3dnoderange\_k
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data_partbuild.plot3dnoderange_k

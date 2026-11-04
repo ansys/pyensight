@@ -1,0 +1,6 @@
+DIST\_SEG\_RESET\_EACH
+======================
+
+.. currentmodule:: ansys.pyensight.core.utils.query
+
+.. autoattribute:: Query.DIST_SEG_RESET_EACH

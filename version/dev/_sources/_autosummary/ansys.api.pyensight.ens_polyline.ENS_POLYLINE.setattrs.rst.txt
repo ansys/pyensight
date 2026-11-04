@@ -1,0 +1,6 @@
+setattrs
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_polyline
+
+.. automethod:: ENS_POLYLINE.setattrs

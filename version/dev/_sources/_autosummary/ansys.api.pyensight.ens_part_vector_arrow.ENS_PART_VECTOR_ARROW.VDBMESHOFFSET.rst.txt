@@ -1,0 +1,6 @@
+VDBMESHOFFSET
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_part_vector_arrow
+
+.. autoproperty:: ENS_PART_VECTOR_ARROW.VDBMESHOFFSET

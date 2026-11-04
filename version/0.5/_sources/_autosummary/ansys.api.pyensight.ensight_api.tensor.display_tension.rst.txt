@@ -1,0 +1,6 @@
+display\_tension
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: tensor.display_tension

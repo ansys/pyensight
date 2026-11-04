@@ -1,0 +1,6 @@
+head\_size\_by
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_traces.head_size_by

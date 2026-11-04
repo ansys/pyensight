@@ -1,0 +1,6 @@
+PROBE\_SCALE
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_var
+
+.. autoproperty:: ENS_VAR.PROBE_SCALE

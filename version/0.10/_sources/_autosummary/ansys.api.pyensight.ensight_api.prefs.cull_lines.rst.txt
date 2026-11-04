@@ -1,0 +1,6 @@
+cull\_lines
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.cull_lines

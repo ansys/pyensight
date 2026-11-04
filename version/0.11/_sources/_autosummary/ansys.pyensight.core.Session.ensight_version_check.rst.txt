@@ -1,0 +1,6 @@
+ensight\_version\_check
+=======================
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.ensight_version_check

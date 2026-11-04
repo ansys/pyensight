@@ -1,0 +1,6 @@
+is\_dsg\_server\_running
+========================
+
+.. currentmodule:: ansys.pyensight.core.utils.omniverse
+
+.. automethod:: Omniverse.is_dsg_server_running

@@ -1,0 +1,6 @@
+origin\_frame
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: line.origin_frame

@@ -1,0 +1,6 @@
+show\_minmax\_marker
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: legend.show_minmax_marker

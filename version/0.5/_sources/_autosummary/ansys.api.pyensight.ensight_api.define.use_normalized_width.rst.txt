@@ -1,0 +1,6 @@
+use\_normalized\_width
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: define.use_normalized_width

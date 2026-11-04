@@ -1,0 +1,6 @@
+element\_labeling
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: annotation.element_labeling

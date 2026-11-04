@@ -1,0 +1,6 @@
+getattr
+=======
+
+.. currentmodule:: ansys.api.pyensight.ens_part_isosurface
+
+.. automethod:: ENS_PART_ISOSURFACE.getattr

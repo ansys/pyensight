@@ -1,0 +1,6 @@
+light\_emissive
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.light_emissive

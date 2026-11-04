@@ -1,0 +1,6 @@
+recompute\_cancel
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.recompute_cancel

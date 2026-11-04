@@ -1,0 +1,6 @@
+spline\_id
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: clip.spline_id

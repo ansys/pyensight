@@ -1,0 +1,6 @@
+get\_parts\_by\_name
+====================
+
+.. currentmodule:: ansys.pyensight.core.utils.parts
+
+.. automethod:: Parts.get_parts_by_name

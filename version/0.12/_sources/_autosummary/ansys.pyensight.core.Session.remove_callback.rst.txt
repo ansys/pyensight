@@ -1,0 +1,6 @@
+remove\_callback
+================
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.remove_callback

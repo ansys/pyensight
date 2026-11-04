@@ -1,0 +1,6 @@
+ELTFILTER3VARCOMP
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_discrete_particle
+
+.. autoproperty:: ENS_PART_DISCRETE_PARTICLE.ELTFILTER3VARCOMP

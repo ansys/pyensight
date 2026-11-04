@@ -1,0 +1,6 @@
+SECURITY\_TOKEN
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.SECURITY_TOKEN

@@ -1,0 +1,6 @@
+node\_id
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.node_id

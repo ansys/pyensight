@@ -1,0 +1,6 @@
+select\_default
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: define.select_default

@@ -1,0 +1,6 @@
+NODE
+====
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: VariableLocation.NODE

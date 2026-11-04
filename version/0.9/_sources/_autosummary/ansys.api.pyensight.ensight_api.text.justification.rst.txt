@@ -1,0 +1,6 @@
+justification
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: text.justification

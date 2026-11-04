@@ -1,0 +1,6 @@
+TEMPORAL\_ELEMENT
+=================
+
+.. currentmodule:: ansys.pyensight.core.utils.query
+
+.. autoattribute:: Query.TEMPORAL_ELEMENT

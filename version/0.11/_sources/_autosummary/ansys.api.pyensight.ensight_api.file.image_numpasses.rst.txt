@@ -1,0 +1,6 @@
+image\_numpasses
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.image_numpasses

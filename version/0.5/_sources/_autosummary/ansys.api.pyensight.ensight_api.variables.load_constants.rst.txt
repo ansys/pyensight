@@ -1,0 +1,6 @@
+load\_constants
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: variables.load_constants

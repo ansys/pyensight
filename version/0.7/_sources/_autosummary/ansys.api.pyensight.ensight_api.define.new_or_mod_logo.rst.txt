@@ -1,0 +1,6 @@
+new\_or\_mod\_logo
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: define.new_or_mod_logo

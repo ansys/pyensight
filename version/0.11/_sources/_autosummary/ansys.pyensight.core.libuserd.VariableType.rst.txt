@@ -1,0 +1,55 @@
+﻿VariableType
+============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoclass:: VariableType
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      VariableType.conjugate
+      
+      
+      VariableType.bit_length
+      
+      
+      VariableType.bit_count
+      
+      
+      VariableType.to_bytes
+      
+      
+      VariableType.from_bytes
+      
+      
+      VariableType.as_integer_ratio
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      VariableType.real
+      VariableType.imag
+      VariableType.numerator
+      VariableType.denominator
+      VariableType.CONSTANT
+      VariableType.SCALAR
+      VariableType.VECTOR
+      VariableType.TENSOR
+      VariableType.TENSOR9
+      VariableType.UNKNOW_VAR_TYPE
+   
+   

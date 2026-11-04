@@ -1,0 +1,39 @@
+﻿show\_info
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. autoclass:: show_info
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      show_info.cursor
+      
+      
+      show_info.element
+      
+      
+      show_info.ijk
+      
+      
+      show_info.node
+      
+      
+      show_info.part
+      
+      
+      show_info.point
+      
+   
+   
+
+   
+   
+   

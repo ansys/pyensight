@@ -1,0 +1,6 @@
+rotate\_revolutions
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_quick.rotate_revolutions

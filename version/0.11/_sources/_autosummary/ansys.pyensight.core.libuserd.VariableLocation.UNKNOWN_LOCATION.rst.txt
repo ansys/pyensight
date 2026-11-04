@@ -1,0 +1,6 @@
+UNKNOWN\_LOCATION
+=================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: VariableLocation.UNKNOWN_LOCATION

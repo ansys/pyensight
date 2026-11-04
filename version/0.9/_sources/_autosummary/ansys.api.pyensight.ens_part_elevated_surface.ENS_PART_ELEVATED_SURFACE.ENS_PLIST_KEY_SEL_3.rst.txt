@@ -1,0 +1,6 @@
+ENS\_PLIST\_KEY\_SEL\_3
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_elevated_surface
+
+.. autoproperty:: ENS_PART_ELEVATED_SURFACE.ENS_PLIST_KEY_SEL_3

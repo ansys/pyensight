@@ -1,0 +1,6 @@
+diameter
+========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: shape.diameter

@@ -1,0 +1,6 @@
+direction\_lock
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: lightsource.direction_lock

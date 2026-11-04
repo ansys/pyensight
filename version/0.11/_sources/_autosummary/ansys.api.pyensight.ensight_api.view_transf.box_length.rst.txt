@@ -1,0 +1,6 @@
+box\_length
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.box_length

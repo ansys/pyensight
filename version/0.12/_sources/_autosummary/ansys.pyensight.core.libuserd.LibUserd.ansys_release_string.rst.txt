@@ -1,0 +1,6 @@
+ansys\_release\_string
+======================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: LibUserd.ansys_release_string

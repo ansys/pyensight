@@ -1,0 +1,6 @@
+cei\_home
+=========
+
+.. currentmodule:: ansys.pyensight.core
+
+.. autoproperty:: Session.cei_home

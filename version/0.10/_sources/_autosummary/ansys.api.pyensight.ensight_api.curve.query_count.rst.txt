@@ -1,0 +1,6 @@
+query\_count
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: curve.query_count

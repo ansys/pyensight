@@ -1,0 +1,6 @@
+axis\_point\_2
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: clip.axis_point_2

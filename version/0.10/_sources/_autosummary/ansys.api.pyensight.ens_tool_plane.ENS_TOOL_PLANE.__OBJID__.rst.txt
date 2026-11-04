@@ -1,0 +1,6 @@
+\_\_OBJID\_\_
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_plane
+
+.. autoproperty:: ENS_TOOL_PLANE.__OBJID__

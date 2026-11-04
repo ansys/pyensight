@@ -1,0 +1,6 @@
+move\_part\_to\_group
+=====================
+
+.. currentmodule:: ansys.pyensight.core.utils.parts
+
+.. automethod:: Parts.move_part_to_group

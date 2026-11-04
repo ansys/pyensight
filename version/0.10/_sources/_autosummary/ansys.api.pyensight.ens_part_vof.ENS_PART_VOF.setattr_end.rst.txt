@@ -1,0 +1,6 @@
+setattr\_end
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_part_vof
+
+.. automethod:: ENS_PART_VOF.setattr_end

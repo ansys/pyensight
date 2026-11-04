@@ -1,0 +1,6 @@
+dvs
+===
+
+.. currentmodule:: ansys.pyensight.core.utils.readers
+
+.. autoproperty:: Readers.dvs

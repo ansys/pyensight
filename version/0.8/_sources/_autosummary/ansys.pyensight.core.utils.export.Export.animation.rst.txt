@@ -1,0 +1,6 @@
+animation
+=========
+
+.. currentmodule:: ansys.pyensight.core.utils.export
+
+.. automethod:: Export.animation

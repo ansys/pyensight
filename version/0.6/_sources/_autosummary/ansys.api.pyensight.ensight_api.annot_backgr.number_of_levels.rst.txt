@@ -1,0 +1,6 @@
+number\_of\_levels
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: annot_backgr.number_of_levels

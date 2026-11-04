@@ -1,0 +1,6 @@
+TEMPORAL\_IJK
+=============
+
+.. currentmodule:: ansys.pyensight.core.utils.query
+
+.. autoattribute:: Query.TEMPORAL_IJK

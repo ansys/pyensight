@@ -1,0 +1,6 @@
+idle
+====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.idle

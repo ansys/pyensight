@@ -1,0 +1,6 @@
+vdb\_mesh\_offset
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.vdb_mesh_offset

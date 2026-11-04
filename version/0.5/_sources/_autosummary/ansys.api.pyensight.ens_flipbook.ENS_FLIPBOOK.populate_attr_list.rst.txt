@@ -1,0 +1,6 @@
+populate\_attr\_list
+====================
+
+.. currentmodule:: ansys.api.pyensight.ens_flipbook
+
+.. automethod:: ENS_FLIPBOOK.populate_attr_list

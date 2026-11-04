@@ -1,0 +1,6 @@
+DESCRIPTION
+===========
+
+.. currentmodule:: ansys.api.pyensight.ens_frame
+
+.. autoproperty:: ENS_FRAME.DESCRIPTION

@@ -1,0 +1,6 @@
+graph\_title
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.graph_title

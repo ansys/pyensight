@@ -1,0 +1,6 @@
+face\_zmax\_gridfilter
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport_bounds.face_zmax_gridfilter

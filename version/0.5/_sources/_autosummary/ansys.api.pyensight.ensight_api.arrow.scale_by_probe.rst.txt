@@ -1,0 +1,6 @@
+scale\_by\_probe
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: arrow.scale_by_probe

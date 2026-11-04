@@ -1,0 +1,6 @@
+ELTFILTER2TESTVARIABLE
+======================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_axisymmetric
+
+.. autoproperty:: ENS_PART_AXISYMMETRIC.ELTFILTER2TESTVARIABLE

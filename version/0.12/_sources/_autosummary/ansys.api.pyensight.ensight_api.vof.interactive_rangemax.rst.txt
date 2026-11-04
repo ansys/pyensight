@@ -1,0 +1,6 @@
+interactive\_rangemax
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: vof.interactive_rangemax

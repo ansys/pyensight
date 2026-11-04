@@ -1,0 +1,6 @@
+background\_transparency
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.background_transparency

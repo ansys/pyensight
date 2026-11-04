@@ -1,0 +1,6 @@
+query\_nodes
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.query_nodes

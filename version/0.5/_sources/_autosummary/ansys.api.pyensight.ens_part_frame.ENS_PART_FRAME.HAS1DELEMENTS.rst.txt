@@ -1,0 +1,6 @@
+HAS1DELEMENTS
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_part_frame
+
+.. autoproperty:: ENS_PART_FRAME.HAS1DELEMENTS

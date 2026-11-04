@@ -1,0 +1,6 @@
+line
+====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: clip.line

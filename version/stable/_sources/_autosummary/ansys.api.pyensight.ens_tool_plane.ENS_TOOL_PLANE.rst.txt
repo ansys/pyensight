@@ -1,0 +1,95 @@
+﻿ENS\_TOOL\_PLANE
+================
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_plane
+
+.. autoclass:: ENS_TOOL_PLANE
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_TOOL_PLANE.attrgroupinfo
+      
+      
+      ENS_TOOL_PLANE.attrinfo
+      
+      
+      ENS_TOOL_PLANE.attrissensitive
+      
+      
+      ENS_TOOL_PLANE.attrtree
+      
+      
+      ENS_TOOL_PLANE.destroy
+      
+      
+      ENS_TOOL_PLANE.fit_to_selected
+      
+      
+      ENS_TOOL_PLANE.getattr
+      
+      
+      ENS_TOOL_PLANE.getattrs
+      
+      
+      ENS_TOOL_PLANE.getmetatag
+      
+      
+      ENS_TOOL_PLANE.hasmetatag
+      
+      
+      ENS_TOOL_PLANE.rawdata
+      
+      
+      ENS_TOOL_PLANE.setattr
+      
+      
+      ENS_TOOL_PLANE.setattr_begin
+      
+      
+      ENS_TOOL_PLANE.setattr_end
+      
+      
+      ENS_TOOL_PLANE.setattr_status
+      
+      
+      ENS_TOOL_PLANE.setattrs
+      
+      
+      ENS_TOOL_PLANE.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_TOOL_PLANE.CENTROID
+      ENS_TOOL_PLANE.CORE
+      ENS_TOOL_PLANE.DESCRIPTION
+      ENS_TOOL_PLANE.EDIT_TARGET
+      ENS_TOOL_PLANE.HANDLES_ENABLED
+      ENS_TOOL_PLANE.INDEX
+      ENS_TOOL_PLANE.METADATA
+      ENS_TOOL_PLANE.NORMAL
+      ENS_TOOL_PLANE.PROJECT_MASK
+      ENS_TOOL_PLANE.ROTATION
+      ENS_TOOL_PLANE.SELECTED
+      ENS_TOOL_PLANE.SIZE
+      ENS_TOOL_PLANE.TOOLTYPE
+      ENS_TOOL_PLANE.UUID
+      ENS_TOOL_PLANE.VISIBLE
+      ENS_TOOL_PLANE.__OBJID__
+      ENS_TOOL_PLANE.objid
+   
+   

@@ -1,0 +1,6 @@
+setattr\_begin
+==============
+
+.. currentmodule:: ansys.api.pyensight.ens_spec
+
+.. automethod:: ENS_SPEC.setattr_begin

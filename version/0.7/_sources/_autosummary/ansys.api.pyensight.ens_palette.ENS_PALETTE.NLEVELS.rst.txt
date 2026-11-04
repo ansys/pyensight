@@ -1,0 +1,6 @@
+NLEVELS
+=======
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. autoproperty:: ENS_PALETTE.NLEVELS

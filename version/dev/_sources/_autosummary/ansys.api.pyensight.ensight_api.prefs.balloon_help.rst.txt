@@ -1,0 +1,6 @@
+balloon\_help
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.balloon_help

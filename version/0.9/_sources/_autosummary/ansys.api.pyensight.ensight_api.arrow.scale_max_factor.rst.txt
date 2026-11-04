@@ -1,0 +1,6 @@
+scale\_max\_factor
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: arrow.scale_max_factor

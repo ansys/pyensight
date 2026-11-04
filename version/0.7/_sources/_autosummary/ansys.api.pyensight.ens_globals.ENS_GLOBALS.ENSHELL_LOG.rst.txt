@@ -1,0 +1,6 @@
+ENSHELL\_LOG
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.ENSHELL_LOG

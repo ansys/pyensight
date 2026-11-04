@@ -1,0 +1,6 @@
+little\_hand\_rgb
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: dial.little_hand_rgb

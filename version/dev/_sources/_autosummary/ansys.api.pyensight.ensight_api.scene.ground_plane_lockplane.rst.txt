@@ -1,0 +1,6 @@
+ground\_plane\_lockplane
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: scene.ground_plane_lockplane

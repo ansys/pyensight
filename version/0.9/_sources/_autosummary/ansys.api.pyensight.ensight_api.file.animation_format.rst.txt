@@ -1,0 +1,6 @@
+animation\_format
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.animation_format

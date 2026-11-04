@@ -1,0 +1,6 @@
+add\_knot
+=========
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.add_knot

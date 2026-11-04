@@ -1,0 +1,6 @@
+massed\_pressure
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.massed_pressure

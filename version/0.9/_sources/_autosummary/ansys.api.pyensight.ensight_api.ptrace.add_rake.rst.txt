@@ -1,0 +1,6 @@
+add\_rake
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.add_rake

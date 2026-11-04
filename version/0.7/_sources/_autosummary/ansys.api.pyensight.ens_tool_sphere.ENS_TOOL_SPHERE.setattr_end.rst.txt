@@ -1,0 +1,6 @@
+setattr\_end
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_sphere
+
+.. automethod:: ENS_TOOL_SPHERE.setattr_end

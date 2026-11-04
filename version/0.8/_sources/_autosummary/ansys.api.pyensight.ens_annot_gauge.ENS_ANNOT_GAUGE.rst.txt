@@ -1,0 +1,116 @@
+﻿ENS\_ANNOT\_GAUGE
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_annot_gauge
+
+.. autoclass:: ENS_ANNOT_GAUGE
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_ANNOT_GAUGE.attrgroupinfo
+      
+      
+      ENS_ANNOT_GAUGE.attrinfo
+      
+      
+      ENS_ANNOT_GAUGE.attrissensitive
+      
+      
+      ENS_ANNOT_GAUGE.attrtree
+      
+      
+      ENS_ANNOT_GAUGE.createannot
+      
+      
+      ENS_ANNOT_GAUGE.destroy
+      
+      
+      ENS_ANNOT_GAUGE.getattr
+      
+      
+      ENS_ANNOT_GAUGE.getattrs
+      
+      
+      ENS_ANNOT_GAUGE.getmetatag
+      
+      
+      ENS_ANNOT_GAUGE.hasmetatag
+      
+      
+      ENS_ANNOT_GAUGE.setattr
+      
+      
+      ENS_ANNOT_GAUGE.setattr_begin
+      
+      
+      ENS_ANNOT_GAUGE.setattr_end
+      
+      
+      ENS_ANNOT_GAUGE.setattr_status
+      
+      
+      ENS_ANNOT_GAUGE.setattrs
+      
+      
+      ENS_ANNOT_GAUGE.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_ANNOT_GAUGE.ANNOTINDEX
+      ENS_ANNOT_GAUGE.ANNOTTYPE
+      ENS_ANNOT_GAUGE.BACKGROUND
+      ENS_ANNOT_GAUGE.BACKGROUNDRGB
+      ENS_ANNOT_GAUGE.BORDER
+      ENS_ANNOT_GAUGE.DESCRIPTION
+      ENS_ANNOT_GAUGE.EDIT_TARGET
+      ENS_ANNOT_GAUGE.HANDLES_ENABLED
+      ENS_ANNOT_GAUGE.HEIGHT
+      ENS_ANNOT_GAUGE.JUSTIFICATION
+      ENS_ANNOT_GAUGE.LEVELRGB
+      ENS_ANNOT_GAUGE.LOCATIONX
+      ENS_ANNOT_GAUGE.LOCATIONY
+      ENS_ANNOT_GAUGE.MAXIMUM
+      ENS_ANNOT_GAUGE.METADATA
+      ENS_ANNOT_GAUGE.MINIMUM
+      ENS_ANNOT_GAUGE.ORIENTATION
+      ENS_ANNOT_GAUGE.ORIGIN
+      ENS_ANNOT_GAUGE.ORIGINBY
+      ENS_ANNOT_GAUGE.ORIGINFRAME
+      ENS_ANNOT_GAUGE.PROJECT_MASK
+      ENS_ANNOT_GAUGE.RELATIVETO
+      ENS_ANNOT_GAUGE.RELATIVEVIEWPORT
+      ENS_ANNOT_GAUGE.RGB
+      ENS_ANNOT_GAUGE.ROTATIONALANGLE
+      ENS_ANNOT_GAUGE.SELECTED
+      ENS_ANNOT_GAUGE.SHADOWINTENSITY
+      ENS_ANNOT_GAUGE.SHADOWOFFSET
+      ENS_ANNOT_GAUGE.SIZE
+      ENS_ANNOT_GAUGE.UUID
+      ENS_ANNOT_GAUGE.VALUE
+      ENS_ANNOT_GAUGE.VALUEDECIMALPLACES
+      ENS_ANNOT_GAUGE.VALUEFORMAT
+      ENS_ANNOT_GAUGE.VALUELOCATION
+      ENS_ANNOT_GAUGE.VALUERGB
+      ENS_ANNOT_GAUGE.VALUESIZE
+      ENS_ANNOT_GAUGE.VARIABLE
+      ENS_ANNOT_GAUGE.VISIBLE
+      ENS_ANNOT_GAUGE.WIDTH
+      ENS_ANNOT_GAUGE.__OBJID__
+      ENS_ANNOT_GAUGE.objid
+   
+   

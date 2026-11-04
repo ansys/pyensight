@@ -1,0 +1,6 @@
+bit\_count
+==========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: ElementType.bit_count

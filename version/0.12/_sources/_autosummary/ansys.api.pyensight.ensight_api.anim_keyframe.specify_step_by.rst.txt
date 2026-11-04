@@ -1,0 +1,6 @@
+specify\_step\_by
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_keyframe.specify_step_by

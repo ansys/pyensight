@@ -1,0 +1,6 @@
+user\_input\_rtzlimit
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.user_input_rtzlimit

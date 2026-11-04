@@ -1,0 +1,6 @@
+massed\_ballistic\_coef
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.massed_ballistic_coef

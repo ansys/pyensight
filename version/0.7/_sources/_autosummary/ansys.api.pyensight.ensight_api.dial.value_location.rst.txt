@@ -1,0 +1,6 @@
+value\_location
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: dial.value_location

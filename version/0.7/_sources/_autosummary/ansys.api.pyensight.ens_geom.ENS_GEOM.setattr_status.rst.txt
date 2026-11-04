@@ -1,0 +1,6 @@
+setattr\_status
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_geom
+
+.. automethod:: ENS_GEOM.setattr_status

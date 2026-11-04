@@ -1,0 +1,6 @@
+scalar\_variable
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: query_ent_var.scalar_variable

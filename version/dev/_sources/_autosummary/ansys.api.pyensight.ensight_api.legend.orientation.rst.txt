@@ -1,0 +1,6 @@
+orientation
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: legend.orientation

@@ -1,0 +1,6 @@
+download\_pyansys\_example
+==========================
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.download_pyansys_example

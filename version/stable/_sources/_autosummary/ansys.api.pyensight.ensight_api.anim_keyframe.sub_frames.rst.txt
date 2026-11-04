@@ -1,0 +1,6 @@
+sub\_frames
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_keyframe.sub_frames

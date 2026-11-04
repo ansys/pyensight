@@ -1,0 +1,6 @@
+getattr
+=======
+
+.. currentmodule:: ansys.api.pyensight.ens_var
+
+.. automethod:: ENS_VAR.getattr

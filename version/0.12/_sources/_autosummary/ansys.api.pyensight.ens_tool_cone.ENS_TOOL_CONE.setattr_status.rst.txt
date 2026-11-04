@@ -1,0 +1,6 @@
+setattr\_status
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_cone
+
+.. automethod:: ENS_TOOL_CONE.setattr_status
