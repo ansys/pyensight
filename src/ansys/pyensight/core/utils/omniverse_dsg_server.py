@@ -641,6 +641,8 @@ class OmniverseWrapper(object):
         verts,
         sizes,
         colors,
+        var_values,
+        var_cmd,
         default_size: float,
         default_color,
         is_manifest: bool,
@@ -666,14 +668,34 @@ class OmniverseWrapper(object):
                 w_attr.Set(sizes, 0)
             else:
                 w_attr.Set([default_size] * (verts.size // 3), 0)
-
-        colorAttr = points.GetPrim().GetAttribute("primvars:displayColor")
-        colorAttr.SetMetadata("interpolation", "vertex")
-        if verts is not None:
-            if colors is not None and colors.size == verts.size:
-                colorAttr.Set(colors, 0)
-            else:
-                colorAttr.Set([default_color[0:3]] * (verts.size // 3), 0)
+        if var_cmd is not None:
+            primvar_name = "st_" + self.clean_name(var_cmd.name)
+            primvarsAPI = UsdGeom.PrimvarsAPI(points)
+            texCoords = primvarsAPI.CreatePrimvar(
+                primvar_name, Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.vertex
+            )
+            if not is_manifest and var_values is not None and var_values.size == verts.size // 3:
+                tcoords = numpy.empty((var_values.size * 2,), dtype="float32")
+                tcoords[0::2] = var_values[: var_values.size]
+                tcoords[1::2] = 0.5
+                texCoords.Set(tcoords, 0)
+            self.create_dsg_material(
+                stage,
+                points,
+                part_path + "/points",
+                diffuse=default_color,
+                variable=var_cmd,
+                primvar_name=primvar_name,
+                mat_info={},
+            )
+        else:
+            colorAttr = points.GetPrim().GetAttribute("primvars:displayColor")
+            colorAttr.SetMetadata("interpolation", "vertex")
+            if verts is not None:
+                if colors is not None and colors.size == verts.size:
+                    colorAttr.Set(colors, 0)
+                else:
+                    colorAttr.Set([default_color[0:3]] * (verts.size // 3), 0)
 
         stage.SetDefaultPrim(part_prim)
         stage.SetStartTimeCode(0)
@@ -691,6 +713,8 @@ class OmniverseWrapper(object):
         verts,
         sizes,
         colors,
+        var_values,
+        var_cmd,
         matrix=[1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0],
         default_size=1.0,
         default_color=[1.0, 1.0, 1.0, 1.0],
@@ -711,6 +735,8 @@ class OmniverseWrapper(object):
             None,
             None,
             None,
+            None,
+            var_cmd,
             default_size,
             default_color,
             True,
@@ -725,6 +751,8 @@ class OmniverseWrapper(object):
             verts,
             sizes,
             colors,
+            var_values,
+            var_cmd,
             default_size,
             default_color,
             False,
@@ -1324,7 +1352,7 @@ class OmniverseUpdateHandler(UpdateHandler):
                 )
 
         elif part.cmd.render == part.cmd.NODES:
-            command, verts, sizes, colors, var_cmd = part.point_rep()
+            command, verts, sizes, colors, var_values, var_cmd = part.point_rep()
             if verts is not None:
                 verts = numpy.multiply(verts, self._omni._units_per_meter)
             if sizes is not None:
@@ -1344,6 +1372,8 @@ class OmniverseUpdateHandler(UpdateHandler):
                     verts,
                     sizes,
                     colors,
+                    var_values,
+                    var_cmd,
                     matrix=matrix,
                     default_size=part.cmd.node_size_default * self._omni._units_per_meter,
                     default_color=color,

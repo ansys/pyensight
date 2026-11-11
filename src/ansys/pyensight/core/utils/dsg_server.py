@@ -564,9 +564,11 @@ class Part(object):
         colors = None
         var_cmd = None
 
+        var_values = None
         var_dsg_id = self.cmd.color_variableid
         if var_dsg_id in self.session.variables:
             var_cmd = self.session.variables[var_dsg_id]
+            var_values = self.tcoords
 
             # If all values in tcoords are undef, handle them specially
             # For points, when all values are undef, EnSight doesn't send tcoords when all values are undef
@@ -576,12 +578,15 @@ class Part(object):
                 or numpy.all(self.tcoords == var_cmd.undefined_value)
                 or numpy.isnan(self.tcoords).all()
             ):
+                var_values = None
                 if var_cmd.undefined_display == var_cmd.USE_PART_COLOR:
                     mat = self.material()
                     c = [self.cmd.fill_color[0], self.cmd.fill_color[1], self.cmd.fill_color[2]]
                     if "diffuse" in mat:
                         c = [mat["diffuse"][0], mat["diffuse"][1], mat["diffuse"][2]]
                     colors = numpy.tile(c, num_verts).astype("float32")
+                    # Return None for var_cmd, to keep Omniverse from creating a material for the color-by var
+                    var_cmd = None
 
                 elif var_cmd.undefined_display == var_cmd.USE_UNDEF_COLOR:
                     c = [
@@ -590,6 +595,8 @@ class Part(object):
                         var_cmd.undefined_color[2],
                     ]
                     colors = numpy.tile(c, num_verts).astype("float32")
+                    # Return None for var_cmd, to keep Omniverse from creating a material for the color-by var
+                    var_cmd = None
 
                 elif var_cmd.undefined_display == var_cmd.AS_INVISIBLE:
                     # Not an error case.  All points have the undef value, and geometry with undef is hidden
@@ -597,18 +604,6 @@ class Part(object):
 
                 elif var_cmd.undefined_display == var_cmd.AS_ZERO:
                     self.tcoords = numpy.zeros(num_verts, dtype=numpy.float32)
-
-            if self.tcoords.size and self.tcoords.size == num_verts and colors is None:
-                if len(var_cmd.levels) == 0:
-                    self.session.log(
-                        f"Note: Node rep not created for part '{self.cmd.name}'.  It has var values, but a palette with 0 levels."
-                    )
-                    return None, None, None, None, None
-
-                colors = self.tcoords_to_colors(self.tcoords, var_cmd)
-                colors *= self.cmd.diffuse
-                self.session.log(f"Part '{self.cmd.name}' defined: {self.coords.size // 3} points.")
-
         node_sizes = None
         if self.node_sizes.size and self.node_sizes.size == num_verts:
             # Pass out the node sizes if there is a size-by variable
@@ -626,7 +621,7 @@ class Part(object):
         self.session.log(f"Part '{self.cmd.name}' defined: {self.coords.size // 3} points.")
         command = self.cmd
 
-        return command, verts, node_sizes, colors, var_cmd
+        return command, verts, node_sizes, colors, var_values, var_cmd
 
 
 class UpdateHandler(object):
