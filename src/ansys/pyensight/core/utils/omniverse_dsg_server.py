@@ -751,8 +751,26 @@ class OmniverseWrapper(object):
     ):
         # https://graphics.pixar.com/usd/release/spec_usdpreviewsurface.html
         # Use ior==1.0 to be more like EnSight - rays of light do not bend when passing through transparent objs
-        material = UsdShade.Material.Define(stage, root_name + "/Material")
-        pbrShader = UsdShade.Shader.Define(stage, root_name + "/Material/PBRShader")
+        material_path = root_name + "/Material"
+        material_stage = stage
+        if variable is not None:
+            self._stage.DefinePrim("/surface_appearances", "Scope").SetDisplayName(
+                "Surface Appearances"
+            )
+            self._stage.DefinePrim("/surface_appearances/variables", "Scope").SetDisplayName(
+                "Variables"
+            )
+            shared_path = "/surface_appearances/variables/" + self.clean_name(variable.name)
+            material = UsdShade.Material.Define(self._stage, shared_path)
+            # root_name/Material references the shared material
+            ref_prim = stage.DefinePrim(material_path, "Material")
+            ref_prim.GetReferences().AddReference("../" + self._stagename, Sdf.Path(shared_path))
+            build_path = shared_path
+            material_stage = self._stage
+        else:
+            material = UsdShade.Material.Define(stage, material_path)
+            build_path = material_path
+        pbrShader = UsdShade.Shader.Define(material_stage, build_path + "/PBRShader")
         pbrShader.CreateIdAttr("UsdPreviewSurface")
         smoothness = mat_info.get("smoothness", 0.0)
         pbrShader.CreateInput("roughness", Sdf.ValueTypeNames.Float).Set(1.0 - smoothness)
@@ -762,19 +780,71 @@ class OmniverseWrapper(object):
         pbrShader.CreateInput("opacity", Sdf.ValueTypeNames.Float).Set(opacity)
         pbrShader.CreateInput("ior", Sdf.ValueTypeNames.Float).Set(1.0)
         pbrShader.CreateInput("useSpecularWorkflow", Sdf.ValueTypeNames.Int).Set(1)
-        if variable:
-            stReader = UsdShade.Shader.Define(stage, root_name + "/Material/stReader")
+        if variable is not None:
+            # Real var values are in the texture coords.  Find palette min/max,
+            # then compute the texture scale and offset
+            v_min = None
+            v_max = None
+            for lvl in variable.levels:
+                if (v_min is None) or (v_min > lvl.value):
+                    v_min = lvl.value
+                if (v_max is None) or (v_max < lvl.value):
+                    v_max = lvl.value
+            if v_min is None or v_max is None:
+                v_min = 0.0
+                v_max = 0.0
+
+            num_texels = len(variable.texture) // 4
+            half_texel = 1 / (num_texels * 2.0)
+            tex_width = half_texel * 2 * (num_texels - 1)  # center to center of num_texels
+
+            # Add helper attributes for computing new palette ranges in Omniverse
+            mat_prim = material.GetPrim()
+            min_attr = mat_prim.CreateAttribute("palette:min", Sdf.ValueTypeNames.Float)
+            min_attr.Set(v_min)
+            min_attr = mat_prim.CreateAttribute("palette:max", Sdf.ValueTypeNames.Float)
+            min_attr.Set(v_max)
+            min_attr = mat_prim.CreateAttribute("palette:half_texel", Sdf.ValueTypeNames.Float)
+            min_attr.Set(half_texel)
+
+            # if the range is 0, adjust the min by -1.   The result is that the texture
+            # coords will get mapped to S=1.0 which is what EnSight does in this situation
+            if (v_max - v_min) == 0.0:
+                v_min = v_min - 1.0
+            var_width = v_max - v_min
+
+            # s' = (s - v_min) / var_width * tex_width + half_texel = s * scale_s + offset_s
+            scale_s = tex_width / var_width
+            offset_s = half_texel - v_min * scale_s
+
+            stReader = UsdShade.Shader.Define(material_stage, build_path + "/stReader")
             stReader.CreateIdAttr("UsdPrimvarReader_float2")
+
+            stTransform = UsdShade.Shader.Define(material_stage, build_path + "/stTransform")
+            stTransform.CreateIdAttr("UsdTransform2d")
+            stTransform.CreateInput("in", Sdf.ValueTypeNames.Float2).ConnectToSource(
+                stReader.ConnectableAPI(), "result"
+            )
+            # T is forced to 0.5 (scale 0, translation 0.5); the palette is constant in T
+            stTransform.CreateInput("scale", Sdf.ValueTypeNames.Float2).Set(Gf.Vec2f(scale_s, 0.0))
+            stTransform.CreateInput("rotation", Sdf.ValueTypeNames.Float).Set(0.0)
+            stTransform.CreateInput("translation", Sdf.ValueTypeNames.Float2).Set(
+                Gf.Vec2f(offset_s, 0.5)
+            )
+            stTransform.CreateOutput("result", Sdf.ValueTypeNames.Float2)
+
             diffuseTextureSampler = UsdShade.Shader.Define(
-                stage, root_name + "/Material/diffuseTexture"
+                material_stage, build_path + "/diffuseTexture"
             )
             diffuseTextureSampler.CreateIdAttr("UsdUVTexture")
             name = self.clean_name(variable.name)
-            filename = f"./Textures/palette_{name}.png"
+            filename = f"./Parts/Textures/palette_{name}.png"
             diffuseTextureSampler.CreateInput("file", Sdf.ValueTypeNames.Asset).Set(filename)
             diffuseTextureSampler.CreateInput("st", Sdf.ValueTypeNames.Float2).ConnectToSource(
-                stReader.ConnectableAPI(), "result"
+                stTransform.ConnectableAPI(), "result"
             )
+            diffuseTextureSampler.CreateInput("wrapS", Sdf.ValueTypeNames.Token).Set("clamp")
+            diffuseTextureSampler.CreateInput("wrapT", Sdf.ValueTypeNames.Token).Set("clamp")
             diffuseTextureSampler.CreateOutput("rgb", Sdf.ValueTypeNames.Float3)
             pbrShader.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).ConnectToSource(
                 diffuseTextureSampler.ConnectableAPI(), "rgb"
@@ -808,8 +878,9 @@ class OmniverseWrapper(object):
             pbrShader.CreateInput("specularColor", Sdf.ValueTypeNames.Color3f).Set(color)
 
         material.CreateSurfaceOutput().ConnectToSource(pbrShader.ConnectableAPI(), "surface")
+        bind_material = UsdShade.Material(stage.GetPrimAtPath(material_path))
         mat_binding_api = UsdShade.MaterialBindingAPI.Apply(mesh.GetPrim())
-        mat_binding_api.Bind(material)
+        mat_binding_api.Bind(bind_material)
 
         return material
 

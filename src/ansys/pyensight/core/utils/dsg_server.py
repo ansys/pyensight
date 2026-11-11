@@ -396,17 +396,18 @@ class Part(object):
                 verts[j + 2] = (verts[j + 2] - midz) / s
         return 1.0 / s
 
-    def _build_st_coords(self, tcoords: numpy.ndarray, num_verts: int):
+    def _build_st_coords(self, var_values: numpy.ndarray, num_verts: int):
         """
         The Omniverse interface uses 2D texturing (s,t) to reference the texture map.
-        This method converts DSG texture coordinates (1D and in "variable" units) into
-        2D OpenGL style [0.,1.] normalized coordinate space.  the "t" coordinate will
-        always be 0.5.
+        This method converts var values (1D and in "variable" units) into
+        pairs of texture coordinates.  The "s" coordinate now contains the var value,
+        allowing the palette to be rescaled, via scale and offset params in the material shader.
+        The "t" coordinate will always be 0.5.
 
         Parameters
         ----------
-        tcoords: numpy.ndarray
-            The DSG 1D texture coordinates, which are actually variable values.
+        var_values: numpy.ndarray
+            The DSG variable values.
 
         num_verts: int
             The number of vertices in the mesh.
@@ -418,37 +419,10 @@ class Part(object):
         """
         var_dsg_id = self.cmd.color_variableid  # type: ignore
         var_cmd = self.session.variables[var_dsg_id]
-        v_min = None
-        v_max = None
-        for lvl in var_cmd.levels:
-            if (v_min is None) or (v_min > lvl.value):
-                v_min = lvl.value
-            if (v_max is None) or (v_max < lvl.value):
-                v_max = lvl.value
-        var_minmax: List[float] = [v_min, v_max]  # type: ignore
-        # build a power of two x 1 texture
-        num_texels = len(var_cmd.texture) // 4
-        if dsgutils_loaded:
-            tmp = dsgutils.build_st_coords(tcoords, v_min, v_max, num_texels)
-        else:
-            half_texel = 1 / (num_texels * 2.0)
-            tmp = numpy.ndarray((num_verts * 2,), dtype="float32")
-            tmp.fill(0.5)  # fill in the T coordinate...
-            tex_width = half_texel * 2 * (num_texels - 1)  # center to center of num_texels
-            # if the range is 0, adjust the min by -1.   The result is that the texture
-            # coords will get mapped to S=1.0 which is what EnSight does in this situation
-            if (var_minmax[1] - var_minmax[0]) == 0.0:
-                var_minmax[0] = var_minmax[0] - 1.0
-            var_width = var_minmax[1] - var_minmax[0]
-            for idx in range(num_verts):
-                # normalized S coord value (clamp)
-                s = (tcoords[idx] - var_minmax[0]) / var_width
-                if s < 0.0:
-                    s = 0.0
-                if s > 1.0:
-                    s = 1.0
-                # map to the texture range and set the S value
-                tmp[idx * 2] = s * tex_width + half_texel
+
+        tmp = numpy.empty((num_verts * 2,), dtype="float32")
+        tmp[0::2] = var_values[:num_verts]  # S: raw variable values
+        tmp[1::2] = 0.5  # T: constant
         return tmp, var_cmd
 
     def line_rep(self):
