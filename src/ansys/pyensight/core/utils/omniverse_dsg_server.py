@@ -70,12 +70,18 @@ class OmniverseWrapper(object):
         self._live_edit: bool = live_edit
         if self._live_edit:
             self._stagename = "dsg_scene.live"
-        # USD time slider will have 120 tick marks per second of animation time
+        # Each timestep and flipbook page is given a runtime of 1/24s, in dsg_server.py.
         self._time_codes_per_second: float = 24.0
         # Omniverse content currently only scales correctly for scenes in cm.  DJB, Feb 2025
         self._units_per_meter: float = 100.0
         self._up_axis: str = UsdGeom.Tokens.y
         if destination:
+            # If destination uses a known USD extension, use it as a file name instead of a directory name
+            suffix = os.path.splitext(destination)[1]
+            if suffix.lower() in (".usd", ".usda", ".usdc"):
+                self._ext = suffix
+                self._stagename = os.path.basename(destination)
+                destination = os.path.dirname(destination) or "."
             self.destination = destination
 
         self._line_width = line_width
@@ -792,7 +798,13 @@ class OmniverseWrapper(object):
             material = UsdShade.Material.Define(self._stage, shared_path)
             # root_name/Material references the shared material
             ref_prim = stage.DefinePrim(material_path, "Material")
+            # Add a reference to the material on the parent USD.  This is a circular dependency,
+            # and requires that the parent file name not be changed.
             ref_prim.GetReferences().AddReference("../" + self._stagename, Sdf.Path(shared_path))
+            # Alternatively, add a reference which will exist when the child is layered into
+            # the parent.  The file is readable, and parent file can be renamed.
+            # But warnings are printed by the USD library every time a file is written.
+            # ref_prim.GetReferences().AddInternalReference(Sdf.Path(shared_path))
             build_path = shared_path
             material_stage = self._stage
         else:
