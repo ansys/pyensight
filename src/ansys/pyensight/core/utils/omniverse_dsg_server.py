@@ -70,12 +70,18 @@ class OmniverseWrapper(object):
         self._live_edit: bool = live_edit
         if self._live_edit:
             self._stagename = "dsg_scene.live"
-        # USD time slider will have 120 tick marks per second of animation time
+        # Each timestep and flipbook page is given a runtime of 1/24s, in dsg_server.py.
         self._time_codes_per_second: float = 24.0
         # Omniverse content currently only scales correctly for scenes in cm.  DJB, Feb 2025
         self._units_per_meter: float = 100.0
         self._up_axis: str = UsdGeom.Tokens.y
         if destination:
+            # If destination uses a known USD extension, use it as a file name instead of a directory name
+            suffix = os.path.splitext(destination)[1]
+            if suffix.lower() in (".usd", ".usda", ".usdc"):
+                self._ext = suffix
+                self._stagename = os.path.basename(destination)
+                destination = os.path.dirname(destination) or "."
             self.destination = destination
 
         self._line_width = line_width
@@ -641,6 +647,8 @@ class OmniverseWrapper(object):
         verts,
         sizes,
         colors,
+        var_values,
+        var_cmd,
         default_size: float,
         default_color,
         is_manifest: bool,
@@ -666,14 +674,34 @@ class OmniverseWrapper(object):
                 w_attr.Set(sizes, 0)
             else:
                 w_attr.Set([default_size] * (verts.size // 3), 0)
-
-        colorAttr = points.GetPrim().GetAttribute("primvars:displayColor")
-        colorAttr.SetMetadata("interpolation", "vertex")
-        if verts is not None:
-            if colors is not None and colors.size == verts.size:
-                colorAttr.Set(colors, 0)
-            else:
-                colorAttr.Set([default_color[0:3]] * (verts.size // 3), 0)
+        if var_cmd is not None:
+            primvar_name = "st_" + self.clean_name(var_cmd.name)
+            primvarsAPI = UsdGeom.PrimvarsAPI(points)
+            texCoords = primvarsAPI.CreatePrimvar(
+                primvar_name, Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.vertex
+            )
+            if not is_manifest and var_values is not None and var_values.size == verts.size // 3:
+                tcoords = numpy.empty((var_values.size * 2,), dtype="float32")
+                tcoords[0::2] = var_values[: var_values.size]
+                tcoords[1::2] = 0.5
+                texCoords.Set(tcoords, 0)
+            self.create_dsg_material(
+                stage,
+                points,
+                part_path + "/points",
+                diffuse=default_color,
+                variable=var_cmd,
+                primvar_name=primvar_name,
+                mat_info={},
+            )
+        else:
+            colorAttr = points.GetPrim().GetAttribute("primvars:displayColor")
+            colorAttr.SetMetadata("interpolation", "vertex")
+            if verts is not None:
+                if colors is not None and colors.size == verts.size:
+                    colorAttr.Set(colors, 0)
+                else:
+                    colorAttr.Set([default_color[0:3]] * (verts.size // 3), 0)
 
         stage.SetDefaultPrim(part_prim)
         stage.SetStartTimeCode(0)
@@ -691,6 +719,8 @@ class OmniverseWrapper(object):
         verts,
         sizes,
         colors,
+        var_values,
+        var_cmd,
         matrix=[1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0],
         default_size=1.0,
         default_color=[1.0, 1.0, 1.0, 1.0],
@@ -711,6 +741,8 @@ class OmniverseWrapper(object):
             None,
             None,
             None,
+            None,
+            var_cmd,
             default_size,
             default_color,
             True,
@@ -725,6 +757,8 @@ class OmniverseWrapper(object):
             verts,
             sizes,
             colors,
+            var_values,
+            var_cmd,
             default_size,
             default_color,
             False,
@@ -751,8 +785,32 @@ class OmniverseWrapper(object):
     ):
         # https://graphics.pixar.com/usd/release/spec_usdpreviewsurface.html
         # Use ior==1.0 to be more like EnSight - rays of light do not bend when passing through transparent objs
-        material = UsdShade.Material.Define(stage, root_name + "/Material")
-        pbrShader = UsdShade.Shader.Define(stage, root_name + "/Material/PBRShader")
+        material_path = root_name + "/Material"
+        material_stage = stage
+        if variable is not None:
+            self._stage.DefinePrim("/surface_appearances", "Scope").SetDisplayName(
+                "Surface Appearances"
+            )
+            self._stage.DefinePrim("/surface_appearances/variables", "Scope").SetDisplayName(
+                "Variables"
+            )
+            shared_path = "/surface_appearances/variables/" + self.clean_name(variable.name)
+            material = UsdShade.Material.Define(self._stage, shared_path)
+            # root_name/Material references the shared material
+            ref_prim = stage.DefinePrim(material_path, "Material")
+            # Add a reference to the material on the parent USD.  This is a circular dependency,
+            # and requires that the parent file name not be changed.
+            ref_prim.GetReferences().AddReference("../" + self._stagename, Sdf.Path(shared_path))
+            # Alternatively, add a reference which will exist when the child is layered into
+            # the parent.  The file is readable, and parent file can be renamed.
+            # But warnings are printed by the USD library every time a file is written.
+            # ref_prim.GetReferences().AddInternalReference(Sdf.Path(shared_path))
+            build_path = shared_path
+            material_stage = self._stage
+        else:
+            material = UsdShade.Material.Define(stage, material_path)
+            build_path = material_path
+        pbrShader = UsdShade.Shader.Define(material_stage, build_path + "/PBRShader")
         pbrShader.CreateIdAttr("UsdPreviewSurface")
         smoothness = mat_info.get("smoothness", 0.0)
         pbrShader.CreateInput("roughness", Sdf.ValueTypeNames.Float).Set(1.0 - smoothness)
@@ -762,19 +820,71 @@ class OmniverseWrapper(object):
         pbrShader.CreateInput("opacity", Sdf.ValueTypeNames.Float).Set(opacity)
         pbrShader.CreateInput("ior", Sdf.ValueTypeNames.Float).Set(1.0)
         pbrShader.CreateInput("useSpecularWorkflow", Sdf.ValueTypeNames.Int).Set(1)
-        if variable:
-            stReader = UsdShade.Shader.Define(stage, root_name + "/Material/stReader")
+        if variable is not None:
+            # Real var values are in the texture coords.  Find palette min/max,
+            # then compute the texture scale and offset
+            v_min = None
+            v_max = None
+            for lvl in variable.levels:
+                if (v_min is None) or (v_min > lvl.value):
+                    v_min = lvl.value
+                if (v_max is None) or (v_max < lvl.value):
+                    v_max = lvl.value
+            if v_min is None or v_max is None:
+                v_min = 0.0
+                v_max = 0.0
+
+            num_texels = len(variable.texture) // 4
+            half_texel = 1 / (num_texels * 2.0)
+            tex_width = half_texel * 2 * (num_texels - 1)  # center to center of num_texels
+
+            # Add helper attributes for computing new palette ranges in Omniverse
+            mat_prim = material.GetPrim()
+            min_attr = mat_prim.CreateAttribute("palette:min", Sdf.ValueTypeNames.Float)
+            min_attr.Set(v_min)
+            min_attr = mat_prim.CreateAttribute("palette:max", Sdf.ValueTypeNames.Float)
+            min_attr.Set(v_max)
+            min_attr = mat_prim.CreateAttribute("palette:half_texel", Sdf.ValueTypeNames.Float)
+            min_attr.Set(half_texel)
+
+            # if the range is 0, adjust the min by -1.   The result is that the texture
+            # coords will get mapped to S=1.0 which is what EnSight does in this situation
+            if (v_max - v_min) == 0.0:
+                v_min = v_min - 1.0
+            var_width = v_max - v_min
+
+            # s' = (s - v_min) / var_width * tex_width + half_texel = s * scale_s + offset_s
+            scale_s = tex_width / var_width
+            offset_s = half_texel - v_min * scale_s
+
+            stReader = UsdShade.Shader.Define(material_stage, build_path + "/stReader")
             stReader.CreateIdAttr("UsdPrimvarReader_float2")
+
+            stTransform = UsdShade.Shader.Define(material_stage, build_path + "/stTransform")
+            stTransform.CreateIdAttr("UsdTransform2d")
+            stTransform.CreateInput("in", Sdf.ValueTypeNames.Float2).ConnectToSource(
+                stReader.ConnectableAPI(), "result"
+            )
+            # T is forced to 0.5 (scale 0, translation 0.5); the palette is constant in T
+            stTransform.CreateInput("scale", Sdf.ValueTypeNames.Float2).Set(Gf.Vec2f(scale_s, 0.0))
+            stTransform.CreateInput("rotation", Sdf.ValueTypeNames.Float).Set(0.0)
+            stTransform.CreateInput("translation", Sdf.ValueTypeNames.Float2).Set(
+                Gf.Vec2f(offset_s, 0.5)
+            )
+            stTransform.CreateOutput("result", Sdf.ValueTypeNames.Float2)
+
             diffuseTextureSampler = UsdShade.Shader.Define(
-                stage, root_name + "/Material/diffuseTexture"
+                material_stage, build_path + "/diffuseTexture"
             )
             diffuseTextureSampler.CreateIdAttr("UsdUVTexture")
             name = self.clean_name(variable.name)
-            filename = f"./Textures/palette_{name}.png"
+            filename = f"./Parts/Textures/palette_{name}.png"
             diffuseTextureSampler.CreateInput("file", Sdf.ValueTypeNames.Asset).Set(filename)
             diffuseTextureSampler.CreateInput("st", Sdf.ValueTypeNames.Float2).ConnectToSource(
-                stReader.ConnectableAPI(), "result"
+                stTransform.ConnectableAPI(), "result"
             )
+            diffuseTextureSampler.CreateInput("wrapS", Sdf.ValueTypeNames.Token).Set("clamp")
+            diffuseTextureSampler.CreateInput("wrapT", Sdf.ValueTypeNames.Token).Set("clamp")
             diffuseTextureSampler.CreateOutput("rgb", Sdf.ValueTypeNames.Float3)
             pbrShader.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).ConnectToSource(
                 diffuseTextureSampler.ConnectableAPI(), "rgb"
@@ -808,8 +918,9 @@ class OmniverseWrapper(object):
             pbrShader.CreateInput("specularColor", Sdf.ValueTypeNames.Color3f).Set(color)
 
         material.CreateSurfaceOutput().ConnectToSource(pbrShader.ConnectableAPI(), "surface")
+        bind_material = UsdShade.Material(stage.GetPrimAtPath(material_path))
         mat_binding_api = UsdShade.MaterialBindingAPI.Apply(mesh.GetPrim())
-        mat_binding_api.Bind(material)
+        mat_binding_api.Bind(bind_material)
 
         return material
 
@@ -1253,7 +1364,7 @@ class OmniverseUpdateHandler(UpdateHandler):
                 )
 
         elif part.cmd.render == part.cmd.NODES:
-            command, verts, sizes, colors, var_cmd = part.point_rep()
+            command, verts, sizes, colors, var_values, var_cmd = part.point_rep()
             if verts is not None:
                 verts = numpy.multiply(verts, self._omni._units_per_meter)
             if sizes is not None:
@@ -1273,6 +1384,8 @@ class OmniverseUpdateHandler(UpdateHandler):
                     verts,
                     sizes,
                     colors,
+                    var_values,
+                    var_cmd,
                     matrix=matrix,
                     default_size=part.cmd.node_size_default * self._omni._units_per_meter,
                     default_color=color,

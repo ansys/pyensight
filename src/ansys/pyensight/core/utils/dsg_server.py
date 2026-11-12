@@ -396,17 +396,18 @@ class Part(object):
                 verts[j + 2] = (verts[j + 2] - midz) / s
         return 1.0 / s
 
-    def _build_st_coords(self, tcoords: numpy.ndarray, num_verts: int):
+    def _build_st_coords(self, var_values: numpy.ndarray, num_verts: int):
         """
         The Omniverse interface uses 2D texturing (s,t) to reference the texture map.
-        This method converts DSG texture coordinates (1D and in "variable" units) into
-        2D OpenGL style [0.,1.] normalized coordinate space.  the "t" coordinate will
-        always be 0.5.
+        This method converts var values (1D and in "variable" units) into
+        pairs of texture coordinates.  The "s" coordinate now contains the var value,
+        allowing the palette to be rescaled, via scale and offset params in the material shader.
+        The "t" coordinate will always be 0.5.
 
         Parameters
         ----------
-        tcoords: numpy.ndarray
-            The DSG 1D texture coordinates, which are actually variable values.
+        var_values: numpy.ndarray
+            The DSG variable values.
 
         num_verts: int
             The number of vertices in the mesh.
@@ -418,37 +419,10 @@ class Part(object):
         """
         var_dsg_id = self.cmd.color_variableid  # type: ignore
         var_cmd = self.session.variables[var_dsg_id]
-        v_min = None
-        v_max = None
-        for lvl in var_cmd.levels:
-            if (v_min is None) or (v_min > lvl.value):
-                v_min = lvl.value
-            if (v_max is None) or (v_max < lvl.value):
-                v_max = lvl.value
-        var_minmax: List[float] = [v_min, v_max]  # type: ignore
-        # build a power of two x 1 texture
-        num_texels = len(var_cmd.texture) // 4
-        if dsgutils_loaded:
-            tmp = dsgutils.build_st_coords(tcoords, v_min, v_max, num_texels)
-        else:
-            half_texel = 1 / (num_texels * 2.0)
-            tmp = numpy.ndarray((num_verts * 2,), dtype="float32")
-            tmp.fill(0.5)  # fill in the T coordinate...
-            tex_width = half_texel * 2 * (num_texels - 1)  # center to center of num_texels
-            # if the range is 0, adjust the min by -1.   The result is that the texture
-            # coords will get mapped to S=1.0 which is what EnSight does in this situation
-            if (var_minmax[1] - var_minmax[0]) == 0.0:
-                var_minmax[0] = var_minmax[0] - 1.0
-            var_width = var_minmax[1] - var_minmax[0]
-            for idx in range(num_verts):
-                # normalized S coord value (clamp)
-                s = (tcoords[idx] - var_minmax[0]) / var_width
-                if s < 0.0:
-                    s = 0.0
-                if s > 1.0:
-                    s = 1.0
-                # map to the texture range and set the S value
-                tmp[idx * 2] = s * tex_width + half_texel
+
+        tmp = numpy.empty((num_verts * 2,), dtype="float32")
+        tmp[0::2] = var_values[:num_verts]  # S: raw variable values
+        tmp[1::2] = 0.5  # T: constant
         return tmp, var_cmd
 
     def line_rep(self):
@@ -590,9 +564,11 @@ class Part(object):
         colors = None
         var_cmd = None
 
+        var_values = None
         var_dsg_id = self.cmd.color_variableid
         if var_dsg_id in self.session.variables:
             var_cmd = self.session.variables[var_dsg_id]
+            var_values = self.tcoords
 
             # If all values in tcoords are undef, handle them specially
             # For points, when all values are undef, EnSight doesn't send tcoords when all values are undef
@@ -602,12 +578,15 @@ class Part(object):
                 or numpy.all(self.tcoords == var_cmd.undefined_value)
                 or numpy.isnan(self.tcoords).all()
             ):
+                var_values = None
                 if var_cmd.undefined_display == var_cmd.USE_PART_COLOR:
                     mat = self.material()
                     c = [self.cmd.fill_color[0], self.cmd.fill_color[1], self.cmd.fill_color[2]]
                     if "diffuse" in mat:
                         c = [mat["diffuse"][0], mat["diffuse"][1], mat["diffuse"][2]]
                     colors = numpy.tile(c, num_verts).astype("float32")
+                    # Return None for var_cmd, to keep Omniverse from creating a material for the color-by var
+                    var_cmd = None
 
                 elif var_cmd.undefined_display == var_cmd.USE_UNDEF_COLOR:
                     c = [
@@ -616,6 +595,8 @@ class Part(object):
                         var_cmd.undefined_color[2],
                     ]
                     colors = numpy.tile(c, num_verts).astype("float32")
+                    # Return None for var_cmd, to keep Omniverse from creating a material for the color-by var
+                    var_cmd = None
 
                 elif var_cmd.undefined_display == var_cmd.AS_INVISIBLE:
                     # Not an error case.  All points have the undef value, and geometry with undef is hidden
@@ -623,18 +604,6 @@ class Part(object):
 
                 elif var_cmd.undefined_display == var_cmd.AS_ZERO:
                     self.tcoords = numpy.zeros(num_verts, dtype=numpy.float32)
-
-            if self.tcoords.size and self.tcoords.size == num_verts and colors is None:
-                if len(var_cmd.levels) == 0:
-                    self.session.log(
-                        f"Note: Node rep not created for part '{self.cmd.name}'.  It has var values, but a palette with 0 levels."
-                    )
-                    return None, None, None, None, None
-
-                colors = self.tcoords_to_colors(self.tcoords, var_cmd)
-                colors *= self.cmd.diffuse
-                self.session.log(f"Part '{self.cmd.name}' defined: {self.coords.size // 3} points.")
-
         node_sizes = None
         if self.node_sizes.size and self.node_sizes.size == num_verts:
             # Pass out the node sizes if there is a size-by variable
@@ -652,7 +621,7 @@ class Part(object):
         self.session.log(f"Part '{self.cmd.name}' defined: {self.coords.size // 3} points.")
         command = self.cmd
 
-        return command, verts, node_sizes, colors, var_cmd
+        return command, verts, node_sizes, colors, var_values, var_cmd
 
 
 class UpdateHandler(object):
