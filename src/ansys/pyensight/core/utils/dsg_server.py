@@ -273,7 +273,7 @@ class Part(object):
                     self.cmd.fill_color[1] = var_cmd.undefined_color[1]
                     self.cmd.fill_color[2] = var_cmd.undefined_color[2]
 
-                    mat: dict = self.material()
+                    mat = self.material()
                     if "diffuse" in mat:
                         mat["diffuse"][0] = var_cmd.undefined_color[0] * self.cmd.diffuse
                         mat["diffuse"][1] = var_cmd.undefined_color[1] * self.cmd.diffuse
@@ -603,7 +603,7 @@ class Part(object):
                 or numpy.isnan(self.tcoords).all()
             ):
                 if var_cmd.undefined_display == var_cmd.USE_PART_COLOR:
-                    mat: dict = self.material()
+                    mat = self.material()
                     c = [self.cmd.fill_color[0], self.cmd.fill_color[1], self.cmd.fill_color[2]]
                     if "diffuse" in mat:
                         c = [mat["diffuse"][0], mat["diffuse"][1], mat["diffuse"][2]]
@@ -1134,39 +1134,12 @@ class DSGSession(object):
         )
         self._update_status_file()
 
-        tmp_ts = None
-
         # handle the various commands until UPDATE_SCENE_END
         cmd = self._get_next_message()
         while (cmd is not None) and (
             cmd.command_type != dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_SCENE_END
         ):
             self._handle_update_command(cmd)
-
-            # Check for a time_scale option, attached to the group attrs.
-            # It overrides the time_scale used as a launch option
-            if (
-                tmp_ts is None
-                and cmd.command_type == dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_GROUP
-            ):
-                group = self._groups[cmd.update_group.id]
-                if self._callback_handler and hasattr(
-                    self._callback_handler, "get_dsg_cmd_attribute"
-                ):
-                    ts_str = self._callback_handler.get_dsg_cmd_attribute(group, "time_scale")
-                    if ts_str is None:
-                        tmp_ts = self._time_scale
-                    else:
-                        try:
-                            tmp_ts = float(ts_str)
-                        except ValueError:
-                            tmp_ts = self._time_scale
-                    if self._time_scale != tmp_ts:
-                        if self._time_scale != 0.0:
-                            self.cur_timeline[0] = tmp_ts * self.cur_timeline[0] / self._time_scale
-                            self.cur_timeline[1] = tmp_ts * self.cur_timeline[1] / self._time_scale
-                        self._time_scale = tmp_ts
-
             if cmd.command_type == dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_VIEW:
                 if hasattr(cmd.update_view, "num_timesteps") and cmd.update_view.num_timesteps > 0:
                     # Older protocol is missing num_timesteps, so it will be 0
@@ -1320,7 +1293,13 @@ class DSGSession(object):
         self._scene_bounds = None
         self._groups[view.id] = view
         if len(view.timeline) == 2:
-            view.timeline[0] *= self._time_scale
-            view.timeline[1] *= self._time_scale
+            eps = 0.00001
+            view.timeline[0] = view.timestep / 24.0 - eps
+            view.timeline[1] = (view.timestep + 1) / 24.0 - eps
+            if view.timestep == 0:
+                view.timeline[0] = 0
+            if view.timestep >= view.num_timesteps - 1:
+                view.timeline[1] = (view.timestep + 0.5) / 24.0 - eps
+
             self.cur_timeline = [view.timeline[0], view.timeline[1]]
         self._callback_handler.add_group(view.id, view=True)

@@ -71,7 +71,7 @@ class OmniverseWrapper(object):
         if self._live_edit:
             self._stagename = "dsg_scene.live"
         # USD time slider will have 120 tick marks per second of animation time
-        self._time_codes_per_second: float = 120.0
+        self._time_codes_per_second: float = 24.0
         # Omniverse content currently only scales correctly for scenes in cm.  DJB, Feb 2025
         self._units_per_meter: float = 100.0
         self._up_axis: str = UsdGeom.Tokens.y
@@ -199,6 +199,8 @@ class OmniverseWrapper(object):
         self._old_stages.append(self.stage_url())
         UsdGeom.SetStageUpAxis(self._stage, self._up_axis)
         UsdGeom.SetStageMetersPerUnit(self._stage, 1.0 / self._units_per_meter)
+        if self._stage is not None:
+            self._stage.SetInterpolationType(Usd.InterpolationTypeHeld)
         logging.info(f"Created stage: {self.stage_url()}")
 
     def save_stage(self, comment: str = "") -> None:
@@ -334,6 +336,7 @@ class OmniverseWrapper(object):
         stage = Usd.Stage.CreateNew(file_url)
         UsdGeom.SetStageUpAxis(stage, self._up_axis)
         UsdGeom.SetStageMetersPerUnit(stage, 1.0 / self._units_per_meter)
+        stage.SetInterpolationType(Usd.InterpolationTypeHeld)
         self._old_stages.append(file_url)
 
         part_prim = stage.OverridePrim(part_path)
@@ -513,6 +516,7 @@ class OmniverseWrapper(object):
         stage = Usd.Stage.CreateNew(file_url)
         UsdGeom.SetStageUpAxis(stage, self._up_axis)
         UsdGeom.SetStageMetersPerUnit(stage, 1.0 / self._units_per_meter)
+        stage.SetInterpolationType(Usd.InterpolationTypeHeld)
         self._old_stages.append(file_url)
 
         part_prim = stage.OverridePrim(part_path)
@@ -649,6 +653,7 @@ class OmniverseWrapper(object):
         stage = Usd.Stage.CreateNew(file_url)
         UsdGeom.SetStageUpAxis(stage, self._up_axis)
         UsdGeom.SetStageMetersPerUnit(stage, 1.0 / self._units_per_meter)
+        stage.SetInterpolationType(Usd.InterpolationTypeHeld)
         self._old_stages.append(file_url)
 
         part_prim = stage.OverridePrim(part_path)
