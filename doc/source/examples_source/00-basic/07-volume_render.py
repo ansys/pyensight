@@ -92,7 +92,7 @@ session.ensight.clip.length(2.24244738, 1.27204275, 3.60410643)
 session.ensight.clip.end()
 session.ensight.clip.create()
 
-# Display amd range the palette
+# Display and range the palette
 session.ensight.legend.select_palette_begin("Mach")
 session.ensight.legend.visible("ON")
 session.ensight.function.palette("Mach")

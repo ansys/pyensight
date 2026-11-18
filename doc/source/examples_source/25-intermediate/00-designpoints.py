@@ -138,7 +138,7 @@ session.show("image", width=800, height=600)
 # ---------------------
 # To make the visualization a bit easier to interpret, adjust the palette limits
 # to the nearest factor of five. To improve visual appeal of the imagery, you could
-# make also make adjustments to rotation, palette location, and more.
+# also make adjustments to rotation, palette location, and more.
 #
 # .. image:: /_static/00_compare_4.png
 

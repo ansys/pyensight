@@ -15,6 +15,7 @@
 * [Jorge Martínez](https://github.com/jorgepiloto)
 * [Kathy Pippert](https://github.com/PipKat)
 * [Kevin Colburn](https://github.com/kecolburn)
+* [Léon Simmons](https://github.com/Avicennasis)
 * [Marina Galvagni](https://github.com/margalva)
 * [Mike Krogh](https://github.com/mfkrogh)
 * [Randy Frank](https://github.com/randallfrank)

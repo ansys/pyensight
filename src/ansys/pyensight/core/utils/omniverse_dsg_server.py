@@ -70,12 +70,18 @@ class OmniverseWrapper(object):
         self._live_edit: bool = live_edit
         if self._live_edit:
             self._stagename = "dsg_scene.live"
-        # USD time slider will have 120 tick marks per second of animation time
-        self._time_codes_per_second: float = 120.0
+        # Each timestep and flipbook page is given a runtime of 1/24s, in dsg_server.py.
+        self._time_codes_per_second: float = 24.0
         # Omniverse content currently only scales correctly for scenes in cm.  DJB, Feb 2025
         self._units_per_meter: float = 100.0
         self._up_axis: str = UsdGeom.Tokens.y
         if destination:
+            # If destination uses a known USD extension, use it as a file name instead of a directory name
+            suffix = os.path.splitext(destination)[1]
+            if suffix.lower() in (".usd", ".usda", ".usdc"):
+                self._ext = suffix
+                self._stagename = os.path.basename(destination)
+                destination = os.path.dirname(destination) or "."
             self.destination = destination
 
         self._line_width = line_width
@@ -199,6 +205,8 @@ class OmniverseWrapper(object):
         self._old_stages.append(self.stage_url())
         UsdGeom.SetStageUpAxis(self._stage, self._up_axis)
         UsdGeom.SetStageMetersPerUnit(self._stage, 1.0 / self._units_per_meter)
+        if self._stage is not None:
+            self._stage.SetInterpolationType(Usd.InterpolationTypeHeld)
         logging.info(f"Created stage: {self.stage_url()}")
 
     def save_stage(self, comment: str = "") -> None:
@@ -334,6 +342,7 @@ class OmniverseWrapper(object):
         stage = Usd.Stage.CreateNew(file_url)
         UsdGeom.SetStageUpAxis(stage, self._up_axis)
         UsdGeom.SetStageMetersPerUnit(stage, 1.0 / self._units_per_meter)
+        stage.SetInterpolationType(Usd.InterpolationTypeHeld)
         self._old_stages.append(file_url)
 
         part_prim = stage.OverridePrim(part_path)
@@ -353,12 +362,15 @@ class OmniverseWrapper(object):
             fvc_attr.Set([3] * (conn.size // 3), 0)
             fvi_attr.Set(conn, 0)
 
+        primvar_name = "st"
+        if variable is not None:
+            primvar_name = "st_" + self.clean_name(variable.name)
         primvarsAPI = UsdGeom.PrimvarsAPI(mesh)
         texCoords = primvarsAPI.CreatePrimvar(
-            "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+            primvar_name, Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
         )
         texCoords.SetInterpolation("vertex")
-        if tcoords is not None and variable is not None:
+        if tcoords is not None and variable is not None and not is_manifest:
             texCoords.Set(tcoords, 0)
 
         stage.SetDefaultPrim(part_prim)
@@ -371,6 +383,7 @@ class OmniverseWrapper(object):
             str(surfaces_prim.GetPath()),
             diffuse=diffuse,
             variable=variable,
+            primvar_name=primvar_name,
             mat_info=mat_info,
         )
 
@@ -509,6 +522,7 @@ class OmniverseWrapper(object):
         stage = Usd.Stage.CreateNew(file_url)
         UsdGeom.SetStageUpAxis(stage, self._up_axis)
         UsdGeom.SetStageMetersPerUnit(stage, 1.0 / self._units_per_meter)
+        stage.SetInterpolationType(Usd.InterpolationTypeHeld)
         self._old_stages.append(file_url)
 
         part_prim = stage.OverridePrim(part_path)
@@ -519,10 +533,11 @@ class OmniverseWrapper(object):
         lines.CreateDoubleSidedAttr().Set(True)
         pt_attr = lines.CreatePointsAttr()
         vc_attr = lines.CreateCurveVertexCountsAttr()
-        if verts is not None:
+        if verts is not None and not is_manifest:
             pt_attr.Set(verts, 0)
             vc_attr.Set([2] * (verts.size // 6), 0)
-        lines.CreatePurposeAttr().Set("render")
+        # For kit 110, which does not draw curves if purpose is "render"
+        lines.CreatePurposeAttr().Set("default")
         lines.CreateTypeAttr().Set("linear")
         lines.CreateWidthsAttr([float(width)])
         lines.SetWidthsInterpolation("constant")
@@ -534,14 +549,17 @@ class OmniverseWrapper(object):
         )
         endCaps.Set(2)  # Rounded = 2
 
+        primvar_name = "st"
         if (tcoords is not None) and var_cmd:
             primvarsAPI = UsdGeom.PrimvarsAPI(lines)
+            primvar_name = "st_" + self.clean_name(var_cmd.name)
+
             texCoords = primvarsAPI.CreatePrimvar(
-                "st", Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.varying
+                primvar_name, Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.vertex
             )
-            if tcoords is not None and var_cmd is not None:
+            if not is_manifest:
                 texCoords.Set(tcoords, 0)
-            texCoords.SetInterpolation("vertex")
+                texCoords.SetInterpolation("vertex")
         stage.SetDefaultPrim(part_prim)
         stage.SetStartTimeCode(0)
         stage.SetEndTimeCode(0)
@@ -552,6 +570,7 @@ class OmniverseWrapper(object):
             str(lines_prim.GetPath()),
             diffuse=diffuse,
             variable=var_cmd,
+            primvar_name=primvar_name,
             mat_info=mat_info,
         )
         stage.Save()
@@ -589,7 +608,7 @@ class OmniverseWrapper(object):
             str(parent_prim.GetPath()),
             None,
             width,
-            None,
+            tcoords,
             diffuse,
             variable,
             mat_info,
@@ -628,6 +647,8 @@ class OmniverseWrapper(object):
         verts,
         sizes,
         colors,
+        var_values,
+        var_cmd,
         default_size: float,
         default_color,
         is_manifest: bool,
@@ -640,6 +661,7 @@ class OmniverseWrapper(object):
         stage = Usd.Stage.CreateNew(file_url)
         UsdGeom.SetStageUpAxis(stage, self._up_axis)
         UsdGeom.SetStageMetersPerUnit(stage, 1.0 / self._units_per_meter)
+        stage.SetInterpolationType(Usd.InterpolationTypeHeld)
         self._old_stages.append(file_url)
 
         part_prim = stage.OverridePrim(part_path)
@@ -652,14 +674,34 @@ class OmniverseWrapper(object):
                 w_attr.Set(sizes, 0)
             else:
                 w_attr.Set([default_size] * (verts.size // 3), 0)
-
-        colorAttr = points.GetPrim().GetAttribute("primvars:displayColor")
-        colorAttr.SetMetadata("interpolation", "vertex")
-        if verts is not None:
-            if colors is not None and colors.size == verts.size:
-                colorAttr.Set(colors, 0)
-            else:
-                colorAttr.Set([default_color[0:3]] * (verts.size // 3), 0)
+        if var_cmd is not None:
+            primvar_name = "st_" + self.clean_name(var_cmd.name)
+            primvarsAPI = UsdGeom.PrimvarsAPI(points)
+            texCoords = primvarsAPI.CreatePrimvar(
+                primvar_name, Sdf.ValueTypeNames.TexCoord2fArray, UsdGeom.Tokens.vertex
+            )
+            if not is_manifest and var_values is not None and var_values.size == verts.size // 3:
+                tcoords = numpy.empty((var_values.size * 2,), dtype="float32")
+                tcoords[0::2] = var_values[: var_values.size]
+                tcoords[1::2] = 0.5
+                texCoords.Set(tcoords, 0)
+            self.create_dsg_material(
+                stage,
+                points,
+                part_path + "/points",
+                diffuse=default_color,
+                variable=var_cmd,
+                primvar_name=primvar_name,
+                mat_info={},
+            )
+        else:
+            colorAttr = points.GetPrim().GetAttribute("primvars:displayColor")
+            colorAttr.SetMetadata("interpolation", "vertex")
+            if verts is not None:
+                if colors is not None and colors.size == verts.size:
+                    colorAttr.Set(colors, 0)
+                else:
+                    colorAttr.Set([default_color[0:3]] * (verts.size // 3), 0)
 
         stage.SetDefaultPrim(part_prim)
         stage.SetStartTimeCode(0)
@@ -677,6 +719,8 @@ class OmniverseWrapper(object):
         verts,
         sizes,
         colors,
+        var_values,
+        var_cmd,
         matrix=[1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0],
         default_size=1.0,
         default_color=[1.0, 1.0, 1.0, 1.0],
@@ -697,6 +741,8 @@ class OmniverseWrapper(object):
             None,
             None,
             None,
+            None,
+            var_cmd,
             default_size,
             default_color,
             True,
@@ -711,6 +757,8 @@ class OmniverseWrapper(object):
             verts,
             sizes,
             colors,
+            var_values,
+            var_cmd,
             default_size,
             default_color,
             False,
@@ -726,12 +774,43 @@ class OmniverseWrapper(object):
         return part_stage_url
 
     def create_dsg_material(
-        self, stage, mesh, root_name, diffuse=[1.0, 1.0, 1.0, 1.0], variable=None, mat_info={}
+        self,
+        stage,
+        mesh,
+        root_name,
+        diffuse=[1.0, 1.0, 1.0, 1.0],
+        variable=None,
+        primvar_name="st",
+        mat_info={},
     ):
         # https://graphics.pixar.com/usd/release/spec_usdpreviewsurface.html
         # Use ior==1.0 to be more like EnSight - rays of light do not bend when passing through transparent objs
-        material = UsdShade.Material.Define(stage, root_name + "/Material")
-        pbrShader = UsdShade.Shader.Define(stage, root_name + "/Material/PBRShader")
+        material_path = root_name + "/Material"
+        material_stage = stage
+        if variable is not None:
+            self._stage.DefinePrim("/surface_appearances", "Scope").SetDisplayName(
+                "Surface Appearances"
+            )
+            self._stage.DefinePrim("/surface_appearances/variables", "Scope").SetDisplayName(
+                "Variables"
+            )
+            shared_path = "/surface_appearances/variables/" + self.clean_name(variable.name)
+            material = UsdShade.Material.Define(self._stage, shared_path)
+            # root_name/Material references the shared material
+            ref_prim = stage.DefinePrim(material_path, "Material")
+            # Add a reference to the material on the parent USD.  This is a circular dependency,
+            # and requires that the parent file name not be changed.
+            ref_prim.GetReferences().AddReference("../" + self._stagename, Sdf.Path(shared_path))
+            # Alternatively, add a reference which will exist when the child is layered into
+            # the parent.  The file is readable, and parent file can be renamed.
+            # But warnings are printed by the USD library every time a file is written.
+            # ref_prim.GetReferences().AddInternalReference(Sdf.Path(shared_path))
+            build_path = shared_path
+            material_stage = self._stage
+        else:
+            material = UsdShade.Material.Define(stage, material_path)
+            build_path = material_path
+        pbrShader = UsdShade.Shader.Define(material_stage, build_path + "/PBRShader")
         pbrShader.CreateIdAttr("UsdPreviewSurface")
         smoothness = mat_info.get("smoothness", 0.0)
         pbrShader.CreateInput("roughness", Sdf.ValueTypeNames.Float).Set(1.0 - smoothness)
@@ -741,25 +820,77 @@ class OmniverseWrapper(object):
         pbrShader.CreateInput("opacity", Sdf.ValueTypeNames.Float).Set(opacity)
         pbrShader.CreateInput("ior", Sdf.ValueTypeNames.Float).Set(1.0)
         pbrShader.CreateInput("useSpecularWorkflow", Sdf.ValueTypeNames.Int).Set(1)
-        if variable:
-            stReader = UsdShade.Shader.Define(stage, root_name + "/Material/stReader")
+        if variable is not None:
+            # Real var values are in the texture coords.  Find palette min/max,
+            # then compute the texture scale and offset
+            v_min = None
+            v_max = None
+            for lvl in variable.levels:
+                if (v_min is None) or (v_min > lvl.value):
+                    v_min = lvl.value
+                if (v_max is None) or (v_max < lvl.value):
+                    v_max = lvl.value
+            if v_min is None or v_max is None:
+                v_min = 0.0
+                v_max = 0.0
+
+            num_texels = len(variable.texture) // 4
+            half_texel = 1 / (num_texels * 2.0)
+            tex_width = half_texel * 2 * (num_texels - 1)  # center to center of num_texels
+
+            # Add helper attributes for computing new palette ranges in Omniverse
+            mat_prim = material.GetPrim()
+            min_attr = mat_prim.CreateAttribute("palette:min", Sdf.ValueTypeNames.Float)
+            min_attr.Set(v_min)
+            min_attr = mat_prim.CreateAttribute("palette:max", Sdf.ValueTypeNames.Float)
+            min_attr.Set(v_max)
+            min_attr = mat_prim.CreateAttribute("palette:half_texel", Sdf.ValueTypeNames.Float)
+            min_attr.Set(half_texel)
+
+            # if the range is 0, adjust the min by -1.   The result is that the texture
+            # coords will get mapped to S=1.0 which is what EnSight does in this situation
+            if (v_max - v_min) == 0.0:
+                v_min = v_min - 1.0
+            var_width = v_max - v_min
+
+            # s' = (s - v_min) / var_width * tex_width + half_texel = s * scale_s + offset_s
+            scale_s = tex_width / var_width
+            offset_s = half_texel - v_min * scale_s
+
+            stReader = UsdShade.Shader.Define(material_stage, build_path + "/stReader")
             stReader.CreateIdAttr("UsdPrimvarReader_float2")
+
+            stTransform = UsdShade.Shader.Define(material_stage, build_path + "/stTransform")
+            stTransform.CreateIdAttr("UsdTransform2d")
+            stTransform.CreateInput("in", Sdf.ValueTypeNames.Float2).ConnectToSource(
+                stReader.ConnectableAPI(), "result"
+            )
+            # T is forced to 0.5 (scale 0, translation 0.5); the palette is constant in T
+            stTransform.CreateInput("scale", Sdf.ValueTypeNames.Float2).Set(Gf.Vec2f(scale_s, 0.0))
+            stTransform.CreateInput("rotation", Sdf.ValueTypeNames.Float).Set(0.0)
+            stTransform.CreateInput("translation", Sdf.ValueTypeNames.Float2).Set(
+                Gf.Vec2f(offset_s, 0.5)
+            )
+            stTransform.CreateOutput("result", Sdf.ValueTypeNames.Float2)
+
             diffuseTextureSampler = UsdShade.Shader.Define(
-                stage, root_name + "/Material/diffuseTexture"
+                material_stage, build_path + "/diffuseTexture"
             )
             diffuseTextureSampler.CreateIdAttr("UsdUVTexture")
             name = self.clean_name(variable.name)
-            filename = f"./Textures/palette_{name}.png"
+            filename = f"./Parts/Textures/palette_{name}.png"
             diffuseTextureSampler.CreateInput("file", Sdf.ValueTypeNames.Asset).Set(filename)
             diffuseTextureSampler.CreateInput("st", Sdf.ValueTypeNames.Float2).ConnectToSource(
-                stReader.ConnectableAPI(), "result"
+                stTransform.ConnectableAPI(), "result"
             )
+            diffuseTextureSampler.CreateInput("wrapS", Sdf.ValueTypeNames.Token).Set("clamp")
+            diffuseTextureSampler.CreateInput("wrapT", Sdf.ValueTypeNames.Token).Set("clamp")
             diffuseTextureSampler.CreateOutput("rgb", Sdf.ValueTypeNames.Float3)
             pbrShader.CreateInput("diffuseColor", Sdf.ValueTypeNames.Color3f).ConnectToSource(
                 diffuseTextureSampler.ConnectableAPI(), "rgb"
             )
             stInput = material.CreateInput("frame:stPrimvarName", Sdf.ValueTypeNames.Token)
-            stInput.Set("st")
+            stInput.Set(primvar_name)
             stReader.CreateInput("varname", Sdf.ValueTypeNames.Token).ConnectToSource(stInput)
         else:
             # The colors are a mixture of content from the DSG PART protocol buffer
@@ -787,8 +918,9 @@ class OmniverseWrapper(object):
             pbrShader.CreateInput("specularColor", Sdf.ValueTypeNames.Color3f).Set(color)
 
         material.CreateSurfaceOutput().ConnectToSource(pbrShader.ConnectableAPI(), "surface")
+        bind_material = UsdShade.Material(stage.GetPrimAtPath(material_path))
         mat_binding_api = UsdShade.MaterialBindingAPI.Apply(mesh.GetPrim())
-        mat_binding_api.Bind(material)
+        mat_binding_api.Bind(bind_material)
 
         return material
 
@@ -1115,12 +1247,6 @@ class OmniverseUpdateHandler(UpdateHandler):
         obj_id = self.session.mesh_block_count
         matrix = part.cmd.matrix4x4
         name = part.cmd.name
-        color = [
-            part.cmd.fill_color[0] * part.cmd.diffuse,
-            part.cmd.fill_color[1] * part.cmd.diffuse,
-            part.cmd.fill_color[2] * part.cmd.diffuse,
-            part.cmd.fill_color[3],
-        ]
 
         mat_info = part.material()
         if part.cmd.render == part.cmd.CONNECTIVITY:
@@ -1129,6 +1255,13 @@ class OmniverseUpdateHandler(UpdateHandler):
             if verts is not None:
                 verts = numpy.multiply(verts, self._omni._units_per_meter)
             if command is not None:
+                # command.fill_color can be modified by part.nodal_surface_rep() to handle undef values
+                color = [
+                    command.fill_color[0] * part.cmd.diffuse,
+                    command.fill_color[1] * part.cmd.diffuse,
+                    command.fill_color[2] * part.cmd.diffuse,
+                    command.fill_color[3],
+                ]
                 has_triangles = True
                 # Generate the mesh block
                 _ = self._omni.create_dsg_mesh_block(
@@ -1152,21 +1285,29 @@ class OmniverseUpdateHandler(UpdateHandler):
             if verts is not None:
                 verts = numpy.multiply(verts, self._omni._units_per_meter)
             if command is not None:
+                # command.fill_color can be modified by part.line_rep() to handle undef values
+
                 # If there are no triangles (ideally if these are not hidden line
                 # edges), then use the base color for the part.  If there are
                 # triangles, then assume these are hidden line edges and use the
                 # line_color.
-                line_color = color
-                if has_triangles:
+                line_color = [
+                    command.fill_color[0] * part.cmd.diffuse,
+                    command.fill_color[1] * part.cmd.diffuse,
+                    command.fill_color[2] * part.cmd.diffuse,
+                    command.fill_color[3],
+                ]
+                if has_triangles and len(part.cmd.line_color) == 4:
                     line_color = [
                         part.cmd.line_color[0] * part.cmd.diffuse,
                         part.cmd.line_color[1] * part.cmd.diffuse,
                         part.cmd.line_color[2] * part.cmd.diffuse,
                         part.cmd.line_color[3],
                     ]
-                # TODO: texture coordinates on lines are currently invalid in Omniverse
-                var_cmd = None
-                tcoords = None
+                    # Assume that the variable is meant for the triangles, not the lines
+                    # The DSG protocol could use another flag to distinguish these.
+                    var_cmd = None
+                    tcoords = None
                 # line info can come from self or our parent group
                 width = self._omni.line_width
                 # Allow the group to override
@@ -1223,12 +1364,18 @@ class OmniverseUpdateHandler(UpdateHandler):
                 )
 
         elif part.cmd.render == part.cmd.NODES:
-            command, verts, sizes, colors, var_cmd = part.point_rep()
+            command, verts, sizes, colors, var_values, var_cmd = part.point_rep()
             if verts is not None:
                 verts = numpy.multiply(verts, self._omni._units_per_meter)
             if sizes is not None:
                 sizes = numpy.multiply(sizes, self._omni._units_per_meter)
             if command is not None:
+                color = [
+                    command.fill_color[0] * part.cmd.diffuse,
+                    command.fill_color[1] * part.cmd.diffuse,
+                    command.fill_color[2] * part.cmd.diffuse,
+                    command.fill_color[3],
+                ]
                 _ = self._omni.create_dsg_points(
                     name,
                     obj_id,
@@ -1237,6 +1384,8 @@ class OmniverseUpdateHandler(UpdateHandler):
                     verts,
                     sizes,
                     colors,
+                    var_values,
+                    var_cmd,
                     matrix=matrix,
                     default_size=part.cmd.node_size_default * self._omni._units_per_meter,
                     default_color=color,

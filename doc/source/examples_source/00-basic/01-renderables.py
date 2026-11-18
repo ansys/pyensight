@@ -5,7 +5,7 @@ Renderables
 ===========
 
 EnSight is a simulation results postprocessing engine with an advanced rendering
-and display component. PyEnSight provides direct, Jupyter Notebook/Juptyer
+and display component. PyEnSight provides direct, Jupyter Notebook/Jupyter
 lab-aware access to the rendering component through renderables. This example
 explores the variety of renderables that available.
 
@@ -56,7 +56,7 @@ image = session.show("image", width=800, height=600, aa=4)
 ###############################################################################
 # Update renderable
 # ^^^^^^^^^^^^^^^^^
-# The ``Renderables`` class include several useful methods. The first is the
+# The ``Renderables`` class includes several useful methods. The first is the
 # :func:`update<ansys.pyensight.core.renderable.Renderable.update>` method,
 # which regenerates the renderable.
 #

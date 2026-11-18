@@ -43,6 +43,7 @@ Example to set an isometric view:
 from functools import wraps
 import math
 import os
+from types import ModuleType
 from typing import TYPE_CHECKING, Callable, Dict, List, Optional, Tuple, Union
 
 import numpy as np
@@ -114,6 +115,10 @@ class _Simba:
             current_camera["view_up"],
             idx=idx,
         )
+        # Force perspective angle since it can be ignored in
+        # orthographic mode
+        vport = self.ensight.objs.core.VPORTS[idx]
+        vport.PERSPECTIVEANGLE = reset_camera["view_angle"] / 2
         new_camera = self.set_camera(
             reset_camera["orthographic"],
             reset_camera["view_up"],
@@ -121,6 +126,8 @@ class _Simba:
             reset_camera["focal_point"],
             reset_camera["view_angle"],
             idx=idx,
+            linked_ids=[],
+            parallel_scale=reset_camera["parallel_scale"],
         )
         self.render()
         return new_camera
@@ -225,7 +232,7 @@ class _Simba:
         view_angle=None,
         idx=0,
         linked_ids=None,
-        force=False,
+        parallel_scale=None,
     ):
         """Set the EnSight camera settings from the VTK input."""
         vids = [idx]
@@ -236,8 +243,20 @@ class _Simba:
             self.set_perspective(perspective, vid)
             vport = self.ensight.objs.core.VPORTS.find(vid, "ID")[0]
             self.ensight.viewport.select_begin(vid)
-            if view_angle is not None:
+            if view_angle is not None and not orthographic:
                 vport.PERSPECTIVEANGLE = view_angle / 2
+            if parallel_scale is not None and orthographic:
+                zdist = parallel_scale / math.tan(vport.PERSPECTIVEANGLE * math.pi / 180)
+                if isinstance(self.ensight, ModuleType):
+                    vport.simba_zoom_camera_helper(zdist)
+                else:
+                    self.ensight._session.cmd(
+                        (
+                            f"ensight.objs.core.VPORTS.find({vid}, 'ID')[0]."
+                            f"simba_zoom_camera_helper({zdist})"
+                        ),
+                        do_eval=False,
+                    )
             if position is not None and focal_point is not None:
                 if view_up is None:
                     current_camera = self.get_camera(vid)
@@ -266,13 +285,18 @@ class _Simba:
         if np.isclose(radius, 0, 1e-9, 0.0):
             radius = 1.0
         radius = radius / 2
-        angle = math.radians(14)
-        distance = radius / math.sin(angle)
-        plane_normal = self.normalize(np.array([position[i] - focal_point[i] for i in range(3)]))
-        position = [center[i] + distance * plane_normal[i] for i in range(3)]
         width, height = tuple(self.ensight.objs.core.WINDOWSIZE)
         aspect = width / height
-        parallel_scale = radius / aspect
+        plane_normal = self.normalize(np.array([position[i] - focal_point[i] for i in range(3)]))
+        if vport.PERSPECTIVE:
+            angle = math.radians(14)
+            distance = radius / math.sin(angle)
+            position = [center[i] + distance * plane_normal[i] for i in range(3)]
+            parallel_scale = radius / aspect
+        else:
+            parallel_scale = radius if aspect >= 1.0 else radius / aspect
+            ortho_distance = radius * 2
+            position = [center[i] + ortho_distance * plane_normal[i] for i in range(3)]
         prod = np.dot(np.array(view_up), plane_normal)
         if abs(prod) > 0.999:
             view_up = [-view_up[2], view_up[0], view_up[1]]
@@ -373,7 +397,6 @@ class _Simba:
             if hasattr(current_pick[0], "ANNOTTYPE"):
                 annot_id = current_pick[0].ANNOTTYPE
         part_name = None
-        part_selection_map = None
         coords = [None, None, None]
         if probe:
             screen_to_world = self.screen_to_world(
@@ -381,21 +404,13 @@ class _Simba:
             )
             coords = screen_to_world["model_point"]
         if tool_id > -1 or annot_id > -1:
-            return True, coords[0], coords[1], coords[2], False, part_name, part_selection_map
+            return True, coords[0], coords[1], coords[2], False, part_name
         if part_id > -1:
             part_obj = self.ensight.objs.core.PARTS.find(part_id, "PARTNUMBER")[0]
             if part_obj.METADATA.get("ENS_IMPLICIT_COPY"):
                 part_id = int(part_obj.METADATA["ENS_IMPLICIT_COPY"])
                 part_obj = self.ensight.objs.core.PARTS.find(part_id, "PARTNUMBER")[0]
             part_name = self._build_simba_api_path(part_obj.DESCRIPTION, part_obj.CASENUMBER)
-            part_select = self.ensight.objs.core.PARTS.get_attr("SELECTED")
-            part_names = self.ensight.objs.core.PARTS.get_attr("DESCRIPTION")
-            case_nums = self.ensight.objs.core.PARTS.get_attr("CASENUMBER")
-            full_paths = []
-            for idx, p in enumerate(part_names):
-                case_num = case_nums[idx]
-                full_paths.append(self._build_simba_api_path(p, case_num))
-            part_selection_map = {k: v for k, v in zip(full_paths, part_select)}
             if probe:
                 width, height = tuple(self.ensight.objs.core.WINDOWSIZE)
                 if invert_y:
@@ -413,14 +428,13 @@ class _Simba:
                 coords[2],
                 True,
                 part_name,
-                part_selection_map,
             )
         if (
             get_probe_data and self.ensight.objs.core.PROBES[0].PROBE_DATA
         ):  # In case we have picked a probe point
             for part in self.ensight.objs.core.PARTS:
                 self._probe_setup(part, get_probe_data=get_probe_data)
-        return False, coords[0], coords[1], coords[2], False, part_name, part_selection_map
+        return False, coords[0], coords[1], coords[2], False, part_name
 
     @_logger_wrapper
     def rubber_band_selection(self, x1, y1, x2, y2, left_to_rigth, top_to_bottom):

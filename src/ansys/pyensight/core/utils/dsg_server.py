@@ -258,7 +258,34 @@ class Part(object):
         normals = self.normals
         tcoords = None
         if self.tcoords.size:
-            tcoords = self.tcoords
+            var_dsg_id = self.cmd.color_variableid  # type: ignore
+            var_cmd = self.session.variables[var_dsg_id]
+            # If all values in tcoords are undef, handle them specially.
+            # EnSight sends nan instead of undefined_value, so check for both.
+            if (
+                numpy.all(self.tcoords == var_cmd.undefined_value)
+                or numpy.isnan(self.tcoords).all()
+            ):
+                if var_cmd.undefined_display == var_cmd.USE_PART_COLOR:
+                    tcoords = None
+                elif var_cmd.undefined_display == var_cmd.USE_UNDEF_COLOR:
+                    self.cmd.fill_color[0] = var_cmd.undefined_color[0]
+                    self.cmd.fill_color[1] = var_cmd.undefined_color[1]
+                    self.cmd.fill_color[2] = var_cmd.undefined_color[2]
+
+                    mat = self.material()
+                    if "diffuse" in mat:
+                        mat["diffuse"][0] = var_cmd.undefined_color[0] * self.cmd.diffuse
+                        mat["diffuse"][1] = var_cmd.undefined_color[1] * self.cmd.diffuse
+                        mat["diffuse"][2] = var_cmd.undefined_color[2] * self.cmd.diffuse
+
+                    tcoords = None
+                elif var_cmd.undefined_display == var_cmd.AS_INVISIBLE:
+                    return None, None, None, None, None, None
+                elif var_cmd.undefined_display == var_cmd.AS_ZERO:
+                    tcoords = numpy.zeros(self.tcoords.size, dtype=numpy.float32)
+            else:
+                tcoords = self.tcoords
         if self.tcoords_elem or self.normals_elem:
             verts_per_prim = 3
             num_prims = conn.size // verts_per_prim
@@ -369,17 +396,18 @@ class Part(object):
                 verts[j + 2] = (verts[j + 2] - midz) / s
         return 1.0 / s
 
-    def _build_st_coords(self, tcoords: numpy.ndarray, num_verts: int):
+    def _build_st_coords(self, var_values: numpy.ndarray, num_verts: int):
         """
         The Omniverse interface uses 2D texturing (s,t) to reference the texture map.
-        This method converts DSG texture coordinates (1D and in "variable" units) into
-        2D OpenGL style [0.,1.] normalized coordinate space.  the "t" coordinate will
-        always be 0.5.
+        This method converts var values (1D and in "variable" units) into
+        pairs of texture coordinates.  The "s" coordinate now contains the var value,
+        allowing the palette to be rescaled, via scale and offset params in the material shader.
+        The "t" coordinate will always be 0.5.
 
         Parameters
         ----------
-        tcoords: numpy.ndarray
-            The DSG 1D texture coordinates, which are actually variable values.
+        var_values: numpy.ndarray
+            The DSG variable values.
 
         num_verts: int
             The number of vertices in the mesh.
@@ -391,37 +419,10 @@ class Part(object):
         """
         var_dsg_id = self.cmd.color_variableid  # type: ignore
         var_cmd = self.session.variables[var_dsg_id]
-        v_min = None
-        v_max = None
-        for lvl in var_cmd.levels:
-            if (v_min is None) or (v_min > lvl.value):
-                v_min = lvl.value
-            if (v_max is None) or (v_max < lvl.value):
-                v_max = lvl.value
-        var_minmax: List[float] = [v_min, v_max]  # type: ignore
-        # build a power of two x 1 texture
-        num_texels = len(var_cmd.texture) // 4
-        if dsgutils_loaded:
-            tmp = dsgutils.build_st_coords(tcoords, v_min, v_max, num_texels)
-        else:
-            half_texel = 1 / (num_texels * 2.0)
-            tmp = numpy.ndarray((num_verts * 2,), dtype="float32")
-            tmp.fill(0.5)  # fill in the T coordinate...
-            tex_width = half_texel * 2 * (num_texels - 1)  # center to center of num_texels
-            # if the range is 0, adjust the min by -1.   The result is that the texture
-            # coords will get mapped to S=1.0 which is what EnSight does in this situation
-            if (var_minmax[1] - var_minmax[0]) == 0.0:
-                var_minmax[0] = var_minmax[0] - 1.0
-            var_width = var_minmax[1] - var_minmax[0]
-            for idx in range(num_verts):
-                # normalized S coord value (clamp)
-                s = (tcoords[idx] - var_minmax[0]) / var_width
-                if s < 0.0:
-                    s = 0.0
-                if s > 1.0:
-                    s = 1.0
-                # map to the texture range and set the S value
-                tmp[idx * 2] = s * tex_width + half_texel
+
+        tmp = numpy.empty((num_verts * 2,), dtype="float32")
+        tmp[0::2] = var_values[:num_verts]  # S: raw variable values
+        tmp[1::2] = 0.5  # T: constant
         return tmp, var_cmd
 
     def line_rep(self):
@@ -484,6 +485,55 @@ class Part(object):
 
         return command, verts, tcoords, var_cmd
 
+    # Map each var value in tcoords to the color in var_cmd's texture, and return the array of colors
+    def tcoords_to_colors(self, tcoords, var_cmd):
+        p_min = None
+        p_max = None
+        for lvl in var_cmd.levels:
+            if (p_min is None) or (p_min > lvl.value):
+                p_min = lvl.value
+            if (p_max is None) or (p_max < lvl.value):
+                p_max = lvl.value
+
+        num_texels = int(len(var_cmd.texture) / 4)
+
+        colors = numpy.ndarray((tcoords.size * 3,), dtype="float32")
+        low_color = [c / 255.0 for c in var_cmd.texture[0:3]]
+        high_color = [
+            c / 255.0 for c in var_cmd.texture[4 * (num_texels - 1) : 4 * (num_texels - 1) + 3]
+        ]
+        if p_min == p_max:
+            # Special case where palette min == palette max
+            mid_color = var_cmd[4 * (num_texels // 2) : 4 * (num_texels // 2) + 3]
+            for idx in range(tcoords.size):
+                val = tcoords[idx]
+                if val == p_min:
+                    colors[idx * 3 : idx * 3 + 3] = mid_color
+                elif val < p_min:
+                    colors[idx * 3 : idx * 3 + 3] = low_color
+                elif val > p_min:
+                    colors[idx * 3 : idx * 3 + 3] = high_color
+        else:
+            for idx in range(tcoords.size):
+                val = tcoords[idx]
+                if val <= p_min:
+                    colors[idx * 3 : idx * 3 + 3] = low_color
+                else:
+                    pal_pos = (num_texels - 1) * (val - p_min) / (p_max - p_min)
+                    pal_idx, pal_sub = divmod(pal_pos, 1)
+                    pal_idx = int(pal_idx)
+
+                    if pal_idx >= num_texels - 1:
+                        colors[idx * 3 : idx * 3 + 3] = high_color
+                    else:
+                        col0 = var_cmd.texture[pal_idx * 4 : pal_idx * 4 + 3]
+                        col1 = var_cmd.texture[4 + pal_idx * 4 : 4 + pal_idx * 4 + 3]
+                        for ii in range(0, 3):
+                            colors[idx * 3 + ii] = (
+                                col0[ii] * pal_sub + col1[ii] * (1.0 - pal_sub)
+                            ) / 255.0
+        return colors
+
     def point_rep(self):
         """
         This function processes the geometry arrays and returns values to represent point data
@@ -514,62 +564,46 @@ class Part(object):
         colors = None
         var_cmd = None
 
-        if self.tcoords.size and self.tcoords.size == num_verts:
-            var_dsg_id = self.cmd.color_variableid
+        var_values = None
+        var_dsg_id = self.cmd.color_variableid
+        if var_dsg_id in self.session.variables:
             var_cmd = self.session.variables[var_dsg_id]
-            if len(var_cmd.levels) == 0:
-                self.session.log(
-                    f"Note: Node rep not created for part '{self.cmd.name}'.  It has var values, but a palette with 0 levels."
-                )
-                return None, None, None, None, None
+            var_values = self.tcoords
 
-            p_min = None
-            p_max = None
-            for lvl in var_cmd.levels:
-                if (p_min is None) or (p_min > lvl.value):
-                    p_min = lvl.value
-                if (p_max is None) or (p_max < lvl.value):
-                    p_max = lvl.value
+            # If all values in tcoords are undef, handle them specially
+            # For points, when all values are undef, EnSight doesn't send tcoords when all values are undef
+            # To be safe, also check for undefined_value or nan on all points
+            if (
+                self.tcoords.size == 0
+                or numpy.all(self.tcoords == var_cmd.undefined_value)
+                or numpy.isnan(self.tcoords).all()
+            ):
+                var_values = None
+                if var_cmd.undefined_display == var_cmd.USE_PART_COLOR:
+                    mat = self.material()
+                    c = [self.cmd.fill_color[0], self.cmd.fill_color[1], self.cmd.fill_color[2]]
+                    if "diffuse" in mat:
+                        c = [mat["diffuse"][0], mat["diffuse"][1], mat["diffuse"][2]]
+                    colors = numpy.tile(c, num_verts).astype("float32")
+                    # Return None for var_cmd, to keep Omniverse from creating a material for the color-by var
+                    var_cmd = None
 
-            num_texels = int(len(var_cmd.texture) / 4)
+                elif var_cmd.undefined_display == var_cmd.USE_UNDEF_COLOR:
+                    c = [
+                        var_cmd.undefined_color[0],
+                        var_cmd.undefined_color[1],
+                        var_cmd.undefined_color[2],
+                    ]
+                    colors = numpy.tile(c, num_verts).astype("float32")
+                    # Return None for var_cmd, to keep Omniverse from creating a material for the color-by var
+                    var_cmd = None
 
-            colors = numpy.ndarray((num_verts * 3,), dtype="float32")
-            low_color = [c / 255.0 for c in var_cmd.texture[0:3]]
-            high_color = [
-                c / 255.0 for c in var_cmd.texture[4 * (num_texels - 1) : 4 * (num_texels - 1) + 3]
-            ]
-            if p_min == p_max:
-                # Special case where palette min == palette max
-                mid_color = var_cmd[4 * (num_texels // 2) : 4 * (num_texels // 2) + 3]
-                for idx in range(num_verts):
-                    val = self.tcoords[idx]
-                    if val == p_min:
-                        colors[idx * 3 : idx * 3 + 3] = mid_color
-                    elif val < p_min:
-                        colors[idx * 3 : idx * 3 + 3] = low_color
-                    elif val > p_min:
-                        colors[idx * 3 : idx * 3 + 3] = high_color
-            else:
-                for idx in range(num_verts):
-                    val = self.tcoords[idx]
-                    if val <= p_min:
-                        colors[idx * 3 : idx * 3 + 3] = low_color
-                    else:
-                        pal_pos = (num_texels - 1) * (val - p_min) / (p_max - p_min)
-                        pal_idx, pal_sub = divmod(pal_pos, 1)
-                        pal_idx = int(pal_idx)
+                elif var_cmd.undefined_display == var_cmd.AS_INVISIBLE:
+                    # Not an error case.  All points have the undef value, and geometry with undef is hidden
+                    return None, None, None, None, None
 
-                        if pal_idx >= num_texels - 1:
-                            colors[idx * 3 : idx * 3 + 3] = high_color
-                        else:
-                            col0 = var_cmd.texture[pal_idx * 4 : pal_idx * 4 + 3]
-                            col1 = var_cmd.texture[4 + pal_idx * 4 : 4 + pal_idx * 4 + 3]
-                            for ii in range(0, 3):
-                                colors[idx * 3 + ii] = (
-                                    col0[ii] * pal_sub + col1[ii] * (1.0 - pal_sub)
-                                ) / 255.0
-            self.session.log(f"Part '{self.cmd.name}' defined: {self.coords.size // 3} points.")
-
+                elif var_cmd.undefined_display == var_cmd.AS_ZERO:
+                    self.tcoords = numpy.zeros(num_verts, dtype=numpy.float32)
         node_sizes = None
         if self.node_sizes.size and self.node_sizes.size == num_verts:
             # Pass out the node sizes if there is a size-by variable
@@ -587,7 +621,7 @@ class Part(object):
         self.session.log(f"Part '{self.cmd.name}' defined: {self.coords.size // 3} points.")
         command = self.cmd
 
-        return command, verts, node_sizes, colors, var_cmd
+        return command, verts, node_sizes, colors, var_values, var_cmd
 
 
 class UpdateHandler(object):
@@ -1069,39 +1103,12 @@ class DSGSession(object):
         )
         self._update_status_file()
 
-        tmp_ts = None
-
         # handle the various commands until UPDATE_SCENE_END
         cmd = self._get_next_message()
         while (cmd is not None) and (
             cmd.command_type != dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_SCENE_END
         ):
             self._handle_update_command(cmd)
-
-            # Check for a time_scale option, attached to the group attrs.
-            # It overrides the time_scale used as a launch option
-            if (
-                tmp_ts is None
-                and cmd.command_type == dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_GROUP
-            ):
-                group = self._groups[cmd.update_group.id]
-                if self._callback_handler and hasattr(
-                    self._callback_handler, "get_dsg_cmd_attribute"
-                ):
-                    ts_str = self._callback_handler.get_dsg_cmd_attribute(group, "time_scale")
-                    if ts_str is None:
-                        tmp_ts = self._time_scale
-                    else:
-                        try:
-                            tmp_ts = float(ts_str)
-                        except ValueError:
-                            tmp_ts = self._time_scale
-                    if self._time_scale != tmp_ts:
-                        if self._time_scale != 0.0:
-                            self.cur_timeline[0] = tmp_ts * self.cur_timeline[0] / self._time_scale
-                            self.cur_timeline[1] = tmp_ts * self.cur_timeline[1] / self._time_scale
-                        self._time_scale = tmp_ts
-
             if cmd.command_type == dynamic_scene_graph_pb2.SceneUpdateCommand.UPDATE_VIEW:
                 if hasattr(cmd.update_view, "num_timesteps") and cmd.update_view.num_timesteps > 0:
                     # Older protocol is missing num_timesteps, so it will be 0
@@ -1255,7 +1262,13 @@ class DSGSession(object):
         self._scene_bounds = None
         self._groups[view.id] = view
         if len(view.timeline) == 2:
-            view.timeline[0] *= self._time_scale
-            view.timeline[1] *= self._time_scale
+            eps = 0.00001
+            view.timeline[0] = view.timestep / 24.0 - eps
+            view.timeline[1] = (view.timestep + 1) / 24.0 - eps
+            if view.timestep == 0:
+                view.timeline[0] = 0
+            if view.timestep >= view.num_timesteps - 1:
+                view.timeline[1] = (view.timestep + 0.5) / 24.0 - eps
+
             self.cur_timeline = [view.timeline[0], view.timeline[1]]
         self._callback_handler.add_group(view.id, view=True)
