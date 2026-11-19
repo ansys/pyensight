@@ -1,0 +1,6 @@
+MAX\_ELEMENT\_TYPE
+==================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.MAX_ELEMENT_TYPE

@@ -1,0 +1,6 @@
+total\_energy
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: varextcfd.total_energy

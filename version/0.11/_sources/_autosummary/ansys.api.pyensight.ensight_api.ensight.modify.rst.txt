@@ -1,0 +1,6 @@
+modify
+======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.modify

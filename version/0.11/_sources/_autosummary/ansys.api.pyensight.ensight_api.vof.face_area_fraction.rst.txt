@@ -1,0 +1,6 @@
+face\_area\_fraction
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: vof.face_area_fraction

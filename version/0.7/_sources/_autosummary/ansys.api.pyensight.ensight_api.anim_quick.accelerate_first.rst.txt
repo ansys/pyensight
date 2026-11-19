@@ -1,0 +1,6 @@
+accelerate\_first
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_quick.accelerate_first

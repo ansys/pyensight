@@ -1,0 +1,6 @@
+nodes\_per\_element
+===================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: LibUserd.nodes_per_element

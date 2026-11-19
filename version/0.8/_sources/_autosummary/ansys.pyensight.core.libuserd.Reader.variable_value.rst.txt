@@ -1,0 +1,6 @@
+variable\_value
+===============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: Reader.variable_value

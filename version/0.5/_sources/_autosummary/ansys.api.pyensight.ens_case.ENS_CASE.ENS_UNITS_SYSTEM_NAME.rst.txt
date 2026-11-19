@@ -1,0 +1,6 @@
+ENS\_UNITS\_SYSTEM\_NAME
+========================
+
+.. currentmodule:: ansys.api.pyensight.ens_case
+
+.. autoproperty:: ENS_CASE.ENS_UNITS_SYSTEM_NAME

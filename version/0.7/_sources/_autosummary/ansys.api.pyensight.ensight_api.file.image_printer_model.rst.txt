@@ -1,0 +1,6 @@
+image\_printer\_model
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.image_printer_model

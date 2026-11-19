@@ -1,0 +1,6 @@
+rawdata
+=======
+
+.. currentmodule:: ansys.api.pyensight.ens_tool
+
+.. automethod:: ENS_TOOL.rawdata

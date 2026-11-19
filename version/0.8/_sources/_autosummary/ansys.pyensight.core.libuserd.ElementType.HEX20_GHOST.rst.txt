@@ -1,0 +1,6 @@
+HEX20\_GHOST
+============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.HEX20_GHOST

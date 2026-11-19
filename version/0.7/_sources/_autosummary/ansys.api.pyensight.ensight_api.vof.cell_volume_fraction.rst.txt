@@ -1,0 +1,6 @@
+cell\_volume\_fraction
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: vof.cell_volume_fraction

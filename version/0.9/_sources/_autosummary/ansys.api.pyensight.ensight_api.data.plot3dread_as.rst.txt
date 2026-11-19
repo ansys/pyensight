@@ -1,0 +1,6 @@
+plot3dread\_as
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data.plot3dread_as

@@ -1,0 +1,6 @@
+PROJECT\_MASK
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_annot_marker
+
+.. autoproperty:: ENS_ANNOT_MARKER.PROJECT_MASK

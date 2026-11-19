@@ -1,0 +1,6 @@
+mirror\_xz
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: frame.mirror_xz

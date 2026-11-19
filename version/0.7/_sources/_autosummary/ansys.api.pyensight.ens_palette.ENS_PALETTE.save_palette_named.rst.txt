@@ -1,0 +1,6 @@
+save\_palette\_named
+====================
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.save_palette_named

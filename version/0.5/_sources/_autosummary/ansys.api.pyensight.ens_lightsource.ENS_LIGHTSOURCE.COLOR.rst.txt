@@ -1,0 +1,6 @@
+COLOR
+=====
+
+.. currentmodule:: ansys.api.pyensight.ens_lightsource
+
+.. autoproperty:: ENS_LIGHTSOURCE.COLOR

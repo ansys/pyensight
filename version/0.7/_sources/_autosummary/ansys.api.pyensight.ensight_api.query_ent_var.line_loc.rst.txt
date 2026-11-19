@@ -1,0 +1,6 @@
+line\_loc
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: query_ent_var.line_loc

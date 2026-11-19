@@ -1,0 +1,6 @@
+box
+===
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: tools.box

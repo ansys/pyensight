@@ -1,0 +1,6 @@
+subgrid\_linewidth
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.subgrid_linewidth

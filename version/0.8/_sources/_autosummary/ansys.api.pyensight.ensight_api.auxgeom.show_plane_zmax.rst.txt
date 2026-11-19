@@ -1,0 +1,6 @@
+show\_plane\_zmax
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: auxgeom.show_plane_zmax

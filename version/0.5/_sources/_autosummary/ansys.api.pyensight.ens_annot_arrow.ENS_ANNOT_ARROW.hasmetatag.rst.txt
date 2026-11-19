@@ -1,0 +1,6 @@
+hasmetatag
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_annot_arrow
+
+.. automethod:: ENS_ANNOT_ARROW.hasmetatag

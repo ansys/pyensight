@@ -1,0 +1,6 @@
+count
+=====
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: ensobjlist.count

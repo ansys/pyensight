@@ -1,0 +1,6 @@
+vr\_view\_scalebydiagonal
+=========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.vr_view_scalebydiagonal

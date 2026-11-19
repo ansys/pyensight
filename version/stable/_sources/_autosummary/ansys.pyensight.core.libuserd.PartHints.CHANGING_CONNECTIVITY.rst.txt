@@ -1,0 +1,6 @@
+CHANGING\_CONNECTIVITY
+======================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: PartHints.CHANGING_CONNECTIVITY

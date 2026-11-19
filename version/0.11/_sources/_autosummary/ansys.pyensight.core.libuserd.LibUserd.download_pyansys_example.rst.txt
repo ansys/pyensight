@@ -1,0 +1,6 @@
+download\_pyansys\_example
+==========================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: LibUserd.download_pyansys_example

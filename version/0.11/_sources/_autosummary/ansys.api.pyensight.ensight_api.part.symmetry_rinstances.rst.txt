@@ -1,0 +1,6 @@
+symmetry\_rinstances
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.symmetry_rinstances

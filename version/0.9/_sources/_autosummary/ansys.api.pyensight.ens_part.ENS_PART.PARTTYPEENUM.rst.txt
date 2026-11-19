@@ -1,0 +1,6 @@
+PARTTYPEENUM
+============
+
+.. currentmodule:: ansys.api.pyensight.ens_part
+
+.. autoproperty:: ENS_PART.PARTTYPEENUM

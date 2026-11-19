@@ -1,0 +1,6 @@
+IO
+==
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ErrorCodes.IO

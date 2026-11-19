@@ -1,0 +1,6 @@
+stub
+====
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoproperty:: LibUserd.stub

@@ -1,0 +1,6 @@
+animation\_saturation
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.animation_saturation

@@ -1,0 +1,107 @@
+﻿ENS\_LIGHTSOURCE
+================
+
+.. currentmodule:: ansys.api.pyensight.ens_lightsource
+
+.. autoclass:: ENS_LIGHTSOURCE
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_LIGHTSOURCE.attrgroupinfo
+      
+      
+      ENS_LIGHTSOURCE.attrinfo
+      
+      
+      ENS_LIGHTSOURCE.attrissensitive
+      
+      
+      ENS_LIGHTSOURCE.attrtree
+      
+      
+      ENS_LIGHTSOURCE.destroy
+      
+      
+      ENS_LIGHTSOURCE.getattr
+      
+      
+      ENS_LIGHTSOURCE.getattrs
+      
+      
+      ENS_LIGHTSOURCE.getmetatag
+      
+      
+      ENS_LIGHTSOURCE.hasmetatag
+      
+      
+      ENS_LIGHTSOURCE.populate_attr_list
+      
+      
+      ENS_LIGHTSOURCE.set_preset
+      
+      
+      ENS_LIGHTSOURCE.setattr
+      
+      
+      ENS_LIGHTSOURCE.setattr_begin
+      
+      
+      ENS_LIGHTSOURCE.setattr_end
+      
+      
+      ENS_LIGHTSOURCE.setattr_status
+      
+      
+      ENS_LIGHTSOURCE.setattrs
+      
+      
+      ENS_LIGHTSOURCE.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_LIGHTSOURCE.ACTIVE
+      ENS_LIGHTSOURCE.CASTS_SHADOWS
+      ENS_LIGHTSOURCE.CENTROID
+      ENS_LIGHTSOURCE.COLOR
+      ENS_LIGHTSOURCE.DESCRIPTION
+      ENS_LIGHTSOURCE.DIRECTION
+      ENS_LIGHTSOURCE.EDIT_TARGET
+      ENS_LIGHTSOURCE.HANDLES_ENABLED
+      ENS_LIGHTSOURCE.ICON_SIZE
+      ENS_LIGHTSOURCE.INDEX
+      ENS_LIGHTSOURCE.INTENSITY
+      ENS_LIGHTSOURCE.LIGHT_ENV_TEXNUM
+      ENS_LIGHTSOURCE.LIGHT_QUAD_SIZE
+      ENS_LIGHTSOURCE.LIGHT_QUAD_XDIR
+      ENS_LIGHTSOURCE.LIGHT_TYPE
+      ENS_LIGHTSOURCE.LOCATION
+      ENS_LIGHTSOURCE.LOCK_DIRECTION
+      ENS_LIGHTSOURCE.METADATA
+      ENS_LIGHTSOURCE.PRESETS
+      ENS_LIGHTSOURCE.PROJECT_MASK
+      ENS_LIGHTSOURCE.RAY_END
+      ENS_LIGHTSOURCE.SELECTED
+      ENS_LIGHTSOURCE.SPOT_ANGLE
+      ENS_LIGHTSOURCE.SPOT_FALLOFF
+      ENS_LIGHTSOURCE.TRANSFORM_WITH_MODEL
+      ENS_LIGHTSOURCE.UUID
+      ENS_LIGHTSOURCE.VISIBLE
+      ENS_LIGHTSOURCE.__OBJID__
+      ENS_LIGHTSOURCE.objid
+   
+   

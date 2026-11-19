@@ -1,0 +1,6 @@
+play
+====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.play

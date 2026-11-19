@@ -1,0 +1,6 @@
+clear
+=====
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: ensobjlist.clear

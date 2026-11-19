@@ -1,0 +1,6 @@
+location\_x\_1
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: line.location_x_1

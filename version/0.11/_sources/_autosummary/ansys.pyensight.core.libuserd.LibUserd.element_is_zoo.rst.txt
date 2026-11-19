@@ -1,0 +1,6 @@
+element\_is\_zoo
+================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: LibUserd.element_is_zoo

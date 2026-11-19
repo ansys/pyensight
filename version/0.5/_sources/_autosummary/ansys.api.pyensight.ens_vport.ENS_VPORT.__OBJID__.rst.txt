@@ -1,0 +1,6 @@
+\_\_OBJID\_\_
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_vport
+
+.. autoproperty:: ENS_VPORT.__OBJID__

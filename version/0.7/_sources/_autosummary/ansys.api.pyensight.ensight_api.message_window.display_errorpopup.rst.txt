@@ -1,0 +1,6 @@
+display\_errorpopup
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: message_window.display_errorpopup

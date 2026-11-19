@@ -1,0 +1,6 @@
+PAGE\_DETAILS
+=============
+
+.. currentmodule:: ansys.api.pyensight.ens_flipbook
+
+.. autoproperty:: ENS_FLIPBOOK.PAGE_DETAILS

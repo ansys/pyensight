@@ -1,0 +1,6 @@
+TIME
+====
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: UpdateHints.TIME

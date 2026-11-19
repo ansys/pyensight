@@ -1,0 +1,6 @@
+abort\_server\_operations
+=========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: prefs.abort_server_operations

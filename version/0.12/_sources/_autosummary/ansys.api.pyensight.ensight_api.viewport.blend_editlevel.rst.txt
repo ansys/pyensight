@@ -1,0 +1,6 @@
+blend\_editlevel
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport.blend_editlevel

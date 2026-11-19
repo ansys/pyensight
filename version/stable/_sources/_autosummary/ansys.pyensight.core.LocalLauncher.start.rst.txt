@@ -1,0 +1,6 @@
+start
+=====
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: LocalLauncher.start

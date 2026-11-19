@@ -1,0 +1,6 @@
+remote\_io
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_case
+
+.. automethod:: ENS_CASE.remote_io

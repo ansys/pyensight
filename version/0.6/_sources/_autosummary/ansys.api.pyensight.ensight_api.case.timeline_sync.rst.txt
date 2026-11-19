@@ -1,0 +1,6 @@
+timeline\_sync
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: case.timeline_sync

@@ -1,0 +1,6 @@
+default\_orientation
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view.default_orientation

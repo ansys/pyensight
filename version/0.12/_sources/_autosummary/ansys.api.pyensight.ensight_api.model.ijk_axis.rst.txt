@@ -1,0 +1,6 @@
+ijk\_axis
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: model.ijk_axis

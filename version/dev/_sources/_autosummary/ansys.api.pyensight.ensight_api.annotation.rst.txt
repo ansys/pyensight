@@ -1,0 +1,51 @@
+﻿annotation
+==========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. autoclass:: annotation
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      annotation.axis_global
+      
+      
+      annotation.axis_local
+      
+      
+      annotation.axis_model
+      
+      
+      annotation.deselect_all
+      
+      
+      annotation.element_labeling
+      
+      
+      annotation.legend
+      
+      
+      annotation.node_labeling
+      
+      
+      annotation.pick_mode
+      
+      
+      annotation.text_display
+      
+      
+      annotation.text_dynamic
+      
+   
+   
+
+   
+   
+   

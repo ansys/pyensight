@@ -1,0 +1,6 @@
+select\_case
+============
+
+.. currentmodule:: ansys.pyensight.core.utils.parts
+
+.. automethod:: Parts.select_case

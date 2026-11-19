@@ -1,0 +1,6 @@
+setattrs
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_texture
+
+.. automethod:: ENS_TEXTURE.setattrs

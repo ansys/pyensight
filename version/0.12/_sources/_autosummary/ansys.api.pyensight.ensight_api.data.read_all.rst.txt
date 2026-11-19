@@ -1,0 +1,6 @@
+read\_all
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data.read_all

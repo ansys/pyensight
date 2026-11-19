@@ -1,0 +1,6 @@
+ANSYS\_VERSION
+==============
+
+.. currentmodule:: ansys.api.pyensight.ens_globals
+
+.. autoproperty:: ENS_GLOBALS.ANSYS_VERSION

@@ -1,0 +1,27 @@
+﻿format
+======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. autoclass:: format
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      format.replace
+      
+      
+      format.type
+      
+   
+   
+
+   
+   
+   

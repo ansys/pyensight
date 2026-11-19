@@ -1,0 +1,6 @@
+ensxml\_save\_file
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: objs.ensxml_save_file

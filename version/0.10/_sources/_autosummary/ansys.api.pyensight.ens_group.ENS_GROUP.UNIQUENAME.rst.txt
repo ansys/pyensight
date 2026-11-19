@@ -1,0 +1,6 @@
+UNIQUENAME
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_group
+
+.. autoproperty:: ENS_GROUP.UNIQUENAME

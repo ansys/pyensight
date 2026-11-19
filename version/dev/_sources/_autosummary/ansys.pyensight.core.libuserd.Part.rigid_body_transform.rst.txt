@@ -1,0 +1,6 @@
+rigid\_body\_transform
+======================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: Part.rigid_body_transform

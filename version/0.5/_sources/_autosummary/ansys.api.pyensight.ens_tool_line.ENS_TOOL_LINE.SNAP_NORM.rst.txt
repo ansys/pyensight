@@ -1,0 +1,6 @@
+SNAP\_NORM
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_line
+
+.. autoproperty:: ENS_TOOL_LINE.SNAP_NORM

@@ -1,0 +1,6 @@
+is\_integer
+===========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: UpdateHints.is_integer

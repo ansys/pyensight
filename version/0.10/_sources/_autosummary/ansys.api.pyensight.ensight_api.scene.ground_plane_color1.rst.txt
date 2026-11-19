@@ -1,0 +1,6 @@
+ground\_plane\_color1
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: scene.ground_plane_color1

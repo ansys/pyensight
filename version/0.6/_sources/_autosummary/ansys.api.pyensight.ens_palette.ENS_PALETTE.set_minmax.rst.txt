@@ -1,0 +1,6 @@
+set\_minmax
+===========
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. automethod:: ENS_PALETTE.set_minmax

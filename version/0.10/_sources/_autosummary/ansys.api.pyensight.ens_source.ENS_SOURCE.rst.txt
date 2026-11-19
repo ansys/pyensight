@@ -1,0 +1,86 @@
+﻿ENS\_SOURCE
+===========
+
+.. currentmodule:: ansys.api.pyensight.ens_source
+
+.. autoclass:: ENS_SOURCE
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ENS_SOURCE.attrgroupinfo
+      
+      
+      ENS_SOURCE.attrinfo
+      
+      
+      ENS_SOURCE.attrissensitive
+      
+      
+      ENS_SOURCE.attrtree
+      
+      
+      ENS_SOURCE.destroy
+      
+      
+      ENS_SOURCE.getattr
+      
+      
+      ENS_SOURCE.getattrs
+      
+      
+      ENS_SOURCE.getmetatag
+      
+      
+      ENS_SOURCE.hasmetatag
+      
+      
+      ENS_SOURCE.setattr
+      
+      
+      ENS_SOURCE.setattr_begin
+      
+      
+      ENS_SOURCE.setattr_end
+      
+      
+      ENS_SOURCE.setattr_status
+      
+      
+      ENS_SOURCE.setattrs
+      
+      
+      ENS_SOURCE.setmetatag
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ENS_SOURCE.ACTIVE
+      ENS_SOURCE.CMDLANG_REFERENCE
+      ENS_SOURCE.DESCRIPTION
+      ENS_SOURCE.EDIT_TARGET
+      ENS_SOURCE.GENERATION_PENDING
+      ENS_SOURCE.HANDLES_ENABLED
+      ENS_SOURCE.METADATA
+      ENS_SOURCE.PARENT
+      ENS_SOURCE.PROJECT_MASK
+      ENS_SOURCE.SOURCE
+      ENS_SOURCE.TAGS
+      ENS_SOURCE.UUID
+      ENS_SOURCE.__OBJID__
+      ENS_SOURCE.objid
+   
+   

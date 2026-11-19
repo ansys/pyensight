@@ -1,0 +1,6 @@
+DISTANCE\_PART1D
+================
+
+.. currentmodule:: ansys.pyensight.core.utils.query
+
+.. autoattribute:: Query.DISTANCE_PART1D

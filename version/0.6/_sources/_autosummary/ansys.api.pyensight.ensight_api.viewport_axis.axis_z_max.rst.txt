@@ -1,0 +1,6 @@
+axis\_z\_max
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport_axis.axis_z_max

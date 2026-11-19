@@ -1,0 +1,6 @@
+extension\_map
+==============
+
+.. currentmodule:: ansys.pyensight.core.utils.export
+
+.. autoattribute:: Export.extension_map

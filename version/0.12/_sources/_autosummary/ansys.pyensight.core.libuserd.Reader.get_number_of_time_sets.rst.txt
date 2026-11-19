@@ -1,0 +1,6 @@
+get\_number\_of\_time\_sets
+===========================
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: Reader.get_number_of_time_sets

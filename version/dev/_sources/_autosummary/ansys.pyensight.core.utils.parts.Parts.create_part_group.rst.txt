@@ -1,0 +1,6 @@
+create\_part\_group
+===================
+
+.. currentmodule:: ansys.pyensight.core.utils.parts
+
+.. automethod:: Parts.create_part_group

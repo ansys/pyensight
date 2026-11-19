@@ -1,0 +1,6 @@
+append
+======
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: ensobjlist.append

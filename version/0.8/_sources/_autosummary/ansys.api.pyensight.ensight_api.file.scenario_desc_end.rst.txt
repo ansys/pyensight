@@ -1,0 +1,6 @@
+scenario\_desc\_end
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.scenario_desc_end

@@ -1,0 +1,6 @@
+limit
+=====
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.limit
