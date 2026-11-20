@@ -1,11 +1,6 @@
 PyEnSight documentation |version|
 =================================
 
-.. image:: https://s3.amazonaws.com/www3.ensight.com/build/media/pyensight_title.png
-   :alt: PyEnSight
-   :align: center
-   :width: 600px
-
 .. toctree::
    :hidden:
    :maxdepth: 3
