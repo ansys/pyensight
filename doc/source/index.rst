@@ -1,6 +1,11 @@
 PyEnSight documentation |version|
 =================================
 
+.. image:: https://s3.amazonaws.com/www3.ensight.com/build/media/pyensight_title.png
+   :alt: PyEnSight
+   :align: center
+   :width: 600px
+
 .. toctree::
    :hidden:
    :maxdepth: 3
@@ -14,7 +19,7 @@ PyEnSight documentation |version|
 
 Introduction
 ------------
-Ansys EnSight is a full-featured postprocessor and general-purpose data
+`Ansys EnSight <https://ansys.synopsys.com/products/fluids/ansys-ensight>`_ is a full-featured postprocessor and general-purpose data
 visualization tool. It is capable of handling large simulation datasets
 from a variety of physics and engineering disciplines. It includes the
 ability to load data and analyze results from different data sources
@@ -37,7 +42,7 @@ EnSight provides these key features:
 What is PyEnSight?
 ------------------
 PyEnSight is part of the `PyAnsys <https://docs.pyansys.com>`_ ecosystem. A
-Python module that can be installed in most any Python distribution, PyEnSight
+Python module that can be installed in most Python distributions, PyEnSight
 provides the ability to launch and control an EnSight instance from an external
 or remote Python instance.
 
