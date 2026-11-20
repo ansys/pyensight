@@ -1,31 +1,31 @@
 repos:
 
 - repo: https://github.com/psf/black
-  rev: 26.3.1
+  rev: 26.10.1
   hooks:
   - id: black
 
 - repo: https://github.com/pycqa/isort
-  rev: 5.12.0
+  rev: 9.0.2
   hooks:
   - id: isort
 
 - repo: https://github.com/PyCQA/flake8
-  rev: 7.3.0
+  rev: 7.5.0
   hooks:
   - id: flake8
     additional_dependencies:
-    - pyflakes>=3.0.0
+    - pyflakes>=4.1.0
 
 - repo: https://github.com/codespell-project/codespell
-  rev: v2.3.0
+  rev: v2.4.3
   hooks:
   - id: codespell
     additional_dependencies: ["tomli"]
     args: ["--toml", "pyproject.toml", "--ignore-words", "./doc/styles/config/vocabularies/ANSYS/accept.txt"]
 
 - repo: https://github.com/PyCQA/bandit
-  rev: 1.7.5
+  rev: 1.9.4
   hooks:
   - id: bandit
     args:
@@ -38,13 +38,13 @@ repos:
     additional_dependencies: [pbr]
 
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.19.0
+  rev: v2.4.1
   hooks:
   - id: mypy
     exclude: tests/|doc/|src/ansys/pyensight/core/exts/|exts/
 
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.4.0
+  rev: v6.0.0
   hooks:
   - id: check-merge-conflict
   - id: debug-statements
@@ -55,7 +55,7 @@ repos:
   - id: check-case-conflict
 
 - repo: https://github.com/ansys/pre-commit-hooks
-  rev: v0.5.2
+  rev: v0.8.1
   hooks:
   - id: add-license-headers
     args:
