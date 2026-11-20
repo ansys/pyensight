@@ -32,8 +32,6 @@ EnSight provides these key features:
 - High-quality rendering
 - Embedded Python scripting
 
-.. |title| image:: https://s3.amazonaws.com/www3.ensight.com/build/media/pyensight_title.png
-
 What is PyEnSight?
 ------------------
 PyEnSight is part of the `PyAnsys <https://docs.pyansys.com>`_ ecosystem. A
