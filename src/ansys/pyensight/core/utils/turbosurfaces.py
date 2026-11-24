@@ -507,6 +507,7 @@ class Turbosurfaces:
                     for x in self.ensight.objs.core.ANNOTS
                     if x.ANNOTTYPE == self.ensight.objs.enums.ANNO_TEXT
                     and x.ANNOTINDEX == int(last_anno_id)
+                    and "SIMBA_TURBO_VPORT_ANNOT" not in x.METADATA
                 ]
         if annot_list:
             last_anno = annot_list[0]
@@ -567,8 +568,70 @@ class Turbosurfaces:
             self.ensight.view_transf.cameratoview_compute()
             self.ensight.view_transf.rotate(0, 0, 270)
 
+    def apply_spanwise_tags(self, partname, newpart, twod, threed, link, annot=True):
+        """Apply tags to the spanwise part and viewport."""
+        turbo_function = (
+            "TurboSurfaceProjection_case"
+            + str(self.ensight.objs.core.CURRENTCASE[0].CASENUMBER)
+            + "_4"
+        )
+        if len(partname) < 1:
+            newpart.DESCRIPTION = "Spanwise"
+        else:
+            newpart.DESCRIPTION = partname
+        newpart.setmetatag(
+            "ENS_TURBO_VIEW",
+            self.spanwise_metatag + str(self.ensight.objs.core.CURRENTCASE[0].CASENUMBER),
+        )
+        # Set metadata symmetry on the new part
+        n_symmetry = max(
+            [
+                int(x.METADATA.get("ENS_SYMMETRY_COUNT", 0) or 0)
+                for x in self.ensight.objs.core.VARIABLES[turbo_function][0].PARTS
+                if x.HAS3DELEMENTS
+            ]
+        )
+        newpart.setmetatag("ENS_SYMMETRY_COUNT", int(n_symmetry))
+        newpart.SYMMETRYRINSTANCES = 0
+        newpart.setmetatag(
+            "ENS_TURBO_VDIM", str(int(twod)) + ";" + str(int(threed)) + ";" + str(int(link))
+        )
+        # Set the min and max value you can interactively drag the part on the viewport
+        newpart.INTERACTIVERANGEMIN = SPAN_EPS
+        newpart.INTERACTIVERANGEMAX = 1.0 - SPAN_EPS
+        if twod == 1:
+            # Apply displacement on the Spanwise part
+            turbo_displacement = self.spanwise_displacement(newpart)
+            # only in 360 degree cases
+            if n_symmetry == -1:
+                # 0.5 radians is ~30 degree span in a single element.
+                newpart.setmetatag("ENS_THETAWRAP", 0.5)
+            self.ensight.part.select_begin(newpart.PARTNUMBER)
+            self.ensight.part.modify_begin()
+            self.ensight.part.displace_by(turbo_displacement)
+            self.ensight.part.modify_end()
+            self.check_viewports()
+            if annot:
+                self.show_text_annotation(newpart)
+            self.change_visibility(newpart, self.spanwise_str)
+            newpart.HANDLES_ENABLED = 0
+        elif threed == 1:
+            threed_vports = [x for x in self.ensight.objs.core.VPORTS if x.VIEWDIMENSION == 1]
+            newpart.VIEWPORTVIS = 0
+            for threedvports in threed_vports:
+                if not (newpart.VIEWPORTVIS & 2**threedvports.ID):
+                    self._setattr_internal(
+                        newpart, "VIEWPORTVIS", newpart.VIEWPORTVIS + 2**threedvports.ID
+                    )
+            newpart.HANDLES_ENABLED = 1
+        self.ensight.objs.core.ensmodel_updates_resume(
+            modelfilter=self.ensight.objs.enums.ENSMODEL_SHOW_ANY,
+            why=self.ensight.objs.enums.ENSMODEL_UPDATE_DTOR
+            | self.ensight.objs.enums.ENSMODEL_UPDATE_SELECTION,
+        )
+
     def create_spanwise_part(
-        self, partname="Spanwise", partvalue=0.5, twod=True, threed=False, link=False
+        self, partname="Spanwise", partvalue=0.5, twod=True, threed=False, link=False, annot=True
     ):
         """
         Create a Turbo Surface of the type: Spanwise
@@ -629,59 +692,7 @@ class Turbosurfaces:
         self.ensight.isos.create()
         newpart = max(self.ensight.objs.core.PARTS, key=self.ret_obj)
         # Set part name and the metadata on the newly created part. i.e. the part obj with higher __OBJID__ value
-        if len(partname) < 1:
-            newpart.DESCRIPTION = "Spanwise"
-        else:
-            newpart.DESCRIPTION = partname
-        newpart.setmetatag(
-            "ENS_TURBO_VIEW",
-            self.spanwise_metatag + str(self.ensight.objs.core.CURRENTCASE[0].CASENUMBER),
-        )
-        # Set metadata symmetry on the new part
-        n_symmetry = max(
-            [
-                int(x.METADATA.get("ENS_SYMMETRY_COUNT", 0) or 0)
-                for x in self.ensight.objs.core.VARIABLES[turbo_function][0].PARTS
-                if x.HAS3DELEMENTS
-            ]
-        )
-        newpart.setmetatag("ENS_SYMMETRY_COUNT", int(n_symmetry))
-        newpart.SYMMETRYRINSTANCES = 0
-        newpart.setmetatag(
-            "ENS_TURBO_VDIM", str(int(twod)) + ";" + str(int(threed)) + ";" + str(int(link))
-        )
-        # Set the min and max value you can interactively drag the part on the viewport
-        newpart.INTERACTIVERANGEMIN = SPAN_EPS
-        newpart.INTERACTIVERANGEMAX = 1.0 - SPAN_EPS
-        if twod == 1:
-            # Apply displacement on the Spanwise part
-            turbo_displacement = self.spanwise_displacement(newpart)
-            # only in 360 degree cases
-            if n_symmetry == -1:
-                # 0.5 radians is ~30 degree span in a single element.
-                newpart.setmetatag("ENS_THETAWRAP", 0.5)
-            self.ensight.part.select_begin(newpart.PARTNUMBER)
-            self.ensight.part.modify_begin()
-            self.ensight.part.displace_by(turbo_displacement)
-            self.ensight.part.modify_end()
-            self.check_viewports()
-            self.show_text_annotation(newpart)
-            self.change_visibility(newpart, self.spanwise_str)
-            newpart.HANDLES_ENABLED = 0
-        elif threed == 1:
-            threed_vports = [x for x in self.ensight.objs.core.VPORTS if x.VIEWDIMENSION == 1]
-            newpart.VIEWPORTVIS = 0
-            for threedvports in threed_vports:
-                if not (newpart.VIEWPORTVIS & 2**threedvports.ID):
-                    self._setattr_internal(
-                        newpart, "VIEWPORTVIS", newpart.VIEWPORTVIS + 2**threedvports.ID
-                    )
-            newpart.HANDLES_ENABLED = 1
-        self.ensight.objs.core.ensmodel_updates_resume(
-            modelfilter=self.ensight.objs.enums.ENSMODEL_SHOW_ANY,
-            why=self.ensight.objs.enums.ENSMODEL_UPDATE_DTOR
-            | self.ensight.objs.enums.ENSMODEL_UPDATE_SELECTION,
-        )
+        self.apply_spanwise_tags(partname, newpart, twod, threed, link, annot)
         return newpart
 
     def create_thetacut_part(self, partname="ThetaCut", partvalue="0.5"):
