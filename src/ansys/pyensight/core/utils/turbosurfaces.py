@@ -741,6 +741,8 @@ class Turbosurfaces:
         )
         newpart.setmetatag("ENS_SYMMETRY_COUNT", int(n_symmetry))
         newpart.SYMMETRYRINSTANCES = 0
+        twod = 0
+        threed = 1
         newpart.setmetatag("ENS_TURBO_VDIM", str(int(twod)) + ";" + str(int(threed)) + ";0")
         # Set the min and max value you can interactively drag the part on the viewport
         newpart.INTERACTIVERANGEMIN = 0.0
@@ -819,6 +821,8 @@ class Turbosurfaces:
         )
         newpart.setmetatag("ENS_SYMMETRY_COUNT", int(n_symmetry))
         newpart.SYMMETRYRINSTANCES = 0
+        twod = 0
+        threed = 1
         newpart.setmetatag("ENS_TURBO_VDIM", str(int(twod)) + ";" + str(int(threed)) + ";0")
         # Set the min and max value you can interactively drag the part on the viewport
         newpart.INTERACTIVERANGEMIN = 0.0
