@@ -1,0 +1,6 @@
+get\_mouseclick\_select
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.get_mouseclick_select

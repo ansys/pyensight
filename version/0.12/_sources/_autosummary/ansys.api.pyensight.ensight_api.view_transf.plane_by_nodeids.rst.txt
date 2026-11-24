@@ -1,0 +1,6 @@
+plane\_by\_nodeids
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: view_transf.plane_by_nodeids

@@ -1,0 +1,6 @@
+ENS\_SYMMETRY\_COUNT
+====================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_contour
+
+.. autoproperty:: ENS_PART_CONTOUR.ENS_SYMMETRY_COUNT

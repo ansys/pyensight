@@ -1,0 +1,6 @@
+setattrs
+========
+
+.. currentmodule:: ansys.api.pyensight.ens_part_profile
+
+.. automethod:: ENS_PART_PROFILE.setattrs

@@ -1,0 +1,6 @@
+STATIC\_COORDS
+==============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: PartHints.STATIC_COORDS

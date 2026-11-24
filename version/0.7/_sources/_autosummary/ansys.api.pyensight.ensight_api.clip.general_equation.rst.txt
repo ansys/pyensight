@@ -1,0 +1,6 @@
+general\_equation
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: clip.general_equation

@@ -1,0 +1,6 @@
+visibility\_elt
+===============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.visibility_elt

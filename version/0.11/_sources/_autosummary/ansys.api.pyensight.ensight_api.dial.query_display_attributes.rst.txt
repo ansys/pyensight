@@ -1,0 +1,6 @@
+query\_display\_attributes
+==========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: dial.query_display_attributes

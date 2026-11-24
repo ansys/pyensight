@@ -1,0 +1,6 @@
+tracepaths
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_part_aux_geom
+
+.. automethod:: ENS_PART_AUX_GEOM.tracepaths

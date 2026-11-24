@@ -1,0 +1,6 @@
+geometry
+========
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.geometry

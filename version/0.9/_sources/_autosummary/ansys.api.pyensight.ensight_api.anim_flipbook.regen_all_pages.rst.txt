@@ -1,0 +1,6 @@
+regen\_all\_pages
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_flipbook.regen_all_pages

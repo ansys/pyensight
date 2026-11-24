@@ -1,0 +1,6 @@
+notify\_before\_activate
+========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: variables.notify_before_activate

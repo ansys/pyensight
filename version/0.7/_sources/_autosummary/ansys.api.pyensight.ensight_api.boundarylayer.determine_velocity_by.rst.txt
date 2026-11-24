@@ -1,0 +1,6 @@
+determine\_velocity\_by
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: boundarylayer.determine_velocity_by

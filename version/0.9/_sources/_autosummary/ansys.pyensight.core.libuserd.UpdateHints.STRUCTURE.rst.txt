@@ -1,0 +1,6 @@
+STRUCTURE
+=========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: UpdateHints.STRUCTURE

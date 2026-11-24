@@ -1,0 +1,6 @@
+delta\_time
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace.delta_time

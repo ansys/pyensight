@@ -1,0 +1,6 @@
+show\_raytraced\_image
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: logo.show_raytraced_image

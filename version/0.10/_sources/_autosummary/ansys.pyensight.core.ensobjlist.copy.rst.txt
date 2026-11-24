@@ -1,0 +1,6 @@
+copy
+====
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: ensobjlist.copy

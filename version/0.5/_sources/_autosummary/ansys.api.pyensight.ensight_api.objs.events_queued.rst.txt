@@ -1,0 +1,6 @@
+events\_queued
+==============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: objs.events_queued

@@ -1,0 +1,6 @@
+case\_replace
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.case_replace

@@ -1,0 +1,6 @@
+image\_window\_size
+===================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.image_window_size

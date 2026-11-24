@@ -1,0 +1,6 @@
+newviewport\_on\_add
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: data.newviewport_on_add

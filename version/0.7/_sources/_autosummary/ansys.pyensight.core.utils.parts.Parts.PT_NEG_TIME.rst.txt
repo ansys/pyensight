@@ -1,0 +1,6 @@
+PT\_NEG\_TIME
+=============
+
+.. currentmodule:: ansys.pyensight.core.utils.parts
+
+.. autoattribute:: Parts.PT_NEG_TIME

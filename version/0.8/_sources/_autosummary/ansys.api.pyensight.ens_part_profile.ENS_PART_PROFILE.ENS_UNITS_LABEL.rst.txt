@@ -1,0 +1,6 @@
+ENS\_UNITS\_LABEL
+=================
+
+.. currentmodule:: ansys.api.pyensight.ens_part_profile
+
+.. autoproperty:: ENS_PART_PROFILE.ENS_UNITS_LABEL

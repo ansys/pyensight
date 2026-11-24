@@ -1,0 +1,6 @@
+LEVELS\_AND\_COLORS
+===================
+
+.. currentmodule:: ansys.api.pyensight.ens_palette
+
+.. autoproperty:: ENS_PALETTE.LEVELS_AND_COLORS

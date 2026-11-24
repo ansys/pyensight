@@ -1,0 +1,6 @@
+﻿LibUserdError
+=============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoexception:: LibUserdError

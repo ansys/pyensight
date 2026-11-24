@@ -1,0 +1,6 @@
+restore\_selected
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.restore_selected

@@ -1,0 +1,6 @@
+help
+====
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.help

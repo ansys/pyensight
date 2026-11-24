@@ -1,0 +1,6 @@
+hasmetatag
+==========
+
+.. currentmodule:: ansys.api.pyensight.ens_tool_plane
+
+.. automethod:: ENS_TOOL_PLANE.hasmetatag

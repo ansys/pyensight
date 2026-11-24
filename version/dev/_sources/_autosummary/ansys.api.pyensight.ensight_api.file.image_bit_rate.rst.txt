@@ -1,0 +1,6 @@
+image\_bit\_rate
+================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.image_bit_rate

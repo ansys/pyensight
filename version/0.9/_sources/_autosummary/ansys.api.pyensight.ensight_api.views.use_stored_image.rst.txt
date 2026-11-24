@@ -1,0 +1,6 @@
+use\_stored\_image
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: views.use_stored_image

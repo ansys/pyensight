@@ -1,0 +1,6 @@
+convergence\_value
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: solution_time.convergence_value

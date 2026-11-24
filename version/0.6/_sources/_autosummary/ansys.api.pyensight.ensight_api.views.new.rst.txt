@@ -1,0 +1,6 @@
+new
+===
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: views.new

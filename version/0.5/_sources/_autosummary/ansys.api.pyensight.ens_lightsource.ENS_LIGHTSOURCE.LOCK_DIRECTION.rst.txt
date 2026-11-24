@@ -1,0 +1,6 @@
+LOCK\_DIRECTION
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_lightsource
+
+.. autoproperty:: ENS_LIGHTSOURCE.LOCK_DIRECTION

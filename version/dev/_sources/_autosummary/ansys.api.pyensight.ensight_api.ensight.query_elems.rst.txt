@@ -1,0 +1,6 @@
+query\_elems
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.query_elems

@@ -1,0 +1,6 @@
+HEX08\_GHOST
+============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.HEX08_GHOST

@@ -1,0 +1,6 @@
+node\_orientation\_axis
+=======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: part.node_orientation_axis

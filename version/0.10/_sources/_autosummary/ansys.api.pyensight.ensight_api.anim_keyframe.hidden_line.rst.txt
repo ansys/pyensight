@@ -1,0 +1,6 @@
+hidden\_line
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_keyframe.hidden_line

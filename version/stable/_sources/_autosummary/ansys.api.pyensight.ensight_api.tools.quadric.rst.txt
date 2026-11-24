@@ -1,0 +1,6 @@
+quadric
+=======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: tools.quadric

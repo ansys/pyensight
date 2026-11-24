@@ -1,0 +1,6 @@
+use\_subpal
+===========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: function.use_subpal

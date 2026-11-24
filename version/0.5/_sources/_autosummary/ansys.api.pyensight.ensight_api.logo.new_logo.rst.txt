@@ -1,0 +1,6 @@
+new\_logo
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: logo.new_logo

@@ -1,0 +1,6 @@
+element\_conn
+=============
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. automethod:: Part.element_conn

@@ -1,0 +1,6 @@
+variable\_1\_byname\_begin
+==========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: query_ent_var.variable_1_byname_begin

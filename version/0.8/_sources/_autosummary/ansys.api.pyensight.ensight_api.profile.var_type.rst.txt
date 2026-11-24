@@ -1,0 +1,6 @@
+var\_type
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: profile.var_type

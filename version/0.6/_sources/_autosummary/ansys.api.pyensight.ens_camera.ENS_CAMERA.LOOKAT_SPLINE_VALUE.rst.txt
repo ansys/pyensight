@@ -1,0 +1,6 @@
+LOOKAT\_SPLINE\_VALUE
+=====================
+
+.. currentmodule:: ansys.api.pyensight.ens_camera
+
+.. autoproperty:: ENS_CAMERA.LOOKAT_SPLINE_VALUE

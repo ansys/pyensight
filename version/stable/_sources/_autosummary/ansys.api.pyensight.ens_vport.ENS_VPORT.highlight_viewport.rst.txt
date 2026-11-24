@@ -1,0 +1,6 @@
+highlight\_viewport
+===================
+
+.. currentmodule:: ansys.api.pyensight.ens_vport
+
+.. automethod:: ENS_VPORT.highlight_viewport

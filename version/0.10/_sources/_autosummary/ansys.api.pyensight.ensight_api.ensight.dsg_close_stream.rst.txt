@@ -1,0 +1,6 @@
+dsg\_close\_stream
+==================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ensight.dsg_close_stream

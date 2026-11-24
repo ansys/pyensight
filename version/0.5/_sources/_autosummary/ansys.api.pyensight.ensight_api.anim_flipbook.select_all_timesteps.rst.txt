@@ -1,0 +1,6 @@
+select\_all\_timesteps
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: anim_flipbook.select_all_timesteps

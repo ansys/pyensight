@@ -1,0 +1,6 @@
+axis\_2\_titlergb
+=================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: plot.axis_2_titlergb

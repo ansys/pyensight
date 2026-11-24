@@ -1,0 +1,6 @@
+add\_callback
+=============
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: Session.add_callback

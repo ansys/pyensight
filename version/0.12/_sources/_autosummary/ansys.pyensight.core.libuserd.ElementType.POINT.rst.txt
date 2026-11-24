@@ -1,0 +1,6 @@
+POINT
+=====
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.POINT

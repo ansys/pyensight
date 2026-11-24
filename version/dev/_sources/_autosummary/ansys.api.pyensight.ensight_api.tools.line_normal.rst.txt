@@ -1,0 +1,6 @@
+line\_normal
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: tools.line_normal

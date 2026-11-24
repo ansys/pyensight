@@ -1,0 +1,6 @@
+not\_used
+=========
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: viewport.not_used

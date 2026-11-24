@@ -1,0 +1,6 @@
+compression\_quality
+====================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: savegeom.compression_quality

@@ -1,0 +1,6 @@
+enshell\_log\_contents
+======================
+
+.. currentmodule:: ansys.pyensight.core
+
+.. automethod:: DockerLauncher.enshell_log_contents

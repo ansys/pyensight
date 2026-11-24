@@ -1,0 +1,6 @@
+PART\_EMIT\_FROM\_NODES
+=======================
+
+.. currentmodule:: ansys.pyensight.core.utils.parts
+
+.. autoattribute:: Parts.PART_EMIT_FROM_NODES

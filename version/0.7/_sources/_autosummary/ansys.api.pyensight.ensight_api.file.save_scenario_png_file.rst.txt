@@ -1,0 +1,6 @@
+save\_scenario\_png\_file
+=========================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: file.save_scenario_png_file

@@ -1,0 +1,58 @@
+﻿ErrorCodes
+==========
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoclass:: ErrorCodes
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ErrorCodes.conjugate
+      
+      
+      ErrorCodes.bit_length
+      
+      
+      ErrorCodes.bit_count
+      
+      
+      ErrorCodes.to_bytes
+      
+      
+      ErrorCodes.from_bytes
+      
+      
+      ErrorCodes.as_integer_ratio
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ErrorCodes.real
+      ErrorCodes.imag
+      ErrorCodes.numerator
+      ErrorCodes.denominator
+      ErrorCodes.SUCCESS
+      ErrorCodes.UNAVAILABLE
+      ErrorCodes.IGNORED_AFTER_INITIALIZE
+      ErrorCodes.OUT_OF_MEMORY
+      ErrorCodes.IO
+      ErrorCodes.UNIMPLEMENTED
+      ErrorCodes.NOT_FOUND
+      ErrorCodes.UNKNOWN
+      ErrorCodes.SINGLE_READER_ALLOWED
+   
+   

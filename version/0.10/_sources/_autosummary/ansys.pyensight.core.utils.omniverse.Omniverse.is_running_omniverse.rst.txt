@@ -1,0 +1,6 @@
+is\_running\_omniverse
+======================
+
+.. currentmodule:: ansys.pyensight.core.utils.omniverse
+
+.. automethod:: Omniverse.is_running_omniverse

@@ -1,0 +1,6 @@
+DISTANCE\_LINE
+==============
+
+.. currentmodule:: ansys.pyensight.core.utils.query
+
+.. autoattribute:: Query.DISTANCE_LINE

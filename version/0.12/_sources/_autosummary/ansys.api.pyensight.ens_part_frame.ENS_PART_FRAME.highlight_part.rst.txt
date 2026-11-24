@@ -1,0 +1,6 @@
+highlight\_part
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_part_frame
+
+.. automethod:: ENS_PART_FRAME.highlight_part

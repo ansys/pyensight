@@ -1,0 +1,6 @@
+SHADOWINTENSITY
+===============
+
+.. currentmodule:: ansys.api.pyensight.ens_annot
+
+.. autoproperty:: ENS_ANNOT.SHADOWINTENSITY

@@ -1,0 +1,6 @@
+shadow
+======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: scene.shadow

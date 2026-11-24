@@ -1,0 +1,6 @@
+change\_text
+============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: text.change_text

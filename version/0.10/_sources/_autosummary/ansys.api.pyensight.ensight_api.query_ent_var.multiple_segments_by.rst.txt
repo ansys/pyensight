@@ -1,0 +1,6 @@
+multiple\_segments\_by
+======================
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: query_ent_var.multiple_segments_by

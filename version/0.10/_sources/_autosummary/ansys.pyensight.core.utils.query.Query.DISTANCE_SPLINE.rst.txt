@@ -1,0 +1,6 @@
+DISTANCE\_SPLINE
+================
+
+.. currentmodule:: ansys.pyensight.core.utils.query
+
+.. autoattribute:: Query.DISTANCE_SPLINE

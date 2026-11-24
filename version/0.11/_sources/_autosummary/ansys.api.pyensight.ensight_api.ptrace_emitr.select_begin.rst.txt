@@ -1,0 +1,6 @@
+select\_begin
+=============
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: ptrace_emitr.select_begin

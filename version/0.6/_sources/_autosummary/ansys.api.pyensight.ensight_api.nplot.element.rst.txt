@@ -1,0 +1,6 @@
+element
+=======
+
+.. currentmodule:: ansys.api.pyensight.ensight_api
+
+.. automethod:: nplot.element

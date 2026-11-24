@@ -1,0 +1,6 @@
+QUAD04
+======
+
+.. currentmodule:: ansys.pyensight.core.libuserd
+
+.. autoattribute:: ElementType.QUAD04
